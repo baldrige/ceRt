@@ -1,9 +1,11 @@
 ---
-title: "Supreme Court Docket"
-author: "Tommy Bennett"
+title: "Supreme Court Docket Viewer"
 format: dashboard
 server: shiny
+theme: litera
 ---
+
+# Docket Viewer
 
 ```{r}
 #| context: setup
@@ -20,7 +22,7 @@ scotus_tbl <- scotus |> dplyr::mutate(caption = str_remove(caption, ", Petitione
 ## {.sidebar}
 
 ```{r}
-selectInput("term", "Select October Term:", choices = c(2017:2024))
+selectInput("term", "Select October Term:", choices = c(2017:2024), selected = 2024)
 ```
 
 ## Column
@@ -65,7 +67,9 @@ output$data <- render_gt({
     gt() |> 
     cols_label(caption = "Case", dkt = "Docket No.", lower = "Lower Court") |>
     cols_width(dkt ~ px(100), lower ~ px(250)) |>
-    opt_interactive(use_compact_mode = TRUE, use_search = TRUE, use_filters = TRUE, selection_mode = "single", page_size_default = 25, use_page_size_select = TRUE, use_sorting = TRUE)
+    opt_interactive(use_compact_mode = TRUE, use_search = TRUE, use_filters = TRUE, selection_mode = "single", page_size_default = 25, use_page_size_select = TRUE, use_sorting = TRUE) |> 
+    opt_table_font(size = pct(70)) |>
+    opt_row_striping()
 })
 
 output$data2 <- render_gt({
@@ -78,19 +82,20 @@ output$data2 <- render_gt({
             # Select all Document and links columns in the current row:
             c_across(starts_with("Document_")),
             c_across(starts_with("links_")),
-            ~ if (!is.na(.x) && !is.na(.y)) sprintf("[%s](%s)", .x, .y) else NA_character_
+            ~ if (!is.na(.x) && !is.na(.y)) sprintf("[[%s](%s)]", .x, .y) else NA_character_
             ))) |>
-    select(Date, `Proceedings and Orders`, doc_links) |> rowwise() |>
-    mutate(doc_links = str_c("* ", doc_links, sep = "", collapse = "\n")) |> 
-    mutate(doc_links = str_remove_all(doc_links, "\\* \n"))|> 
-    mutate(doc_links = str_remove_all(doc_links, "\\* $")) |> 
-    arrange(Date) |> ungroup() |>
+    select(Date, `Proceedings and Orders`, doc_links) |> 
+    unnest_wider(col = doc_links, names_sep = "_", simplify = TRUE) |> rowwise() |>
+    unite(col = doc_links, starts_with("doc_links"), sep = " ") |> 
+    mutate(doc_links = str_replace(doc_links, "( NA)+", " ")) |>
+    mutate(doc_links = str_replace(doc_links, "NA", "–")) |>
     gt() |> 
-    sub_missing(columns = doc_links) |> 
     cols_align(align = "left", columns = everything()) |>
+    cols_width(Date ~ px(120), doc_links ~ px(150)) |>
     fmt_markdown(columns = starts_with("doc_links")) |>
-    cols_label(doc_links = "Documents") |>
-    tab_header(title = "Docket Entries")
+    cols_label(doc_links = "Documents") |> 
+    opt_table_font(size = pct(80)) |>
+    opt_stylize(style = 5, color = "blue", add_row_striping = TRUE)
 })
 
 output$data3 <- render_gt({
@@ -101,21 +106,38 @@ output$data3 <- render_gt({
     ungroup() |>
     gt(groupname_col = "party", row_group_as_column = TRUE) |>
     fmt_markdown(columns = attys) |> cols_width(attys ~ px(250)) |>
-    tab_header(title = "Parties and Attorneys") |>
-    cols_label(names = "Party", attys = "Attorney")
+    cols_label(names = "Party", attys = "Attorney") |>
+    opt_table_font(size = pct(80)) |>
+    opt_stylize(style = 3, color = "blue", add_row_striping = TRUE)
 })
 
 output$meta <- renderText({
     req(input$data)
     paste0(
       "<strong>", pluck(slice(scotus_user(), input$data), "caption"), "</strong>",
-      "Docket no.: ", pluck(slice(scotus_user(), input$data), "dkt"), "<br />",
+      "<div>Docket no.: <a href=\"", "https://www.supremecourt.gov/docket/docketfiles/html/public/", pluck(slice(scotus_user(), input$data), "dkt"), ".html\">", pluck(slice(scotus_user(), input$data), "dkt"), "</a><br />",
       "Date filed: ", pluck(slice(scotus_user(), input$data), "date"), "<br />",
       "Lower court: ", pluck(slice(scotus_user(), input$data), "lower"), "<br />",
       "Date of decision below: ", pluck(slice(scotus_user(), input$data), "lower_date"), "<br />",
-      "Docket no(s). below: ", pluck(slice(scotus_user(), input$data), "lower_dkt")
+      "Docket no(s). below: ", pluck(slice(scotus_user(), input$data), "lower_dkt"), "</div>"
     )
   }
 )
 
+```
+
+# Leaderboards
+
+
+# Latest Petitions
+
+
+```{r}
+scotus_tbl |>
+    filter(str_detect(dkt, "-") == TRUE) |> 
+    arrange(desc(date), desc(dkt)) |> 
+    slice_head(n = 25) |> select(date, dkt, caption, lower, lower_date) |> 
+    gt() |> 
+    cols_label(date = "Filed", dkt = "Docket No.", caption = "Caption", lower = "Court Below", lower_date = "Judgment Date") |> 
+    opt_table_font(size = pct(80))
 ```
