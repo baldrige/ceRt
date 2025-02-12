@@ -1,0 +1,94 @@
+---
+title: "Supreme Court Docket"
+author: "Tommy Bennett"
+format: dashboard
+server: shiny
+---
+
+```{r}
+#| context: setup
+#| echo: false
+#| warning: false
+library(ceRt)
+library(tidyverse)
+library(gt)
+library(shiny)
+scotus <- ceRt::scotus
+scotus_tbl <- scotus |> dplyr::mutate(caption = str_remove(caption, ", Petitioner*")) |> dplyr::mutate(caption = str_remove_all(caption, ", et al.")) |> dplyr::mutate(lower = str_replace(lower, "^United States Court of Appeals for the (.+?Circuit)", "\\1"))
+```
+
+## {.sidebar}
+
+```{r}
+selectInput("term", "Select October Term:", choices = c(2017:2024), selected = 2024)
+```
+
+## Column
+
+```{r}
+gt_output('data')
+```
+
+## Column
+
+```{r}
+
+```
+
+```{r}
+#| error: false
+gt_output('data2')
+```
+
+```{r}
+#| error: false
+gt_output('data3')
+```
+
+```{r}
+#| context: server
+
+scotus_user <- reactive({
+  scotus_tbl |> filter(str_detect(dkt, str_sub(input$term, 3L, 4L)) == TRUE)
+})
+
+output$data <- render_gt({
+  scotus_user() |> 
+    select(-lower_dkt, -lower_date, -events, -parties) |> 
+    gt() |> 
+    cols_label(caption = "Case", dkt = "Docket No.", date = "Filed", lower = "Lower Court") |>
+    fmt_date(columns = date, date_style = "day_m_year") |>
+    cols_width(dkt ~ px(100), date ~ px(125), lower ~ px(250)) |>
+    opt_interactive(use_compact_mode = TRUE, use_search = TRUE, use_filters = TRUE, selection_mode = "single", page_size_default = 25, use_page_size_select = TRUE, use_sorting = TRUE)
+})
+
+output$data2 <- render_gt({
+    req(input$data)
+    scotus_user() |> slice(input$data) |> pluck("events", 1) |> 
+    rowwise() |> # Enable rowwise processing
+    mutate(doc_links = list(
+        map2(
+            # Select all Document and links columns in the current row:
+            c_across(starts_with("Document_")),
+            c_across(starts_with("links_")),
+            ~ if (!is.na(.x) && !is.na(.y)) sprintf("[%s](%s)", .x, .y) else NA_character_
+            ))) %>%
+    ungroup() |> select(Date, `Proceedings and Orders`, doc_links) |> unnest_wider(col = doc_links, names_sep = "_") |>
+    gt() |> sub_missing(columns = everything(), missing_text = "") |>
+    fmt_markdown(columns = starts_with("doc_links")) |>
+    cols_label(starts_with("doc_links") ~ "") |>
+    tab_header(title = "Docket Entries")
+})
+
+output$data3 <- render_gt({
+    req(input$data)
+    scotus_user() |> slice(input$data) |> pluck("parties", 1) |> rowwise() |>
+    mutate(attys = map(attys, paste, collapse='<br />')) |>
+    mutate(attys = str_replace(attys, "[:blank:]*Counsel of Record", "*")) |>
+    ungroup() |>
+    gt(groupname_col = "party", row_group_as_column = TRUE) |>
+    fmt_markdown(columns = attys) |> cols_width(attys ~ px(250)) |>
+    tab_header(title = "Parties and Attorneys") |>
+    cols_label(names = "Party", attys = "Attorney")
+})
+```
