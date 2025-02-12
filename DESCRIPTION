@@ -17,4 +17,4 @@ Imports:
     tidyverse,
     gt,
     gtExtras,
-    shiny
+    shiny  

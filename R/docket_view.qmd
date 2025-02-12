@@ -20,7 +20,7 @@ scotus_tbl <- scotus |> dplyr::mutate(caption = str_remove(caption, ", Petitione
 ## {.sidebar}
 
 ```{r}
-selectInput("term", "Select October Term:", choices = c(2017:2024), selected = 2024)
+selectInput("term", "Select October Term:", choices = c(2017:2024))
 ```
 
 ## Column
@@ -31,17 +31,24 @@ gt_output('data')
 
 ## Column
 
-```{r}
+### Row {height=30%}
 
+```{r}
+#| title: Case Information
+htmlOutput('meta')
 ```
+
+### Row {.tabset height=70%}
 
 ```{r}
 #| error: false
+#| title: Docket Entries
 gt_output('data2')
 ```
 
 ```{r}
 #| error: false
+#| title: Parties and Attorneys
 gt_output('data3')
 ```
 
@@ -49,34 +56,40 @@ gt_output('data3')
 #| context: server
 
 scotus_user <- reactive({
-  scotus_tbl |> filter(str_detect(dkt, str_sub(input$term, 3L, 4L)) == TRUE)
+  scotus_tbl |> filter(str_detect(dkt, str_c(str_sub(input$term, 3L, 4L), "(-|A)")) == TRUE)
 })
 
 output$data <- render_gt({
   scotus_user() |> 
-    select(-lower_dkt, -lower_date, -events, -parties) |> 
+    select(-lower_dkt, -lower_date, -events, -parties, -date) |> 
     gt() |> 
-    cols_label(caption = "Case", dkt = "Docket No.", date = "Filed", lower = "Lower Court") |>
-    fmt_date(columns = date, date_style = "day_m_year") |>
-    cols_width(dkt ~ px(100), date ~ px(125), lower ~ px(250)) |>
+    cols_label(caption = "Case", dkt = "Docket No.", lower = "Lower Court") |>
+    cols_width(dkt ~ px(100), lower ~ px(250)) |>
     opt_interactive(use_compact_mode = TRUE, use_search = TRUE, use_filters = TRUE, selection_mode = "single", page_size_default = 25, use_page_size_select = TRUE, use_sorting = TRUE)
 })
 
 output$data2 <- render_gt({
     req(input$data)
     scotus_user() |> slice(input$data) |> pluck("events", 1) |> 
+    mutate(Date = lubridate::mdy(Date)) |>
     rowwise() |> # Enable rowwise processing
     mutate(doc_links = list(
-        map2(
+        purrr::map2_chr(
             # Select all Document and links columns in the current row:
             c_across(starts_with("Document_")),
             c_across(starts_with("links_")),
             ~ if (!is.na(.x) && !is.na(.y)) sprintf("[%s](%s)", .x, .y) else NA_character_
-            ))) %>%
-    ungroup() |> select(Date, `Proceedings and Orders`, doc_links) |> unnest_wider(col = doc_links, names_sep = "_") |>
-    gt() |> sub_missing(columns = everything(), missing_text = "") |>
+            ))) |>
+    select(Date, `Proceedings and Orders`, doc_links) |> rowwise() |>
+    mutate(doc_links = str_c("* ", doc_links, sep = "", collapse = "\n")) |> 
+    mutate(doc_links = str_remove_all(doc_links, "\\* \n"))|> 
+    mutate(doc_links = str_remove_all(doc_links, "\\* $")) |> 
+    arrange(Date) |> ungroup() |>
+    gt() |> 
+    sub_missing(columns = doc_links) |> 
+    cols_align(align = "left", columns = everything()) |>
     fmt_markdown(columns = starts_with("doc_links")) |>
-    cols_label(starts_with("doc_links") ~ "") |>
+    cols_label(doc_links = "Documents") |>
     tab_header(title = "Docket Entries")
 })
 
@@ -91,4 +104,18 @@ output$data3 <- render_gt({
     tab_header(title = "Parties and Attorneys") |>
     cols_label(names = "Party", attys = "Attorney")
 })
+
+output$meta <- renderText({
+    req(input$data)
+    paste0(
+      "<strong>", pluck(slice(scotus_user(), input$data), "caption"), "</strong>",
+      "Docket no.: ", pluck(slice(scotus_user(), input$data), "dkt"), "<br />",
+      "Date filed: ", pluck(slice(scotus_user(), input$data), "date"), "<br />",
+      "Lower court: ", pluck(slice(scotus_user(), input$data), "lower"), "<br />",
+      "Date of decision below: ", pluck(slice(scotus_user(), input$data), "lower_date"), "<br />",
+      "Docket no(s). below: ", pluck(slice(scotus_user(), input$data), "lower_dkt")
+    )
+  }
+)
+
 ```
