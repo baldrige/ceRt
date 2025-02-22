@@ -187,3 +187,21 @@ parse_parties <- function(html) {
   }
   return(all_parties)
 }
+
+index <- tibble(
+  name = c(
+    "ot_2017.rds",
+    "ot_2018.rds",
+    "ot_2019.rds",
+    "ot_2020.rds",
+    "ot_2021.rds",
+    "ot_2022.rds",
+    "ot_2023.rds",
+    "ot_2024.rds"
+  )
+)
+scotus <- map_df(
+  index$name,
+  \(x) scotus <- bind_rows(scotus, read_rds(paste0("./data-raw/", x)))
+)
+save(scotus, file = "./data/scotus.rda")
