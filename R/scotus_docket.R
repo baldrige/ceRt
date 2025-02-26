@@ -1,7 +1,6 @@
 library(tidyverse)
 library(rvest)
 
-
 # A helper function that checks if a given URL (based on year and try_val)
 # returns an error message.
 is_error <- function(year, sep = "-", try_val) {

@@ -18,7 +18,7 @@ load(
   file = 'https://github.com/baldrige/ceRt/blob/d9f76bdbee5fabaec667c2fca9f85b90335bb726/data/scotus.rda'
 )
 scotus_tbl <- scotus |>
-  dplyr::mutate(caption = str_remove(caption, ", Petitioner*")) |>
+  dplyr::mutate(caption = str_remove(caption, ", Petitioner*?")) |>
   dplyr::mutate(caption = str_remove_all(caption, ", et al.")) |>
   dplyr::mutate(
     lower = str_replace(
