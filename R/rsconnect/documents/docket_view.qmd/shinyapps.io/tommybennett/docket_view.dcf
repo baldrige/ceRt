@@ -1,0 +1,13 @@
+name: docket_view
+title:
+username: tommybennett
+account: tommybennett
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 14070192
+bundleId: 9840413
+url: https://tommybennett.shinyapps.io/docket_view/
+version: 1
+quarto_version: 1.6.39
+quarto_engines: knitr
+serverRender: FALSE

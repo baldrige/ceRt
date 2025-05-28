@@ -200,6 +200,8 @@ index <- tibble(
     "ot_2024.rds"
   )
 )
+
+scotus <- tibble()
 scotus <- map_df(
   index$name,
   \(x) scotus <- bind_rows(scotus, read_rds(paste0("./data-raw/", x)))

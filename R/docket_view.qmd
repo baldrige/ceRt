@@ -11,11 +11,13 @@ theme: litera
 #| context: setup
 #| echo: false
 #| warning: false
-library(tidyverse#| )
+library(tidyverse)
 library(gt)
 library(shiny)
 load(
-  file = 'https://github.com/baldrige/ceRt/blob/d9f76bdbee5fabaec667c2fca9f85b90335bb726/data/scotus.rda'
+  url(
+    'https://github.com/baldrige/ceRt/raw/ebb72a55a957f390f7bc361a747f9ffefb70adf6/data/scotus.rda'
+  )
 )
 scotus_tbl <- scotus |>
   dplyr::mutate(caption = str_remove(caption, ", Petitioner*")) |>
