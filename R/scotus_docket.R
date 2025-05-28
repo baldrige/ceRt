@@ -1,7 +1,6 @@
 library(tidyverse)
 library(rvest)
 
-
 # A helper function that checks if a given URL (based on year and try_val)
 # returns an error message.
 is_error <- function(year, sep = "-", try_val) {
@@ -13,7 +12,7 @@ is_error <- function(year, sep = "-", try_val) {
   html <- read_html(url)
   text <- html %>% html_text2()
 
-  # Returns TRUE if the error message is found (i.e. the try_val is too high)
+  # Returns TRUE if the error message is found (i.e. the try_val is too high)load
   return(str_detect(text, "ERROR: File or directory not found."))
 }
 

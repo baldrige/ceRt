@@ -15,12 +15,10 @@ library(tidyverse)
 library(gt)
 library(shiny)
 load(
-  url(
-    'https://github.com/baldrige/ceRt/raw/ebb72a55a957f390f7bc361a747f9ffefb70adf6/data/scotus.rda'
-  )
+  url = 'https://github.com/baldrige/ceRt/blob/2408b1a17d6fd449b67b2647c7739a0d35cc7607/data/scotus.rda'
 )
 scotus_tbl <- scotus |>
-  dplyr::mutate(caption = str_remove(caption, ", Petitioner*")) |>
+  dplyr::mutate(caption = str_remove(caption, ", Petitioner*?")) |>
   dplyr::mutate(caption = str_remove_all(caption, ", et al.")) |>
   dplyr::mutate(
     lower = str_replace(
