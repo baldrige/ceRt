@@ -306,7 +306,7 @@ scotus_dash <- function(range = today() - 1, year = "25") {
         "\n\n"
       )
     ) |>
-    mutate(lower = str_replace_all(lower, " NA", " â€”")) |>
+    mutate(lower = str_replace_all(lower, " NA", " —")) |>
     select(type, caption, dkt, lower, parties_type:parties_address, events) |>
     mutate(pro_se = if_else(parties_names == parties_attys, TRUE, FALSE)) |>
     select(-parties_names, -parties_type)
