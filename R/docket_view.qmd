@@ -14,11 +14,10 @@ theme: litera
 library(tidyverse)
 library(gt)
 library(shiny)
-load(
-  url = 'https://github.com/baldrige/ceRt/blob/2408b1a17d6fd449b67b2647c7739a0d35cc7607/data/scotus.rda'
-)
+
+scotus <- readr::read_rds("../data/scotus.rds")
 scotus_tbl <- scotus |>
-  dplyr::mutate(caption = str_remove(caption, ", Petitioner*?")) |>
+  dplyr::mutate(caption = str_remove(caption, ", Petitioner*")) |>
   dplyr::mutate(caption = str_remove_all(caption, ", et al.")) |>
   dplyr::mutate(
     lower = str_replace(
@@ -26,7 +25,8 @@ scotus_tbl <- scotus |>
       "^United States Court of Appeals for the (.+?Circuit)",
       "\\1"
     )
-  )
+  ) |>
+  dplyr::mutate(type = case_when())
 ```
 
 ## {.sidebar}
@@ -38,6 +38,7 @@ selectInput(
   choices = c(2017:2024),
   selected = 2024
 )
+selectInput()
 ```
 
 ## Column
@@ -79,16 +80,21 @@ scotus_user <- reactive({
 
 output$data <- render_gt({
   scotus_user() |>
-    select(-lower_dkt, -lower_date, -events, -parties, -date) |>
+    select(-lower_dkt, -lower_date, -events, -parties) |>
     gt() |>
-    cols_label(caption = "Case", dkt = "Docket No.", lower = "Lower Court") |>
-    cols_width(dkt ~ px(100), lower ~ px(250)) |>
+    cols_label(
+      caption = "Case",
+      dkt = "Docket No.",
+      lower = "Lower Court",
+      date = "Filed"
+    ) |>
+    cols_width(dkt ~ px(100), lower ~ px(250), date ~ (px(100))) |>
     opt_interactive(
       use_compact_mode = TRUE,
       use_search = TRUE,
       use_filters = TRUE,
       selection_mode = "single",
-      page_size_default = 25,
+      page_size_default = 100,
       use_page_size_select = TRUE,
       use_sorting = TRUE
     ) |>
@@ -109,8 +115,11 @@ output$data2 <- render_gt({
           # Select all Document and links columns in the current row:
           c_across(starts_with("Document_")),
           c_across(starts_with("links_")),
-          ~ if (!is.na(.x) && !is.na(.y)) sprintf("[[%s](%s)]", .x, .y) else
+          ~ if (!is.na(.x) && !is.na(.y)) {
+            sprintf("[[%s](%s)]", .x, .y)
+          } else {
             NA_character_
+          }
         )
       )
     ) |>

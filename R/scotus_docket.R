@@ -43,15 +43,19 @@ get_scotus_ot <- function(year) {
   paid <- binary_search_max(year, "-", 0, 2000)
   ifp <- binary_search_max(year, "-", 5001, 10000)
   apps <- binary_search_max(year, "A", 0, 2000)
-  docket <- tibble(dkt = c(1:paid, 5001:ifp, 1:apps), sep = NA)
+  docket <- tibble(dkt = c(1:paid, 5001:ifp, 1:apps), sep = NA, type = NA)
+  docket$type[1] <- "paid"
+  docket$type[paid + 1] <- "ifp"
+  docket$type[length(1:paid) + length(5001:ifp) + 1] <- "app"
   docket$sep[1] <- "-"
   docket$sep[paid + 1] <- "-"
   docket$sep[length(1:paid) + length(5001:ifp) + 1] <- "A"
-  docket <- docket %>% fill(sep)
-  docket <- docket %>% mutate(dkt = paste0(year, sep, dkt)) %>% select(dkt)
-  cases <- docket$dkt %>%
+  docket <- docket |> fill(sep)
+  docket <- docket |> fill(type)
+  docket <- docket |> mutate(dkt = paste0(year, sep, dkt)) |> select(dkt, type)
+  cases <- docket$dkt |>
     map(
-      \(x)
+      \(x) {
         tryCatch(
           {
             get_scotus_case(dkt = x)
@@ -59,10 +63,12 @@ get_scotus_ot <- function(year) {
           error = function(msg) {
             return(NA)
           }
-        ),
+        )
+      },
       .progress = TRUE
     )
   cases <- do.call("rbind", cases)
+  cases <- cases |> dplyr::left_join(docket, by = "dkt")
   return(filter(cases, !is.na(caption)))
 }
 
@@ -70,57 +76,57 @@ get_scotus_case <- function(dkt) {
   base_url <- "https://www.supremecourt.gov/docket/docketfiles/html/public/"
   url <- paste0(base_url, dkt, ".html")
   html <- read_html(url)
-  title <- html %>%
-    html_table() %>%
-    pluck(1) %>%
-    filter(X1 == "Title:") %>%
+  title <- html |>
+    html_table() |>
+    pluck(1) |>
+    filter(X1 == "Title:") |>
     pull(X2)
-  date <- html %>%
-    html_table() %>%
-    pluck(1) %>%
-    filter(X1 == "Docketed:") %>%
-    pull(X2) %>%
+  date <- html |>
+    html_table() |>
+    pluck(1) |>
+    filter(X1 == "Docketed:") |>
+    pull(X2) |>
     as_date(format = "%m %d, %Y")
-  lower <- html %>%
-    html_table() %>%
-    pluck(1) %>%
-    filter(X1 == "Lower Ct:") %>%
+  lower <- html |>
+    html_table() |>
+    pluck(1) |>
+    filter(X1 == "Lower Ct:") |>
     pull(X2)
-  lower_dkt <- html %>%
-    html_table() %>%
-    pluck(1) %>%
-    filter(X1 == "Case Numbers:") %>%
-    pull(X2) %>%
+  lower_dkt <- html |>
+    html_table() |>
+    pluck(1) |>
+    filter(X1 == "Case Numbers:") |>
+    pull(X2) |>
     str_sub(start = 2L, end = -2L)
-  lower_date <- html %>%
-    html_table() %>%
-    pluck(1) %>%
-    filter(X1 == "Decision Date:") %>%
-    pull(X2) %>%
+  lower_date <- html |>
+    html_table() |>
+    pluck(1) |>
+    filter(X1 == "Decision Date:") |>
+    pull(X2) |>
     as_date(format = "%m %d, %Y")
-  events <- html %>%
-    html_table(header = TRUE) %>%
-    pluck(2) %>%
+  events <- html |>
+    html_table(header = TRUE) |>
+    pluck(2) |>
     filter(Date != "")
-  docket_dates <- html %>%
-    html_table(header = TRUE) %>%
-    pluck(2) %>%
-    filter(Date != "") %>%
+  docket_dates <- html |>
+    html_table(header = TRUE) |>
+    pluck(2) |>
+    filter(Date != "") |>
     select(Date, `Proceedings and Orders`)
-  docs <- html %>%
-    html_table(header = TRUE) %>%
+  docs <- html |>
+    html_table(header = TRUE) |>
     pluck(2)
-  links1 <- html %>%
-    html_element("#proceedings") %>%
-    html_elements("tr") %>%
+  links1 <- html |>
+    html_element("#proceedings") |>
+    html_elements("tr") |>
     html_elements(".borderbttm")
-  links2 <- links1 %>%
+  links2 <- links1 |>
     map(\(x) html_attr(html_children(x), "href"))
   links3 <- tibble(links = links2)
-  link <- links3 %>%
+  link <- links3 |>
     unnest_wider(col = links, names_sep = "_")
-  docs <- docs %>%
-    bind_cols(link) %>%
+  docs <- docs |>
+    bind_cols(link) |>
     filter(Date == "") %>%
     rename(Document = `Proceedings and Orders`) %>%
     select(-Date)
@@ -205,4 +211,4 @@ scotus <- map_df(
   index$name,
   \(x) scotus <- bind_rows(scotus, read_rds(paste0("./data-raw/", x)))
 )
-save(scotus, file = "./data/scotus.rda")
+readr::write_rds(scotus, file = "./data/scotus.rds")
