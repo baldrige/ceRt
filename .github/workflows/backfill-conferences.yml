@@ -8,10 +8,14 @@ name: Backfill conference reports
 on:
   workflow_dispatch:
     inputs:
-      term:
-        description: "Docket year, 2 digits (e.g. 25 for OT2025)"
+      terms:
+        description: "Docket years to fetch and combine, comma-separated (e.g. 24,25)"
         required: true
-        default: "25"
+        default: "24,25"
+      min_conf_date:
+        description: "Only render conferences on/after this date (YYYY-MM-DD)"
+        required: true
+        default: "2025-08-01"
 
 permissions:
   contents: write
@@ -23,7 +27,7 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 180
+    timeout-minutes: 350
     steps:
       - name: Checkout source (main)
         uses: actions/checkout@v4
@@ -56,10 +60,11 @@ jobs:
             any::pdftools
             any::htmltools
 
-      - name: Build conference reports for OT ${{ inputs.term }}
+      - name: Build conference reports (terms ${{ inputs.terms }})
         env:
           SITE_DIR: site
-          TERM_YEAR: ${{ inputs.term }}
+          TERM_YEARS: ${{ inputs.terms }}
+          MIN_CONF_DATE: ${{ inputs.min_conf_date }}
         run: Rscript .github/scripts/build_conferences.R
 
       - name: Commit and publish
@@ -71,6 +76,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "No changes to publish."
           else
-            git commit -m "Backfill conference reports OT ${{ inputs.term }}"
+            git commit -m "Backfill conference reports (terms ${{ inputs.terms }})"
             git push origin gh-pages
           fi
