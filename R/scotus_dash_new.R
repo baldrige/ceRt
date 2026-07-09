@@ -314,13 +314,20 @@ extract_qp_page2 <- function(src) {
     if (is.null(t) || str_squish(t) == "") stop("empty page")
     t
   }
-  tryCatch(
+  txt <- tryCatch(
     page2(pdftools::pdf_text),
     error = function(e) tryCatch(
       page2(function(s) pdftools::pdf_ocr_text(s, pages = 2)),
       error = function(e2) "-"
     )
   )
+  if (identical(txt, "-")) return(txt)
+  # Petition pages are indented, and markdown renders any line starting with 4+
+  # spaces as a code block (monospace). Strip per-line leading whitespace and
+  # collapse blank-line runs so the QP renders as normal prose.
+  txt <- str_replace_all(txt, regex("^[ \\t]+", multiline = TRUE), "")
+  txt <- str_replace_all(txt, "\n{3,}", "\n\n")
+  str_trim(txt)
 }
 
 # Single petition QP (pdftools downloads the URL itself).
