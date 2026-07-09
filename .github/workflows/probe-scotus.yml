@@ -1,0 +1,72 @@
+name: Probe SCOTUS reachability
+
+# Throwaway diagnostic: does supremecourt.gov's Akamai WAF serve GitHub's
+# (shared Azure datacenter) runner IPs the same way it serves a residential IP?
+# We know from a residential IP: sequential = fine, 4 concurrent = 200,
+# 8 concurrent = 403. This checks whether a runner gets clean 200/404s at all,
+# and where (if anywhere) it starts getting throttled.
+#
+# Run it manually from the Actions tab (Run workflow). Read the logs; nothing is
+# published or committed.
+
+on:
+  workflow_dispatch:
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Runner egress IP
+        run: |
+          echo "Egress IP: $(curl -s https://api.ipify.org)"
+
+      - name: Single JSON fetch — response headers
+        run: |
+          echo "=== GET 26-9.json (headers only) ==="
+          curl -s -D - -o /dev/null -A "ceRt probe (github actions)" \
+            "https://www.supremecourt.gov/rss/cases/JSON/26-9.json" | head -25
+
+      - name: Status codes across resource types
+        run: |
+          UA="ceRt probe (github actions)"
+          probe() {
+            r=$(curl -s -o /dev/null -w "%{http_code} %{content_type} %{size_download}b" -A "$UA" "$1")
+            printf "%-45s  %s\n" "$r" "$1"
+          }
+          probe "https://www.supremecourt.gov/rss/cases/JSON/26-9.json"
+          probe "https://www.supremecourt.gov/rss/cases/JSON/26-5010.json"
+          probe "https://www.supremecourt.gov/rss/cases/JSON/26A9.json"
+          probe "https://www.supremecourt.gov/rss/cases/JSON/26-999999.json"   # expect 404
+
+      - name: Petition PDF fetch (dynamic URL)
+        run: |
+          UA="ceRt probe (github actions)"
+          purl=$(curl -s -A "$UA" "https://www.supremecourt.gov/rss/cases/JSON/26-1.json" \
+            | python3 -c "import sys,json;j=json.load(sys.stdin);print(next((l['DocumentUrl'] for po in j.get('ProceedingsandOrder',[]) for l in (po.get('Links') or []) if l['Description'].startswith('Petition')),''))")
+          echo "petition url: $purl"
+          [ -n "$purl" ] && curl -s -o /dev/null \
+            -w "PDF -> %{http_code} %{content_type} %{size_download}b\n" -A "$UA" "$purl"
+
+      - name: Sequential burst — 40 dockets, count outcomes
+        run: |
+          UA="ceRt probe (github actions)"
+          ok=0; bad=0
+          for n in $(seq 1 40); do
+            code=$(curl -s -o /dev/null -w "%{http_code}" -A "$UA" \
+              "https://www.supremecourt.gov/rss/cases/JSON/26-$n.json")
+            case "$code" in
+              200|404) ok=$((ok+1)) ;;
+              *) bad=$((bad+1)); echo "  26-$n -> $code" ;;
+            esac
+          done
+          echo "SEQUENTIAL: ok(200/404)=$ok  throttled/other=$bad"
+
+      - name: Concurrent burst — status distribution at 4 and 8 parallel
+        run: |
+          UA="ceRt probe (github actions)"
+          run_conc() {
+            seq 1 24 | xargs -P "$1" -I {} curl -s -o /dev/null -w "%{http_code}\n" -A "$UA" \
+              "https://www.supremecourt.gov/rss/cases/JSON/26-{}.json" | sort | uniq -c
+          }
+          echo "=== 4 concurrent ==="; run_conc 4
+          echo "=== 8 concurrent ==="; run_conc 8
