@@ -1,0 +1,75 @@
+name: Daily SCOTUS dashboards
+
+# Fetches the current term once a day and republishes the daily petitions
+# dashboards to the gh-pages branch (served by GitHub Pages). The conference
+# archive already on gh-pages is preserved untouched.
+#
+# Prerequisite (one-time): a gh-pages branch must exist (see the bootstrap notes
+# in the setup instructions), and Pages must be set to deploy from gh-pages.
+
+on:
+  schedule:
+    # 13:00 UTC ~ 9am ET, after the site's ~00:05 UTC nightly JSON re-export.
+    - cron: "0 13 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: daily-dashboards
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source (main)
+        uses: actions/checkout@v4
+
+      - name: Checkout published site (gh-pages) into ./site
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          path: site
+
+      - name: Install system dependencies (poppler + tesseract for pdftools/OCR)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libpoppler-cpp-dev libtesseract-dev tesseract-ocr libcurl4-openssl-dev
+
+      - name: Setup R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+
+      - name: Install R packages (cached)
+        uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          packages: |
+            any::gt
+            any::gtExtras
+            any::tidyverse
+            any::httr2
+            any::jsonlite
+            any::pdftools
+            any::htmltools
+
+      - name: Build dashboards into ./site
+        env:
+          SITE_DIR: site
+          TERM_YEAR: "26"
+        run: Rscript .github/scripts/build_dashboards.R
+
+      - name: Commit and publish changes
+        working-directory: site
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes to publish."
+          else
+            git commit -m "Daily dashboard refresh $(date -u +%F)"
+            git push origin gh-pages
+          fi
