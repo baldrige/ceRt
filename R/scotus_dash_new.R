@@ -235,30 +235,14 @@ get_scotus_case <- function(dkt) {
   fetch_case_result(dkt)$case
 }
 
-# All recent cases for a term: the trailing ~50 dockets of each bucket
-# (paid / IFP / applications), clamped so early-term buckets don't generate
-# invalid docket numbers.
-get_scotus_update <- function(year) {
-  paid <- binary_search_max(year, "-", 0, 2000)
-  ifp <- binary_search_max(year, "-", 5001, 10000)
-  apps <- binary_search_max(year, "A", 0, 2000)
-
-  make_block <- function(hi, lo_bound, sep) {
-    if (hi < lo_bound) return(character())
-    paste0(year, sep, max(hi - 50, lo_bound):hi)
-  }
-  dkts <- c(
-    make_block(paid, 1, "-"),
-    make_block(ifp, 5001, "-"),
-    make_block(apps, 1, "A")
-  )
+# Fetch a set of dockets into a case tibble, one request at a time. There is no
+# bulk endpoint, and the Akamai WAF throttles concurrent/bursty clients (403), so
+# sequential is both simpler and far more reliable than parallel fetching --
+# fetch_case_result retries transient throttling, and a non-404 failure is
+# surfaced via the n_failed / n_attempted attributes so callers can refuse to
+# publish a degraded fetch.
+fetch_cases <- function(dkts) {
   if (length(dkts) == 0) return(tibble())
-
-  # Fetch sequentially. There is no bulk endpoint, and the Akamai WAF throttles
-  # concurrent/bursty clients (403), so one-request-at-a-time is both simpler and
-  # far more reliable than parallel fetching -- the wall-clock cost is irrelevant
-  # for a daily job. fetch_case_result already retries transient throttling; a
-  # non-404 failure is surfaced via n_failed so callers can refuse to publish.
   results <- dkts |>
     map(\(d) tryCatch(fetch_case_result(d),
                       error = function(e) list(case = NULL, failed = TRUE)),
@@ -268,12 +252,47 @@ get_scotus_update <- function(year) {
   if (n_failed > 0) {
     warning(n_failed, " docket(s) unresolved after retries (server likely throttling).")
   }
-
   if (length(cases) == 0) return(tibble())
   result <- bind_rows(cases)
   attr(result, "n_attempted") <- length(dkts)
   attr(result, "n_failed") <- n_failed
   result
+}
+
+# All recent cases for a term: the trailing ~50 dockets of each bucket
+# (paid / IFP / applications), clamped so early-term buckets don't generate
+# invalid docket numbers. This is the daily-job fetch.
+get_scotus_update <- function(year) {
+  paid <- binary_search_max(year, "-", 0, 2000)
+  ifp <- binary_search_max(year, "-", 5001, 10000)
+  apps <- binary_search_max(year, "A", 0, 2000)
+  make_block <- function(hi, lo_bound, sep) {
+    if (hi < lo_bound) return(character())
+    paste0(year, sep, max(hi - 50, lo_bound):hi)
+  }
+  fetch_cases(c(
+    make_block(paid, 1, "-"),
+    make_block(ifp, 5001, "-"),
+    make_block(apps, 1, "A")
+  ))
+}
+
+# Every case in a term (the full range of each bucket). Needed for backfills and
+# conference reports, which require the whole term rather than just recent
+# dockets. Thousands of requests -- run it from a clean IP, not a throttled one.
+get_scotus_term <- function(year) {
+  paid <- binary_search_max(year, "-", 0, 2000)
+  ifp <- binary_search_max(year, "-", 5001, 10000)
+  apps <- binary_search_max(year, "A", 0, 2000)
+  full_block <- function(hi, lo_bound, sep) {
+    if (hi < lo_bound) return(character())
+    paste0(year, sep, lo_bound:hi)
+  }
+  fetch_cases(c(
+    full_block(paid, 1, "-"),
+    full_block(ifp, 5001, "-"),
+    full_block(apps, 1, "A")
+  ))
 }
 
 # Did a fetch resolve enough dockets to trust for publishing? A cold run fails

@@ -1,0 +1,76 @@
+name: Backfill conference reports
+
+# One-off (manual) full-term fetch that renders a whole term's conference reports
+# and merges them into the conferences/ archive on gh-pages. Use it to backfill a
+# term the static archive doesn't cover yet (e.g. OT2025). Large and slow --
+# thousands of dockets -- so it runs on a clean runner IP, not locally.
+
+on:
+  workflow_dispatch:
+    inputs:
+      term:
+        description: "Docket year, 2 digits (e.g. 25 for OT2025)"
+        required: true
+        default: "25"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: conference-backfill
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - name: Checkout source (main)
+        uses: actions/checkout@v4
+
+      - name: Checkout published site (gh-pages) into ./site
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          path: site
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libpoppler-cpp-dev libtesseract-dev tesseract-ocr libcurl4-openssl-dev
+
+      - name: Setup R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+
+      - name: Install R packages (cached)
+        uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          packages: |
+            any::gt
+            any::gtExtras
+            any::tidyverse
+            any::httr2
+            any::jsonlite
+            any::pdftools
+            any::htmltools
+
+      - name: Build conference reports for OT ${{ inputs.term }}
+        env:
+          SITE_DIR: site
+          TERM_YEAR: ${{ inputs.term }}
+        run: Rscript .github/scripts/build_conferences.R
+
+      - name: Commit and publish
+        working-directory: site
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes to publish."
+          else
+            git commit -m "Backfill conference reports OT ${{ inputs.term }}"
+            git push origin gh-pages
+          fi

@@ -155,10 +155,10 @@ conference_dash <- function(dist, conf_date,
 }
 
 # Regenerate index.html for the conference directory, listing every conf_*.html
-# newest-first. `counts` (optional) is a named vector keyed by the conference
-# date string ("YYYY-MM-DD") -> number of cases, shown beside each entry.
-conference_index <- function(out_dir = path.expand("~/public_html/conferences"),
-                             counts = NULL) {
+# newest-first with its case count. The count is read back from each page's
+# subtitle ("N case(s)"), so the index is always correct across all terms --
+# including ones backfilled in a separate run.
+conference_index <- function(out_dir = path.expand("~/public_html/conferences")) {
   files <- list.files(out_dir, pattern = "^conf_\\d{4}-\\d{2}-\\d{2}\\.html$")
   if (length(files) == 0) return(invisible(NULL))
   dates <- as.Date(str_extract(files, "\\d{4}-\\d{2}-\\d{2}"))
@@ -166,13 +166,15 @@ conference_index <- function(out_dir = path.expand("~/public_html/conferences"),
   files <- files[ord]
   dates <- dates[ord]
 
+  read_count <- function(f) {
+    h <- paste(readLines(file.path(out_dir, f), warn = FALSE), collapse = " ")
+    m <- str_match(h, "([0-9,]+)\\s+case")[, 2]
+    if (is.na(m)) NA_integer_ else as.integer(str_remove_all(m, ","))
+  }
+
   items <- purrr::map2(files, dates, function(f, d) {
-    n <- if (!is.null(counts)) counts[[as.character(d)]] else NULL
-    count_txt <- if (!is.null(n) && !is.na(n)) {
-      paste0(n, if (n == 1) " case" else " cases")
-    } else {
-      ""
-    }
+    n <- read_count(f)
+    count_txt <- if (!is.na(n)) paste0(n, if (n == 1) " case" else " cases") else ""
     tags$li(
       tags$a(href = f, target = "_blank", format(d, "%B %d, %Y")),
       tags$span(class = "count", count_txt)
@@ -214,7 +216,6 @@ conference_dashboards <- function(cases,
   for (i in seq_along(dates)) {
     conference_dash(dist, dates[i], out_dir = out_dir)
   }
-  cnt <- dist |> count(conf_date)
-  conference_index(out_dir, counts = setNames(cnt$n, as.character(cnt$conf_date)))
+  conference_index(out_dir)
   invisible(dates)
 }
