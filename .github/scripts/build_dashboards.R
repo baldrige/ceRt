@@ -44,34 +44,23 @@ for (i in seq_along(dates)) {
 dashboard_index(dash_dir)
 
 # Refresh the site landing page (links the sections that exist).
-links <- list(tags$li(tags$a(href = "dashboards/", "Daily petitions & applications")))
+items <- list(list(href = "dashboards/", label = "Daily Petitions & Applications",
+                   meta = "new, daily"))
 if (dir.exists(file.path(site_dir, "conferences"))) {
-  links <- c(links, list(tags$li(tags$a(href = "conferences/", "Conference reports"))))
+  items <- c(items, list(list(href = "conferences/", label = "Conference Reports",
+                              meta = "weekly, by relists")))
 }
 if (dir.exists(file.path(site_dir, "funnel"))) {
-  links <- c(links, list(tags$li(tags$a(
-    href = "funnel/", "The Cert Funnel — how petitions live and die"))))
+  items <- c(items, list(list(href = "funnel/", label = "The Cert Funnel",
+                              meta = "the explainer")))
 }
-save_html(
-  tags$html(
-    tags$head(
-      tags$meta(charset = "utf-8"),
-      tags$title("ceRt — Supreme Court Docket Dashboards"),
-      tags$style(HTML(
-        "body{font-family:'Source Sans Pro',system-ui,sans-serif;max-width:760px;
-           margin:3rem auto;padding:0 1rem;color:#1a1a1a}
-         h1{font-weight:600;border-bottom:2px solid #1a1a1a;padding-bottom:.4rem}
-         ul{list-style:none;padding:0;font-size:1.1rem}
-         li{padding:.6rem 0}
-         a{text-decoration:none;color:#0b3d91;font-weight:600}
-         a:hover{text-decoration:underline}"
-      ))
-    ),
-    tags$body(
-      tags$h1("Supreme Court Docket Dashboards"),
-      tags$ul(links)
-    )
-  ),
-  file.path(site_dir, "index.html")
+styled_index_page(
+  file.path(site_dir, "index.html"),
+  title = "ceRt — Supreme Court Docket Dashboards",
+  kicker = "A window on the Court's docket",
+  heading = "Supreme Court Docket Dashboards",
+  dek = "Tracking every petition through the machine — from filing to the quiet order that ends most of them.",
+  items = items,
+  new_tab = FALSE
 )
 cat("Done.\n")

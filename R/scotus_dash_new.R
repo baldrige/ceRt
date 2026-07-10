@@ -303,19 +303,19 @@ fetch_is_degraded <- function(ot, tol = 0.1) {
   nf > 0 && nf > tol * max(na, 1)
 }
 
-# ---- question presented -----------------------------------------------------
-# extract_qp_page2() / get_qp() live in R/qp_extract.R (shared with the
-# conference reports). Sourced relative to this file's location.
+# ---- shared modules ---------------------------------------------------------
+# extract_qp_page2() / get_qp() live in R/qp_extract.R and the page-presentation
+# helpers (gtsave_titled, styled_index_page) in R/page_style.R -- both shared
+# with the conference reports. Sourced relative to this file's location.
 local({
   here <- tryCatch(dirname(sys.frame(1)$ofile), error = function(e) NA)
-  qp <- if (!is.na(here) && file.exists(file.path(here, "qp_extract.R"))) {
-    file.path(here, "qp_extract.R")
-  } else if (file.exists("R/qp_extract.R")) {
-    "R/qp_extract.R"
-  } else {
-    "qp_extract.R"
+  find <- function(f) {
+    if (!is.na(here) && file.exists(file.path(here, f))) file.path(here, f)
+    else if (file.exists(file.path("R", f))) file.path("R", f)
+    else f
   }
-  sys.source(qp, envir = globalenv())
+  sys.source(find("qp_extract.R"), envir = globalenv())
+  sys.source(find("page_style.R"), envir = globalenv())
 })
 
 # ---- render -----------------------------------------------------------------
@@ -455,7 +455,9 @@ scotus_dash <- function(range = today() - 1, year = "26",
     tab_style(style = cell_fill(color = "#A6CEE3"),
               locations = cells_body(columns = type, rows = type == "app")) |>
     cols_hide(columns = c(pro_se)) |>
-    gtsave(str_c("dash_", range, ".html"), path = out_dir)
+    gtsave_titled(str_c("dash_", range, ".html"), path = out_dir,
+                  title = paste0("Petitions & applications — ",
+                                 format(range, "%B %d, %Y")))
 }
 
 # Regenerate index.html for the daily-dashboard directory, listing every
@@ -469,28 +471,17 @@ dashboard_index <- function(out_dir = path.expand("~/public_html/dashboards")) {
   dates <- dates[ord]
 
   items <- purrr::map2(files, dates, function(f, d) {
-    tags$li(tags$a(href = f, target = "_blank", format(d, "%B %d, %Y")))
+    list(href = f, label = format(d, "%B %d, %Y"))
   })
-  doc <- tags$html(
-    tags$head(
-      tags$meta(charset = "utf-8"),
-      tags$title("Supreme Court Daily Petitions Dashboards"),
-      tags$style(HTML(
-        "body{font-family:'Source Sans Pro',system-ui,sans-serif;max-width:760px;
-           margin:2rem auto;padding:0 1rem;color:#1a1a1a}
-         h1{font-weight:600;border-bottom:2px solid #1a1a1a;padding-bottom:.4rem}
-         ul{list-style:none;padding:0}
-         li{padding:.45rem 0;border-bottom:1px solid #eee}
-         a{text-decoration:none;color:#0b3d91;font-weight:500}
-         a:hover{text-decoration:underline}"
-      ))
-    ),
-    tags$body(
-      tags$h1("Supreme Court Daily Petitions Dashboards"),
-      tags$ul(items)
-    )
+  styled_index_page(
+    file.path(out_dir, "index.html"),
+    title = "Daily Petitions & Applications — SCOTUS",
+    kicker = "Supreme Court of the United States",
+    heading = "The Daily Docket",
+    dek = "Every petition and application, the day it arrives.",
+    items = items,
+    back = list(href = "../", label = "← All dashboards")
   )
-  save_html(doc, file.path(out_dir, "index.html"))
   invisible(file.path(out_dir, "index.html"))
 }
 

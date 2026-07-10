@@ -15,6 +15,20 @@ suppressPackageStartupMessages({
   library(htmltools)
 })
 
+# Shared page-presentation helpers (gtsave_titled, styled_index_page), sourced
+# relative to this file's location so it works from the repo root or elsewhere.
+local({
+  here <- tryCatch(dirname(sys.frame(1)$ofile), error = function(e) NA)
+  ps <- if (!is.na(here) && file.exists(file.path(here, "page_style.R"))) {
+    file.path(here, "page_style.R")
+  } else if (file.exists("R/page_style.R")) {
+    "R/page_style.R"
+  } else {
+    "page_style.R"
+  }
+  sys.source(ps, envir = globalenv())
+})
+
 CONF_PATTERN <- regex(
   "DISTRIBUTED for Conference of (\\d{1,2}/\\d{1,2}/\\d{4})",
   ignore_case = TRUE
@@ -193,7 +207,9 @@ conference_dash <- function(dist, conf_date,
               cells_body(columns = type, rows = type == "ifp")) |>
     tab_style(cell_fill(color = "#A6CEE3"),
               cells_body(columns = type, rows = type == "app"))
-  gtsave(tbl, str_c("conf_", conf_date, ".html"), path = out_dir)
+  gtsave_titled(tbl, str_c("conf_", conf_date, ".html"), path = out_dir,
+                title = paste0("Conference of ", format(conf_date, "%B %d, %Y"),
+                               " — SCOTUS"))
 
   invisible(file.path(out_dir, str_c("conf_", conf_date, ".html")))
 }
@@ -219,34 +235,18 @@ conference_index <- function(out_dir = path.expand("~/public_html/conferences"))
   items <- purrr::map2(files, dates, function(f, d) {
     n <- read_count(f)
     count_txt <- if (!is.na(n)) paste0(n, if (n == 1) " case" else " cases") else ""
-    tags$li(
-      tags$a(href = f, target = "_blank", format(d, "%B %d, %Y")),
-      tags$span(class = "count", count_txt)
-    )
+    list(href = f, label = format(d, "%B %d, %Y"), meta = count_txt)
   })
 
-  doc <- tags$html(
-    tags$head(
-      tags$meta(charset = "utf-8"),
-      tags$title("Supreme Court Conference Reports"),
-      tags$style(HTML(
-        "body{font-family:'Source Sans Pro',system-ui,sans-serif;max-width:760px;
-           margin:2rem auto;padding:0 1rem;color:#1a1a1a}
-         h1{font-weight:600;border-bottom:2px solid #1a1a1a;padding-bottom:.4rem}
-         ul{list-style:none;padding:0}
-         li{padding:.45rem 0;border-bottom:1px solid #eee;display:flex;
-           justify-content:space-between;align-items:baseline}
-         a{text-decoration:none;color:#0b3d91;font-weight:500}
-         a:hover{text-decoration:underline}
-         .count{color:#777;font-size:.9em}"
-      ))
-    ),
-    tags$body(
-      tags$h1("Supreme Court Conference Reports"),
-      tags$ul(items)
-    )
+  styled_index_page(
+    file.path(out_dir, "index.html"),
+    title = "Conference Reports — SCOTUS",
+    kicker = "Supreme Court of the United States",
+    heading = "Conference Reports",
+    dek = "What the Justices consider at each private conference, sorted by relists.",
+    items = items,
+    back = list(href = "../", label = "← All dashboards")
   )
-  save_html(doc, file.path(out_dir, "index.html"))
   invisible(file.path(out_dir, "index.html"))
 }
 
