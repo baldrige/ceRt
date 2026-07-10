@@ -1,0 +1,141 @@
+name: Conference reports
+
+# Rebuilds the current sitting's conference reports and merges them into the
+# gh-pages archive. Each term is fetched in its own job (separate runner IP) to
+# keep sustained per-IP load -- and Akamai throttling -- down.
+#
+#   scheduled: Mondays, in-season (Jul/Aug recess auto-skipped), auto terms
+#   manual:    optionally pass explicit `terms` (e.g. 24,25) to backfill
+
+on:
+  schedule:
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+    inputs:
+      terms:
+        description: "Terms to fetch, comma-separated (e.g. 24,25). Blank = current sitting (auto)."
+        required: false
+        default: ""
+      min_conf_date:
+        description: "Render conferences on/after (YYYY-MM-DD). Blank = auto from terms."
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+concurrency:
+  group: conference-reports
+  cancel-in-progress: false
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.plan.outputs.matrix }}
+      min_conf: ${{ steps.plan.outputs.min_conf }}
+      skip: ${{ steps.plan.outputs.skip }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+      - id: plan
+        env:
+          INPUT_TERMS: ${{ inputs.terms }}
+          INPUT_MIN: ${{ inputs.min_conf_date }}
+          EVENT_NAME: ${{ github.event_name }}
+        run: Rscript .github/scripts/plan_terms.R
+
+  fetch:
+    needs: setup
+    if: needs.setup.outputs.skip != 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 200
+    strategy:
+      fail-fast: true
+      matrix:
+        term: ${{ fromJSON(needs.setup.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: System dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libpoppler-cpp-dev libtesseract-dev tesseract-ocr libcurl4-openssl-dev
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          packages: |
+            any::gt
+            any::gtExtras
+            any::tidyverse
+            any::httr2
+            any::jsonlite
+            any::pdftools
+            any::htmltools
+      - name: Fetch OT ${{ matrix.term }}
+        env:
+          TERM_YEAR: ${{ matrix.term }}
+          OUT_FILE: cases-${{ matrix.term }}.rds
+        run: Rscript .github/scripts/fetch_term.R
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cases-${{ matrix.term }}
+          path: cases-${{ matrix.term }}.rds
+          retention-days: 3
+
+  publish:
+    needs: [setup, fetch]
+    if: needs.setup.outputs.skip != 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source (main)
+        uses: actions/checkout@v4
+      - name: Checkout published site (gh-pages) into ./site
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          path: site
+      - name: System dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libpoppler-cpp-dev libtesseract-dev tesseract-ocr libcurl4-openssl-dev
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          packages: |
+            any::gt
+            any::gtExtras
+            any::tidyverse
+            any::httr2
+            any::jsonlite
+            any::pdftools
+            any::htmltools
+      - name: Download term artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: cases
+          pattern: cases-*
+          merge-multiple: true
+      - name: Render conferences
+        env:
+          SITE_DIR: site
+          CASES_DIR: cases
+          MIN_CONF_DATE: ${{ needs.setup.outputs.min_conf }}
+        run: Rscript .github/scripts/render_conferences.R
+      - name: Commit and publish
+        working-directory: site
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes to publish."
+          else
+            git commit -m "Conference refresh $(date -u +%F)"
+            git push origin gh-pages
+          fi
