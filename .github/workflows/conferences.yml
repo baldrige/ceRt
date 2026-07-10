@@ -20,6 +20,10 @@ on:
         description: "Render conferences on/after (YYYY-MM-DD). Blank = auto from terms."
         required: false
         default: ""
+      qp_max_new:
+        description: "Max new QP petition PDFs to fetch this run (raise for a one-time backfill)."
+        required: false
+        default: "600"
 
 permissions:
   contents: write
@@ -126,6 +130,7 @@ jobs:
           SITE_DIR: site
           CASES_DIR: cases
           MIN_CONF_DATE: ${{ needs.setup.outputs.min_conf }}
+          QP_MAX_NEW: ${{ inputs.qp_max_new || '600' }}
         run: Rscript .github/scripts/render_conferences.R
       - name: Render cert funnel
         # Never let a funnel failure block conference publishing.
