@@ -334,38 +334,33 @@ one_in <- function(num, den) {
   paste0("1 in ", fmt_n(round(den / num)))
 }
 
-# A proportional horizontal-bar funnel as inline SVG. Count + note render
-# BELOW each bar (never clipped by the viewBox, whatever the bar width).
-funnel_svg <- function(rows, total, width = 680, bar_h = 34, gap = 34,
-                       fill = "#0b3d91") {
+# A proportional funnel as animated HTML bars: each stage a labelled band whose
+# bar width is proportional to its count (last/granted bar in the accent).
+# `bar_color` is the CSS colour for the non-final bars.
+funnel_svg <- function(rows, total, bar_color = "var(--ink)", ...) {
   if (is.na(total) || total <= 0 || nrow(rows) == 0) {
     return(tags$p(class = "note", "No petitions yet."))
   }
   n_rows <- nrow(rows)
-  height <- n_rows * (bar_h + gap) + 4
-  label_w <- max(150, round(width * 0.26))
-  usable <- width - label_w - 10
-  bars <- map_chr(seq_len(n_rows), function(i) {
-    w <- max(2, round(usable * rows$n[i] / total))
-    y <- (i - 1) * (bar_h + gap)
-    opacity <- 1 - 0.13 * (i - 1)
+  items <- map_chr(seq_len(n_rows), function(i) {
+    w <- max(0.7, 100 * rows$n[i] / total)
+    is_last <- i == n_rows
+    color <- if (is_last) "var(--oxblood)" else bar_color
     sprintf(paste0(
-      '<text x="%d" y="%d" text-anchor="end" class="fl">%s</text>',
-      '<rect x="%d" y="%d" width="%d" height="%d" rx="4" fill="%s" fill-opacity="%.2f"/>',
-      '<text x="%d" y="%d" class="fn">%s</text>',
-      '<text x="%d" y="%d" class="fp">%s</text>'
+      '<div class="frow" style="--i:%d">',
+      '<div class="flabel">%s</div>',
+      '<div class="ftrack">',
+      '<div class="frail"><span class="fbar%s" style="width:%.2f%%;background:%s"></span></div>',
+      '<span class="fcount">%s</span></div>',
+      '<div class="fnote">%s</div></div>'
     ),
-      label_w - 8, y + bar_h / 2 + 5, htmlEscape(rows$label[i]),
-      label_w, y, w, bar_h, fill, opacity,
-      label_w, y + bar_h + 15, fmt_n(rows$n[i]),
-      label_w + 12 + nchar(fmt_n(rows$n[i])) * 9, y + bar_h + 15,
-      htmlEscape(rows$note[i])
+      i - 1L, htmlEscape(rows$label[i]),
+      if (is_last) " fbar-key" else "", w, color,
+      fmt_n(rows$n[i]), htmlEscape(rows$note[i])
     )
   })
-  HTML(sprintf(
-    '<svg viewBox="0 0 %d %d" width="100%%" style="max-width:%dpx" role="img" aria-label="Certiorari funnel">%s</svg>',
-    width, height, width, paste(bars, collapse = "")
-  ))
+  HTML(sprintf('<div class="funnel" role="img" aria-label="Certiorari funnel">%s</div>',
+               paste(items, collapse = "")))
 }
 
 funnel_rows <- function(tot, live = FALSE) {
@@ -387,9 +382,12 @@ funnel_rows <- function(tot, live = FALSE) {
   )
 }
 
-relist_gt <- function(rt) {
-  rt |>
-    filter(n >= 25) |> # minimum-N row suppression
+# Hand-rolled relist table with an oxblood heat on the Granted column so the
+# eye lands on where a relist actually pays off. Rows with fewer than 25
+# decided petitions are suppressed (small-N noise).
+relist_html <- function(rt) {
+  d <- rt |>
+    filter(n >= 25) |>
     mutate(
       relists = if_else(bucket == "0", "Never relisted",
                         paste0("Relisted ", bucket, "×")),
@@ -397,20 +395,48 @@ relist_gt <- function(rt) {
       p_gvr = 100 * gvr / n,
       p_denied = 100 * denied / n,
       p_dismissed = 100 * dismissed / n
-    ) |>
-    select(relists, n, p_granted, p_gvr, p_denied, p_dismissed) |>
-    gt() |>
-    fmt_number(columns = starts_with("p_"), decimals = 1, pattern = "{x}%") |>
-    fmt_number(columns = n, sep_mark = ",", decimals = 0) |>
-    cols_label(
-      relists = "", n = "Petitions",
-      p_granted = "Granted", p_gvr = "GVR'd",
-      p_denied = "Denied", p_dismissed = "Dismissed"
-    ) |>
-    data_color(columns = p_granted, palette = c("white", "#B2DF8A"),
-               domain = c(0, 60)) |>
-    gt_theme_nytimes() |>
-    tab_options(table.font.size = px(15))
+    )
+  # Heat scaled to the strongest granted rate in the table so contrast is real.
+  gmax <- max(d$p_granted, 1)
+  cell_pct <- function(v) paste0(format(round(v, 1), nsmall = 1, trim = TRUE), "%")
+  rows <- pmap_chr(d, function(relists, n, p_granted, p_gvr, p_denied, p_dismissed, ...) {
+    a <- max(0, min(0.9, p_granted / gmax))
+    on_dark <- a > 0.55
+    heat <- sprintf('style="background:rgba(138,43,43,%.3f)%s"',
+                    a, if (on_dark) ";color:var(--paper);font-weight:600" else "")
+    sprintf(paste0(
+      '<tr><th scope="row">%s</th><td class="num">%s</td>',
+      '<td class="num heat" %s>%s</td><td class="num">%s</td>',
+      '<td class="num">%s</td><td class="num">%s</td></tr>'),
+      htmlEscape(relists), fmt_n(n),
+      heat, cell_pct(p_granted), cell_pct(p_gvr),
+      cell_pct(p_denied), cell_pct(p_dismissed))
+  })
+  HTML(sprintf(paste0(
+    '<table class="rtable"><thead><tr>',
+    '<th class="lead"></th><th class="num">Petitions</th>',
+    '<th class="num">Granted</th><th class="num">GVR’d</th>',
+    '<th class="num">Denied</th><th class="num">Dismissed</th>',
+    '</tr></thead><tbody>%s</tbody></table>'),
+    paste(rows, collapse = "")))
+}
+
+# The "ones to watch" drill-down: pending petitions currently relisted, most
+# relists first. Hand-rolled to match the page (no gt theme).
+watch_table <- function(rn) {
+  rows <- pmap_chr(rn, function(caption, dkt, n_relists, ...) {
+    sprintf(paste0(
+      '<tr><td class="wcase">%s</td>',
+      '<td class="num"><a href="https://www.supremecourt.gov/search.aspx?filename=/docket/docketfiles/html/public/%s.html">%s</a></td>',
+      '<td class="num">%s</td></tr>'),
+      htmlEscape(str_trunc(str_squish(caption), 90)),
+      htmlEscape(dkt), htmlEscape(dkt), n_relists)
+  })
+  HTML(sprintf(paste0(
+    '<table class="rtable wtable"><thead><tr>',
+    '<th class="lead">Case</th><th class="num">Docket</th>',
+    '<th class="num">Relists</th></tr></thead><tbody>%s</tbody></table>'),
+    paste(rows, collapse = "")))
 }
 
 term_label <- function(term) paste0("OT", 2000 + as.integer(term))
@@ -425,28 +451,132 @@ render_funnel_page <- function(live, baselines, out_dir,
   dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
 
   css <- HTML("
-    body{font-family:'Source Sans Pro',system-ui,sans-serif;max-width:860px;
-      margin:2rem auto;padding:0 1rem;color:#1a1a1a;line-height:1.5}
-    h1{font-weight:600;border-bottom:2px solid #1a1a1a;padding-bottom:.4rem}
-    h2{font-weight:600;margin-top:2.2rem}
-    .headline{font-size:1.35rem;background:#f5f7fb;border-left:5px solid #0b3d91;
-      padding:1rem 1.2rem;margin:1.4rem 0}
-    .headline b{color:#0b3d91}
-    .defs{background:#fbf8f2;border:1px solid #e8e0d0;border-radius:6px;
-      padding:.8rem 1.2rem;font-size:.95rem}
-    .defs dt{font-weight:700;float:left;clear:left;margin-right:.5rem}
-    .defs dd{margin:0 0 .35rem 7.5rem}
-    .fl{font:600 14px 'Source Sans Pro',sans-serif;fill:#1a1a1a}
-    .fn{font:700 14px 'Source Sans Pro',sans-serif;fill:#1a1a1a}
-    .fp{font:13px 'Source Sans Pro',sans-serif;fill:#666}
-    .cols{display:flex;gap:2rem;flex-wrap:wrap}
-    .cols>div{flex:1;min-width:300px}
-    .note{color:#555;font-size:.92rem}
-    .methods{font-size:.88rem;color:#444;border-top:1px solid #ddd;
-      margin-top:3rem;padding-top:1rem}
-    .methods li{margin-bottom:.4rem}
-    a{color:#0b3d91}
-    .exitbar{color:#666;font-size:.92rem;margin:.3rem 0 1.2rem}
+    :root{
+      --paper:#f3ecdd;--paper-2:#ede4d0;--panel:#f7f1e4;
+      --ink:#23262d;--ink-soft:#5f5847;--faint:#8a8271;
+      --oxblood:#8a2b2b;--sienna:#b5651d;--gold:#a8862c;
+      --rule:#d8cdb4;--rail:#e4dac2;
+    }
+    *{box-sizing:border-box}
+    html{-webkit-text-size-adjust:100%}
+    body{
+      font-family:'Newsreader',Georgia,serif;font-optical-sizing:auto;
+      font-size:19px;line-height:1.62;color:var(--ink);
+      background:var(--paper);margin:0;
+      font-feature-settings:'onum' 1;
+    }
+    /* faint paper grain */
+    body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
+      opacity:.5;mix-blend-mode:multiply;
+      background-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E\");}
+    .wrap{max-width:44rem;margin:0 auto;padding:3.2rem 1.4rem 5rem}
+    p{margin:0 0 1.05rem}
+    a{color:var(--oxblood);text-decoration:none;
+      border-bottom:1px solid rgba(138,43,43,.32);transition:border-color .15s}
+    a:hover{border-color:var(--oxblood)}
+    /* -- masthead -- */
+    .kicker{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;
+      text-transform:uppercase;color:var(--oxblood);margin:0 0 1rem}
+    h1{font-family:'Fraunces',Georgia,serif;font-weight:600;
+      font-size:clamp(2.9rem,8vw,4.6rem);line-height:.98;letter-spacing:-.015em;
+      margin:0 0 1rem;color:var(--ink);font-optical-sizing:auto}
+    h1 em{font-style:italic;font-weight:500;color:var(--oxblood)}
+    .dek{font-size:1.28rem;line-height:1.5;color:var(--ink-soft);
+      font-style:italic;max-width:34rem;margin:0 0 1.6rem}
+    .brule{border:0;height:0;border-top:2px solid var(--ink);
+      margin:1.6rem 0 .4rem;position:relative}
+    .brule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+      border-top:1px solid var(--rule)}
+    /* -- section headers -- */
+    .over{font:600 .74rem/1 'Newsreader';letter-spacing:.2em;
+      text-transform:uppercase;color:var(--sienna);
+      margin:3.2rem 0 .55rem;display:flex;align-items:center;gap:.7rem}
+    .over::after{content:'';flex:1;border-top:1px solid var(--rule)}
+    h2{font-family:'Fraunces',Georgia,serif;font-weight:600;
+      font-size:1.85rem;line-height:1.08;letter-spacing:-.01em;
+      margin:0 0 .9rem;color:var(--ink)}
+    h3{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.18rem;
+      margin:0 0 .3rem;color:var(--ink)}
+    /* -- hero stat callout -- */
+    .hero{margin:2.2rem 0 2.6rem;padding:1.7rem 1.8rem;background:var(--panel);
+      border:1px solid var(--rule);border-left:4px solid var(--oxblood);
+      box-shadow:0 1px 0 rgba(0,0,0,.03),0 14px 30px -22px rgba(60,40,20,.5)}
+    .hero .big{font-family:'Fraunces',Georgia,serif;font-weight:600;
+      font-size:clamp(2.6rem,9vw,3.9rem);line-height:1;color:var(--oxblood);
+      letter-spacing:-.02em;font-feature-settings:'lnum' 1;margin-bottom:.35rem}
+    .hero .sub{font-size:1.05rem;color:var(--ink-soft)}
+    .hero .sub b{color:var(--ink);font-weight:600}
+    /* -- definitions -- */
+    .defs{margin:1.6rem 0;padding:0;list-style:none;border-top:1px solid var(--rule)}
+    .defs .row{display:grid;grid-template-columns:8.5rem 1fr;gap:.2rem 1.1rem;
+      padding:.7rem 0;border-bottom:1px solid var(--rule)}
+    .defs dt{font-family:'Fraunces',Georgia,serif;font-weight:600;
+      font-size:1.02rem;color:var(--ink)}
+    .defs dd{margin:0;font-size:.98rem;color:var(--ink-soft);line-height:1.45}
+    @media(max-width:33rem){.defs .row{grid-template-columns:1fr}}
+    /* -- funnel bars -- */
+    .funnel{margin:1.8rem 0 .6rem}
+    .frow{margin:0 0 1.2rem;opacity:0;transform:translateY(7px);
+      animation:frise .6s cubic-bezier(.2,.7,.2,1) forwards;
+      animation-delay:calc(var(--i)*130ms)}
+    .flabel{font:600 .72rem/1 'Newsreader';letter-spacing:.13em;
+      text-transform:uppercase;color:var(--ink-soft);margin-bottom:.42rem}
+    .ftrack{display:grid;grid-template-columns:1fr auto;align-items:center;gap:.85rem}
+    .frail{position:relative;height:30px;background:var(--rail);border-radius:2px;
+      overflow:hidden}
+    .fbar{display:block;height:100%;border-radius:2px;transform:scaleX(0);
+      transform-origin:left center;
+      animation:fgrow .9s cubic-bezier(.22,.61,.36,1) forwards;
+      animation-delay:calc(var(--i)*130ms + 90ms)}
+    .fbar-key{box-shadow:inset 0 0 0 999px rgba(0,0,0,.04)}
+    .fcount{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.18rem;
+      color:var(--ink);font-feature-settings:'tnum' 1,'lnum' 1;
+      min-width:3.4rem;text-align:right;opacity:0;
+      animation:ffade .5s ease forwards;animation-delay:calc(var(--i)*130ms + .5s)}
+    .fnote{font-size:.92rem;color:var(--faint);margin-top:.35rem;font-style:italic}
+    @keyframes frise{to{opacity:1;transform:none}}
+    @keyframes fgrow{to{transform:scaleX(1)}}
+    @keyframes ffade{to{opacity:1}}
+    @media(prefers-reduced-motion:reduce){
+      .frow,.fbar,.fcount{animation:none;opacity:1;transform:none}}
+    .exitbar{color:var(--ink-soft);font-size:.96rem;font-style:italic;
+      margin:.2rem 0 1.4rem;padding-left:.9rem;border-left:2px solid var(--rule)}
+    /* -- two doors -- */
+    .cols{display:grid;grid-template-columns:1fr 1fr;gap:2.2rem;margin:1.4rem 0}
+    @media(max-width:38rem){.cols{grid-template-columns:1fr}}
+    .cols .note{margin-top:.2rem}
+    /* -- tables -- */
+    .rtable{width:100%;border-collapse:collapse;margin:1.3rem 0 .5rem;
+      font-size:.98rem}
+    .rtable th,.rtable td{padding:.55rem .7rem;text-align:left;
+      border-bottom:1px solid var(--rule)}
+    .rtable thead th{font:600 .7rem/1.2 'Newsreader';letter-spacing:.09em;
+      text-transform:uppercase;color:var(--faint);border-bottom:1.5px solid var(--ink);
+      vertical-align:bottom}
+    .rtable .num{text-align:right;font-feature-settings:'tnum' 1,'lnum' 1;
+      font-variant-numeric:tabular-nums}
+    .rtable tbody th[scope=row]{font-weight:600;color:var(--ink)}
+    .rtable .wcase{font-size:.95rem;line-height:1.35}
+    .rtable tbody tr:hover{background:rgba(138,43,43,.04)}
+    .rtable .heat{border-radius:2px}
+    details{margin:1rem 0 1.6rem}
+    summary{cursor:pointer;font-family:'Fraunces',Georgia,serif;font-weight:600;
+      font-size:1.05rem;color:var(--oxblood);list-style:none;
+      padding:.55rem .8rem;background:var(--panel);border:1px solid var(--rule);
+      border-radius:3px}
+    summary::-webkit-details-marker{display:none}
+    summary::before{content:'▸ ';color:var(--sienna)}
+    details[open] summary::before{content:'▾ '}
+    .note{color:var(--ink-soft);font-size:.96rem;line-height:1.5}
+    /* -- follow / methods -- */
+    .follow{list-style:none;padding:0;margin:1rem 0}
+    .follow li{padding:.75rem 0;border-bottom:1px solid var(--rule)}
+    .follow a{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.1rem}
+    .methods{font-size:.9rem;color:var(--ink-soft);line-height:1.5;
+      border-top:2px solid var(--ink);margin-top:3.4rem;padding-top:1.1rem}
+    .methods b{font-family:'Fraunces',Georgia,serif;font-size:1rem;color:var(--ink)}
+    .methods ul{padding-left:1.1rem;margin:.7rem 0 0}
+    .methods li{margin-bottom:.55rem}
   ")
 
   pooled <- baselines$pooled$total
@@ -474,20 +604,12 @@ render_funnel_page <- function(live, baselines, out_dir,
         }
         relisted_now <- tags$details(
           tags$summary(label),
-          rn |>
-            transmute(
-              Case = str_trunc(str_squish(caption), 90),
-              `Docket` = sprintf(
-                '<a href="https://www.supremecourt.gov/search.aspx?filename=/docket/docketfiles/html/public/%s.html">%s</a>',
-                dkt, dkt),
-              Relists = n_relists
-            ) |>
-            gt() |> fmt_markdown(columns = Docket) |>
-            gt_theme_nytimes() |> as_raw_html() |> HTML()
+          watch_table(rn)
         )
       }
     }
     tagList(
+      div(class = "over", "This term, so far"),
       h2(sprintf("%s — the term in progress", term_label(term))),
       p(class = "note", sprintf(
         "Data as of %s. Petitions from this term are still being docketed and decided; %s are still waiting on an outcome.",
@@ -505,71 +627,91 @@ render_funnel_page <- function(live, baselines, out_dir,
   ptot <- baselines$pooled$by_type |> filter(type == "paid")
   itot <- baselines$pooled$by_type |> filter(type == "ifp")
 
-  doc <- tags$html(
-    tags$head(
-      tags$meta(charset = "utf-8"),
-      tags$meta(name = "viewport", content = "width=device-width, initial-scale=1"),
-      tags$title("The Cert Funnel — how Supreme Court petitions live and die"),
-      tags$style(css)
-    ),
-    tags$body(
-      h1("The Cert Funnel"),
-      p("Nearly everything the Supreme Court is asked to do, it declines to do — silently. ",
-        "Each Term roughly five thousand parties petition the Court to hear their case; ",
-        "the Justices agree to hear fewer than a hundred. This page tracks every petition ",
-        "through the machine: from docketing, to the Justices' private conference, through ",
+  font_url <- paste0(
+    "https://fonts.googleapis.com/css2?",
+    "family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&",
+    "family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&",
+    "display=swap")
+  # htmltools treats <head> as a singleton collection that as.character() drops
+  # (it is only emitted by save_html/renderDocument). Build the head as raw HTML
+  # and use tags only for the body, which serializes reliably.
+  head_html <- paste0(
+    "<head>",
+    '<meta charset="utf-8">',
+    '<meta name="viewport" content="width=device-width, initial-scale=1">',
+    "<title>The Cert Funnel &mdash; how Supreme Court petitions live and die</title>",
+    '<link rel="preconnect" href="https://fonts.googleapis.com">',
+    '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>',
+    '<link rel="stylesheet" href="', font_url, '">',
+    "<style>", as.character(css), "</style>",
+    "</head>")
+
+  body_tag <- tags$body(
+      tags$main(class = "wrap",
+      p(class = "kicker", "A field guide to the shadow docket’s daylight cousin"),
+      h1(HTML("The <em>Cert</em> Funnel")),
+      p(class = "dek", "Nearly everything the Supreme Court is asked to do, it declines ",
+        "to do — silently. This page follows every petition through the machine."),
+      tags$hr(class = "brule"),
+      p("Each Term roughly five thousand parties petition the Court to hear their case; ",
+        "the Justices agree to hear fewer than a hundred. What follows traces that ",
+        "attrition end to end: from docketing, to the Justices' private conference, through ",
         "relists, to the quiet one-line order that ends almost all of them."),
+      div(class = "hero",
+        div(class = "big", one_in(pooled$granted, pooled$docketed)),
+        div(class = "sub", HTML(sprintf(
+          "Over %s the Court received <b>%s</b> petitions and granted <b>%s</b>.",
+          pooled_span, fmt_n(pooled$docketed), fmt_n(pooled$granted))))),
       tags$dl(class = "defs",
-        tags$dt("Docketed"), tags$dd("A petition arrives and gets a case number. “OT2025” is the Term that opened in October 2025."),
-        tags$dt("Conference"), tags$dd("The Justices' private meeting (most Fridays in season) where they vote on which cases to hear. No outsiders attend; no reasons are given."),
-        tags$dt("Relist"), tags$dd("The Justices looked at a petition at conference and, instead of granting or denying, rolled it to the next conference for another look."),
-        tags$dt("GVR"), tags$dd("Granted, Vacated, Remanded: a one-line order sending a case back to the lower court for a fresh look — usually in light of a new decision — without briefing or argument."),
-        tags$dt("IFP"), tags$dd(HTML("<em>In forma pauperis</em> — filed by someone who cannot afford the $300 filing fee, most often a prisoner without a lawyer."))
+        div(class = "row", tags$dt("Docketed"), tags$dd("A petition arrives and gets a case number. “OT2025” is the Term that opened in October 2025.")),
+        div(class = "row", tags$dt("Conference"), tags$dd("The Justices' private meeting (most Fridays in season) where they vote on which cases to hear. No outsiders attend; no reasons are given.")),
+        div(class = "row", tags$dt("Relist"), tags$dd("The Justices looked at a petition at conference and, instead of granting or denying, rolled it to the next conference for another look.")),
+        div(class = "row", tags$dt("GVR"), tags$dd("Granted, Vacated, Remanded: a one-line order sending a case back to the lower court for a fresh look — usually in light of a new decision — without briefing or argument.")),
+        div(class = "row", tags$dt("IFP"), tags$dd(HTML("<em>In forma pauperis</em> — filed by someone who cannot afford the $300 filing fee, most often a prisoner without a lawyer.")))
       ),
-      div(class = "headline", HTML(sprintf(
-        "Over %s, the Court received <b>%s</b> petitions and granted <b>%s</b> — <b>%s</b>.",
-        pooled_span, fmt_n(pooled$docketed), fmt_n(pooled$granted),
-        one_in(pooled$granted, pooled$docketed)))),
       live_sections,
+      div(class = "over", "The base rate"),
       h2(sprintf("The complete picture: %s", pooled_span)),
       p(class = "note", sprintf(
         "%s petitions across %d completed Terms. This is what normally happens.",
         fmt_n(pooled$docketed), length(pooled_terms))),
       funnel_svg(funnel_rows(pooled), pooled$docketed),
-      div(class = "exitbar", sprintf(
+      div(class = "exitbar", HTML(sprintf(
         "Exits: %s denied (%s of everything filed) · %s GVR'd · %s dismissed or otherwise closed. %s%% of all denials came at the case's first and only conference.",
         fmt_n(pooled$denied), pct(pooled$denied, pooled$docketed),
         fmt_n(pooled$gvr), fmt_n(pooled$dismissed),
-        round(100 * pooled$died_first_conf / max(pooled$denied, 1)))),
+        round(100 * pooled$died_first_conf / max(pooled$denied, 1))))),
+      div(class = "over", "Two doors"),
       h2("Two very different doors"),
       p("Petitioners who can pay the $300 filing fee and printing costs file on the ",
         HTML("&ldquo;paid&rdquo;"), " docket. Prisoners and others who cannot afford it file ",
         HTML("<em>in forma pauperis</em>"), " (IFP). The machine treats the two piles very differently:"),
       div(class = "cols",
         div(h3(sprintf("Paid (%s petitions)", fmt_n(ptot$docketed))),
-            funnel_svg(funnel_rows(ptot), ptot$docketed, width = 460, bar_h = 30, gap = 32),
+            funnel_svg(funnel_rows(ptot), ptot$docketed),
             p(class = "note", sprintf("Granted: %s — %s", pct(ptot$granted, ptot$docketed),
                                       one_in(ptot$granted, ptot$docketed)))),
         div(h3(sprintf("In forma pauperis (%s petitions)", fmt_n(itot$docketed))),
-            funnel_svg(funnel_rows(itot), itot$docketed, width = 460, bar_h = 30, gap = 32,
-                       fill = "#c05a00"),
+            funnel_svg(funnel_rows(itot), itot$docketed, bar_color = "var(--sienna)"),
             p(class = "note", sprintf("Granted: %s — %s", pct(itot$granted, itot$docketed),
                                       one_in(itot$granted, itot$docketed))))
       ),
       p(class = "note", "These are descriptive base rates, not causes: the two dockets ",
         "carry very different kinds of cases, not just different filing fees."),
+      div(class = "over", "The relist signal"),
       h2("What a relist is worth"),
       p("Court-watchers treat the relist as the strongest public signal at this stage: ",
         "it means at least someone in the building gave the petition a second look. ",
         sprintf(paste0("Across %s, here is what happened to decided petitions that ",
                        "reached at least one conference, grouped by how many times ",
                        "they were relisted:"), pooled_span)),
-      HTML(as_raw_html(relist_gt(baselines$pooled$relist_table))),
+      relist_html(baselines$pooled$relist_table),
       p(class = "note", "Petitions relisted once or twice were granted far more often ",
         "than never-relisted ones. Petitions relisted many times usually met a ",
         "different fate: most were being held for another case already under review, ",
         "and usually ended in a GVR or a denial once that case came down. ",
         "History, not prophecy: none of this predicts any particular case."),
+      div(class = "over", "Silence"),
       h2("How rarely anyone even responds"),
       p(sprintf(
         paste0("The other side often does not bother: across %s, a brief in ",
@@ -581,8 +723,9 @@ render_funnel_page <- function(live, baselines, out_dir,
         pct(pooled$has_resp, pooled$docketed), fmt_n(pooled$has_resp),
         pct(pooled$has_cfr, pooled$docketed), fmt_n(pooled$has_cfr),
         pct(pooled$has_amicus, pooled$docketed), fmt_n(pooled$has_amicus))),
+      div(class = "over", "Keep watching"),
       h2("Follow the machine"),
-      tags$ul(
+      tags$ul(class = "follow",
         tags$li(a(href = "../dashboards/", "The daily docket"),
                 " — every new petition and application, as it arrives."),
         tags$li(a(href = "../conferences/", "Conference reports"),
@@ -625,10 +768,10 @@ render_funnel_page <- function(live, baselines, out_dir,
           tags$li(a(href = "https://github.com/baldrige/ceRt", "Code and data"), ".")
         )
       )
-    )
-  )
-  # Write directly (save_html would wrap the document in a second <html>).
-  writeLines(paste0("<!DOCTYPE html>\n", as.character(doc)),
-             file.path(out_dir, "index.html"), useBytes = TRUE)
+      ) # /main.wrap
+    ) # /body
+  html <- paste0("<!DOCTYPE html>\n<html lang=\"en\">\n",
+                 head_html, "\n", as.character(body_tag), "\n</html>\n")
+  writeLines(html, file.path(out_dir, "index.html"), useBytes = TRUE)
   invisible(file.path(out_dir, "index.html"))
 }
