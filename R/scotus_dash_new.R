@@ -304,37 +304,19 @@ fetch_is_degraded <- function(ot, tol = 0.1) {
 }
 
 # ---- question presented -----------------------------------------------------
-
-# Extract the QP text from page 2 of a petition PDF (a URL or a local path).
-# Tries the text layer first (fast); falls back to OCR only when there's none.
-extract_qp_page2 <- function(src) {
-  page2 <- function(fn) {
-    t <- fn(src)
-    t <- if (length(t) >= 2) t[[2]] else t[[1]]
-    if (is.null(t) || str_squish(t) == "") stop("empty page")
-    t
+# extract_qp_page2() / get_qp() live in R/qp_extract.R (shared with the
+# conference reports). Sourced relative to this file's location.
+local({
+  here <- tryCatch(dirname(sys.frame(1)$ofile), error = function(e) NA)
+  qp <- if (!is.na(here) && file.exists(file.path(here, "qp_extract.R"))) {
+    file.path(here, "qp_extract.R")
+  } else if (file.exists("R/qp_extract.R")) {
+    "R/qp_extract.R"
+  } else {
+    "qp_extract.R"
   }
-  txt <- tryCatch(
-    page2(pdftools::pdf_text),
-    error = function(e) tryCatch(
-      page2(function(s) pdftools::pdf_ocr_text(s, pages = 2)),
-      error = function(e2) "-"
-    )
-  )
-  if (identical(txt, "-")) return(txt)
-  # Petition pages are indented, and markdown renders any line starting with 4+
-  # spaces as a code block (monospace). Strip per-line leading whitespace and
-  # collapse blank-line runs so the QP renders as normal prose.
-  txt <- str_replace_all(txt, regex("^[ \\t]+", multiline = TRUE), "")
-  txt <- str_replace_all(txt, "\n{3,}", "\n\n")
-  str_trim(txt)
-}
-
-# Single petition QP (pdftools downloads the URL itself).
-get_qp <- function(url) {
-  if (is.na(url) || url == "") return("-")
-  extract_qp_page2(url)
-}
+  sys.source(qp, envir = globalenv())
+})
 
 # ---- render -----------------------------------------------------------------
 
@@ -410,17 +392,11 @@ scotus_dash <- function(range = today() - 1, year = "26",
       factor(type, levels = c("paid", "ifp", "app")),
       as.integer(str_extract(dkt, "\\d+$"))
     ) |>
-    # Lead the address cell with the firm / affiliation, like letterhead.
-    mutate(parties_address = if_else(
+    # Counsel of record's name with their firm beneath it (no address/email).
+    mutate(parties_attys = if_else(
       !is.na(parties_firm) & parties_firm != "",
-      str_c(parties_firm, "  \n", parties_address),
-      parties_address
-    )) |>
-    # Append counsel email (public record) beneath the address.
-    mutate(parties_address = if_else(
-      !is.na(parties_email) & parties_email != "",
-      str_c(parties_address, "  \n<", parties_email, ">"),
-      parties_address
+      str_c(parties_attys, "  \n", parties_firm),
+      parties_attys
     )) |>
     mutate(dkt = str_c(
       "[", dkt,
@@ -436,7 +412,7 @@ scotus_dash <- function(range = today() - 1, year = "26",
     )) |>
     mutate(lower = str_replace_all(lower, " NA", " —")) |>
     rename(pro_se = parties_pro_se) |>
-    select(type, caption, dkt, lower, parties_attys, parties_address,
+    select(type, caption, dkt, lower, parties_attys,
            events, pro_se, petition_url)
 
   qps <- purrr::map_chr(table1$petition_url, get_qp)
@@ -449,7 +425,7 @@ scotus_dash <- function(range = today() - 1, year = "26",
       "<details><summary>Question(s) presented</summary>", qps, "</details>"
     )) |>
     gt() |>
-    fmt_markdown(columns = c(caption, lower, dkt, parties_address, events, qps)) |>
+    fmt_markdown(columns = c(caption, lower, dkt, parties_attys, events, qps)) |>
     tab_header(title = paste0(
       "Petitions and applications docketed on ", format(range, "%B %d, %Y")
     )) |>
@@ -459,7 +435,6 @@ scotus_dash <- function(range = today() - 1, year = "26",
       dkt = "Docket No",
       lower = "Court Below",
       parties_attys = "Petitioner's Counsel",
-      parties_address = "Counsel's Address",
       events = "Recent Filings",
       qps = "QP"
     ) |>

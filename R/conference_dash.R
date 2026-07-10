@@ -84,10 +84,32 @@ conference_distributions <- function(cases) {
     select(-.cid)
 }
 
+# Petitioner's counsel of record as "Name\nFirm", from the JSON parties
+# structure (build_parties() in scotus_dash_new.R). Returns NA for the
+# historical scraper structure (no firm / counsel-of-record; not re-rendered by
+# CI) so the column can be dropped when empty.
+counsel_cell <- function(parties) {
+  if (!is.data.frame(parties) || nrow(parties) == 0) return(NA_character_)
+  if (!all(c("attys", "firm", "counsel_of_record", "type") %in% names(parties))) {
+    return(NA_character_)
+  }
+  pet <- parties |> filter(str_detect(type, "Petitioner|Applicant|Appellant"))
+  if (nrow(pet) == 0) return(NA_character_)
+  cor <- pet |> filter(counsel_of_record %in% TRUE)
+  row <- if (nrow(cor) > 0) cor[1, ] else pet[1, ]
+  nm <- row$attys
+  fm <- row$firm
+  if (is.na(nm) || nm == "") return(NA_character_)
+  if (!is.na(fm) && fm != "") str_c(nm, "  \n", fm) else nm
+}
+
 # Render one conference's dashboard from a conference_distributions() tibble.
-# Returns the output path (invisibly), or NULL if no cases match.
+# `qp_map` (optional) is a named vector: raw docket -> <details> QP HTML.
+# Counsel and QP columns are included only when the data provides them (so
+# historical pages stay clean). Returns the output path (invisibly), or NULL.
 conference_dash <- function(dist, conf_date,
-                            out_dir = path.expand("~/public_html/conferences")) {
+                            out_dir = path.expand("~/public_html/conferences"),
+                            qp_map = NULL) {
   dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
   conf_date <- as.Date(conf_date)
 
@@ -113,6 +135,12 @@ conference_dash <- function(dist, conf_date,
       !is.na(petition_url) & petition_url != "",
       str_c("[Petition](", petition_url, ")"), "—"
     )) |>
+    mutate(counsel = if ("parties" %in% names(dist)) {
+      map_chr(parties, counsel_cell)
+    } else {
+      NA_character_
+    }) |>
+    mutate(qp = if (is.null(qp_map)) NA_character_ else unname(qp_map[dkt])) |>
     # Most-relisted cases first (the interesting ones), then paid -> ifp -> app
     # and docket number, while dkt is still raw.
     arrange(
@@ -124,32 +152,47 @@ conference_dash <- function(dist, conf_date,
       "[", dkt,
       "](https://www.supremecourt.gov/search.aspx?filename=/docket/docketfiles/html/public/",
       dkt, ".html)"
-    )) |>
-    select(type, caption, dkt, petition, lower, status)
+    ))
 
-  d |>
+  has_counsel <- any(!is.na(d$counsel))
+  has_qp <- any(!is.na(d$qp))
+  d <- d |>
+    mutate(counsel = if_else(is.na(counsel), "—", counsel),
+           qp = if_else(is.na(qp), "—", qp)) |>
+    select(type, caption, dkt, petition,
+           any_of(if (has_counsel) "counsel" else character()),
+           lower, status,
+           any_of(if (has_qp) "qp" else character()))
+
+  md_cols <- intersect(c("caption", "dkt", "petition", "counsel", "qp"), names(d))
+  ctr_cols <- intersect(c("type", "dkt", "petition", "status"), names(d))
+  labels <- list(
+    type = "Type", caption = "Caption", dkt = "Docket No", petition = "Petition",
+    counsel = "Petitioner's Counsel", lower = "Court Below", status = "Status",
+    qp = "QP"
+  )
+  labels <- labels[names(labels) %in% names(d)]
+
+  tbl <- d |>
     gt() |>
-    fmt_markdown(columns = c(caption, dkt, petition)) |>
+    fmt_markdown(columns = all_of(md_cols)) |>
     tab_header(
       title = paste0("Cases distributed for the Conference of ",
                      format(conf_date, "%B %d, %Y")),
       subtitle = paste0(nrow(d), " case(s)")
     ) |>
     gt_theme_nytimes() |>
-    cols_label(
-      type = "Type", caption = "Caption", dkt = "Docket No",
-      petition = "Petition", lower = "Court Below", status = "Status"
-    ) |>
+    cols_label(.list = labels) |>
     cols_align(align = "left", columns = caption) |>
-    cols_align(align = "center", columns = c(type, dkt, petition, status)) |>
+    cols_align(align = "center", columns = all_of(ctr_cols)) |>
     # Fixed per-type fills: paid = green, ifp = orange, app = blue.
     tab_style(cell_fill(color = "#B2DF8A"),
               cells_body(columns = type, rows = type == "paid")) |>
     tab_style(cell_fill(color = "#FDBF6F"),
               cells_body(columns = type, rows = type == "ifp")) |>
     tab_style(cell_fill(color = "#A6CEE3"),
-              cells_body(columns = type, rows = type == "app")) |>
-    gtsave(str_c("conf_", conf_date, ".html"), path = out_dir)
+              cells_body(columns = type, rows = type == "app"))
+  gtsave(tbl, str_c("conf_", conf_date, ".html"), path = out_dir)
 
   invisible(file.path(out_dir, str_c("conf_", conf_date, ".html")))
 }
