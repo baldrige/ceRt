@@ -1,33 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="utf-8"/>
-<style>body{background-color:white;}</style>
-
-  <meta charset="utf-8"/>
-  <title>ceRt — Supreme Court Docket Dashboards</title>
-  <style>body{font-family:'Source Sans Pro',system-ui,sans-serif;max-width:760px;
-           margin:3rem auto;padding:0 1rem;color:#1a1a1a}
-         h1{font-weight:600;border-bottom:2px solid #1a1a1a;padding-bottom:.4rem}
-         ul{list-style:none;padding:0;font-size:1.1rem}
-         li{padding:.6rem 0}
-         a{text-decoration:none;color:#0b3d91;font-weight:600}
-         a:hover{text-decoration:underline}</style>
-</head>
-<html>
-  <body>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>ceRt — Supreme Court Docket Dashboards</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap"><style>
+  :root{
+    --paper:#f3ecdd;--panel:#f7f1e4;--ink:#23262d;--ink-soft:#5f5847;
+    --faint:#8a8271;--oxblood:#8a2b2b;--sienna:#b5651d;--rule:#d8cdb4;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{font-family:'Newsreader',Georgia,serif;font-size:19px;line-height:1.6;
+    color:var(--ink);background:var(--paper);margin:0;font-feature-settings:'onum' 1}
+  body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
+    opacity:.5;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");}
+  .wrap{max-width:40rem;margin:0 auto;padding:3rem 1.4rem 4rem}
+  .kicker{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--oxblood);margin:0 0 1rem}
+  h1{font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:clamp(2.4rem,7vw,3.6rem);line-height:1;letter-spacing:-.015em;
+    margin:0 0 1rem;color:var(--ink)}
+  h1 em{font-style:italic;font-weight:500;color:var(--oxblood)}
+  .dek{font-size:1.15rem;line-height:1.5;color:var(--ink-soft);font-style:italic;
+    margin:0 0 1.4rem}
+  .brule{border:0;height:0;border-top:2px solid var(--ink);margin:1.4rem 0 .3rem;
+    position:relative}
+  .brule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+    border-top:1px solid var(--rule)}
+  ul.idx{list-style:none;padding:0;margin:1.6rem 0}
+  ul.idx li{border-bottom:1px solid var(--rule)}
+  /* Whole row is one block-level link: a large, reliable tap target on mobile. */
+  ul.idx a.row{display:flex;justify-content:space-between;align-items:baseline;
+    gap:1rem;padding:.9rem .4rem;text-decoration:none;border:0;color:inherit}
+  ul.idx a.row:hover{background:rgba(138,43,43,.05)}
+  ul.idx .d{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.16rem;
+    color:var(--oxblood);line-height:1.25}
+  ul.idx a.row:hover .d{text-decoration:underline;text-underline-offset:3px}
+  ul.idx .count{color:var(--faint);font-size:.9rem;font-style:italic;white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  .back{margin-top:2rem;font-size:.95rem}
+  .back a{color:var(--sienna);text-decoration:none;
+    border-bottom:1px solid rgba(181,101,29,.35)}
+  .back a:hover{border-color:var(--sienna)}
+</style></head>
+<body>
+  <main class="wrap">
+    <p class="kicker">A window on the Court's docket</p>
     <h1>Supreme Court Docket Dashboards</h1>
-    <ul>
+    <hr class="brule"/>
+    <p class="dek">Tracking every petition through the machine — from filing to the quiet order that ends most of them.</p>
+    <ul class="idx">
       <li>
-        <a href="dashboards/">Daily petitions &amp; applications</a>
+        <a class="row" href="dashboards/">
+          <span class="d">Daily Petitions &amp; Applications</span>
+          <span class="count">new, daily</span>
+        </a>
       </li>
       <li>
-        <a href="conferences/">Conference reports</a>
+        <a class="row" href="conferences/">
+          <span class="d">Conference Reports</span>
+          <span class="count">weekly, by relists</span>
+        </a>
       </li>
       <li>
-        <a href="funnel/">The Cert Funnel — how petitions live and die</a>
+        <a class="row" href="funnel/">
+          <span class="d">The Cert Funnel</span>
+          <span class="count">the explainer</span>
+        </a>
       </li>
     </ul>
-  </body>
+  </main>
+</body>
 </html>
-</html>
+
