@@ -43,11 +43,14 @@ extract_qp_page2 <- function(src) {
     )
   )
   if (identical(txt, "-")) return(txt)
-  # Petition pages are indented, and markdown renders any line starting with 4+
-  # spaces as a code block (monospace). Strip per-line leading whitespace and
-  # collapse blank-line runs so the QP renders as normal prose.
-  txt <- str_replace_all(txt, regex("^[ \\t]+", multiline = TRUE), "")
-  txt <- str_replace_all(txt, "\n{3,}", "\n\n")
+  # Petition pages use layout whitespace that markdown misreads as code blocks
+  # (monospace): 4+ leading spaces, or several spaces after a list marker like
+  # "2.    Whether". Normalize all horizontal whitespace to single spaces (with
+  # no leading indent) so the QP renders as prose / a clean numbered list.
+  txt <- str_replace_all(txt, "\t", " ")                             # tabs -> space
+  txt <- str_replace_all(txt, regex("^ +", multiline = TRUE), "")    # drop leading indent
+  txt <- str_replace_all(txt, " {2,}", " ")                          # collapse layout spacing
+  txt <- str_replace_all(txt, "\n{3,}", "\n\n")                      # collapse blank runs
   strip_qp_heading(str_trim(txt))
 }
 
