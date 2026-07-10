@@ -165,7 +165,6 @@ conference_dash <- function(dist, conf_date,
            any_of(if (has_qp) "qp" else character()))
 
   md_cols <- intersect(c("caption", "dkt", "petition", "counsel", "qp"), names(d))
-  ctr_cols <- intersect(c("type", "dkt", "petition", "status"), names(d))
   labels <- list(
     type = "Type", caption = "Caption", dkt = "Docket No", petition = "Petition",
     counsel = "Petitioner's Counsel", lower = "Court Below", status = "Status",
@@ -183,8 +182,10 @@ conference_dash <- function(dist, conf_date,
     ) |>
     gt_theme_nytimes() |>
     cols_label(.list = labels) |>
-    cols_align(align = "left", columns = caption) |>
-    cols_align(align = "center", columns = all_of(ctr_cols)) |>
+    # Center every column to match the daily dashboards; the QP <details> block
+    # reads better left-aligned (as it is on the daily).
+    cols_align(align = "center", columns = everything()) |>
+    cols_align(align = "left", columns = any_of("qp")) |>
     # Fixed per-type fills: paid = green, ifp = orange, app = blue.
     tab_style(cell_fill(color = "#B2DF8A"),
               cells_body(columns = type, rows = type == "paid")) |>
