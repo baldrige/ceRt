@@ -118,30 +118,50 @@ resolve_qps <- function(dockets, urls, cache_path = NULL, max_new = Inf) {
 # single-question QP to flowing prose. Idempotent.
 reflow_qp <- function(txt) {
   if (length(txt) == 0 || is.na(txt) || identical(txt, "-") || txt == "") return(txt)
-  # Repair words split by a soft hyphen at a line break: "harm-\nlessness".
-  txt <- str_replace_all(txt, "([a-z])-\n([a-z])", "\\1\\2")
   lines <- str_trim(str_split(txt, "\n")[[1]])
   lines <- lines[lines != ""]
   if (length(lines) == 0) return("-")
+  # Drop a trailing lone page number (some petitions number at the bottom).
+  if (length(lines) > 1 &&
+      str_detect(lines[length(lines)], "^[ivxlcdmIVXLCDM0-9]{1,4}$")) {
+    lines <- lines[-length(lines)]
+  }
+  # Join a run of lines into one string, repairing soft-hyphen line breaks
+  # ("harm-" + "lessness" -> "harmlessness").
+  join_lines <- function(ls) {
+    out <- ls[1]
+    for (k in seq_len(length(ls) - 1L) + 1L) {
+      out <- if (str_detect(out, "[A-Za-z]-$")) {
+        paste0(str_sub(out, 1, -2), ls[k])
+      } else {
+        paste(out, ls[k])
+      }
+    }
+    str_squish(out)
+  }
 
   marker <- str_detect(lines, "^\\(?\\d+[.)]\\s")
-  if (sum(marker) < 2) { # not a numbered list -> flowing prose
-    return(str_squish(paste(lines, collapse = " ")))
-  }
+  if (sum(marker) < 2) return(join_lines(lines)) # not a numbered list -> prose
+
   grp <- cumsum(marker)
-  preamble <- if (any(grp == 0)) str_squish(paste(lines[grp == 0], collapse = " ")) else ""
-  items <- tapply(lines[grp > 0], grp[grp > 0], function(ls) {
-    str_squish(str_replace(paste(ls, collapse = " "), "^\\(?\\d+[.)]\\s*", ""))
+  preamble <- if (any(grp == 0)) join_lines(lines[grp == 0]) else ""
+  items <- tapply(seq_along(lines)[grp > 0], grp[grp > 0], function(idx) {
+    str_replace(join_lines(lines[idx]), "^\\(?\\d+[.)]\\s*", "")
   })
-  md_list <- paste0(seq_along(items), ". ", items, collapse = "\n")
+  # Blank line between items: gt's markdown renders a loose list; a single
+  # newline is NOT recognized as a list and falls back to prose.
+  md_list <- paste0(seq_along(items), ". ", items, collapse = "\n\n")
   if (nzchar(preamble)) paste0(preamble, "\n\n", md_list) else md_list
 }
 
 # Wrap raw QP text as a collapsible <details> block (markdown-rendered).
 qp_details <- function(qp) {
-  qp <- if_else(is.na(qp) | qp == "", "-", qp)
-  qp <- vapply(qp, strip_qp_heading, character(1), USE.NAMES = FALSE) # idempotent
-  qp <- vapply(qp, reflow_qp, character(1), USE.NAMES = FALSE)
+  qp <- vapply(qp, function(q) {
+    if (is.na(q) || q == "" || q == "-") return("—") # em-dash, not a list marker
+    reflow_qp(strip_qp_heading(q))
+  }, character(1), USE.NAMES = FALSE)
   qp <- str_replace_all(qp, "\\$", "&#36;")
-  str_c("<details><summary>Question(s) presented</summary>", qp, "</details>")
+  # Blank lines around the content so a leading "1." sits at a line boundary and
+  # markdown parses it as a list item (glued to </summary> it would not).
+  str_c("<details><summary>Question(s) presented</summary>\n\n", qp, "\n\n</details>")
 }
