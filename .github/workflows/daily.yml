@@ -1,6 +1,6 @@
 name: Daily SCOTUS dashboards
 
-# Fetches the current term once a day and republishes the daily petitions
+# Fetches the current term three times a day and republishes the daily petitions
 # dashboards to the gh-pages branch (served by GitHub Pages). The conference
 # archive already on gh-pages is preserved untouched.
 #
@@ -9,8 +9,12 @@ name: Daily SCOTUS dashboards
 
 on:
   schedule:
-    # 13:00 UTC ~ 9am ET, after the site's ~00:05 UTC nightly JSON re-export.
-    - cron: "0 13 * * *"
+    # Cron is UTC and does NOT observe US daylight saving, so the ET-anchored
+    # runs below are set for EDT (UTC-4); during standard time (Nov-Mar) they
+    # land one hour earlier in ET.
+    - cron: "30 0 * * *"   # ~00:30 UTC, shortly after the ~00:05 UTC JSON re-export
+    - cron: "0 18 * * *"   # 2pm ET (EDT); 1pm ET during standard time
+    - cron: "0 22 * * *"   # 6pm ET (EDT); 5pm ET during standard time
   workflow_dispatch:
 
 permissions:
