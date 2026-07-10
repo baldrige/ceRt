@@ -110,10 +110,38 @@ resolve_qps <- function(dockets, urls, cache_path = NULL, max_new = Inf) {
   }, character(1), USE.NAMES = FALSE)
 }
 
+# Reflow an extracted QP for clean markdown rendering. Petition PDFs wrap each
+# question across lines and separate questions with blank lines, which markdown
+# fragments into stray one-item lists and loose paragraphs. This rebuilds a
+# multi-question QP as a single tight ordered list (wrapped lines joined,
+# soft-hyphen line breaks repaired, items renumbered) and collapses a
+# single-question QP to flowing prose. Idempotent.
+reflow_qp <- function(txt) {
+  if (length(txt) == 0 || is.na(txt) || identical(txt, "-") || txt == "") return(txt)
+  # Repair words split by a soft hyphen at a line break: "harm-\nlessness".
+  txt <- str_replace_all(txt, "([a-z])-\n([a-z])", "\\1\\2")
+  lines <- str_trim(str_split(txt, "\n")[[1]])
+  lines <- lines[lines != ""]
+  if (length(lines) == 0) return("-")
+
+  marker <- str_detect(lines, "^\\(?\\d+[.)]\\s")
+  if (sum(marker) < 2) { # not a numbered list -> flowing prose
+    return(str_squish(paste(lines, collapse = " ")))
+  }
+  grp <- cumsum(marker)
+  preamble <- if (any(grp == 0)) str_squish(paste(lines[grp == 0], collapse = " ")) else ""
+  items <- tapply(lines[grp > 0], grp[grp > 0], function(ls) {
+    str_squish(str_replace(paste(ls, collapse = " "), "^\\(?\\d+[.)]\\s*", ""))
+  })
+  md_list <- paste0(seq_along(items), ". ", items, collapse = "\n")
+  if (nzchar(preamble)) paste0(preamble, "\n\n", md_list) else md_list
+}
+
 # Wrap raw QP text as a collapsible <details> block (markdown-rendered).
 qp_details <- function(qp) {
   qp <- if_else(is.na(qp) | qp == "", "-", qp)
   qp <- vapply(qp, strip_qp_heading, character(1), USE.NAMES = FALSE) # idempotent
+  qp <- vapply(qp, reflow_qp, character(1), USE.NAMES = FALSE)
   qp <- str_replace_all(qp, "\\$", "&#36;")
   str_c("<details><summary>Question(s) presented</summary>", qp, "</details>")
 }
