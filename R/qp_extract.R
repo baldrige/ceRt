@@ -10,6 +10,22 @@ suppressPackageStartupMessages({
   library(jsonlite)
 })
 
+# Drop the boilerplate that opens a petition's Question-Presented page: an
+# optional page number (usually "i") and the "Question(s) Presented" heading.
+# Finds the heading within the first stretch of text and cuts everything up to
+# and including it, so a leading page number or running header goes too. If no
+# heading is found near the top, the text is returned unchanged.
+strip_qp_heading <- function(txt) {
+  if (length(txt) == 0 || is.na(txt) || identical(txt, "-")) return(txt)
+  m <- str_locate(
+    str_sub(txt, 1, 300),
+    regex("QUESTION\\(?[Ss]?\\)?\\s+PRESENTED(\\s+FOR\\s+REVIEW)?\\s*[:.]?",
+          ignore_case = TRUE)
+  )
+  if (is.na(m[1, "end"])) return(str_trim(txt))
+  str_trim(str_sub(txt, m[1, "end"] + 1L))
+}
+
 # Extract the QP text from page 2 of a petition PDF (a URL or a local path).
 # Tries the text layer first (fast); falls back to OCR only when there's none.
 extract_qp_page2 <- function(src) {
@@ -32,7 +48,7 @@ extract_qp_page2 <- function(src) {
   # collapse blank-line runs so the QP renders as normal prose.
   txt <- str_replace_all(txt, regex("^[ \\t]+", multiline = TRUE), "")
   txt <- str_replace_all(txt, "\n{3,}", "\n\n")
-  str_trim(txt)
+  strip_qp_heading(str_trim(txt))
 }
 
 # Single petition QP (pdftools downloads the URL itself).
@@ -94,6 +110,7 @@ resolve_qps <- function(dockets, urls, cache_path = NULL, max_new = Inf) {
 # Wrap raw QP text as a collapsible <details> block (markdown-rendered).
 qp_details <- function(qp) {
   qp <- if_else(is.na(qp) | qp == "", "-", qp)
+  qp <- vapply(qp, strip_qp_heading, character(1), USE.NAMES = FALSE) # idempotent
   qp <- str_replace_all(qp, "\\$", "&#36;")
   str_c("<details><summary>Question(s) presented</summary>", qp, "</details>")
 }

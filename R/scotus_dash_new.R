@@ -418,12 +418,8 @@ scotus_dash <- function(range = today() - 1, year = "26",
   qps <- purrr::map_chr(table1$petition_url, get_qp)
 
   table1 |>
-    mutate(qps = qps) |>
+    mutate(qps = qp_details(qps)) |>
     select(-petition_url) |>
-    mutate(qps = str_replace_all(qps, "\\$", "&#36;")) |>
-    mutate(qps = str_c(
-      "<details><summary>Question(s) presented</summary>", qps, "</details>"
-    )) |>
     gt() |>
     fmt_markdown(columns = c(caption, lower, dkt, parties_attys, events, qps)) |>
     tab_header(title = paste0(
