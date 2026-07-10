@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<style>body{background-color:white;}</style>
+
+
+</head>
+<body>
+<div id="stbuczezcn" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+  <style>@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+#stbuczezcn table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#stbuczezcn thead, #stbuczezcn tbody, #stbuczezcn tfoot, #stbuczezcn tr, #stbuczezcn td, #stbuczezcn th {
+  border-style: none;
+}
+
+#stbuczezcn p {
+  margin: 0;
+  padding: 0;
+}
+
+#stbuczezcn .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#stbuczezcn .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#stbuczezcn .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#stbuczezcn .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#stbuczezcn .gt_heading {
+  background-color: #FFFFFF;
+  text-align: left;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#stbuczezcn .gt_bottom_border {
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#stbuczezcn .gt_col_headings {
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 1px;
+  border-bottom-color: #334422;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#stbuczezcn .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 12px;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#stbuczezcn .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 12px;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#stbuczezcn .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#stbuczezcn .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#stbuczezcn .gt_column_spanner {
+  border-bottom-style: none;
+  border-bottom-width: 1px;
+  border-bottom-color: #334422;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#stbuczezcn .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#stbuczezcn .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#stbuczezcn .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#stbuczezcn .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#stbuczezcn .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#stbuczezcn .gt_row {
+  padding-top: 7px;
+  padding-bottom: 7px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#stbuczezcn .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#stbuczezcn .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#stbuczezcn .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#stbuczezcn .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#stbuczezcn .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#stbuczezcn .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#stbuczezcn .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#stbuczezcn .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#stbuczezcn .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#stbuczezcn .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#stbuczezcn .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#stbuczezcn .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#stbuczezcn .gt_table_body {
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #FFFFFF;
+}
+
+#stbuczezcn .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#stbuczezcn .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#stbuczezcn .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#stbuczezcn .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#stbuczezcn .gt_left {
+  text-align: left;
+}
+
+#stbuczezcn .gt_center {
+  text-align: center;
+}
+
+#stbuczezcn .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#stbuczezcn .gt_font_normal {
+  font-weight: normal;
+}
+
+#stbuczezcn .gt_font_bold {
+  font-weight: bold;
+}
+
+#stbuczezcn .gt_font_italic {
+  font-style: italic;
+}
+
+#stbuczezcn .gt_super {
+  font-size: 65%;
+}
+
+#stbuczezcn .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#stbuczezcn .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#stbuczezcn .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#stbuczezcn .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#stbuczezcn .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#stbuczezcn .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#stbuczezcn .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#stbuczezcn .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#stbuczezcn div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+  <table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    <tr class="gt_heading">
+      <td colspan="6" class="gt_heading gt_title gt_font_normal" style="font-family: 'Libre Franklin'; font-weight: 800;">Cases distributed for the Conference of June 29, 2026</td>
+    </tr>
+    <tr class="gt_heading">
+      <td colspan="6" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style>29 case(s)</td>
+    </tr>
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="color: #A9A9A9; font-family: 'Source Sans Pro'; text-transform: uppercase;" scope="col" id="type">Type</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="color: #A9A9A9; font-family: 'Source Sans Pro'; text-transform: uppercase;" scope="col" id="caption">Caption</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="color: #A9A9A9; font-family: 'Source Sans Pro'; text-transform: uppercase;" scope="col" id="dkt">Docket No</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="color: #A9A9A9; font-family: 'Source Sans Pro'; text-transform: uppercase;" scope="col" id="petition">Petition</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="color: #A9A9A9; font-family: 'Source Sans Pro'; text-transform: uppercase;" scope="col" id="lower">Court Below</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="color: #A9A9A9; font-family: 'Source Sans Pro'; text-transform: uppercase;" scope="col" id="status">Status</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="type" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400; background-color: #B2DF8A;">paid</td>
+<td headers="caption" class="gt_row gt_left" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'>Gator’s Custom Guns, Inc. v. Washington</span></td>
+<td headers="dkt" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'><a href="https://www.supremecourt.gov/search.aspx?filename=/docket/docketfiles/html/public/25-153.html">25-153</a></span></td>
+<td headers="petition" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'><a href="https://www.supremecourt.gov/DocketPDF/25/25-153/368999/20250806125330941_25-%20Petition.pdf">Petition</a></span></td>
+<td headers="lower" class="gt_row gt_left" style="font-family: 'Source Sans Pro'; font-weight: 400;">Supreme Court of Washington</td>
+<td headers="status" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;">Relisted (22×)</td></tr>
+    <tr><td headers="type" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400; background-color: #B2DF8A;">paid</td>
+<td headers="caption" class="gt_row gt_left" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'>Virginia Duncan v. Rob Bonta, Attorney General of California</span></td>
+<td headers="dkt" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'><a href="https://www.supremecourt.gov/search.aspx?filename=/docket/docketfiles/html/public/25-198.html">25-198</a></span></td>
+<td headers="petition" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'><a href="https://www.supremecourt.gov/DocketPDF/25/25-198/369886/20250815150715228_1.%2025-%20Petition%20and%20Appendix%20Volume%20I%20of%20III.pdf">Petition</a></span></td>
+<td headers="lower" class="gt_row gt_left" style="font-family: 'Source Sans Pro'; font-weight: 400;">Ninth Circuit</td>
+<td headers="status" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;">Relisted (22×)</td></tr>
+    <tr><td headers="type" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400; background-color: #B2DF8A;">paid</td>
+<td headers="caption" class="gt_row gt_left" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'>Cutberto Viramontes v. Cook County, Illinois</span></td>
+<td headers="dkt" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'><a href="https://www.supremecourt.gov/search.aspx?filename=/docket/docketfiles/html/public/25-238.html">25-238</a></span></td>
+<td headers="petition" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'><a href="https://www.supremecourt.gov/DocketPDF/25/25-238/370875/20250827115014594_25-%20Petition.pdf">Petition</a></span></td>
+<td headers="lower" class="gt_row gt_left" style="font-family: 'Source Sans Pro'; font-weight: 400;">Seventh Circuit</td>
+<td headers="status" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;">Relisted (21×)</td></tr>
+    <tr><td headers="type" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400; background-color: #B2DF8A;">paid</td>
+<td headers="caption" class="gt_row gt_left" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'>National Association for Gun Rights v. Ned Lamont, in His Official Capacity as Governor of Connecticut</span></td>
+<td headers="dkt" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'><a href="https://www.supremecourt.gov/search.aspx?filename=/docket/docketfiles/html/public/25-421.html">25-421</a></span></td>
+<td headers="petition" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'><a href="https://www.supremecourt.gov/DocketPDF/25/25-421/378584/20251003105339425_25-%20Petition.pdf">Petition</a></span></td>
+<td headers="lower" class="gt_row gt_left" style="font-family: 'Source Sans Pro'; font-weight: 400;">Second Circuit</td>
+<td headers="status" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;">Relisted (17×)</td></tr>
+    <tr><td headers="type" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400; background-color: #B2DF8A;">paid</td>
+<td headers="caption" class="gt_row gt_left" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'>Eddie Grant, Jr. v. Ronnell Higgins, in His Official Capacity as Commissioner of the Connecticut Department of Emergency Services and Public Transportation</span></td>
+<td headers="dkt" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'><a href="https://www.supremecourt.gov/search.aspx?filename=/docket/docketfiles/html/public/25-566.html">25-566</a></span></td>
+<td headers="petition" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'><a href="https://www.supremecourt.gov/DocketPDF/25/25-566/383954/20251107165354155_25-%20Petition.pdf">Petition</a></span></td>
+<td headers="lower" class="gt_row gt_left" style="font-family: 'Source Sans Pro'; font-weight: 400;">Second Circuit</td>
+<td headers="status" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;">Relisted (16×)</td></tr>
+    <tr><td headers="type" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400; background-color: #B2DF8A;">paid</td>
+<td headers="caption" class="gt_row gt_left" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'>Daniel Grand v. City of University Heights, Ohio</span></td>
+<td headers="dkt" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'><a href="https://www.supremecourt.gov/search.aspx?filename=/docket/docketfiles/html/public/25-965.html">25-965</a></span></td>
+<td headers="petition" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'><a href="https://www.supremecourt.gov/DocketPDF/25/25-965/396407/20260217132050131_scan_ajimenez_2026-02-17-12-57-08.pdf">Petition</a></span></td>
+<td headers="lower" class="gt_row gt_left" style="font-family: 'Source Sans Pro'; font-weight: 400;">Sixth Circuit</td>
+<td headers="status" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;">Relisted (4×)</td></tr>
+    <tr><td headers="type" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400; background-color: #B2DF8A;">paid</td>
+<td headers="caption" class="gt_row gt_left" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'>Sanjay Tripathy v. Jeff McKoy, Deputy Commissioner, New York Department of Corrections and Community Supervision</span></td>
+<td headers="dkt" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'><a href="https://www.supremecourt.gov/search.aspx?filename=/docket/docketfiles/html/public/24-229.html">24-229</a></span></td>
+<td headers="petition" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'><a href="https://www.supremecourt.gov/DocketPDF/24/24-229/323508/20240827144037836_Tripathy%20Cert%20Petition.pdf">Petition</a></span></td>
+<td headers="lower" class="gt_row gt_left" style="font-family: 'Source Sans Pro'; font-weight: 400;">Second Circuit</td>
+<td headers="status" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;">Relisted (3×)</td></tr>
+    <tr><td headers="type" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400; background-color: #B2DF8A;">paid</td>
+<td headers="caption" class="gt_row gt_left" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'>Monsanto Company, a Foreign Corporation v. Nancy C. Salas</span></td>
+<td headers="dkt" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'><a href="https://www.supremecourt.gov/search.aspx?filename=/docket/docketfiles/html/public/24-1097.html">24-1097</a></span></td>
+<td headers="petition" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'><a href="https://www.supremecourt.gov/DocketPDF/24/24-1097/356037/20250418151014641_24-_Petition.pdf">Petition</a></span></td>
+<td headers="lower" class="gt_row gt_left" style="font-family: 'Source Sans Pro'; font-weight: 400;">Eleventh Circuit</td>
+<td headers="status" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;">Relisted (3×)</td></tr>
+    <tr><td headers="type" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400; background-color: #B2DF8A;">paid</td>
+<td headers="caption" class="gt_row gt_left" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'>Monsanto Company v. Larry Johnson</span></td>
+<td headers="dkt" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'><a href="https://www.supremecourt.gov/search.aspx?filename=/docket/docketfiles/html/public/24-1098.html">24-1098</a></span></td>
+<td headers="petition" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'><a href="https://www.supremecourt.gov/DocketPDF/24/24-1098/356034/20250418150502411_24-%20Petition.pdf">Petition</a></span></td>
+<td headers="lower" class="gt_row gt_left" style="font-family: 'Source Sans Pro'; font-weight: 400;">Court of Appeals of Oregon</td>
+<td headers="status" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;">Relisted (3×)</td></tr>
+    <tr><td headers="type" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400; background-color: #B2DF8A;">paid</td>
+<td headers="caption" class="gt_row gt_left" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'>National Rifle Association, Incorporated v. Mark Glass, Commissioner, Florida Department of Law Enforcement</span></td>
+<td headers="dkt" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'><a href="https://www.supremecourt.gov/search.aspx?filename=/docket/docketfiles/html/public/24-1185.html">24-1185</a></span></td>
+<td headers="petition" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'><a href="https://www.supremecourt.gov/DocketPDF/24/24-1185/358985/20250516122541696_NTA_Petition%20for%20a%20Writ%20of%20Certiorari.pdf">Petition</a></span></td>
+<td headers="lower" class="gt_row gt_left" style="font-family: 'Source Sans Pro'; font-weight: 400;">Eleventh Circuit</td>
+<td headers="status" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;">Relisted (3×)</td></tr>
+    <tr><td headers="type" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400; background-color: #B2DF8A;">paid</td>
+<td headers="caption" class="gt_row gt_left" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'>George Bivens, Acting Commissioner, Pennsylvania State Police v. Second Amendment Foundation</span></td>
+<td headers="dkt" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'><a href="https://www.supremecourt.gov/search.aspx?filename=/docket/docketfiles/html/public/24-1329.html">24-1329</a></span></td>
+<td headers="petition" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'><a href="https://www.supremecourt.gov/DocketPDF/24/24-1329/363927/20250626105144428_Paris%20v.%20SAF%20Cert%20Petition%20v.FINAL.pdf">Petition</a></span></td>
+<td headers="lower" class="gt_row gt_left" style="font-family: 'Source Sans Pro'; font-weight: 400;">Third Circuit</td>
+<td headers="status" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;">Relisted (3×)</td></tr>
+    <tr><td headers="type" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400; background-color: #B2DF8A;">paid</td>
+<td headers="caption" class="gt_row gt_left" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'>Joshua Clay McCoy, Individually and on Behalf of All Others Similarly Situated as a Class v. Bureau of Alcohol, Tobacco, Firearms, and Explosives</span></td>
+<td headers="dkt" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'><a href="https://www.supremecourt.gov/search.aspx?filename=/docket/docketfiles/html/public/25-24.html">25-24</a></span></td>
+<td headers="petition" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'><a href="https://www.supremecourt.gov/DocketPDF/25/25-24/364477/20250703171509223_25-%20Petition.pdf">Petition</a></span></td>
+<td headers="lower" class="gt_row gt_left" style="font-family: 'Source Sans Pro'; font-weight: 400;">Fourth Circuit</td>
+<td headers="status" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;">Relisted (2×)</td></tr>
+    <tr><td headers="type" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400; background-color: #B2DF8A;">paid</td>
+<td headers="caption" class="gt_row gt_left" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'>West Virginia Citizens Defense League, Inc. v. Bureau of Alcohol, Tobacco, Firearms, and Explosives</span></td>
+<td headers="dkt" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'><a href="https://www.supremecourt.gov/search.aspx?filename=/docket/docketfiles/html/public/25-132.html">25-132</a></span></td>
+<td headers="petition" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'><a href="https://www.supremecourt.gov/DocketPDF/25/25-132/368506/20250731122058767_No._Petition.pdf">Petition</a></span></td>
+<td headers="lower" class="gt_row gt_left" style="font-family: 'Source Sans Pro'; font-weight: 400;">Fourth Circuit</td>
+<td headers="status" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;">Relisted (2×)</td></tr>
+    <tr><td headers="type" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400; background-color: #B2DF8A;">paid</td>
+<td headers="caption" class="gt_row gt_left" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'>Kenneth J. Jouppi v. Alaska</span></td>
+<td headers="dkt" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'><a href="https://www.supremecourt.gov/search.aspx?filename=/docket/docketfiles/html/public/25-246.html">25-246</a></span></td>
+<td headers="petition" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'><a href="https://www.supremecourt.gov/DocketPDF/25/25-246/373224/20250829124919814_Jouppi%20v.%20State%20-%20Petition.pdf">Petition</a></span></td>
+<td headers="lower" class="gt_row gt_left" style="font-family: 'Source Sans Pro'; font-weight: 400;">Supreme Court of Alaska</td>
+<td headers="status" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;">Relisted (2×)</td></tr>
+    <tr><td headers="type" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400; background-color: #B2DF8A;">paid</td>
+<td headers="caption" class="gt_row gt_left" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'>Warren Petersen, President of the Arizona Senate v. Jane Doe, by Next Friends and Parents Helen Doe and James Doe</span></td>
+<td headers="dkt" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'><a href="https://www.supremecourt.gov/search.aspx?filename=/docket/docketfiles/html/public/24-449.html">24-449</a></span></td>
+<td headers="petition" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'><a href="https://www.supremecourt.gov/DocketPDF/24/24-449/328563/20241017143623902_Petersen%20v.%20Doe%20-%20Petition.pdf">Petition</a></span></td>
+<td headers="lower" class="gt_row gt_left" style="font-family: 'Source Sans Pro'; font-weight: 400;">Ninth Circuit</td>
+<td headers="status" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;">Relisted (2×)</td></tr>
+    <tr><td headers="type" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400; background-color: #B2DF8A;">paid</td>
+<td headers="caption" class="gt_row gt_left" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'>Aaron Rayshan Wells v. Texas</span></td>
+<td headers="dkt" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'><a href="https://www.supremecourt.gov/search.aspx?filename=/docket/docketfiles/html/public/25-484.html">25-484</a></span></td>
+<td headers="petition" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'><a href="https://www.supremecourt.gov/DocketPDF/25/25-484/379855/20251016172019370_Wells%20v.%20State%20Petition.pdf">Petition</a></span></td>
+<td headers="lower" class="gt_row gt_left" style="font-family: 'Source Sans Pro'; font-weight: 400;">Court of Criminal Appeals of Texas</td>
+<td headers="status" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;">Relisted (2×)</td></tr>
+    <tr><td headers="type" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400; background-color: #B2DF8A;">paid</td>
+<td headers="caption" class="gt_row gt_left" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'>Cedric Ray Jones v. United States</span></td>
+<td headers="dkt" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'><a href="https://www.supremecourt.gov/search.aspx?filename=/docket/docketfiles/html/public/25-524.html">25-524</a></span></td>
+<td headers="petition" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'><a href="https://www.supremecourt.gov/DocketPDF/25/25-524/380713/20251027140043132_Jones%20Cert%20Pet%20-%20final%20for%20filing%20-%2010.27.2025.pdf">Petition</a></span></td>
+<td headers="lower" class="gt_row gt_left" style="font-family: 'Source Sans Pro'; font-weight: 400;">Fifth Circuit</td>
+<td headers="status" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;">Relisted (2×)</td></tr>
+    <tr><td headers="type" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400; background-color: #B2DF8A;">paid</td>
+<td headers="caption" class="gt_row gt_left" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'>Triumph Foods, LLC v. Andrea J. Campbell, Attorney General of Massachusetts</span></td>
+<td headers="dkt" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'><a href="https://www.supremecourt.gov/search.aspx?filename=/docket/docketfiles/html/public/25-1047.html">25-1047</a></span></td>
+<td headers="petition" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'><a href="https://www.supremecourt.gov/DocketPDF/25/25-1047/399738/20260302155422754_No.-__Petition%20for%20a%20Writ%20of%20Certiorari.pdf">Petition</a></span></td>
+<td headers="lower" class="gt_row gt_left" style="font-family: 'Source Sans Pro'; font-weight: 400;">First Circuit</td>
+<td headers="status" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;">Relisted (2×)</td></tr>
+    <tr><td headers="type" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400; background-color: #FDBF6F;">ifp</td>
+<td headers="caption" class="gt_row gt_left" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'>Johnnie Leeanozg Davis v. United States</span></td>
+<td headers="dkt" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'><a href="https://www.supremecourt.gov/search.aspx?filename=/docket/docketfiles/html/public/25-5189.html">25-5189</a></span></td>
+<td headers="petition" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'><a href="https://www.supremecourt.gov/DocketPDF/25/25-5189/365097/20250714123729969_Davis%20Johnny%20-%20Cert%20Petition%20-%20Final.pdf">Petition</a></span></td>
+<td headers="lower" class="gt_row gt_left" style="font-family: 'Source Sans Pro'; font-weight: 400;">Eleventh Circuit</td>
+<td headers="status" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;">Relisted (2×)</td></tr>
+    <tr><td headers="type" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400; background-color: #FDBF6F;">ifp</td>
+<td headers="caption" class="gt_row gt_left" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'>Fathiree Uddin Ali v. Stephen E. Adamson, Chaplain</span></td>
+<td headers="dkt" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'><a href="https://www.supremecourt.gov/search.aspx?filename=/docket/docketfiles/html/public/25-5639.html">25-5639</a></span></td>
+<td headers="petition" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'><a href="https://www.supremecourt.gov/DocketPDF/25/25-5639/374739/20250917101010861_20250917-100431-00000335-00000401.pdf">Petition</a></span></td>
+<td headers="lower" class="gt_row gt_left" style="font-family: 'Source Sans Pro'; font-weight: 400;">Sixth Circuit</td>
+<td headers="status" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;">Relisted (2×)</td></tr>
+    <tr><td headers="type" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400; background-color: #FDBF6F;">ifp</td>
+<td headers="caption" class="gt_row gt_left" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'>Emanuel Leyton Picon v. United States</span></td>
+<td headers="dkt" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'><a href="https://www.supremecourt.gov/search.aspx?filename=/docket/docketfiles/html/public/25-5713.html">25-5713</a></span></td>
+<td headers="petition" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'><a href="https://www.supremecourt.gov/DocketPDF/25/25-5713/375243/20250919135236730_FILE%20FINAL%20Cert%20Petition%20Petition%20for%20ELP_archive.pdf">Petition</a></span></td>
+<td headers="lower" class="gt_row gt_left" style="font-family: 'Source Sans Pro'; font-weight: 400;">District of Columbia Court of Appeals</td>
+<td headers="status" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;">Relisted (2×)</td></tr>
+    <tr><td headers="type" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400; background-color: #FDBF6F;">ifp</td>
+<td headers="caption" class="gt_row gt_left" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'>Mujera Benjamin Lung’aho v. United States</span></td>
+<td headers="dkt" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'><a href="https://www.supremecourt.gov/search.aspx?filename=/docket/docketfiles/html/public/25-6124.html">25-6124</a></span></td>
+<td headers="petition" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'><a href="https://www.supremecourt.gov/DocketPDF/25/25-6124/383988/20251109190759645_PWC%20MUJERA%20LUNGAHO.pdf">Petition</a></span></td>
+<td headers="lower" class="gt_row gt_left" style="font-family: 'Source Sans Pro'; font-weight: 400;">Eighth Circuit</td>
+<td headers="status" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;">Relisted (2×)</td></tr>
+    <tr><td headers="type" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400; background-color: #FDBF6F;">ifp</td>
+<td headers="caption" class="gt_row gt_left" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'>Damien Antione Jones v. United States</span></td>
+<td headers="dkt" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'><a href="https://www.supremecourt.gov/search.aspx?filename=/docket/docketfiles/html/public/25-6136.html">25-6136</a></span></td>
+<td headers="petition" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'><a href="https://www.supremecourt.gov/DocketPDF/25/25-6136/380477/20251104110128277_Cert%20Pet%20CORRECTED.pdf">Petition</a></span></td>
+<td headers="lower" class="gt_row gt_left" style="font-family: 'Source Sans Pro'; font-weight: 400;">Fifth Circuit</td>
+<td headers="status" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;">Relisted (2×)</td></tr>
+    <tr><td headers="type" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400; background-color: #B2DF8A;">paid</td>
+<td headers="caption" class="gt_row gt_left" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'>Joseph J. Roybal, Sheriff, El Paso County, Colorado v. Darlene Griffith</span></td>
+<td headers="dkt" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'><a href="https://www.supremecourt.gov/search.aspx?filename=/docket/docketfiles/html/public/25-442.html">25-442</a></span></td>
+<td headers="petition" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'><a href="https://www.supremecourt.gov/DocketPDF/25/25-442/378941/20251007112457077_Cert%20Petition.pdf">Petition</a></span></td>
+<td headers="lower" class="gt_row gt_left" style="font-family: 'Source Sans Pro'; font-weight: 400;">Tenth Circuit</td>
+<td headers="status" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;">Relisted (1×)</td></tr>
+    <tr><td headers="type" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400; background-color: #B2DF8A;">paid</td>
+<td headers="caption" class="gt_row gt_left" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'>Donald J. Trump, President of the United States v. O. Doe</span></td>
+<td headers="dkt" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'><a href="https://www.supremecourt.gov/search.aspx?filename=/docket/docketfiles/html/public/25-899.html">25-899</a></span></td>
+<td headers="petition" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'><a href="https://www.supremecourt.gov/DocketPDF/25/25-899/395114/20260130152027254_Doe%20Petition.pdf">Petition</a></span></td>
+<td headers="lower" class="gt_row gt_left" style="font-family: 'Source Sans Pro'; font-weight: 400;">First Circuit</td>
+<td headers="status" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;">Relisted (1×)</td></tr>
+    <tr><td headers="type" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400; background-color: #B2DF8A;">paid</td>
+<td headers="caption" class="gt_row gt_left" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'>Monsanto Company v. Daniel Anderson</span></td>
+<td headers="dkt" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'><a href="https://www.supremecourt.gov/search.aspx?filename=/docket/docketfiles/html/public/25-1042.html">25-1042</a></span></td>
+<td headers="petition" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'><a href="https://www.supremecourt.gov/DocketPDF/25/25-1042/399541/20260227151640081_25-%20Petition.pdf">Petition</a></span></td>
+<td headers="lower" class="gt_row gt_left" style="font-family: 'Source Sans Pro'; font-weight: 400;">Court of Appeals of Missouri, Western District</td>
+<td headers="status" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;">Relisted (1×)</td></tr>
+    <tr><td headers="type" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400; background-color: #B2DF8A;">paid</td>
+<td headers="caption" class="gt_row gt_left" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'>Cathy A. Harris v. Scott Bessent, Secretary of the Treasury</span></td>
+<td headers="dkt" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'><a href="https://www.supremecourt.gov/search.aspx?filename=/docket/docketfiles/html/public/25-1110.html">25-1110</a></span></td>
+<td headers="petition" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'><a href="https://www.supremecourt.gov/DocketPDF/25/25-1110/401128/20260319153626734_Harris%20corrected%20merits%20petition.pdf">Petition</a></span></td>
+<td headers="lower" class="gt_row gt_left" style="font-family: 'Source Sans Pro'; font-weight: 400;">District of Columbia Circuit</td>
+<td headers="status" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;">Relisted (1×)</td></tr>
+    <tr><td headers="type" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400; background-color: #B2DF8A;">paid</td>
+<td headers="caption" class="gt_row gt_left" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'>Apple Inc. v. Epic Games, Inc.</span></td>
+<td headers="dkt" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'><a href="https://www.supremecourt.gov/search.aspx?filename=/docket/docketfiles/html/public/25-1311.html">25-1311</a></span></td>
+<td headers="petition" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'><a href="https://www.supremecourt.gov/DocketPDF/25/25-1311/409561/20260526163506450_2026-05-26%20Apple-Epic%20--%20Cert%20Petition%20and%20Appendix.pdf">Petition</a></span></td>
+<td headers="lower" class="gt_row gt_left" style="font-family: 'Source Sans Pro'; font-weight: 400;">Ninth Circuit</td>
+<td headers="status" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;">Relisted (1×)</td></tr>
+    <tr><td headers="type" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400; background-color: #A6CEE3;">app</td>
+<td headers="caption" class="gt_row gt_left" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'>Todd Blanche, Applicants v. Shira Perlmutter</span></td>
+<td headers="dkt" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'><a href="https://www.supremecourt.gov/search.aspx?filename=/docket/docketfiles/html/public/25A478.html">25A478</a></span></td>
+<td headers="petition" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;"><span class='gt_from_md'>—</span></td>
+<td headers="lower" class="gt_row gt_left" style="font-family: 'Source Sans Pro'; font-weight: 400;">District of Columbia Circuit</td>
+<td headers="status" class="gt_row gt_center" style="font-family: 'Source Sans Pro'; font-weight: 400;">Initial</td></tr>
+  </tbody>
+  
+</table>
+</div>
+</body>
+</html>
