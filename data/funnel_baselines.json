@@ -1,0 +1,286 @@
+{
+  "generated": "2026-07-10",
+  "pooled_terms": ["17", "18", "19", "20", "21", "22", "23"],
+  "excluded_terms": "24",
+  "pooled": {
+    "total": [
+      {
+        "docketed": 36746,
+        "considered": 36476,
+        "relisted": 4442,
+        "granted_or_gvr": 1024,
+        "granted": 489,
+        "gvr": 535,
+        "denied": 34633,
+        "dismissed": 1042,
+        "pending": 47,
+        "died_first_conf": 28885,
+        "has_cfr": 2160,
+        "has_resp": 7222,
+        "has_amicus": 2295
+      }
+    ],
+    "by_type": [
+      {
+        "type": "ifp",
+        "docketed": 25891,
+        "considered": 25709,
+        "relisted": 2790,
+        "granted_or_gvr": 300,
+        "granted": 32,
+        "gvr": 268,
+        "denied": 24683,
+        "dismissed": 898,
+        "pending": 10,
+        "died_first_conf": 21115,
+        "has_cfr": 880,
+        "has_resp": 2956,
+        "has_amicus": 179
+      },
+      {
+        "type": "paid",
+        "docketed": 10855,
+        "considered": 10767,
+        "relisted": 1652,
+        "granted_or_gvr": 724,
+        "granted": 457,
+        "gvr": 267,
+        "denied": 9950,
+        "dismissed": 144,
+        "pending": 37,
+        "died_first_conf": 7770,
+        "has_cfr": 1280,
+        "has_resp": 4266,
+        "has_amicus": 2116
+      }
+    ],
+    "relist_table": [
+      {
+        "bucket": "0",
+        "n": 32015,
+        "granted": 113,
+        "gvr": 181,
+        "denied": 30791,
+        "dismissed": 930
+      },
+      {
+        "bucket": "1",
+        "n": 3736,
+        "granted": 229,
+        "gvr": 217,
+        "denied": 3273,
+        "dismissed": 17
+      },
+      {
+        "bucket": "2",
+        "n": 289,
+        "granted": 72,
+        "gvr": 48,
+        "denied": 165,
+        "dismissed": 4
+      },
+      {
+        "bucket": "3",
+        "n": 166,
+        "granted": 21,
+        "gvr": 54,
+        "denied": 91,
+        "dismissed": 0
+      },
+      {
+        "bucket": "4",
+        "n": 58,
+        "granted": 20,
+        "gvr": 8,
+        "denied": 29,
+        "dismissed": 1
+      },
+      {
+        "bucket": "5+",
+        "n": 172,
+        "granted": 19,
+        "gvr": 24,
+        "denied": 128,
+        "dismissed": 1
+      }
+    ]
+  },
+  "per_term": {
+    "17": {
+      "term": "17",
+      "total": [
+        {
+          "docketed": 6312,
+          "considered": 6268,
+          "relisted": 865,
+          "granted_or_gvr": 169,
+          "granted": 76,
+          "gvr": 93,
+          "denied": 5977,
+          "dismissed": 163,
+          "pending": 3,
+          "died_first_conf": 4907,
+          "has_cfr": 393,
+          "has_resp": 1402,
+          "has_amicus": 346
+        }
+      ],
+      "pending_share": 0.00047529,
+      "complete": true
+    },
+    "18": {
+      "term": "18",
+      "total": [
+        {
+          "docketed": 6440,
+          "considered": 6388,
+          "relisted": 728,
+          "granted_or_gvr": 149,
+          "granted": 74,
+          "gvr": 75,
+          "denied": 6116,
+          "dismissed": 173,
+          "pending": 2,
+          "died_first_conf": 5144,
+          "has_cfr": 375,
+          "has_resp": 1256,
+          "has_amicus": 317
+        }
+      ],
+      "pending_share": 0.00031056,
+      "complete": true
+    },
+    "19": {
+      "term": "19",
+      "total": [
+        {
+          "docketed": 5408,
+          "considered": 5369,
+          "relisted": 659,
+          "granted_or_gvr": 159,
+          "granted": 69,
+          "gvr": 90,
+          "denied": 5106,
+          "dismissed": 143,
+          "pending": 0,
+          "died_first_conf": 4236,
+          "has_cfr": 339,
+          "has_resp": 1105,
+          "has_amicus": 332
+        }
+      ],
+      "pending_share": 0,
+      "complete": true
+    },
+    "20": {
+      "term": "20",
+      "total": [
+        {
+          "docketed": 5306,
+          "considered": 5281,
+          "relisted": 618,
+          "granted_or_gvr": 160,
+          "granted": 73,
+          "gvr": 87,
+          "denied": 4988,
+          "dismissed": 154,
+          "pending": 4,
+          "died_first_conf": 4205,
+          "has_cfr": 319,
+          "has_resp": 1008,
+          "has_amicus": 329
+        }
+      ],
+      "pending_share": 0.00075386,
+      "complete": true
+    },
+    "21": {
+      "term": "21",
+      "total": [
+        {
+          "docketed": 4899,
+          "considered": 4867,
+          "relisted": 589,
+          "granted_or_gvr": 150,
+          "granted": 62,
+          "gvr": 88,
+          "denied": 4621,
+          "dismissed": 124,
+          "pending": 4,
+          "died_first_conf": 3940,
+          "has_cfr": 245,
+          "has_resp": 923,
+          "has_amicus": 355
+        }
+      ],
+      "pending_share": 0.00081649,
+      "complete": true
+    },
+    "22": {
+      "term": "22",
+      "total": [
+        {
+          "docketed": 4159,
+          "considered": 4123,
+          "relisted": 468,
+          "granted_or_gvr": 108,
+          "granted": 65,
+          "gvr": 43,
+          "denied": 3901,
+          "dismissed": 148,
+          "pending": 2,
+          "died_first_conf": 3271,
+          "has_cfr": 250,
+          "has_resp": 735,
+          "has_amicus": 284
+        }
+      ],
+      "pending_share": 0.00048088,
+      "complete": true
+    },
+    "23": {
+      "term": "23",
+      "total": [
+        {
+          "docketed": 4222,
+          "considered": 4180,
+          "relisted": 515,
+          "granted_or_gvr": 129,
+          "granted": 70,
+          "gvr": 59,
+          "denied": 3924,
+          "dismissed": 137,
+          "pending": 32,
+          "died_first_conf": 3182,
+          "has_cfr": 239,
+          "has_resp": 793,
+          "has_amicus": 332
+        }
+      ],
+      "pending_share": 0.00757935,
+      "complete": true
+    },
+    "24": {
+      "term": "24",
+      "total": [
+        {
+          "docketed": 3760,
+          "considered": 3410,
+          "relisted": 368,
+          "granted_or_gvr": 68,
+          "granted": 41,
+          "gvr": 27,
+          "denied": 2907,
+          "dismissed": 90,
+          "pending": 695,
+          "died_first_conf": 2469,
+          "has_cfr": 224,
+          "has_resp": 594,
+          "has_amicus": 288
+        }
+      ],
+      "pending_share": 0.18484043,
+      "complete": false
+    }
+  }
+}

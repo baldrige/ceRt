@@ -127,6 +127,13 @@ jobs:
           CASES_DIR: cases
           MIN_CONF_DATE: ${{ needs.setup.outputs.min_conf }}
         run: Rscript .github/scripts/render_conferences.R
+      - name: Render cert funnel
+        # Never let a funnel failure block conference publishing.
+        continue-on-error: true
+        env:
+          SITE_DIR: site
+          CASES_DIR: cases
+        run: Rscript .github/scripts/render_funnel.R
       - name: Commit and publish
         working-directory: site
         run: |

@@ -48,6 +48,10 @@ links <- list(tags$li(tags$a(href = "dashboards/", "Daily petitions & applicatio
 if (dir.exists(file.path(site_dir, "conferences"))) {
   links <- c(links, list(tags$li(tags$a(href = "conferences/", "Conference reports"))))
 }
+if (dir.exists(file.path(site_dir, "funnel"))) {
+  links <- c(links, list(tags$li(tags$a(
+    href = "funnel/", "The Cert Funnel — how petitions live and die"))))
+}
 save_html(
   tags$html(
     tags$head(
