@@ -75,5 +75,18 @@ jobs:
             echo "No changes to publish."
           else
             git commit -m "Daily dashboard refresh $(date -u +%F)"
-            git push origin gh-pages
+            # Publishing races with the conferences workflow and manual deploys,
+            # which also push to gh-pages. A bare push is rejected (non-fast-
+            # forward) when the branch moved, silently dropping this render, so
+            # rebase onto the latest tip and retry. Daily touches dashboards/ +
+            # the landing index; conferences touch conferences/ + funnel/, so the
+            # rebase is conflict-free.
+            for i in 1 2 3 4 5; do
+              if git push origin gh-pages; then exit 0; fi
+              echo "push rejected; rebasing onto latest gh-pages (attempt $i)"
+              git pull --rebase origin gh-pages
+              sleep $((RANDOM % 5 + 3))
+            done
+            echo "still could not publish after 5 attempts" >&2
+            exit 1
           fi
