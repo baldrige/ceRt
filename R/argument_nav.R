@@ -181,12 +181,22 @@ attach_media <- function(tbl) {
 argument_term <- function(d) if_else(is.na(d), NA_integer_,
                                      if_else(month(d) >= 9L, year(d), year(d) - 1L))
 
+# Projected argument Term for a granted case with no argument date yet. A grant
+# made after a Term's argument calendar has filled (~February onward) is held to
+# the following Term; grants in the fall/winter belong to the Term in session.
+unscheduled_arg_term <- function(grant_date) {
+  gterm <- if_else(month(grant_date) >= 9L, year(grant_date), year(grant_date) - 1L)
+  late <- month(grant_date) >= 2L & month(grant_date) <= 8L   # spring/summer grant -> next Term
+  as.integer(if_else(is.na(grant_date), NA_integer_, if_else(late, gterm + 1L, gterm)))
+}
+
 # Build a tidy table of every merits grant with an argument date (scheduled or
 # argued), across all docket terms present in `cases`. `qp_map` (optional) maps
 # raw docket -> QP <details> HTML.
 build_argument_table <- function(cases, qp_map = NULL) {
   cls <- classify_petitions(cases)
-  granted <- cls |> filter(outcome == "granted") |> distinct(dkt)
+  granted <- cls |> filter(outcome == "granted") |> distinct(dkt, .keep_all = TRUE) |>
+    transmute(dkt, grant_date = outcome_date)
   g <- cases |> filter(dkt %in% granted$dkt) |> distinct(dkt, .keep_all = TRUE)
   if (nrow(g) == 0) return(tibble())
 
@@ -194,36 +204,48 @@ build_argument_table <- function(cases, qp_map = NULL) {
     g |> transmute(dkt, caption = str_squish(caption %||% dkt)),
     map_dfr(g$events, classify_argument)
   ) |>
+    left_join(granted, by = "dkt") |>
     mutate(
       petition_url = map_chr(g$events, arg_petition_url),
       advocates = map_chr(argued_text, extract_advocates),
       arg_ref = coalesce(argued_date, scheduled_date),
-      term = argument_term(arg_ref),
+      # Argued/scheduled cases key off the argument date; granted-but-unscheduled
+      # cases are projected to the Term they will likely be heard in.
+      term = if_else(!is.na(arg_ref), argument_term(arg_ref),
+                     unscheduled_arg_term(grant_date)),
       sitting_date = if_else(is.na(arg_ref), as.Date(NA),
                              floor_date(arg_ref, "month")),
       sitting = if_else(is.na(arg_ref), NA_character_, format(arg_ref, "%B %Y")),
       qp = if (is.null(qp_map)) NA_character_ else unname(qp_map[dkt])
     ) |>
-    filter(!is.na(arg_ref))                      # only cases with an argument date
+    filter(!is.na(term))                         # need a Term to place the case
   arg
 }
 
 # ---- rendering ----------------------------------------------------------------
 
-STATUS_FILL <- c(Scheduled = "#A6CEE3", Argued = "#B2DF8A",
+STATUS_FILL <- c(Granted = "#DCE7F0", Scheduled = "#A6CEE3", Argued = "#B2DF8A",
                  Decided = "#E4DAC2", `DIG'd` = "#FB9A99")
 
-# Render one Term's argument calendar (a gt table grouped by sitting).
+# Render one Term's argument calendar (a gt table grouped by sitting). Cases with
+# an argument date are grouped by their sitting (chronological); granted-but-
+# unscheduled cases fall into a trailing "Not yet scheduled" group.
 argument_term_page <- function(tbl, term, out_dir) {
   d <- tbl |>
     filter(term == !!term) |>
-    arrange(sitting_date, arg_ref, as.integer(str_extract(dkt, "\\d+$")))
+    arrange(is.na(sitting_date), sitting_date, arg_ref, desc(grant_date),
+            as.integer(str_extract(dkt, "\\d+$")))
   if (nrow(d) == 0) return(invisible(NULL))
+  all_unscheduled <- all(is.na(d$arg_ref))
 
   has_qp <- any(!is.na(d$qp))
   d <- d |>
     mutate(
-      when = format(arg_ref, "%a %b %d"),
+      # Argument date for scheduled cases; grant date for the rest.
+      when = case_when(
+        !is.na(arg_ref) ~ format(arg_ref, "%a %b %d"),
+        !is.na(grant_date) ~ paste0("Granted ", format(grant_date, "%b %d")),
+        TRUE ~ "—"),
       case = caption,
       # Always link the docket number to the docket page (not the petition PDF).
       docket = str_c("[", dkt,
@@ -246,11 +268,15 @@ argument_term_page <- function(tbl, term, out_dir) {
                    if (!is.na(au)) str_c("[Audio](", au, ")"))
         if (length(parts) == 0) "—" else paste(parts, collapse = " · ")
       }),
-      qp = if_else(is.na(qp), "—", qp)
+      qp = if_else(is.na(qp), "—", qp),
+      # Unscheduled grants have no sitting; collect them in a trailing group.
+      sitting = if_else(is.na(sitting), "Not yet scheduled", sitting)
     )
   has_media <- any(d$media != "—")
+  has_argued <- any(d$argued_by != "—")     # drop empty columns on all-unscheduled Terms
   d <- d |>
-    select(sitting, when, case, docket, status, status_disp, argued_by,
+    select(sitting, when, case, docket, status, status_disp,
+           any_of(if (has_argued) "argued_by" else character()),
            any_of(if (has_media) "media" else character()),
            any_of(if (has_qp) "qp" else character()))
 
@@ -264,7 +290,8 @@ argument_term_page <- function(tbl, term, out_dir) {
     fmt_markdown(columns = all_of(md_cols)) |>
     tab_header(
       title = paste0(term_label(term - 2000L), " — Oral Argument Calendar"),
-      subtitle = paste0(nrow(d), " case(s) argued or scheduled")
+      subtitle = if (all_unscheduled) paste0(nrow(d), " granted case(s) awaiting an argument date")
+                 else paste0(nrow(d), " case(s) argued or scheduled")
     ) |>
     gt_theme_nytimes() |>
     cols_label(.list = labels) |>
