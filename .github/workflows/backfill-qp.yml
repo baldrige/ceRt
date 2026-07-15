@@ -1,0 +1,70 @@
+name: Backfill Question Presented (historical)
+
+# One-off / occasional: fetch the petition PDFs for the historical argued grants
+# (arg_refresh.rds) from a fresh runner IP, extract their Question Presented, and
+# fold them into the shared conference QP cache on gh-pages. The argument
+# navigator reads that cache read-only, so the older cases then show a QP too.
+
+on:
+  workflow_dispatch:
+    inputs:
+      qp_max_new:
+        description: "Max petition PDFs to fetch this run."
+        required: false
+        default: "1000"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: qp-backfill
+  cancel-in-progress: false
+
+jobs:
+  backfill:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - name: Checkout source (main)
+        uses: actions/checkout@v4
+      - name: Checkout published site (gh-pages) into ./site
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          path: site
+      - name: System dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libpoppler-cpp-dev libtesseract-dev tesseract-ocr libcurl4-openssl-dev
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          packages: |
+            any::tidyverse
+            any::pdftools
+            any::jsonlite
+      - name: Backfill historical QPs into the cache
+        env:
+          QP_CACHE: site/conferences/qp_cache.json
+          QP_MAX_NEW: ${{ inputs.qp_max_new || '1000' }}
+        run: Rscript .github/scripts/backfill_qp.R
+      - name: Commit updated cache
+        working-directory: site
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add conferences/qp_cache.json
+          if git diff --cached --quiet; then
+            echo "No new QPs cached."
+          else
+            git commit -m "Backfill historical Question Presented $(date -u +%F)"
+            for i in 1 2 3 4 5; do
+              if git push origin gh-pages; then exit 0; fi
+              echo "push rejected; rebasing (attempt $i)"
+              git pull --rebase origin gh-pages
+              sleep $((RANDOM % 5 + 3))
+            done
+            echo "could not push after retries" >&2; exit 1
+          fi
