@@ -182,12 +182,16 @@ argument_term <- function(d) if_else(is.na(d), NA_integer_,
                                      if_else(month(d) >= 9L, year(d), year(d) - 1L))
 
 # Projected argument Term for a granted case with no argument date yet. A grant
-# made after a Term's argument calendar has filled (~February onward) is held to
-# the following Term; grants in the fall/winter belong to the Term in session.
+# made after the current Term's argument calendar has filled -- roughly mid-
+# January onward through the summer -- is held to the following Term; grants in
+# the fall and early winter belong to the Term in session. (A case granted late
+# January, like the Jan-23-conference grants, is already too late for the spring
+# sittings.)
 unscheduled_arg_term <- function(grant_date) {
-  gterm <- if_else(month(grant_date) >= 9L, year(grant_date), year(grant_date) - 1L)
-  late <- month(grant_date) >= 2L & month(grant_date) <= 8L   # spring/summer grant -> next Term
-  as.integer(if_else(is.na(grant_date), NA_integer_, if_else(late, gterm + 1L, gterm)))
+  m <- month(grant_date); d <- day(grant_date)
+  gterm <- if_else(m >= 9L, year(grant_date), year(grant_date) - 1L)
+  held <- (m >= 2L & m <= 8L) | (m == 1L & d >= 15L)
+  as.integer(if_else(is.na(grant_date), NA_integer_, if_else(held, gterm + 1L, gterm)))
 }
 
 # Build a tidy table of every merits grant with an argument date (scheduled or
