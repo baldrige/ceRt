@@ -139,8 +139,50 @@ get_granted_qp <- function(dkt) {
   m <- str_locate(txt, regex("QUESTIONS?\\s+PRESENTED\\s*[:.]?", ignore_case = TRUE))
   if (is.na(m[1, "end"])) return("-")
   qp <- str_trim(str_sub(txt, m[1, "end"] + 1L))
+  # Strip the trailing "CERT. GRANTED <date>" line, then capture a limited-grant
+  # note ("GRANTED LIMITED TO QUESTION 1.") as a note and strip it too.
   qp <- str_trim(str_replace(qp, regex("\\s*CERT\\.?\\s+GRANTED\\b.*$", ignore_case = TRUE), ""))
+  limited <- str_match(qp, regex("\\bGRANTED LIMITED TO ([^.]+?)\\.?\\s*$", ignore_case = TRUE))[, 2]
+  qp <- str_trim(str_replace(qp, regex("\\s*GRANTED LIMITED TO\\b.*$", ignore_case = TRUE), ""))
+  qp <- split_court_questions(qp)
+  if (!is.na(limited) && qp != "") {
+    qp <- paste0("*Granted limited to ", str_squish(str_to_lower(limited)), ".*\n\n", qp)
+  }
   if (qp == "") "-" else qp
+}
+
+# Turn ALL-CAPS legal prose into sentence case, restoring a few proper nouns and
+# Roman numerals (the Court prints its added questions in caps).
+soften_caps <- function(s) {
+  if (!str_detect(s, "[A-Z]{5,}")) return(s)          # not shouting -> leave as-is
+  s <- str_to_sentence(str_to_lower(s))
+  for (w in c("Court", "Congress", "Constitution", "Article", "Amendment", "Clause",
+              "United States", "Federal", "Commerce", "Fourteenth", "Fifth", "First",
+              "Fourth", "Sixth", "Eighth", "Second", "Third", "Act", "Government")) {
+    s <- str_replace_all(s, regex(paste0("\\b", w, "\\b"), ignore_case = TRUE), w)
+  }
+  for (r in c("i", "ii", "iii", "iv", "v", "vi")) {   # "Article iii" -> "Article III"
+    s <- str_replace_all(s, regex(paste0("\\b(Article|Amendment|Title) ", r, "\\b"),
+                                  ignore_case = TRUE), paste0("\\1 ", toupper(r)))
+  }
+  s
+}
+
+# The Court sometimes adds a question at the grant stage:
+#   "In addition to the question presented by the petition, the parties are
+#    directed to brief and argue the following question: <Q>"
+# Split that out so both the petitioner's and the Court's questions are listed.
+split_court_questions <- function(qp) {
+  rx <- regex("\\bIN ADDITION TO THE QUESTIONS?\\s+PRESENTED\\b.*?THE FOLLOWING QUESTIONS?:\\s*",
+              ignore_case = TRUE, dotall = TRUE)
+  if (!str_detect(qp, rx)) return(qp)
+  parts <- str_split(qp, rx, n = 2)[[1]]
+  pet <- str_trim(parts[1]); court <- str_trim(parts[2])
+  if (court == "") return(pet)
+  court_item <- paste0("*Added by the Court:* ", soften_caps(court))
+  n_pet <- str_count(pet, regex("(?m)^\\s*\\(?\\d+[.)]\\s"))
+  if (n_pet >= 1) paste0(pet, "\n\n", n_pet + 1L, ". ", court_item)
+  else paste0("1. ", pet, "\n\n2. ", court_item)
 }
 
 # Cache-backed resolver keyed by docket -> {qp}. The URL is derived, so none is
