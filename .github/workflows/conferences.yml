@@ -155,6 +155,10 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          # Guard the custom-domain config: GitHub Pages serves supremecourt.report
+          # only while this CNAME file exists at the gh-pages root. Re-assert it on
+          # every publish so a future rebuild can never drop the domain.
+          echo "supremecourt.report" > CNAME
           git add -A
           if git diff --cached --quiet; then
             echo "No changes to publish."
