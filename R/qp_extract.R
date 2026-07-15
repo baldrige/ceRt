@@ -139,14 +139,25 @@ get_granted_qp <- function(dkt) {
   m <- str_locate(txt, regex("QUESTIONS?\\s+PRESENTED\\s*[:.]?", ignore_case = TRUE))
   if (is.na(m[1, "end"])) return("-")
   qp <- str_trim(str_sub(txt, m[1, "end"] + 1L))
-  # Strip the trailing "CERT. GRANTED <date>" line, then capture a limited-grant
-  # note ("GRANTED LIMITED TO QUESTION 1.") as a note and strip it too.
-  qp <- str_trim(str_replace(qp, regex("\\s*CERT\\.?\\s+GRANTED\\b.*$", ignore_case = TRUE), ""))
-  limited <- str_match(qp, regex("\\bGRANTED LIMITED TO ([^.]+?)\\.?\\s*$", ignore_case = TRUE))[, 2]
-  qp <- str_trim(str_replace(qp, regex("\\s*GRANTED LIMITED TO\\b.*$", ignore_case = TRUE), ""))
-  qp <- split_court_questions(qp)
-  if (!is.na(limited) && qp != "") {
-    qp <- paste0("*Granted limited to ", str_squish(str_to_lower(limited)), ".*\n\n", qp)
+  # Capture notes from the trailing (all-caps) administrative block before it is
+  # stripped: a limited grant and a consolidation.
+  limited <- str_match(qp, "GRANTED LIMITED TO ([^.]+?)\\.")[, 2]
+  consol  <- str_match(qp, "CONSOLIDATED WITH ([0-9A-Za-z-]+)")[, 2]
+  # Strip the trailing grant-disposition / administrative blocks (each runs to
+  # the end of the text). These are boilerplate and one even repeats the phrase
+  # "QUESTION PRESENTED", which would otherwise re-trigger strip_qp_heading and
+  # discard the real question.
+  qp <- str_replace(qp, regex("\\s*CERT\\.?\\s+GRANTED\\b.*$", ignore_case = TRUE, dotall = TRUE), "")
+  qp <- str_replace(qp, regex("\\s*GRANTED LIMITED TO\\b.*$", dotall = TRUE), "")
+  qp <- str_replace(qp, regex("\\s*(PETITIONS?\\s+GRANTED\\b|CONSOLIDATED WITH\\b).*$", dotall = TRUE), "")
+  qp <- str_trim(qp)
+  qp <- split_court_questions(qp)              # Court-directed additional question
+  note_parts <- c(
+    if (!is.na(consol)) paste0("Consolidated with ", consol),
+    if (!is.na(limited)) paste0("Granted limited to ", str_squish(str_to_lower(limited)))
+  )
+  if (length(note_parts) && qp != "") {
+    qp <- paste0("*", paste(note_parts, collapse = "; "), ".*\n\n", qp)
   }
   if (qp == "") "-" else qp
 }
