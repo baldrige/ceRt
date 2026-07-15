@@ -50,6 +50,10 @@ if (dir.exists(file.path(site_dir, "conferences"))) {
   items <- c(items, list(list(href = "conferences/", label = "Conference Reports",
                               meta = "weekly, by relists")))
 }
+if (dir.exists(file.path(site_dir, "arguments"))) {
+  items <- c(items, list(list(href = "arguments/", label = "Oral Argument Navigator",
+                              meta = "granted cases, by sitting")))
+}
 if (dir.exists(file.path(site_dir, "funnel"))) {
   items <- c(items, list(list(href = "funnel/", label = "The Cert Funnel",
                               meta = "the explainer")))

@@ -139,6 +139,13 @@ jobs:
           SITE_DIR: site
           CASES_DIR: cases
         run: Rscript .github/scripts/render_funnel.R
+      - name: Render argument navigator
+        # Never let an argument-nav failure block conference publishing.
+        continue-on-error: true
+        env:
+          SITE_DIR: site
+          CASES_DIR: cases
+        run: Rscript .github/scripts/render_arguments.R
       - name: Commit and publish
         working-directory: site
         run: |
