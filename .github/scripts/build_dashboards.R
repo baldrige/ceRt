@@ -60,9 +60,9 @@ if (dir.exists(file.path(site_dir, "funnel"))) {
 }
 styled_index_page(
   file.path(site_dir, "index.html"),
-  title = "ceRt — Supreme Court Docket Dashboards",
+  title = "Supreme Court Report",
   kicker = "A window on the Court's docket",
-  heading = "Supreme Court Docket Dashboards",
+  heading = "Supreme Court Report",
   dek = "Tracking every petition through the machine — from filing to the quiet order that ends most of them.",
   items = items,
   new_tab = FALSE
