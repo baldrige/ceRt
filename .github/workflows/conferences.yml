@@ -145,6 +145,10 @@ jobs:
         env:
           SITE_DIR: site
           CASES_DIR: cases
+          # Fetch newly-granted cases' Question-Presented PDFs (small text PDFs,
+          # no OCR) so the cache stays current. Safe here: the publish runner is
+          # fresh (it did no JSON-API fetching).
+          QP_MAX_NEW: "200"
         run: Rscript .github/scripts/render_arguments.R
       - name: Commit and publish
         working-directory: site
