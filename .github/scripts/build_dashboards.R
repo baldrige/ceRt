@@ -43,16 +43,36 @@ for (i in seq_along(dates)) {
 }
 dashboard_index(dash_dir)
 
-# Refresh the site landing page (links the sections that exist).
+# Refresh the site landing page (links the sections that exist). Each category
+# also shows its three most recent pages in a compact strip beneath the link.
+# Date-keyed sections (daily, conferences) sort by their YYYY-MM-DD; the
+# argument navigator is one page per Term, keyed by year.
+date_key   <- function(f) as.Date(str_extract(f, "\\d{4}-\\d{2}-\\d{2}"))
+year_key   <- function(f) as.integer(str_extract(f, "\\d{4}"))
+short_date <- function(f) { d <- date_key(f)
+  paste(format(d, "%b"), as.integer(format(d, "%d"))) }  # "Jul 14", "Jul 3"
+arg_label  <- function(f) paste0("OT", str_extract(f, "\\d{4}"))
+
 items <- list(list(href = "dashboards/", label = "Daily Petitions & Applications",
-                   meta = "new, daily"))
+                   meta = "new, daily",
+                   recent = recent_children(
+                     dash_dir, "^dash_\\d{4}-\\d{2}-\\d{2}\\.html$",
+                     date_key, short_date, "dashboards/")))
 if (dir.exists(file.path(site_dir, "conferences"))) {
   items <- c(items, list(list(href = "conferences/", label = "Conference Reports",
-                              meta = "weekly, by relists")))
+                              meta = "weekly, by relists",
+                              recent = recent_children(
+                                file.path(site_dir, "conferences"),
+                                "^conf_\\d{4}-\\d{2}-\\d{2}\\.html$",
+                                date_key, short_date, "conferences/"))))
 }
 if (dir.exists(file.path(site_dir, "arguments"))) {
   items <- c(items, list(list(href = "arguments/", label = "Oral Argument Navigator",
-                              meta = "granted cases, by sitting")))
+                              meta = "granted cases, by sitting",
+                              recent = recent_children(
+                                file.path(site_dir, "arguments"),
+                                "^arg_\\d{4}\\.html$",
+                                year_key, arg_label, "arguments/"))))
 }
 if (dir.exists(file.path(site_dir, "funnel"))) {
   items <- c(items, list(list(href = "funnel/", label = "The Cert Funnel",

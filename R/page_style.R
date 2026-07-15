@@ -54,6 +54,15 @@ INDEX_CSS <- "
   ul.idx a.row:hover .d{text-decoration:underline;text-underline-offset:3px}
   ul.idx .count{color:var(--faint);font-size:.9rem;font-style:italic;white-space:nowrap;
     font-variant-numeric:tabular-nums}
+  /* Compact horizontal strip of the most recent pages beneath a category row. */
+  ul.idx .recent{display:flex;flex-wrap:wrap;align-items:baseline;
+    gap:.3rem .85rem;padding:0 .4rem 1rem;margin-top:-.35rem}
+  ul.idx .recent .rlabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  ul.idx .recent a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--ink-soft);text-decoration:none;font-variant-numeric:tabular-nums;
+    border-bottom:1px solid var(--rule);padding-bottom:1px}
+  ul.idx .recent a:hover{color:var(--oxblood);border-color:var(--oxblood)}
   .back{margin-top:2rem;font-size:.95rem}
   .back a{color:var(--sienna);text-decoration:none;
     border-bottom:1px solid rgba(181,101,29,.35)}
@@ -88,7 +97,23 @@ styled_index_page <- function(out_path, title, heading, items,
       tags$span(class = "d", it$label),
       if (!is.null(it$meta) && nzchar(it$meta)) tags$span(class = "count", it$meta)
     ))
-    tags$li(do.call(tags$a, a_args))
+    # Optional strip of the category's most recent pages, listed horizontally in
+    # a smaller, muted style beneath the main link. Each is its own <a>, so it
+    # sits outside the block-level row link (anchors can't nest).
+    recent_strip <- NULL
+    if (!is.null(it$recent) && length(it$recent) > 0) {
+      rlinks <- lapply(it$recent, function(rc) {
+        ra <- list(href = rc$href, rc$label)
+        if (isTRUE(new_tab)) { ra$target <- "_blank"; ra$rel <- "noopener" }
+        do.call(tags$a, ra)
+      })
+      recent_strip <- tags$div(
+        class = "recent",
+        tags$span(class = "rlabel", it$recent_label %||% "Latest"),
+        rlinks
+      )
+    }
+    tags$li(do.call(tags$a, a_args), recent_strip)
   })
   body <- tags$body(tags$main(
     class = "wrap",
@@ -103,6 +128,23 @@ styled_index_page <- function(out_path, title, heading, items,
                  page_head(title), "\n", as.character(body), "\n</html>\n")
   writeLines(html, out_path, useBytes = TRUE)
   invisible(out_path)
+}
+
+# Return the `n` most recent child pages of `dir` as a list of {href, label},
+# newest first, for the compact "recent" strip beneath a landing-page category.
+# `pattern` selects the files; `sort_key` maps the filename vector to a sortable
+# vector (Date or integer, newest = largest); `label` maps the filename vector
+# to display strings. `prefix` is prepended to each href so links resolve from
+# the landing page (e.g. "dashboards/"). Empty list if the dir or matches are
+# absent, so callers can attach it unconditionally.
+recent_children <- function(dir, pattern, sort_key, label, prefix, n = 3L) {
+  if (!dir.exists(dir)) return(list())
+  files <- list.files(dir, pattern = pattern)
+  if (length(files) == 0) return(list())
+  files <- utils::head(files[order(sort_key(files), decreasing = TRUE)], n)
+  labs <- label(files)
+  lapply(seq_along(files), function(i)
+    list(href = paste0(prefix, files[i]), label = labs[i]))
 }
 
 # gtsave() with a browser <title> and a mobile viewport meta injected into the
