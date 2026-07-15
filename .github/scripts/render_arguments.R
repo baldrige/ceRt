@@ -19,12 +19,15 @@ dir.create(arg_dir, recursive = TRUE, showWarnings = FALSE)
 source("R/qp_extract.R")
 source("R/argument_nav.R")   # sources cert_funnel.R + page_style.R
 
-# Combine artifacts (JSON, richer) + historical archive, deduping by docket and
-# preferring the JSON record where a docket appears in both.
+# Combine, deduping by docket with a freshness preference:
+#   arg_refresh.rds (re-fetched historical grants, freshest for OT17-23)
+#   > cases-NN.rds  (JSON artifacts, freshest for the fetched terms)
+#   > ot_*.rds      (historical snapshots, may predate a Term's decisions)
+refresh <- list.files("data-raw", pattern = "^arg_refresh\\.rds$", full.names = TRUE)
 art <- list.files(cases_dir, pattern = "^cases-\\d{2}\\.rds$",
                   full.names = TRUE, recursive = TRUE)
 hist <- list.files("data-raw", pattern = "^ot_\\d+\\.rds$", full.names = TRUE)
-files <- c(art, hist)
+files <- c(refresh, art, hist)
 if (length(files) == 0) stop("no case data found (artifacts or data-raw)")
 cat("Loading", length(files), "file(s):", paste(basename(files), collapse = ", "), "\n")
 combined <- files |> map(readRDS) |> bind_rows() |> distinct(dkt, .keep_all = TRUE)

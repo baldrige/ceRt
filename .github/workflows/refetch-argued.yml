@@ -1,0 +1,60 @@
+name: Refetch historical argued grants
+
+# One-off / occasional: re-fetch the granted cases in the older docket terms
+# (17-24) from a fresh runner IP so their decisions and opinions are current,
+# and commit the refresh layer (data-raw/arg_refresh.rds) to main. The argument
+# navigator renderer prefers it over the stale historical snapshots, so the next
+# render (weekly conferences job, or a manual run) shows those cases as decided.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refetch-argued
+  cancel-in-progress: false
+
+jobs:
+  refetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - name: System dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libpoppler-cpp-dev libtesseract-dev tesseract-ocr libcurl4-openssl-dev
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          packages: |
+            any::gt
+            any::gtExtras
+            any::tidyverse
+            any::httr2
+            any::jsonlite
+            any::pdftools
+            any::htmltools
+      - name: Refetch OT17-24 argued grants
+        run: Rscript .github/scripts/refetch_argued.R
+      - name: Commit refresh layer to main
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data-raw/arg_refresh.rds
+          if git diff --cached --quiet; then
+            echo "No change to arg_refresh.rds."
+          else
+            git commit -m "Refresh historical argued grants $(date -u +%F)"
+            for i in 1 2 3 4 5; do
+              if git push origin HEAD:main; then exit 0; fi
+              echo "push rejected; rebasing (attempt $i)"
+              git pull --rebase origin main
+              sleep $((RANDOM % 5 + 3))
+            done
+            echo "could not push after retries" >&2; exit 1
+          fi
