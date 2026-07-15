@@ -17,6 +17,7 @@
 
 suppressPackageStartupMessages({
   library(gt); library(gtExtras); library(tidyverse); library(lubridate); library(htmltools)
+  library(httr2)
 })
 
 # Shared modules: classify_petitions()/term_label() from cert_funnel.R and the
@@ -132,6 +133,48 @@ arg_petition_url <- function(events) {
   NA_character_
 }
 
+# ---- oral-argument media (transcript + audio) ---------------------------------
+# The docket JSON does not carry the argument transcript/audio, but supremecourt
+# .gov exposes them at stable locations. Audio is a predictable per-case URL;
+# the transcript PDF has an unpredictable filename suffix, so its per-Term index
+# is scraped once to map docket -> URL.
+
+# Scrape one Term's transcript index -> named vector (docket -> absolute PDF URL).
+# Returns an empty vector on any failure (media is best-effort, never fatal).
+fetch_transcript_map <- function(term) {
+  url <- paste0("https://www.supremecourt.gov/oral_arguments/argument_transcript/", term)
+  html <- tryCatch(
+    request(url) |>
+      req_user_agent("ceRt oral-argument navigator (github.com/baldrige/ceRt)") |>
+      req_timeout(30) |> req_perform() |> resp_body_string(),
+    error = function(e) "")
+  m <- str_match_all(html, "argument_transcripts/(\\d{4})/([^\"'>\\s]+\\.pdf)")[[1]]
+  if (nrow(m) == 0) return(setNames(character(), character()))
+  files <- m[, 3]; yrs <- m[, 2]
+  dockets <- str_extract(files, "^[^_]+")               # "24-316_1a72.pdf" -> "24-316"
+  urls <- paste0("https://www.supremecourt.gov/oral_arguments/argument_transcripts/",
+                 yrs, "/", files)
+  keep <- !duplicated(dockets)
+  setNames(urls[keep], dockets[keep])
+}
+
+# Add transcript_url + audio_url columns to an argument table. Audio is built for
+# any case actually argued; the transcript is looked up in the per-Term index.
+attach_media <- function(tbl) {
+  terms <- sort(unique(tbl$term[!is.na(tbl$term)]))
+  tmap <- setNames(lapply(terms, fetch_transcript_map), as.character(terms))
+  tbl |>
+    mutate(
+      transcript_url = map2_chr(dkt, term, function(d, t) {
+        m <- if (is.na(t)) NULL else tmap[[as.character(t)]]
+        if (!is.null(m) && d %in% names(m)) unname(m[[d]]) else NA_character_
+      }),
+      audio_url = if_else(!is.na(argued_date),
+        paste0("https://www.supremecourt.gov/oral_arguments/audio/", term, "/", dkt),
+        NA_character_)
+    )
+}
+
 # ---- assemble the argument table ----------------------------------------------
 
 # The Term a case is ARGUED in: Oct-Dec -> that year's Term; Jan-Jun -> prior.
@@ -197,15 +240,24 @@ argument_term_page <- function(tbl, term, out_dir) {
         status == "Decided" & !is.na(opinion_author) ~ str_c("Decided · ", opinion_author),
         TRUE ~ status
       ),
+      # Transcript + audio links for the oral argument (dropped when neither).
+      media = pmap_chr(list(transcript_url, audio_url), function(tr, au) {
+        parts <- c(if (!is.na(tr)) str_c("[Transcript](", tr, ")"),
+                   if (!is.na(au)) str_c("[Audio](", au, ")"))
+        if (length(parts) == 0) "—" else paste(parts, collapse = " · ")
+      }),
       qp = if_else(is.na(qp), "—", qp)
-    ) |>
+    )
+  has_media <- any(d$media != "—")
+  d <- d |>
     select(sitting, when, case, docket, status, status_disp, argued_by,
+           any_of(if (has_media) "media" else character()),
            any_of(if (has_qp) "qp" else character()))
 
   labels <- list(when = "", case = "Case", docket = "Docket", status_disp = "Status",
-                 argued_by = "Argued by", qp = "QP")
+                 argued_by = "Argued by", media = "Argument", qp = "QP")
   labels <- labels[names(labels) %in% names(d)]
-  md_cols <- intersect(c("docket", "status_disp", "qp"), names(d))
+  md_cols <- intersect(c("docket", "status_disp", "media", "qp"), names(d))
 
   tbl_gt <- d |>
     gt(groupname_col = "sitting") |>
@@ -276,6 +328,7 @@ render_argument_nav <- function(cases = NULL, out_dir, qp_map = NULL, tbl = NULL
   dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
   if (is.null(tbl)) tbl <- build_argument_table(cases, qp_map = qp_map)
   if (nrow(tbl) == 0) { message("No argued/scheduled grants found."); return(invisible(NULL)) }
+  if (!"audio_url" %in% names(tbl)) tbl <- attach_media(tbl)   # transcript + audio links
   terms <- tbl |> distinct(term) |> filter(!is.na(term)) |> arrange(term) |> pull(term)
   # A Term's fall sitting is argued from the PRIOR docket term, so the earliest
   # Term in the archive is incomplete (we lack the term before it). Drop it so it
