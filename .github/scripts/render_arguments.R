@@ -36,11 +36,16 @@ cat("Combined cases:", nrow(combined), "\n")
 # Build the argument table once; attach QP from the conference cache if present.
 tbl <- build_argument_table(combined)
 cat("Argued/scheduled grants:", nrow(tbl), "\n")
+# QP is read from the shared conference cache. QP_MAX_NEW>0 lets this run fetch a
+# few uncached grant petitions too (e.g. cases granted after the historical
+# snapshots, which no prior backfill saw); default 0 keeps CI read-only.
+qp_max <- as.integer(Sys.getenv("QP_MAX_NEW", unset = "0"))
 cache <- file.path(site_dir, "conferences", "qp_cache.json")
 if (file.exists(cache) && nrow(tbl) > 0) {
-  qp_raw <- resolve_qps(tbl$dkt, tbl$petition_url, cache_path = cache, max_new = 0)
+  qp_raw <- resolve_qps(tbl$dkt, tbl$petition_url, cache_path = cache, max_new = qp_max)
   tbl <- tbl |> mutate(qp = ifelse(qp_raw == "-", NA_character_, qp_details(qp_raw)))
-  cat("QP attached for", sum(!is.na(tbl$qp)), "of", nrow(tbl), "cases (cache-only)\n")
+  cat("QP attached for", sum(!is.na(tbl$qp)), "of", nrow(tbl), "cases",
+      if (qp_max > 0) paste0(" (fetched up to ", qp_max, " new)") else " (cache-only)", "\n")
 }
 
 terms <- render_argument_nav(out_dir = arg_dir, tbl = tbl)
