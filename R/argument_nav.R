@@ -342,7 +342,9 @@ argument_index <- function(out_dir) {
   read_count <- function(f) {
     h <- paste(readLines(file.path(out_dir, f), warn = FALSE, encoding = "UTF-8"),
                collapse = " ")
-    m <- str_match(h, "([0-9,]+)\\s+case")[, 2]
+    # Subtitle is "N case(s) argued or scheduled" or, for an all-unscheduled
+    # Term, "N granted case(s) awaiting an argument date" -- allow the "granted".
+    m <- str_match(h, "([0-9,]+)\\s+(?:granted\\s+)?cases?")[, 2]
     if (is.na(m)) NA_integer_ else as.integer(str_remove_all(m, ","))
   }
   items <- purrr::map2(files, terms, function(f, t) {
