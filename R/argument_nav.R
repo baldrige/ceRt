@@ -35,10 +35,14 @@ local({
 # ---- argument-stage classification --------------------------------------------
 
 # Classify one granted case's argument lifecycle from its events. One-row tibble.
+# NB: the JSON proceedings text embeds <a href> anchors (e.g. around "opinion"),
+# which break literal phrases like "opinion of the Court" -- detection here is
+# written to tolerate them, and the anchor is what yields the slip-opinion URL.
 classify_argument <- function(events) {
   empty <- tibble(scheduled_date = as.Date(NA), argued_date = as.Date(NA),
                   decided_date = as.Date(NA), n_settings = 0L,
                   vided = FALSE, dig = FALSE, argued_text = NA_character_,
+                  opinion_author = NA_character_, opinion_url = NA_character_,
                   status = "granted")
   if (!is.data.frame(events) || !("Proceedings and Orders" %in% names(events)) ||
       nrow(events) == 0) return(empty)
@@ -59,12 +63,33 @@ classify_argument <- function(events) {
   argued_text <- if (length(arg_idx)) txt[arg_idx[1]] else NA_character_
 
   dig <- any(str_detect(txt, regex("DISMISSED as improvidently granted", ignore_case = TRUE)))
-  dec_idx <- which(str_detect(txt, regex(
-    paste0("Judgment (AFFIRMED|REVERSED|VACATED|entered)",
-           "|Adjudged to be (AFFIRMED|REVERSED)",
-           "|delivered the opinion of the Court"),
-    ignore_case = TRUE)))
+
+  # Decision entry. Several tolerant signals; the caps-disposition uses a dot-
+  # crossing gap because the docket infixes the case number ("Judgment in No.
+  # 24-1287 is VACATED"). A linked supremecourt.gov/opinions/ PDF is definitive.
+  dec_idx <- which(
+    str_detect(txt, "href\\s*=\\s*['\"][^'\"]*supremecourt\\.gov/opinions/") |
+    str_detect(txt, "Judgment.{0,80}(AFFIRMED|REVERSED|VACATED)") |
+    str_detect(txt, regex("announced the judgment", ignore_case = TRUE)) |
+    str_detect(txt, regex("delivered the .{0,180}?opinion", ignore_case = TRUE)) |
+    str_detect(txt, regex("Adjudged to be (AFFIRMED|REVERSED)", ignore_case = TRUE)) |
+    str_detect(txt, "^Judgment Issued")
+  )
   decided_date <- if (length(dec_idx)) edate[dec_idx[1]] else as.Date(NA)
+
+  # Opinion author + slip-opinion URL from the decision entries.
+  opinion_author <- NA_character_; opinion_url <- NA_character_
+  if (length(dec_idx)) {
+    dtext <- paste(txt[dec_idx], collapse = " ")
+    am <- str_match(dtext, "([A-Z][A-Za-z'’]+), ((?:C\\. )?J)\\.,.{0,120}?(?:delivered|announced)")
+    if (!is.na(am[1, 2])) {
+      opinion_author <- if (str_detect(am[1, 3], "C")) paste0(am[1, 2], ", C.J.") else am[1, 2]
+    } else if (str_detect(dtext, regex("per curiam", ignore_case = TRUE))) {
+      opinion_author <- "Per Curiam"
+    }
+    um <- str_match(dtext, "href\\s*=\\s*['\"]([^'\"]*supremecourt\\.gov/opinions/[^'\"]+)['\"]")
+    if (!is.na(um[1, 2])) opinion_url <- um[1, 2]
+  }
 
   status <- if (dig) "DIG'd"
     else if (!is.na(decided_date)) "Decided"
@@ -75,7 +100,9 @@ classify_argument <- function(events) {
   tibble(scheduled_date = scheduled, argued_date = argued_date,
          decided_date = decided_date, n_settings = length(set_idx),
          vided = any(str_detect(txt, regex("SET FOR ARGUMENT.*VIDED", ignore_case = TRUE))),
-         dig = dig, argued_text = argued_text, status = status)
+         dig = dig, argued_text = argued_text,
+         opinion_author = opinion_author, opinion_url = opinion_url,
+         status = status)
 }
 
 # Compact "argued by" from an "Argued. For <side>: <Name>, <City>. ..." entry:
@@ -155,21 +182,30 @@ argument_term_page <- function(tbl, term, out_dir) {
     mutate(
       when = format(arg_ref, "%a %b %d"),
       case = caption,
-      docket = if_else(!is.na(petition_url) & petition_url != "",
-        str_c("[", dkt, "](", petition_url, ")"),
-        str_c("[", dkt,
-              "](https://www.supremecourt.gov/search.aspx?filename=/docket/docketfiles/html/public/",
-              dkt, ".html)")),
+      # Always link the docket number to the docket page (not the petition PDF).
+      docket = str_c("[", dkt,
+        "](https://www.supremecourt.gov/search.aspx?filename=/docket/docketfiles/html/public/",
+        dkt, ".html)"),
       argued_by = if_else(is.na(advocates), "—", advocates),
+      # Decided cases show the majority author and link to the slip opinion where
+      # available; other states show the plain status word. `status` is retained
+      # (hidden) to drive the fill colour.
+      status_disp = case_when(
+        status == "Decided" & !is.na(opinion_url) & !is.na(opinion_author) ~
+          str_c("[Decided · ", opinion_author, "](", opinion_url, ")"),
+        status == "Decided" & !is.na(opinion_url) ~ str_c("[Decided](", opinion_url, ")"),
+        status == "Decided" & !is.na(opinion_author) ~ str_c("Decided · ", opinion_author),
+        TRUE ~ status
+      ),
       qp = if_else(is.na(qp), "—", qp)
     ) |>
-    select(sitting, when, case, docket, status, argued_by,
+    select(sitting, when, case, docket, status, status_disp, argued_by,
            any_of(if (has_qp) "qp" else character()))
 
-  labels <- list(when = "", case = "Case", docket = "Docket", status = "Status",
+  labels <- list(when = "", case = "Case", docket = "Docket", status_disp = "Status",
                  argued_by = "Argued by", qp = "QP")
   labels <- labels[names(labels) %in% names(d)]
-  md_cols <- intersect(c("docket", "qp"), names(d))
+  md_cols <- intersect(c("docket", "status_disp", "qp"), names(d))
 
   tbl_gt <- d |>
     gt(groupname_col = "sitting") |>
@@ -180,12 +216,23 @@ argument_term_page <- function(tbl, term, out_dir) {
     ) |>
     gt_theme_nytimes() |>
     cols_label(.list = labels) |>
+    cols_hide(columns = status) |>
     cols_align(align = "center", columns = everything()) |>
-    cols_align(align = "left", columns = any_of("qp"))
+    cols_align(align = "left", columns = any_of("qp")) |>
+    # Distinctive, centered sitting dividers (an oxblood-on-parchment band).
+    tab_style(
+      style = list(
+        cell_fill(color = "#ece3cf"),
+        cell_text(weight = "bold", align = "center", transform = "uppercase",
+                  color = "#7a2e2e", size = px(13)),
+        cell_borders(sides = c("top", "bottom"), color = "#c9b98f", weight = px(1))
+      ),
+      locations = cells_row_groups()
+    )
   for (s in names(STATUS_FILL)) {
     tbl_gt <- tbl_gt |>
       tab_style(cell_fill(color = STATUS_FILL[[s]]),
-                cells_body(columns = status, rows = status == s))
+                cells_body(columns = status_disp, rows = status == s))
   }
   gtsave_titled(tbl_gt, str_c("arg_", term, ".html"), path = out_dir,
                 title = paste0(term_label(term - 2000L), " oral arguments — SCOTUS"))
