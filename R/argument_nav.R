@@ -64,6 +64,12 @@ classify_argument <- function(events) {
   argued_text <- if (length(arg_idx)) txt[arg_idx[1]] else NA_character_
 
   dig <- any(str_detect(txt, regex("DISMISSED as improvidently granted", ignore_case = TRUE)))
+  # Post-grant dismissal (parties settle/withdraw): a granted case that ends
+  # before argument, e.g. "Case Dismissed - Rule 46." or removed from the docket.
+  dismissed <- any(
+    str_detect(txt, regex("^Case [Dd]ismissed", ignore_case = TRUE)) |
+    str_detect(txt, regex("dismissed[^.]{0,40}Rule 46|Rule 46[^.]{0,40}dismiss", ignore_case = TRUE)) |
+    str_detect(txt, regex("removed from the docket", ignore_case = TRUE)))
 
   # Decision entry. Several tolerant signals; the caps-disposition uses a dot-
   # crossing gap because the docket infixes the case number ("Judgment in No.
@@ -96,6 +102,7 @@ classify_argument <- function(events) {
     else if (!is.na(decided_date)) "Decided"
     else if (!is.na(argued_date)) "Argued"
     else if (!is.na(scheduled)) "Scheduled"
+    else if (dismissed) "Dismissed"          # granted, then withdrawn before scheduling
     else "Granted"
 
   tibble(scheduled_date = scheduled, argued_date = argued_date,
@@ -222,7 +229,10 @@ build_argument_table <- function(cases, qp_map = NULL) {
       sitting = if_else(is.na(arg_ref), NA_character_, format(arg_ref, "%B %Y")),
       qp = if (is.null(qp_map)) NA_character_ else unname(qp_map[dkt])
     ) |>
-    filter(!is.na(term))                         # need a Term to place the case
+    # Keep cases with an argument date, or still pending ("Granted"). Drop cases
+    # that ended before ever being scheduled (dismissed/DIG'd with no argument),
+    # e.g. a Rule 46 settlement after cert -- they are not oral arguments.
+    filter(!is.na(term), !is.na(arg_ref) | status == "Granted")
   arg
 }
 
