@@ -36,6 +36,15 @@
   ul.idx a.row:hover .d{text-decoration:underline;text-underline-offset:3px}
   ul.idx .count{color:var(--faint);font-size:.9rem;font-style:italic;white-space:nowrap;
     font-variant-numeric:tabular-nums}
+  /* Compact horizontal strip of the most recent pages beneath a category row. */
+  ul.idx .recent{display:flex;flex-wrap:wrap;align-items:baseline;
+    gap:.3rem .85rem;padding:0 .4rem 1rem;margin-top:-.35rem}
+  ul.idx .recent .rlabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  ul.idx .recent a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--ink-soft);text-decoration:none;font-variant-numeric:tabular-nums;
+    border-bottom:1px solid var(--rule);padding-bottom:1px}
+  ul.idx .recent a:hover{color:var(--oxblood);border-color:var(--oxblood)}
   .back{margin-top:2rem;font-size:.95rem}
   .back a{color:var(--sienna);text-decoration:none;
     border-bottom:1px solid rgba(181,101,29,.35)}
@@ -53,18 +62,36 @@
           <span class="d">Daily Petitions &amp; Applications</span>
           <span class="count">new, daily</span>
         </a>
+        <div class="recent">
+          <span class="rlabel">Latest</span>
+          <a href="dashboards/dash_2026-07-15.html">Jul 15</a>
+          <a href="dashboards/dash_2026-07-14.html">Jul 14</a>
+          <a href="dashboards/dash_2026-07-13.html">Jul 13</a>
+        </div>
       </li>
       <li>
         <a class="row" href="conferences/">
           <span class="d">Conference Reports</span>
           <span class="count">weekly, by relists</span>
         </a>
+        <div class="recent">
+          <span class="rlabel">Latest</span>
+          <a href="conferences/conf_2026-09-28.html">Sep 28</a>
+          <a href="conferences/conf_2026-06-29.html">Jun 29</a>
+          <a href="conferences/conf_2026-06-25.html">Jun 25</a>
+        </div>
       </li>
       <li>
         <a class="row" href="arguments/">
           <span class="d">Oral Argument Navigator</span>
           <span class="count">granted cases, by sitting</span>
         </a>
+        <div class="recent">
+          <span class="rlabel">Latest</span>
+          <a href="arguments/arg_2026.html">OT2026</a>
+          <a href="arguments/arg_2025.html">OT2025</a>
+          <a href="arguments/arg_2024.html">OT2024</a>
+        </div>
       </li>
       <li>
         <a class="row" href="funnel/">
