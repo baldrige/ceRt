@@ -110,6 +110,69 @@ resolve_qps <- function(dockets, urls, cache_path = NULL, max_new = Inf) {
   }, character(1), USE.NAMES = FALSE)
 }
 
+# ---- granted-case Question Presented (the Court's dedicated QP PDF) -----------
+# For a GRANTED case the Court posts a clean, typeset "Questions Presented" PDF
+# (the JSON docket's QPLink). It is far more reliable than page 2 of the petition
+# -- machine-readable text (no OCR), present even when the petition is a scan or
+# the case came up on cert-before-judgment, and it is the QP *as granted*. The
+# URL is derivable from the docket number (same form as QPLink).
+
+qp_pdf_url <- function(dkt) {
+  m <- str_match(dkt, "^(\\d{2})-(\\d+)$")             # paid/IFP dockets only
+  if (is.na(m[1, 1])) return(NA_character_)
+  sprintf("https://www.supremecourt.gov/qp/%s-%05dqp.pdf", m[1, 2], as.integer(m[1, 3]))
+}
+
+# QP text from the dedicated PDF: read all pages, cut to after the
+# "Question(s) Presented" heading, drop the trailing "CERT. GRANTED ..." note.
+get_granted_qp <- function(dkt) {
+  url <- qp_pdf_url(dkt)
+  if (is.na(url)) return("-")
+  txt <- tryCatch(paste(pdftools::pdf_text(url), collapse = "\n"),
+                  error = function(e) NA_character_)
+  if (is.na(txt) || str_squish(txt) == "") return("-")
+  txt <- txt |>
+    str_replace_all("\t", " ") |>
+    str_replace_all(regex("^ +", multiline = TRUE), "") |>
+    str_replace_all(" {2,}", " ") |>
+    str_replace_all("\n{3,}", "\n\n")
+  m <- str_locate(txt, regex("QUESTIONS?\\s+PRESENTED\\s*[:.]?", ignore_case = TRUE))
+  if (is.na(m[1, "end"])) return("-")
+  qp <- str_trim(str_sub(txt, m[1, "end"] + 1L))
+  qp <- str_trim(str_replace(qp, regex("\\s*CERT\\.?\\s+GRANTED\\b.*$", ignore_case = TRUE), ""))
+  if (qp == "") "-" else qp
+}
+
+# Cache-backed resolver keyed by docket -> {qp}. The URL is derived, so none is
+# stored. Fetches at most `max_new` uncached QP PDFs per run (they are small,
+# clean text -- no OCR -- so this is far lighter than the petition path).
+resolve_granted_qps <- function(dockets, cache_path = NULL, max_new = Inf) {
+  cache <- list()
+  if (!is.null(cache_path) && file.exists(cache_path)) {
+    cache <- tryCatch(fromJSON(cache_path, simplifyVector = FALSE),
+                      error = function(e) list())
+  }
+  uniq <- unique(dockets[!is.na(dockets)])
+  uniq <- uniq[!is.na(vapply(uniq, qp_pdf_url, character(1)))]   # paid/IFP only
+  needs <- uniq[vapply(uniq, function(d) is.null(cache[[d]]), logical(1))]
+  n_fetch <- min(length(needs), max_new)
+  if (n_fetch > 0) {
+    message("granted QP: fetching ", n_fetch, " of ", length(needs), " uncached PDF(s)",
+            if (is.finite(max_new)) paste0(" (cap ", max_new, ")") else "")
+    for (d in head(needs, n_fetch)) {
+      qp <- tryCatch(get_granted_qp(d), error = function(e) "-")
+      if (!identical(qp, "-")) cache[[d]] <- list(qp = qp)
+    }
+    if (!is.null(cache_path)) {
+      dir.create(dirname(cache_path), recursive = TRUE, showWarnings = FALSE)
+      write_json(cache, cache_path, auto_unbox = TRUE)
+    }
+  }
+  vapply(dockets, function(d) {
+    c <- cache[[d]]; if (is.null(c) || is.null(c$qp)) "-" else c$qp
+  }, character(1), USE.NAMES = FALSE)
+}
+
 # Reflow an extracted QP for clean markdown rendering. Petition PDFs wrap each
 # question across lines and separate questions with blank lines, which markdown
 # fragments into stray one-item lists and loose paragraphs. This rebuilds a

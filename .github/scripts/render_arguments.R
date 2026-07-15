@@ -33,16 +33,17 @@ cat("Loading", length(files), "file(s):", paste(basename(files), collapse = ", "
 combined <- files |> map(readRDS) |> bind_rows() |> distinct(dkt, .keep_all = TRUE)
 cat("Combined cases:", nrow(combined), "\n")
 
-# Build the argument table once; attach QP from the conference cache if present.
+# Build the argument table once; attach QP from the Court's dedicated
+# Questions-Presented PDFs (clean text, present for granted cases across all
+# Terms). Cached in the argument section's own qp_cache.json. QP_MAX_NEW>0 fetches
+# uncached PDFs this run (they are small text PDFs, no OCR); default 0 stays
+# read-only. The publish runner is fresh, so a full backfill is safe there.
 tbl <- build_argument_table(combined)
 cat("Argued/scheduled grants:", nrow(tbl), "\n")
-# QP is read from the shared conference cache. QP_MAX_NEW>0 lets this run fetch a
-# few uncached grant petitions too (e.g. cases granted after the historical
-# snapshots, which no prior backfill saw); default 0 keeps CI read-only.
 qp_max <- as.integer(Sys.getenv("QP_MAX_NEW", unset = "0"))
-cache <- file.path(site_dir, "conferences", "qp_cache.json")
-if (file.exists(cache) && nrow(tbl) > 0) {
-  qp_raw <- resolve_qps(tbl$dkt, tbl$petition_url, cache_path = cache, max_new = qp_max)
+cache <- file.path(arg_dir, "qp_cache.json")
+if (nrow(tbl) > 0) {
+  qp_raw <- resolve_granted_qps(tbl$dkt, cache_path = cache, max_new = qp_max)
   tbl <- tbl |> mutate(qp = ifelse(qp_raw == "-", NA_character_, qp_details(qp_raw)))
   cat("QP attached for", sum(!is.na(tbl$qp)), "of", nrow(tbl), "cases",
       if (qp_max > 0) paste0(" (fetched up to ", qp_max, " new)") else " (cache-only)", "\n")
