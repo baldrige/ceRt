@@ -1,0 +1,119 @@
+name: Enrich petition signals
+
+# One-off / incremental: parse each paid, decided petition's PDF for the Rule 10
+# signals (dissent below / circuit split) via R/petition_signals.R, one term per
+# runner (fresh IPs, and the per-docket cache is resumable), then merge the terms
+# into data-raw/petition_signals.json and commit it to main. The baseline
+# cert-grant model reads this layer at train time.
+
+on:
+  workflow_dispatch:
+    inputs:
+      terms:
+        description: "Comma-separated terms (e.g. 2024 or 2017,2018). Blank = all 2017-2024."
+        required: false
+        default: ""
+      max_new:
+        description: "Max petitions to fetch per term this run."
+        required: false
+        default: "6000"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: enrich-petitions
+  cancel-in-progress: false
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.p.outputs.matrix }}
+    steps:
+      - id: p
+        run: |
+          terms="${{ inputs.terms }}"
+          if [ -z "$terms" ]; then terms="2017,2018,2019,2020,2021,2022,2023,2024"; fi
+          json=$(echo "$terms" | tr ',' '\n' | sed 's/[^0-9]//g;/^$/d;s/^/"/;s/$/"/' | paste -sd, -)
+          echo "matrix=[$json]" >> "$GITHUB_OUTPUT"
+          echo "terms: [$json]"
+
+  fetch:
+    needs: plan
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    strategy:
+      fail-fast: false
+      matrix:
+        term: ${{ fromJSON(needs.plan.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: System dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libpoppler-cpp-dev libtesseract-dev tesseract-ocr libcurl4-openssl-dev
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          packages: |
+            any::gt
+            any::gtExtras
+            any::tidyverse
+            any::httr2
+            any::jsonlite
+            any::pdftools
+            any::htmltools
+      - name: Enrich OT ${{ matrix.term }}
+        env:
+          TERM_YEAR: ${{ matrix.term }}
+          OUT: petition_signals_${{ matrix.term }}.json
+          MAX_NEW: ${{ inputs.max_new || '6000' }}
+        run: Rscript .github/scripts/enrich_petition_signals.R
+      - uses: actions/upload-artifact@v4
+        with:
+          name: petition-signals-${{ matrix.term }}
+          path: petition_signals_${{ matrix.term }}.json
+          retention-days: 5
+
+  combine:
+    needs: fetch
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          packages: any::jsonlite
+      - name: Download per-term caches
+        uses: actions/download-artifact@v4
+        with:
+          path: caches
+          pattern: petition-signals-*
+          merge-multiple: true
+      - name: Merge into data-raw/petition_signals.json
+        env:
+          IN_DIR: caches
+          OUT: data-raw/petition_signals.json
+        run: Rscript .github/scripts/combine_petition_signals.R
+      - name: Commit enrichment layer to main
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data-raw/petition_signals.json
+          if git diff --cached --quiet; then
+            echo "No change to petition_signals.json."
+          else
+            git commit -m "Enrich petition signals $(date -u +%F)"
+            for i in 1 2 3 4 5; do
+              if git push origin HEAD:main; then exit 0; fi
+              echo "push rejected; rebasing (attempt $i)"
+              git pull --rebase origin main
+              sleep $((RANDOM % 5 + 3))
+            done
+            echo "could not push after retries" >&2; exit 1
+          fi

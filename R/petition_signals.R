@@ -104,9 +104,15 @@ resolve_petition_signals <- function(dkts, urls, cache_path, max_new = 0L) {
     message("petition signals: fetching ", length(todo), " of ",
             sum(!dkts %in% names(cache)), " uncached (cap ", max_new, ")")
     url_of <- setNames(urls, dkts)
-    for (dk in todo) {
+    for (i in seq_along(todo)) {
+      dk <- todo[i]
       sig <- extract_petition_signals(fetch_petition_text(url_of[[dk]]))
       cache[[dk]] <- as.list(sig)
+      # Flush periodically so a crash/timeout keeps progress (resumable).
+      if (i %% 50 == 0) {
+        write_json(cache, cache_path, auto_unbox = TRUE)
+        message("  ...", i, "/", length(todo))
+      }
     }
     write_json(cache, cache_path, auto_unbox = TRUE)
   }
