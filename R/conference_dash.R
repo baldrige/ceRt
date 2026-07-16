@@ -207,9 +207,16 @@ conference_dash <- function(dist, conf_date,
     QP = { q <- map_chr(d$dkt, qp_get); ifelse(is.na(q) | q == "", "—", q) }
   ) |> arrange(desc(Relists), desc(Grant))
 
-  # Drop the forecast columns on conferences with no paid petitions (all NA).
+  # Drop the forecast columns on conferences with no paid petitions (all NA),
+  # and any column that is entirely empty -- e.g. QP on the pre-JSON historical
+  # archive, which has no Questions-Presented source (matches the old renderer,
+  # which omitted the column rather than showing a wall of em dashes).
   has_grant <- any(!is.na(tbl$Grant))
   if (!has_grant) tbl <- select(tbl, -Grant, -GVR)
+  for (col in c("QP", "Documents")) {
+    if (col %in% names(tbl) && all(tbl[[col]] == "—")) tbl <- select(tbl, -all_of(col))
+  }
+  has_qp <- "QP" %in% names(tbl)
 
   left_cols <- match(intersect(c("Case", "Court", "Documents", "QP"), names(tbl)),
                      names(tbl))
@@ -220,8 +227,8 @@ conference_dash <- function(dist, conf_date,
     data_color(columns = Type, method = "factor",
       palette = c("Paid" = "#e4e7d8", "IFP" = "#efe1cd", "Application" = "#dfe4ea")) |>
     cols_align("center", columns = everything()) |>
-    cols_label(QP = "Questions Presented") |>
-    cols_width(Case ~ px(230), QP ~ px(190))
+    cols_width(Case ~ px(230))
+  if (has_qp) t <- t |> cols_label(QP = "Questions Presented") |> cols_width(QP ~ px(190))
   if (has_grant) {
     t <- t |>
       fmt_percent(columns = c(Grant, GVR), decimals = 0) |>
