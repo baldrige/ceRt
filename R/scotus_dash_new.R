@@ -413,6 +413,9 @@ scotus_dash <- function(range = today() - 1, year = "26",
   if (has_grant) {
     t <- t |>
       fmt_percent(columns = Grant, decimals = 0) |>
+      # NA grant (non-paid rows) displays as an em dash, not a literal "NA"; the
+      # raw value stays numeric so the column still sorts by value.
+      sub_missing(columns = Grant, missing_text = "—") |>
       data_color(columns = Grant, palette = c("#f3ecdd", "#e8c9a0", "#c8794f", "#8a2b2b"),
                  domain = c(0, 0.6), na_color = "#f7f1e4") |>
       cols_label(Grant = "Grant forecast")
