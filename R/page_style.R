@@ -69,6 +69,30 @@ INDEX_CSS <- "
   .back a:hover{border-color:var(--sienna)}
 "
 
+# Convert straight quotes/apostrophes in DISPLAY text to typographic ("smart")
+# ones. HTML tags (<...>) are passed through untouched so attribute quotes and
+# markup survive; existing entities (&rsquo;, &mdash;) are already curly and are
+# left alone. Vectorised. Apply only to human-readable prose -- never to a JSON
+# widget payload or a URL, where a " is structural.
+smarten <- function(x) {
+  if (is.null(x)) return(x)
+  os <- "‘"; cs <- "’"; od <- "“"; cd <- "”"
+  one <- function(s) {
+    if (is.na(s) || !nzchar(s)) return(s)
+    segs <- regmatches(s, gregexpr("<[^>]*>|[^<]+", s, perl = TRUE))[[1]]
+    segs <- vapply(segs, function(p) {
+      if (startsWith(p, "<")) return(p)                                    # HTML tag
+      p <- gsub('(^|[[:space:](])"', paste0("\\1", od), p, perl = TRUE)    # opening "
+      p <- gsub('"', cd, p, fixed = TRUE)                                  # closing "
+      p <- gsub(paste0('(^|[[:space:](', od, "])'"), paste0("\\1", os), p, perl = TRUE) # opening '
+      p <- gsub("'", cs, p, fixed = TRUE)                                  # apostrophe / closing '
+      p
+    }, character(1), USE.NAMES = FALSE)
+    paste0(segs, collapse = "")
+  }
+  vapply(x, one, character(1), USE.NAMES = FALSE)
+}
+
 # Raw <head> for an index page (built as a string because htmltools drops the
 # <head> singleton from as.character()).
 page_head <- function(title) {
@@ -94,8 +118,8 @@ styled_index_page <- function(out_path, title, heading, items,
     a_args <- list(class = "row", href = it$href)
     if (isTRUE(new_tab)) { a_args$target <- "_blank"; a_args$rel <- "noopener" }
     a_args <- c(a_args, list(
-      tags$span(class = "d", it$label),
-      if (!is.null(it$meta) && nzchar(it$meta)) tags$span(class = "count", it$meta)
+      tags$span(class = "d", smarten(it$label)),
+      if (!is.null(it$meta) && nzchar(it$meta)) tags$span(class = "count", smarten(it$meta))
     ))
     # Optional strip of the category's most recent pages, listed horizontally in
     # a smaller, muted style beneath the main link. Each is its own <a>, so it
@@ -115,18 +139,20 @@ styled_index_page <- function(out_path, title, heading, items,
     }
     tags$li(do.call(tags$a, a_args), recent_strip)
   })
+  heading_node <- if (grepl("<em>", heading, fixed = TRUE))
+    tags$h1(HTML(smarten(heading))) else tags$h1(smarten(heading))
   body <- tags$body(tags$main(
     class = "wrap",
-    if (!is.null(kicker)) tags$p(class = "kicker", kicker),
-    if (grepl("<em>", heading, fixed = TRUE)) tags$h1(HTML(heading)) else tags$h1(heading),
+    if (!is.null(kicker)) tags$p(class = "kicker", smarten(kicker)),
+    heading_node,
     tags$hr(class = "brule"),
-    if (!is.null(dek)) tags$p(class = "dek", dek),
+    if (!is.null(dek)) tags$p(class = "dek", smarten(dek)),
     tags$ul(class = "idx", rows),
-    if (!is.null(back)) tags$p(class = "back", tags$a(href = back$href, back$label))
+    if (!is.null(back)) tags$p(class = "back", tags$a(href = back$href, smarten(back$label)))
   ))
   html <- paste0("<!DOCTYPE html>\n<html lang=\"en\">\n",
                  page_head(title), "\n", as.character(body), "\n</html>\n")
-  writeLines(html, out_path, useBytes = TRUE)
+  writeLines(enc2utf8(html), out_path, useBytes = TRUE)
   invisible(out_path)
 }
 

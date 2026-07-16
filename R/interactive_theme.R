@@ -149,6 +149,13 @@ scr_inline_libs <- function(html, base_dir) {
 # page-size relabel, and any left-aligned DATA columns (headers stay centered).
 scr_write_page <- function(gt_tbl, out_path, kicker, title, dek, n_rows,
                            left_cols = integer(0), footer = "", back = NULL) {
+  # Typographic quotes for the page chrome (prose only -- never the widget body,
+  # whose JSON payload uses " structurally). smarten() lives in page_style.R,
+  # always sourced alongside this module in production; fall back to identity.
+  sm <- if (exists("smarten", mode = "function")) smarten else function(z) z
+  kicker <- sm(kicker); title <- sm(title); dek <- sm(dek)
+  if (nzchar(footer)) footer <- sm(footer)
+  if (!is.null(back)) back$label <- sm(back$label)
   # Render into an isolated dir so the widget's `lib/` can be inlined and swept.
   wdir <- tempfile("scrpage"); dir.create(wdir)
   tmp <- file.path(wdir, "widget.html")
