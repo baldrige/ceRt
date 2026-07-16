@@ -23,3 +23,6 @@ R/docket_view_files/libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef
 R/docket_view_files/libs/quarto-html/quarto.js
 R/docket_view_files/libs/quarto-html/tippy.umd.min.js
 R/docket_view_files/libs/quarto-html/tabsets/tabsets.js
+
+# derived cert-model training cache (regenerate with train_cert_model.R)
+data-raw/cert_corpus.rds
