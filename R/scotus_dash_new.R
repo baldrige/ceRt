@@ -322,7 +322,7 @@ local({
 
 scotus_dash <- function(range = today() - 1, year = "26",
                         out_dir = path.expand("~/public_html/dashboards"),
-                        model = NULL) {
+                        model = NULL, signals_map = NULL) {
   dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
 
   ot <- get_scotus_update(year = year)
@@ -343,7 +343,8 @@ scotus_dash <- function(range = today() - 1, year = "26",
     for (i in seq_len(nrow(ph))) {
       grant_map[ph$dkt[i]] <- tryCatch(
         score_case(model, ph$caption[i], ph$lower[i], ph$parties[[i]],
-                   ph$date[i], ph$lower_date[i], ph$related[i])$prob,
+                   ph$date[i], ph$lower_date[i], ph$related[i],
+                   signals = signals_map[[ph$dkt[i]]])$prob,
         error = function(e) NA_real_)
     }
   }

@@ -21,9 +21,10 @@ src <- readLines("R/scotus_dash_new.R")
 src <- src[-grep("^scotus_dash\\(", src)]
 eval(parse(text = paste(src, collapse = "\n")))
 
-# Baseline (structural) cert-grant model for the per-petition forecast column.
+# Baseline (structural + Rule 10) cert-grant model for the per-petition forecast.
 # Absent artifact -> NULL -> scotus_dash() simply omits the column.
 source("R/cert_model.R")
+source("R/petition_signals.R")   # resolve_petition_signals (Rule 10 from the petition PDF)
 grant_model <- load_cert_models("data")$baseline
 cat("Baseline cert model:", if (is.null(grant_model)) "not found (no forecast column)" else "loaded", "\n")
 
@@ -42,10 +43,30 @@ if (fetch_is_degraded(ot)) {
 # Serve the cached fetch so per-date renders don't re-hit the API.
 get_scotus_update <- function(year) ot
 dates <- ot |> filter(!is.na(date)) |> distinct(date) |> arrange(date) |> pull(date)
+
+# Resolve the Rule 10 signals (dissent below / circuit split) for the paid
+# petitions in view, parsed from each petition PDF. The cache persists on the
+# site so runs don't re-fetch. Defensive: any failure -> empty map -> score_case
+# defaults the signals to FALSE, so a render never blocks on this.
+signals_map <- list()
+if (!is.null(grant_model)) {
+  paid <- ot |> filter(type == "paid", !is.na(petition_url), nzchar(petition_url)) |>
+    distinct(dkt, .keep_all = TRUE)
+  sig <- tryCatch(resolve_petition_signals(
+    paid$dkt, paid$petition_url,
+    cache_path = file.path(dash_dir, "petition_signals_cache.json"),
+    max_new = as.integer(Sys.getenv("PET_SIG_MAX_NEW", unset = "400"))),
+    error = function(e) NULL)
+  if (!is.null(sig)) signals_map <- setNames(
+    lapply(seq_len(nrow(sig)), function(i) as.list(sig[i, ])), sig$dkt)
+  cat("Petition Rule 10 signals resolved for", length(signals_map), "paid docket(s)\n")
+}
+
 cat("Rendering", length(dates), "date(s) to", dash_dir, "\n")
 for (i in seq_along(dates)) {
   d <- as.Date(dates[i], origin = "1970-01-01")
-  scotus_dash(range = d, year = term, out_dir = dash_dir, model = grant_model)
+  scotus_dash(range = d, year = term, out_dir = dash_dir, model = grant_model,
+              signals_map = signals_map)
 }
 dashboard_index(dash_dir)
 

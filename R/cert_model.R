@@ -254,16 +254,38 @@ assemble_term <- function(path) {
     feats, proc)
 }
 
-# Assemble the full labeled corpus across term files. Adds the binary label and
-# term-year. Keeps every decided-or-pending row; model fitting does the
-# grant/deny filtering so callers can inspect the full distribution.
+# The petition-derived Rule 10 signals (data-raw/petition_signals.json), keyed by
+# docket, produced by the enrich-petitions workflow. Returns an empty (but typed)
+# tibble when the layer is absent, so a join still creates the columns.
+PETITION_SIGNALS_PATH <- "data-raw/petition_signals.json"
+load_petition_signals <- function(path = PETITION_SIGNALS_PATH) {
+  empty <- tibble(dkt = character(), dissent_below = logical(),
+                  dissent_argued = logical(), enbanc_dissent = logical(),
+                  split_argued = logical())
+  if (!file.exists(path)) return(empty)
+  j <- jsonlite::fromJSON(path, simplifyDataFrame = FALSE)
+  if (length(j) == 0) return(empty)
+  purrr::imap_dfr(j, function(s, dk) tibble(
+    dkt = dk, dissent_below = isTRUE(s$dissent_below),
+    dissent_argued = isTRUE(s$dissent_argued),
+    enbanc_dissent = isTRUE(s$enbanc_dissent),
+    split_argued = isTRUE(s$split_argued)))
+}
+
+# Assemble the full labeled corpus across term files. Adds the binary label,
+# term-year, and the petition-derived Rule 10 signals (missing/unresolved ->
+# FALSE, so no rows drop at fit time). Keeps every decided-or-pending row; model
+# fitting does the grant/deny filtering so callers can inspect the distribution.
 assemble_corpus <- function(paths) {
   message("Assembling corpus from ", length(paths), " term file(s)...")
   corpus <- purrr::map_dfr(paths, function(p) {
     message("  ", basename(p)); assemble_term(p)
   })
   corpus |>
-    mutate(term_year = 2000L + as.integer(term), granted = outcome == "granted") |>
+    left_join(load_petition_signals(), by = "dkt") |>
+    mutate(across(c(dissent_below, dissent_argued, enbanc_dissent, split_argued),
+                  ~ coalesce(.x, FALSE)),
+           term_year = 2000L + as.integer(term), granted = outcome == "granted") |>
     set_target("grant")
 }
 
@@ -322,19 +344,27 @@ calibration_table <- function(y, p, bins = 10) {
 
 # ---- G. model fit, out-of-time evaluation, calibration ------------------------
 
-# The baseline (petition-stage) predictor set. Kept deliberately small relative
-# to the number of grants to avoid overfitting a rare outcome. Entity type is
-# carried by the pet_type/resp_type factors (which include a "us_fed" level), so
-# the standalone us_petitioner/business_pet logicals are omitted here -- they are
-# exact duplicates of factor levels and would alias a coefficient to NA.
-# (related_present is omitted until the training archives carry a `related`
-# column; it is a constant on the current corpus.)
-BASELINE_FEATURES <- c("pet_type", "resp_type", "court_below", "elite_counsel")
-# The enhanced (conference-stage) set adds the leakage-safe process signals.
-# Relists enter as a bucketed factor (relist_bucket), not the raw count.
-ENHANCED_FEATURES <- c(BASELINE_FEATURES,
-                       "relist_bucket", "n_amicus_cert", "cvsg",
-                       "response_requested", "response_filed")
+# Feature groups. Structural = known from case identity (entity type is carried
+# by the pet_type/resp_type factors, which include a "us_fed" level, so the
+# standalone us_petitioner/business_pet logicals are omitted -- they duplicate a
+# level and would alias a coefficient to NA; related_present is omitted until the
+# archives carry a `related` column). Petition-signal = the Rule 10 cues parsed
+# from the petition PDF (petition_signals.R). Process = the leakage-safe docket-
+# development signals (relists bucketed, not linear).
+STRUCTURAL_FEATURES <- c("pet_type", "resp_type", "court_below", "elite_counsel")
+PETITION_SIGNAL_FEATURES <- c("dissent_below", "split_argued")
+PROCESS_FEATURES <- c("relist_bucket", "n_amicus_cert", "cvsg",
+                      "response_requested", "response_filed")
+
+# The BASELINE (daily / petition-stage) model adds the Rule 10 signals to the
+# structural set -- both are knowable the day a petition is docketed, and the
+# dissent/split cues are the biggest lever a structural model has. The ENHANCED
+# (conference-stage) model instead adds the process signals; it deliberately
+# does NOT use the petition signals (they add ~no lift once relists/amicus exist,
+# and the conference renderer doesn't parse petition PDFs, so leaving them out
+# avoids a train/serve mismatch).
+BASELINE_FEATURES <- c(STRUCTURAL_FEATURES, PETITION_SIGNAL_FEATURES)
+ENHANCED_FEATURES <- c(STRUCTURAL_FEATURES, PROCESS_FEATURES)
 
 # Reference levels for the categorical predictors, chosen so a cue's log-odds
 # reads against an intuitive baseline: a private individual party, a state
@@ -486,9 +516,13 @@ score_features <- function(model, newrow) {
 # as-of date. Structural features always apply; process features are included
 # only if the model uses them.
 score_case <- function(model, caption, lower, parties, date, lower_date,
-                       related, events = NULL, as_of = Sys.Date()) {
+                       related, events = NULL, as_of = Sys.Date(), signals = NULL) {
   f <- petition_features(caption, lower, parties, date, lower_date, related)
-  if (any(model$features %in% ENHANCED_FEATURES[-seq_along(BASELINE_FEATURES)])) {
+  # Petition-derived Rule 10 signals: supplied by the caller (which fetched/parsed
+  # the petition PDF) or defaulted to FALSE (absence) when unavailable at inference.
+  for (nm in c("dissent_below", "dissent_argued", "enbanc_dissent", "split_argued"))
+    f[[nm]] <- if (!is.null(signals) && !is.null(signals[[nm]])) isTRUE(signals[[nm]]) else FALSE
+  if (any(PROCESS_FEATURES %in% model$features)) {
     f <- bind_cols(f, process_features(events, as.Date(as_of)))
     # Relists strictly before the as-of date, via the audited relist grammar in
     # classify_petition_events() (cert_funnel.R must be sourced). A grant at this

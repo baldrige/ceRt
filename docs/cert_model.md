@@ -160,9 +160,14 @@ filed at docketing). A 150-case validation:
   will be smaller.)
 
 `resolve_petition_signals()` is cache-backed (per-docket booleans, not the PDF),
-so the corpus enrichment is incremental and resumable. Remaining: enrich the ~11k
-training petitions, add `dissent_below` (± `split_argued`) to `BASELINE_FEATURES`,
-retrain, and confirm the lift out-of-time.
+so enrichment is incremental and resumable. **Shipped**: the `enrich-petitions`
+workflow parsed ~10.3k petitions (98% text-extractable) into
+`data-raw/petition_signals.json`; `dissent_below` + `split_argued` are now in
+`BASELINE_FEATURES`, which lifts the baseline **out-of-time AUC 0.720 → 0.804**
+(coefs dissent +1.03, split +0.85). Live: the daily build fetches the signals for
+each day's paid petitions (cached on the site) and passes them to `score_case`;
+the enhanced model deliberately omits them (no lift once relists/amicus exist, and
+the conference renderer doesn't parse petition PDFs).
 
 ## Other limitations / next phases
 
