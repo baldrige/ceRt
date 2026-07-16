@@ -137,10 +137,35 @@ artifact or scoring error just omits the column, never blocks a render):
 
 Models are loaded once per render via `load_cert_models("data")`.
 
-## Limitations / next phases
+## Lower-court dissent — Rule 10 signal (Phase 3, in progress)
 
-- **No lower-court dissent / vote split** yet (Rule 10's core signal). Not in the
-  docket JSON; Phase 3 would enrich via CourtListener.
+The dissent-below / circuit-split cue (Rule 10) is not in the docket JSON.
+CourtListener was **evaluated and rejected** (2026-07-16): a ~100 req/hr MCP rate
+cap makes bulk enrichment infeasible, dissents are not in cluster metadata
+(circuit rulings are one combined opinion, so no typed dissent to read), and
+coverage is biased against the unpublished dispositions common among denials.
+
+Instead we parse the **cert petition PDF** (`R/petition_signals.R`) — we already
+have its URL from the docket, its appendix reproduces the lower opinion (with any
+dissent), and it states the petitioner's Rule 10 argument. It is ~98%
+text-extractable, rate-limit-free (SCOTUS CDN), and leakage-safe (the petition is
+filed at docketing). A 150-case validation:
+
+- Signals separate grant from deny — dissent-below 73% vs 36%; "over the dissent /
+  divided panel" 37% vs 12%; en-banc dissent 13% vs 0%.
+- They add **large lift to the BASELINE model** (AUC 0.66 → 0.74 with dissent,
+  → 0.775 with dissent + split, all p<0.001) but **~none to the ENHANCED model**
+  (relists/amicus already proxy dissent). So the feature belongs on the daily
+  dashboard's petition-stage model. (In-sample AUC, n=147; the out-of-time gain
+  will be smaller.)
+
+`resolve_petition_signals()` is cache-backed (per-docket booleans, not the PDF),
+so the corpus enrichment is incremental and resumable. Remaining: enrich the ~11k
+training petitions, add `dissent_below` (± `split_argued`) to `BASELINE_FEATURES`,
+retrain, and confirm the lift out-of-time.
+
+## Other limitations / next phases
+
 - **Entity typing is heuristic** (caption regexes); a mislabeled party mislabels
   its cues.
 - **OT2024 is right-censored** in its snapshot (late petitions undecided), so it

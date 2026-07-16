@@ -26,3 +26,4 @@ R/docket_view_files/libs/quarto-html/tabsets/tabsets.js
 
 # derived cert-model training cache (regenerate with train_cert_model.R)
 data-raw/cert_corpus.rds
+data-raw/petition_signals_cache.json
