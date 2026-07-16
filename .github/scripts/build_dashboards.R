@@ -117,7 +117,7 @@ styled_index_page(
   title = "Supreme Court Report",
   kicker = "A window on the Court's docket",
   heading = "Supreme Court Report",
-  dek = "Tracking every petition through the machine — from filing to the quiet order that ends most of them.",
+  dek = "Quantifying the U.S. Supreme Court's behavior and making it legible for the public.",
   items = items,
   new_tab = FALSE
 )
