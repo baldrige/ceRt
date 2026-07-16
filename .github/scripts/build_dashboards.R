@@ -105,6 +105,13 @@ if (dir.exists(file.path(site_dir, "funnel"))) {
   items <- c(items, list(list(href = "funnel/", label = "The Cert Funnel",
                               meta = "the explainer")))
 }
+# Publish the self-contained model methods note and link it last.
+if (file.exists("docs/cert_model_methods.html")) {
+  file.copy("docs/cert_model_methods.html", file.path(site_dir, "methods.html"),
+            overwrite = TRUE)
+  items <- c(items, list(list(href = "methods.html", label = "The Forecast Model",
+                              meta = "methods & validation")))
+}
 styled_index_page(
   file.path(site_dir, "index.html"),
   title = "Supreme Court Report",
