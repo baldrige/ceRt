@@ -6,6 +6,7 @@
 #      BASELINES (default "data/funnel_baselines.json").
 
 source("R/cert_funnel.R")
+source("R/page_style.R")   # smarten_html() for typographic quotes
 
 site_dir <- Sys.getenv("SITE_DIR", unset = "site")
 cases_dir <- Sys.getenv("CASES_DIR", unset = "cases")
@@ -41,4 +42,7 @@ if (nrow(cls) > 0) {
 
 p <- render_funnel_page(live, baselines, file.path(site_dir, "funnel"),
                         live_cls = live_cls, data_dates = data_dates)
+# Typographic (smart) quotes across the funnel prose; skips <style>/<script>/tags.
+writeLines(enc2utf8(smarten_html(paste(readLines(p, warn = FALSE, encoding = "UTF-8"),
+                                        collapse = "\n"))), p, useBytes = TRUE)
 cat("Rendered", p, "\n")

@@ -93,6 +93,20 @@ smarten <- function(x) {
   vapply(x, one, character(1), USE.NAMES = FALSE)
 }
 
+# Smarten quotes across a whole HTML string: skip <style>/<script> blocks and all
+# tag internals (attributes), smartening only the visible text nodes. Safe for a
+# STATIC page (no client-side JSON). Do NOT use on a page carrying a reactable /
+# htmlwidget JSON payload -- there a straight " is structural (use smarten() on
+# the prose fields instead, as scr_write_page() does).
+smarten_html <- function(html) {
+  segs <- regmatches(html, gregexpr(
+    "(?is)<style\\b[^>]*>.*?</style>|<script\\b[^>]*>.*?</script>|<[^>]*>|[^<]+",
+    html, perl = TRUE))[[1]]
+  out <- vapply(segs, function(p) if (startsWith(p, "<")) p else smarten(p),
+                character(1), USE.NAMES = FALSE)
+  paste0(out, collapse = "")
+}
+
 # Raw <head> for an index page (built as a string because htmltools drops the
 # <head> singleton from as.character()).
 page_head <- function(title) {

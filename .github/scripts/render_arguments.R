@@ -50,5 +50,12 @@ if (nrow(tbl) > 0) {
 }
 
 terms <- render_argument_nav(out_dir = arg_dir, tbl = tbl)
+# Typographic (smart) quotes across the per-Term argument pages (the index is
+# already smartened by styled_index_page). smarten_html skips <style>/<script>/
+# tags, so the static gt tables' data and CSS are untouched but prose is fixed.
+for (f in list.files(arg_dir, pattern = "^arg_\\d+\\.html$", full.names = TRUE)) {
+  writeLines(enc2utf8(smarten_html(paste(readLines(f, warn = FALSE, encoding = "UTF-8"),
+                                          collapse = "\n"))), f, useBytes = TRUE)
+}
 cat("Rendered argument Terms:", paste(map_chr(terms, ~ term_label(.x - 2000L)), collapse = ", "), "\n")
 cat("Done.\n")
