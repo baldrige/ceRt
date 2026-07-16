@@ -316,6 +316,7 @@ local({
   }
   sys.source(find("qp_extract.R"), envir = globalenv())
   sys.source(find("page_style.R"), envir = globalenv())
+  sys.source(find("interactive_theme.R"), envir = globalenv())
 })
 
 # ---- render -----------------------------------------------------------------
@@ -349,139 +350,96 @@ scotus_dash <- function(range = today() - 1, year = "26",
     }
   }
   if (nrow(hits) == 0) {
-    empty_html <- sprintf(
-      '<!DOCTYPE html><html><head><meta charset="utf-8"><title>%s</title></head><body style="font-family:sans-serif;padding:2em"><h2>No petitions or applications docketed on %s.</h2></body></html>',
-      format(range, "%B %d, %Y"), format(range, "%B %d, %Y")
-    )
-    writeLines(empty_html, file.path(out_dir, str_c("dash_", range, ".html")))
+    empty <- paste0(
+      "<!DOCTYPE html><html lang='en'><head><meta charset='utf-8'>",
+      "<meta name='viewport' content='width=device-width, initial-scale=1'>",
+      "<title>The Daily Docket &mdash; ", format(range, "%B %d, %Y"), "</title>",
+      "<link rel='preconnect' href='https://fonts.googleapis.com'>",
+      "<link rel='stylesheet' href='", SCR_FONTS, "'>",
+      "<style>", SCR_CSS, "</style></head><body><main class='wrap'>",
+      "<p class='kicker'>Supreme Court of the United States</p>",
+      "<h1>The Daily Docket</h1>",
+      "<p class='dek'>No petitions or applications were docketed on ",
+      format(range, "%B %d, %Y"), ".</p><hr class='brule'>",
+      "<p class='back'><a href='index.html'>&larr; All daily dashboards</a></p>",
+      "</main></body></html>")
+    writeLines(enc2utf8(empty),
+               file.path(out_dir, str_c("dash_", range, ".html")), useBytes = TRUE)
     return(invisible(NULL))
   }
 
-  table1 <- ot |>
-    filter(date == range) |>
-    mutate(caption = caption |>
-      str_replace_all("\\s+", " ") |>
-      str_remove(", Petitioners?") |>
-      str_remove(", Applicants?") |>
-      str_remove_all(", et al.") |>
-      str_replace("\\s*v\\.\\s+", "\n\nv.\n\n") |>
-      str_trim()) |>
-    # Surface capital-case flag and related cases in the caption cell.
-    mutate(caption = if_else(capital, str_c(caption, "\n\n`CAPITAL CASE`"), caption)) |>
-    mutate(caption = if_else(related != "", str_c(caption, "\n\n*Related:* ", related), caption)) |>
-    mutate(lower = str_replace(
-      lower, "^United States Court of Appeals for the (.+?Circuit)", "\\1"
-    )) |>
-    unnest_longer(col = events) |>
-    unnest(col = events, names_sep = "_") |>
-    rowwise() |>
-    mutate(doc_links = list(purrr::map2_chr(
-      c_across(starts_with("events_docs_")),
-      c_across(starts_with("events_links_")),
-      ~ if (!is.na(.x) && !is.na(.y)) sprintf("[[%s](%s)]", .x, .y) else ""
-    ))) |>
-    unnest_wider(col = doc_links, names_sep = "_", simplify = TRUE) |>
-    unnest_longer(col = parties) |>
-    unnest(col = parties, names_sep = "_") |>
-    filter(str_detect(parties_type, "Petitioner|Applicant|Appellant")) |>
-    # After unite, each row's doc_links is a single string for that one
-    # proceeding; the real per-docket aggregation is the group_by() collapse
-    # below. (Do NOT str_c(collapse=) here: unite drops rowwise grouping, so a
-    # collapse would concatenate every row into every row.)
-    unite(col = doc_links, starts_with("doc_links"), sep = " ") |>
-    mutate(events = doc_links) |>
-    mutate(events = str_remove_all(
-      events, "\\[\\[Motion for Leave to Proceed in Forma Pauperis\\]\\(\\S+\\)\\] "
-    )) |>
-    mutate(events = str_remove_all(events, "\\[\\[Certificate of Word Count\\]\\(\\S+\\)\\]")) |>
-    mutate(events = str_remove_all(events, "\\[\\[Proof of Service\\]\\(\\S+\\)\\]")) |>
-    mutate(events = str_remove_all(events, "\\[\\[Other\\]\\(.+\\)\\]")) |>
-    ungroup() |>
-    group_by(dkt) |>
-    mutate(events = str_squish(str_c(events, collapse = " "))) |>
-    slice(1) |>
-    ungroup() |>
-    # Group rows by type (paid -> ifp -> app), numeric docket order within each.
-    arrange(
-      factor(type, levels = c("paid", "ifp", "app")),
-      as.integer(str_extract(dkt, "\\d+$"))
-    ) |>
-    # Counsel of record's name with their firm beneath it (no address/email).
-    mutate(parties_attys = if_else(
-      !is.na(parties_firm) & parties_firm != "",
-      str_c(parties_attys, "  \n", parties_firm),
-      parties_attys
-    )) |>
-    # Grant forecast cell (dkt is still raw here), from the baseline model.
-    mutate(grant = unname(grant_map[dkt]),
-           grant = if_else(is.na(grant), "—", str_c("**", round(100 * grant), "%**"))) |>
-    mutate(dkt = str_c(
-      "[", dkt,
-      "](https://www.supremecourt.gov/search.aspx?filename=/docket/docketfiles/html/public/",
-      dkt, ".html)"
-    )) |>
-    mutate(lower_date = format(lower_date, format = "%B %d, %Y")) |>
-    # paste0 (not str_c) so a missing field stringifies to "NA" and is rewritten
-    # to "—" below. str_c would propagate NA and blank the whole cell -- e.g.
-    # applications have no LowerCourtDecision, so lower_date is NA.
-    mutate(lower = paste0(
-      lower, ", No. ", lower_dkt, "\n\n", "Judgment: ", lower_date, "\n\n"
-    )) |>
-    mutate(lower = str_replace_all(lower, " NA", " —")) |>
-    rename(pro_se = parties_pro_se) |>
-    select(type, caption, dkt, grant, lower, parties_attys,
-           events, pro_se, petition_url)
+  # Questions Presented (petition text layer first, OCR fallback). Wrap real QP
+  # text in a collapsible <details> cell; show a bare em dash where unavailable
+  # (so a missing QP isn't an empty expander).
+  qp_raw <- purrr::map_chr(hits$petition_url, get_qp)
+  qp_html <- qp_details(qp_raw)
+  qps <- ifelse(is.na(qp_raw) | qp_raw == "" | qp_raw == "-", "—", qp_html)
 
-  qps <- purrr::map_chr(table1$petition_url, get_qp)
-  has_grant <- any(table1$grant != "—")
-  table1 <- table1 |> mutate(qps = qp_details(qps)) |> select(-petition_url)
-  if (!has_grant) table1 <- table1 |> select(-grant)
+  # One editorial row per docket. Grant stays NUMERIC so the column sorts by
+  # value; Type/Grant get color scales, everything else is markdown/HTML.
+  tbl <- tibble(
+    Type = factor(hits$type, levels = c("paid", "ifp", "app"),
+                  labels = c("Paid", "IFP", "Application")),
+    Case = sprintf(
+      "<a href='https://www.supremecourt.gov/search.aspx?filename=/docket/docketfiles/html/public/%s.html' target='_blank'>%s</a>",
+      hits$dkt,
+      str_squish(str_remove_all(hits$caption, ", Petitioners?|, Applicants?|, et al\\."))),
+    Docket = hits$dkt,
+    Grant = unname(grant_map[hits$dkt]),
+    Court = str_replace(coalesce(hits$lower, "—"),
+              "^United States Court of Appeals for the (.+?Circuit)$", "\\1") |>
+              str_trunc(30),
+    Counsel = map_chr(hits$parties, petitioner_counsel_html),
+    Documents = map_chr(hits$events, function(e) case_documents(e, c("Petition", "Appendix"))),
+    QP = qps
+  ) |> arrange(desc(Grant))
 
-  labels <- list(caption = "Caption", dkt = "Docket No", grant = "Grant forecast",
-                 lower = "Court Below", parties_attys = "Petitioner's Counsel",
-                 events = "Recent Filings", qps = "QP")
-  labels <- labels[names(labels) %in% names(table1)]
+  # Drop the Grant column entirely on days with no paid petitions (all NA).
+  has_grant <- any(!is.na(tbl$Grant))
+  if (!has_grant) tbl <- select(tbl, -Grant)
 
-  tbl <- table1 |>
+  # Data cells that read better left-aligned (headers stay centered via CSS).
+  left_cols <- match(intersect(c("Case", "Court", "Counsel", "Documents", "QP"),
+                               names(tbl)), names(tbl))
+
+  t <- tbl |>
     gt() |>
-    fmt_markdown(columns = any_of(c("caption", "lower", "dkt", "grant",
-                                    "parties_attys", "events", "qps"))) |>
-    tab_header(title = paste0(
-      "Petitions and applications docketed on ", format(range, "%B %d, %Y")
-    )) |>
-    gt_theme_nytimes() |>
-    cols_label(.list = labels) |>
-    data_color(
-      columns = c(pro_se),
-      target_columns = "parties_attys",
-      method = "factor",
-      palette = c("white", "gray"),
-      domain = c(TRUE, FALSE)
-    ) |>
-    cols_width(
-      dkt ~ px(80),
-      events ~ px(150)
-    ) |>
-    cols_align(align = "left", columns = c(caption)) |>
-    cols_align(align = "center", columns = c(type:events)) |>
-    # Fixed per-type fills: paid = green, ifp = orange, app = blue.
-    tab_style(style = cell_fill(color = "#B2DF8A"),
-              locations = cells_body(columns = type, rows = type == "paid")) |>
-    tab_style(style = cell_fill(color = "#FDBF6F"),
-              locations = cells_body(columns = type, rows = type == "ifp")) |>
-    tab_style(style = cell_fill(color = "#A6CEE3"),
-              locations = cells_body(columns = type, rows = type == "app")) |>
-    cols_hide(columns = c(pro_se))
+    fmt_markdown(columns = any_of(c("Case", "Counsel", "Documents", "QP"))) |>
+    data_color(columns = Type, method = "factor",
+      palette = c("Paid" = "#e4e7d8", "IFP" = "#efe1cd", "Application" = "#dfe4ea")) |>
+    cols_align("center", columns = everything()) |>
+    cols_label(QP = "Questions Presented") |>
+    cols_width(Case ~ px(220), QP ~ px(190))
   if (has_grant) {
-    tbl <- tbl |> tab_source_note(gt::md(paste0(
-      "*Grant forecast* is a calibrated, pre-conference estimate of plenary ",
-      "certiorari for paid petitions (base rate ~4%), from case structure alone ",
-      "(who is involved, the court below, counsel). It sharpens once a case is ",
-      "distributed for conference. An estimate, not a prediction about any case.")))
+    t <- t |>
+      fmt_percent(columns = Grant, decimals = 0) |>
+      data_color(columns = Grant, palette = c("#f3ecdd", "#e8c9a0", "#c8794f", "#8a2b2b"),
+                 domain = c(0, 0.6), na_color = "#f7f1e4") |>
+      cols_label(Grant = "Grant forecast")
   }
-  gtsave_titled(tbl, str_c("dash_", range, ".html"), path = out_dir,
-                title = paste0("Petitions & applications — ",
-                               format(range, "%B %d, %Y")))
+
+  footer <- if (has_grant) paste0(
+    "<em>Grant forecast</em> is a calibrated, pre-conference estimate of plenary ",
+    "certiorari for paid petitions (base rate ~4%), from case structure alone ",
+    "(who is involved, the court below, counsel). It sharpens once a case is ",
+    "distributed for conference. An estimate, not a prediction about any case."
+  ) else ""
+
+  dek <- paste0(
+    "Petitions and applications docketed <strong>", format(range, "%B %d, %Y"),
+    "</strong> &mdash; sortable and filterable. ",
+    if (has_grant) "Sort by <em>Grant forecast</em>, or expand" else "Expand",
+    " a row&rsquo;s <em>Questions Presented</em>.")
+
+  scr_interactive(t, n_rows = nrow(tbl)) |>
+    scr_write_page(
+      file.path(out_dir, str_c("dash_", range, ".html")),
+      kicker = "Supreme Court of the United States",
+      title = "The Daily Docket",
+      dek = dek,
+      n_rows = nrow(tbl), left_cols = left_cols, footer = footer,
+      back = list(href = "index.html", label = "&larr; All daily dashboards"))
+  invisible(file.path(out_dir, str_c("dash_", range, ".html")))
 }
 
 # Regenerate index.html for the daily-dashboard directory, listing every
