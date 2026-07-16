@@ -124,6 +124,19 @@ s$prob   # calibrated P(grant);  s$lift = prob / base_rate;  s$cues = signed log
 gvr_model, …, granted_dockets)` returns `p_grant`, `p_gvr`, and the `held` flag
 together.
 
+## In the rendered dashboards
+
+A **Grant forecast** column is wired into both surfaces (defensively — a missing
+artifact or scoring error just omits the column, never blocks a render):
+
+- **Daily dashboards** (`build_dashboards.R` → `scotus_dash`): the baseline
+  (structural) prior, e.g. `47%`, for each paid petition the day it is docketed.
+- **Conference reports** (`render_conferences.R` → `conference_dash`): the
+  enhanced grant probability, scored as of the conference; a **held** petition
+  additionally shows its GVR risk (`6% grant · held · 15% GVR`).
+
+Models are loaded once per render via `load_cert_models("data")`.
+
 ## Limitations / next phases
 
 - **No lower-court dissent / vote split** yet (Rule 10's core signal). Not in the

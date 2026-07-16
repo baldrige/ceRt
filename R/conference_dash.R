@@ -117,18 +117,54 @@ counsel_cell <- function(parties) {
   if (!is.na(fm) && fm != "") str_c(nm, "  \n", fm) else nm
 }
 
+# A "Forecast" markdown cell per row of a conference tibble `d`, scored as of the
+# conference date with the enhanced grant model + the companion GVR-risk model
+# (both in `models`, from load_cert_models()). Paid petitions only; everything
+# else -- non-paid, absent models, a scoring error, or the scoring functions not
+# being sourced -- yields an em dash, so this never breaks a render.
+conference_forecast <- function(d, conf_date, models) {
+  out <- rep("—", nrow(d))
+  if (is.null(models) || is.null(models$enhanced) || is.null(models$gvr) ||
+      !exists("score_disposition")) return(out)
+  getcol <- function(nm, def) if (nm %in% names(d)) d[[nm]] else rep(def, nrow(d))
+  ld <- getcol("lower_date", as.Date(NA)); rel <- getcol("related", NA_character_)
+  dt <- getcol("date", as.Date(NA))
+  # Dockets granted before this conference enable the companion "Vide" hold tier.
+  gd <- if ("outcome" %in% names(d))
+    d$dkt[d$outcome %in% "granted"] else character()
+  for (i in seq_len(nrow(d))) {
+    if (!identical(d$type[i], "paid")) next
+    s <- tryCatch(score_disposition(
+      models$enhanced, models$gvr, d$caption[i], d$lower[i], d$parties[[i]],
+      dt[i], ld[i], rel[i], events = d$events[[i]], as_of = conf_date,
+      granted_dockets = gd), error = function(e) NULL)
+    if (is.null(s) || is.na(s$p_grant)) next
+    out[i] <- if (isTRUE(s$held)) {
+      sprintf("**%d%%** grant  \n`held` · %d%% GVR", round(100*s$p_grant), round(100*s$p_gvr))
+    } else {
+      sprintf("**%d%%**", round(100*s$p_grant))
+    }
+  }
+  out
+}
+
 # Render one conference's dashboard from a conference_distributions() tibble.
 # `qp_map` (optional) is a named vector: raw docket -> <details> QP HTML.
 # Counsel and QP columns are included only when the data provides them (so
 # historical pages stay clean). Returns the output path (invisibly), or NULL.
 conference_dash <- function(dist, conf_date,
                             out_dir = path.expand("~/public_html/conferences"),
-                            qp_map = NULL) {
+                            qp_map = NULL, models = NULL) {
   dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
   conf_date <- as.Date(conf_date)
 
   d <- dist |> filter(conf_date == !!conf_date)
   if (nrow(d) == 0) return(invisible(NULL))
+
+  # Model forecast (computed on the RAW fields, before the display transforms).
+  # A paid petition gets P(grant); a held one also shows its GVR risk. Everything
+  # is defensive: absent models or a scoring error just leaves the em-dash.
+  d$forecast <- conference_forecast(d, conf_date, models)
 
   d <- d |>
     # Keep the case name on one line (no v. break).
@@ -170,19 +206,21 @@ conference_dash <- function(dist, conf_date,
 
   has_counsel <- any(!is.na(d$counsel))
   has_qp <- any(!is.na(d$qp))
+  has_forecast <- any(d$forecast != "—")
   d <- d |>
     mutate(counsel = if_else(is.na(counsel), "—", counsel),
            qp = if_else(is.na(qp), "—", qp)) |>
     select(type, caption, dkt, petition,
            any_of(if (has_counsel) "counsel" else character()),
            lower, status,
+           any_of(if (has_forecast) "forecast" else character()),
            any_of(if (has_qp) "qp" else character()))
 
-  md_cols <- intersect(c("caption", "dkt", "petition", "counsel", "qp"), names(d))
+  md_cols <- intersect(c("caption", "dkt", "petition", "counsel", "forecast", "qp"), names(d))
   labels <- list(
     type = "Type", caption = "Caption", dkt = "Docket No", petition = "Petition",
     counsel = "Petitioner's Counsel", lower = "Court Below", status = "Status",
-    qp = "QP"
+    forecast = "Grant forecast", qp = "QP"
   )
   labels <- labels[names(labels) %in% names(d)]
 
@@ -207,6 +245,13 @@ conference_dash <- function(dist, conf_date,
               cells_body(columns = type, rows = type == "ifp")) |>
     tab_style(cell_fill(color = "#A6CEE3"),
               cells_body(columns = type, rows = type == "app"))
+  if (has_forecast) {
+    tbl <- tbl |> tab_source_note(gt::md(paste0(
+      "*Grant forecast* is a calibrated model estimate of plenary certiorari for ",
+      "paid petitions (base rate ~4%), scored as of this conference. A **held** ",
+      "petition — one relisted well beyond the norm — carries low grant odds but ",
+      "elevated GVR risk. Estimates, not predictions about any case.")))
+  }
   gtsave_titled(tbl, str_c("conf_", conf_date, ".html"), path = out_dir,
                 title = paste0("Conference of ", format(conf_date, "%B %d, %Y"),
                                " — SCOTUS"))

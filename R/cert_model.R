@@ -530,3 +530,25 @@ score_disposition <- function(grant_model, gvr_model, caption, lower, parties,
        held = hold_signal(nrel, related, granted_dockets),
        lift = g$lift, grant_cues = g$cues)
 }
+
+# Load the trained models from `dir`; returns a named list with whichever exist
+# (baseline / enhanced / gvr). Never errors -- a render pipeline can call this and
+# simply omit the forecast column when the artifacts are absent or unreadable.
+load_cert_models <- function(dir = "data") {
+  want <- c(baseline = "cert_model_baseline.rds",
+            enhanced = "cert_model_enhanced.rds",
+            gvr      = "cert_model_gvr.rds")
+  out <- list()
+  for (nm in names(want)) {
+    f <- file.path(dir, want[[nm]])
+    if (file.exists(f)) {
+      m <- tryCatch(readRDS(f), error = function(e) NULL)
+      if (!is.null(m)) out[[nm]] <- m
+    }
+  }
+  out
+}
+
+# A calibrated P(grant) percentage cell for a gt table, e.g. 0.42 -> "42%".
+# NA (non-paid / unmodeled) renders as an em dash.
+fmt_prob_cell <- function(p) ifelse(is.na(p), "—", paste0(round(100 * p), "%"))

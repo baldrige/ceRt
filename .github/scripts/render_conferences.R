@@ -23,6 +23,11 @@ dir.create(conf_dir, recursive = TRUE, showWarnings = FALSE)
 
 source("R/qp_extract.R")
 source("R/conference_dash.R")
+source("R/cert_funnel.R")   # classify_petition_events (relist grammar)
+source("R/cert_model.R")    # score_disposition + load_cert_models
+cert_models <- load_cert_models("data")
+cat("Cert models loaded:", paste(names(cert_models), collapse = ", "),
+    if (length(cert_models) == 0) "(none — forecast column omitted)" else "", "\n")
 
 files <- list.files(cases_dir, pattern = "\\.rds$", full.names = TRUE, recursive = TRUE)
 if (length(files) == 0) stop("no case artifacts found in ", cases_dir)
@@ -48,7 +53,8 @@ cat("QP resolved:", sum(!is.na(qp_map)), "of", length(qp_map), "distinct dockets
 
 cat("Rendering", length(dates), "conference(s) on/after", format(min_conf), "\n")
 for (i in seq_along(dates)) {
-  conference_dash(dist, dates[i], out_dir = conf_dir, qp_map = qp_map)
+  conference_dash(dist, dates[i], out_dir = conf_dir, qp_map = qp_map,
+                  models = cert_models)
 }
 conference_index(conf_dir)
 cat("Done.\n")

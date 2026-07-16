@@ -21,6 +21,12 @@ src <- readLines("R/scotus_dash_new.R")
 src <- src[-grep("^scotus_dash\\(", src)]
 eval(parse(text = paste(src, collapse = "\n")))
 
+# Baseline (structural) cert-grant model for the per-petition forecast column.
+# Absent artifact -> NULL -> scotus_dash() simply omits the column.
+source("R/cert_model.R")
+grant_model <- load_cert_models("data")$baseline
+cat("Baseline cert model:", if (is.null(grant_model)) "not found (no forecast column)" else "loaded", "\n")
+
 cat("Fetching OT", term, "docket...\n")
 ot <- get_scotus_update(term)
 cat("Cases fetched:", nrow(ot),
@@ -39,7 +45,7 @@ dates <- ot |> filter(!is.na(date)) |> distinct(date) |> arrange(date) |> pull(d
 cat("Rendering", length(dates), "date(s) to", dash_dir, "\n")
 for (i in seq_along(dates)) {
   d <- as.Date(dates[i], origin = "1970-01-01")
-  scotus_dash(range = d, year = term, out_dir = dash_dir)
+  scotus_dash(range = d, year = term, out_dir = dash_dir, model = grant_model)
 }
 dashboard_index(dash_dir)
 

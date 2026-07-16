@@ -321,7 +321,8 @@ local({
 # ---- render -----------------------------------------------------------------
 
 scotus_dash <- function(range = today() - 1, year = "26",
-                        out_dir = path.expand("~/public_html/dashboards")) {
+                        out_dir = path.expand("~/public_html/dashboards"),
+                        model = NULL) {
   dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
 
   ot <- get_scotus_update(year = year)
@@ -334,6 +335,18 @@ scotus_dash <- function(range = today() - 1, year = "26",
   }
 
   hits <- if (nrow(ot) == 0) ot else filter(ot, date == range)
+  # Baseline (structural, pre-conference) P(grant) per paid docket. Defensive:
+  # no model, non-paid, or a scoring error -> NA (rendered as an em dash).
+  grant_map <- setNames(rep(NA_real_, nrow(hits)), hits$dkt)
+  if (!is.null(model) && nrow(hits) > 0 && exists("score_case")) {
+    ph <- hits |> filter(type == "paid")
+    for (i in seq_len(nrow(ph))) {
+      grant_map[ph$dkt[i]] <- tryCatch(
+        score_case(model, ph$caption[i], ph$lower[i], ph$parties[[i]],
+                   ph$date[i], ph$lower_date[i], ph$related[i])$prob,
+        error = function(e) NA_real_)
+    }
+  }
   if (nrow(hits) == 0) {
     empty_html <- sprintf(
       '<!DOCTYPE html><html><head><meta charset="utf-8"><title>%s</title></head><body style="font-family:sans-serif;padding:2em"><h2>No petitions or applications docketed on %s.</h2></body></html>',
@@ -398,6 +411,9 @@ scotus_dash <- function(range = today() - 1, year = "26",
       str_c(parties_attys, "  \n", parties_firm),
       parties_attys
     )) |>
+    # Grant forecast cell (dkt is still raw here), from the baseline model.
+    mutate(grant = unname(grant_map[dkt]),
+           grant = if_else(is.na(grant), "—", str_c("**", round(100 * grant), "%**"))) |>
     mutate(dkt = str_c(
       "[", dkt,
       "](https://www.supremecourt.gov/search.aspx?filename=/docket/docketfiles/html/public/",
@@ -412,28 +428,28 @@ scotus_dash <- function(range = today() - 1, year = "26",
     )) |>
     mutate(lower = str_replace_all(lower, " NA", " —")) |>
     rename(pro_se = parties_pro_se) |>
-    select(type, caption, dkt, lower, parties_attys,
+    select(type, caption, dkt, grant, lower, parties_attys,
            events, pro_se, petition_url)
 
   qps <- purrr::map_chr(table1$petition_url, get_qp)
+  has_grant <- any(table1$grant != "—")
+  table1 <- table1 |> mutate(qps = qp_details(qps)) |> select(-petition_url)
+  if (!has_grant) table1 <- table1 |> select(-grant)
 
-  table1 |>
-    mutate(qps = qp_details(qps)) |>
-    select(-petition_url) |>
+  labels <- list(caption = "Caption", dkt = "Docket No", grant = "Grant forecast",
+                 lower = "Court Below", parties_attys = "Petitioner's Counsel",
+                 events = "Recent Filings", qps = "QP")
+  labels <- labels[names(labels) %in% names(table1)]
+
+  tbl <- table1 |>
     gt() |>
-    fmt_markdown(columns = c(caption, lower, dkt, parties_attys, events, qps)) |>
+    fmt_markdown(columns = any_of(c("caption", "lower", "dkt", "grant",
+                                    "parties_attys", "events", "qps"))) |>
     tab_header(title = paste0(
       "Petitions and applications docketed on ", format(range, "%B %d, %Y")
     )) |>
     gt_theme_nytimes() |>
-    cols_label(
-      caption = "Caption",
-      dkt = "Docket No",
-      lower = "Court Below",
-      parties_attys = "Petitioner's Counsel",
-      events = "Recent Filings",
-      qps = "QP"
-    ) |>
+    cols_label(.list = labels) |>
     data_color(
       columns = c(pro_se),
       target_columns = "parties_attys",
@@ -454,10 +470,17 @@ scotus_dash <- function(range = today() - 1, year = "26",
               locations = cells_body(columns = type, rows = type == "ifp")) |>
     tab_style(style = cell_fill(color = "#A6CEE3"),
               locations = cells_body(columns = type, rows = type == "app")) |>
-    cols_hide(columns = c(pro_se)) |>
-    gtsave_titled(str_c("dash_", range, ".html"), path = out_dir,
-                  title = paste0("Petitions & applications — ",
-                                 format(range, "%B %d, %Y")))
+    cols_hide(columns = c(pro_se))
+  if (has_grant) {
+    tbl <- tbl |> tab_source_note(gt::md(paste0(
+      "*Grant forecast* is a calibrated, pre-conference estimate of plenary ",
+      "certiorari for paid petitions (base rate ~4%), from case structure alone ",
+      "(who is involved, the court below, counsel). It sharpens once a case is ",
+      "distributed for conference. An estimate, not a prediction about any case.")))
+  }
+  gtsave_titled(tbl, str_c("dash_", range, ".html"), path = out_dir,
+                title = paste0("Petitions & applications — ",
+                               format(range, "%B %d, %Y")))
 }
 
 # Regenerate index.html for the daily-dashboard directory, listing every
