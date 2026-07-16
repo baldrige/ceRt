@@ -15,18 +15,18 @@ suppressPackageStartupMessages({
   library(htmltools)
 })
 
-# Shared page-presentation helpers (gtsave_titled, styled_index_page), sourced
-# relative to this file's location so it works from the repo root or elsewhere.
+# Shared helpers: page-presentation (gtsave_titled, styled_index_page) and the
+# interactive editorial theme (scr_interactive/scr_write_page, case_documents),
+# sourced relative to this file's location so it works from the repo root or not.
 local({
   here <- tryCatch(dirname(sys.frame(1)$ofile), error = function(e) NA)
-  ps <- if (!is.na(here) && file.exists(file.path(here, "page_style.R"))) {
-    file.path(here, "page_style.R")
-  } else if (file.exists("R/page_style.R")) {
-    "R/page_style.R"
-  } else {
-    "page_style.R"
+  find <- function(f) {
+    if (!is.na(here) && file.exists(file.path(here, f))) file.path(here, f)
+    else if (file.exists(file.path("R", f))) file.path("R", f)
+    else f
   }
-  sys.source(ps, envir = globalenv())
+  sys.source(find("page_style.R"), envir = globalenv())
+  sys.source(find("interactive_theme.R"), envir = globalenv())
 })
 
 CONF_PATTERN <- regex(
@@ -161,100 +161,99 @@ conference_dash <- function(dist, conf_date,
   d <- dist |> filter(conf_date == !!conf_date)
   if (nrow(d) == 0) return(invisible(NULL))
 
-  # Model forecast (computed on the RAW fields, before the display transforms).
-  # A paid petition gets P(grant); a held one also shows its GVR risk. Everything
-  # is defensive: absent models or a scoring error just leaves the em-dash.
-  d$forecast <- conference_forecast(d, conf_date, models)
-
-  d <- d |>
-    # Keep the case name on one line (no v. break).
-    mutate(caption = caption |>
-      str_replace_all("\\s+", " ") |>
-      str_remove(", Petitioners?") |>
-      str_remove(", Respondents?") |>
-      str_remove_all(", et al.") |>
-      str_trim()) |>
-    mutate(lower = str_replace(
-      lower, "^United States Court of Appeals for the (.+?Circuit)", "\\1"
-    )) |>
-    mutate(status = if_else(
-      distribution_no == 1, "Initial",
-      paste0("Relisted (", distribution_no - 1, "×)")
-    )) |>
-    mutate(petition = if_else(
-      !is.na(petition_url) & petition_url != "",
-      str_c("[Petition](", petition_url, ")"), "—"
-    )) |>
-    mutate(counsel = if ("parties" %in% names(dist)) {
-      map_chr(parties, counsel_cell)
-    } else {
-      NA_character_
-    }) |>
-    mutate(qp = if (is.null(qp_map)) NA_character_ else unname(qp_map[dkt])) |>
-    # Most-relisted cases first (the interesting ones), then paid -> ifp -> app
-    # and docket number, while dkt is still raw.
-    arrange(
-      desc(distribution_no),
-      factor(type, levels = c("paid", "ifp", "app")),
-      as.integer(str_extract(dkt, "\\d+$"))
-    ) |>
-    mutate(dkt = str_c(
-      "[", dkt,
-      "](https://www.supremecourt.gov/search.aspx?filename=/docket/docketfiles/html/public/",
-      dkt, ".html)"
-    ))
-
-  has_counsel <- any(!is.na(d$counsel))
-  has_qp <- any(!is.na(d$qp))
-  has_forecast <- any(d$forecast != "—")
-  d <- d |>
-    mutate(counsel = if_else(is.na(counsel), "—", counsel),
-           qp = if_else(is.na(qp), "—", qp)) |>
-    select(type, caption, dkt, petition,
-           any_of(if (has_counsel) "counsel" else character()),
-           lower, status,
-           any_of(if (has_forecast) "forecast" else character()),
-           any_of(if (has_qp) "qp" else character()))
-
-  md_cols <- intersect(c("caption", "dkt", "petition", "counsel", "forecast", "qp"), names(d))
-  labels <- list(
-    type = "Type", caption = "Caption", dkt = "Docket No", petition = "Petition",
-    counsel = "Petitioner's Counsel", lower = "Court Below", status = "Status",
-    forecast = "Grant forecast", qp = "QP"
-  )
-  labels <- labels[names(labels) %in% names(d)]
-
-  tbl <- d |>
-    gt() |>
-    fmt_markdown(columns = all_of(md_cols)) |>
-    tab_header(
-      title = paste0("Cases distributed for the Conference of ",
-                     format(conf_date, "%B %d, %Y")),
-      subtitle = paste0(nrow(d), " case(s)")
-    ) |>
-    gt_theme_nytimes() |>
-    cols_label(.list = labels) |>
-    # Center every column to match the daily dashboards; the QP <details> block
-    # reads better left-aligned (as it is on the daily).
-    cols_align(align = "center", columns = everything()) |>
-    cols_align(align = "left", columns = any_of("qp")) |>
-    # Fixed per-type fills: paid = green, ifp = orange, app = blue.
-    tab_style(cell_fill(color = "#B2DF8A"),
-              cells_body(columns = type, rows = type == "paid")) |>
-    tab_style(cell_fill(color = "#FDBF6F"),
-              cells_body(columns = type, rows = type == "ifp")) |>
-    tab_style(cell_fill(color = "#A6CEE3"),
-              cells_body(columns = type, rows = type == "app"))
-  if (has_forecast) {
-    tbl <- tbl |> tab_source_note(gt::md(paste0(
-      "*Grant forecast* is a calibrated model estimate of plenary certiorari for ",
-      "paid petitions (base rate ~4%), scored as of this conference. A **held** ",
-      "petition — one relisted well beyond the norm — carries low grant odds but ",
-      "elevated GVR risk. Estimates, not predictions about any case.")))
+  # Numeric grant / GVR-risk forecasts, scored as of this conference with the
+  # enhanced + companion GVR models. Paid petitions only; everything else --
+  # non-paid, absent models, or a scoring error -- stays NA (an em dash), so a
+  # render never breaks. Kept numeric so the columns sort by value. Defensive
+  # column access (gc) keeps the historical scrape, which lacks some fields,
+  # from erroring.
+  gc <- function(nm, def) if (nm %in% names(d)) d[[nm]] else rep(def, nrow(d))
+  dt <- gc("date", as.Date(NA)); ld <- gc("lower_date", as.Date(NA))
+  rel <- gc("related", NA_character_)
+  has_parties <- "parties" %in% names(d)
+  p_grant <- rep(NA_real_, nrow(d)); p_gvr <- rep(NA_real_, nrow(d))
+  if (!is.null(models) && !is.null(models$enhanced) && !is.null(models$gvr) &&
+      exists("score_disposition")) {
+    gd <- if ("outcome" %in% names(d)) d$dkt[d$outcome %in% "granted"] else character()
+    for (i in seq_len(nrow(d))) {
+      if (!identical(d$type[i], "paid")) next
+      par <- if (has_parties) d$parties[[i]] else NULL
+      s <- tryCatch(score_disposition(
+        models$enhanced, models$gvr, d$caption[i], d$lower[i], par,
+        dt[i], ld[i], rel[i], events = d$events[[i]], as_of = conf_date,
+        granted_dockets = gd), error = function(e) NULL)
+      if (!is.null(s)) { p_grant[i] <- s$p_grant; p_gvr[i] <- s$p_gvr }
+    }
   }
-  gtsave_titled(tbl, str_c("conf_", conf_date, ".html"), path = out_dir,
-                title = paste0("Conference of ", format(conf_date, "%B %d, %Y"),
-                               " — SCOTUS"))
+
+  # One editorial row per distributed case. Relists = prior distributions.
+  qp_get <- function(dk) if (is.null(qp_map)) NA_character_ else unname(qp_map[dk])
+  tbl <- tibble(
+    Type = factor(d$type, levels = c("paid", "ifp", "app"),
+                  labels = c("Paid", "IFP", "Application")),
+    Case = sprintf(
+      "<a href='https://www.supremecourt.gov/search.aspx?filename=/docket/docketfiles/html/public/%s.html' target='_blank'>%s</a>",
+      d$dkt,
+      str_squish(str_remove_all(d$caption, ", Petitioners?|, Respondents?|, et al\\."))),
+    Docket = d$dkt,
+    Relists = d$distribution_no - 1L,
+    Grant = p_grant,
+    GVR = p_gvr,
+    Court = str_replace(coalesce(d$lower, "—"),
+              "^United States Court of Appeals for the (.+?Circuit)$", "\\1") |>
+              str_trunc(28),
+    Documents = map_chr(d$events, function(e)
+                  case_documents(e, c("Petition", "Appendix", "BIO", "Reply"))),
+    QP = { q <- map_chr(d$dkt, qp_get); ifelse(is.na(q) | q == "", "—", q) }
+  ) |> arrange(desc(Relists), desc(Grant))
+
+  # Drop the forecast columns on conferences with no paid petitions (all NA).
+  has_grant <- any(!is.na(tbl$Grant))
+  if (!has_grant) tbl <- select(tbl, -Grant, -GVR)
+
+  left_cols <- match(intersect(c("Case", "Court", "Documents", "QP"), names(tbl)),
+                     names(tbl))
+
+  t <- tbl |>
+    gt() |>
+    fmt_markdown(columns = any_of(c("Case", "Documents", "QP"))) |>
+    data_color(columns = Type, method = "factor",
+      palette = c("Paid" = "#e4e7d8", "IFP" = "#efe1cd", "Application" = "#dfe4ea")) |>
+    cols_align("center", columns = everything()) |>
+    cols_label(QP = "Questions Presented") |>
+    cols_width(Case ~ px(230), QP ~ px(190))
+  if (has_grant) {
+    t <- t |>
+      fmt_percent(columns = c(Grant, GVR), decimals = 0) |>
+      # NA (non-paid) forecasts show as an em dash; raw values stay numeric so
+      # the columns still sort by value.
+      sub_missing(columns = c(Grant, GVR), missing_text = "—") |>
+      data_color(columns = Grant, palette = c("#f3ecdd", "#e8c9a0", "#c8794f", "#8a2b2b"),
+                 domain = c(0, 1), na_color = "#f7f1e4") |>
+      data_color(columns = GVR, palette = c("#f3ecdd", "#dfe0cf", "#b9b98f"),
+                 domain = c(0, 0.4), na_color = "#f7f1e4") |>
+      cols_label(Grant = "Grant forecast", GVR = "GVR risk")
+  }
+
+  footer <- if (has_grant) paste0(
+    "<em>Grant forecast</em> is a calibrated model estimate of plenary certiorari ",
+    "for paid petitions (base rate ~4%), scored as of this conference; <em>GVR ",
+    "risk</em> is the companion estimate of a grant, vacate &amp; remand. ",
+    "Estimates, not predictions about any case."
+  ) else ""
+
+  n_case <- nrow(tbl)
+  dek <- paste0(n_case, if (n_case == 1) " case" else " cases",
+    " distributed for this conference &mdash; sortable and filterable. Sort by ",
+    "<em>Relists</em> or <em>Grant forecast</em> to surface the serially-relisted cases.")
+
+  scr_interactive(t, n_rows = nrow(tbl)) |>
+    scr_write_page(
+      file.path(out_dir, str_c("conf_", conf_date, ".html")),
+      kicker = "Supreme Court of the United States",
+      title = paste0("Conference of ", format(conf_date, "%B %d, %Y")),
+      dek = dek, n_rows = nrow(tbl), left_cols = left_cols, footer = footer,
+      back = list(href = "index.html", label = "&larr; All conference reports"))
 
   invisible(file.path(out_dir, str_c("conf_", conf_date, ".html")))
 }
