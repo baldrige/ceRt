@@ -390,9 +390,14 @@ scotus_dash <- function(range = today() - 1, year = "26",
               "^United States Court of Appeals for the (.+?Circuit)$", "\\1") |>
               str_trunc(30),
     Counsel = map_chr(hits$parties, petitioner_counsel_html),
-    Documents = map_chr(hits$events, function(e) case_documents(e, c("Petition", "Appendix"))),
+    Documents = map_chr(hits$events, function(e)
+                  case_documents(e, c("Petition", "Application", "Appendix"))),
     QP = qps
-  ) |> arrange(desc(Grant))
+  ) |>
+    # Group by type (Paid -> IFP -> Application), then by grant forecast within
+    # each group so a paid petition with no forecast stays with the paid block
+    # rather than sinking below the IFP/application rows.
+    arrange(Type, desc(Grant))
 
   # Drop the Grant column entirely on days with no paid petitions (all NA).
   has_grant <- any(!is.na(tbl$Grant))

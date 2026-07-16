@@ -68,6 +68,10 @@ case_documents <- function(ev, kinds) {
   for (i in seq_len(nrow(ev))) {
     t <- txt[i] %||% ""
     if ("Petition" %in% kinds && str_detect(t, "^Petition for a writ of certiorari")) { u <- main_url(i); if (!is.na(u)) found["Petition"] <- u }
+    # Applications (26A#) file an "Application (…)" whose link is a generic "Main
+    # Document"; match the proceeding text and keep the FIRST one with a link (the
+    # filed application, not a later order/response).
+    if ("Application" %in% kinds && is.na(found["Application"]) && str_detect(t, "^Application\\b")) { u <- main_url(i); if (!is.na(u)) found["Application"] <- u }
     if ("BIO" %in% kinds && str_detect(t, "in opposition filed")) { u <- main_url(i); if (!is.na(u)) found["BIO"] <- u }
     if ("Reply" %in% kinds && str_detect(t, "^Reply")) { u <- main_url(i); if (!is.na(u)) found["Reply"] <- u }
     if ("Appendix" %in% kinds) {
