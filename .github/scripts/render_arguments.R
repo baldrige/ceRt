@@ -18,6 +18,8 @@ dir.create(arg_dir, recursive = TRUE, showWarnings = FALSE)
 
 source("R/qp_extract.R")
 source("R/argument_nav.R")   # sources cert_funnel.R + page_style.R
+source("R/cert_model.R")     # score_case (docket-page forecast)
+source("R/docket_page.R")    # render_dockets_for
 
 # Combine, deduping by docket with a freshness preference:
 #   arg_refresh.rds (re-fetched historical grants, freshest for OT17-23)
@@ -58,4 +60,7 @@ for (f in list.files(arg_dir, pattern = "^arg_\\d+\\.html$", full.names = TRUE))
                                           collapse = "\n"))), f, useBytes = TRUE)
 }
 cat("Rendered argument Terms:", paste(map_chr(terms, ~ term_label(.x - 2000L)), collapse = ", "), "\n")
+
+# Docket pages for the granted cases (freshest data -> carry the opinion links).
+render_dockets_for(combined |> filter(dkt %in% tbl$dkt), site_dir)
 cat("Done.\n")

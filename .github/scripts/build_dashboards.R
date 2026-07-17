@@ -25,6 +25,8 @@ eval(parse(text = paste(src, collapse = "\n")))
 # Absent artifact -> NULL -> scotus_dash() simply omits the column.
 source("R/cert_model.R")
 source("R/petition_signals.R")   # resolve_petition_signals (Rule 10 from the petition PDF)
+source("R/argument_nav.R")       # classify_argument (for docket-page lifecycle)
+source("R/docket_page.R")        # render_dockets_for
 grant_model <- load_cert_models("data")$baseline
 cat("Baseline cert model:", if (is.null(grant_model)) "not found (no forecast column)" else "loaded", "\n")
 
@@ -69,6 +71,10 @@ for (i in seq_along(dates)) {
               signals_map = signals_map)
 }
 dashboard_index(dash_dir)
+
+# Docket pages for the current-term cases just fetched (incremental: only dockets
+# whose page changed are rewritten). Keeps /cases/ current for the daily links.
+render_dockets_for(ot, site_dir)
 
 # Refresh the site landing page (links the sections that exist). Each category
 # also shows its three most recent pages in a compact strip beneath the link.

@@ -381,7 +381,7 @@ scotus_dash <- function(range = today() - 1, year = "26",
     Type = factor(hits$type, levels = c("paid", "ifp", "app"),
                   labels = c("Paid", "IFP", "Application")),
     Case = sprintf(
-      "<a href='https://www.supremecourt.gov/search.aspx?filename=/docket/docketfiles/html/public/%s.html' target='_blank'>%s</a>",
+      "<a href='../cases/%s.html' target='_blank'>%s</a>",
       hits$dkt,
       str_squish(str_remove_all(hits$caption, ", Petitioners?|, Applicants?|, et al\\."))),
     Docket = hits$dkt,

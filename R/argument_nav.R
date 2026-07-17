@@ -263,8 +263,7 @@ argument_term_page <- function(tbl, term, out_dir) {
       Sitting = if_else(is.na(sitting), "Not yet scheduled", sitting),
       When = coalesce(arg_ref, grant_date),          # Date -> value-sorts
       Case = str_c(
-        "<a href='https://www.supremecourt.gov/search.aspx?filename=/docket/docketfiles/html/public/",
-        dkt, ".html' target='_blank'>",
+        "<a href='../cases/", dkt, ".html' target='_blank'>",
         str_squish(str_remove_all(caption, ", Petitioners?|, Respondents?|, et al\\.")), "</a>"),
       Docket = dkt,
       status = factor(status, levels = STATUS_LEVELS),

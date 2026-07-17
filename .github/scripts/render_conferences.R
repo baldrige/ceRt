@@ -25,6 +25,8 @@ source("R/qp_extract.R")
 source("R/conference_dash.R")
 source("R/cert_funnel.R")   # classify_petition_events (relist grammar)
 source("R/cert_model.R")    # score_disposition + load_cert_models
+source("R/argument_nav.R")  # classify_argument (docket-page lifecycle)
+source("R/docket_page.R")   # render_dockets_for
 cert_models <- load_cert_models("data")
 cat("Cert models loaded:", paste(names(cert_models), collapse = ", "),
     if (length(cert_models) == 0) "(none — forecast column omitted)" else "", "\n")
@@ -57,4 +59,8 @@ for (i in seq_along(dates)) {
                   models = cert_models)
 }
 conference_index(conf_dir)
+
+# Docket pages for the fetched OT-sitting cases (incremental). Keeps /cases/
+# current for the conference Case links.
+render_dockets_for(combined, site_dir)
 cat("Done.\n")

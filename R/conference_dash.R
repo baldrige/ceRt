@@ -192,7 +192,7 @@ conference_dash <- function(dist, conf_date,
     Type = factor(d$type, levels = c("paid", "ifp", "app"),
                   labels = c("Paid", "IFP", "Application")),
     Case = sprintf(
-      "<a href='https://www.supremecourt.gov/search.aspx?filename=/docket/docketfiles/html/public/%s.html' target='_blank'>%s</a>",
+      "<a href='../cases/%s.html' target='_blank'>%s</a>",
       d$dkt,
       str_squish(str_remove_all(d$caption, ", Petitioners?|, Respondents?|, et al\\."))),
     Docket = d$dkt,

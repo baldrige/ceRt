@@ -317,3 +317,28 @@ render_docket_pages <- function(cases, out_dir, models = NULL, qp_map = NULL,
           nrow(cases) - n_written, " unchanged)")
   invisible(n_written)
 }
+
+# CI convenience: render docket pages for `cases` into `site_dir/cases`, loading
+# the models and the on-site QP/Rule-10 caches. Called at the end of the daily
+# and conference build scripts so any freshly-fetched case gets a current page
+# (incremental -- only changed dockets rewrite). Defensive: never fatal.
+render_dockets_for <- function(cases, site_dir, model_dir = "data") {
+  if (is.null(cases) || nrow(cases) == 0) return(invisible(0L))
+  tryCatch({
+    models <- if (exists("load_cert_models")) load_cert_models(model_dir) else NULL
+    read_qpc <- function(p) if (file.exists(p))
+      tryCatch(jsonlite::fromJSON(p, simplifyVector = FALSE), error = function(e) list()) else list()
+    qp_map <- list()
+    for (p in c(file.path(site_dir, "conferences", "qp_cache.json"),
+                file.path(site_dir, "arguments", "qp_cache.json"))) {
+      qc <- read_qpc(p); for (d in names(qc)) if (!is.null(qc[[d]]$qp)) qp_map[[d]] <- qc[[d]]$qp
+    }
+    signals_map <- tryCatch({
+      s <- jsonlite::fromJSON("data-raw/petition_signals.json")
+      if (is.data.frame(s) && "dkt" %in% names(s))
+        setNames(lapply(seq_len(nrow(s)), function(i) as.list(s[i, ])), s$dkt) else NULL
+    }, error = function(e) NULL)
+    render_docket_pages(cases, file.path(site_dir, "cases"),
+                        models = models, qp_map = qp_map, signals_map = signals_map)
+  }, error = function(e) message("render_dockets_for failed: ", conditionMessage(e)))
+}
