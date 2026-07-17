@@ -71,7 +71,7 @@ PAGE_TEMPLATE_VERSION <- "v2"
 # ---- small helpers ------------------------------------------------------------
 .esc <- function(x) { x <- x %||% ""; x[is.na(x)] <- ""; htmltools::htmlEscape(x) }
 # Date -> "June 5, 2025" (no %e double-space); "" for missing.
-fmt_date <- function(d) {
+.fmtdate <- function(d) {
   if (is.null(d) || length(d) == 0 || all(is.na(d))) return("")
   str_squish(format(as.Date(d[1]), "%B %e, %Y"))
 }
@@ -153,7 +153,7 @@ docket_disposition <- function(outcome, outcome_date, arg, p_base, p_gvr, sig, i
       denied = "Certiorari denied", dismissed = "Dismissed", gvr = "GVR'd", outcome)
   dt <- if (!is_app && identical(outcome, "granted"))
     coalesce(arg$decided_date, arg$argued_date, arg$scheduled_date, as.Date(outcome_date)) else as.Date(outcome_date)
-  when <- if (length(dt) && !is.na(dt)) paste0(" &middot; ", fmt_date(dt)) else ""
+  when <- if (length(dt) && !is.na(dt)) paste0(" &middot; ", .fmtdate(dt)) else ""
   sprintf("<div class='disp'><div class='disp-word'>%s%s</div>%s</div>", word, when, est_note)
 }
 
@@ -210,10 +210,10 @@ docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
   ad <- c()
   if (!is.na(arg$argued_date))
     ad <- c(ad, sprintf("<p><b>Argued</b> %s%s. <a href='https://www.supremecourt.gov/oral_arguments/audio/%s/%s' target='_blank' rel='noopener'>Audio</a></p>",
-      fmt_date(arg$argued_date), if (!is.na(adv)) paste0(" &mdash; ", .esc(adv)) else "",
+      .fmtdate(arg$argued_date), if (!is.na(adv)) paste0(" &mdash; ", .esc(adv)) else "",
       argument_term(arg$argued_date), dkt))
   if (!is.na(arg$decided_date))
-    ad <- c(ad, sprintf("<p><b>Decided</b> %s.%s%s</p>", fmt_date(arg$decided_date),
+    ad <- c(ad, sprintf("<p><b>Decided</b> %s.%s%s</p>", .fmtdate(arg$decided_date),
       if (!is.na(arg$opinion_author)) paste0(" Opinion by <b>", .esc(arg$opinion_author), "</b>.") else "",
       if (!is.na(arg$opinion_url)) sprintf(" <a href='%s' target='_blank' rel='noopener'>Slip opinion</a>", arg$opinion_url) else ""))
   argsec <- if (length(ad) && !(outcome %in% c("gvr", "dismissed")))
@@ -225,7 +225,7 @@ docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
   posture <- str_squish(paste0(ptype,
     if (!is.na(cx$lower) && nzchar(cx$lower)) paste0(" &middot; ", .esc(cx$lower)),
     if (!is.null(cx$lower_dkt) && !is.na(cx$lower_dkt) && nzchar(cx$lower_dkt)) paste0(", No. ", .esc(cx$lower_dkt)),
-    if (!is.na(cx$lower_date)) paste0(" &middot; judgment ", fmt_date(cx$lower_date))))
+    if (!is.na(cx$lower_date)) paste0(" &middot; judgment ", .fmtdate(cx$lower_date))))
   conf_line <- if (n_dist > 0) sprintf("Distributed for %d conference%s", n_dist, if (n_dist == 1) "" else "s") else "&mdash;"
 
   # Counsel of record -- omit the panel entirely when we hold no counsel data
