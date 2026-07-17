@@ -333,11 +333,12 @@ render_dockets_for <- function(cases, site_dir, model_dir = "data") {
                 file.path(site_dir, "arguments", "qp_cache.json"))) {
       qc <- read_qpc(p); for (d in names(qc)) if (!is.null(qc[[d]]$qp)) qp_map[[d]] <- qc[[d]]$qp
     }
-    signals_map <- tryCatch({
-      s <- jsonlite::fromJSON("data-raw/petition_signals.json")
-      if (is.data.frame(s) && "dkt" %in% names(s))
-        setNames(lapply(seq_len(nrow(s)), function(i) as.list(s[i, ])), s$dkt) else NULL
-    }, error = function(e) NULL)
+    # The cache is a JSON object keyed by docket -> {dissent_below, split_argued,
+    # ...}, so load it as a named list (NOT a data frame); score_case reads
+    # signals[[feature]].
+    signals_map <- tryCatch(
+      jsonlite::fromJSON("data-raw/petition_signals.json", simplifyVector = FALSE),
+      error = function(e) NULL)
     render_docket_pages(cases, file.path(site_dir, "cases"),
                         models = models, qp_map = qp_map, signals_map = signals_map)
   }, error = function(e) message("render_dockets_for failed: ", conditionMessage(e)))
