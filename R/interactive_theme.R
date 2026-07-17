@@ -92,7 +92,9 @@ petitioner_counsel_html <- function(parties) {
   if (nrow(pet) == 0) return("—")
   cor <- pet[which(pet$counsel_of_record %in% TRUE), , drop = FALSE]
   row <- if (nrow(cor)) cor[1, ] else pet[1, ]
-  nm <- row$attys; fm <- row$firm
+  # %||% guards against a parties structure that lacks a firm column (the
+  # historical scrape), where row$firm would be NULL and break the length-1 &&.
+  nm <- row$attys %||% NA_character_; fm <- row$firm %||% NA_character_
   if (is.na(nm) || !nzchar(nm)) return("—")
   if (!is.na(fm) && nzchar(fm)) paste0(nm, "<br>", fm) else nm
 }

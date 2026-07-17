@@ -31,6 +31,7 @@ local({
   }
   sys.source(find("cert_funnel.R"), envir = globalenv())
   sys.source(find("page_style.R"), envir = globalenv())
+  sys.source(find("interactive_theme.R"), envir = globalenv())
 })
 
 # ---- argument-stage classification --------------------------------------------
@@ -238,12 +239,17 @@ build_argument_table <- function(cases, qp_map = NULL) {
 
 # ---- rendering ----------------------------------------------------------------
 
-STATUS_FILL <- c(Granted = "#DCE7F0", Scheduled = "#A6CEE3", Argued = "#B2DF8A",
-                 Decided = "#E4DAC2", `DIG'd` = "#FB9A99")
+# Parchment-toned status tints, in status-factor-level order, applied to the
+# reactable Status column via data_color(target_columns=).
+STATUS_LEVELS <- c("Granted", "Scheduled", "Argued", "Decided", "DIG'd")
+STATUS_FILL <- c(Granted = "#eae3d2", Scheduled = "#dfe4ea", Argued = "#e4e7d8",
+                 Decided = "#e8dcc0", `DIG'd` = "#e6cdc6")
 
-# Render one Term's argument calendar (a gt table grouped by sitting). Cases with
-# an argument date are grouped by their sitting (chronological); granted-but-
-# unscheduled cases fall into a trailing "Not yet scheduled" group.
+# Render one Term's argument calendar as the interactive editorial table (matches
+# the daily/conference dashboards): a flat, sortable/filterable reactable with a
+# Sitting column (October, November, …) instead of row-group bands. When is a real
+# date so it value-sorts; Status is colour-scaled by state and links decided cases
+# to the slip opinion.
 argument_term_page <- function(tbl, term, out_dir) {
   d <- tbl |>
     filter(term == !!term) |>
@@ -252,83 +258,84 @@ argument_term_page <- function(tbl, term, out_dir) {
   if (nrow(d) == 0) return(invisible(NULL))
   all_unscheduled <- all(is.na(d$arg_ref))
 
-  has_qp <- any(!is.na(d$qp))
   d <- d |>
     mutate(
-      # Argument date for scheduled cases; grant date for the rest.
-      when = case_when(
-        !is.na(arg_ref) ~ format(arg_ref, "%a %b %d"),
-        !is.na(grant_date) ~ paste0("Granted ", format(grant_date, "%b %d")),
-        TRUE ~ "—"),
-      case = caption,
-      # Always link the docket number to the docket page (not the petition PDF).
-      docket = str_c("[", dkt,
-        "](https://www.supremecourt.gov/search.aspx?filename=/docket/docketfiles/html/public/",
-        dkt, ".html)"),
-      argued_by = if_else(is.na(advocates), "—", advocates),
-      # Decided cases show the majority author and link to the slip opinion where
-      # available; other states show the plain status word. `status` is retained
-      # (hidden) to drive the fill colour.
+      Sitting = if_else(is.na(sitting), "Not yet scheduled", sitting),
+      When = coalesce(arg_ref, grant_date),          # Date -> value-sorts
+      Case = str_c(
+        "<a href='https://www.supremecourt.gov/search.aspx?filename=/docket/docketfiles/html/public/",
+        dkt, ".html' target='_blank'>",
+        str_squish(str_remove_all(caption, ", Petitioners?|, Respondents?|, et al\\.")), "</a>"),
+      Docket = dkt,
+      status = factor(status, levels = STATUS_LEVELS),
+      # Decided cases show the majority author and link to the slip opinion;
+      # other states show the plain status word. `status` (hidden) drives colour.
       status_disp = case_when(
         status == "Decided" & !is.na(opinion_url) & !is.na(opinion_author) ~
           str_c("[Decided · ", opinion_author, "](", opinion_url, ")"),
         status == "Decided" & !is.na(opinion_url) ~ str_c("[Decided](", opinion_url, ")"),
         status == "Decided" & !is.na(opinion_author) ~ str_c("Decided · ", opinion_author),
-        TRUE ~ status
+        TRUE ~ as.character(status)
       ),
-      # Transcript + audio links for the oral argument (dropped when neither).
+      argued_by = if_else(is.na(advocates), "—", advocates),
       media = pmap_chr(list(transcript_url, audio_url), function(tr, au) {
         parts <- c(if (!is.na(tr)) str_c("[Transcript](", tr, ")"),
                    if (!is.na(au)) str_c("[Audio](", au, ")"))
         if (length(parts) == 0) "—" else paste(parts, collapse = " · ")
       }),
-      qp = if_else(is.na(qp), "—", qp),
-      # Unscheduled grants have no sitting; collect them in a trailing group.
-      sitting = if_else(is.na(sitting), "Not yet scheduled", sitting)
+      qp = if_else(is.na(qp), "—", qp)
     )
-  has_media <- any(d$media != "—")
-  has_argued <- any(d$argued_by != "—")     # drop empty columns on all-unscheduled Terms
-  d <- d |>
-    select(sitting, when, case, docket, status, status_disp,
-           any_of(if (has_argued) "argued_by" else character()),
-           any_of(if (has_media) "media" else character()),
-           any_of(if (has_qp) "qp" else character()))
 
-  labels <- list(when = "", case = "Case", docket = "Docket", status_disp = "Status",
-                 argued_by = "Argued by", media = "Argument", qp = "QP")
-  labels <- labels[names(labels) %in% names(d)]
-  md_cols <- intersect(c("docket", "status_disp", "media", "qp"), names(d))
+  # Drop columns with no content this Term (all-unscheduled Terms lack advocates
+  # and media; historical Terms may lack QP).
+  has_argued <- any(d$argued_by != "—")
+  has_media  <- any(d$media != "—")
+  has_qp     <- any(d$qp != "—")
+  keep <- c("Sitting", "When", "Case", "Docket", "status_disp",
+            if (has_argued) "argued_by", if (has_media) "media", if (has_qp) "qp",
+            "status")
+  tb <- d |> select(all_of(keep))
 
-  tbl_gt <- d |>
-    gt(groupname_col = "sitting") |>
-    fmt_markdown(columns = all_of(md_cols)) |>
-    tab_header(
-      title = paste0(term_label(term - 2000L), " — Oral Argument Calendar"),
-      subtitle = if (all_unscheduled) paste0(nrow(d), " granted case(s) awaiting an argument date")
-                 else paste0(nrow(d), " case(s) argued or scheduled")
-    ) |>
-    gt_theme_nytimes() |>
-    cols_label(.list = labels) |>
+  # Left-aligned DATA cells (headers stay centered); status is hidden, so measure
+  # nth-child over the visible columns only.
+  vis <- setdiff(names(tb), "status")
+  left_cols <- match(intersect(c("Sitting", "Case", "status_disp", "argued_by", "media", "qp"), vis), vis)
+
+  labels <- list(status_disp = "Status", argued_by = "Argued by",
+                 media = "Argument", qp = "Questions Presented")
+  labels <- labels[names(labels) %in% names(tb)]
+  gt_tbl <- tb |>
+    gt() |>
+    fmt_markdown(columns = any_of(c("Case", "status_disp", "media", "qp"))) |>
+    fmt_date(columns = When, date_style = "m_day_year") |>
+    sub_missing(columns = When, missing_text = "—") |>
+    data_color(columns = status, target_columns = status_disp, method = "factor",
+               palette = unname(STATUS_FILL[STATUS_LEVELS]), na_color = "#f7f1e4") |>
     cols_hide(columns = status) |>
-    cols_align(align = "center", columns = everything()) |>
-    cols_align(align = "left", columns = any_of("qp")) |>
-    # Distinctive, centered sitting dividers (an oxblood-on-parchment band).
-    tab_style(
-      style = list(
-        cell_fill(color = "#ece3cf"),
-        cell_text(weight = "bold", align = "center", transform = "uppercase",
-                  color = "#7a2e2e", size = px(13)),
-        cell_borders(sides = c("top", "bottom"), color = "#c9b98f", weight = px(1))
-      ),
-      locations = cells_row_groups()
-    )
-  for (s in names(STATUS_FILL)) {
-    tbl_gt <- tbl_gt |>
-      tab_style(cell_fill(color = STATUS_FILL[[s]]),
-                cells_body(columns = status_disp, rows = status == s))
-  }
-  gtsave_titled(tbl_gt, str_c("arg_", term, ".html"), path = out_dir,
-                title = paste0(term_label(term - 2000L), " oral arguments — SCOTUS"))
+    cols_align("center", columns = everything()) |>
+    cols_label(.list = labels) |>
+    cols_width(Case ~ px(240))
+  if (has_qp) gt_tbl <- gt_tbl |> cols_width(qp ~ px(190))
+
+  n <- nrow(d)
+  dek <- if (all_unscheduled)
+    paste0(n, if (n == 1) " granted case" else " granted cases",
+           " awaiting an argument date &mdash; sortable and filterable.")
+  else
+    paste0(n, if (n == 1) " case" else " cases",
+           " argued or scheduled &mdash; sortable and filterable. Sort by any column, ",
+           "or filter by <em>Sitting</em> or <em>Status</em>.")
+
+  scr_interactive(gt_tbl, n_rows = n) |>
+    scr_write_page(
+      file.path(out_dir, str_c("arg_", term, ".html")),
+      kicker = "Supreme Court of the United States",
+      title = paste0(term_label(term - 2000L), " &mdash; Oral Arguments"),
+      dek = dek, n_rows = n, left_cols = left_cols,
+      footer = paste0("Status tracks each grant from Granted through Scheduled, ",
+                      "Argued, and Decided (with the majority author, linked to the ",
+                      "slip opinion)."),
+      back = list(href = "index.html", label = "&larr; All argument Terms"))
   invisible(file.path(out_dir, str_c("arg_", term, ".html")))
 }
 

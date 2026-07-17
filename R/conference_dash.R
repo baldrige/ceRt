@@ -202,28 +202,33 @@ conference_dash <- function(dist, conf_date,
     Court = str_replace(coalesce(d$lower, "—"),
               "^United States Court of Appeals for the (.+?Circuit)$", "\\1") |>
               str_trunc(28),
+    # Petitioner's counsel of record + firm, as on the daily dashboards. Only the
+    # JSON pipeline carries a parties structure; the historical scrape does not,
+    # so this is "—" (and the column is dropped) on the pre-JSON archive.
+    Counsel = if ("parties" %in% names(d)) map_chr(d$parties, petitioner_counsel_html)
+              else rep("—", nrow(d)),
     Documents = map_chr(d$events, function(e)
                   case_documents(e, c("Petition", "Appendix", "BIO", "Reply"))),
     QP = { q <- map_chr(d$dkt, qp_get); ifelse(is.na(q) | q == "", "—", q) }
   ) |> arrange(desc(Relists), desc(Grant))
 
   # Drop the forecast columns on conferences with no paid petitions (all NA),
-  # and any column that is entirely empty -- e.g. QP on the pre-JSON historical
-  # archive, which has no Questions-Presented source (matches the old renderer,
-  # which omitted the column rather than showing a wall of em dashes).
+  # and any column that is entirely empty -- e.g. QP and Counsel on the pre-JSON
+  # historical archive, which has neither source (matches the old renderer, which
+  # omitted the column rather than showing a wall of em dashes).
   has_grant <- any(!is.na(tbl$Grant))
   if (!has_grant) tbl <- select(tbl, -Grant, -GVR)
-  for (col in c("QP", "Documents")) {
+  for (col in c("Counsel", "QP", "Documents")) {
     if (col %in% names(tbl) && all(tbl[[col]] == "—")) tbl <- select(tbl, -all_of(col))
   }
   has_qp <- "QP" %in% names(tbl)
 
-  left_cols <- match(intersect(c("Case", "Court", "Documents", "QP"), names(tbl)),
+  left_cols <- match(intersect(c("Case", "Court", "Counsel", "Documents", "QP"), names(tbl)),
                      names(tbl))
 
   t <- tbl |>
     gt() |>
-    fmt_markdown(columns = any_of(c("Case", "Documents", "QP"))) |>
+    fmt_markdown(columns = any_of(c("Case", "Counsel", "Documents", "QP"))) |>
     data_color(columns = Type, method = "factor",
       palette = c("Paid" = "#e4e7d8", "IFP" = "#efe1cd", "Application" = "#dfe4ea")) |>
     cols_align("center", columns = everything()) |>
