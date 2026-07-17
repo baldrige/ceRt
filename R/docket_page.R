@@ -51,12 +51,14 @@ p{margin:.5rem 0}
 .timeline{list-style:none;margin:.4rem 0 0;padding:0;position:relative}
 .timeline::before{content:'';position:absolute;left:7.4rem;top:.3rem;bottom:.3rem;border-left:1px solid var(--rule)}
 .timeline li{display:grid;grid-template-columns:7rem 1fr;gap:1.1rem;padding:.4rem 0;position:relative}
-.tl-date{font-variant-numeric:tabular-nums;font-size:.86rem;color:var(--faint);text-align:right;padding-top:.1rem}
+.tl-date{font-variant-numeric:tabular-nums;font-size:.86rem;color:var(--faint);text-align:right;padding-top:.1rem;padding-right:.28rem}
 .tl-body{font-size:.98rem;position:relative}
-.tl-body::before{content:'';position:absolute;left:-1.16rem;top:.5rem;width:7px;height:7px;border-radius:50%;background:var(--sienna);box-shadow:0 0 0 3px var(--paper)}
+.tl-body::before{content:'';position:absolute;left:-.9rem;top:.5rem;width:7px;height:7px;border-radius:50%;background:var(--sienna);box-shadow:0 0 0 3px var(--paper)}
 .tl-docs{margin-top:.2rem;display:flex;flex-wrap:wrap;gap:.2rem .8rem}
 .tl-docs a{font-size:.85rem;color:var(--sienna);border-bottom:1px solid rgba(181,101,29,.35);text-decoration:none}
+.kicker a{color:inherit;border-bottom:1px solid rgba(138,43,43,.4)}
 .back{margin-top:2rem;font-size:.95rem}.back a{color:var(--sienna);text-decoration:none;border-bottom:1px solid rgba(181,101,29,.35)}
+.stamp{margin-top:.7rem;font-size:.8rem;color:var(--faint);font-style:italic}
 @media(max-width:640px){.grid{grid-template-columns:1fr}.timeline li{grid-template-columns:5rem 1fr}.timeline::before{left:5.4rem}}"
 
 DOCKET_FONTS <- "https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap"
@@ -67,7 +69,7 @@ write_docket_css <- function(out_dir) {
 }
 
 # Bumped whenever the markup/CSS changes, to force a one-time full re-render.
-PAGE_TEMPLATE_VERSION <- "v3"
+PAGE_TEMPLATE_VERSION <- "v4"
 
 # ---- small helpers ------------------------------------------------------------
 .esc <- function(x) { x <- x %||% ""; x[is.na(x)] <- ""; htmltools::htmlEscape(x) }
@@ -166,7 +168,7 @@ docket_disposition <- function(outcome, outcome_date, arg, p_base, p_gvr, sig, i
 # (outcome/outcome_date); if NULL it is computed. `models`/`signals`/`qp` are
 # optional enrichments (no network is ever performed here).
 docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
-                        signals = NULL, qp = NA_character_) {
+                        signals = NULL, qp = NA_character_, rendered = Sys.Date()) {
   dkt <- cx$dkt; ev <- cx$events[[1]]; par <- cx$parties[[1]]; rel <- cx$related %||% ""
   if (length(qp) > 1) qp <- paste(qp, collapse = "\n")   # a qp_map value may be a vector
   is_app <- identical(cx$type %||% "", "app")
@@ -213,7 +215,7 @@ docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
   # dismissed, whose "Judgment VACATED" order otherwise reads as a decision).
   ad <- c()
   if (!is.na(arg$argued_date))
-    ad <- c(ad, sprintf("<p><b>Argued</b> %s%s. <a href='https://www.supremecourt.gov/oral_arguments/audio/%s/%s' target='_blank' rel='noopener'>Audio</a></p>",
+    ad <- c(ad, sprintf("<p><b>Argued</b> %s%s. <a href='https://www.supremecourt.gov/oral_arguments/audio/%s/%s' target='_blank' rel='noopener'>Audio and transcript</a></p>",
       .fmtdate(arg$argued_date), if (!is.na(adv)) paste0(" &mdash; ", .esc(adv)) else "",
       argument_term(arg$argued_date), dkt))
   if (!is.na(arg$decided_date)) {
@@ -247,6 +249,7 @@ docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
     if (nzchar(rel)) paste0("<p><span class='side'>Related</span><br>", .esc(rel), "</p>") else "",
     "</div>")
   cap <- .esc(str_squish(str_remove_all(cx$caption %||% dkt, ", Petitioners?|, Respondents?")))
+  dkurl <- paste0("https://www.supremecourt.gov/search.aspx?filename=/docket/docketfiles/html/public/", dkt, ".html")
 
   page <- paste0(
     "<!DOCTYPE html><html lang='en'><head><meta charset='utf-8'>",
@@ -256,7 +259,7 @@ docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
     "<link rel='stylesheet' href='", DOCKET_FONTS, "'>",
     "<link rel='stylesheet' href='style.css'>",
     "</head><body><main class='case'>",
-    "<p class='kicker'>Supreme Court of the United States &middot; No. ", dkt, "</p>",
+    "<p class='kicker'>Supreme Court of the United States &middot; <a href='", dkurl, "' target='_blank' rel='noopener'>No. ", dkt, "</a></p>",
     "<h1>", cap, "</h1>",
     "<p class='posture'>", posture, "</p><hr class='brule'>",
     disp,
@@ -264,7 +267,8 @@ docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
     "<div class='grid'>", counsel_panel, case_panel, "</div>",
     argsec,
     "<section><h2>Proceedings</h2><ol class='timeline'>", docket_timeline(ev), "</ol></section>",
-    "<p class='back'><a href='https://www.supremecourt.gov/search.aspx?filename=/docket/docketfiles/html/public/", dkt, ".html' target='_blank' rel='noopener'>Full docket on supremecourt.gov &rarr;</a></p>",
+    "<p class='back'><a href='", dkurl, "' target='_blank' rel='noopener'>Full docket on supremecourt.gov &rarr;</a></p>",
+    "<p class='stamp'>Last refreshed ", .fmtdate(rendered), ".</p>",
     "</main></body></html>")
   writeLines(enc2utf8(page), file.path(out_dir, paste0(dkt, ".html")), useBytes = TRUE)
   invisible(nchar(page))
@@ -274,8 +278,8 @@ docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
 # Renders a page per row of `cases`. `qp_map`/`signals_map` are named by docket;
 # absent entries just omit that section. A manifest of per-page content hashes
 # (cases/.manifest.json) makes re-runs rewrite only dockets whose page changed.
-render_docket_pages <- function(cases, out_dir, models = NULL,
-                                qp_map = NULL, signals_map = NULL, incremental = TRUE) {
+render_docket_pages <- function(cases, out_dir, models = NULL, qp_map = NULL,
+                                signals_map = NULL, incremental = TRUE, rendered = Sys.Date()) {
   write_docket_css(out_dir)
   mpath <- file.path(out_dir, ".manifest.json")
   # Always load the existing manifest and MERGE this batch into it, so rendering
@@ -302,7 +306,8 @@ render_docket_pages <- function(cases, out_dir, models = NULL,
         file.exists(file.path(out_dir, paste0(dkt, ".html")))) {
       new_manifest[[dkt]] <- key; next
     }
-    tryCatch({ docket_page(cx, out_dir, models = models, cls_row = clr, signals = sig, qp = qp)
+    tryCatch({ docket_page(cx, out_dir, models = models, cls_row = clr, signals = sig,
+                           qp = qp, rendered = rendered)
                n_written <- n_written + 1L }, error = function(e)
       message("docket_page failed for ", dkt, ": ", conditionMessage(e)))
     new_manifest[[dkt]] <- key
