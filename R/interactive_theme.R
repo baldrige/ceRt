@@ -165,8 +165,18 @@ scr_write_page <- function(gt_tbl, out_path, kicker, title, dek, n_rows,
   w <- paste(readLines(tmp, warn = FALSE), collapse = "\n")
   w <- scr_inline_libs(w, wdir)
   unlink(wdir, recursive = TRUE)
-  body_inner <- sub("(?s).*<body[^>]*>(.*)</body>.*", "\\1", w, perl = TRUE)
-  head_inner <- sub("(?s).*<head[^>]*>(.*)</head>.*", "\\1", w, perl = TRUE)
+  # Extract the widget's <head>/<body> inner content by POSITION. A greedy
+  # `(?s).*<head>(.*)</head>.*` sub backtracks catastrophically and trips PCRE's
+  # match limit on large self-contained pages (the base64-inlined libs push a
+  # wide table past ~700KB), silently leaving the whole document in place.
+  slice_between <- function(s, open_rx, close) {
+    o <- regexpr(open_rx, s, perl = TRUE)
+    cc <- regexpr(close, s, fixed = TRUE)
+    if (o < 0 || cc < 0) return("")
+    substr(s, o + attr(o, "match.length"), cc - 1L)
+  }
+  body_inner <- slice_between(w, "<body[^>]*>", "</body>")
+  head_inner <- slice_between(w, "<head[^>]*>", "</head>")
   leftcss <- if (length(left_cols))
     paste0(paste0(sprintf(".rt-tbody .rt-td:nth-child(%d)", left_cols),
       "{justify-content:flex-start!important;text-align:left!important}", collapse = "\n"), "\n",
