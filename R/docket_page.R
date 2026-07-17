@@ -41,6 +41,7 @@ p{margin:.5rem 0}
 .disp-sig{font-size:.9rem;color:var(--soft);font-style:italic;margin-top:.15rem}
 .disp-sub{font-size:.86rem;color:var(--faint);margin-top:.15rem}
 .disp-word{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.5rem;color:var(--ox);line-height:1.1}
+.disp-word a{color:inherit;text-decoration:underline;text-decoration-color:rgba(138,43,43,.4);text-underline-offset:4px}
 .qp{font-size:1.05rem;line-height:1.55}.qp ol,.qp ul{padding-left:1.2rem;margin:.3rem 0}.qp li{margin:.35rem 0}.qp p{margin:.4rem 0}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:1.6rem}
 .panel{background:var(--panel);border:1px solid var(--rule);padding:1rem 1.2rem}
@@ -66,7 +67,7 @@ write_docket_css <- function(out_dir) {
 }
 
 # Bumped whenever the markup/CSS changes, to force a one-time full re-render.
-PAGE_TEMPLATE_VERSION <- "v2"
+PAGE_TEMPLATE_VERSION <- "v3"
 
 # ---- small helpers ------------------------------------------------------------
 .esc <- function(x) { x <- x %||% ""; x[is.na(x)] <- ""; htmltools::htmlEscape(x) }
@@ -151,6 +152,9 @@ docket_disposition <- function(outcome, outcome_date, arg, p_base, p_gvr, sig, i
       granted = if (!is.na(arg$decided_date)) "Decided" else if (!is.na(arg$argued_date)) "Argued"
                 else if (!is.na(arg$scheduled_date)) "Set for argument" else "Certiorari granted",
       denied = "Certiorari denied", dismissed = "Dismissed", gvr = "GVR'd", outcome)
+  # Link the "Decided" word to the slip opinion (the primary way to reach it).
+  if (identical(word, "Decided") && !is.na(arg$opinion_url))
+    word <- sprintf("<a href='%s' target='_blank' rel='noopener'>Decided</a>", arg$opinion_url)
   dt <- if (!is_app && identical(outcome, "granted"))
     coalesce(arg$decided_date, arg$argued_date, arg$scheduled_date, as.Date(outcome_date)) else as.Date(outcome_date)
   when <- if (length(dt) && !is.na(dt)) paste0(" &middot; ", .fmtdate(dt)) else ""
@@ -212,10 +216,12 @@ docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
     ad <- c(ad, sprintf("<p><b>Argued</b> %s%s. <a href='https://www.supremecourt.gov/oral_arguments/audio/%s/%s' target='_blank' rel='noopener'>Audio</a></p>",
       .fmtdate(arg$argued_date), if (!is.na(adv)) paste0(" &mdash; ", .esc(adv)) else "",
       argument_term(arg$argued_date), dkt))
-  if (!is.na(arg$decided_date))
-    ad <- c(ad, sprintf("<p><b>Decided</b> %s.%s%s</p>", .fmtdate(arg$decided_date),
-      if (!is.na(arg$opinion_author)) paste0(" Opinion by <b>", .esc(arg$opinion_author), "</b>.") else "",
-      if (!is.na(arg$opinion_url)) sprintf(" <a href='%s' target='_blank' rel='noopener'>Slip opinion</a>", arg$opinion_url) else ""))
+  if (!is.na(arg$decided_date)) {
+    dword <- if (!is.na(arg$opinion_url))
+      sprintf("<a href='%s' target='_blank' rel='noopener'>Decided</a>", arg$opinion_url) else "Decided"
+    ad <- c(ad, sprintf("<p><b>%s</b> %s.%s</p>", dword, .fmtdate(arg$decided_date),
+      if (!is.na(arg$opinion_author)) paste0(" Opinion by <b>", .esc(arg$opinion_author), "</b>.") else ""))
+  }
   argsec <- if (length(ad) && !(outcome %in% c("gvr", "dismissed")))
     paste0("<section><h2>Argument &amp; decision</h2>", paste(ad, collapse = ""), "</section>") else ""
 
