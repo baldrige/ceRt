@@ -150,6 +150,10 @@ get_granted_qp <- function(dkt) {
   qp <- str_replace(qp, regex("\\s*CERT\\.?\\s+GRANTED\\b.*$", ignore_case = TRUE, dotall = TRUE), "")
   qp <- str_replace(qp, regex("\\s*GRANTED LIMITED TO\\b.*$", dotall = TRUE), "")
   qp <- str_replace(qp, regex("\\s*(PETITIONS?\\s+GRANTED\\b|CONSOLIDATED WITH\\b).*$", dotall = TRUE), "")
+  # Some QP PDFs append the full disposition order ("ORDER OF M/D/YYYY: THE
+  # PETITION FOR A WRIT OF CERTIORARI IS ...") after the questions -- strip it.
+  qp <- str_replace(qp, regex("\\s*ORDER OF \\d{1,2}/\\d{1,2}/\\d{2,4}\\b.*$", dotall = TRUE), "")
+  qp <- str_replace(qp, regex("\\s*THE PETITION FOR A WRIT OF CERTIORARI IS\\b.*$", ignore_case = TRUE, dotall = TRUE), "")
   qp <- str_trim(qp)
   qp <- split_court_questions(qp)              # Court-directed additional question
   note_parts <- c(
