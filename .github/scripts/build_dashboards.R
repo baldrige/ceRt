@@ -125,6 +125,7 @@ styled_index_page(
   heading = "Supreme Court Report",
   dek = "Quantifying the U.S. Supreme Court's behavior and making it legible for the public.",
   items = items,
-  new_tab = FALSE
+  new_tab = FALSE,
+  search = TRUE
 )
 cat("Done.\n")

@@ -67,7 +67,49 @@ INDEX_CSS <- "
   .back a{color:var(--sienna);text-decoration:none;
     border-bottom:1px solid rgba(181,101,29,.35)}
   .back a:hover{border-color:var(--sienna)}
+  /* Home-page case search. */
+  .csearch{position:relative;margin:0 0 1.4rem}
+  #cq{width:100%;font-family:'Newsreader',Georgia,serif;font-size:1.05rem;color:var(--ink);
+    background:var(--panel);border:1px solid var(--rule);border-radius:3px;padding:.7rem .9rem}
+  #cq:focus{outline:none;border-color:var(--oxblood);box-shadow:0 0 0 3px rgba(138,43,43,.1)}
+  #cq::placeholder{color:var(--faint)}
+  #cq.loading{background-image:linear-gradient(90deg,transparent,rgba(138,43,43,.06),transparent);
+    background-size:40% 100%;background-repeat:no-repeat;animation:csl 1s infinite}
+  @keyframes csl{0%{background-position:-40% 0}100%{background-position:140% 0}}
+  .cres{list-style:none;margin:.35rem 0 0;padding:0;max-height:24rem;overflow-y:auto;
+    border:1px solid var(--rule);border-radius:3px;background:var(--panel)}
+  .cres:empty{display:none}
+  .cres li{border-bottom:1px solid var(--rule)}
+  .cres li:last-child{border-bottom:0}
+  .cres a{display:block;padding:.55rem .7rem;text-decoration:none;color:var(--ink);
+    font-size:.98rem;line-height:1.3}
+  .cres a:hover{background:rgba(138,43,43,.06)}
+  .cres .cd{color:var(--oxblood);font-variant-numeric:tabular-nums;font-weight:600;
+    margin-right:.5rem;white-space:nowrap}
+  .cnone{padding:.55rem .7rem;color:var(--faint);font-style:italic}
 "
+
+# Home-page case search: a lazy-loaded client-side index (docket -> caption).
+SEARCH_HTML <- paste0(
+  "<div class='csearch'><input type='search' id='cq' autocomplete='off' spellcheck='false' ",
+  "placeholder='Search all cases by name or docket number…' aria-label='Search cases'>",
+  "<ul id='cres' class='cres' role='listbox'></ul></div>")
+
+SEARCH_SCRIPT <- paste0("<script>(function(){",
+  "var q=document.getElementById('cq'),r=document.getElementById('cres'),E=null,t;",
+  "function esc(s){return s.replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c];});}",
+  "function load(){if(E)return;q.classList.add('loading');",
+  "fetch('cases/search.json').then(function(x){return x.json();}).then(function(j){",
+  "E=Object.keys(j).map(function(d){return [d,j[d],d.toLowerCase(),j[d].toLowerCase()];});",
+  "q.classList.remove('loading');run();}).catch(function(){q.classList.remove('loading');});}",
+  "q.addEventListener('focus',load);",
+  "q.addEventListener('input',function(){clearTimeout(t);t=setTimeout(run,110);});",
+  "function run(){var s=q.value.trim().toLowerCase();if(!s||!E){r.innerHTML='';return;}",
+  "var o=[],n=0;for(var i=0;i<E.length;i++){if(E[i][2].indexOf(s)>-1||E[i][3].indexOf(s)>-1){",
+  "o.push(E[i]);if(++n>=40)break;}}",
+  "r.innerHTML=o.length?o.map(function(e){return \"<li><a href='cases/\"+e[0]+\".html'>",
+  "<span class='cd'>No. \"+e[0]+\"</span>\"+esc(e[1])+\"</a></li>\";}).join(''):",
+  "\"<li class='cnone'>No matching cases.</li>\";}})();</script>")
 
 # Convert straight quotes/apostrophes in DISPLAY text to typographic ("smart")
 # ones. HTML tags (<...>) are passed through untouched so attribute quotes and
@@ -127,7 +169,7 @@ page_head <- function(title) {
 # row links in a new tab (matches the prior dashboard-index behavior).
 styled_index_page <- function(out_path, title, heading, items,
                               kicker = NULL, dek = NULL, back = NULL,
-                              new_tab = TRUE) {
+                              new_tab = TRUE, search = FALSE) {
   rows <- lapply(items, function(it) {
     a_args <- list(class = "row", href = it$href)
     if (isTRUE(new_tab)) { a_args$target <- "_blank"; a_args$rel <- "noopener" }
@@ -161,8 +203,10 @@ styled_index_page <- function(out_path, title, heading, items,
     heading_node,
     tags$hr(class = "brule"),
     if (!is.null(dek)) tags$p(class = "dek", smarten(dek)),
+    if (isTRUE(search)) HTML(SEARCH_HTML),
     tags$ul(class = "idx", rows),
-    if (!is.null(back)) tags$p(class = "back", tags$a(href = back$href, smarten(back$label)))
+    if (!is.null(back)) tags$p(class = "back", tags$a(href = back$href, smarten(back$label))),
+    if (isTRUE(search)) HTML(SEARCH_SCRIPT)
   ))
   html <- paste0("<!DOCTYPE html>\n<html lang=\"en\">\n",
                  page_head(title), "\n", as.character(body), "\n</html>\n")

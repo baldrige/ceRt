@@ -341,5 +341,22 @@ render_dockets_for <- function(cases, site_dir, model_dir = "data") {
       error = function(e) NULL)
     render_docket_pages(cases, file.path(site_dir, "cases"),
                         models = models, qp_map = qp_map, signals_map = signals_map)
+    write_search_index(cases, file.path(site_dir, "cases"))
   }, error = function(e) message("render_dockets_for failed: ", conditionMessage(e)))
+}
+
+# Maintain cases/search.json (docket -> caption) for the home-page search box,
+# merged across batches so it accumulates the whole corpus and stays current as
+# workflows render newly-fetched cases.
+write_search_index <- function(cases, cases_dir) {
+  if (is.null(cases) || nrow(cases) == 0) return(invisible(0L))
+  ipath <- file.path(cases_dir, "search.json")
+  idx <- if (file.exists(ipath))
+    tryCatch(as.list(jsonlite::fromJSON(ipath)), error = function(e) list()) else list()
+  cap <- str_squish(str_remove_all(cases$caption %||% NA_character_, ", Petitioners?|, Respondents?"))
+  cap <- ifelse(is.na(cap) | cap == "", cases$dkt, cap)
+  for (i in seq_len(nrow(cases))) idx[[cases$dkt[i]]] <- cap[i]
+  dir.create(cases_dir, recursive = TRUE, showWarnings = FALSE)
+  jsonlite::write_json(idx, ipath, auto_unbox = TRUE)
+  invisible(length(idx))
 }
