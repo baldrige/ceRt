@@ -154,6 +154,7 @@ smarten_html <- function(html) {
 page_head <- function(title) {
   paste0(
     "<head>",
+    "<script async src='/analytics.js'></script>",
     '<meta charset="utf-8">',
     '<meta name="viewport" content="width=device-width, initial-scale=1">',
     "<title>", htmlEscape(title), "</title>",

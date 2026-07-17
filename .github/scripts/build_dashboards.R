@@ -16,6 +16,14 @@ term <- Sys.getenv("TERM_YEAR", unset = "26")
 dash_dir <- file.path(site_dir, "dashboards")
 dir.create(dash_dir, recursive = TRUE, showWarnings = FALSE)
 
+# Keep the site's Google Analytics loader (referenced by every page's <head> as
+# /analytics.js) in sync with the repo source. It persists on gh-pages between
+# runs; re-asserting it here (like the workflow's CNAME) means a full rebuild
+# can never silently drop tracking. Runs before the fetch so a throttle-degraded
+# day (which exits early) still refreshes it.
+if (file.exists("analytics.js"))
+  file.copy("analytics.js", file.path(site_dir, "analytics.js"), overwrite = TRUE)
+
 # Load the dashboard functions without triggering the script's bottom call.
 src <- readLines("R/scotus_dash_new.R")
 src <- src[-grep("^scotus_dash\\(", src)]

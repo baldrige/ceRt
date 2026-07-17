@@ -637,6 +637,7 @@ render_funnel_page <- function(live, baselines, out_dir,
   # and use tags only for the body, which serializes reliably.
   head_html <- paste0(
     "<head>",
+    "<script async src='/analytics.js'></script>",
     '<meta charset="utf-8">',
     '<meta name="viewport" content="width=device-width, initial-scale=1">',
     "<title>The Cert Funnel &mdash; how Supreme Court petitions live and die</title>",

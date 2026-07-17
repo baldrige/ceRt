@@ -351,7 +351,7 @@ scotus_dash <- function(range = today() - 1, year = "26",
   }
   if (nrow(hits) == 0) {
     empty <- paste0(
-      "<!DOCTYPE html><html lang='en'><head><meta charset='utf-8'>",
+      "<!DOCTYPE html><html lang='en'><head><script async src='/analytics.js'></script><meta charset='utf-8'>",
       "<meta name='viewport' content='width=device-width, initial-scale=1'>",
       "<title>The Daily Docket &mdash; ", format(range, "%B %d, %Y"), "</title>",
       "<link rel='preconnect' href='https://fonts.googleapis.com'>",

@@ -185,7 +185,7 @@ scr_write_page <- function(gt_tbl, out_path, kicker, title, dek, n_rows,
   script <- sprintf("<script>(function(){var N=%d;function fix(){document.querySelectorAll('select').forEach(function(s){Array.prototype.forEach.call(s.options,function(o){if(String(o.value)===String(N)&&o.text!=='All'){o.text='All';}});});}new MutationObserver(fix).observe(document.body,{childList:true,subtree:true});setTimeout(fix,250);setTimeout(fix,1000);})();</script>", n_rows)
   back_html <- if (!is.null(back)) paste0("<p class='back'><a href='", back$href, "'>", back$label, "</a></p>") else ""
   page <- paste0(
-    "<!DOCTYPE html><html lang='en'><head><meta charset='utf-8'>",
+    "<!DOCTYPE html><html lang='en'><head><script async src='/analytics.js'></script><meta charset='utf-8'>",
     "<meta name='viewport' content='width=device-width, initial-scale=1'>",
     "<title>", title, "</title>",
     "<link rel='preconnect' href='https://fonts.googleapis.com'>",
