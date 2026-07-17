@@ -18,7 +18,7 @@ SCR_CSS <- paste0("
 *{box-sizing:border-box}
 body{font-family:'Newsreader',Georgia,serif;color:var(--ink);background:var(--paper);margin:0}
 body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.5;mix-blend-mode:multiply;background-image:url(\"", .scr_noise, "\")}
-.wrap{width:min(95vw,86rem);max-width:100%;margin:0 auto;padding:2.6rem 1.4rem 4rem}
+.wrap{width:min(97vw,92rem);max-width:100%;margin:0 auto;padding:2.6rem 1.4rem 4rem}
 .kicker{font:600 .74rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;color:var(--ox);margin:0 0 .8rem}
 h1{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:clamp(1.9rem,4.5vw,2.9rem);line-height:1.02;letter-spacing:-.015em;margin:0 0 .7rem}
 .dek{font-size:1.1rem;line-height:1.5;color:var(--soft);font-style:italic;margin:0 0 1.4rem;max-width:46rem}
