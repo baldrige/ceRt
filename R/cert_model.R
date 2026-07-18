@@ -144,6 +144,10 @@ petitioner_counsel <- function(parties) {
 petition_features <- function(caption, lower, parties, date, lower_date, related) {
   sides <- caption_sides(caption)
   counsel <- petitioner_counsel(parties)
+  # NA-safe: missing/blank counsel makes str_detect() return NA, which drops the
+  # whole row in model.matrix (score_case then fails with "subscript out of
+  # bounds"). Absence of counsel data means "not elite", not unknown.
+  elite <- str_detect(counsel, ELITE_COUNSEL_RX); elite <- !is.na(elite) & elite
   pet_type <- classify_entity(sides$pet)
   resp_type <- classify_entity(sides$resp)
   d_gap <- suppressWarnings(as.integer(as.Date(date) - as.Date(lower_date)))
@@ -154,7 +158,7 @@ petition_features <- function(caption, lower, parties, date, lower_date, related
     us_respondent  = resp_type == "us_fed",
     business_pet   = pet_type == "business",
     court_below    = court_bucket(lower),
-    elite_counsel  = str_detect(counsel, ELITE_COUNSEL_RX),
+    elite_counsel  = elite,
     days_lower_gap = if (length(d_gap) == 0 || is.na(d_gap)) NA_integer_ else d_gap,
     # NA-safe: nzchar(NA) is TRUE, which silently made this a constant on the
     # historical archives (they carry no `related` column).
@@ -510,6 +514,101 @@ score_features <- function(model, newrow) {
   list(prob = as.numeric(prob), raw = as.numeric(raw),
        base_rate = model$base_rate, lift = as.numeric(prob) / model$base_rate,
        cues = cues)
+}
+
+# ---- forecast description (plain-English cue read) ----------------------------
+# Human phrase for each model cue term. model.matrix names a factor level as
+# "<var><level>" (reference level omitted), a logical as "<var>TRUE", a numeric
+# as "<var>". Each phrase names ONLY the factor; the direction (raises vs lowers
+# the forecast) comes from the sign of the cue's log-odds, so one phrase serves
+# both. Covers the BASELINE cues (structural + petition signals) and the ENHANCED
+# process cues, so the describer works for either model.
+FORECAST_CUE_PHRASES <- c(
+  "pet_typeus_fed"       = "a federal-government petitioner",
+  "pet_typestate_local"  = "a state or local-government petitioner",
+  "pet_typebusiness"     = "a business petitioner",
+  "resp_typeus_fed"      = "a federal-government respondent",
+  "resp_typestate_local" = "a state or local-government respondent",
+  "resp_typebusiness"    = "a business respondent",
+  "court_belowCA1"  = "a First Circuit decision below",
+  "court_belowCA2"  = "a Second Circuit decision below",
+  "court_belowCA3"  = "a Third Circuit decision below",
+  "court_belowCA4"  = "a Fourth Circuit decision below",
+  "court_belowCA5"  = "a Fifth Circuit decision below",
+  "court_belowCA6"  = "a Sixth Circuit decision below",
+  "court_belowCA7"  = "a Seventh Circuit decision below",
+  "court_belowCA8"  = "an Eighth Circuit decision below",
+  "court_belowCA9"  = "a Ninth Circuit decision below",
+  "court_belowCA10" = "a Tenth Circuit decision below",
+  "court_belowCA11" = "an Eleventh Circuit decision below",
+  "court_belowCADC"  = "a D.C. Circuit decision below",
+  "court_belowCAFED" = "a Federal Circuit decision below",
+  "court_belowFED_OTHER" = "another federal court below",
+  "elite_counselTRUE" = "experienced Supreme Court counsel",
+  "dissent_belowTRUE" = "a dissent in the court below (flagged in the petition)",
+  "split_arguedTRUE"  = "a circuit split argued in the petition",
+  "relist_bucket1"   = "one relist",
+  "relist_bucket2"   = "two relists",
+  "relist_bucket3-4" = "three or four relists",
+  "relist_bucket5+"  = "five or more relists",
+  "n_amicus_cert"          = "cert-stage amicus briefs",
+  "cvsgTRUE"               = "a call for the Solicitor General's views (CVSG)",
+  "response_requestedTRUE" = "a requested response",
+  "response_filedTRUE"     = "a brief in opposition filed"
+)
+
+# Turn a score_features() result into one model-faithful sentence: the forecast's
+# lift over the base rate, then the factors the model weights up and down (biggest
+# |log-odds| first, up to `top` each; cues below `eps` are dropped as negligible).
+# Deterministic -- no model call, no network. Guardrails baked into the wording:
+# probability + lift, never yes/no; "the model weights this up/down" (the cues are
+# correlational weights, not causes); a lean, not a verdict. `include_prob` adds a
+# leading "an N% forecast" for standalone use (off by default, since on the docket
+# page the number is shown right above it).
+describe_forecast <- function(score, top = 3L, eps = 0.05, include_prob = FALSE) {
+  if (is.null(score) || is.null(score$cues) || is.na(score$prob %||% NA_real_)) return("")
+  pctd <- function(p) sprintf("%.1f%%", 100 * p)        # base rate (1 dp)
+  pcti <- function(p) sprintf("%d%%", round(100 * p))   # forecast (integer)
+  mult <- function(l) { r <- round(l, 1)
+    if (abs(r - round(r)) < .05) sprintf("%d", round(r)) else sprintf("%.1f", r) }
+  join <- function(x) { n <- length(x)
+    if (n == 0) "" else if (n == 1) x[1]
+    else if (n == 2) paste(x, collapse = " and ")
+    else paste0(paste(x[-n], collapse = ", "), ", and ", x[n]) }
+
+  lift <- score$lift; base <- pctd(score$base_rate)
+
+  # Below the base rate, DON'T list drivers. The per-cue log-odds are measured
+  # against a very-low-grant reference profile (a private party, a state court
+  # below), so almost any federal case shows a large positive "up" cue for its
+  # circuit of origin -- which reads as a grant signal on a case the model
+  # actually rates as unremarkable. Say that plainly instead.
+  if (!is.na(lift) && lift <= 0.85) {
+    lead <- sprintf("Well below the %s base rate", base)
+    if (include_prob) lead <- sprintf("%s — well below the %s base rate", pcti(score$prob), base)
+    return(paste0(lead, ", with no standout signals pointing toward a grant."))
+  }
+
+  # At or above the base rate, name the real drivers (biggest |log-odds| first).
+  lead <- if (is.na(lift)) "" else
+    if (lift >= 1.5)       sprintf("about %s× the %s base rate", mult(lift), base)
+    else if (lift >= 1.15) sprintf("modestly above the %s base rate", base)
+    else                   sprintf("roughly the %s base rate", base)   # 0.85 < lift < 1.15
+  if (include_prob && nzchar(lead)) lead <- sprintf("%s — %s", pcti(score$prob), lead)
+  if (nzchar(lead)) lead <- paste0(toupper(substring(lead, 1, 1)), substring(lead, 2), ".")
+
+  cu <- score$cues
+  cu <- cu[is.finite(cu$log_odds) & abs(cu$log_odds) >= eps, , drop = FALSE]
+  ph <- function(terms) { v <- unname(FORECAST_CUE_PHRASES[terms]); v[!is.na(v)] }
+  up <- ph(head(dplyr::arrange(dplyr::filter(cu, log_odds > 0), dplyr::desc(log_odds))$term, top))
+  dn <- ph(head(dplyr::arrange(dplyr::filter(cu, log_odds < 0), log_odds)$term, top))
+
+  drv <- if (length(up) && length(dn))
+      sprintf(" The model weights this up for %s, and down for %s.", join(up), join(dn))
+    else if (length(up)) sprintf(" The model weights this up for %s.", join(up))
+    else if (length(dn)) sprintf(" The model weights this down for %s.", join(dn))
+    else " No single factor stands out."
+  paste0(lead, drv)
 }
 
 # Convenience: score a raw case record (caption/lower/parties/...) at a given

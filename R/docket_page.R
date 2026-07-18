@@ -41,6 +41,7 @@ p{margin:.5rem 0}
 .disp-sig{font-size:.9rem;color:var(--soft);font-style:italic;margin-top:.15rem}
 .disp-sub{font-size:.86rem;color:var(--faint);margin-top:.15rem}
 .disp-word{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.5rem;color:var(--ox);line-height:1.1}
+.forecast-why{margin:.55rem 0 0;font-size:.95rem;line-height:1.5;color:var(--soft);max-width:46rem}
 .disp-word a{color:inherit;text-decoration:underline;text-decoration-color:rgba(138,43,43,.4);text-underline-offset:4px}
 .qp{font-size:1.05rem;line-height:1.55}.qp ol,.qp ul{padding-left:1.2rem;margin:.3rem 0}.qp li{margin:.35rem 0}.qp p{margin:.4rem 0}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:1.6rem}
@@ -69,7 +70,9 @@ write_docket_css <- function(out_dir) {
 }
 
 # Bumped whenever the markup/CSS changes, to force a one-time full re-render.
-PAGE_TEMPLATE_VERSION <- "v4"
+# v5: plain-English forecast description on pending paid-petition pages, plus the
+# NA-safe elite_counsel fix (more cases now score, so more get an estimate).
+PAGE_TEMPLATE_VERSION <- "v5"
 
 # ---- small helpers ------------------------------------------------------------
 .esc <- function(x) { x <- x %||% ""; x[is.na(x)] <- ""; htmltools::htmlEscape(x) }
@@ -130,7 +133,7 @@ docket_timeline <- function(ev) {
 # Status-adaptive disposition box. Pending paid petitions get the forecast
 # (a prediction); resolved cases lead with the outcome and keep the pre-decision
 # estimate as a retrospective note.
-docket_disposition <- function(outcome, outcome_date, arg, p_base, p_gvr, sig, is_app = FALSE) {
+docket_disposition <- function(outcome, outcome_date, arg, p_base, p_gvr, sig, is_app = FALSE, why = "") {
   pct <- function(p) sprintf("%d%%", round(100 * p))
   sig_txt <- if (!is.null(sig)) {
     bits <- c(if (isTRUE(sig$dissent_below)) "dissent below",
@@ -143,7 +146,9 @@ docket_disposition <- function(outcome, outcome_date, arg, p_base, p_gvr, sig, i
     if (!is.na(p_base)) {
       gvr <- if (!is.null(p_gvr) && !is.na(p_gvr)) sprintf("<div class='disp-sub'>GVR risk %s</div>", pct(p_gvr)) else ""
       sg  <- if (!is.null(sig_txt)) sprintf("<div class='disp-sig'>%s</div>", .esc(sig_txt)) else ""
-      return(sprintf("<div class='disp'><div class='disp-num'>%s</div><div class='disp-lab'><div>estimated cert probability<br><span>(petition-stage, structural)</span></div>%s%s</div></div>", pct(p_base), sg, gvr))
+      box <- sprintf("<div class='disp'><div class='disp-num'>%s</div><div class='disp-lab'><div>estimated cert probability<br><span>(petition-stage, structural)</span></div>%s%s</div></div>", pct(p_base), sg, gvr)
+      why_html <- if (nzchar(why %||% "")) sprintf("<p class='forecast-why'>%s</p>", why) else ""
+      return(paste0(box, why_html))
     }
     return(sprintf("<div class='disp'><div class='disp-word'>%s</div></div>", if (is_app) "Application pending" else "Pending"))
   }
@@ -191,11 +196,14 @@ docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
   }
 
   # Forecast (paid only; pure, from in-memory models).
-  p_base <- NA_real_; p_gvr <- NA_real_
+  p_base <- NA_real_; p_gvr <- NA_real_; fc_why <- ""
   if (!is.null(models) && !is.null(models$baseline) && identical(cx$type %||% "", "paid") &&
       exists("score_case")) {
-    p_base <- tryCatch(score_case(models$baseline, cx$caption, cx$lower, par, cx$date,
-                cx$lower_date, rel, signals = signals)$prob, error = function(e) NA_real_)
+    sc_base <- tryCatch(score_case(models$baseline, cx$caption, cx$lower, par, cx$date,
+                cx$lower_date, rel, signals = signals), error = function(e) NULL)
+    p_base <- if (!is.null(sc_base)) sc_base$prob else NA_real_
+    fc_why <- if (!is.null(sc_base) && exists("describe_forecast"))
+      tryCatch(describe_forecast(sc_base), error = function(e) "") else ""
     if (!is.null(models$enhanced) && !is.null(models$gvr) && exists("score_disposition")) {
       s <- tryCatch(score_disposition(models$enhanced, models$gvr, cx$caption, cx$lower, par,
              cx$date, cx$lower_date, rel, events = ev,
@@ -204,7 +212,8 @@ docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
     }
   }
 
-  disp <- docket_disposition(outcome, outcome_date, arg, p_base, p_gvr, signals, is_app = is_app)
+  disp <- docket_disposition(outcome, outcome_date, arg, p_base, p_gvr, signals,
+                             is_app = is_app, why = fc_why)
   # Conference history = TOTAL distributions (a case seen at one conference counts).
   n_dist <- if (is.data.frame(ev))
     sum(str_detect(ev[["Proceedings and Orders"]] %||% "", "DISTRIBUTED for Conference"), na.rm = TRUE) else 0L
