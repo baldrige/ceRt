@@ -371,7 +371,12 @@ scotus_dash <- function(range = today() - 1, year = "26",
   # Questions Presented (petition text layer first, OCR fallback). Wrap real QP
   # text in a collapsible <details> cell; show a bare em dash where unavailable
   # (so a missing QP isn't an empty expander).
-  qp_raw <- purrr::map_chr(hits$petition_url, get_qp)
+  # Cache-backed so the QP is (a) extracted once, not re-fetched every run, and
+  # (b) PERSISTED to dashboards/qp_cache.json, which render_dockets_for() reads so
+  # a recent paid petition's docket page shows the same QP as the dashboard.
+  qp_raw <- resolve_qps(hits$dkt, hits$petition_url,
+                        cache_path = file.path(out_dir, "qp_cache.json"),
+                        max_new = as.integer(Sys.getenv("QP_MAX_NEW", unset = "600")))
   qp_html <- qp_details(qp_raw)
   qps <- ifelse(is.na(qp_raw) | qp_raw == "" | qp_raw == "-", "—", qp_html)
 

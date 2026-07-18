@@ -345,9 +345,15 @@ render_dockets_for <- function(cases, site_dir, model_dir = "data") {
     models <- if (exists("load_cert_models")) load_cert_models(model_dir) else NULL
     read_qpc <- function(p) if (file.exists(p))
       tryCatch(jsonlite::fromJSON(p, simplifyVector = FALSE), error = function(e) list()) else list()
+    # Merge the QP caches. Conferences/arguments cover distributed/granted cases;
+    # the daily's own cache (dashboards/qp_cache.json) covers RECENT paid petitions
+    # that haven't reached a conference yet -- without it those docket pages show
+    # no QP even though the dashboard extracted it. Listed last so a recent case
+    # that later reaches conference keeps the same QP.
     qp_map <- list()
     for (p in c(file.path(site_dir, "conferences", "qp_cache.json"),
-                file.path(site_dir, "arguments", "qp_cache.json"))) {
+                file.path(site_dir, "arguments", "qp_cache.json"),
+                file.path(site_dir, "dashboards", "qp_cache.json"))) {
       qc <- read_qpc(p); for (d in names(qc)) if (!is.null(qc[[d]]$qp)) qp_map[[d]] <- qc[[d]]$qp
     }
     # The cache is a JSON object keyed by docket -> {dissent_below, split_argued,
