@@ -565,7 +565,8 @@ FORECAST_CUE_PHRASES <- c(
 # correlational weights, not causes); a lean, not a verdict. `include_prob` adds a
 # leading "an N% forecast" for standalone use (off by default, since on the docket
 # page the number is shown right above it).
-describe_forecast <- function(score, top = 3L, eps = 0.05, include_prob = FALSE) {
+describe_forecast <- function(score, top = 3L, eps = 0.05, include_prob = FALSE,
+                              retrospective = FALSE) {
   if (is.null(score) || is.null(score$cues) || is.na(score$prob %||% NA_real_)) return("")
   pctd <- function(p) sprintf("%.1f%%", 100 * p)        # base rate (1 dp)
   pcti <- function(p) sprintf("%d%%", round(100 * p))   # forecast (integer)
@@ -575,6 +576,11 @@ describe_forecast <- function(score, top = 3L, eps = 0.05, include_prob = FALSE)
     if (n == 0) "" else if (n == 1) x[1]
     else if (n == 2) paste(x, collapse = " and ")
     else paste0(paste(x[-n], collapse = ", "), ", and ", x[n]) }
+  cap1 <- function(s) if (nzchar(s)) paste0(toupper(substring(s, 1, 1)), substring(s, 2)) else s
+  # On a decided case the note is a retrospective: past tense + "before the
+  # decision" frame. On a pending case it's a live read (present tense).
+  wv  <- if (retrospective) "weighted" else "weights"
+  pre <- if (retrospective) "before the decision, " else ""
 
   lift <- score$lift; base <- pctd(score$base_rate)
 
@@ -584,18 +590,19 @@ describe_forecast <- function(score, top = 3L, eps = 0.05, include_prob = FALSE)
   # circuit of origin -- which reads as a grant signal on a case the model
   # actually rates as unremarkable. Say that plainly instead.
   if (!is.na(lift) && lift <= 0.85) {
-    lead <- sprintf("Well below the %s base rate", base)
-    if (include_prob) lead <- sprintf("%s — well below the %s base rate", pcti(score$prob), base)
-    return(paste0(lead, ", with no standout signals pointing toward a grant."))
+    lead <- paste0(pre, "well below the ", base, " base rate")
+    if (include_prob) lead <- paste0(pre, pcti(score$prob), " — well below the ", base, " base rate")
+    return(paste0(cap1(lead), ", with no standout signals pointing toward a grant."))
   }
 
   # At or above the base rate, name the real drivers (biggest |log-odds| first).
-  lead <- if (is.na(lift)) "" else
+  lift_ph <- if (is.na(lift)) "" else
     if (lift >= 1.5)       sprintf("about %s× the %s base rate", mult(lift), base)
     else if (lift >= 1.15) sprintf("modestly above the %s base rate", base)
     else                   sprintf("roughly the %s base rate", base)   # 0.85 < lift < 1.15
-  if (include_prob && nzchar(lead)) lead <- sprintf("%s — %s", pcti(score$prob), lead)
-  if (nzchar(lead)) lead <- paste0(toupper(substring(lead, 1, 1)), substring(lead, 2), ".")
+  lead <- paste0(pre, if (include_prob && nzchar(lift_ph))
+                        paste0(pcti(score$prob), " — ", lift_ph) else lift_ph)
+  if (nzchar(lead)) lead <- paste0(cap1(lead), ".")
 
   cu <- score$cues
   cu <- cu[is.finite(cu$log_odds) & abs(cu$log_odds) >= eps, , drop = FALSE]
@@ -604,10 +611,10 @@ describe_forecast <- function(score, top = 3L, eps = 0.05, include_prob = FALSE)
   dn <- ph(head(dplyr::arrange(dplyr::filter(cu, log_odds < 0), log_odds)$term, top))
 
   drv <- if (length(up) && length(dn))
-      sprintf(" The model weights this up for %s, and down for %s.", join(up), join(dn))
-    else if (length(up)) sprintf(" The model weights this up for %s.", join(up))
-    else if (length(dn)) sprintf(" The model weights this down for %s.", join(dn))
-    else " No single factor stands out."
+      sprintf(" The model %s this up for %s, and down for %s.", wv, join(up), join(dn))
+    else if (length(up)) sprintf(" The model %s this up for %s.", wv, join(up))
+    else if (length(dn)) sprintf(" The model %s this down for %s.", wv, join(dn))
+    else if (retrospective) " No single factor stood out." else " No single factor stands out."
   paste0(lead, drv)
 }
 

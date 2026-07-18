@@ -72,7 +72,8 @@ write_docket_css <- function(out_dir) {
 # Bumped whenever the markup/CSS changes, to force a one-time full re-render.
 # v5: plain-English forecast description on pending paid-petition pages, plus the
 # NA-safe elite_counsel fix (more cases now score, so more get an estimate).
-PAGE_TEMPLATE_VERSION <- "v5"
+# v6: retrospective forecast description on DECIDED paid-petition pages too.
+PAGE_TEMPLATE_VERSION <- "v6"
 
 # ---- small helpers ------------------------------------------------------------
 .esc <- function(x) { x <- x %||% ""; x[is.na(x)] <- ""; htmltools::htmlEscape(x) }
@@ -133,7 +134,7 @@ docket_timeline <- function(ev) {
 # Status-adaptive disposition box. Pending paid petitions get the forecast
 # (a prediction); resolved cases lead with the outcome and keep the pre-decision
 # estimate as a retrospective note.
-docket_disposition <- function(outcome, outcome_date, arg, p_base, p_gvr, sig, is_app = FALSE, why = "") {
+docket_disposition <- function(outcome, outcome_date, arg, p_base, p_gvr, sig, is_app = FALSE, why = "", why_retro = "") {
   pct <- function(p) sprintf("%d%%", round(100 * p))
   sig_txt <- if (!is.null(sig)) {
     bits <- c(if (isTRUE(sig$dissent_below)) "dissent below",
@@ -165,7 +166,11 @@ docket_disposition <- function(outcome, outcome_date, arg, p_base, p_gvr, sig, i
   dt <- if (!is_app && identical(outcome, "granted"))
     coalesce(arg$decided_date, arg$argued_date, arg$scheduled_date, as.Date(outcome_date)) else as.Date(outcome_date)
   when <- if (length(dt) && !is.na(dt)) paste0(" &middot; ", .fmtdate(dt)) else ""
-  sprintf("<div class='disp'><div class='disp-word'>%s%s</div>%s</div>", word, when, est_note)
+  box <- sprintf("<div class='disp'><div class='disp-word'>%s%s</div>%s</div>", word, when, est_note)
+  # Retrospective forecast note for decided paid petitions: what the model
+  # predicted before the ruling, and why. Same layout as the pending note.
+  why_html <- if (nzchar(why_retro %||% "")) sprintf("<p class='forecast-why'>%s</p>", why_retro) else ""
+  paste0(box, why_html)
 }
 
 # ---- the page -----------------------------------------------------------------
@@ -196,14 +201,17 @@ docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
   }
 
   # Forecast (paid only; pure, from in-memory models).
-  p_base <- NA_real_; p_gvr <- NA_real_; fc_why <- ""
+  p_base <- NA_real_; p_gvr <- NA_real_; fc_why <- ""; fc_why_retro <- ""
   if (!is.null(models) && !is.null(models$baseline) && identical(cx$type %||% "", "paid") &&
       exists("score_case")) {
     sc_base <- tryCatch(score_case(models$baseline, cx$caption, cx$lower, par, cx$date,
                 cx$lower_date, rel, signals = signals), error = function(e) NULL)
     p_base <- if (!is.null(sc_base)) sc_base$prob else NA_real_
-    fc_why <- if (!is.null(sc_base) && exists("describe_forecast"))
-      tryCatch(describe_forecast(sc_base), error = function(e) "") else ""
+    if (!is.null(sc_base) && exists("describe_forecast")) {
+      fc_why       <- tryCatch(describe_forecast(sc_base), error = function(e) "")
+      fc_why_retro <- tryCatch(describe_forecast(sc_base, retrospective = TRUE),
+                               error = function(e) "")
+    }
     if (!is.null(models$enhanced) && !is.null(models$gvr) && exists("score_disposition")) {
       s <- tryCatch(score_disposition(models$enhanced, models$gvr, cx$caption, cx$lower, par,
              cx$date, cx$lower_date, rel, events = ev,
@@ -213,7 +221,7 @@ docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
   }
 
   disp <- docket_disposition(outcome, outcome_date, arg, p_base, p_gvr, signals,
-                             is_app = is_app, why = fc_why)
+                             is_app = is_app, why = fc_why, why_retro = fc_why_retro)
   # Conference history = TOTAL distributions (a case seen at one conference counts).
   n_dist <- if (is.data.frame(ev))
     sum(str_detect(ev[["Proceedings and Orders"]] %||% "", "DISTRIBUTED for Conference"), na.rm = TRUE) else 0L
