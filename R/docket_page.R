@@ -348,6 +348,20 @@ render_dockets_for <- function(cases, site_dir, model_dir = "data") {
     signals_map <- tryCatch(
       jsonlite::fromJSON("data-raw/petition_signals.json", simplifyVector = FALSE),
       error = function(e) NULL)
+    if (is.null(signals_map)) signals_map <- list()
+    # The bulk data-raw file only covers historical terms (the enrich-petitions
+    # workflow runs per closed term). The daily resolves FRESH Rule 10 signals
+    # for each day's current-term paid petitions into this on-site cache and
+    # threads them into the dashboard forecast. Merge the cache OVER data-raw so
+    # a docket page uses the SAME signals as the dashboard -- otherwise a current
+    # petition with a dissent/split reads structural-only here (e.g. 2%) but
+    # signal-boosted on the dashboard (e.g. 5%).
+    cache_p <- file.path(site_dir, "dashboards", "petition_signals_cache.json")
+    if (file.exists(cache_p)) {
+      fresh <- tryCatch(jsonlite::fromJSON(cache_p, simplifyVector = FALSE),
+                        error = function(e) NULL)
+      if (!is.null(fresh) && length(fresh)) signals_map[names(fresh)] <- fresh
+    }
     render_docket_pages(cases, file.path(site_dir, "cases"),
                         models = models, qp_map = qp_map, signals_map = signals_map)
     write_search_index(cases, file.path(site_dir, "cases"))
