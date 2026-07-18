@@ -1,0 +1,134 @@
+name: Backfill Question Presented (all paid petitions)
+
+# Incremental: extract the Question Presented from every paid petition's PDF, one
+# term per runner (fresh IPs spread supremecourt.gov's PDF rate limit; the
+# resolve_qps cache is resumable), then fold all terms into the shared conference
+# QP cache on gh-pages -- which render_dockets_for() reads, so docket pages then
+# show a QP for the historical denied cases too. A later docket re-render embeds
+# them into the pages. Re-dispatch until the caches stop growing.
+
+on:
+  workflow_dispatch:
+    inputs:
+      terms:
+        description: "Comma-separated terms. Blank = 2017-2024 (snapshots on disk)."
+        required: false
+        default: ""
+      max_new:
+        description: "Max petition PDFs to fetch per term this run."
+        required: false
+        default: "3000"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: qp-backfill-all
+  cancel-in-progress: false
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.p.outputs.matrix }}
+    steps:
+      - id: p
+        run: |
+          terms="${{ inputs.terms }}"
+          if [ -z "$terms" ]; then terms="2017,2018,2019,2020,2021,2022,2023,2024"; fi
+          json=$(echo "$terms" | tr ',' '\n' | sed 's/[^0-9]//g;/^$/d;s/^/"/;s/$/"/' | paste -sd, -)
+          echo "matrix=[$json]" >> "$GITHUB_OUTPUT"
+          echo "terms: [$json]"
+
+  fetch:
+    needs: plan
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    strategy:
+      fail-fast: false
+      matrix:
+        term: ${{ fromJSON(needs.plan.outputs.matrix) }}
+    steps:
+      - name: Checkout source (main)
+        uses: actions/checkout@v4
+      - name: Checkout published site (gh-pages) into ./site (for the seed cache)
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          path: site
+      - name: System dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libpoppler-cpp-dev libtesseract-dev tesseract-ocr libcurl4-openssl-dev
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          packages: |
+            any::gt
+            any::gtExtras
+            any::tidyverse
+            any::httr2
+            any::jsonlite
+            any::pdftools
+            any::htmltools
+      - name: Extract QP for OT ${{ matrix.term }}
+        env:
+          TERM_YEAR: ${{ matrix.term }}
+          OUT: qp_${{ matrix.term }}.json
+          MAX_NEW: ${{ inputs.max_new || '3000' }}
+          SEED: site/conferences/qp_cache.json
+        run: Rscript .github/scripts/enrich_qp.R
+      - uses: actions/upload-artifact@v4
+        with:
+          name: qp-${{ matrix.term }}
+          path: qp_${{ matrix.term }}.json
+          retention-days: 5
+
+  combine:
+    needs: fetch
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source (main)
+        uses: actions/checkout@v4
+      - name: Checkout published site (gh-pages) into ./site
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          path: site
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          packages: any::jsonlite
+      - name: Download per-term QP caches
+        uses: actions/download-artifact@v4
+        with:
+          path: caches
+          pattern: qp-*
+          merge-multiple: true
+      - name: Merge into the shared conference QP cache
+        env:
+          IN_DIR: caches
+          OUT: site/conferences/qp_cache.json
+        run: Rscript .github/scripts/combine_qp.R
+      - name: Commit updated cache to gh-pages
+        working-directory: site
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add conferences/qp_cache.json
+          if git diff --cached --quiet; then
+            echo "No new QPs cached."
+          else
+            git commit -m "Backfill QP for paid petitions $(date -u +%F)"
+            for i in 1 2 3 4 5; do
+              if git push origin gh-pages; then exit 0; fi
+              echo "push rejected; rebasing (attempt $i)"
+              git pull --rebase origin gh-pages
+              sleep $((RANDOM % 5 + 3))
+            done
+            echo "could not push after retries" >&2; exit 1
+          fi
