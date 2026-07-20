@@ -78,14 +78,21 @@ resolve_qps <- function(dockets, urls, cache_path = NULL, max_new = Inf) {
   uniq <- tibble(dkt = dockets, url = urls) |>
     filter(!is.na(url), url != "") |>
     distinct(dkt, .keep_all = TRUE)
-  needs <- uniq |>
-    rowwise() |>
-    mutate(cached = {
-      c <- cache[[dkt]]
-      !is.null(c) && identical(c$url, url)
-    }) |>
-    ungroup() |>
-    filter(!cached)
+  # Guard the empty case: a rowwise mutate over a 0-row tibble evaluates its
+  # expression once on character(0) to infer the column type, and
+  # `cache[[character(0)]]` errors ("attempt to select less than one element").
+  needs <- if (nrow(uniq) == 0) {
+    uniq
+  } else {
+    uniq |>
+      rowwise() |>
+      mutate(cached = {
+        c <- cache[[dkt]]
+        !is.null(c) && identical(c$url, url)
+      }) |>
+      ungroup() |>
+      filter(!cached)
+  }
 
   n_fetch <- min(nrow(needs), max_new)
   if (n_fetch > 0) {
