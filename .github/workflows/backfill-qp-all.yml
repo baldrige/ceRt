@@ -50,9 +50,9 @@ jobs:
         term: ${{ fromJSON(needs.plan.outputs.matrix) }}
     steps:
       - name: Checkout source (main)
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Checkout published site (gh-pages) into ./site (for the seed cache)
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           ref: gh-pages
           path: site
@@ -91,9 +91,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source (main)
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Checkout published site (gh-pages) into ./site
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           ref: gh-pages
           path: site

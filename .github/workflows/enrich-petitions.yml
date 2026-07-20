@@ -48,7 +48,7 @@ jobs:
       matrix:
         term: ${{ fromJSON(needs.plan.outputs.matrix) }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: System dependencies
         run: |
           sudo apt-get update
@@ -82,7 +82,7 @@ jobs:
     needs: fetch
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: r-lib/actions/setup-r@v2
         with:
           use-public-rspm: true

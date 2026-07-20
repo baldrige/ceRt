@@ -26,9 +26,9 @@ jobs:
     timeout-minutes: 180
     steps:
       - name: Checkout source (main)
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Checkout published site (gh-pages) into ./site
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           ref: gh-pages
           path: site
