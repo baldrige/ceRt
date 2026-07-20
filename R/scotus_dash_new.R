@@ -304,7 +304,7 @@ fetch_is_degraded <- function(ot, tol = 0.1) {
 }
 
 # ---- shared modules ---------------------------------------------------------
-# extract_qp_page2() / get_qp() live in R/qp_extract.R and the page-presentation
+# extract_qp() / get_qp() live in R/qp_extract.R and the page-presentation
 # helpers (gtsave_titled, styled_index_page) in R/page_style.R -- both shared
 # with the conference reports. Sourced relative to this file's location.
 local({

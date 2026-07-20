@@ -19,45 +19,153 @@ strip_qp_heading <- function(txt) {
   if (length(txt) == 0 || is.na(txt) || identical(txt, "-")) return(txt)
   m <- str_locate(
     str_sub(txt, 1, 300),
-    regex("QUESTION\\(?[Ss]?\\)?\\s+PRESENTED(\\s+FOR\\s+REVIEW)?\\s*[:.]?",
+    regex("QUESTION\\s*\\(?\\s*[Ss]?\\s*\\)?\\s+PRESENTED(\\s+FOR\\s+REVIEW)?\\s*[:.]?",
           ignore_case = TRUE)
   )
   if (is.na(m[1, "end"])) return(str_trim(txt))
   str_trim(str_sub(txt, m[1, "end"] + 1L))
 }
 
-# Extract the QP text from page 2 of a petition PDF (a URL or a local path).
-# Tries the text layer first (fast); falls back to OCR only when there's none.
-extract_qp_page2 <- function(src) {
-  page2 <- function(fn) {
-    t <- fn(src)
-    t <- if (length(t) >= 2) t[[2]] else t[[1]]
-    if (is.null(t) || str_squish(t) == "") stop("empty page")
-    t
+# The petition's "Question(s) Presented" heading. Tolerant of the plural, of the
+# "(S)" form with or without spaces around the parens ("QUESTION (S) PRESENTED"
+# on the pro-se/IFP form), of "... FOR REVIEW", and of "ISSUE(S) PRESENTED".
+QP_HEADING_RE <- regex(
+  "(?:QUESTION|ISSUE)S?\\s*\\(?\\s*[Ss]?\\s*\\)?\\s+PRESENTED(?:\\s+FOR\\s+REVIEW)?",
+  ignore_case = TRUE)
+
+# Front-matter section headings that mark the END of the QP block -- the next
+# section a petition prints after the questions. Anchored to line start, with an
+# optional "I."/"1." enumerator, so the phrase only counts as a heading (not
+# prose). Only reliable *front-matter* sections are listed: body headings like
+# "Introduction" are deliberately excluded (pro-se petitioners open their QP with
+# that word). Used to trim a QP that runs to the bottom of its page into the
+# following section.
+QP_END_RE <- regex(paste0(
+  "(?m)^[ \\t]*(?:[IVXLCDM0-9]{1,4}[.)]\\s+)?(?:",
+  "PARTIES TO THE",                                   # PROCEEDING(S)/PETITION/CASE
+  "|PARTIES[,]? (?:RELATED|AND)",                     # "PARTIES, RELATED PROCEEDINGS..."
+  "|(?:INTERESTED|LIST(?:ING)? OF(?: ALL)?) PARTIES",
+  "|LIST OF PROCEEDINGS",
+  "|CORPORATE DISCLOSURE",
+  "|RULE 29\\.6",
+  "|TABLE OF CONTENTS",
+  "|TABLE OF (?:CITED )?AUTHORITIES",
+  "|STATEMENT OF RELATED",
+  "|RELATED (?:CASES|PROCEEDINGS)",
+  "|OPINIONS? (?:AND ORDERS? )?BELOW",
+  "|STATEMENT OF (?:THE )?JURISDICTION",
+  "|JURISDICTIONAL STATEMENT",
+  ")"),
+  ignore_case = TRUE)
+
+# Strip a leading page-number folio (roman or arabic) and its blank line(s) --
+# the running header at the top of a QP continuation page.
+strip_leading_pagenum <- function(pg) {
+  sub("^[ \\t\\r\\n]*(?:[ivxlcdm]{1,6}|\\d{1,3})[ \\t\\r]*\\n+", "", pg,
+      ignore.case = TRUE, perl = TRUE)
+}
+# Strip a trailing page-number folio ("(i)", "ii", "12") on its own final line.
+strip_trailing_pagenum <- function(s) {
+  sub("\\s*\\n\\s*\\(?\\s*(?:[ivxlcdm]{1,6}|\\d{1,3})\\s*\\)?[.]?\\s*$", "", s,
+      perl = TRUE, ignore.case = TRUE)
+}
+# Cut a string at the first next-section heading, if any.
+cut_at_qp_end <- function(s) {
+  e <- str_locate(s, QP_END_RE)[1, "start"]
+  if (!is.na(e)) str_sub(s, 1L, e - 1L) else s
+}
+# Petition pages use layout whitespace that markdown misreads as code blocks
+# (monospace). Normalize horizontal whitespace to single spaces (no leading
+# indent) so the QP renders as prose / a clean numbered list.
+normalize_qp <- function(txt) {
+  txt <- str_replace_all(txt, "\t", " ")
+  txt <- str_replace_all(txt, regex("^ +", multiline = TRUE), "")
+  txt <- str_replace_all(txt, " {2,}", " ")
+  txt <- str_replace_all(txt, "\n{3,}", "\n\n")
+  str_trim(txt)
+}
+
+# TRUE when the QP genuinely continues onto the next page: either the text so far
+# was cut mid-thought (no terminal punctuation) or the next page opens with a
+# question/list enumerator ("2.", "(3)", "b)", "II."). This guards against
+# pulling in the following section when a heading isn't recognized.
+qp_continues <- function(acc, next_pg) {
+  open <- !str_detect(str_trim(acc), "[.?!][\"')”]?$")
+  nxt  <- str_detect(str_trim(next_pg),
+                     "^(?:\\(?[0-9]{1,2}[.)]|\\(?[a-z]\\)|[ivx]{1,4}[.)])\\s")
+  open || nxt
+}
+
+# Extract the QP from a vector of page texts (works for the text layer OR OCR).
+# Locates the FIRST page carrying the heading -- which is robust to cover-page
+# counsel that overflows onto a second page and pushes the QP to page 3 -- then
+# extends across continuation pages until the next front-matter section, so a QP
+# that overflows its own page isn't truncated. Returns "-" if no heading is found
+# (better an em dash than the counsel block that a fixed-page grab would return).
+qp_from_pages <- function(pages, scan_pages = 8L, max_cont = 3L) {
+  if (length(pages) == 0) return("-")
+  win <- head(pages, scan_pages)
+  k <- Find(function(i) str_detect(win[i], QP_HEADING_RE), seq_along(win))
+  if (is.null(k)) return("-")
+  h <- str_locate(pages[k], QP_HEADING_RE)
+  body <- str_sub(pages[k], h[1, "end"] + 1L)
+  page_k_ends_qp <- !is.na(str_locate(body, QP_END_RE)[1, "start"])
+  # Strip the QP page's bottom folio so a stray "i" doesn't read as an open
+  # (mid-sentence) ending and wrongly trigger continuation onto the next section.
+  acc <- strip_trailing_pagenum(cut_at_qp_end(body))
+  if (!page_k_ends_qp) {
+    j <- k + 1L; cont <- 0L
+    while (j <= length(pages) && cont < max_cont) {
+      pg <- strip_leading_pagenum(pages[j])
+      st <- str_locate(pg, QP_END_RE)[1, "start"]
+      if (!is.na(st) && st <= 3L) break            # page opens with next section
+      if (!qp_continues(acc, pg)) break            # QP looks complete -> stop
+      piece <- if (!is.na(st)) str_sub(pg, 1L, st - 1L) else pg
+      acc <- strip_trailing_pagenum(paste0(str_trim(acc), " ", str_trim(piece)))
+      if (!is.na(st)) break                        # next section began mid-page
+      cont <- cont + 1L; j <- j + 1L
+    }
   }
-  txt <- tryCatch(
-    page2(pdftools::pdf_text),
-    error = function(e) tryCatch(
-      page2(function(s) pdftools::pdf_ocr_text(s, pages = 2)),
-      error = function(e2) "-"
-    )
-  )
-  if (identical(txt, "-")) return(txt)
-  # Petition pages use layout whitespace that markdown misreads as code blocks
-  # (monospace): 4+ leading spaces, or several spaces after a list marker like
-  # "2.    Whether". Normalize all horizontal whitespace to single spaces (with
-  # no leading indent) so the QP renders as prose / a clean numbered list.
-  txt <- str_replace_all(txt, "\t", " ")                             # tabs -> space
-  txt <- str_replace_all(txt, regex("^ +", multiline = TRUE), "")    # drop leading indent
-  txt <- str_replace_all(txt, " {2,}", " ")                          # collapse layout spacing
-  txt <- str_replace_all(txt, "\n{3,}", "\n\n")                      # collapse blank runs
-  strip_qp_heading(str_trim(txt))
+  out <- normalize_qp(acc)
+  if (out == "") "-" else out
+}
+
+# Extract the QP from a petition PDF (a URL or a local path). Tries the text
+# layer first (fast); falls back to OCR over the front pages only when there's no
+# text layer at all (a scanned petition).
+extract_qp <- function(src, scan_pages = 8L) {
+  pages <- tryCatch(pdftools::pdf_text(src), error = function(e) character(0))
+  res <- qp_from_pages(pages, scan_pages)
+  if (!identical(res, "-")) return(res)
+  layer_empty <- length(pages) == 0 || all(str_squish(head(pages, scan_pages)) == "")
+  if (layer_empty) {
+    npg  <- tryCatch(pdftools::pdf_info(src)$pages, error = function(e) NA_integer_)
+    kmax <- if (is.na(npg)) 5L else min(5L, npg)
+    ocr  <- tryCatch(pdftools::pdf_ocr_text(src, pages = seq_len(kmax)),
+                     error = function(e) character(0))
+    res  <- qp_from_pages(ocr, scan_pages)
+  }
+  res
 }
 
 # Single petition QP (pdftools downloads the URL itself).
 get_qp <- function(url) {
   if (is.na(url) || url == "") return("-")
-  extract_qp_page2(url)
+  extract_qp(url)
+}
+
+# A cached "QP" that is really the cover-page counsel block -- the pre-fix
+# extractor's failure mode when counsel overflowed onto page 2 and pushed the
+# real QP to page 3. It carries law-firm / attorney markers and none of the
+# sentence structure a real Question Presented has. Such entries are re-fetched
+# (in place, no URL change) so the improved extractor replaces them; this rebuilds
+# only the broken entries, not the whole cache.
+qp_looks_stale <- function(qp) {
+  if (is.null(qp) || identical(qp, "-") || !nzchar(qp)) return(FALSE)
+  str_detect(qp, regex("Counsel of Record|Attorneys? for|\\bLLP\\b|\\bPLLC\\b|\\(\\d{3}\\)\\s?\\d{3}",
+                       ignore_case = TRUE)) &&
+    !str_detect(qp, regex("whether|question presented|the question|\\bis\\b|\\bare\\b",
+                          ignore_case = TRUE))
 }
 
 # Cache-backed batch resolver. Returns a named character vector docket -> QP for
@@ -88,7 +196,9 @@ resolve_qps <- function(dockets, urls, cache_path = NULL, max_new = Inf) {
       rowwise() |>
       mutate(cached = {
         c <- cache[[dkt]]
-        !is.null(c) && identical(c$url, url)
+        # unname(): a named `urls` vector would otherwise fail identical() on the
+        # names alone and silently re-fetch the whole cache.
+        !is.null(c) && identical(unname(c$url), unname(url)) && !qp_looks_stale(c$qp)
       }) |>
       ungroup() |>
       filter(!cached)
@@ -102,8 +212,11 @@ resolve_qps <- function(dockets, urls, cache_path = NULL, max_new = Inf) {
     for (i in seq_len(nrow(fetch))) {
       qp <- tryCatch(get_qp(fetch$url[i]), error = function(e) "-")
       # Cache only successful extractions; a "-" (empty page, OCR miss, or a
-      # transient throttle) is left uncached so it retries on a later run.
+      # transient throttle) is left uncached so it retries on a later run. Drop
+      # any prior entry on a "-" so a re-fetched stale/garbage entry that no
+      # longer extracts isn't re-flagged (and re-fetched) on every run.
       if (!identical(qp, "-")) cache[[fetch$dkt[i]]] <- list(url = fetch$url[i], qp = qp)
+      else cache[[fetch$dkt[i]]] <- NULL
     }
     if (!is.null(cache_path)) {
       dir.create(dirname(cache_path), recursive = TRUE, showWarnings = FALSE)
