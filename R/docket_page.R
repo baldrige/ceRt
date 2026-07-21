@@ -20,7 +20,7 @@
 suppressPackageStartupMessages({ library(tidyverse); library(htmltools) })
 
 # ---- shared stylesheet (written once per output dir) --------------------------
-DOCKET_CSS <- ":root{--paper:#f3ecdd;--panel:#f7f1e4;--ink:#23262d;--soft:#5f5847;--faint:#8a8271;--ox:#8a2b2b;--rule:#d8cdb4;--sienna:#b5651d}
+DOCKET_CSS <- ":root{--paper:#f3ecdd;--panel:#f7f1e4;--ink:#23262d;--soft:#5f5847;--faint:#8a8271;--ox:#8a2b2b;--rule:#d8cdb4;--sienna:#b5651d;--c-white:#fff;--c-orange:#e07b1f;--c-cream:#efe1a8;--c-tan:#c8a56b;--c-blue:#7fa8cf;--c-red:#cf5f5f;--c-lgreen:#7fb069;--c-dgreen:#2f6b3d;--c-yellow:#e9cb3f;--c-neutral:#bcae90}
 *{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
 body{font-family:'Newsreader',Georgia,serif;font-size:19px;line-height:1.6;color:var(--ink);background:var(--paper);margin:0;font-feature-settings:'onum' 1}
 body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.5;mix-blend-mode:multiply;background-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E\")}
@@ -54,7 +54,12 @@ p{margin:.5rem 0}
 .timeline li{display:grid;grid-template-columns:7rem 1fr;gap:1.1rem;padding:.4rem 0;position:relative}
 .tl-date{font-variant-numeric:tabular-nums;font-size:.86rem;color:var(--faint);text-align:right;padding-top:.1rem;padding-right:.28rem}
 .tl-body{font-size:.98rem;position:relative}
-.tl-body::before{content:'';position:absolute;left:-.9rem;top:.5rem;width:7px;height:7px;border-radius:50%;background:var(--sienna);box-shadow:0 0 0 3px var(--paper)}
+.tl-body::before{content:'';position:absolute;left:-.9rem;top:.5rem;width:8px;height:8px;border-radius:50%;background:var(--dot,var(--sienna));border:1px solid rgba(35,38,45,.45);box-shadow:0 0 0 3px var(--paper)}
+.timeline li.proc .tl-body::before{background:var(--paper);border:1.5px solid var(--c-neutral)}
+.tl-legend{display:flex;flex-wrap:wrap;gap:.3rem 1.1rem;margin:.1rem 0 1rem;font-size:.78rem;color:var(--faint)}
+.tl-legend span{display:inline-flex;align-items:center;gap:.35rem;white-space:nowrap}
+.tl-legend i{width:9px;height:9px;border-radius:50%;border:1px solid rgba(35,38,45,.45);flex:none}
+.tl-legend i.hollow{background:var(--paper);border:1.5px solid var(--c-neutral)}
 .tl-docs{margin-top:.2rem;display:flex;flex-wrap:wrap;gap:.2rem .8rem}
 .tl-docs a{font-size:.85rem;color:var(--sienna);border-bottom:1px solid rgba(181,101,29,.35);text-decoration:none}
 .kicker a{color:inherit;border-bottom:1px solid rgba(138,43,43,.4)}
@@ -75,7 +80,11 @@ write_docket_css <- function(out_dir) {
 # v6: retrospective forecast description on DECIDED paid-petition pages too.
 # v7: strip_qp_heading anchored to the start -- a QP whose body repeats the
 # phrase "question presented" no longer loses everything before the repetition.
-PAGE_TEMPLATE_VERSION <- "v7"
+# v8: brief-cover dots -- each proceedings-timeline dot is tinted to the Court's
+# Rule 33.1(g) booklet-cover color for that filing (petition white, opposition
+# orange, merits briefs blue/red, amicus cream/green, reply yellow), procedural
+# entries hollow, with a compact legend under the Proceedings heading.
+PAGE_TEMPLATE_VERSION <- "v8"
 
 # ---- small helpers ------------------------------------------------------------
 .esc <- function(x) { x <- x %||% ""; x[is.na(x)] <- ""; htmltools::htmlEscape(x) }
@@ -90,6 +99,77 @@ PAGE_TEMPLATE_VERSION <- "v7"
   if (is.na(x) || x %in% c("", "-")) return("")
   commonmark::markdown_html(reflow_qp(strip_qp_heading(x)))
 }
+
+# ---- brief-cover classification (Rule 33.1(g)) --------------------------------
+# The Court prints each filing on a fixed booklet-cover color. We have no
+# structured "brief type" field -- only the docket's regular `Proceedings and
+# Orders` phrasing -- so a small ordered set of patterns resolves each entry to
+# its cover, and the grant date splits the cert-stage covers (cream amicus /
+# orange opposition) from the merits covers (green amicus / blue-red briefs).
+# Returns list(color, label) for a filed brief, or NULL for a procedural entry
+# (order, application, distribution, waiver, argument) -- which renders hollow.
+brief_cover <- function(text, granted_on = as.Date(NA), entry_date = as.Date(NA)) {
+  t <- text %||% ""
+  if (length(t) == 0 || is.na(t)) return(NULL)
+  t <- str_squish(str_replace_all(t, "<[^>]*>", ""))
+  if (!nzchar(t)) return(NULL)
+  low <- tolower(t)
+  has <- function(rx) str_detect(low, rx)
+  cov <- function(tok, lab) list(color = sprintf("var(--c-%s)", tok), label = lab)
+  merits <- !is.na(granted_on) && !is.na(entry_date) && entry_date >= granted_on
+
+  # Motions and applications are procedural even when they name a brief.
+  if (has("^motion\\b") || has("^application\\b")) return(NULL)
+  # Amicus: cream at the petition stage; green on the merits (dark = supporting
+  # respondent, light = petitioner / neither / unstated).
+  if (has("brief\\s+amic(us|i)\\s+curiae")) {
+    if (merits)
+      return(if (has("in support of respond")) cov("dgreen", "Amicus brief (supporting respondent)")
+             else cov("lgreen", "Amicus brief (supporting petitioner)"))
+    return(cov("cream", "Amicus brief (petition stage)"))
+  }
+  # Respondent's cert-stage answer.
+  if (has("in opposition") || has("motion to dismiss or affirm"))
+    return(cov("orange", "Brief in opposition"))
+  # Merits reply (yellow) vs. cert-stage reply to the opposition (tan). A merits
+  # reply reads "Reply brief of petitioner ..."; the cert reply, "Reply of ...".
+  if (has("reply brief") || (has("^reply\\b") && merits))
+    return(cov("yellow", "Reply brief on the merits"))
+  if (has("^reply\\b"))
+    return(cov("tan", "Reply to brief in opposition"))
+  # The petition itself (and its jurisdictional-statement / extraordinary-writ
+  # cousins). Guarded on "filed" so a granted/denied ORDER line stays procedural.
+  if (has("filed") && !has("rehearing") &&
+      (has("^petition for (a )?writ of certiorari") ||
+       has("^jurisdictional statement") ||
+       has("^petition for an? extraordinary writ")))
+    return(cov("white", "Petition for certiorari"))
+  # Fixed tan (checked before the merits briefs so a "supplemental brief of
+  # petitioner" isn't mistaken for the merits opener).
+  if (has("joint appendix") || has("supplemental brief") || has("petition for rehearing"))
+    return(cov("tan", "Supplemental / rehearing filing"))
+  # Merits briefs -- only after a grant; before it these strings don't occur.
+  if (merits && has("brief (of|for) (the )?(petitioner|appellant)"))
+    return(cov("blue", "Petitioner's brief on the merits"))
+  if (merits && has("brief (of|for) (the )?(respondent|appellee)"))
+    return(cov("red", "Respondent's brief on the merits"))
+  NULL
+}
+
+# Compact key shown once under the Proceedings heading (only on pages that carry
+# at least one colored dot). aria-hidden: it re-states the per-entry tooltips.
+DOCKET_LEGEND <- paste0(
+  "<div class='tl-legend' aria-hidden='true'>",
+  "<span><i style='background:var(--c-white)'></i>Petition</span>",
+  "<span><i style='background:var(--c-orange)'></i>Opposition</span>",
+  "<span><i style='background:var(--c-cream)'></i>Amicus (cert)</span>",
+  "<span><i style='background:var(--c-blue)'></i>Petitioner brief</span>",
+  "<span><i style='background:var(--c-red)'></i>Respondent brief</span>",
+  "<span><i style='background:var(--c-lgreen)'></i>Amicus (for pet.)</span>",
+  "<span><i style='background:var(--c-dgreen)'></i>Amicus (for resp.)</span>",
+  "<span><i style='background:var(--c-yellow)'></i>Reply (merits)</span>",
+  "<span><i style='background:var(--c-tan)'></i>Reply / other</span>",
+  "<span><i class='hollow'></i>Procedural</span></div>")
 
 # Counsel of record + firm for the side matching `rx`, "Name<br><firm>".
 docket_counsel <- function(parties, rx) {
@@ -109,14 +189,27 @@ docket_counsel <- function(parties, rx) {
 # scramble the order). Proceeding text is stripped of any inline HTML and escaped;
 # document links come from the docs_/links_ (JSON) or Document_/links_ (historical
 # scrape) columns. The links div is emitted only when there is at least one link.
-docket_timeline <- function(ev) {
+docket_timeline <- function(ev, granted_on = as.Date(NA)) {
   if (!is.data.frame(ev) || nrow(ev) == 0) return("")
   dcols <- str_subset(names(ev), "^(docs_|Document_)"); lcols <- str_subset(names(ev), "^links_")
   edate <- suppressWarnings(lubridate::mdy(ev$Date))
   ord <- order(edate, decreasing = TRUE, na.last = TRUE)
+  any_cover <- FALSE
   items <- map_chr(ord, function(i) {
     dt <- ev$Date[i] %||% ""
-    tx <- .esc(str_replace_all(ev[["Proceedings and Orders"]][i] %||% "", "<[^>]*>", ""))
+    raw <- ev[["Proceedings and Orders"]][i] %||% ""
+    tx <- .esc(str_replace_all(raw, "<[^>]*>", ""))
+    # Booklet-cover dot: colored + tooltipped for a filed brief, hollow (proc)
+    # for orders/applications/etc.
+    cov <- brief_cover(raw, granted_on, edate[i])
+    if (is.null(cov)) {
+      li_open <- "<li class='proc'>"
+    } else {
+      any_cover <<- TRUE
+      # single-quoted attribute, so escape any apostrophe in the label too.
+      li_open <- sprintf("<li style='--dot:%s' title='%s'>", cov$color,
+                         gsub("'", "&#39;", .esc(cov$label), fixed = TRUE))
+    }
     docs <- ""
     if (length(lcols)) {
       ls <- unlist(ev[i, lcols], use.names = FALSE)
@@ -128,9 +221,11 @@ docket_timeline <- function(ev) {
         docs <- paste0("<div class='tl-docs'>", paste(anchors, collapse = ""), "</div>")
       }
     }
-    sprintf("<li><div class='tl-date'>%s</div><div class='tl-body'>%s%s</div></li>", .esc(dt), tx, docs)
+    sprintf("%s<div class='tl-date'>%s</div><div class='tl-body'>%s%s</div></li>", li_open, .esc(dt), tx, docs)
   })
-  paste(items, collapse = "")
+  out <- paste(items, collapse = "")
+  attr(out, "any_cover") <- any_cover
+  out
 }
 
 # Status-adaptive disposition box. Pending paid petitions get the forecast
@@ -192,6 +287,17 @@ docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
     list(argued_date = as.Date(NA), decided_date = as.Date(NA), scheduled_date = as.Date(NA),
          argued_text = NA, opinion_author = NA, opinion_url = NA)
 
+  # Cert-grant date -- the stage line for brief-cover coloring. Detected straight
+  # from the docket ("Petition GRANTED" / "certiorari ... granted"); NA if never
+  # granted, so an ungranted case keeps the safe cert-stage covers throughout.
+  granted_on <- as.Date(NA)
+  if (is.data.frame(ev)) {
+    gi <- which(str_detect(ev[["Proceedings and Orders"]] %||% "",
+                 regex("(petition|certiorari)\\b.*grant", ignore_case = TRUE)))
+    if (length(gi)) granted_on <- suppressWarnings(min(lubridate::mdy(ev$Date[gi]), na.rm = TRUE))
+    if (is.infinite(granted_on)) granted_on <- as.Date(NA)
+  }
+
   # Applications are excluded from classify_petitions; derive their disposition
   # from the docket text ("Application (...) granted/denied ...").
   if (is_app && is.na(outcome) && is.data.frame(ev)) {
@@ -228,6 +334,8 @@ docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
   n_dist <- if (is.data.frame(ev))
     sum(str_detect(ev[["Proceedings and Orders"]] %||% "", "DISTRIBUTED for Conference"), na.rm = TRUE) else 0L
   qp_html <- .mdq(qp)
+  tl <- docket_timeline(ev, granted_on)
+  tl_legend <- if (isTRUE(attr(tl, "any_cover"))) DOCKET_LEGEND else ""
   adv <- if (exists("extract_advocates")) extract_advocates(arg$argued_text) else NA
 
   # Argument & decision -- only for a genuine merits track (suppressed for GVR /
@@ -285,7 +393,7 @@ docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
     if (nzchar(qp_html)) paste0("<section><h2>Question", if (str_count(qp, "(?m)^\\s*\\d+[.)]") >= 2) "s" else "", " presented</h2><div class='qp'>", qp_html, "</div></section>") else "",
     "<div class='grid'>", counsel_panel, case_panel, "</div>",
     argsec,
-    "<section><h2>Proceedings</h2><ol class='timeline'>", docket_timeline(ev), "</ol></section>",
+    "<section><h2>Proceedings</h2>", tl_legend, "<ol class='timeline'>", tl, "</ol></section>",
     "<p class='back'><a href='", dkurl, "' target='_blank' rel='noopener'>Full docket on supremecourt.gov &rarr;</a></p>",
     "<p class='stamp'>Last refreshed ", .fmtdate(rendered), ".</p>",
     "</main></body></html>")
