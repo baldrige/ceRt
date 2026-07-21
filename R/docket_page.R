@@ -73,7 +73,9 @@ write_docket_css <- function(out_dir) {
 # v5: plain-English forecast description on pending paid-petition pages, plus the
 # NA-safe elite_counsel fix (more cases now score, so more get an estimate).
 # v6: retrospective forecast description on DECIDED paid-petition pages too.
-PAGE_TEMPLATE_VERSION <- "v6"
+# v7: strip_qp_heading anchored to the start -- a QP whose body repeats the
+# phrase "question presented" no longer loses everything before the repetition.
+PAGE_TEMPLATE_VERSION <- "v7"
 
 # ---- small helpers ------------------------------------------------------------
 .esc <- function(x) { x <- x %||% ""; x[is.na(x)] <- ""; htmltools::htmlEscape(x) }

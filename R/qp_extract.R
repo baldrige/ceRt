@@ -11,15 +11,17 @@ suppressPackageStartupMessages({
 })
 
 # Drop the boilerplate that opens a petition's Question-Presented page: an
-# optional page number (usually "i") and the "Question(s) Presented" heading.
-# Finds the heading within the first stretch of text and cuts everything up to
-# and including it, so a leading page number or running header goes too. If no
-# heading is found near the top, the text is returned unchanged.
+# optional leading page number (usually "i") and the "Question(s) Presented"
+# heading. ANCHORED to the very start of the text so only a genuine leading
+# heading is removed -- crucially NOT an in-body repetition of the phrase (e.g.
+# a QP that says "...raises the same question presented here..."), which the old
+# "first 300 chars" search would match and then discard everything before it.
 strip_qp_heading <- function(txt) {
   if (length(txt) == 0 || is.na(txt) || identical(txt, "-")) return(txt)
   m <- str_locate(
-    str_sub(txt, 1, 300),
-    regex("QUESTION\\s*\\(?\\s*[Ss]?\\s*\\)?\\s+PRESENTED(\\s+FOR\\s+REVIEW)?\\s*[:.]?",
+    txt,
+    regex(paste0("^\\s*(?:[ivxlcdm]{1,4}\\s+)?",
+                 "QUESTION\\s*\\(?\\s*[Ss]?\\s*\\)?\\s+PRESENTED(\\s+FOR\\s+REVIEW)?\\s*[:.]?"),
           ignore_case = TRUE)
   )
   if (is.na(m[1, "end"])) return(str_trim(txt))
