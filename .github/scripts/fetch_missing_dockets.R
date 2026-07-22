@@ -25,7 +25,10 @@ cases_dir <- file.path(site, "cases")
 files <- list.files(cases_dir, pattern = paste0("^", term, "-[0-9]+\\.html$"), full.names = TRUE)
 is_stale <- function(f) {
   x <- paste(readLines(f, warn = FALSE), collapse = " ")
-  grepl("<li>", x, fixed = TRUE)          # a bare <li> only appears pre-template
+  # A pre-template page renders the FIRST timeline entry as a bare "<li>"; the
+  # template always tags it (proc/--dot). Anchor to the timeline so a multi-
+  # question QP's bare list items don't read as a stale page.
+  grepl("class='timeline'><li>", x, fixed = TRUE)
 }
 stale <- files[vapply(files, is_stale, logical(1))]
 dkts  <- str_match(basename(stale), "^([0-9]+-[0-9]+)\\.html$")[, 2]
