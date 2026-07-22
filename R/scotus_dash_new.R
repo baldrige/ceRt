@@ -209,9 +209,13 @@ find_petition_url <- function(po) {
 build_case <- function(j, dkt) {
   if (is.null(j) || is.null(j$CaseNumber)) return(NULL)
 
-  caption <- str_squish(str_c(
-    j$PetitionerTitle %|||% "", " v. ", j$RespondentTitle %|||% ""
-  ))
+  # Petitioner / respondent titles -> "Pet. v. Resp.". Join with " v. " ONLY when
+  # both sides are present: single-party captions ("In re __", original writs)
+  # carry an empty/NA respondent, so unconditionally inserting " v. " left a
+  # dangling "In re __ v." on every surface (dashboards + case pages).
+  side <- function(x) { x <- x %|||% ""; if (length(x) == 0 || is.na(x)) "" else str_squish(x) }
+  pet <- side(j$PetitionerTitle); resp <- side(j$RespondentTitle)
+  caption <- if (nzchar(pet) && nzchar(resp)) str_c(pet, " v. ", resp) else str_c(pet, resp)
   lower_dkt <- str_remove_all(j$LowerCourtCaseNumbers %|||% NA_character_, "[()]")
 
   tibble(
