@@ -22,7 +22,9 @@ src <- readLines("R/scotus_dash_new.R"); src <- src[-grep("^scotus_dash\\(", src
 eval(parse(text = paste(src, collapse = "\n")))
 
 cases_dir <- file.path(site, "cases")
-files <- list.files(cases_dir, pattern = paste0("^", term, "-[0-9]+\\.html$"), full.names = TRUE)
+# Match paid/IFP ("17-123") AND application ("17A191") docket pages -- the "A"
+# applications were the throttle-casualties a dash-only pattern silently skipped.
+files <- list.files(cases_dir, pattern = paste0("^", term, "[-A][0-9]+\\.html$"), full.names = TRUE)
 is_stale <- function(f) {
   x <- paste(readLines(f, warn = FALSE), collapse = " ")
   # A pre-template page renders the FIRST timeline entry as a bare "<li>"; the
@@ -31,7 +33,7 @@ is_stale <- function(f) {
   grepl("class='timeline'><li>", x, fixed = TRUE)
 }
 stale <- files[vapply(files, is_stale, logical(1))]
-dkts  <- str_match(basename(stale), "^([0-9]+-[0-9]+)\\.html$")[, 2]
+dkts  <- str_match(basename(stale), "^([0-9]+[-A][0-9]+)\\.html$")[, 2]
 dkts  <- dkts[!is.na(dkts)]
 cat("OT", term, ": ", length(dkts), " stale docket page(s) to refetch\n", sep = "")
 if (!length(dkts)) { cat("nothing to fill for OT", term, "\n"); quit(status = 0) }
