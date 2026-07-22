@@ -84,7 +84,10 @@ write_docket_css <- function(out_dir) {
 # Rule 33.1(g) booklet-cover color for that filing (petition white, opposition
 # orange, merits briefs blue/red, amicus cream/green, reply yellow), procedural
 # entries hollow, with a compact legend under the Proceedings heading.
-PAGE_TEMPLATE_VERSION <- "v8"
+# v9: split merits amicus by side using Rule 37 timing (dark green once the
+# respondent's merits brief is filed, light green before), since the docket text
+# rarely states the side; explicit "in support of ..." still overrides.
+PAGE_TEMPLATE_VERSION <- "v9"
 
 # ---- small helpers ------------------------------------------------------------
 .esc <- function(x) { x <- x %||% ""; x[is.na(x)] <- ""; htmltools::htmlEscape(x) }
@@ -108,7 +111,8 @@ PAGE_TEMPLATE_VERSION <- "v8"
 # orange opposition) from the merits covers (green amicus / blue-red briefs).
 # Returns list(color, label) for a filed brief, or NULL for a procedural entry
 # (order, application, distribution, waiver, argument) -- which renders hollow.
-brief_cover <- function(text, granted_on = as.Date(NA), entry_date = as.Date(NA)) {
+brief_cover <- function(text, granted_on = as.Date(NA), entry_date = as.Date(NA),
+                        resp_brief_on = as.Date(NA)) {
   t <- text %||% ""
   if (length(t) == 0 || is.na(t)) return(NULL)
   t <- str_squish(str_replace_all(t, "<[^>]*>", ""))
@@ -120,12 +124,23 @@ brief_cover <- function(text, granted_on = as.Date(NA), entry_date = as.Date(NA)
 
   # Motions and applications are procedural even when they name a brief.
   if (has("^motion\\b") || has("^application\\b")) return(NULL)
-  # Amicus: cream at the petition stage; green on the merits (dark = supporting
-  # respondent, light = petitioner / neither / unstated).
+  # Amicus: cream at the petition stage; green on the merits. Dark green =
+  # supporting respondent, light green = supporting petitioner or neither party.
+  # The docket text usually omits the side, so Rule 37's schedule is the tell:
+  # amici for petitioner/neither are due after the PETITIONER's merits brief,
+  # amici for respondent after the RESPONDENT's -- so a merits amicus filed on or
+  # after the respondent's brief supports the respondent. An explicit "in support
+  # of ..." in the text (rare) overrides the timing.
   if (has("brief\\s+amic(us|i)\\s+curiae")) {
-    if (merits)
-      return(if (has("in support of respond")) cov("dgreen", "Amicus brief (supporting respondent)")
-             else cov("lgreen", "Amicus brief (supporting petitioner)"))
+    if (merits) {
+      resp_lab <- "Amicus brief (supporting respondent)"
+      pet_lab  <- "Amicus brief (supporting petitioner or neither party)"
+      if (has("in support of respond")) return(cov("dgreen", resp_lab))
+      if (has("in support of (petition|neither)")) return(cov("lgreen", pet_lab))
+      if (!is.na(resp_brief_on) && !is.na(entry_date) && entry_date >= resp_brief_on)
+        return(cov("dgreen", resp_lab))
+      return(cov("lgreen", pet_lab))
+    }
     return(cov("cream", "Amicus brief (petition stage)"))
   }
   # Respondent's cert-stage answer.
@@ -165,7 +180,7 @@ DOCKET_LEGEND <- paste0(
   "<span><i style='background:var(--c-cream)'></i>Amicus (cert)</span>",
   "<span><i style='background:var(--c-blue)'></i>Petitioner brief</span>",
   "<span><i style='background:var(--c-red)'></i>Respondent brief</span>",
-  "<span><i style='background:var(--c-lgreen)'></i>Amicus (for pet.)</span>",
+  "<span><i style='background:var(--c-lgreen)'></i>Amicus (for pet./neither)</span>",
   "<span><i style='background:var(--c-dgreen)'></i>Amicus (for resp.)</span>",
   "<span><i style='background:var(--c-yellow)'></i>Reply (merits)</span>",
   "<span><i style='background:var(--c-tan)'></i>Reply / other</span>",
@@ -189,7 +204,7 @@ docket_counsel <- function(parties, rx) {
 # scramble the order). Proceeding text is stripped of any inline HTML and escaped;
 # document links come from the docs_/links_ (JSON) or Document_/links_ (historical
 # scrape) columns. The links div is emitted only when there is at least one link.
-docket_timeline <- function(ev, granted_on = as.Date(NA)) {
+docket_timeline <- function(ev, granted_on = as.Date(NA), resp_brief_on = as.Date(NA)) {
   if (!is.data.frame(ev) || nrow(ev) == 0) return("")
   dcols <- str_subset(names(ev), "^(docs_|Document_)"); lcols <- str_subset(names(ev), "^links_")
   edate <- suppressWarnings(lubridate::mdy(ev$Date))
@@ -201,7 +216,7 @@ docket_timeline <- function(ev, granted_on = as.Date(NA)) {
     tx <- .esc(str_replace_all(raw, "<[^>]*>", ""))
     # Booklet-cover dot: colored + tooltipped for a filed brief, hollow (proc)
     # for orders/applications/etc.
-    cov <- brief_cover(raw, granted_on, edate[i])
+    cov <- brief_cover(raw, granted_on, edate[i], resp_brief_on)
     if (is.null(cov)) {
       li_open <- "<li class='proc'>"
     } else {
@@ -292,10 +307,31 @@ docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
   # granted, so an ungranted case keeps the safe cert-stage covers throughout.
   granted_on <- as.Date(NA)
   if (is.data.frame(ev)) {
-    gi <- which(str_detect(ev[["Proceedings and Orders"]] %||% "",
-                 regex("(petition|certiorari)\\b.*grant", ignore_case = TRUE)))
+    po <- ev[["Proceedings and Orders"]] %||% ""
+    # A real cert grant ("Petition GRANTED"); exclude stay/conditional orders whose
+    # boilerplate ("in the event the petition ... is granted") otherwise reads as a
+    # grant and back-dates the merits stage.
+    gi <- which(str_detect(po, regex("(petition|certiorari)\\b.*grant", ignore_case = TRUE)) &
+                !str_detect(po, regex("for a stay|in the event|should the petition|pending (the )?disposition|if such writ",
+                                      ignore_case = TRUE)))
     if (length(gi)) granted_on <- suppressWarnings(min(lubridate::mdy(ev$Date[gi]), na.rm = TRUE))
     if (is.infinite(granted_on)) granted_on <- as.Date(NA)
+  }
+
+  # Respondent's merits-brief date -- the split point for coloring merits amicus
+  # (Rule 37: amici for respondent are due after it, amici for petitioner/neither
+  # before it). The earliest "Brief of/for respondent" on or after the grant, minus
+  # the cert-stage opposition and any supplemental brief; NA if the respondent filed
+  # no merits brief, in which case merits amici default to the petitioner/neither
+  # (light-green) reading.
+  resp_brief_on <- as.Date(NA)
+  if (is.data.frame(ev) && !is.na(granted_on)) {
+    et <- ev[["Proceedings and Orders"]] %||% ""; ed <- suppressWarnings(lubridate::mdy(ev$Date))
+    ri <- which(str_detect(et, regex("^brief (of|for) (the )?(respondent|appellee)", ignore_case = TRUE)) &
+                !str_detect(et, regex("in opposition|supplement", ignore_case = TRUE)) &
+                !is.na(ed) & ed >= granted_on)
+    if (length(ri)) resp_brief_on <- suppressWarnings(min(ed[ri], na.rm = TRUE))
+    if (is.infinite(resp_brief_on)) resp_brief_on <- as.Date(NA)
   }
 
   # Applications are excluded from classify_petitions; derive their disposition
@@ -334,7 +370,7 @@ docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
   n_dist <- if (is.data.frame(ev))
     sum(str_detect(ev[["Proceedings and Orders"]] %||% "", "DISTRIBUTED for Conference"), na.rm = TRUE) else 0L
   qp_html <- .mdq(qp)
-  tl <- docket_timeline(ev, granted_on)
+  tl <- docket_timeline(ev, granted_on, resp_brief_on)
   tl_legend <- if (isTRUE(attr(tl, "any_cover"))) DOCKET_LEGEND else ""
   adv <- if (exists("extract_advocates")) extract_advocates(arg$argued_text) else NA
 
