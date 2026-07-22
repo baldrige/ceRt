@@ -21,9 +21,14 @@ on:
         description: "Comma-separated 2-digit terms. Blank = 17,18,19,20,21,22,23,24,25,26 (all)."
         required: false
         default: ""
+      reuse_from_runs:
+        description: "Render-only: comma-separated prior run IDs to pull cases-*.rds from (skips fetch). Blank = fetch fresh."
+        required: false
+        default: ""
 
 permissions:
   contents: write
+  actions: read      # gh run download from prior runs
 
 concurrency:
   group: rerender-dockets
@@ -31,6 +36,7 @@ concurrency:
 
 jobs:
   plan:
+    if: ${{ inputs.reuse_from_runs == '' }}
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.p.outputs.matrix }}
@@ -45,6 +51,7 @@ jobs:
 
   fetch:
     needs: plan
+    if: ${{ inputs.reuse_from_runs == '' }}
     runs-on: ubuntu-latest
     timeout-minutes: 300
     strategy:
@@ -118,14 +125,25 @@ jobs:
             any::jsonlite
             any::pdftools
             any::htmltools
-      - name: Download term snapshots
-        uses: actions/download-artifact@v4
+      - name: Download term snapshots (this run, or the reuse runs)
         continue-on-error: true    # no artifacts (all terms throttled) -> render no-ops cleanly
-        with:
-          path: snapshots
-          pattern: cases-*
-          merge-multiple: true
-      - name: Re-render docket pages (v8) into ./site
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          REUSE: ${{ inputs.reuse_from_runs }}
+        run: |
+          mkdir -p snapshots
+          # Fresh-fetch mode pulls this run's own artifacts; reuse mode pulls the
+          # cases-*.rds from the prior run(s) named in reuse_from_runs.
+          runs="${REUSE:-$GITHUB_RUN_ID}"
+          for r in $(echo "$runs" | tr ', ' '\n' | sed '/^$/d'); do
+            echo "downloading cases-* from run $r"
+            gh run download "$r" --pattern 'cases-*' --dir snapshots || echo "  (nothing from run $r)"
+          done
+          # gh nests each artifact in its own dir; flatten so RDS_DIR sees cases-*.rds.
+          find snapshots -name 'cases-*.rds' -exec mv -f {} snapshots/ \; 2>/dev/null || true
+          echo "snapshots present:"; ls -1 snapshots/*.rds 2>/dev/null || echo "  none"
+      - name: Re-render docket pages (v9) into ./site
         env:
           SITE_DIR: site
           RDS_DIR: snapshots
