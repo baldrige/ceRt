@@ -27,6 +27,7 @@ p{margin:.5rem 0}
 .panel.wide{grid-column:1/-1}
 .side{font:600 .72rem/1.3 'Newsreader';letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
 .cslot{margin:.2rem 0 .9rem}.cname{font-weight:600}.firm{color:var(--soft);font-size:.94rem}
+.amic-side{font-size:.86rem;color:var(--faint)}
 .timeline{list-style:none;margin:.4rem 0 0;padding:0;position:relative}
 .timeline::before{content:'';position:absolute;left:7.4rem;top:.3rem;bottom:.3rem;border-left:1px solid var(--rule)}
 .timeline li{display:grid;grid-template-columns:7rem 1fr;gap:1.1rem;padding:.4rem 0;position:relative}
