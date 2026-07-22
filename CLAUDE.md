@@ -16,6 +16,10 @@ and served by GitHub Pages.
 | The Cert Funnel (explainer) | `funnel/` | `render_funnel.R` |
 | Cert-grant forecast model + methods | `methods.html` | `R/cert_model.R` — see **[docs/cert_model.md](docs/cert_model.md)** |
 
+Every section is built and published by a GitHub Actions workflow. For the full
+inventory — each workflow's triggers, whether it updates data and/or the public
+site, and which pages it writes — see **[docs/workflows.md](docs/workflows.md)**.
+
 ## Architecture
 
 - **Fetch** (`R/scotus_dash_new.R`): per-docket JSON fetch from supremecourt.gov,
