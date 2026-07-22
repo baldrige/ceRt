@@ -1,0 +1,156 @@
+name: Re-render docket pages (v8 backfill)
+
+# One-off / occasional: re-render the docket pages for whole terms so the current
+# page template (v8 brief-cover timeline dots, plus every later page improvement)
+# reaches the historical back-catalog. The daily only rebuilds the trailing ~50
+# dockets of the current term, so early and closed-term pages otherwise keep their
+# old markup.
+#
+# Shape: one runner FULL-fetches each term (fresh IPs spread supremecourt.gov's
+# rate limit; a >10% throttle loss fails just that term's job, leaving the others),
+# then a single render job renders every fetched term into gh-pages and commits
+# once -- a single commit avoids the manifest / search-index races that concurrent
+# per-term commits would hit. Rendering is incremental (the template bump rewrites
+# stale pages, current ones skip), so re-dispatching a partly-throttled run is
+# cheap and resumable. Re-dispatch until every term lands.
+
+on:
+  workflow_dispatch:
+    inputs:
+      terms:
+        description: "Comma-separated 2-digit terms. Blank = 17,18,19,20,21,22,23,24,25,26 (all)."
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+concurrency:
+  group: rerender-dockets
+  cancel-in-progress: false
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.p.outputs.matrix }}
+    steps:
+      - id: p
+        run: |
+          terms="${{ inputs.terms }}"
+          if [ -z "$terms" ]; then terms="17,18,19,20,21,22,23,24,25,26"; fi
+          json=$(echo "$terms" | tr ',' '\n' | sed 's/[^0-9]//g;/^$/d;s/^/"/;s/$/"/' | paste -sd, -)
+          echo "matrix=[$json]" >> "$GITHUB_OUTPUT"
+          echo "terms: [$json]"
+
+  fetch:
+    needs: plan
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    strategy:
+      fail-fast: false
+      max-parallel: 5
+      matrix:
+        term: ${{ fromJSON(needs.plan.outputs.matrix) }}
+    steps:
+      - name: Checkout source (main)
+        uses: actions/checkout@v5
+      - name: System dependencies (poppler + tesseract for pdftools/OCR)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libpoppler-cpp-dev libtesseract-dev tesseract-ocr libcurl4-openssl-dev
+      - name: Setup R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+      - name: Install R packages (cached)
+        uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          packages: |
+            any::gt
+            any::gtExtras
+            any::tidyverse
+            any::httr2
+            any::jsonlite
+            any::pdftools
+            any::htmltools
+      - name: Full-fetch OT ${{ matrix.term }}
+        env:
+          TERM_YEAR: ${{ matrix.term }}
+          OUT_FILE: cases-${{ matrix.term }}.rds
+        run: Rscript .github/scripts/fetch_term.R
+      - name: Upload term snapshot
+        uses: actions/upload-artifact@v4
+        with:
+          name: cases-${{ matrix.term }}
+          path: cases-${{ matrix.term }}.rds
+          retention-days: 5
+
+  render:
+    needs: fetch
+    if: always()          # render whatever terms fetched, even if some throttled
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - name: Checkout source (main)
+        uses: actions/checkout@v5
+      - name: Checkout published site (gh-pages) into ./site
+        uses: actions/checkout@v5
+        with:
+          ref: gh-pages
+          path: site
+      - name: System dependencies (poppler + tesseract for pdftools/OCR)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libpoppler-cpp-dev libtesseract-dev tesseract-ocr libcurl4-openssl-dev
+      - name: Setup R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+      - name: Install R packages (cached)
+        uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          packages: |
+            any::gt
+            any::gtExtras
+            any::tidyverse
+            any::httr2
+            any::jsonlite
+            any::pdftools
+            any::htmltools
+      - name: Download term snapshots
+        uses: actions/download-artifact@v4
+        continue-on-error: true    # no artifacts (all terms throttled) -> render no-ops cleanly
+        with:
+          path: snapshots
+          pattern: cases-*
+          merge-multiple: true
+      - name: Re-render docket pages (v8) into ./site
+        env:
+          SITE_DIR: site
+          RDS_DIR: snapshots
+        run: Rscript .github/scripts/render_dockets_backfill.R
+      - name: Commit and publish changes
+        working-directory: site
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          # Re-assert the custom domain on every publish (see daily.yml).
+          echo "supremecourt.report" > CNAME
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes to publish."
+          else
+            git commit -m "Re-render docket pages (v8 brief-cover backfill) $(date -u +%F)"
+            # gh-pages also receives daily / conference pushes; rebase-and-retry so
+            # a concurrent push can't drop this one. This job only touches cases/,
+            # so the rebase is conflict-free against those other sections.
+            for i in 1 2 3 4 5; do
+              if git push origin gh-pages; then exit 0; fi
+              echo "push rejected; rebasing onto latest gh-pages (attempt $i)"
+              git pull --rebase origin gh-pages
+              sleep $((RANDOM % 5 + 3))
+            done
+            echo "still could not publish after 5 attempts" >&2
+            exit 1
+          fi
