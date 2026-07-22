@@ -87,7 +87,10 @@ write_docket_css <- function(out_dir) {
 # v9: split merits amicus by side using Rule 37 timing (dark green once the
 # respondent's merits brief is filed, light green before), since the docket text
 # rarely states the side; explicit "in support of ..." still overrides.
-PAGE_TEMPLATE_VERSION <- "v9"
+# v10: use the LATEST respondent merits brief as that split point, so a respondent
+# aligned with the petitioner (e.g. private plaintiffs when the US is petitioner,
+# 23-477) filing on the petitioner's earlier schedule no longer mis-dates it.
+PAGE_TEMPLATE_VERSION <- "v10"
 
 # ---- small helpers ------------------------------------------------------------
 .esc <- function(x) { x <- x %||% ""; x[is.na(x)] <- ""; htmltools::htmlEscape(x) }
@@ -320,17 +323,20 @@ docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
 
   # Respondent's merits-brief date -- the split point for coloring merits amicus
   # (Rule 37: amici for respondent are due after it, amici for petitioner/neither
-  # before it). The earliest "Brief of/for respondent" on or after the grant, minus
-  # the cert-stage opposition and any supplemental brief; NA if the respondent filed
-  # no merits brief, in which case merits amici default to the petitioner/neither
-  # (light-green) reading.
+  # before it), taking the LATEST "Brief of/for respondent" on or after the grant
+  # (minus the cert-stage opposition and any supplemental brief). Latest, not
+  # earliest: a respondent aligned WITH the petitioner (e.g. private plaintiffs
+  # when the United States is petitioner, as in 23-477) files on the petitioner's
+  # earlier schedule, so only the last respondent brief marks the party actually
+  # opposing the petitioner. NA if the respondent filed no merits brief, in which
+  # case merits amici default to the petitioner/neither (light-green) reading.
   resp_brief_on <- as.Date(NA)
   if (is.data.frame(ev) && !is.na(granted_on)) {
     et <- ev[["Proceedings and Orders"]] %||% ""; ed <- suppressWarnings(lubridate::mdy(ev$Date))
     ri <- which(str_detect(et, regex("^brief (of|for) (the )?(respondent|appellee)", ignore_case = TRUE)) &
                 !str_detect(et, regex("in opposition|supplement", ignore_case = TRUE)) &
                 !is.na(ed) & ed >= granted_on)
-    if (length(ri)) resp_brief_on <- suppressWarnings(min(ed[ri], na.rm = TRUE))
+    if (length(ri)) resp_brief_on <- suppressWarnings(max(ed[ri], na.rm = TRUE))
     if (is.infinite(resp_brief_on)) resp_brief_on <- as.Date(NA)
   }
 
