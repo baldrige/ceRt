@@ -49,6 +49,7 @@ p{margin:.5rem 0}
 .panel.wide{grid-column:1/-1}
 .side{font:600 .72rem/1.3 'Newsreader';letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
 .cslot{margin:.2rem 0 .9rem}.cname{font-weight:600}.firm{color:var(--soft);font-size:.94rem}
+.amic-side{font-size:.86rem;color:var(--faint)}
 .timeline{list-style:none;margin:.4rem 0 0;padding:0;position:relative}
 .timeline::before{content:'';position:absolute;left:7.4rem;top:.3rem;bottom:.3rem;border-left:1px solid var(--rule)}
 .timeline li{display:grid;grid-template-columns:7rem 1fr;gap:1.1rem;padding:.4rem 0;position:relative}
@@ -90,7 +91,10 @@ write_docket_css <- function(out_dir) {
 # v10: use the LATEST respondent merits brief as that split point, so a respondent
 # aligned with the petitioner (e.g. private plaintiffs when the US is petitioner,
 # 23-477) filing on the petitioner's earlier schedule no longer mis-dates it.
-PAGE_TEMPLATE_VERSION <- "v10"
+# v11: Case panel gains an "Amicus briefs" tally (cert-stage vs merits, merits
+# split by Rule 37 side), counted from the same brief_cover classification as the
+# timeline dots so the numbers always agree with the colors.
+PAGE_TEMPLATE_VERSION <- "v11"
 
 # ---- small helpers ------------------------------------------------------------
 .esc <- function(x) { x <- x %||% ""; x[is.na(x)] <- ""; htmltools::htmlEscape(x) }
@@ -172,6 +176,28 @@ brief_cover <- function(text, granted_on = as.Date(NA), entry_date = as.Date(NA)
   if (merits && has("brief (of|for) (the )?(respondent|appellee)"))
     return(cov("red", "Respondent's brief on the merits"))
   NULL
+}
+
+# Amicus tallies for the Case panel, derived from the SAME brief_cover
+# classification as the timeline dots (so the counts always match the colors):
+# cert-stage amici (cream) and merits amici, the latter split by Rule 37 side
+# (light green = petitioner/neither, dark green = respondent). Returns a list of
+# integer counts; brief_cover is a cheap regex pass so re-classifying here (rather
+# than threading counts back out of docket_timeline) keeps the two concerns clean.
+amicus_counts <- function(ev, granted_on = as.Date(NA), resp_brief_on = as.Date(NA)) {
+  out <- list(cert = 0L, merits = 0L, mpet = 0L, mresp = 0L)
+  if (!is.data.frame(ev) || nrow(ev) == 0) return(out)
+  po <- ev[["Proceedings and Orders"]] %||% ""
+  ed <- suppressWarnings(lubridate::mdy(ev$Date))
+  for (i in seq_along(po)) {
+    cv <- brief_cover(po[i], granted_on, ed[i], resp_brief_on)
+    if (is.null(cv)) next
+    if (grepl("c-cream", cv$color, fixed = TRUE)) out$cert  <- out$cert  + 1L
+    else if (grepl("c-lgreen", cv$color, fixed = TRUE)) out$mpet  <- out$mpet  + 1L
+    else if (grepl("c-dgreen", cv$color, fixed = TRUE)) out$mresp <- out$mresp + 1L
+  }
+  out$merits <- out$mpet + out$mresp
+  out
 }
 
 # Compact key shown once under the Proceedings heading (only on pages that carry
@@ -378,6 +404,7 @@ docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
   qp_html <- .mdq(qp)
   tl <- docket_timeline(ev, granted_on, resp_brief_on)
   tl_legend <- if (isTRUE(attr(tl, "any_cover"))) DOCKET_LEGEND else ""
+  amic <- amicus_counts(ev, granted_on, resp_brief_on)
   adv <- if (exists("extract_advocates")) extract_advocates(arg$argued_text) else NA
 
   # Argument & decision -- only for a genuine merits track (suppressed for GVR /
@@ -413,8 +440,25 @@ docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
     paste0("<div class='panel'><h3>Counsel of record</h3>",
       "<p class='cslot'><span class='side'>For petitioner</span><br>", pc, "</p>",
       "<p class='cslot'><span class='side'>For respondent</span><br>", rc, "</p></div>") else ""
+  # Amicus tally -- shown only when the case drew at least one amicus. The stage
+  # segments (cert / merits) and, under the merits, the Rule 37 side split mirror
+  # the timeline's cream / light-green / dark-green dots; each segment appears only
+  # when nonzero, so an ungranted petition reads "N cert-stage" alone.
+  amicus_line <- ""
+  if (amic$cert + amic$merits > 0) {
+    seg <- c(if (amic$cert > 0)   sprintf("%d cert-stage", amic$cert),
+             if (amic$merits > 0) sprintf("%d merits", amic$merits))
+    side <- if (amic$merits > 0) {
+      sp <- c(if (amic$mpet > 0)  sprintf("%d supporting pet./neither", amic$mpet),
+              if (amic$mresp > 0) sprintf("%d respondent", amic$mresp))
+      if (length(sp)) paste0("<br><span class='amic-side'>(", paste(sp, collapse = ", "), ")</span>") else ""
+    } else ""
+    amicus_line <- paste0("<p><span class='side'>Amicus briefs</span><br>",
+                          paste(seg, collapse = " &middot; "), side, "</p>")
+  }
   case_panel <- paste0("<div class='panel", if (!nzchar(counsel_panel)) " wide" else "", "'><h3>Case</h3>",
     "<p><span class='side'>Conference history</span><br>", conf_line, "</p>",
+    amicus_line,
     if (nzchar(rel)) paste0("<p><span class='side'>Related</span><br>", .esc(rel), "</p>") else "",
     "</div>")
   cap <- .esc(str_squish(str_remove_all(cx$caption %||% dkt, ", Petitioners?|, Respondents?")))
