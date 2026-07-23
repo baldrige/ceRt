@@ -28,7 +28,7 @@ markup/CSS/coloring logic changes** — it is part of every page's content hash,
 bump invalidates the whole manifest and forces every page to re-render. This is a
 *render-only* change: no re-fetch of docket data is required (see "Rolling a
 template change to the back-catalog" below). The version history is kept in the
-code header comment (v5 … v10).
+code header comment (v5 … v12).
 
 ## Brief-cover timeline dots (Rule 33.1(g))
 
@@ -130,19 +130,39 @@ explicitly. Two dispatchable workflows do this:
 
 ### `fill-throttled-dockets.yml` — mop up stragglers
 
-A full-term fetch loses a small fraction of dockets to throttling; those keep their
-**pre-template page** (a bare `<li>` timeline). This workflow, per term, scans the
-published site for stale pages and fetches **only those docket numbers** (a few
-hundred vs a whole term, so far less throttling), then renders them. Shares the
-backfill's concurrency lane so the two never race on gh-pages. Re-dispatch until
-every term reports zero stale pages.
+A full fetch loses a small fraction of dockets to throttling; those keep a **stale
+page** (see below). This workflow fetches **only** the stragglers — far fewer than a
+whole term, so far less throttling — then renders them. Shares the backfill's
+concurrency lane so the two never race on gh-pages. Two modes:
 
-**Identifying a stale (pre-template) page:** the template tags every timeline entry
-as `<li class='proc'>` or `<li style='--dot:…'>`; a **bare `<li>`** marks a
-pre-template render. Anchor the check to `class='timeline'><li>` — a multi-question
-Questions-Presented list *also* contains bare `<li>` items and would otherwise read
-as a false positive. The scan must match application dockets (`NNA###`) too, not
-just `NN-###`.
+- **SCAN (default)** — per term (`terms` input, blank = 17–25), scans the published
+  site for stale pages and fetches just those docket numbers. Re-dispatch until
+  every term reports zero stale pages.
+- **EXPLICIT** — pass `dockets` (comma-separated, any terms, e.g.
+  `17-7925,19-206`) to fetch exactly that set, bypassing the scan. This is the
+  surgical path for a handful of dockets that survived several scan passes (lost to
+  throttling *every* time). Internally it runs one `manual` job driven by the
+  `DOCKETS` env; the render step picks up its `cases-manual.rds` like any other
+  snapshot.
+
+**Identifying a stale page** (`fetch_missing_dockets.R`), two signals:
+
+1. **Pre-template (pre-v8):** the template tags every timeline entry as
+   `<li class='proc'>` or `<li style='--dot:…'>`; a **bare `<li>`** marks a
+   pre-template render. Anchor the check to `class='timeline'><li>` — a
+   multi-question Questions-Presented list *also* contains bare `<li>` items and
+   would otherwise read as a false positive.
+2. **Version-behind (v12+):** each page stamps its template version in the head as
+   `<meta name='tv' content='vNN'>`. A page whose stamp is **older than the current
+   `PAGE_TEMPLATE_VERSION`** was left behind by a bump (a throttle casualty keeps
+   its old stamp). **Unstamped pages are grandfathered** — every pre-v12 page lacks
+   the stamp, and flagging them would re-render the whole back-catalog; they remain
+   reachable only via the bare-`<li>` rule or an explicit `dockets` list.
+   *Bootstrap:* version-detection only catches a docket once it has been stamped at
+   least once, so its coverage grows as pages re-render (the stamp rides along on
+   any future full rollout — no dedicated pass needed).
+
+The scan matches application dockets (`NNA###`) too, not just `NN-###`.
 
 ## Publishing
 

@@ -94,7 +94,11 @@ write_docket_css <- function(out_dir) {
 # v11: Case panel gains an "Amicus briefs" tally (cert-stage vs merits, merits
 # split by Rule 37 side), counted from the same brief_cover classification as the
 # timeline dots so the numbers always agree with the colors.
-PAGE_TEMPLATE_VERSION <- "v11"
+# v12: stamp the template version into each page's <head> as
+# <meta name='tv' content='vNN'>, so the fill-throttled mop-up can detect a page
+# left behind by a version bump (a throttle casualty keeps its OLD stamp) instead
+# of relying only on the pre-v8 bare-<li> heuristic. See docs/docket-pages.md.
+PAGE_TEMPLATE_VERSION <- "v12"
 
 # ---- small helpers ------------------------------------------------------------
 .esc <- function(x) { x <- x %||% ""; x[is.na(x)] <- ""; htmltools::htmlEscape(x) }
@@ -467,6 +471,9 @@ docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
   page <- paste0(
     "<!DOCTYPE html><html lang='en'><head><meta charset='utf-8'>",
     "<meta name='viewport' content='width=device-width, initial-scale=1'>",
+    # Machine-readable template-version stamp: the fill-throttled scanner reads it
+    # to spot a page a version bump left behind (see fetch_missing_dockets.R).
+    "<meta name='tv' content='", PAGE_TEMPLATE_VERSION, "'>",
     "<title>", cap, " &mdash; No. ", dkt, "</title>",
     "<link rel='preconnect' href='https://fonts.googleapis.com'>",
     "<link rel='stylesheet' href='", DOCKET_FONTS, "'>",
