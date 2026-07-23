@@ -1,17 +1,27 @@
 name: Fill throttled docket pages
 
-# Mop-up for the brief-cover backfill: the full-term fetch loses a small % of
-# dockets to throttling (they keep their pre-template page). This fetches ONLY
-# those stale dockets per term -- a few hundred each rather than the whole term,
-# so throttling is far less likely -- then renders them with the current template
-# and commits once. Incremental + re-dispatchable: re-run until no term reports
-# any stale pages left.
+# Mop-up for the brief-cover backfill: a full fetch loses a small % of dockets to
+# throttling (they keep a stale page -- pre-template, or behind a later version
+# bump). Two modes:
+#   * SCAN (default): per term, scan gh-pages for stale pages (bare-<li> pre-v8,
+#     or a <meta name='tv'> stamp older than the current template) and fetch ONLY
+#     those -- a few hundred each rather than the whole term, so far less
+#     throttling.
+#   * EXPLICIT: pass `dockets` (comma-separated, any terms) to fetch exactly that
+#     set, bypassing the scan -- surgical cleanup of a handful of dockets lost in
+#     every prior pass.
+# Renders the result with the current template and commits once. Incremental +
+# re-dispatchable: re-run until no stale pages remain.
 
 on:
   workflow_dispatch:
     inputs:
       terms:
-        description: "Comma-separated 2-digit terms. Blank = 17,18,19,20,21,22,23,24,25."
+        description: "SCAN mode: comma-separated 2-digit terms. Blank = 17,18,19,20,21,22,23,24,25. Ignored if 'dockets' is set."
+        required: false
+        default: ""
+      dockets:
+        description: "EXPLICIT mode: comma-separated docket numbers (e.g. 17-7925,19-206). Set to fetch exactly these, bypassing the scan."
         required: false
         default: ""
 
@@ -29,12 +39,23 @@ jobs:
       matrix: ${{ steps.p.outputs.matrix }}
     steps:
       - id: p
+        # Bind inputs to env and expand with $VAR (not ${{ }} interpolation) so a
+        # crafted input can't break out of the shell script.
+        env:
+          DOCKETS: ${{ inputs.dockets }}
+          TERMS: ${{ inputs.terms }}
         run: |
-          terms="${{ inputs.terms }}"
-          if [ -z "$terms" ]; then terms="17,18,19,20,21,22,23,24,25"; fi
-          json=$(echo "$terms" | tr ',' '\n' | sed 's/[^0-9]//g;/^$/d;s/^/"/;s/$/"/' | paste -sd, -)
-          echo "matrix=[$json]" >> "$GITHUB_OUTPUT"
-          echo "terms: [$json]"
+          if [ -n "$DOCKETS" ]; then
+            # EXPLICIT mode: one job, DOCKETS drives it (term label "manual").
+            echo 'matrix=["manual"]' >> "$GITHUB_OUTPUT"
+            echo "explicit dockets: $DOCKETS"
+          else
+            terms="$TERMS"
+            if [ -z "$terms" ]; then terms="17,18,19,20,21,22,23,24,25"; fi
+            json=$(echo "$terms" | tr ',' '\n' | sed 's/[^0-9]//g;/^$/d;s/^/"/;s/$/"/' | paste -sd, -)
+            echo "matrix=[$json]" >> "$GITHUB_OUTPUT"
+            echo "terms: [$json]"
+          fi
 
   fetch:
     needs: plan
@@ -72,9 +93,10 @@ jobs:
             any::jsonlite
             any::pdftools
             any::htmltools
-      - name: Fetch OT ${{ matrix.term }} stale dockets
+      - name: Fetch stale dockets (${{ matrix.term }})
         env:
           TERM_YEAR: ${{ matrix.term }}
+          DOCKETS: ${{ inputs.dockets }}   # non-empty -> EXPLICIT mode (ignores TERM_YEAR)
           SITE_DIR: site
           OUT_FILE: cases-${{ matrix.term }}.rds
         run: Rscript .github/scripts/fetch_missing_dockets.R
