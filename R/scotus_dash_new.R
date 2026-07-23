@@ -357,6 +357,7 @@ scotus_dash <- function(range = today() - 1, year = "26",
     empty <- paste0(
       "<!DOCTYPE html><html lang='en'><head><script async src='/analytics.js'></script><meta charset='utf-8'>",
       "<meta name='viewport' content='width=device-width, initial-scale=1'>",
+      "<link rel='icon' href='/favicon.svg' type='image/svg+xml'><link rel='alternate icon' href='/favicon.ico' sizes='any'>",
       "<title>The Daily Docket &mdash; ", format(range, "%B %d, %Y"), "</title>",
       "<link rel='preconnect' href='https://fonts.googleapis.com'>",
       "<link rel='stylesheet' href='", SCR_FONTS, "'>",

@@ -157,6 +157,7 @@ page_head <- function(title) {
     "<script async src='/analytics.js'></script>",
     '<meta charset="utf-8">',
     '<meta name="viewport" content="width=device-width, initial-scale=1">',
+    '<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate icon" href="/favicon.ico" sizes="any">',
     "<title>", htmlEscape(title), "</title>",
     '<link rel="preconnect" href="https://fonts.googleapis.com">',
     '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>',
@@ -240,6 +241,7 @@ gtsave_titled <- function(tbl, filename, path, title) {
   txt <- paste(readLines(fp, warn = FALSE, encoding = "UTF-8"), collapse = "\n")
   inject <- paste0(
     '<meta name="viewport" content="width=device-width, initial-scale=1"/>',
+    '<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate icon" href="/favicon.ico" sizes="any">',
     "<title>", htmlEscape(title), "</title>")
   if (grepl("</head>", txt, fixed = TRUE)) {
     txt <- sub("</head>", paste0(inject, "</head>"), txt, fixed = TRUE)
