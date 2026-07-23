@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="supremecourt.report">
+  <!-- The Cert Funnel: petitions narrowing to a single grant.
+       Booklet-paper tile + oxblood mark, matching the site's DOCKET_CSS palette. -->
+  <rect x="1" y="1" width="62" height="62" rx="14" fill="#f3ecdd" stroke="#d0c4a8" stroke-width="1.5"/>
+  <g fill="#8a2b2b">
+    <rect x="10" y="14" width="44" height="6.6" rx="3.3"/>
+    <rect x="18" y="25.5" width="28" height="6.6" rx="3.3"/>
+    <rect x="26" y="37" width="12" height="6.6" rx="3.3"/>
+  </g>
+  <circle cx="32" cy="50.5" r="5" fill="#7fa8cf" stroke="#23262d" stroke-opacity="0.45" stroke-width="1"/>
+</svg>
