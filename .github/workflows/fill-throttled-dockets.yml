@@ -159,6 +159,9 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           echo "supremecourt.report" > CNAME
+          # Site favicon lives at the repo root; re-assert it on every publish
+          # (like CNAME) so /favicon.svg and /favicon.ico stay at the gh-pages root.
+          cp ../favicon.svg ../favicon.ico . 2>/dev/null || true
           git add -A
           if git diff --cached --quiet; then
             echo "No changes to publish."

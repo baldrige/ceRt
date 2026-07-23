@@ -74,6 +74,9 @@ jobs:
           # only while this CNAME file exists at the gh-pages root. Re-assert it on
           # every publish so a future rebuild can never drop the domain.
           echo "supremecourt.report" > CNAME
+          # Site favicon lives at the repo root; re-assert it on every publish
+          # (like CNAME) so /favicon.svg and /favicon.ico stay at the gh-pages root.
+          cp ../favicon.svg ../favicon.ico . 2>/dev/null || true
           git add -A
           if git diff --cached --quiet; then
             echo "No changes to publish."
