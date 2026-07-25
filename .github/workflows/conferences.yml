@@ -79,6 +79,7 @@ jobs:
             any::jsonlite
             any::pdftools
             any::htmltools
+            any::nnet
       - name: Fetch OT ${{ matrix.term }}
         env:
           TERM_YEAR: ${{ matrix.term }}
@@ -119,6 +120,7 @@ jobs:
             any::jsonlite
             any::pdftools
             any::htmltools
+            any::nnet
       - name: Download term artifacts
         uses: actions/download-artifact@v4
         with:

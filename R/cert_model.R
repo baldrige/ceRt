@@ -1047,6 +1047,17 @@ fit_conference_model <- function(panel) {
 
 # Per-conference hazards for a frame of conference rows: an n-by-4 matrix.
 conference_hazards <- function(model, newdata) {
+  # nnet must be LOADED, not merely installed: predict() on a multinom object
+  # dispatches to predict.multinom, which is only registered once the namespace
+  # is loaded. Fitting calls nnet::multinom and loads it as a side effect, so
+  # this never fails in a training session -- but a render session only readRDS()s
+  # the artifact, and there predict() found no method, every hazard call failed
+  # through the caller's tryCatch, and the whole Grant column silently became NA.
+  # requireNamespace() loads it; stop() rather than degrade, because a missing
+  # column is exactly the failure mode that is hard to notice.
+  if (!requireNamespace("nnet", quietly = TRUE))
+    stop("conference_hazards(): package 'nnet' is required to score the ",
+         "conference model (predict.multinom).", call. = FALSE)
   for (v in intersect(names(model$xlevels), names(newdata)))
     newdata[[v]] <- factor(newdata[[v]], levels = model$xlevels[[v]])
   p <- predict(model$model, newdata = newdata, type = "probs")
@@ -1441,6 +1452,15 @@ load_cert_models <- function(dir = "data") {
               call. = FALSE)
       out[[nm]] <- NULL
     }
+  }
+
+  # The conference model is unusable without nnet's S3 methods. Drop it loudly
+  # rather than let every hazard call fail through a caller's tryCatch and leave
+  # a silently empty column.
+  if (!is.null(out$conference) && !requireNamespace("nnet", quietly = TRUE)) {
+    warning("load_cert_models(): 'nnet' is not available, so the conference ",
+            "model cannot be scored; dropping it.", call. = FALSE)
+    out$conference <- NULL
   }
 
   # The counsel index is a separate artifact, and a model that needs it is worse

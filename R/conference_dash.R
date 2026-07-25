@@ -289,9 +289,16 @@ conference_dash <- function(dist, conf_date,
                  domain = c(0, 0.5), na_color = "#f7f1e4") |>
       data_color(columns = any_of("Ever"), palette = c("#f3ecdd", "#e8c9a0", "#c8794f", "#8a2b2b"),
                  domain = c(0, 1), na_color = "#f7f1e4") |>
-      data_color(columns = GVR, palette = c("#f3ecdd", "#dfe0cf", "#b9b98f"),
-                 domain = c(0, 0.4), na_color = "#f7f1e4") |>
-      cols_label(Grant = "Granted here", Ever = "Granted ever", GVR = "GVR here")
+      data_color(columns = any_of("GVR"), palette = c("#f3ecdd", "#dfe0cf", "#b9b98f"),
+                 domain = c(0, 0.4), na_color = "#f7f1e4")
+    # Label only the forecast columns that survived. Any of the three can be
+    # dropped above when it is entirely NA for a conference -- one model present
+    # and another absent, or a conference whose paid petitions all fail to score
+    # -- and naming a dropped column here aborts the whole render. That is how a
+    # single bad conference took down a 261-page publish job.
+    labs <- list(Grant = "Granted here", Ever = "Granted ever", GVR = "GVR here")
+    labs <- labs[names(labs) %in% names(tbl)]
+    if (length(labs)) t <- t |> cols_label(!!!labs)
   }
 
   footer <- if (has_grant) paste0(
