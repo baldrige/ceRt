@@ -89,18 +89,18 @@ Recorded so it is not re-litigated. Each was tested, not assumed.
 | Platt-vs-refit scale mismatch | Real in principle, ≤4pp in practice, direction conservative. Term-to-term drift dwarfs it. |
 | Alternative calibrators (7 tested) | Total spread 0.0004 Brier. Not where the problem was. |
 
-## Open questions
+## Known issues
 
-- **The long-held tail is unsolved.** At 5+ relists *every* model fitted —
-  including the shipped ones — over-predicts (≈20% predicted vs ≈17% observed at
-  k=5; ≈17% vs ≈13% at k≥6). This is where `hold_signal()` lives. It needs its
-  own investigation, not another feature.
-- **`gap_na` has no legal story.** A missing lower-court date raises the forecast
-  (+0.98 log-odds) and the raw rate agrees (6.1% vs 4.4%). More likely a
-  data-quality proxy than a signal.
-- **`USDC` moved 8.4% → 25.0%** on 36 corpus rows. Cert-before-judgment petitions
-  genuinely are granted at extraordinary rates, but this is the one number the
-  overhaul made *less* conservative, on thin evidence.
+Tracked, not forgotten. All three ship in the current model.
+
+| | issue |
+|---|---|
+| `USDC` moved 8.4% → 25.0% on 36 corpus rows — the one number this pass made *less* conservative | [#7](https://github.com/baldrige/ceRt/issues/7) |
+| `gap_na` (+0.98 log-odds) predicts well with no legal explanation; likely a data-quality proxy | [#8](https://github.com/baldrige/ceRt/issues/8) |
+| The 5+ relist tail over-predicts in every model fitted; needs the hold state modelled, not another feature | [#9](https://github.com/baldrige/ceRt/issues/9) |
+
+## Other open questions
+
 - **Entity typing remains heuristic.** ~14.5% of respondents were mistyped before
   this pass (bare state names, federal AGs, universities, unions typed as
   `individual`); the residual rate after the fix is unmeasured.

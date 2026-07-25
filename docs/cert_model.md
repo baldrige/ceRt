@@ -180,13 +180,15 @@ bare integers for scannability. A rendered `39%` means roughly 28–49%.
 
 ## Known limitations
 
-- **The long-held tail is unsolved.** At 5+ relists every model fitted —
+- **The long-held tail is unsolved** ([#9](https://github.com/baldrige/ceRt/issues/9)). At 5+ relists every model fitted —
   including the current ones — over-predicts (≈20% predicted against ≈17%
   observed at k=5, ≈17% against ≈13% at k≥6). This is where `hold_signal()`
   lives and it needs its own investigation rather than another feature.
-- **`gap_na` has no legal story.** A missing lower-court date raises the forecast
+- **`gap_na` has no legal story** ([#8](https://github.com/baldrige/ceRt/issues/8)). A missing lower-court date raises the forecast
   (+0.98 log-odds) and the underlying rate agrees (6.1% vs 4.4%), but this is
   more likely a data-quality proxy than a signal. Treat with suspicion.
+- **`USDC` rests on 36 rows** ([#7](https://github.com/baldrige/ceRt/issues/7)) and is the
+  one level this pass made *less* conservative (8.4% → 25.0%).
 - **Entity typing is heuristic** (caption regexes). A mislabelled party
   mislabels its cues; ~14.5% of respondents were mistyped before 2026-07 and the
   remainder is unmeasured.
