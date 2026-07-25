@@ -25,7 +25,7 @@ p <- ggplot(cal, aes(pred, obs, color = Model)) +
   scale_y_continuous(labels = percent, limits = c(0, 0.35)) +
   coord_equal() +
   labs(x = "Model-predicted probability", y = "Observed grant frequency",
-       title = "Calibration, out-of-time, by risk decile",
+       title = "Calibration, out-of-fold, by risk decile",
        subtitle = "Points on the dashed 45° line are perfectly calibrated") +
   theme_minimal(base_size = 12) +
   theme(legend.position = "bottom", legend.title = element_blank(),
@@ -80,10 +80,10 @@ html <- sprintf('<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
     <h2>Data &amp; target</h2>
     <p>Eight Terms, OT2017&ndash;OT2024: <b>%s paid petitions</b>, of which <b>%s were granted</b>. Target is plenary <i>granted</i> vs. <i>denied</i>; GVRs, dismissals, and pending petitions are excluded from training. Every docket-development feature is snapshotted <i>strictly before</i> the decision date &mdash; leakage-safe.</p>
     <h2>Method</h2>
-    <p>Logistic regression, Platt-calibrated. Validated <b>leave-one-term-out</b>: each Term is scored by a model trained on the other seven, so every statistic below is <b>out-of-time</b>, never in-sample.</p>
+    <p>Logistic regression, Platt-calibrated. Validated <b>leave-one-term-out</b>: each Term is scored by a model trained on the other seven, and the calibration map is fitted out-of-fold. That is out-of-<i>fold</i>, not out-of-time — a rolling-origin check (train only on earlier Terms) reproduces it to within 0.003 AUC.</p>
   </div>
   <div>
-    <h2>Validation (out-of-time)</h2>
+    <h2>Validation (leave-one-term-out)</h2>
     <table><thead><tr><th>Model</th><th>Base rate</th><th>AUC</th><th>Avg.&nbsp;prec.</th><th>Brier</th></tr></thead><tbody>
       %s%s%s
     </tbody></table>
@@ -99,7 +99,8 @@ html <- sprintf('<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
     <ul>
       <li><b>U.S. as petitioner</b> (the Solicitor General): ~43%% granted vs. 3.7%% &mdash; the largest structural cue.</li>
       <li><b>Relists</b> (enhanced): non-monotonic &mdash; ~1%% at zero, ~20%% at one, ~44%% at two, falling to ~19%% at 5+ (the &ldquo;hold&rdquo; zone). Modeled as a bucket, not a line.</li>
-      <li><b>Rule&nbsp;10 dissent / circuit split</b>, parsed from the petition PDF: lifts baseline AUC 0.720&nbsp;&rarr;&nbsp;0.804.</li>
+      <li><b>Rule&nbsp;10 dissent / circuit split</b>, parsed from the petition PDF.</li>
+      <li><b>Counsel track record</b> — prior petitions and prior wins, counted strictly before this petition was docketed.</li>
       <li><b>Court below</b>: federal circuits far above state courts.</li>
     </ul>
   </div>

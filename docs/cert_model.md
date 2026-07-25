@@ -1,180 +1,205 @@
 # Certiorari-grant prediction model
 
-A calibrated estimate of the probability that a **paid** petition for a writ of
-certiorari is **granted plenary review**. Two tiers share one feature pipeline:
+Calibrated estimates of what the Court will do with a **paid** petition. Three
+models serve two surfaces:
 
-| Model | Target | Where it's shown | Features |
+| Model | Answers | Where it's shown | Artifact |
 |---|---|---|---|
-| **Baseline** | P(grant) | Daily petitions dashboards | Structural only — known at the petition stage |
-| **Enhanced** | P(grant) | Conference reports | Baseline **＋** conference-stage process signals |
-| **GVR** | P(GVR) | Conference reports (paired) | Same as enhanced; the companion "hold" risk |
+| **Baseline** | P(granted), from the petition alone | Daily dashboards, case pages | `cert_model_baseline.rds` |
+| **Conference** | P(granted / GVR'd / denied / relisted **at this conference**) | Conference reports, "Granted here" | `cert_model_conference.rds` |
+| **At-risk** | P(granted **ever**) | Conference reports, "Granted ever" | `cert_model_enhanced.rds` + `_gvr.rds` |
 
-Code: `R/cert_model.R` (pipeline) · `.github/scripts/train_cert_model.R`
-(training driver) · artifacts `data/cert_model_{baseline,enhanced,gvr}.rds`.
+Code: `R/cert_model.R` · training driver `.github/scripts/train_cert_model.R` ·
+labels from `classify_petitions()` in `R/cert_funnel.R`.
 
 ## Why this is a calibration problem, not a classification problem
 
 Paid petitions are granted ~4% of the time; IFP petitions ~0.1%. A model that
-always predicts "deny" is ~96% accurate and useless. We therefore:
+always says "deny" is ~96% accurate and useless. So we segment to paid petitions,
+report a **probability and a lift over the base rate** rather than a yes/no,
+evaluate with AUC / average precision / Brier / calibration slope, and calibrate
+the scores so the numbers mean what they say. IFP petitions are not scored.
 
-- **Segment to paid petitions.** IFP grants are so rare (34 in eight terms) that
-  pooling lets the easy IFP negatives wash out the paid signal. IFP is not
-  scored in v1.
-- Report a **probability** and a **lift over the base rate**, never a yes/no.
-- Evaluate with **AUC / average precision / Brier** and a **calibration table**,
-  and Platt-scale the raw scores so the numbers mean what they say.
+## The two questions a conference report has to answer separately
 
-## Target and training data
+This is the central design point. A petition sitting at a conference has two
+different probabilities attached to it, and they are not close:
 
-- **Positive** = `outcome == "granted"` (plenary merits grant, per the
-  `classify_petitions()` grammar in `cert_funnel.R`).
-- **Negative** = `outcome == "denied"`.
-- **Excluded** from training: GVRs, Rule 46 dismissals, and still-pending
-  petitions — neither clean grants nor clean denials of the cert question. (Any
-  petition is still *scored* at inference.)
-- **Corpus**: `data-raw/ot_2017.rds … ot_2024.rds` — eight full terms, ~40.5k
-  decided petitions, **11,368 paid / 496 grants (4.36%)**. Assembly is cached to
-  `data-raw/cert_corpus.rds` (gitignored; regenerate by deleting it).
+- **P(granted at this conference)** — will the Court act on Friday?
+- **P(granted ever)** — will it be granted at this conference or a later one?
 
-## The leakage rule (the thing that makes this correct)
+At a petition's *first* conference these differ by roughly 2×: about 3% of such
+petitions are granted eventually, but only ~0.8% are granted at that first
+conference — the overwhelmingly likely outcomes are denial or a relist. A single
+published number cannot be both, and until 2026-07 the site published one number
+that was neither: it read ~7.8% where 2.9% of petitions are granted at the
+conference in front of them, and understated the eventual figure 2.8× for a
+first-timer.
 
-Every **process** feature is snapshotted **strictly before the decision date**.
-This is essential, not cosmetic: merits-stage amicus briefs are filed *after* a
-grant, so counting amicus over the whole docket would teach the model that
-"grants cause amicus briefs." Example: *United States v. Microsoft* (17-2) has
-30+ amicus entries but only **one** preceded the cert grant. `process_features()`
-counts only entries dated `< as_of` (the decision date in training; a conference
-date at inference).
+Each column now comes from the model that measurably wins that target, on a
+like-for-like rolling-origin comparison over the same rows:
+
+| Target | Competing risks | At-risk binary |
+|---|---|---|
+| granted at this conference | **AUC 0.920 · AP 0.259 · Brier 0.0248** | AUC 0.900 · AP 0.223 · Brier 0.0334 |
+| granted eventually | AUC 0.865 · AP 0.363 · Brier 0.0609 | **AUC 0.870 · AP 0.397 · Brier 0.0580** |
+| GVR at this conference | **AUC 0.889 · AP 0.163** | — |
+
+Each is worse at the other's job, in opposite directions. Notably, deriving
+P(granted ever) by rolling the hazards forward over future conferences is
+**worse** than fitting that target directly (AP 0.363 vs 0.397), so the forward
+recursion (`conference_cumulative()`) exists for analysis and is *not* used in
+production.
+
+The competing-risks model is a four-way multinomial over
+`{granted, gvr, denied, relisted}`, so its probabilities sum to 1 by
+construction. The previous pair of independently-fitted binaries did not: they
+exceeded 1 on 140 of 16,333 panel rows (max 1.43), implying a negative P(denied).
+Note the conditioning: `dismissed` is **not** one of the four risks (84 rows,
+0.5%), so these are probabilities conditional on the petition not being dismissed
+under Rule 46.
+
+## The leakage rules
+
+Three, and each was violated at some point:
+
+1. **Process features are snapshotted strictly before the as-of date.** Merits
+   amicus briefs are filed *after* a grant, so counting amicus over the whole
+   docket would teach the model that grants cause amicus briefs.
+2. **Training and serving must measure a feature at the same point in the case's
+   life.** Relists were counted over the whole docket at training but strictly
+   before the as-of date at serving. A petition denied at its first conference
+   whose counsel then files for rehearing picks up a second `DISTRIBUTED` entry
+   *after* the denial; 695 of 11,368 paid decided petitions (6.1%) carried one,
+   685 of them denials. That pushed 671 zero-relist denials into the one-relist
+   cell and halved its apparent grant rate.
+3. **Counsel track record counts only what had already happened.** Prior
+   petitions are counted by docketing date, prior *wins* by disposition date.
+   Scoring against the full sample instead lifts forward AUC from 0.882 to 0.963
+   — the signature of leakage, not skill.
 
 ## Features
 
-**Structural (baseline).** `pet_type`, `resp_type` — coarse entity buckets
-(`us_fed` / `state_local` / `business` / `individual`) from the caption;
-`court_below` — the 13 federal circuits, a pooled `STATE`, `FED_OTHER`;
-`elite_counsel` — petitioner's counsel-of-record matches a curated Supreme Court
-bar list; `related_present` — has consolidated/related dockets.
+**Structural** (both tiers): `pet_type`, `resp_type` — entity buckets from the
+caption; `court_below` — 13 circuits, `STATE`, `CAAF`, `USDC`, `FED_SPEC`,
+`OTHER`; `pro_se`; `gap_fast`/`gap_na` — a hinge on days from the judgment below
+to docketing.
 
-**Process (enhanced adds).** `n_relists` — true relists (Elwood's definition,
-via `cert_funnel.R`); `n_amicus_cert` — cert-stage amicus count; `cvsg` — Court
-invited the Solicitor General's views; `response_requested`; `response_filed`.
+**Petition stage adds:** `counsel_tier` — an expanding-window record of the
+petitioner's counsel of record (`new` / `some` / `vet` / `won`);
+`dissent_below`, `split_argued` — Rule 10 cues parsed from the petition PDF.
 
-Notes: entity type is carried by the factors, so standalone `us_petitioner` /
-`business_pet` logicals are **omitted** from the model (they duplicate a factor
-level and would alias a coefficient to `NA`). Factor references are an
-**individual** party and a **state** court, so a cue's log-odds reads against an
-intuitive baseline. Residual levels that would separate the likelihood (an
-`OTHER` court with zero grants) are lumped at fit time; the raw extractors keep
-the granular levels.
+**Conference stage adds:** `relist_bucket`, `amicus_bucket`, `cvsg`,
+`response_requested`, `response_filed`, `resp_waiver`, `reply_filed`. The
+competing-risks model further adds `conf_f` (conference index) and `phase`
+(position in the Term — the September long conference and the late-June clean-up
+conferences behave nothing like an ordinary sitting).
 
-**Relists are bucketed, not linear.** The grant rate is non-monotonic in relists
-(0: 1%, 1: 20%, 2: 44%, 3–4: 36%, 5+: 19%), so `relist_bucket` `{0,1,2,3-4,5+}`
-(reference 0) replaces the raw count. A linear term would extrapolate a
-20-relist *hold* to ~99%; the bucket caps the ambiguous tail. This alone raised
-enhanced AUC 0.888 → 0.930. (`related_present` was dropped — the archives carry
-no `related` column, so `nzchar(NA)` made it a constant; it now returns
-correctly on the live pipeline and can be re-added once archives carry it.)
+Notes on specification, all of them learned the hard way:
 
-## Performance (out-of-time, leave-one-term-out)
+- **Counts are bucketed, not linear.** Relists and cert-stage amicus both enter as
+  factors. A linear amicus term extrapolated a 25-brief petition to +5.13
+  log-odds and saturated the forecast; bucketing beats it decisively (AIC 2335 vs
+  2374).
+- **A CVSG redistribution is not a relist.** The case returns to conference
+  because the Solicitor General's brief arrived, exactly as with a called-for
+  response. Counting it gave all 124 CVSG'd petitions ≥1 relist and forced the
+  CVSG coefficient to −1.10, publishing the cue backwards; correcting the grammar
+  flipped it to +0.42 with no interaction term needed.
+- **Separation is handled by the estimator, not by hiding cells.** `fit_logit()`
+  applies a Firth penalty. `court_below == "OTHER"` (0 grants in 312 — "In re"
+  original writs) used to be folded into `STATE`, the *reference* level, so those
+  petitions got a court contribution of exactly zero and published ~10% where
+  ~3.5% is honest. `pro_se` (0 grants in 3,016) is likewise finite only under
+  Firth.
+- **`elite_counsel` was removed.** It matched a fixed list of ~13 advocates and
+  was worth −0.0006 AUC once `counsel_tier` existed. It had also been silently
+  dead: the extractor read the live parties schema, the archives use a different
+  one, so it was constant `FALSE` across all 40,506 training rows and aliased to
+  an `NA` coefficient. `fit_cert_model()` now refuses to fit a model with any
+  aliased coefficient.
 
-| Model | Target | AUC | Avg. precision | Brier | Base rate |
+## Relist odds
+
+Paid, resolved, OT2017–24. `train_cert_model.R` reprints this at every retrain —
+trust that over any copy pasted elsewhere.
+
+| relists | n | granted | rate |
+|---|---|---|---|
+| 0 | 10,796 | 137 | 1.3% |
+| 1 | 616 | 260 | 42.2% |
+| 2 | 169 | 52 | 30.8% |
+| 3–4 | 121 | 32 | 26.4% |
+| 5+ | 104 | 16 | 15.4% |
+
+Three separate corrections had to land before these meant anything — the
+disposition snapshot, the full resolved denominator, and the CVSG grammar. The
+figures published before 2026-07 (1.3 / 20.0 / 43.8 / 36.2 / 18.6%) had none of
+them. The public Cert Funnel table was wrong the same way: it reported 4,421
+petitions relisted at least once where the true figure is 1,841.
+
+## Performance
+
+Leave-one-term-out, calibrated out-of-fold. Generated by the training driver.
+
+| Model | Target | AUC | AP | Brier | Base rate |
 |---|---|---|---|---|---|
-| Baseline | P(grant) | **0.720** | 0.202 | 0.038 | 0.044 |
-| Enhanced | P(grant) | **0.930** | 0.484 | 0.029 | 0.044 |
-| GVR | P(GVR) | **0.866** | 0.126 | 0.022 | 0.024 |
+| Baseline | P(grant) | 0.863 | 0.313 | 0.0339 | 4.13% |
+| At-risk | P(grant ever) | 0.875 | 0.362 | 0.0593 | 7.81% |
+| GVR | P(GVR ever) | 0.822 | 0.196 | 0.0459 | 5.44% |
 
-Forward check (train < OT2023, test OT2023, a complete term): baseline AUC
-0.691. Calibration is good across all deciles (predicted vs. observed track
-closely). The large baseline→enhanced jump is driven by relists: at the
-conference stage the process signals are far more informative than any
-structural cue.
+These are **not** comparable to figures published before 2026-07 (baseline 0.720
+/ 0.804, enhanced 0.930). Those were computed on an easier target — GVRs and
+dismissals excluded from the denominator — and with the Platt map fitted and
+scored on the same rows, which pins the calibration slope to 1.000 by
+construction and cannot detect miscalibration even in principle. The conference
+tier additionally changed target entirely, from P(grant | disposed now) to
+P(grant ever).
 
-Biggest structural signal, as the literature predicts (Tanenhaus cue theory;
-Black & Owens on the SG): **US petitioner ≈ 43% grant rate vs 3.7%**.
+The number that moved most is not in the table: the conference-stage calibration
+slope went from **0.578 to ~0.99**.
 
-## Holds and GVR risk
+Rolling-origin evaluation (train on terms < t) reproduces leave-one-term-out to
+within 0.003 AUC, so the LOTO figures are not meaningfully optimistic — but LOTO
+is out-of-*fold*, not out-of-time, and should not be described as the latter.
 
-A petition relisted conference after conference — far beyond the 1–3 relists of a
-case under active grant consideration — is being **held**, typically pending a
-lead case on the same question. Empirically a held (≥5-relist) petition resolves
-**~15% granted, ~20% GVR'd, ~65% denied**: a hold predicts *deferral*, most often
-toward a GVR, **not** a plenary grant. This is why the relist effect *falls* in
-the 5+ bucket for the grant model but *stays high* for the GVR model.
+## Uncertainty
 
-So held petitions are shown with **both** scores — a low P(grant) and an elevated
-P(GVR) — rather than a single misleading number. `hold_signal()` flags a hold via
-(1) serial relisting (≥6), or (2) the sharper **companion-linkage** tier: the
-docket's `related` field cross-references a companion (`"Vide, NN-NNN"`) that has
-already been granted. Tier 2 needs the live `related` field (absent from the
-training archives), so it activates at inference, supplied with the set of
-dockets granted so far. `score_disposition()` returns `p_grant`, `p_gvr`, and
-`held` together — the interface the conference reports call.
+`score_features()` returns `ci_low`/`ci_high`, a Wald interval on the linear
+predictor pushed through the link and the calibrator. Measured widths:
 
-## Using the model
+| forecast | 95% interval width |
+|---|---|
+| 0.2% | 0.5 pp |
+| 3.5% | 3.5 pp |
+| 16.3% | 14.1 pp |
+| 38.7% | 21.4 pp |
 
-```r
-source("R/cert_funnel.R"); source("R/cert_model.R")
-m <- readRDS("data/cert_model_baseline.rds")
-s <- score_case(m, caption, lower, parties, date, lower_date, related)
-s$prob   # calibrated P(grant);  s$lift = prob / base_rate;  s$cues = signed log-odds
-```
+Case pages show the interval above 5%; the dashboards and conference tables keep
+bare integers for scannability. A rendered `39%` means roughly 28–49%.
 
-`score_case()` returns the probability, the lift over the base rate, and a
-`cues` table — the signed per-feature log-odds contributions that power the
-"which cues fired" explanation. For a conference read, `score_disposition(grant_model,
-gvr_model, …, granted_dockets)` returns `p_grant`, `p_gvr`, and the `held` flag
-together.
+## Known limitations
 
-## In the rendered dashboards
-
-A **Grant forecast** column is wired into both surfaces (defensively — a missing
-artifact or scoring error just omits the column, never blocks a render):
-
-- **Daily dashboards** (`build_dashboards.R` → `scotus_dash`): the baseline
-  (structural) prior, e.g. `47%`, for each paid petition the day it is docketed.
-- **Conference reports** (`render_conferences.R` → `conference_dash`): the
-  enhanced grant probability, scored as of the conference; a **held** petition
-  additionally shows its GVR risk (`6% grant · held · 15% GVR`).
-
-Models are loaded once per render via `load_cert_models("data")`.
-
-## Lower-court dissent — Rule 10 signal (Phase 3, in progress)
-
-The dissent-below / circuit-split cue (Rule 10) is not in the docket JSON.
-CourtListener was **evaluated and rejected** (2026-07-16): a ~100 req/hr MCP rate
-cap makes bulk enrichment infeasible, dissents are not in cluster metadata
-(circuit rulings are one combined opinion, so no typed dissent to read), and
-coverage is biased against the unpublished dispositions common among denials.
-
-Instead we parse the **cert petition PDF** (`R/petition_signals.R`) — we already
-have its URL from the docket, its appendix reproduces the lower opinion (with any
-dissent), and it states the petitioner's Rule 10 argument. It is ~98%
-text-extractable, rate-limit-free (SCOTUS CDN), and leakage-safe (the petition is
-filed at docketing). A 150-case validation:
-
-- Signals separate grant from deny — dissent-below 73% vs 36%; "over the dissent /
-  divided panel" 37% vs 12%; en-banc dissent 13% vs 0%.
-- They add **large lift to the BASELINE model** (AUC 0.66 → 0.74 with dissent,
-  → 0.775 with dissent + split, all p<0.001) but **~none to the ENHANCED model**
-  (relists/amicus already proxy dissent). So the feature belongs on the daily
-  dashboard's petition-stage model. (In-sample AUC, n=147; the out-of-time gain
-  will be smaller.)
-
-`resolve_petition_signals()` is cache-backed (per-docket booleans, not the PDF),
-so enrichment is incremental and resumable. **Shipped**: the `enrich-petitions`
-workflow parsed ~10.3k petitions (98% text-extractable) into
-`data-raw/petition_signals.json`; `dissent_below` + `split_argued` are now in
-`BASELINE_FEATURES`, which lifts the baseline **out-of-time AUC 0.720 → 0.804**
-(coefs dissent +1.03, split +0.85). Live: the daily build fetches the signals for
-each day's paid petitions (cached on the site) and passes them to `score_case`;
-the enhanced model deliberately omits them (no lift once relists/amicus exist, and
-the conference renderer doesn't parse petition PDFs).
-
-## Other limitations / next phases
-
-- **Entity typing is heuristic** (caption regexes); a mislabeled party mislabels
-  its cues.
-- **OT2024 is right-censored** in its snapshot (late petitions undecided), so it
-  is a pessimistic forward-test term.
-- **Amicus side** (petitioner vs. respondent vs. neither) is not yet
-  distinguished; v1 counts all cert-stage amicus as the salience signal.
-- Issue area (from the QP text) is not yet a feature.
+- **The long-held tail is unsolved.** At 5+ relists every model fitted —
+  including the current ones — over-predicts (≈20% predicted against ≈17%
+  observed at k=5, ≈17% against ≈13% at k≥6). This is where `hold_signal()`
+  lives and it needs its own investigation rather than another feature.
+- **`gap_na` has no legal story.** A missing lower-court date raises the forecast
+  (+0.98 log-odds) and the underlying rate agrees (6.1% vs 4.4%), but this is
+  more likely a data-quality proxy than a signal. Treat with suspicion.
+- **Entity typing is heuristic** (caption regexes). A mislabelled party
+  mislabels its cues; ~14.5% of respondents were mistyped before 2026-07 and the
+  remainder is unmeasured.
+- **Amicus side is not recoverable** at the cert stage and has been removed from
+  the roadmap: of 5,604 pre-decision amicus entries, 27 name a side at all and
+  **none** name the petitioner. A naive whole-docket match reads post-grant
+  merits briefs and looks spectacular in-sample — a leakage tripwire, not a
+  feature.
+- **Issue area from the Questions Presented is deferred**, not rejected. It looks
+  strong alone (+0.028 AUC) and is not significant once `counsel_tier`, `pro_se`
+  and `gap` are present (drop-one CI [−0.002, +0.012]).
+- **OT2024 is right-censored** and excluded from the base-rate calculation
+  (`complete_terms()`), though retained in the fit. Treating the censoring more
+  aggressively was measured and does not help.
+- `data-raw/petition_signals.json` covers only granted-or-denied dockets, so the
+  Rule 10 cues **must not** be used in any model with a GVR or dismissed class.
