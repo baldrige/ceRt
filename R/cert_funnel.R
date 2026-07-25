@@ -57,7 +57,8 @@ FUNNEL_PATTERNS <- list(
   resched = "^Rescheduled",
   cfr = "^Response Requested",
   resp_filed = "in opposition filed",
-  amicus = "^Brief (amicus|amici) curiae"
+  amicus = "^Brief (amicus|amici) curiae",
+  cvsg = "Solicitor General is invited"
 )
 
 # Grant-entry forms (an entry that grants review). Verified families:
@@ -67,15 +68,21 @@ GRANT_FORMS <- c(
   "^Petition for certiorari GRANTED",
   "^Motion to proceed in forma pauperis and petition for a writ of certiorari GRANTED",
   # split-motion form: "Motion to proceed in forma pauperis GRANTED. Petition
-  # for a writ of certiorari GRANTED limited to ..."
-  "^Motion (of petitioner )?(for leave )?to proceed in forma pauperis (is )?GRANTED[.,]?\\s+(and )?[Tt]he [Pp]etition[^.]{0,200}GRANTED",
-  "^Motion (of petitioner )?(for leave )?to proceed in forma pauperis (is )?GRANTED[.,]?\\s+[Pp]etition[^.]{0,200}GRANTED",
+  # for a writ of certiorari GRANTED limited to ..." (case-insensitive: the
+  # uppercase-GRANTED convention is not universal)
+  "(?i)^Motion (of petitioner )?(for leave )?to proceed in forma pauperis (is )?GRANTED[.,]?\\s+(and )?the petition[^.]{0,200}GRANTED",
+  "(?i)^Motion (of petitioner )?(for leave )?to proceed in forma pauperis (is )?GRANTED[.,]?\\s+petition[^.]{0,200}GRANTED",
   # lowercase per-curiam prose ("The petition for a writ of certiorari is
-  # granted[, the judgment ... is vacated ...]")
-  "(?i)^the (motion[^.]{0,160} and the )?petition for a writ of certiorari( before judgment)? (is|are) granted",
-  # applications treated as cert petitions and granted; plain "." span because
-  # sentence-scoping with [^.] is defeated by docket citations ("No. 21-588")
-  "(?i)treated as a petition for a writ of certiorari.{0,250}granted",
+  # granted[, the judgment ... is vacated ...]"). "a writ of" is optional: the
+  # Court also writes the bare "The petition for certiorari is granted" (17-1660,
+  # which fell through to `pending` and was dropped from training entirely).
+  "(?i)^the (motion[^.]{0,160} and the )?petitions? for (a writ of )?certiorari( before judgment)? (is|are) granted",
+  # applications treated as cert petitions and granted. The span must be
+  # [\\s\\S], not ".": ICU's "." does not cross a newline, and 231 of 272,421
+  # event rows carry an embedded CRLF, which silently broke this match on
+  # hard-wrapped entries. Sentence-scoping with [^.] is separately defeated by
+  # docket citations ("No. 21-588"), hence the plain span.
+  "(?i)treated as a petition for a writ of certiorari[\\s\\S]{0,250}granted",
   # appeal equivalents of a grant (often mid-entry inside a stay order, so
   # unanchored)
   "(?i)probable jurisdiction (is )?noted",
@@ -96,11 +103,21 @@ DENY_FORMS <- c(
   # lowercase denials embedded in longer orders (capital cases, sealed filings);
   # sentence-anchored so "consideration of the petition ... is denied" (a
   # motion ruling) cannot match
-  "(?i)(^|\\.\\s+)(the )?petition for a writ of certiorari( before judgment)? is denied"
+  "(?i)(^|\\.\\s+)(the )?petitions? for (a writ of )?certiorari( before judgment)? (is|are) denied"
 )
+
+# A granted rehearing VACATES the order it reheard, so an earlier denial that has
+# been vacated is no longer this petition's disposition (17-243: "The petition
+# for rehearing is granted. The order ... denying ... is vacated"). Without this,
+# earliest-entry-wins freezes the vacated denial as the label.
+REHEARING_GRANT_RX <- "(?i)petitions? for rehearing[^.]{0,60}(is |are )?granted"
 
 DISMISS_FORMS <- c(
   "(?i)^petition dismissed",
+  # lowercase / mid-entry dismissal prose, incl. mootness (23-696)
+  "(?i)(^|\\.\\s+)(the )?petitions? for (a writ of )?certiorari[^.]{0,80} (is|are) dismissed",
+  "(?i)^the petition[^.]{0,80} (is|are) dismissed",
+  "(?i)petitions? for (a writ of )?certiorari[^.]{0,40}dismissed as moot",
   # Rule 39.8: IFP motion denied and petition dismissed outright
   "^The motion for leave to proceed in forma pauperis is denied, and the petition",
   # appeals declined
@@ -164,9 +181,17 @@ classify_petition_events <- function(events) {
   is_dist <- str_detect(txt, FUNNEL_PATTERNS$dist)
   is_resched <- str_detect(txt, FUNNEL_PATTERNS$resched)
   is_cfr <- str_detect(txt, FUNNEL_PATTERNS$cfr)
+  # A CVSG is the third mechanical redistribution trigger, on exactly the same
+  # logic as a called-for response: the case comes back to conference because the
+  # Solicitor General's brief has arrived, not because the Justices deferred it.
+  # Counting it as a relist made every one of the 124 CVSG'd paid petitions carry
+  # >= 1 relist (mean 1.51 vs 0.21), which forced the model to claw the CVSG
+  # cases back down -- fitting cvsg = -1.10 despite CVSG'd petitions being
+  # granted at 29% against a 4% base rate, and publishing the cue backwards.
+  is_cvsg <- str_detect(txt, FUNNEL_PATTERNS$cvsg)
 
-  # True relists: for each distribution after the first, it is a relist unless
-  # a Rescheduled or Response Requested entry intervened since the previous
+  # True relists: for each distribution after the first, it is a relist unless a
+  # Rescheduled, Response Requested, or CVSG entry intervened since the previous
   # distribution.
   di <- which(is_dist)
   relist_flags <- logical(0)
@@ -174,7 +199,7 @@ classify_petition_events <- function(events) {
     relist_flags <- vapply(seq_len(length(di) - 1), function(i) {
       lo <- di[i] + 1L; hi <- di[i + 1L] - 1L
       if (lo > hi) return(TRUE) # adjacent distributions: nothing intervened
-      !any(is_resched[lo:hi] | is_cfr[lo:hi])
+      !any(is_resched[lo:hi] | is_cfr[lo:hi] | is_cvsg[lo:hi])
     }, logical(1))
   }
 
@@ -197,8 +222,22 @@ classify_petition_events <- function(events) {
   hit <- which(!is.na(term_kind))
   if (length(hit) > 0) {
     first <- hit[1]
-    outcome <- term_kind[first]
-    outcome_date <- edate[first]
+    # Earliest classified entry wins -- EXCEPT where a later order grants
+    # rehearing and vacates the one it reheard. That order un-does the
+    # disposition, so the case reverts and the next terminal entry after it (if
+    # any) is the real one. Only a rehearing grant that actually vacates counts;
+    # a bare "petition for rehearing DENIED" leaves the original intact.
+    reh <- which(str_detect(txt, REHEARING_GRANT_RX) &
+                 str_detect(txt, regex("vacat", ignore_case = TRUE)))
+    reh <- reh[reh > first]
+    if (length(reh) > 0) {
+      later <- hit[hit > reh[1]]
+      if (length(later) > 0) first <- later[1] else first <- NA_integer_
+    }
+    if (!is.na(first)) {
+      outcome <- term_kind[first]
+      outcome_date <- edate[first]
+    }
   }
 
   tibble(
@@ -227,24 +266,64 @@ classify_petitions <- function(cases) {
     mutate(term = str_extract(dkt, "^\\d{2}"))
 }
 
+# The conference dates a case was distributed FOR (the date named inside the
+# entry, not the date the entry was made). Lives here rather than in
+# conference_dash.R because cert_model.R needs it to build the at-risk panel and
+# docket_page.R needs it to pick a scoring as-of date -- and three of the four
+# render entry points never source conference_dash.R, so the docket pages they
+# wrote were silently missing their GVR line.
+conference_dates_from_events <- function(events) {
+  if (!is.data.frame(events) || !("Proceedings and Orders" %in% names(events)) ||
+      nrow(events) == 0) return(as.Date(character()))
+  m <- str_match(events[["Proceedings and Orders"]],
+                 "DISTRIBUTED for Conference of (\\d{1,2}/\\d{1,2}/\\d{4})")[, 2]
+  sort(unique(suppressWarnings(lubridate::mdy(m[!is.na(m)]))))
+}
+
 # ---- funnel statistics ---------------------------------------------------------
 
 # Aggregate classified petitions into funnel stats, optionally as of a date
 # (events after `as_of` are masked, so mid-term views stay honest).
+# Distributions that had actually happened at a given point in a case's life.
+# Two truncations, both required:
+#   * strictly BEFORE the petition's own disposition. A denied petition whose
+#     counsel files for rehearing picks up a fresh "DISTRIBUTED for Conference"
+#     weeks after the denial. That redistribution is a consequence of the denial,
+#     not a relist of the cert petition, and it cannot exist on a live petition.
+#     Counting it overstated the pooled "relisted at least once" figure by 2.4x
+#     (4,421 vs 1,820 over OT2017-23) and cut the measured payoff of a first
+#     relist from 19.6% to 6.1%, because 6% of petitions -- almost all denials --
+#     carry one.
+#   * on or before `as_of`, when a mid-term view is requested.
+count_before <- function(dates, outcome_date, as_of = NULL) {
+  purrr::map2_int(dates, outcome_date, function(d, od) {
+    if (length(d) == 0) return(0L)
+    ok <- !is.na(d)
+    if (!is.na(od)) ok <- ok & d < od
+    if (!is.null(as_of)) ok <- ok & d <= as_of
+    sum(ok)
+  })
+}
+
 funnel_stats <- function(cls, as_of = NULL) {
   if (!is.null(as_of)) {
     as_of <- as.Date(as_of)
     cls <- cls |>
       filter(!is.na(date), date <= as_of) |>
       mutate(
-        n_dist = map_int(dist_dates, \(d) sum(!is.na(d) & d <= as_of)),
-        n_relists = map_int(relist_dates, \(d) sum(!is.na(d) & d <= as_of)),
-        outcome = if_else(!is.na(outcome_date) & outcome_date <= as_of,
-                          outcome, "pending"),
+        # Mask the disposition itself first, so a case decided after `as_of` is
+        # treated as genuinely pending and its distributions are not truncated
+        # at a disposition that has not happened yet.
+        outcome_date = as.Date(if_else(!is.na(outcome_date) & outcome_date <= as_of,
+                                       outcome_date, as.Date(NA))),
+        outcome = if_else(!is.na(outcome_date), outcome, "pending"),
         first_dist = as.Date(if_else(!is.na(first_dist) & first_dist <= as_of,
                                      first_dist, as.Date(NA)))
       )
   }
+  cls <- cls |>
+    mutate(n_dist    = count_before(dist_dates, outcome_date, as_of),
+           n_relists = count_before(relist_dates, outcome_date, as_of))
 
   stage_block <- function(d) {
     tibble(

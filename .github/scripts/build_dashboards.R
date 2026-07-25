@@ -35,7 +35,9 @@ source("R/cert_model.R")
 source("R/petition_signals.R")   # resolve_petition_signals (Rule 10 from the petition PDF)
 source("R/argument_nav.R")       # classify_argument (for docket-page lifecycle)
 source("R/docket_page.R")        # render_dockets_for
-grant_model <- load_cert_models("data")$baseline
+cert_models  <- load_cert_models("data")
+grant_model  <- cert_models$baseline
+counsel_ix   <- cert_models$counsel_index
 cat("Baseline cert model:", if (is.null(grant_model)) "not found (no forecast column)" else "loaded", "\n")
 
 cat("Fetching OT", term, "docket...\n")
@@ -76,7 +78,7 @@ cat("Rendering", length(dates), "date(s) to", dash_dir, "\n")
 for (i in seq_along(dates)) {
   d <- as.Date(dates[i], origin = "1970-01-01")
   scotus_dash(range = d, year = term, out_dir = dash_dir, model = grant_model,
-              signals_map = signals_map)
+              signals_map = signals_map, counsel_index = counsel_ix)
 }
 dashboard_index(dash_dir)
 

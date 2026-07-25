@@ -98,7 +98,10 @@ write_docket_css <- function(out_dir) {
 # <meta name='tv' content='vNN'>, so the fill-throttled mop-up can detect a page
 # left behind by a version bump (a throttle casualty keeps its OLD stamp) instead
 # of relying only on the pre-v8 bare-<li> heuristic. See docs/docket-pages.md.
-PAGE_TEMPLATE_VERSION <- "v12"
+# v13: two-tier conference forecast (P(granted here) / P(granted ever)), a 95%
+# interval on the case-page estimate, and a GVR line scored at the conference the
+# petition actually faces rather than max() of every conference on the docket.
+PAGE_TEMPLATE_VERSION <- "v13"
 
 # ---- small helpers ------------------------------------------------------------
 .esc <- function(x) { x <- x %||% ""; x[is.na(x)] <- ""; htmltools::htmlEscape(x) }
@@ -279,20 +282,40 @@ docket_timeline <- function(ev, granted_on = as.Date(NA), resp_brief_on = as.Dat
 # Status-adaptive disposition box. Pending paid petitions get the forecast
 # (a prediction); resolved cases lead with the outcome and keep the pre-decision
 # estimate as a retrospective note.
-docket_disposition <- function(outcome, outcome_date, arg, p_base, p_gvr, sig, is_app = FALSE, why = "", why_retro = "") {
+docket_disposition <- function(outcome, outcome_date, arg, p_base, p_gvr, sig, is_app = FALSE, why = "", why_retro = "",
+                               p_lo = NA_real_, p_hi = NA_real_, p_ever = NA_real_) {
   pct <- function(p) sprintf("%d%%", round(100 * p))
+  # A 95% interval, shown only where it is wide enough to change how the number
+  # reads. Measured widths: ~0.5pp below 1%, 3.5pp around 3%, 14pp around 16%,
+  # 21pp above 25% -- so a bare "39%" asserts precision the model does not have,
+  # while a bare "0.2%" is honest on its own. Case pages only: the dashboards and
+  # conference tables stay scannable.
+  ci_note <- if (!is.na(p_base) && !is.na(p_lo) && !is.na(p_hi) && p_base >= 0.05)
+      sprintf("<div class='disp-sub'>95%% interval %s&ndash;%s</div>", pct(p_lo), pct(p_hi)) else ""
   sig_txt <- if (!is.null(sig)) {
     bits <- c(if (isTRUE(sig$dissent_below)) "dissent below",
               if (isTRUE(sig$split_argued)) "circuit split argued")
     if (length(bits)) paste0("Rule 10: ", paste(bits, collapse = ", ")) else NULL
   } else NULL
-  est_note <- if (!is.na(p_base)) sprintf("<div class='disp-sub'>Pre-decision estimate: %s cert probability</div>", pct(p_base)) else ""
+  est_note <- if (!is.na(p_base))
+    sprintf("<div class='disp-sub'>Pre-decision estimate: %s cert probability%s</div>",
+            pct(p_base),
+            if (!is.na(p_lo) && !is.na(p_hi) && p_base >= 0.05)
+              sprintf(" (95%% interval %s&ndash;%s)", pct(p_lo), pct(p_hi)) else "") else ""
 
   if (is.na(outcome) || outcome %in% c("pending", "relisted")) {
     if (!is.na(p_base)) {
       gvr <- if (!is.null(p_gvr) && !is.na(p_gvr)) sprintf("<div class='disp-sub'>GVR risk %s</div>", pct(p_gvr)) else ""
       sg  <- if (!is.null(sig_txt)) sprintf("<div class='disp-sig'>%s</div>", .esc(sig_txt)) else ""
-      box <- sprintf("<div class='disp'><div class='disp-num'>%s</div><div class='disp-lab'><div>estimated cert probability<br><span>(petition-stage, structural)</span></div>%s%s</div></div>", pct(p_base), sg, gvr)
+      # The conference report scores the same petition with far more information
+      # (relists, a reply brief, an opposition) and publishes a different number.
+      # Showing only the petition-stage figure here left the two pages
+      # contradicting each other -- median 2.7% on the case page against 16.1% on
+      # the conference report for the same relisted petition. Surface both, each
+      # labelled with the stage it belongs to.
+      ev <- if (!is.na(p_ever) && !is.na(p_base) && abs(p_ever - p_base) >= 0.02)
+        sprintf("<div class='disp-sub'>Conference-stage estimate: %s</div>", pct(p_ever)) else ""
+      box <- sprintf("<div class='disp'><div class='disp-num'>%s</div><div class='disp-lab'><div>estimated cert probability<br><span>(petition-stage, structural)</span></div>%s%s%s%s</div></div>", pct(p_base), ci_note, ev, sg, gvr)
       why_html <- if (nzchar(why %||% "")) sprintf("<p class='forecast-why'>%s</p>", why) else ""
       return(paste0(box, why_html))
     }
@@ -382,26 +405,44 @@ docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
 
   # Forecast (paid only; pure, from in-memory models).
   p_base <- NA_real_; p_gvr <- NA_real_; fc_why <- ""; fc_why_retro <- ""
+  p_lo <- NA_real_; p_hi <- NA_real_; p_ever <- NA_real_
   if (!is.null(models) && !is.null(models$baseline) && identical(cx$type %||% "", "paid") &&
       exists("score_case")) {
     sc_base <- tryCatch(score_case(models$baseline, cx$caption, cx$lower, par, cx$date,
-                cx$lower_date, rel, signals = signals), error = function(e) NULL)
+                cx$lower_date, rel, signals = signals,
+                counsel_index = models$counsel_index), error = function(e) NULL)
     p_base <- if (!is.null(sc_base)) sc_base$prob else NA_real_
+    p_lo   <- if (!is.null(sc_base)) sc_base$ci_low  %||% NA_real_ else NA_real_
+    p_hi   <- if (!is.null(sc_base)) sc_base$ci_high %||% NA_real_ else NA_real_
     if (!is.null(sc_base) && exists("describe_forecast")) {
       fc_why       <- tryCatch(describe_forecast(sc_base), error = function(e) "")
       fc_why_retro <- tryCatch(describe_forecast(sc_base, retrospective = TRUE),
                                error = function(e) "")
     }
-    if (!is.null(models$enhanced) && !is.null(models$gvr) && exists("score_disposition")) {
-      s <- tryCatch(score_disposition(models$enhanced, models$gvr, cx$caption, cx$lower, par,
-             cx$date, cx$lower_date, rel, events = ev,
-             as_of = suppressWarnings(max(case_conference_dates(ev)))), error = function(e) NULL)
-      if (!is.null(s)) p_gvr <- s$p_gvr
+    # GVR risk, scored at the conference this petition is actually facing.
+    # Previously as_of = max(case_conference_dates(ev)), which had three faults:
+    # max() of an empty Date is -Inf (36% of pending paid petitions have never
+    # been distributed), the LAST conference is after the disposition for 6.5% of
+    # decided petitions, and case_conference_dates() lives in conference_dash.R,
+    # which three of the four render entry points never source -- so every docket
+    # page the daily job wrote silently lost this line.
+    cds <- if (exists("conference_dates_from_events")) conference_dates_from_events(ev)
+           else as.Date(character())
+    as_of_conf <- if (length(cds) == 0) as.Date(NA) else {
+      ahead <- cds[cds >= rendered]
+      if (length(ahead)) min(ahead) else max(cds)
+    }
+    if (!is.na(as_of_conf) && exists("score_conference")) {
+      s <- tryCatch(score_conference(models, cx$caption, cx$lower, par, cx$date,
+             cx$lower_date, rel, events = ev, as_of = as_of_conf),
+             error = function(e) NULL)
+      if (!is.null(s)) { p_gvr <- s$p_gvr_now; p_ever <- s$p_grant_ever }
     }
   }
 
   disp <- docket_disposition(outcome, outcome_date, arg, p_base, p_gvr, signals,
-                             is_app = is_app, why = fc_why, why_retro = fc_why_retro)
+                             is_app = is_app, why = fc_why, why_retro = fc_why_retro,
+                             p_lo = p_lo, p_hi = p_hi, p_ever = p_ever)
   # Conference history = TOTAL distributions (a case seen at one conference counts).
   n_dist <- if (is.data.frame(ev))
     sum(str_detect(ev[["Proceedings and Orders"]] %||% "", "DISTRIBUTED for Conference"), na.rm = TRUE) else 0L

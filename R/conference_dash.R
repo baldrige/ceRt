@@ -65,7 +65,11 @@ find_petition_url <- function(events) {
 }
 
 # The conference dates one case's events were distributed for (sorted, unique).
+# Thin alias. The canonical implementation lives in cert_funnel.R so that
+# cert_model.R and docket_page.R can reach it without sourcing this file -- three
+# of the four render entry points never did, and silently lost the GVR line.
 case_conference_dates <- function(events) {
+  if (exists("conference_dates_from_events")) return(conference_dates_from_events(events))
   if (!is.data.frame(events) || !("Proceedings and Orders" %in% names(events))) {
     return(as.Date(character()))
   }
@@ -88,8 +92,21 @@ conference_distributions <- function(cases) {
     filter(lengths(conf_date) > 0) |>
     mutate(
       n_distributions = lengths(conf_date),
-      petition_url = map_chr(events, find_petition_url)
+      petition_url = map_chr(events, find_petition_url),
+      # Disposition per docket. Needed for two things the renderer got wrong:
+      # already-decided petitions were reappearing on later conference pages with
+      # a live forecast (798 of 17,540 rows, on 186 of 233 published pages), and
+      # hold_signal()'s companion tier needs the set of dockets granted BEFORE a
+      # given conference -- it was always empty because no case tibble in the
+      # pipeline carries an `outcome` column.
+      .cls = map(events, function(e)
+        tryCatch(classify_petition_events(e), error = function(err) NULL)),
+      outcome = map_chr(.cls, ~ if (is.null(.x)) NA_character_ else .x$outcome[[1]]),
+      outcome_date = as.Date(map_dbl(.cls,
+        ~ if (is.null(.x)) NA_real_ else as.numeric(.x$outcome_date[[1]])),
+        origin = "1970-01-01")
     ) |>
+    select(-.cls) |>
     unnest_longer(conf_date) |>
     group_by(.cid) |>
     mutate(distribution_no = row_number()) |>
@@ -137,7 +154,8 @@ conference_forecast <- function(d, conf_date, models) {
     s <- tryCatch(score_disposition(
       models$enhanced, models$gvr, d$caption[i], d$lower[i], d$parties[[i]],
       dt[i], ld[i], rel[i], events = d$events[[i]], as_of = conf_date,
-      granted_dockets = gd), error = function(e) NULL)
+      granted_dockets = gd, counsel_index = models$counsel_index),
+      error = function(e) NULL)
     if (is.null(s) || is.na(s$p_grant)) next
     out[i] <- if (isTRUE(s$held)) {
       sprintf("**%d%%** grant  \n`held` · %d%% GVR", round(100*s$p_grant), round(100*s$p_gvr))
@@ -159,6 +177,11 @@ conference_dash <- function(dist, conf_date,
   conf_date <- as.Date(conf_date)
 
   d <- dist |> filter(conf_date == !!conf_date)
+  # A distribution dated after the petition's own disposition is a rehearing
+  # redistribution, not a live cert petition -- rendering it put a grant forecast
+  # on an already-decided case.
+  if ("outcome_date" %in% names(d))
+    d <- d |> filter(is.na(outcome_date) | conf_date <= outcome_date)
   if (nrow(d) == 0) return(invisible(NULL))
 
   # Numeric grant / GVR-risk forecasts, scored as of this conference with the
@@ -171,18 +194,37 @@ conference_dash <- function(dist, conf_date,
   dt <- gc("date", as.Date(NA)); ld <- gc("lower_date", as.Date(NA))
   rel <- gc("related", NA_character_)
   has_parties <- "parties" %in% names(d)
+  # Two published quantities, each from the model that wins that target on a
+  # like-for-like rolling-origin comparison (see score_conference()):
+  #   Grant  = P(granted AT THIS conference)  -- competing-risks hazard
+  #   Ever   = P(granted eventually)          -- at-risk binary
+  # A single number could only be one of these, and the old column was neither:
+  # it read 7.8% where 2.9% of petitions are granted at the conference in front
+  # of them, and understated the eventual figure 2.8x at a first conference.
   p_grant <- rep(NA_real_, nrow(d)); p_gvr <- rep(NA_real_, nrow(d))
-  if (!is.null(models) && !is.null(models$enhanced) && !is.null(models$gvr) &&
-      exists("score_disposition")) {
-    gd <- if ("outcome" %in% names(d)) d$dkt[d$outcome %in% "granted"] else character()
+  p_ever  <- rep(NA_real_, nrow(d))
+  if (!is.null(models) && exists("score_conference") &&
+      (!is.null(models$conference) || !is.null(models$enhanced))) {
+    # Dockets already GRANTED as of this conference, across the whole database --
+    # not just this page's rows, and not using a final outcome that would be
+    # future information. This is what makes hold_signal()'s companion-linkage
+    # tier reachable; it never fired before because the set was always empty.
+    gd <- if (all(c("outcome", "outcome_date") %in% names(dist)))
+      unique(dist$dkt[dist$outcome %in% "granted" &
+                      !is.na(dist$outcome_date) & dist$outcome_date < conf_date])
+      else character()
     for (i in seq_len(nrow(d))) {
       if (!identical(d$type[i], "paid")) next
       par <- if (has_parties) d$parties[[i]] else NULL
-      s <- tryCatch(score_disposition(
-        models$enhanced, models$gvr, d$caption[i], d$lower[i], par,
-        dt[i], ld[i], rel[i], events = d$events[[i]], as_of = conf_date,
-        granted_dockets = gd), error = function(e) NULL)
-      if (!is.null(s)) { p_grant[i] <- s$p_grant; p_gvr[i] <- s$p_gvr }
+      s <- tryCatch(score_conference(
+        models, d$caption[i], d$lower[i], par, dt[i], ld[i], rel[i],
+        events = d$events[[i]], as_of = conf_date,
+        conf_idx = d$distribution_no[i], granted_dockets = gd),
+        error = function(e) NULL)
+      if (!is.null(s)) {
+        p_grant[i] <- s$p_grant_now; p_gvr[i] <- s$p_gvr_now
+        p_ever[i]  <- s$p_grant_ever
+      }
     }
   }
 
@@ -198,6 +240,7 @@ conference_dash <- function(dist, conf_date,
     Docket = d$dkt,
     Relists = d$distribution_no - 1L,
     Grant = p_grant,
+    Ever = p_ever,
     GVR = p_gvr,
     Court = str_replace(coalesce(d$lower, "—"),
               "^United States Court of Appeals for the (.+?Circuit)$", "\\1") |>
@@ -216,8 +259,10 @@ conference_dash <- function(dist, conf_date,
   # and any column that is entirely empty -- e.g. QP and Counsel on the pre-JSON
   # historical archive, which has neither source (matches the old renderer, which
   # omitted the column rather than showing a wall of em dashes).
-  has_grant <- any(!is.na(tbl$Grant))
-  if (!has_grant) tbl <- select(tbl, -Grant, -GVR)
+  has_grant <- any(!is.na(tbl$Grant)) || any(!is.na(tbl$Ever))
+  if (!has_grant) tbl <- select(tbl, -Grant, -Ever, -GVR)
+  if (has_grant && all(is.na(tbl$Ever))) tbl <- select(tbl, -Ever)
+  if (has_grant && all(is.na(tbl$Grant))) tbl <- select(tbl, -Grant)
   for (col in c("Counsel", "QP", "Documents")) {
     if (col %in% names(tbl) && all(tbl[[col]] == "—")) tbl <- select(tbl, -all_of(col))
   }
@@ -236,28 +281,33 @@ conference_dash <- function(dist, conf_date,
   if (has_qp) t <- t |> cols_label(QP = "Questions Presented") |> cols_width(QP ~ px(190))
   if (has_grant) {
     t <- t |>
-      fmt_percent(columns = c(Grant, GVR), decimals = 0) |>
+      fmt_percent(columns = any_of(c("Grant", "Ever", "GVR")), decimals = 0) |>
       # NA (non-paid) forecasts show as an em dash; raw values stay numeric so
       # the columns still sort by value.
-      sub_missing(columns = c(Grant, GVR), missing_text = "—") |>
-      data_color(columns = Grant, palette = c("#f3ecdd", "#e8c9a0", "#c8794f", "#8a2b2b"),
+      sub_missing(columns = any_of(c("Grant", "Ever", "GVR")), missing_text = "—") |>
+      data_color(columns = any_of("Grant"), palette = c("#f3ecdd", "#e8c9a0", "#c8794f", "#8a2b2b"),
+                 domain = c(0, 0.5), na_color = "#f7f1e4") |>
+      data_color(columns = any_of("Ever"), palette = c("#f3ecdd", "#e8c9a0", "#c8794f", "#8a2b2b"),
                  domain = c(0, 1), na_color = "#f7f1e4") |>
       data_color(columns = GVR, palette = c("#f3ecdd", "#dfe0cf", "#b9b98f"),
                  domain = c(0, 0.4), na_color = "#f7f1e4") |>
-      cols_label(Grant = "Grant forecast", GVR = "GVR risk")
+      cols_label(Grant = "Granted here", Ever = "Granted ever", GVR = "GVR here")
   }
 
   footer <- if (has_grant) paste0(
-    "<em>Grant forecast</em> is a calibrated model estimate of plenary certiorari ",
-    "for paid petitions (base rate ~4%), scored as of this conference; <em>GVR ",
-    "risk</em> is the companion estimate of a grant, vacate &amp; remand. ",
+    "<em>Granted here</em> is the model's estimate that this petition is granted ",
+    "at <em>this</em> conference; <em>Granted ever</em> is the estimate that it is ",
+    "granted at any conference, now or after further relists. The two differ most ",
+    "for a petition at its first conference, which is usually relisted or denied ",
+    "rather than granted on the spot. <em>GVR here</em> is the companion estimate ",
+    "of a grant, vacate &amp; remand at this conference. Paid petitions only. ",
     "Estimates, not predictions about any case."
   ) else ""
 
   n_case <- nrow(tbl)
   dek <- paste0(n_case, if (n_case == 1) " case" else " cases",
     " distributed for this conference &mdash; sortable and filterable. Sort by ",
-    "<em>Relists</em> or <em>Grant forecast</em> to surface the serially-relisted cases.")
+    "<em>Relists</em> or <em>Granted ever</em> to surface the serially-relisted cases.")
 
   scr_interactive(t, n_rows = nrow(tbl)) |>
     scr_write_page(
