@@ -15,6 +15,7 @@ and served by GitHub Pages.
 | Oral Argument Navigator | `arguments/` | `conferences.yml` → `render_arguments.R` |
 | The Cert Funnel (explainer) | `funnel/` | `render_funnel.R` |
 | Cert-grant forecast model + methods | `methods.html` | `R/cert_model.R` — see **[docs/cert_model.md](docs/cert_model.md)** |
+| Conference forecast (competing risks) | `conferences/` | `R/cert_model.R` — two published columns, see **[docs/cert_model.md](docs/cert_model.md)** |
 
 Every section is built and published by a GitHub Actions workflow. For the full
 inventory — each workflow's triggers, whether it updates data and/or the public
@@ -50,6 +51,28 @@ The daily only rebuilds the current term's ~150 recent pages. To apply a
 
 Details and gotchas (amicus coloring, stale-page detection, application dockets):
 **[docs/docket-pages.md](docs/docket-pages.md)**.
+
+## The cert model: four artifacts, two training frames
+
+`train_cert_model.R` writes `cert_model_{baseline,conference,enhanced,gvr}.rds`
+plus `counsel_index.rds`. Two things about it are load-bearing and easy to undo
+by accident:
+
+- **Two frames, not one.** The petition-stage model is fitted on the disposition
+  corpus (one row per petition); everything served at a conference is fitted on
+  the at-risk panel (one row per petition × conference). Fitting the conference
+  tier on the disposition corpus is what made it answer "given the Court acts
+  today, is this a grant?" while the page claimed otherwise.
+- **`counsel_index.rds` is not optional.** The baseline model cannot be scored
+  without it, and a missing index would rate every advocate first-time rather
+  than error. `load_cert_models()` drops the model instead.
+
+A feature that is constant in training aliases to an `NA` coefficient and then
+contributes exactly zero at serve time, silently — this shipped undetected for
+months. `fit_cert_model()` now fails on any aliased coefficient; do not relax it.
+
+Findings, measured-and-rejected proposals, and open questions:
+**[docs/cert_model_review_2026-07.md](docs/cert_model_review_2026-07.md)**.
 
 ## Conventions
 
