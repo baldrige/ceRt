@@ -63,6 +63,26 @@ INDEX_CSS <- "
     color:var(--ink-soft);text-decoration:none;font-variant-numeric:tabular-nums;
     border-bottom:1px solid var(--rule);padding-bottom:1px}
   ul.idx .recent a:hover{color:var(--oxblood);border-color:var(--oxblood)}
+  /* Optional panel beneath the section index (home page: most-read cases). */
+  .panel{margin:2.4rem 0 0}
+  .panel h2{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--oxblood);margin:0 0 .25rem}
+  .panel .pnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:0 0 .5rem}
+  ol.mostread{list-style:none;counter-reset:mr;padding:0;margin:0}
+  ol.mostread li{counter-increment:mr;border-bottom:1px solid var(--rule)}
+  ol.mostread a{display:flex;align-items:baseline;gap:.7rem;padding:.6rem .4rem;
+    text-decoration:none;color:inherit}
+  ol.mostread a:hover{background:rgba(138,43,43,.05)}
+  ol.mostread a::before{content:counter(mr);font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.95rem;color:var(--faint);min-width:1.1rem;
+    font-variant-numeric:tabular-nums}
+  ol.mostread .mc{flex:1;font-size:1rem;line-height:1.3}
+  ol.mostread a:hover .mc{color:var(--oxblood);text-decoration:underline;
+    text-underline-offset:3px}
+  ol.mostread .mdk{color:var(--oxblood);font-weight:600;font-size:.82rem;
+    font-variant-numeric:tabular-nums;white-space:nowrap}
+  ol.mostread .mv{color:var(--faint);font-size:.85rem;font-style:italic;
+    white-space:nowrap;font-variant-numeric:tabular-nums}
   .back{margin-top:2rem;font-size:.95rem}
   .back a{color:var(--sienna);text-decoration:none;
     border-bottom:1px solid rgba(181,101,29,.35)}
@@ -166,12 +186,44 @@ page_head <- function(title) {
     "</head>")
 }
 
+# A ranked "most-read" panel from a data frame of docket / caption / views /
+# href (see top_viewed_cases() in R/site_analytics.R). Returns NULL for zero
+# rows so the caller can pass the result straight through: no data, no block.
+#
+# `note` should say plainly what window the ranking covers. The counts are real
+# page views, not a smoothed or modelled figure, and are labelled as such.
+most_read_panel <- function(df, heading = "Most-Read Cases", note = NULL,
+                            show_counts = TRUE) {
+  if (is.null(df) || !nrow(df)) return(NULL)
+  rows <- lapply(seq_len(nrow(df)), function(i) {
+    tags$li(tags$a(
+      href = df$href[i],
+      tags$span(class = "mc", smarten(df$caption[i])),
+      tags$span(class = "mdk", paste0("No. ", df$docket[i])),
+      # One text node, not two: htmltools joins sibling children with a newline,
+      # which HTML would collapse to "55 views" anyway but leaves the markup
+      # reading as though the number and its unit were separate fields.
+      if (isTRUE(show_counts))
+        tags$span(class = "mv", paste0(format(df$views[i], big.mark = ","),
+                                       if (df$views[i] == 1) " view" else " views"))
+    ))
+  })
+  tags$section(
+    class = "panel",
+    tags$h2(heading),
+    if (!is.null(note)) tags$p(class = "pnote", smarten(note)),
+    tags$ol(class = "mostread", rows)
+  )
+}
+
 # Render a styled index/landing page. `items` is a list of lists with $href,
 # $label and optional $meta (a muted right-aligned note). `new_tab` opens the
 # row links in a new tab (matches the prior dashboard-index behavior).
+# `panel` is an optional extra block (e.g. most_read_panel()) placed after the
+# section index -- the sections are the site's navigation and stay on top.
 styled_index_page <- function(out_path, title, heading, items,
                               kicker = NULL, dek = NULL, back = NULL,
-                              new_tab = TRUE, search = FALSE) {
+                              new_tab = TRUE, search = FALSE, panel = NULL) {
   rows <- lapply(items, function(it) {
     a_args <- list(class = "row", href = it$href)
     if (isTRUE(new_tab)) { a_args$target <- "_blank"; a_args$rel <- "noopener" }
@@ -207,6 +259,7 @@ styled_index_page <- function(out_path, title, heading, items,
     if (!is.null(dek)) tags$p(class = "dek", smarten(dek)),
     if (isTRUE(search)) HTML(SEARCH_HTML),
     tags$ul(class = "idx", rows),
+    panel,
     if (!is.null(back)) tags$p(class = "back", tags$a(href = back$href, smarten(back$label))),
     if (isTRUE(search)) HTML(SEARCH_SCRIPT)
   ))

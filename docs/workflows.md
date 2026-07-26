@@ -45,6 +45,12 @@ site, partitioned so they never fight over the same paths.
   the landing **`index.html`**, `methods.html` (copied from `docs/`),
   `analytics.js`, and `CNAME`. **Does not** touch `conferences/`, `arguments/`, or
   `funnel/` — those are preserved from the checkout and merely linked.
+- **Optional secrets:** `GA4_PROPERTY_ID` (numeric, *not* the `G-…` measurement
+  id) and `GA4_SA_KEY` (service-account JSON with Viewer on that property) add
+  the landing page's **Most-Read Cases** panel — top 5 `cases/` pages by views
+  over the trailing 30 days, read from GA4 (`R/site_analytics.R`). Unset,
+  failing, or credential-expired, the panel is omitted and the build is
+  otherwise unchanged; it never fails the daily.
 - **Guard:** `fetch_is_degraded(tol=0.1)` — if >10% of dockets were lost to
   throttling it `quit(0)`s and publishes nothing (site unchanged).
 - **Scope caveat:** only the current term's ~150 most-recent pages. A
