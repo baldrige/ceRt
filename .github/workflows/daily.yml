@@ -58,11 +58,18 @@ jobs:
             any::jsonlite
             any::pdftools
             any::htmltools
+            any::openssl
+            any::jose
 
       - name: Build dashboards into ./site
         env:
           SITE_DIR: site
           TERM_YEAR: "26"
+          # Read-only GA4 access for the landing page's "Most-Read Cases" panel.
+          # Optional: if these are unset the panel is omitted and the build is
+          # otherwise unaffected (see R/site_analytics.R).
+          GA4_PROPERTY_ID: ${{ secrets.GA4_PROPERTY_ID }}
+          GA4_SA_KEY: ${{ secrets.GA4_SA_KEY }}
         run: Rscript .github/scripts/build_dashboards.R
 
       - name: Commit and publish changes

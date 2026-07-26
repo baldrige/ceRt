@@ -128,6 +128,13 @@ if (file.exists("docs/cert_model_methods.html")) {
   items <- c(items, list(list(href = "methods.html", label = "The Forecast Model",
                               meta = "methods & validation")))
 }
+# Most-read cases over the trailing 30 days, from GA4. Needs the GA4_PROPERTY_ID
+# and GA4_SA_KEY secrets; without them this is zero rows and the block is simply
+# omitted, which is why it is not guarded here. See R/site_analytics.R.
+source("R/site_analytics.R")
+MOST_READ_DAYS <- 30L
+most_read <- top_viewed_cases(site_dir, n = 5L, days = MOST_READ_DAYS)
+
 styled_index_page(
   file.path(site_dir, "index.html"),
   title = "Supreme Court Report",
@@ -136,6 +143,16 @@ styled_index_page(
   dek = "Quantifying the U.S. Supreme Court's behavior and making it legible for the public.",
   items = items,
   new_tab = FALSE,
-  search = TRUE
+  search = TRUE,
+  # Rank only, no counts: the ordering is the story, and printing the raw
+  # numbers would publish the site's traffic volume as a side effect.
+  panel = most_read_panel(
+    most_read,
+    heading = "Most-Read Cases",
+    show_counts = FALSE,
+    note = sprintf("Ranked by page views over the %d days ending %s %d, %d.",
+                   MOST_READ_DAYS, format(Sys.Date() - 1, "%B"),
+                   as.integer(format(Sys.Date() - 1, "%d")),
+                   as.integer(format(Sys.Date() - 1, "%Y"))))
 )
 cat("Done.\n")
