@@ -1,10 +1,14 @@
-name: Re-render docket pages (v8 backfill)
+name: Re-render docket pages
 
 # One-off / occasional: re-render the docket pages for whole terms so the current
-# page template (v8 brief-cover timeline dots, plus every later page improvement)
-# reaches the historical back-catalog. The daily only rebuilds the trailing ~50
-# dockets of the current term, so early and closed-term pages otherwise keep their
-# old markup.
+# page template reaches the historical back-catalog. The daily only rebuilds the
+# trailing ~50 dockets of the current term, so early and closed-term pages
+# otherwise keep their old markup.
+#
+# Names and comments here are deliberately version-free: this file said "v8" for
+# five template bumps, which made the Actions UI actively misleading about what a
+# run produced. The authoritative version is PAGE_TEMPLATE_VERSION in
+# R/docket_page.R, stamped into every page as <meta name='tv'>.
 #
 # Shape: one runner FULL-fetches each term (fresh IPs spread supremecourt.gov's
 # rate limit; a >10% throttle loss fails just that term's job, leaving the others),
@@ -143,7 +147,7 @@ jobs:
           # gh nests each artifact in its own dir; flatten so RDS_DIR sees cases-*.rds.
           find snapshots -name 'cases-*.rds' -exec mv -f {} snapshots/ \; 2>/dev/null || true
           echo "snapshots present:"; ls -1 snapshots/*.rds 2>/dev/null || echo "  none"
-      - name: Re-render docket pages (v9) into ./site
+      - name: Re-render docket pages into ./site
         env:
           SITE_DIR: site
           RDS_DIR: snapshots
