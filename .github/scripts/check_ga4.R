@@ -83,9 +83,23 @@ df <- tryCatch(ga4_case_report(prop, tok, days = 30L), error = function(e) {
 if (is.null(df) || !nrow(df)) {
   say("   ok -- authorised, but GA returned no /cases/ rows for the window.")
   say("")
-  say("Credential works. No data yet: either the property saw no case-page")
-  say("traffic in the last 30 days, or this is the wrong property. The panel")
-  say("will stay hidden until there is traffic.")
+  say("The credential WORKS. The property just has no case-page traffic.")
+  say("Asking what it does see across the whole site:")
+  seen <- tryCatch(ga4_all_paths(prop, tok, days = 30L, limit = 10L),
+                   error = function(e) NULL)
+  if (is.null(seen) || !nrow(seen)) {
+    say("  (nothing at all -- no page views in the window on any path)")
+    say("")
+    say("Either this is not the property behind analytics.js, or no page is")
+    say("reporting to it. Check the Measurement ID under Admin -> Data streams")
+    say("matches the one in analytics.js.")
+  } else {
+    for (i in seq_len(nrow(seen))) say("  %6d  %s", seen$views[i], seen$path[i])
+    say("")
+    say("If no /cases/ path appears above, those pages are not loading")
+    say("/analytics.js. That was true before docket template v14; pages")
+    say("re-rendered at v14 or later carry it.")
+  }
   quit(status = 0)
 }
 say("   ok -- %d rows.", nrow(df))

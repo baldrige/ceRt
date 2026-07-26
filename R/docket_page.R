@@ -101,7 +101,13 @@ write_docket_css <- function(out_dir) {
 # v13: two-tier conference forecast (P(granted here) / P(granted ever)), a 95%
 # interval on the case-page estimate, and a GVR line scored at the conference the
 # petition actually faces rather than max() of every conference on the docket.
-PAGE_TEMPLATE_VERSION <- "v13"
+# v14: load /analytics.js, which every OTHER page on the site has carried since
+# 2026-07-17 but these did not -- the GA4 wiring covered the index/dashboard/
+# funnel generators and missed this one. The omission was invisible because
+# nothing reads the analytics data back, until the landing page's Most-Read
+# Cases panel asked GA which case pages were popular and correctly got nothing:
+# /cases/ had never reported a single view. See R/site_analytics.R.
+PAGE_TEMPLATE_VERSION <- "v14"
 
 # ---- small helpers ------------------------------------------------------------
 .esc <- function(x) { x <- x %||% ""; x[is.na(x)] <- ""; htmltools::htmlEscape(x) }
@@ -510,7 +516,11 @@ docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
   dkurl <- paste0("https://www.supremecourt.gov/search.aspx?filename=/docket/docketfiles/html/public/", dkt, ".html")
 
   page <- paste0(
-    "<!DOCTYPE html><html lang='en'><head><meta charset='utf-8'>",
+    "<!DOCTYPE html><html lang='en'><head>",
+    # Root-absolute so it resolves from /cases/ as well as the site root; async so
+    # it never blocks rendering. Same one line every other page carries.
+    "<script async src='/analytics.js'></script>",
+    "<meta charset='utf-8'>",
     "<meta name='viewport' content='width=device-width, initial-scale=1'>",
     # Machine-readable template-version stamp: the fill-throttled scanner reads it
     # to spot a page a version bump left behind (see fetch_missing_dockets.R).
