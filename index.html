@@ -45,6 +45,26 @@
     color:var(--ink-soft);text-decoration:none;font-variant-numeric:tabular-nums;
     border-bottom:1px solid var(--rule);padding-bottom:1px}
   ul.idx .recent a:hover{color:var(--oxblood);border-color:var(--oxblood)}
+  /* Optional panel beneath the section index (home page: most-read cases). */
+  .panel{margin:2.4rem 0 0}
+  .panel h2{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--oxblood);margin:0 0 .25rem}
+  .panel .pnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:0 0 .5rem}
+  ol.mostread{list-style:none;counter-reset:mr;padding:0;margin:0}
+  ol.mostread li{counter-increment:mr;border-bottom:1px solid var(--rule)}
+  ol.mostread a{display:flex;align-items:baseline;gap:.7rem;padding:.6rem .4rem;
+    text-decoration:none;color:inherit}
+  ol.mostread a:hover{background:rgba(138,43,43,.05)}
+  ol.mostread a::before{content:counter(mr);font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.95rem;color:var(--faint);min-width:1.1rem;
+    font-variant-numeric:tabular-nums}
+  ol.mostread .mc{flex:1;font-size:1rem;line-height:1.3}
+  ol.mostread a:hover .mc{color:var(--oxblood);text-decoration:underline;
+    text-underline-offset:3px}
+  ol.mostread .mdk{color:var(--oxblood);font-weight:600;font-size:.82rem;
+    font-variant-numeric:tabular-nums;white-space:nowrap}
+  ol.mostread .mv{color:var(--faint);font-size:.85rem;font-style:italic;
+    white-space:nowrap;font-variant-numeric:tabular-nums}
   .back{margin-top:2rem;font-size:.95rem}
   .back a{color:var(--sienna);text-decoration:none;
     border-bottom:1px solid rgba(181,101,29,.35)}
