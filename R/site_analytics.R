@@ -85,14 +85,42 @@ ga4_case_report <- function(property_id, token, days = 30L, limit = 200L) {
     req_body_json(body, auto_unbox = TRUE) |>
     req_retry(max_tries = 3) |>
     req_perform()
-  rows <- resp_body_json(resp)$rows
-  if (is.null(rows) || !length(rows)) return(NULL)
-  data.frame(
+  ga4_rows_to_df(resp_body_json(resp)$rows)
+}
+
+# Same query with no path filter: what GA sees across the whole site. Only used
+# to explain a zero /cases/ result, so it asks for views alone.
+ga4_all_paths <- function(property_id, token, days = 30L, limit = 10L) {
+  body <- list(
+    dateRanges = list(list(startDate = paste0(days, "daysAgo"), endDate = "yesterday")),
+    dimensions = list(list(name = "pagePath")),
+    metrics    = list(list(name = "screenPageViews")),
+    orderBys   = list(list(desc = TRUE, metric = list(metricName = "screenPageViews"))),
+    limit      = limit
+  )
+  resp <- request(sprintf("%s/properties/%s:runReport", GA4_DATA_URL, property_id)) |>
+    req_auth_bearer_token(token) |>
+    req_body_json(body, auto_unbox = TRUE) |>
+    req_retry(max_tries = 2) |>
+    req_perform()
+  ga4_rows_to_df(resp_body_json(resp)$rows, users = FALSE)
+}
+
+# An empty report is a zero-row frame, never NULL: callers use NULL to mean "the
+# request failed", and conflating the two is what let a silent empty result pass
+# for a working one.
+ga4_rows_to_df <- function(rows, users = TRUE) {
+  if (is.null(rows) || !length(rows))
+    return(data.frame(path = character(), views = integer(),
+                      users = integer(), stringsAsFactors = FALSE))
+  out <- data.frame(
     path  = vapply(rows, function(r) r$dimensionValues[[1]]$value, character(1)),
     views = as.integer(vapply(rows, function(r) r$metricValues[[1]]$value, character(1))),
-    users = as.integer(vapply(rows, function(r) r$metricValues[[2]]$value, character(1))),
-    stringsAsFactors = FALSE
-  )
+    stringsAsFactors = FALSE)
+  out$users <- if (users)
+    as.integer(vapply(rows, function(r) r$metricValues[[2]]$value, character(1)))
+  else NA_integer_
+  out
 }
 
 # "/cases/24-1122.html?utm_source=x#top" -> "24-1122". GA reports the path as
@@ -145,19 +173,57 @@ top_viewed_cases <- function(site_dir, n = 5L, days = 30L) {
     return(none)
   }
 
-  df <- tryCatch({
+  # Token and report are separate steps with separate failure meanings: a bad
+  # token is a credential problem, a failed report is an access or property-id
+  # problem. Keeping the token in scope also lets the zero-row branch below run
+  # its diagnostic query without minting a second one.
+  tok <- tryCatch({
     key <- jsonlite::fromJSON(raw, simplifyVector = TRUE)
-    ga4_case_report(prop, ga4_access_token(key), days = days)
+    ga4_access_token(key)
   }, error = function(e) {
+    warning("top_viewed_cases(): could not authenticate to GA4 (",
+            conditionMessage(e), ") -- skipping the most-read panel.", call. = FALSE)
+    NULL
+  })
+  if (is.null(tok)) return(none)
+
+  df <- tryCatch(ga4_case_report(prop, tok, days = days), error = function(e) {
     warning("top_viewed_cases(): GA4 query failed (", conditionMessage(e),
             ") -- skipping the most-read panel.", call. = FALSE)
     NULL
   })
-  if (is.null(df) || !nrow(df)) return(none)
+  # Authorised, but nothing came back. This returned silently in the first cut,
+  # which is precisely the wrong behaviour: an empty result and a broken
+  # credential then looked identical in the log, and the actual cause (case pages
+  # were not loading analytics.js at all, so /cases/ had never reported a view)
+  # took a log-archaeology session to find. Say what happened, and say what GA
+  # *does* see, so the next zero is self-diagnosing.
+  if (is.null(df)) return(none)             # request failed; already warned
+  if (!nrow(df)) {
+    message("top_viewed_cases(): GA4 returned no /cases/ rows for the last ",
+            days, " days. Querying all paths to show what it does see...")
+    seen <- tryCatch(ga4_all_paths(prop, tok, days = days, limit = 10L),
+                     error = function(e) NULL)
+    if (is.null(seen) || !nrow(seen)) {
+      message("  ...no page views at ALL in the window. Either the property is ",
+              "not the one behind analytics.js, or nothing is reporting to it.")
+    } else {
+      message("  ...top paths GA does see (none of them under /cases/):")
+      for (i in seq_len(nrow(seen)))
+        message(sprintf("    %6d  %s", seen$views[i], seen$path[i]))
+      message("  If /cases/ pages are missing here, check they load ",
+              "/analytics.js (added to the docket template in v14).")
+    }
+    return(none)
+  }
 
   df$docket <- case_docket_from_path(df$path)
   df <- df[!is.na(df$docket), , drop = FALSE]
-  if (!nrow(df)) return(none)
+  if (!nrow(df)) {
+    message("top_viewed_cases(): GA rows matched /cases/ but none parsed to a ",
+            "docket -- all were directory or malformed paths.")
+    return(none)
+  }
 
   # Collapse the query-string variants, then re-rank on the combined totals.
   agg <- stats::aggregate(cbind(views, users) ~ docket, data = df, FUN = sum)
