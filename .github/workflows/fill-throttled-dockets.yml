@@ -166,7 +166,11 @@ jobs:
           if git diff --cached --quiet; then
             echo "No changes to publish."
           else
-            git commit -m "Fill throttled docket pages (brief-cover backfill) $(date -u +%F)"
+            # Template version read from source, not hardcoded -- see the same
+            # note in rerender-dockets.yml.
+            tv=$(grep -oE 'PAGE_TEMPLATE_VERSION <- "v[0-9]+"' ../R/docket_page.R \
+                 | grep -oE 'v[0-9]+' | head -1)
+            git commit -m "Fill throttled docket pages (${tv:-template}) $(date -u +%F)"
             for i in 1 2 3 4 5; do
               if git push origin gh-pages; then exit 0; fi
               echo "push rejected; rebasing onto latest gh-pages (attempt $i)"

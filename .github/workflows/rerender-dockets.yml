@@ -166,7 +166,12 @@ jobs:
           if git diff --cached --quiet; then
             echo "No changes to publish."
           else
-            git commit -m "Re-render docket pages (brief-cover backfill) $(date -u +%F)"
+            # Read the template version from source rather than hardcoding it:
+            # this message said "(brief-cover backfill)" -- the v8 change -- for
+            # six bumps, so git history mislabelled what every later run shipped.
+            tv=$(grep -oE 'PAGE_TEMPLATE_VERSION <- "v[0-9]+"' ../R/docket_page.R \
+                 | grep -oE 'v[0-9]+' | head -1)
+            git commit -m "Re-render docket pages (${tv:-template}) $(date -u +%F)"
             # gh-pages also receives daily / conference pushes; rebase-and-retry so
             # a concurrent push can't drop this one. This job only touches cases/,
             # so the rebase is conflict-free against those other sections.
