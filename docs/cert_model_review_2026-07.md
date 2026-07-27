@@ -73,18 +73,23 @@ load-bearing for `pro_se` (0 grants in 3,016), which was added later.
 Recorded so it is not re-litigated. Each was tested, not assumed.
 
 **These verdicts have a shelf life.** Everything below was measured *during* the
-July 2026 pass — but that same pass changed two things underneath the
-measurements: the conference tier moved from the disposition corpus to the
-at-risk panel, and `set_target()` re-defined negatives as
-`denied|gvr|dismissed`. Both invalidate earlier numbers, and the second one
-moves **average precision** far more than AUC, because AP is prevalence-
-sensitive. Two verdicts have already been found stale on re-test
+July 2026 pass, which changed the ground underneath its own measurements: the
+conference tier moved from the disposition corpus to the at-risk panel, and
+`set_target()` re-defined negatives as `denied|gvr|dismissed`. Two verdicts have
+since been found stale on the panel
 ([#15](https://github.com/baldrige/ceRt/issues/15),
-[#17](https://github.com/baldrige/ceRt/issues/17)), one of them on the corpus
-rather than the panel — so the frame change is not the only culprit.
+[#17](https://github.com/baldrige/ceRt/issues/17)) — in both cases a feature
+judged worthless is worth having there.
 
-Treat any row decided on a small AP margin as unconfirmed until re-run. The
-**re-tested** column records when a row was last checked against the shipped
+**And the evaluation itself is load-bearing.** These verdicts are LOTO numbers.
+LOTO is out-of-*fold*, not out-of-*time*: it lets later Terms inform earlier
+predictions. Re-testing #17 under a rolling origin reversed the re-test — a
++0.0043 AP corpus "gain" became −0.0008 with a CI straddling zero, while the
+panel gain survived and grew. Any margin near ±0.005 AP should be confirmed
+out-of-time with an interval before it is believed, in either direction. That
+applies to the original verdicts and to anything that overturns one.
+
+The **re-tested** column records when a row was last checked against the shipped
 artifacts; blank means not since the pass itself.
 
 | Proposal | Verdict | Re-tested |
@@ -92,7 +97,7 @@ artifacts; blank means not since the pass itself.
 | Ridge / glmnet | LOTO ΔAUC +0.0007 baseline, −0.0001 enhanced. The rolling-origin "win" is entirely a small-training-window artifact: the gap closes from +0.024 at n=1,041 to +0.001 at n=10,407, which is where we sit. | **2026-07-27: holds.** corpus −0.0024 AUC / +0.0050 AP; panel −0.0006 / +0.0004. Still noise. |
 | Collapsing / partial-pooling the 13 circuits | Predictively a coin flip (LOTO 0.9285 vs 0.9301), and `mgcv::gam` breaks the `strip_glm()`/`model.matrix()` serving path. Keep as an interpretive caution: only 15 of 78 pairwise circuit contrasts reach \|z\|>1.96. | **Figure is stale.** 0.9285/0.9301 matches no current model (baseline 0.863, at-risk 0.875) — it came from a frame or target that no longer exists. The rejection stands on the serving-path breakage, not on the number. |
 | Fixing `elite_counsel` as a *feature* | Worth −0.0006 AUC once `counsel_tier` exists. Keep the extractor (counsel_tier is built on it) and the guard; drop the feature. | **2026-07-27: holds** (+0.0005 AUC / +0.0002 AP, panel). But it is no longer constant — 674 TRUE / 15,659 FALSE after the schema-tolerance fix — so "dead at source" is no longer the reason. |
-| `dissent_argued` / `enbanc_dissent` | Drop-one −0.0034 AUC but **+0.0033 AP** — removing them improves average precision. | **2026-07-27: REVERSED — [#17](https://github.com/baldrige/ceRt/issues/17).** Adding them is +0.0042 AUC / +0.0043 AP (corpus) and +0.0049 / +0.0129 (panel). The AUC half replicated; the AP half — the ground for rejection — inverted. |
+| `dissent_argued` / `enbanc_dissent` | Drop-one −0.0034 AUC but **+0.0033 AP** — removing them improves average precision. | **2026-07-27: frame-dependent — [#17](https://github.com/baldrige/ceRt/issues/17).** Under rolling origin with a paired bootstrap: **no AP effect on the corpus** (−0.0008, 95% CI [−0.0148, +0.0141]), but a real gain on the panel from `dissent_level` alone (**+0.0152, CI [+0.0051, +0.0268]**). LOTO flattered the corpus case (+0.0043) because it lets later Terms inform earlier predictions; that half does not survive out-of-time. Verdict stands for the baseline surface; overturned for the at-risk surface, where #15 blocks it anyway. `enbanc_dissent` dilutes rather than helps (n=165). |
 | QP issue area | Strong alone (+0.028 AUC), not significant jointly (drop-one CI [−0.002, +0.012], P=0.928) once `counsel_tier`, `pro_se` and `gap` are present. Highest infrastructure cost of anything proposed. Deferred, not rejected — retest now that those have shipped. | Not re-tested — needs the QP extraction infrastructure. |
 | Censoring / IPCW correction | Dropping the censored term *costs* ~2.4% AP. Censoring is close to ignorable conditional on relists, which the model already conditions on. | Not re-tested — needs the censored-term construction. |
 | Amicus side (petitioner vs respondent) | **Dead at the source.** Of 5,604 pre-decision amicus entries, 27 name a side and *none* name the petitioner; the side-naming form is a merits-stage entry. Removed from the roadmap. A naive whole-docket match reads post-grant merits briefs and looks spectacular in-sample — a leakage tripwire, not a feature. | Structural, cannot drift: the side-naming form does not exist pre-decision. |
@@ -121,13 +126,15 @@ Tracked, not forgotten. All three ship in the current model.
   `individual`); the residual rate after the fix is unmeasured.
 - **`hold_signal()` tier 2 is now reachable but unvalidated.** It never fired
   before, so there is no history of it doing anything useful.
-- **Two rows of the rejected table have since been overturned**
-  ([#15](https://github.com/baldrige/ceRt/issues/15),
+- **Two rows of the rejected table have since been overturned on the at-risk
+  panel** ([#15](https://github.com/baldrige/ceRt/issues/15),
   [#17](https://github.com/baldrige/ceRt/issues/17)), and seven were never
-  re-run. Neither is a defect in what ships — they are lift not taken — but the
-  pattern is that a verdict recorded during a pass that was itself changing the
-  training frame and the target definition cannot be trusted afterwards without
-  re-measurement. The re-tested column says which have been.
+  re-run. Neither is a defect in what ships — they are lift not taken, and both
+  land on the surface #15 blocks. The transferable part is method rather than
+  result: a verdict recorded during a pass that was itself moving the training
+  frame needs re-measurement, and an LOTO margin near ±0.005 AP needs an
+  out-of-time interval before it is believed. The first re-test of #17 produced
+  a confident reversal that a rolling origin then withdrew.
 
 ## Process notes
 
