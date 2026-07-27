@@ -72,22 +72,37 @@ load-bearing for `pro_se` (0 grants in 3,016), which was added later.
 
 Recorded so it is not re-litigated. Each was tested, not assumed.
 
-| Proposal | Verdict |
-|---|---|
-| Ridge / glmnet | LOTO ΔAUC +0.0007 baseline, −0.0001 enhanced. The rolling-origin "win" is entirely a small-training-window artifact: the gap closes from +0.024 at n=1,041 to +0.001 at n=10,407, which is where we sit. |
-| Collapsing / partial-pooling the 13 circuits | Predictively a coin flip (LOTO 0.9285 vs 0.9301), and `mgcv::gam` breaks the `strip_glm()`/`model.matrix()` serving path. Keep as an interpretive caution: only 15 of 78 pairwise circuit contrasts reach \|z\|>1.96. |
-| Fixing `elite_counsel` as a *feature* | Worth −0.0006 AUC once `counsel_tier` exists. Keep the extractor (counsel_tier is built on it) and the guard; drop the feature. |
-| `dissent_argued` / `enbanc_dissent` | Drop-one −0.0034 AUC but **+0.0033 AP** — removing them improves average precision. |
-| QP issue area | Strong alone (+0.028 AUC), not significant jointly (drop-one CI [−0.002, +0.012], P=0.928) once `counsel_tier`, `pro_se` and `gap` are present. Highest infrastructure cost of anything proposed. Deferred, not rejected — retest now that those have shipped. |
-| Censoring / IPCW correction | Dropping the censored term *costs* ~2.4% AP. Censoring is close to ignorable conditional on relists, which the model already conditions on. |
-| Amicus side (petitioner vs respondent) | **Dead at the source.** Of 5,604 pre-decision amicus entries, 27 name a side and *none* name the petitioner; the side-naming form is a merits-stage entry. Removed from the roadmap. A naive whole-docket match reads post-grant merits briefs and looks spectacular in-sample — a leakage tripwire, not a feature. |
-| SG's post-CVSG position as a feature | The raw contingency is dramatic (0 grants among CVSG-outstanding, 36 among answered) and it still buys nothing: ΔAUC +0.0000, ΔAP −0.0019. n is too small. |
-| Term trend | The grant rate does not trend (4.07–5.14% across eight terms). Nothing to extrapolate. |
-| Conference-calendar position in the terminal model | Null (a long-conference flag moves AUC by 0.0001). It *is* real for the hazard — the conference-level gap is 3.95× — which is re-timing, so `phase` belongs in the competing-risks model and nowhere else. |
-| Expanding-window OOF as the calibrator basis | Worst of seven calibration methods (slope 1.366). |
-| Rolling-origin instead of LOTO | Reproduces LOTO to within 0.003 AUC. Not worth rebuilding the evaluation — but LOTO is out-of-*fold*, not out-of-time, and the docs said otherwise. |
-| Platt-vs-refit scale mismatch | Real in principle, ≤4pp in practice, direction conservative. Term-to-term drift dwarfs it. |
-| Alternative calibrators (7 tested) | Total spread 0.0004 Brier. Not where the problem was. |
+**These verdicts have a shelf life.** Everything below was measured *during* the
+July 2026 pass — but that same pass changed two things underneath the
+measurements: the conference tier moved from the disposition corpus to the
+at-risk panel, and `set_target()` re-defined negatives as
+`denied|gvr|dismissed`. Both invalidate earlier numbers, and the second one
+moves **average precision** far more than AUC, because AP is prevalence-
+sensitive. Two verdicts have already been found stale on re-test
+([#15](https://github.com/baldrige/ceRt/issues/15),
+[#17](https://github.com/baldrige/ceRt/issues/17)), one of them on the corpus
+rather than the panel — so the frame change is not the only culprit.
+
+Treat any row decided on a small AP margin as unconfirmed until re-run. The
+**re-tested** column records when a row was last checked against the shipped
+artifacts; blank means not since the pass itself.
+
+| Proposal | Verdict | Re-tested |
+|---|---|---|
+| Ridge / glmnet | LOTO ΔAUC +0.0007 baseline, −0.0001 enhanced. The rolling-origin "win" is entirely a small-training-window artifact: the gap closes from +0.024 at n=1,041 to +0.001 at n=10,407, which is where we sit. | **2026-07-27: holds.** corpus −0.0024 AUC / +0.0050 AP; panel −0.0006 / +0.0004. Still noise. |
+| Collapsing / partial-pooling the 13 circuits | Predictively a coin flip (LOTO 0.9285 vs 0.9301), and `mgcv::gam` breaks the `strip_glm()`/`model.matrix()` serving path. Keep as an interpretive caution: only 15 of 78 pairwise circuit contrasts reach \|z\|>1.96. | **Figure is stale.** 0.9285/0.9301 matches no current model (baseline 0.863, at-risk 0.875) — it came from a frame or target that no longer exists. The rejection stands on the serving-path breakage, not on the number. |
+| Fixing `elite_counsel` as a *feature* | Worth −0.0006 AUC once `counsel_tier` exists. Keep the extractor (counsel_tier is built on it) and the guard; drop the feature. | **2026-07-27: holds** (+0.0005 AUC / +0.0002 AP, panel). But it is no longer constant — 674 TRUE / 15,659 FALSE after the schema-tolerance fix — so "dead at source" is no longer the reason. |
+| `dissent_argued` / `enbanc_dissent` | Drop-one −0.0034 AUC but **+0.0033 AP** — removing them improves average precision. | **2026-07-27: REVERSED — [#17](https://github.com/baldrige/ceRt/issues/17).** Adding them is +0.0042 AUC / +0.0043 AP (corpus) and +0.0049 / +0.0129 (panel). The AUC half replicated; the AP half — the ground for rejection — inverted. |
+| QP issue area | Strong alone (+0.028 AUC), not significant jointly (drop-one CI [−0.002, +0.012], P=0.928) once `counsel_tier`, `pro_se` and `gap` are present. Highest infrastructure cost of anything proposed. Deferred, not rejected — retest now that those have shipped. | Not re-tested — needs the QP extraction infrastructure. |
+| Censoring / IPCW correction | Dropping the censored term *costs* ~2.4% AP. Censoring is close to ignorable conditional on relists, which the model already conditions on. | Not re-tested — needs the censored-term construction. |
+| Amicus side (petitioner vs respondent) | **Dead at the source.** Of 5,604 pre-decision amicus entries, 27 name a side and *none* name the petitioner; the side-naming form is a merits-stage entry. Removed from the roadmap. A naive whole-docket match reads post-grant merits briefs and looks spectacular in-sample — a leakage tripwire, not a feature. | Structural, cannot drift: the side-naming form does not exist pre-decision. |
+| SG's post-CVSG position as a feature | The raw contingency is dramatic (0 grants among CVSG-outstanding, 36 among answered) and it still buys nothing: ΔAUC +0.0000, ΔAP −0.0019. n is too small. | Not re-tested — needs the CVSG-answered subset. |
+| Term trend | The grant rate does not trend (4.07–5.14% across eight terms). Nothing to extrapolate. | **2026-07-27: holds.** No monotone trend on either frame. Ranges have moved: corpus 3.73–4.96%, panel 6.74–9.02%. |
+| Conference-calendar position in the terminal model | Null (a long-conference flag moves AUC by 0.0001). It *is* real for the hazard — the conference-level gap is 3.95× — which is re-timing, so `phase` belongs in the competing-risks model and nowhere else. | **2026-07-27: holds.** panel −0.0006 AUC / −0.0031 AP. |
+| Expanding-window OOF as the calibrator basis | Worst of seven calibration methods (slope 1.366). | Not re-tested — needs the calibrator harness. |
+| Rolling-origin instead of LOTO | Reproduces LOTO to within 0.003 AUC. Not worth rebuilding the evaluation — but LOTO is out-of-*fold*, not out-of-time, and the docs said otherwise. | Not re-tested — needs the rolling-origin harness. |
+| Platt-vs-refit scale mismatch | Real in principle, ≤4pp in practice, direction conservative. Term-to-term drift dwarfs it. | Not re-tested. |
+| Alternative calibrators (7 tested) | Total spread 0.0004 Brier. Not where the problem was. | Not re-tested — needs the calibrator harness. |
 
 ## Known issues
 
@@ -106,6 +121,13 @@ Tracked, not forgotten. All three ship in the current model.
   `individual`); the residual rate after the fix is unmeasured.
 - **`hold_signal()` tier 2 is now reachable but unvalidated.** It never fired
   before, so there is no history of it doing anything useful.
+- **Two rows of the rejected table have since been overturned**
+  ([#15](https://github.com/baldrige/ceRt/issues/15),
+  [#17](https://github.com/baldrige/ceRt/issues/17)), and seven were never
+  re-run. Neither is a defect in what ships — they are lift not taken — but the
+  pattern is that a verdict recorded during a pass that was itself changing the
+  training frame and the target definition cannot be trusted afterwards without
+  re-measurement. The re-tested column says which have been.
 
 ## Process notes
 
