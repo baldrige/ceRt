@@ -32,6 +32,25 @@ GA4_TOKEN_URL <- "https://oauth2.googleapis.com/token"
 GA4_DATA_URL  <- "https://analyticsdata.googleapis.com/v1beta"
 GA4_SCOPE     <- "https://www.googleapis.com/auth/analytics.readonly"
 
+# Publishing floor for the most-read panel.
+#
+# A ranking asserts an order, and an order is only real if readers produced it.
+# On the first day of case-page analytics the top five were 6, 2, 1, 1 and 1
+# views -- so positions three through five were decided by the docket-number
+# tiebreak in this file, not by anyone reading. Labelling that "limited data"
+# would not have helped: a caveat can qualify an estimate, but it cannot make an
+# ordering exist. For rankings the honest move is to withhold.
+#
+# The two per-entry gates fail differently and are both needed. MIN_USERS rules
+# out one person (or one JS-executing crawler) generating the whole ranking;
+# MIN_VIEWS rules out three people who each glanced once. Either alone is easy
+# to satisfy by accident.
+#
+# Raise these as traffic grows -- they are deliberately a one-line edit.
+MOST_READ_MIN_USERS   <- 3L  # distinct readers required, per entry
+MOST_READ_MIN_VIEWS   <- 5L  # page views required, per entry
+MOST_READ_MIN_ENTRIES <- 3L  # below this it is a coincidence, not a list
+
 # Mint a short-lived access token from a service-account key using the JWT-bearer
 # flow: sign a claim set with the account's private key, trade it for a token.
 # No user interaction, which is what makes this work unattended in CI.
@@ -235,10 +254,31 @@ top_viewed_cases <- function(site_dir, n = 5L, days = 30L) {
   agg <- agg[!is.na(agg$caption) & nzchar(agg$caption), , drop = FALSE]
   if (!nrow(agg)) return(none)
 
+  # Apply the publishing floor, and say so loudly when it bites. A panel that is
+  # dark because the data is thin has to be distinguishable in the log from one
+  # that is dark because something broke -- three bugs in this pipeline have now
+  # been silent absences rather than errors, and a quiet threshold would be a
+  # fourth. Entries that clear the floor are shown even if fewer than `n` do, so
+  # the panel appears as soon as it is true rather than switching on all at once.
+  n_seen <- nrow(agg)
+  qualifies <- agg$users >= MOST_READ_MIN_USERS & agg$views >= MOST_READ_MIN_VIEWS
+  if (sum(qualifies) < MOST_READ_MIN_ENTRIES) {
+    top <- utils::head(agg, 3L)
+    message(sprintf(
+      paste0("top_viewed_cases(): panel SUPPRESSED -- %d of %d case pages clear ",
+             "the floor (>=%d users AND >=%d views); need >=%d. Best so far: %s"),
+      sum(qualifies), nrow(agg), MOST_READ_MIN_USERS, MOST_READ_MIN_VIEWS,
+      MOST_READ_MIN_ENTRIES,
+      paste(sprintf("%s (%d views / %d users)", top$docket, top$views, top$users),
+            collapse = ", ")))
+    return(none)
+  }
+  agg <- agg[qualifies, , drop = FALSE]
+
   out <- utils::head(agg, n)
   out$href <- paste0("cases/", out$docket, ".html")
-  message(sprintf("top_viewed_cases(): %d case pages in GA over %dd; top %d: %s",
-                  nrow(agg), days, nrow(out),
+  message(sprintf("top_viewed_cases(): %d of %d case pages clear the floor over %dd; showing %d: %s",
+                  nrow(agg), n_seen, days, nrow(out),
                   paste(sprintf("%s (%d views / %d users)", out$docket, out$views, out$users),
                         collapse = ", ")))
   rownames(out) <- NULL
