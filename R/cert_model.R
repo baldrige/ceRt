@@ -729,10 +729,26 @@ PROCESS_FEATURES <- c("relist_bucket", "amicus_bucket", "cvsg",
 # The BASELINE (daily / petition-stage) model adds the Rule 10 signals to the
 # structural set -- both are knowable the day a petition is docketed, and the
 # dissent/split cues are the biggest lever a structural model has. The ENHANCED
-# (conference-stage) model instead adds the process signals; it deliberately
-# does NOT use the petition signals (they add ~no lift once relists/amicus exist,
-# and the conference renderer doesn't parse petition PDFs, so leaving them out
-# avoids a train/serve mismatch).
+# (conference-stage) model instead adds the process signals. The two feature sets
+# are NOT nested, and the two omissions from ENHANCED have different reasons:
+#
+#  * counsel_tier is redundant here, not unavailable. The panel carries it and
+#    the conference renderer already receives counsel_index, but adding it costs
+#    -0.0025 AUC / -0.0033 AP out-of-fold, and its coefficients collapse
+#    (counsel_tierwon +1.41 in BASELINE -> +0.41 beside the process features). An
+#    elite advocate's effect IS the docket behaviour -- responses requested,
+#    amicus support, relists -- so conditioning on those absorbs it.
+#
+#  * The petition signals are held out for SERVING, not for lack of signal. An
+#    earlier version of this comment said they add "~no lift once relists/amicus
+#    exist"; that was measured before the conference tier was re-targeted from
+#    the disposition corpus to the at-risk panel, and is no longer true. On the
+#    panel they are worth +0.012 AUC / +0.043 AP, with split_argued carrying
+#    +1.07 log-odds alongside every process feature. They stay out because the
+#    conference renderer does not parse petition PDFs and does not read
+#    petition_signals_cache.json -- training on a cue that arrives as a default
+#    at serve time is exactly how elite_counsel shipped dead. Recovering the lift
+#    means fixing serve-time coverage first: see issue #15.
 BASELINE_FEATURES <- c(STRUCTURAL_FEATURES, COUNSEL_FEATURES, PETITION_SIGNAL_FEATURES)
 ENHANCED_FEATURES <- c(STRUCTURAL_FEATURES, PROCESS_FEATURES)
 
