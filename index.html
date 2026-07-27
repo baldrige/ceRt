@@ -105,9 +105,9 @@
         </a>
         <div class="recent">
           <span class="rlabel">Latest</span>
+          <a href="dashboards/dash_2026-07-27.html">Jul 27</a>
           <a href="dashboards/dash_2026-07-25.html">Jul 25</a>
           <a href="dashboards/dash_2026-07-24.html">Jul 24</a>
-          <a href="dashboards/dash_2026-07-23.html">Jul 23</a>
         </div>
       </li>
       <li>
@@ -147,6 +147,42 @@
         </a>
       </li>
     </ul>
+    <section class="panel">
+      <h2>Most-Read Cases</h2>
+      <p class="pnote">Ranked by page views over the 30 days ending July 26, 2026.</p>
+      <ol class="mostread">
+        <li>
+          <a href="cases/25-238.html">
+            <span class="mc">Cutberto Viramontes, et al. v. Cook County, Illinois, et al.</span>
+            <span class="mdk">No. 25-238</span>
+          </a>
+        </li>
+        <li>
+          <a href="cases/25-566.html">
+            <span class="mc">Eddie Grant, Jr., et al. v. Ronnell Higgins, in His Official Capacity as Commissioner of the Connecticut Department of Emergency Services and Public Transportation, et al.</span>
+            <span class="mdk">No. 25-566</span>
+          </a>
+        </li>
+        <li>
+          <a href="cases/24-1097.html">
+            <span class="mc">Monsanto Company, a Foreign Corporation v. Nancy C. Salas</span>
+            <span class="mdk">No. 24-1097</span>
+          </a>
+        </li>
+        <li>
+          <a href="cases/24-1122.html">
+            <span class="mc">Robin Root v. Jeremy Howard, Warden</span>
+            <span class="mdk">No. 24-1122</span>
+          </a>
+        </li>
+        <li>
+          <a href="cases/24-1329.html">
+            <span class="mc">George Bivens, Acting Commissioner, Pennsylvania State Police v. Second Amendment Foundation, et al.</span>
+            <span class="mdk">No. 24-1329</span>
+          </a>
+        </li>
+      </ol>
+    </section>
     <script>(function(){var q=document.getElementById('cq'),r=document.getElementById('cres'),E=null,t;function esc(s){return s.replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c];});}function load(){if(E)return;q.classList.add('loading');fetch('cases/search.json').then(function(x){return x.json();}).then(function(j){E=Object.keys(j).map(function(d){return [d,j[d],d.toLowerCase(),j[d].toLowerCase()];});q.classList.remove('loading');run();}).catch(function(){q.classList.remove('loading');});}q.addEventListener('focus',load);q.addEventListener('input',function(){clearTimeout(t);t=setTimeout(run,110);});function run(){var s=q.value.trim().toLowerCase();if(!s||!E){r.innerHTML='';return;}var o=[],n=0;for(var i=0;i<E.length;i++){if(E[i][2].indexOf(s)>-1||E[i][3].indexOf(s)>-1){o.push(E[i]);if(++n>=40)break;}}r.innerHTML=o.length?o.map(function(e){return "<li><a href='cases/"+e[0]+".html'><span class='cd'>No. "+e[0]+"</span>"+esc(e[1])+"</a></li>";}).join(''):"<li class='cnone'>No matching cases.</li>";}})();</script>
   </main>
 </body>
