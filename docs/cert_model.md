@@ -117,6 +117,17 @@ Notes on specification, all of them learned the hard way:
   petitions got a court contribution of exactly zero and published ~10% where
   ~3.5% is honest. `pro_se` (0 grants in 3,016) is likewise finite only under
   Firth.
+- **The two tiers are not nested, on purpose.** The conference tier is not the
+  petition tier plus process signals — it drops `counsel_tier` and the Rule 10
+  cues, for different reasons. `counsel_tier` is genuinely *redundant* there:
+  adding it costs −0.0025 AUC / −0.0033 AP out-of-fold and its coefficients
+  collapse (`counsel_tierwon` +1.41 → +0.41), because an elite advocate's effect
+  is mediated by the docket behaviour the process features already capture. The
+  Rule 10 cues are a different story — they are worth **+0.012 AUC / +0.043 AP**
+  on the at-risk panel, and are held out only because the conference renderer
+  cannot compute them (no PDF parsing, no `petition_signals_cache.json`).
+  Training on a cue that arrives as a default at serve time is the
+  `elite_counsel` failure below, wearing a different hat. See issue #15.
 - **`elite_counsel` was removed.** It matched a fixed list of ~13 advocates and
   was worth −0.0006 AUC once `counsel_tier` existed. It had also been silently
   dead: the extractor read the live parties schema, the archives use a different
