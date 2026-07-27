@@ -12,6 +12,11 @@ models serve two surfaces:
 Code: `R/cert_model.R` · training driver `.github/scripts/train_cert_model.R` ·
 labels from `classify_petitions()` in `R/cert_funnel.R`.
 
+**Every coefficient, with standard errors, significance and odds ratios:**
+[`docs/cert_model_reference.html`](cert_model_reference.html) — regenerate from
+the deployed artifacts with `Rscript docs/make_model_reference.R` after any
+retrain, so it never drifts from what is actually being served.
+
 ## Why this is a calibration problem, not a classification problem
 
 Paid petitions are granted ~4% of the time; IFP petitions ~0.1%. A model that
