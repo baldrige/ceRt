@@ -51,6 +51,12 @@ site, partitioned so they never fight over the same paths.
   over the trailing 30 days, read from GA4 (`R/site_analytics.R`). Unset,
   failing, or credential-expired, the panel is omitted and the build is
   otherwise unchanged; it never fails the daily.
+  A **publishing floor** gates it: each entry needs ≥3 distinct readers and ≥5
+  views, and ≥3 entries must clear that before anything renders (fewer than 5
+  qualifying entries renders fewer than 5, not nothing). Below the floor the
+  ordering would be produced by the docket-number tiebreak rather than by
+  readers. Suppression is logged with the counts that failed it, so a dark panel
+  is always distinguishable from a broken one.
 - **Guard:** `fetch_is_degraded(tol=0.1)` — if >10% of dockets were lost to
   throttling it `quit(0)`s and publishes nothing (site unchanged).
 - **Scope caveat:** only the current term's ~150 most-recent pages. A
