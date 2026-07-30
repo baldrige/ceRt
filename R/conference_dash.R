@@ -172,7 +172,7 @@ conference_forecast <- function(d, conf_date, models) {
 # historical pages stay clean). Returns the output path (invisibly), or NULL.
 conference_dash <- function(dist, conf_date,
                             out_dir = path.expand("~/public_html/conferences"),
-                            qp_map = NULL, models = NULL) {
+                            qp_map = NULL, models = NULL, pnav = "") {
   dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
   conf_date <- as.Date(conf_date)
 
@@ -322,6 +322,9 @@ conference_dash <- function(dist, conf_date,
       kicker = "Supreme Court of the United States",
       title = paste0("Conference of ", format(conf_date, "%B %d, %Y")),
       dek = dek, n_rows = nrow(tbl), left_cols = left_cols, footer = footer,
+      active = "/conferences/", pnav = pnav,
+      crumb = list(label = format(conf_date, "%B %d, %Y"),
+                   section = list(href = "/conferences/", label = "Conferences")),
       back = list(href = "index.html", label = "&larr; All conference reports"))
 
   invisible(file.path(out_dir, str_c("conf_", conf_date, ".html")))
@@ -358,8 +361,12 @@ conference_index <- function(out_dir = path.expand("~/public_html/conferences"))
     heading = "Conference Reports",
     dek = "What the Justices consider at each private conference, sorted by relists.",
     items = items,
-    back = list(href = "../", label = "← All dashboards")
+    active = "/conferences/"   # was back = "← All dashboards" -> "/" (wrong both ways)
   )
+  patch_prev_next(out_dir, "^conf_\\d{4}-\\d{2}-\\d{2}\\.html$", "conference",
+                  key   = function(f) as.Date(str_extract(f, "\\d{4}-\\d{2}-\\d{2}")),
+                  label = function(f) format(as.Date(str_extract(f, "\\d{4}-\\d{2}-\\d{2}")),
+                                             "%B %d, %Y"))
   invisible(file.path(out_dir, "index.html"))
 }
 

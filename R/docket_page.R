@@ -19,36 +19,57 @@
 
 suppressPackageStartupMessages({ library(tidyverse); library(htmltools) })
 
+# Sitewide nav. Loaded here as well as from page_style.R because the backfill and
+# re-render entry points source THIS file without that one, and a case page that
+# silently lost its masthead would be indistinguishable from one that never had
+# it -- which is the bug this whole change exists to fix.
+local({
+  here <- tryCatch(dirname(sys.frame(1)$ofile), error = function(e) NA)
+  f <- if (!is.na(here) && file.exists(file.path(here, "site_nav.R")))
+    file.path(here, "site_nav.R")
+  else if (file.exists("R/site_nav.R")) "R/site_nav.R" else "site_nav.R"
+  sys.source(f, envir = globalenv())
+})
+
 # ---- shared stylesheet (written once per output dir) --------------------------
-DOCKET_CSS <- ":root{--paper:#f3ecdd;--panel:#f7f1e4;--ink:#23262d;--soft:#5f5847;--faint:#8a8271;--ox:#8a2b2b;--rule:#d8cdb4;--sienna:#b5651d;--c-white:#fff;--c-orange:#e07b1f;--c-cream:#efe1a8;--c-tan:#c8a56b;--c-blue:#7fa8cf;--c-red:#cf5f5f;--c-lgreen:#7fb069;--c-dgreen:#2f6b3d;--c-yellow:#e9cb3f;--c-neutral:#bcae90}
+# Token names match page_style.R's INDEX_CSS: this file and interactive_theme.R
+# spelled the accent --ox and the muted ink --soft, page_style.R spelled the same
+# two values --oxblood and --ink-soft. A nav component shared across all three
+# cannot carry two spellings of its own accent colour, so the short pair is gone.
+#
+# --faint and --sienna are also re-valued here: at #8a8271 (3.24:1 on --paper)
+# and #b5651d (3.69:1) both failed WCAG AA for normal text, and --sienna colours
+# .tl-docs a -- the links to the actual briefs, on all 55k case pages. The new
+# values are the lightest that clear 4.5:1. See docs/navigation.md.
+DOCKET_CSS <- ":root{--paper:#f3ecdd;--panel:#f7f1e4;--ink:#23262d;--ink-soft:#5f5847;--faint:#716b5d;--oxblood:#8a2b2b;--rule:#d8cdb4;--sienna:#a0591a;--nav-max:54rem;--c-white:#fff;--c-orange:#e07b1f;--c-cream:#efe1a8;--c-tan:#c8a56b;--c-blue:#7fa8cf;--c-red:#cf5f5f;--c-lgreen:#7fb069;--c-dgreen:#2f6b3d;--c-yellow:#e9cb3f;--c-neutral:#bcae90}
 *{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
 body{font-family:'Newsreader',Georgia,serif;font-size:19px;line-height:1.6;color:var(--ink);background:var(--paper);margin:0;font-feature-settings:'onum' 1}
 body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.5;mix-blend-mode:multiply;background-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E\")}
 .case{max-width:54rem;margin:0 auto;padding:2.8rem 1.5rem 4rem}
-a{color:var(--ox)}
-.kicker{font:600 .74rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;color:var(--ox);margin:0 0 .8rem}
+a{color:var(--oxblood)}
+.kicker{font:600 .74rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;color:var(--oxblood);margin:0 0 .8rem}
 h1{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:clamp(1.8rem,4.5vw,2.8rem);line-height:1.05;letter-spacing:-.015em;margin:0 0 .5rem}
-.posture{font-size:1.02rem;color:var(--soft);margin:.2rem 0 0}
+.posture{font-size:1.02rem;color:var(--ink-soft);margin:.2rem 0 0}
 .brule{border:0;border-top:2px solid var(--ink);margin:1.2rem 0 1.4rem;position:relative}
 .brule::after{content:'';position:absolute;left:0;top:4px;width:100%;border-top:1px solid var(--rule)}
-h2{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;text-transform:uppercase;letter-spacing:.12em;color:var(--ox);margin:2rem 0 .7rem;padding-bottom:.35rem;border-bottom:1px solid var(--rule)}
+h2{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;text-transform:uppercase;letter-spacing:.12em;color:var(--oxblood);margin:2rem 0 .7rem;padding-bottom:.35rem;border-bottom:1px solid var(--rule)}
 h3{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:.82rem;text-transform:uppercase;letter-spacing:.14em;color:var(--faint);margin:0 0 .6rem}
 p{margin:.5rem 0}
-.disp{display:flex;align-items:center;gap:1.2rem;background:var(--panel);border:1px solid var(--rule);border-left:4px solid var(--ox);padding:1rem 1.3rem;margin:.4rem 0 0}
-.disp-num{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:2.9rem;line-height:.9;color:var(--ox);white-space:nowrap}
+.disp{display:flex;align-items:center;gap:1.2rem;background:var(--panel);border:1px solid var(--rule);border-left:4px solid var(--oxblood);padding:1rem 1.3rem;margin:.4rem 0 0}
+.disp-num{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:2.9rem;line-height:.9;color:var(--oxblood);white-space:nowrap}
 .disp-lab{font-size:.98rem;color:var(--ink)}
 .disp-lab span{color:var(--faint);font-size:.86rem}
-.disp-sig{font-size:.9rem;color:var(--soft);font-style:italic;margin-top:.15rem}
+.disp-sig{font-size:.9rem;color:var(--ink-soft);font-style:italic;margin-top:.15rem}
 .disp-sub{font-size:.86rem;color:var(--faint);margin-top:.15rem}
-.disp-word{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.5rem;color:var(--ox);line-height:1.1}
-.forecast-why{margin:.55rem 0 0;font-size:.95rem;line-height:1.5;color:var(--soft);max-width:46rem}
+.disp-word{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.5rem;color:var(--oxblood);line-height:1.1}
+.forecast-why{margin:.55rem 0 0;font-size:.95rem;line-height:1.5;color:var(--ink-soft);max-width:46rem}
 .disp-word a{color:inherit;text-decoration:underline;text-decoration-color:rgba(138,43,43,.4);text-underline-offset:4px}
 .qp{font-size:1.05rem;line-height:1.55}.qp ol,.qp ul{padding-left:1.2rem;margin:.3rem 0}.qp li{margin:.35rem 0}.qp p{margin:.4rem 0}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:1.6rem}
 .panel{background:var(--panel);border:1px solid var(--rule);padding:1rem 1.2rem}
 .panel.wide{grid-column:1/-1}
 .side{font:600 .72rem/1.3 'Newsreader';letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
-.cslot{margin:.2rem 0 .9rem}.cname{font-weight:600}.firm{color:var(--soft);font-size:.94rem}
+.cslot{margin:.2rem 0 .9rem}.cname{font-weight:600}.firm{color:var(--ink-soft);font-size:.94rem}
 .amic-side{font-size:.86rem;color:var(--faint)}
 .timeline{list-style:none;margin:.4rem 0 0;padding:0;position:relative}
 .timeline::before{content:'';position:absolute;left:7.4rem;top:.3rem;bottom:.3rem;border-left:1px solid var(--rule)}
@@ -62,17 +83,16 @@ p{margin:.5rem 0}
 .tl-legend i{width:9px;height:9px;border-radius:50%;border:1px solid rgba(35,38,45,.45);flex:none}
 .tl-legend i.hollow{background:var(--paper);border:1.5px solid var(--c-neutral)}
 .tl-docs{margin-top:.2rem;display:flex;flex-wrap:wrap;gap:.2rem .8rem}
-.tl-docs a{font-size:.85rem;color:var(--sienna);border-bottom:1px solid rgba(181,101,29,.35);text-decoration:none}
+.tl-docs a{font-size:.85rem;color:var(--sienna);border-bottom:1px solid rgba(160,89,26,.4);text-decoration:none}
 .kicker a{color:inherit;border-bottom:1px solid rgba(138,43,43,.4)}
-.back{margin-top:2rem;font-size:.95rem}.back a{color:var(--sienna);text-decoration:none;border-bottom:1px solid rgba(181,101,29,.35)}
-.stamp{margin-top:.7rem;font-size:.8rem;color:var(--faint);font-style:italic}
 @media(max-width:640px){.grid{grid-template-columns:1fr}.timeline li{grid-template-columns:5rem 1fr}.timeline::before{left:5.4rem}}"
 
 DOCKET_FONTS <- "https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap"
 
 write_docket_css <- function(out_dir) {
   dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
-  writeLines(enc2utf8(DOCKET_CSS), file.path(out_dir, "style.css"), useBytes = TRUE)
+  writeLines(enc2utf8(paste0(DOCKET_CSS, NAV_CSS)),
+             file.path(out_dir, "style.css"), useBytes = TRUE)
 }
 
 # Bumped whenever the markup/CSS changes, to force a one-time full re-render.
@@ -107,7 +127,15 @@ write_docket_css <- function(out_dir) {
 # nothing reads the analytics data back, until the landing page's Most-Read
 # Cases panel asked GA which case pages were popular and correctly got nothing:
 # /cases/ had never reported a single view. See R/site_analytics.R.
-PAGE_TEMPLATE_VERSION <- "v14"
+# v15: sitewide navigation. Until now a case page linked NOWHERE internally --
+# its only anchors went off-site to supremecourt.gov -- so all 55,167 of them were
+# terminal nodes, and they are the site's entire search surface. Adds the shared
+# masthead, a Home > Cases > No. NN-NNNN breadcrumb (plus BreadcrumbList JSON-LD,
+# which turns the bare URL in a Google result into a labelled path), and a footer
+# that keeps the supremecourt.gov link primary while offering the five sections
+# beneath it. Also normalises --ox/--soft onto --oxblood/--ink-soft and corrects
+# --faint and --sienna to clear WCAG AA. See docs/navigation.md and R/site_nav.R.
+PAGE_TEMPLATE_VERSION <- "v15"
 
 # ---- small helpers ------------------------------------------------------------
 .esc <- function(x) { x <- x %||% ""; x[is.na(x)] <- ""; htmltools::htmlEscape(x) }
@@ -529,8 +557,15 @@ docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
     "<link rel='preconnect' href='https://fonts.googleapis.com'>",
     "<link rel='stylesheet' href='", DOCKET_FONTS, "'>",
     "<link rel='stylesheet' href='style.css'>",
-    "</head><body><main class='case'>",
-    "<p class='kicker'>Supreme Court of the United States &middot; <a href='", dkurl, "' target='_blank' rel='noopener'>No. ", dkt, "</a></p>",
+    site_breadcrumb_jsonld(paste0("No. ", dkt), CASES_CRUMB),
+    "</head><body>",
+    site_masthead(),
+    "<main class='case' id='main'>",
+    site_breadcrumb(paste0("No. ", dkt), CASES_CRUMB),
+    # The docket number moved to the breadcrumb; printing it again 8px below
+    # would be the same string twice. The kicker keeps the LINK, which does a
+    # different job -- it leaves the site for the official docket.
+    "<p class='kicker'>Supreme Court of the United States &middot; <a href='", dkurl, "' target='_blank' rel='noopener'>Official docket &rarr;</a></p>",
     "<h1>", cap, "</h1>",
     "<p class='posture'>", posture, "</p><hr class='brule'>",
     disp,
@@ -538,8 +573,7 @@ docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
     "<div class='grid'>", counsel_panel, case_panel, "</div>",
     argsec,
     "<section><h2>Proceedings</h2>", tl_legend, "<ol class='timeline'>", tl, "</ol></section>",
-    "<p class='back'><a href='", dkurl, "' target='_blank' rel='noopener'>Full docket on supremecourt.gov &rarr;</a></p>",
-    "<p class='stamp'>Last refreshed ", .fmtdate(rendered), ".</p>",
+    case_footer(dkurl, .fmtdate(rendered)),
     "</main></body></html>")
   writeLines(enc2utf8(page), file.path(out_dir, paste0(dkt, ".html")), useBytes = TRUE)
   invisible(nchar(page))
@@ -634,6 +668,142 @@ render_dockets_for <- function(cases, site_dir, model_dir = "data") {
                         models = models, qp_map = qp_map, signals_map = signals_map)
     write_search_index(cases, file.path(site_dir, "cases"))
   }, error = function(e) message("render_dockets_for failed: ", conditionMessage(e)))
+}
+
+# ---- /cases/ browse index -----------------------------------------------------
+# /cases/ held 55,167 files and no index.html, so it returned a 404 while every
+# other section had one. That was survivable while nothing linked there; the case
+# breadcrumb's middle crumb now does.
+#
+# Writes cases/index.html (the current term, by bucket, plus a term list) and one
+# cases/ot<NN>.html per term (that term in full). Sourced entirely from
+# search.json, which write_search_index() already maintains across the whole
+# corpus -- no second index to keep in sync, and no filesystem walk of 55k files.
+#
+# Bucket rules mirror the fetcher's docket ranges (see scotus_dash_new.R):
+# paid NN-1..NN-4999, IFP NN-5001.., applications NNA### (an "A", not a dash).
+.docket_bucket <- function(dkt) {
+  ifelse(grepl("^\\d{2}A\\d+$", dkt), "applications",
+    ifelse(grepl("^\\d{2}-\\d+$", dkt),
+      ifelse(suppressWarnings(as.integer(sub("^\\d{2}-", "", dkt))) >= 5000L,
+             "ifp", "paid"),
+      NA_character_))
+}
+.docket_term <- function(dkt) suppressWarnings(as.integer(substr(dkt, 1, 2)))
+.docket_seq  <- function(dkt)
+  suppressWarnings(as.integer(sub("^\\d{2}[-A]", "", dkt)))
+
+BUCKET_LABELS <- list(paid = "Paid petitions", ifp = "In forma pauperis",
+                      applications = "Applications")
+
+write_cases_index <- function(cases_dir, n_recent = 60L) {
+  ipath <- file.path(cases_dir, "search.json")
+  if (!file.exists(ipath)) {
+    message("write_cases_index(): no ", ipath, " -- skipping the /cases/ index.")
+    return(invisible(NULL))
+  }
+  idx <- tryCatch(as.list(jsonlite::fromJSON(ipath)), error = function(e) NULL)
+  if (is.null(idx) || !length(idx)) {
+    message("write_cases_index(): search.json is empty or unreadable -- skipping.")
+    return(invisible(NULL))
+  }
+  dkt <- names(idx)
+  df <- data.frame(dkt = dkt, cap = unlist(idx, use.names = FALSE),
+                   bucket = .docket_bucket(dkt), term = .docket_term(dkt),
+                   seq = .docket_seq(dkt), stringsAsFactors = FALSE)
+  df <- df[!is.na(df$bucket) & !is.na(df$term) & !is.na(df$seq), , drop = FALSE]
+  if (!nrow(df)) return(invisible(NULL))
+  # A page is only listed if it actually exists: search.json accumulates across
+  # runs and can outlive a renumbered docket, and linking one would publish a 404.
+  df <- df[file.exists(file.path(cases_dir, paste0(df$dkt, ".html"))), , drop = FALSE]
+  if (!nrow(df)) return(invisible(NULL))
+
+  row_html <- function(d) paste0(
+    "<li><a class='row' href='", d$dkt, ".html'>",
+    "<span class='d'>", htmlEscape(d$cap), "</span>",
+    "<span class='count'>No. ", d$dkt, "</span></a></li>")
+  section <- function(d, heading, note = NULL) {
+    if (!nrow(d)) return("")
+    paste0("<h2 class='csec'>", heading, "</h2>",
+           if (!is.null(note)) paste0("<p class='cnote'>", note, "</p>") else "",
+           "<ul class='idx'>",
+           paste(vapply(seq_len(nrow(d)), function(i) row_html(d[i, ]), character(1)),
+                 collapse = ""), "</ul>")
+  }
+  terms <- sort(unique(df$term), decreasing = TRUE)
+  ot <- function(t) paste0("OT", if (t >= 90L) 1900L + t else 2000L + t)
+
+  # ---- per-term pages ----
+  for (t in terms) {
+    dt <- df[df$term == t, , drop = FALSE]
+    body <- paste0(vapply(names(BUCKET_LABELS), function(b) {
+      d <- dt[dt$bucket == b, , drop = FALSE]
+      d <- d[order(-d$seq), , drop = FALSE]
+      section(d, paste0(BUCKET_LABELS[[b]], " <span class='cn'>",
+                        format(nrow(d), big.mark = ","), "</span>"))
+    }, character(1)), collapse = "")
+    .write_cases_page(
+      file.path(cases_dir, paste0("ot", t, ".html")),
+      title = paste0(ot(t), " cases — Supreme Court Report"),
+      heading = paste0(ot(t)), kicker = "Cases",
+      dek = paste0(format(nrow(dt), big.mark = ","),
+                   " dockets from October Term ", substr(ot(t), 3, 6), "."),
+      crumb_label = ot(t), body = body,
+      search = FALSE)
+  }
+
+  # ---- the hub ----
+  cur <- terms[1]
+  dc <- df[df$term == cur, , drop = FALSE]
+  hub <- paste0(vapply(names(BUCKET_LABELS), function(b) {
+    d <- dc[dc$bucket == b, , drop = FALSE]
+    d <- d[order(-d$seq), , drop = FALSE]
+    total <- nrow(d)
+    shown <- utils::head(d, n_recent)
+    note <- if (total > nrow(shown)) paste0(
+      "Most recent ", nrow(shown), " of ", format(total, big.mark = ","),
+      " &mdash; <a href='ot", cur, ".html'>see all of ", ot(cur), "</a>.") else NULL
+    section(shown, paste0(BUCKET_LABELS[[b]], " <span class='cn'>",
+                          format(total, big.mark = ","), "</span>"), note)
+  }, character(1)), collapse = "")
+  termlist <- paste0(
+    "<h2 class='csec'>By Term</h2><ul class='terms'>",
+    paste(vapply(terms, function(t) paste0(
+      "<li><a href='ot", t, ".html'>", ot(t), "</a> <span class='cn'>",
+      format(sum(df$term == t), big.mark = ","), "</span></li>"), character(1)),
+      collapse = ""), "</ul>")
+  .write_cases_page(
+    file.path(cases_dir, "index.html"),
+    title = "Cases — Supreme Court Report",
+    heading = "Cases", kicker = "Supreme Court of the United States",
+    dek = paste0("Every docket the Court has opened since ", ot(min(terms)),
+                 " &mdash; ", format(nrow(df), big.mark = ","),
+                 " in all. Search by name or number, or browse by Term."),
+    crumb_label = "Cases", body = paste0(hub, termlist), search = TRUE)
+  message("cases index: ", nrow(df), " dockets across ", length(terms), " term(s)")
+  invisible(nrow(df))
+}
+
+# Small bespoke page writer: styled_index_page() renders one flat list, and these
+# pages are grouped by bucket with per-section counts and notes. Reuses
+# page_head() so the palette, fonts and NAV_CSS stay in one place.
+.write_cases_page <- function(out_path, title, heading, kicker, dek,
+                              crumb_label, body, search = FALSE) {
+  crumb <- if (identical(crumb_label, "Cases")) NULL else CASES_CRUMB
+  html <- paste0(
+    "<!DOCTYPE html>\n<html lang=\"en\">\n",
+    page_head(title, site_breadcrumb_jsonld(crumb_label, crumb)),
+    "<body>", site_masthead(),
+    "<main class='wrap' id='main'>",
+    site_breadcrumb(crumb_label, crumb),
+    "<p class='kicker'>", kicker, "</p><h1>", heading, "</h1>",
+    "<hr class='brule'><p class='dek'>", dek, "</p>",
+    if (isTRUE(search)) SEARCH_HTML else "",
+    body,
+    if (isTRUE(search)) search_script("search.json", "") else "",
+    "</main></body>\n</html>\n")
+  writeLines(enc2utf8(html), out_path, useBytes = TRUE)
+  invisible(out_path)
 }
 
 # Maintain cases/search.json (docket -> caption) for the home-page search box,

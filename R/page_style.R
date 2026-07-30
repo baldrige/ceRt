@@ -10,6 +10,18 @@ suppressPackageStartupMessages({
   library(htmltools)
 })
 
+# Sitewide nav components (NAV_CSS, site_masthead, site_breadcrumb, ...). Loaded
+# unconditionally rather than behind an exists() guard: a missing NAV_CSS would
+# render every masthead unstyled but still *present*, which is exactly the silent
+# degradation this codebase has been bitten by three times. Fail loudly instead.
+local({
+  here <- tryCatch(dirname(sys.frame(1)$ofile), error = function(e) NA)
+  f <- if (!is.na(here) && file.exists(file.path(here, "site_nav.R")))
+    file.path(here, "site_nav.R")
+  else if (file.exists("R/site_nav.R")) "R/site_nav.R" else "site_nav.R"
+  sys.source(f, envir = globalenv())
+})
+
 # Google Fonts used across the site (kept identical to the Cert Funnel page).
 PAGE_FONTS_URL <- paste0(
   "https://fonts.googleapis.com/css2?",
@@ -19,9 +31,15 @@ PAGE_FONTS_URL <- paste0(
 
 # Base editorial styles for the index / landing pages.
 INDEX_CSS <- "
+  /* --faint was #8a8271 (3.24:1 on --paper) and --sienna #b5651d (3.69:1); both
+     failed WCAG AA for normal text and both are used almost exclusively below
+     0.9rem, so the large-text exemption never applied. These are the LIGHTEST
+     values that clear 4.5:1 -- 4.50 and 4.53 -- keeping 82% and 89% of the
+     original lightness, so the palette does not perceptibly change. */
   :root{
     --paper:#f3ecdd;--panel:#f7f1e4;--ink:#23262d;--ink-soft:#5f5847;
-    --faint:#8a8271;--oxblood:#8a2b2b;--sienna:#b5651d;--rule:#d8cdb4;
+    --faint:#716b5d;--oxblood:#8a2b2b;--sienna:#a0591a;--rule:#d8cdb4;
+    --nav-max:40rem;
   }
   *{box-sizing:border-box}
   html{-webkit-text-size-adjust:100%}
@@ -85,7 +103,7 @@ INDEX_CSS <- "
     white-space:nowrap;font-variant-numeric:tabular-nums}
   .back{margin-top:2rem;font-size:.95rem}
   .back a{color:var(--sienna);text-decoration:none;
-    border-bottom:1px solid rgba(181,101,29,.35)}
+    border-bottom:1px solid rgba(160,89,26,.4)}
   .back a:hover{border-color:var(--sienna)}
   /* Home-page case search. */
   .csearch{position:relative;margin:0 0 1.4rem}
@@ -107,6 +125,23 @@ INDEX_CSS <- "
   .cres .cd{color:var(--oxblood);font-variant-numeric:tabular-nums;font-weight:600;
     margin-right:.5rem;white-space:nowrap}
   .cnone{padding:.55rem .7rem;color:var(--faint);font-style:italic}
+  /* /cases/ browse index: grouped sections with per-bucket counts. */
+  .csec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+    text-transform:uppercase;letter-spacing:.12em;color:var(--oxblood);
+    margin:2.2rem 0 .3rem;padding-bottom:.35rem;border-bottom:1px solid var(--rule);
+    display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
+  .csec .cn{font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:.85rem;
+    letter-spacing:0;text-transform:none;color:var(--faint);
+    font-variant-numeric:tabular-nums}
+  .cnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:.5rem 0 0}
+  .cnote a{color:var(--oxblood)}
+  ul.terms{list-style:none;padding:0;margin:1rem 0 0;display:flex;flex-wrap:wrap;
+    gap:.5rem 1.6rem}
+  ul.terms li{display:inline-flex;align-items:baseline;gap:.4rem}
+  ul.terms a{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.05rem;
+    color:var(--oxblood);text-decoration:none;border-bottom:1px solid var(--rule)}
+  ul.terms a:hover{border-bottom-color:var(--oxblood)}
+  ul.terms .cn{color:var(--faint);font-size:.85rem;font-variant-numeric:tabular-nums}
 "
 
 # Home-page case search: a lazy-loaded client-side index (docket -> caption).
@@ -115,11 +150,18 @@ SEARCH_HTML <- paste0(
   "placeholder='Search all cases by name or docket number…' aria-label='Search cases'>",
   "<ul id='cres' class='cres' role='listbox'></ul></div>")
 
+# `json` and `href_prefix` are relative to the PAGE being written: the landing
+# page reaches the index at cases/search.json, the /cases/ index at search.json.
+# Getting this wrong yields /cases/cases/search.json and a search box that
+# silently never returns a result, so it is a parameter rather than a constant.
+search_script <- function(json = "cases/search.json", href_prefix = "cases/")
+  gsub("@JSON@", json, gsub("@HREF@", href_prefix, SEARCH_SCRIPT, fixed = TRUE), fixed = TRUE)
+
 SEARCH_SCRIPT <- paste0("<script>(function(){",
   "var q=document.getElementById('cq'),r=document.getElementById('cres'),E=null,t;",
   "function esc(s){return s.replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c];});}",
   "function load(){if(E)return;q.classList.add('loading');",
-  "fetch('cases/search.json').then(function(x){return x.json();}).then(function(j){",
+  "fetch('@JSON@').then(function(x){return x.json();}).then(function(j){",
   "E=Object.keys(j).map(function(d){return [d,j[d],d.toLowerCase(),j[d].toLowerCase()];});",
   "q.classList.remove('loading');run();}).catch(function(){q.classList.remove('loading');});}",
   "q.addEventListener('focus',load);",
@@ -127,7 +169,7 @@ SEARCH_SCRIPT <- paste0("<script>(function(){",
   "function run(){var s=q.value.trim().toLowerCase();if(!s||!E){r.innerHTML='';return;}",
   "var o=[],n=0;for(var i=0;i<E.length;i++){if(E[i][2].indexOf(s)>-1||E[i][3].indexOf(s)>-1){",
   "o.push(E[i]);if(++n>=40)break;}}",
-  "r.innerHTML=o.length?o.map(function(e){return \"<li><a href='cases/\"+e[0]+\".html'>",
+  "r.innerHTML=o.length?o.map(function(e){return \"<li><a href='@HREF@\"+e[0]+\".html'>",
   "<span class='cd'>No. \"+e[0]+\"</span>\"+esc(e[1])+\"</a></li>\";}).join(''):",
   "\"<li class='cnone'>No matching cases.</li>\";}})();</script>")
 
@@ -171,7 +213,7 @@ smarten_html <- function(html) {
 
 # Raw <head> for an index page (built as a string because htmltools drops the
 # <head> singleton from as.character()).
-page_head <- function(title) {
+page_head <- function(title, jsonld = NULL) {
   paste0(
     "<head>",
     "<script async src='/analytics.js'></script>",
@@ -182,7 +224,8 @@ page_head <- function(title) {
     '<link rel="preconnect" href="https://fonts.googleapis.com">',
     '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>',
     '<link rel="stylesheet" href="', PAGE_FONTS_URL, '">',
-    "<style>", INDEX_CSS, "</style>",
+    "<style>", INDEX_CSS, NAV_CSS, "</style>",
+    if (!is.null(jsonld)) jsonld else "",
     "</head>")
 }
 
@@ -221,9 +264,15 @@ most_read_panel <- function(df, heading = "Most-Read Cases", note = NULL,
 # row links in a new tab (matches the prior dashboard-index behavior).
 # `panel` is an optional extra block (e.g. most_read_panel()) placed after the
 # section index -- the sections are the site's navigation and stay on top.
+# `active` is a SITE_SECTIONS href to mark in the masthead, or NULL. `crumb` is
+# list(label=, section=) for a breadcrumb beneath the masthead. `wordmark_only`
+# suppresses the section links (the landing page, which IS the section list).
 styled_index_page <- function(out_path, title, heading, items,
                               kicker = NULL, dek = NULL, back = NULL,
-                              new_tab = TRUE, search = FALSE, panel = NULL) {
+                              new_tab = TRUE, search = FALSE, panel = NULL,
+                              active = NULL, crumb = NULL, wordmark_only = FALSE,
+                              search_json = "cases/search.json",
+                              search_prefix = "cases/") {
   rows <- lapply(items, function(it) {
     a_args <- list(class = "row", href = it$href)
     if (isTRUE(new_tab)) { a_args$target <- "_blank"; a_args$rel <- "noopener" }
@@ -251,8 +300,12 @@ styled_index_page <- function(out_path, title, heading, items,
   })
   heading_node <- if (grepl("<em>", heading, fixed = TRUE))
     tags$h1(HTML(smarten(heading))) else tags$h1(smarten(heading))
-  body <- tags$body(tags$main(
+  body <- tags$body(
+    HTML(site_masthead(active = active, wordmark_only = wordmark_only)),
+    tags$main(
+    id = "main",
     class = "wrap",
+    if (!is.null(crumb)) HTML(site_breadcrumb(crumb$label, crumb$section)),
     if (!is.null(kicker)) tags$p(class = "kicker", smarten(kicker)),
     heading_node,
     tags$hr(class = "brule"),
@@ -261,10 +314,12 @@ styled_index_page <- function(out_path, title, heading, items,
     tags$ul(class = "idx", rows),
     panel,
     if (!is.null(back)) tags$p(class = "back", tags$a(href = back$href, smarten(back$label))),
-    if (isTRUE(search)) HTML(SEARCH_SCRIPT)
+    if (isTRUE(search)) HTML(search_script(search_json, search_prefix))
   ))
+  jsonld <- if (!is.null(crumb))
+    site_breadcrumb_jsonld(crumb$label, crumb$section) else NULL
   html <- paste0("<!DOCTYPE html>\n<html lang=\"en\">\n",
-                 page_head(title), "\n", as.character(body), "\n</html>\n")
+                 page_head(title, jsonld), "\n", as.character(body), "\n</html>\n")
   writeLines(enc2utf8(html), out_path, useBytes = TRUE)
   invisible(out_path)
 }

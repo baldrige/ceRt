@@ -457,6 +457,9 @@ scotus_dash <- function(range = today() - 1, year = "26",
       title = "The Daily Docket",
       dek = dek,
       n_rows = nrow(tbl), left_cols = left_cols, footer = footer,
+      active = "/dashboards/",
+      crumb = list(label = format(range, "%B %d, %Y"),
+                   section = list(href = "/dashboards/", label = "Docket")),
       back = list(href = "index.html", label = "&larr; All daily dashboards"))
   invisible(file.path(out_dir, str_c("dash_", range, ".html")))
 }
@@ -481,8 +484,17 @@ dashboard_index <- function(out_dir = path.expand("~/public_html/dashboards")) {
     heading = "The Daily Docket",
     dek = "Every petition and application, the day it arrives.",
     items = items,
-    back = list(href = "../", label = "← All dashboards")
+    # No back-link: the masthead's wordmark goes home and the active section is
+    # marked, so a bespoke one here would be a third way of saying the same
+    # thing. This link previously read "← All dashboards" and pointed at "/" --
+    # copy-pasted verbatim into the conference and argument indexes, where the
+    # label was simply wrong. That is what having no shared nav cost.
+    active = "/dashboards/"
   )
+  patch_prev_next(out_dir, "^dash_\\d{4}-\\d{2}-\\d{2}\\.html$", "day",
+                  key   = function(f) as.Date(str_extract(f, "\\d{4}-\\d{2}-\\d{2}")),
+                  label = function(f) format(as.Date(str_extract(f, "\\d{4}-\\d{2}-\\d{2}")),
+                                             "%B %d, %Y"))
   invisible(file.path(out_dir, "index.html"))
 }
 

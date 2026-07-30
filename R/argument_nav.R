@@ -334,6 +334,9 @@ argument_term_page <- function(tbl, term, out_dir) {
       footer = paste0("Status tracks each grant from Granted through Scheduled, ",
                       "Argued, and Decided (with the majority author, linked to the ",
                       "slip opinion)."),
+      active = "/arguments/",
+      crumb = list(label = paste0("October Term ", term),
+                   section = list(href = "/arguments/", label = "Arguments")),
       back = list(href = "index.html", label = "&larr; All argument Terms"))
   invisible(file.path(out_dir, str_c("arg_", term, ".html")))
 }
@@ -365,8 +368,12 @@ argument_index <- function(out_dir) {
     heading = "Oral Argument Navigator",
     dek = "Every granted case and when it is heard, Term by Term and sitting by sitting.",
     items = items,
-    back = list(href = "../", label = "← All dashboards")
+    active = "/arguments/"     # was back = "← All dashboards" -> "/" (wrong both ways)
   )
+  patch_prev_next(out_dir, "^arg_\\d{4}\\.html$", "Term",
+                  key   = function(f) as.integer(str_extract(f, "\\d{4}")),
+                  label = function(f) paste0("October Term ", str_extract(f, "\\d{4}")),
+                  end_label = "Current Term")
   invisible(file.path(out_dir, "index.html"))
 }
 
