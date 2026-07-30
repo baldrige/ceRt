@@ -235,12 +235,12 @@ dark <- if (standalone) "" else '
   --rule-soft:#2b2620;--pos:#cf7b74;--neg:#7d7466;}
 :root[data-theme="light"]{
   --paper:#f3ecdd;--panel:#f7f1e4;--sunk:#efe7d5;--ink:#23262d;--ink-soft:#5f5847;
-  --faint:#8a8271;--oxblood:#8a2b2b;--sienna:#b5651d;--rule:#d8cdb4;
+  --faint:#716b5d;--oxblood:#8a2b2b;--sienna:#a0591a;--rule:#d8cdb4;
   --rule-soft:#e4dcc7;--pos:#8a2b2b;--neg:#8b8172;}'
 
 css <- sprintf('
 :root{--paper:#f3ecdd;--panel:#f7f1e4;--sunk:#efe7d5;--ink:#23262d;--ink-soft:#5f5847;
-  --faint:#8a8271;--oxblood:#8a2b2b;--sienna:#b5651d;--rule:#d8cdb4;--rule-soft:#e4dcc7;
+  --faint:#716b5d;--oxblood:#8a2b2b;--sienna:#a0591a;--rule:#d8cdb4;--rule-soft:#e4dcc7;
   --pos:#8a2b2b;--neg:#8b8172;--serif:%s;--display:%s;
   --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
   --step:clamp(.86rem,.83rem + .12vw,.92rem)}

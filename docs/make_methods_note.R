@@ -48,24 +48,27 @@ html <- sprintf('<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&display=swap">
 <style>
-  :root{--paper:#f3ecdd;--ink:#23262d;--soft:#5f5847;--faint:#8a8271;--oxblood:#8a2b2b;--sienna:#b5651d;--rule:#d8cdb4}
+  /* Token names and colours match the site palette: this file's output is copied
+     to site/methods.html, so its --faint/--sienna ship. Both previously failed
+     WCAG AA (3.24:1 and 3.69:1 on --paper) at the 8.5-9pt sizes used below. */
+  :root{--paper:#f3ecdd;--ink:#23262d;--ink-soft:#5f5847;--faint:#716b5d;--oxblood:#8a2b2b;--sienna:#a0591a;--rule:#d8cdb4;--nav-max:44rem}
   *{box-sizing:border-box} html{-webkit-text-size-adjust:100%%}
   body{font-family:"Newsreader",Georgia,serif;color:var(--ink);background:var(--paper);margin:0;font-size:10.5pt;line-height:1.4}
   .sheet{max-width:8.1in;margin:0 auto;padding:.5in .6in}
   .kicker{font:600 8pt/1 "Newsreader";letter-spacing:.2em;text-transform:uppercase;color:var(--oxblood);margin:0 0 .3rem}
   h1{font-family:"Fraunces",Georgia,serif;font-weight:600;font-size:23pt;line-height:1.02;margin:0 0 .25rem}
-  .dek{font-style:italic;color:var(--soft);margin:.1rem 0 .5rem;font-size:11pt}
+  .dek{font-style:italic;color:var(--ink-soft);margin:.1rem 0 .5rem;font-size:11pt}
   h2{font-family:"Fraunces",Georgia,serif;font-weight:600;font-size:11pt;color:var(--oxblood);margin:.5rem 0 .2rem;border-bottom:1px solid var(--rule);padding-bottom:2px}
   p{margin:.2rem 0} .grid{display:grid;grid-template-columns:1fr 1fr;gap:0 1.3rem}
   ul{margin:.2rem 0;padding-left:1.05rem} li{margin:.12rem 0}
   table{width:100%%;border-collapse:collapse;font-variant-numeric:tabular-nums;margin:.3rem 0}
   th,td{text-align:right;padding:2px 5px;border-bottom:1px solid var(--rule)} th:first-child,td:first-child{text-align:left}
   thead th{font:600 8.5pt/1 "Newsreader";text-transform:uppercase;letter-spacing:.06em;color:var(--faint);border-bottom:1.5px solid var(--ink)}
-  .note{font-size:9pt;color:var(--soft);font-style:italic}
+  .note{font-size:9pt;color:var(--ink-soft);font-style:italic}
   figure{margin:.4rem 0;text-align:center} figure img{width:3.7in;max-width:100%%}
   figcaption{font-size:8.5pt;color:var(--faint);margin-top:.1rem}
   .fig-wrap{display:grid;grid-template-columns:1.1fr 1fr;gap:1.3rem;align-items:center}
-  footer{margin-top:.5rem;border-top:2px solid var(--ink);padding-top:.3rem;font-size:8.5pt;color:var(--soft)}
+  footer{margin-top:.5rem;border-top:2px solid var(--ink);padding-top:.3rem;font-size:8.5pt;color:var(--ink-soft)}
   b,.stat{color:var(--oxblood)}
   @page{size:letter;margin:.4in} @media print{body{background:#fff} .sheet{padding:0}}
 </style></head><body><main class="sheet">

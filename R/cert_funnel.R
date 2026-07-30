@@ -532,9 +532,12 @@ render_funnel_page <- function(live, baselines, out_dir,
   css <- HTML("
     :root{
       --paper:#f3ecdd;--paper-2:#ede4d0;--panel:#f7f1e4;
-      --ink:#23262d;--ink-soft:#5f5847;--faint:#8a8271;
-      --oxblood:#8a2b2b;--sienna:#b5651d;--gold:#a8862c;
+      /* --faint and --sienna corrected to clear WCAG AA on --paper (3.24 and
+         3.69 before); see the note above DOCKET_CSS in R/docket_page.R. */
+      --ink:#23262d;--ink-soft:#5f5847;--faint:#716b5d;
+      --oxblood:#8a2b2b;--sienna:#a0591a;--gold:#a8862c;
       --rule:#d8cdb4;--rail:#e4dac2;
+      --nav-max:44rem;          /* matches .wrap below */
     }
     *{box-sizing:border-box}
     html{-webkit-text-size-adjust:100%}
@@ -724,11 +727,12 @@ render_funnel_page <- function(live, baselines, out_dir,
     '<link rel="preconnect" href="https://fonts.googleapis.com">',
     '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>',
     '<link rel="stylesheet" href="', font_url, '">',
-    "<style>", as.character(css), "</style>",
+    "<style>", as.character(css), NAV_CSS, "</style>",
     "</head>")
 
   body_tag <- tags$body(
-      tags$main(class = "wrap",
+      HTML(site_masthead(active = "/funnel/")),
+      tags$main(id = "main", class = "wrap",
       p(class = "kicker", "A field guide to the shadow docket’s daylight cousin"),
       h1(HTML("The <em>Cert</em> Funnel")),
       p(class = "dek", "Nearly everything the Supreme Court is asked to do, it declines ",

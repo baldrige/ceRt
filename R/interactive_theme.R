@@ -14,47 +14,49 @@ SCR_FONTS <- "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144
 .scr_noise <- "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E"
 
 SCR_CSS <- paste0("
-:root{--paper:#f3ecdd;--panel:#f7f1e4;--ink:#23262d;--soft:#5f5847;--faint:#8a8271;--ox:#8a2b2b;--rule:#d8cdb4;--sienna:#b5651d}
+/* Token names and the two AA colour corrections match page_style.R and
+   docket_page.R -- see the note above DOCKET_CSS. */
+:root{--paper:#f3ecdd;--panel:#f7f1e4;--ink:#23262d;--ink-soft:#5f5847;--faint:#716b5d;--oxblood:#8a2b2b;--rule:#d8cdb4;--sienna:#a0591a;--nav-max:54rem}
 *{box-sizing:border-box}
 body{font-family:'Newsreader',Georgia,serif;color:var(--ink);background:var(--paper);margin:0}
 body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.5;mix-blend-mode:multiply;background-image:url(\"", .scr_noise, "\")}
 .wrap{width:min(97vw,92rem);max-width:100%;margin:0 auto;padding:2.6rem 1.4rem 4rem}
-.kicker{font:600 .74rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;color:var(--ox);margin:0 0 .8rem}
+.kicker{font:600 .74rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;color:var(--oxblood);margin:0 0 .8rem}
 h1{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:clamp(1.9rem,4.5vw,2.9rem);line-height:1.02;letter-spacing:-.015em;margin:0 0 .7rem}
-.dek{font-size:1.1rem;line-height:1.5;color:var(--soft);font-style:italic;margin:0 0 1.4rem;max-width:46rem}
+.dek{font-size:1.1rem;line-height:1.5;color:var(--ink-soft);font-style:italic;margin:0 0 1.4rem;max-width:46rem}
 .brule{border:0;border-top:2px solid var(--ink);margin:1rem 0 1.4rem;position:relative}
 .brule::after{content:'';position:absolute;left:0;top:4px;width:100%;border-top:1px solid var(--rule)}
-.foot{margin-top:1.6rem;font-size:.9rem;color:var(--soft);font-style:italic;max-width:52rem}
-.foot a,.back a{color:var(--sienna);text-decoration:none;border-bottom:1px solid rgba(181,101,29,.35)}
+.foot{margin-top:1.6rem;font-size:.9rem;color:var(--ink-soft);font-style:italic;max-width:52rem}
+.foot a,.back a{color:var(--sienna);text-decoration:none;border-bottom:1px solid rgba(160,89,26,.4)}
 .back{margin-top:1.4rem;font-size:.95rem}
 .gt_table,.reactable{font-family:'Newsreader',Georgia,serif!important}
 .rt-table{background:var(--panel);border:1px solid var(--rule);overflow-x:auto}
 .wrap .reactable,.wrap .html-widget,.wrap .gt_table{width:100%!important;max-width:100%!important}
-.rt-thead .rt-th{background:var(--paper)!important;color:var(--ox)!important;font-weight:600;text-transform:uppercase;letter-spacing:.06em;font-size:.76rem;border-bottom:2px solid var(--ink)!important}
+.rt-thead .rt-th{background:var(--paper)!important;color:var(--oxblood)!important;font-weight:600;text-transform:uppercase;letter-spacing:.06em;font-size:.76rem;border-bottom:2px solid var(--ink)!important}
 .rt-th,.rt-td{border-color:var(--rule)!important}
 .rt-td{font-variant-numeric:tabular-nums;color:var(--ink);font-size:.95rem;padding:.5rem .7rem!important;align-items:center!important;line-height:1.5!important}
 .rt-tbody .rt-tr:hover{background:rgba(138,43,43,.06)!important}
 .rt-tr-striped{background:#efe7d6!important}
-.rt-td a{color:var(--ox);text-decoration:none}
+.rt-td a{color:var(--oxblood);text-decoration:none}
 .rt-td a:hover{color:#6f2020}
 .rt-td details{font-size:.9rem;line-height:1.5}
-.rt-td details summary{color:var(--ox);cursor:pointer;font-style:italic;list-style:none}
+.rt-td details summary{color:var(--oxblood);cursor:pointer;font-style:italic;list-style:none}
 .rt-td details summary::-webkit-details-marker{display:none}
 .rt-td details[open] summary{margin-bottom:.35rem}
 .rt-td details p{margin:.3rem 0;text-align:left}
-.rt-th[aria-sort='ascending']{box-shadow:inset 0 3px 0 0 var(--ox)!important}
-.rt-th[aria-sort='descending']{box-shadow:inset 0 -3px 0 0 var(--ox)!important}
+.rt-th[aria-sort='ascending']{box-shadow:inset 0 3px 0 0 var(--oxblood)!important}
+.rt-th[aria-sort='descending']{box-shadow:inset 0 -3px 0 0 var(--oxblood)!important}
 .rt-search,.rt-filter{font-family:'Newsreader',Georgia,serif!important;background:#fbf7ec!important;border:1px solid var(--rule)!important;border-radius:2px;color:var(--ink)!important;padding:.3rem .5rem}
-.rt-search:focus,.rt-filter:focus{outline:none;border-color:var(--ox)!important;box-shadow:0 0 0 2px rgba(138,43,43,.12)}
+.rt-search:focus,.rt-filter:focus{outline:none;border-color:var(--oxblood)!important;box-shadow:0 0 0 2px rgba(138,43,43,.12)}
 .rt-search{margin-bottom:.7rem;width:16rem;max-width:100%}
 .rt-search::placeholder,.rt-filter::placeholder{color:var(--faint)}
-.rt-pagination{border-top:1px solid var(--rule)!important;color:var(--soft);font-size:.9rem}
-.rt-page-button{font-family:'Newsreader',serif!important;color:var(--ox)!important}
+.rt-pagination{border-top:1px solid var(--rule)!important;color:var(--ink-soft);font-size:.9rem}
+.rt-page-button{font-family:'Newsreader',serif!important;color:var(--oxblood)!important}
 .rt-page-button:not(:disabled):hover{background:rgba(138,43,43,.08)!important}
 .rt-page-button[aria-current='true'],.rt-current-page{color:var(--ink)!important;font-weight:600}
-.rt-page-info{color:var(--soft)!important}
+.rt-page-info{color:var(--ink-soft)!important}
 .rt-page-size-select{font-family:'Newsreader',Georgia,serif!important;background:#fbf7ec!important;border:1px solid var(--rule)!important;border-radius:2px;color:var(--ink)!important;padding:.15rem 1.3rem .15rem .45rem;margin:0 .35rem}
-.rt-page-size-select:focus{outline:none;border-color:var(--ox)!important;box-shadow:0 0 0 2px rgba(138,43,43,.12)}
+.rt-page-size-select:focus{outline:none;border-color:var(--oxblood)!important;box-shadow:0 0 0 2px rgba(138,43,43,.12)}
 ")
 
 # Document links for a case, selected by kind and shown in that order.
@@ -149,8 +151,11 @@ scr_inline_libs <- function(html, base_dir) {
 
 # gtsave the widget, then wrap in the page chrome + inject the theme, an "All"
 # page-size relabel, and any left-aligned DATA columns (headers stay centered).
+# `active` marks a SITE_SECTIONS href in the masthead; `crumb` is
+# list(label=, section=) for the breadcrumb; `pnav` is prev_next_nav() output.
 scr_write_page <- function(gt_tbl, out_path, kicker, title, dek, n_rows,
-                           left_cols = integer(0), footer = "", back = NULL) {
+                           left_cols = integer(0), footer = "", back = NULL,
+                           active = NULL, crumb = NULL, pnav = "") {
   # Typographic quotes for the page chrome (prose only -- never the widget body,
   # whose JSON payload uses " structurally). smarten() lives in page_style.R,
   # always sourced alongside this module in production; fall back to identity.
@@ -191,11 +196,19 @@ scr_write_page <- function(gt_tbl, out_path, kicker, title, dek, n_rows,
     "<title>", title, "</title>",
     "<link rel='preconnect' href='https://fonts.googleapis.com'>",
     "<link rel='stylesheet' href='", SCR_FONTS, "'>",
-    head_inner, "<style>", SCR_CSS, leftcss, "</style></head><body><main class='wrap'>",
+    head_inner, "<style>", SCR_CSS, NAV_CSS, leftcss, "</style>",
+    if (!is.null(crumb)) site_breadcrumb_jsonld(crumb$label, crumb$section) else "",
+    "</head><body>",
+    site_masthead(active = active),
+    "<main class='wrap' id='main'>",
+    if (!is.null(crumb)) site_breadcrumb(crumb$label, crumb$section) else "",
     "<p class='kicker'>", kicker, "</p><h1>", title, "</h1>",
     "<p class='dek'>", dek, "</p><hr class='brule'>",
     body_inner,
     if (nzchar(footer)) paste0("<p class='foot'>", footer, "</p>") else "",
+    # Slot filled by patch_prev_next() once the whole sequence is on disk. Emitted
+    # even when empty: the post-pass splices between these two sentinels.
+    "<!--PNAV-->", pnav, "<!--/PNAV-->",
     back_html, script,
     "</main></body></html>")
   writeLines(enc2utf8(page), out_path, useBytes = TRUE)

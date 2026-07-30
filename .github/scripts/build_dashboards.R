@@ -86,6 +86,10 @@ dashboard_index(dash_dir)
 # whose page changed are rewritten). Keeps /cases/ current for the daily links.
 render_dockets_for(ot, site_dir)
 
+# The /cases/ browse index. Must exist before any page links to it: the case
+# breadcrumb's middle crumb points at /cases/, which returned a 404 until now.
+write_cases_index(file.path(site_dir, "cases"))
+
 # Refresh the site landing page (links the sections that exist). Each category
 # also shows its three most recent pages in a compact strip beneath the link.
 # Date-keyed sections (daily, conferences) sort by their YYYY-MM-DD; the
@@ -117,6 +121,10 @@ if (dir.exists(file.path(site_dir, "arguments"))) {
                                 "^arg_\\d{4}\\.html$",
                                 year_key, arg_label, "arguments/"))))
 }
+if (file.exists(file.path(site_dir, "cases", "index.html"))) {
+  items <- c(items, list(list(href = "cases/", label = "All Cases",
+                              meta = "browse by Term")))
+}
 if (dir.exists(file.path(site_dir, "funnel"))) {
   items <- c(items, list(list(href = "funnel/", label = "The Cert Funnel",
                               meta = "the explainer")))
@@ -125,6 +133,11 @@ if (dir.exists(file.path(site_dir, "funnel"))) {
 if (file.exists("docs/cert_model_methods.html")) {
   file.copy("docs/cert_model_methods.html", file.path(site_dir, "methods.html"),
             overwrite = TRUE)
+  # Patch the nav in at copy time, not in the checked-in source: that file is a
+  # hand-maintained document, and this way a regenerated one picks the masthead
+  # up automatically rather than silently losing it. methods.html was one of the
+  # two page types with zero internal links.
+  inject_masthead(file.path(site_dir, "methods.html"), active = "/methods.html")
   items <- c(items, list(list(href = "methods.html", label = "The Forecast Model",
                               meta = "methods & validation")))
 }
@@ -144,6 +157,9 @@ styled_index_page(
   items = items,
   new_tab = FALSE,
   search = TRUE,
+  # Wordmark only: this page IS the section list, and repeating it 200px above
+  # itself is noise.
+  wordmark_only = TRUE,
   # Rank only, no counts: the ordering is the story, and printing the raw
   # numbers would publish the site's traffic volume as a side effect.
   panel = most_read_panel(
