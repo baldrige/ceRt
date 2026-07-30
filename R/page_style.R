@@ -101,6 +101,10 @@ INDEX_CSS <- "
     font-variant-numeric:tabular-nums;white-space:nowrap}
   ol.mostread .mv{color:var(--faint);font-size:.85rem;font-style:italic;
     white-space:nowrap;font-variant-numeric:tabular-nums}
+  /* Forecast percentages carry weight the most-read counts do not: the number is
+     the claim, not a footnote to the ranking. Upright, oxblood, tabular. */
+  ol.mostread .mv.fc{color:var(--oxblood);font-style:normal;font-weight:600;
+    font-size:.95rem;min-width:2.6rem;text-align:right}
   .back{margin-top:2rem;font-size:.95rem}
   .back a{color:var(--sienna);text-decoration:none;
     border-bottom:1px solid rgba(160,89,26,.4)}
@@ -249,6 +253,36 @@ most_read_panel <- function(df, heading = "Most-Read Cases", note = NULL,
       if (isTRUE(show_counts))
         tags$span(class = "mv", paste0(format(df$views[i], big.mark = ","),
                                        if (df$views[i] == 1) " view" else " views"))
+    ))
+  })
+  tags$section(
+    class = "panel",
+    tags$h2(heading),
+    if (!is.null(note)) tags$p(class = "pnote", smarten(note)),
+    tags$ol(class = "mostread", rows)
+  )
+}
+
+# A "sharpest petitions" panel from a data frame of dkt / caption / prob / lift /
+# href (see top_forecast_petitions() in R/site_forecast.R). Returns NULL for zero
+# rows, like most_read_panel(), so the caller passes the result straight through.
+#
+# The probability is ALWAYS printed. The most-read panel deliberately withholds
+# its counts -- there the ordering is the story and the raw numbers would leak
+# the site's traffic volume -- but here the number *is* the claim, and a rank
+# without it would assert a distinction the reader cannot check. `note` must
+# carry the base rate: 14% reads as "unlikely" until you know the floor is 4.1%.
+forecast_panel <- function(df, heading = "Sharpest Petitions", note = NULL) {
+  if (is.null(df) || !nrow(df)) return(NULL)
+  rows <- lapply(seq_len(nrow(df)), function(i) {
+    tags$li(tags$a(
+      href = df$href[i],
+      tags$span(class = "mc", smarten(df$caption[i])),
+      tags$span(class = "mdk", paste0("No. ", df$dkt[i])),
+      # Integer percent, matching describe_forecast() and the dashboard's Grant
+      # forecast column. A second decimal would imply a precision the calibrator
+      # does not have.
+      tags$span(class = "mv fc", sprintf("%d%%", round(100 * df$prob[i])))
     ))
   })
   tags$section(

@@ -148,6 +148,25 @@ source("R/site_analytics.R")
 MOST_READ_DAYS <- 30L
 most_read <- top_viewed_cases(site_dir, n = 5L, days = MOST_READ_DAYS)
 
+# Sharpest petitions: the week's newly-docketed paid petitions the baseline
+# structural model rates furthest above its base rate. Same model and the same
+# score_case() call the daily dashboard's "Grant forecast" column uses, so the
+# home page and the dashboard cannot show different numbers for one petition.
+source("R/site_forecast.R")
+sharpest <- top_forecast_petitions(ot, grant_model, site_dir,
+                                   signals_map = signals_map,
+                                   counsel_index = counsel_ix, n = 5L)
+# Note built only when there are rows: grant_model may be NULL, and the base
+# rate has to come off the model rather than a literal so it stays true across
+# refits.
+sharpest_panel <- if (nrow(sharpest)) forecast_panel(
+  sharpest,
+  heading = "Sharpest Petitions",
+  note = sprintf(paste0("Structural estimate for paid petitions docketed in the ",
+                        "last %d days, against a %.1f%% base rate. An estimate, ",
+                        "not a prediction about any case."),
+                 FORECAST_WINDOW_DAYS, 100 * grant_model$base_rate)) else NULL
+
 styled_index_page(
   file.path(site_dir, "index.html"),
   title = "Supreme Court Report",
@@ -160,15 +179,20 @@ styled_index_page(
   # Wordmark only: this page IS the section list, and repeating it 200px above
   # itself is noise.
   wordmark_only = TRUE,
-  # Rank only, no counts: the ordering is the story, and printing the raw
-  # numbers would publish the site's traffic volume as a side effect.
-  panel = most_read_panel(
-    most_read,
-    heading = "Most-Read Cases",
-    show_counts = FALSE,
-    note = sprintf("Ranked by page views over the %d days ending %s %d, %d.",
-                   MOST_READ_DAYS, format(Sys.Date() - 1, "%B"),
-                   as.integer(format(Sys.Date() - 1, "%d")),
-                   as.integer(format(Sys.Date() - 1, "%Y"))))
+  # Two panels; either may be NULL and tagList() drops it. Forecast first: it is
+  # about petitions that arrived this week, which is the site's subject. What
+  # readers clicked is a footnote to that, not a peer of it.
+  panel = tagList(
+    sharpest_panel,
+    # Rank only, no counts: the ordering is the story, and printing the raw
+    # numbers would publish the site's traffic volume as a side effect.
+    most_read_panel(
+      most_read,
+      heading = "Most-Read Cases",
+      show_counts = FALSE,
+      note = sprintf("Ranked by page views over the %d days ending %s %d, %d.",
+                     MOST_READ_DAYS, format(Sys.Date() - 1, "%B"),
+                     as.integer(format(Sys.Date() - 1, "%d")),
+                     as.integer(format(Sys.Date() - 1, "%Y")))))
 )
 cat("Done.\n")
