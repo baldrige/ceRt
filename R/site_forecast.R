@@ -1,20 +1,26 @@
 # site_forecast.R --------------------------------------------------------------
-# "Sharpest petitions" for the landing page: the week's newly-docketed paid
-# petitions that the baseline structural model rates furthest above its own base
-# rate.
+# "Likeliest grants" for the landing page: the week's newly-docketed paid-docket
+# cases that the baseline structural model rates furthest above its own base rate.
+#
+# "cases", not "petitions". The paid docket carries 28 U.S.C. 1253 direct appeals
+# from three-judge district courts alongside petitions for certiorari, and the
+# first two entries this panel ever published were the Allen redistricting
+# APPEALS -- captioned "Appellants", scored on mandatory appellate jurisdiction.
+# Calling them petitions on the front page was wrong in the same way the model's
+# "certiorari before judgment" cue text was; both were corrected 2026-07-30.
 #
 # This is the same number the daily dashboard prints in its "Grant forecast"
 # column, from the same score_case() call on the same model, so the home page and
 # the dashboard cannot drift apart. It is deliberately NOT a second estimate.
 #
-# Scope is paid petitions only, matching scotus_dash(): the baseline model is
-# fitted on paid petitions, and scoring an IFP docket or an application against
-# it would produce a number with no meaning behind it.
+# Scope is the paid docket only (type == "paid"), matching scotus_dash(): the
+# baseline model is fitted on it, and scoring an IFP docket or an application
+# against that model would produce a number with no meaning behind it.
 
 # Publishing floor for the panel.
 #
-# A panel headed "sharpest" has to be about petitions that are actually sharp.
-# The model's base rate is ~4.1%, and in an ordinary week every petition scores
+# A panel headed "likeliest" has to be about cases that are actually likely.
+# The model's base rate is ~4.1%, and in an ordinary week every case scores
 # within rounding distance of it -- so a straight top-5 would print 4.4%, 4.2%,
 # 4.1%, 4.1%, 4.0% and present noise as a ranking. That is the mistake the
 # most-read panel made (see R/site_analytics.R and the #20 commit): an ordering
@@ -31,27 +37,27 @@ FORECAST_WINDOW_DAYS <- 7L    # trailing days of docketing to consider
 FORECAST_MIN_LIFT    <- 2.0   # x base rate required, per entry
 FORECAST_MIN_ENTRIES <- 3L    # below this it is not a list, it is a coincidence
 
-# The top `n` paid petitions docketed in the trailing `days`, as a data frame of
+# The top `n` paid-docket cases filed in the trailing `days`, as a data frame of
 # dkt / caption / prob / lift / href. Zero rows means "render nothing": no model,
-# no petitions in the window, or nothing clearing the floor.
+# no cases in the window, or nothing clearing the floor.
 #
 # Non-fatal by design, like top_viewed_cases(). This is one decorative panel on a
 # pipeline whose actual job is publishing dockets every morning; a scoring error
 # must not take the daily down with it. The failure is loud in the workflow log.
-top_forecast_petitions <- function(cases, model, site_dir, signals_map = NULL,
-                                   counsel_index = NULL, n = 5L,
-                                   days = FORECAST_WINDOW_DAYS,
-                                   as_of = Sys.Date()) {
+top_forecast_cases <- function(cases, model, site_dir, signals_map = NULL,
+                               counsel_index = NULL, n = 5L,
+                               days = FORECAST_WINDOW_DAYS,
+                               as_of = Sys.Date()) {
   none <- data.frame(dkt = character(), caption = character(), prob = numeric(),
                      lift = numeric(), href = character(), stringsAsFactors = FALSE)
 
   if (is.null(model)) {
-    message("top_forecast_petitions(): no baseline model -- skipping the panel.")
+    message("top_forecast_cases(): no baseline model -- skipping the panel.")
     return(none)
   }
   base <- model$base_rate
   if (is.null(base) || !is.finite(base) || base <= 0) {
-    warning("top_forecast_petitions(): model has no usable base_rate -- ",
+    warning("top_forecast_cases(): model has no usable base_rate -- ",
             "skipping the panel.", call. = FALSE)
     return(none)
   }
@@ -63,7 +69,7 @@ top_forecast_petitions <- function(cases, model, site_dir, signals_map = NULL,
              as.Date(cases$date) > from & as.Date(cases$date) <= as.Date(as_of), ,
              drop = FALSE]
   if (!nrow(w)) {
-    message("top_forecast_petitions(): no paid petitions docketed in the last ",
+    message("top_forecast_cases(): no paid-docket cases filed in the last ",
             days, " days -- skipping the panel.")
     return(none)
   }
@@ -79,8 +85,8 @@ top_forecast_petitions <- function(cases, model, site_dir, signals_map = NULL,
 
   n_scored <- sum(!is.na(probs))
   if (n_scored < nrow(w))
-    message("top_forecast_petitions(): ", nrow(w) - n_scored, " of ", nrow(w),
-            " petitions in the window could not be scored.")
+    message("top_forecast_cases(): ", nrow(w) - n_scored, " of ", nrow(w),
+            " cases in the window could not be scored.")
 
   cap <- w$caption
   cap <- trimws(gsub("\\s+", " ", gsub(", Petitioners?|, Respondents?", "", cap)))
@@ -92,7 +98,7 @@ top_forecast_petitions <- function(cases, model, site_dir, signals_map = NULL,
   df$lift <- df$prob / base
   df <- df[order(-df$prob, df$dkt), , drop = FALSE]
 
-  # A petition can be scored and have no page (a renumbered docket, a render this
+  # A case can be scored and have no page (a renumbered docket, a render this
   # run skipped). Linking it would publish a 404, so drop before taking the top n.
   df <- df[file.exists(file.path(site_dir, "cases", paste0(df$dkt, ".html"))), ,
            drop = FALSE]
@@ -105,7 +111,7 @@ top_forecast_petitions <- function(cases, model, site_dir, signals_map = NULL,
   if (sum(ok) < FORECAST_MIN_ENTRIES) {
     top <- utils::head(df, 3L)
     message(sprintf(
-      paste0("top_forecast_petitions(): panel SUPPRESSED -- %d of %d petitions ",
+      paste0("top_forecast_cases(): panel SUPPRESSED -- %d of %d cases ",
              "clear %.1fx the %.1f%% base rate; need >=%d. Best this week: %s"),
       sum(ok), nrow(df), FORECAST_MIN_LIFT, 100 * base, FORECAST_MIN_ENTRIES,
       paste(sprintf("%s (%.1f%%, %.1fx)", top$dkt, 100 * top$prob, top$lift),
@@ -117,7 +123,7 @@ top_forecast_petitions <- function(cases, model, site_dir, signals_map = NULL,
   out <- utils::head(df, n)
   out$href <- paste0("cases/", out$dkt, ".html")
   message(sprintf(
-    "top_forecast_petitions(): %d of %d petitions clear %.1fx over %dd; showing %d: %s",
+    "top_forecast_cases(): %d of %d cases clear %.1fx over %dd; showing %d: %s",
     nrow(df), nrow(w), FORECAST_MIN_LIFT, days, nrow(out),
     paste(sprintf("%s (%.1f%%, %.1fx)", out$dkt, 100 * out$prob, out$lift),
           collapse = ", ")))

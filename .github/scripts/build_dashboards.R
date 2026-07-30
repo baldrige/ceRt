@@ -148,21 +148,25 @@ source("R/site_analytics.R")
 MOST_READ_DAYS <- 30L
 most_read <- top_viewed_cases(site_dir, n = 5L, days = MOST_READ_DAYS)
 
-# Sharpest petitions: the week's newly-docketed paid petitions the baseline
+# Likeliest grants: the week's newly-docketed paid-docket cases the baseline
 # structural model rates furthest above its base rate. Same model and the same
 # score_case() call the daily dashboard's "Grant forecast" column uses, so the
-# home page and the dashboard cannot show different numbers for one petition.
+# home page and the dashboard cannot show different numbers for one case.
 source("R/site_forecast.R")
-sharpest <- top_forecast_petitions(ot, grant_model, site_dir,
-                                   signals_map = signals_map,
-                                   counsel_index = counsel_ix, n = 5L)
+sharpest <- top_forecast_cases(ot, grant_model, site_dir,
+                               signals_map = signals_map,
+                               counsel_index = counsel_ix, n = 5L)
 # Note built only when there are rows: grant_model may be NULL, and the base
 # rate has to come off the model rather than a literal so it stays true across
 # refits.
 sharpest_panel <- if (nrow(sharpest)) forecast_panel(
   sharpest,
-  heading = "Sharpest Petitions",
-  note = sprintf(paste0("Structural estimate for paid petitions docketed in the ",
+  heading = "Likeliest Grants",
+  # "paid-docket cases", not "paid petitions": the paid docket carries 28 U.S.C.
+  # 1253 direct appeals alongside petitions, and the first two entries this panel
+  # ever published were the Allen redistricting APPEALS. Calling them petitions
+  # on the front page was wrong in the same way the model's cue text was.
+  note = sprintf(paste0("Structural estimate for paid-docket cases filed in the ",
                         "last %d days, against a %.1f%% base rate. An estimate, ",
                         "not a prediction about any case."),
                  FORECAST_WINDOW_DAYS, 100 * grant_model$base_rate)) else NULL

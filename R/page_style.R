@@ -263,7 +263,7 @@ most_read_panel <- function(df, heading = "Most-Read Cases", note = NULL,
   )
 }
 
-# A "sharpest petitions" panel from a data frame of dkt / caption / prob / lift /
+# A "likeliest grants" panel from a data frame of dkt / caption / prob / lift /
 # href (see top_forecast_petitions() in R/site_forecast.R). Returns NULL for zero
 # rows, like most_read_panel(), so the caller passes the result straight through.
 #
@@ -272,7 +272,7 @@ most_read_panel <- function(df, heading = "Most-Read Cases", note = NULL,
 # the site's traffic volume -- but here the number *is* the claim, and a rank
 # without it would assert a distinction the reader cannot check. `note` must
 # carry the base rate: 14% reads as "unlikely" until you know the floor is 4.1%.
-forecast_panel <- function(df, heading = "Sharpest Petitions", note = NULL) {
+forecast_panel <- function(df, heading = "Likeliest Grants", note = NULL) {
   if (is.null(df) || !nrow(df)) return(NULL)
   rows <- lapply(seq_len(nrow(df)), function(i) {
     tags$li(tags$a(
