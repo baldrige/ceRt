@@ -139,7 +139,12 @@ CIRCUIT_WORDS <- c(First="CA1", Second="CA2", Third="CA3", Fourth="CA4",
 
 # Bucket the LowerCourt string into a modest set of levels: the 13 federal
 # courts of appeals, a pooled STATE bucket, other federal courts, and OTHER.
-court_bucket <- function(lower) {
+# `caption` is required, not optional: it is the only thing that separates a
+# 28 U.S.C. 1253 direct appeal from a three-judge district court (captioned
+# "Appellants") from a true petition for certiorari before judgment (captioned
+# "Petitioners"). Defaulting it would make the split depend on the call site,
+# which is precisely the train/serve asymmetry that killed elite_counsel.
+court_bucket <- function(lower, caption) {
   lower <- lower %||% ""
   lower[is.na(lower)] <- ""
   out <- rep("OTHER", length(lower))
@@ -167,8 +172,27 @@ court_bucket <- function(lower) {
   # Anchored to the federal name on purpose: a bare "District Court" test routed
   # state trial courts ("District Court of Colorado, Denver County", "38th
   # Judicial District Court of Louisiana, Cameron Parish") into the federal
-  # bucket and handed them the cert-before-judgment coefficient.
-  out[out == "OTHER" & str_detect(lower, "(?i)\\b(United States|U\\.? ?S\\.?) District Court")] <- "USDC"
+  # bucket and handed them the direct-appeal coefficient.
+  #
+  # AND captioned as an appeal. The old rule took every federal-district-court
+  # row, and the comment above it asserted those rows "are cert-before-judgment
+  # cases the Court takes at extraordinary rates". The corpus says the opposite:
+  # of 33 labelled USDC rows, 31 are "Appellants" -- 28 U.S.C. 1253 direct
+  # appeals from three-judge district courts, granted 12/31 (38.7%) -- and the
+  # only 2 true cert-before-judgment petitions were BOTH DENIED. So the +6.57
+  # coefficient was never about certiorari before judgment at all. It measures
+  # mandatory appellate jurisdiction: on a 1253 appeal the Court must dispose of
+  # the case, and noting probable jurisdiction is the ordinary outcome.
+  #
+  # Pooling them handed a genuine cert-before-judgment petition a 38.7% signal
+  # it has no claim to. Two observations cannot support a level of their own
+  # (0 grants in 2 is perfect separation, which fit_cert_model() correctly
+  # refuses to fit), so a CBJ petition now simply falls through to OTHER -- a
+  # 0-grants-in-1,653 cell, which is the honest reading of 0-for-2 rather than
+  # an invented estimate. Revisit if the corpus ever accumulates enough of them.
+  is_direct_appeal <- str_detect(caption %||% "", "\\bAppellants?\\b")
+  out[out == "OTHER" & is_direct_appeal &
+      str_detect(lower, "(?i)\\b(United States|U\\.? ?S\\.?) District Court")] <- "USDC_APPEAL"
   out[out == "OTHER" & str_detect(lower, "Court of Federal Claims|Tax Court|Court of International Trade")] <- "FED_SPEC"
   # Whatever still looks like a county/parish trial court is a state court.
   out[out == "OTHER" & str_detect(lower, "(?i)\\b(County|Parish)\\b")] <- "STATE"
@@ -363,7 +387,7 @@ petition_features <- function(caption, lower, parties, date, lower_date, related
     us_petitioner  = pet_type == "us_fed",
     us_respondent  = resp_type == "us_fed",
     business_pet   = pet_type == "business",
-    court_below    = court_bucket(lower),
+    court_below    = court_bucket(lower, caption),
     elite_counsel  = elite,
     # Not a model feature itself -- the key the counsel index is looked up by.
     # counsel_tier is attached afterwards, once the index exists.
@@ -1211,7 +1235,12 @@ FORECAST_CUE_PHRASES <- c(
   "court_belowCADC"  = "a D.C. Circuit decision below",
   "court_belowCAFED" = "a Federal Circuit decision below",
   "court_belowCAAF"  = "the Court of Appeals for the Armed Forces below",
-  "court_belowUSDC"  = "a federal district court below (certiorari before judgment)",
+  # NOT "certiorari before judgment" -- see court_bucket(). These are 28 U.S.C.
+  # 1253 direct appeals from three-judge district courts, where the Court's
+  # appellate jurisdiction is mandatory. Naming the mechanism correctly matters
+  # on the page: a practitioner reading "cert before judgment" next to a 47%
+  # estimate would rightly conclude the model did not know what it was looking at.
+  "court_belowUSDC_APPEAL" = "a direct appeal from a three-judge district court (mandatory jurisdiction)",
   "court_belowFED_SPEC" = "a specialised federal court below",
   "court_belowOTHER" = "no court below (an original writ)",
   "counsel_tiersome"  = "counsel who has filed here before",

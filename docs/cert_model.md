@@ -86,7 +86,7 @@ Three, and each was violated at some point:
 ## Features
 
 **Structural** (both tiers): `pet_type`, `resp_type` — entity buckets from the
-caption; `court_below` — 13 circuits, `STATE`, `CAAF`, `USDC`, `FED_SPEC`,
+caption; `court_below` — 13 circuits, `STATE`, `CAAF`, `USDC_APPEAL`, `FED_SPEC`,
 `OTHER`; `pro_se`; `gap_fast`/`gap_na` — a hinge on days from the judgment below
 to docketing.
 
@@ -203,8 +203,10 @@ bare integers for scannability. A rendered `39%` means roughly 28–49%.
 - **`gap_na` has no legal story** ([#8](https://github.com/baldrige/ceRt/issues/8)). A missing lower-court date raises the forecast
   (+0.98 log-odds) and the underlying rate agrees (6.1% vs 4.4%), but this is
   more likely a data-quality proxy than a signal. Treat with suspicion.
-- **`USDC` rests on 36 rows** ([#7](https://github.com/baldrige/ceRt/issues/7)) and is the
-  one level this pass made *less* conservative (8.4% → 25.0%).
+- **`USDC_APPEAL` rests on 31 rows** ([#7](https://github.com/baldrige/ceRt/issues/7)) and is the
+  one level this pass made *less* conservative (8.4% → 25.0%). It was `USDC` until
+  2026-07-30, when it was found to be pooling two populations that behave nothing
+  alike — see below.
 - **Entity typing is heuristic** (caption regexes). A mislabelled party
   mislabels its cues; ~14.5% of respondents were mistyped before 2026-07 and the
   remainder is unmeasured.
