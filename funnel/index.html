@@ -3,9 +3,12 @@
 <head><script async src='/analytics.js'></script><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate icon" href="/favicon.ico" sizes="any"><title>The Cert Funnel &mdash; how Supreme Court petitions live and die</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap"><style>
     :root{
       --paper:#f3ecdd;--paper-2:#ede4d0;--panel:#f7f1e4;
-      --ink:#23262d;--ink-soft:#5f5847;--faint:#8a8271;
-      --oxblood:#8a2b2b;--sienna:#b5651d;--gold:#a8862c;
+      /* --faint and --sienna corrected to clear WCAG AA on --paper (3.24 and
+         3.69 before); see the note above DOCKET_CSS in R/docket_page.R. */
+      --ink:#23262d;--ink-soft:#5f5847;--faint:#716b5d;
+      --oxblood:#8a2b2b;--sienna:#a0591a;--gold:#a8862c;
       --rule:#d8cdb4;--rail:#e4dac2;
+      --nav-max:44rem;          /* matches .wrap below */
     }
     *{box-sizing:border-box}
     html{-webkit-text-size-adjust:100%}
@@ -127,9 +130,87 @@
     .methods b{font-family:'Fraunces',Georgia,serif;font-size:1rem;color:var(--ink)}
     .methods ul{padding-left:1.1rem;margin:.7rem 0 0}
     .methods li{margin-bottom:.55rem}
-  </style></head>
+  
+/* ---- masthead ---- */
+.smast-in{max-width:var(--nav-max,54rem);margin:0 auto;padding:.85rem 1.5rem .5rem;
+  display:flex;align-items:baseline;justify-content:space-between;gap:1.4rem;flex-wrap:wrap}
+.smast-wm{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+  letter-spacing:.005em;color:var(--ink,#23262d);text-decoration:none;white-space:nowrap;flex:none}
+.smast-wm em{font-style:italic;font-weight:500;color:var(--oxblood,var(--ox,#8a2b2b))}
+.smast-wm:hover{color:var(--oxblood,var(--ox,#8a2b2b))}
+.snav{display:flex;gap:1.35rem;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+.snav a{font:600 .72rem/1 'Newsreader',Georgia,serif;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--ink-soft,var(--soft,#5f5847));text-decoration:none;display:inline-block;
+  padding:.5rem 0;border-bottom:1.5px solid transparent}
+.snav a:hover{color:var(--oxblood,var(--ox,#8a2b2b));border-bottom-color:var(--rule,#d8cdb4)}
+.snav a[aria-current='page']{color:var(--oxblood,var(--ox,#8a2b2b));
+  border-bottom-color:var(--oxblood,var(--ox,#8a2b2b))}
+.smast-rule-w{max-width:var(--nav-max,54rem);margin:0 auto;padding:0 1.5rem}
+.smast-rule{border:0;height:0;border-top:2px solid var(--ink,#23262d);margin:0;position:relative}
+.smast-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#d8cdb4)}
+.skip{position:absolute;left:-9999px;top:0;background:var(--panel,#f7f1e4);
+  color:var(--oxblood,var(--ox,#8a2b2b));padding:.6rem 1rem;
+  border:1px solid var(--oxblood,var(--ox,#8a2b2b));
+  font:600 .8rem/1 'Newsreader',Georgia,serif;letter-spacing:.1em;text-transform:uppercase;z-index:10}
+.skip:focus{left:.5rem;top:.5rem}
+/* ---- breadcrumb ---- */
+.bcrumb{margin:.7rem 0 0}
+.bcrumb ol{list-style:none;display:flex;flex-wrap:wrap;align-items:baseline;
+  gap:.1rem .45rem;margin:0;padding:0}
+.bcrumb li{display:inline-flex;align-items:baseline;gap:.45rem}
+.bcrumb a{font:400 .8rem/1.5 'Newsreader',Georgia,serif;color:var(--ink-soft,var(--soft,#5f5847));
+  text-decoration:none;border-bottom:1px solid var(--rule,#d8cdb4)}
+.bcrumb a:hover{color:var(--oxblood,var(--ox,#8a2b2b));border-bottom-color:var(--oxblood,var(--ox,#8a2b2b))}
+.bcrumb .sep{color:var(--faint,#716b5d);font-size:.8rem;line-height:1.5}
+.bcrumb [aria-current='page']{font:400 .8rem/1.5 'Newsreader',Georgia,serif;
+  color:var(--faint,#716b5d);font-variant-numeric:tabular-nums}
+/* ---- case footer ---- */
+.cfoot{margin:2.4rem 0 0}
+.cfoot-rule{border:0;height:0;border-top:2px solid var(--ink,#23262d);margin:0 0 1rem;position:relative}
+.cfoot-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#d8cdb4)}
+.cfoot-off{font-size:.95rem;margin:0 0 1.1rem}
+.cfoot-off a{color:var(--sienna,#a0591a);text-decoration:none;border-bottom:1px solid rgba(160,89,26,.4)}
+.cfoot-off a:hover{border-bottom-color:var(--sienna,#a0591a)}
+.cfoot-lab{font:600 .68rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#716b5d);margin:0 0 .5rem}
+.cfoot-nav{display:flex;flex-wrap:wrap;gap:.35rem 1.1rem;list-style:none;margin:0;padding:0}
+.cfoot-nav a{font-size:.92rem;color:var(--ink-soft,var(--soft,#5f5847));text-decoration:none;
+  border-bottom:1px solid var(--rule,#d8cdb4);padding-bottom:1px}
+.cfoot-nav a:hover{color:var(--oxblood,var(--ox,#8a2b2b));border-bottom-color:var(--oxblood,var(--ox,#8a2b2b))}
+.cfoot-stamp{margin:1.2rem 0 0;font-size:.8rem;color:var(--faint,#716b5d);font-style:italic}
+/* ---- prev / next ---- */
+.pnav{margin:2.2rem 0 0;border-top:1px solid var(--rule,#d8cdb4);padding-top:1rem;
+  display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.pnav a,.pnav span.none{text-decoration:none;color:inherit;display:block;padding:.5rem .2rem}
+.pnav a:hover{background:rgba(138,43,43,.05)}
+.pnav .dir{font:600 .66rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#716b5d);display:block;margin-bottom:.3rem}
+.pnav .lab{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1rem;line-height:1.25;
+  color:var(--oxblood,var(--ox,#8a2b2b));display:block}
+.pnav a:hover .lab{text-decoration:underline;text-underline-offset:3px}
+.pnav .nx{text-align:right}
+.pnav .none{opacity:.35}
+@media(max-width:640px){
+  .smast-in{padding:.7rem 1.1rem .25rem;gap:.15rem}
+  .smast-wm{font-size:.98rem}
+  .smast-in nav{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+    -webkit-mask-image:linear-gradient(90deg,#000 86%,transparent);
+    mask-image:linear-gradient(90deg,#000 86%,transparent)}
+  .smast-in nav::-webkit-scrollbar{display:none}
+  .snav{flex-wrap:nowrap;gap:1.15rem;padding-right:2.4rem}
+  .snav a{padding:.7rem 0;white-space:nowrap}
+  .smast-rule-w{padding:0 1.1rem}
+  .cfoot-nav{gap:.5rem 1rem}
+  .cfoot-nav a{padding-bottom:.3rem}
+  .pnav{grid-template-columns:1fr;gap:.2rem}
+  .pnav .nx{text-align:left;border-top:1px solid var(--rule,#d8cdb4)}
+}
+</style></head>
 <body>
-  <main class="wrap">
+  <a class='skip' href='#main'>Skip to content</a><header><div class='smast-in'><a class='smast-wm' href='/'>Supreme Court <em>Report</em></a><nav aria-label='Sections'><ul class='snav'><li><a href='/dashboards/'>Docket</a></li><li><a href='/conferences/'>Conferences</a></li><li><a href='/arguments/'>Arguments</a></li><li><a href='/funnel/' aria-current='page'>The Funnel</a></li><li><a href='/methods.html'>Model</a></li></ul></nav></div><div class='smast-rule-w'><hr class='smast-rule'></div></header>
+  <main id="main" class="wrap">
     <p class="kicker">A field guide to the shadow docket’s daylight cousin</p>
     <h1>The <em>Cert</em> Funnel</h1>
     <p class="dek">
@@ -171,9 +252,9 @@
     </dl>
     <div class="over">This term, so far</div>
     <h2>OT2026 — the term in progress</h2>
-    <p class="note">Data as of July 25, 2026. Petitions from this term are still being docketed and decided; 241 are still waiting on an outcome.</p>
-    <div class="funnel" role="img" aria-label="Certiorari funnel"><div class="frow" style="--i:0"><div class="flabel">Docketed</div><div class="ftrack"><div class="frail"><span class="fbar" style="width:100.00%;background:var(--ink)"></span></div><span class="fcount">242</span></div><div class="fnote">every petition filed</div></div><div class="frow" style="--i:1"><div class="flabel">Considered at conference</div><div class="ftrack"><div class="frail"><span class="fbar" style="width:9.50%;background:var(--ink)"></span></div><span class="fcount">23</span></div><div class="fnote">9.5% reached the Justices’ private conference</div></div><div class="frow" style="--i:2"><div class="flabel">Relisted at least once</div><div class="ftrack"><div class="frail"><span class="fbar" style="width:0.70%;background:var(--ink)"></span></div><span class="fcount">0</span></div><div class="fnote">0.0% were relisted at least once</div></div><div class="frow" style="--i:3"><div class="flabel">Granted or GVR’d</div><div class="ftrack"><div class="frail"><span class="fbar" style="width:0.70%;background:var(--ink)"></span></div><span class="fcount">0</span></div><div class="fnote">0.0% got any form of yes</div></div><div class="frow" style="--i:4"><div class="flabel">Granted outright</div><div class="ftrack"><div class="frail"><span class="fbar fbar-key" style="width:0.70%;background:var(--oxblood)"></span></div><span class="fcount">0</span></div><div class="fnote">0.0% granted so far, headed for briefing and argument</div></div></div>
-    <div class="exitbar">So far: 1 denied · 0 GVR’d · 0 dismissed · 241 still pending (99.6% of the term)</div>
+    <p class="note">Data as of July 30, 2026. Petitions from this term are still being docketed and decided; 331 are still waiting on an outcome.</p>
+    <div class="funnel" role="img" aria-label="Certiorari funnel"><div class="frow" style="--i:0"><div class="flabel">Docketed</div><div class="ftrack"><div class="frail"><span class="fbar" style="width:100.00%;background:var(--ink)"></span></div><span class="fcount">335</span></div><div class="fnote">every petition filed</div></div><div class="frow" style="--i:1"><div class="flabel">Considered at conference</div><div class="ftrack"><div class="frail"><span class="fbar" style="width:15.52%;background:var(--ink)"></span></div><span class="fcount">52</span></div><div class="fnote">15.5% reached the Justices’ private conference</div></div><div class="frow" style="--i:2"><div class="flabel">Relisted at least once</div><div class="ftrack"><div class="frail"><span class="fbar" style="width:0.70%;background:var(--ink)"></span></div><span class="fcount">0</span></div><div class="fnote">0.0% were relisted at least once</div></div><div class="frow" style="--i:3"><div class="flabel">Granted or GVR’d</div><div class="ftrack"><div class="frail"><span class="fbar" style="width:0.70%;background:var(--ink)"></span></div><span class="fcount">0</span></div><div class="fnote">0.0% got any form of yes</div></div><div class="frow" style="--i:4"><div class="flabel">Granted outright</div><div class="ftrack"><div class="frail"><span class="fbar fbar-key" style="width:0.70%;background:var(--oxblood)"></span></div><span class="fcount">0</span></div><div class="fnote">0.0% granted so far, headed for briefing and argument</div></div></div>
+    <div class="exitbar">So far: 4 denied · 0 GVR’d · 0 dismissed · 331 still pending (98.8% of the term)</div>
     <div class="over">The base rate</div>
     <h2>The complete picture: OT2017–OT2023</h2>
     <p class="note">36,746 petitions across 7 completed Terms. This is what normally happens.</p>
