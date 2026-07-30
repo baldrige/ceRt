@@ -43,4 +43,15 @@ for (f in files) {
   render_dockets_for(ot, site_dir)     # v8 render into site/cases (+ manifest/search)
   total_cases <- total_cases + nrow(ot)
 }
+# The /cases/ browse index, rebuilt from the search index this run just updated.
+#
+# Also built by build_dashboards.R. Doing it in BOTH places is deliberate: every
+# case page's breadcrumb links to /cases/, so whichever workflow publishes case
+# pages first has to be the one that creates the index. Leaving it only in the
+# daily made the rollout order load-bearing -- and the daily is the run that
+# aborts on a throttled fetch, so "run the daily first" is not something this
+# workflow can rely on. Cheap and idempotent: it reads search.json, which
+# render_dockets_for() has just maintained.
+write_cases_index(file.path(site_dir, "cases"))
+
 cat("Done. Processed", total_cases, "cases across", length(files), "term(s).\n")
