@@ -161,32 +161,55 @@ That is the entire argument for doing them now rather than later.
 
 ## Rollout
 
-Ordered so nothing ships pointing at a 404.
+All of the code shipped in one commit (`PAGE_TEMPLATE_VERSION` v14 → v15). What
+remains is publishing, in two independent halves:
 
-1. **`cases/` index** — new build step in `build_dashboards.R`, published by the next
-   `daily.yml` run. Must land before or with the breadcrumb. *(No template bump.)*
-2. **Palette + token normalisation** — `docket_page.R`, `interactive_theme.R`,
-   `page_style.R`, `cert_funnel.R`, plus the two `docs/` generators. Fold into
-   step 3's bump.
-3. **Case-page nav** — masthead, breadcrumb, footer into `R/docket_page.R`; drop the
-   now-duplicated docket number from `.kicker`, keeping its off-site link. Bump
-   `PAGE_TEMPLATE_VERSION` v14 → v15, then `rerender-dockets.yml` with
-   `reuse_from_runs` for a render-only pass from cached snapshots (~20 min, no
-   re-scrape). Then `fill-throttled-dockets.yml` until zero remain.
-4. **Section indexes, landing, funnel, methods** — masthead into `page_style.R`; delete
-   the three back-links. Published by `daily.yml` / `conferences.yml`.
-5. **Prev/next** on dated leaves.
+- **`daily.yml`** publishes the landing page, the three section indexes, the
+  funnel, `methods.html`, the `/cases/` index, and the current term's recent case
+  pages.
+- **`rerender-dockets.yml`** publishes the back-catalogue at v15, then
+  `fill-throttled-dockets.yml` mops up whatever throttling lost. Re-dispatch until
+  zero remain.
 
-Step 3 is the only expensive one and the only one that touches the back-catalogue. Do
-2 and 3 in a single bump; a second full re-render to fix a hex value would be a poor
-trade.
+**Order no longer matters.** The first draft of this plan made it matter: the case
+breadcrumb links to `/cases/`, and only `build_dashboards.R` built that index, so
+the daily had to run first or the re-render would publish tens of thousands of
+links to a 404. That was a bad dependency and it bit immediately — the daily is
+also the run that aborts on a throttled fetch, so the one workflow that could
+create the index is the one that refuses to run on a bad day. `9e0a15c690` moved
+`write_cases_index()` into `render_dockets_backfill.R` as well. Either workflow
+can now go first; both are idempotent.
+
+### The back-catalogue costs a full re-scrape, not a render-only pass
+
+This plan originally called for `rerender-dockets.yml` with `reuse_from_runs` —
+render-only from cached snapshots, ~20 minutes. **That option is usually not
+available**, and the reason is worth writing down:
+
+- `rerender-dockets.yml` uploads its term snapshots with `retention-days: 5`.
+- A run dispatched *with* `reuse_from_runs` skips the fetch job entirely, so it
+  uploads **nothing**. Two consecutive render-only runs leave no snapshot behind
+  at all.
+
+So by the time a template bump wants them, the snapshots are typically expired or
+were never written. Budget for the full path: one runner per term, `max-parallel:
+5`, ~3 hours, and re-dispatches for any term throttling takes out. `fail-fast:
+false` and the render job is `if: always()`, so a lost term costs that term, not
+the run.
+
+If you want the cheap path to exist next time, dispatch a *fetching* re-render
+(blank `reuse_from_runs`) within five days of needing it.
 
 ### Watch out
 
-- The daily aborts before rendering when `fetch_is_degraded()` trips — it did on
-  2026-07-27 04:11 and 2026-07-29 03:47, both the 00:30 UTC cron, losing ~24% of
-  dockets to throttling. A degraded run publishes nothing, so don't read an unchanged
-  landing page as a broken template.
+- The daily aborts before rendering when `fetch_is_degraded()` trips, and it does so
+  often: 2026-07-27 04:11, 2026-07-29 03:47, and twice on 2026-07-30 (13:58 and
+  14:13, losing 21.6% and 22.9% of 153 dockets). The exit is at the top of
+  `build_dashboards.R`, *upstream* of `render_dockets_for()`, `write_cases_index()`,
+  the landing-page render and the methods injection — so a degraded run publishes
+  none of the navigation. Don't read an unchanged landing page as a broken template,
+  and don't keep re-dispatching into an active throttling window; it is intermittent
+  (2026-07-30 03:39 fetched 153/153 clean) and the next cron will usually get it.
 - Verify step 3 on a handful of pages before dispatching the full re-render: an
   application docket (`NNA###`), a granted case, and a pre-template page that
   `fill-throttled-dockets.yml` has not yet reached.
