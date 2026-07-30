@@ -115,9 +115,64 @@ Tracked, not forgotten. All three ship in the current model.
 
 | | issue |
 |---|---|
-| `USDC` moved 8.4% → 25.0% on 36 corpus rows — the one number this pass made *less* conservative | [#7](https://github.com/baldrige/ceRt/issues/7) |
+| `USDC_APPEAL` moved 8.4% → 25.0% on 31 corpus rows — the one number this pass made *less* conservative. Thin, but no longer *mislabelled*; see below | [#7](https://github.com/baldrige/ceRt/issues/7) |
 | `gap_na` (+0.98 log-odds) predicts well with no legal explanation; likely a data-quality proxy | [#8](https://github.com/baldrige/ceRt/issues/8) |
 | The 5+ relist tail over-predicts in every model fitted; needs the hold state modelled, not another feature | [#9](https://github.com/baldrige/ceRt/issues/9) |
+
+## Corrected 2026-07-30: `USDC` was never about certiorari before judgment
+
+The old `USDC` level pooled two postures that share only a district court below,
+and the code comment above it asserted the wrong one:
+
+> *"US district courts +6.57, whose rows are cert-before-judgment cases the Court
+> takes at extraordinary rates."*
+
+The corpus says otherwise. Of 33 labelled `USDC` rows:
+
+| | n | granted | rate |
+|---|---|---|---|
+| captioned **Appellants** — 28 U.S.C. § 1253 direct appeals from three-judge district courts | 31 | 12 | **38.7%** |
+| captioned **Petitioners** — true certiorari before judgment | 2 | 0 | **0.0%** |
+| everything else in the corpus | 39,735 | 520 | 1.31% |
+
+So the coefficient never measured "the Court grants cert before judgment at
+extraordinary rates". It measures **mandatory appellate jurisdiction**: on a
+§ 1253 appeal the Court must dispose of the case, and noting probable
+jurisdiction is the ordinary outcome. The only two genuine cert-before-judgment
+petitions in the corpus were both denied.
+
+Pooling them was not merely a labelling error. It handed a true cert-before-judgment
+petition a 38.7% signal it has no claim to — on identical facts, the *same* case
+scored 46.6% whether captioned "Appellants" or "Petitioners", because the model
+could not see the difference.
+
+**Fix.** `court_bucket()` now takes `caption` (required, not optional — an optional
+argument would make the split depend on the call site, which is the train/serve
+asymmetry that killed `elite_counsel`) and assigns `USDC_APPEAL` only when the
+caption carries an appellate role marker. A cert-before-judgment petition falls
+through to `OTHER`, a genuine 0-grants-in-1,653 cell — the honest reading of
+0-for-2 rather than an invented estimate. Two observations cannot support a level
+of their own; 0 grants in 2 is perfect separation, which `fit_cert_model()`
+correctly refuses to fit.
+
+**Effect.** Identical case, only the caption's role word differing:
+
+| | old | new |
+|---|---|---|
+| § 1253 direct appeal | 46.6% | 48.2% |
+| true cert before judgment | 46.6% | **0.6%** |
+
+Aggregate metrics are unchanged (AUC 0.866 → 0.866, Brier 0.0339 → 0.0339, AP
+0.314 → 0.315). That is the point: this is a correctness fix on 2 rows out of
+11,806, not a performance improvement, and it would be invisible to any
+aggregate score. It matters because the affected cases are exactly the
+conspicuous ones — the live example was *Allen v. Milligan*, published on the
+landing page at 47% with the cue text "certiorari before judgment".
+
+**Still open.** 31 rows is thin, and `USDC_APPEAL` is doing double duty: § 1253
+appeals are overwhelmingly redistricting and voting-rights cases, so the level
+may be carrying subject matter as much as posture. Revisit if the corpus ever
+accumulates enough true cert-before-judgment petitions to estimate one.
 
 ## Other open questions
 
