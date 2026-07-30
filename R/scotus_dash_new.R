@@ -50,11 +50,71 @@ json_url <- function(dkt) {
 
 UA <- "ceRt SCOTUS docketing dashboard (httr2)"
 
+# Outbound request rate, in requests per second, shared across EVERY call to
+# supremecourt.gov in a run.
+#
+# Until 2026-07-30 there was no pacing at all. "One request at a time" (below,
+# and in CLAUDE.md) meant not *concurrent* -- but sequential-at-full-speed is
+# still roughly 3 req/s, perfectly regular and jitter-free, from a single IP.
+# Akamai rate-limits on requests-per-second-per-IP, not on concurrency, so the
+# fetcher was carefully avoiding a problem the WAF does not have while walking
+# straight into the one it does. Five of twelve daily runs degraded in the four
+# days to 2026-07-30.
+#
+# 2/s is deliberately below the ~3/s that a clean run was already sustaining.
+# It costs a clean daily roughly 35 extra seconds (190 requests at 2/s ~= 95s
+# against ~60s). A degraded run costs ten extra minutes AND publishes nothing,
+# so the trade needs no further justification.
+#
+# Env-overridable so the rate can be tuned from a workflow without a code change
+# -- lower it if throttling persists, raise it once we have evidence there is
+# headroom. See docs/navigation.md for the observed failure pattern.
+FETCH_RPS <- {
+  v <- suppressWarnings(as.numeric(Sys.getenv("SCOTUS_FETCH_RPS", "2")))
+  if (is.na(v) || v <= 0) 2 else v
+}
+
 # Treat 403/429/503 as transient: the Akamai CDN answers 403 when too many
 # requests arrive at once, so retry those (a genuine missing docket is 404).
 is_transient_status <- function(resp) {
   inherits(resp, "httr2_response") && resp_status(resp) %in% c(403, 429, 503)
 }
+
+# Pacing state, shared by EVERY supremecourt.gov call in the process. Shared is
+# the point: the binary search that finds each bucket's highest docket fires ~35
+# HEAD requests before the main fetch begins, and those are the first traffic a
+# cold runner IP sends. Pacing the two independently would let the search spend
+# the budget and hand the fetch an already-throttled server.
+.fetch_state <- new.env(parent = emptyenv())
+.fetch_state$last <- 0
+
+# NOT httr2::req_throttle(). Its body ends with
+#     the$throttle[[realm]] <- TokenBucket$new(capacity, fill_time_s)
+# so it installs a FRESH, full token bucket every time it is called. That is
+# fine when you build one request and reuse it, and useless here: a per-docket
+# fetcher calls the request builder once per request, refilling the bucket each
+# time, and the throttle never engages. Measured on httr2 1.2.0 -- 20 requests
+# at a nominal capacity=2/fill_time_s=1 went out at ~800/s. It would have
+# shipped, done nothing, and taught us that pacing does not help.
+#
+# Ten lines we own instead. Jitter is deliberate: a perfectly regular 2.000/s
+# from a single IP is itself a bot signature, and it averages to the same rate.
+scotus_pace <- function() {
+  gap <- stats::runif(1, 0.75, 1.25) / FETCH_RPS
+  wait <- gap - (as.numeric(Sys.time()) - .fetch_state$last)
+  if (wait > 0) Sys.sleep(wait)
+  .fetch_state$last <- as.numeric(Sys.time())
+}
+
+# One place that builds a supremecourt.gov request, and one that performs it, so
+# pacing cannot be applied at some call sites and forgotten at others.
+scotus_req <- function(url) {
+  request(url) |>
+    req_user_agent(UA) |>
+    req_retry(max_tries = 5, is_transient = is_transient_status) |>
+    req_error(is_error = \(resp) FALSE)
+}
+scotus_perform <- function(req) { scotus_pace(); req_perform(req) }
 
 # Fetch, classify, and build one docket's case record. Returns list(case, failed):
 # `case` is the tibble (NULL for a 404 or a parse failure); `failed` is TRUE only
@@ -62,21 +122,26 @@ is_transient_status <- function(resp) {
 # so callers can tell "docket absent" apart from "couldn't fetch it". Retries
 # transient throttling (403/429/503) with backoff.
 fetch_case_result <- function(dkt) {
-  resp <- tryCatch(
-    request(json_url(dkt)) |>
-      req_user_agent(UA) |>
-      req_retry(max_tries = 5, is_transient = is_transient_status) |>
-      req_error(is_error = \(resp) FALSE) |>
-      req_perform(),
-    error = function(e) NULL
-  )
-  if (is.null(resp)) return(list(case = NULL, failed = TRUE))
+  resp <- tryCatch(scotus_perform(scotus_req(json_url(dkt))), error = function(e) NULL)
+  # `outcome` exists only to be counted. The old code collapsed every non-200,
+  # non-404 result into failed=TRUE and discarded the status, which is why the
+  # warning below could only say the server was "likely" throttling -- after
+  # five degraded runs we still could not tell a 403 block from a 429 slow-down
+  # from a transport error, and those want opposite responses (pause globally vs
+  # pace down). It changes no control flow; `failed` keeps its exact meaning.
+  if (is.null(resp)) return(list(case = NULL, failed = TRUE, outcome = "transport"))
   st <- resp_status(resp)
-  if (st == 404) return(list(case = NULL, failed = FALSE)) # legitimately absent
-  if (st != 200) return(list(case = NULL, failed = TRUE)) # throttled / 5xx
+  if (st == 404) return(list(case = NULL, failed = FALSE, outcome = "absent"))
+  if (st != 200) return(list(case = NULL, failed = TRUE,
+                             outcome = paste0("http_", st)))
   j <- tryCatch(fromJSON(resp_body_string(resp), simplifyVector = TRUE),
                 error = function(e) NULL)
-  list(case = tryCatch(build_case(j, dkt), error = function(e) NULL), failed = FALSE)
+  case <- tryCatch(build_case(j, dkt), error = function(e) NULL)
+  # A 200 we could not parse is NOT counted as failed -- that is pre-existing
+  # behaviour and changing it would move the fetch_is_degraded() gate, which is
+  # a separate decision. But it is no longer invisible.
+  list(case = case, failed = FALSE,
+       outcome = if (is.null(case)) "parse" else "ok")
 }
 
 # Existence check via a cheap HEAD request (200 vs 404). Retries transient
@@ -84,12 +149,9 @@ fetch_case_result <- function(dkt) {
 # binary search would silently truncate the term.
 docket_exists <- function(year, sep, n) {
   resp <- tryCatch(
-    request(json_url(paste0(year, sep, n))) |>
-      req_user_agent(UA) |>
+    scotus_req(json_url(paste0(year, sep, n))) |>
       req_method("HEAD") |>
-      req_retry(max_tries = 5, is_transient = is_transient_status) |>
-      req_error(is_error = \(resp) FALSE) |>
-      req_perform(),
+      scotus_perform(),
     error = function(e) NULL
   )
   !is.null(resp) && resp_status(resp) == 200
@@ -247,19 +309,37 @@ get_scotus_case <- function(dkt) {
 # publish a degraded fetch.
 fetch_cases <- function(dkts) {
   if (length(dkts) == 0) return(tibble())
+  t0 <- Sys.time()
   results <- dkts |>
     map(\(d) tryCatch(fetch_case_result(d),
-                      error = function(e) list(case = NULL, failed = TRUE)),
+                      error = function(e) list(case = NULL, failed = TRUE,
+                                               outcome = "transport")),
         .progress = TRUE)
   cases <- purrr::compact(purrr::map(results, "case"))
   n_failed <- sum(purrr::map_lgl(results, "failed"))
+
+  # Say what actually happened, by status. Five degraded runs in four days were
+  # diagnosed only as "likely throttling" because this tally did not exist; with
+  # it, http_403 (an Akamai block, wants a global pause) is distinguishable from
+  # http_429 (a rate limit, wants a lower rate) and from transport (a network
+  # problem that no amount of pacing fixes).
+  tally <- table(unlist(purrr::map(results, "outcome")))
+  secs <- as.numeric(difftime(Sys.time(), t0, units = "secs"))
+  message(sprintf("fetch: %d request(s) in %.0fs (%.1f/s effective, %.1f/s cap) -- %s",
+                  length(dkts), secs,
+                  length(dkts) / max(secs, 1e-9), FETCH_RPS,
+                  paste(sprintf("%s %d", names(tally), as.integer(tally)),
+                        collapse = ", ")))
   if (n_failed > 0) {
-    warning(n_failed, " docket(s) unresolved after retries (server likely throttling).")
+    warning(n_failed, " docket(s) unresolved after retries (",
+            paste(sprintf("%s %d", names(tally), as.integer(tally)),
+                  collapse = ", "), ").")
   }
   if (length(cases) == 0) return(tibble())
   result <- bind_rows(cases)
   attr(result, "n_attempted") <- length(dkts)
   attr(result, "n_failed") <- n_failed
+  attr(result, "outcomes") <- tally      # for callers that want the breakdown
   result
 }
 

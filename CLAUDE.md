@@ -24,7 +24,14 @@ site, and which pages it writes — see **[docs/workflows.md](docs/workflows.md)
 ## Architecture
 
 - **Fetch** (`R/scotus_dash_new.R`): per-docket JSON fetch from supremecourt.gov,
-  **one request at a time** (Akamai WAF throttles bursty clients). No persistent
+  **one request at a time AND rate-paced** — these are two different things, and
+  conflating them cost five degraded runs in four days. Sequential only means
+  not concurrent; unpaced, it still sustained ~3 req/s, and Akamai limits on
+  requests-per-second-per-IP, not concurrency. `scotus_pace()` holds it to
+  `SCOTUS_FETCH_RPS` (default 2) with jitter, shared across the binary search and
+  the docket fetch. Do not swap it for `httr2::req_throttle()`: that installs a
+  fresh full token bucket on every call, so a per-docket builder silently
+  defeats it. No persistent
   per-docket cache. Docket buckets per term: paid `NN-1..`, IFP `NN-5001..`,
   applications `NNA###` (note the "A", not a dash). The daily fetches only the
   trailing ~50 dockets of each bucket; full-term fetches (`fetch_term.R`) hit
