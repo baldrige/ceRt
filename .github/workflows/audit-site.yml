@@ -1,0 +1,59 @@
+name: Audit published site
+
+# Checks the published site against the invariants in
+# .github/scripts/audit_site.R -- template coverage, index integrity, that every
+# root-absolute nav link resolves, and prev/next slot coverage on dated leaves.
+#
+# Read-only. It does not check anything out for writing and cannot publish, so a
+# red audit never blocks a daily; it just says what is wrong. Runs after the
+# early-morning daily has had time to land, and on demand.
+#
+# Deliberately NOT a step inside daily.yml: an audit that can fail the run that
+# publishes the site turns "one page is stale" into "nothing publishes today",
+# which is a worse failure than the one it reports.
+
+on:
+  schedule:
+    - cron: "0 4 * * *"    # after the ~00:30 UTC daily and its retries
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: audit-site
+  cancel-in-progress: true
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout source (main)
+        uses: actions/checkout@v5
+
+      # Blobless: the audit reads ~55k files but needs no history, and a full
+      # clone of gh-pages is ~1 GB.
+      - name: Checkout published site (gh-pages) into ./site
+        uses: actions/checkout@v5
+        with:
+          ref: gh-pages
+          path: site
+          fetch-depth: 1
+
+      - name: Setup R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+
+      # jsonlite only. The audit is dependency-light on purpose: one that fails
+      # because tidyverse would not install tells you nothing about the site.
+      - name: Install R packages (cached)
+        uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          packages: any::jsonlite
+
+      - name: Audit
+        env:
+          SITE_DIR: site
+        run: Rscript .github/scripts/audit_site.R
