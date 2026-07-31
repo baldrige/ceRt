@@ -20,7 +20,11 @@ SCR_CSS <- paste0("
 *{box-sizing:border-box}
 body{font-family:'Newsreader',Georgia,serif;color:var(--ink);background:var(--paper);margin:0}
 body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.5;mix-blend-mode:multiply;background-image:url(\"", .scr_noise, "\")}
-.wrap{width:min(97vw,92rem);max-width:100%;margin:0 auto;padding:2.6rem 1.4rem 4rem}
+/* --leaf-max is the page's own ceiling, set per page type by scr_write_page().
+   One shared 92rem was sized for the widest table (conferences, formerly 11
+   columns) and then applied to the argument navigator's 6, stretching it to
+   roughly 2.5x what it needs. */
+.wrap{width:min(97vw,var(--leaf-max,92rem));max-width:100%;margin:0 auto;padding:2.6rem 1.4rem 4rem}
 .kicker{font:600 .74rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;color:var(--oxblood);margin:0 0 .8rem}
 h1{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:clamp(1.9rem,4.5vw,2.9rem);line-height:1.02;letter-spacing:-.015em;margin:0 0 .7rem}
 .dek{font-size:1.1rem;line-height:1.5;color:var(--ink-soft);font-style:italic;margin:0 0 1.4rem;max-width:46rem}
@@ -37,6 +41,15 @@ h1{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:clamp(1.9rem,4
 .rt-td{font-variant-numeric:tabular-nums;color:var(--ink);font-size:.95rem;padding:.5rem .7rem!important;align-items:center!important;line-height:1.5!important}
 .rt-tbody .rt-tr:hover{background:rgba(138,43,43,.06)!important}
 .rt-tr-striped{background:#efe7d6!important}
+/* Docket number beneath the caption, since it no longer holds its own column. */
+.rt-td .cdk{display:block;font-size:.8rem;color:var(--faint);font-variant-numeric:tabular-nums;margin-top:.15rem}
+/* Merged grant-forecast cell: granted-here leads and carries the heat-map
+   shading (applied inline -- gt cannot data_color a cell holding markup), with
+   ever and GVR muted beneath it. */
+.rt-td .fc-here{display:inline-block;min-width:2.6rem;padding:.1rem .35rem;
+  font-weight:600;font-variant-numeric:tabular-nums;border-radius:2px}
+.rt-td .fc-sub{display:block;font-size:.78rem;color:var(--faint);
+  font-variant-numeric:tabular-nums;margin-top:.2rem;white-space:nowrap}
 .rt-td a{color:var(--oxblood);text-decoration:none}
 .rt-td a:hover{color:#6f2020}
 .rt-td details{font-size:.9rem;line-height:1.5}
@@ -153,9 +166,12 @@ scr_inline_libs <- function(html, base_dir) {
 # page-size relabel, and any left-aligned DATA columns (headers stay centered).
 # `active` marks a SITE_SECTIONS href in the masthead; `crumb` is
 # list(label=, section=) for the breadcrumb; `pnav` is prev_next_nav() output.
+# `leaf_max` is this page type's width ceiling, in rem. Default 92 preserves the
+# previous behaviour for any caller that does not set one.
 scr_write_page <- function(gt_tbl, out_path, kicker, title, dek, n_rows,
                            left_cols = integer(0), footer = "", back = NULL,
-                           active = NULL, crumb = NULL, pnav = "") {
+                           active = NULL, crumb = NULL, pnav = "",
+                           leaf_max = 92) {
   # Typographic quotes for the page chrome (prose only -- never the widget body,
   # whose JSON payload uses " structurally). smarten() lives in page_style.R,
   # always sourced alongside this module in production; fall back to identity.
@@ -200,7 +216,7 @@ scr_write_page <- function(gt_tbl, out_path, kicker, title, dek, n_rows,
     if (!is.null(crumb)) site_breadcrumb_jsonld(crumb$label, crumb$section) else "",
     "</head><body>",
     site_masthead(active = active),
-    "<main class='wrap' id='main'>",
+    sprintf("<main class='wrap' id='main' style='--leaf-max:%grem'>", leaf_max),
     if (!is.null(crumb)) site_breadcrumb(crumb$label, crumb$section) else "",
     "<p class='kicker'>", kicker, "</p><h1>", title, "</h1>",
     "<p class='dek'>", dek, "</p><hr class='brule'>",

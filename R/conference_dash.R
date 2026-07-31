@@ -228,20 +228,54 @@ conference_dash <- function(dist, conf_date,
     }
   }
 
+  # Shade a probability the way gt's data_color() did when Granted here / ever /
+  # GVR were three separate columns. Merging them into one cell means gt can no
+  # longer colour by value -- a cell holds markup, not a number -- so the ramp is
+  # applied inline instead. Keeping it matters: the heat map is how you find the
+  # live petitions by eye, and it is doing more work now that the merged column
+  # cannot be sorted numerically.
+  fc_shade <- function(p, hi, cols) {
+    out <- rep("#f7f1e4", length(p))                    # na_color, as before
+    ok <- !is.na(p)
+    if (any(ok)) {
+      m <- grDevices::colorRamp(cols)(pmin(pmax(p[ok] / hi, 0), 1))
+      out[ok] <- grDevices::rgb(m[, 1], m[, 2], m[, 3], maxColorValue = 255)
+    }
+    out
+  }
+  pct <- function(p) ifelse(is.na(p), "—", sprintf("%.0f%%", 100 * p))
+  # "Granted here" leads and carries the shading -- it is the question the page
+  # is about. "Granted ever" and "GVR here" follow, muted: a different model
+  # (at-risk) and the companion outcome of this one.
+  fc_cell <- function(g, e, v) {
+    sub <- paste0(ifelse(is.na(e), "", paste0("ever ", pct(e))),
+                  ifelse(!is.na(e) & !is.na(v), " &middot; ", ""),
+                  ifelse(is.na(v), "", paste0("GVR ", pct(v))))
+    ifelse(is.na(g) & is.na(e) & is.na(v), "—",
+      paste0("<span class='fc-here' style='background:",
+             fc_shade(g, 0.5, c("#f3ecdd", "#e8c9a0", "#c8794f", "#8a2b2b")), "'>",
+             pct(g), "</span>",
+             ifelse(nzchar(sub), paste0("<span class='fc-sub'>", sub, "</span>"), "")))
+  }
+
   # One editorial row per distributed case. Relists = prior distributions.
   qp_get <- function(dk) if (is.null(qp_map)) NA_character_ else unname(qp_map[dk])
   tbl <- tibble(
     Type = factor(d$type, levels = c("paid", "ifp", "app"),
                   labels = c("Paid", "IFP", "Application")),
+    # The docket number now sits under the caption instead of holding a column
+    # of its own. It stays searchable -- the search box matches rendered cell
+    # text -- and the case page it links to is the same one the caption links to.
     Case = sprintf(
-      "<a href='../cases/%s.html' target='_blank'>%s</a>",
+      "<a href='../cases/%s.html' target='_blank'>%s</a><span class='cdk'>No. %s</span>",
       d$dkt,
-      str_squish(str_remove_all(d$caption, ", Petitioners?|, Respondents?|, et al\\."))),
-    Docket = d$dkt,
+      str_squish(str_remove_all(d$caption, ", Petitioners?|, Respondents?|, et al\\.")),
+      d$dkt),
     Relists = d$distribution_no - 1L,
-    Grant = p_grant,
-    Ever = p_ever,
-    GVR = p_gvr,
+    Forecast = fc_cell(p_grant, p_ever, p_gvr),
+    # Sort key only: `Forecast` is markup, so arranging on it would sort "4%"
+    # after "12%". Dropped before the table is built.
+    .fc_sort = p_grant,
     Court = str_replace(coalesce(d$lower, "—"),
               "^United States Court of Appeals for the (.+?Circuit)$", "\\1") |>
               str_trunc(28),
@@ -253,16 +287,19 @@ conference_dash <- function(dist, conf_date,
     Documents = map_chr(d$events, function(e)
                   case_documents(e, c("Petition", "Appendix", "BIO", "Reply"))),
     QP = { q <- map_chr(d$dkt, qp_get); ifelse(is.na(q) | q == "", "—", q) }
-  ) |> arrange(desc(Relists), desc(Grant))
+  ) |> arrange(desc(Relists), desc(.fc_sort)) |> select(-.fc_sort)
 
-  # Drop the forecast columns on conferences with no paid petitions (all NA),
-  # and any column that is entirely empty -- e.g. QP and Counsel on the pre-JSON
+  # Drop the forecast column on conferences with no paid petitions, and any
+  # column that is entirely empty -- e.g. QP and Counsel on the pre-JSON
   # historical archive, which has neither source (matches the old renderer, which
   # omitted the column rather than showing a wall of em dashes).
-  has_grant <- any(!is.na(tbl$Grant)) || any(!is.na(tbl$Ever))
-  if (!has_grant) tbl <- select(tbl, -Grant, -Ever, -GVR)
-  if (has_grant && all(is.na(tbl$Ever))) tbl <- select(tbl, -Ever)
-  if (has_grant && all(is.na(tbl$Grant))) tbl <- select(tbl, -Grant)
+  #
+  # One column to drop instead of three, and the per-value drops are gone with
+  # it: when only one of the two models scores a conference, fc_cell() simply
+  # omits that number from the cell. That also retires the failure mode noted
+  # below -- naming a dropped column in cols_label() aborted a whole render.
+  has_grant <- any(!is.na(p_grant)) || any(!is.na(p_ever))
+  if (!has_grant) tbl <- select(tbl, -Forecast)
   for (col in c("Counsel", "QP", "Documents")) {
     if (col %in% names(tbl) && all(tbl[[col]] == "—")) tbl <- select(tbl, -all_of(col))
   }
@@ -273,48 +310,40 @@ conference_dash <- function(dist, conf_date,
 
   t <- tbl |>
     gt() |>
-    fmt_markdown(columns = any_of(c("Case", "Counsel", "Documents", "QP"))) |>
+    fmt_markdown(columns = any_of(c("Case", "Counsel", "Documents", "QP", "Forecast"))) |>
     data_color(columns = Type, method = "factor",
       palette = c("Paid" = "#e4e7d8", "IFP" = "#efe1cd", "Application" = "#dfe4ea")) |>
     cols_align("center", columns = everything()) |>
     cols_width(Case ~ px(230))
   if (has_qp) t <- t |> cols_label(QP = "Questions Presented") |> cols_width(QP ~ px(190))
-  if (has_grant) {
-    t <- t |>
-      fmt_percent(columns = any_of(c("Grant", "Ever", "GVR")), decimals = 0) |>
-      # NA (non-paid) forecasts show as an em dash; raw values stay numeric so
-      # the columns still sort by value.
-      sub_missing(columns = any_of(c("Grant", "Ever", "GVR")), missing_text = "—") |>
-      data_color(columns = any_of("Grant"), palette = c("#f3ecdd", "#e8c9a0", "#c8794f", "#8a2b2b"),
-                 domain = c(0, 0.5), na_color = "#f7f1e4") |>
-      data_color(columns = any_of("Ever"), palette = c("#f3ecdd", "#e8c9a0", "#c8794f", "#8a2b2b"),
-                 domain = c(0, 1), na_color = "#f7f1e4") |>
-      data_color(columns = any_of("GVR"), palette = c("#f3ecdd", "#dfe0cf", "#b9b98f"),
-                 domain = c(0, 0.4), na_color = "#f7f1e4")
-    # Label only the forecast columns that survived. Any of the three can be
-    # dropped above when it is entirely NA for a conference -- one model present
-    # and another absent, or a conference whose paid petitions all fail to score
-    # -- and naming a dropped column here aborts the whole render. That is how a
-    # single bad conference took down a 261-page publish job.
-    labs <- list(Grant = "Granted here", Ever = "Granted ever", GVR = "GVR here")
-    labs <- labs[names(labs) %in% names(tbl)]
-    if (length(labs)) t <- t |> cols_label(!!!labs)
-  }
+  # Formatting, shading and the em dash for a non-paid row all happen inside
+  # fc_cell() now, so nothing is needed here beyond the header and a width. The
+  # header is short on purpose: "Granted here" was ~12 characters of uppercase
+  # tracked caps holding open a column whose data is three, and across three such
+  # columns the labels, not the numbers, were setting the table's width.
+  if (has_grant) t <- t |> cols_label(Forecast = "Grant forecast") |>
+    cols_width(Forecast ~ px(120))
 
   footer <- if (has_grant) paste0(
-    "<em>Granted here</em> is the model's estimate that this petition is granted ",
-    "at <em>this</em> conference; <em>Granted ever</em> is the estimate that it is ",
-    "granted at any conference, now or after further relists. The two differ most ",
+    "<em>Grant forecast</em> leads with the model's estimate that this petition is ",
+    "granted at <em>this</em> conference, shaded by that value; <em>ever</em> is the ",
+    "estimate that it is granted at any conference, now or after further relists. ",
+    "The two differ most ",
     "for a petition at its first conference, which is usually relisted or denied ",
-    "rather than granted on the spot. <em>GVR here</em> is the companion estimate ",
+    "rather than granted on the spot. <em>GVR</em> is the companion estimate ",
     "of a grant, vacate &amp; remand at this conference. Paid petitions only. ",
     "Estimates, not predictions about any case."
   ) else ""
 
   n_case <- nrow(tbl)
+  # No longer "sort by Granted ever": the three forecast columns are one cell of
+  # markup now, so it sorts as text rather than by value and pointing readers at
+  # it would be pointing them at nonsense. Relists alone does what that sentence
+  # was for, and the shading finds the live petitions by eye without sorting.
   dek <- paste0(n_case, if (n_case == 1) " case" else " cases",
     " distributed for this conference &mdash; sortable and filterable. Sort by ",
-    "<em>Relists</em> or <em>Granted ever</em> to surface the serially-relisted cases.")
+    "<em>Relists</em> to surface the serially-relisted cases; the darkest ",
+    "<em>Grant forecast</em> cells are the likeliest grants.")
 
   scr_interactive(t, n_rows = nrow(tbl)) |>
     scr_write_page(
@@ -322,6 +351,11 @@ conference_dash <- function(dist, conf_date,
       kicker = "Supreme Court of the United States",
       title = paste0("Conference of ", format(conf_date, "%B %d, %Y")),
       dek = dek, n_rows = nrow(tbl), left_cols = left_cols, footer = footer,
+      # Eight columns now, not eleven: Type, Case, Relists, Grant forecast,
+      # Court, Counsel, Documents, QP. Their natural widths total ~1220px, so
+      # 78rem holds them without the table stretching to fill dead space -- which
+      # is what made a row a 1470px scan from case name to number.
+      leaf_max = 78,
       active = "/conferences/", pnav = pnav,
       crumb = list(label = format(conf_date, "%B %d, %Y"),
                    section = list(href = "/conferences/", label = "Conferences")),
