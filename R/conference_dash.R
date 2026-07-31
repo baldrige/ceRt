@@ -243,16 +243,29 @@ conference_dash <- function(dist, conf_date,
     }
     out
   }
-  # A GVR probability is almost always under half a percent, so a flat "%.0f%%"
-  # rendered 42 of 44 cells as "GVR 0%" -- a false zero that reads as an integer
-  # someone forgot to format, not as a small number. One decimal below 10%, and
-  # anything that would still round to nothing says so rather than claiming zero.
-  # Two decimals would be dishonest: the calibrator does not support them.
+  # Significant figures, not a fixed precision. A GVR probability is almost
+  # always under half a percent, so a flat "%.0f%%" rendered 42 of 44 cells as
+  # "GVR 0%" -- a false zero, asserting a probability of nothing where the value
+  # was 0.2%.
+  #
+  # The first fix used "<0.1%" below a threshold, and that rendered as a blank:
+  # "GVR" followed by nothing. The payload carries a correct single-escaped
+  # &lt;, and by the HTML spec a "<" before a digit should emit as a literal
+  # character -- so I could not pin down where it is lost between gt's markdown,
+  # reactable's JSON and the innerHTML the browser finally parses. It buys
+  # nothing over showing the number, so it is gone rather than debugged.
+  #
+  # Two decimals appear only below 1%, where the reader's question is just
+  # "is this essentially zero" and 0.04% answers it better than a threshold.
+  # The floor is 0.01% (p = 1e-4), the smallest value two decimals can state
+  # without printing "0.00%" -- which would be the same false zero in a longer
+  # coat. Below that, "0%" is honest: 0.003% is zero to any reader, whereas the
+  # 0.2% the original bug rounded away sits in a range that means something.
   pct <- function(p) ifelse(
     is.na(p), "—",
-    ifelse(p >= 0.10, sprintf("%.0f%%", 100 * p),
-    ifelse(p == 0,   "0%",
-    ifelse(p < 0.001, "&lt;0.1%", sprintf("%.1f%%", 100 * p)))))
+    ifelse(p >= 0.10,   sprintf("%.0f%%", 100 * p),
+    ifelse(p >= 0.01,   sprintf("%.1f%%", 100 * p),
+    ifelse(p >= 0.0001, sprintf("%.2f%%", 100 * p), "0%"))))
 
   # "Granted ever" leads and carries the shading: it is the question a reader
   # scanning a conference actually has -- will this petition be granted at all --
