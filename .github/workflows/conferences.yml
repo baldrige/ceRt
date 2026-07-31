@@ -24,9 +24,14 @@ on:
         description: "Max new QP petition PDFs to fetch this run (raise for a one-time backfill)."
         required: false
         default: "600"
+      reuse_from_runs:
+        description: "Comma-separated prior run IDs to pull cases-*.rds from, in ADDITION to this run's own terms. Use to resume an archive rebuild without re-fetching every term."
+        required: false
+        default: ""
 
 permissions:
   contents: write
+  actions: read      # gh run download, for reuse_from_runs
 
 concurrency:
   group: conference-reports
@@ -57,7 +62,14 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 200
     strategy:
-      fail-fast: true
+      # Was true, which cancelled every other term the moment one failed and
+      # threw away hours of good fetching on a ten-term archive rebuild. Safe to
+      # relax now that (a) reuse_from_runs lets a re-dispatch fetch only the term
+      # that failed, so the survivors' snapshots are worth keeping, and (b)
+      # render_conferences.R refuses to render a snapshot set with a gap in it.
+      # `publish` still requires every fetch to succeed -- a plain `if:` does not
+      # waive the needs-success rule -- so this never publishes a partial set.
+      fail-fast: false
       matrix:
         term: ${{ fromJSON(needs.setup.outputs.matrix) }}
     steps:
@@ -121,12 +133,33 @@ jobs:
             any::pdftools
             any::htmltools
             any::nnet
-      - name: Download term artifacts
-        uses: actions/download-artifact@v4
-        with:
-          path: cases
-          pattern: cases-*
-          merge-multiple: true
+      - name: Download term snapshots (this run, plus any reuse runs)
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          REUSE: ${{ inputs.reuse_from_runs }}
+        run: |
+          set -euo pipefail
+          mkdir -p cases
+          # Each run is staged in its OWN directory first. Downloading several
+          # runs into one --dir collides whenever two of them carry the same
+          # term, and which copy survives would be up to gh.
+          i=0
+          for r in "$GITHUB_RUN_ID" $(echo "$REUSE" | tr ', ' '\n' | sed '/^$/d'); do
+            i=$((i + 1))
+            mkdir -p "dl/$i"
+            echo "downloading cases-* from run $r"
+            gh run download "$r" --pattern 'cases-*' --dir "dl/$i" \
+              || echo "  (nothing from run $r)"
+          done
+          # Flatten in staging order, so this run's freshly-fetched terms (i=1)
+          # win over any stale copy of the same term in a reuse run. mv -n keeps
+          # the first one moved.
+          for d in $(ls -1d dl/*/ 2>/dev/null | sort -V); do
+            find "$d" -name 'cases-*.rds' -exec mv -n {} cases/ \; 2>/dev/null || true
+          done
+          rm -rf dl
+          echo "snapshots present:"; ls -1 cases/*.rds 2>/dev/null || echo "  none"
       - name: Render conferences
         env:
           SITE_DIR: site
