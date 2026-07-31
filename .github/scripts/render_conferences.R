@@ -34,6 +34,40 @@ cat("Cert models loaded:", paste(names(cert_models), collapse = ", "),
 files <- list.files(cases_dir, pattern = "\\.rds$", full.names = TRUE, recursive = TRUE)
 if (length(files) == 0) stop("no case artifacts found in ", cases_dir)
 cat("Loading", length(files), "term file(s):", paste(basename(files), collapse = ", "), "\n")
+
+# Refuse a snapshot set with a HOLE in it.
+#
+# conference_distributions() counts distributions across the whole `combined`
+# history (see below), so a term missing from the middle of the range does not
+# merely omit pages -- it silently under-counts relists for every case whose
+# distributions straddle the hole, and a relist count is the headline number on
+# a conference report. That is a wrong page, not a stale one.
+#
+# This became reachable when the fetch matrix moved to fail-fast: false and
+# gained reuse_from_runs: the publish job now assembles snapshots from more than
+# one run, so "did every artifact arrive" is no longer implied by "the matrix
+# succeeded". Contiguity is the invariant that matters and it is cheap to check.
+#
+# NOT checked: that the set reaches back to OT17. The scheduled weekly run
+# deliberately loads only the current and prior term, so a case relisted out of
+# an older term already has its early distributions under-counted there. That is
+# a pre-existing property of the design, not something reuse introduced, and
+# enforcing full history here would break the weekly cron. Worth revisiting --
+# it means "Relists" on a recent conference page is a floor, not a count.
+.terms_present <- sort(unique(suppressWarnings(as.integer(
+  sub("^cases-(\\d+)\\.rds$", "\\1", basename(files))))))
+.terms_present <- .terms_present[!is.na(.terms_present)]
+if (length(.terms_present) > 1) {
+  .gaps <- setdiff(min(.terms_present):max(.terms_present), .terms_present)
+  if (length(.gaps))
+    stop("snapshot set has gap(s) at term(s) ", paste(.gaps, collapse = ", "),
+         " (have ", paste(.terms_present, collapse = ", "), "). Refusing to ",
+         "render: a missing term silently under-counts relists for cases that ",
+         "span it. Re-dispatch with terms=", paste(.gaps, collapse = ","),
+         " and reuse_from_runs=<this run id>.")
+}
+cat("Terms loaded:", paste(.terms_present, collapse = ", "), "(contiguous)\n")
+
 combined <- files |> map(readRDS) |> bind_rows()
 cat("Combined cases:", nrow(combined), "\n")
 
