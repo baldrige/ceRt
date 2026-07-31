@@ -185,35 +185,7 @@ jobs:
           # fresh (it did no JSON-API fetching).
           QP_MAX_NEW: "200"
         run: Rscript .github/scripts/render_arguments.R
-      - name: Commit and publish
+      - name: Commit and publish changes
         working-directory: site
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          # Guard the custom-domain config: GitHub Pages serves supremecourt.report
-          # only while this CNAME file exists at the gh-pages root. Re-assert it on
-          # every publish so a future rebuild can never drop the domain.
-          echo "supremecourt.report" > CNAME
-          # Site favicon lives at the repo root; re-assert it on every publish
-          # (like CNAME) so /favicon.svg and /favicon.ico stay at the gh-pages root.
-          cp ../favicon.svg ../favicon.ico . 2>/dev/null || true
-          git add -A
-          if git diff --cached --quiet; then
-            echo "No changes to publish."
-          else
-            git commit -m "Conference refresh $(date -u +%F)"
-            # Publishing races with the daily workflow and manual deploys, which
-            # also push to gh-pages. A bare push is rejected (non-fast-forward)
-            # when the branch moved, silently dropping this render, so rebase
-            # onto the latest tip and retry. Conferences touch conferences/ +
-            # funnel/; daily touches dashboards/ + the landing index, so the
-            # rebase is conflict-free.
-            for i in 1 2 3 4 5; do
-              if git push origin gh-pages; then exit 0; fi
-              echo "push rejected; rebasing onto latest gh-pages (attempt $i)"
-              git pull --rebase origin gh-pages
-              sleep $((RANDOM % 5 + 3))
-            done
-            echo "still could not publish after 5 attempts" >&2
-            exit 1
-          fi
+          ../.github/scripts/publish_site.sh "Conference refresh $(date -u +%F)"
