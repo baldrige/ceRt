@@ -271,9 +271,15 @@ conference_dash <- function(dist, conf_date,
   # scanning a conference actually has -- will this petition be granted at all --
   # and the one that survives past today. "Granted here" and GVR follow, muted:
   # the two outcomes of this conference in particular.
+  # here and GVR go on their own lines, not separated by a middot on one.
+  # "here 8.8% &middot; GVR 4.0%" is wider than the 120px column, and .fc-sub
+  # sets white-space:nowrap, so it overflowed and was clipped at the column edge
+  # -- the row rendered as "here 8.8% &middot; GVR" with the number sliced off.
+  # It was never the value: the markup was right all along and the cell was too
+  # narrow to show it. A <br> is what nowrap is for.
   fc_cell <- function(g, e, v) {
     sub <- paste0(ifelse(is.na(g), "", paste0("here ", pct(g))),
-                  ifelse(!is.na(g) & !is.na(v), " &middot; ", ""),
+                  ifelse(!is.na(g) & !is.na(v), "<br>", ""),
                   ifelse(is.na(v), "", paste0("GVR ", pct(v))))
     ifelse(is.na(g) & is.na(e) & is.na(v), "—",
       paste0("<span class='fc-here' style='background:",

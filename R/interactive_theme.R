@@ -48,8 +48,13 @@ h1{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:clamp(1.9rem,4
    ever and GVR muted beneath it. */
 .rt-td .fc-here{display:inline-block;min-width:2.6rem;padding:.1rem .35rem;
   font-weight:600;font-variant-numeric:tabular-nums;border-radius:2px}
+/* No white-space:nowrap. It was here to keep here/GVR on one line, and instead
+   made a too-long line clip silently at the column edge rather than wrap -- the
+   number was in the markup and simply not on the screen. The <br> in fc_cell()
+   breaks the lines deliberately; anything still too wide now wraps and stays
+   visible, which is the failure mode worth having. */
 .rt-td .fc-sub{display:block;font-size:.78rem;color:var(--faint);
-  font-variant-numeric:tabular-nums;margin-top:.2rem;white-space:nowrap}
+  font-variant-numeric:tabular-nums;margin-top:.2rem;line-height:1.35}
 .rt-td a{color:var(--oxblood);text-decoration:none}
 .rt-td a:hover{color:#6f2020}
 .rt-td details{font-size:.9rem;line-height:1.5}
