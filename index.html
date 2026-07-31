@@ -116,6 +116,18 @@
     color:var(--oxblood);text-decoration:none;border-bottom:1px solid var(--rule)}
   ul.terms a:hover{border-bottom-color:var(--oxblood)}
   ul.terms .cn{color:var(--faint);font-size:.85rem;font-variant-numeric:tabular-nums}
+  /* About page: running prose rather than an index, so it takes a measure and a
+     little more leading than the section rows above it. */
+  .about{margin:1.6rem 0 0;font-size:1.05rem;line-height:1.65;max-width:34rem}
+  .about p{margin:0 0 1rem}
+  .about a{color:var(--oxblood);text-decoration:none;
+    border-bottom:1px solid var(--rule)}
+  .about a:hover{border-bottom-color:var(--oxblood)}
+  .about .contact{margin:2rem 0 0;background:var(--panel);border:1px solid var(--rule);
+    border-left:4px solid var(--oxblood);padding:1.1rem 1.3rem}
+  .about .contact h2{font:600 .78rem/1 'Newsreader',Georgia,serif;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--oxblood);margin:0 0 .5rem}
+  .about .contact p{margin:0;font-size:1rem}
 
 /* ---- masthead ---- */
 .smast-in{max-width:var(--nav-max,54rem);margin:0 auto;padding:.85rem 1.5rem .5rem;
@@ -210,9 +222,9 @@
         </a>
         <div class="recent">
           <span class="rlabel">Latest</span>
+          <a href="dashboards/dash_2026-07-31.html">Jul 31</a>
           <a href="dashboards/dash_2026-07-30.html">Jul 30</a>
           <a href="dashboards/dash_2026-07-29.html">Jul 29</a>
-          <a href="dashboards/dash_2026-07-28.html">Jul 28</a>
         </div>
       </li>
       <li>
@@ -257,6 +269,12 @@
           <span class="count">methods &amp; validation</span>
         </a>
       </li>
+      <li>
+        <a class="row" href="about.html">
+          <span class="d">About</span>
+          <span class="count">who makes this</span>
+        </a>
+      </li>
     </ul>
     <section class="panel">
       <h2>Likeliest Grants</h2>
@@ -267,6 +285,13 @@
             <span class="mc">United States v. E. Jean Carroll, et al.</span>
             <span class="mdk">No. 26-142</span>
             <span class="mv fc">62%</span>
+          </a>
+        </li>
+        <li>
+          <a href="cases/26-145.html">
+            <span class="mc">Warden, Moshannon Valley Correctional Center, et al. v. Adolph Michelin, et al.</span>
+            <span class="mdk">No. 26-145</span>
+            <span class="mv fc">33%</span>
           </a>
         </li>
         <li>
@@ -288,13 +313,6 @@
             <span class="mc">Jonatan O. RosarioMartinez v. United States</span>
             <span class="mdk">No. 26-131</span>
             <span class="mv fc">12%</span>
-          </a>
-        </li>
-        <li>
-          <a href="cases/26-141.html">
-            <span class="mc">Donald J. Trump v. E. Jean Carroll</span>
-            <span class="mdk">No. 26-141</span>
-            <span class="mv fc">11%</span>
           </a>
         </li>
       </ol>
