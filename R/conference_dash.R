@@ -243,18 +243,32 @@ conference_dash <- function(dist, conf_date,
     }
     out
   }
-  pct <- function(p) ifelse(is.na(p), "—", sprintf("%.0f%%", 100 * p))
-  # "Granted here" leads and carries the shading -- it is the question the page
-  # is about. "Granted ever" and "GVR here" follow, muted: a different model
-  # (at-risk) and the companion outcome of this one.
+  # A GVR probability is almost always under half a percent, so a flat "%.0f%%"
+  # rendered 42 of 44 cells as "GVR 0%" -- a false zero that reads as an integer
+  # someone forgot to format, not as a small number. One decimal below 10%, and
+  # anything that would still round to nothing says so rather than claiming zero.
+  # Two decimals would be dishonest: the calibrator does not support them.
+  pct <- function(p) ifelse(
+    is.na(p), "—",
+    ifelse(p >= 0.10, sprintf("%.0f%%", 100 * p),
+    ifelse(p == 0,   "0%",
+    ifelse(p < 0.001, "&lt;0.1%", sprintf("%.1f%%", 100 * p)))))
+
+  # "Granted ever" leads and carries the shading: it is the question a reader
+  # scanning a conference actually has -- will this petition be granted at all --
+  # and the one that survives past today. "Granted here" and GVR follow, muted:
+  # the two outcomes of this conference in particular.
   fc_cell <- function(g, e, v) {
-    sub <- paste0(ifelse(is.na(e), "", paste0("ever ", pct(e))),
-                  ifelse(!is.na(e) & !is.na(v), " &middot; ", ""),
+    sub <- paste0(ifelse(is.na(g), "", paste0("here ", pct(g))),
+                  ifelse(!is.na(g) & !is.na(v), " &middot; ", ""),
                   ifelse(is.na(v), "", paste0("GVR ", pct(v))))
     ifelse(is.na(g) & is.na(e) & is.na(v), "—",
       paste0("<span class='fc-here' style='background:",
-             fc_shade(g, 0.5, c("#f3ecdd", "#e8c9a0", "#c8794f", "#8a2b2b")), "'>",
-             pct(g), "</span>",
+             # Domain 0-1, as gt's data_color() used for Ever. Granted-here had
+             # 0-0.5; keeping each number on the scale it was published with
+             # matters more than the extra contrast a tighter domain would give.
+             fc_shade(e, 1, c("#f3ecdd", "#e8c9a0", "#c8794f", "#8a2b2b")), "'>",
+             pct(e), "</span>",
              ifelse(nzchar(sub), paste0("<span class='fc-sub'>", sub, "</span>"), "")))
   }
 
@@ -275,10 +289,15 @@ conference_dash <- function(dist, conf_date,
     Forecast = fc_cell(p_grant, p_ever, p_gvr),
     # Sort key only: `Forecast` is markup, so arranging on it would sort "4%"
     # after "12%". Dropped before the table is built.
-    .fc_sort = p_grant,
+    # Sorts by the number the cell now leads with.
+    .fc_sort = p_ever,
+    # No str_trunc(28). A truncated court name loses exactly the part that
+    # distinguishes it -- "Supreme Court of the State of New York, App..." --
+    # and the ellipsis is not recoverable by hovering, sorting or searching,
+    # because the truncation happens before the value ever reaches the page.
+    # The column wraps instead; two lines cost less than a lost name.
     Court = str_replace(coalesce(d$lower, "—"),
-              "^United States Court of Appeals for the (.+?Circuit)$", "\\1") |>
-              str_trunc(28),
+              "^United States Court of Appeals for the (.+?Circuit)$", "\\1"),
     # Petitioner's counsel of record + firm, as on the daily dashboards. Only the
     # JSON pipeline carries a parties structure; the historical scrape does not,
     # so this is "—" (and the column is dropped) on the pre-JSON archive.
@@ -314,7 +333,10 @@ conference_dash <- function(dist, conf_date,
     data_color(columns = Type, method = "factor",
       palette = c("Paid" = "#e4e7d8", "IFP" = "#efe1cd", "Application" = "#dfe4ea")) |>
     cols_align("center", columns = everything()) |>
-    cols_width(Case ~ px(230))
+    # Type holds "Paid" / "IFP" / "Application" -- the longest is 11 characters,
+    # and reactable was giving the column far more than that. Court gets a real
+    # allowance instead, since it now wraps rather than truncating.
+    cols_width(Case ~ px(230), Type ~ px(76), Court ~ px(160))
   if (has_qp) t <- t |> cols_label(QP = "Questions Presented") |> cols_width(QP ~ px(190))
   # Formatting, shading and the em dash for a non-paid row all happen inside
   # fc_cell() now, so nothing is needed here beyond the header and a width. The
@@ -326,12 +348,12 @@ conference_dash <- function(dist, conf_date,
 
   footer <- if (has_grant) paste0(
     "<em>Grant forecast</em> leads with the model's estimate that this petition is ",
-    "granted at <em>this</em> conference, shaded by that value; <em>ever</em> is the ",
-    "estimate that it is granted at any conference, now or after further relists. ",
-    "The two differ most ",
+    "granted at <em>any</em> conference, now or after further relists, and is shaded ",
+    "by that value. Beneath it, <em>here</em> is the estimate that it is granted at ",
+    "<em>this</em> conference and <em>GVR</em> the companion estimate of a grant, ",
+    "vacate &amp; remand at this one. The leading number and <em>here</em> differ most ",
     "for a petition at its first conference, which is usually relisted or denied ",
-    "rather than granted on the spot. <em>GVR</em> is the companion estimate ",
-    "of a grant, vacate &amp; remand at this conference. Paid petitions only. ",
+    "rather than granted on the spot. Paid petitions only. ",
     "Estimates, not predictions about any case."
   ) else ""
 
