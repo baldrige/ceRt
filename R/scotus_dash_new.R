@@ -493,6 +493,9 @@ scotus_dash <- function(range = today() - 1, year = "26",
   # Drop the Grant column entirely on days with no paid petitions (all NA).
   has_grant <- any(!is.na(tbl$Grant))
   if (!has_grant) tbl <- select(tbl, -Grant)
+  # Clamped companion for the heat map; hidden before the table renders. See the
+  # data_color() call below for why the real column cannot be shaded directly.
+  if (has_grant) tbl$.grant_shade <- pmin(tbl$Grant, 0.6)
 
   # Data cells that read better left-aligned (headers stay centered via CSS).
   left_cols <- match(intersect(c("Case", "Court", "Counsel", "Documents", "QP"),
@@ -512,8 +515,17 @@ scotus_dash <- function(range = today() - 1, year = "26",
       # NA grant (non-paid rows) displays as an em dash, not a literal "NA"; the
       # raw value stays numeric so the column still sorts by value.
       sub_missing(columns = Grant, missing_text = "—") |>
-      data_color(columns = Grant, palette = c("#f3ecdd", "#e8c9a0", "#c8794f", "#8a2b2b"),
+      # Shade from a CLAMPED copy, not from Grant itself. gt treats a value
+      # outside `domain` as NA and hands it na_color, so a forecast above 60%
+      # came out the same pale tone as a row with no forecast at all -- the
+      # strongest petitions on the page were the ones that looked like blanks,
+      # which is exactly backwards. Anything at or above the top of the domain
+      # now takes the darkest stop. Grant itself is untouched, so the printed
+      # percentage and the column's numeric sort are unaffected.
+      data_color(columns = .grant_shade, target_columns = Grant,
+                 palette = c("#f3ecdd", "#e8c9a0", "#c8794f", "#8a2b2b"),
                  domain = c(0, 0.6), na_color = "#f7f1e4") |>
+      cols_hide(columns = .grant_shade) |>
       cols_label(Grant = "Grant forecast")
   }
 
