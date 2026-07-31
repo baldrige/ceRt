@@ -146,6 +146,18 @@ INDEX_CSS <- "
     color:var(--oxblood);text-decoration:none;border-bottom:1px solid var(--rule)}
   ul.terms a:hover{border-bottom-color:var(--oxblood)}
   ul.terms .cn{color:var(--faint);font-size:.85rem;font-variant-numeric:tabular-nums}
+  /* About page: running prose rather than an index, so it takes a measure and a
+     little more leading than the section rows above it. */
+  .about{margin:1.6rem 0 0;font-size:1.05rem;line-height:1.65;max-width:34rem}
+  .about p{margin:0 0 1rem}
+  .about a{color:var(--oxblood);text-decoration:none;
+    border-bottom:1px solid var(--rule)}
+  .about a:hover{border-bottom-color:var(--oxblood)}
+  .about .contact{margin:2rem 0 0;background:var(--panel);border:1px solid var(--rule);
+    border-left:4px solid var(--oxblood);padding:1.1rem 1.3rem}
+  .about .contact h2{font:600 .78rem/1 'Newsreader',Georgia,serif;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--oxblood);margin:0 0 .5rem}
+  .about .contact p{margin:0;font-size:1rem}
 "
 
 # Home-page case search: a lazy-loaded client-side index (docket -> caption).
@@ -261,6 +273,65 @@ most_read_panel <- function(df, heading = "Most-Read Cases", note = NULL,
     if (!is.null(note)) tags$p(class = "pnote", smarten(note)),
     tags$ol(class = "mostread", rows)
   )
+}
+
+# The About page: who makes this, where the code is, and how to report a problem.
+#
+# The contact line is the point of the page, not a footnote to it. This site
+# publishes ~55,000 machine-generated pages about real litigation, and the people
+# best placed to catch an error -- a wrong caption, a misread docket entry, a
+# forecast cue that names the wrong mechanism -- are the lawyers who arrive from
+# a search result. Giving them somewhere to send it is the whole job, which is
+# why "About" is in SITE_SECTIONS rather than tucked into the landing page: it
+# has to be reachable from a case page, since that is where readers actually are.
+write_about_page <- function(out_path) {
+  a <- function(href, ...) tags$a(href = href, target = "_blank", rel = "noopener", ...)
+  body <- tags$body(
+    HTML(site_masthead(active = "/about.html")),
+    tags$main(
+      id = "main", class = "wrap",
+      tags$p(class = "kicker", "About"),
+      tags$h1("Supreme Court Report"),
+      tags$hr(class = "brule"),
+      tags$p(class = "dek", smarten(paste(
+        "Quantifying the U.S. Supreme Court's behavior and making it legible",
+        "for the public."))),
+      tags$div(
+        class = "about",
+        tags$p(HTML(paste0(
+          "Supreme Court Report is built and maintained by ",
+          as.character(a("https://tommybennett.com", "Tommy Bennett")), "."))),
+        tags$p(smarten(paste(
+          "Every page here is generated from the Court's own public docket data.",
+          "The daily dashboards, the conference reports, the argument navigator",
+          "and a page for each of the roughly 55,000 dockets on file are all",
+          "pre-rendered as static HTML -- there is no server, no tracking beyond",
+          "aggregate page views, and no paywall."))),
+        tags$p(HTML(paste0(
+          "The cert-grant forecasts are estimates from a statistical model, not ",
+          "predictions about any particular case. How the model is built, what it ",
+          "gets right and where it is weakest are set out in ",
+          as.character(tags$a(href = "/methods.html", "the methods note")), "."))),
+        tags$p(HTML(paste0(
+          "The code that fetches the data, fits the models and writes these pages ",
+          "is open source: ",
+          as.character(a("https://github.com/baldrige/ceRt", "github.com/baldrige/ceRt")),
+          "."))),
+        tags$section(
+          class = "contact",
+          tags$h2("Found a problem?"),
+          tags$p(HTML(paste0(
+            "Corrections and questions are welcome — email ",
+            as.character(tags$a(href = "mailto:tbbennett@smu.edu", "tbbennett@smu.edu")),
+            ". These pages are generated automatically, so an error in one is ",
+            "usually an error in many; reports are genuinely useful."))))
+      )
+    ))
+  html <- paste0("<!DOCTYPE html>\n<html lang=\"en\">\n",
+                 page_head("About — Supreme Court Report"), "\n",
+                 as.character(body), "\n</html>\n")
+  writeLines(enc2utf8(html), out_path, useBytes = TRUE)
+  invisible(out_path)
 }
 
 # A "likeliest grants" panel from a data frame of dkt / caption / prob / lift /

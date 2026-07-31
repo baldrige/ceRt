@@ -39,7 +39,12 @@ SITE_SECTIONS <- list(
   list(href = "/conferences/", label = "Conferences", long = "Conference reports"),
   list(href = "/arguments/",   label = "Arguments",   long = "Oral arguments"),
   list(href = "/funnel/",      label = "The Funnel",  long = "The cert funnel"),
-  list(href = "/methods.html", label = "Model",       long = "The forecast model")
+  list(href = "/methods.html", label = "Model",       long = "The forecast model"),
+  # About carries the contact address. It is in the masthead and the case footer
+  # rather than only on the landing page because the error reports worth having
+  # come from readers who arrived at a CASE page from a search result -- 99.5% of
+  # the site -- and would otherwise have nowhere to send them.
+  list(href = "/about.html",   label = "About",       long = "About &amp; contact")
 )
 
 # The middle crumb for a case page. Named rather than inlined because it points

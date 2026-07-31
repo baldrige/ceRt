@@ -135,7 +135,13 @@ write_docket_css <- function(out_dir) {
 # that keeps the supremecourt.gov link primary while offering the five sections
 # beneath it. Also normalises --ox/--soft onto --oxblood/--ink-soft and corrects
 # --faint and --sienna to clear WCAG AA. See docs/navigation.md and R/site_nav.R.
-PAGE_TEMPLATE_VERSION <- "v15"
+# v16: an About page joins SITE_SECTIONS, so every case page's masthead and
+# footer now carry a route to the contact address. Deliberately not left on the
+# landing page alone: 99.5% of this site is case pages, a reader who spots a
+# wrong caption or a misread docket entry got there from a search result, and
+# giving them nowhere to report it wastes the only error-detection channel a
+# 55,000-page generated site has.
+PAGE_TEMPLATE_VERSION <- "v16"
 
 # ---- small helpers ------------------------------------------------------------
 .esc <- function(x) { x <- x %||% ""; x[is.na(x)] <- ""; htmltools::htmlEscape(x) }

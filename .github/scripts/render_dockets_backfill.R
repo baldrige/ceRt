@@ -54,4 +54,11 @@ for (f in files) {
 # render_dockets_for() has just maintained.
 write_cases_index(file.path(site_dir, "cases"))
 
+# The About page, for the same reason and by the same rule: every case page's
+# masthead and footer link to /about.html from v16 on, so whichever workflow
+# publishes case pages first has to be the one that creates it. Leaving it only
+# in the daily would put the rollout order back on the critical path -- and the
+# daily is the run that aborts on a throttled fetch.
+write_about_page(file.path(site_dir, "about.html"))
+
 cat("Done. Processed", total_cases, "cases across", length(files), "term(s).\n")

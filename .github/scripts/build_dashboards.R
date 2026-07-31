@@ -141,6 +141,12 @@ if (file.exists("docs/cert_model_methods.html")) {
   items <- c(items, list(list(href = "methods.html", label = "The Forecast Model",
                               meta = "methods & validation")))
 }
+# The About page: authorship, the repository, and the address to send corrections
+# to. Written unconditionally (it has no external dependency) and listed last, so
+# the sections a reader came for stay above it.
+write_about_page(file.path(site_dir, "about.html"))
+items <- c(items, list(list(href = "about.html", label = "About",
+                            meta = "who makes this")))
 # Most-read cases over the trailing 30 days, from GA4. Needs the GA4_PROPERTY_ID
 # and GA4_SA_KEY secrets; without them this is zero rows and the block is simply
 # omitted, which is why it is not guarded here. See R/site_analytics.R.
