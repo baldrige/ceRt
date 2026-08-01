@@ -138,7 +138,14 @@
   letter-spacing:.005em;color:var(--ink,#23262d);text-decoration:none;white-space:nowrap;flex:none}
 .smast-wm em{font-style:italic;font-weight:500;color:var(--oxblood,var(--ox,#8a2b2b))}
 .smast-wm:hover{color:var(--oxblood,var(--ox,#8a2b2b))}
-.snav{display:flex;gap:1.35rem;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+/* Row gap first, then column. At 1.35rem the six section links measured 596px
+   of max-content -- 4px wider than the 592px row the 40rem index container
+   leaves them -- so ABOUT alone wrapped to a third line under the wordmark, on
+   every page page_style.R writes. 1.05rem brings the row to 572px: 20px of
+   slack at 40rem, and 45px on the 54rem case pages, which were themselves only
+   21px from wrapping. The .4rem row gap is for the day a seventh section
+   overruns it anyway -- a nav that wraps should read as a stack, not an orphan. */
+.snav{display:flex;gap:.4rem 1.05rem;list-style:none;margin:0;padding:0;flex-wrap:wrap}
 .snav a{font:600 .72rem/1 'Newsreader',Georgia,serif;letter-spacing:.15em;text-transform:uppercase;
   color:var(--ink-soft,var(--soft,#5f5847));text-decoration:none;display:inline-block;
   padding:.5rem 0;border-bottom:1.5px solid transparent}
@@ -252,9 +259,9 @@
     </dl>
     <div class="over">This term, so far</div>
     <h2>OT2026 — the term in progress</h2>
-    <p class="note">Data as of July 31, 2026. Petitions from this term are still being docketed and decided; 341 are still waiting on an outcome.</p>
-    <div class="funnel" role="img" aria-label="Certiorari funnel"><div class="frow" style="--i:0"><div class="flabel">Docketed</div><div class="ftrack"><div class="frail"><span class="fbar" style="width:100.00%;background:var(--ink)"></span></div><span class="fcount">345</span></div><div class="fnote">every petition filed</div></div><div class="frow" style="--i:1"><div class="flabel">Considered at conference</div><div class="ftrack"><div class="frail"><span class="fbar" style="width:15.07%;background:var(--ink)"></span></div><span class="fcount">52</span></div><div class="fnote">15.1% reached the Justices’ private conference</div></div><div class="frow" style="--i:2"><div class="flabel">Relisted at least once</div><div class="ftrack"><div class="frail"><span class="fbar" style="width:0.70%;background:var(--ink)"></span></div><span class="fcount">0</span></div><div class="fnote">0.0% were relisted at least once</div></div><div class="frow" style="--i:3"><div class="flabel">Granted or GVR’d</div><div class="ftrack"><div class="frail"><span class="fbar" style="width:0.70%;background:var(--ink)"></span></div><span class="fcount">0</span></div><div class="fnote">0.0% got any form of yes</div></div><div class="frow" style="--i:4"><div class="flabel">Granted outright</div><div class="ftrack"><div class="frail"><span class="fbar fbar-key" style="width:0.70%;background:var(--oxblood)"></span></div><span class="fcount">0</span></div><div class="fnote">0.0% granted so far, headed for briefing and argument</div></div></div>
-    <div class="exitbar">So far: 4 denied · 0 GVR’d · 0 dismissed · 341 still pending (98.8% of the term)</div>
+    <p class="note">Data as of August 01, 2026. Petitions from this term are still being docketed and decided; 347 are still waiting on an outcome.</p>
+    <div class="funnel" role="img" aria-label="Certiorari funnel"><div class="frow" style="--i:0"><div class="flabel">Docketed</div><div class="ftrack"><div class="frail"><span class="fbar" style="width:100.00%;background:var(--ink)"></span></div><span class="fcount">351</span></div><div class="fnote">every petition filed</div></div><div class="frow" style="--i:1"><div class="flabel">Considered at conference</div><div class="ftrack"><div class="frail"><span class="fbar" style="width:14.81%;background:var(--ink)"></span></div><span class="fcount">52</span></div><div class="fnote">14.8% reached the Justices’ private conference</div></div><div class="frow" style="--i:2"><div class="flabel">Relisted at least once</div><div class="ftrack"><div class="frail"><span class="fbar" style="width:0.70%;background:var(--ink)"></span></div><span class="fcount">0</span></div><div class="fnote">0.0% were relisted at least once</div></div><div class="frow" style="--i:3"><div class="flabel">Granted or GVR’d</div><div class="ftrack"><div class="frail"><span class="fbar" style="width:0.70%;background:var(--ink)"></span></div><span class="fcount">0</span></div><div class="fnote">0.0% got any form of yes</div></div><div class="frow" style="--i:4"><div class="flabel">Granted outright</div><div class="ftrack"><div class="frail"><span class="fbar fbar-key" style="width:0.70%;background:var(--oxblood)"></span></div><span class="fcount">0</span></div><div class="fnote">0.0% granted so far, headed for briefing and argument</div></div></div>
+    <div class="exitbar">So far: 4 denied · 0 GVR’d · 0 dismissed · 347 still pending (98.9% of the term)</div>
     <div class="over">The base rate</div>
     <h2>The complete picture: OT2017–OT2023</h2>
     <p class="note">36,746 petitions across 7 completed Terms. This is what normally happens.</p>
