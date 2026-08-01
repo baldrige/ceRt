@@ -48,10 +48,17 @@ html <- sprintf('<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&display=swap">
 <style>
-  /* Token names and colours match the site palette: this file's output is copied
-     to site/methods.html, so its --faint/--sienna ship. Both previously failed
-     WCAG AA (3.24:1 and 3.69:1 on --paper) at the 8.5-9pt sizes used below. */
-  :root{--paper:#f3ecdd;--ink:#23262d;--ink-soft:#5f5847;--faint:#716b5d;--oxblood:#8a2b2b;--sienna:#a0591a;--rule:#d8cdb4;--nav-max:44rem}
+  /* Token names and colours match the site palette: the output of this file is
+     copied to site/methods.html, so its --faint/--sienna ship. NOTE: an
+     apostrophe anywhere in this block closes the single-quoted sprintf() literal
+     that carries it, and R will not parse the script -- which is how the note
+     went eight days without being regenerated. Both colours previously failed
+     WCAG AA (3.24:1 and 3.69:1 on --paper) at the 8.5-9pt sizes used below.
+     --nav-max is the measure the injected masthead centres on, and it is not
+     free: NAV_CSS pads the rule by 1.5rem where .sheet pads its text by .6in,
+     so the rule lands flush with the column only at 8.1in - 1.2in + 2*1.5rem
+     = 7.4in. Left unset it falls back to 54rem and overhangs by 76px a side. */
+  :root{--paper:#f3ecdd;--ink:#23262d;--ink-soft:#5f5847;--faint:#716b5d;--oxblood:#8a2b2b;--sienna:#a0591a;--rule:#d8cdb4;--nav-max:7.4in}
   *{box-sizing:border-box} html{-webkit-text-size-adjust:100%%}
   body{font-family:"Newsreader",Georgia,serif;color:var(--ink);background:var(--paper);margin:0;font-size:10.5pt;line-height:1.4}
   .sheet{max-width:8.1in;margin:0 auto;padding:.5in .6in}
