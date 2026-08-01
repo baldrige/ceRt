@@ -302,7 +302,7 @@ conference_dash <- function(dist, conf_date,
     Case = sprintf(
       "<a href='../cases/%s.html' target='_blank'>%s</a><span class='cdk'>No. %s</span>",
       d$dkt,
-      str_squish(str_remove_all(d$caption, ", Petitioners?|, Respondents?|, et al\\.")),
+      strip_caption_roles(d$caption),
       d$dkt),
     Relists = d$distribution_no - 1L,
     Forecast = fc_cell(p_grant, p_ever, p_gvr),
