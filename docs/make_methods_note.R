@@ -9,11 +9,20 @@ e <- readRDS("data/cert_model_enhanced.rds")
 g <- readRDS("data/cert_model_gvr.rds")
 pct  <- function(x, d = 1) sprintf(paste0("%.", d, "f%%"), 100 * x)
 mc   <- function(m) m$metrics_calibrated
+# Brier of the no-skill forecast that always predicts the base rate: p(1-p).
+brier_ref <- function(m) sprintf("%.4f", m$base_rate * (1 - m$base_rate))
 
 # ---- calibration plot (baseline + enhanced, both predict grant) ---------------
 cal <- bind_rows(
   b$calibration |> mutate(Model = "Baseline (daily, petition-stage)"),
   e$calibration |> mutate(Model = "Enhanced (conference-stage)"))
+# Derived, not hardcoded. The limits were fixed at 35%, and retargeting the
+# conference tier to the at-risk panel pushed its top decile to 38/37 -- so
+# ggplot dropped that row with a warning and drew the enhanced line stopping at
+# the ninth decile, silently omitting the best-calibrated high-risk bucket and
+# the one a reader checks first. Round up to the next 5% so a shifting model
+# widens the axis instead of falling off it.
+lim <- c(0, ceiling(max(cal$pred, cal$obs) * 20) / 20)
 p <- ggplot(cal, aes(pred, obs, color = Model)) +
   geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "grey55") +
   geom_line(linewidth = 0.6) +
@@ -21,8 +30,8 @@ p <- ggplot(cal, aes(pred, obs, color = Model)) +
   scale_color_manual(values = c("Baseline (daily, petition-stage)" = "#b5651d",
                                 "Enhanced (conference-stage)" = "#8a2b2b")) +
   scale_size_continuous(range = c(1.6, 4), guide = "none") +
-  scale_x_continuous(labels = percent, limits = c(0, 0.35)) +
-  scale_y_continuous(labels = percent, limits = c(0, 0.35)) +
+  scale_x_continuous(labels = percent, limits = lim) +
+  scale_y_continuous(labels = percent, limits = lim) +
   coord_equal() +
   labs(x = "Model-predicted probability", y = "Observed grant frequency",
        title = "Calibration, out-of-fold, by risk decile",
@@ -42,7 +51,11 @@ row <- function(nm, m) sprintf(
   "<tr><td>%s</td><td>%s</td><td><b>%.3f</b></td><td>%.3f</td><td>%.4f</td></tr>",
   nm, pct(m$base_rate, 2), mc(m)$auc, mc(m)$ap, mc(m)$brier)
 
-html <- sprintf('<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+# dc5f2814c1 wired GA4 into "every main-page <head> builder" -- but for this page
+# it patched the OUTPUT, docs/cert_model_methods.html, and left the builder alone.
+# Regenerating therefore silently dropped the tag and stopped counting the note.
+# The <script> belongs here, in the thing that writes the page.
+html <- sprintf('<!DOCTYPE html><html lang="en"><head><script async src="/analytics.js"></script><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Predicting Certiorari &mdash; Methods Note</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -97,7 +110,7 @@ html <- sprintf('<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
     <table><thead><tr><th>Model</th><th>Base rate</th><th>AUC</th><th>Avg.&nbsp;prec.</th><th>Brier</th></tr></thead><tbody>
       %s%s%s
     </tbody></table>
-    <p class="note"><b>AUC</b> &mdash; chance the model ranks a random grant above a random denial. <b>Avg. precision</b> is the imbalance-aware metric (baseline %.3f vs. a %s base rate &asymp; %.1f&times; chance). <b>Brier</b> &mdash; a constant-base-rate forecast scores 0.042; all three beat it. Accuracy is meaningless at a 4%% base rate.</p>
+    <p class="note"><b>AUC</b> &mdash; chance the model ranks a random grant above a random denial. <b>Avg. precision</b> is the imbalance-aware metric (baseline %.3f vs. a %s base rate &asymp; %.1f&times; chance). <b>Brier</b> &mdash; the reference is a constant forecast at each model&rsquo;s own base rate, %s, %s and %s; all three beat it. Accuracy is meaningless at a %s base rate.</p>
   </div>
 </div>
 
@@ -137,6 +150,11 @@ html <- sprintf('<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
   comma(mc(b)$n), comma(mc(b)$n_pos),
   row("Baseline (daily)", b), row("Enhanced (conference)", e), row("GVR companion", g),
   mc(b)$ap, pct(b$base_rate, 2), mc(b)$ap / b$base_rate,
+  # One number no longer serves: the three tiers train on different frames and
+  # so carry different base rates (4.1% / 7.8% / 5.4%), and a constant forecast
+  # at rate p scores p(1-p). The note published a flat 0.042 for all three,
+  # which was only ever the petition-stage figure.
+  brier_ref(b), brier_ref(e), brier_ref(g), pct(b$base_rate, 1),
   img,
   pct(tail(e$calibration$pred,1)), pct(tail(e$calibration$obs,1)),
   pct(tail(b$calibration$pred,1)), pct(tail(b$calibration$obs,1)),
