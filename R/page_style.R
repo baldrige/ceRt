@@ -189,6 +189,31 @@ SEARCH_SCRIPT <- paste0("<script>(function(){",
   "<span class='cd'>No. \"+e[0]+\"</span>\"+esc(e[1])+\"</a></li>\";}).join(''):",
   "\"<li class='cnone'>No matching cases.</li>\";}})();</script>")
 
+# Strip the party-role tail the Court appends to a docket caption, for DISPLAY
+# only. "United States v. E. Jean Carroll, et al." is how the docket reads; on a
+# ranked panel five rows deep it is four words of boilerplate in the widest
+# column, repeated.
+#
+# One pattern, because there were four and they had already drifted: the daily
+# stripped Applicants but not Respondents, conferences and arguments stripped
+# Respondents but not Applicants, and the landing-page forecast panel stripped
+# neither "et al." nor anything else it did not share with the other three.
+# Appellants/Appellees are here because the paid docket carries 28 U.S.C. 1253
+# direct appeals -- the first cases this panel ever published were captioned
+# "Appellants" (see R/site_forecast.R).
+#
+# DISPLAY ONLY. court_bucket() keys USDC_APPEAL off "\\bAppellants?\\b" in the
+# raw caption and score_case() is handed that raw caption, so this must never be
+# fed back into scoring -- every caller cleans a copy on its way into a cell.
+CAPTION_ROLE_TAIL <- paste0(
+  ", Petitioners?|, Respondents?|, Applicants?|, Appellants?|, Appellees?",
+  "|, et al\\.")
+
+strip_caption_roles <- function(x) {
+  if (is.null(x)) return(x)
+  trimws(gsub("\\s+", " ", gsub(CAPTION_ROLE_TAIL, "", x)))
+}
+
 # Convert straight quotes/apostrophes in DISPLAY text to typographic ("smart")
 # ones. HTML tags (<...>) are passed through untouched so attribute quotes and
 # markup survive; existing entities (&rsquo;, &mdash;) are already curly and are

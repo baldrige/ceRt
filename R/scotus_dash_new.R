@@ -474,7 +474,7 @@ scotus_dash <- function(range = today() - 1, year = "26",
     Case = sprintf(
       "<a href='../cases/%s.html' target='_blank'>%s</a>",
       hits$dkt,
-      str_squish(str_remove_all(hits$caption, ", Petitioners?|, Applicants?|, et al\\."))),
+      strip_caption_roles(hits$caption)),
     Docket = hits$dkt,
     Grant = unname(grant_map[hits$dkt]),
     Court = str_replace(coalesce(hits$lower, "—"),

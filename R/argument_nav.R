@@ -264,7 +264,7 @@ argument_term_page <- function(tbl, term, out_dir) {
       When = coalesce(arg_ref, grant_date),          # Date -> value-sorts
       Case = str_c(
         "<a href='../cases/", dkt, ".html' target='_blank'>",
-        str_squish(str_remove_all(caption, ", Petitioners?|, Respondents?|, et al\\.")), "</a>"),
+        strip_caption_roles(caption), "</a>"),
       Docket = dkt,
       status = factor(status, levels = STATUS_LEVELS),
       # Decided cases show the majority author and link to the slip opinion;

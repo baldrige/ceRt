@@ -17,6 +17,19 @@
 # baseline model is fitted on it, and scoring an IFP docket or an application
 # against that model would produce a number with no meaning behind it.
 
+# strip_caption_roles() lives in page_style.R. build_dashboards.R happens to have
+# loaded it by here -- source("R/argument_nav.R") pulls it in 125 lines earlier --
+# but that is an accident of ordering this file should not be built on, and the
+# call site is not wrapped, so a reorder would take the daily down rather than
+# just dropping the panel. Declare the dependency, like the three dashboards do.
+local({
+  here <- tryCatch(dirname(sys.frame(1)$ofile), error = function(e) NA)
+  f <- if (!is.na(here) && file.exists(file.path(here, "page_style.R")))
+    file.path(here, "page_style.R")
+  else if (file.exists("R/page_style.R")) "R/page_style.R" else "page_style.R"
+  sys.source(f, envir = globalenv())
+})
+
 # Publishing floor for the panel.
 #
 # A panel headed "likeliest" has to be about cases that are actually likely.
@@ -88,8 +101,9 @@ top_forecast_cases <- function(cases, model, site_dir, signals_map = NULL,
     message("top_forecast_cases(): ", nrow(w) - n_scored, " of ", nrow(w),
             " cases in the window could not be scored.")
 
-  cap <- w$caption
-  cap <- trimws(gsub("\\s+", " ", gsub(", Petitioners?|, Respondents?", "", cap)))
+  # strip_caption_roles() is page_style.R's, shared with the three dashboards so
+  # the same case reads the same way here as it does on the page this links to.
+  cap <- strip_caption_roles(w$caption)
   cap <- ifelse(is.na(cap) | !nzchar(cap), w$dkt, cap)   # a caption is never required
   df <- data.frame(dkt = w$dkt, caption = cap, prob = probs,
                    stringsAsFactors = FALSE)
