@@ -1,15 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head><script async src='/analytics.js'></script><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate icon" href="/favicon.ico" sizes="any"><title>The Cert Funnel &mdash; how Supreme Court petitions live and die</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap"><style>
-    :root{
-      --paper:#f3ecdd;--paper-2:#ede4d0;--panel:#f7f1e4;
-      /* --faint and --sienna corrected to clear WCAG AA on --paper (3.24 and
-         3.69 before); see the note above DOCKET_CSS in R/docket_page.R. */
-      --ink:#23262d;--ink-soft:#5f5847;--faint:#716b5d;
-      --oxblood:#8a2b2b;--sienna:#a0591a;--gold:#a8862c;
-      --rule:#d8cdb4;--rail:#e4dac2;
-      --nav-max:44rem;          /* matches .wrap below */
-    }
+    :root{--paper:#fdfcfa;--panel:#ffffff;--ink:#1a1a1e;--ink-soft:#484850;--faint:#63636b;--oxblood:#9c0e3a;--sienna:#9c0e3a;--rule:#dbd8d2;--rail:#e4e0d9;--nav-max:44rem}
     *{box-sizing:border-box}
     html{-webkit-text-size-adjust:100%}
     body{
@@ -25,7 +17,7 @@
     .wrap{max-width:44rem;margin:0 auto;padding:3.2rem 1.4rem 5rem}
     p{margin:0 0 1.05rem}
     a{color:var(--oxblood);text-decoration:none;
-      border-bottom:1px solid rgba(138,43,43,.32);transition:border-color .15s}
+      border-bottom:1px solid rgba(@oxblood:rgb@,.32);transition:border-color .15s}
     a:hover{border-color:var(--oxblood)}
     /* -- masthead -- */
     .kicker{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;
@@ -110,7 +102,7 @@
       font-variant-numeric:tabular-nums}
     .rtable tbody th[scope=row]{font-weight:600;color:var(--ink)}
     .rtable .wcase{font-size:.95rem;line-height:1.35}
-    .rtable tbody tr:hover{background:rgba(138,43,43,.04)}
+    .rtable tbody tr:hover{background:rgba(@oxblood:rgb@,.04)}
     .rtable .heat{border-radius:2px}
     details{margin:1rem 0 1.6rem}
     summary{cursor:pointer;font-family:'Fraunces',Georgia,serif;font-weight:600;
@@ -135,9 +127,9 @@
 .smast-in{max-width:var(--nav-max,54rem);margin:0 auto;padding:.85rem 1.5rem .5rem;
   display:flex;align-items:baseline;justify-content:space-between;gap:1.4rem;flex-wrap:wrap}
 .smast-wm{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
-  letter-spacing:.005em;color:var(--ink,#23262d);text-decoration:none;white-space:nowrap;flex:none}
-.smast-wm em{font-style:italic;font-weight:500;color:var(--oxblood,var(--ox,#8a2b2b))}
-.smast-wm:hover{color:var(--oxblood,var(--ox,#8a2b2b))}
+  letter-spacing:.005em;color:var(--ink,#1a1a1e);text-decoration:none;white-space:nowrap;flex:none}
+.smast-wm em{font-style:italic;font-weight:500;color:var(--oxblood,var(--ox,#9c0e3a))}
+.smast-wm:hover{color:var(--oxblood,var(--ox,#9c0e3a))}
 /* Row gap first, then column. At 1.35rem the six section links measured 596px
    of max-content -- 4px wider than the 592px row the 40rem index container
    leaves them -- so ABOUT alone wrapped to a third line under the wordmark, on
@@ -147,18 +139,18 @@
    overruns it anyway -- a nav that wraps should read as a stack, not an orphan. */
 .snav{display:flex;gap:.4rem 1.05rem;list-style:none;margin:0;padding:0;flex-wrap:wrap}
 .snav a{font:600 .72rem/1 'Newsreader',Georgia,serif;letter-spacing:.15em;text-transform:uppercase;
-  color:var(--ink-soft,var(--soft,#5f5847));text-decoration:none;display:inline-block;
+  color:var(--ink-soft,var(--soft,#484850));text-decoration:none;display:inline-block;
   padding:.5rem 0;border-bottom:1.5px solid transparent}
-.snav a:hover{color:var(--oxblood,var(--ox,#8a2b2b));border-bottom-color:var(--rule,#d8cdb4)}
-.snav a[aria-current='page']{color:var(--oxblood,var(--ox,#8a2b2b));
-  border-bottom-color:var(--oxblood,var(--ox,#8a2b2b))}
+.snav a:hover{color:var(--oxblood,var(--ox,#9c0e3a));border-bottom-color:var(--rule,#dbd8d2)}
+.snav a[aria-current='page']{color:var(--oxblood,var(--ox,#9c0e3a));
+  border-bottom-color:var(--oxblood,var(--ox,#9c0e3a))}
 .smast-rule-w{max-width:var(--nav-max,54rem);margin:0 auto;padding:0 1.5rem}
-.smast-rule{border:0;height:0;border-top:2px solid var(--ink,#23262d);margin:0;position:relative}
+.smast-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0;position:relative}
 .smast-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
-  border-top:1px solid var(--rule,#d8cdb4)}
-.skip{position:absolute;left:-9999px;top:0;background:var(--panel,#f7f1e4);
-  color:var(--oxblood,var(--ox,#8a2b2b));padding:.6rem 1rem;
-  border:1px solid var(--oxblood,var(--ox,#8a2b2b));
+  border-top:1px solid var(--rule,#dbd8d2)}
+.skip{position:absolute;left:-9999px;top:0;background:var(--panel,#ffffff);
+  color:var(--oxblood,var(--ox,#9c0e3a));padding:.6rem 1rem;
+  border:1px solid var(--oxblood,var(--ox,#9c0e3a));
   font:600 .8rem/1 'Newsreader',Georgia,serif;letter-spacing:.1em;text-transform:uppercase;z-index:10}
 .skip:focus{left:.5rem;top:.5rem}
 /* ---- breadcrumb ---- */
@@ -166,36 +158,36 @@
 .bcrumb ol{list-style:none;display:flex;flex-wrap:wrap;align-items:baseline;
   gap:.1rem .45rem;margin:0;padding:0}
 .bcrumb li{display:inline-flex;align-items:baseline;gap:.45rem}
-.bcrumb a{font:400 .8rem/1.5 'Newsreader',Georgia,serif;color:var(--ink-soft,var(--soft,#5f5847));
-  text-decoration:none;border-bottom:1px solid var(--rule,#d8cdb4)}
-.bcrumb a:hover{color:var(--oxblood,var(--ox,#8a2b2b));border-bottom-color:var(--oxblood,var(--ox,#8a2b2b))}
-.bcrumb .sep{color:var(--faint,#716b5d);font-size:.8rem;line-height:1.5}
+.bcrumb a{font:400 .8rem/1.5 'Newsreader',Georgia,serif;color:var(--ink-soft,var(--soft,#484850));
+  text-decoration:none;border-bottom:1px solid var(--rule,#dbd8d2)}
+.bcrumb a:hover{color:var(--oxblood,var(--ox,#9c0e3a));border-bottom-color:var(--oxblood,var(--ox,#9c0e3a))}
+.bcrumb .sep{color:var(--faint,#63636b);font-size:.8rem;line-height:1.5}
 .bcrumb [aria-current='page']{font:400 .8rem/1.5 'Newsreader',Georgia,serif;
-  color:var(--faint,#716b5d);font-variant-numeric:tabular-nums}
+  color:var(--faint,#63636b);font-variant-numeric:tabular-nums}
 /* ---- case footer ---- */
 .cfoot{margin:2.4rem 0 0}
-.cfoot-rule{border:0;height:0;border-top:2px solid var(--ink,#23262d);margin:0 0 1rem;position:relative}
+.cfoot-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0 0 1rem;position:relative}
 .cfoot-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
-  border-top:1px solid var(--rule,#d8cdb4)}
+  border-top:1px solid var(--rule,#dbd8d2)}
 .cfoot-off{font-size:.95rem;margin:0 0 1.1rem}
-.cfoot-off a{color:var(--sienna,#a0591a);text-decoration:none;border-bottom:1px solid rgba(160,89,26,.4)}
-.cfoot-off a:hover{border-bottom-color:var(--sienna,#a0591a)}
+.cfoot-off a{color:var(--sienna,#9c0e3a);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.4)}
+.cfoot-off a:hover{border-bottom-color:var(--sienna,#9c0e3a)}
 .cfoot-lab{font:600 .68rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
-  color:var(--faint,#716b5d);margin:0 0 .5rem}
+  color:var(--faint,#63636b);margin:0 0 .5rem}
 .cfoot-nav{display:flex;flex-wrap:wrap;gap:.35rem 1.1rem;list-style:none;margin:0;padding:0}
-.cfoot-nav a{font-size:.92rem;color:var(--ink-soft,var(--soft,#5f5847));text-decoration:none;
-  border-bottom:1px solid var(--rule,#d8cdb4);padding-bottom:1px}
-.cfoot-nav a:hover{color:var(--oxblood,var(--ox,#8a2b2b));border-bottom-color:var(--oxblood,var(--ox,#8a2b2b))}
-.cfoot-stamp{margin:1.2rem 0 0;font-size:.8rem;color:var(--faint,#716b5d);font-style:italic}
+.cfoot-nav a{font-size:.92rem;color:var(--ink-soft,var(--soft,#484850));text-decoration:none;
+  border-bottom:1px solid var(--rule,#dbd8d2);padding-bottom:1px}
+.cfoot-nav a:hover{color:var(--oxblood,var(--ox,#9c0e3a));border-bottom-color:var(--oxblood,var(--ox,#9c0e3a))}
+.cfoot-stamp{margin:1.2rem 0 0;font-size:.8rem;color:var(--faint,#63636b);font-style:italic}
 /* ---- prev / next ---- */
-.pnav{margin:2.2rem 0 0;border-top:1px solid var(--rule,#d8cdb4);padding-top:1rem;
+.pnav{margin:2.2rem 0 0;border-top:1px solid var(--rule,#dbd8d2);padding-top:1rem;
   display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
 .pnav a,.pnav span.none{text-decoration:none;color:inherit;display:block;padding:.5rem .2rem}
-.pnav a:hover{background:rgba(138,43,43,.05)}
+.pnav a:hover{background:rgba(156,14,58,.05)}
 .pnav .dir{font:600 .66rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
-  color:var(--faint,#716b5d);display:block;margin-bottom:.3rem}
+  color:var(--faint,#63636b);display:block;margin-bottom:.3rem}
 .pnav .lab{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1rem;line-height:1.25;
-  color:var(--oxblood,var(--ox,#8a2b2b));display:block}
+  color:var(--oxblood,var(--ox,#9c0e3a));display:block}
 .pnav a:hover .lab{text-decoration:underline;text-underline-offset:3px}
 .pnav .nx{text-align:right}
 .pnav .none{opacity:.35}
@@ -212,7 +204,7 @@
   .cfoot-nav{gap:.5rem 1rem}
   .cfoot-nav a{padding-bottom:.3rem}
   .pnav{grid-template-columns:1fr;gap:.2rem}
-  .pnav .nx{text-align:left;border-top:1px solid var(--rule,#d8cdb4)}
+  .pnav .nx{text-align:left;border-top:1px solid var(--rule,#dbd8d2)}
 }
 </style></head>
 <body>
@@ -259,9 +251,9 @@
     </dl>
     <div class="over">This term, so far</div>
     <h2>OT2026 — the term in progress</h2>
-    <p class="note">Data as of August 01, 2026. Petitions from this term are still being docketed and decided; 347 are still waiting on an outcome.</p>
-    <div class="funnel" role="img" aria-label="Certiorari funnel"><div class="frow" style="--i:0"><div class="flabel">Docketed</div><div class="ftrack"><div class="frail"><span class="fbar" style="width:100.00%;background:var(--ink)"></span></div><span class="fcount">351</span></div><div class="fnote">every petition filed</div></div><div class="frow" style="--i:1"><div class="flabel">Considered at conference</div><div class="ftrack"><div class="frail"><span class="fbar" style="width:14.81%;background:var(--ink)"></span></div><span class="fcount">52</span></div><div class="fnote">14.8% reached the Justices’ private conference</div></div><div class="frow" style="--i:2"><div class="flabel">Relisted at least once</div><div class="ftrack"><div class="frail"><span class="fbar" style="width:0.70%;background:var(--ink)"></span></div><span class="fcount">0</span></div><div class="fnote">0.0% were relisted at least once</div></div><div class="frow" style="--i:3"><div class="flabel">Granted or GVR’d</div><div class="ftrack"><div class="frail"><span class="fbar" style="width:0.70%;background:var(--ink)"></span></div><span class="fcount">0</span></div><div class="fnote">0.0% got any form of yes</div></div><div class="frow" style="--i:4"><div class="flabel">Granted outright</div><div class="ftrack"><div class="frail"><span class="fbar fbar-key" style="width:0.70%;background:var(--oxblood)"></span></div><span class="fcount">0</span></div><div class="fnote">0.0% granted so far, headed for briefing and argument</div></div></div>
-    <div class="exitbar">So far: 4 denied · 0 GVR’d · 0 dismissed · 347 still pending (98.9% of the term)</div>
+    <p class="note">Data as of August 05, 2026. Petitions from this term are still being docketed and decided; 398 are still waiting on an outcome.</p>
+    <div class="funnel" role="img" aria-label="Certiorari funnel"><div class="frow" style="--i:0"><div class="flabel">Docketed</div><div class="ftrack"><div class="frail"><span class="fbar" style="width:100.00%;background:var(--ink)"></span></div><span class="fcount">402</span></div><div class="fnote">every petition filed</div></div><div class="frow" style="--i:1"><div class="flabel">Considered at conference</div><div class="ftrack"><div class="frail"><span class="fbar" style="width:14.68%;background:var(--ink)"></span></div><span class="fcount">59</span></div><div class="fnote">14.7% reached the Justices’ private conference</div></div><div class="frow" style="--i:2"><div class="flabel">Relisted at least once</div><div class="ftrack"><div class="frail"><span class="fbar" style="width:0.70%;background:var(--ink)"></span></div><span class="fcount">0</span></div><div class="fnote">0.0% were relisted at least once</div></div><div class="frow" style="--i:3"><div class="flabel">Granted or GVR’d</div><div class="ftrack"><div class="frail"><span class="fbar" style="width:0.70%;background:var(--ink)"></span></div><span class="fcount">0</span></div><div class="fnote">0.0% got any form of yes</div></div><div class="frow" style="--i:4"><div class="flabel">Granted outright</div><div class="ftrack"><div class="frail"><span class="fbar fbar-key" style="width:0.70%;background:var(--oxblood)"></span></div><span class="fcount">0</span></div><div class="fnote">0.0% granted so far, headed for briefing and argument</div></div></div>
+    <div class="exitbar">So far: 4 denied · 0 GVR’d · 0 dismissed · 398 still pending (99.0% of the term)</div>
     <div class="over">The base rate</div>
     <h2>The complete picture: OT2017–OT2023</h2>
     <p class="note">36,746 petitions across 7 completed Terms. This is what normally happens.</p>
@@ -299,7 +291,7 @@
       it means at least someone in the building gave the petition a second look. 
       Across OT2017–OT2023, here is what happened to decided petitions that reached at least one conference, grouped by how many times they were relisted:
     </p>
-    <table class="rtable"><thead><tr><th class="lead"></th><th class="num">Petitions</th><th class="num">Granted</th><th class="num">GVR’d</th><th class="num">Denied</th><th class="num">Dismissed</th></tr></thead><tbody><tr><th scope="row">Never relisted</th><td class="num">32,015</td><td class="num heat" style="background:rgba(138,43,43,0.010)">0.4%</td><td class="num">0.6%</td><td class="num">96.2%</td><td class="num">2.9%</td></tr><tr><th scope="row">Relisted 1×</th><td class="num">3,736</td><td class="num heat" style="background:rgba(138,43,43,0.178)">6.1%</td><td class="num">5.8%</td><td class="num">87.6%</td><td class="num">0.5%</td></tr><tr><th scope="row">Relisted 2×</th><td class="num">289</td><td class="num heat" style="background:rgba(138,43,43,0.722);color:var(--paper);font-weight:600">24.9%</td><td class="num">16.6%</td><td class="num">57.1%</td><td class="num">1.4%</td></tr><tr><th scope="row">Relisted 3×</th><td class="num">166</td><td class="num heat" style="background:rgba(138,43,43,0.367)">12.7%</td><td class="num">32.5%</td><td class="num">54.8%</td><td class="num">0.0%</td></tr><tr><th scope="row">Relisted 4×</th><td class="num">58</td><td class="num heat" style="background:rgba(138,43,43,0.900);color:var(--paper);font-weight:600">34.5%</td><td class="num">13.8%</td><td class="num">50.0%</td><td class="num">1.7%</td></tr><tr><th scope="row">Relisted 5+×</th><td class="num">172</td><td class="num heat" style="background:rgba(138,43,43,0.320)">11.0%</td><td class="num">14.0%</td><td class="num">74.4%</td><td class="num">0.6%</td></tr></tbody></table>
+    <table class="rtable"><thead><tr><th class="lead"></th><th class="num">Petitions</th><th class="num">Granted</th><th class="num">GVR’d</th><th class="num">Denied</th><th class="num">Dismissed</th></tr></thead><tbody><tr><th scope="row">Never relisted</th><td class="num">32,015</td><td class="num heat" style="background:rgba(@oxblood:rgb@,0.010)">0.4%</td><td class="num">0.6%</td><td class="num">96.2%</td><td class="num">2.9%</td></tr><tr><th scope="row">Relisted 1×</th><td class="num">3,736</td><td class="num heat" style="background:rgba(@oxblood:rgb@,0.178)">6.1%</td><td class="num">5.8%</td><td class="num">87.6%</td><td class="num">0.5%</td></tr><tr><th scope="row">Relisted 2×</th><td class="num">289</td><td class="num heat" style="background:rgba(@oxblood:rgb@,0.722);color:var(--paper);font-weight:600">24.9%</td><td class="num">16.6%</td><td class="num">57.1%</td><td class="num">1.4%</td></tr><tr><th scope="row">Relisted 3×</th><td class="num">166</td><td class="num heat" style="background:rgba(@oxblood:rgb@,0.367)">12.7%</td><td class="num">32.5%</td><td class="num">54.8%</td><td class="num">0.0%</td></tr><tr><th scope="row">Relisted 4×</th><td class="num">58</td><td class="num heat" style="background:rgba(@oxblood:rgb@,0.900);color:var(--paper);font-weight:600">34.5%</td><td class="num">13.8%</td><td class="num">50.0%</td><td class="num">1.7%</td></tr><tr><th scope="row">Relisted 5+×</th><td class="num">172</td><td class="num heat" style="background:rgba(@oxblood:rgb@,0.320)">11.0%</td><td class="num">14.0%</td><td class="num">74.4%</td><td class="num">0.6%</td></tr></tbody></table>
     <p class="note">
       Petitions relisted once or twice were granted far more often 
       than never-relisted ones. Petitions relisted many times usually met a 
