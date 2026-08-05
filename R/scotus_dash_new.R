@@ -471,11 +471,16 @@ scotus_dash <- function(range = today() - 1, year = "26",
   tbl <- tibble(
     Type = factor(hits$type, levels = c("paid", "ifp", "app"),
                   labels = c("Paid", "IFP", "Application")),
+    # The docket number rides under the caption instead of holding open a column
+    # of its own, as it does on the conference reports. It stays searchable --
+    # the search box matches rendered cell text -- and it points at the same case
+    # page the caption links to, so a column whose entire content was a duplicate
+    # link target is gone.
     Case = sprintf(
-      "<a href='../cases/%s.html' target='_blank'>%s</a>",
+      "<a href='../cases/%s.html' target='_blank'>%s</a><span class='cdk'>No. %s</span>",
       hits$dkt,
-      strip_caption_roles(hits$caption)),
-    Docket = hits$dkt,
+      strip_caption_roles(hits$caption),
+      hits$dkt),
     Grant = unname(grant_map[hits$dkt]),
     Court = str_replace(coalesce(hits$lower, "—"),
               "^United States Court of Appeals for the (.+?Circuit)$", "\\1") |>
@@ -510,7 +515,10 @@ scotus_dash <- function(range = today() - 1, year = "26",
       palette = TYPE_CHIPS) |>
     cols_align("center", columns = everything()) |>
     cols_label(QP = "Questions Presented") |>
-    cols_width(Case ~ px(220), QP ~ px(190))
+    # Type holds three short words and was sized by its header, not its data.
+    # Case gains the 10px the docket line needs. Both match the conference
+    # reports, which is the point -- the two tables show the same kind of row.
+    cols_width(Case ~ px(230), Type ~ px(76), QP ~ px(190))
   if (has_grant) {
     t <- t |>
       fmt_percent(columns = Grant, decimals = 0) |>
