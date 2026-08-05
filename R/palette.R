@@ -22,34 +22,49 @@
 
 # ---- CSS tokens --------------------------------------------------------------
 
-# The eight every page defines. --faint and --sienna are the LIGHTEST values
-# that clear WCAG AA (4.5:1) on --paper -- 4.50 and 4.53. They were #8a8271
-# (3.24:1) and #b5651d (3.69:1), both used almost exclusively below 0.9rem
-# where the large-text exemption never applied. Do not lighten them back.
+# BONE & COCHINEAL. The ground is plain and the character is in the ink and one
+# accent, which is the opposite of the parchment palette this replaces: that one
+# spent its identity on a tinted paper and then needed oxblood, sienna, tan and
+# gold on top of it, so nothing read as deliberate.
+#
+# --oxblood and --sienna hold the SAME value here, and that is the scheme rather
+# than an oversight: one cold red, spent on editorial accent and on outbound
+# document links, which never share a slot on the page. The names are now wrong
+# -- neither value is oxblood or sienna -- and renaming them to --accent/--link
+# touches every var() in five stylesheets, so it is deliberately not in this
+# diff. See the note in CLAUDE.md.
+#
+# Contrast, measured, against the tightest ground each is used on:
+#   ink 16.92:1   ink-soft 8.83:1   faint 5.81:1   accent 8.07:1
+# The parchment palette passed at exactly 4.50:1 at its tightest. Nothing here
+# is closer to the line than 5.37:1, including on --stripe and --field.
 PALETTE <- list(
-  "paper"    = "#f3ecdd",
-  "panel"    = "#f7f1e4",
-  "ink"      = "#23262d",
-  "ink-soft" = "#5f5847",
-  "faint"    = "#716b5d",
-  "oxblood"  = "#8a2b2b",
-  "sienna"   = "#a0591a",
-  "rule"     = "#d8cdb4")
+  "paper"    = "#fdfcfa",
+  "panel"    = "#ffffff",
+  "ink"      = "#1a1a1e",
+  "ink-soft" = "#484850",
+  "faint"    = "#63636b",
+  "oxblood"  = "#9c0e3a",
+  "sienna"   = "#9c0e3a",
+  # 1.39:1 on --paper. Hairlines carry table and timeline structure, so this is
+  # calibrated to beat the parchment rule's 1.34:1 rather than to disappear --
+  # a tint that reads on cream goes invisible on bone.
+  "rule"     = "#dbd8d2")
 
-# The Cert Funnel draws a second ground and a rail it alone uses.
+# The Cert Funnel's rail. --gold and --paper-2 were here too and are gone: both
+# were declared in the funnel's :root and referenced by nothing, in either the
+# funnel or anywhere else. Consolidating made that visible; this removes them.
 PALETTE_FUNNEL <- list(
-  "paper-2" = "#ede4d0",
-  "gold"    = "#a8862c",
-  "rail"    = "#e4dac2")
+  "rail" = "#e4e0d9")
 
 # Interactive-table furniture (reactable, injected by interactive_theme.R). These
 # were literals in two places at once: --stripe was written into the CSS AND
 # passed to gt's row.striping.background_color, and nothing tied the two
 # together.
 PALETTE_UI <- list(
-  "stripe"     = "#efe7d6",   # striped row
-  "field"      = "#fbf7ec",   # search / filter / page-size input
-  "link-hover" = "#6f2020")   # a link under the cursor: --oxblood, darkened
+  "stripe"     = "#f7f5f1",   # striped row
+  "field"      = "#f5f3ef",   # search / filter / page-size input
+  "link-hover" = "#78092c")   # a link under the cursor: the accent, darkened
 
 # Docket-page event categories. These are a legend, not a scale: each one names
 # a kind of docket entry, so they have to stay mutually distinguishable rather
@@ -138,29 +153,30 @@ fill_palette <- function(css) {
 # ground to its accent, so a recolour carries the ramp with it and the two middle
 # stops are the only values that have to be chosen. na_color is --panel, so a
 # cell with no forecast reads as empty table furniture rather than as a zero.
-GRANT_RAMP   <- c(pal("paper"), "#e8c9a0", "#c8794f", pal("oxblood"))
+GRANT_RAMP   <- c(pal("paper"), "#f1c8d2", "#c85e79", pal("oxblood"))
 GRANT_DOMAIN <- c(0, 0.6)
 GRANT_NA     <- pal("panel")
 
 # Docket-type chips. A nominal scale: three kinds of filing, no order.
-TYPE_CHIPS <- c("Paid" = "#e4e7d8", "IFP" = "#efe1cd", "Application" = "#dfe4ea")
+TYPE_CHIPS <- c("Paid" = "#e8e8e1", "IFP" = "#f2e8dd", "Application" = "#e2e5ea")
 
 # Argument Navigator status fills. Nominal again -- a case's position in the
 # argument lifecycle, not a quantity -- but ORDERED in the legend, so keep the
 # sequence readable left to right. `na_color` for both this and TYPE_CHIPS is
 # GRANT_NA: an unfilled chip should read as table furniture, not as a category.
-STATUS_FILL <- c("Granted"   = "#eae3d2", "Scheduled" = "#dfe4ea",
-                 "Argued"    = "#e4e7d8", "Decided"   = "#e8dcc0",
-                 "DIG'd"     = "#e6cdc6")
+STATUS_FILL <- c("Granted"   = "#e6e9e0", "Scheduled" = "#e2e5ea",
+                 "Argued"    = "#eceadf", "Decided"   = "#e8e6e9",
+                 "DIG'd"     = "#f4d9e0")
 
-# Calibration-plot series (docs/make_methods_note.R). NOT --sienna: this is
-# #b5651d, the value --sienna held before the WCAG correction, and it stayed
-# behind when everything else moved. It is a line on a PNG rather than text, so
-# the 4.5:1 rule never applied to it and nothing was broken -- but it does mean
-# the chart and the page around it are drawing "the same" orange differently.
-# Worth reconciling when the palette next changes; preserved exactly for now so
-# that consolidating alone repaints nothing.
-CHART_SERIES <- c("baseline" = "#b5651d", "enhanced" = pal("oxblood"))
+# Calibration-plot series (docs/make_methods_note.R). This is the #b5651d that
+# #36 flagged: the value --sienna held before the WCAG correction, left behind
+# when everything else moved, so the chart and the page around it drew "the
+# same" orange differently. Reconciled here, as that note said to.
+#
+# Two lines that overlap closely need to separate by lightness, not only hue --
+# hue alone fails for a deuteranope. #6b8caf reads 3.50:1 on the plot's white
+# ground and 2.36:1 against the accent it shares the chart with.
+CHART_SERIES <- c("baseline" = "#6b8caf", "enhanced" = pal("oxblood"))
 
 # Interactive (reactable) table furniture, shared with the injected CSS.
 ROW_STRIPE <- pal("stripe")
