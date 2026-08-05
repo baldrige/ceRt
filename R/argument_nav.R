@@ -242,8 +242,7 @@ build_argument_table <- function(cases, qp_map = NULL) {
 # Parchment-toned status tints, in status-factor-level order, applied to the
 # reactable Status column via data_color(target_columns=).
 STATUS_LEVELS <- c("Granted", "Scheduled", "Argued", "Decided", "DIG'd")
-STATUS_FILL <- c(Granted = "#eae3d2", Scheduled = "#dfe4ea", Argued = "#e4e7d8",
-                 Decided = "#e8dcc0", `DIG'd` = "#e6cdc6")
+# STATUS_FILL itself lives in palette.R; STATUS_LEVELS above is the legend order.
 
 # Render one Term's argument calendar as the interactive editorial table (matches
 # the daily/conference dashboards): a flat, sortable/filterable reactable with a
@@ -309,7 +308,7 @@ argument_term_page <- function(tbl, term, out_dir) {
     fmt_date(columns = When, date_style = "m_day_year") |>
     sub_missing(columns = When, missing_text = "—") |>
     data_color(columns = status, target_columns = status_disp, method = "factor",
-               palette = unname(STATUS_FILL[STATUS_LEVELS]), na_color = "#f7f1e4") |>
+               palette = unname(STATUS_FILL[STATUS_LEVELS]), na_color = GRANT_NA) |>
     cols_hide(columns = status) |>
     cols_align("center", columns = everything()) |>
     cols_label(.list = labels) |>

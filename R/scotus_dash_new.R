@@ -495,7 +495,9 @@ scotus_dash <- function(range = today() - 1, year = "26",
   if (!has_grant) tbl <- select(tbl, -Grant)
   # Clamped companion for the heat map; hidden before the table renders. See the
   # data_color() call below for why the real column cannot be shaded directly.
-  if (has_grant) tbl$.grant_shade <- pmin(tbl$Grant, 0.6)
+  # Clamped to the TOP of the shading domain, from palette.R, so the ceiling
+  # cannot drift apart from the scale it is clamping to.
+  if (has_grant) tbl$.grant_shade <- pmin(tbl$Grant, GRANT_DOMAIN[2])
 
   # Data cells that read better left-aligned (headers stay centered via CSS).
   left_cols <- match(intersect(c("Case", "Court", "Counsel", "Documents", "QP"),
@@ -505,7 +507,7 @@ scotus_dash <- function(range = today() - 1, year = "26",
     gt() |>
     fmt_markdown(columns = any_of(c("Case", "Counsel", "Documents", "QP"))) |>
     data_color(columns = Type, method = "factor",
-      palette = c("Paid" = "#e4e7d8", "IFP" = "#efe1cd", "Application" = "#dfe4ea")) |>
+      palette = TYPE_CHIPS) |>
     cols_align("center", columns = everything()) |>
     cols_label(QP = "Questions Presented") |>
     cols_width(Case ~ px(220), QP ~ px(190))
@@ -523,8 +525,8 @@ scotus_dash <- function(range = today() - 1, year = "26",
       # now takes the darkest stop. Grant itself is untouched, so the printed
       # percentage and the column's numeric sort are unaffected.
       data_color(columns = .grant_shade, target_columns = Grant,
-                 palette = c("#f3ecdd", "#e8c9a0", "#c8794f", "#8a2b2b"),
-                 domain = c(0, 0.6), na_color = "#f7f1e4") |>
+                 palette = GRANT_RAMP,
+                 domain = GRANT_DOMAIN, na_color = GRANT_NA) |>
       cols_hide(columns = .grant_shade) |>
       cols_label(Grant = "Grant forecast")
   }

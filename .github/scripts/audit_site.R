@@ -201,6 +201,35 @@ for (spec in list(list("conferences", "^conf_.*\\.html$", "conference"),
             paste(msg, "-- the rest predate it and need a re-render to gain it"))
 }
 
+# ---- one colour source -------------------------------------------------------
+# R/palette.R is the only place a colour may be written down. This check exists
+# because the alternative is what the tree looked like before it: five :root
+# blocks, 33 literals inside gt calls, and 33 more hidden in var(--token,
+# #fallback) where a stale one would have gone on painting the OLD palette,
+# silently, and only on the pages that happened to omit that token.
+#
+# Source files, not the rendered site -- the point is to stop a literal being
+# COMMITTED, and by the time it is on gh-pages the palette has already forked.
+# #fff/#000 are exempt: three-digit structural values (a print background, the
+# black end of a mask gradient) that are not palette colours.
+src <- c(list.files("R", pattern = "\\.R$", full.names = TRUE),
+         "docs/make_methods_note.R")
+src <- setdiff(src[file.exists(src)], "R/palette.R")
+stray <- unlist(lapply(src, function(f) {
+  ln <- readLines(f, warn = FALSE)
+  hit <- grep("#[0-9a-fA-F]{6}\\b", ln)
+  if (!length(hit)) return(NULL)
+  sprintf("%s:%d", basename(f), hit)
+}))
+if (!length(stray)) {
+  ok("one colour source", sprintf("no colour literals outside palette.R (%d files)",
+                                  length(src)))
+} else {
+  fail("one colour source",
+       sprintf("%d colour literal(s) outside R/palette.R: %s",
+               length(stray), paste(utils::head(stray, 8), collapse = ", ")))
+}
+
 # ---- verdict -----------------------------------------------------------------
 lv <- vapply(results, function(r) r$level, character(1))
 cat(sprintf("\n%d checks: %d ok, %d WARN, %d FAIL\n",

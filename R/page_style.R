@@ -10,16 +10,22 @@ suppressPackageStartupMessages({
   library(htmltools)
 })
 
-# Sitewide nav components (NAV_CSS, site_masthead, site_breadcrumb, ...). Loaded
-# unconditionally rather than behind an exists() guard: a missing NAV_CSS would
-# render every masthead unstyled but still *present*, which is exactly the silent
-# degradation this codebase has been bitten by three times. Fail loudly instead.
+# palette.R (the colour source) and then the sitewide nav components (NAV_CSS,
+# site_masthead, site_breadcrumb, ...). Loaded unconditionally rather than behind
+# an exists() guard: a missing NAV_CSS would render every masthead unstyled but
+# still *present*, which is exactly the silent degradation this codebase has been
+# bitten by three times. Fail loudly instead.
+#
+# Order matters. NAV_CSS is built by fill_palette(), so palette.R has to be in
+# scope before site_nav.R is sourced, not merely by the time a page is written.
 local({
   here <- tryCatch(dirname(sys.frame(1)$ofile), error = function(e) NA)
-  f <- if (!is.na(here) && file.exists(file.path(here, "site_nav.R")))
-    file.path(here, "site_nav.R")
-  else if (file.exists("R/site_nav.R")) "R/site_nav.R" else "site_nav.R"
-  sys.source(f, envir = globalenv())
+  find <- function(f) {
+    if (!is.na(here) && file.exists(file.path(here, f))) file.path(here, f)
+    else if (file.exists(file.path("R", f))) file.path("R", f) else f
+  }
+  sys.source(find("palette.R"),  envir = globalenv())
+  sys.source(find("site_nav.R"), envir = globalenv())
 })
 
 # Google Fonts used across the site (kept identical to the Cert Funnel page).
@@ -29,18 +35,9 @@ PAGE_FONTS_URL <- paste0(
   "family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&",
   "display=swap")
 
-# Base editorial styles for the index / landing pages.
-INDEX_CSS <- "
-  /* --faint was #8a8271 (3.24:1 on --paper) and --sienna #b5651d (3.69:1); both
-     failed WCAG AA for normal text and both are used almost exclusively below
-     0.9rem, so the large-text exemption never applied. These are the LIGHTEST
-     values that clear 4.5:1 -- 4.50 and 4.53 -- keeping 82% and 89% of the
-     original lightness, so the palette does not perceptibly change. */
-  :root{
-    --paper:#f3ecdd;--panel:#f7f1e4;--ink:#23262d;--ink-soft:#5f5847;
-    --faint:#716b5d;--oxblood:#8a2b2b;--sienna:#a0591a;--rule:#d8cdb4;
-    --nav-max:40rem;
-  }
+# Base editorial styles for the index / landing pages. Colours come from
+# palette.R; 40rem is the measure both .wrap and the masthead centre on.
+INDEX_CSS <- paste0("\n  ", palette_root("40rem"), "
   *{box-sizing:border-box}
   html{-webkit-text-size-adjust:100%}
   body{font-family:'Newsreader',Georgia,serif;font-size:19px;line-height:1.6;
@@ -158,7 +155,7 @@ INDEX_CSS <- "
   .about .contact h2{font:600 .78rem/1 'Newsreader',Georgia,serif;letter-spacing:.2em;
     text-transform:uppercase;color:var(--oxblood);margin:0 0 .5rem}
   .about .contact p{margin:0;font-size:1rem}
-"
+")
 
 # Home-page case search: a lazy-loaded client-side index (docket -> caption).
 SEARCH_HTML <- paste0(

@@ -3,6 +3,7 @@
 # model artifacts, so every figure is exact and reproducible.
 
 suppressPackageStartupMessages({ library(tidyverse); library(scales) })
+source("R/palette.R")   # the colour source: :root below and the plot series
 
 b <- readRDS("data/cert_model_baseline.rds")
 e <- readRDS("data/cert_model_enhanced.rds")
@@ -27,8 +28,8 @@ p <- ggplot(cal, aes(pred, obs, color = Model)) +
   geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "grey55") +
   geom_line(linewidth = 0.6) +
   geom_point(aes(size = n)) +
-  scale_color_manual(values = c("Baseline (daily, petition-stage)" = "#b5651d",
-                                "Enhanced (conference-stage)" = "#8a2b2b")) +
+  scale_color_manual(values = c("Baseline (daily, petition-stage)" = CHART_SERIES[["baseline"]],
+                                "Enhanced (conference-stage)" = CHART_SERIES[["enhanced"]])) +
   scale_size_continuous(range = c(1.6, 4), guide = "none") +
   scale_x_continuous(labels = percent, limits = lim) +
   scale_y_continuous(labels = percent, limits = lim) +
@@ -71,7 +72,7 @@ html <- sprintf('<!DOCTYPE html><html lang="en"><head><script async src="/analyt
      free: NAV_CSS pads the rule by 1.5rem where .sheet pads its text by .6in,
      so the rule lands flush with the column only at 8.1in - 1.2in + 2*1.5rem
      = 7.4in. Left unset it falls back to 54rem and overhangs by 76px a side. */
-  :root{--paper:#f3ecdd;--ink:#23262d;--ink-soft:#5f5847;--faint:#716b5d;--oxblood:#8a2b2b;--sienna:#a0591a;--rule:#d8cdb4;--nav-max:7.4in}
+  @ROOT@
   *{box-sizing:border-box} html{-webkit-text-size-adjust:100%%}
   body{font-family:"Newsreader",Georgia,serif;color:var(--ink);background:var(--paper);margin:0;font-size:10.5pt;line-height:1.4}
   .sheet{max-width:8.1in;margin:0 auto;padding:.5in .6in}
@@ -161,5 +162,10 @@ html <- sprintf('<!DOCTYPE html><html lang="en"><head><script async src="/analyt
   comma(mc(b)$n_pos),
   format(Sys.Date(), "%B %Y"))
 
+# The :root is substituted AFTER sprintf() so it does not have to survive the
+# format string's %% escaping, and so palette.R stays the only place the values
+# appear. 7.4in is the exact measure: 8.1in sheet - 1.2in .sheet padding +
+# 2*1.5rem NAV_CSS padding puts the masthead rule flush with the text column.
+html <- sub("@ROOT@", palette_root("7.4in"), html, fixed = TRUE)
 writeLines(html, "docs/cert_model_methods.html", useBytes = TRUE)
 cat("wrote docs/cert_model_methods.html and docs/cert_model_calibration.png\n")

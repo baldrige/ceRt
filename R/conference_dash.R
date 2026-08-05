@@ -235,7 +235,7 @@ conference_dash <- function(dist, conf_date,
   # live petitions by eye, and it is doing more work now that the merged column
   # cannot be sorted numerically.
   fc_shade <- function(p, hi, cols) {
-    out <- rep("#f7f1e4", length(p))                    # na_color, as before
+    out <- rep(GRANT_NA, length(p))                     # na_color, as before
     ok <- !is.na(p)
     if (any(ok)) {
       m <- grDevices::colorRamp(cols)(pmin(pmax(p[ok] / hi, 0), 1))
@@ -286,7 +286,7 @@ conference_dash <- function(dist, conf_date,
              # Domain 0-1, as gt's data_color() used for Ever. Granted-here had
              # 0-0.5; keeping each number on the scale it was published with
              # matters more than the extra contrast a tighter domain would give.
-             fc_shade(e, 1, c("#f3ecdd", "#e8c9a0", "#c8794f", "#8a2b2b")), "'>",
+             fc_shade(e, 1, GRANT_RAMP), "'>",
              pct(e), "</span>",
              ifelse(nzchar(sub), paste0("<span class='fc-sub'>", sub, "</span>"), "")))
   }
@@ -350,7 +350,7 @@ conference_dash <- function(dist, conf_date,
     gt() |>
     fmt_markdown(columns = any_of(c("Case", "Counsel", "Documents", "QP", "Forecast"))) |>
     data_color(columns = Type, method = "factor",
-      palette = c("Paid" = "#e4e7d8", "IFP" = "#efe1cd", "Application" = "#dfe4ea")) |>
+      palette = TYPE_CHIPS) |>
     cols_align("center", columns = everything()) |>
     # Type holds "Paid" / "IFP" / "Application" -- the longest is 11 characters,
     # and reactable was giving the column far more than that. Court gets a real
