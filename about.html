@@ -1,16 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head><script async src='/analytics.js'></script><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate icon" href="/favicon.ico" sizes="any"><title>About — Supreme Court Report</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap"><style>
-  /* --faint was #8a8271 (3.24:1 on --paper) and --sienna #b5651d (3.69:1); both
-     failed WCAG AA for normal text and both are used almost exclusively below
-     0.9rem, so the large-text exemption never applied. These are the LIGHTEST
-     values that clear 4.5:1 -- 4.50 and 4.53 -- keeping 82% and 89% of the
-     original lightness, so the palette does not perceptibly change. */
-  :root{
-    --paper:#f3ecdd;--panel:#f7f1e4;--ink:#23262d;--ink-soft:#5f5847;
-    --faint:#716b5d;--oxblood:#8a2b2b;--sienna:#a0591a;--rule:#d8cdb4;
-    --nav-max:40rem;
-  }
+  :root{--paper:#fdfcfa;--panel:#ffffff;--ink:#1a1a1e;--ink-soft:#484850;--faint:#63636b;--oxblood:#9c0e3a;--sienna:#9c0e3a;--rule:#dbd8d2;--nav-max:40rem}
   *{box-sizing:border-box}
   html{-webkit-text-size-adjust:100%}
   body{font-family:'Newsreader',Georgia,serif;font-size:19px;line-height:1.6;
@@ -36,7 +27,7 @@
   /* Whole row is one block-level link: a large, reliable tap target on mobile. */
   ul.idx a.row{display:flex;justify-content:space-between;align-items:baseline;
     gap:1rem;padding:.9rem .4rem;text-decoration:none;border:0;color:inherit}
-  ul.idx a.row:hover{background:rgba(138,43,43,.05)}
+  ul.idx a.row:hover{background:rgba(156,14,58,.05)}
   ul.idx .d{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.16rem;
     color:var(--oxblood);line-height:1.25}
   ul.idx a.row:hover .d{text-decoration:underline;text-underline-offset:3px}
@@ -60,7 +51,7 @@
   ol.mostread li{counter-increment:mr;border-bottom:1px solid var(--rule)}
   ol.mostread a{display:flex;align-items:baseline;gap:.7rem;padding:.6rem .4rem;
     text-decoration:none;color:inherit}
-  ol.mostread a:hover{background:rgba(138,43,43,.05)}
+  ol.mostread a:hover{background:rgba(156,14,58,.05)}
   ol.mostread a::before{content:counter(mr);font-family:'Fraunces',Georgia,serif;
     font-weight:600;font-size:.95rem;color:var(--faint);min-width:1.1rem;
     font-variant-numeric:tabular-nums}
@@ -77,15 +68,15 @@
     font-size:.95rem;min-width:2.6rem;text-align:right}
   .back{margin-top:2rem;font-size:.95rem}
   .back a{color:var(--sienna);text-decoration:none;
-    border-bottom:1px solid rgba(160,89,26,.4)}
+    border-bottom:1px solid rgba(156,14,58,.4)}
   .back a:hover{border-color:var(--sienna)}
   /* Home-page case search. */
   .csearch{position:relative;margin:0 0 1.4rem}
   #cq{width:100%;font-family:'Newsreader',Georgia,serif;font-size:1.05rem;color:var(--ink);
     background:var(--panel);border:1px solid var(--rule);border-radius:3px;padding:.7rem .9rem}
-  #cq:focus{outline:none;border-color:var(--oxblood);box-shadow:0 0 0 3px rgba(138,43,43,.1)}
+  #cq:focus{outline:none;border-color:var(--oxblood);box-shadow:0 0 0 3px rgba(156,14,58,.1)}
   #cq::placeholder{color:var(--faint)}
-  #cq.loading{background-image:linear-gradient(90deg,transparent,rgba(138,43,43,.06),transparent);
+  #cq.loading{background-image:linear-gradient(90deg,transparent,rgba(156,14,58,.06),transparent);
     background-size:40% 100%;background-repeat:no-repeat;animation:csl 1s infinite}
   @keyframes csl{0%{background-position:-40% 0}100%{background-position:140% 0}}
   .cres{list-style:none;margin:.35rem 0 0;padding:0;max-height:24rem;overflow-y:auto;
@@ -95,7 +86,7 @@
   .cres li:last-child{border-bottom:0}
   .cres a{display:block;padding:.55rem .7rem;text-decoration:none;color:var(--ink);
     font-size:.98rem;line-height:1.3}
-  .cres a:hover{background:rgba(138,43,43,.06)}
+  .cres a:hover{background:rgba(156,14,58,.06)}
   .cres .cd{color:var(--oxblood);font-variant-numeric:tabular-nums;font-weight:600;
     margin-right:.5rem;white-space:nowrap}
   .cnone{padding:.55rem .7rem;color:var(--faint);font-style:italic}
@@ -133,9 +124,9 @@
 .smast-in{max-width:var(--nav-max,54rem);margin:0 auto;padding:.85rem 1.5rem .5rem;
   display:flex;align-items:baseline;justify-content:space-between;gap:1.4rem;flex-wrap:wrap}
 .smast-wm{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
-  letter-spacing:.005em;color:var(--ink,#23262d);text-decoration:none;white-space:nowrap;flex:none}
-.smast-wm em{font-style:italic;font-weight:500;color:var(--oxblood,var(--ox,#8a2b2b))}
-.smast-wm:hover{color:var(--oxblood,var(--ox,#8a2b2b))}
+  letter-spacing:.005em;color:var(--ink,#1a1a1e);text-decoration:none;white-space:nowrap;flex:none}
+.smast-wm em{font-style:italic;font-weight:500;color:var(--oxblood,var(--ox,#9c0e3a))}
+.smast-wm:hover{color:var(--oxblood,var(--ox,#9c0e3a))}
 /* Row gap first, then column. At 1.35rem the six section links measured 596px
    of max-content -- 4px wider than the 592px row the 40rem index container
    leaves them -- so ABOUT alone wrapped to a third line under the wordmark, on
@@ -145,18 +136,18 @@
    overruns it anyway -- a nav that wraps should read as a stack, not an orphan. */
 .snav{display:flex;gap:.4rem 1.05rem;list-style:none;margin:0;padding:0;flex-wrap:wrap}
 .snav a{font:600 .72rem/1 'Newsreader',Georgia,serif;letter-spacing:.15em;text-transform:uppercase;
-  color:var(--ink-soft,var(--soft,#5f5847));text-decoration:none;display:inline-block;
+  color:var(--ink-soft,var(--soft,#484850));text-decoration:none;display:inline-block;
   padding:.5rem 0;border-bottom:1.5px solid transparent}
-.snav a:hover{color:var(--oxblood,var(--ox,#8a2b2b));border-bottom-color:var(--rule,#d8cdb4)}
-.snav a[aria-current='page']{color:var(--oxblood,var(--ox,#8a2b2b));
-  border-bottom-color:var(--oxblood,var(--ox,#8a2b2b))}
+.snav a:hover{color:var(--oxblood,var(--ox,#9c0e3a));border-bottom-color:var(--rule,#dbd8d2)}
+.snav a[aria-current='page']{color:var(--oxblood,var(--ox,#9c0e3a));
+  border-bottom-color:var(--oxblood,var(--ox,#9c0e3a))}
 .smast-rule-w{max-width:var(--nav-max,54rem);margin:0 auto;padding:0 1.5rem}
-.smast-rule{border:0;height:0;border-top:2px solid var(--ink,#23262d);margin:0;position:relative}
+.smast-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0;position:relative}
 .smast-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
-  border-top:1px solid var(--rule,#d8cdb4)}
-.skip{position:absolute;left:-9999px;top:0;background:var(--panel,#f7f1e4);
-  color:var(--oxblood,var(--ox,#8a2b2b));padding:.6rem 1rem;
-  border:1px solid var(--oxblood,var(--ox,#8a2b2b));
+  border-top:1px solid var(--rule,#dbd8d2)}
+.skip{position:absolute;left:-9999px;top:0;background:var(--panel,#ffffff);
+  color:var(--oxblood,var(--ox,#9c0e3a));padding:.6rem 1rem;
+  border:1px solid var(--oxblood,var(--ox,#9c0e3a));
   font:600 .8rem/1 'Newsreader',Georgia,serif;letter-spacing:.1em;text-transform:uppercase;z-index:10}
 .skip:focus{left:.5rem;top:.5rem}
 /* ---- breadcrumb ---- */
@@ -164,36 +155,36 @@
 .bcrumb ol{list-style:none;display:flex;flex-wrap:wrap;align-items:baseline;
   gap:.1rem .45rem;margin:0;padding:0}
 .bcrumb li{display:inline-flex;align-items:baseline;gap:.45rem}
-.bcrumb a{font:400 .8rem/1.5 'Newsreader',Georgia,serif;color:var(--ink-soft,var(--soft,#5f5847));
-  text-decoration:none;border-bottom:1px solid var(--rule,#d8cdb4)}
-.bcrumb a:hover{color:var(--oxblood,var(--ox,#8a2b2b));border-bottom-color:var(--oxblood,var(--ox,#8a2b2b))}
-.bcrumb .sep{color:var(--faint,#716b5d);font-size:.8rem;line-height:1.5}
+.bcrumb a{font:400 .8rem/1.5 'Newsreader',Georgia,serif;color:var(--ink-soft,var(--soft,#484850));
+  text-decoration:none;border-bottom:1px solid var(--rule,#dbd8d2)}
+.bcrumb a:hover{color:var(--oxblood,var(--ox,#9c0e3a));border-bottom-color:var(--oxblood,var(--ox,#9c0e3a))}
+.bcrumb .sep{color:var(--faint,#63636b);font-size:.8rem;line-height:1.5}
 .bcrumb [aria-current='page']{font:400 .8rem/1.5 'Newsreader',Georgia,serif;
-  color:var(--faint,#716b5d);font-variant-numeric:tabular-nums}
+  color:var(--faint,#63636b);font-variant-numeric:tabular-nums}
 /* ---- case footer ---- */
 .cfoot{margin:2.4rem 0 0}
-.cfoot-rule{border:0;height:0;border-top:2px solid var(--ink,#23262d);margin:0 0 1rem;position:relative}
+.cfoot-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0 0 1rem;position:relative}
 .cfoot-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
-  border-top:1px solid var(--rule,#d8cdb4)}
+  border-top:1px solid var(--rule,#dbd8d2)}
 .cfoot-off{font-size:.95rem;margin:0 0 1.1rem}
-.cfoot-off a{color:var(--sienna,#a0591a);text-decoration:none;border-bottom:1px solid rgba(160,89,26,.4)}
-.cfoot-off a:hover{border-bottom-color:var(--sienna,#a0591a)}
+.cfoot-off a{color:var(--sienna,#9c0e3a);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.4)}
+.cfoot-off a:hover{border-bottom-color:var(--sienna,#9c0e3a)}
 .cfoot-lab{font:600 .68rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
-  color:var(--faint,#716b5d);margin:0 0 .5rem}
+  color:var(--faint,#63636b);margin:0 0 .5rem}
 .cfoot-nav{display:flex;flex-wrap:wrap;gap:.35rem 1.1rem;list-style:none;margin:0;padding:0}
-.cfoot-nav a{font-size:.92rem;color:var(--ink-soft,var(--soft,#5f5847));text-decoration:none;
-  border-bottom:1px solid var(--rule,#d8cdb4);padding-bottom:1px}
-.cfoot-nav a:hover{color:var(--oxblood,var(--ox,#8a2b2b));border-bottom-color:var(--oxblood,var(--ox,#8a2b2b))}
-.cfoot-stamp{margin:1.2rem 0 0;font-size:.8rem;color:var(--faint,#716b5d);font-style:italic}
+.cfoot-nav a{font-size:.92rem;color:var(--ink-soft,var(--soft,#484850));text-decoration:none;
+  border-bottom:1px solid var(--rule,#dbd8d2);padding-bottom:1px}
+.cfoot-nav a:hover{color:var(--oxblood,var(--ox,#9c0e3a));border-bottom-color:var(--oxblood,var(--ox,#9c0e3a))}
+.cfoot-stamp{margin:1.2rem 0 0;font-size:.8rem;color:var(--faint,#63636b);font-style:italic}
 /* ---- prev / next ---- */
-.pnav{margin:2.2rem 0 0;border-top:1px solid var(--rule,#d8cdb4);padding-top:1rem;
+.pnav{margin:2.2rem 0 0;border-top:1px solid var(--rule,#dbd8d2);padding-top:1rem;
   display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
 .pnav a,.pnav span.none{text-decoration:none;color:inherit;display:block;padding:.5rem .2rem}
-.pnav a:hover{background:rgba(138,43,43,.05)}
+.pnav a:hover{background:rgba(156,14,58,.05)}
 .pnav .dir{font:600 .66rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
-  color:var(--faint,#716b5d);display:block;margin-bottom:.3rem}
+  color:var(--faint,#63636b);display:block;margin-bottom:.3rem}
 .pnav .lab{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1rem;line-height:1.25;
-  color:var(--oxblood,var(--ox,#8a2b2b));display:block}
+  color:var(--oxblood,var(--ox,#9c0e3a));display:block}
 .pnav a:hover .lab{text-decoration:underline;text-underline-offset:3px}
 .pnav .nx{text-align:right}
 .pnav .none{opacity:.35}
@@ -210,7 +201,7 @@
   .cfoot-nav{gap:.5rem 1rem}
   .cfoot-nav a{padding-bottom:.3rem}
   .pnav{grid-template-columns:1fr;gap:.2rem}
-  .pnav .nx{text-align:left;border-top:1px solid var(--rule,#d8cdb4)}
+  .pnav .nx{text-align:left;border-top:1px solid var(--rule,#dbd8d2)}
 }
 </style></head>
 <body>
