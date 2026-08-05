@@ -212,12 +212,30 @@ for (spec in list(list("conferences", "^conf_.*\\.html$", "conference"),
 # COMMITTED, and by the time it is on gh-pages the palette has already forked.
 # #fff/#000 are exempt: three-digit structural values (a print background, the
 # black end of a mask gradient) that are not palette colours.
+#
+# Hex is not the only spelling. The first version of this check looked for
+# #rrggbb only and passed a clean tree that still held 19 copies of the palette
+# written as decimal -- rgba(138,43,43,.05) is --oxblood, rgba(35,38,45,.45) is
+# --ink, and neither is legible as such. Those are exactly the copies that go
+# stale, so a colour is stray whether it is written in hex or in decimal.
 src <- c(list.files("R", pattern = "\\.R$", full.names = TRUE),
          "docs/make_methods_note.R")
 src <- setdiff(src[file.exists(src)], "R/palette.R")
+
+# The palette in decimal, so an rgb()/rgba() copy is recognisable.
+pal_dec <- vapply(
+  c(PALETTE, PALETTE_FUNNEL, PALETTE_UI, PALETTE_EVENTS,
+    as.list(c(GRANT_RAMP, TYPE_CHIPS, STATUS_FILL, CHART_SERIES))),
+  function(h) paste(as.vector(grDevices::col2rgb(h)), collapse = ","),
+  character(1))
+
 stray <- unlist(lapply(src, function(f) {
   ln <- readLines(f, warn = FALSE)
   hit <- grep("#[0-9a-fA-F]{6}\\b", ln)
+  dec <- which(vapply(ln, function(l)
+    any(vapply(pal_dec, function(d) grepl(paste0("rgba?(", d), l, fixed = TRUE),
+               logical(1))), logical(1), USE.NAMES = FALSE))
+  hit <- sort(unique(c(hit, dec)))
   if (!length(hit)) return(NULL)
   sprintf("%s:%d", basename(f), hit)
 }))

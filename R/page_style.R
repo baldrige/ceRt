@@ -63,7 +63,7 @@ INDEX_CSS <- paste0("\n  ", palette_root("40rem"), "
   /* Whole row is one block-level link: a large, reliable tap target on mobile. */
   ul.idx a.row{display:flex;justify-content:space-between;align-items:baseline;
     gap:1rem;padding:.9rem .4rem;text-decoration:none;border:0;color:inherit}
-  ul.idx a.row:hover{background:rgba(138,43,43,.05)}
+  ul.idx a.row:hover{background:rgba(@oxblood:rgb@,.05)}
   ul.idx .d{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.16rem;
     color:var(--oxblood);line-height:1.25}
   ul.idx a.row:hover .d{text-decoration:underline;text-underline-offset:3px}
@@ -87,7 +87,7 @@ INDEX_CSS <- paste0("\n  ", palette_root("40rem"), "
   ol.mostread li{counter-increment:mr;border-bottom:1px solid var(--rule)}
   ol.mostread a{display:flex;align-items:baseline;gap:.7rem;padding:.6rem .4rem;
     text-decoration:none;color:inherit}
-  ol.mostread a:hover{background:rgba(138,43,43,.05)}
+  ol.mostread a:hover{background:rgba(@oxblood:rgb@,.05)}
   ol.mostread a::before{content:counter(mr);font-family:'Fraunces',Georgia,serif;
     font-weight:600;font-size:.95rem;color:var(--faint);min-width:1.1rem;
     font-variant-numeric:tabular-nums}
@@ -104,15 +104,15 @@ INDEX_CSS <- paste0("\n  ", palette_root("40rem"), "
     font-size:.95rem;min-width:2.6rem;text-align:right}
   .back{margin-top:2rem;font-size:.95rem}
   .back a{color:var(--sienna);text-decoration:none;
-    border-bottom:1px solid rgba(160,89,26,.4)}
+    border-bottom:1px solid rgba(@sienna:rgb@,.4)}
   .back a:hover{border-color:var(--sienna)}
   /* Home-page case search. */
   .csearch{position:relative;margin:0 0 1.4rem}
   #cq{width:100%;font-family:'Newsreader',Georgia,serif;font-size:1.05rem;color:var(--ink);
     background:var(--panel);border:1px solid var(--rule);border-radius:3px;padding:.7rem .9rem}
-  #cq:focus{outline:none;border-color:var(--oxblood);box-shadow:0 0 0 3px rgba(138,43,43,.1)}
+  #cq:focus{outline:none;border-color:var(--oxblood);box-shadow:0 0 0 3px rgba(@oxblood:rgb@,.1)}
   #cq::placeholder{color:var(--faint)}
-  #cq.loading{background-image:linear-gradient(90deg,transparent,rgba(138,43,43,.06),transparent);
+  #cq.loading{background-image:linear-gradient(90deg,transparent,rgba(@oxblood:rgb@,.06),transparent);
     background-size:40% 100%;background-repeat:no-repeat;animation:csl 1s infinite}
   @keyframes csl{0%{background-position:-40% 0}100%{background-position:140% 0}}
   .cres{list-style:none;margin:.35rem 0 0;padding:0;max-height:24rem;overflow-y:auto;
@@ -122,7 +122,7 @@ INDEX_CSS <- paste0("\n  ", palette_root("40rem"), "
   .cres li:last-child{border-bottom:0}
   .cres a{display:block;padding:.55rem .7rem;text-decoration:none;color:var(--ink);
     font-size:.98rem;line-height:1.3}
-  .cres a:hover{background:rgba(138,43,43,.06)}
+  .cres a:hover{background:rgba(@oxblood:rgb@,.06)}
   .cres .cd{color:var(--oxblood);font-variant-numeric:tabular-nums;font-weight:600;
     margin-right:.5rem;white-space:nowrap}
   .cnone{padding:.55rem .7rem;color:var(--faint);font-style:italic}
@@ -155,7 +155,7 @@ INDEX_CSS <- paste0("\n  ", palette_root("40rem"), "
   .about .contact h2{font:600 .78rem/1 'Newsreader',Georgia,serif;letter-spacing:.2em;
     text-transform:uppercase;color:var(--oxblood);margin:0 0 .5rem}
   .about .contact p{margin:0;font-size:1rem}
-")
+") |> fill_palette()
 
 # Home-page case search: a lazy-loaded client-side index (docket -> caption).
 SEARCH_HTML <- paste0(

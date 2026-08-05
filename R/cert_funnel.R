@@ -491,7 +491,7 @@ relist_html <- function(rt) {
   rows <- pmap_chr(d, function(relists, n, p_granted, p_gvr, p_denied, p_dismissed, ...) {
     a <- max(0, min(0.9, p_granted / gmax))
     on_dark <- a > 0.55
-    heat <- sprintf('style="background:rgba(138,43,43,%.3f)%s"',
+    heat <- sprintf('style="background:rgba(@oxblood:rgb@,%.3f)%s"',
                     a, if (on_dark) ";color:var(--paper);font-weight:600" else "")
     sprintf(paste0(
       '<tr><th scope="row">%s</th><td class="num">%s</td>',
@@ -557,7 +557,7 @@ render_funnel_page <- function(live, baselines, out_dir,
     .wrap{max-width:44rem;margin:0 auto;padding:3.2rem 1.4rem 5rem}
     p{margin:0 0 1.05rem}
     a{color:var(--oxblood);text-decoration:none;
-      border-bottom:1px solid rgba(138,43,43,.32);transition:border-color .15s}
+      border-bottom:1px solid rgba(@oxblood:rgb@,.32);transition:border-color .15s}
     a:hover{border-color:var(--oxblood)}
     /* -- masthead -- */
     .kicker{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;
@@ -642,7 +642,7 @@ render_funnel_page <- function(live, baselines, out_dir,
       font-variant-numeric:tabular-nums}
     .rtable tbody th[scope=row]{font-weight:600;color:var(--ink)}
     .rtable .wcase{font-size:.95rem;line-height:1.35}
-    .rtable tbody tr:hover{background:rgba(138,43,43,.04)}
+    .rtable tbody tr:hover{background:rgba(@oxblood:rgb@,.04)}
     .rtable .heat{border-radius:2px}
     details{margin:1rem 0 1.6rem}
     summary{cursor:pointer;font-family:'Fraunces',Georgia,serif;font-weight:600;
