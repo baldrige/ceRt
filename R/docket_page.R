@@ -64,7 +64,7 @@ p{margin:.5rem 0}
 .disp-sub{font-size:.86rem;color:var(--faint);margin-top:.15rem}
 .disp-word{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.5rem;color:var(--oxblood);line-height:1.1}
 .forecast-why{margin:.55rem 0 0;font-size:.95rem;line-height:1.5;color:var(--ink-soft);max-width:46rem}
-.disp-word a{color:inherit;text-decoration:underline;text-decoration-color:rgba(138,43,43,.4);text-underline-offset:4px}
+.disp-word a{color:inherit;text-decoration:underline;text-decoration-color:rgba(@oxblood:rgb@,.4);text-underline-offset:4px}
 .qp{font-size:1.05rem;line-height:1.55}.qp ol,.qp ul{padding-left:1.2rem;margin:.3rem 0}.qp li{margin:.35rem 0}.qp p{margin:.4rem 0}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:1.6rem}
 .panel{background:var(--panel);border:1px solid var(--rule);padding:1rem 1.2rem}
@@ -77,11 +77,11 @@ p{margin:.5rem 0}
 .timeline li{display:grid;grid-template-columns:7rem 1fr;gap:1.1rem;padding:.4rem 0;position:relative}
 .tl-date{font-variant-numeric:tabular-nums;font-size:.86rem;color:var(--faint);text-align:right;padding-top:.1rem;padding-right:.28rem}
 .tl-body{font-size:.98rem;position:relative}
-.tl-body::before{content:'';position:absolute;left:-.9rem;top:.5rem;width:8px;height:8px;border-radius:50%;background:var(--dot,var(--sienna));border:1px solid rgba(35,38,45,.45);box-shadow:0 0 0 3px var(--paper)}
+.tl-body::before{content:'';position:absolute;left:-.9rem;top:.5rem;width:8px;height:8px;border-radius:50%;background:var(--dot,var(--sienna));border:1px solid rgba(@ink:rgb@,.45);box-shadow:0 0 0 3px var(--paper)}
 .timeline li.proc .tl-body::before{background:var(--paper);border:1.5px solid var(--c-neutral)}
 .tl-legend{display:flex;flex-wrap:wrap;gap:.3rem 1.1rem;margin:.1rem 0 1rem;font-size:.78rem;color:var(--faint)}
 .tl-legend span{display:inline-flex;align-items:center;gap:.35rem;white-space:nowrap}
-.tl-legend i{width:9px;height:9px;border-radius:50%;border:1px solid rgba(35,38,45,.45);flex:none}
+.tl-legend i{width:9px;height:9px;border-radius:50%;border:1px solid rgba(@ink:rgb@,.45);flex:none}
 .tl-legend i.hollow{background:var(--paper);border:1.5px solid var(--c-neutral)}
 .tl-docs{margin-top:.2rem;display:flex;flex-wrap:wrap;gap:.2rem .8rem}
 .tl-docs a{font-size:.85rem;color:var(--sienna);border-bottom:1px solid rgba(@sienna:rgb@,.4);text-decoration:none}

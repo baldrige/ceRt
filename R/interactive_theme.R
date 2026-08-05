@@ -42,7 +42,7 @@ h1{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:clamp(1.9rem,4
 .brule{border:0;border-top:2px solid var(--ink);margin:1rem 0 1.4rem;position:relative}
 .brule::after{content:'';position:absolute;left:0;top:4px;width:100%;border-top:1px solid var(--rule)}
 .foot{margin-top:1.6rem;font-size:.9rem;color:var(--ink-soft);font-style:italic;max-width:52rem}
-.foot a,.back a{color:var(--sienna);text-decoration:none;border-bottom:1px solid rgba(160,89,26,.4)}
+.foot a,.back a{color:var(--sienna);text-decoration:none;border-bottom:1px solid rgba(@sienna:rgb@,.4)}
 .back{margin-top:1.4rem;font-size:.95rem}
 .gt_table,.reactable{font-family:'Newsreader',Georgia,serif!important}
 .rt-table{background:var(--panel);border:1px solid var(--rule);overflow-x:auto}
@@ -50,7 +50,7 @@ h1{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:clamp(1.9rem,4
 .rt-thead .rt-th{background:var(--paper)!important;color:var(--oxblood)!important;font-weight:600;text-transform:uppercase;letter-spacing:.06em;font-size:.76rem;border-bottom:2px solid var(--ink)!important}
 .rt-th,.rt-td{border-color:var(--rule)!important}
 .rt-td{font-variant-numeric:tabular-nums;color:var(--ink);font-size:.95rem;padding:.5rem .7rem!important;align-items:center!important;line-height:1.5!important}
-.rt-tbody .rt-tr:hover{background:rgba(138,43,43,.06)!important}
+.rt-tbody .rt-tr:hover{background:rgba(@oxblood:rgb@,.06)!important}
 .rt-tr-striped{background:var(--stripe)!important}
 /* Docket number beneath the caption, since it no longer holds its own column. */
 .rt-td .cdk{display:block;font-size:.8rem;color:var(--faint);font-variant-numeric:tabular-nums;margin-top:.15rem}
@@ -76,17 +76,17 @@ h1{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:clamp(1.9rem,4
 .rt-th[aria-sort='ascending']{box-shadow:inset 0 3px 0 0 var(--oxblood)!important}
 .rt-th[aria-sort='descending']{box-shadow:inset 0 -3px 0 0 var(--oxblood)!important}
 .rt-search,.rt-filter{font-family:'Newsreader',Georgia,serif!important;background:var(--field)!important;border:1px solid var(--rule)!important;border-radius:2px;color:var(--ink)!important;padding:.3rem .5rem}
-.rt-search:focus,.rt-filter:focus{outline:none;border-color:var(--oxblood)!important;box-shadow:0 0 0 2px rgba(138,43,43,.12)}
+.rt-search:focus,.rt-filter:focus{outline:none;border-color:var(--oxblood)!important;box-shadow:0 0 0 2px rgba(@oxblood:rgb@,.12)}
 .rt-search{margin-bottom:.7rem;width:16rem;max-width:100%}
 .rt-search::placeholder,.rt-filter::placeholder{color:var(--faint)}
 .rt-pagination{border-top:1px solid var(--rule)!important;color:var(--ink-soft);font-size:.9rem}
 .rt-page-button{font-family:'Newsreader',serif!important;color:var(--oxblood)!important}
-.rt-page-button:not(:disabled):hover{background:rgba(138,43,43,.08)!important}
+.rt-page-button:not(:disabled):hover{background:rgba(@oxblood:rgb@,.08)!important}
 .rt-page-button[aria-current='true'],.rt-current-page{color:var(--ink)!important;font-weight:600}
 .rt-page-info{color:var(--ink-soft)!important}
 .rt-page-size-select{font-family:'Newsreader',Georgia,serif!important;background:var(--field)!important;border:1px solid var(--rule)!important;border-radius:2px;color:var(--ink)!important;padding:.15rem 1.3rem .15rem .45rem;margin:0 .35rem}
-.rt-page-size-select:focus{outline:none;border-color:var(--oxblood)!important;box-shadow:0 0 0 2px rgba(138,43,43,.12)}
-")
+.rt-page-size-select:focus{outline:none;border-color:var(--oxblood)!important;box-shadow:0 0 0 2px rgba(@oxblood:rgb@,.12)}
+") |> fill_palette()
 
 # Document links for a case, selected by kind and shown in that order.
 case_documents <- function(ev, kinds) {
