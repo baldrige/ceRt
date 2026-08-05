@@ -105,10 +105,20 @@ them fallbacks that would have gone on painting the *old* colours wherever a
 token was missing — silently, and only on some pages. `audit_site.R` now FAILS
 on any six-digit hex outside `palette.R` (`#fff`/`#000` are exempt as structural).
 
-One duplicate is preserved deliberately: `CHART_SERIES[["baseline"]]` is
-`#b5651d`, the pre-WCAG `--sienna`, still used for a line on the calibration PNG.
-Not a contrast bug — it is not text — but the chart and the page around it draw
-"the same" orange differently. Reconcile it when the palette next moves.
+The palette is **Bone & Cochineal**: a plain near-white ground, neutral ink, and
+one cold red. Its tightest text pair measures 5.37:1 — the parchment palette it
+replaced passed at exactly 4.50:1, with no margin at all.
+
+Two things about it are easy to misread as mistakes:
+
+- **`--oxblood` and `--sienna` hold the same value on purpose.** One accent, spent
+  on editorial emphasis and on outbound document links, which never share a slot.
+  The names are now wrong — neither is oxblood or sienna — but renaming them to
+  `--accent`/`--link` touches every `var()` in five stylesheets and was kept out
+  of the recolour diff. Worth doing; not urgent.
+- **`PALETTE_EVENTS` was not recoloured.** The ten docket-entry categories are a
+  legend, not a scale, and they still separate on the new ground; their swatches
+  carry a `--ink` border so even `--c-white` stays visible.
 
 ## Conventions
 
