@@ -10,13 +10,24 @@
 
 suppressPackageStartupMessages({ library(gt); library(tidyverse); library(jsonlite) })
 
+# palette.R is normally already in scope (page_style.R loads it, and all three
+# callers source that first), but this file is also sourced directly -- declare
+# the dependency rather than inherit it by luck.
+local({
+  here <- tryCatch(dirname(sys.frame(1)$ofile), error = function(e) NA)
+  f <- if (!is.na(here) && file.exists(file.path(here, "palette.R")))
+    file.path(here, "palette.R")
+  else if (file.exists("R/palette.R")) "R/palette.R" else "palette.R"
+  sys.source(f, envir = globalenv())
+})
+
 SCR_FONTS <- "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap"
 .scr_noise <- "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E"
 
 SCR_CSS <- paste0("
 /* Token names and the two AA colour corrections match page_style.R and
    docket_page.R -- see the note above DOCKET_CSS. */
-:root{--paper:#f3ecdd;--panel:#f7f1e4;--ink:#23262d;--ink-soft:#5f5847;--faint:#716b5d;--oxblood:#8a2b2b;--rule:#d8cdb4;--sienna:#a0591a;--nav-max:54rem}
+", palette_root("54rem", PALETTE_UI), "
 *{box-sizing:border-box}
 body{font-family:'Newsreader',Georgia,serif;color:var(--ink);background:var(--paper);margin:0}
 body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.5;mix-blend-mode:multiply;background-image:url(\"", .scr_noise, "\")}
@@ -40,7 +51,7 @@ h1{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:clamp(1.9rem,4
 .rt-th,.rt-td{border-color:var(--rule)!important}
 .rt-td{font-variant-numeric:tabular-nums;color:var(--ink);font-size:.95rem;padding:.5rem .7rem!important;align-items:center!important;line-height:1.5!important}
 .rt-tbody .rt-tr:hover{background:rgba(138,43,43,.06)!important}
-.rt-tr-striped{background:#efe7d6!important}
+.rt-tr-striped{background:var(--stripe)!important}
 /* Docket number beneath the caption, since it no longer holds its own column. */
 .rt-td .cdk{display:block;font-size:.8rem;color:var(--faint);font-variant-numeric:tabular-nums;margin-top:.15rem}
 /* Merged grant-forecast cell: granted-here leads and carries the heat-map
@@ -56,7 +67,7 @@ h1{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:clamp(1.9rem,4
 .rt-td .fc-sub{display:block;font-size:.78rem;color:var(--faint);
   font-variant-numeric:tabular-nums;margin-top:.2rem;line-height:1.35}
 .rt-td a{color:var(--oxblood);text-decoration:none}
-.rt-td a:hover{color:#6f2020}
+.rt-td a:hover{color:var(--link-hover)}
 .rt-td details{font-size:.9rem;line-height:1.5}
 .rt-td details summary{color:var(--oxblood);cursor:pointer;font-style:italic;list-style:none}
 .rt-td details summary::-webkit-details-marker{display:none}
@@ -64,7 +75,7 @@ h1{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:clamp(1.9rem,4
 .rt-td details p{margin:.3rem 0;text-align:left}
 .rt-th[aria-sort='ascending']{box-shadow:inset 0 3px 0 0 var(--oxblood)!important}
 .rt-th[aria-sort='descending']{box-shadow:inset 0 -3px 0 0 var(--oxblood)!important}
-.rt-search,.rt-filter{font-family:'Newsreader',Georgia,serif!important;background:#fbf7ec!important;border:1px solid var(--rule)!important;border-radius:2px;color:var(--ink)!important;padding:.3rem .5rem}
+.rt-search,.rt-filter{font-family:'Newsreader',Georgia,serif!important;background:var(--field)!important;border:1px solid var(--rule)!important;border-radius:2px;color:var(--ink)!important;padding:.3rem .5rem}
 .rt-search:focus,.rt-filter:focus{outline:none;border-color:var(--oxblood)!important;box-shadow:0 0 0 2px rgba(138,43,43,.12)}
 .rt-search{margin-bottom:.7rem;width:16rem;max-width:100%}
 .rt-search::placeholder,.rt-filter::placeholder{color:var(--faint)}
@@ -73,7 +84,7 @@ h1{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:clamp(1.9rem,4
 .rt-page-button:not(:disabled):hover{background:rgba(138,43,43,.08)!important}
 .rt-page-button[aria-current='true'],.rt-current-page{color:var(--ink)!important;font-weight:600}
 .rt-page-info{color:var(--ink-soft)!important}
-.rt-page-size-select{font-family:'Newsreader',Georgia,serif!important;background:#fbf7ec!important;border:1px solid var(--rule)!important;border-radius:2px;color:var(--ink)!important;padding:.15rem 1.3rem .15rem .45rem;margin:0 .35rem}
+.rt-page-size-select{font-family:'Newsreader',Georgia,serif!important;background:var(--field)!important;border:1px solid var(--rule)!important;border-radius:2px;color:var(--ink)!important;padding:.15rem 1.3rem .15rem .45rem;margin:0 .35rem}
 .rt-page-size-select:focus{outline:none;border-color:var(--oxblood)!important;box-shadow:0 0 0 2px rgba(138,43,43,.12)}
 ")
 
@@ -123,13 +134,13 @@ petitioner_counsel_html <- function(parties) {
 scr_theme_options <- function(gt_tbl) {
   gt_tbl |> tab_options(
     table.font.names = c("Newsreader","Georgia","serif"),
-    table.font.size = px(15), table.font.color = "#23262d",
-    table.background.color = "#f7f1e4",
-    column_labels.background.color = "#f3ecdd",
+    table.font.size = px(15), table.font.color = pal("ink"),
+    table.background.color = pal("panel"),
+    column_labels.background.color = pal("paper"),
     column_labels.font.weight = "600", column_labels.text_transform = "uppercase",
-    table.border.top.color = "#23262d", table.border.bottom.color = "#23262d",
-    table_body.hlines.color = "#d8cdb4",
-    row.striping.background_color = "#efe7d6")
+    table.border.top.color = pal("ink"), table.border.bottom.color = pal("ink"),
+    table_body.hlines.color = pal("rule"),
+    row.striping.background_color = ROW_STRIPE)
 }
 
 # Make a themed gt interactive; `n_rows` supplies the "All" page-size option.

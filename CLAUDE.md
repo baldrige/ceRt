@@ -81,6 +81,35 @@ months. `fit_cert_model()` now fails on any aliased coefficient; do not relax it
 Findings, measured-and-rejected proposals, and open questions:
 **[docs/cert_model_review_2026-07.md](docs/cert_model_review_2026-07.md)**.
 
+## Colour: one source, and an audit check that keeps it that way
+
+**`R/palette.R` is the only place a colour may be written down.** Every `:root`
+block, every `gt` palette and every `var(--token, #fallback)` derives from it:
+
+- `palette_root(nav_max, extra)` emits a page's `:root{}`. `nav_max` is not free
+  — it must equal the page's container plus `2*1.5rem` or the masthead rule
+  stops landing on the text column (see **[docs/navigation.md](docs/navigation.md)**).
+- `fill_palette()` substitutes `@token@` (hex) and `@token:rgb@` (a bare `r,g,b`
+  triplet, for the few rules that need partial alpha) in a stylesheet template.
+  `NAV_CSS` is built this way, so its fallbacks cannot disagree with the tokens
+  they back up.
+- `pal()` **errors** on an unknown token rather than returning `NULL`. A `NULL`
+  colour reaching `gt` is a cell that silently loses its shading.
+- Data colours — `GRANT_RAMP`/`GRANT_DOMAIN`/`GRANT_NA`, `TYPE_CHIPS`,
+  `STATUS_FILL` — are R values, not CSS: `gt` resolves them into inline styles
+  where `var()` is unavailable. The grant ramp runs from `--paper` to
+  `--oxblood`, so a recolour carries it along.
+
+Before this, the palette lived in six `:root` blocks and 66 literals, half of
+them fallbacks that would have gone on painting the *old* colours wherever a
+token was missing — silently, and only on some pages. `audit_site.R` now FAILS
+on any six-digit hex outside `palette.R` (`#fff`/`#000` are exempt as structural).
+
+One duplicate is preserved deliberately: `CHART_SERIES[["baseline"]]` is
+`#b5651d`, the pre-WCAG `--sienna`, still used for a line on the calibration PNG.
+Not a contrast bug — it is not text — but the chart and the page around it draw
+"the same" orange differently. Reconcile it when the palette next moves.
+
 ## Conventions
 
 - Commit/push only when asked; branch off `main` for feature work. gh-pages is

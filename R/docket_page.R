@@ -25,23 +25,24 @@ suppressPackageStartupMessages({ library(tidyverse); library(htmltools) })
 # it -- which is the bug this whole change exists to fix.
 local({
   here <- tryCatch(dirname(sys.frame(1)$ofile), error = function(e) NA)
-  f <- if (!is.na(here) && file.exists(file.path(here, "site_nav.R")))
-    file.path(here, "site_nav.R")
-  else if (file.exists("R/site_nav.R")) "R/site_nav.R" else "site_nav.R"
-  sys.source(f, envir = globalenv())
+  find <- function(f) {
+    if (!is.na(here) && file.exists(file.path(here, f))) file.path(here, f)
+    else if (file.exists(file.path("R", f))) file.path("R", f) else f
+  }
+  sys.source(find("palette.R"),  envir = globalenv())
+  sys.source(find("site_nav.R"), envir = globalenv())
 })
 
 # ---- shared stylesheet (written once per output dir) --------------------------
-# Token names match page_style.R's INDEX_CSS: this file and interactive_theme.R
-# spelled the accent --ox and the muted ink --soft, page_style.R spelled the same
-# two values --oxblood and --ink-soft. A nav component shared across all three
-# cannot carry two spellings of its own accent colour, so the short pair is gone.
+# Colours come from palette.R, which is also where the note about the two WCAG
+# corrections now lives. Token NAMES were unified at the same time this file and
+# interactive_theme.R stopped spelling the accent --ox and the muted ink --soft:
+# a nav component shared across three stylesheets cannot carry two spellings of
+# its own accent colour.
 #
-# --faint and --sienna are also re-valued here: at #8a8271 (3.24:1 on --paper)
-# and #b5651d (3.69:1) both failed WCAG AA for normal text, and --sienna colours
-# .tl-docs a -- the links to the actual briefs, on all 55k case pages. The new
-# values are the lightest that clear 4.5:1. See docs/navigation.md.
-DOCKET_CSS <- ":root{--paper:#f3ecdd;--panel:#f7f1e4;--ink:#23262d;--ink-soft:#5f5847;--faint:#716b5d;--oxblood:#8a2b2b;--rule:#d8cdb4;--sienna:#a0591a;--nav-max:54rem;--c-white:#fff;--c-orange:#e07b1f;--c-cream:#efe1a8;--c-tan:#c8a56b;--c-blue:#7fa8cf;--c-red:#cf5f5f;--c-lgreen:#7fb069;--c-dgreen:#2f6b3d;--c-yellow:#e9cb3f;--c-neutral:#bcae90}
+# 54rem is the case-page measure, and the ten --c-* event categories ride along
+# because they appear on this page type only.
+DOCKET_CSS <- paste0(palette_root("54rem", PALETTE_EVENTS), "
 *{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
 body{font-family:'Newsreader',Georgia,serif;font-size:19px;line-height:1.6;color:var(--ink);background:var(--paper);margin:0;font-feature-settings:'onum' 1}
 body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.5;mix-blend-mode:multiply;background-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E\")}
@@ -83,9 +84,9 @@ p{margin:.5rem 0}
 .tl-legend i{width:9px;height:9px;border-radius:50%;border:1px solid rgba(35,38,45,.45);flex:none}
 .tl-legend i.hollow{background:var(--paper);border:1.5px solid var(--c-neutral)}
 .tl-docs{margin-top:.2rem;display:flex;flex-wrap:wrap;gap:.2rem .8rem}
-.tl-docs a{font-size:.85rem;color:var(--sienna);border-bottom:1px solid rgba(160,89,26,.4);text-decoration:none}
-.kicker a{color:inherit;border-bottom:1px solid rgba(138,43,43,.4)}
-@media(max-width:640px){.grid{grid-template-columns:1fr}.timeline li{grid-template-columns:5rem 1fr}.timeline::before{left:5.4rem}}"
+.tl-docs a{font-size:.85rem;color:var(--sienna);border-bottom:1px solid rgba(@sienna:rgb@,.4);text-decoration:none}
+.kicker a{color:inherit;border-bottom:1px solid rgba(@oxblood:rgb@,.4)}
+@media(max-width:640px){.grid{grid-template-columns:1fr}.timeline li{grid-template-columns:5rem 1fr}.timeline::before{left:5.4rem}}") |> fill_palette()
 
 DOCKET_FONTS <- "https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap"
 

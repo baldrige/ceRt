@@ -60,9 +60,9 @@ NAV_CSS <- "
 .smast-in{max-width:var(--nav-max,54rem);margin:0 auto;padding:.85rem 1.5rem .5rem;
   display:flex;align-items:baseline;justify-content:space-between;gap:1.4rem;flex-wrap:wrap}
 .smast-wm{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
-  letter-spacing:.005em;color:var(--ink,#23262d);text-decoration:none;white-space:nowrap;flex:none}
-.smast-wm em{font-style:italic;font-weight:500;color:var(--oxblood,var(--ox,#8a2b2b))}
-.smast-wm:hover{color:var(--oxblood,var(--ox,#8a2b2b))}
+  letter-spacing:.005em;color:var(--ink,@ink@);text-decoration:none;white-space:nowrap;flex:none}
+.smast-wm em{font-style:italic;font-weight:500;color:var(--oxblood,var(--ox,@oxblood@))}
+.smast-wm:hover{color:var(--oxblood,var(--ox,@oxblood@))}
 /* Row gap first, then column. At 1.35rem the six section links measured 596px
    of max-content -- 4px wider than the 592px row the 40rem index container
    leaves them -- so ABOUT alone wrapped to a third line under the wordmark, on
@@ -72,18 +72,18 @@ NAV_CSS <- "
    overruns it anyway -- a nav that wraps should read as a stack, not an orphan. */
 .snav{display:flex;gap:.4rem 1.05rem;list-style:none;margin:0;padding:0;flex-wrap:wrap}
 .snav a{font:600 .72rem/1 'Newsreader',Georgia,serif;letter-spacing:.15em;text-transform:uppercase;
-  color:var(--ink-soft,var(--soft,#5f5847));text-decoration:none;display:inline-block;
+  color:var(--ink-soft,var(--soft,@ink-soft@));text-decoration:none;display:inline-block;
   padding:.5rem 0;border-bottom:1.5px solid transparent}
-.snav a:hover{color:var(--oxblood,var(--ox,#8a2b2b));border-bottom-color:var(--rule,#d8cdb4)}
-.snav a[aria-current='page']{color:var(--oxblood,var(--ox,#8a2b2b));
-  border-bottom-color:var(--oxblood,var(--ox,#8a2b2b))}
+.snav a:hover{color:var(--oxblood,var(--ox,@oxblood@));border-bottom-color:var(--rule,@rule@)}
+.snav a[aria-current='page']{color:var(--oxblood,var(--ox,@oxblood@));
+  border-bottom-color:var(--oxblood,var(--ox,@oxblood@))}
 .smast-rule-w{max-width:var(--nav-max,54rem);margin:0 auto;padding:0 1.5rem}
-.smast-rule{border:0;height:0;border-top:2px solid var(--ink,#23262d);margin:0;position:relative}
+.smast-rule{border:0;height:0;border-top:2px solid var(--ink,@ink@);margin:0;position:relative}
 .smast-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
-  border-top:1px solid var(--rule,#d8cdb4)}
-.skip{position:absolute;left:-9999px;top:0;background:var(--panel,#f7f1e4);
-  color:var(--oxblood,var(--ox,#8a2b2b));padding:.6rem 1rem;
-  border:1px solid var(--oxblood,var(--ox,#8a2b2b));
+  border-top:1px solid var(--rule,@rule@)}
+.skip{position:absolute;left:-9999px;top:0;background:var(--panel,@panel@);
+  color:var(--oxblood,var(--ox,@oxblood@));padding:.6rem 1rem;
+  border:1px solid var(--oxblood,var(--ox,@oxblood@));
   font:600 .8rem/1 'Newsreader',Georgia,serif;letter-spacing:.1em;text-transform:uppercase;z-index:10}
 .skip:focus{left:.5rem;top:.5rem}
 /* ---- breadcrumb ---- */
@@ -91,36 +91,36 @@ NAV_CSS <- "
 .bcrumb ol{list-style:none;display:flex;flex-wrap:wrap;align-items:baseline;
   gap:.1rem .45rem;margin:0;padding:0}
 .bcrumb li{display:inline-flex;align-items:baseline;gap:.45rem}
-.bcrumb a{font:400 .8rem/1.5 'Newsreader',Georgia,serif;color:var(--ink-soft,var(--soft,#5f5847));
-  text-decoration:none;border-bottom:1px solid var(--rule,#d8cdb4)}
-.bcrumb a:hover{color:var(--oxblood,var(--ox,#8a2b2b));border-bottom-color:var(--oxblood,var(--ox,#8a2b2b))}
-.bcrumb .sep{color:var(--faint,#716b5d);font-size:.8rem;line-height:1.5}
+.bcrumb a{font:400 .8rem/1.5 'Newsreader',Georgia,serif;color:var(--ink-soft,var(--soft,@ink-soft@));
+  text-decoration:none;border-bottom:1px solid var(--rule,@rule@)}
+.bcrumb a:hover{color:var(--oxblood,var(--ox,@oxblood@));border-bottom-color:var(--oxblood,var(--ox,@oxblood@))}
+.bcrumb .sep{color:var(--faint,@faint@);font-size:.8rem;line-height:1.5}
 .bcrumb [aria-current='page']{font:400 .8rem/1.5 'Newsreader',Georgia,serif;
-  color:var(--faint,#716b5d);font-variant-numeric:tabular-nums}
+  color:var(--faint,@faint@);font-variant-numeric:tabular-nums}
 /* ---- case footer ---- */
 .cfoot{margin:2.4rem 0 0}
-.cfoot-rule{border:0;height:0;border-top:2px solid var(--ink,#23262d);margin:0 0 1rem;position:relative}
+.cfoot-rule{border:0;height:0;border-top:2px solid var(--ink,@ink@);margin:0 0 1rem;position:relative}
 .cfoot-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
-  border-top:1px solid var(--rule,#d8cdb4)}
+  border-top:1px solid var(--rule,@rule@)}
 .cfoot-off{font-size:.95rem;margin:0 0 1.1rem}
-.cfoot-off a{color:var(--sienna,#a0591a);text-decoration:none;border-bottom:1px solid rgba(160,89,26,.4)}
-.cfoot-off a:hover{border-bottom-color:var(--sienna,#a0591a)}
+.cfoot-off a{color:var(--sienna,@sienna@);text-decoration:none;border-bottom:1px solid rgba(160,89,26,.4)}
+.cfoot-off a:hover{border-bottom-color:var(--sienna,@sienna@)}
 .cfoot-lab{font:600 .68rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
-  color:var(--faint,#716b5d);margin:0 0 .5rem}
+  color:var(--faint,@faint@);margin:0 0 .5rem}
 .cfoot-nav{display:flex;flex-wrap:wrap;gap:.35rem 1.1rem;list-style:none;margin:0;padding:0}
-.cfoot-nav a{font-size:.92rem;color:var(--ink-soft,var(--soft,#5f5847));text-decoration:none;
-  border-bottom:1px solid var(--rule,#d8cdb4);padding-bottom:1px}
-.cfoot-nav a:hover{color:var(--oxblood,var(--ox,#8a2b2b));border-bottom-color:var(--oxblood,var(--ox,#8a2b2b))}
-.cfoot-stamp{margin:1.2rem 0 0;font-size:.8rem;color:var(--faint,#716b5d);font-style:italic}
+.cfoot-nav a{font-size:.92rem;color:var(--ink-soft,var(--soft,@ink-soft@));text-decoration:none;
+  border-bottom:1px solid var(--rule,@rule@);padding-bottom:1px}
+.cfoot-nav a:hover{color:var(--oxblood,var(--ox,@oxblood@));border-bottom-color:var(--oxblood,var(--ox,@oxblood@))}
+.cfoot-stamp{margin:1.2rem 0 0;font-size:.8rem;color:var(--faint,@faint@);font-style:italic}
 /* ---- prev / next ---- */
-.pnav{margin:2.2rem 0 0;border-top:1px solid var(--rule,#d8cdb4);padding-top:1rem;
+.pnav{margin:2.2rem 0 0;border-top:1px solid var(--rule,@rule@);padding-top:1rem;
   display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
 .pnav a,.pnav span.none{text-decoration:none;color:inherit;display:block;padding:.5rem .2rem}
 .pnav a:hover{background:rgba(138,43,43,.05)}
 .pnav .dir{font:600 .66rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
-  color:var(--faint,#716b5d);display:block;margin-bottom:.3rem}
+  color:var(--faint,@faint@);display:block;margin-bottom:.3rem}
 .pnav .lab{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1rem;line-height:1.25;
-  color:var(--oxblood,var(--ox,#8a2b2b));display:block}
+  color:var(--oxblood,var(--ox,@oxblood@));display:block}
 .pnav a:hover .lab{text-decoration:underline;text-underline-offset:3px}
 .pnav .nx{text-align:right}
 .pnav .none{opacity:.35}
@@ -137,9 +137,9 @@ NAV_CSS <- "
   .cfoot-nav{gap:.5rem 1rem}
   .cfoot-nav a{padding-bottom:.3rem}
   .pnav{grid-template-columns:1fr;gap:.2rem}
-  .pnav .nx{text-align:left;border-top:1px solid var(--rule,#d8cdb4)}
+  .pnav .nx{text-align:left;border-top:1px solid var(--rule,@rule@)}
 }
-"
+" |> fill_palette()
 
 # Deliberately does not use %||%: this file is sourced standalone by generators
 # that have not loaded tidyverse, and %||% only reached base R in 4.4.

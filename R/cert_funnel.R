@@ -42,6 +42,16 @@
 # live JSON-pipeline tibbles (scotus_dash_new.R): both carry events with
 # `Date` + `Proceedings and Orders`.
 
+# palette.R -- render_funnel.R sources this file BEFORE page_style.R, so the
+# colour source cannot be inherited from there.
+local({
+  here <- tryCatch(dirname(sys.frame(1)$ofile), error = function(e) NA)
+  f <- if (!is.na(here) && file.exists(file.path(here, "palette.R")))
+    file.path(here, "palette.R")
+  else if (file.exists("R/palette.R")) "R/palette.R" else "palette.R"
+  sys.source(f, envir = globalenv())
+})
+
 suppressPackageStartupMessages({
   library(gt)
   library(gtExtras)
@@ -529,16 +539,9 @@ render_funnel_page <- function(live, baselines, out_dir,
                                data_dates = list()) {
   dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
 
-  css <- HTML("
-    :root{
-      --paper:#f3ecdd;--paper-2:#ede4d0;--panel:#f7f1e4;
-      /* --faint and --sienna corrected to clear WCAG AA on --paper (3.24 and
-         3.69 before); see the note above DOCKET_CSS in R/docket_page.R. */
-      --ink:#23262d;--ink-soft:#5f5847;--faint:#716b5d;
-      --oxblood:#8a2b2b;--sienna:#a0591a;--gold:#a8862c;
-      --rule:#d8cdb4;--rail:#e4dac2;
-      --nav-max:44rem;          /* matches .wrap below */
-    }
+  # Colours from palette.R. 44rem matches .wrap below -- see palette_root().
+  css <- HTML(paste0("
+    ", palette_root("44rem", PALETTE_FUNNEL), "
     *{box-sizing:border-box}
     html{-webkit-text-size-adjust:100%}
     body{
@@ -659,7 +662,7 @@ render_funnel_page <- function(live, baselines, out_dir,
     .methods b{font-family:'Fraunces',Georgia,serif;font-size:1rem;color:var(--ink)}
     .methods ul{padding-left:1.1rem;margin:.7rem 0 0}
     .methods li{margin-bottom:.55rem}
-  ")
+  "))
 
   pooled <- baselines$pooled$total
   pooled_terms <- baselines$pooled_terms
