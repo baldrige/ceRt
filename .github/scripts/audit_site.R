@@ -30,7 +30,20 @@ tv_src <- grep("^PAGE_TEMPLATE_VERSION <- ",
                readLines("R/docket_page.R", warn = FALSE), value = TRUE)
 CUR_TV <- sub('.*"(v[0-9]+)".*', "\\1", tv_src[1])
 
-# SITE_SECTIONS is the source of truth for what the masthead links to.
+# Colour tokens. Needed twice over, and this file went without them from #36
+# until the next morning's run: site_nav.R now builds NAV_CSS with
+# fill_palette(), so merely SOURCING it below dies with "could not find function
+# fill_palette", and the one-colour-source check further down reads PALETTE and
+# friends directly. The audit fell over at line 34 and ran zero checks.
+#
+# It caught itself, which is the system working -- but note what that means: an
+# audit that cannot start is indistinguishable from a red build, so a failure
+# here says nothing about the site. Read the log, not the badge.
+source("R/palette.R")
+
+# SITE_SECTIONS is the source of truth for what the masthead links to. The env is
+# isolated so a stray global in site_nav.R cannot shadow anything here, but its
+# parent chain still reaches globalenv, which is where palette.R just landed.
 local({ e <- new.env(); sys.source("R/site_nav.R", envir = e)
         assign("SECTIONS", e$SITE_SECTIONS, envir = globalenv()) })
 
