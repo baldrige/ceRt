@@ -252,15 +252,26 @@ STATUS_LEVELS <- c("Granted", "Scheduled", "Argued", "Decided", "DIG'd")
 argument_term_page <- function(tbl, term, out_dir) {
   d <- tbl |>
     filter(term == !!term) |>
-    arrange(is.na(sitting_date), sitting_date, arg_ref, desc(grant_date),
-            as.integer(str_extract(dkt, "\\d+$")))
+    # Scheduled cases order by when they are heard. Unscheduled ones have no
+    # date to order by any more -- the grant date was doing that job and is no
+    # longer shown -- so they go alphabetical on the caption the reader can
+    # actually see. Scheduled rows all take "" on that key, so it is inert for
+    # them and the later keys still decide ties within a sitting.
+    arrange(is.na(sitting_date), sitting_date, arg_ref,
+            if_else(is.na(arg_ref), str_to_lower(strip_caption_roles(caption)), ""),
+            desc(grant_date), as.integer(str_extract(dkt, "\\d+$")))
   if (nrow(d) == 0) return(invisible(NULL))
   all_unscheduled <- all(is.na(d$arg_ref))
 
   d <- d |>
     mutate(
       Sitting = if_else(is.na(sitting), "Not yet scheduled", sitting),
-      When = coalesce(arg_ref, grant_date),          # Date -> value-sorts
+      # The argument date, and nothing else. This used to fall back to the grant
+      # date, which put two different quantities in one column under one heading:
+      # a row reading "March 3, 2026" might mean argued that day or merely
+      # granted that day, and nothing on the page said which. A case with no
+      # argument date now reads "—" (sub_missing below).
+      When = arg_ref,                                # Date -> value-sorts
       Case = str_c(
         "<a href='../cases/", dkt, ".html' target='_blank'>",
         strip_caption_roles(caption), "</a>"),
@@ -289,7 +300,7 @@ argument_term_page <- function(tbl, term, out_dir) {
   has_argued <- any(d$argued_by != "—")
   has_media  <- any(d$media != "—")
   has_qp     <- any(d$qp != "—")
-  keep <- c("Sitting", "When", "Case", "Docket", "status_disp",
+  keep <- c("Sitting", if (!all_unscheduled) "When", "Case", "Docket", "status_disp",
             if (has_argued) "argued_by", if (has_media) "media", if (has_qp) "qp",
             "status")
   tb <- d |> select(all_of(keep))
@@ -305,8 +316,8 @@ argument_term_page <- function(tbl, term, out_dir) {
   gt_tbl <- tb |>
     gt() |>
     fmt_markdown(columns = any_of(c("Case", "status_disp", "media", "qp"))) |>
-    fmt_date(columns = When, date_style = "m_day_year") |>
-    sub_missing(columns = When, missing_text = "—") |>
+    fmt_date(columns = any_of("When"), date_style = "m_day_year") |>
+    sub_missing(columns = any_of("When"), missing_text = "—") |>
     data_color(columns = status, target_columns = status_disp, method = "factor",
                palette = unname(STATUS_FILL[STATUS_LEVELS]), na_color = GRANT_NA) |>
     cols_hide(columns = status) |>
