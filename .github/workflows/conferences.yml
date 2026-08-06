@@ -4,7 +4,7 @@ name: Conference reports
 # gh-pages archive. Each term is fetched in its own job (separate runner IP) to
 # keep sustained per-IP load -- and Akamai throttling -- down.
 #
-#   scheduled: Mondays, in-season (Jul/Aug recess auto-skipped), auto terms
+#   scheduled: Mondays, year-round, auto terms
 #   manual:    optionally pass explicit `terms` (e.g. 24,25) to backfill
 
 on:
@@ -43,7 +43,6 @@ jobs:
     outputs:
       matrix: ${{ steps.plan.outputs.matrix }}
       min_conf: ${{ steps.plan.outputs.min_conf }}
-      skip: ${{ steps.plan.outputs.skip }}
     steps:
       - uses: actions/checkout@v5
       - uses: r-lib/actions/setup-r@v2
@@ -53,12 +52,10 @@ jobs:
         env:
           INPUT_TERMS: ${{ inputs.terms }}
           INPUT_MIN: ${{ inputs.min_conf_date }}
-          EVENT_NAME: ${{ github.event_name }}
         run: Rscript .github/scripts/plan_terms.R
 
   fetch:
     needs: setup
-    if: needs.setup.outputs.skip != 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 200
     strategy:
@@ -105,7 +102,6 @@ jobs:
 
   publish:
     needs: [setup, fetch]
-    if: needs.setup.outputs.skip != 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source (main)
