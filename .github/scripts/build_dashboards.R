@@ -40,8 +40,23 @@ grant_model  <- cert_models$baseline
 counsel_ix   <- cert_models$counsel_index
 cat("Baseline cert model:", if (is.null(grant_model)) "not found (no forecast column)" else "loaded", "\n")
 
-cat("Fetching OT", term, "docket...\n")
-ot <- get_scotus_update(term)
+# The daily fetches only the trailing ~50 dockets of each bucket, so `dates`
+# below covers roughly the last fortnight and older dashboards are never
+# re-rendered. That is right for a daily and wrong for a template or palette
+# change: 18 dashboards from July 2026 sat on the old palette after the site was
+# recoloured, because nothing had reason to rewrite them.
+#
+# DASH_FULL_TERM=1 fetches the whole term instead, which makes `dates` every
+# docketing date in it and re-renders the lot. OT26 is ~600 requests, five
+# minutes at the 2/s cap; an older, complete term is several thousand and should
+# be paired with DASH_MIN_DATE.
+#
+# This is NOT a pure re-skin, and the dispatch description says so: a re-render
+# recomputes every forecast against the current model and picks up dispositions
+# that have landed since. The page keeps its date and gains today's estimates.
+full_term <- tolower(Sys.getenv("DASH_FULL_TERM", "")) %in% c("1", "true", "yes")
+cat("Fetching OT", term, if (full_term) "docket (FULL TERM)...\n" else "docket...\n")
+ot <- if (full_term) get_scotus_term(term) else get_scotus_update(term)
 cat("Cases fetched:", nrow(ot),
     "| unresolved:", attr(ot, "n_failed") %||% 0,
     "/", attr(ot, "n_attempted") %||% nrow(ot), "\n")
@@ -55,6 +70,15 @@ if (fetch_is_degraded(ot)) {
 # Serve the cached fetch so per-date renders don't re-hit the API.
 get_scotus_update <- function(year) ot
 dates <- ot |> filter(!is.na(date)) |> distinct(date) |> arrange(date) |> pull(date)
+# Floor for a full-term re-render, so a complete older term does not turn into a
+# year of dashboards nobody asked for. Ignored on an ordinary daily, where the
+# fetch window is already the limit.
+dash_min <- Sys.getenv("DASH_MIN_DATE", "")
+if (nzchar(dash_min)) {
+  keep <- dates >= as.Date(dash_min)
+  cat("Date floor", dash_min, "->", sum(keep), "of", length(dates), "date(s)\n")
+  dates <- dates[keep]
+}
 
 # Resolve the Rule 10 signals (dissent below / circuit split) for the paid
 # petitions in view, parsed from each petition PDF. The cache persists on the

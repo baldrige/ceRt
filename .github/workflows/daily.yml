@@ -16,6 +16,15 @@ on:
     - cron: "0 18 * * *"   # 2pm ET (EDT); 1pm ET during standard time
     - cron: "0 22 * * *"   # 6pm ET (EDT); 5pm ET during standard time
   workflow_dispatch:
+    inputs:
+      full_term:
+        description: "Fetch the WHOLE term and re-render every dashboard date, not just the trailing fetch window. Use after a template or palette change. NOTE: not a re-skin -- forecasts recompute against the current model and dispositions update."
+        required: false
+        default: "false"
+      min_date:
+        description: "With full_term, render only dates on/after this (YYYY-MM-DD). Blank = every date in the term."
+        required: false
+        default: ""
 
 permissions:
   contents: write
@@ -65,6 +74,8 @@ jobs:
         env:
           SITE_DIR: site
           TERM_YEAR: "26"
+          DASH_FULL_TERM: ${{ inputs.full_term }}
+          DASH_MIN_DATE: ${{ inputs.min_date }}
           # Read-only GA4 access for the landing page's "Most-Read Cases" panel.
           # Optional: if these are unset the panel is omitted and the build is
           # otherwise unaffected (see R/site_analytics.R).
