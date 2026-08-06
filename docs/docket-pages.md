@@ -75,9 +75,32 @@ So a merits amicus filed **on/after the respondent's merits-brief date → dark
 green**; earlier → light green. An explicit "in support of …" in the text (rare)
 still overrides the timing.
 
-`resp_brief_on` = the **latest** "Brief of/for respondent" on/after the grant,
-excluding the cert-stage "in opposition" and any supplemental brief. **Latest, not
-earliest**: a respondent aligned *with* the petitioner — e.g. private plaintiffs
+`resp_brief_on` comes from two signals, whichever is **earlier**:
+
+1. the **latest** "Brief of/for respondent" on/after the grant, excluding the
+   cert-stage "in opposition" and any supplemental brief; and
+2. the date the Court states when it extends the merits schedule —
+   *"The time to file respondents' brief on the merits is extended to and
+   including July 27, 2026."*
+
+(2) exists because the docket frequently names the **party** rather than its role,
+and then (1) matches nothing at all: 25-170's respondent brief reads *"Brief of
+Cty. Comm'rs of Boulder Cty., et al. submitted"* — no "respondent", not even
+"filed" — so every one of its 21 respondent-side amici rendered light green.
+Where both signals exist they agree exactly (7 of 7 argued cases sampled), so (2)
+only ever fills a gap.
+
+**Earlier, not later**, because Rule 37 keys amici off the date the brief was
+*due*: 25-170's brief was rejected on its due date and corrected a week after, and
+its Jul 31 amicus belongs with the respondent's.
+
+⚠️ Do **not** loosen (1) to match any "Brief of …". On a **vided cross-petition**
+that matches the wrong side — 24-1287 carries *"Brief of State Respondents in No.
+25-250"* and *"Brief of private respondents V.O.S. Selections (as to 25-250)"*,
+parties aligned **with** this docket's petitioners, and a loosened rule flipped 33
+of its amici to the respondent's side.
+
+**Latest, not earliest** within (1): a respondent aligned *with* the petitioner — e.g. private plaintiffs
 when the United States is petitioner (**23-477, US v. Skrmetti**) — files on the
 petitioner's *earlier* schedule, so only the last "Brief of respondent" marks the
 party actually opposing the petitioner. Single-respondent cases are unaffected
