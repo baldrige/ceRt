@@ -15,11 +15,13 @@
 #     supremecourt.report) and already does this for /analytics.js and
 #     /favicon.svg. The cost is that file:// previews lose their nav links.
 #
-#   * Every var() carries a LITERAL FALLBACK. Three stylesheets host this CSS
-#     (INDEX_CSS, DOCKET_CSS, SCR_CSS) and two of them spelled the accent colour
-#     --ox where the third spelled it --oxblood. The fallbacks mean NAV_CSS
-#     renders correctly under either spelling, so a half-finished token
-#     migration cannot silently ship an unstyled masthead.
+#   * Every var() carries a LITERAL FALLBACK, filled from palette.R by
+#     fill_palette(). Three stylesheets host this CSS (INDEX_CSS, DOCKET_CSS,
+#     SCR_CSS), and a page that loses its tokens should still render styled
+#     rather than merely present. The fallback also covers the one page whose
+#     :root and whose NAV_CSS come from different places: methods.html carries
+#     a checked-in :root and has the masthead injected at publish time, so a
+#     rename that reaches one before the other still paints correctly.
 #
 #   * NO JAVASCRIPT. The mobile section row is a scroll strip under a mask-fade,
 #     not a drawer. A drawer needs an open/close script, aria-expanded, a focus
@@ -61,8 +63,8 @@ NAV_CSS <- "
   display:flex;align-items:baseline;justify-content:space-between;gap:1.4rem;flex-wrap:wrap}
 .smast-wm{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
   letter-spacing:.005em;color:var(--ink,@ink@);text-decoration:none;white-space:nowrap;flex:none}
-.smast-wm em{font-style:italic;font-weight:500;color:var(--oxblood,var(--ox,@oxblood@))}
-.smast-wm:hover{color:var(--oxblood,var(--ox,@oxblood@))}
+.smast-wm em{font-style:italic;font-weight:500;color:var(--accent,@accent@)}
+.smast-wm:hover{color:var(--accent,@accent@)}
 /* Row gap first, then column. At 1.35rem the six section links measured 596px
    of max-content -- 4px wider than the 592px row the 40rem index container
    leaves them -- so ABOUT alone wrapped to a third line under the wordmark, on
@@ -74,16 +76,16 @@ NAV_CSS <- "
 .snav a{font:600 .72rem/1 'Newsreader',Georgia,serif;letter-spacing:.15em;text-transform:uppercase;
   color:var(--ink-soft,var(--soft,@ink-soft@));text-decoration:none;display:inline-block;
   padding:.5rem 0;border-bottom:1.5px solid transparent}
-.snav a:hover{color:var(--oxblood,var(--ox,@oxblood@));border-bottom-color:var(--rule,@rule@)}
-.snav a[aria-current='page']{color:var(--oxblood,var(--ox,@oxblood@));
-  border-bottom-color:var(--oxblood,var(--ox,@oxblood@))}
+.snav a:hover{color:var(--accent,@accent@);border-bottom-color:var(--rule,@rule@)}
+.snav a[aria-current='page']{color:var(--accent,@accent@);
+  border-bottom-color:var(--accent,@accent@)}
 .smast-rule-w{max-width:var(--nav-max,54rem);margin:0 auto;padding:0 1.5rem}
 .smast-rule{border:0;height:0;border-top:2px solid var(--ink,@ink@);margin:0;position:relative}
 .smast-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
   border-top:1px solid var(--rule,@rule@)}
 .skip{position:absolute;left:-9999px;top:0;background:var(--panel,@panel@);
-  color:var(--oxblood,var(--ox,@oxblood@));padding:.6rem 1rem;
-  border:1px solid var(--oxblood,var(--ox,@oxblood@));
+  color:var(--accent,@accent@);padding:.6rem 1rem;
+  border:1px solid var(--accent,@accent@);
   font:600 .8rem/1 'Newsreader',Georgia,serif;letter-spacing:.1em;text-transform:uppercase;z-index:10}
 .skip:focus{left:.5rem;top:.5rem}
 /* ---- breadcrumb ---- */
@@ -93,7 +95,7 @@ NAV_CSS <- "
 .bcrumb li{display:inline-flex;align-items:baseline;gap:.45rem}
 .bcrumb a{font:400 .8rem/1.5 'Newsreader',Georgia,serif;color:var(--ink-soft,var(--soft,@ink-soft@));
   text-decoration:none;border-bottom:1px solid var(--rule,@rule@)}
-.bcrumb a:hover{color:var(--oxblood,var(--ox,@oxblood@));border-bottom-color:var(--oxblood,var(--ox,@oxblood@))}
+.bcrumb a:hover{color:var(--accent,@accent@);border-bottom-color:var(--accent,@accent@)}
 .bcrumb .sep{color:var(--faint,@faint@);font-size:.8rem;line-height:1.5}
 .bcrumb [aria-current='page']{font:400 .8rem/1.5 'Newsreader',Georgia,serif;
   color:var(--faint,@faint@);font-variant-numeric:tabular-nums}
@@ -103,24 +105,24 @@ NAV_CSS <- "
 .cfoot-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
   border-top:1px solid var(--rule,@rule@)}
 .cfoot-off{font-size:.95rem;margin:0 0 1.1rem}
-.cfoot-off a{color:var(--sienna,@sienna@);text-decoration:none;border-bottom:1px solid rgba(@sienna:rgb@,.4)}
-.cfoot-off a:hover{border-bottom-color:var(--sienna,@sienna@)}
+.cfoot-off a{color:var(--link,@link@);text-decoration:none;border-bottom:1px solid rgba(@link:rgb@,.4)}
+.cfoot-off a:hover{border-bottom-color:var(--link,@link@)}
 .cfoot-lab{font:600 .68rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
   color:var(--faint,@faint@);margin:0 0 .5rem}
 .cfoot-nav{display:flex;flex-wrap:wrap;gap:.35rem 1.1rem;list-style:none;margin:0;padding:0}
 .cfoot-nav a{font-size:.92rem;color:var(--ink-soft,var(--soft,@ink-soft@));text-decoration:none;
   border-bottom:1px solid var(--rule,@rule@);padding-bottom:1px}
-.cfoot-nav a:hover{color:var(--oxblood,var(--ox,@oxblood@));border-bottom-color:var(--oxblood,var(--ox,@oxblood@))}
+.cfoot-nav a:hover{color:var(--accent,@accent@);border-bottom-color:var(--accent,@accent@)}
 .cfoot-stamp{margin:1.2rem 0 0;font-size:.8rem;color:var(--faint,@faint@);font-style:italic}
 /* ---- prev / next ---- */
 .pnav{margin:2.2rem 0 0;border-top:1px solid var(--rule,@rule@);padding-top:1rem;
   display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
 .pnav a,.pnav span.none{text-decoration:none;color:inherit;display:block;padding:.5rem .2rem}
-.pnav a:hover{background:rgba(@oxblood:rgb@,.05)}
+.pnav a:hover{background:rgba(@accent:rgb@,.05)}
 .pnav .dir{font:600 .66rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
   color:var(--faint,@faint@);display:block;margin-bottom:.3rem}
 .pnav .lab{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1rem;line-height:1.25;
-  color:var(--oxblood,var(--ox,@oxblood@));display:block}
+  color:var(--accent,@accent@);display:block}
 .pnav a:hover .lab{text-decoration:underline;text-underline-offset:3px}
 .pnav .nx{text-align:right}
 .pnav .none{opacity:.35}

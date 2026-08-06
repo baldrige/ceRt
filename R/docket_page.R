@@ -38,7 +38,7 @@ local({
 # corrections now lives. Token NAMES were unified at the same time this file and
 # interactive_theme.R stopped spelling the accent --ox and the muted ink --soft:
 # a nav component shared across three stylesheets cannot carry two spellings of
-# its own accent colour.
+# its own accent colour. The accent is now --accent; --ox is long gone.
 #
 # 54rem is the case-page measure, and the ten --c-* event categories ride along
 # because they appear on this page type only.
@@ -47,24 +47,24 @@ DOCKET_CSS <- paste0(palette_root("54rem", PALETTE_EVENTS), "
 body{font-family:'Newsreader',Georgia,serif;font-size:19px;line-height:1.6;color:var(--ink);background:var(--paper);margin:0;font-feature-settings:'onum' 1}
 body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.5;mix-blend-mode:multiply;background-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E\")}
 .case{max-width:54rem;margin:0 auto;padding:2.8rem 1.5rem 4rem}
-a{color:var(--oxblood)}
-.kicker{font:600 .74rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;color:var(--oxblood);margin:0 0 .8rem}
+a{color:var(--accent)}
+.kicker{font:600 .74rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin:0 0 .8rem}
 h1{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:clamp(1.8rem,4.5vw,2.8rem);line-height:1.05;letter-spacing:-.015em;margin:0 0 .5rem}
 .posture{font-size:1.02rem;color:var(--ink-soft);margin:.2rem 0 0}
 .brule{border:0;border-top:2px solid var(--ink);margin:1.2rem 0 1.4rem;position:relative}
 .brule::after{content:'';position:absolute;left:0;top:4px;width:100%;border-top:1px solid var(--rule)}
-h2{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;text-transform:uppercase;letter-spacing:.12em;color:var(--oxblood);margin:2rem 0 .7rem;padding-bottom:.35rem;border-bottom:1px solid var(--rule)}
+h2{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;text-transform:uppercase;letter-spacing:.12em;color:var(--accent);margin:2rem 0 .7rem;padding-bottom:.35rem;border-bottom:1px solid var(--rule)}
 h3{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:.82rem;text-transform:uppercase;letter-spacing:.14em;color:var(--faint);margin:0 0 .6rem}
 p{margin:.5rem 0}
-.disp{display:flex;align-items:center;gap:1.2rem;background:var(--panel);border:1px solid var(--rule);border-left:4px solid var(--oxblood);padding:1rem 1.3rem;margin:.4rem 0 0}
-.disp-num{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:2.9rem;line-height:.9;color:var(--oxblood);white-space:nowrap}
+.disp{display:flex;align-items:center;gap:1.2rem;background:var(--panel);border:1px solid var(--rule);border-left:4px solid var(--accent);padding:1rem 1.3rem;margin:.4rem 0 0}
+.disp-num{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:2.9rem;line-height:.9;color:var(--accent);white-space:nowrap}
 .disp-lab{font-size:.98rem;color:var(--ink)}
 .disp-lab span{color:var(--faint);font-size:.86rem}
 .disp-sig{font-size:.9rem;color:var(--ink-soft);font-style:italic;margin-top:.15rem}
 .disp-sub{font-size:.86rem;color:var(--faint);margin-top:.15rem}
-.disp-word{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.5rem;color:var(--oxblood);line-height:1.1}
+.disp-word{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.5rem;color:var(--accent);line-height:1.1}
 .forecast-why{margin:.55rem 0 0;font-size:.95rem;line-height:1.5;color:var(--ink-soft);max-width:46rem}
-.disp-word a{color:inherit;text-decoration:underline;text-decoration-color:rgba(@oxblood:rgb@,.4);text-underline-offset:4px}
+.disp-word a{color:inherit;text-decoration:underline;text-decoration-color:rgba(@accent:rgb@,.4);text-underline-offset:4px}
 .qp{font-size:1.05rem;line-height:1.55}.qp ol,.qp ul{padding-left:1.2rem;margin:.3rem 0}.qp li{margin:.35rem 0}.qp p{margin:.4rem 0}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:1.6rem}
 .panel{background:var(--panel);border:1px solid var(--rule);padding:1rem 1.2rem}
@@ -77,15 +77,15 @@ p{margin:.5rem 0}
 .timeline li{display:grid;grid-template-columns:7rem 1fr;gap:1.1rem;padding:.4rem 0;position:relative}
 .tl-date{font-variant-numeric:tabular-nums;font-size:.86rem;color:var(--faint);text-align:right;padding-top:.1rem;padding-right:.28rem}
 .tl-body{font-size:.98rem;position:relative}
-.tl-body::before{content:'';position:absolute;left:-.9rem;top:.5rem;width:8px;height:8px;border-radius:50%;background:var(--dot,var(--sienna));border:1px solid rgba(@ink:rgb@,.45);box-shadow:0 0 0 3px var(--paper)}
+.tl-body::before{content:'';position:absolute;left:-.9rem;top:.5rem;width:8px;height:8px;border-radius:50%;background:var(--dot,var(--link));border:1px solid rgba(@ink:rgb@,.45);box-shadow:0 0 0 3px var(--paper)}
 .timeline li.proc .tl-body::before{background:var(--paper);border:1.5px solid var(--c-neutral)}
 .tl-legend{display:flex;flex-wrap:wrap;gap:.3rem 1.1rem;margin:.1rem 0 1rem;font-size:.78rem;color:var(--faint)}
 .tl-legend span{display:inline-flex;align-items:center;gap:.35rem;white-space:nowrap}
 .tl-legend i{width:9px;height:9px;border-radius:50%;border:1px solid rgba(@ink:rgb@,.45);flex:none}
 .tl-legend i.hollow{background:var(--paper);border:1.5px solid var(--c-neutral)}
 .tl-docs{margin-top:.2rem;display:flex;flex-wrap:wrap;gap:.2rem .8rem}
-.tl-docs a{font-size:.85rem;color:var(--sienna);border-bottom:1px solid rgba(@sienna:rgb@,.4);text-decoration:none}
-.kicker a{color:inherit;border-bottom:1px solid rgba(@oxblood:rgb@,.4)}
+.tl-docs a{font-size:.85rem;color:var(--link);border-bottom:1px solid rgba(@link:rgb@,.4);text-decoration:none}
+.kicker a{color:inherit;border-bottom:1px solid rgba(@accent:rgb@,.4)}
 @media(max-width:640px){.grid{grid-template-columns:1fr}.timeline li{grid-template-columns:5rem 1fr}.timeline::before{left:5.4rem}}") |> fill_palette()
 
 DOCKET_FONTS <- "https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap"
@@ -135,7 +135,8 @@ write_docket_css <- function(out_dir) {
 # which turns the bare URL in a Google result into a labelled path), and a footer
 # that keeps the supremecourt.gov link primary while offering the five sections
 # beneath it. Also normalises --ox/--soft onto --oxblood/--ink-soft and corrects
-# --faint and --sienna to clear WCAG AA. See docs/navigation.md and R/site_nav.R.
+# --faint and --sienna to clear WCAG AA (both since renamed --accent/--link).
+# See docs/navigation.md and R/site_nav.R.
 # v16: an About page joins SITE_SECTIONS, so every case page's masthead and
 # footer now carry a route to the contact address. Deliberately not left on the
 # landing page alone: 99.5% of this site is case pages, a reader who spots a
