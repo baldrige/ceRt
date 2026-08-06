@@ -1,6 +1,6 @@
 # page_style.R ----------------------------------------------------------------
 # Shared presentation layer for the static site: an editorial "law-review
-# broadsheet" look (warm parchment, deep ink, single oxblood accent, Fraunces +
+# broadsheet" look (warm parchment, deep ink, single accent accent, Fraunces +
 # Newsreader serifs) matching the Cert Funnel page, plus small helpers that fix
 # two things gtsave() omits from every dashboard page: a <title> and a mobile
 # viewport meta (without the latter, phones render at ~980px and links become
@@ -47,11 +47,11 @@ INDEX_CSS <- paste0("\n  ", palette_root("40rem"), "
     background-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E\");}
   .wrap{max-width:40rem;margin:0 auto;padding:3rem 1.4rem 4rem}
   .kicker{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
-    color:var(--oxblood);margin:0 0 1rem}
+    color:var(--accent);margin:0 0 1rem}
   h1{font-family:'Fraunces',Georgia,serif;font-weight:600;
     font-size:clamp(2.4rem,7vw,3.6rem);line-height:1;letter-spacing:-.015em;
     margin:0 0 1rem;color:var(--ink)}
-  h1 em{font-style:italic;font-weight:500;color:var(--oxblood)}
+  h1 em{font-style:italic;font-weight:500;color:var(--accent)}
   .dek{font-size:1.15rem;line-height:1.5;color:var(--ink-soft);font-style:italic;
     margin:0 0 1.4rem}
   .brule{border:0;height:0;border-top:2px solid var(--ink);margin:1.4rem 0 .3rem;
@@ -63,9 +63,9 @@ INDEX_CSS <- paste0("\n  ", palette_root("40rem"), "
   /* Whole row is one block-level link: a large, reliable tap target on mobile. */
   ul.idx a.row{display:flex;justify-content:space-between;align-items:baseline;
     gap:1rem;padding:.9rem .4rem;text-decoration:none;border:0;color:inherit}
-  ul.idx a.row:hover{background:rgba(@oxblood:rgb@,.05)}
+  ul.idx a.row:hover{background:rgba(@accent:rgb@,.05)}
   ul.idx .d{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.16rem;
-    color:var(--oxblood);line-height:1.25}
+    color:var(--accent);line-height:1.25}
   ul.idx a.row:hover .d{text-decoration:underline;text-underline-offset:3px}
   ul.idx .count{color:var(--faint);font-size:.9rem;font-style:italic;white-space:nowrap;
     font-variant-numeric:tabular-nums}
@@ -77,42 +77,42 @@ INDEX_CSS <- paste0("\n  ", palette_root("40rem"), "
   ul.idx .recent a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
     color:var(--ink-soft);text-decoration:none;font-variant-numeric:tabular-nums;
     border-bottom:1px solid var(--rule);padding-bottom:1px}
-  ul.idx .recent a:hover{color:var(--oxblood);border-color:var(--oxblood)}
+  ul.idx .recent a:hover{color:var(--accent);border-color:var(--accent)}
   /* Optional panel beneath the section index (home page: most-read cases). */
   .panel{margin:2.4rem 0 0}
   .panel h2{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
-    color:var(--oxblood);margin:0 0 .25rem}
+    color:var(--accent);margin:0 0 .25rem}
   .panel .pnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:0 0 .5rem}
   ol.mostread{list-style:none;counter-reset:mr;padding:0;margin:0}
   ol.mostread li{counter-increment:mr;border-bottom:1px solid var(--rule)}
   ol.mostread a{display:flex;align-items:baseline;gap:.7rem;padding:.6rem .4rem;
     text-decoration:none;color:inherit}
-  ol.mostread a:hover{background:rgba(@oxblood:rgb@,.05)}
+  ol.mostread a:hover{background:rgba(@accent:rgb@,.05)}
   ol.mostread a::before{content:counter(mr);font-family:'Fraunces',Georgia,serif;
     font-weight:600;font-size:.95rem;color:var(--faint);min-width:1.1rem;
     font-variant-numeric:tabular-nums}
   ol.mostread .mc{flex:1;font-size:1rem;line-height:1.3}
-  ol.mostread a:hover .mc{color:var(--oxblood);text-decoration:underline;
+  ol.mostread a:hover .mc{color:var(--accent);text-decoration:underline;
     text-underline-offset:3px}
-  ol.mostread .mdk{color:var(--oxblood);font-weight:600;font-size:.82rem;
+  ol.mostread .mdk{color:var(--accent);font-weight:600;font-size:.82rem;
     font-variant-numeric:tabular-nums;white-space:nowrap}
   ol.mostread .mv{color:var(--faint);font-size:.85rem;font-style:italic;
     white-space:nowrap;font-variant-numeric:tabular-nums}
   /* Forecast percentages carry weight the most-read counts do not: the number is
-     the claim, not a footnote to the ranking. Upright, oxblood, tabular. */
-  ol.mostread .mv.fc{color:var(--oxblood);font-style:normal;font-weight:600;
+     the claim, not a footnote to the ranking. Upright, accent, tabular. */
+  ol.mostread .mv.fc{color:var(--accent);font-style:normal;font-weight:600;
     font-size:.95rem;min-width:2.6rem;text-align:right}
   .back{margin-top:2rem;font-size:.95rem}
-  .back a{color:var(--sienna);text-decoration:none;
-    border-bottom:1px solid rgba(@sienna:rgb@,.4)}
-  .back a:hover{border-color:var(--sienna)}
+  .back a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(@link:rgb@,.4)}
+  .back a:hover{border-color:var(--link)}
   /* Home-page case search. */
   .csearch{position:relative;margin:0 0 1.4rem}
   #cq{width:100%;font-family:'Newsreader',Georgia,serif;font-size:1.05rem;color:var(--ink);
     background:var(--panel);border:1px solid var(--rule);border-radius:3px;padding:.7rem .9rem}
-  #cq:focus{outline:none;border-color:var(--oxblood);box-shadow:0 0 0 3px rgba(@oxblood:rgb@,.1)}
+  #cq:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(@accent:rgb@,.1)}
   #cq::placeholder{color:var(--faint)}
-  #cq.loading{background-image:linear-gradient(90deg,transparent,rgba(@oxblood:rgb@,.06),transparent);
+  #cq.loading{background-image:linear-gradient(90deg,transparent,rgba(@accent:rgb@,.06),transparent);
     background-size:40% 100%;background-repeat:no-repeat;animation:csl 1s infinite}
   @keyframes csl{0%{background-position:-40% 0}100%{background-position:140% 0}}
   .cres{list-style:none;margin:.35rem 0 0;padding:0;max-height:24rem;overflow-y:auto;
@@ -122,38 +122,38 @@ INDEX_CSS <- paste0("\n  ", palette_root("40rem"), "
   .cres li:last-child{border-bottom:0}
   .cres a{display:block;padding:.55rem .7rem;text-decoration:none;color:var(--ink);
     font-size:.98rem;line-height:1.3}
-  .cres a:hover{background:rgba(@oxblood:rgb@,.06)}
-  .cres .cd{color:var(--oxblood);font-variant-numeric:tabular-nums;font-weight:600;
+  .cres a:hover{background:rgba(@accent:rgb@,.06)}
+  .cres .cd{color:var(--accent);font-variant-numeric:tabular-nums;font-weight:600;
     margin-right:.5rem;white-space:nowrap}
   .cnone{padding:.55rem .7rem;color:var(--faint);font-style:italic}
   /* /cases/ browse index: grouped sections with per-bucket counts. */
   .csec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
-    text-transform:uppercase;letter-spacing:.12em;color:var(--oxblood);
+    text-transform:uppercase;letter-spacing:.12em;color:var(--accent);
     margin:2.2rem 0 .3rem;padding-bottom:.35rem;border-bottom:1px solid var(--rule);
     display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
   .csec .cn{font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:.85rem;
     letter-spacing:0;text-transform:none;color:var(--faint);
     font-variant-numeric:tabular-nums}
   .cnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:.5rem 0 0}
-  .cnote a{color:var(--oxblood)}
+  .cnote a{color:var(--accent)}
   ul.terms{list-style:none;padding:0;margin:1rem 0 0;display:flex;flex-wrap:wrap;
     gap:.5rem 1.6rem}
   ul.terms li{display:inline-flex;align-items:baseline;gap:.4rem}
   ul.terms a{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.05rem;
-    color:var(--oxblood);text-decoration:none;border-bottom:1px solid var(--rule)}
-  ul.terms a:hover{border-bottom-color:var(--oxblood)}
+    color:var(--accent);text-decoration:none;border-bottom:1px solid var(--rule)}
+  ul.terms a:hover{border-bottom-color:var(--accent)}
   ul.terms .cn{color:var(--faint);font-size:.85rem;font-variant-numeric:tabular-nums}
   /* About page: running prose rather than an index, so it takes a measure and a
      little more leading than the section rows above it. */
   .about{margin:1.6rem 0 0;font-size:1.05rem;line-height:1.65;max-width:34rem}
   .about p{margin:0 0 1rem}
-  .about a{color:var(--oxblood);text-decoration:none;
+  .about a{color:var(--accent);text-decoration:none;
     border-bottom:1px solid var(--rule)}
-  .about a:hover{border-bottom-color:var(--oxblood)}
+  .about a:hover{border-bottom-color:var(--accent)}
   .about .contact{margin:2rem 0 0;background:var(--panel);border:1px solid var(--rule);
-    border-left:4px solid var(--oxblood);padding:1.1rem 1.3rem}
+    border-left:4px solid var(--accent);padding:1.1rem 1.3rem}
   .about .contact h2{font:600 .78rem/1 'Newsreader',Georgia,serif;letter-spacing:.2em;
-    text-transform:uppercase;color:var(--oxblood);margin:0 0 .5rem}
+    text-transform:uppercase;color:var(--accent);margin:0 0 .5rem}
   .about .contact p{margin:0;font-size:1rem}
 ") |> fill_palette()
 

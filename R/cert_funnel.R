@@ -434,7 +434,7 @@ funnel_svg <- function(rows, total, bar_color = "var(--ink)", ...) {
   items <- map_chr(seq_len(n_rows), function(i) {
     w <- max(0.7, 100 * rows$n[i] / total)
     is_last <- i == n_rows
-    color <- if (is_last) "var(--oxblood)" else bar_color
+    color <- if (is_last) "var(--accent)" else bar_color
     sprintf(paste0(
       '<div class="frow" style="--i:%d">',
       '<div class="flabel">%s</div>',
@@ -471,7 +471,7 @@ funnel_rows <- function(tot, live = FALSE) {
   )
 }
 
-# Hand-rolled relist table with an oxblood heat on the Granted column so the
+# Hand-rolled relist table with an accent heat on the Granted column so the
 # eye lands on where a relist actually pays off. Rows with fewer than 25
 # decided petitions are suppressed (small-N noise).
 relist_html <- function(rt) {
@@ -491,7 +491,7 @@ relist_html <- function(rt) {
   rows <- pmap_chr(d, function(relists, n, p_granted, p_gvr, p_denied, p_dismissed, ...) {
     a <- max(0, min(0.9, p_granted / gmax))
     on_dark <- a > 0.55
-    heat <- sprintf('style="background:rgba(@oxblood:rgb@,%.3f)%s"',
+    heat <- sprintf('style="background:rgba(@accent:rgb@,%.3f)%s"',
                     a, if (on_dark) ";color:var(--paper);font-weight:600" else "")
     sprintf(paste0(
       '<tr><th scope="row">%s</th><td class="num">%s</td>',
@@ -556,16 +556,16 @@ render_funnel_page <- function(live, baselines, out_dir,
       background-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E\");}
     .wrap{max-width:44rem;margin:0 auto;padding:3.2rem 1.4rem 5rem}
     p{margin:0 0 1.05rem}
-    a{color:var(--oxblood);text-decoration:none;
-      border-bottom:1px solid rgba(@oxblood:rgb@,.32);transition:border-color .15s}
-    a:hover{border-color:var(--oxblood)}
+    a{color:var(--accent);text-decoration:none;
+      border-bottom:1px solid rgba(@accent:rgb@,.32);transition:border-color .15s}
+    a:hover{border-color:var(--accent)}
     /* -- masthead -- */
     .kicker{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;
-      text-transform:uppercase;color:var(--oxblood);margin:0 0 1rem}
+      text-transform:uppercase;color:var(--accent);margin:0 0 1rem}
     h1{font-family:'Fraunces',Georgia,serif;font-weight:600;
       font-size:clamp(2.9rem,8vw,4.6rem);line-height:.98;letter-spacing:-.015em;
       margin:0 0 1rem;color:var(--ink);font-optical-sizing:auto}
-    h1 em{font-style:italic;font-weight:500;color:var(--oxblood)}
+    h1 em{font-style:italic;font-weight:500;color:var(--accent)}
     .dek{font-size:1.28rem;line-height:1.5;color:var(--ink-soft);
       font-style:italic;max-width:34rem;margin:0 0 1.6rem}
     .brule{border:0;height:0;border-top:2px solid var(--ink);
@@ -574,7 +574,7 @@ render_funnel_page <- function(live, baselines, out_dir,
       border-top:1px solid var(--rule)}
     /* -- section headers -- */
     .over{font:600 .74rem/1 'Newsreader';letter-spacing:.2em;
-      text-transform:uppercase;color:var(--sienna);
+      text-transform:uppercase;color:var(--link);
       margin:3.2rem 0 .55rem;display:flex;align-items:center;gap:.7rem}
     .over::after{content:'';flex:1;border-top:1px solid var(--rule)}
     h2{font-family:'Fraunces',Georgia,serif;font-weight:600;
@@ -584,10 +584,10 @@ render_funnel_page <- function(live, baselines, out_dir,
       margin:0 0 .3rem;color:var(--ink)}
     /* -- hero stat callout -- */
     .hero{margin:2.2rem 0 2.6rem;padding:1.7rem 1.8rem;background:var(--panel);
-      border:1px solid var(--rule);border-left:4px solid var(--oxblood);
+      border:1px solid var(--rule);border-left:4px solid var(--accent);
       box-shadow:0 1px 0 rgba(0,0,0,.03),0 14px 30px -22px rgba(60,40,20,.5)}
     .hero .big{font-family:'Fraunces',Georgia,serif;font-weight:600;
-      font-size:clamp(2.6rem,9vw,3.9rem);line-height:1;color:var(--oxblood);
+      font-size:clamp(2.6rem,9vw,3.9rem);line-height:1;color:var(--accent);
       letter-spacing:-.02em;font-feature-settings:'lnum' 1;margin-bottom:.35rem}
     .hero .sub{font-size:1.05rem;color:var(--ink-soft)}
     .hero .sub b{color:var(--ink);font-weight:600}
@@ -642,15 +642,15 @@ render_funnel_page <- function(live, baselines, out_dir,
       font-variant-numeric:tabular-nums}
     .rtable tbody th[scope=row]{font-weight:600;color:var(--ink)}
     .rtable .wcase{font-size:.95rem;line-height:1.35}
-    .rtable tbody tr:hover{background:rgba(@oxblood:rgb@,.04)}
+    .rtable tbody tr:hover{background:rgba(@accent:rgb@,.04)}
     .rtable .heat{border-radius:2px}
     details{margin:1rem 0 1.6rem}
     summary{cursor:pointer;font-family:'Fraunces',Georgia,serif;font-weight:600;
-      font-size:1.05rem;color:var(--oxblood);list-style:none;
+      font-size:1.05rem;color:var(--accent);list-style:none;
       padding:.55rem .8rem;background:var(--panel);border:1px solid var(--rule);
       border-radius:3px}
     summary::-webkit-details-marker{display:none}
-    summary::before{content:'▸ ';color:var(--sienna)}
+    summary::before{content:'▸ ';color:var(--link)}
     details[open] summary::before{content:'▾ '}
     .note{color:var(--ink-soft);font-size:.96rem;line-height:1.5}
     /* -- follow / methods -- */
@@ -780,7 +780,7 @@ render_funnel_page <- function(live, baselines, out_dir,
             p(class = "note", sprintf("Granted: %s — %s", pct(ptot$granted, ptot$docketed),
                                       one_in(ptot$granted, ptot$docketed)))),
         div(h3(sprintf("In forma pauperis (%s petitions)", fmt_n(itot$docketed))),
-            funnel_svg(funnel_rows(itot), itot$docketed, bar_color = "var(--sienna)"),
+            funnel_svg(funnel_rows(itot), itot$docketed, bar_color = "var(--link)"),
             p(class = "note", sprintf("Granted: %s — %s", pct(itot$granted, itot$docketed),
                                       one_in(itot$granted, itot$docketed))))
       ),

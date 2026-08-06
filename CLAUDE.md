@@ -98,7 +98,7 @@ block, every `gt` palette and every `var(--token, #fallback)` derives from it:
 - Data colours — `GRANT_RAMP`/`GRANT_DOMAIN`/`GRANT_NA`, `TYPE_CHIPS`,
   `STATUS_FILL` — are R values, not CSS: `gt` resolves them into inline styles
   where `var()` is unavailable. The grant ramp runs from `--paper` to
-  `--oxblood`, so a recolour carries it along.
+  `--accent`, so a recolour carries it along.
 
 Before this, the palette lived in six `:root` blocks and 66 literals, half of
 them fallbacks that would have gone on painting the *old* colours wherever a
@@ -111,11 +111,11 @@ replaced passed at exactly 4.50:1, with no margin at all.
 
 Two things about it are easy to misread as mistakes:
 
-- **`--oxblood` and `--sienna` hold the same value on purpose.** One accent, spent
-  on editorial emphasis and on outbound document links, which never share a slot.
-  The names are now wrong — neither is oxblood or sienna — but renaming them to
-  `--accent`/`--link` touches every `var()` in five stylesheets and was kept out
-  of the recolour diff. Worth doing; not urgent.
+- **`--accent` and `--link` hold the same value on purpose.** One red, spent on
+  editorial emphasis and on outbound document links, which never share a slot on
+  a page. They are separate tokens so that giving links their own hue is a
+  one-line change rather than a sweep. (They were `--oxblood`/`--sienna` until
+  the recolour made those names describe nothing.)
 - **`PALETTE_EVENTS` was not recoloured.** The ten docket-entry categories are a
   legend, not a scale, and they still separate on the new ground; their swatches
   carry a `--ink` border so even `--c-white` stays visible.

@@ -1,6 +1,6 @@
 # interactive_theme.R ----------------------------------------------------------
 # Shared presentation layer for the INTERACTIVE dashboards: applies the site's
-# editorial parchment/oxblood law-review look to a gt table, makes it sortable /
+# editorial parchment/accent law-review look to a gt table, makes it sortable /
 # filterable / searchable / paginated via gt::opt_interactive(), and wraps it in
 # the site page chrome. Used by scotus_dash() (daily) and conference_dash().
 #
@@ -36,21 +36,21 @@ body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;op
    columns) and then applied to the argument navigator's 6, stretching it to
    roughly 2.5x what it needs. */
 .wrap{width:min(97vw,var(--leaf-max,92rem));max-width:100%;margin:0 auto;padding:2.6rem 1.4rem 4rem}
-.kicker{font:600 .74rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;color:var(--oxblood);margin:0 0 .8rem}
+.kicker{font:600 .74rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin:0 0 .8rem}
 h1{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:clamp(1.9rem,4.5vw,2.9rem);line-height:1.02;letter-spacing:-.015em;margin:0 0 .7rem}
 .dek{font-size:1.1rem;line-height:1.5;color:var(--ink-soft);font-style:italic;margin:0 0 1.4rem;max-width:46rem}
 .brule{border:0;border-top:2px solid var(--ink);margin:1rem 0 1.4rem;position:relative}
 .brule::after{content:'';position:absolute;left:0;top:4px;width:100%;border-top:1px solid var(--rule)}
 .foot{margin-top:1.6rem;font-size:.9rem;color:var(--ink-soft);font-style:italic;max-width:52rem}
-.foot a,.back a{color:var(--sienna);text-decoration:none;border-bottom:1px solid rgba(@sienna:rgb@,.4)}
+.foot a,.back a{color:var(--link);text-decoration:none;border-bottom:1px solid rgba(@link:rgb@,.4)}
 .back{margin-top:1.4rem;font-size:.95rem}
 .gt_table,.reactable{font-family:'Newsreader',Georgia,serif!important}
 .rt-table{background:var(--panel);border:1px solid var(--rule);overflow-x:auto}
 .wrap .reactable,.wrap .html-widget,.wrap .gt_table{width:100%!important;max-width:100%!important}
-.rt-thead .rt-th{background:var(--paper)!important;color:var(--oxblood)!important;font-weight:600;text-transform:uppercase;letter-spacing:.06em;font-size:.76rem;border-bottom:2px solid var(--ink)!important}
+.rt-thead .rt-th{background:var(--paper)!important;color:var(--accent)!important;font-weight:600;text-transform:uppercase;letter-spacing:.06em;font-size:.76rem;border-bottom:2px solid var(--ink)!important}
 .rt-th,.rt-td{border-color:var(--rule)!important}
 .rt-td{font-variant-numeric:tabular-nums;color:var(--ink);font-size:.95rem;padding:.5rem .7rem!important;align-items:center!important;line-height:1.5!important}
-.rt-tbody .rt-tr:hover{background:rgba(@oxblood:rgb@,.06)!important}
+.rt-tbody .rt-tr:hover{background:rgba(@accent:rgb@,.06)!important}
 .rt-tr-striped{background:var(--stripe)!important}
 /* Docket number beneath the caption, since it no longer holds its own column. */
 .rt-td .cdk{display:block;font-size:.8rem;color:var(--faint);font-variant-numeric:tabular-nums;margin-top:.15rem}
@@ -66,26 +66,26 @@ h1{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:clamp(1.9rem,4
    visible, which is the failure mode worth having. */
 .rt-td .fc-sub{display:block;font-size:.78rem;color:var(--faint);
   font-variant-numeric:tabular-nums;margin-top:.2rem;line-height:1.35}
-.rt-td a{color:var(--oxblood);text-decoration:none}
+.rt-td a{color:var(--accent);text-decoration:none}
 .rt-td a:hover{color:var(--link-hover)}
 .rt-td details{font-size:.9rem;line-height:1.5}
-.rt-td details summary{color:var(--oxblood);cursor:pointer;font-style:italic;list-style:none}
+.rt-td details summary{color:var(--accent);cursor:pointer;font-style:italic;list-style:none}
 .rt-td details summary::-webkit-details-marker{display:none}
 .rt-td details[open] summary{margin-bottom:.35rem}
 .rt-td details p{margin:.3rem 0;text-align:left}
-.rt-th[aria-sort='ascending']{box-shadow:inset 0 3px 0 0 var(--oxblood)!important}
-.rt-th[aria-sort='descending']{box-shadow:inset 0 -3px 0 0 var(--oxblood)!important}
+.rt-th[aria-sort='ascending']{box-shadow:inset 0 3px 0 0 var(--accent)!important}
+.rt-th[aria-sort='descending']{box-shadow:inset 0 -3px 0 0 var(--accent)!important}
 .rt-search,.rt-filter{font-family:'Newsreader',Georgia,serif!important;background:var(--field)!important;border:1px solid var(--rule)!important;border-radius:2px;color:var(--ink)!important;padding:.3rem .5rem}
-.rt-search:focus,.rt-filter:focus{outline:none;border-color:var(--oxblood)!important;box-shadow:0 0 0 2px rgba(@oxblood:rgb@,.12)}
+.rt-search:focus,.rt-filter:focus{outline:none;border-color:var(--accent)!important;box-shadow:0 0 0 2px rgba(@accent:rgb@,.12)}
 .rt-search{margin-bottom:.7rem;width:16rem;max-width:100%}
 .rt-search::placeholder,.rt-filter::placeholder{color:var(--faint)}
 .rt-pagination{border-top:1px solid var(--rule)!important;color:var(--ink-soft);font-size:.9rem}
-.rt-page-button{font-family:'Newsreader',serif!important;color:var(--oxblood)!important}
-.rt-page-button:not(:disabled):hover{background:rgba(@oxblood:rgb@,.08)!important}
+.rt-page-button{font-family:'Newsreader',serif!important;color:var(--accent)!important}
+.rt-page-button:not(:disabled):hover{background:rgba(@accent:rgb@,.08)!important}
 .rt-page-button[aria-current='true'],.rt-current-page{color:var(--ink)!important;font-weight:600}
 .rt-page-info{color:var(--ink-soft)!important}
 .rt-page-size-select{font-family:'Newsreader',Georgia,serif!important;background:var(--field)!important;border:1px solid var(--rule)!important;border-radius:2px;color:var(--ink)!important;padding:.15rem 1.3rem .15rem .45rem;margin:0 .35rem}
-.rt-page-size-select:focus{outline:none;border-color:var(--oxblood)!important;box-shadow:0 0 0 2px rgba(@oxblood:rgb@,.12)}
+.rt-page-size-select:focus{outline:none;border-color:var(--accent)!important;box-shadow:0 0 0 2px rgba(@accent:rgb@,.12)}
 ") |> fill_palette()
 
 # Document links for a case, selected by kind and shown in that order.

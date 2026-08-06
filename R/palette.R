@@ -24,13 +24,13 @@
 
 # BONE & COCHINEAL. The ground is plain and the character is in the ink and one
 # accent, which is the opposite of the parchment palette this replaces: that one
-# spent its identity on a tinted paper and then needed oxblood, sienna, tan and
+# spent its identity on a tinted paper and then needed accent, link, tan and
 # gold on top of it, so nothing read as deliberate.
 #
-# --oxblood and --sienna hold the SAME value here, and that is the scheme rather
+# --accent and --link hold the SAME value here, and that is the scheme rather
 # than an oversight: one cold red, spent on editorial accent and on outbound
 # document links, which never share a slot on the page. The names are now wrong
-# -- neither value is oxblood or sienna -- and renaming them to --accent/--link
+# -- neither value is accent or link -- and renaming them to --accent/--link
 # touches every var() in five stylesheets, so it is deliberately not in this
 # diff. See the note in CLAUDE.md.
 #
@@ -44,8 +44,8 @@ PALETTE <- list(
   "ink"      = "#1a1a1e",
   "ink-soft" = "#484850",
   "faint"    = "#63636b",
-  "oxblood"  = "#9c0e3a",
-  "sienna"   = "#9c0e3a",
+  "accent"  = "#9c0e3a",
+  "link"   = "#9c0e3a",
   # 1.39:1 on --paper. Hairlines carry table and timeline structure, so this is
   # calibrated to beat the parchment rule's 1.34:1 rather than to disappear --
   # a tint that reads on cream goes invisible on bone.
@@ -117,8 +117,8 @@ palette_root <- function(nav_max, extra = NULL) {
 #' `@token@` gives the hex. `@token:rgb@` gives a bare "r,g,b" triplet, for the
 #' handful of places that need the colour at partial alpha -- an underline at 40%
 #' under a link, say. Those were written out as rgba(160,89,26,.4), which is
-#' --sienna to three decimal places and no way to tell from reading it. The
-#' relative-colour form rgb(from var(--sienna) ...) would avoid the duplication
+#' --link to three decimal places and no way to tell from reading it. The
+#' relative-colour form rgb(from var(--link) ...) would avoid the duplication
 #' in CSS itself, but it fails closed to a transparent border on anything older
 #' than 2023, and an invisible underline is exactly the silent kind of loss this
 #' file exists to prevent. Substituting at build time has neither problem.
@@ -153,7 +153,7 @@ fill_palette <- function(css) {
 # ground to its accent, so a recolour carries the ramp with it and the two middle
 # stops are the only values that have to be chosen. na_color is --panel, so a
 # cell with no forecast reads as empty table furniture rather than as a zero.
-GRANT_RAMP   <- c(pal("paper"), "#f1c8d2", "#c85e79", pal("oxblood"))
+GRANT_RAMP   <- c(pal("paper"), "#f1c8d2", "#c85e79", pal("accent"))
 GRANT_DOMAIN <- c(0, 0.6)
 GRANT_NA     <- pal("panel")
 
@@ -169,14 +169,14 @@ STATUS_FILL <- c("Granted"   = "#e6e9e0", "Scheduled" = "#e2e5ea",
                  "DIG'd"     = "#f4d9e0")
 
 # Calibration-plot series (docs/make_methods_note.R). This is the #b5651d that
-# #36 flagged: the value --sienna held before the WCAG correction, left behind
+# #36 flagged: the value --link held before the WCAG correction, left behind
 # when everything else moved, so the chart and the page around it drew "the
 # same" orange differently. Reconciled here, as that note said to.
 #
 # Two lines that overlap closely need to separate by lightness, not only hue --
 # hue alone fails for a deuteranope. #6b8caf reads 3.50:1 on the plot's white
 # ground and 2.36:1 against the accent it shares the chart with.
-CHART_SERIES <- c("baseline" = "#6b8caf", "enhanced" = pal("oxblood"))
+CHART_SERIES <- c("baseline" = "#6b8caf", "enhanced" = pal("accent"))
 
 # Interactive (reactable) table furniture, shared with the injected CSS.
 ROW_STRIPE <- pal("stripe")

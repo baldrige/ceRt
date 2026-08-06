@@ -215,7 +215,7 @@ for (spec in list(list("conferences", "^conf_.*\\.html$", "conference"),
 #
 # Hex is not the only spelling. The first version of this check looked for
 # #rrggbb only and passed a clean tree that still held 19 copies of the palette
-# written as decimal -- rgba(138,43,43,.05) is --oxblood, rgba(35,38,45,.45) is
+# written as decimal -- rgba(138,43,43,.05) is --accent, rgba(35,38,45,.45) is
 # --ink, and neither is legible as such. Those are exactly the copies that go
 # stale, so a colour is stray whether it is written in hex or in decimal.
 src <- c(list.files("R", pattern = "\\.R$", full.names = TRUE),
