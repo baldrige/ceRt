@@ -33,6 +33,18 @@ local({
   sys.source(find("site_nav.R"), envir = globalenv())
 })
 
+# A procedural entry is marked with a TICK across the timeline rule, not a dot.
+# Bone & Cochineal made --paper #fdfcfa, and the petition cover is --c-white
+# #fff: the two markers came to differ by 0.6% of fill and a hairline of ring
+# colour, which is to say not at all. The parchment palette's cream --paper had
+# been carrying that distinction, so the recolour broke this without touching it.
+#
+# Shrinking the circle was tried first and is not enough -- both markers still
+# read as empty rings, and a white cover cannot show as a white fill on
+# near-white paper at any size. A tick is categorically not a dot: filings are
+# circles, procedural steps are marks on the line, and the eye separates them
+# without comparing sizes. The legend swatch matches.
+#
 # ---- shared stylesheet (written once per output dir) --------------------------
 # Colours come from palette.R, which is also where the note about the two WCAG
 # corrections now lives. Token NAMES were unified at the same time this file and
@@ -78,11 +90,11 @@ p{margin:.5rem 0}
 .tl-date{font-variant-numeric:tabular-nums;font-size:.86rem;color:var(--faint);text-align:right;padding-top:.1rem;padding-right:.28rem}
 .tl-body{font-size:.98rem;position:relative}
 .tl-body::before{content:'';position:absolute;left:-.9rem;top:.5rem;width:8px;height:8px;border-radius:50%;background:var(--dot,var(--link));border:1px solid rgba(@ink:rgb@,.45);box-shadow:0 0 0 3px var(--paper)}
-.timeline li.proc .tl-body::before{background:var(--paper);border:1.5px solid var(--c-neutral)}
+.timeline li.proc .tl-body::before{width:11px;height:0;left:-1.05rem;top:.82rem;border-radius:0;background:none;border:0;border-top:1.5px solid var(--faint);opacity:.7;box-shadow:none}
 .tl-legend{display:flex;flex-wrap:wrap;gap:.3rem 1.1rem;margin:.1rem 0 1rem;font-size:.78rem;color:var(--faint)}
 .tl-legend span{display:inline-flex;align-items:center;gap:.35rem;white-space:nowrap}
 .tl-legend i{width:9px;height:9px;border-radius:50%;border:1px solid rgba(@ink:rgb@,.45);flex:none}
-.tl-legend i.hollow{background:var(--paper);border:1.5px solid var(--c-neutral)}
+.tl-legend i.hollow{width:11px;height:0;border-radius:0;background:none;border:0;border-top:1.5px solid var(--faint);opacity:.7;align-self:center}
 .tl-docs{margin-top:.2rem;display:flex;flex-wrap:wrap;gap:.2rem .8rem}
 .tl-docs a{font-size:.85rem;color:var(--link);border-bottom:1px solid rgba(@link:rgb@,.4);text-decoration:none}
 .kicker a{color:inherit;border-bottom:1px solid rgba(@accent:rgb@,.4)}
