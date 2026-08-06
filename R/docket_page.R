@@ -150,7 +150,13 @@ write_docket_css <- function(out_dir) {
 # indistinguishable from the 41 petitioner-side ones. Falls back to the date the
 # Court states when it extends the merits schedule. Re-render needed because the
 # manifest keys on this constant and the docket events themselves did not change.
-PAGE_TEMPLATE_VERSION <- "v17"
+# v18: the docket has two phrasings for an amicus brief and we matched one.
+# "Amicus brief of X submitted" -- the newer e-filing wording -- fell through to
+# a hollow procedural dot, so 25-170 showed seven of its respondent-side amici
+# uncoloured. Rejected tenders ("not accepted for filing") are excluded with it:
+# the new wording is used for those MORE often than for accepted briefs, and the
+# corrected brief re-appears under its own entry, so counting both double-counts.
+PAGE_TEMPLATE_VERSION <- "v18"
 
 # ---- small helpers ------------------------------------------------------------
 .esc <- function(x) { x <- x %||% ""; x[is.na(x)] <- ""; htmltools::htmlEscape(x) }
@@ -194,7 +200,26 @@ brief_cover <- function(text, granted_on = as.Date(NA), entry_date = as.Date(NA)
   # amici for respondent after the RESPONDENT's -- so a merits amicus filed on or
   # after the respondent's brief supports the respondent. An explicit "in support
   # of ..." in the text (rare) overrides the timing.
-  if (has("brief\\s+amic(us|i)\\s+curiae")) {
+  # Two phrasings, and the docket uses both. The long-standing one is "Brief
+  # amicus curiae of X filed."; the newer electronic-filing one reverses it to
+  # "Amicus brief of X submitted." Only the first was matched, so 25-170's seven
+  # Aug 3 amici -- filed the day the respondent's amici were due -- rendered as
+  # hollow procedural dots instead of dark green. The new wording appears in 9 of
+  # 14 argued cases sampled, back to Sep 2025.
+  #
+  # "not accepted for filing" is excluded, and that matters more than it looks:
+  # in the sample the new wording is used for REJECTED tenders more often than
+  # for accepted ones (10 vs 7), because it is the e-filing intake record rather
+  # than the docket entry. A rejected brief is corrected and re-filed under its
+  # own entry, so counting the rejection double-counts the brief -- 25-170's one
+  # rejected new-wording entry is Professor Jason Johnston, already on the docket
+  # from Oct 9. The old wording never carries a rejection (0 across the sample),
+  # so this guard only ever bites the new one; it is applied to both for safety.
+  #
+  # Anchored at the start so "Motion for leave to file an amicus brief" does not
+  # match (motions already return procedural above, but only just).
+  if ((has("brief\\s+amic(us|i)\\s+curiae") || has("^amicus\\s+brief\\b")) &&
+      !has("not accepted for filing")) {
     if (merits) {
       resp_lab <- "Amicus brief (supporting respondent)"
       pet_lab  <- "Amicus brief (supporting petitioner or neither party)"

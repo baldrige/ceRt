@@ -61,6 +61,22 @@ merits covers (blue/red/green). Detection excludes **stay/conditional orders** �
 their boilerplate ("in the event the petition … is granted", "pending disposition",
 "for a stay") would otherwise read as a grant and back-date the merits stage.
 
+### Two docket phrasings for one thing
+
+An amicus brief reaches the docket two ways, and both must be matched:
+
+| wording | verb | notes |
+| --- | --- | --- |
+| `Brief amicus curiae of X` | *filed* | long-standing; never seen carrying a rejection |
+| `Amicus brief of X` | *submitted* | newer e-filing wording, seen from Sep 2025 |
+
+⚠️ **`not accepted for filing` is excluded.** In a 14-docket sample the newer
+wording is used for **rejected** tenders more often than accepted ones (10 vs 7)
+— it is the intake record, not the docket entry. A rejected brief is corrected
+and re-filed under its own entry, so counting the rejection double-counts the
+brief. 25-170's one rejected entry is Professor Jason Johnston, already on the
+docket from Oct 9.
+
 ### Amicus side — Rule 37 timing (the subtle part)
 
 SCOTUS **usually omits "in support of petitioner/respondent" from the docket line**
