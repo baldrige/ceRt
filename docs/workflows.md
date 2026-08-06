@@ -29,7 +29,7 @@ site, partitioned so they never fight over the same paths.
 | workflow | schedule (cron is **UTC**) | data | public pages |
 | --- | --- | --- | --- |
 | **`daily.yml`** | 3×/day: `30 0`, `0 18`, `0 22` (00:30 / 18:00 / 22:00 UTC — the ET-anchored two ≈ 2pm & 6pm ET) | **Yes** — incremental fetch | **Yes** — dashboards, recent cases, landing |
-| **`conferences.yml`** | Weekly `0 6 * * 1` (**Mon 06:00 UTC**); auto-skips Jul–Aug recess | **Yes** — full-term fetch | **Yes** — conferences, arguments, funnel |
+| **`conferences.yml`** | Weekly `0 6 * * 1` (**Mon 06:00 UTC**), year-round | **Yes** — full-term fetch | **Yes** — conferences, arguments, funnel |
 
 ### `daily.yml`
 
@@ -75,8 +75,13 @@ site, partitioned so they never fight over the same paths.
   and **`cases/<docket>.html`** for the conference/argument cases touched
   (incremental). Re-asserts `CNAME`. **Does not** touch `dashboards/`,
   `methods.html`, or the landing page.
-- **Recess skip:** `plan_terms.R` sets `skip=true` for **scheduled** runs in July
-  and August — a manual dispatch still runs in summer.
+- **No recess skip.** It ran weekly in-season only until 2026-08-06, on the
+  assumption nothing happens over the summer. Petitions are distributed to the
+  September long conference throughout it: the 2026-09-28 page carried **452
+  cases** while the skip was still in force, and it was only being refreshed by
+  hand. Both terms are fetched even in summer, because that conference is
+  stocked with prior-term petitions (25-198, 25-153, 25-238 among them), so
+  rendering it without OT25 would render it wrong.
 - **Guard:** `fetch_term.R` `quit(1)`s a term that lost >10% to throttling, so a
   partial term never publishes. `funnel`/`arguments` renders are
   `continue-on-error` and can't block the conference publish.
