@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&display=swap">
 <style>
   /* Token names and colours match the site palette: the output of this file is
-     copied to site/methods.html, so its --faint/--sienna ship. NOTE: an
+     copied to site/methods.html, so its --faint/--link ship. NOTE: an
      apostrophe anywhere in this block closes the single-quoted sprintf() literal
      that carries it, and R will not parse the script -- which is how the note
      went eight days without being regenerated. Both colours previously failed
@@ -14,14 +14,14 @@
      free: NAV_CSS pads the rule by 1.5rem where .sheet pads its text by .6in,
      so the rule lands flush with the column only at 8.1in - 1.2in + 2*1.5rem
      = 7.4in. Left unset it falls back to 54rem and overhangs by 76px a side. */
-  :root{--paper:#fdfcfa;--panel:#ffffff;--ink:#1a1a1e;--ink-soft:#484850;--faint:#63636b;--oxblood:#9c0e3a;--sienna:#9c0e3a;--rule:#dbd8d2;--nav-max:7.4in}
+  :root{--paper:#fdfcfa;--panel:#ffffff;--ink:#1a1a1e;--ink-soft:#484850;--faint:#63636b;--accent:#9c0e3a;--link:#9c0e3a;--rule:#dbd8d2;--nav-max:7.4in}
   *{box-sizing:border-box} html{-webkit-text-size-adjust:100%}
   body{font-family:"Newsreader",Georgia,serif;color:var(--ink);background:var(--paper);margin:0;font-size:10.5pt;line-height:1.4}
   .sheet{max-width:8.1in;margin:0 auto;padding:.5in .6in}
-  .kicker{font:600 8pt/1 "Newsreader";letter-spacing:.2em;text-transform:uppercase;color:var(--oxblood);margin:0 0 .3rem}
+  .kicker{font:600 8pt/1 "Newsreader";letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin:0 0 .3rem}
   h1{font-family:"Fraunces",Georgia,serif;font-weight:600;font-size:23pt;line-height:1.02;margin:0 0 .25rem}
   .dek{font-style:italic;color:var(--ink-soft);margin:.1rem 0 .5rem;font-size:11pt}
-  h2{font-family:"Fraunces",Georgia,serif;font-weight:600;font-size:11pt;color:var(--oxblood);margin:.5rem 0 .2rem;border-bottom:1px solid var(--rule);padding-bottom:2px}
+  h2{font-family:"Fraunces",Georgia,serif;font-weight:600;font-size:11pt;color:var(--accent);margin:.5rem 0 .2rem;border-bottom:1px solid var(--rule);padding-bottom:2px}
   p{margin:.2rem 0} .grid{display:grid;grid-template-columns:1fr 1fr;gap:0 1.3rem}
   ul{margin:.2rem 0;padding-left:1.05rem} li{margin:.12rem 0}
   table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;margin:.3rem 0}
@@ -32,7 +32,7 @@
   figcaption{font-size:8.5pt;color:var(--faint);margin-top:.1rem}
   .fig-wrap{display:grid;grid-template-columns:1.1fr 1fr;gap:1.3rem;align-items:center}
   footer{margin-top:.5rem;border-top:2px solid var(--ink);padding-top:.3rem;font-size:8.5pt;color:var(--ink-soft)}
-  b,.stat{color:var(--oxblood)}
+  b,.stat{color:var(--accent)}
   @page{size:letter;margin:.4in} @media print{body{background:#fff} .sheet{padding:0}}
 </style><style>
 /* ---- masthead ---- */
@@ -40,8 +40,8 @@
   display:flex;align-items:baseline;justify-content:space-between;gap:1.4rem;flex-wrap:wrap}
 .smast-wm{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
   letter-spacing:.005em;color:var(--ink,#1a1a1e);text-decoration:none;white-space:nowrap;flex:none}
-.smast-wm em{font-style:italic;font-weight:500;color:var(--oxblood,var(--ox,#9c0e3a))}
-.smast-wm:hover{color:var(--oxblood,var(--ox,#9c0e3a))}
+.smast-wm em{font-style:italic;font-weight:500;color:var(--accent,#9c0e3a)}
+.smast-wm:hover{color:var(--accent,#9c0e3a)}
 /* Row gap first, then column. At 1.35rem the six section links measured 596px
    of max-content -- 4px wider than the 592px row the 40rem index container
    leaves them -- so ABOUT alone wrapped to a third line under the wordmark, on
@@ -53,16 +53,16 @@
 .snav a{font:600 .72rem/1 'Newsreader',Georgia,serif;letter-spacing:.15em;text-transform:uppercase;
   color:var(--ink-soft,var(--soft,#484850));text-decoration:none;display:inline-block;
   padding:.5rem 0;border-bottom:1.5px solid transparent}
-.snav a:hover{color:var(--oxblood,var(--ox,#9c0e3a));border-bottom-color:var(--rule,#dbd8d2)}
-.snav a[aria-current='page']{color:var(--oxblood,var(--ox,#9c0e3a));
-  border-bottom-color:var(--oxblood,var(--ox,#9c0e3a))}
+.snav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--rule,#dbd8d2)}
+.snav a[aria-current='page']{color:var(--accent,#9c0e3a);
+  border-bottom-color:var(--accent,#9c0e3a)}
 .smast-rule-w{max-width:var(--nav-max,54rem);margin:0 auto;padding:0 1.5rem}
 .smast-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0;position:relative}
 .smast-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
   border-top:1px solid var(--rule,#dbd8d2)}
 .skip{position:absolute;left:-9999px;top:0;background:var(--panel,#ffffff);
-  color:var(--oxblood,var(--ox,#9c0e3a));padding:.6rem 1rem;
-  border:1px solid var(--oxblood,var(--ox,#9c0e3a));
+  color:var(--accent,#9c0e3a);padding:.6rem 1rem;
+  border:1px solid var(--accent,#9c0e3a);
   font:600 .8rem/1 'Newsreader',Georgia,serif;letter-spacing:.1em;text-transform:uppercase;z-index:10}
 .skip:focus{left:.5rem;top:.5rem}
 /* ---- breadcrumb ---- */
@@ -72,7 +72,7 @@
 .bcrumb li{display:inline-flex;align-items:baseline;gap:.45rem}
 .bcrumb a{font:400 .8rem/1.5 'Newsreader',Georgia,serif;color:var(--ink-soft,var(--soft,#484850));
   text-decoration:none;border-bottom:1px solid var(--rule,#dbd8d2)}
-.bcrumb a:hover{color:var(--oxblood,var(--ox,#9c0e3a));border-bottom-color:var(--oxblood,var(--ox,#9c0e3a))}
+.bcrumb a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
 .bcrumb .sep{color:var(--faint,#63636b);font-size:.8rem;line-height:1.5}
 .bcrumb [aria-current='page']{font:400 .8rem/1.5 'Newsreader',Georgia,serif;
   color:var(--faint,#63636b);font-variant-numeric:tabular-nums}
@@ -82,14 +82,14 @@
 .cfoot-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
   border-top:1px solid var(--rule,#dbd8d2)}
 .cfoot-off{font-size:.95rem;margin:0 0 1.1rem}
-.cfoot-off a{color:var(--sienna,#9c0e3a);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.4)}
-.cfoot-off a:hover{border-bottom-color:var(--sienna,#9c0e3a)}
+.cfoot-off a{color:var(--link,#9c0e3a);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.4)}
+.cfoot-off a:hover{border-bottom-color:var(--link,#9c0e3a)}
 .cfoot-lab{font:600 .68rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
   color:var(--faint,#63636b);margin:0 0 .5rem}
 .cfoot-nav{display:flex;flex-wrap:wrap;gap:.35rem 1.1rem;list-style:none;margin:0;padding:0}
 .cfoot-nav a{font-size:.92rem;color:var(--ink-soft,var(--soft,#484850));text-decoration:none;
   border-bottom:1px solid var(--rule,#dbd8d2);padding-bottom:1px}
-.cfoot-nav a:hover{color:var(--oxblood,var(--ox,#9c0e3a));border-bottom-color:var(--oxblood,var(--ox,#9c0e3a))}
+.cfoot-nav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
 .cfoot-stamp{margin:1.2rem 0 0;font-size:.8rem;color:var(--faint,#63636b);font-style:italic}
 /* ---- prev / next ---- */
 .pnav{margin:2.2rem 0 0;border-top:1px solid var(--rule,#dbd8d2);padding-top:1rem;
@@ -99,7 +99,7 @@
 .pnav .dir{font:600 .66rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
   color:var(--faint,#63636b);display:block;margin-bottom:.3rem}
 .pnav .lab{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1rem;line-height:1.25;
-  color:var(--oxblood,var(--ox,#9c0e3a));display:block}
+  color:var(--accent,#9c0e3a);display:block}
 .pnav a:hover .lab{text-decoration:underline;text-underline-offset:3px}
 .pnav .nx{text-align:right}
 .pnav .none{opacity:.35}
