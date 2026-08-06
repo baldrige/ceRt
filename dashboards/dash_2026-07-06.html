@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang='en'><head><script async src='/analytics.js'></script><meta charset='utf-8'><meta name='viewport' content='width=device-width, initial-scale=1'><title>The Daily Docket</title><link rel='preconnect' href='https://fonts.googleapis.com'><link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap'>
+<!DOCTYPE html><html lang='en'><head><script async src='/analytics.js'></script><meta charset='utf-8'><meta name='viewport' content='width=device-width, initial-scale=1'><link rel='icon' href='/favicon.svg' type='image/svg+xml'><link rel='alternate icon' href='/favicon.ico' sizes='any'><title>The Daily Docket</title><link rel='preconnect' href='https://fonts.googleapis.com'><link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap'>
 <meta charset="utf-8"/>
 <style>body{background-color:white;}</style>
 <script src="data:application/javascript;base64,LyoqDQogKiBjb3JlLWpzIDIuNi4xMQ0KICogaHR0cHM6Ly9naXRodWIuY29tL3psb2lyb2Nr
@@ -7888,132 +7888,236 @@ cnR5KHIsIl9fZXNNb2R1bGUiLHt2YWx1ZTohMH0pfSgpOwovLyMgc291cmNlTWFwcGluZ1VS
 TD1yZWFjdGFibGUuanMubWFw"></script>
 
 <style>
-:root{--paper:#f3ecdd;--panel:#f7f1e4;--ink:#23262d;--soft:#5f5847;--faint:#8a8271;--ox:#8a2b2b;--rule:#d8cdb4;--sienna:#b5651d}
+/* Token names and the two AA colour corrections match page_style.R and
+   docket_page.R -- see the note above DOCKET_CSS. */
+:root{--paper:#fdfcfa;--panel:#ffffff;--ink:#1a1a1e;--ink-soft:#484850;--faint:#63636b;--oxblood:#9c0e3a;--sienna:#9c0e3a;--rule:#dbd8d2;--stripe:#f7f5f1;--field:#f5f3ef;--link-hover:#78092c;--nav-max:54rem}
 *{box-sizing:border-box}
 body{font-family:'Newsreader',Georgia,serif;color:var(--ink);background:var(--paper);margin:0}
 body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.5;mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E")}
-.wrap{width:min(97vw,92rem);max-width:100%;margin:0 auto;padding:2.6rem 1.4rem 4rem}
-.kicker{font:600 .74rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;color:var(--ox);margin:0 0 .8rem}
+/* --leaf-max is the page's own ceiling, set per page type by scr_write_page().
+   One shared 92rem was sized for the widest table (conferences, formerly 11
+   columns) and then applied to the argument navigator's 6, stretching it to
+   roughly 2.5x what it needs. */
+.wrap{width:min(97vw,var(--leaf-max,92rem));max-width:100%;margin:0 auto;padding:2.6rem 1.4rem 4rem}
+.kicker{font:600 .74rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;color:var(--oxblood);margin:0 0 .8rem}
 h1{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:clamp(1.9rem,4.5vw,2.9rem);line-height:1.02;letter-spacing:-.015em;margin:0 0 .7rem}
-.dek{font-size:1.1rem;line-height:1.5;color:var(--soft);font-style:italic;margin:0 0 1.4rem;max-width:46rem}
+.dek{font-size:1.1rem;line-height:1.5;color:var(--ink-soft);font-style:italic;margin:0 0 1.4rem;max-width:46rem}
 .brule{border:0;border-top:2px solid var(--ink);margin:1rem 0 1.4rem;position:relative}
 .brule::after{content:'';position:absolute;left:0;top:4px;width:100%;border-top:1px solid var(--rule)}
-.foot{margin-top:1.6rem;font-size:.9rem;color:var(--soft);font-style:italic;max-width:52rem}
-.foot a,.back a{color:var(--sienna);text-decoration:none;border-bottom:1px solid rgba(181,101,29,.35)}
+.foot{margin-top:1.6rem;font-size:.9rem;color:var(--ink-soft);font-style:italic;max-width:52rem}
+.foot a,.back a{color:var(--sienna);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.4)}
 .back{margin-top:1.4rem;font-size:.95rem}
 .gt_table,.reactable{font-family:'Newsreader',Georgia,serif!important}
 .rt-table{background:var(--panel);border:1px solid var(--rule);overflow-x:auto}
 .wrap .reactable,.wrap .html-widget,.wrap .gt_table{width:100%!important;max-width:100%!important}
-.rt-thead .rt-th{background:var(--paper)!important;color:var(--ox)!important;font-weight:600;text-transform:uppercase;letter-spacing:.06em;font-size:.76rem;border-bottom:2px solid var(--ink)!important}
+.rt-thead .rt-th{background:var(--paper)!important;color:var(--oxblood)!important;font-weight:600;text-transform:uppercase;letter-spacing:.06em;font-size:.76rem;border-bottom:2px solid var(--ink)!important}
 .rt-th,.rt-td{border-color:var(--rule)!important}
 .rt-td{font-variant-numeric:tabular-nums;color:var(--ink);font-size:.95rem;padding:.5rem .7rem!important;align-items:center!important;line-height:1.5!important}
-.rt-tbody .rt-tr:hover{background:rgba(138,43,43,.06)!important}
-.rt-tr-striped{background:#efe7d6!important}
-.rt-td a{color:var(--ox);text-decoration:none}
-.rt-td a:hover{color:#6f2020}
+.rt-tbody .rt-tr:hover{background:rgba(156,14,58,.06)!important}
+.rt-tr-striped{background:var(--stripe)!important}
+/* Docket number beneath the caption, since it no longer holds its own column. */
+.rt-td .cdk{display:block;font-size:.8rem;color:var(--faint);font-variant-numeric:tabular-nums;margin-top:.15rem}
+/* Merged grant-forecast cell: granted-here leads and carries the heat-map
+   shading (applied inline -- gt cannot data_color a cell holding markup), with
+   ever and GVR muted beneath it. */
+.rt-td .fc-here{display:inline-block;min-width:2.6rem;padding:.1rem .35rem;
+  font-weight:600;font-variant-numeric:tabular-nums;border-radius:2px}
+/* No white-space:nowrap. It was here to keep here/GVR on one line, and instead
+   made a too-long line clip silently at the column edge rather than wrap -- the
+   number was in the markup and simply not on the screen. The <br> in fc_cell()
+   breaks the lines deliberately; anything still too wide now wraps and stays
+   visible, which is the failure mode worth having. */
+.rt-td .fc-sub{display:block;font-size:.78rem;color:var(--faint);
+  font-variant-numeric:tabular-nums;margin-top:.2rem;line-height:1.35}
+.rt-td a{color:var(--oxblood);text-decoration:none}
+.rt-td a:hover{color:var(--link-hover)}
 .rt-td details{font-size:.9rem;line-height:1.5}
-.rt-td details summary{color:var(--ox);cursor:pointer;font-style:italic;list-style:none}
+.rt-td details summary{color:var(--oxblood);cursor:pointer;font-style:italic;list-style:none}
 .rt-td details summary::-webkit-details-marker{display:none}
 .rt-td details[open] summary{margin-bottom:.35rem}
 .rt-td details p{margin:.3rem 0;text-align:left}
-.rt-th[aria-sort='ascending']{box-shadow:inset 0 3px 0 0 var(--ox)!important}
-.rt-th[aria-sort='descending']{box-shadow:inset 0 -3px 0 0 var(--ox)!important}
-.rt-search,.rt-filter{font-family:'Newsreader',Georgia,serif!important;background:#fbf7ec!important;border:1px solid var(--rule)!important;border-radius:2px;color:var(--ink)!important;padding:.3rem .5rem}
-.rt-search:focus,.rt-filter:focus{outline:none;border-color:var(--ox)!important;box-shadow:0 0 0 2px rgba(138,43,43,.12)}
+.rt-th[aria-sort='ascending']{box-shadow:inset 0 3px 0 0 var(--oxblood)!important}
+.rt-th[aria-sort='descending']{box-shadow:inset 0 -3px 0 0 var(--oxblood)!important}
+.rt-search,.rt-filter{font-family:'Newsreader',Georgia,serif!important;background:var(--field)!important;border:1px solid var(--rule)!important;border-radius:2px;color:var(--ink)!important;padding:.3rem .5rem}
+.rt-search:focus,.rt-filter:focus{outline:none;border-color:var(--oxblood)!important;box-shadow:0 0 0 2px rgba(156,14,58,.12)}
 .rt-search{margin-bottom:.7rem;width:16rem;max-width:100%}
 .rt-search::placeholder,.rt-filter::placeholder{color:var(--faint)}
-.rt-pagination{border-top:1px solid var(--rule)!important;color:var(--soft);font-size:.9rem}
-.rt-page-button{font-family:'Newsreader',serif!important;color:var(--ox)!important}
-.rt-page-button:not(:disabled):hover{background:rgba(138,43,43,.08)!important}
+.rt-pagination{border-top:1px solid var(--rule)!important;color:var(--ink-soft);font-size:.9rem}
+.rt-page-button{font-family:'Newsreader',serif!important;color:var(--oxblood)!important}
+.rt-page-button:not(:disabled):hover{background:rgba(156,14,58,.08)!important}
 .rt-page-button[aria-current='true'],.rt-current-page{color:var(--ink)!important;font-weight:600}
-.rt-page-info{color:var(--soft)!important}
-.rt-page-size-select{font-family:'Newsreader',Georgia,serif!important;background:#fbf7ec!important;border:1px solid var(--rule)!important;border-radius:2px;color:var(--ink)!important;padding:.15rem 1.3rem .15rem .45rem;margin:0 .35rem}
-.rt-page-size-select:focus{outline:none;border-color:var(--ox)!important;box-shadow:0 0 0 2px rgba(138,43,43,.12)}
+.rt-page-info{color:var(--ink-soft)!important}
+.rt-page-size-select{font-family:'Newsreader',Georgia,serif!important;background:var(--field)!important;border:1px solid var(--rule)!important;border-radius:2px;color:var(--ink)!important;padding:.15rem 1.3rem .15rem .45rem;margin:0 .35rem}
+.rt-page-size-select:focus{outline:none;border-color:var(--oxblood)!important;box-shadow:0 0 0 2px rgba(156,14,58,.12)}
+
+/* ---- masthead ---- */
+.smast-in{max-width:var(--nav-max,54rem);margin:0 auto;padding:.85rem 1.5rem .5rem;
+  display:flex;align-items:baseline;justify-content:space-between;gap:1.4rem;flex-wrap:wrap}
+.smast-wm{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+  letter-spacing:.005em;color:var(--ink,#1a1a1e);text-decoration:none;white-space:nowrap;flex:none}
+.smast-wm em{font-style:italic;font-weight:500;color:var(--oxblood,var(--ox,#9c0e3a))}
+.smast-wm:hover{color:var(--oxblood,var(--ox,#9c0e3a))}
+/* Row gap first, then column. At 1.35rem the six section links measured 596px
+   of max-content -- 4px wider than the 592px row the 40rem index container
+   leaves them -- so ABOUT alone wrapped to a third line under the wordmark, on
+   every page page_style.R writes. 1.05rem brings the row to 572px: 20px of
+   slack at 40rem, and 45px on the 54rem case pages, which were themselves only
+   21px from wrapping. The .4rem row gap is for the day a seventh section
+   overruns it anyway -- a nav that wraps should read as a stack, not an orphan. */
+.snav{display:flex;gap:.4rem 1.05rem;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+.snav a{font:600 .72rem/1 'Newsreader',Georgia,serif;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--ink-soft,var(--soft,#484850));text-decoration:none;display:inline-block;
+  padding:.5rem 0;border-bottom:1.5px solid transparent}
+.snav a:hover{color:var(--oxblood,var(--ox,#9c0e3a));border-bottom-color:var(--rule,#dbd8d2)}
+.snav a[aria-current='page']{color:var(--oxblood,var(--ox,#9c0e3a));
+  border-bottom-color:var(--oxblood,var(--ox,#9c0e3a))}
+.smast-rule-w{max-width:var(--nav-max,54rem);margin:0 auto;padding:0 1.5rem}
+.smast-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0;position:relative}
+.smast-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.skip{position:absolute;left:-9999px;top:0;background:var(--panel,#ffffff);
+  color:var(--oxblood,var(--ox,#9c0e3a));padding:.6rem 1rem;
+  border:1px solid var(--oxblood,var(--ox,#9c0e3a));
+  font:600 .8rem/1 'Newsreader',Georgia,serif;letter-spacing:.1em;text-transform:uppercase;z-index:10}
+.skip:focus{left:.5rem;top:.5rem}
+/* ---- breadcrumb ---- */
+.bcrumb{margin:.7rem 0 0}
+.bcrumb ol{list-style:none;display:flex;flex-wrap:wrap;align-items:baseline;
+  gap:.1rem .45rem;margin:0;padding:0}
+.bcrumb li{display:inline-flex;align-items:baseline;gap:.45rem}
+.bcrumb a{font:400 .8rem/1.5 'Newsreader',Georgia,serif;color:var(--ink-soft,var(--soft,#484850));
+  text-decoration:none;border-bottom:1px solid var(--rule,#dbd8d2)}
+.bcrumb a:hover{color:var(--oxblood,var(--ox,#9c0e3a));border-bottom-color:var(--oxblood,var(--ox,#9c0e3a))}
+.bcrumb .sep{color:var(--faint,#63636b);font-size:.8rem;line-height:1.5}
+.bcrumb [aria-current='page']{font:400 .8rem/1.5 'Newsreader',Georgia,serif;
+  color:var(--faint,#63636b);font-variant-numeric:tabular-nums}
+/* ---- case footer ---- */
+.cfoot{margin:2.4rem 0 0}
+.cfoot-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0 0 1rem;position:relative}
+.cfoot-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.cfoot-off{font-size:.95rem;margin:0 0 1.1rem}
+.cfoot-off a{color:var(--sienna,#9c0e3a);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.4)}
+.cfoot-off a:hover{border-bottom-color:var(--sienna,#9c0e3a)}
+.cfoot-lab{font:600 .68rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);margin:0 0 .5rem}
+.cfoot-nav{display:flex;flex-wrap:wrap;gap:.35rem 1.1rem;list-style:none;margin:0;padding:0}
+.cfoot-nav a{font-size:.92rem;color:var(--ink-soft,var(--soft,#484850));text-decoration:none;
+  border-bottom:1px solid var(--rule,#dbd8d2);padding-bottom:1px}
+.cfoot-nav a:hover{color:var(--oxblood,var(--ox,#9c0e3a));border-bottom-color:var(--oxblood,var(--ox,#9c0e3a))}
+.cfoot-stamp{margin:1.2rem 0 0;font-size:.8rem;color:var(--faint,#63636b);font-style:italic}
+/* ---- prev / next ---- */
+.pnav{margin:2.2rem 0 0;border-top:1px solid var(--rule,#dbd8d2);padding-top:1rem;
+  display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.pnav a,.pnav span.none{text-decoration:none;color:inherit;display:block;padding:.5rem .2rem}
+.pnav a:hover{background:rgba(156,14,58,.05)}
+.pnav .dir{font:600 .66rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);display:block;margin-bottom:.3rem}
+.pnav .lab{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1rem;line-height:1.25;
+  color:var(--oxblood,var(--ox,#9c0e3a));display:block}
+.pnav a:hover .lab{text-decoration:underline;text-underline-offset:3px}
+.pnav .nx{text-align:right}
+.pnav .none{opacity:.35}
+@media(max-width:640px){
+  .smast-in{padding:.7rem 1.1rem .25rem;gap:.15rem}
+  .smast-wm{font-size:.98rem}
+  .smast-in nav{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+    -webkit-mask-image:linear-gradient(90deg,#000 86%,transparent);
+    mask-image:linear-gradient(90deg,#000 86%,transparent)}
+  .smast-in nav::-webkit-scrollbar{display:none}
+  .snav{flex-wrap:nowrap;gap:1.15rem;padding-right:2.4rem}
+  .snav a{padding:.7rem 0;white-space:nowrap}
+  .smast-rule-w{padding:0 1.1rem}
+  .cfoot-nav{gap:.5rem 1rem}
+  .cfoot-nav a{padding-bottom:.3rem}
+  .pnav{grid-template-columns:1fr;gap:.2rem}
+  .pnav .nx{text-align:left;border-top:1px solid var(--rule,#dbd8d2)}
+}
 .rt-tbody .rt-td:nth-child(2){justify-content:flex-start!important;text-align:left!important}
+.rt-tbody .rt-td:nth-child(4){justify-content:flex-start!important;text-align:left!important}
 .rt-tbody .rt-td:nth-child(5){justify-content:flex-start!important;text-align:left!important}
 .rt-tbody .rt-td:nth-child(6){justify-content:flex-start!important;text-align:left!important}
 .rt-tbody .rt-td:nth-child(7){justify-content:flex-start!important;text-align:left!important}
-.rt-tbody .rt-td:nth-child(8){justify-content:flex-start!important;text-align:left!important}
 .rt-tbody .rt-td:nth-child(2) .rt-td-inner{text-align:left!important}
+.rt-tbody .rt-td:nth-child(4) .rt-td-inner{text-align:left!important}
 .rt-tbody .rt-td:nth-child(5) .rt-td-inner{text-align:left!important}
 .rt-tbody .rt-td:nth-child(6) .rt-td-inner{text-align:left!important}
-.rt-tbody .rt-td:nth-child(7) .rt-td-inner{text-align:left!important}
-.rt-tbody .rt-td:nth-child(8) .rt-td-inner{text-align:left!important}</style></head><body><main class='wrap'><p class='kicker'>Supreme Court of the United States</p><h1>The Daily Docket</h1><p class='dek'>Petitions and applications docketed <strong>July 06, 2026</strong> &mdash; sortable and filterable. Sort by <em>Grant forecast</em>, or expand a row&rsquo;s <em>Questions Presented</em>.</p><hr class='brule'>
-<div id="fuhpzczunb" class=".gt_table" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-  <style>#fuhpzczunb table {
+.rt-tbody .rt-td:nth-child(7) .rt-td-inner{text-align:left!important}</style><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://supremecourt.report/"},{"@type":"ListItem","position":2,"name":"Docket","item":"https://supremecourt.report/dashboards/"},{"@type":"ListItem","position":3,"name":"July 06, 2026"}]}</script></head><body><a class='skip' href='#main'>Skip to content</a><header><div class='smast-in'><a class='smast-wm' href='/'>Supreme Court <em>Report</em></a><nav aria-label='Sections'><ul class='snav'><li><a href='/dashboards/' aria-current='page'>Docket</a></li><li><a href='/conferences/'>Conferences</a></li><li><a href='/arguments/'>Arguments</a></li><li><a href='/funnel/'>The Funnel</a></li><li><a href='/methods.html'>Model</a></li><li><a href='/about.html'>About</a></li></ul></nav></div><div class='smast-rule-w'><hr class='smast-rule'></div></header><main class='wrap' id='main' style='--leaf-max:92rem'><nav class='bcrumb' aria-label='Breadcrumb'><ol><li><a href='/'>Home</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><a href='/dashboards/'>Docket</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><span aria-current='page'>July 06, 2026</span></li></ol></nav><p class='kicker'>Supreme Court of the United States</p><h1>The Daily Docket</h1><p class='dek'>Petitions and applications docketed <strong>July 06, 2026</strong> &mdash; sortable and filterable. Sort by <em>Grant forecast</em>, or expand a row&rsquo;s <em>Questions Presented</em>.</p><hr class='brule'>
+<div id="ydubywpmfx" class=".gt_table" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+  <style>#ydubywpmfx table {
   font-family: Newsreader, Georgia, serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#fuhpzczunb thead, #fuhpzczunb tbody, #fuhpzczunb tfoot, #fuhpzczunb tr, #fuhpzczunb td, #fuhpzczunb th {
+#ydubywpmfx thead, #ydubywpmfx tbody, #ydubywpmfx tfoot, #ydubywpmfx tr, #ydubywpmfx td, #ydubywpmfx th {
   border-style: none;
 }
 
-#fuhpzczunb p {
+#ydubywpmfx p {
   margin: 0;
   padding: 0;
 }
 
-#fuhpzczunb .gt_table {
+#ydubywpmfx .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
   margin-left: auto;
   margin-right: auto;
-  color: #23262D;
+  color: #1A1A1E;
   font-size: 15px;
   font-weight: normal;
   font-style: normal;
-  background-color: #F7F1E4;
+  background-color: #FFFFFF;
   width: auto;
   border-top-style: solid;
   border-top-width: 2px;
-  border-top-color: #23262D;
+  border-top-color: #1A1A1E;
   border-right-style: none;
   border-right-width: 2px;
   border-right-color: #D3D3D3;
   border-bottom-style: solid;
   border-bottom-width: 2px;
-  border-bottom-color: #23262D;
+  border-bottom-color: #1A1A1E;
   border-left-style: none;
   border-left-width: 2px;
   border-left-color: #D3D3D3;
 }
 
-#fuhpzczunb .gt_caption {
+#ydubywpmfx .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#fuhpzczunb .gt_title {
-  color: #23262D;
+#ydubywpmfx .gt_title {
+  color: #1A1A1E;
   font-size: 125%;
   font-weight: initial;
   padding-top: 4px;
   padding-bottom: 4px;
   padding-left: 5px;
   padding-right: 5px;
-  border-bottom-color: #F7F1E4;
+  border-bottom-color: #FFFFFF;
   border-bottom-width: 0;
 }
 
-#fuhpzczunb .gt_subtitle {
-  color: #23262D;
+#ydubywpmfx .gt_subtitle {
+  color: #1A1A1E;
   font-size: 85%;
   font-weight: initial;
   padding-top: 3px;
   padding-bottom: 5px;
   padding-left: 5px;
   padding-right: 5px;
-  border-top-color: #F7F1E4;
+  border-top-color: #FFFFFF;
   border-top-width: 0;
 }
 
-#fuhpzczunb .gt_heading {
-  background-color: #F7F1E4;
+#ydubywpmfx .gt_heading {
+  background-color: #FFFFFF;
   text-align: center;
-  border-bottom-color: #F7F1E4;
+  border-bottom-color: #FFFFFF;
   border-left-style: none;
   border-left-width: 1px;
   border-left-color: #D3D3D3;
@@ -8022,13 +8126,13 @@ h1{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:clamp(1.9rem,4
   border-right-color: #D3D3D3;
 }
 
-#fuhpzczunb .gt_bottom_border {
+#ydubywpmfx .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#fuhpzczunb .gt_col_headings {
+#ydubywpmfx .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -8043,9 +8147,9 @@ h1{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:clamp(1.9rem,4
   border-right-color: #D3D3D3;
 }
 
-#fuhpzczunb .gt_col_heading {
-  color: #23262D;
-  background-color: #F3ECDD;
+#ydubywpmfx .gt_col_heading {
+  color: #1A1A1E;
+  background-color: #FDFCFA;
   font-size: 100%;
   font-weight: 600;
   text-transform: uppercase;
@@ -8063,9 +8167,9 @@ h1{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:clamp(1.9rem,4
   overflow-x: hidden;
 }
 
-#fuhpzczunb .gt_column_spanner_outer {
-  color: #23262D;
-  background-color: #F3ECDD;
+#ydubywpmfx .gt_column_spanner_outer {
+  color: #1A1A1E;
+  background-color: #FDFCFA;
   font-size: 100%;
   font-weight: 600;
   text-transform: uppercase;
@@ -8075,15 +8179,15 @@ h1{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:clamp(1.9rem,4
   padding-right: 4px;
 }
 
-#fuhpzczunb .gt_column_spanner_outer:first-child {
+#ydubywpmfx .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#fuhpzczunb .gt_column_spanner_outer:last-child {
+#ydubywpmfx .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#fuhpzczunb .gt_column_spanner {
+#ydubywpmfx .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -8095,17 +8199,17 @@ h1{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:clamp(1.9rem,4
   width: 100%;
 }
 
-#fuhpzczunb .gt_spanner_row {
+#ydubywpmfx .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#fuhpzczunb .gt_group_heading {
+#ydubywpmfx .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
   padding-right: 5px;
-  color: #23262D;
-  background-color: #F7F1E4;
+  color: #1A1A1E;
+  background-color: #FFFFFF;
   font-size: 100%;
   font-weight: initial;
   text-transform: inherit;
@@ -8125,10 +8229,10 @@ h1{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:clamp(1.9rem,4
   text-align: left;
 }
 
-#fuhpzczunb .gt_empty_group_heading {
+#ydubywpmfx .gt_empty_group_heading {
   padding: 0.5px;
-  color: #23262D;
-  background-color: #F7F1E4;
+  color: #1A1A1E;
+  background-color: #FFFFFF;
   font-size: 100%;
   font-weight: initial;
   border-top-style: solid;
@@ -8140,15 +8244,15 @@ h1{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:clamp(1.9rem,4
   vertical-align: middle;
 }
 
-#fuhpzczunb .gt_from_md > :first-child {
+#ydubywpmfx .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#fuhpzczunb .gt_from_md > :last-child {
+#ydubywpmfx .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#fuhpzczunb .gt_row {
+#ydubywpmfx .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -8156,7 +8260,7 @@ h1{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:clamp(1.9rem,4
   margin: 10px;
   border-top-style: solid;
   border-top-width: 1px;
-  border-top-color: #D8CDB4;
+  border-top-color: #DBD8D2;
   border-left-style: none;
   border-left-width: 1px;
   border-left-color: #D3D3D3;
@@ -8167,9 +8271,9 @@ h1{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:clamp(1.9rem,4
   overflow-x: hidden;
 }
 
-#fuhpzczunb .gt_stub {
-  color: #23262D;
-  background-color: #F7F1E4;
+#ydubywpmfx .gt_stub {
+  color: #1A1A1E;
+  background-color: #FFFFFF;
   font-size: 100%;
   font-weight: initial;
   text-transform: inherit;
@@ -8180,9 +8284,9 @@ h1{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:clamp(1.9rem,4
   padding-right: 5px;
 }
 
-#fuhpzczunb .gt_stub_row_group {
-  color: #23262D;
-  background-color: #F7F1E4;
+#ydubywpmfx .gt_stub_row_group {
+  color: #1A1A1E;
+  background-color: #FFFFFF;
   font-size: 100%;
   font-weight: initial;
   text-transform: inherit;
@@ -8194,17 +8298,17 @@ h1{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:clamp(1.9rem,4
   vertical-align: top;
 }
 
-#fuhpzczunb .gt_row_group_first td {
+#ydubywpmfx .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#fuhpzczunb .gt_row_group_first th {
+#ydubywpmfx .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#fuhpzczunb .gt_summary_row {
-  color: #23262D;
-  background-color: #F7F1E4;
+#ydubywpmfx .gt_summary_row {
+  color: #1A1A1E;
+  background-color: #FFFFFF;
   text-transform: inherit;
   padding-top: 8px;
   padding-bottom: 8px;
@@ -8212,16 +8316,16 @@ h1{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:clamp(1.9rem,4
   padding-right: 5px;
 }
 
-#fuhpzczunb .gt_first_summary_row {
+#ydubywpmfx .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#fuhpzczunb .gt_first_summary_row.thick {
+#ydubywpmfx .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#fuhpzczunb .gt_last_summary_row {
+#ydubywpmfx .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -8231,9 +8335,9 @@ h1{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:clamp(1.9rem,4
   border-bottom-color: #D3D3D3;
 }
 
-#fuhpzczunb .gt_grand_summary_row {
-  color: #23262D;
-  background-color: #F7F1E4;
+#ydubywpmfx .gt_grand_summary_row {
+  color: #1A1A1E;
+  background-color: #FFFFFF;
   text-transform: inherit;
   padding-top: 8px;
   padding-bottom: 8px;
@@ -8241,7 +8345,7 @@ h1{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:clamp(1.9rem,4
   padding-right: 5px;
 }
 
-#fuhpzczunb .gt_first_grand_summary_row {
+#ydubywpmfx .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -8251,7 +8355,7 @@ h1{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:clamp(1.9rem,4
   border-top-color: #D3D3D3;
 }
 
-#fuhpzczunb .gt_last_grand_summary_row_top {
+#ydubywpmfx .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -8261,11 +8365,11 @@ h1{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:clamp(1.9rem,4
   border-bottom-color: #D3D3D3;
 }
 
-#fuhpzczunb .gt_striped {
-  background-color: #EFE7D6;
+#ydubywpmfx .gt_striped {
+  background-color: #F7F5F1;
 }
 
-#fuhpzczunb .gt_table_body {
+#ydubywpmfx .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -8274,9 +8378,9 @@ h1{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:clamp(1.9rem,4
   border-bottom-color: #D3D3D3;
 }
 
-#fuhpzczunb .gt_footnotes {
-  color: #23262D;
-  background-color: #F7F1E4;
+#ydubywpmfx .gt_footnotes {
+  color: #1A1A1E;
+  background-color: #FFFFFF;
   border-bottom-style: none;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -8288,7 +8392,7 @@ h1{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:clamp(1.9rem,4
   border-right-color: #D3D3D3;
 }
 
-#fuhpzczunb .gt_footnote {
+#ydubywpmfx .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -8297,9 +8401,9 @@ h1{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:clamp(1.9rem,4
   padding-right: 5px;
 }
 
-#fuhpzczunb .gt_sourcenotes {
-  color: #23262D;
-  background-color: #F7F1E4;
+#ydubywpmfx .gt_sourcenotes {
+  color: #1A1A1E;
+  background-color: #FFFFFF;
   border-bottom-style: none;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -8311,7 +8415,7 @@ h1{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:clamp(1.9rem,4
   border-right-color: #D3D3D3;
 }
 
-#fuhpzczunb .gt_sourcenote {
+#ydubywpmfx .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -8319,76 +8423,76 @@ h1{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:clamp(1.9rem,4
   padding-right: 5px;
 }
 
-#fuhpzczunb .gt_left {
+#ydubywpmfx .gt_left {
   text-align: left;
 }
 
-#fuhpzczunb .gt_center {
+#ydubywpmfx .gt_center {
   text-align: center;
 }
 
-#fuhpzczunb .gt_right {
+#ydubywpmfx .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#fuhpzczunb .gt_font_normal {
+#ydubywpmfx .gt_font_normal {
   font-weight: normal;
 }
 
-#fuhpzczunb .gt_font_bold {
+#ydubywpmfx .gt_font_bold {
   font-weight: bold;
 }
 
-#fuhpzczunb .gt_font_italic {
+#ydubywpmfx .gt_font_italic {
   font-style: italic;
 }
 
-#fuhpzczunb .gt_super {
+#ydubywpmfx .gt_super {
   font-size: 65%;
 }
 
-#fuhpzczunb .gt_footnote_marks {
+#ydubywpmfx .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#fuhpzczunb .gt_asterisk {
+#ydubywpmfx .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#fuhpzczunb .gt_indent_1 {
+#ydubywpmfx .gt_indent_1 {
   text-indent: 5px;
 }
 
-#fuhpzczunb .gt_indent_2 {
+#ydubywpmfx .gt_indent_2 {
   text-indent: 10px;
 }
 
-#fuhpzczunb .gt_indent_3 {
+#ydubywpmfx .gt_indent_3 {
   text-indent: 15px;
 }
 
-#fuhpzczunb .gt_indent_4 {
+#ydubywpmfx .gt_indent_4 {
   text-indent: 20px;
 }
 
-#fuhpzczunb .gt_indent_5 {
+#ydubywpmfx .gt_indent_5 {
   text-indent: 25px;
 }
 
-#fuhpzczunb .katex-display {
+#ydubywpmfx .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#fuhpzczunb div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#ydubywpmfx div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
-  <div id="fuhpzczunb" class="reactable html-widget" style="width:auto;height:auto;"></div>
-  <script type="application/json" data-for="fuhpzczunb">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Type":["Paid","Paid","Paid","Paid","Application","Application","Application","Application","Application"],"Case":["<a href='../cases/26-18.html' target='_blank'>Gary Westcott, Secretary, Louisiana Department of Public Safety and Corrections v. Voice of the Experienced<\/a>","<a href='../cases/26-19.html' target='_blank'>Allison Nguyen v. Louisiana<\/a>","<a href='../cases/26-17.html' target='_blank'>Dr. Douglas Schottenstein v. Orthogen International GmbH<\/a>","<a href='../cases/26-16.html' target='_blank'>Harold Jean-Baptiste v. Department of Justice<\/a>","<a href='../cases/26A23.html' target='_blank'>Sherhonda Golden v. NBCUniversal Media, LLC<\/a>","<a href='../cases/26A24.html' target='_blank'>New Mexico v. Samuel Neal<\/a>","<a href='../cases/26A25.html' target='_blank'>Nestlé USA, Inc. v. Marie Falcone, Individually and on Behalf of All Others Similarly Situated<\/a>","<a href='../cases/26A26.html' target='_blank'>Amaury Rodriguez v. United States<\/a>","<a href='../cases/26A27.html' target='_blank'>James Darrick Beeler v. United States<\/a>"],"Docket":["26-18","26-19","26-17","26-16","26A23","26A24","26A25","26A26","26A27"],"Grant":[0.024530513881721,0.024530513881721,0.0229849744940219,"NA","NA","NA","NA","NA","NA"],"Court":["Fifth Circuit","Court of Appeal of Louisian...","Second Circuit","District of Columbia Circuit","Second Circuit","Supreme Court of New Mexico","Ninth Circuit","Eleventh Circuit","Eighth Circuit"],"Counsel":["Jorge Benjamin Aguinaga<br>Louisiana Department of Justice","Alden Bruce Netterville<br>Bruce Netterville & Associates","Edward Daniel Altabet<br>Brach Eichler","Harold Jean-Baptiste","Joshua Ian Hammack<br>Bailey & Glasser, LLP","—","Theodore J. Boutrous Jr.<br>Gibson, Dunn & Crutcher LLP","Andrew Lee Adler<br>Federal Public Defender's Office","Tara Crane<br>Federal Public Defender's Office"],"Documents":["<a href='https://www.supremecourt.gov/DocketPDF/26/26-18/415294/20260629161944191_2026.06.29%20Petition.pdf' target='_blank'>Petition<\/a><br><a href='https://www.supremecourt.gov/DocketPDF/26/26-18/409115/20260518123611739_VOTE%20-%20SCOTUS%20MET.pdf' target='_blank'>Application<\/a>","<a href='https://www.supremecourt.gov/DocketPDF/26/26-19/415345/20260630122606085_Nguyen%20Petition%20June%2029%202026%20EFile.pdf' target='_blank'>Petition<\/a><br><a href='https://www.supremecourt.gov/DocketPDF/26/26-19/415345/20260630122611836_Nguyen%20Appendix%20June%2029%202026%20EFile.pdf' target='_blank'>Appendix<\/a>","<a href='https://www.supremecourt.gov/DocketPDF/26/26-17/415266/20260629135534836_Schottenstein%20Petition%20June%2029%202026%20EFile.pdf' target='_blank'>Petition<\/a><br><a href='https://www.supremecourt.gov/DocketPDF/26/26-17/415266/20260629135541295_Schottenstein%20Appendix%20June%2029%202026%20EFile.pdf' target='_blank'>Appendix<\/a>","<a href='https://www.supremecourt.gov/DocketPDF/26/26-16/415721/20260706132747579_20260706-132502-00001722-00001176.pdf' target='_blank'>Petition<\/a><br><a href='https://www.supremecourt.gov/DocketPDF/26/26-16/415721/20260706132747799_20260706-132502-00001722-00001177.pdf' target='_blank'>Appendix<\/a>","<a href='https://www.supremecourt.gov/DocketPDF/26/26A23/415458/20260701131443763_No.-_ApplicationForAnExtensionOfTime.pdf' target='_blank'>Application<\/a>","<a href='https://www.supremecourt.gov/DocketPDF/26/26A24/413890/20260624145300099_Neal%20Application%20Final.pdf' target='_blank'>Application<\/a>","<a href='https://www.supremecourt.gov/DocketPDF/26/26A25/415431/20260701111835858_Nestle%20-%20Application%20for%20Extension.pdf' target='_blank'>Application<\/a>","<a href='https://www.supremecourt.gov/DocketPDF/26/26A26/415401/20260630162154242_Cert%20extension.pdf' target='_blank'>Application<\/a>","<a href='https://www.supremecourt.gov/DocketPDF/26/26A27/415215/20260629105439436_Application%20-%20E-Signed.pdf' target='_blank'>Application<\/a>"],"QP":["<details><summary>Question(s) presented<\/summary>\n\nUnder this Court’s longstanding precedents, an otherwise-moot dispute is “not moot [if] it falls within a special category of disputes that are ‘capable of repetition’ while ‘evading review.’” Turner v. Rogers, 564 U.S. 431, 439 (2011). A dispute evades review if it “is ‘in its duration too short to be fully litigated’ through the [lower] courts (and arrive here) prior to its ‘expiration.’” Id. at 440. Applying that rule, the Court has held that periods of one year, one-and-a-half years, and even two years are “too short” for a dispute to be fully litigated. Id. In this litigation, the district court entered three preliminary injunctions, each of which expired by operation of law after 90 days—all while Louisiana’s appeals of the injunction orders were pending. The Fifth Circuit dismissed the three appeals as moot under Smith v. Edwards, 88 F.4th 1119 (5th Cir. 2023), which holds that 90 days is sufficient for “meaningful review,” at least by the Fifth Circuit. App.16a (Wilson, J., respecting the denial of rehearing en banc). By the Fifth Circuit’s lights, these disputes do not “evade review,” and thus the mootness exception for issues capable of repetition yet evading review does not apply. That position splits with decisions from this Court and nearly every federal court of appeals. The questions presented are: 1. Whether, under this Court’s precedents applying the mootness exception for issues capable of repetition yet evading review, a 90-day period is too short to fully litigate an issue.\n\n<\/details>","<details><summary>Question(s) presented<\/summary>\n\nDoes a defendant have a right to a jury trial in a misdemeanor domestic violence offense where the penalty carries up to six months in jail, a &#36;1,000.00 fine, loss of all Second Amendment rights under federal law, loss of Second Amendment rights under state law, and can never be expunged?\n\n<\/details>","<details><summary>Question(s) presented<\/summary>\n\n28 U.S.C. § 1782 authorizes federal courts to order discovery “for use in a proceeding in a foreign or international tribunal.” The Second Circuit affirmed orders authorizing what it repeatedly called “pre-suit discovery” — Rule 45 subpoenas for use in a “contemplated” private German civil action that Respondent, Orthogen Int’l GmbH, has not filed. The Question Presented is: Whether 28 U.S.C. § 1782 permits a district court to authorize a private foreign party to serve Rule 45 subpoenas for “pre-suit discovery” — to develop unpleaded foreign-law claims against a U.S. resident — in aid of a putative civil action it says it will file in the “conventional courts” of a foreign jurisdiction, where no administrative or quasi-judicial proceeding affords the applicant “significant procedural rights.”\n\n<\/details>","<details><summary>Question(s) presented<\/summary>\n\nCan the Federal Government evade liability for al­ leged attempted murder, a modern-day lynching in a hospital, and human-rights violations against an American citizen by using the Federal Government’s power to influence court decisions and protect the Federal Bureau of Investigation from liability for an alleged terrorist act?\n\n<\/details>","—","—","—","—","—"]},"columns":[{"id":"Type","name":"Type","type":"factor","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'Type' & rowIndex === 1) {\n  return { backgroundColor: '#E4E7D8', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 2) {\n  return { backgroundColor: '#E4E7D8', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 3) {\n  return { backgroundColor: '#E4E7D8', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 4) {\n  return { backgroundColor: '#E4E7D8', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 5) {\n  return { backgroundColor: '#DFE4EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 6) {\n  return { backgroundColor: '#DFE4EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 7) {\n  return { backgroundColor: '#DFE4EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 8) {\n  return { backgroundColor: '#DFE4EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 9) {\n  return { backgroundColor: '#DFE4EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 1) {\n  return { backgroundColor: '#F2E8D5', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 2) {\n  return { backgroundColor: '#F2E8D5', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 3) {\n  return { backgroundColor: '#F2E8D6', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 4) {\n  return { backgroundColor: '#F7F1E4', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 5) {\n  return { backgroundColor: '#F7F1E4', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 6) {\n  return { backgroundColor: '#F7F1E4', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 7) {\n  return { backgroundColor: '#F7F1E4', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 8) {\n  return { backgroundColor: '#F7F1E4', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 9) {\n  return { backgroundColor: '#F7F1E4', color: '#000000' }\n}\n\n}","html":true,"align":"center"},{"id":"Case","name":"Case","type":"character","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'Type' & rowIndex === 1) {\n  return { backgroundColor: '#E4E7D8', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 2) {\n  return { backgroundColor: '#E4E7D8', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 3) {\n  return { backgroundColor: '#E4E7D8', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 4) {\n  return { backgroundColor: '#E4E7D8', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 5) {\n  return { backgroundColor: '#DFE4EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 6) {\n  return { backgroundColor: '#DFE4EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 7) {\n  return { backgroundColor: '#DFE4EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 8) {\n  return { backgroundColor: '#DFE4EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 9) {\n  return { backgroundColor: '#DFE4EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 1) {\n  return { backgroundColor: '#F2E8D5', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 2) {\n  return { backgroundColor: '#F2E8D5', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 3) {\n  return { backgroundColor: '#F2E8D6', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 4) {\n  return { backgroundColor: '#F7F1E4', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 5) {\n  return { backgroundColor: '#F7F1E4', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 6) {\n  return { backgroundColor: '#F7F1E4', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 7) {\n  return { backgroundColor: '#F7F1E4', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 8) {\n  return { backgroundColor: '#F7F1E4', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 9) {\n  return { backgroundColor: '#F7F1E4', color: '#000000' }\n}\n\n}","cell":["<span class='gt_from_md'><a href='../cases/26-18.html' target='_blank'>Gary Westcott, Secretary, Louisiana Department of Public Safety and Corrections v. Voice of the Experienced<\/a><\/span>","<span class='gt_from_md'><a href='../cases/26-19.html' target='_blank'>Allison Nguyen v. Louisiana<\/a><\/span>","<span class='gt_from_md'><a href='../cases/26-17.html' target='_blank'>Dr. Douglas Schottenstein v. Orthogen International GmbH<\/a><\/span>","<span class='gt_from_md'><a href='../cases/26-16.html' target='_blank'>Harold Jean-Baptiste v. Department of Justice<\/a><\/span>","<span class='gt_from_md'><a href='../cases/26A23.html' target='_blank'>Sherhonda Golden v. NBCUniversal Media, LLC<\/a><\/span>","<span class='gt_from_md'><a href='../cases/26A24.html' target='_blank'>New Mexico v. Samuel Neal<\/a><\/span>","<span class='gt_from_md'><a href='../cases/26A25.html' target='_blank'>Nestlé USA, Inc. v. Marie Falcone, Individually and on Behalf of All Others Similarly Situated<\/a><\/span>","<span class='gt_from_md'><a href='../cases/26A26.html' target='_blank'>Amaury Rodriguez v. United States<\/a><\/span>","<span class='gt_from_md'><a href='../cases/26A27.html' target='_blank'>James Darrick Beeler v. United States<\/a><\/span>"],"html":true,"width":220,"align":"center"},{"id":"Docket","name":"Docket","type":"character","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'Type' & rowIndex === 1) {\n  return { backgroundColor: '#E4E7D8', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 2) {\n  return { backgroundColor: '#E4E7D8', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 3) {\n  return { backgroundColor: '#E4E7D8', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 4) {\n  return { backgroundColor: '#E4E7D8', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 5) {\n  return { backgroundColor: '#DFE4EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 6) {\n  return { backgroundColor: '#DFE4EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 7) {\n  return { backgroundColor: '#DFE4EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 8) {\n  return { backgroundColor: '#DFE4EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 9) {\n  return { backgroundColor: '#DFE4EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 1) {\n  return { backgroundColor: '#F2E8D5', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 2) {\n  return { backgroundColor: '#F2E8D5', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 3) {\n  return { backgroundColor: '#F2E8D6', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 4) {\n  return { backgroundColor: '#F7F1E4', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 5) {\n  return { backgroundColor: '#F7F1E4', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 6) {\n  return { backgroundColor: '#F7F1E4', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 7) {\n  return { backgroundColor: '#F7F1E4', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 8) {\n  return { backgroundColor: '#F7F1E4', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 9) {\n  return { backgroundColor: '#F7F1E4', color: '#000000' }\n}\n\n}","html":true,"align":"center"},{"id":"Grant","name":"Grant forecast","type":"numeric","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'Type' & rowIndex === 1) {\n  return { backgroundColor: '#E4E7D8', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 2) {\n  return { backgroundColor: '#E4E7D8', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 3) {\n  return { backgroundColor: '#E4E7D8', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 4) {\n  return { backgroundColor: '#E4E7D8', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 5) {\n  return { backgroundColor: '#DFE4EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 6) {\n  return { backgroundColor: '#DFE4EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 7) {\n  return { backgroundColor: '#DFE4EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 8) {\n  return { backgroundColor: '#DFE4EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 9) {\n  return { backgroundColor: '#DFE4EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 1) {\n  return { backgroundColor: '#F2E8D5', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 2) {\n  return { backgroundColor: '#F2E8D5', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 3) {\n  return { backgroundColor: '#F2E8D6', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 4) {\n  return { backgroundColor: '#F7F1E4', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 5) {\n  return { backgroundColor: '#F7F1E4', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 6) {\n  return { backgroundColor: '#F7F1E4', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 7) {\n  return { backgroundColor: '#F7F1E4', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 8) {\n  return { backgroundColor: '#F7F1E4', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 9) {\n  return { backgroundColor: '#F7F1E4', color: '#000000' }\n}\n\n}","cell":["2%","2%","2%","—","—","—","—","—","—"],"html":true,"align":"center"},{"id":"Court","name":"Court","type":"character","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'Type' & rowIndex === 1) {\n  return { backgroundColor: '#E4E7D8', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 2) {\n  return { backgroundColor: '#E4E7D8', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 3) {\n  return { backgroundColor: '#E4E7D8', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 4) {\n  return { backgroundColor: '#E4E7D8', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 5) {\n  return { backgroundColor: '#DFE4EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 6) {\n  return { backgroundColor: '#DFE4EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 7) {\n  return { backgroundColor: '#DFE4EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 8) {\n  return { backgroundColor: '#DFE4EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 9) {\n  return { backgroundColor: '#DFE4EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 1) {\n  return { backgroundColor: '#F2E8D5', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 2) {\n  return { backgroundColor: '#F2E8D5', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 3) {\n  return { backgroundColor: '#F2E8D6', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 4) {\n  return { backgroundColor: '#F7F1E4', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 5) {\n  return { backgroundColor: '#F7F1E4', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 6) {\n  return { backgroundColor: '#F7F1E4', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 7) {\n  return { backgroundColor: '#F7F1E4', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 8) {\n  return { backgroundColor: '#F7F1E4', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 9) {\n  return { backgroundColor: '#F7F1E4', color: '#000000' }\n}\n\n}","html":true,"align":"center"},{"id":"Counsel","name":"Counsel","type":"character","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'Type' & rowIndex === 1) {\n  return { backgroundColor: '#E4E7D8', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 2) {\n  return { backgroundColor: '#E4E7D8', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 3) {\n  return { backgroundColor: '#E4E7D8', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 4) {\n  return { backgroundColor: '#E4E7D8', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 5) {\n  return { backgroundColor: '#DFE4EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 6) {\n  return { backgroundColor: '#DFE4EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 7) {\n  return { backgroundColor: '#DFE4EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 8) {\n  return { backgroundColor: '#DFE4EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 9) {\n  return { backgroundColor: '#DFE4EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 1) {\n  return { backgroundColor: '#F2E8D5', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 2) {\n  return { backgroundColor: '#F2E8D5', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 3) {\n  return { backgroundColor: '#F2E8D6', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 4) {\n  return { backgroundColor: '#F7F1E4', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 5) {\n  return { backgroundColor: '#F7F1E4', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 6) {\n  return { backgroundColor: '#F7F1E4', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 7) {\n  return { backgroundColor: '#F7F1E4', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 8) {\n  return { backgroundColor: '#F7F1E4', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 9) {\n  return { backgroundColor: '#F7F1E4', color: '#000000' }\n}\n\n}","cell":["<span class='gt_from_md'>Jorge Benjamin Aguinaga<br>Louisiana Department of Justice<\/span>","<span class='gt_from_md'>Alden Bruce Netterville<br>Bruce Netterville &amp; Associates<\/span>","<span class='gt_from_md'>Edward Daniel Altabet<br>Brach Eichler<\/span>","<span class='gt_from_md'>Harold Jean-Baptiste<\/span>","<span class='gt_from_md'>Joshua Ian Hammack<br>Bailey &amp; Glasser, LLP<\/span>","<span class='gt_from_md'>—<\/span>","<span class='gt_from_md'>Theodore J. Boutrous Jr.<br>Gibson, Dunn &amp; Crutcher LLP<\/span>","<span class='gt_from_md'>Andrew Lee Adler<br>Federal Public Defender’s Office<\/span>","<span class='gt_from_md'>Tara Crane<br>Federal Public Defender’s Office<\/span>"],"html":true,"align":"center"},{"id":"Documents","name":"Documents","type":"character","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'Type' & rowIndex === 1) {\n  return { backgroundColor: '#E4E7D8', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 2) {\n  return { backgroundColor: '#E4E7D8', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 3) {\n  return { backgroundColor: '#E4E7D8', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 4) {\n  return { backgroundColor: '#E4E7D8', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 5) {\n  return { backgroundColor: '#DFE4EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 6) {\n  return { backgroundColor: '#DFE4EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 7) {\n  return { backgroundColor: '#DFE4EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 8) {\n  return { backgroundColor: '#DFE4EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 9) {\n  return { backgroundColor: '#DFE4EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 1) {\n  return { backgroundColor: '#F2E8D5', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 2) {\n  return { backgroundColor: '#F2E8D5', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 3) {\n  return { backgroundColor: '#F2E8D6', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 4) {\n  return { backgroundColor: '#F7F1E4', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 5) {\n  return { backgroundColor: '#F7F1E4', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 6) {\n  return { backgroundColor: '#F7F1E4', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 7) {\n  return { backgroundColor: '#F7F1E4', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 8) {\n  return { backgroundColor: '#F7F1E4', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 9) {\n  return { backgroundColor: '#F7F1E4', color: '#000000' }\n}\n\n}","cell":["<span class='gt_from_md'><a href='https://www.supremecourt.gov/DocketPDF/26/26-18/415294/20260629161944191_2026.06.29%20Petition.pdf' target='_blank'>Petition<\/a><br><a href='https://www.supremecourt.gov/DocketPDF/26/26-18/409115/20260518123611739_VOTE%20-%20SCOTUS%20MET.pdf' target='_blank'>Application<\/a><\/span>","<span class='gt_from_md'><a href='https://www.supremecourt.gov/DocketPDF/26/26-19/415345/20260630122606085_Nguyen%20Petition%20June%2029%202026%20EFile.pdf' target='_blank'>Petition<\/a><br><a href='https://www.supremecourt.gov/DocketPDF/26/26-19/415345/20260630122611836_Nguyen%20Appendix%20June%2029%202026%20EFile.pdf' target='_blank'>Appendix<\/a><\/span>","<span class='gt_from_md'><a href='https://www.supremecourt.gov/DocketPDF/26/26-17/415266/20260629135534836_Schottenstein%20Petition%20June%2029%202026%20EFile.pdf' target='_blank'>Petition<\/a><br><a href='https://www.supremecourt.gov/DocketPDF/26/26-17/415266/20260629135541295_Schottenstein%20Appendix%20June%2029%202026%20EFile.pdf' target='_blank'>Appendix<\/a><\/span>","<span class='gt_from_md'><a href='https://www.supremecourt.gov/DocketPDF/26/26-16/415721/20260706132747579_20260706-132502-00001722-00001176.pdf' target='_blank'>Petition<\/a><br><a href='https://www.supremecourt.gov/DocketPDF/26/26-16/415721/20260706132747799_20260706-132502-00001722-00001177.pdf' target='_blank'>Appendix<\/a><\/span>","<span class='gt_from_md'><a href='https://www.supremecourt.gov/DocketPDF/26/26A23/415458/20260701131443763_No.-_ApplicationForAnExtensionOfTime.pdf' target='_blank'>Application<\/a><\/span>","<span class='gt_from_md'><a href='https://www.supremecourt.gov/DocketPDF/26/26A24/413890/20260624145300099_Neal%20Application%20Final.pdf' target='_blank'>Application<\/a><\/span>","<span class='gt_from_md'><a href='https://www.supremecourt.gov/DocketPDF/26/26A25/415431/20260701111835858_Nestle%20-%20Application%20for%20Extension.pdf' target='_blank'>Application<\/a><\/span>","<span class='gt_from_md'><a href='https://www.supremecourt.gov/DocketPDF/26/26A26/415401/20260630162154242_Cert%20extension.pdf' target='_blank'>Application<\/a><\/span>","<span class='gt_from_md'><a href='https://www.supremecourt.gov/DocketPDF/26/26A27/415215/20260629105439436_Application%20-%20E-Signed.pdf' target='_blank'>Application<\/a><\/span>"],"html":true,"align":"center"},{"id":"QP","name":"Questions Presented","type":"character","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'Type' & rowIndex === 1) {\n  return { backgroundColor: '#E4E7D8', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 2) {\n  return { backgroundColor: '#E4E7D8', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 3) {\n  return { backgroundColor: '#E4E7D8', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 4) {\n  return { backgroundColor: '#E4E7D8', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 5) {\n  return { backgroundColor: '#DFE4EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 6) {\n  return { backgroundColor: '#DFE4EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 7) {\n  return { backgroundColor: '#DFE4EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 8) {\n  return { backgroundColor: '#DFE4EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 9) {\n  return { backgroundColor: '#DFE4EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 1) {\n  return { backgroundColor: '#F2E8D5', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 2) {\n  return { backgroundColor: '#F2E8D5', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 3) {\n  return { backgroundColor: '#F2E8D6', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 4) {\n  return { backgroundColor: '#F7F1E4', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 5) {\n  return { backgroundColor: '#F7F1E4', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 6) {\n  return { backgroundColor: '#F7F1E4', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 7) {\n  return { backgroundColor: '#F7F1E4', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 8) {\n  return { backgroundColor: '#F7F1E4', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 9) {\n  return { backgroundColor: '#F7F1E4', color: '#000000' }\n}\n\n}","cell":["<span class='gt_from_md'><details><summary>Question(s) presented<\/summary>\n<p>Under this Court’s longstanding precedents, an otherwise-moot dispute is “not moot [if] it falls within a special category of disputes that are ‘capable of repetition’ while ‘evading review.’” Turner v. Rogers, 564 U.S. 431, 439 (2011). A dispute evades review if it “is ‘in its duration too short to be fully litigated’ through the [lower] courts (and arrive here) prior to its ‘expiration.’” Id. at 440. Applying that rule, the Court has held that periods of one year, one-and-a-half years, and even two years are “too short” for a dispute to be fully litigated. Id. In this litigation, the district court entered three preliminary injunctions, each of which expired by operation of law after 90 days—all while Louisiana’s appeals of the injunction orders were pending. The Fifth Circuit dismissed the three appeals as moot under Smith v. Edwards, 88 F.4th 1119 (5th Cir. 2023), which holds that 90 days is sufficient for “meaningful review,” at least by the Fifth Circuit. App.16a (Wilson, J., respecting the denial of rehearing en banc). By the Fifth Circuit’s lights, these disputes do not “evade review,” and thus the mootness exception for issues capable of repetition yet evading review does not apply. That position splits with decisions from this Court and nearly every federal court of appeals. The questions presented are: 1. Whether, under this Court’s precedents applying the mootness exception for issues capable of repetition yet evading review, a 90-day period is too short to fully litigate an issue.<\/p>\n<\/details>\n<\/span>","<span class='gt_from_md'><details><summary>Question(s) presented<\/summary>\n<p>Does a defendant have a right to a jury trial in a misdemeanor domestic violence offense where the penalty carries up to six months in jail, a $1,000.00 fine, loss of all Second Amendment rights under federal law, loss of Second Amendment rights under state law, and can never be expunged?<\/p>\n<\/details>\n<\/span>","<span class='gt_from_md'><details><summary>Question(s) presented<\/summary>\n<p>28 U.S.C. § 1782 authorizes federal courts to order discovery “for use in a proceeding in a foreign or international tribunal.” The Second Circuit affirmed orders authorizing what it repeatedly called “pre-suit discovery” — Rule 45 subpoenas for use in a “contemplated” private German civil action that Respondent, Orthogen Int’l GmbH, has not filed. The Question Presented is: Whether 28 U.S.C. § 1782 permits a district court to authorize a private foreign party to serve Rule 45 subpoenas for “pre-suit discovery” — to develop unpleaded foreign-law claims against a U.S. resident — in aid of a putative civil action it says it will file in the “conventional courts” of a foreign jurisdiction, where no administrative or quasi-judicial proceeding affords the applicant “significant procedural rights.”<\/p>\n<\/details>\n<\/span>","<span class='gt_from_md'><details><summary>Question(s) presented<\/summary>\n<p>Can the Federal Government evade liability for al­ leged attempted murder, a modern-day lynching in a hospital, and human-rights violations against an American citizen by using the Federal Government’s power to influence court decisions and protect the Federal Bureau of Investigation from liability for an alleged terrorist act?<\/p>\n<\/details>\n<\/span>","<span class='gt_from_md'>—<\/span>","<span class='gt_from_md'>—<\/span>","<span class='gt_from_md'>—<\/span>","<span class='gt_from_md'>—<\/span>","<span class='gt_from_md'>—<\/span>"],"html":true,"width":190,"align":"center"}],"filterable":true,"searchable":true,"defaultPageSize":25,"showPageSizeOptions":true,"pageSizeOptions":[9,25,50,100],"paginationType":"numbers","showPagination":true,"showPageInfo":true,"minRows":1,"highlight":true,"compact":true,"height":"auto","theme":{"color":"#23262d","backgroundColor":"#f7f1e4","stripedColor":"#efe7d6","style":{"font-family":"Newsreader, Georgia, serif","fontSize":"15px"},"tableStyle":{"borderTopStyle":"solid","borderTopWidth":"2px","borderTopColor":"#D3D3D3"},"headerStyle":{"fontWeight":"600","backgroundColor":"#f3ecdd","borderBottomStyle":"solid","borderBottomWidth":"2px","borderBottomColor":"#D3D3D3"},"groupHeaderStyle":{"fontWeight":"600","backgroundColor":"#f3ecdd","borderBottomStyle":"solid","borderBottomWidth":"2px","borderBottomColor":"#D3D3D3"},"cellStyle":{"fontWeight":"normal"}},"elementId":"fuhpzczunb","dataKey":"6da3fae40cecf615497f797132e6a29a"},"children":[]},"class":"reactR_markup"},"evals":["tag.attribs.columns.0.style","tag.attribs.columns.1.style","tag.attribs.columns.2.style","tag.attribs.columns.3.style","tag.attribs.columns.4.style","tag.attribs.columns.5.style","tag.attribs.columns.6.style","tag.attribs.columns.7.style"],"jsHooks":[]}</script>
+  <div id="ydubywpmfx" class="reactable html-widget" style="width:auto;height:auto;"></div>
+  <script type="application/json" data-for="ydubywpmfx">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Type":["Paid","Paid","Paid","Paid","IFP","IFP","IFP","IFP","IFP","IFP","Application","Application","Application","Application","Application"],"Case":["<a href='../cases/26-18.html' target='_blank'>Gary Westcott, Secretary, Louisiana Department of Public Safety and Corrections v. Voice of the Experienced<\/a><span class='cdk'>No. 26-18<\/span>","<a href='../cases/26-17.html' target='_blank'>Dr. Douglas Schottenstein v. Orthogen International GmbH<\/a><span class='cdk'>No. 26-17<\/span>","<a href='../cases/26-19.html' target='_blank'>Allison Nguyen v. Louisiana<\/a><span class='cdk'>No. 26-19<\/span>","<a href='../cases/26-16.html' target='_blank'>Harold Jean-Baptiste v. Department of Justice<\/a><span class='cdk'>No. 26-16<\/span>","<a href='../cases/26-5021.html' target='_blank'>Larry Roosevelt Carter v. Heidi E. Washington, Director, Michigan Department of Corrections<\/a><span class='cdk'>No. 26-5021<\/span>","<a href='../cases/26-5022.html' target='_blank'>King Miguel Eddie Crayton v. J. N. Williams, Deputy<\/a><span class='cdk'>No. 26-5022<\/span>","<a href='../cases/26-5023.html' target='_blank'>Octavio Jimenez-Marquez v. United States<\/a><span class='cdk'>No. 26-5023<\/span>","<a href='../cases/26-5024.html' target='_blank'>In Re Jesse Randolph Curry, Jr.<\/a><span class='cdk'>No. 26-5024<\/span>","<a href='../cases/26-5025.html' target='_blank'>Alexander Wesley Ledvina v. United States<\/a><span class='cdk'>No. 26-5025<\/span>","<a href='../cases/26-5026.html' target='_blank'>Sergey Donskoy v. United States Citizenship and Immigration Services<\/a><span class='cdk'>No. 26-5026<\/span>","<a href='../cases/26A23.html' target='_blank'>Sherhonda Golden v. NBCUniversal Media, LLC<\/a><span class='cdk'>No. 26A23<\/span>","<a href='../cases/26A24.html' target='_blank'>New Mexico v. Samuel Neal<\/a><span class='cdk'>No. 26A24<\/span>","<a href='../cases/26A25.html' target='_blank'>Nestlé USA, Inc. v. Marie Falcone, Individually and on Behalf of All Others Similarly Situated<\/a><span class='cdk'>No. 26A25<\/span>","<a href='../cases/26A26.html' target='_blank'>Amaury Rodriguez v. United States<\/a><span class='cdk'>No. 26A26<\/span>","<a href='../cases/26A27.html' target='_blank'>James Darrick Beeler v. United States<\/a><span class='cdk'>No. 26A27<\/span>"],"Grant":[0.542990665576564,0.0366256813978495,0.00943746904909214,0.000557058782666291,"NA","NA","NA","NA","NA","NA","NA","NA","NA","NA","NA"],"Court":["Fifth Circuit","Second Circuit","Court of Appeal of Louisian...","District of Columbia Circuit","Sixth Circuit","Fourth Circuit","Tenth Circuit","—","Eighth Circuit","Ninth Circuit","Second Circuit","Supreme Court of New Mexico","Ninth Circuit","Eleventh Circuit","Eighth Circuit"],"Counsel":["Jorge Benjamin Aguinaga<br>Louisiana Department of Justice","Edward Daniel Altabet<br>Brach Eichler","Alden Bruce Netterville<br>Bruce Netterville & Associates","Harold Jean-Baptiste","Larry Roosevelt Carter","King Miguel Eddie Crayton","Gregory Mitchell Acton Sr.<br>Acton Law Office, PC","Jesse Randolph Curry Jr.","Alexander Wesley Ledvina","Sergey Donskoy","Joshua Ian Hammack<br>Bailey & Glasser, LLP","—","Theodore J. Boutrous Jr.<br>Gibson, Dunn & Crutcher LLP","Andrew Lee Adler<br>Federal Public Defender's Office","Tara Crane<br>Federal Public Defender's Office"],"Documents":["<a href='https://www.supremecourt.gov/DocketPDF/26/26-18/415294/20260629161944191_2026.06.29%20Petition.pdf' target='_blank'>Petition<\/a><br><a href='https://www.supremecourt.gov/DocketPDF/26/26-18/409115/20260518123611739_VOTE%20-%20SCOTUS%20MET.pdf' target='_blank'>Application<\/a>","<a href='https://www.supremecourt.gov/DocketPDF/26/26-17/415266/20260629135534836_Schottenstein%20Petition%20June%2029%202026%20EFile.pdf' target='_blank'>Petition<\/a><br><a href='https://www.supremecourt.gov/DocketPDF/26/26-17/415266/20260629135541295_Schottenstein%20Appendix%20June%2029%202026%20EFile.pdf' target='_blank'>Appendix<\/a>","<a href='https://www.supremecourt.gov/DocketPDF/26/26-19/415345/20260630122606085_Nguyen%20Petition%20June%2029%202026%20EFile.pdf' target='_blank'>Petition<\/a><br><a href='https://www.supremecourt.gov/DocketPDF/26/26-19/415345/20260630122611836_Nguyen%20Appendix%20June%2029%202026%20EFile.pdf' target='_blank'>Appendix<\/a>","<a href='https://www.supremecourt.gov/DocketPDF/26/26-16/415721/20260706132747579_20260706-132502-00001722-00001176.pdf' target='_blank'>Petition<\/a><br><a href='https://www.supremecourt.gov/DocketPDF/26/26-16/415721/20260706132747799_20260706-132502-00001722-00001177.pdf' target='_blank'>Appendix<\/a>","<a href='https://www.supremecourt.gov/DocketPDF/26/26-5021/415703/20260707073135485_20260707-072804-00001726-00004309.pdf' target='_blank'>Petition<\/a><br><a href='https://www.supremecourt.gov/DocketPDF/26/26-5021/415703/20260707073136010_20260707-072804-00001726-00004311.pdf' target='_blank'>Appendix<\/a>","<a href='https://www.supremecourt.gov/DocketPDF/26/26-5022/415709/20260707072517211_20260707-072208-00001724-00004301.pdf' target='_blank'>Petition<\/a><br><a href='https://www.supremecourt.gov/DocketPDF/26/26-5022/415709/20260707072518032_20260707-072208-00001724-00004303.pdf' target='_blank'>Appendix<\/a>","<a href='https://www.supremecourt.gov/DocketPDF/26/26-5023/415316/20260629182439659_Motion%20for%20leave%20to%20proceed%20in%20forma%20pauperis.pdf' target='_blank'>Petition<\/a><br><a href='https://www.supremecourt.gov/DocketPDF/26/26-5023/415316/20260629183102453_APPENDIX.pdf' target='_blank'>Appendix<\/a>","<a href='https://www.supremecourt.gov/DocketPDF/26/26-5024/415743/20260707074144199_20260707-073145-00001727-00004315.pdf' target='_blank'>Appendix<\/a>","<a href='https://www.supremecourt.gov/DocketPDF/26/26-5025/415746/20260707074758111_20260707-074021-00001728-00004317.pdf' target='_blank'>Petition<\/a><br><a href='https://www.supremecourt.gov/DocketPDF/26/26-5025/415746/20260707074758824_20260707-074021-00001728-00004319.pdf' target='_blank'>Appendix<\/a>","<a href='https://www.supremecourt.gov/DocketPDF/26/26-5026/415759/20260707072228115_20260707-071955-00001723-00004297.pdf' target='_blank'>Petition<\/a><br><a href='https://www.supremecourt.gov/DocketPDF/26/26-5026/415759/20260707072229372_20260707-071955-00001723-00004299.pdf' target='_blank'>Appendix<\/a>","<a href='https://www.supremecourt.gov/DocketPDF/26/26A23/415458/20260701131443763_No.-_ApplicationForAnExtensionOfTime.pdf' target='_blank'>Application<\/a>","<a href='https://www.supremecourt.gov/DocketPDF/26/26A24/413890/20260624145300099_Neal%20Application%20Final.pdf' target='_blank'>Application<\/a>","<a href='https://www.supremecourt.gov/DocketPDF/26/26A25/415431/20260701111835858_Nestle%20-%20Application%20for%20Extension.pdf' target='_blank'>Application<\/a>","<a href='https://www.supremecourt.gov/DocketPDF/26/26A26/415401/20260630162154242_Cert%20extension.pdf' target='_blank'>Application<\/a>","<a href='https://www.supremecourt.gov/DocketPDF/26/26A27/415215/20260629105439436_Application%20-%20E-Signed.pdf' target='_blank'>Application<\/a>"],"QP":["<details><summary>Question(s) presented<\/summary>\n\nUnder this Court’s longstanding precedents, an otherwise-moot dispute is “not moot [if] it falls within a special category of disputes that are ‘capable of repetition’ while ‘evading review.’” Turner v. Rogers, 564 U.S. 431, 439 (2011). A dispute evades review if it “is ‘in its duration too short to be fully litigated’ through the [lower] courts (and arrive here) prior to its ‘expiration.’” Id. at 440. Applying that rule, the Court has held that periods of one year, one-and-a-half years, and even two years are “too short” for a dispute to be fully litigated. Id. In this litigation, the district court entered three preliminary injunctions, each of which expired by operation of law after 90 days—all while Louisiana’s appeals of the injunction orders were pending. The Fifth Circuit dismissed the three appeals as moot under Smith v. Edwards, 88 F.4th 1119 (5th Cir. 2023), which holds that 90 days is sufficient for “meaningful review,” at least by the Fifth Circuit. App.16a (Wilson, J., respecting the denial of rehearing en banc). By the Fifth Circuit’s lights, these disputes do not “evade review,” and thus the mootness exception for issues capable of repetition yet evading review does not apply. That position splits with decisions from this Court and nearly every federal court of appeals. The questions presented are: 1. Whether, under this Court’s precedents applying the mootness exception for issues capable of repetition yet evading review, a 90-day period is too short to fully litigate an issue.\n\n<\/details>","<details><summary>Question(s) presented<\/summary>\n\n28 U.S.C. § 1782 authorizes federal courts to order discovery “for use in a proceeding in a foreign or international tribunal.” The Second Circuit affirmed orders authorizing what it repeatedly called “pre-suit discovery” — Rule 45 subpoenas for use in a “contemplated” private German civil action that Respondent, Orthogen Int’l GmbH, has not filed. The Question Presented is: Whether 28 U.S.C. § 1782 permits a district court to authorize a private foreign party to serve Rule 45 subpoenas for “pre-suit discovery” — to develop unpleaded foreign-law claims against a U.S. resident — in aid of a putative civil action it says it will file in the “conventional courts” of a foreign jurisdiction, where no administrative or quasi-judicial proceeding affords the applicant “significant procedural rights.”\n\n<\/details>","<details><summary>Question(s) presented<\/summary>\n\nDoes a defendant have a right to a jury trial in a misdemeanor domestic violence offense where the penalty carries up to six months in jail, a &#36;1,000.00 fine, loss of all Second Amendment rights under federal law, loss of Second Amendment rights under state law, and can never be expunged?\n\n<\/details>","<details><summary>Question(s) presented<\/summary>\n\nCan the Federal Government evade liability for al­ leged attempted murder, a modern-day lynching in a hospital, and human-rights violations against an American citizen by using the Federal Government’s power to influence court decisions and protect the Federal Bureau of Investigation from liability for an alleged terrorist act?\n\n<\/details>","<details><summary>Question(s) presented<\/summary>\n\nI. DOES THE GRANTING OF BROAD DISCRETIONARY POWERS TO THE MICHIGAN PAROliE BOARD ENCOURAGE THE STATE OF MICHIGAN TO INFRINGE UPON THE DUE PROCESS RIGHTS OF STATE PRISONERS? p. 3 II. DOES MICHIGAN VIOLATE 14TH AMENDMENT DUE PROCESS PROTECTIONS WHEN IT USES THE PHRASE \"NO dlBERTY INTEREST\" AGAINST STATE PRISONERS WHO HAVE SERVED THEIR MINIMUM SENTENCES, AND BY VIRTUE OF \"GOOD BEHAVIOR\" AND A \"PAROLABLE\" SENTENCE HAVE EARNED A CHANCE AT LIBERTY? p. 4 III. IS THE USE OF INACCURATE DATA TO DENY A PRISONER HIS LIBERTY TANTAMOUNT TO FALSE IMPRISONMENT? p. 5 IV. IS THE MOST EFFECTIVE WAY TO WAREHOUSE STATE PRISONERS FIRST TO DEPRIVE THEM OF THEIR DUE PROCESS RIGHTS (WHICH IS THE NECESSARY INGREDIENT FOR BROAD DISCRETIONARY POWERS TO FLOURISH)? p. 6 V. ARE THE COURTS MORE CONCERNED ABOUT PROTECTING THE RIGHTS OF STATE AUTHORITIES THAN THEY ARE ABOUT PROTECTING THE RIGHTS OF STATE CITIZENS? p. 8\n\n<\/details>","<details><summary>Question(s) presented<\/summary>\n\nWhether a federal district court violates due process when it dismisses a pro se litigant’s 42 U.S.C. § 1983 complaint without meaningful consideration of the factual allegations and without affording a genuine opportunity to amend. Whether a court of appeals may affirm dismissal of a pro se civil rights complaint on procedural grounds without addressing the underlying constitutional violations. Whether dismissal practices that prevent substantive review of pro se civil rights claims undermine the constitutional guarantee of access to the courts.\n\n<\/details>","<details><summary>Question(s) presented<\/summary>\n\nThe question presented is: Whether the phrase “in furtherance of” in 18 U.S.C. § 924(c) is unconstitutionally vague as applied to the Petitioner.\n\n<\/details>","<details><summary>Question(s) presented<\/summary>\n\n(A) Has the Fifth Circuit entered a decision in \"CONFLICT\" with her sister circuits and lower federal courts, on the same important issues, of wheather A.E.D.P.A.'s successive petition rules apply to \"BRADY\" and \"NAPUE\" violations that were \"NOT RIPE\" at the time of the initial petition, based on \"NEWLY DISCOVERED\" DNA forensic test evidence; (B) Has the Fifth Circuit entered a ruling that \"CONTRAVENS\" United States Supreme Court \"PRECEDENT\" set in Panetti V. Quarterman, on wheather A.E.D.P.A.'s successive petition rules apply to violations that were \"NOT RIPE\" at the time of the initial habeas petition, based on \"BRADY\" and \"NAPUE\" violations shown by NEWLY DISCOVERED FORENSIC DNA TEST EVIDENCE; (C) Has the Fifth Circuit entered a decision in \"CONFLICT\" with its sister circuits and lower federal courts, on the same \"IMPORTANT ISSUES\" of wheather A.E.D.P.A.'s successive petition rules apply to § 60 (b), § 60 (d) (3), \"FRAUD UPON THE COURT\" violations that demonstrate EGREGIOUS, \"intentionally fraudulent conduct directed at state and federal courts; (D) Has the Fifth Circuit entered a ruling that \"CONTRAVENS\" United States Supreme Court \"PRECEDENT\" on wheather A.E.D.P.A.'s successive petition rules apply to § 60 (b), § 60 (d) (3), \"FRAUD UPON THE COURT\" where state officers of the court of Texas, did DILIBERATELY PLAN AND EXCUTE A SCHEME TO DEFRAUD STATE AND FEDERAL COURTS.\n\n<\/details>","<details><summary>Question(s) presented<\/summary>\n\n1. Whether the Second Amendment precludes applying 18 U.S.C. § 922(g)(3)/ the statute prohibiting the possession of firearms by unlawful users of controlled substances/ to the Petitioner and a conviction under 18 U.S.C. § 924(a)(1)(A), the statute criminalizing false representations with respect to information required to be kept in the records of a firearms dealer, for falsely representing that Petitioner was not an unlawful user.\n\n2. Whether the term \"unlawful user\" is unconstitutionally vague.\n\n3. Whether the court of appeals erred by deciding the constitutional issues without passing on the nonconstitutional issues.\n\n<\/details>","<details><summary>Question(s) presented<\/summary>\n\n• In the beginning of 2025, Petitioner filed a complaint seeking a district court mandate compelling the Respondent’s duty to adjudicate the Petitioner’s 1-140 petition for alien worker filed with USCIS in 2020 in the field it actually sought and without discriminating against Petitioner on the individual basis within the class of award recipients, and also taking into account other claims, previously not brought for court review or not actually litigated. The district court dismissed the complaint, applying the law of “claim preclusion”, referencing to the Petitioner’s complaint which in 2021 sought, on different claims, a court declaration that Petitioner was entitled to the “extraordinarily ability” visa (Ell immigrant status). On appeal, the court of appeals afforded a prolonged extension of time to Respondent for filing its answering brief, but later, on the Respondent’s motion for summary affirmance, affirmed the district court decision, based on “insubstantial appeal” standard. Petitioner hereby presents the following questions for the Court’s consideration:\n\n1. Whether the legal test examining the transactional nucleus of facts shared between causes of action, which evolved as common law of “res judicata doctrine” for the purpose of estoppel, is unconstitutional.\n\n2. Whether the court of appeals may not take for review on the merits and grant a motion for summary disposition at “any time” during prolonged extension of time given for filing the answering brief.\n\n3. Whether the court of appeals erred in affirming, based on “insubstantial appeal” standard, the district court dismissal of the Petitioner’s complaint.\n\n<\/details>","—","—","—","—","—"]},"columns":[{"id":"Type","name":"Type","type":"factor","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'Type' & rowIndex === 1) {\n  return { backgroundColor: '#E8E8E1', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 2) {\n  return { backgroundColor: '#E8E8E1', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 3) {\n  return { backgroundColor: '#E8E8E1', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 4) {\n  return { backgroundColor: '#E8E8E1', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 5) {\n  return { backgroundColor: '#F2E8DD', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 6) {\n  return { backgroundColor: '#F2E8DD', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 7) {\n  return { backgroundColor: '#F2E8DD', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 8) {\n  return { backgroundColor: '#F2E8DD', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 9) {\n  return { backgroundColor: '#F2E8DD', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 10) {\n  return { backgroundColor: '#F2E8DD', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 11) {\n  return { backgroundColor: '#E2E5EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 12) {\n  return { backgroundColor: '#E2E5EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 13) {\n  return { backgroundColor: '#E2E5EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 14) {\n  return { backgroundColor: '#E2E5EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 15) {\n  return { backgroundColor: '#E2E5EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 1) {\n  return { backgroundColor: '#A92C4B', color: '#FFFFFF' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 2) {\n  return { backgroundColor: '#FBF2F3', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 3) {\n  return { backgroundColor: '#FDFAF8', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 4) {\n  return { backgroundColor: '#FDFCFA', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 5) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 6) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 7) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 8) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 9) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 10) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 11) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 12) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 13) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 14) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 15) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\n}","html":true,"width":76,"align":"center"},{"id":"Case","name":"Case","type":"character","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'Type' & rowIndex === 1) {\n  return { backgroundColor: '#E8E8E1', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 2) {\n  return { backgroundColor: '#E8E8E1', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 3) {\n  return { backgroundColor: '#E8E8E1', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 4) {\n  return { backgroundColor: '#E8E8E1', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 5) {\n  return { backgroundColor: '#F2E8DD', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 6) {\n  return { backgroundColor: '#F2E8DD', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 7) {\n  return { backgroundColor: '#F2E8DD', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 8) {\n  return { backgroundColor: '#F2E8DD', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 9) {\n  return { backgroundColor: '#F2E8DD', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 10) {\n  return { backgroundColor: '#F2E8DD', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 11) {\n  return { backgroundColor: '#E2E5EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 12) {\n  return { backgroundColor: '#E2E5EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 13) {\n  return { backgroundColor: '#E2E5EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 14) {\n  return { backgroundColor: '#E2E5EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 15) {\n  return { backgroundColor: '#E2E5EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 1) {\n  return { backgroundColor: '#A92C4B', color: '#FFFFFF' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 2) {\n  return { backgroundColor: '#FBF2F3', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 3) {\n  return { backgroundColor: '#FDFAF8', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 4) {\n  return { backgroundColor: '#FDFCFA', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 5) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 6) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 7) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 8) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 9) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 10) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 11) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 12) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 13) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 14) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 15) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\n}","cell":["<span class='gt_from_md'><a href='../cases/26-18.html' target='_blank'>Gary Westcott, Secretary, Louisiana Department of Public Safety and Corrections v. Voice of the Experienced<\/a><span class='cdk'>No. 26-18<\/span><\/span>","<span class='gt_from_md'><a href='../cases/26-17.html' target='_blank'>Dr. Douglas Schottenstein v. Orthogen International GmbH<\/a><span class='cdk'>No. 26-17<\/span><\/span>","<span class='gt_from_md'><a href='../cases/26-19.html' target='_blank'>Allison Nguyen v. Louisiana<\/a><span class='cdk'>No. 26-19<\/span><\/span>","<span class='gt_from_md'><a href='../cases/26-16.html' target='_blank'>Harold Jean-Baptiste v. Department of Justice<\/a><span class='cdk'>No. 26-16<\/span><\/span>","<span class='gt_from_md'><a href='../cases/26-5021.html' target='_blank'>Larry Roosevelt Carter v. Heidi E. Washington, Director, Michigan Department of Corrections<\/a><span class='cdk'>No. 26-5021<\/span><\/span>","<span class='gt_from_md'><a href='../cases/26-5022.html' target='_blank'>King Miguel Eddie Crayton v. J. N. Williams, Deputy<\/a><span class='cdk'>No. 26-5022<\/span><\/span>","<span class='gt_from_md'><a href='../cases/26-5023.html' target='_blank'>Octavio Jimenez-Marquez v. United States<\/a><span class='cdk'>No. 26-5023<\/span><\/span>","<span class='gt_from_md'><a href='../cases/26-5024.html' target='_blank'>In Re Jesse Randolph Curry, Jr.<\/a><span class='cdk'>No. 26-5024<\/span><\/span>","<span class='gt_from_md'><a href='../cases/26-5025.html' target='_blank'>Alexander Wesley Ledvina v. United States<\/a><span class='cdk'>No. 26-5025<\/span><\/span>","<span class='gt_from_md'><a href='../cases/26-5026.html' target='_blank'>Sergey Donskoy v. United States Citizenship and Immigration Services<\/a><span class='cdk'>No. 26-5026<\/span><\/span>","<span class='gt_from_md'><a href='../cases/26A23.html' target='_blank'>Sherhonda Golden v. NBCUniversal Media, LLC<\/a><span class='cdk'>No. 26A23<\/span><\/span>","<span class='gt_from_md'><a href='../cases/26A24.html' target='_blank'>New Mexico v. Samuel Neal<\/a><span class='cdk'>No. 26A24<\/span><\/span>","<span class='gt_from_md'><a href='../cases/26A25.html' target='_blank'>Nestlé USA, Inc. v. Marie Falcone, Individually and on Behalf of All Others Similarly Situated<\/a><span class='cdk'>No. 26A25<\/span><\/span>","<span class='gt_from_md'><a href='../cases/26A26.html' target='_blank'>Amaury Rodriguez v. United States<\/a><span class='cdk'>No. 26A26<\/span><\/span>","<span class='gt_from_md'><a href='../cases/26A27.html' target='_blank'>James Darrick Beeler v. United States<\/a><span class='cdk'>No. 26A27<\/span><\/span>"],"html":true,"width":230,"align":"center"},{"id":"Grant","name":"Grant forecast","type":"numeric","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'Type' & rowIndex === 1) {\n  return { backgroundColor: '#E8E8E1', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 2) {\n  return { backgroundColor: '#E8E8E1', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 3) {\n  return { backgroundColor: '#E8E8E1', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 4) {\n  return { backgroundColor: '#E8E8E1', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 5) {\n  return { backgroundColor: '#F2E8DD', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 6) {\n  return { backgroundColor: '#F2E8DD', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 7) {\n  return { backgroundColor: '#F2E8DD', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 8) {\n  return { backgroundColor: '#F2E8DD', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 9) {\n  return { backgroundColor: '#F2E8DD', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 10) {\n  return { backgroundColor: '#F2E8DD', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 11) {\n  return { backgroundColor: '#E2E5EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 12) {\n  return { backgroundColor: '#E2E5EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 13) {\n  return { backgroundColor: '#E2E5EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 14) {\n  return { backgroundColor: '#E2E5EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 15) {\n  return { backgroundColor: '#E2E5EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 1) {\n  return { backgroundColor: '#A92C4B', color: '#FFFFFF' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 2) {\n  return { backgroundColor: '#FBF2F3', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 3) {\n  return { backgroundColor: '#FDFAF8', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 4) {\n  return { backgroundColor: '#FDFCFA', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 5) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 6) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 7) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 8) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 9) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 10) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 11) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 12) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 13) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 14) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 15) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\n}","cell":["54%","4%","1%","0%","—","—","—","—","—","—","—","—","—","—","—"],"html":true,"align":"center"},{"id":"Court","name":"Court","type":"character","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'Type' & rowIndex === 1) {\n  return { backgroundColor: '#E8E8E1', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 2) {\n  return { backgroundColor: '#E8E8E1', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 3) {\n  return { backgroundColor: '#E8E8E1', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 4) {\n  return { backgroundColor: '#E8E8E1', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 5) {\n  return { backgroundColor: '#F2E8DD', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 6) {\n  return { backgroundColor: '#F2E8DD', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 7) {\n  return { backgroundColor: '#F2E8DD', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 8) {\n  return { backgroundColor: '#F2E8DD', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 9) {\n  return { backgroundColor: '#F2E8DD', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 10) {\n  return { backgroundColor: '#F2E8DD', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 11) {\n  return { backgroundColor: '#E2E5EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 12) {\n  return { backgroundColor: '#E2E5EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 13) {\n  return { backgroundColor: '#E2E5EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 14) {\n  return { backgroundColor: '#E2E5EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 15) {\n  return { backgroundColor: '#E2E5EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 1) {\n  return { backgroundColor: '#A92C4B', color: '#FFFFFF' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 2) {\n  return { backgroundColor: '#FBF2F3', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 3) {\n  return { backgroundColor: '#FDFAF8', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 4) {\n  return { backgroundColor: '#FDFCFA', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 5) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 6) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 7) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 8) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 9) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 10) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 11) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 12) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 13) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 14) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 15) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\n}","html":true,"align":"center"},{"id":"Counsel","name":"Counsel","type":"character","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'Type' & rowIndex === 1) {\n  return { backgroundColor: '#E8E8E1', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 2) {\n  return { backgroundColor: '#E8E8E1', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 3) {\n  return { backgroundColor: '#E8E8E1', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 4) {\n  return { backgroundColor: '#E8E8E1', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 5) {\n  return { backgroundColor: '#F2E8DD', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 6) {\n  return { backgroundColor: '#F2E8DD', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 7) {\n  return { backgroundColor: '#F2E8DD', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 8) {\n  return { backgroundColor: '#F2E8DD', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 9) {\n  return { backgroundColor: '#F2E8DD', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 10) {\n  return { backgroundColor: '#F2E8DD', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 11) {\n  return { backgroundColor: '#E2E5EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 12) {\n  return { backgroundColor: '#E2E5EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 13) {\n  return { backgroundColor: '#E2E5EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 14) {\n  return { backgroundColor: '#E2E5EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 15) {\n  return { backgroundColor: '#E2E5EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 1) {\n  return { backgroundColor: '#A92C4B', color: '#FFFFFF' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 2) {\n  return { backgroundColor: '#FBF2F3', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 3) {\n  return { backgroundColor: '#FDFAF8', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 4) {\n  return { backgroundColor: '#FDFCFA', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 5) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 6) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 7) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 8) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 9) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 10) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 11) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 12) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 13) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 14) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 15) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\n}","cell":["<span class='gt_from_md'>Jorge Benjamin Aguinaga<br>Louisiana Department of Justice<\/span>","<span class='gt_from_md'>Edward Daniel Altabet<br>Brach Eichler<\/span>","<span class='gt_from_md'>Alden Bruce Netterville<br>Bruce Netterville &amp; Associates<\/span>","<span class='gt_from_md'>Harold Jean-Baptiste<\/span>","<span class='gt_from_md'>Larry Roosevelt Carter<\/span>","<span class='gt_from_md'>King Miguel Eddie Crayton<\/span>","<span class='gt_from_md'>Gregory Mitchell Acton Sr.<br>Acton Law Office, PC<\/span>","<span class='gt_from_md'>Jesse Randolph Curry Jr.<\/span>","<span class='gt_from_md'>Alexander Wesley Ledvina<\/span>","<span class='gt_from_md'>Sergey Donskoy<\/span>","<span class='gt_from_md'>Joshua Ian Hammack<br>Bailey &amp; Glasser, LLP<\/span>","<span class='gt_from_md'>—<\/span>","<span class='gt_from_md'>Theodore J. Boutrous Jr.<br>Gibson, Dunn &amp; Crutcher LLP<\/span>","<span class='gt_from_md'>Andrew Lee Adler<br>Federal Public Defender’s Office<\/span>","<span class='gt_from_md'>Tara Crane<br>Federal Public Defender’s Office<\/span>"],"html":true,"align":"center"},{"id":"Documents","name":"Documents","type":"character","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'Type' & rowIndex === 1) {\n  return { backgroundColor: '#E8E8E1', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 2) {\n  return { backgroundColor: '#E8E8E1', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 3) {\n  return { backgroundColor: '#E8E8E1', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 4) {\n  return { backgroundColor: '#E8E8E1', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 5) {\n  return { backgroundColor: '#F2E8DD', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 6) {\n  return { backgroundColor: '#F2E8DD', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 7) {\n  return { backgroundColor: '#F2E8DD', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 8) {\n  return { backgroundColor: '#F2E8DD', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 9) {\n  return { backgroundColor: '#F2E8DD', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 10) {\n  return { backgroundColor: '#F2E8DD', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 11) {\n  return { backgroundColor: '#E2E5EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 12) {\n  return { backgroundColor: '#E2E5EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 13) {\n  return { backgroundColor: '#E2E5EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 14) {\n  return { backgroundColor: '#E2E5EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 15) {\n  return { backgroundColor: '#E2E5EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 1) {\n  return { backgroundColor: '#A92C4B', color: '#FFFFFF' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 2) {\n  return { backgroundColor: '#FBF2F3', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 3) {\n  return { backgroundColor: '#FDFAF8', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 4) {\n  return { backgroundColor: '#FDFCFA', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 5) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 6) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 7) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 8) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 9) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 10) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 11) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 12) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 13) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 14) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 15) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\n}","cell":["<span class='gt_from_md'><a href='https://www.supremecourt.gov/DocketPDF/26/26-18/415294/20260629161944191_2026.06.29%20Petition.pdf' target='_blank'>Petition<\/a><br><a href='https://www.supremecourt.gov/DocketPDF/26/26-18/409115/20260518123611739_VOTE%20-%20SCOTUS%20MET.pdf' target='_blank'>Application<\/a><\/span>","<span class='gt_from_md'><a href='https://www.supremecourt.gov/DocketPDF/26/26-17/415266/20260629135534836_Schottenstein%20Petition%20June%2029%202026%20EFile.pdf' target='_blank'>Petition<\/a><br><a href='https://www.supremecourt.gov/DocketPDF/26/26-17/415266/20260629135541295_Schottenstein%20Appendix%20June%2029%202026%20EFile.pdf' target='_blank'>Appendix<\/a><\/span>","<span class='gt_from_md'><a href='https://www.supremecourt.gov/DocketPDF/26/26-19/415345/20260630122606085_Nguyen%20Petition%20June%2029%202026%20EFile.pdf' target='_blank'>Petition<\/a><br><a href='https://www.supremecourt.gov/DocketPDF/26/26-19/415345/20260630122611836_Nguyen%20Appendix%20June%2029%202026%20EFile.pdf' target='_blank'>Appendix<\/a><\/span>","<span class='gt_from_md'><a href='https://www.supremecourt.gov/DocketPDF/26/26-16/415721/20260706132747579_20260706-132502-00001722-00001176.pdf' target='_blank'>Petition<\/a><br><a href='https://www.supremecourt.gov/DocketPDF/26/26-16/415721/20260706132747799_20260706-132502-00001722-00001177.pdf' target='_blank'>Appendix<\/a><\/span>","<span class='gt_from_md'><a href='https://www.supremecourt.gov/DocketPDF/26/26-5021/415703/20260707073135485_20260707-072804-00001726-00004309.pdf' target='_blank'>Petition<\/a><br><a href='https://www.supremecourt.gov/DocketPDF/26/26-5021/415703/20260707073136010_20260707-072804-00001726-00004311.pdf' target='_blank'>Appendix<\/a><\/span>","<span class='gt_from_md'><a href='https://www.supremecourt.gov/DocketPDF/26/26-5022/415709/20260707072517211_20260707-072208-00001724-00004301.pdf' target='_blank'>Petition<\/a><br><a href='https://www.supremecourt.gov/DocketPDF/26/26-5022/415709/20260707072518032_20260707-072208-00001724-00004303.pdf' target='_blank'>Appendix<\/a><\/span>","<span class='gt_from_md'><a href='https://www.supremecourt.gov/DocketPDF/26/26-5023/415316/20260629182439659_Motion%20for%20leave%20to%20proceed%20in%20forma%20pauperis.pdf' target='_blank'>Petition<\/a><br><a href='https://www.supremecourt.gov/DocketPDF/26/26-5023/415316/20260629183102453_APPENDIX.pdf' target='_blank'>Appendix<\/a><\/span>","<span class='gt_from_md'><a href='https://www.supremecourt.gov/DocketPDF/26/26-5024/415743/20260707074144199_20260707-073145-00001727-00004315.pdf' target='_blank'>Appendix<\/a><\/span>","<span class='gt_from_md'><a href='https://www.supremecourt.gov/DocketPDF/26/26-5025/415746/20260707074758111_20260707-074021-00001728-00004317.pdf' target='_blank'>Petition<\/a><br><a href='https://www.supremecourt.gov/DocketPDF/26/26-5025/415746/20260707074758824_20260707-074021-00001728-00004319.pdf' target='_blank'>Appendix<\/a><\/span>","<span class='gt_from_md'><a href='https://www.supremecourt.gov/DocketPDF/26/26-5026/415759/20260707072228115_20260707-071955-00001723-00004297.pdf' target='_blank'>Petition<\/a><br><a href='https://www.supremecourt.gov/DocketPDF/26/26-5026/415759/20260707072229372_20260707-071955-00001723-00004299.pdf' target='_blank'>Appendix<\/a><\/span>","<span class='gt_from_md'><a href='https://www.supremecourt.gov/DocketPDF/26/26A23/415458/20260701131443763_No.-_ApplicationForAnExtensionOfTime.pdf' target='_blank'>Application<\/a><\/span>","<span class='gt_from_md'><a href='https://www.supremecourt.gov/DocketPDF/26/26A24/413890/20260624145300099_Neal%20Application%20Final.pdf' target='_blank'>Application<\/a><\/span>","<span class='gt_from_md'><a href='https://www.supremecourt.gov/DocketPDF/26/26A25/415431/20260701111835858_Nestle%20-%20Application%20for%20Extension.pdf' target='_blank'>Application<\/a><\/span>","<span class='gt_from_md'><a href='https://www.supremecourt.gov/DocketPDF/26/26A26/415401/20260630162154242_Cert%20extension.pdf' target='_blank'>Application<\/a><\/span>","<span class='gt_from_md'><a href='https://www.supremecourt.gov/DocketPDF/26/26A27/415215/20260629105439436_Application%20-%20E-Signed.pdf' target='_blank'>Application<\/a><\/span>"],"html":true,"align":"center"},{"id":"QP","name":"Questions Presented","type":"character","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\nif (colInfo.id === 'Type' & rowIndex === 1) {\n  return { backgroundColor: '#E8E8E1', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 2) {\n  return { backgroundColor: '#E8E8E1', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 3) {\n  return { backgroundColor: '#E8E8E1', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 4) {\n  return { backgroundColor: '#E8E8E1', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 5) {\n  return { backgroundColor: '#F2E8DD', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 6) {\n  return { backgroundColor: '#F2E8DD', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 7) {\n  return { backgroundColor: '#F2E8DD', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 8) {\n  return { backgroundColor: '#F2E8DD', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 9) {\n  return { backgroundColor: '#F2E8DD', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 10) {\n  return { backgroundColor: '#F2E8DD', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 11) {\n  return { backgroundColor: '#E2E5EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 12) {\n  return { backgroundColor: '#E2E5EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 13) {\n  return { backgroundColor: '#E2E5EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 14) {\n  return { backgroundColor: '#E2E5EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Type' & rowIndex === 15) {\n  return { backgroundColor: '#E2E5EA', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 1) {\n  return { backgroundColor: '#A92C4B', color: '#FFFFFF' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 2) {\n  return { backgroundColor: '#FBF2F3', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 3) {\n  return { backgroundColor: '#FDFAF8', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 4) {\n  return { backgroundColor: '#FDFCFA', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 5) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 6) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 7) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 8) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 9) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 10) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 11) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 12) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 13) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 14) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\nif (colInfo.id === 'Grant' & rowIndex === 15) {\n  return { backgroundColor: '#FFFFFF', color: '#000000' }\n}\n\n}","cell":["<span class='gt_from_md'><details><summary>Question(s) presented<\/summary>\n<p>Under this Court’s longstanding precedents, an otherwise-moot dispute is “not moot [if] it falls within a special category of disputes that are ‘capable of repetition’ while ‘evading review.’” Turner v. Rogers, 564 U.S. 431, 439 (2011). A dispute evades review if it “is ‘in its duration too short to be fully litigated’ through the [lower] courts (and arrive here) prior to its ‘expiration.’” Id. at 440. Applying that rule, the Court has held that periods of one year, one-and-a-half years, and even two years are “too short” for a dispute to be fully litigated. Id. In this litigation, the district court entered three preliminary injunctions, each of which expired by operation of law after 90 days—all while Louisiana’s appeals of the injunction orders were pending. The Fifth Circuit dismissed the three appeals as moot under Smith v. Edwards, 88 F.4th 1119 (5th Cir. 2023), which holds that 90 days is sufficient for “meaningful review,” at least by the Fifth Circuit. App.16a (Wilson, J., respecting the denial of rehearing en banc). By the Fifth Circuit’s lights, these disputes do not “evade review,” and thus the mootness exception for issues capable of repetition yet evading review does not apply. That position splits with decisions from this Court and nearly every federal court of appeals. The questions presented are: 1. Whether, under this Court’s precedents applying the mootness exception for issues capable of repetition yet evading review, a 90-day period is too short to fully litigate an issue.<\/p>\n<\/details>\n<\/span>","<span class='gt_from_md'><details><summary>Question(s) presented<\/summary>\n<p>28 U.S.C. § 1782 authorizes federal courts to order discovery “for use in a proceeding in a foreign or international tribunal.” The Second Circuit affirmed orders authorizing what it repeatedly called “pre-suit discovery” — Rule 45 subpoenas for use in a “contemplated” private German civil action that Respondent, Orthogen Int’l GmbH, has not filed. The Question Presented is: Whether 28 U.S.C. § 1782 permits a district court to authorize a private foreign party to serve Rule 45 subpoenas for “pre-suit discovery” — to develop unpleaded foreign-law claims against a U.S. resident — in aid of a putative civil action it says it will file in the “conventional courts” of a foreign jurisdiction, where no administrative or quasi-judicial proceeding affords the applicant “significant procedural rights.”<\/p>\n<\/details>\n<\/span>","<span class='gt_from_md'><details><summary>Question(s) presented<\/summary>\n<p>Does a defendant have a right to a jury trial in a misdemeanor domestic violence offense where the penalty carries up to six months in jail, a $1,000.00 fine, loss of all Second Amendment rights under federal law, loss of Second Amendment rights under state law, and can never be expunged?<\/p>\n<\/details>\n<\/span>","<span class='gt_from_md'><details><summary>Question(s) presented<\/summary>\n<p>Can the Federal Government evade liability for al­ leged attempted murder, a modern-day lynching in a hospital, and human-rights violations against an American citizen by using the Federal Government’s power to influence court decisions and protect the Federal Bureau of Investigation from liability for an alleged terrorist act?<\/p>\n<\/details>\n<\/span>","<span class='gt_from_md'><details><summary>Question(s) presented<\/summary>\n<p>I. DOES THE GRANTING OF BROAD DISCRETIONARY POWERS TO THE MICHIGAN PAROliE BOARD ENCOURAGE THE STATE OF MICHIGAN TO INFRINGE UPON THE DUE PROCESS RIGHTS OF STATE PRISONERS? p. 3 II. DOES MICHIGAN VIOLATE 14TH AMENDMENT DUE PROCESS PROTECTIONS WHEN IT USES THE PHRASE “NO dlBERTY INTEREST” AGAINST STATE PRISONERS WHO HAVE SERVED THEIR MINIMUM SENTENCES, AND BY VIRTUE OF “GOOD BEHAVIOR” AND A “PAROLABLE” SENTENCE HAVE EARNED A CHANCE AT LIBERTY? p. 4 III. IS THE USE OF INACCURATE DATA TO DENY A PRISONER HIS LIBERTY TANTAMOUNT TO FALSE IMPRISONMENT? p. 5 IV. IS THE MOST EFFECTIVE WAY TO WAREHOUSE STATE PRISONERS FIRST TO DEPRIVE THEM OF THEIR DUE PROCESS RIGHTS (WHICH IS THE NECESSARY INGREDIENT FOR BROAD DISCRETIONARY POWERS TO FLOURISH)? p. 6 V. ARE THE COURTS MORE CONCERNED ABOUT PROTECTING THE RIGHTS OF STATE AUTHORITIES THAN THEY ARE ABOUT PROTECTING THE RIGHTS OF STATE CITIZENS? p. 8<\/p>\n<\/details>\n<\/span>","<span class='gt_from_md'><details><summary>Question(s) presented<\/summary>\n<p>Whether a federal district court violates due process when it dismisses a pro se litigant’s 42 U.S.C. § 1983 complaint without meaningful consideration of the factual allegations and without affording a genuine opportunity to amend. Whether a court of appeals may affirm dismissal of a pro se civil rights complaint on procedural grounds without addressing the underlying constitutional violations. Whether dismissal practices that prevent substantive review of pro se civil rights claims undermine the constitutional guarantee of access to the courts.<\/p>\n<\/details>\n<\/span>","<span class='gt_from_md'><details><summary>Question(s) presented<\/summary>\n<p>The question presented is: Whether the phrase “in furtherance of” in 18 U.S.C. § 924(c) is unconstitutionally vague as applied to the Petitioner.<\/p>\n<\/details>\n<\/span>","<span class='gt_from_md'><details><summary>Question(s) presented<\/summary>\n<p>(A) Has the Fifth Circuit entered a decision in “CONFLICT” with her sister circuits and lower federal courts, on the same important issues, of wheather A.E.D.P.A.’s successive petition rules apply to “BRADY” and “NAPUE” violations that were “NOT RIPE” at the time of the initial petition, based on “NEWLY DISCOVERED” DNA forensic test evidence; (B) Has the Fifth Circuit entered a ruling that “CONTRAVENS” United States Supreme Court “PRECEDENT” set in Panetti V. Quarterman, on wheather A.E.D.P.A.’s successive petition rules apply to violations that were “NOT RIPE” at the time of the initial habeas petition, based on “BRADY” and “NAPUE” violations shown by NEWLY DISCOVERED FORENSIC DNA TEST EVIDENCE; (C) Has the Fifth Circuit entered a decision in “CONFLICT” with its sister circuits and lower federal courts, on the same “IMPORTANT ISSUES” of wheather A.E.D.P.A.’s successive petition rules apply to § 60 (b), § 60 (d) (3), “FRAUD UPON THE COURT” violations that demonstrate EGREGIOUS, “intentionally fraudulent conduct directed at state and federal courts; (D) Has the Fifth Circuit entered a ruling that “CONTRAVENS” United States Supreme Court “PRECEDENT” on wheather A.E.D.P.A.’s successive petition rules apply to § 60 (b), § 60 (d) (3), “FRAUD UPON THE COURT” where state officers of the court of Texas, did DILIBERATELY PLAN AND EXCUTE A SCHEME TO DEFRAUD STATE AND FEDERAL COURTS.<\/p>\n<\/details>\n<\/span>","<span class='gt_from_md'><details><summary>Question(s) presented<\/summary>\n<ol>\n<li>\n<p>Whether the Second Amendment precludes applying 18 U.S.C. § 922(g)(3)/ the statute prohibiting the possession of firearms by unlawful users of controlled substances/ to the Petitioner and a conviction under 18 U.S.C. § 924(a)(1)(A), the statute criminalizing false representations with respect to information required to be kept in the records of a firearms dealer, for falsely representing that Petitioner was not an unlawful user.<\/p>\n<\/li>\n<li>\n<p>Whether the term “unlawful user” is unconstitutionally vague.<\/p>\n<\/li>\n<li>\n<p>Whether the court of appeals erred by deciding the constitutional issues without passing on the nonconstitutional issues.<\/p>\n<\/li>\n<\/ol>\n<\/details>\n<\/span>","<span class='gt_from_md'><details><summary>Question(s) presented<\/summary>\n<p>• In the beginning of 2025, Petitioner filed a complaint seeking a district court mandate compelling the Respondent’s duty to adjudicate the Petitioner’s 1-140 petition for alien worker filed with USCIS in 2020 in the field it actually sought and without discriminating against Petitioner on the individual basis within the class of award recipients, and also taking into account other claims, previously not brought for court review or not actually litigated. The district court dismissed the complaint, applying the law of “claim preclusion”, referencing to the Petitioner’s complaint which in 2021 sought, on different claims, a court declaration that Petitioner was entitled to the “extraordinarily ability” visa (Ell immigrant status). On appeal, the court of appeals afforded a prolonged extension of time to Respondent for filing its answering brief, but later, on the Respondent’s motion for summary affirmance, affirmed the district court decision, based on “insubstantial appeal” standard. Petitioner hereby presents the following questions for the Court’s consideration:<\/p>\n<ol>\n<li>\n<p>Whether the legal test examining the transactional nucleus of facts shared between causes of action, which evolved as common law of “res judicata doctrine” for the purpose of estoppel, is unconstitutional.<\/p>\n<\/li>\n<li>\n<p>Whether the court of appeals may not take for review on the merits and grant a motion for summary disposition at “any time” during prolonged extension of time given for filing the answering brief.<\/p>\n<\/li>\n<li>\n<p>Whether the court of appeals erred in affirming, based on “insubstantial appeal” standard, the district court dismissal of the Petitioner’s complaint.<\/p>\n<\/li>\n<\/ol>\n<\/details>\n<\/span>","<span class='gt_from_md'>—<\/span>","<span class='gt_from_md'>—<\/span>","<span class='gt_from_md'>—<\/span>","<span class='gt_from_md'>—<\/span>","<span class='gt_from_md'>—<\/span>"],"html":true,"width":190,"align":"center"}],"filterable":true,"searchable":true,"defaultPageSize":25,"showPageSizeOptions":true,"pageSizeOptions":[15,25,50,100],"paginationType":"numbers","showPagination":true,"showPageInfo":true,"minRows":1,"highlight":true,"compact":true,"height":"auto","theme":{"color":"#1a1a1e","backgroundColor":"#ffffff","stripedColor":"#f7f5f1","style":{"font-family":"Newsreader, Georgia, serif","fontSize":"15px"},"tableStyle":{"borderTopStyle":"solid","borderTopWidth":"2px","borderTopColor":"#D3D3D3"},"headerStyle":{"fontWeight":"600","backgroundColor":"#fdfcfa","borderBottomStyle":"solid","borderBottomWidth":"2px","borderBottomColor":"#D3D3D3"},"groupHeaderStyle":{"fontWeight":"600","backgroundColor":"#fdfcfa","borderBottomStyle":"solid","borderBottomWidth":"2px","borderBottomColor":"#D3D3D3"},"cellStyle":{"fontWeight":"normal"}},"elementId":"ydubywpmfx","dataKey":"c86c48e227bde37e75dfbb1ea7e96abd"},"children":[]},"class":"reactR_markup"},"evals":["tag.attribs.columns.0.style","tag.attribs.columns.1.style","tag.attribs.columns.2.style","tag.attribs.columns.3.style","tag.attribs.columns.4.style","tag.attribs.columns.5.style","tag.attribs.columns.6.style"],"jsHooks":[]}</script>
 </div>
-<p class='foot'><em>Grant forecast</em> is a calibrated, pre-conference estimate of plenary certiorari for paid petitions (base rate ~4%), from case structure alone (who is involved, the court below, counsel). It sharpens once a case is distributed for conference. An estimate, not a prediction about any case.</p><p class='back'><a href='index.html'>&larr; All daily dashboards</a></p><script>(function(){var N=9;function fix(){document.querySelectorAll('select').forEach(function(s){Array.prototype.forEach.call(s.options,function(o){if(String(o.value)===String(N)&&o.text!=='All'){o.text='All';}});});}new MutationObserver(fix).observe(document.body,{childList:true,subtree:true});setTimeout(fix,250);setTimeout(fix,1000);})();</script></main></body></html>
+<p class='foot'><em>Grant forecast</em> is a calibrated, pre-conference estimate of plenary certiorari for paid petitions (base rate ~4%), from case structure alone (who is involved, the court below, counsel). It sharpens once a case is distributed for conference. An estimate, not a prediction about any case.</p><!--PNAV--><nav class='pnav' aria-label='day'><a class='pv' href='dash_2026-07-02.html'><span class='dir'>&larr; Previous day</span><span class='lab'>July 02, 2026</span></a><a class='nx' href='dash_2026-07-07.html'><span class='dir'>Next day &rarr;</span><span class='lab'>July 07, 2026</span></a></nav><!--/PNAV--><p class='back'><a href='index.html'>&larr; All daily dashboards</a></p><script>(function(){var N=15;function fix(){document.querySelectorAll('select').forEach(function(s){Array.prototype.forEach.call(s.options,function(o){if(String(o.value)===String(N)&&o.text!=='All'){o.text='All';}});});}new MutationObserver(fix).observe(document.body,{childList:true,subtree:true});setTimeout(fix,250);setTimeout(fix,1000);})();</script></main></body></html>
