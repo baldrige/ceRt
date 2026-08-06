@@ -241,7 +241,12 @@ build_argument_table <- function(cases, qp_map = NULL) {
 
 # Parchment-toned status tints, in status-factor-level order, applied to the
 # reactable Status column via data_color(target_columns=).
-STATUS_LEVELS <- c("Granted", "Scheduled", "Argued", "Decided", "DIG'd")
+# Must list every status classify_argument() can return. It omitted "Dismissed"
+# -- granted, then withdrawn before scheduling (Rule 46, or removed from the
+# docket) -- so factor() turned that case into NA and it rendered with an empty
+# Status cell and the na_color fill. Silent, and only on a Term that happened to
+# contain one, which is why it went unnoticed.
+STATUS_LEVELS <- c("Granted", "Scheduled", "Argued", "Decided", "DIG'd", "Dismissed")
 # STATUS_FILL itself lives in palette.R; STATUS_LEVELS above is the legend order.
 
 # Render one Term's argument calendar as the interactive editorial table (matches

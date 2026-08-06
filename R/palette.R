@@ -164,9 +164,17 @@ TYPE_CHIPS <- c("Paid" = "#e8e8e1", "IFP" = "#f2e8dd", "Application" = "#e2e5ea"
 # argument lifecycle, not a quantity -- but ORDERED in the legend, so keep the
 # sequence readable left to right. `na_color` for both this and TYPE_CHIPS is
 # GRANT_NA: an unfilled chip should read as table furniture, not as a category.
+#
+# Four progressive states, then the two ways a case ends without a merits
+# decision. Those two are deliberately the only coloured-vs-neutral pair in the
+# set: DIG'd takes pink, since the Court engaged and then let go, and Dismissed
+# takes the one hue-free fill, since the case was withdrawn before the Court did
+# anything with it. Everything else carries a faint cast (green, blue, warm,
+# violet) and these are chips with text labels, so the colour is a second signal
+# rather than the only one -- the closest existing pair sits at dE 2.1.
 STATUS_FILL <- c("Granted"   = "#e6e9e0", "Scheduled" = "#e2e5ea",
                  "Argued"    = "#eceadf", "Decided"   = "#e8e6e9",
-                 "DIG'd"     = "#f4d9e0")
+                 "DIG'd"     = "#f4d9e0", "Dismissed" = "#dcd9d4")
 
 # Calibration-plot series (docs/make_methods_note.R). This is the #b5651d that
 # #36 flagged: the value --link held before the WCAG correction, left behind
