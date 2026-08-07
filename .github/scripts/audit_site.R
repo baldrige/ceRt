@@ -261,6 +261,97 @@ if (!length(stray)) {
                length(stray), paste(utils::head(stray, 8), collapse = ", ")))
 }
 
+# ---- 9. feeds and sitemaps ---------------------------------------------------
+# Base R, like the rest of this file -- no xml2. These are not a schema check;
+# they are the three ways THIS pipeline can break these files.
+cat("\nFeeds and sitemaps\n")
+
+SITE_BASE <- "https://supremecourt.report"
+slurp <- function(p) paste(readLines(p, warn = FALSE, encoding = "UTF-8"), collapse = "\n")
+# An absolute site URL back to a path resolve() understands.
+unbase <- function(u) sub(paste0("^", SITE_BASE), "", u)
+tagvals <- function(txt, tag) {
+  m <- regmatches(txt, gregexpr(paste0("<", tag, ">[^<]*</", tag, ">"), txt))[[1]]
+  sub(paste0("^<", tag, ">"), "", sub(paste0("</", tag, ">$"), "", m))
+}
+
+feeds <- c("feed.xml", "grants.xml")
+missing_feeds <- feeds[!file.exists(file.path(site, feeds))]
+if (length(missing_feeds)) {
+  fail("feeds present", paste("absent:", paste(missing_feeds, collapse = ", ")))
+} else {
+  ok("feeds present", paste(feeds, collapse = ", "))
+
+  # THE anti-churn invariant. The feed-level <updated> must equal the newest
+  # entry's, never the build time -- a build-time stamp would re-notify every
+  # subscriber three times a day and add a gh-pages commit per run whose only
+  # content is a timestamp. Expressed as a property of the published file so it
+  # survives someone "fixing" write_atom_feed() later.
+  bad_stamp <- character()
+  for (f in feeds) {
+    txt <- slurp(file.path(site, f))
+    up <- tagvals(txt, "updated")
+    if (length(up) < 2) { bad_stamp <- c(bad_stamp, paste0(f, " (no entries)")); next }
+    if (up[1] != max(up[-1]))
+      bad_stamp <- c(bad_stamp, sprintf("%s (feed %s, newest entry %s)", f, up[1],
+                                        max(up[-1])))
+  }
+  if (length(bad_stamp)) {
+    fail("feed <updated> is an event date", paste(bad_stamp, collapse = "; "))
+  } else {
+    ok("feed <updated> is an event date", "matches the newest entry in each feed")
+  }
+
+  # Every entry links somewhere that exists.
+  ent <- unlist(lapply(feeds, function(f) {
+    txt <- slurp(file.path(site, f))
+    m <- regmatches(txt, gregexpr("<link href=\"[^\"]+\"", txt))[[1]]
+    unbase(sub("\"$", "", sub("^<link href=\"", "", m)))
+  }))
+  dead <- unique(ent[!vapply(ent, resolve, logical(1))])
+  if (length(dead)) {
+    fail("feed entry links resolve", paste("404:", paste(utils::head(dead, 5),
+                                                         collapse = ", ")))
+  } else {
+    ok("feed entry links resolve", sprintf("%d entry link(s)", length(ent)))
+  }
+}
+
+if (!file.exists(file.path(site, "sitemap.xml"))) {
+  fail("sitemap index present", "sitemap.xml absent")
+} else {
+  kids <- unbase(tagvals(slurp(file.path(site, "sitemap.xml")), "loc"))
+  gone <- kids[!vapply(kids, function(k) file.exists(file.path(site, sub("^/", "", k))),
+                       logical(1))]
+  if (length(gone)) {
+    fail("sitemap children exist", paste("absent:", paste(gone, collapse = ", ")))
+  } else {
+    # 50,000 URLs per file is the spec limit, and a file over it is rejected
+    # whole rather than truncated. cases/ passed 55k in 2026, which is why the
+    # index-plus-children shape exists at all.
+    counts <- vapply(kids, function(k)
+      length(tagvals(slurp(file.path(site, sub("^/", "", k))), "loc")), integer(1))
+    over <- names(counts)[counts > 50000L]
+    if (length(over)) {
+      fail("sitemap under the 50k cap",
+           sprintf("%s holds %s URLs", over[1], format(max(counts), big.mark = ",")))
+    } else {
+      ok("sitemap coverage",
+         sprintf("%d child sitemap(s), %s URLs, largest %s",
+                 length(kids), format(sum(counts), big.mark = ","),
+                 format(max(counts), big.mark = ",")))
+    }
+  }
+}
+
+if (!file.exists(file.path(site, "robots.txt"))) {
+  fail("robots.txt", "absent -- nothing points a crawler at the sitemap")
+} else if (!grepl("Sitemap:", slurp(file.path(site, "robots.txt")), fixed = TRUE)) {
+  fail("robots.txt", "present but carries no Sitemap: line")
+} else {
+  ok("robots.txt", "present, points at sitemap.xml")
+}
+
 # ---- verdict -----------------------------------------------------------------
 lv <- vapply(results, function(r) r$level, character(1))
 cat(sprintf("\n%d checks: %d ok, %d WARN, %d FAIL\n",

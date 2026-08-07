@@ -24,6 +24,12 @@ dir.create(dash_dir, recursive = TRUE, showWarnings = FALSE)
 if (file.exists("analytics.js"))
   file.copy("analytics.js", file.path(site_dir, "analytics.js"), overwrite = TRUE)
 
+# robots.txt, on the same re-assert-every-run principle and for the same reason:
+# it is a root file nothing else writes, so a rebuild that forgot it would drop
+# the only pointer crawlers have to the sitemap.
+source("R/feeds.R")
+write_robots(site_dir)
+
 # Load the dashboard functions without triggering the script's bottom call.
 src <- readLines("R/scotus_dash_new.R")
 src <- src[-grep("^scotus_dash\\(", src)]
@@ -35,6 +41,10 @@ source("R/cert_model.R")
 source("R/petition_signals.R")   # resolve_petition_signals (Rule 10 from the petition PDF)
 source("R/argument_nav.R")       # classify_argument (for docket-page lifecycle)
 source("R/docket_page.R")        # render_dockets_for
+# classify_petition_events(), for the grants feed. argument_nav.R happens to pull
+# cert_funnel.R in transitively, but three render entry points have already
+# silently lost a feature by relying on transitive sourcing -- so it is named.
+source("R/cert_funnel.R")
 cert_models  <- load_cert_models("data")
 grant_model  <- cert_models$baseline
 counsel_ix   <- cert_models$counsel_index
@@ -229,4 +239,22 @@ styled_index_page(
                      as.integer(format(Sys.Date() - 1, "%d")),
                      as.integer(format(Sys.Date() - 1, "%Y")))))
 )
+
+# Feeds and sitemaps, last: both enumerate what is on disk, so they have to run
+# after every renderer above has finished writing.
+#
+# Neither is allowed to take the daily down. A malformed feed is a bad day for
+# feed readers; a failed publish is a bad day for the site, and the dashboards
+# are the reason anyone is here.
+tryCatch({
+  fw <- write_site_feeds(site_dir, cases = ot)
+  cat("Feeds:", paste(basename(unlist(Filter(Negate(is.null), fw))), collapse = ", "),
+      "\n")
+}, error = function(e) message("Feeds skipped: ", conditionMessage(e)))
+
+tryCatch({
+  sm <- write_sitemaps(site_dir)
+  cat("Sitemaps:", length(sm), "child file(s) + sitemap.xml index\n")
+}, error = function(e) message("Sitemaps skipped: ", conditionMessage(e)))
+
 cat("Done.\n")
