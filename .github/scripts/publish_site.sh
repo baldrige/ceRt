@@ -44,13 +44,20 @@ PATHS=("$@")
 #   cases/.manifest.json                 render hashes; daily, conferences,
 #                                        rerender, fill-throttled
 #   cases/search.json                    docket -> caption, same four
+#   cases/grants.json                    docket -> grant date/caption/order, for
+#                                        the Atom feeds. Written by conferences
+#                                        (full-term data, where grants are
+#                                        visible) and by the daily (which can
+#                                        only see one inside its trailing fetch
+#                                        window). Append-only per key, so a union
+#                                        is exactly right.
 #   conferences/qp_cache.json            render_conferences.R AND both QP
 #                                        backfills -- 16 MB, the most expensive
 #                                        thing here to lose
 #   dashboards/qp_cache.json             the daily
 #   dashboards/petition_signals_cache.json  Rule 10 signals, the daily
 #   arguments/qp_cache.json              render_arguments.R
-DERIVED='cases/.manifest.json cases/search.json
+DERIVED='cases/.manifest.json cases/search.json cases/grants.json
          conferences/qp_cache.json dashboards/qp_cache.json
          dashboards/petition_signals_cache.json arguments/qp_cache.json'
 

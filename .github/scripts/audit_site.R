@@ -275,12 +275,25 @@ tagvals <- function(txt, tag) {
   sub(paste0("^<", tag, ">"), "", sub(paste0("</", tag, ">$"), "", m))
 }
 
-feeds <- c("feed.xml", "grants.xml")
-missing_feeds <- feeds[!file.exists(file.path(site, feeds))]
-if (length(missing_feeds)) {
-  fail("feeds present", paste("absent:", paste(missing_feeds, collapse = ", ")))
+# feed.xml must exist -- it is built from directory listings that are never empty.
+# grants.xml legitimately may not: it is built from cases/grants.json, which only
+# a full-term run (conferences.yml) can populate, so on a fresh site it is absent
+# until the first weekly run. That is a transient coverage gap, which is a WARN
+# here, not a broken invariant.
+feeds <- c("feed.xml", "grants.xml")[file.exists(file.path(site, c("feed.xml", "grants.xml")))]
+if (!file.exists(file.path(site, "feed.xml"))) {
+  fail("feeds present", "feed.xml absent")
+} else if (!file.exists(file.path(site, "grants.xml"))) {
+  ng <- if (file.exists(file.path(site, "cases/grants.json")))
+    length(fromJSON(file.path(site, "cases/grants.json"))) else 0L
+  warn("feeds present",
+       sprintf("feed.xml only; grants.xml awaits a grant (cases/grants.json holds %d)",
+               ng))
 } else {
   ok("feeds present", paste(feeds, collapse = ", "))
+}
+
+if (length(feeds)) {
 
   # THE anti-churn invariant. The feed-level <updated> must equal the newest
   # entry's, never the build time -- a build-time stamp would re-notify every
@@ -300,6 +313,21 @@ if (length(missing_feeds)) {
     fail("feed <updated> is an event date", paste(bad_stamp, collapse = "; "))
   } else {
     ok("feed <updated> is an event date", "matches the newest entry in each feed")
+  }
+
+  # No entry may be dated in the future. Conference reports are published before
+  # the conference they cover, so an unfiltered feed put its newest entry -- and
+  # its own <updated> -- seven weeks ahead of today, which pins that entry to the
+  # top of every reader that sorts by date.
+  ahead <- unlist(lapply(feeds, function(f) {
+    up <- as.Date(substr(tagvals(slurp(file.path(site, f)), "updated"), 1, 10))
+    if (any(up > Sys.Date())) sprintf("%s (%d entr(y/ies), newest %s)", f,
+                                      sum(up > Sys.Date()), max(up)) else NULL
+  }))
+  if (length(ahead)) {
+    fail("no future-dated entries", paste(ahead, collapse = "; "))
+  } else {
+    ok("no future-dated entries", "every entry dated today or earlier")
   }
 
   # Every entry links somewhere that exists.

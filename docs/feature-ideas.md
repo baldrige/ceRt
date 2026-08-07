@@ -199,14 +199,23 @@ reach per line of code. It is also the cheapest thing on this list.
 
 ### Data path
 
-Grants come from the same classifier everything else uses: filter the current
-term's cases to `outcome == "granted"`, sort by `outcome_date` descending, take
-the most recent ~50. `build_dashboards.R` already holds `ot` and already sources
-the model stack; it needs `source("R/cert_funnel.R")` added if the transitive
-sourcing doesn't already reach it.
+> **Shipped in #49, corrected in #50.** The scope below was wrong on one point,
+> and it is left here with the correction because the mistake is instructive.
 
-Conference and argument entries can be enumerated from the existing directory
-listings — `conference_index()` and the argument index already walk them.
+The original plan was to filter the current term's cases to `outcome ==
+"granted"` inside `build_dashboards.R`, which already holds `ot`. **That does not
+work.** `get_scotus_update()` fetches `max(hi - 50, lo):hi` — the trailing ~51
+dockets of each bucket. A petition is granted months after it is docketed, so by
+then its number is far outside the window. Built that way, the grants feed was
+structurally empty and `grants.xml` was never written at all.
+
+Grants are visible only where a full term is loaded — `render_conferences.R`'s
+`combined`. So the grant set accumulates in a docket-keyed `cases/grants.json`
+that full-term runs contribute to and the daily reads. Cost: a grant reaches the
+feed on the next weekly run, not the same day.
+
+Conference and argument entries come from the existing directory listings —
+`conference_index()` and the argument index already walk them.
 
 ### Two gotchas that will bite if ignored
 
@@ -264,6 +273,25 @@ which would tell crawlers all 55k pages changed today.
 Small, and almost entirely additive — no existing renderer changes behaviour. The
 riskiest part is the `<updated>` discipline, which is why it's called out above
 rather than left to discovery.
+
+### What the first release actually got wrong
+
+Worth recording, because both defects passed a synthetic test suite and only
+showed up against the real site:
+
+1. **The grants feed was wired to data that cannot contain grants** (above). The
+   synthetic fixture had a granted case in the tibble, so the test passed; the
+   real daily's tibble is 153 trailing dockets and had none.
+2. **Future-dated entries.** Conference pages are published before their
+   conference, so the feed's newest entry — and its own `<updated>` — was seven
+   weeks ahead. No fixture had a future-dated page.
+3. Consequence of (1): every index page advertised a `grants.xml` that returned
+   404, because autodiscovery was emitted unconditionally.
+
+The lesson for the remaining scopes: **a fixture built from the same assumption
+as the code cannot test that assumption.** For Relist Watch, that means checking
+the term-window question against a real multi-term snapshot before trusting a
+relist count — not against a tibble assembled to have relists in it.
 
 ---
 

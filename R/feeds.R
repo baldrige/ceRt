@@ -37,7 +37,8 @@
 # <lastmod>. Omitting the field is explicitly allowed; lying in it is not.
 #
 # No new dependencies: base R, plus lubridate::mdy() for docket dates (the same
-# call cert_funnel.R makes, so the two cannot disagree about what a date is).
+# call cert_funnel.R makes, so the two cannot disagree about what a date is) and
+# jsonlite for the grants cache.
 
 SITE_URL <- "https://supremecourt.report"
 
@@ -95,9 +96,22 @@ write_atom_feed <- function(entries, path, title, subtitle, self_path,
     return(invisible(NULL))
   }
   entries <- entries[!is.na(entries$updated), , drop = FALSE]
+  # Drop entries dated in the future. Conference reports are published BEFORE the
+  # conference they cover -- the 2026-09-28 long conference page existed on
+  # 2026-08-07 -- so without this the newest entry, and with it the feed's own
+  # <updated>, sits weeks ahead of today. Readers that sort by date pin such an
+  # entry to the top permanently, and a feed claiming to have been updated in the
+  # future is simply wrong.
+  #
+  # The alternative -- stamping those entries with the publication date instead --
+  # would mean re-stamping them on every run, which is the churn this file exists
+  # to prevent. So the entry appears on its own date and never moves. That costs
+  # the "the long-conference list is up" announcement, which is a real loss and
+  # the reason this is a comment rather than a silent filter.
+  entries <- entries[entries$updated <= Sys.Date(), , drop = FALSE]
   if (!nrow(entries)) {
-    warning("write_atom_feed(): every entry for ", basename(path),
-            " lacks a date -- not written.", call. = FALSE)
+    warning("write_atom_feed(): no dated, non-future entries for ", basename(path),
+            " -- not written.", call. = FALSE)
     return(invisible(NULL))
   }
   # Newest first; id breaks ties so the order cannot depend on input order.
@@ -159,46 +173,101 @@ write_atom_feed <- function(entries, path, title, subtitle, self_path,
   if (nchar(txt) > 500) paste0(substr(txt, 1, 497), "...") else txt
 }
 
-# Newly granted cases, newest first. `cases` is a case tibble (dkt, caption,
-# events); `classify` is classify_petition_events(), passed in rather than
-# assumed so this file stays sourceable on its own.
-grant_feed_entries <- function(cases, classify = NULL, n = 50L, base = SITE_URL) {
+# ---- the grants cache ---------------------------------------------------------
+#
+# The grants feed cannot be built from the daily's fetch, and the first version of
+# this file wrongly assumed it could.
+#
+# get_scotus_update() fetches `max(hi - 50, lo):hi` -- the trailing ~51 dockets of
+# each bucket, ~153 cases. A petition is granted months after it is docketed, by
+# which time its number is far outside that window, so a grant is almost never
+# visible to the daily. Shipped that way, grants.xml was never written at all: the
+# feed was structurally empty, not merely empty in August.
+#
+# Grants ARE visible wherever a full term is loaded -- render_conferences.R holds
+# `combined` (current + prior term) and already classifies every petition. So the
+# grant set is accumulated into a docket-keyed cache that any workflow holding
+# full-term data can contribute to, and the daily reads it to build the feeds.
+#
+# cases/grants.json is a flat object keyed by docket, which is exactly the shape
+# publish_site.sh's DERIVED union resolution (`jq -s '.[0] * .[1]'`) merges
+# correctly -- so two workflows publishing concurrently union their grants rather
+# than one clobbering the other. It is listed there for that reason.
+GRANTS_CACHE <- "cases/grants.json"
+
+read_grants_cache <- function(site_dir) {
+  p <- file.path(site_dir, GRANTS_CACHE)
+  if (!file.exists(p)) return(list())
+  tryCatch(jsonlite::fromJSON(p, simplifyVector = FALSE), error = function(e) {
+    warning("read_grants_cache(): ", basename(p), " unreadable -- treating as empty.",
+            call. = FALSE)
+    list()
+  })
+}
+
+# Merge every granted petition in `cases` into the cache and write it back.
+# Returns the number of grants newly added.
+#
+# Existing keys are NOT overwritten. A grant's date and order text do not change,
+# and leaving them alone means a workflow with a partial view of a term can only
+# ever add to the record, never revise it downward.
+update_grants_cache <- function(site_dir, cases, classify = NULL) {
+  if (is.null(cases) || !nrow(cases)) return(0L)
   if (is.null(classify)) {
     if (!exists("classify_petition_events")) {
-      warning("grant_feed_entries(): classify_petition_events() not available ",
-              "-- no grants feed.", call. = FALSE)
-      return(.entries(character(), character(), character(), as.Date(character()),
-                      character()))
+      warning("update_grants_cache(): classify_petition_events() not available.",
+              call. = FALSE)
+      return(0L)
     }
     classify <- get("classify_petition_events")
   }
-  if (is.null(cases) || !nrow(cases)) {
-    return(.entries(character(), character(), character(), as.Date(character()),
-                    character()))
-  }
-  out <- lapply(seq_len(nrow(cases)), function(i) {
+  idx <- read_grants_cache(site_dir)
+  added <- 0L
+  for (i in seq_len(nrow(cases))) {
+    dkt <- cases$dkt[i]
+    if (!is.null(idx[[dkt]])) next
     cl <- tryCatch(classify(cases$events[[i]]), error = function(e) NULL)
     if (is.null(cl) || !identical(cl$outcome[[1]], "granted") ||
-        is.na(cl$outcome_date[[1]])) return(NULL)
-    dkt <- cases$dkt[i]
+        is.na(cl$outcome_date[[1]])) next
     cap <- cases$caption[i]
     if (exists("strip_caption_roles")) cap <- get("strip_caption_roles")(cap)
     if (is.na(cap) || !nzchar(cap)) cap <- dkt
-    href <- paste0(base, "/cases/", dkt, ".html")
-    .entries(
-      id = href,
-      title = paste0("Certiorari granted: ", cap, " (No. ", dkt, ")"),
-      link = href,
-      updated = cl$outcome_date[[1]],
-      summary = .grant_order_text(cases$events[[i]], cl$outcome_date[[1]]))
-  })
-  out <- do.call(rbind, Filter(Negate(is.null), out))
-  if (is.null(out)) {
-    return(.entries(character(), character(), character(), as.Date(character()),
-                    character()))
+    idx[[dkt]] <- list(
+      date = format(cl$outcome_date[[1]]),
+      caption = cap,
+      order = .grant_order_text(cases$events[[i]], cl$outcome_date[[1]]) %||% "")
+    added <- added + 1L
   }
+  if (added > 0L) {
+    dir.create(dirname(file.path(site_dir, GRANTS_CACHE)), recursive = TRUE,
+               showWarnings = FALSE)
+    jsonlite::write_json(idx, file.path(site_dir, GRANTS_CACHE), auto_unbox = TRUE)
+  }
+  added
+}
+
+# Newly granted cases, newest first, from the cache.
+grant_feed_entries <- function(site_dir, n = 50L, base = SITE_URL) {
+  empty <- .entries(character(), character(), character(), as.Date(character()),
+                    character())
+  idx <- read_grants_cache(site_dir)
+  if (!length(idx)) return(empty)
+  dkt <- names(idx)
+  href <- paste0(base, "/cases/", dkt, ".html")
+  cap <- vapply(idx, function(g) g$caption %||% "", character(1), USE.NAMES = FALSE)
+  cap[!nzchar(cap)] <- dkt[!nzchar(cap)]
+  out <- .entries(
+    id = href,
+    title = paste0("Certiorari granted: ", cap, " (No. ", dkt, ")"),
+    link = href,
+    updated = as.Date(vapply(idx, function(g) g$date %||% NA_character_,
+                             character(1), USE.NAMES = FALSE)),
+    summary = vapply(idx, function(g) g$order %||% "", character(1),
+                     USE.NAMES = FALSE))
+  out <- out[!is.na(out$updated), , drop = FALSE]
+  if (!nrow(out)) return(empty)
   # id breaks the tie, so which of several same-day grants survives the head()
-  # does not depend on the order the fetch happened to return cases in.
+  # does not depend on the order the cache happens to enumerate keys in.
   out <- out[order(out$updated, out$id, decreasing = TRUE), , drop = FALSE]
   out[seq_len(min(n, nrow(out))), , drop = FALSE]
 }
@@ -355,8 +424,8 @@ write_robots <- function(site_dir, base = SITE_URL) {
 # dashboard -- at roughly one or two entries a day. The grants feed carries only
 # grants, which is a handful a month and is what most readers actually want to be
 # told about.
-write_site_feeds <- function(site_dir, cases = NULL, base = SITE_URL) {
-  grants <- grant_feed_entries(cases, base = base)
+write_site_feeds <- function(site_dir, base = SITE_URL) {
+  grants <- grant_feed_entries(site_dir, base = base)
 
   confs <- dated_page_entries(
     file.path(site_dir, "conferences"), "^conf_\\d{4}-\\d{2}-\\d{2}\\.html$",
@@ -388,4 +457,20 @@ write_site_feeds <- function(site_dir, cases = NULL, base = SITE_URL) {
       title = "Supreme Court Report: Certiorari Grants",
       subtitle = "Cases in which the Court has granted plenary review.",
       self_path = "/grants.xml", base = base))
+}
+
+# Which feeds the site actually has, as root-absolute paths.
+#
+# page_head() advertises only these. The first version advertised both
+# unconditionally, and grants.xml turned out never to be written -- so every index
+# page on the site carried a <link rel="alternate"> to a 404.
+#
+# Read at the START of a build, from the gh-pages checkout, so it reflects what
+# the previous run published. A feed that appears for the first time this run is
+# therefore advertised from the NEXT run onwards. That one-run lag is the price of
+# never emitting a dangling link, and it is the right way round: a link to a feed
+# that exists is always correct, a link to one that might exist is not.
+site_feeds_present <- function(site_dir) {
+  f <- c("/feed.xml", "/grants.xml")
+  f[file.exists(file.path(site_dir, sub("^/", "", f)))]
 }
