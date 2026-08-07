@@ -45,6 +45,11 @@ site, partitioned so they never fight over the same paths.
   the landing **`index.html`**, `methods.html` (copied from `docs/`),
   `analytics.js`, and `CNAME`. **Does not** touch `conferences/`, `arguments/`, or
   `funnel/` — those are preserved from the checkout and merely linked.
+- **Also the site-wide syndication files:** `feed.xml`, `grants.xml`,
+  `sitemap.xml` + `sitemap-*.xml`, and `robots.txt` (see
+  [Feeds and sitemaps](#feeds-and-sitemaps) below). These *enumerate* the whole
+  site including sections the daily does not render, which is fine because they
+  read the gh-pages checkout, not the render output.
 - **Optional secrets:** `GA4_PROPERTY_ID` (numeric, *not* the `G-…` measurement
   id) and `GA4_SA_KEY` (service-account JSON with Viewer on that property) add
   the landing page's **Most-Read Cases** panel — top 5 `cases/` pages by views
@@ -156,7 +161,45 @@ rebase cleanly.
 | `arguments/` (+ `qp_cache.json`) | `conferences.yml` |
 | `funnel/` | `conferences.yml` |
 | `cases/` (+ `.manifest.json`, `search.json`, `style.css`) | `daily.yml` (current term) · `conferences.yml` (touched cases) · `rerender-dockets.yml` / `fill-throttled-dockets.yml` (back-catalog) |
+| `feed.xml`, `grants.xml`, `sitemap*.xml`, `robots.txt` | `daily.yml` |
 | `CNAME` | re-asserted by **every** publishing job |
+
+## Feeds and sitemaps
+
+Written by `daily.yml` (`R/feeds.R`, called at the end of `build_dashboards.R`),
+and owned by it alone even though they index the whole site — a feed is cheap to
+regenerate and the daily is the job that runs most often.
+
+| file | contents |
+| --- | --- |
+| `feed.xml` | Atom. Grants, conference reports and daily dashboards, 50 most recent |
+| `grants.xml` | Atom. Certiorari grants only |
+| `sitemap.xml` | A sitemap **index**, not a urlset |
+| `sitemap-pages.xml` | Sections, dated leaves, `cases/ot*.html` browse pages |
+| `sitemap-cases-ot{NN}.xml` | One per term, docket pages only |
+| `robots.txt` | Points crawlers at `sitemap.xml`; re-asserted every run like `CNAME` |
+
+Three things about them are load-bearing:
+
+- **`<updated>` is always an event date, never the build time.** The daily runs
+  three times a day. A build-time stamp would re-notify every subscriber three
+  times a day forever *and* defeat `publish_site.sh`'s `git diff --cached
+  --quiet` short-circuit, adding a gh-pages commit per run containing only a
+  timestamp. `audit_site.R` checks that each feed's document-level `<updated>`
+  equals its newest entry's, so a later "fix" cannot quietly reintroduce it.
+- **The sitemap is an index because `cases/` is past the 50,000-URL cap** (55,327
+  dockets at the last audit). A single `sitemap.xml` would be rejected whole
+  rather than truncated. The audit fails any child over the cap.
+- **Docket URLs carry no `<lastmod>`.** File mtime is wrong — the gh-pages
+  checkout rewrites every mtime on every run, so it would claim all 55k pages
+  changed today — and `cases/.manifest.json` stores a content hash, not a date.
+  Dated leaves (conferences, dashboards) carry their date in the filename and do
+  get a real one.
+
+Feed autodiscovery `<link rel="alternate">` tags live in `page_head()`
+(`R/page_style.R`), so every index page advertises both feeds. Docket pages build
+their own `<head>` and are unaffected — **this change needs no
+`PAGE_TEMPLATE_VERSION` bump.**
 
 ## Shared publish mechanics
 
