@@ -34,10 +34,16 @@ local({
 })
 
 # A procedural entry is marked with a TICK across the timeline rule, not a dot.
-# Bone & Cochineal made --paper #fdfcfa, and the petition cover is --c-white
-# #fff: the two markers came to differ by 0.6% of fill and a hairline of ring
-# colour, which is to say not at all. The parchment palette's cream --paper had
-# been carrying that distinction, so the recolour broke this without touching it.
+# Bone & Cochineal moved --paper to near-white and the petition cover is
+# --c-white, so the two markers came to differ by a fraction of a percent of
+# fill and a hairline of ring colour -- which is to say not at all. The
+# parchment palette's cream --paper had been carrying that distinction, so the
+# recolour broke this without touching it.
+#
+# (Those two values were written out here as hex when this comment was first
+# drafted, and audit_site.R failed on it. Correctly: a colour spelled anywhere
+# but palette.R is a copy, and a copy in a COMMENT is the worst kind -- nothing
+# renders from it, so it just quietly becomes untrue at the next recolour.)
 #
 # Shrinking the circle was tried first and is not enough -- both markers still
 # read as empty rings, and a white cover cannot show as a white fill on
