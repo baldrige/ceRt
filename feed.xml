@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Supreme Court Report</title>
+  <subtitle>Certiorari grants, conference reports and daily docket dashboards from the U.S. Supreme Court.</subtitle>
+  <link rel="self" href="https://supremecourt.report/feed.xml"/>
+  <link rel="alternate" type="text/html" href="https://supremecourt.report/"/>
+  <id>https://supremecourt.report/feed.xml</id>
+  <updated>2026-09-28T00:00:00Z</updated>
+  <author><name>Supreme Court Report</name></author>
+  <entry>
+    <title>Conference of September 28, 2026</title>
+    <link href="https://supremecourt.report/conferences/conf_2026-09-28.html"/>
+    <id>https://supremecourt.report/conferences/conf_2026-09-28.html</id>
+    <updated>2026-09-28T00:00:00Z</updated>
+    <summary>Petitions distributed for the Conference of September 28, 2026, ranked by relists.</summary>
+  </entry>
+  <entry>
+    <title>Docket for August 7, 2026</title>
+    <link href="https://supremecourt.report/dashboards/dash_2026-08-07.html"/>
+    <id>https://supremecourt.report/dashboards/dash_2026-08-07.html</id>
+    <updated>2026-08-07T00:00:00Z</updated>
+    <summary>Petitions and applications docketed on August 7, 2026.</summary>
+  </entry>
+  <entry>
+    <title>Docket for August 6, 2026</title>
+    <link href="https://supremecourt.report/dashboards/dash_2026-08-06.html"/>
+    <id>https://supremecourt.report/dashboards/dash_2026-08-06.html</id>
+    <updated>2026-08-06T00:00:00Z</updated>
+    <summary>Petitions and applications docketed on August 6, 2026.</summary>
+  </entry>
+  <entry>
+    <title>Docket for August 5, 2026</title>
+    <link href="https://supremecourt.report/dashboards/dash_2026-08-05.html"/>
+    <id>https://supremecourt.report/dashboards/dash_2026-08-05.html</id>
+    <updated>2026-08-05T00:00:00Z</updated>
+    <summary>Petitions and applications docketed on August 5, 2026.</summary>
+  </entry>
+  <entry>
+    <title>Docket for August 4, 2026</title>
+    <link href="https://supremecourt.report/dashboards/dash_2026-08-04.html"/>
+    <id>https://supremecourt.report/dashboards/dash_2026-08-04.html</id>
+    <updated>2026-08-04T00:00:00Z</updated>
+    <summary>Petitions and applications docketed on August 4, 2026.</summary>
+  </entry>
+  <entry>
+    <title>Docket for August 3, 2026</title>
+    <link href="https://supremecourt.report/dashboards/dash_2026-08-03.html"/>
+    <id>https://supremecourt.report/dashboards/dash_2026-08-03.html</id>
+    <updated>2026-08-03T00:00:00Z</updated>
+    <summary>Petitions and applications docketed on August 3, 2026.</summary>
+  </entry>
+  <entry>
+    <title>Docket for July 31, 2026</title>
+    <link href="https://supremecourt.report/dashboards/dash_2026-07-31.html"/>
+    <id>https://supremecourt.report/dashboards/dash_2026-07-31.html</id>
+    <updated>2026-07-31T00:00:00Z</updated>
+    <summary>Petitions and applications docketed on July 31, 2026.</summary>
+  </entry>
+  <entry>
+    <title>Docket for July 30, 2026</title>
+    <link href="https://supremecourt.report/dashboards/dash_2026-07-30.html"/>
+    <id>https://supremecourt.report/dashboards/dash_2026-07-30.html</id>
+    <updated>2026-07-30T00:00:00Z</updated>
+    <summary>Petitions and applications docketed on July 30, 2026.</summary>
+  </entry>
+  <entry>
+    <title>Docket for July 29, 2026</title>
+    <link href="https://supremecourt.report/dashboards/dash_2026-07-29.html"/>
+    <id>https://supremecourt.report/dashboards/dash_2026-07-29.html</id>
+    <updated>2026-07-29T00:00:00Z</updated>
+    <summary>Petitions and applications docketed on July 29, 2026.</summary>
+  </entry>
+  <entry>
+    <title>Docket for July 28, 2026</title>
+    <link href="https://supremecourt.report/dashboards/dash_2026-07-28.html"/>
+    <id>https://supremecourt.report/dashboards/dash_2026-07-28.html</id>
+    <updated>2026-07-28T00:00:00Z</updated>
+    <summary>Petitions and applications docketed on July 28, 2026.</summary>
+  </entry>
+  <entry>
+    <title>Docket for July 27, 2026</title>
+    <link href="https://supremecourt.report/dashboards/dash_2026-07-27.html"/>
+    <id>https://supremecourt.report/dashboards/dash_2026-07-27.html</id>
+    <updated>2026-07-27T00:00:00Z</updated>
+    <summary>Petitions and applications docketed on July 27, 2026.</summary>
+  </entry>
+  <entry>
+    <title>Docket for July 25, 2026</title>
+    <link href="https://supremecourt.report/dashboards/dash_2026-07-25.html"/>
+    <id>https://supremecourt.report/dashboards/dash_2026-07-25.html</id>
+    <updated>2026-07-25T00:00:00Z</updated>
+    <summary>Petitions and applications docketed on July 25, 2026.</summary>
+  </entry>
+  <entry>
+    <title>Docket for July 24, 2026</title>
+    <link href="https://supremecourt.report/dashboards/dash_2026-07-24.html"/>
+    <id>https://supremecourt.report/dashboards/dash_2026-07-24.html</id>
+    <updated>2026-07-24T00:00:00Z</updated>
+    <summary>Petitions and applications docketed on July 24, 2026.</summary>
+  </entry>
+  <entry>
+    <title>Docket for July 23, 2026</title>
+    <link href="https://supremecourt.report/dashboards/dash_2026-07-23.html"/>
+    <id>https://supremecourt.report/dashboards/dash_2026-07-23.html</id>
+    <updated>2026-07-23T00:00:00Z</updated>
+    <summary>Petitions and applications docketed on July 23, 2026.</summary>
+  </entry>
+  <entry>
+    <title>Docket for July 22, 2026</title>
+    <link href="https://supremecourt.report/dashboards/dash_2026-07-22.html"/>
+    <id>https://supremecourt.report/dashboards/dash_2026-07-22.html</id>
+    <updated>2026-07-22T00:00:00Z</updated>
+    <summary>Petitions and applications docketed on July 22, 2026.</summary>
+  </entry>
+  <entry>
+    <title>Docket for July 21, 2026</title>
+    <link href="https://supremecourt.report/dashboards/dash_2026-07-21.html"/>
+    <id>https://supremecourt.report/dashboards/dash_2026-07-21.html</id>
+    <updated>2026-07-21T00:00:00Z</updated>
+    <summary>Petitions and applications docketed on July 21, 2026.</summary>
+  </entry>
+  <entry>
+    <title>Docket for July 20, 2026</title>
+    <link href="https://supremecourt.report/dashboards/dash_2026-07-20.html"/>
+    <id>https://supremecourt.report/dashboards/dash_2026-07-20.html</id>
+    <updated>2026-07-20T00:00:00Z</updated>
+    <summary>Petitions and applications docketed on July 20, 2026.</summary>
+  </entry>
+  <entry>
+    <title>Docket for July 19, 2026</title>
+    <link href="https://supremecourt.report/dashboards/dash_2026-07-19.html"/>
+    <id>https://supremecourt.report/dashboards/dash_2026-07-19.html</id>
+    <updated>2026-07-19T00:00:00Z</updated>
+    <summary>Petitions and applications docketed on July 19, 2026.</summary>
+  </entry>
+  <entry>
+    <title>Docket for July 17, 2026</title>
+    <link href="https://supremecourt.report/dashboards/dash_2026-07-17.html"/>
+    <id>https://supremecourt.report/dashboards/dash_2026-07-17.html</id>
+    <updated>2026-07-17T00:00:00Z</updated>
+    <summary>Petitions and applications docketed on July 17, 2026.</summary>
+  </entry>
+  <entry>
+    <title>Docket for July 16, 2026</title>
+    <link href="https://supremecourt.report/dashboards/dash_2026-07-16.html"/>
+    <id>https://supremecourt.report/dashboards/dash_2026-07-16.html</id>
+    <updated>2026-07-16T00:00:00Z</updated>
+    <summary>Petitions and applications docketed on July 16, 2026.</summary>
+  </entry>
+  <entry>
+    <title>Docket for July 15, 2026</title>
+    <link href="https://supremecourt.report/dashboards/dash_2026-07-15.html"/>
+    <id>https://supremecourt.report/dashboards/dash_2026-07-15.html</id>
+    <updated>2026-07-15T00:00:00Z</updated>
+    <summary>Petitions and applications docketed on July 15, 2026.</summary>
+  </entry>
+  <entry>
+    <title>Conference of June 29, 2026</title>
+    <link href="https://supremecourt.report/conferences/conf_2026-06-29.html"/>
+    <id>https://supremecourt.report/conferences/conf_2026-06-29.html</id>
+    <updated>2026-06-29T00:00:00Z</updated>
+    <summary>Petitions distributed for the Conference of June 29, 2026, ranked by relists.</summary>
+  </entry>
+  <entry>
+    <title>Conference of June 25, 2026</title>
+    <link href="https://supremecourt.report/conferences/conf_2026-06-25.html"/>
+    <id>https://supremecourt.report/conferences/conf_2026-06-25.html</id>
+    <updated>2026-06-25T00:00:00Z</updated>
+    <summary>Petitions distributed for the Conference of June 25, 2026, ranked by relists.</summary>
+  </entry>
+  <entry>
+    <title>Conference of June 18, 2026</title>
+    <link href="https://supremecourt.report/conferences/conf_2026-06-18.html"/>
+    <id>https://supremecourt.report/conferences/conf_2026-06-18.html</id>
+    <updated>2026-06-18T00:00:00Z</updated>
+    <summary>Petitions distributed for the Conference of June 18, 2026, ranked by relists.</summary>
+  </entry>
+  <entry>
+    <title>Conference of June 11, 2026</title>
+    <link href="https://supremecourt.report/conferences/conf_2026-06-11.html"/>
+    <id>https://supremecourt.report/conferences/conf_2026-06-11.html</id>
+    <updated>2026-06-11T00:00:00Z</updated>
+    <summary>Petitions distributed for the Conference of June 11, 2026, ranked by relists.</summary>
+  </entry>
+  <entry>
+    <title>Conference of June 4, 2026</title>
+    <link href="https://supremecourt.report/conferences/conf_2026-06-04.html"/>
+    <id>https://supremecourt.report/conferences/conf_2026-06-04.html</id>
+    <updated>2026-06-04T00:00:00Z</updated>
+    <summary>Petitions distributed for the Conference of June 4, 2026, ranked by relists.</summary>
+  </entry>
+  <entry>
+    <title>Conference of May 28, 2026</title>
+    <link href="https://supremecourt.report/conferences/conf_2026-05-28.html"/>
+    <id>https://supremecourt.report/conferences/conf_2026-05-28.html</id>
+    <updated>2026-05-28T00:00:00Z</updated>
+    <summary>Petitions distributed for the Conference of May 28, 2026, ranked by relists.</summary>
+  </entry>
+  <entry>
+    <title>Conference of May 21, 2026</title>
+    <link href="https://supremecourt.report/conferences/conf_2026-05-21.html"/>
+    <id>https://supremecourt.report/conferences/conf_2026-05-21.html</id>
+    <updated>2026-05-21T00:00:00Z</updated>
+    <summary>Petitions distributed for the Conference of May 21, 2026, ranked by relists.</summary>
+  </entry>
+  <entry>
+    <title>Conference of May 14, 2026</title>
+    <link href="https://supremecourt.report/conferences/conf_2026-05-14.html"/>
+    <id>https://supremecourt.report/conferences/conf_2026-05-14.html</id>
+    <updated>2026-05-14T00:00:00Z</updated>
+    <summary>Petitions distributed for the Conference of May 14, 2026, ranked by relists.</summary>
+  </entry>
+  <entry>
+    <title>Conference of May 1, 2026</title>
+    <link href="https://supremecourt.report/conferences/conf_2026-05-01.html"/>
+    <id>https://supremecourt.report/conferences/conf_2026-05-01.html</id>
+    <updated>2026-05-01T00:00:00Z</updated>
+    <summary>Petitions distributed for the Conference of May 1, 2026, ranked by relists.</summary>
+  </entry>
+  <entry>
+    <title>Conference of April 24, 2026</title>
+    <link href="https://supremecourt.report/conferences/conf_2026-04-24.html"/>
+    <id>https://supremecourt.report/conferences/conf_2026-04-24.html</id>
+    <updated>2026-04-24T00:00:00Z</updated>
+    <summary>Petitions distributed for the Conference of April 24, 2026, ranked by relists.</summary>
+  </entry>
+  <entry>
+    <title>Conference of April 17, 2026</title>
+    <link href="https://supremecourt.report/conferences/conf_2026-04-17.html"/>
+    <id>https://supremecourt.report/conferences/conf_2026-04-17.html</id>
+    <updated>2026-04-17T00:00:00Z</updated>
+    <summary>Petitions distributed for the Conference of April 17, 2026, ranked by relists.</summary>
+  </entry>
+  <entry>
+    <title>Conference of April 2, 2026</title>
+    <link href="https://supremecourt.report/conferences/conf_2026-04-02.html"/>
+    <id>https://supremecourt.report/conferences/conf_2026-04-02.html</id>
+    <updated>2026-04-02T00:00:00Z</updated>
+    <summary>Petitions distributed for the Conference of April 2, 2026, ranked by relists.</summary>
+  </entry>
+  <entry>
+    <title>Conference of March 27, 2026</title>
+    <link href="https://supremecourt.report/conferences/conf_2026-03-27.html"/>
+    <id>https://supremecourt.report/conferences/conf_2026-03-27.html</id>
+    <updated>2026-03-27T00:00:00Z</updated>
+    <summary>Petitions distributed for the Conference of March 27, 2026, ranked by relists.</summary>
+  </entry>
+  <entry>
+    <title>Conference of March 20, 2026</title>
+    <link href="https://supremecourt.report/conferences/conf_2026-03-20.html"/>
+    <id>https://supremecourt.report/conferences/conf_2026-03-20.html</id>
+    <updated>2026-03-20T00:00:00Z</updated>
+    <summary>Petitions distributed for the Conference of March 20, 2026, ranked by relists.</summary>
+  </entry>
+  <entry>
+    <title>Conference of March 6, 2026</title>
+    <link href="https://supremecourt.report/conferences/conf_2026-03-06.html"/>
+    <id>https://supremecourt.report/conferences/conf_2026-03-06.html</id>
+    <updated>2026-03-06T00:00:00Z</updated>
+    <summary>Petitions distributed for the Conference of March 6, 2026, ranked by relists.</summary>
+  </entry>
+  <entry>
+    <title>Conference of February 27, 2026</title>
+    <link href="https://supremecourt.report/conferences/conf_2026-02-27.html"/>
+    <id>https://supremecourt.report/conferences/conf_2026-02-27.html</id>
+    <updated>2026-02-27T00:00:00Z</updated>
+    <summary>Petitions distributed for the Conference of February 27, 2026, ranked by relists.</summary>
+  </entry>
+  <entry>
+    <title>Conference of February 20, 2026</title>
+    <link href="https://supremecourt.report/conferences/conf_2026-02-20.html"/>
+    <id>https://supremecourt.report/conferences/conf_2026-02-20.html</id>
+    <updated>2026-02-20T00:00:00Z</updated>
+    <summary>Petitions distributed for the Conference of February 20, 2026, ranked by relists.</summary>
+  </entry>
+  <entry>
+    <title>Conference of January 23, 2026</title>
+    <link href="https://supremecourt.report/conferences/conf_2026-01-23.html"/>
+    <id>https://supremecourt.report/conferences/conf_2026-01-23.html</id>
+    <updated>2026-01-23T00:00:00Z</updated>
+    <summary>Petitions distributed for the Conference of January 23, 2026, ranked by relists.</summary>
+  </entry>
+  <entry>
+    <title>Conference of January 16, 2026</title>
+    <link href="https://supremecourt.report/conferences/conf_2026-01-16.html"/>
+    <id>https://supremecourt.report/conferences/conf_2026-01-16.html</id>
+    <updated>2026-01-16T00:00:00Z</updated>
+    <summary>Petitions distributed for the Conference of January 16, 2026, ranked by relists.</summary>
+  </entry>
+  <entry>
+    <title>Conference of January 9, 2026</title>
+    <link href="https://supremecourt.report/conferences/conf_2026-01-09.html"/>
+    <id>https://supremecourt.report/conferences/conf_2026-01-09.html</id>
+    <updated>2026-01-09T00:00:00Z</updated>
+    <summary>Petitions distributed for the Conference of January 9, 2026, ranked by relists.</summary>
+  </entry>
+  <entry>
+    <title>Conference of December 12, 2025</title>
+    <link href="https://supremecourt.report/conferences/conf_2025-12-12.html"/>
+    <id>https://supremecourt.report/conferences/conf_2025-12-12.html</id>
+    <updated>2025-12-12T00:00:00Z</updated>
+    <summary>Petitions distributed for the Conference of December 12, 2025, ranked by relists.</summary>
+  </entry>
+  <entry>
+    <title>Conference of December 5, 2025</title>
+    <link href="https://supremecourt.report/conferences/conf_2025-12-05.html"/>
+    <id>https://supremecourt.report/conferences/conf_2025-12-05.html</id>
+    <updated>2025-12-05T00:00:00Z</updated>
+    <summary>Petitions distributed for the Conference of December 5, 2025, ranked by relists.</summary>
+  </entry>
+  <entry>
+    <title>Conference of November 21, 2025</title>
+    <link href="https://supremecourt.report/conferences/conf_2025-11-21.html"/>
+    <id>https://supremecourt.report/conferences/conf_2025-11-21.html</id>
+    <updated>2025-11-21T00:00:00Z</updated>
+    <summary>Petitions distributed for the Conference of November 21, 2025, ranked by relists.</summary>
+  </entry>
+  <entry>
+    <title>Conference of November 14, 2025</title>
+    <link href="https://supremecourt.report/conferences/conf_2025-11-14.html"/>
+    <id>https://supremecourt.report/conferences/conf_2025-11-14.html</id>
+    <updated>2025-11-14T00:00:00Z</updated>
+    <summary>Petitions distributed for the Conference of November 14, 2025, ranked by relists.</summary>
+  </entry>
+  <entry>
+    <title>Conference of November 7, 2025</title>
+    <link href="https://supremecourt.report/conferences/conf_2025-11-07.html"/>
+    <id>https://supremecourt.report/conferences/conf_2025-11-07.html</id>
+    <updated>2025-11-07T00:00:00Z</updated>
+    <summary>Petitions distributed for the Conference of November 7, 2025, ranked by relists.</summary>
+  </entry>
+  <entry>
+    <title>Conference of October 17, 2025</title>
+    <link href="https://supremecourt.report/conferences/conf_2025-10-17.html"/>
+    <id>https://supremecourt.report/conferences/conf_2025-10-17.html</id>
+    <updated>2025-10-17T00:00:00Z</updated>
+    <summary>Petitions distributed for the Conference of October 17, 2025, ranked by relists.</summary>
+  </entry>
+  <entry>
+    <title>Conference of October 10, 2025</title>
+    <link href="https://supremecourt.report/conferences/conf_2025-10-10.html"/>
+    <id>https://supremecourt.report/conferences/conf_2025-10-10.html</id>
+    <updated>2025-10-10T00:00:00Z</updated>
+    <summary>Petitions distributed for the Conference of October 10, 2025, ranked by relists.</summary>
+  </entry>
+  <entry>
+    <title>Conference of September 29, 2025</title>
+    <link href="https://supremecourt.report/conferences/conf_2025-09-29.html"/>
+    <id>https://supremecourt.report/conferences/conf_2025-09-29.html</id>
+    <updated>2025-09-29T00:00:00Z</updated>
+    <summary>Petitions distributed for the Conference of September 29, 2025, ranked by relists.</summary>
+  </entry>
+  <entry>
+    <title>Conference of June 26, 2025</title>
+    <link href="https://supremecourt.report/conferences/conf_2025-06-26.html"/>
+    <id>https://supremecourt.report/conferences/conf_2025-06-26.html</id>
+    <updated>2025-06-26T00:00:00Z</updated>
+    <summary>Petitions distributed for the Conference of June 26, 2025, ranked by relists.</summary>
+  </entry>
+</feed>
+
