@@ -26,8 +26,16 @@ source("R/docket_page.R")    # render_dockets_for
 #   > cases-NN.rds  (JSON artifacts, freshest for the fetched terms)
 #   > ot_*.rds      (historical snapshots, may predate a Term's decisions)
 refresh <- list.files("data-raw", pattern = "^arg_refresh\\.rds$", full.names = TRUE)
-art <- list.files(cases_dir, pattern = "^cases-\\d{2}\\.rds$",
-                  full.names = TRUE, recursive = TRUE)
+# cases-pending.rds is included alongside the per-Term artifacts: an old docket
+# fetched by name because it was still live can since have been GRANTED, and it
+# would otherwise be missing from the Navigator while appearing everywhere else on
+# the site. `distinct(dkt)` below already dedupes, and the file-order precedence
+# above still holds -- this is appended after the Term artifacts, so a Term copy
+# of the same docket wins.
+art <- c(list.files(cases_dir, pattern = "^cases-\\d{2}\\.rds$",
+                    full.names = TRUE, recursive = TRUE),
+         list.files(cases_dir, pattern = "^cases-pending\\.rds$",
+                    full.names = TRUE, recursive = TRUE))
 hist <- list.files("data-raw", pattern = "^ot_\\d+\\.rds$", full.names = TRUE)
 files <- c(refresh, art, hist)
 if (length(files) == 0) stop("no case data found (artifacts or data-raw)")

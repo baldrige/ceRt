@@ -100,8 +100,68 @@ jobs:
           path: cases-${{ matrix.term }}.rds
           retention-days: 3
 
+  # The long-held stragglers, fetched BY NAME rather than by widening the Term
+  # window. A {T, T-1} range loses the cases a relist leaderboard is about --
+  # 19-333 was relisted 12 times, 8 of them in a Term this matrix never loads.
+  # The out-of-window live set has a median size of 8 and a measured max of 13,
+  # against ~5,000 for a third Term. See R/pending_dockets.R.
+  #
+  # Runs in parallel with the Term matrix, on its own runner (own IP), and is
+  # continue-on-error: a straggler lost to throttling must not cost a clean
+  # ten-thousand-request Term fetch.
+  fetch-pending:
+    needs: setup
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v5
+      - name: Checkout published site (gh-pages) into ./site
+        uses: actions/checkout@v5
+        with:
+          ref: gh-pages
+          path: site
+      - name: System dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libpoppler-cpp-dev libtesseract-dev tesseract-ocr libcurl4-openssl-dev
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          packages: |
+            any::gt
+            any::gtExtras
+            any::tidyverse
+            any::httr2
+            any::jsonlite
+            any::pdftools
+            any::htmltools
+            any::nnet
+      - name: Fetch out-of-window pending dockets
+        env:
+          SITE_DIR: site
+          WINDOW_TERMS: ${{ join(fromJSON(needs.setup.outputs.matrix), ',') }}
+          OUT_FILE: cases-pending.rds
+        run: Rscript .github/scripts/fetch_pending.R
+      - uses: actions/upload-artifact@v4
+        # Absent when there was nothing to name, which is the normal state until
+        # the render step has written a pending.json.
+        if: hashFiles('cases-pending.rds') != ''
+        with:
+          name: cases-pending
+          path: cases-pending.rds
+          retention-days: 3
+
   publish:
-    needs: [setup, fetch]
+    # Waits for fetch-pending so its artifact is downloadable, but does NOT
+    # require it to have succeeded -- `always()` is what waives the needs-success
+    # rule (a plain `if:` does not). The Term matrix must still be green, exactly
+    # as before: a missing Term silently under-counts relists, a missing
+    # straggler merely omits one case and says so in the log.
+    needs: [setup, fetch, fetch-pending]
+    if: always() && needs.setup.result == 'success' && needs.fetch.result == 'success'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source (main)

@@ -114,35 +114,87 @@ being computed for every case.
   (a scheduled-but-unheld conference means it's pending *at* that conference,
   not relisted out of it)
 
-### The correctness problem to solve first
+### The correctness problem — measured, and solved
 
-**`render_conferences.R` documents that relist counts on recent conference pages
-are a floor, not a count.** The scheduled weekly run fetches only the current and
-prior term (`plan_terms.R:22`), so a petition docketed two or more terms back —
-which is precisely what a heavily-relisted or held petition *is* — never enters
-`combined` at all.
+**Resolved. See the measurements below; implemented as the targeted pending
+fetch.**
 
-For a conference report that is a tolerable approximation: the case simply
-doesn't appear on that page, and the page is about the conference, not the case.
-For a page whose entire headline is the relist count, it is not. Relist Watch
-would systematically omit its most interesting rows.
+The scheduled weekly run range-fetches only the current and prior term
+(`plan_terms.R:22`), so a petition docketed two or more terms back — precisely
+what a heavily-relisted or held petition *is* — never enters `combined`.
 
-Two ways out:
+Measured over OT2017–OT2024 (48,985 petitions; 12,147 paid; 1,723 with ≥1
+relist), the term lag of every relist:
 
-1. **Widen the window to three terms** — change `plan_terms.R:22` to emit
-   `{current, current-1, current-2}`. Terms fetch as a parallel matrix on
-   separate runners, so this costs one more runner and roughly zero wall-clock.
-   The contiguity guard in `render_conferences.R` already handles a three-term
-   set unchanged. Cheap, and it also improves the existing conference pages.
-2. **Persist relist counts per docket** in a `conferences/relist_cache.json` on
-   gh-pages, keyed by docket, so counts survive a term falling out of the fetch
-   window.
+| lag | relists | share | cumulative |
+| --- | --- | --- | --- |
+| 0 (same term) | 2,237 | 75.8% | 75.8% |
+| 1 | 694 | 23.5% | 99.3% |
+| 2 | 20 | 0.7% | 99.97% |
+| 3 | 1 | 0.03% | 100% |
 
-**Recommendation: (1) now, (2) only if it proves insufficient.** Option 2 adds a
-cache that can go stale in a way nothing detects, and the whole point of deriving
-relists from events is that they are recomputable. If (2) is ever added, it must
-be appended to the `DERIVED` list in `publish_site.sh:53` so concurrent publishes
-union it rather than conflicting.
+99.29% coverage from the current window sounds fine and is misleading, because a
+leaderboard is **ranked** — what matters is whether a case that belongs at the
+top is missing entirely:
+
+| relists | cases | lost by 2-term | lost by 3-term |
+| --- | --- | --- | --- |
+| ≥1 | 1,723 | 9 (0.5%) | 1 (0.06%) |
+| ≥5 | 112 | 3 (2.7%) | 1 (0.9%) |
+| ≥10 | 24 | **2 (8.3%)** | 1 (4.2%) |
+
+Coverage degrades exactly as relist count rises, because a heavily-relisted case
+is by definition one that has been sitting a long time. The worst case is
+**19-333 (Arlene's Flowers)** — 12 relists, **8 of them in a term the window
+never loads**, so the board would have omitted a nationally-followed case for
+eight consecutive conferences while it was live.
+
+### Why the answer is not a third term
+
+Widening to `{T, T-1, T-2}` costs a whole extra term. The set of dockets that are
+(a) still undisposed and (b) older than the window, sampled twice a year across
+OT2019–OT2024, has a **median size of 8 and a measured maximum of 13**:
+
+```
+3rd term (range fetch):    ~5,063 req  ≈ 42 min on its own runner
+targeted pending (median):     ~8 req  ≈ 0.1 min
+targeted pending (worst):     ~13 req  ≈ 0.1 min
+```
+
+All nine cases a two-term window loses were undisposed at the time of their
+invisible relists — a relist implies pendency — so every one would have been in
+the live set and named.
+
+**The constraint that makes this work:** you can only target a docket you already
+know exists. New petitions arrive constantly with fresh numbers in the current
+term's bucket, and `binary_search_max()` is what discovers them — so the current
+and prior terms must stay range fetches. **Older terms never gain new dockets**,
+so every one is already known and targeting is exact, not approximate.
+
+Implemented as `R/pending_dockets.R` + `.github/scripts/fetch_pending.R` + a
+`fetch-pending` job in `conferences.yml`, backed by `cases/pending.json`.
+
+Two things about that cache are load-bearing:
+
+- **It is rewritten wholesale, not merged.** A docket disposed of since the last
+  run has to *disappear*, or the fetch list only ever grows. This is why
+  `pending.json` is deliberately **not** in `publish_site.sh`'s `DERIVED` list —
+  every cache there is append-only per key, which is what makes a union the right
+  resolution; unioning this one would resurrect exactly the keys the render step
+  just retired.
+- **Applications are excluded**, as `classify_petitions()` already does. Their
+  dispositions aren't in the grant/deny grammar, so the classifier calls almost
+  all of them pending forever — seeding OT17–20 without that filter produced a
+  496-docket fetch list instead of 8, nearly all of it `18A####`.
+
+### A doc nit this measurement corrects
+
+`render_conferences.R` says the window means *"'Relists' on a recent conference
+page is a floor, not a count."* That names the wrong failure.
+`classify_petition_events()` reads only a single case's own events, so any case
+that is *loaded* gets a complete relist count. What is incomplete is the **case
+list** — old dockets are absent from the page altogether. Same root cause,
+different thing for a reader to distrust.
 
 ### Work items
 
