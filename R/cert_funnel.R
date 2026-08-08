@@ -110,11 +110,32 @@ SUMMARY_RX <- paste0(
 DENY_FORMS <- c(
   "^Petition DENIED",
   "^Petition for writ of (mandamus|habeas corpus|prohibition)[^.]{0,80}DENIED",
+  # The spelled-out uppercase denial. GRANT_FORMS has carried the mirror of this
+  # since the beginning -- "^Petition for a writ of certiorari( before judgment)?
+  # GRANTED" -- and DENY_FORMS did not, so an entry reading "Petition for a writ
+  # of certiorari before judgment DENIED." matched nothing: no leading
+  # "^Petition DENIED", and no "is" for the lowercase form below. Four petitions
+  # in OT17-24 carry it and three were left pending (17-1003, 20-298, 23-624).
+  "^Petitions? for (a writ of )?certiorari( before judgment)? DENIED",
   # lowercase denials embedded in longer orders (capital cases, sealed filings);
   # sentence-anchored so "consideration of the petition ... is denied" (a
   # motion ruling) cannot match
   "(?i)(^|\\.\\s+)(the )?petitions? for (a writ of )?certiorari( before judgment)? (is|are) denied"
 )
+
+# A standalone summary disposition written as lowercase prose rather than in the
+# uppercase docket style. SUMMARY_RX above only fires INSIDE a grant entry, and
+# the standalone rule in term_kind() is "^Judgments? VACATED and cases? REMANDED"
+# -- the uppercase form. The Court also writes the identical order as "The
+# judgment is vacated, and the case is remanded to the United States District
+# Court for ...", which had no rule at all. Four petitions in OT17-24, three left
+# pending (17-1295, 20-561, 20-662), all of them section 1253 appeals.
+#
+# Anchored at the start of the entry so a recital of the court below's own
+# vacatur, mid-entry, cannot match.
+SUMMARY_PROSE_RX <- paste0(
+  "(?i)^the judgments?[^.]{0,60}(is|are) (vacated|reversed)",
+  "[^.]{0,80}(and|,)[^.]{0,40}remanded")
 
 # A granted rehearing VACATES the order it reheard, so an earlier denial that has
 # been vacated is no longer this petition's disposition (17-243: "The petition
@@ -223,6 +244,8 @@ classify_petition_events <- function(events) {
     # standalone appeal GVRs and summary affirmances (in argued cases the
     # grant entry is earlier, so earliest-wins keeps those "granted")
     str_detect(txt, "^Judgments? VACATED and cases? REMANDED") ~ "gvr",
+    # the same order in lowercase prose -- see SUMMARY_PROSE_RX
+    str_detect(txt, SUMMARY_PROSE_RX) ~ "gvr",
     str_detect(txt, "^Adjudged to be AFFIRMED") ~ "gvr",
     rx_any(txt, DENY_FORMS) ~ "denied",
     rx_any(txt, DISMISS_FORMS) ~ "dismissed",
