@@ -51,6 +51,16 @@ PATHS=("$@")
 #                                        only see one inside its trailing fetch
 #                                        window). Append-only per key, so a union
 #                                        is exactly right.
+#
+# cases/pending.json is deliberately NOT in this list, and that is a semantic
+# distinction rather than an oversight. Every cache above is append-only per key,
+# which is what makes `*` the right resolution. pending.json is the opposite: a
+# docket disposed of since the last run has to DISAPPEAR from it, or the fetch
+# list only ever grows. Unioning it would resurrect exactly the keys the render
+# step just retired. Only conferences.yml writes it, and that workflow does not
+# run concurrently with itself (concurrency: conference-reports), so a conflict
+# on it means something genuinely unexpected -- which the fall-through below
+# already refuses to guess at.
 #   conferences/qp_cache.json            render_conferences.R AND both QP
 #                                        backfills -- 16 MB, the most expensive
 #                                        thing here to lose

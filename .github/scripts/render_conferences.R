@@ -69,6 +69,21 @@ if (length(.terms_present) > 1) {
 cat("Terms loaded:", paste(.terms_present, collapse = ", "), "(contiguous)\n")
 
 combined <- files |> map(readRDS) |> bind_rows()
+
+# cases-pending.rds names out-of-window stragglers by docket, and the fetch that
+# builds it filters to Terms the matrix does not cover -- so an overlap should be
+# impossible. Deduped anyway: a `reuse_from_runs` set can carry a Term artifact
+# from an older run alongside a fresh straggler for the same docket, and a
+# duplicated row would double-count that case's conference distributions. Keeps
+# the copy with the most docket entries, i.e. the freshest fetch.
+.n_before <- nrow(combined)
+combined <- combined |>
+  mutate(.n_ev = map_int(events, ~ if (is.data.frame(.x)) nrow(.x) else 0L)) |>
+  arrange(dkt, desc(.n_ev)) |>
+  distinct(dkt, .keep_all = TRUE) |>
+  select(-.n_ev)
+if (.n_before != nrow(combined))
+  cat("Deduped", .n_before - nrow(combined), "duplicate docket row(s)\n")
 cat("Combined cases:", nrow(combined), "\n")
 
 # distribution_no is computed across the full combined history, then we keep only
@@ -112,4 +127,21 @@ render_dockets_for(combined, site_dir)
 source("R/feeds.R")
 cat("Grants cache: +", update_grants_cache(site_dir, combined), " new grant(s)\n",
     sep = "")
+
+# The live-docket cache, which is how the NEXT run knows which out-of-window
+# stragglers to name. Written from everything this run classified, and rewritten
+# wholesale rather than merged -- a docket disposed of since last week has to stop
+# being listed, or the fetch list only ever grows.
+source("R/pending_dockets.R")
+ps <- update_pending(site_dir, combined)
+cat(sprintf("Pending cache: %d live docket(s) [resolved since last run: %d | aged out: %d | carried unseen: %d]\n",
+            ps$kept, ps$dropped_resolved, ps$dropped_idle, ps$carried))
+# The out-of-window slice is the actual fetch list for next time. Printed because
+# it is the number that says whether this mechanism is doing anything, and
+# because a sudden jump means the classifier has stopped recognising a
+# disposition form.
+nxt <- pending_to_fetch(site_dir, .terms_present)
+cat("Next run will name", length(nxt), "out-of-window docket(s)",
+    if (length(nxt)) paste0(": ", paste(head(nxt, 20), collapse = ", "),
+                            if (length(nxt) > 20) ", ..." else "") else "", "\n")
 cat("Done.\n")

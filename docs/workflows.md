@@ -163,6 +163,55 @@ rebase cleanly.
 | `cases/` (+ `.manifest.json`, `search.json`, `style.css`) | `daily.yml` (current term) · `conferences.yml` (touched cases) · `rerender-dockets.yml` / `fill-throttled-dockets.yml` (back-catalog) |
 | `feed.xml`, `grants.xml`, `sitemap*.xml`, `robots.txt` | `daily.yml` |
 | `cases/grants.json` (grants cache) | `conferences.yml` (full-term, the real source) · `daily.yml` (only what is inside its trailing fetch window) |
+| `cases/pending.json` (live-docket cache) | `conferences.yml` only |
+
+## Naming the live stragglers instead of widening the Term window
+
+`conferences.yml` range-fetches the current and prior Term. Measured over
+OT2017–OT2024, that covers 99.29% of all relists — but the misses are the
+long-held, heavily-relisted cases, which is exactly what a relist product is
+about. **19-333 (Arlene's Flowers)** was relisted 12 times; 8 of those happened in
+a Term the window never loads.
+
+Widening to a third Term costs ~5,000 requests. The set of dockets that are still
+undisposed *and* older than the window has a **median size of 8, measured maximum
+13**. So the `fetch-pending` job names them instead:
+
+- `cases/pending.json` — docket → `{last_event, n_relists, first_dist}`, written
+  by `render_conferences.R` from everything that run classified.
+- `.github/scripts/fetch_pending.R` — reads the cache, keeps the dockets from
+  Terms this run will *not* range-fetch, and fetches exactly those into
+  `cases-pending.rds`.
+
+Why the split is exact rather than approximate: **you can only target a docket you
+already know exists.** New petitions arrive with fresh numbers in the current
+Term's bucket, and `binary_search_max()` is what discovers them — so the current
+and prior Terms must stay range fetches. Older Terms never gain new dockets.
+
+Four things here are load-bearing:
+
+- **The cache is rewritten wholesale, not merged.** A docket disposed of since the
+  last run must *disappear*, or the fetch list only grows. This is why
+  `pending.json` is deliberately **not** in `publish_site.sh`'s `DERIVED` list:
+  every cache there is append-only per key, so a union is right for them and
+  would, for this one, resurrect precisely the keys the render step just retired.
+- **A docket the run did not see is carried forward**, not retired. Otherwise a
+  fetch that lost a docket to throttling would silently drop a live case.
+- **Applications are excluded**, as `classify_petitions()` already does. Their
+  dispositions are not in the grant/deny grammar, so the classifier calls nearly
+  all of them pending forever — seeding OT17–20 without the filter produced a
+  496-docket list instead of 8, almost all `18A####`.
+- **`cases-pending.rds` is named so it does not match `^cases-\d{2}\.rds$`.**
+  `render_funnel.R` selects on that pattern and must not have its live-Term
+  statistics perturbed by a handful of old stragglers.
+  `render_conferences.R` (pattern `\.rds$`) and `render_arguments.R` (explicitly
+  widened) both do pick it up — the latter because a named straggler can since
+  have been granted, and would otherwise be missing from the Navigator alone.
+
+`publish` gates on `always() && needs.fetch.result == 'success'`: it waits for
+`fetch-pending` so the artifact is downloadable, but a throttled straggler cannot
+block a clean Term fetch. `always()` is what waives the needs-success rule — a
+plain `if:` does not.
 | `CNAME` | re-asserted by **every** publishing job |
 
 ## Feeds and sitemaps
