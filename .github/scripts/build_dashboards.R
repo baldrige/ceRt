@@ -30,6 +30,15 @@ if (file.exists("analytics.js"))
 source("R/feeds.R")
 write_robots(site_dir)
 
+# Which feeds to advertise in every index page's <head>. Read HERE, before any
+# page is rendered, from what the previous run published -- see
+# site_feeds_present(). A feed first written at the end of this run is advertised
+# from the next run on, which is what keeps a <link rel="alternate"> from ever
+# pointing at a 404.
+SITE_FEEDS <- site_feeds_present(site_dir)
+cat("Feeds advertised in <head>:",
+    if (length(SITE_FEEDS)) paste(SITE_FEEDS, collapse = ", ") else "(none yet)", "\n")
+
 # Load the dashboard functions without triggering the script's bottom call.
 src <- readLines("R/scotus_dash_new.R")
 src <- src[-grep("^scotus_dash\\(", src)]
@@ -247,9 +256,14 @@ styled_index_page(
 # feed readers; a failed publish is a bad day for the site, and the dashboards
 # are the reason anyone is here.
 tryCatch({
-  fw <- write_site_feeds(site_dir, cases = ot)
+  # The daily can only ever see a grant on a case still inside its trailing-51
+  # fetch window -- a cert-before-judgment grant, say. The weekly conferences run
+  # is what populates this properly, from full-term data. Contributing here too
+  # costs nothing and occasionally catches one a week early.
+  n_new <- update_grants_cache(site_dir, ot)
+  fw <- write_site_feeds(site_dir)
   cat("Feeds:", paste(basename(unlist(Filter(Negate(is.null), fw))), collapse = ", "),
-      "\n")
+      sprintf("(+%d grant(s) into %s)\n", n_new, GRANTS_CACHE))
 }, error = function(e) message("Feeds skipped: ", conditionMessage(e)))
 
 tryCatch({

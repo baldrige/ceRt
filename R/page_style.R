@@ -258,11 +258,20 @@ page_head <- function(title, jsonld = NULL) {
     '<meta charset="utf-8">',
     '<meta name="viewport" content="width=device-width, initial-scale=1">',
     '<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate icon" href="/favicon.ico" sizes="any">',
-    # Feed autodiscovery. Both are advertised on every index page, not only the
-    # landing page: a reader's "subscribe" button looks at whatever page they are
-    # standing on, and the section indexes are where a returning reader lands.
-    '<link rel="alternate" type="application/atom+xml" title="Supreme Court Report" href="/feed.xml">',
-    '<link rel="alternate" type="application/atom+xml" title="Certiorari grants" href="/grants.xml">',
+    # Feed autodiscovery, on every index page rather than only the landing page:
+    # a reader's "subscribe" button looks at whatever page they are standing on,
+    # and the section indexes are where a returning reader lands.
+    #
+    # Driven by SITE_FEEDS, which build_dashboards.R sets from the feeds that are
+    # actually on the gh-pages checkout. Advertising both unconditionally put a
+    # <link> to a 404 on every index page for one release, because grants.xml
+    # turned out never to be written. Default empty: a caller that has not
+    # declared which feeds exist advertises none.
+    paste0(vapply(if (exists("SITE_FEEDS")) get("SITE_FEEDS") else character(),
+                  function(f) sprintf(
+                    '<link rel="alternate" type="application/atom+xml" title="%s" href="%s">',
+                    if (f == "/grants.xml") "Certiorari grants" else "Supreme Court Report",
+                    f), character(1)), collapse = ""),
     "<title>", htmlEscape(title), "</title>",
     '<link rel="preconnect" href="https://fonts.googleapis.com">',
     '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>',

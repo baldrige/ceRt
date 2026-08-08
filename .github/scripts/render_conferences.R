@@ -97,4 +97,19 @@ conference_index(conf_dir)
 # Docket pages for the fetched OT-sitting cases (incremental). Keeps /cases/
 # current for the conference Case links.
 render_dockets_for(combined, site_dir)
+
+# The grants cache, which feeds grants.xml and the site feed.
+#
+# This is where grants are actually visible. The daily fetches only the trailing
+# ~51 dockets of each bucket, and a petition is granted months after it is
+# docketed -- so by the time it is granted its number is long outside that window.
+# `combined` is the full current + prior term, which is why the cache is populated
+# from here even though the feeds themselves are written by the daily.
+#
+# The feeds are NOT written here: they also enumerate dashboards/, which this run
+# does not touch, and having one owner for the files keeps publish conflicts to
+# the docket-keyed cache that publish_site.sh already knows how to union.
+source("R/feeds.R")
+cat("Grants cache: +", update_grants_cache(site_dir, combined), " new grant(s)\n",
+    sep = "")
 cat("Done.\n")

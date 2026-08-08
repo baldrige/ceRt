@@ -162,6 +162,7 @@ rebase cleanly.
 | `funnel/` | `conferences.yml` |
 | `cases/` (+ `.manifest.json`, `search.json`, `style.css`) | `daily.yml` (current term) · `conferences.yml` (touched cases) · `rerender-dockets.yml` / `fill-throttled-dockets.yml` (back-catalog) |
 | `feed.xml`, `grants.xml`, `sitemap*.xml`, `robots.txt` | `daily.yml` |
+| `cases/grants.json` (grants cache) | `conferences.yml` (full-term, the real source) · `daily.yml` (only what is inside its trailing fetch window) |
 | `CNAME` | re-asserted by **every** publishing job |
 
 ## Feeds and sitemaps
@@ -179,7 +180,25 @@ regenerate and the daily is the job that runs most often.
 | `sitemap-cases-ot{NN}.xml` | One per term, docket pages only |
 | `robots.txt` | Points crawlers at `sitemap.xml`; re-asserted every run like `CNAME` |
 
-Three things about them are load-bearing:
+**The grants feed is not built from the daily's fetch, and cannot be.**
+`get_scotus_update()` pulls `max(hi - 50, lo):hi` — the trailing ~51 dockets of
+each bucket. A petition is granted months after it is docketed, by which time its
+number is far outside that window, so a grant is almost never visible to the
+daily. Shipped that way in #49, `grants.xml` was never written at all.
+
+Grants are instead accumulated in **`cases/grants.json`**, a docket-keyed cache
+that any workflow holding full-term data contributes to — in practice
+`conferences.yml`, whose `combined` is the current + prior term. The daily reads
+the cache to build both feeds, and also contributes whatever it can see. The
+cache is append-only per key and is listed in `publish_site.sh`'s `DERIVED`, so
+two workflows publishing concurrently union their grants rather than clobbering.
+
+Consequence: **a new grant reaches the feed on the next weekly conferences run**,
+not the same day. That is a real limitation, not a bug to be fixed by widening the
+daily fetch — widening it means thousands of requests three times a day against a
+WAF that throttles on requests-per-second-per-IP.
+
+Five things about the feeds are load-bearing:
 
 - **`<updated>` is always an event date, never the build time.** The daily runs
   three times a day. A build-time stamp would re-notify every subscriber three
@@ -196,9 +215,24 @@ Three things about them are load-bearing:
   Dated leaves (conferences, dashboards) carry their date in the filename and do
   get a real one.
 
-Feed autodiscovery `<link rel="alternate">` tags live in `page_head()`
-(`R/page_style.R`), so every index page advertises both feeds. Docket pages build
-their own `<head>` and are unaffected — **this change needs no
+- **No entry may be dated in the future.** Conference reports are published
+  *before* the conference they cover — the 2026-09-28 long-conference page existed
+  on 2026-08-07 — so an unfiltered feed put its newest entry, and with it the
+  feed's own `<updated>`, seven weeks ahead of today. `write_atom_feed()` drops
+  future-dated entries and the audit fails on any that survive. The cost is that
+  a conference report enters the feed on its conference date rather than when it
+  is published; the alternative (stamping it with the publication date) would
+  re-stamp it every run, which is the churn above.
+- **Autodiscovery is driven by what exists, one run behind.**
+  `build_dashboards.R` sets `SITE_FEEDS` from `site_feeds_present(site_dir)` at
+  the *start* of a run — i.e. from what the previous run published — and
+  `page_head()` emits a `<link rel="alternate">` only for those. #49 advertised
+  both feeds unconditionally, and since `grants.xml` was never written, every
+  index page on the site carried a link to a 404. A feed first written at the end
+  of run N is advertised from run N+1.
+
+Feed autodiscovery tags live in `page_head()` (`R/page_style.R`). Docket pages
+build their own `<head>` and are unaffected — **the feeds need no
 `PAGE_TEMPLATE_VERSION` bump.**
 
 ## Shared publish mechanics
