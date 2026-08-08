@@ -5,15 +5,8 @@
   <link rel="self" href="https://supremecourt.report/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://supremecourt.report/"/>
   <id>https://supremecourt.report/feed.xml</id>
-  <updated>2026-09-28T00:00:00Z</updated>
+  <updated>2026-08-07T00:00:00Z</updated>
   <author><name>Supreme Court Report</name></author>
-  <entry>
-    <title>Conference of September 28, 2026</title>
-    <link href="https://supremecourt.report/conferences/conf_2026-09-28.html"/>
-    <id>https://supremecourt.report/conferences/conf_2026-09-28.html</id>
-    <updated>2026-09-28T00:00:00Z</updated>
-    <summary>Petitions distributed for the Conference of September 28, 2026, ranked by relists.</summary>
-  </entry>
   <entry>
     <title>Docket for August 7, 2026</title>
     <link href="https://supremecourt.report/dashboards/dash_2026-08-07.html"/>
@@ -356,6 +349,13 @@
     <id>https://supremecourt.report/conferences/conf_2025-06-26.html</id>
     <updated>2025-06-26T00:00:00Z</updated>
     <summary>Petitions distributed for the Conference of June 26, 2025, ranked by relists.</summary>
+  </entry>
+  <entry>
+    <title>Conference of June 18, 2025</title>
+    <link href="https://supremecourt.report/conferences/conf_2025-06-18.html"/>
+    <id>https://supremecourt.report/conferences/conf_2025-06-18.html</id>
+    <updated>2025-06-18T00:00:00Z</updated>
+    <summary>Petitions distributed for the Conference of June 18, 2025, ranked by relists.</summary>
   </entry>
 </feed>
 
