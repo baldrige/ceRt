@@ -1,0 +1,80 @@
+name: Seed the pending-docket cache
+
+# ONE-OFF. cases/pending.json can only ever hold dockets a conferences run has
+# fetched, and that run range-fetches {T, T-1}. So the cache seeded on 2026-08-08
+# held 1,006 live dockets, all Term 25 or 26, and named nothing out-of-window --
+# the targeted fetch was armed but idle until the window advances (~July 2027).
+#
+# This seeds it with the live petitions from Terms the weekly run has never
+# loaded, using data-raw/ot_*.rds to decide which dockets to ASK about and a live
+# fetch to decide what is actually still pending. See .github/scripts/seed_pending.R.
+#
+# Re-dispatchable and idempotent: a docket already in the cache is skipped, and a
+# docket found to be resolved is simply not written.
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Report the candidate dockets and write nothing."
+        required: false
+        type: boolean
+        default: true
+      max_fetch:
+        description: "Safety cap on how many dockets to fetch (most-relisted first)."
+        required: false
+        default: "400"
+
+permissions:
+  contents: write
+
+# Shares the conferences group: both write cases/pending.json, and that file is
+# rewritten wholesale rather than unioned (see publish_site.sh), so two writers
+# must never overlap.
+concurrency:
+  group: conference-reports
+  cancel-in-progress: false
+
+jobs:
+  seed:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Checkout source (main)
+        uses: actions/checkout@v5
+      - name: Checkout published site (gh-pages) into ./site
+        uses: actions/checkout@v5
+        with:
+          ref: gh-pages
+          path: site
+      - name: System dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libpoppler-cpp-dev libtesseract-dev tesseract-ocr libcurl4-openssl-dev
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          packages: |
+            any::gt
+            any::gtExtras
+            any::tidyverse
+            any::httr2
+            any::jsonlite
+            any::pdftools
+            any::htmltools
+            any::nnet
+      - name: Seed the cache
+        env:
+          SITE_DIR: site
+          MAX_FETCH: ${{ inputs.max_fetch }}
+          DRY_RUN: ${{ inputs.dry_run }}
+        run: Rscript .github/scripts/seed_pending.R
+      - name: Publish the cache
+        if: ${{ inputs.dry_run == false }}
+        working-directory: site
+        # Only cases/pending.json is staged. This job renders nothing, and a
+        # path-less publish would sweep up whatever else is in the checkout and
+        # claim to be republishing the site.
+        run: ../.github/scripts/publish_site.sh "Seed pending-docket cache" cases/pending.json
