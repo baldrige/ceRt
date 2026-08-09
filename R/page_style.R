@@ -281,6 +281,19 @@ site_feeds_present <- function(site_dir = Sys.getenv("SITE_DIR", unset = "site")
 FEED_TITLES <- c("/feed.xml" = "Supreme Court Report",
                  "/grants.xml" = "Certiorari grants")
 
+# The <link rel="alternate"> tags themselves, as one raw string.
+#
+# Factored out because there are TWO hand-built heads on this site, not one: the
+# funnel page carries its own fonts and stylesheet and so does not go through
+# page_head(). Putting the loop only in page_head() left /funnel/ advertising
+# nothing while the other six pages were fixed -- the audit caught it, but a
+# shared helper is what stops it happening to a third head.
+feed_autodiscovery_links <- function() {
+  paste0(vapply(site_feeds_present(), function(f) sprintf(
+    '<link rel="alternate" type="application/atom+xml" title="%s" href="%s">',
+    FEED_TITLES[[f]], f), character(1)), collapse = "")
+}
+
 # Raw <head> for an index page (built as a string because htmltools drops the
 # <head> singleton from as.character()).
 page_head <- function(title, jsonld = NULL) {
@@ -294,13 +307,11 @@ page_head <- function(title, jsonld = NULL) {
     # a reader's "subscribe" button looks at whatever page they are standing on,
     # and the section indexes are where a returning reader lands.
     #
-    # Resolved here, from disk, on every call. There is deliberately no global to
-    # set and therefore none to forget: the previous design had build_dashboards.R
-    # assign a SITE_FEEDS global, which meant the three renderers that never
-    # assigned it advertised nothing at all.
-    paste0(vapply(site_feeds_present(), function(f) sprintf(
-      '<link rel="alternate" type="application/atom+xml" title="%s" href="%s">',
-      FEED_TITLES[[f]], f), character(1)), collapse = ""),
+    # Resolved from disk on every call. There is deliberately no global to set and
+    # therefore none to forget: the previous design had build_dashboards.R assign
+    # a SITE_FEEDS global, which meant the three renderers that never assigned it
+    # advertised nothing at all.
+    feed_autodiscovery_links(),
     "<title>", htmlEscape(title), "</title>",
     '<link rel="preconnect" href="https://fonts.googleapis.com">',
     '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>',

@@ -778,6 +778,12 @@ render_funnel_page <- function(live, baselines, out_dir,
     '<meta charset="utf-8">',
     '<meta name="viewport" content="width=device-width, initial-scale=1">',
     '<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate icon" href="/favicon.ico" sizes="any">',
+    # This page builds its own head rather than using page_head() (its own fonts,
+    # its own stylesheet), so it has to ask for the feed links explicitly. It was
+    # the one page still advertising nothing after the autodiscovery fix.
+    # Guarded: render_funnel.R sources page_style.R, but this file is also loaded
+    # by entry points that may not have.
+    if (exists("feed_autodiscovery_links")) feed_autodiscovery_links() else "",
     "<title>The Cert Funnel &mdash; how Supreme Court petitions live and die</title>",
     '<link rel="preconnect" href="https://fonts.googleapis.com">',
     '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>',
