@@ -459,18 +459,7 @@ write_site_feeds <- function(site_dir, base = SITE_URL) {
       self_path = "/grants.xml", base = base))
 }
 
-# Which feeds the site actually has, as root-absolute paths.
-#
-# page_head() advertises only these. The first version advertised both
-# unconditionally, and grants.xml turned out never to be written -- so every index
-# page on the site carried a <link rel="alternate"> to a 404.
-#
-# Read at the START of a build, from the gh-pages checkout, so it reflects what
-# the previous run published. A feed that appears for the first time this run is
-# therefore advertised from the NEXT run onwards. That one-run lag is the price of
-# never emitting a dangling link, and it is the right way round: a link to a feed
-# that exists is always correct, a link to one that might exist is not.
-site_feeds_present <- function(site_dir) {
-  f <- c("/feed.xml", "/grants.xml")
-  f[file.exists(file.path(site_dir, sub("^/", "", f)))]
-}
+# site_feeds_present() used to live here. It now lives in page_style.R, next to
+# page_head(), which is its only consumer -- see the note there. Keeping it in
+# this file meant that the three renderers which do not source feeds.R (or source
+# it only at the end, after the pages are written) silently advertised nothing.

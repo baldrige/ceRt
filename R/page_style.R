@@ -249,6 +249,38 @@ smarten_html <- function(html) {
   paste0(out, collapse = "")
 }
 
+# Which feeds the published site actually has, as root-absolute paths.
+#
+# page_head() advertises only these. Advertising both unconditionally put a
+# <link rel="alternate"> to a 404 on every index page for one release, because
+# grants.xml turned out never to be written.
+#
+# Resolved from the gh-pages checkout, so it reflects what the PREVIOUS run
+# published: a feed first written at the end of run N is advertised from run N+1.
+# That one-run lag is the price of never emitting a dangling link, and it is the
+# right way round -- a link to a feed that exists is always correct, a link to one
+# that might exist is not.
+#
+# This lives HERE, beside its only consumer, rather than in feeds.R. It was in
+# feeds.R and read through a SITE_FEEDS global that only build_dashboards.R set --
+# so /conferences/, /arguments/ and /funnel/, whose renderers never set it and do
+# not source feeds.R before writing their pages, advertised nothing at all.
+# Making the link conditional fixed a wrong link and introduced a missing one on
+# half the site, which is quieter and therefore worse.
+#
+# The default reads SITE_DIR, the environment convention every render entry point
+# already uses, so a new caller gets the right answer without having to know any
+# of this exists. Resolving on each call rather than pinning a global is safe:
+# a page can only ever advertise a feed that is on disk when the page is written,
+# which is the invariant that matters regardless of when the feeds get written.
+site_feeds_present <- function(site_dir = Sys.getenv("SITE_DIR", unset = "site")) {
+  f <- c("/feed.xml", "/grants.xml")
+  f[file.exists(file.path(site_dir, sub("^/", "", f)))]
+}
+
+FEED_TITLES <- c("/feed.xml" = "Supreme Court Report",
+                 "/grants.xml" = "Certiorari grants")
+
 # Raw <head> for an index page (built as a string because htmltools drops the
 # <head> singleton from as.character()).
 page_head <- function(title, jsonld = NULL) {
@@ -262,16 +294,13 @@ page_head <- function(title, jsonld = NULL) {
     # a reader's "subscribe" button looks at whatever page they are standing on,
     # and the section indexes are where a returning reader lands.
     #
-    # Driven by SITE_FEEDS, which build_dashboards.R sets from the feeds that are
-    # actually on the gh-pages checkout. Advertising both unconditionally put a
-    # <link> to a 404 on every index page for one release, because grants.xml
-    # turned out never to be written. Default empty: a caller that has not
-    # declared which feeds exist advertises none.
-    paste0(vapply(if (exists("SITE_FEEDS")) get("SITE_FEEDS") else character(),
-                  function(f) sprintf(
-                    '<link rel="alternate" type="application/atom+xml" title="%s" href="%s">',
-                    if (f == "/grants.xml") "Certiorari grants" else "Supreme Court Report",
-                    f), character(1)), collapse = ""),
+    # Resolved here, from disk, on every call. There is deliberately no global to
+    # set and therefore none to forget: the previous design had build_dashboards.R
+    # assign a SITE_FEEDS global, which meant the three renderers that never
+    # assigned it advertised nothing at all.
+    paste0(vapply(site_feeds_present(), function(f) sprintf(
+      '<link rel="alternate" type="application/atom+xml" title="%s" href="%s">',
+      FEED_TITLES[[f]], f), character(1)), collapse = ""),
     "<title>", htmlEscape(title), "</title>",
     '<link rel="preconnect" href="https://fonts.googleapis.com">',
     '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>',

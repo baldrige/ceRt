@@ -30,14 +30,6 @@ if (file.exists("analytics.js"))
 source("R/feeds.R")
 write_robots(site_dir)
 
-# Which feeds to advertise in every index page's <head>. Read HERE, before any
-# page is rendered, from what the previous run published -- see
-# site_feeds_present(). A feed first written at the end of this run is advertised
-# from the next run on, which is what keeps a <link rel="alternate"> from ever
-# pointing at a 404.
-SITE_FEEDS <- site_feeds_present(site_dir)
-cat("Feeds advertised in <head>:",
-    if (length(SITE_FEEDS)) paste(SITE_FEEDS, collapse = ", ") else "(none yet)", "\n")
 
 # Load the dashboard functions without triggering the script's bottom call.
 src <- readLines("R/scotus_dash_new.R")
