@@ -13,6 +13,38 @@ cases_dir <- Sys.getenv("CASES_DIR", unset = "cases")
 baselines_path <- Sys.getenv("BASELINES", unset = "data/funnel_baselines.json")
 
 baselines <- jsonlite::fromJSON(baselines_path)
+
+# Is the committed file still what this code would produce?
+#
+# It was not, for two weeks: generated 2026-07-10, invalidated 2026-07-25 by the
+# CVSG relist fix, and the page went on publishing "4,442 (12.1%) were relisted"
+# against a classifier yielding 1,756 (4.8%). Nothing noticed, because a stale
+# JSON is indistinguishable from a fresh one by inspection.
+#
+# On a mismatch this RECOMPUTES rather than failing. Failing would leave the
+# previously-published (wrong) page live -- this step is continue-on-error in the
+# workflow precisely so a funnel problem cannot block a conference refresh, which
+# means a hard stop here is silent in exactly the case that matters. Recomputing
+# costs ~4 minutes and guarantees the published page is right; the loud log line
+# is what gets the committed file refreshed.
+arch <- sort(Sys.glob("data-raw/ot_*.rds"))
+want <- if (length(arch)) tryCatch(funnel_baseline_fingerprint(arch),
+                                   error = function(e) NA_character_) else NA_character_
+have <- baselines$fingerprint %||% NA_character_
+if (!is.na(want) && !identical(as.character(have), want)) {
+  cat("!! data/funnel_baselines.json is STALE.\n")
+  cat("   committed fingerprint:", if (is.na(have)) "(none -- predates the check)"
+      else substr(have, 1, 16), "\n")
+  cat("   this code would produce:", substr(want, 1, 16), "\n")
+  cat("   Recomputing in-process so the published page is correct (~4 min).\n")
+  cat("   Refresh the committed file: Rscript .github/scripts/make_baselines.R\n")
+  named <- setNames(arch, str_extract(basename(arch), "\\d{2}(?=\\.rds)"))
+  baselines <- compute_funnel_baselines(named)
+  baselines$generated <- format(Sys.Date())
+} else if (!is.na(want)) {
+  cat("Baselines fingerprint matches (", substr(want, 1, 16), ")\n", sep = "")
+}
+
 # jsonlite round-trips data frames; rebuild the exact shapes the renderer expects.
 baselines$pooled$total <- as_tibble(baselines$pooled$total)
 baselines$pooled$by_type <- as_tibble(baselines$pooled$by_type)
