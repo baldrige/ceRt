@@ -880,23 +880,6 @@ render_funnel_page <- function(live, baselines, out_dir,
       div(class = "methods",
         tags$b("Methods & honest limits"),
         tags$ul(
-          # A published statistic was wrong by 2.5x for two weeks. The definition
-          # in the relist bullet below was right the whole time -- it says
-          # naive counting "would overstate relists by more than half" -- and the
-          # number sitting next to it was the naive one, because the pooled
-          # baselines were generated before the rule was tightened and nothing
-          # regenerated them. Saying so is cheaper than hoping nobody cites the
-          # old figure.
-          tags$li(HTML(paste0(
-            "<b>Correction, 8 August 2026.</b> This page previously reported ",
-            "4,442 petitions (12.1%) relisted at least once. That count was ",
-            "computed before the relist rule was tightened, on 25 July 2026, to ",
-            "exclude redistributions that merely follow a call for the Solicitor ",
-            "General&rsquo;s views &mdash; and the pooled baselines were not ",
-            "recomputed, so the page kept publishing the looser number. Under the ",
-            "definition given below, which did not change, the figure is ",
-            "<b>1,756 (4.8%)</b>. Everything else on this page moved by less than ",
-            "1%."))),
           tags$li("Built entirely from the public docket entries on supremecourt.gov. ",
                   "Docket data shows process, not reasons: the Court explains almost ",
                   "nothing at this stage, and neither do we."),
