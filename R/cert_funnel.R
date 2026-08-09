@@ -430,8 +430,37 @@ compute_funnel_baselines <- function(paths, max_pending = 0.015) {
     per_term = map(per_term, \(s) s[setdiff(names(s), "cls")]),
     pooled = pooled,
     pooled_terms = per_term |> keep(\(s) s$complete) |> map_chr(\(s) s$term),
-    excluded_terms = per_term |> discard(\(s) s$complete) |> map_chr(\(s) s$term)
+    excluded_terms = per_term |> discard(\(s) s$complete) |> map_chr(\(s) s$term),
+    fingerprint = funnel_baseline_fingerprint(paths)
   )
+}
+
+# A digest of everything data/funnel_baselines.json is a function of, so a
+# committed copy can be checked against the code that would produce it today.
+#
+# THIS EXISTS BECAUSE THE FILE WENT STALE AND THE SITE PUBLISHED THE STALE
+# NUMBER FOR TWO WEEKS. funnel_baselines.json was generated 2026-07-10. On
+# 2026-07-25, 629f649eb5 added CVSG redistribution to the relist-suppression rule
+# -- correctly, it is the fix that stopped the model fitting cvsg = -1.10 -- and
+# nothing regenerated the baselines. The funnel went on publishing "4,442 (12.1%)
+# were relisted at least once" against a classifier that now yields 1,756 (4.8%).
+#
+# The important part is WHERE that change was: inside classify_petition_events(),
+# not in a constant. A fingerprint over GRANT_FORMS and friends would have sailed
+# straight past it. So the function BODIES are digested too -- deparse() of the
+# three functions whose output the file is, plus the constants they close over,
+# plus the archives themselves.
+funnel_baseline_fingerprint <- function(paths) {
+  body_of <- function(f) if (exists(f)) paste(deparse(get(f)), collapse = "\n") else ""
+  digest::digest(list(
+    logic = lapply(c("classify_petition_events", "classify_petitions",
+                     "funnel_stats", "conference_dates_from_events"), body_of),
+    grammar = list(GRANT_FORMS, DENY_FORMS, DISMISS_FORMS, SUMMARY_RX,
+                   SUMMARY_PROSE_RX, REHEARING_GRANT_RX, FUNNEL_PATTERNS),
+    # Content hashes, not mtimes: a gh-pages/CI checkout rewrites mtimes on every
+    # run, which would make the fingerprint churn for no reason.
+    archives = unname(tools::md5sum(sort(paths)))
+  ))
 }
 
 # ---- rendering -----------------------------------------------------------------
@@ -845,6 +874,23 @@ render_funnel_page <- function(live, baselines, out_dir,
       div(class = "methods",
         tags$b("Methods & honest limits"),
         tags$ul(
+          # A published statistic was wrong by 2.5x for two weeks. The definition
+          # in the relist bullet below was right the whole time -- it says
+          # naive counting "would overstate relists by more than half" -- and the
+          # number sitting next to it was the naive one, because the pooled
+          # baselines were generated before the rule was tightened and nothing
+          # regenerated them. Saying so is cheaper than hoping nobody cites the
+          # old figure.
+          tags$li(HTML(paste0(
+            "<b>Correction, 8 August 2026.</b> This page previously reported ",
+            "4,442 petitions (12.1%) relisted at least once. That count was ",
+            "computed before the relist rule was tightened, on 25 July 2026, to ",
+            "exclude redistributions that merely follow a call for the Solicitor ",
+            "General&rsquo;s views &mdash; and the pooled baselines were not ",
+            "recomputed, so the page kept publishing the looser number. Under the ",
+            "definition given below, which did not change, the figure is ",
+            "<b>1,756 (4.8%)</b>. Everything else on this page moved by less than ",
+            "1%."))),
           tags$li("Built entirely from the public docket entries on supremecourt.gov. ",
                   "Docket data shows process, not reasons: the Court explains almost ",
                   "nothing at this stage, and neither do we."),
