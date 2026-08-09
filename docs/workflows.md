@@ -272,13 +272,20 @@ Five things about the feeds are load-bearing:
   a conference report enters the feed on its conference date rather than when it
   is published; the alternative (stamping it with the publication date) would
   re-stamp it every run, which is the churn above.
-- **Autodiscovery is driven by what exists, one run behind.**
-  `build_dashboards.R` sets `SITE_FEEDS` from `site_feeds_present(site_dir)` at
-  the *start* of a run — i.e. from what the previous run published — and
-  `page_head()` emits a `<link rel="alternate">` only for those. #49 advertised
-  both feeds unconditionally, and since `grants.xml` was never written, every
-  index page on the site carried a link to a 404. A feed first written at the end
-  of run N is advertised from run N+1.
+- **Autodiscovery is driven by what is on disk, resolved per page.**
+  `page_head()` calls `site_feeds_present()` (in `R/page_style.R`), which reads
+  `SITE_DIR` — the environment convention every render entry point already uses —
+  and emits a `<link rel="alternate">` only for feeds that exist. A feed first
+  written at the end of run N is therefore advertised from run N+1.
+
+  This has been wrong twice, in opposite directions, and the second was worse.
+  #49 advertised both feeds unconditionally, so every index page linked to a
+  `grants.xml` that was never written. #50 made the links conditional on a
+  `SITE_FEEDS` global — but only `build_dashboards.R` set it, so `/conferences/`,
+  `/arguments/` and `/funnel/`, rendered by a different workflow, advertised
+  **nothing**. A dangling link is at least visible; a missing one is not. There is
+  now no global to set and therefore none to forget, and `audit_site.R` checks
+  that every generated index page advertises every feed that exists.
 
 Feed autodiscovery tags live in `page_head()` (`R/page_style.R`). Docket pages
 build their own `<head>` and are unaffected — **the feeds need no

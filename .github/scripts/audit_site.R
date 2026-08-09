@@ -380,6 +380,38 @@ if (!file.exists(file.path(site, "robots.txt"))) {
   ok("robots.txt", "present, points at sitemap.xml")
 }
 
+# Every generated index page must advertise every feed that exists.
+#
+# The conditional-link design was itself the fix for advertising a feed that did
+# not exist. Then site_feeds_present() lived in feeds.R, which three of the four
+# renderers do not source before writing their pages -- so /conferences/,
+# /arguments/ and /funnel/ advertised NOTHING, and nothing noticed for a day. A
+# missing link is quieter than a dangling one, which is exactly why it needs a
+# check rather than a convention.
+#
+# methods.html is excluded on purpose: it is a hand-authored document copied from
+# docs/ with only the masthead injected, so it has no generated <head>.
+n_feeds <- length(feeds)
+if (n_feeds) {
+  gen <- Filter(file.exists, file.path(site, c(
+    "index.html", "about.html", "cases/index.html", "dashboards/index.html",
+    "conferences/index.html", "arguments/index.html", "funnel/index.html")))
+  cnt <- vapply(gen, function(p)
+    length(gregexpr("application/atom\\+xml", slurp(p))[[1]][
+      gregexpr("application/atom\\+xml", slurp(p))[[1]] > 0]), integer(1))
+  short <- names(cnt)[cnt != n_feeds]
+  if (length(short)) {
+    fail("feed autodiscovery",
+         sprintf("%d of %d generated page(s) advertise %d feed(s) instead of %d: %s",
+                 length(short), length(gen), min(cnt), n_feeds,
+                 paste(sub(paste0("^", site, "/"), "", utils::head(short, 5)),
+                       collapse = ", ")))
+  } else {
+    ok("feed autodiscovery",
+       sprintf("all %d generated page(s) advertise all %d feed(s)", length(gen), n_feeds))
+  }
+}
+
 # ---- verdict -----------------------------------------------------------------
 lv <- vapply(results, function(r) r$level, character(1))
 cat(sprintf("\n%d checks: %d ok, %d WARN, %d FAIL\n",
