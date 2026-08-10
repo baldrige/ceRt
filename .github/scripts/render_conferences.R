@@ -97,7 +97,34 @@ dist <- dist_all |> filter(conf_date >= min_conf)
 dates <- dist |> distinct(conf_date) |> arrange(conf_date) |> pull(conf_date)
 
 # Resolve the QP for each distinct distributed docket (cache-backed).
-uniq <- dist |> distinct(dkt, .keep_all = TRUE)
+#
+# The set is the UNION of what the conference pages need and what the Relist
+# Tracker needs, because the Tracker's rows are not a subset of the conference
+# pages'. `dist` is windowed to conf_date >= min_conf; the Tracker reads
+# dist_all. A petition that has been relisted and NOT yet re-scheduled has no
+# distribution in the window at all, so it never entered `uniq` and rendered an
+# em dash: 11 of the Tracker's first 20 rows, and precisely the interesting
+# half -- a case relisted repeatedly with no next conference set is the one worth
+# looking at (24-1030 has been sitting since January).
+#
+# min_conf is 20{max(term)}-08-01, so this would have recurred every August and
+# starved the Tracker of QPs for months at a time.
+#
+# Bounded on purpose: only the live relisted dockets are added, not all of
+# dist_all -- that would be every distribution across two terms, thousands of
+# petitions, and would exhaust QP_MAX_NEW to no page's benefit.
+source("R/relist_watch.R")
+qp_src <- tryCatch({
+  rw_dkt <- relist_watch_table(dist_all)$dkt
+  bind_rows(dist |> distinct(dkt, .keep_all = TRUE),
+            dist_all |> filter(dkt %in% rw_dkt) |> distinct(dkt, .keep_all = TRUE)) |>
+    distinct(dkt, .keep_all = TRUE)
+}, error = function(e) {
+  message("QP union fell back to conference dockets only: ", conditionMessage(e))
+  dist |> distinct(dkt, .keep_all = TRUE)
+})
+uniq <- qp_src
+cat("QP set:", nrow(uniq), "docket(s) (conference window + live relisted)\n")
 qp_raw <- resolve_qps(uniq$dkt, uniq$petition_url,
                       cache_path = file.path(conf_dir, "qp_cache.json"),
                       max_new = qp_max_new)
@@ -118,7 +145,7 @@ conference_index(conf_dir)
 # loop so it shares the resolved QP cache. Never allowed to break a conference
 # refresh -- the reports are the product, this is a view onto them.
 tryCatch({
-  source("R/relist_watch.R")
+  # Already sourced above, for the QP union.
   rp <- relist_watch(dist_all, file.path(site_dir, "relists"),
                      qp_map = qp_map, models = cert_models)
   cat("Relist Tracker:", if (is.null(rp)) "no live relisted petitions -- not written"
