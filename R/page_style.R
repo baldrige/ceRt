@@ -37,7 +37,7 @@ PAGE_FONTS_URL <- paste0(
 
 # Base editorial styles for the index / landing pages. Colours come from
 # palette.R; 40rem is the measure both .wrap and the masthead centre on.
-INDEX_CSS <- paste0("\n  ", palette_root("40rem"), "
+INDEX_CSS <- paste0("\n  ", palette_root(), "
   *{box-sizing:border-box}
   html{-webkit-text-size-adjust:100%}
   body{font-family:'Newsreader',Georgia,serif;font-size:19px;line-height:1.6;

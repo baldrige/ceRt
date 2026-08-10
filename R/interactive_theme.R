@@ -27,7 +27,7 @@ SCR_FONTS <- "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144
 SCR_CSS <- paste0("
 /* Token names and the two AA colour corrections match page_style.R and
    docket_page.R -- see the note above DOCKET_CSS. */
-", palette_root("54rem", PALETTE_UI), "
+", palette_root(extra = PALETTE_UI), "
 *{box-sizing:border-box}
 body{font-family:'Newsreader',Georgia,serif;color:var(--ink);background:var(--paper);margin:0}
 body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.5;mix-blend-mode:multiply;background-image:url(\"", .scr_noise, "\")}

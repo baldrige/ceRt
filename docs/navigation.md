@@ -89,9 +89,22 @@ not in the world. The meaningful adjacency for a case is its conference cohort; 
 Eight cards in the design system. Details, states and rationale live there; this is the
 inventory.
 
-- **Masthead** — wordmark + 5 one-word section links, `aria-current` on the active one,
-  reuses the existing `.brule` double-rule as its divider. Reads `--nav-max` so one
-  component serves both the 40rem index container and the 54rem case container.
+- **Masthead** — wordmark + section links, `aria-current` on the active one,
+  reuses the existing `.brule` double-rule as its divider. Reads `--nav-max`,
+  which is now the single site-wide `SITE_NAV_MAX` (**54rem**) rather than each
+  page's own container.
+
+  It tracked the container until 2026-08-10, so the rule landed flush on the text
+  column beneath it. That held at five links and failed at seven: measured in
+  Chrome at 1440/1280/1024, the nav needs **654px**, a 40rem masthead offers
+  **592px**, and every index page wrapped its nav onto a second line. The 44rem
+  funnel fitted in exactly 654px — no slack, one label from the same fate. 54rem
+  was already the widest value in use and leaves ~210px.
+
+  The cost, which is visible: on the 40rem index pages and the 44rem funnel the
+  masthead and rule are now wider than the column beneath them. If that ever
+  reads badly, the fix is to spend fewer characters on the nav, not to re-couple
+  the width — recoupling just reintroduces the wrap at the next section.
 - **Breadcrumb** — `Home › Cases › No. 24-1122`, plus a `BreadcrumbList` JSON-LD block.
   On a site whose search surface is 55k case pages, the JSON-LD is the highest-leverage
   200 bytes on the page and reuses the three strings the visible crumb already has.

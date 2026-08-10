@@ -60,7 +60,7 @@ local({
 #
 # 54rem is the case-page measure, and the ten --c-* event categories ride along
 # because they appear on this page type only.
-DOCKET_CSS <- paste0(palette_root("54rem", PALETTE_EVENTS), "
+DOCKET_CSS <- paste0(palette_root(extra = PALETTE_EVENTS), "
 *{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
 body{font-family:'Newsreader',Georgia,serif;font-size:19px;line-height:1.6;color:var(--ink);background:var(--paper);margin:0;font-feature-settings:'onum' 1}
 body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.5;mix-blend-mode:multiply;background-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E\")}
