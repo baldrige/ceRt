@@ -543,8 +543,16 @@ relist_html <- function(rt) {
   rows <- pmap_chr(d, function(relists, n, p_granted, p_gvr, p_denied, p_dismissed, ...) {
     a <- max(0, min(0.9, p_granted / gmax))
     on_dark <- a > 0.55
-    heat <- sprintf('style="background:rgba(@accent:rgb@,%.3f)%s"',
-                    a, if (on_dark) ";color:var(--paper);font-weight:600" else "")
+    # pal_rgb(), not "@accent:rgb@": this string is built per row at render time
+    # and never passes through fill_palette(), so the placeholder reached the
+    # browser verbatim. rgba(@accent:rgb@,0.762) is not a wrong colour, it is an
+    # invalid declaration that drops -- while the color:var(--paper) below, set to
+    # give contrast ON the dark fill, still applied. The three rows with a > 0.55
+    # rendered near-white text on the near-white page: the numbers were in the
+    # DOM and invisible on screen.
+    heat <- sprintf('style="background:rgba(%s,%.3f)%s"',
+                    pal_rgb("accent"), a,
+                    if (on_dark) ";color:var(--paper);font-weight:600" else "")
     sprintf(paste0(
       '<tr><th scope="row">%s</th><td class="num">%s</td>',
       '<td class="num heat" %s>%s</td><td class="num">%s</td>',
@@ -714,7 +722,7 @@ render_funnel_page <- function(live, baselines, out_dir,
     .methods b{font-family:'Fraunces',Georgia,serif;font-size:1rem;color:var(--ink)}
     .methods ul{padding-left:1.1rem;margin:.7rem 0 0}
     .methods li{margin-bottom:.55rem}
-  "))
+  " |> fill_palette()))
 
   pooled <- baselines$pooled$total
   pooled_terms <- baselines$pooled_terms

@@ -242,6 +242,48 @@ pal_dec <- vapply(
   function(h) paste(as.vector(grDevices::col2rgb(h)), collapse = ","),
   character(1))
 
+# Unresolved @token@ placeholders in PUBLISHED HTML.
+#
+# The "one colour source" check below enforces that no colour is written down
+# outside palette.R. It is what caused this: it flagged a literal
+# rgba(138,43,43,...) in cert_funnel.R's relist table, the fix replaced it with
+# @accent:rgb@, and nothing verified that the placeholder is ever substituted in
+# that file -- cert_funnel.R never called fill_palette() at all.
+#
+# A placeholder that reaches the browser is not a wrong colour, it is NO colour:
+# the declaration is invalid and drops. On the funnel's relist table the
+# background dropped while the color:var(--paper) set for contrast against it
+# survived, so three of six Granted figures were near-white text on the
+# near-white page -- in the DOM, invisible on screen, and reported by a reader
+# rather than by any check.
+#
+# fill_palette() already stop()s on leftovers, but only for strings handed TO it.
+# This is the same invariant enforced where it actually matters: the output.
+cat("\nBuild-time substitution\n")
+ph_files <- Filter(file.exists, c(
+  file.path(site, c("index.html", "about.html", "funnel/index.html",
+                    "conferences/index.html", "arguments/index.html",
+                    "dashboards/index.html", "cases/index.html",
+                    "relists/index.html")),
+  head(list.files(file.path(site, "cases"), pattern = "^[0-9]", full.names = TRUE), 5),
+  head(sort(list.files(file.path(site, "conferences"),
+                       pattern = "^conf_", full.names = TRUE), decreasing = TRUE), 2),
+  head(sort(list.files(file.path(site, "dashboards"),
+                       pattern = "^dash_", full.names = TRUE), decreasing = TRUE), 2)))
+ph_hits <- unlist(lapply(ph_files, function(f) {
+  m <- regmatches(slurp(f), gregexpr("@[a-z0-9]+(:rgb)?@", slurp(f)))[[1]]
+  if (length(m)) sprintf("%s (%s)", sub(paste0("^", site, "/"), "", f),
+                         paste(unique(m), collapse = " ")) else NULL
+}))
+if (length(ph_hits)) {
+  fail("placeholders substituted",
+       sprintf("%d page(s) ship an unresolved @token@: %s", length(ph_hits),
+               paste(utils::head(ph_hits, 4), collapse = "; ")))
+} else {
+  ok("placeholders substituted",
+     sprintf("no unresolved @token@ in %d sampled page(s)", length(ph_files)))
+}
+
 stray <- unlist(lapply(src, function(f) {
   ln <- readLines(f, warn = FALSE)
   hit <- grep("#[0-9a-fA-F]{6}\\b", ln)
