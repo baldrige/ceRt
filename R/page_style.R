@@ -102,6 +102,16 @@ INDEX_CSS <- paste0("\n  ", palette_root("40rem"), "
      the claim, not a footnote to the ranking. Upright, accent, tabular. */
   ol.mostread .mv.fc{color:var(--accent);font-style:normal;font-weight:600;
     font-size:.95rem;min-width:2.6rem;text-align:right}
+  /* Feed follow line. Deliberately quiet -- a footnote under the section list,
+     styled like .recent rather than like a call to action. */
+  .feeds{display:flex;flex-wrap:wrap;align-items:baseline;gap:.3rem .85rem;
+    margin:2.2rem 0 0;padding-top:1.1rem;border-top:1px solid var(--rule)}
+  .feeds .flabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  .feeds a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(@link:rgb@,.4)}
+  .feeds a:hover{border-color:var(--link)}
   .back{margin-top:2rem;font-size:.95rem}
   .back a{color:var(--link);text-decoration:none;
     border-bottom:1px solid rgba(@link:rgb@,.4)}
@@ -281,6 +291,27 @@ site_feeds_present <- function(site_dir = Sys.getenv("SITE_DIR", unset = "site")
 FEED_TITLES <- c("/feed.xml" = "Supreme Court Report",
                  "/grants.xml" = "Certiorari grants")
 
+# A visible "follow by feed" line, or NULL when there are no feeds to offer.
+#
+# The feeds shipped with autodiscovery only -- a <link rel="alternate"> in the
+# head and nothing a reader can see or copy. That makes them discoverable by
+# software and invisible to people, which for a feature whose whole purpose was
+# reach is most of the value left on the table.
+#
+# Labels are reader-facing, not file names: someone deciding whether to subscribe
+# cares about "everything" versus "grants only", not about feed.xml.
+FEED_LABELS <- c("/feed.xml" = "All updates", "/grants.xml" = "Certiorari grants")
+
+feed_follow_line <- function(label = "Follow by feed") {
+  f <- site_feeds_present()
+  if (!length(f)) return(NULL)
+  tags$p(
+    class = "feeds",
+    tags$span(class = "flabel", label),
+    lapply(f, function(x) tags$a(href = x, type = "application/atom+xml",
+                                 FEED_LABELS[[x]])))
+}
+
 # The <link rel="alternate"> tags themselves, as one raw string.
 #
 # Factored out because there are TWO hand-built heads on this site, not one: the
@@ -393,6 +424,32 @@ write_about_page <- function(out_path) {
           "is open source: ",
           as.character(a("https://github.com/baldrige/ceRt", "github.com/baldrige/ceRt")),
           "."))),
+        # Written as prose rather than as the .feeds strip used on the landing
+        # page: About is where someone goes to find out what exists, so the
+        # sentence explaining the difference between the two feeds is the useful
+        # part.
+        #
+        # Built from site_feeds_present(), not hardcoded. Naming both feeds in
+        # fixed prose and merely CHECKING that some feed exists is precisely the
+        # bug the autodiscovery links shipped with once already: a link to a
+        # grants.xml that was never written. Each clause is emitted only if its
+        # own file is there.
+        local({
+          have <- site_feeds_present()
+          clause <- c(
+            "/feed.xml" = paste0(
+              as.character(tags$a(href = "/feed.xml", type = "application/atom+xml",
+                                  "all updates")),
+              " carries new grants, conference reports and the daily docket"),
+            "/grants.xml" = paste0(
+              as.character(tags$a(href = "/grants.xml", type = "application/atom+xml",
+                                  "certiorari grants")),
+              " carries grants alone, which is a handful a month"))
+          if (!length(have)) return(NULL)
+          tags$p(HTML(paste0(
+            "Updates are published as Atom feeds, which any feed reader can ",
+            "follow: ", paste(clause[have], collapse = "; "), ".")))
+        }),
         tags$section(
           class = "contact",
           tags$h2("Found a problem?"),
@@ -453,7 +510,7 @@ styled_index_page <- function(out_path, title, heading, items,
                               new_tab = TRUE, search = FALSE, panel = NULL,
                               active = NULL, crumb = NULL, wordmark_only = FALSE,
                               search_json = "cases/search.json",
-                              search_prefix = "cases/") {
+                              search_prefix = "cases/", feeds = FALSE) {
   rows <- lapply(items, function(it) {
     a_args <- list(class = "row", href = it$href)
     if (isTRUE(new_tab)) { a_args$target <- "_blank"; a_args$rel <- "noopener" }
@@ -494,6 +551,9 @@ styled_index_page <- function(out_path, title, heading, items,
     if (isTRUE(search)) HTML(SEARCH_HTML),
     tags$ul(class = "idx", rows),
     panel,
+    # Below the panels, above the back link: a reader who has scrolled the whole
+    # section list is the one who might want telling when it changes.
+    if (isTRUE(feeds)) feed_follow_line(),
     if (!is.null(back)) tags$p(class = "back", tags$a(href = back$href, smarten(back$label))),
     if (isTRUE(search)) HTML(search_script(search_json, search_prefix))
   ))

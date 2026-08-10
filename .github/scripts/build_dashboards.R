@@ -224,6 +224,11 @@ styled_index_page(
   # Wordmark only: this page IS the section list, and repeating it 200px above
   # itself is noise.
   wordmark_only = TRUE,
+  # The visible follow-by-feed line. Only the landing page carries it: the feeds
+  # were shipped with autodiscovery alone, which made them findable by software
+  # and invisible to readers. The section indexes are deliberately left alone --
+  # one quiet line where people arrive, not a subscribe prompt on every page.
+  feeds = TRUE,
   # Two panels; either may be NULL and tagList() drops it. Forecast first: it is
   # about petitions that arrived this week, which is the site's subject. What
   # readers clicked is a footnote to that, not a peer of it.
