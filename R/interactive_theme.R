@@ -225,6 +225,13 @@ scr_write_page <- function(gt_tbl, out_path, kicker, title, dek, n_rows,
     "<!DOCTYPE html><html lang='en'><head><script async src='/analytics.js'></script><meta charset='utf-8'>",
     "<meta name='viewport' content='width=device-width, initial-scale=1'>",
     "<link rel='icon' href='/favicon.svg' type='image/svg+xml'><link rel='alternate icon' href='/favicon.ico' sizes='any'>",
+    # The THIRD hand-built <head> on this site, after page_head() and the funnel's.
+    # It was also the last one still advertising no feeds: every leaf page -- 261
+    # conference reports, 30 dashboards, 9 argument pages -- carried none, and the
+    # audit did not catch it because it only sampled the seven index pages. Leaves
+    # matter more than indexes for this, not less: a search result lands a reader
+    # on a conference report, not on /conferences/.
+    if (exists("feed_autodiscovery_links")) feed_autodiscovery_links() else "",
     "<title>", title, "</title>",
     "<link rel='preconnect' href='https://fonts.googleapis.com'>",
     "<link rel='stylesheet' href='", SCR_FONTS, "'>",
