@@ -599,9 +599,11 @@ render_funnel_page <- function(live, baselines, out_dir,
                                data_dates = list()) {
   dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
 
-  # Colours from palette.R. 44rem matches .wrap below -- see palette_root().
+  # Colours from palette.R. The masthead width is SITE_NAV_MAX (54rem) for the
+  # whole site now, deliberately wider than this page's 44rem .wrap -- see the
+  # note on SITE_NAV_MAX.
   css <- HTML(paste0("
-    ", palette_root("44rem", PALETTE_FUNNEL), "
+    ", palette_root(extra = PALETTE_FUNNEL), "
     *{box-sizing:border-box}
     html{-webkit-text-size-adjust:100%}
     body{

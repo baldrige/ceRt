@@ -99,7 +99,31 @@ pal <- function(name) {
 #' Every block gets the full core, including pages that do not currently use
 #' every token: a page that starts using --panel tomorrow should not have to
 #' remember to add it, and an unused custom property costs twenty bytes.
-palette_root <- function(nav_max, extra = NULL) {
+#' The masthead's width. ONE value for the whole site.
+#'
+#' It used to track each page's own text column -- 40rem on the index pages,
+#' 44rem on the funnel, 54rem on case pages -- so that the masthead rule landed
+#' exactly on the column beneath it. That worked with five section links and
+#' stopped working at seven: measured in Chrome at 1440/1280/1024, the nav needs
+#' 654px, and a 40rem masthead offers 592px. Every index page wrapped its nav
+#' onto a second line; the 44rem funnel fitted in exactly 654px, i.e. with no
+#' slack at all, one label away from the same fate.
+#'
+#' 54rem was already the widest value in use (case pages) and leaves ~210px of
+#' room, so the next section link does not reopen this.
+#'
+#' THE TRADE, stated because it is visible: on the 40rem index pages and the
+#' 44rem funnel the masthead and its rule are now WIDER than the text column
+#' beneath them, rather than flush with it. That is a deliberate broadsheet
+#' masthead rather than a mistake -- but it is a real change, and if it reads
+#' badly the honest alternative is not to re-couple the width, it is to spend
+#' fewer characters on the nav.
+SITE_NAV_MAX <- "54rem"
+
+#' `nav_max` defaults to SITE_NAV_MAX and no caller should now pass anything
+#' else. The parameter is kept so a one-off page can still opt out, and so this
+#' reads as a decision rather than a hardcode.
+palette_root <- function(nav_max = SITE_NAV_MAX, extra = NULL) {
   toks <- c(PALETTE, extra)
   paste0(":root{",
          paste0("--", names(toks), ":", unlist(toks), collapse = ";"),

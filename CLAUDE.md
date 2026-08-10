@@ -86,9 +86,13 @@ Findings, measured-and-rejected proposals, and open questions:
 **`R/palette.R` is the only place a colour may be written down.** Every `:root`
 block, every `gt` palette and every `var(--token, #fallback)` derives from it:
 
-- `palette_root(nav_max, extra)` emits a page's `:root{}`. `nav_max` is not free
-  — it must equal the page's container plus `2*1.5rem` or the masthead rule
-  stops landing on the text column (see **[docs/navigation.md](docs/navigation.md)**).
+- `palette_root(nav_max, extra)` emits a page's `:root{}`. `nav_max` now defaults
+  to **`SITE_NAV_MAX` (54rem) for every page** and no caller passes anything else.
+  It used to track each page's own container so the masthead rule landed flush on
+  the text column; that worked with five section links and broke at seven —
+  measured, the nav needs 654px and a 40rem masthead offers 592px, so every index
+  page wrapped. The masthead is now deliberately wider than the 40rem index and
+  44rem funnel columns (see **[docs/navigation.md](docs/navigation.md)**).
 - `fill_palette()` substitutes `@token@` (hex) and `@token:rgb@` (a bare `r,g,b`
   triplet, for the few rules that need partial alpha) in a stylesheet template.
   `NAV_CSS` is built this way, so its fallbacks cannot disagree with the tokens
