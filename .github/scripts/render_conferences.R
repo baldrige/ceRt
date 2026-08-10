@@ -128,6 +128,21 @@ source("R/feeds.R")
 cat("Grants cache: +", update_grants_cache(site_dir, combined), " new grant(s)\n",
     sep = "")
 
+# The prospective forecast log: what this site says about conferences that have
+# NOT happened yet, written down before the Court acts. See R/forecast_log.R --
+# the future-only rule is the whole integrity of it, and it is enforced there.
+#
+# Never allowed to break a conference refresh: the log is a research artifact,
+# the conference reports are the product.
+tryCatch({
+  source("R/forecast_log.R")
+  fl <- append_forecasts(site_dir, dist, cert_models)
+  cat(sprintf("Forecast log: +%d of %d live row(s) across %s | %d past conf row(s) skipped | %d total\n",
+              fl$added, fl$considered,
+              if (length(fl$conferences)) paste(fl$conferences, collapse = ", ") else "no future conference",
+              fl$skipped_past, fl$total))
+}, error = function(e) message("Forecast log skipped: ", conditionMessage(e)))
+
 # The live-docket cache, which is how the NEXT run knows which out-of-window
 # stragglers to name. Written from everything this run classified, and rewritten
 # wholesale rather than merged -- a docket disposed of since last week has to stop

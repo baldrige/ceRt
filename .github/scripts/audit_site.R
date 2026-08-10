@@ -412,6 +412,53 @@ if (n_feeds) {
   }
 }
 
+# ---- 10. the prospective forecast log ----------------------------------------
+# The log is only worth anything if every entry was written BEFORE the conference
+# it forecasts. That is checkable from the file itself -- scored_on must precede
+# conf_date -- so it does not depend on trusting the code that wrote it, and it
+# would catch a backfill, a re-score of a past conference, or a clock problem.
+#
+# Absent is fine and expected until the first conferences run after it ships;
+# empty is fine during a recess with no conference scheduled.
+flog <- file.path(site, "cases/forecasts.json")
+if (file.exists(flog)) {
+  cat("\nForecast log\n")
+  fj <- tryCatch(fromJSON(flog, simplifyVector = FALSE), error = function(e) NULL)
+  if (is.null(fj)) {
+    fail("forecast log parses", "cases/forecasts.json is unreadable")
+  } else if (!length(fj)) {
+    ok("forecast log", "present, empty (no future conference scored yet)")
+  } else {
+    sd <- as.Date(vapply(fj, function(e) e$scored_on %||% NA_character_, character(1)))
+    cd <- as.Date(vapply(fj, function(e) e$conf_date %||% NA_character_, character(1)))
+    late <- which(!is.na(sd) & !is.na(cd) & sd >= cd)
+    if (length(late)) {
+      fail("forecasts logged in advance",
+           sprintf("%d of %d entr(y/ies) scored on or after the conference: %s",
+                   length(late), length(fj),
+                   paste(utils::head(names(fj)[late], 4), collapse = ", ")))
+    } else {
+      ok("forecasts logged in advance",
+         sprintf("all %d entries scored before their conference (median %d day(s) ahead)",
+                 length(fj), as.integer(stats::median(as.numeric(cd - sd), na.rm = TRUE))))
+    }
+    # Named fp, not p: this is a long script of top-level assignments and a bare
+    # `p` is exactly the kind of name that collides with something three hundred
+    # lines away.
+    fp <- vapply(fj, function(e) e$p_grant_now %||% NA_real_, numeric(1))
+    bad_p <- sum(is.na(fp) | fp < 0 | fp > 1)
+    nm <- sum(vapply(fj, function(e) !nzchar(e$model_id %||% ""), logical(1)))
+    if (bad_p || nm) {
+      fail("forecast entries well-formed",
+           sprintf("%d bad probabilit(y/ies), %d missing model_id", bad_p, nm))
+    } else {
+      ok("forecast entries well-formed",
+         sprintf("%d entries, %d distinct model_id(s)", length(fj),
+                 length(unique(vapply(fj, function(e) e$model_id, character(1))))))
+    }
+  }
+}
+
 # ---- verdict -----------------------------------------------------------------
 lv <- vapply(results, function(r) r$level, character(1))
 cat(sprintf("\n%d checks: %d ok, %d WARN, %d FAIL\n",
