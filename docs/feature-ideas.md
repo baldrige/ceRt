@@ -16,7 +16,7 @@ petitions. Most of Tier 1 below is a renderer over values that exist today.
 
 | # | Feature | Where the data already is | What's missing |
 | --- | --- | --- | --- |
-| 1 | **Relist Watch** — every currently-relisted petition, relist count, QP, conference forecast | `classify_petition_events()` (`R/cert_funnel.R:163`) returns `n_relists` + `relist_dates` under the audited true-relist grammar | A page, and a decision about the term window (see scope below) |
+| 1 | **Relist Tracker** — every currently-relisted petition, relist count, QP, conference forecast | `classify_petition_events()` (`R/cert_funnel.R:163`) returns `n_relists` + `relist_dates` under the audited true-relist grammar | A page, and a decision about the term window (see scope below) |
 | 2 | **CVSG tracker** — pending CVSGs, days since invitation, historical SG response time and post-CVSG grant rate | `FUNNEL_PATTERNS$cvsg` (`R/cert_funnel.R:71`) already matches the invitation entry; 124 CVSG'd paid petitions in the corpus, granted at 29% against a ~4% base rate | Response-arrival detection (the SG's brief entry), a page |
 | 3 | **The opinion clock** — argued-but-undecided cases ranked by days outstanding, against the historical per-term distribution | `classify_argument()` in `R/argument_nav.R` already resolves argued/decided | A page and the historical lag distribution |
 | 4 | **Applications / emergency docket** — pending applications by Circuit Justice, time-to-ruling, outcomes | The `NNA###` bucket is fetched daily; `derive_case_type()` already separates it | Applications are excluded from `classify_petitions()` by design; they need their own outcome grammar |
@@ -52,13 +52,13 @@ petitions. Most of Tier 1 below is a renderer over values that exist today.
 # Scoped: the first three
 
 Picked for the combination of reader value, honesty, and reuse of machinery that
-already exists. Relist Watch gives readers a reason to return weekly; feeds are
+already exists. Relist Tracker gives readers a reason to return weekly; feeds are
 how they learn the site exists; the scorecard is what makes the numbers
 trustworthy once they arrive.
 
 ---
 
-## 1. Relist Watch
+## 1. Relist Tracker
 
 ### Why
 
@@ -341,7 +341,7 @@ showed up against the real site:
    404, because autodiscovery was emitted unconditionally.
 
 The lesson for the remaining scopes: **a fixture built from the same assumption
-as the code cannot test that assumption.** For Relist Watch, that means checking
+as the code cannot test that assumption.** For Relist Tracker, that means checking
 the term-window question against a real multi-term snapshot before trusting a
 relist count — not against a tibble assembled to have relists in it.
 
@@ -487,7 +487,7 @@ never be recovered.
 1. **Feeds** — smallest, purely additive, immediate reach.
 2. **Forecast log** (part A of the scorecard) — start it accumulating before
    anything else, because it cannot be backfilled. The page can wait a term.
-3. **Relist Watch** — the reader-facing win, and it pairs naturally with the
+3. **Relist Tracker** — the reader-facing win, and it pairs naturally with the
    three-term fetch window, which improves the conference pages too.
 4. **Scorecard page** — once the log has resolved enough predictions to say
    something.

@@ -39,7 +39,7 @@
 SITE_SECTIONS <- list(
   list(href = "/dashboards/",  label = "Docket",      long = "Daily petitions &amp; applications"),
   list(href = "/conferences/", label = "Conferences", long = "Conference reports"),
-  list(href = "/relists/",     label = "Relists",     long = "Relist Watch"),
+  list(href = "/relists/",     label = "Relists",     long = "Relist Tracker"),
   list(href = "/arguments/",   label = "Arguments",   long = "Oral arguments"),
   list(href = "/funnel/",      label = "The Funnel",  long = "The cert funnel"),
   list(href = "/methods.html", label = "Model",       long = "The forecast model"),

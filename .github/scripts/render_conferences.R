@@ -89,7 +89,7 @@ cat("Combined cases:", nrow(combined), "\n")
 # distribution_no is computed across the full combined history, then we keep only
 # the target conference-date range to render.
 #
-# dist_all is kept unfiltered for Relist Watch: a case's relist count and its
+# dist_all is kept unfiltered for Relist Tracker: a case's relist count and its
 # last/next conference are properties of the CASE, and computing them from a
 # date-windowed slice would compute them from a fragment.
 dist_all <- conference_distributions(combined)
@@ -114,16 +114,16 @@ for (i in seq_along(dates)) {
 }
 conference_index(conf_dir)
 
-# Relist Watch. Built from the UNFILTERED distributions, and after the conference
+# Relist Tracker. Built from the UNFILTERED distributions, and after the conference
 # loop so it shares the resolved QP cache. Never allowed to break a conference
 # refresh -- the reports are the product, this is a view onto them.
 tryCatch({
   source("R/relist_watch.R")
   rp <- relist_watch(dist_all, file.path(site_dir, "relists"),
                      qp_map = qp_map, models = cert_models)
-  cat("Relist Watch:", if (is.null(rp)) "no live relisted petitions -- not written"
+  cat("Relist Tracker:", if (is.null(rp)) "no live relisted petitions -- not written"
       else paste(nrow(relist_watch_table(dist_all)), "live relisted petition(s)"), "\n")
-}, error = function(e) message("Relist Watch skipped: ", conditionMessage(e)))
+}, error = function(e) message("Relist Tracker skipped: ", conditionMessage(e)))
 
 # Docket pages for the fetched OT-sitting cases (incremental). Keeps /cases/
 # current for the conference Case links.

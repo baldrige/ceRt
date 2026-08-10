@@ -209,7 +209,7 @@ relist_watch <- function(dist, out_dir, qp_map = NULL, models = NULL,
     scr_write_page(
       file.path(out_dir, "index.html"),
       kicker = "Supreme Court of the United States",
-      title = "Relist Watch",
+      title = "Relist Tracker",
       dek = dek, n_rows = nrow(tbl), left_cols = left_cols, footer = footer,
       leaf_max = 78, active = "/relists/",
       back = list(href = "/conferences/", label = "&larr; Conference reports"))
