@@ -122,6 +122,20 @@ palette_root <- function(nav_max, extra = NULL) {
 #' in CSS itself, but it fails closed to a transparent border on anything older
 #' than 2023, and an invisible underline is exactly the silent kind of loss this
 #' file exists to prevent. Substituting at build time has neither problem.
+#' A token as a bare "r,g,b" triplet, for markup built at RUNTIME.
+#'
+#' `@token:rgb@` only works in a string that is later handed to fill_palette().
+#' Markup generated per-row inside a renderer never is, and a placeholder that
+#' reaches the browser is not a wrong colour but NO colour -- the declaration is
+#' invalid and simply drops.
+#'
+#' That failure took a visible form on the funnel's relist table for weeks:
+#' `background:rgba(@accent:rgb@,0.762)` never painted, while the
+#' `color:var(--paper)` set alongside it for contrast-on-dark still applied. Three
+#' of the six Granted figures rendered as near-white text on the near-white page
+#' -- present in the DOM, invisible on screen. Use this in any generated string.
+pal_rgb <- function(name) paste(as.vector(grDevices::col2rgb(pal(name))), collapse = ",")
+
 fill_palette <- function(css) {
   for (nm in names(c(PALETTE, PALETTE_FUNNEL, PALETTE_UI, PALETTE_EVENTS))) {
     hex <- pal(nm)
