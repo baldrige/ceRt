@@ -292,6 +292,34 @@ Feed autodiscovery tags live in `page_head()` (`R/page_style.R`). Docket pages
 build their own `<head>` and are unaffected — **the feeds need no
 `PAGE_TEMPLATE_VERSION` bump.**
 
+### When two publishers collide
+
+`publish_site.sh` resolves exactly two kinds of rebase conflict and refuses
+everything else.
+
+**The docket-keyed JSON caches** (`DERIVED`) merge by union — they are
+append-only per key, so there is no side to pick.
+
+**Docket pages** (`cases/*.html`) keep the copy already on `gh-pages`, and then
+that docket's key is **dropped from `cases/.manifest.json`** so the next run
+re-renders it. The manifest is a render cache; deleting a key means "render this
+again", which is what makes the choice of copy stop mattering.
+
+Doing only the first half would be the trap: the manifest union lets *our* hash
+win per key, so keeping *their* page while recording *our* hash would convince
+every future run that the published page is current when it is not.
+
+This was added after 2026-08-10, when a conferences run and the 18:57 daily
+overlapped. Both had just fetched the same new dockets, the rebase produced
+add/add conflicts on `cases/26-178.html` and `cases/26-5266.html`, and the script
+correctly refused — discarding all 44 files of the conferences run, including a
+rename and a QP fix that had to be re-run. Any two publishers that fetch the same
+docket minutes apart will render it slightly differently, and both `daily.yml`
+and `conferences.yml` call `render_dockets_for()`.
+
+Above 200 conflicting pages it still refuses: that is not this race, it is
+something else, and the resolver should not paper over it.
+
 ## Shared publish mechanics
 
 Every gh-pages writer checks out `gh-pages` into `./site`, renders, then commits

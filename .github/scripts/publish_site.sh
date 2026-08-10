@@ -118,6 +118,65 @@ resolve_derived() {
     fi
     rm -f "$ours" "$theirs"
   done
+
+  # ---- docket pages -----------------------------------------------------------
+  #
+  # On 2026-08-10 a conferences run and the 18:57 daily overlapped. Both had just
+  # fetched the same brand-new dockets and rendered pages for them, so the rebase
+  # produced add/add conflicts on cases/26-178.html and cases/26-5266.html
+  # alongside the manifest. The manifest unioned fine; the pages fell through to
+  # "refusing to resolve blind" and the WHOLE conferences run was discarded --
+  # 44 files, including a rename and a QP fix that then had to be re-run.
+  #
+  # This is not an exotic case. Any two publishers that fetch the same docket
+  # minutes apart will render it from slightly different event data, and both
+  # daily.yml and conferences.yml call render_dockets_for().
+  #
+  # THE RESOLUTION, and why it is safe rather than a guess:
+  #
+  #   * Keep the copy already on gh-pages. It is what readers are being served,
+  #     and we have no way to tell from the conflict which fetch was later.
+  #   * Then DROP that docket's key from cases/.manifest.json. The manifest is a
+  #     render cache keyed by docket; deleting a key means "render this again".
+  #     So whichever copy we kept, the next run regenerates the page from fresh
+  #     data. The choice above stops being load-bearing.
+  #
+  # Doing only the first half would be the actual trap: the manifest union lets
+  # OUR hash win per key, so keeping THEIR page while recording OUR hash would
+  # convince every future run that the published page is current when it is not.
+  local pages n_pages man=cases/.manifest.json
+  pages=$(git ls-files -u -- 'cases/*.html' 2>/dev/null | sed 's/.*\t//' | sort -u)
+  n_pages=$(printf '%s' "$pages" | grep -c . || true)
+  if [ "${n_pages:-0}" -gt 0 ]; then
+    # A cap, because "thousands of pages conflict" is not this race -- it is
+    # something else entirely, and this function should not paper over it.
+    if [ "$n_pages" -gt 200 ]; then
+      echo "  $n_pages conflicting docket pages -- far past the overlap this handles;" >&2
+      echo "  refusing. Investigate rather than resolving." >&2
+      ok=0
+    else
+      local dk keys=""
+      for f in $pages; do
+        # :2 is the upstream tip already on gh-pages (see the note above).
+        git show ":2:$f" > "$f" 2>/dev/null || git show ":3:$f" > "$f"
+        git add "$f"
+        dk=$(basename "$f" .html)
+        keys="$keys $dk"
+      done
+      echo "  kept the published copy of $n_pages docket page(s):$(printf '%s' "$keys" | cut -c1-120)"
+      if [ -f "$man" ] && [ -n "$keys" ]; then
+        if printf '%s\n' $keys | jq -R . | jq -s . > /tmp/_drop.json &&
+           jq --slurpfile d /tmp/_drop.json 'delpaths([$d[0][] | [.]])' "$man" > "$man.tmp"; then
+          mv "$man.tmp" "$man"; git add "$man"
+          echo "  dropped $n_pages key(s) from $man so the next run re-renders them"
+        else
+          echo "  could not drop keys from $man" >&2; ok=0
+        fi
+        rm -f /tmp/_drop.json
+      fi
+    fi
+  fi
+
   [ "$ok" = 1 ] && ! git ls-files -u | grep -q .
 }
 
