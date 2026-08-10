@@ -1,0 +1,102 @@
+name: Render the Cert Funnel
+
+# Re-render funnel/index.html WITHOUT re-fetching anything.
+#
+# The funnel needs one thing from the network -- a cases-NN.rds for the live
+# term's section -- and conferences.yml already produced one. Reusing that
+# artifact turns a ~60-minute job into a ~3-minute one, which matters because the
+# funnel is a page that gets fixed on its own more often than the conference
+# reports do:
+#
+#   * it is `continue-on-error` inside conferences.yml, so a funnel failure is
+#     silent and needs a re-run that the conference reports do not;
+#   * its prose, its baselines and its shading are all edited independently of
+#     any fetch.
+#
+# Publishes ONLY funnel/index.html. It renders nothing else, and a path-less
+# publish would sweep up whatever the checkout happens to hold.
+#
+# Artifacts expire after 3 days. Past that, dispatch conferences.yml instead --
+# this deliberately fails rather than fetching, because a job named "render"
+# quietly turning into a thousand-request scrape is worse than an error.
+
+on:
+  workflow_dispatch:
+    inputs:
+      from_run:
+        description: "Conferences run ID to take cases-*.rds from. Blank = the most recent successful one."
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+  actions: read      # gh run download
+
+# Shares the conferences lane: both publish funnel/index.html, and both write
+# through publish_site.sh, so they must not race.
+concurrency:
+  group: conference-reports
+  cancel-in-progress: false
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source (main)
+        uses: actions/checkout@v5
+      - name: Checkout published site (gh-pages) into ./site
+        uses: actions/checkout@v5
+        with:
+          ref: gh-pages
+          path: site
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          # No pdftools: the funnel resolves no PDFs, so this skips the poppler
+          # system install that dominates setup time everywhere else.
+          packages: |
+            any::gt
+            any::gtExtras
+            any::tidyverse
+            any::htmltools
+            any::jsonlite
+
+      - name: Fetch case artifacts from a prior conferences run
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          FROM: ${{ inputs.from_run }}
+        run: |
+          set -euo pipefail
+          RUN="$FROM"
+          if [ -z "$RUN" ]; then
+            RUN=$(gh run list --workflow=conferences.yml --status success \
+                    --limit 1 --json databaseId --jq '.[0].databaseId')
+            echo "using most recent successful conferences run: $RUN"
+          fi
+          mkdir -p cases
+          gh run download "$RUN" --pattern 'cases-*' --dir dl || true
+          find dl -name 'cases-*.rds' -exec mv -n {} cases/ \; 2>/dev/null || true
+          rm -rf dl
+          ls -1 cases/*.rds 2>/dev/null || true
+          # render_funnel.R selects on ^cases-\d{2}\.rds$ -- cases-pending.rds is
+          # deliberately invisible to it, so require a TERM artifact specifically
+          # rather than just "something downloaded".
+          if ! ls cases/cases-[0-9][0-9].rds >/dev/null 2>&1; then
+            echo "::error::no cases-NN.rds from run $RUN (artifacts expire after 3 days)."
+            echo "::error::Dispatch conferences.yml instead -- this job will not fetch."
+            exit 1
+          fi
+
+      - name: Render the funnel
+        env:
+          SITE_DIR: site
+          CASES_DIR: cases
+        run: Rscript .github/scripts/render_funnel.R
+
+      - name: Publish
+        working-directory: site
+        run: ../.github/scripts/publish_site.sh "Funnel re-render $(date -u +%F)" funnel/index.html
