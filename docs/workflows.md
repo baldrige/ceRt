@@ -164,6 +164,7 @@ rebase cleanly.
 | `feed.xml`, `grants.xml`, `sitemap*.xml`, `robots.txt` | `daily.yml` |
 | `cases/grants.json` (grants cache) | `conferences.yml` (full-term, the real source) · `daily.yml` (only what is inside its trailing fetch window) |
 | `cases/pending.json` (live-docket cache) | `conferences.yml` only |
+| `cases/forecasts.json` (prospective forecast log) | `conferences.yml` only |
 
 ## Naming the live stragglers instead of widening the Term window
 

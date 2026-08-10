@@ -44,6 +44,13 @@ PATHS=("$@")
 #   cases/.manifest.json                 render hashes; daily, conferences,
 #                                        rerender, fill-throttled
 #   cases/search.json                    docket -> caption, same four
+#   cases/forecasts.json                 "<docket>@<conf_date>" -> what the site
+#                                        forecast BEFORE that conference.
+#                                        Append-only per key by construction (see
+#                                        R/forecast_log.R), so a union is exactly
+#                                        right -- and a union can never resurrect
+#                                        a retired key here, because nothing ever
+#                                        retires one.
 #   cases/grants.json                    docket -> grant date/caption/order, for
 #                                        the Atom feeds. Written by conferences
 #                                        (full-term data, where grants are
@@ -67,7 +74,7 @@ PATHS=("$@")
 #   dashboards/qp_cache.json             the daily
 #   dashboards/petition_signals_cache.json  Rule 10 signals, the daily
 #   arguments/qp_cache.json              render_arguments.R
-DERIVED='cases/.manifest.json cases/search.json cases/grants.json
+DERIVED='cases/.manifest.json cases/search.json cases/grants.json cases/forecasts.json
          conferences/qp_cache.json dashboards/qp_cache.json
          dashboards/petition_signals_cache.json arguments/qp_cache.json'
 
