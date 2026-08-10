@@ -148,6 +148,18 @@ if (dir.exists(file.path(site_dir, "conferences"))) {
                                 "^conf_\\d{4}-\\d{2}-\\d{2}\\.html$",
                                 date_key, short_date, "conferences/"))))
 }
+# Directly after the conference reports, which is what it is a view onto: the
+# reports are one conference at a time, this is every petition still in the pile.
+#
+# Guarded on the FILE, not the directory. relist_watch() deliberately writes
+# nothing when no petition is currently relisted -- a page reading "0 cases" is
+# worse than no page -- so an empty relists/ directory can outlive its index, and
+# a dir.exists() guard would link to a 404. Every other section here is guarded
+# the same way for the same reason, except the ones whose renderer always emits.
+if (file.exists(file.path(site_dir, "relists", "index.html"))) {
+  items <- c(items, list(list(href = "relists/", label = "Relist Tracker",
+                              meta = "still under consideration")))
+}
 if (dir.exists(file.path(site_dir, "arguments"))) {
   items <- c(items, list(list(href = "arguments/", label = "Oral Argument Navigator",
                               meta = "granted cases, by sitting",
