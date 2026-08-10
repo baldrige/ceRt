@@ -66,6 +66,16 @@
      the claim, not a footnote to the ranking. Upright, accent, tabular. */
   ol.mostread .mv.fc{color:var(--accent);font-style:normal;font-weight:600;
     font-size:.95rem;min-width:2.6rem;text-align:right}
+  /* Feed follow line. Deliberately quiet -- a footnote under the section list,
+     styled like .recent rather than like a call to action. */
+  .feeds{display:flex;flex-wrap:wrap;align-items:baseline;gap:.3rem .85rem;
+    margin:2.2rem 0 0;padding-top:1.1rem;border-top:1px solid var(--rule)}
+  .feeds .flabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  .feeds a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .feeds a:hover{border-color:var(--link)}
   .back{margin-top:2rem;font-size:.95rem}
   .back a{color:var(--link);text-decoration:none;
     border-bottom:1px solid rgba(156,14,58,.4)}
@@ -308,6 +318,11 @@
         </li>
       </ol>
     </section>
+    <p class="feeds">
+      <span class="flabel">Follow by feed</span>
+      <a href="/feed.xml" type="application/atom+xml">All updates</a>
+      <a href="/grants.xml" type="application/atom+xml">Certiorari grants</a>
+    </p>
     <script>(function(){var q=document.getElementById('cq'),r=document.getElementById('cres'),E=null,t;function esc(s){return s.replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c];});}function load(){if(E)return;q.classList.add('loading');fetch('cases/search.json').then(function(x){return x.json();}).then(function(j){E=Object.keys(j).map(function(d){return [d,j[d],d.toLowerCase(),j[d].toLowerCase()];});q.classList.remove('loading');run();}).catch(function(){q.classList.remove('loading');});}q.addEventListener('focus',load);q.addEventListener('input',function(){clearTimeout(t);t=setTimeout(run,110);});function run(){var s=q.value.trim().toLowerCase();if(!s||!E){r.innerHTML='';return;}var o=[],n=0;for(var i=0;i<E.length;i++){if(E[i][2].indexOf(s)>-1||E[i][3].indexOf(s)>-1){o.push(E[i]);if(++n>=40)break;}}r.innerHTML=o.length?o.map(function(e){return "<li><a href='cases/"+e[0]+".html'><span class='cd'>No. "+e[0]+"</span>"+esc(e[1])+"</a></li>";}).join(''):"<li class='cnone'>No matching cases.</li>";}})();</script>
   </main>
 </body>
