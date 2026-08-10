@@ -104,7 +104,16 @@ conference_distributions <- function(cases) {
       outcome = map_chr(.cls, ~ if (is.null(.x)) NA_character_ else .x$outcome[[1]]),
       outcome_date = as.Date(map_dbl(.cls,
         ~ if (is.null(.x)) NA_real_ else as.numeric(.x$outcome_date[[1]])),
-        origin = "1970-01-01")
+        origin = "1970-01-01"),
+      # TRUE relists, under cert_funnel.R's audited grammar -- redistributions
+      # after a Rescheduled, a called-for response or a CVSG are mechanical and do
+      # not count. These were computed here all along and thrown away by the
+      # select() below; distribution_no is NOT a substitute, because it counts
+      # every redistribution. Pooled OT17-22 the naive count overstates by ~55%.
+      n_relists = map_int(.cls, ~ if (is.null(.x)) NA_integer_
+                          else as.integer(.x$n_relists[[1]])),
+      relist_dates = map(.cls, ~ if (is.null(.x)) as.Date(character())
+                         else .x$relist_dates[[1]])
     ) |>
     select(-.cls) |>
     unnest_longer(conf_date) |>

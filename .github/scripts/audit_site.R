@@ -393,9 +393,23 @@ if (!file.exists(file.path(site, "robots.txt"))) {
 # docs/ with only the masthead injected, so it has no generated <head>.
 n_feeds <- length(feeds)
 if (n_feeds) {
-  gen <- Filter(file.exists, file.path(site, c(
+  # Index pages AND a sample of leaves. Checking only the indexes is how the
+  # third hand-built <head> (interactive_theme.R, which writes every conference,
+  # dashboard, argument and relist LEAF) went unnoticed while the seven indexes
+  # read green. Leaves matter more here, not less: a search result lands a reader
+  # on a conference report, not on /conferences/.
+  leaf <- function(dir, pat) {
+    f <- sort(list.files(file.path(site, dir), pattern = pat, full.names = TRUE))
+    if (length(f)) f[unique(round(seq(1, length(f), length.out = min(3L, length(f)))))]
+    else character()
+  }
+  gen <- Filter(file.exists, c(file.path(site, c(
     "index.html", "about.html", "cases/index.html", "dashboards/index.html",
-    "conferences/index.html", "arguments/index.html", "funnel/index.html")))
+    "conferences/index.html", "arguments/index.html", "funnel/index.html",
+    "relists/index.html")),
+    leaf("conferences", "^conf_\\d{4}-\\d{2}-\\d{2}\\.html$"),
+    leaf("dashboards", "^dash_\\d{4}-\\d{2}-\\d{2}\\.html$"),
+    leaf("arguments", "^arg_\\d{4}\\.html$")))
   cnt <- vapply(gen, function(p)
     length(gregexpr("application/atom\\+xml", slurp(p))[[1]][
       gregexpr("application/atom\\+xml", slurp(p))[[1]] > 0]), integer(1))
