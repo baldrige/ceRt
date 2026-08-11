@@ -261,6 +261,41 @@ inject_masthead <- function(path, active = NULL) {
   invisible(TRUE)
 }
 
+#' Bring a published page's feed-autodiscovery links up to date, in place.
+#'
+#' A POST-PASS, for the same reason inject_masthead() and patch_prev_next() are:
+#' the pages that need it are never re-rendered. render_conferences.R renders
+#' only conferences on/after MIN_CONF_DATE, so conf_2017-09-25.html has not been
+#' rewritten since it was made and never will be by a normal run. Re-rendering it
+#' properly would mean reassembling the whole multi-term case database to change
+#' two lines of chrome.
+#'
+#' NOT for docket pages. Those have a template-version stamp and an established
+#' re-render path (rerender-dockets.yml); patching them would leave the page
+#' current and the stamp stale, which is the one thing the stamp exists to
+#' prevent.
+#'
+#' Self-correcting rather than merely idempotent: any existing autodiscovery
+#' links are stripped and the current set written back, so a page that picked up
+#' only feed.xml (rendered before grants.xml existed) is fixed rather than
+#' skipped. Returns "added", "unchanged", or "skipped".
+patch_feed_links <- function(path) {
+  if (!file.exists(path)) return("skipped")
+  if (!exists("feed_autodiscovery_links")) return("skipped")
+  links <- feed_autodiscovery_links()
+  if (!nzchar(links)) return("skipped")            # no feeds published yet
+  txt <- paste(readLines(path, warn = FALSE, encoding = "UTF-8"), collapse = "\n")
+  h <- regexpr("</head>", txt, fixed = TRUE)
+  if (h < 0) return("skipped")
+  stripped <- gsub("<link rel=\"alternate\" type=\"application/atom\\+xml\"[^>]*>", "", txt)
+  h <- regexpr("</head>", stripped, fixed = TRUE)
+  out <- paste0(substr(stripped, 1L, h - 1L), links,
+                substr(stripped, h, nchar(stripped)))
+  if (identical(out, txt)) return("unchanged")
+  writeLines(enc2utf8(out), path, useBytes = TRUE)
+  "added"
+}
+
 #' Fill every page's prev/next slot from the complete on-disk sequence.
 #'
 #' Runs as a POST-PASS, after the section index is rebuilt, because no generator

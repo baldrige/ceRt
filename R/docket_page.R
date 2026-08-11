@@ -174,7 +174,9 @@ write_docket_css <- function(out_dir) {
 # uncoloured. Rejected tenders ("not accepted for filing") are excluded with it:
 # the new wording is used for those MORE often than for accepted briefs, and the
 # corrected brief re-appears under its own entry, so counting both double-counts.
-PAGE_TEMPLATE_VERSION <- "v18"
+# v19: feed autodiscovery in the <head>. A markup change, so it bumps -- roll it
+# with rerender-dockets.yml (reuse_from_runs, ~20 min, no re-fetch).
+PAGE_TEMPLATE_VERSION <- "v19"
 
 # ---- small helpers ------------------------------------------------------------
 .esc <- function(x) { x <- x %||% ""; x[is.na(x)] <- ""; htmltools::htmlEscape(x) }
@@ -645,6 +647,14 @@ docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
     # Machine-readable template-version stamp: the fill-throttled scanner reads it
     # to spot a page a version bump left behind (see fetch_missing_dockets.R).
     "<meta name='tv' content='", PAGE_TEMPLATE_VERSION, "'>",
+    # The FOURTH hand-built <head> on this site, and the last to get feed
+    # autodiscovery -- which means 55,357 pages, 99.5% of the site, carried none
+    # while the eight index pages read green. These matter most, not least: a
+    # search result lands a reader on a case page, never on /cases/.
+    #
+    # Guarded because docket_page.R is sourced by entry points that may not have
+    # loaded page_style.R; those emit no links rather than failing.
+    if (exists("feed_autodiscovery_links")) feed_autodiscovery_links() else "",
     "<title>", cap, " &mdash; No. ", dkt, "</title>",
     "<link rel='preconnect' href='https://fonts.googleapis.com'>",
     "<link rel='stylesheet' href='", DOCKET_FONTS, "'>",

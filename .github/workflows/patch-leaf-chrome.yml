@@ -1,0 +1,67 @@
+name: Patch leaf-page chrome
+
+# Bring already-published conference / dashboard / argument LEAF pages' feed
+# autodiscovery up to date, without re-rendering them.
+#
+# Those pages are never revisited by a normal run -- render_conferences.R renders
+# only conferences on/after MIN_CONF_DATE -- so a change to the shared <head>
+# reaches new leaves and leaves the archive behind forever. Re-rendering them
+# properly would mean reassembling the whole multi-term case database to change
+# two lines of chrome.
+#
+# NOT for docket pages: those carry a template-version stamp and roll through
+# rerender-dockets.yml. See .github/scripts/patch_leaf_chrome.R.
+#
+# No fetching, no rendering, ~1 minute.
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Count what would be patched and write nothing."
+        required: false
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+
+# Shares the conferences lane: both write conferences/ and arguments/.
+concurrency:
+  group: conference-reports
+  cancel-in-progress: false
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout source (main)
+        uses: actions/checkout@v5
+      - name: Checkout published site (gh-pages) into ./site
+        uses: actions/checkout@v5
+        with:
+          ref: gh-pages
+          path: site
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          # htmltools only. This renders nothing and resolves no PDFs, so it
+          # skips both the model stack and the poppler system install.
+          packages: |
+            any::htmltools
+      - name: Patch
+        env:
+          SITE_DIR: site
+          DRY_RUN: ${{ inputs.dry_run }}
+        run: Rscript .github/scripts/patch_leaf_chrome.R
+      - name: Publish
+        if: ${{ inputs.dry_run == false }}
+        working-directory: site
+        # Only the three leaf directories. This job renders nothing else and a
+        # path-less publish would sweep up whatever the checkout holds.
+        run: |
+          ../.github/scripts/publish_site.sh "Patch leaf feed autodiscovery" \
+            conferences arguments dashboards
