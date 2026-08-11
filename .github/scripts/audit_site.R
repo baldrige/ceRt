@@ -63,6 +63,27 @@ head_bytes <- function(path, n = 600L) {
   rawToChar(readBin(con, "raw", n = n))
 }
 
+# Whole file as one string. Lives HERE, with the other helpers, and not beside
+# its first heavy user.
+#
+# It was defined in the feeds section, 67 lines below the placeholder check that
+# also calls it, and the 2026-08-11 audit died at "could not find function
+# slurp" after twelve green checks. This file already carries the lesson at the
+# top -- an audit that cannot finish is indistinguishable from a red build -- and
+# had already been bitten once the same way, when fill_palette() was missing.
+# Helpers go at the top; sections below may use them, never define them.
+slurp <- function(p) paste(readLines(p, warn = FALSE, encoding = "UTF-8"), collapse = "\n")
+
+# Values of a repeated simple tag, e.g. every <loc> in a sitemap.
+tagvals <- function(txt, tag) {
+  m <- regmatches(txt, gregexpr(paste0("<", tag, ">[^<]*</", tag, ">"), txt))[[1]]
+  sub(paste0("^<", tag, ">"), "", sub(paste0("</", tag, ">$"), "", m))
+}
+
+# An absolute site URL back to a path resolve() understands.
+SITE_BASE <- "https://supremecourt.report"
+unbase <- function(u) sub(paste0("^", SITE_BASE), "", u)
+
 cat("Auditing ", normalizePath(site), " against ", CUR_TV, "\n\n", sep = "")
 
 # ---- 1. docket pages: template coverage --------------------------------------
@@ -308,14 +329,8 @@ if (!length(stray)) {
 # they are the three ways THIS pipeline can break these files.
 cat("\nFeeds and sitemaps\n")
 
-SITE_BASE <- "https://supremecourt.report"
-slurp <- function(p) paste(readLines(p, warn = FALSE, encoding = "UTF-8"), collapse = "\n")
-# An absolute site URL back to a path resolve() understands.
-unbase <- function(u) sub(paste0("^", SITE_BASE), "", u)
-tagvals <- function(txt, tag) {
-  m <- regmatches(txt, gregexpr(paste0("<", tag, ">[^<]*</", tag, ">"), txt))[[1]]
-  sub(paste0("^<", tag, ">"), "", sub(paste0("</", tag, ">$"), "", m))
-}
+# slurp / tagvals / unbase / SITE_BASE are defined with the other helpers at the
+# top of this file. They were here, which is what broke the 2026-08-11 run.
 
 # feed.xml must exist -- it is built from directory listings that are never empty.
 # grants.xml legitimately may not: it is built from cases/grants.json, which only
