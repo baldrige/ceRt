@@ -460,26 +460,52 @@ if (n_feeds) {
     if (length(f)) f[unique(round(seq(1, length(f), length.out = min(3L, length(f)))))]
     else character()
   }
-  gen <- Filter(file.exists, c(file.path(site, c(
+  idx <- Filter(file.exists, file.path(site, c(
     "index.html", "about.html", "cases/index.html", "dashboards/index.html",
     "conferences/index.html", "arguments/index.html", "funnel/index.html",
-    "relists/index.html")),
+    "relists/index.html")))
+  lvs <- Filter(file.exists, c(
     leaf("conferences", "^conf_\\d{4}-\\d{2}-\\d{2}\\.html$"),
     leaf("dashboards", "^dash_\\d{4}-\\d{2}-\\d{2}\\.html$"),
     leaf("arguments", "^arg_\\d{4}\\.html$")))
-  cnt <- vapply(gen, function(p)
-    length(gregexpr("application/atom\\+xml", slurp(p))[[1]][
-      gregexpr("application/atom\\+xml", slurp(p))[[1]] > 0]), integer(1))
-  short <- names(cnt)[cnt != n_feeds]
-  if (length(short)) {
-    fail("feed autodiscovery",
-         sprintf("%d of %d generated page(s) advertise %d feed(s) instead of %d: %s",
-                 length(short), length(gen), min(cnt), n_feeds,
-                 paste(sub(paste0("^", site, "/"), "", utils::head(short, 5)),
-                       collapse = ", ")))
+
+  # Count only the HEAD links. The first version counted every
+  # "application/atom+xml" on the page, which was right until the visible
+  # "Follow by feed" line landed: those <a> tags carry the same type attribute,
+  # so the landing page and About went from 2 matches to 4 and the check called
+  # them broken while they were correct. rel="alternate" appears on the <link>
+  # tags and nowhere else.
+  nlinks <- function(p) {
+    m <- gregexpr('rel="alternate" type="application/atom\\+xml"', slurp(p))[[1]]
+    length(m[m > 0])
+  }
+  short_idx <- Filter(function(p) nlinks(p) != n_feeds, idx)
+  short_lvs <- Filter(function(p) nlinks(p) != n_feeds, lvs)
+  rel <- function(v) paste(sub(paste0("^", site, "/"), "", utils::head(v, 4)),
+                           collapse = ", ")
+
+  if (length(short_idx)) {
+    fail("feed autodiscovery (indexes)",
+         sprintf("%d of %d index page(s) do not advertise %d feed(s): %s",
+                 length(short_idx), length(idx), n_feeds, rel(short_idx)))
   } else {
-    ok("feed autodiscovery",
-       sprintf("all %d generated page(s) advertise all %d feed(s)", length(gen), n_feeds))
+    ok("feed autodiscovery (indexes)",
+       sprintf("all %d index page(s) advertise all %d feed(s)", length(idx), n_feeds))
+  }
+
+  # Leaves are a WARN, not a FAIL, and for the same reason the template-version
+  # check is: a leaf rendered before autodiscovery existed has nothing to patch,
+  # and normal runs never rewrite it -- conferences renders only on/after
+  # min_conf, so conf_2017-09-25.html will sit at zero until a back-catalogue
+  # re-render. That is a coverage number worth reporting, not a broken
+  # invariant, and a permanently red audit is an ignored audit.
+  if (length(short_lvs)) {
+    warn("feed autodiscovery (leaves)",
+         sprintf("%d of %d sampled leaf/leaves predate it and need a re-render: %s",
+                 length(short_lvs), length(lvs), rel(short_lvs)))
+  } else if (length(lvs)) {
+    ok("feed autodiscovery (leaves)",
+       sprintf("all %d sampled leaf/leaves advertise all %d feed(s)", length(lvs), n_feeds))
   }
 }
 
