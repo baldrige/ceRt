@@ -26,7 +26,7 @@ petitions. Most of Tier 1 below is a renderer over values that exist today.
 
 | # | Feature | Where the data already is | What's missing |
 | --- | --- | --- | --- |
-| 6 | **Counsel pages** — per-advocate petitions filed, grants, pending | `counsel_index.rds`, built by `build_counsel_index()` | Name-collision handling: `R/cert_model.R` records ~9.8% unrelated-counsel hits on archive matches. Publish with match confidence stated, not silently |
+| 6 | **The Counsel Table** — filings, relists and grants per advocate | `petitioner_counsel()` + `counsel_key()` over the term archives | Scoped in detail below |
 | 7 | **Lower-court pages** — `/courts/CA9.html`: volume, grant rate, pending, relisted, CVSG'd | `petition_features()` already carries `lower` | Court-name normalisation across ten terms of free text |
 | 8 | **Term scoreboard** — filings, grants, GVRs, DIGs, and the timing lags across ten terms | `funnel_stats()` (`R/cert_funnel.R:318`) and the `data-raw/ot_*.rds` archives | Charts, and the lag computations |
 
@@ -491,3 +491,109 @@ never be recovered.
    three-term fetch window, which improves the conference pages too.
 4. **Scorecard page** — once the log has resolved enough predictions to say
    something.
+
+---
+
+## 4. The Counsel Table
+
+### What the corpus supports
+
+Over OT2017–OT2024: **8,989 paid petitions carry a named counsel of record** (74%
+of paid petitions; the rest are pro se or unattributed), across **4,561 distinct
+advocates**. The distribution is severely long-tailed — 72% filed exactly one
+petition, 99 filed ten or more, 8 filed fifty or more. That tail is what makes a
+leaderboard viable: it is a small, nameable group, and everyone else is noise.
+
+### Three tables, because they are three different claims
+
+**Filings.** Straight counting, no methodology needed.
+Clement 100 · Prelogar 87 · Francisco 61 · Shanmugam 54.
+
+**Relists.** Not redundant with filings, but only if it is published as a
+**share**. Raw relist count correlates with filing count at **0.81**, so a count
+column mostly re-ranks the same people. The share is a different claim — *this
+advocate's petitions get a second look*:
+
+```
+john dragseth       10 filed, 10 relisted  100%
+mithun mansinghani  57        42            74%
+elizabeth prelogar  87        57            66%
+```
+
+**Grants.** Publishable only after two corrections; see below.
+
+### Correction 1 — the Solicitor General is a different population
+
+```
+US petitioner:  1,175 petitions, 132 granted, 11.2%
+private:        7,532 petitions, 361 granted,  4.8%
+```
+
+Pooled, the whole top of a grants table is the SG's office — Prelogar, Francisco,
+Harris, Wall. That measures the office, not advocacy, and "Elizabeth Prelogar
+tops cert-grant success" would be true and misleading in the same breath. Split
+into **Office of the Solicitor General** and **private bar**; the private table is
+then genuinely informative (Clement 21 · Shanmugam 13 · Blatt 12 · Geyser 7).
+
+Identify by petitioner caption, not by a list of names — a name list goes stale
+every administration.
+
+### Correction 2 — never rank on a raw rate
+
+```
+min  1 petition:  best rate 100% (1/1)
+min  5:           best rate  82% (9/11)
+min 20:           best rate  54% (47/87)
+```
+
+A raw-rate column is a small-sample generator. Rank by a **Wilson 95% lower
+bound** instead, showing the raw rate alongside: it needs no arbitrary cutoff and
+it demotes exactly what it should.
+
+```
+                    n   g    raw   wilson
+elizabeth prelogar 24  18  75.0%   55.1%
+sarah harris        6   5  83.3%   43.6%     <- 83% raw, but on six petitions
+lisa blatt         29  12  41.4%   25.5%
+paul clement       85  21  24.7%   16.8%
+```
+
+### Same-name handling
+
+The systematic collisions are gone: `counsel_key()` took the last name token
+blindly, so "Robert L. Sirianni Jr." keyed as `robert jr` along with fourteen
+other Roberts — 75 petitions, 0 grants, read as one veteran. Fixed, with a
+build-time guard, in the suffix change.
+
+What remains is irreducible from docket text: two real people who share a first
+and last name. Three mitigations, none of them a solution.
+
+- **Publish the merged variants.** Each row shows the name strings that keyed
+  together ("Neal K. Katyal / Neal Kumar Katyal"), so a reader can see the merge
+  and judge it. This is the important one.
+- **Flag wide lower-court spread.** The median advocate with ≥6 petitions appears
+  before 6 distinct lower courts. Far above that is a plausible collision — a
+  review flag, never an automatic split.
+- **Firm matching works only forward.** **0 of 8,989** archive petitions carry a
+  firm column; only the live JSON pipeline has one. It can disambiguate new
+  filings and can never clean the back catalogue.
+
+### What ships
+
+`/counsel/index.html` — one page, three tables, minimum **5 petitions** to appear
+anywhere. Per-advocate detail pages are deliberately out of scope: 4,561 pages
+for a tail that is 72% single filings is a lot of surface for very little.
+
+The footer must say plainly that an advocate here is a **name, not a verified
+identity**, and that this counts **petitioner's counsel of record only** — an
+advocate who argues a case they did not petition in does not appear at all.
+
+### Where it is computed
+
+From `data-raw/ot_*.rds`, which are committed, so **no fetch**. Aggregation costs
+~4 minutes over ~49k petitions, which is too slow for every weekly render — so it
+follows the funnel-baselines pattern: a committed `data/counsel_stats.json` with a
+**fingerprint of the classifier plus the archives**, and a renderer that
+recomputes in-process when the fingerprint does not match. That pattern already
+exists, and it exists because the funnel baselines went stale for two weeks and
+published a number 2.5× wrong.
