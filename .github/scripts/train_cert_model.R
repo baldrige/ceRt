@@ -60,6 +60,22 @@ message("Complete terms: ", paste(complete, collapse = ", "))
 # the feature, with no error anywhere -- exactly how elite_counsel shipped dead.
 counsel_ix <- build_counsel_index(corpus)
 stopifnot(nrow(counsel_ix) > 0)
+
+# No key may END in a generational suffix. counsel_key() took the last token
+# blindly until 2026-08-13, so "Robert L. Sirianni Jr." and 14 other Roberts all
+# keyed as "robert jr" -- 75 petitions, 0 grants, read by counsel_tier() as one
+# veteran who had never won. This fails the build rather than shipping that
+# again, and it also catches a stale CORPUS CACHE: counsel_key is computed into
+# data-raw/cert_corpus.rds, so a retrain that reuses the cache would quietly
+# refit on the old keys.
+.suffix_keys <- grep(paste0(" (", paste(COUNSEL_SUFFIXES, collapse = "|"), ")$"),
+                     counsel_ix$counsel_key, value = TRUE)
+if (length(.suffix_keys))
+  stop("counsel index holds ", length(.suffix_keys), " key(s) ending in a ",
+       "generational suffix, e.g. ", paste(head(.suffix_keys, 5), collapse = ", "),
+       ". counsel_key() should strip these -- if the code is current, delete ",
+       "the corpus cache (", cache, ") and retrain: it stores counsel_key.",
+       call. = FALSE)
 corpus$counsel_tier <- counsel_tier(corpus$counsel_key, corpus$date, counsel_ix)
 panel$counsel_tier  <- counsel_tier(panel$counsel_key,  panel$date,  counsel_ix)
 stopifnot(dplyr::n_distinct(corpus$counsel_tier) > 1)
