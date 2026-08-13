@@ -26,7 +26,7 @@ petitions. Most of Tier 1 below is a renderer over values that exist today.
 
 | # | Feature | Where the data already is | What's missing |
 | --- | --- | --- | --- |
-| 6 | **The Counsel Table** — filings, relists and grants per advocate | `petitioner_counsel()` + `counsel_key()` over the term archives | Scoped in detail below |
+| 6 | ~~**The Counsel Table**~~ — filings, relists and grants per advocate | `petitioner_counsel()` + `counsel_key()` over the term archives | **Shipped** — `/counsel/`, see [counsel-table.md](counsel-table.md) |
 | 7 | **Lower-court pages** — `/courts/CA9.html`: volume, grant rate, pending, relisted, CVSG'd | `petition_features()` already carries `lower` | Court-name normalisation across ten terms of free text |
 | 8 | **Term scoreboard** — filings, grants, GVRs, DIGs, and the timing lags across ten terms | `funnel_stats()` (`R/cert_funnel.R:318`) and the `data-raw/ot_*.rds` archives | Charts, and the lag computations |
 
@@ -494,7 +494,10 @@ never be recovered.
 
 ---
 
-## 4. The Counsel Table
+## 4. The Counsel Table — SHIPPED
+
+Built as `/counsel/`. Where the build corrected the scope, the section below says
+so inline; [counsel-table.md](counsel-table.md) is the current description.
 
 ### What the corpus supports
 
@@ -522,21 +525,42 @@ elizabeth prelogar  87        57            66%
 
 **Grants.** Publishable only after two corrections; see below.
 
-### Correction 1 — the Solicitor General is a different population
+### Correction 1 — the government is a different population
+
+**Superseded on build. The figures below were wrong, and the method under them
+was worse; see [counsel-table.md](counsel-table.md) for what shipped.**
+
+The scoped measurement was:
 
 ```
 US petitioner:  1,175 petitions, 132 granted, 11.2%
 private:        7,532 petitions, 361 granted,  4.8%
 ```
 
-Pooled, the whole top of a grants table is the SG's office — Prelogar, Francisco,
-Harris, Wall. That measures the office, not advocacy, and "Elizabeth Prelogar
-tops cert-grant success" would be true and misleading in the same breath. Split
-into **Office of the Solicitor General** and **private bar**; the private table is
-then genuinely informative (Clement 21 · Shanmugam 13 · Blatt 12 · Geyser 7).
+Both numbers come from a caption regex, and the caption **names both sides**. It
+flagged an immigration petitioner suing the Attorney General, a Kentucky cabinet
+secretary and an Ohio tax commissioner as federal filings; the second-heaviest
+"US petitioner" advocate in that 1,175 was Raed Gonzalez, whose clients are
+petitioners *against* the government. It was measuring "a government appears
+somewhere in the caption", not "the government filed this".
 
-Identify by petitioner caption, not by a list of names — a name list goes stale
-every administration.
+Read from the petitioner's own name instead, and the separation is far sharper
+than the scope claimed — and three-way, because a State solicitor general is a
+repeat institutional player too:
+
+```
+The United States:   167 cases,  84 granted,  50.3%
+A State:             203 cases,  29 granted,  14.3%
+A private party:   8,230 cases, 379 granted,   4.6%
+```
+
+The split also moved from the advocate to the **case**: `gov_share` has no
+natural threshold to cut at (245 of 286 qualifying advocates sit at exactly zero,
+the rest form a gradient thick with former state SGs now in private practice), and
+splitting cases needs none.
+
+Identify by the petitioner, not by a list of names — a name list goes stale every
+administration. That part of the scope was right.
 
 ### Correction 2 — never rank on a raw rate
 

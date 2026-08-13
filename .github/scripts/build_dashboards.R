@@ -172,6 +172,13 @@ if (file.exists(file.path(site_dir, "cases", "index.html"))) {
   items <- c(items, list(list(href = "cases/", label = "All Cases",
                               meta = "browse by Term")))
 }
+# The advocates, after the case-shaped sections and before the two explainers:
+# it is a view onto the same petitions cut a different way, not a guide to the
+# site.
+if (file.exists(file.path(site_dir, "counsel", "index.html"))) {
+  items <- c(items, list(list(href = "counsel/", label = "The Counsel Table",
+                              meta = "who files, who wins")))
+}
 if (dir.exists(file.path(site_dir, "funnel"))) {
   items <- c(items, list(list(href = "funnel/", label = "The Cert Funnel",
                               meta = "the explainer")))

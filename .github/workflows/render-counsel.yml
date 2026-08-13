@@ -1,0 +1,65 @@
+name: Render the Counsel Table
+
+# Re-render counsel/index.html on demand.
+#
+# Unlike render-funnel.yml this needs nothing from a prior run and nothing from
+# the network: every number on the page comes from the committed term archives
+# via data/counsel_stats.json. There is no artifact to expire and no fetch to
+# accidentally trigger, so this is always safe to dispatch.
+#
+# If the committed stats are stale against the code, render_counsel.R recomputes
+# in-process (~4 min) so the published page is right, and says so loudly in the
+# log. Refresh the committed copy with:
+#   Rscript .github/scripts/make_counsel_stats.R
+#
+# Publishes ONLY counsel/index.html.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+# Shares the conferences lane: conferences.yml also renders this page, and both
+# write through publish_site.sh, so they must not race.
+concurrency:
+  group: conference-reports
+  cancel-in-progress: false
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source (main)
+        uses: actions/checkout@v5
+      - name: Checkout published site (gh-pages) into ./site
+        uses: actions/checkout@v5
+        with:
+          ref: gh-pages
+          path: site
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          # No pdftools -- this page resolves none. gt/gtExtras are not used by
+          # the renderer (the tables are hand-built HTML) but R/cert_funnel.R
+          # declares them at the top and counsel_table.R needs its classifier, so
+          # they must be installed for the source() to succeed at all.
+          packages: |
+            any::tidyverse
+            any::htmltools
+            any::jsonlite
+            any::digest
+            any::gt
+            any::gtExtras
+
+      - name: Render the counsel table
+        env:
+          SITE_DIR: site
+        run: Rscript .github/scripts/render_counsel.R
+
+      - name: Publish
+        working-directory: site
+        run: ../.github/scripts/publish_site.sh "Counsel table re-render $(date -u +%F)" counsel/index.html

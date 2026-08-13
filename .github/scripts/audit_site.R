@@ -285,7 +285,7 @@ ph_files <- Filter(file.exists, c(
   file.path(site, c("index.html", "about.html", "funnel/index.html",
                     "conferences/index.html", "arguments/index.html",
                     "dashboards/index.html", "cases/index.html",
-                    "relists/index.html")),
+                    "relists/index.html", "counsel/index.html")),
   head(list.files(file.path(site, "cases"), pattern = "^[0-9]", full.names = TRUE), 5),
   head(sort(list.files(file.path(site, "conferences"),
                        pattern = "^conf_", full.names = TRUE), decreasing = TRUE), 2),
@@ -463,7 +463,7 @@ if (n_feeds) {
   idx <- Filter(file.exists, file.path(site, c(
     "index.html", "about.html", "cases/index.html", "dashboards/index.html",
     "conferences/index.html", "arguments/index.html", "funnel/index.html",
-    "relists/index.html")))
+    "relists/index.html", "counsel/index.html")))
   lvs <- Filter(file.exists, c(
     leaf("conferences", "^conf_\\d{4}-\\d{2}-\\d{2}\\.html$"),
     leaf("dashboards", "^dash_\\d{4}-\\d{2}-\\d{2}\\.html$"),
@@ -506,6 +506,79 @@ if (n_feeds) {
   } else if (length(lvs)) {
     ok("feed autodiscovery (leaves)",
        sprintf("all %d sampled leaf/leaves advertise all %d feed(s)", length(lvs), n_feeds))
+  }
+}
+
+# ---- the counsel table --------------------------------------------------------
+# Two things, and neither is "does the page exist".
+#
+# FRESHNESS is the one that matters. data/counsel_stats.json is a committed
+# summary of a classifier's output, which is exactly the shape of file that went
+# stale on this site before: funnel_baselines.json was generated 2026-07-10,
+# invalidated two weeks later by a change inside classify_petition_events(), and
+# the funnel published a relist count 2.5x too high until a reader noticed.
+# render_counsel.R recomputes on a mismatch so the PAGE is never wrong, but a
+# silent 4-minute recompute on every weekly run is a cost nobody sees. This is
+# what makes it visible.
+#
+# The second is that the published page carries its boards at all. A rendering
+# path that quietly produced an empty table would still emit a valid, styled,
+# feed-advertising page -- every other check here would pass it.
+cat("\nCounsel table\n")
+cstats <- "data/counsel_stats.json"
+cpage <- file.path(site, "counsel/index.html")
+if (!file.exists(cstats) && !file.exists(cpage)) {
+  cat("  (no counsel table published yet -- skipped)\n")
+} else {
+  arch <- sort(Sys.glob("data-raw/ot_*.rds"))
+  # Loaded HERE and defensively, not at the top with palette.R. Computing the
+  # fingerprint means deparsing the classifier, so the whole module chain
+  # (cert_funnel, cert_model, page_style) has to load -- a much larger surface
+  # than anything else this script touches. An audit that cannot start reports
+  # nothing about the site, so a missing package degrades this one check to a
+  # WARN instead of taking the other thirty with it.
+  cenv <- tryCatch({ e <- new.env(parent = globalenv())
+                     sys.source("R/counsel_table.R", envir = e); e },
+                   error = function(err) NULL)
+  if (file.exists(cstats) && length(arch) && !is.null(cenv)) {
+    have <- tryCatch(jsonlite::fromJSON(cstats)$fingerprint, error = function(e) NA)
+    want <- tryCatch(cenv$counsel_stats_fingerprint(arch),
+                     error = function(e) NA_character_)
+    if (is.na(want)) {
+      warn("counsel stats fresh", "could not compute the fingerprint")
+    } else if (identical(as.character(have), want)) {
+      ok("counsel stats fresh",
+         sprintf("committed stats match the classifier (%s)", substr(want, 1, 12)))
+    } else {
+      fail("counsel stats fresh",
+           sprintf(paste("data/counsel_stats.json is STALE (committed %s, code",
+                         "produces %s) -- every render recomputes it. Refresh:",
+                         "Rscript .github/scripts/make_counsel_stats.R"),
+                   if (length(have) && !is.na(have)) substr(have, 1, 12) else "none",
+                   substr(want, 1, 12)))
+    }
+  } else if (file.exists(cstats) && is.null(cenv)) {
+    warn("counsel stats fresh",
+         "R/counsel_table.R would not load here -- freshness unverified")
+  }
+  if (file.exists(cpage)) {
+    ch <- slurp(cpage)
+    nrows <- length(gregexpr("<tr><td class='rk'>", ch, fixed = TRUE)[[1]])
+    ntab <- length(gregexpr("<table class='ctab'>", ch, fixed = TRUE)[[1]])
+    # A stray NA/NaN in a cell is what a division by an empty pool looks like
+    # after it has been through format(): the page renders, the number is
+    # nonsense. Bounded to cell contents so the word cannot match in prose.
+    bad <- length(gregexpr(">(NA|NaN|Inf|-Inf)%?<", ch, perl = TRUE)[[1]][
+      gregexpr(">(NA|NaN|Inf|-Inf)%?<", ch, perl = TRUE)[[1]] > 0])
+    if (ntab < 4 || nrows < 20) {
+      fail("counsel boards populated",
+           sprintf("%d table(s), %d ranked row(s) -- expected 4 tables", ntab, nrows))
+    } else if (bad) {
+      fail("counsel boards populated", sprintf("%d cell(s) render NA/NaN/Inf", bad))
+    } else {
+      ok("counsel boards populated",
+         sprintf("%d tables, %d ranked rows, no NA cells", ntab, nrows))
+    }
   }
 }
 

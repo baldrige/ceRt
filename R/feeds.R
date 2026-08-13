@@ -327,7 +327,19 @@ write_sitemaps <- function(site_dir, base = SITE_URL, max_urls = SITEMAP_MAX) {
   page_urls <- paste0(base, pages)
   page_mod <- rep(as.Date(NA), length(page_urls))
 
-  for (s in c("dashboards", "conferences", "arguments", "funnel", "cases")) {
+  # Derived from SITE_SECTIONS rather than listed again here. The hardcoded copy
+  # this replaces was written when the site had five sections and never grew:
+  # /relists/ shipped, went into the masthead, and stayed out of the sitemap
+  # entirely -- a whole section invisible to search, with nothing to notice it.
+  # `cases` is appended separately because it is deliberately NOT a masthead
+  # section (see SITE_SECTIONS) but is very much a page.
+  dir_sections <- c(
+    if (exists("SITE_SECTIONS"))
+      sub("^/(.*)/$", "\\1", Filter(function(h) grepl("/$", h),
+                                    vapply(SITE_SECTIONS, `[[`, character(1), "href")))
+    else c("dashboards", "conferences", "arguments", "funnel"),
+    "cases")
+  for (s in unique(dir_sections)) {
     if (file.exists(rel(s, "index.html"))) {
       page_urls <- c(page_urls, paste0(base, "/", s, "/"))
       page_mod <- c(page_mod, as.Date(NA))

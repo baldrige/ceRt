@@ -41,6 +41,7 @@ SITE_SECTIONS <- list(
   list(href = "/conferences/", label = "Conferences", long = "Conference reports"),
   list(href = "/relists/",     label = "Relists",     long = "Relist Tracker"),
   list(href = "/arguments/",   label = "Arguments",   long = "Oral arguments"),
+  list(href = "/counsel/",     label = "Counsel",     long = "The Counsel Table"),
   list(href = "/funnel/",      label = "The Funnel",  long = "The cert funnel"),
   list(href = "/methods.html", label = "Model",       long = "The forecast model"),
   # About carries the contact address. It is in the masthead and the case footer

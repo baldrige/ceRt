@@ -230,6 +230,19 @@ jobs:
           SITE_DIR: site
           CASES_DIR: cases
         run: Rscript .github/scripts/render_funnel.R
+      - name: Render the counsel table
+        # Never let a counsel failure block conference publishing.
+        #
+        # Reads only the committed archives and data/counsel_stats.json -- no
+        # fetch, no cases/ -- so this normally rewrites an identical file and
+        # publish_site.sh commits nothing. It is here anyway as the self-healing
+        # path: if a change to the classifier leaves the committed stats stale,
+        # the weekly run notices the fingerprint miss and republishes a correct
+        # page rather than leaving a wrong one up until someone dispatches.
+        continue-on-error: true
+        env:
+          SITE_DIR: site
+        run: Rscript .github/scripts/render_counsel.R
       - name: Render argument navigator
         # Never let an argument-nav failure block conference publishing.
         continue-on-error: true
