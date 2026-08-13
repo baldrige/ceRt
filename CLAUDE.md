@@ -14,6 +14,7 @@ and served by GitHub Pages.
 | Conference reports | `conferences/` | `conferences.yml` → `render_conferences.R` |
 | Oral Argument Navigator | `arguments/` | `conferences.yml` → `render_arguments.R` |
 | The Cert Funnel (explainer) | `funnel/` | `render_funnel.R` |
+| The Counsel Table | `counsel/` | `R/counsel_table.R` — see **[docs/counsel-table.md](docs/counsel-table.md)** |
 | Cert-grant forecast model + methods | `methods.html` | `R/cert_model.R` — see **[docs/cert_model.md](docs/cert_model.md)** |
 | Conference forecast (competing risks) | `conferences/` | `R/cert_model.R` — two published columns, see **[docs/cert_model.md](docs/cert_model.md)** |
 

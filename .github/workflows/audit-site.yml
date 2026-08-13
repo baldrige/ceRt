@@ -51,7 +51,22 @@ jobs:
       - name: Install R packages (cached)
         uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          packages: any::jsonlite
+          # Everything past jsonlite is for ONE check: the counsel-stats
+          # freshness fingerprint has to deparse the classifier, so the whole
+          # module chain must load -- including gt/gtExtras, which nothing here
+          # calls but R/cert_funnel.R declares at the top.
+          #
+          # audit_site.R degrades that check to a WARN if the source() fails, so
+          # this list can shrink again without breaking the audit. It is worth
+          # the setup time because the failure it catches is invisible by
+          # construction: a stale summary looks exactly like a fresh one.
+          packages: |
+            any::jsonlite
+            any::tidyverse
+            any::htmltools
+            any::digest
+            any::gt
+            any::gtExtras
 
       - name: Audit
         env:

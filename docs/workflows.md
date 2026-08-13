@@ -29,7 +29,7 @@ site, partitioned so they never fight over the same paths.
 | workflow | schedule (cron is **UTC**) | data | public pages |
 | --- | --- | --- | --- |
 | **`daily.yml`** | 3×/day: `30 0`, `0 18`, `0 22` (00:30 / 18:00 / 22:00 UTC — the ET-anchored two ≈ 2pm & 6pm ET) | **Yes** — incremental fetch | **Yes** — dashboards, recent cases, landing |
-| **`conferences.yml`** | Weekly `0 6 * * 1` (**Mon 06:00 UTC**), year-round | **Yes** — full-term fetch | **Yes** — conferences, arguments, funnel |
+| **`conferences.yml`** | Weekly `0 6 * * 1` (**Mon 06:00 UTC**), year-round | **Yes** — full-term fetch | **Yes** — conferences, relists, arguments, funnel, counsel |
 
 ### `daily.yml`
 
@@ -76,7 +76,8 @@ site, partitioned so they never fight over the same paths.
   into caches committed to `gh-pages`: `conferences/qp_cache.json` (cap
   `QP_MAX_NEW`, default 600) and `arguments/qp_cache.json` (cap 200). **No retrain.**
 - **Public pages:** `conferences/` (per-conference reports + rebuilt index),
-  **`funnel/index.html`**, `arguments/` (navigator index + per-term `arg_*.html`),
+  **`relists/index.html`**, **`funnel/index.html`**, **`counsel/index.html`**,
+  `arguments/` (navigator index + per-term `arg_*.html`),
   and **`cases/<docket>.html`** for the conference/argument cases touched
   (incremental). Re-asserts `CNAME`. **Does not** touch `dashboards/`,
   `methods.html`, or the landing page.
@@ -105,6 +106,10 @@ None of these fire on a schedule. Trigger with `gh workflow run <file> --ref mai
 | **`backfill-qp-all.yml`** | QP PDFs (all paid petitions) → same `conferences/qp_cache.json` cache | **No HTML** |
 | **`refetch-argued.yml`** | Re-fetch ~500 granted OT17–24 dockets → commits `data-raw/arg_refresh.rds` to **`main`** | **No** |
 | **`probe-scotus.yml`** | **No** — read-only WAF/throttle diagnostic; logs HTTP status codes | **No** |
+| **`render-funnel.yml`** | **No fetch** — reuses `cases-*.rds` from a prior `conferences.yml` run (artifacts expire after 3 days) | **Yes → `funnel/index.html` only** |
+| **`render-counsel.yml`** | **No fetch, no artifacts** — reads the committed archives via `data/counsel_stats.json` | **Yes → `counsel/index.html` only** |
+| **`patch-leaf-chrome.yml`** | **No** — post-pass over published leaves | **Yes** — feed autodiscovery on already-rendered leaf pages |
+| **`seed-pending.yml`** | Seeds `cases/pending.json` on `gh-pages` | **No HTML** |
 
 ### Back-catalog docket renders — `rerender-dockets.yml`, `fill-throttled-dockets.yml`
 
@@ -159,7 +164,9 @@ rebase cleanly.
 | `dashboards/`, landing `index.html`, `methods.html`, `analytics.js` | `daily.yml` |
 | `conferences/` (+ `qp_cache.json`) | `conferences.yml`; cache also by `backfill-qp*.yml` |
 | `arguments/` (+ `qp_cache.json`) | `conferences.yml` |
-| `funnel/` | `conferences.yml` |
+| `relists/` | `conferences.yml` |
+| `funnel/` | `conferences.yml` · `render-funnel.yml` |
+| `counsel/` | `conferences.yml` · `render-counsel.yml` |
 | `cases/` (+ `.manifest.json`, `search.json`, `style.css`) | `daily.yml` (current term) · `conferences.yml` (touched cases) · `rerender-dockets.yml` / `fill-throttled-dockets.yml` (back-catalog) |
 | `feed.xml`, `grants.xml`, `sitemap*.xml`, `robots.txt` | `daily.yml` |
 | `cases/grants.json` (grants cache) | `conferences.yml` (full-term, the real source) · `daily.yml` (only what is inside its trailing fetch window) |

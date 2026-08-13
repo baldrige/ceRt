@@ -327,7 +327,13 @@ feed_autodiscovery_links <- function() {
 
 # Raw <head> for an index page (built as a string because htmltools drops the
 # <head> singleton from as.character()).
-page_head <- function(title, jsonld = NULL) {
+#
+# `extra_css` is appended AFTER INDEX_CSS and NAV_CSS, inside the same <style>,
+# for a page that needs rules the shared sheet has no business carrying (the
+# counsel leaderboards). It exists so such a page can still come through here:
+# the alternative is a hand-built <head>, and this site has four of those, each
+# of which has silently missed a sitewide head change at least once.
+page_head <- function(title, jsonld = NULL, extra_css = NULL) {
   paste0(
     "<head>",
     "<script async src='/analytics.js'></script>",
@@ -347,7 +353,8 @@ page_head <- function(title, jsonld = NULL) {
     '<link rel="preconnect" href="https://fonts.googleapis.com">',
     '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>',
     '<link rel="stylesheet" href="', PAGE_FONTS_URL, '">',
-    "<style>", INDEX_CSS, NAV_CSS, "</style>",
+    "<style>", INDEX_CSS, NAV_CSS, if (!is.null(extra_css)) extra_css else "",
+    "</style>",
     if (!is.null(jsonld)) jsonld else "",
     "</head>")
 }
