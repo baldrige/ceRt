@@ -309,9 +309,35 @@ petitioner_counsel <- function(parties) {
 # and initials are inconsistent across dockets for the same person ("Neal K.
 # Katyal" and "Neal Kumar Katyal" both appear in the archives), and a full-string
 # key would treat them as two advocates.
+# Generational and honorific suffixes, which are NOT surnames. Taking the last
+# token blindly made "Robert L. Sirianni Jr." key as "robert jr" -- and so did
+# "Robert Douglas Kreb Jr.", and every other Robert with a suffix. That single key
+# pooled 69 petitions across 30 different lower courts with 0 grants, and
+# counsel_tier() therefore read every one of those advocates as a 69-filing
+# veteran who had never won. 178 keys were built this way (86 jr, 54 iii, 24 ii,
+# 14 iv), covering 6.7% of named petitions in OT22.
+#
+# The list is what the corpus actually contains, not a guess: jr 3.35% of counsel
+# strings, iii 1.02%, sr 0.51%, ii 0.41%, iv 0.09%, esq 4 occurrences. Single
+# letters never reach here -- .name_tokens() drops tokens of one character, which
+# is why a bare "V" suffix was never a problem.
+COUNSEL_SUFFIXES <- c("jr", "sr", "ii", "iii", "iv", "vi", "esq")
+
+# A matching key for an advocate: first and last name tokens only. Middle names
+# and initials are inconsistent across dockets for the same person ("Neal K.
+# Katyal" and "Neal Kumar Katyal" both appear in the archives), and a full-string
+# key would treat them as two advocates.
+#
+# NOT vectorised -- .name_tokens() takes str_split(...)[[1]]. Call it per element
+# (map_chr) rather than on a column, or every row silently gets the first row's
+# key.
 counsel_key <- function(name) {
   t <- .name_tokens(name)
   if (length(t) == 0) return("")
+  # Strip trailing suffixes, but never down to a single token: a name that is
+  # only "Robert Jr" carries no surname at all, and "robert" alone would pool
+  # every Robert -- strictly worse than the suffix key it replaced.
+  while (length(t) > 2 && t[[length(t)]] %in% COUNSEL_SUFFIXES) t <- t[-length(t)]
   if (length(t) == 1) return(t[[1]])
   paste(t[[1]], t[[length(t)]])
 }
