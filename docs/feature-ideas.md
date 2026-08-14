@@ -26,7 +26,7 @@ petitions. Most of Tier 1 below is a renderer over values that exist today.
 
 | # | Feature | Where the data already is | What's missing |
 | --- | --- | --- | --- |
-| 6 | ~~**The Counsel Table**~~ — filings, relists and grants per advocate | `petitioner_counsel()` + `counsel_key()` over the term archives | **Shipped** — `/counsel/`, see [counsel-table.md](counsel-table.md) |
+| 6 | ~~**The Counsel Table**~~ — filings, relists, grants and **oral argument** per advocate | `petitioner_counsel()` + `counsel_key()` over the term archives; the `Argued.` docket entry for the argument boards | **Shipped** — `/counsel/`, see [counsel-table.md](counsel-table.md) |
 | 7 | **Lower-court pages** — `/courts/CA9.html`: volume, grant rate, pending, relisted, CVSG'd | `petition_features()` already carries `lower` | Court-name normalisation across ten terms of free text |
 | 8 | **Term scoreboard** — filings, grants, GVRs, DIGs, and the timing lags across ten terms | `funnel_stats()` (`R/cert_funnel.R:318`) and the `data-raw/ot_*.rds` archives | Charts, and the lag computations |
 

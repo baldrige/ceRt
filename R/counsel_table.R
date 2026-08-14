@@ -242,6 +242,296 @@ counsel_cases <- function(pet) {
            date = as.Date(ifelse(is.finite(date), date, NA), origin = "1970-01-01"))
 }
 
+# ---- oral argument --------------------------------------------------------------
+#
+# A different population from everything above, and a different source.
+#
+# The petition boards read `data-raw/ot_*.rds` alone. That is right for
+# petition-stage facts and WRONG for arguments: a Term snapshot is taken before
+# its own granted cases are argued and decided, so the argument and merits entries
+# simply are not in it. `data-raw/arg_refresh.rds` is a re-fetch of the ~530
+# argued grants and is the only current record of how OT17-23 came out; it takes
+# precedence, exactly as in render_arguments.R. Both files are committed, so this
+# still involves no fetch. Refresh it with `refetch-argued.yml`.
+#
+# The docket says who argued, and for whom, in one entry:
+#
+#   Argued. For petitioner: Jeffrey L. Fisher, Stanford, Cal.  For respondent:
+#   Vivek Suri, Assistant to the Solicitor General, Department of Justice,
+#   Washington, D. C.
+#
+# That gives three things a petition can never give: the advocate who actually
+# stood up (not merely who signed the petition), which side they stood on, and --
+# from the title they are announced under -- whether they were there for a
+# government. The title is a far cleaner office signal than the party-name
+# grammar the cert boards need: "Assistant to the Solicitor General, Department
+# of Justice" is unambiguous, and "Solicitor General, Baton Rouge, La." is
+# unambiguously a State's.
+
+COUNSEL_ARG_REFRESH <- "data-raw/arg_refresh.rds"
+
+# Arguments are two orders of magnitude rarer than petitions -- 461 of them
+# against 8,875 cases -- so the rate floor that suits the cert boards would leave
+# seven advocates on the respondent side. Five is the floor that keeps a board.
+COUNSEL_ARG_MIN <- 5L
+
+# The two side-split win boards publish fewer rows than the rest of the page.
+#
+# Only 19 advocates clear the floor on the respondent side, so a top-25 cap shows
+# ALL of them -- and the bottom of that list is a named person at 0 wins in 7
+# arguments. That is a complete ranking wearing a leaderboard's clothes, and it
+# makes a reputational claim the data cannot carry: seven respondent-side
+# arguments inside one eight-year window is not a career, and the two advocates it
+# would name that way have argued well over a hundred cases between them.
+#
+# Fifteen keeps these boards what the rest of the page is -- the strongest
+# records, ranked -- and the qualifying count is published beside them so the
+# truncation is visible rather than silent.
+COUNSEL_ARG_BOARD_N <- 15L
+
+# The last matching entry, not the first: a case reset for argument is argued
+# once, and the operative judgment is the final one.
+.last_entry <- function(events, rx) {
+  if (!is.data.frame(events) || !("Proceedings and Orders" %in% names(events)))
+    return(NA_character_)
+  t <- coalesce(events[["Proceedings and Orders"]], "")
+  h <- t[str_detect(t, rx)]
+  if (length(h)) h[[length(h)]] else NA_character_
+}
+ARGUED_RX <- regex("^Argued\\.", ignore_case = TRUE)
+
+# The merits disposition. Two things this has to be loose about, both found by
+# checking the cases it missed rather than by reading it:
+#
+#   * THE CONNECTOR VARIES. "Judgment VACATED", "Adjudged to be AFFIRMED", and
+#     "Judgment is AFFIRMED and case REMANDED" are the same kind of entry. An
+#     earlier version required the verb to sit immediately after "Judgment", and
+#     the twelve dockets it dropped were AFFIRMANCES, every one -- a one-sided
+#     miss that inflated the petitioner win rate and deflated the respondent's,
+#     which are the two headline numbers on the argument section.
+#   * A DIRECT APPEAL IS NOT DISPOSED OF BY WRIT. Mandatory-jurisdiction appeals
+#     end "Appeal dismissed", and the judgment below then stands exactly as on an
+#     affirmance -- the appellant has lost. 18-281 (Virginia House of Delegates)
+#     is that case: dismissed for want of standing, and a loss for the appellants.
+#
+# A writ DIG'd is matched here and then scored NA, rather than left unmatched.
+# Both routes exclude it, but only this one can COUNT it: the page states how many
+# arguments ended without a scorable outcome, and while the DIG phrase went
+# unrecognised nine of them fell into "no disposition found" and the published
+# figure said 8 where the truth was 17. Recognised-and-excluded and
+# never-recognised look identical in a rate and completely different in a tally.
+JUDGMENT_RX <- regex(paste0(
+  "(judgments?|adjudged)\\b[^.]{0,18}?\\b(affirmed|reversed|vacated)",
+  "|\\bappeal\\s+dismissed",
+  "|\\bimprovidently granted"), ignore_case = TRUE)
+
+# The judgment below stood / the judgment below fell. Case-insensitive: the Court
+# writes both "Judgment is AFFIRMED" and "Judgment is affirmed".
+.STANDS_RX <- regex("affirmed|appeal\\s+dismissed", ignore_case = TRUE)
+.UPSET_RX <- regex("reversed|vacated", ignore_case = TRUE)
+.DIG_RX <- regex("improvidently", ignore_case = TRUE)
+
+# An argued EMERGENCY APPLICATION has an outcome too -- it is granted or denied --
+# and the advocate who stood up for it won or lost accordingly. These never reach
+# a merits judgment, so the grammar above finds nothing and they were being
+# dropped as "no disposition" while being, in fact, decided.
+#
+# ANCHORED ON "application(s) for ... stay", NOT ON "granted". These dockets are
+# thick with procedural grants -- "Motion for divided argument filed by
+# respondents GRANTED" appears on nearly every one of them -- and a bare
+# granted/denied test would score the argument-time allocation as the outcome.
+# The [^.]{0,120} keeps the match inside one sentence, so the filing entry
+# ("Application (24A884) for a partial stay, submitted to The Chief Justice.")
+# cannot reach a later sentence's verb.
+#
+# An application granted disturbs the order below, which is the applicant's win
+# and structurally the petitioner's role; denied leaves it standing.
+APPLICATION_RX <- regex(paste0(
+  "\\bapplications?\\s*(\\([^)]*\\))?\\s*for\\s+(a\\s+)?(partial\\s+)?stays?\\b",
+  "[^.]{0,120}?\\b(granted|denied)\\b"), ignore_case = TRUE)
+.APP_GRANTED_RX <- regex("\\bgranted\\b", ignore_case = TRUE)
+
+# Split one "Argued." entry into (label, advocate, title) rows.
+#
+# The entry is a sequence of "For <label>: <Name>, <title/place>." segments, with
+# multiple advocates for one side separated by ";". The advocate's name is
+# everything before the first comma -- a generational suffix that follows one
+# ("Judd E. Stone, II") is lost here and does not matter, because counsel_key()
+# strips suffixes anyway.
+.parse_argued <- function(txt, argument_id) {
+  body <- str_remove(txt, regex("^Argued\\.\\s*", ignore_case = TRUE))
+  pieces <- str_split(body, "(?=\\bFor [^:]{1,90}:)")[[1]]
+  pieces <- pieces[str_detect(pieces, "^For [^:]{1,90}:")]
+  if (!length(pieces)) return(tibble())
+  map_dfr(pieces, function(p) {
+    lab <- str_match(p, "^For ([^:]{1,90}):")[, 2]
+    rest <- str_remove(p, "^For [^:]{1,90}:\\s*")
+    map_dfr(str_split(rest, ";")[[1]], function(w) {
+      parts <- str_split(str_squish(str_remove(w, "^\\s*and\\s+")), ",")[[1]]
+      tibble(argument_id = argument_id, label = str_squish(lab),
+             advocate = str_squish(parts[1]),
+             title = str_squish(paste(parts[-1], collapse = ", ")))
+    })
+  })
+}
+
+# Which OUTCOME the advocate stood up to ask for -- which is not always the side
+# their client is captioned on, and the outcome is what a win board can score.
+#
+# Three constructions matter, and a rule that only reads "petitioner" vs
+# "respondent" gets two of them wrong:
+#
+#   "respondent in support of petitioner"  -- client respondent, wants REVERSAL
+#   "respondent in support of vacatur"     -- client respondent, wants VACATUR
+#   "petitioner in 17-1618 and respondents in 17-1623" -- genuinely both
+#
+# Testing petitioner-before-respondent scored the first correctly by accident and
+# the second exactly backwards: eight advocates who asked the Court to vacate or
+# reverse, and got it, were recorded as having LOST. So the position clause is
+# read first, and a label that names both sides without stating a position is
+# "split" -- counted as an argument, scored for neither, because the same advocate
+# really was on both sides of a consolidated pair.
+#
+# "appellant"/"appellee" are the direct-appeal spellings of the same two roles.
+# Amicus is tested first and stays out of the win boards: an amicus has no
+# judgment run for or against it, and a court-appointed one is appointed precisely
+# because no party will defend that position -- scoring the loss against them
+# would be perverse.
+.POS_PET_RX <- regex(paste0("(support|supporting|supports)\\b.{0,24}\\b",
+  "(petitioner|appellant|reversal|vacatur|vacate)"), ignore_case = TRUE)
+.POS_RES_RX <- regex(paste0("(support|supporting|supports)\\b.{0,24}\\b",
+  "(respondent|appellee|affirmance|judgment below)"), ignore_case = TRUE)
+# "applicant" is the emergency docket's word for the moving party -- the one
+# asking the Court to disturb what the court below did, which is the petitioner's
+# role under another name.
+.SIDE_PET_RX <- regex("petitioner|appellant|applicant", ignore_case = TRUE)
+.SIDE_RES_RX <- regex("respondent|appellee", ignore_case = TRUE)
+.argued_side <- function(label) case_when(
+  str_detect(label, regex("amicus", ignore_case = TRUE)) ~ "amicus",
+  str_detect(label, .POS_PET_RX) ~ "petitioner",
+  str_detect(label, .POS_RES_RX) ~ "respondent",
+  str_detect(label, .SIDE_PET_RX) & str_detect(label, .SIDE_RES_RX) ~ "split",
+  str_detect(label, .SIDE_PET_RX) ~ "petitioner",
+  str_detect(label, .SIDE_RES_RX) ~ "respondent",
+  TRUE ~ "unresolved")
+
+# The office the advocate was announced under. Read from the TITLE the Court
+# printed, which is why the OSG test can be this direct: the entry says so.
+.argued_office <- function(title) case_when(
+  str_detect(title, regex("Assistant to the Solicitor General", ignore_case = TRUE)) ~ "osg",
+  str_detect(title, regex("Solicitor General", ignore_case = TRUE)) &
+    str_detect(title, regex("Department of Justice|United States", ignore_case = TRUE)) ~ "osg",
+  str_detect(title, regex("Solicitor General|Attorney General", ignore_case = TRUE)) ~ "state",
+  TRUE ~ "private")
+
+# One row per (argument, advocate). `paths` is the ot_*.rds set; `refresh` is the
+# argued-grant re-fetch, which wins on any docket both hold.
+counsel_arguments <- function(paths, refresh = COUNSEL_ARG_REFRESH) {
+  files <- c(if (file.exists(refresh)) refresh, paths)
+  combined <- files |> map(readRDS) |> bind_rows() |> distinct(dkt, .keep_all = TRUE)
+  # EVERY argued entry, with its date -- not just the last one on each docket.
+  # A case can be reargued, and the advocates need not be the same: Louisiana v.
+  # Callais was argued in March 2025 and again in October, and keeping only the
+  # later entry erased Stuart Naifeh from the record entirely.
+  argued_entries <- function(events) {
+    if (!is.data.frame(events) || !("Proceedings and Orders" %in% names(events)))
+      return(tibble(argued = character(), argued_date = as.Date(character())))
+    t <- coalesce(events[["Proceedings and Orders"]], "")
+    i <- which(str_detect(t, ARGUED_RX))
+    tibble(argued = t[i],
+           argued_date = suppressWarnings(lubridate::mdy(events$Date[i])))
+  }
+  a <- combined |>
+    mutate(judgment = map_chr(events, .last_entry, JUDGMENT_RX),
+           app_disp = map_chr(events, .last_entry, APPLICATION_RX),
+           .arg = map(events, argued_entries)) |>
+    select(dkt, judgment, app_disp, .arg) |>
+    tidyr::unnest(.arg)
+  if (!nrow(a)) return(tibble())
+
+  # VIDED companions share the argument entry -- one argument, several docket
+  # numbers -- so the collapse key is the entry itself. Two refinements, each
+  # found by trying to break it:
+  #
+  #   * SQUISHED, not raw. 21A240 and 21A241 carry the same entry differing by one
+  #     double space after "D. C."; exact matching made them two arguments and
+  #     double-counted all three advocates in them.
+  #   * WITH THE DATE. Text alone is not unique. Biden v. Texas (21-954, argued
+  #     26 Apr 2022) and United States v. Texas (22-58, argued 29 Nov 2022) are
+  #     different cases seven months apart whose entries are byte-identical --
+  #     Prelogar for petitioners, the Texas Solicitor General for respondents --
+  #     and collapsing on text alone merged them, losing an argument and its
+  #     outcome. It also merges a reargument into its own first sitting.
+  #
+  # `case_id` is the dispute; `argument_id` is one sitting of it. They differ only
+  # for a reargued case, and that difference is what lets volume count two
+  # appearances while the win boards count one outcome.
+  one <- a |>
+    mutate(argued_key = paste0(str_squish(argued), "|", argued_date)) |>
+    group_by(argued_key) |>
+    summarise(argued = first(argued),
+              argued_date = first(argued_date),
+              case_id = min(dkt),
+              n_dockets = n(),
+              judgment = { j <- judgment[!is.na(judgment)]
+                           if (length(j)) j[[1]] else NA_character_ },
+              app_disp = { j <- app_disp[!is.na(app_disp)]
+                           if (length(j)) j[[1]] else NA_character_ },
+              .groups = "drop") |>
+    mutate(argument_id = paste0(case_id, "@", argued_date))
+
+  who <- map2_dfr(one$argued, one$argument_id, .parse_argued)
+  if (!nrow(who)) return(tibble())
+
+  who |>
+    filter(nzchar(advocate), str_detect(advocate, "[A-Za-z]{2}")) |>
+    left_join(one |> select(argument_id, case_id, judgment, app_disp,
+                            argued_date, n_dockets),
+              by = "argument_id") |>
+    mutate(
+      counsel_key = map_chr(advocate, counsel_key),
+      side = .argued_side(label),
+      office = .argued_office(title),
+      # The judgment below either stood or it did not. It STOOD on an affirmance
+      # and on a dismissed appeal, which is a loss for whoever was attacking it;
+      # it FELL on a reversal or vacatur. Mixed dispositions ("AFFIRMED as to No.
+      # 22-23; REVERSED as to No. 22-331") and improvident dismissals are scored
+      # NA rather than guessed -- each is a case where "who won" genuinely has two
+      # answers, or none.
+      #
+      # `side` is the POSITION argued, not the client (see .argued_side), so a
+      # respondent who asked for vacatur and got it is scored a win.
+      .stands = str_detect(coalesce(judgment, ""), .STANDS_RX),
+      .upset = str_detect(coalesce(judgment, ""), .UPSET_RX),
+      .dig = str_detect(coalesce(judgment, ""), .DIG_RX),
+      # An application is scored on its OWN disposition, in its own branch. The
+      # two grammars must not be merged: "DISMISSED as improvidently granted"
+      # contains the word "granted", so folding application-granted into
+      # .UPSET_RX would silently turn every DIG into a petitioner win.
+      #
+      # AND THE BRANCH IS GATED ON THE DOCKET BEING AN APPLICATION. 18 argued
+      # CERT cases carry an ancillary stay application in their history -- a stay
+      # of execution, a stay pending certiorari -- and every one of them also has
+      # a real merits judgment. Ungated, this branch fires first and replaces the
+      # outcome with the stay ruling: Glossip (22-7466) would have been scored on
+      # "Application (22A941) for stay of execution" instead of on "Judgment
+      # REVERSED".
+      .is_app = funnel_case_type(case_id) == "app",
+      .app_won = str_detect(coalesce(app_disp, ""), .APP_GRANTED_RX),
+      won = case_when(
+        .is_app & !is.na(app_disp) & side == "petitioner" ~ .app_won,
+        .is_app & !is.na(app_disp) & side == "respondent" ~ !.app_won,
+        .is_app ~ NA,
+        is.na(judgment) | .dig | !xor(.stands, .upset) ~ NA,
+        side == "petitioner" ~ .upset,
+        side == "respondent" ~ .stands,
+        TRUE ~ NA)) |>
+    filter(nzchar(counsel_key)) |>
+    select(-.stands, -.upset, -.dig, -.app_won, -.is_app) |>
+    # One advocate can be listed twice in one entry; count the argument once.
+    distinct(argument_id, counsel_key, .keep_all = TRUE)
+}
+
 # The display form of a merged key: the variant that appears most often, ties
 # broken by the longest string ("Neal Kumar Katyal" over "Neal Katyal") so the
 # fuller name wins a coin-flip.
@@ -312,14 +602,76 @@ counsel_boards <- function(cases, agg, min_cases = COUNSEL_MIN_RATE_CASES) {
     arrange(pool, desc(pool_lo), desc(pool_rate))
 }
 
+# Per-advocate argument totals, and per-side win records.
+#
+# The win boards are split by side for the same reason the grant boards are split
+# by client, only more so: the Court reverses. Measured here, an advocate arguing
+# for the petitioner wins 75% of the time and one arguing for the respondent 31%.
+# A pooled "success at argument" ranking would therefore be, in large part, a
+# ranking of who was lucky enough to be on the petitioning side -- and the top of
+# it would be the Solicitor General's office, which chooses which cases the United
+# States petitions in. Two boards against two published base rates say what one
+# board cannot.
+counsel_argument_boards <- function(app, min_args = COUNSEL_ARG_MIN) {
+  if (!nrow(app)) return(list(volume = tibble(), sides = tibble(), rates = tibble()))
+  modal <- function(x) names(sort(table(x), decreasing = TRUE))[1]
+  # Two units, deliberately. An APPEARANCE is one advocate at one sitting, and
+  # that is what "arguments" counts -- a reargued case really was stood up twice.
+  # An OUTCOME belongs to the case, not the sitting: Louisiana v. Callais was
+  # argued twice and decided once, and counting its judgment against each sitting
+  # would credit or charge the same result twice.
+  out <- app |> distinct(counsel_key, case_id, side, .keep_all = TRUE)
+  # NOTE THE OUTPUT NAMES. summarise() evaluates in order and a result binding
+  # SHADOWS the column it was computed from, so `won = sum(won)` followed by
+  # `decided = sum(!is.na(won))` counts the scalar, not the column, and every
+  # advocate gets decided = 1. That is the same trap that made n_variants 1 on
+  # every row of the published page; here it is avoided by never reusing a column
+  # name as an output name.
+  volume <- app |>
+    group_by(counsel_key) |>
+    summarise(arg_name = .display_name(advocate),
+              arguments = n(),
+              as_petitioner = sum(side == "petitioner"),
+              as_respondent = sum(side == "respondent"),
+              as_amicus = sum(side == "amicus"),
+              office = modal(office),
+              .groups = "drop") |>
+    left_join(out |> group_by(counsel_key) |>
+                summarise(arg_won = sum(won %in% TRUE),
+                          arg_decided = sum(!is.na(won)), .groups = "drop"),
+              by = "counsel_key") |>
+    filter(arguments >= min_args) |>
+    arrange(desc(arguments), desc(arg_won))
+
+  sides <- out |>
+    filter(side %in% c("petitioner", "respondent"), !is.na(won)) |>
+    group_by(counsel_key, side) |>
+    summarise(arg_name = .display_name(advocate), side_n = n(),
+              side_won = sum(won), office = modal(office), .groups = "drop") |>
+    filter(side_n >= min_args) |>
+    mutate(side_rate = side_won / side_n, side_lo = wilson_lower(side_won, side_n)) |>
+    arrange(side, desc(side_lo), desc(side_n))
+
+  # Same shadowing hazard as above: the rate is derived AFTER the summarise, from
+  # the two counts, rather than as a third expression that reads `won`.
+  rates <- out |>
+    filter(side %in% c("petitioner", "respondent"), !is.na(won)) |>
+    group_by(side) |>
+    summarise(arguments = n(), won = sum(won), .groups = "drop") |>
+    mutate(rate = won / arguments)
+
+  list(volume = volume, sides = sides, rates = rates)
+}
+
 # Everything data/counsel_stats.json holds, as R objects.
 #
 # Split from counsel_petitions() so the four-minute classify pass can be done once
 # and the assembly exercised against its output repeatedly -- the tables here are
 # ranked, and a ranking is not something to eyeball for the first time in CI.
-counsel_stats_from <- function(pet, terms, fingerprint,
+counsel_stats_from <- function(pet, terms, fingerprint, app = NULL,
                                min_cases = COUNSEL_MIN_CASES,
                                min_rate_cases = COUNSEL_MIN_RATE_CASES,
+                               min_args = COUNSEL_ARG_MIN,
                                top_n = COUNSEL_TOP_N) {
   cases <- counsel_cases(pet)
   agg <- counsel_aggregate(cases)
@@ -327,14 +679,38 @@ counsel_stats_from <- function(pet, terms, fingerprint,
   qr <- agg |> filter(cases >= min_rate_cases)
   boards <- counsel_boards(cases, agg, min_cases = min_rate_cases)
 
-  cols <- function(d) d |>
-    transmute(name, key = counsel_key,
-              # n_variants FIRST: transmute() evaluates in order, and taking it
-              # after the collapse would run lengths() over a character vector and
-              # return 1 for every row -- which silently suppressed the merged
-              # spellings on every row of the published page.
-              n_variants = lengths(variants),
-              variants = map_chr(variants, ~ paste(.x, collapse = " / ")),
+  # ONE display name per person, across both halves of the page.
+  #
+  # The two sources spell people differently -- the petition dockets carry "Lisa
+  # Schiavo Blatt", the argument entries "Lisa S. Blatt" -- and they key to the
+  # same advocate. Naming each board from its own source would print one person
+  # under two names on one page and read as two people. The registry takes the
+  # union of spellings, so the displayed name and the published merge are the same
+  # everywhere.
+  reg <- bind_rows(
+      cases |> transmute(counsel_key, nm = counsel),
+      if (nrow(app)) app |> transmute(counsel_key, nm = advocate) else tibble()) |>
+    mutate(nm = str_squish(coalesce(nm, ""))) |>
+    filter(nzchar(nm)) |>
+    group_by(counsel_key) |>
+    summarise(reg_name = .display_name(nm),
+              reg_variants = list(sort(unique(nm))), .groups = "drop")
+  # Drops any incoming name/variants first, so the registry is the only source of
+  # either and a board cannot half-adopt it.
+  named <- function(d) d |>
+    select(-any_of(c("name", "variants", "n_variants", "arg_name"))) |>
+    left_join(reg, by = "counsel_key") |>
+    mutate(name = reg_name,
+           # n_variants BEFORE the collapse: mutate() evaluates in order, and
+           # taking it after would run lengths() over a character vector and
+           # return 1 for every row -- which silently suppressed the merged
+           # spellings on every row of the first published page.
+           n_variants = lengths(reg_variants),
+           variants = map_chr(reg_variants, ~ paste(.x, collapse = " / "))) |>
+    select(-reg_name, -reg_variants)
+
+  cols <- function(d) named(d) |>
+    transmute(name, key = counsel_key, n_variants, variants,
               cases, petitions, resolved, granted, gvr, relisted,
               n_us, n_state, courts, gov_share, relist_share, relist_lo,
               first = as.character(first), last = as.character(last))
@@ -350,6 +726,14 @@ counsel_stats_from <- function(pet, terms, fingerprint,
     summarise(cases = n(), granted = sum(outcome == "granted"),
               rate = mean(outcome == "granted"), .groups = "drop")
 
+  # Argument boards. An advocate who argued but never signed a petition (much of
+  # the Solicitor General's office does exactly that) has no row in `agg`, so
+  # these carry their own name and are NOT joined to the petition frame.
+  app <- if (is.null(app)) tibble() else app
+  ab <- counsel_argument_boards(app, min_args = min_args)
+  arg_cols <- function(d) if (!nrow(d)) tibble() else
+    named(d) |> mutate(key = counsel_key) |> select(-counsel_key)
+
   list(
     filings = take(q |> arrange(desc(cases), desc(granted))),
     # Published as a SHARE, not a count. Raw relist count correlates with filing
@@ -360,6 +744,12 @@ counsel_stats_from <- function(pet, terms, fingerprint,
     grants_private = take_board("private"),
     grants_government = take_board("government"),
     by_side = by_side,
+    arguments = arg_cols(head(ab$volume, top_n)),
+    arg_petitioner = arg_cols(ab$sides |> filter(side == "petitioner") |>
+                                head(COUNSEL_ARG_BOARD_N)),
+    arg_respondent = arg_cols(ab$sides |> filter(side == "respondent") |>
+                                head(COUNSEL_ARG_BOARD_N)),
+    arg_rates = ab$rates,
     totals = list(
       petitions = nrow(pet),
       cases = nrow(cases),
@@ -371,21 +761,45 @@ counsel_stats_from <- function(pet, terms, fingerprint,
       board_government = sum(boards$pool == "government"),
       min_cases = min_cases,
       min_rate_cases = min_rate_cases,
+      min_args = min_args,
       top_n = top_n,
       terms = terms,
+      arguments = nrow(app),
+      argued_cases = if (nrow(app)) dplyr::n_distinct(app$case_id) else 0L,
+      argument_sittings = if (nrow(app)) dplyr::n_distinct(app$argument_id) else 0L,
+      arg_advocates = if (nrow(app)) dplyr::n_distinct(app$counsel_key) else 0L,
+      arg_qualifying = nrow(ab$volume),
+      arg_board_n = COUNSEL_ARG_BOARD_N,
+      arg_pet_qualifying = sum(ab$sides$side == "petitioner"),
+      arg_res_qualifying = sum(ab$sides$side == "respondent"),
+      # Arguments that reached a judgment the grammar recognised but could not be
+      # scored -- mixed dispositions and improvident dismissals. Counted, not
+      # hardcoded: the page states this figure, and an earlier draft had it typed
+      # in, which is exactly how a number goes stale one grammar change later.
+      # Counted in CASES, matching the sentence it feeds: a case whose judgment
+      # cannot be scored is one case, however many times it was argued.
+      arg_unscored = if (nrow(app))
+        dplyr::n_distinct(app$case_id[!is.na(app$judgment) & is.na(app$won) &
+                                      app$side %in% c("petitioner", "respondent")])
+        else 0L,
+      arg_from = if (nrow(app)) as.character(suppressWarnings(min(app$argued_date, na.rm = TRUE))) else NA,
+      arg_to = if (nrow(app)) as.character(suppressWarnings(max(app$argued_date, na.rm = TRUE))) else NA,
       as_of = as.character(suppressWarnings(max(pet$date, na.rm = TRUE)))),
     fingerprint = fingerprint)
 }
 
 compute_counsel_stats <- function(paths, min_cases = COUNSEL_MIN_CASES,
                                   min_rate_cases = COUNSEL_MIN_RATE_CASES,
+                                  min_args = COUNSEL_ARG_MIN,
                                   top_n = COUNSEL_TOP_N) {
   yrs <- as.integer(str_extract(basename(paths), "\\d{4}"))
   counsel_stats_from(
     counsel_petitions(paths),
     terms = paste0("OT", paste(range(yrs), collapse = "–")),
     fingerprint = counsel_stats_fingerprint(paths),
-    min_cases = min_cases, min_rate_cases = min_rate_cases, top_n = top_n)
+    app = counsel_arguments(paths),
+    min_cases = min_cases, min_rate_cases = min_rate_cases,
+    min_args = min_args, top_n = top_n)
 }
 
 # A digest of everything data/counsel_stats.json is a function of, so a committed
@@ -395,7 +809,7 @@ compute_counsel_stats <- function(paths, min_cases = COUNSEL_MIN_CASES,
 # stale for two weeks and the site published a relist count 2.5x too high, and
 # the change that invalidated it was inside a FUNCTION BODY, not a constant. So
 # the bodies are deparsed and digested, not just the tunables.
-counsel_stats_fingerprint <- function(paths) {
+counsel_stats_fingerprint <- function(paths, refresh = COUNSEL_ARG_REFRESH) {
   body_of <- function(f) if (exists(f)) paste(deparse(get(f)), collapse = "\n") else ""
   digest::digest(list(
     logic = lapply(c("classify_petition_events", "classify_petitions",
@@ -404,11 +818,33 @@ counsel_stats_fingerprint <- function(paths) {
                      "counsel_petitions", "counsel_cases", "counsel_aggregate",
                      "counsel_stats_from",
                      "counsel_boards", "wilson_lower",
-                     ".display_name"), body_of),
+                     ".display_name",
+                     # The argument half. `.parse_argued` and the two classifiers
+                     # are the whole of what the argument boards are a function
+                     # of, and every one of them is a body, not a constant.
+                     "counsel_arguments", "counsel_argument_boards",
+                     ".parse_argued", ".argued_side", ".argued_office",
+                     ".last_entry"), body_of),
+    # EVERY tunable that changes what gets written, not just the interesting
+    # ones. COUNSEL_ARG_BOARD_N was missed on the first pass: it is read inside
+    # counsel_stats_from(), whose *body* is digested, but a body references the
+    # name and not the value -- so raising the cap from 15 to 20 would have
+    # published four more rows per side against a fingerprint that still matched.
     grammar = list(COUNSEL_SUFFIXES, as.character(FED_PARTY_RX),
                    as.character(STATE_PARTY_RX), COUNSEL_STATES,
-                   COUNSEL_MIN_CASES, COUNSEL_TOP_N, COUNSEL_GOV_MAX_PRIVATE),
-    archives = unname(tools::md5sum(sort(paths)))))
+                   COUNSEL_MIN_CASES, COUNSEL_TOP_N, COUNSEL_GOV_MAX_PRIVATE,
+                   COUNSEL_MIN_RATE_CASES, COUNSEL_ARG_MIN, COUNSEL_ARG_BOARD_N,
+                   COUNSEL_ARG_REFRESH,
+                   as.character(ARGUED_RX), as.character(JUDGMENT_RX),
+                   as.character(.STANDS_RX), as.character(.UPSET_RX),
+                   as.character(.DIG_RX),
+                   as.character(APPLICATION_RX), as.character(.APP_GRANTED_RX),
+                   as.character(.POS_PET_RX), as.character(.POS_RES_RX),
+                   as.character(.SIDE_PET_RX), as.character(.SIDE_RES_RX)),
+    # arg_refresh.rds is an INPUT, not a cache: refetch-argued.yml rewrites it
+    # when new merits judgments land, and every argument board moves with it.
+    archives = unname(tools::md5sum(sort(c(paths,
+      if (file.exists(refresh)) refresh))))))
 }
 
 # ---- rendering -----------------------------------------------------------------
@@ -477,6 +913,15 @@ COUNSEL_CSS <- "
     text-transform:uppercase;color:var(--ink-soft,@ink-soft@);margin-top:.35rem}
   .rates .sub{color:var(--faint,@faint@);font-size:.82rem;font-style:italic;
     margin-top:.15rem}
+  /* h4 subheads under the two side-split argument boards. Quieter than the h3
+     they sit under, so the section reads as one idea split in two rather than
+     as two more sections. */
+  h4{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1rem;
+    margin:1.8rem 0 .3rem;color:var(--ink,@ink@)}
+  /* The 'of 28' in '24 of 28': context, not a second number. nowrap on the whole
+     value -- the column is narrow enough that it otherwise breaks after 'of'. */
+  table.ctab .rec{white-space:nowrap}
+  table.ctab .of{color:var(--faint,@faint@);font-size:.85rem}
   .method{margin:2.6rem 0 0;font-size:.92rem;line-height:1.6;
     color:var(--ink-soft,@ink-soft@);max-width:40rem}
   .method h2{font:600 .74rem/1 'Newsreader',Georgia,serif;letter-spacing:.2em;
@@ -511,13 +956,22 @@ COUNSEL_CSS <- "
               paste(body, collapse = ""), "</tbody></table></div>"))
 }
 
-# The advocate cell: display name, the merged spellings beneath it, and a chip
-# when most of their filings were for a government.
+# The advocate cell: display name, the merged spellings beneath it, and an
+# optional chip. `chip` is TRUE for the petition boards' government marker (read
+# from gov_share), a column name for the argument boards' office marker, or FALSE
+# for none -- the two halves of the page know different things about the same
+# person, and neither frame carries the other's column.
+.OFFICE_CHIP <- c(osg = "SG's Office", state = "State", private = "")
 .name_cell <- function(d, i, chip = TRUE) {
   alias <- if (!is.na(d$n_variants[i]) && d$n_variants[i] > 1)
     paste0("<span class='alias'>", htmlEscape(d$variants[i]), "</span>") else ""
-  g <- if (chip && !is.na(d$gov_share[i]) && d$gov_share[i] >= 0.5)
-    "<span class='chip'>Government</span>" else ""
+  lab <- if (isTRUE(chip)) {
+    if (!is.null(d$gov_share) && !is.na(d$gov_share[i]) && d$gov_share[i] >= 0.5)
+      "Government" else ""
+  } else if (is.character(chip) && !is.null(d[[chip]])) {
+    .OFFICE_CHIP[[d[[chip]][i]]] %||% ""
+  } else ""
+  g <- if (nzchar(lab)) paste0("<span class='chip'>", lab, "</span>") else ""
   paste0("<span class='nm'>", htmlEscape(d$name[i]), g, "</span>", alias)
 }
 
@@ -540,8 +994,13 @@ render_counsel_page <- function(stats, out_dir) {
   filings <- as_tib(stats$filings); relists <- as_tib(stats$relists)
   priv <- as_tib(stats$grants_private); govt <- as_tib(stats$grants_government)
   side <- as_tib(stats$by_side)
+  args <- as_tib(stats$arguments)
+  arg_pet <- as_tib(stats$arg_petitioner); arg_res <- as_tib(stats$arg_respondent)
+  arates <- as_tib(stats$arg_rates)
   rate_of <- function(s) { r <- side$rate[side$side == s]; if (length(r)) r[[1]] else NA_real_ }
   n_of <- function(s) { r <- side$cases[side$side == s]; if (length(r)) r[[1]] else NA_integer_ }
+  arate_of <- function(s) { r <- arates$rate[arates$side == s]; if (length(r)) r[[1]] else NA_real_ }
+  an_of <- function(s) { r <- arates$arguments[arates$side == s]; if (length(r)) r[[1]] else NA_integer_ }
 
   sec <- function(over, heading, note, tbl) tagList(
     tags$p(class = "over", over), tags$h2(heading),
@@ -572,6 +1031,31 @@ render_counsel_page <- function(stats, out_dir) {
       list(label = "Granted", cell = function(i) .cn(d$pool_granted[i])),
       list(label = "Rate", cell = function(i)
         .bar_cell(d$pool_rate[i], gmax, 1, lo = d$pool_lo[i]))))
+  }
+
+  # ---- tables 5-7: oral argument
+  t_args <- .counsel_table(args, list(
+    list(label = "Advocate", align = "l",
+         cell = function(i) .name_cell(args, i, chip = "office")),
+    list(label = "Arguments", cell = function(i) .cn(args$arguments[i])),
+    list(label = "For pet'r", cell = function(i) .cn(args$as_petitioner[i])),
+    list(label = "For resp't", cell = function(i) .cn(args$as_respondent[i])),
+    list(label = "Won", cell = function(i)
+      if (is.na(args$arg_decided[i]) || args$arg_decided[i] == 0) "&mdash;"
+      else paste0("<span class='rec'>", .cn(args$arg_won[i]),
+                  "<span class='of'> of ", .cn(args$arg_decided[i]),
+                  "</span></span>"))))
+
+  side_tbl <- function(d) {
+    if (!nrow(d)) return(.counsel_table(d, list()))
+    smax <- max(d$side_rate, na.rm = TRUE)
+    .counsel_table(d, list(
+      list(label = "Advocate", align = "l",
+           cell = function(i) .name_cell(d, i, chip = "office")),
+      list(label = "Arguments", cell = function(i) .cn(d$side_n[i])),
+      list(label = "Won", cell = function(i) .cn(d$side_won[i])),
+      list(label = "Rate", cell = function(i)
+        .bar_cell(d$side_rate[i], smax, 0, lo = d$side_lo[i]))))
   }
 
   body <- tags$body(
@@ -651,6 +1135,60 @@ render_counsel_page <- function(stats, out_dir) {
         " advocates clear the minimum on government cases alone.")))),
       grant_tbl(govt),
 
+      # ---- oral argument
+      if (nrow(args)) tagList(
+        tags$p(class = "over", "At the lectern"),
+        tags$h2("Who argues"),
+        tags$p(class = "cnote2", HTML(smarten(paste0(
+          "A different question, from a different record: the docket names the ",
+          "advocate who actually stood up, and the side they stood on. ",
+          # Sittings, not cases -- it is what the board's "Arguments" column
+          # counts. The two differ only where a case was reargued, and saying
+          # both is how a reader can tell that is what happened.
+          .cn(tot$argument_sittings), " arguments in ", .cn(tot$argued_cases),
+          " cases by ", .cn(tot$arg_advocates), " advocates, ",
+          format(as.Date(tot$arg_from), "%B %Y"), " to ",
+          format(as.Date(tot$arg_to), "%B %Y"), " — ", tot$arg_qualifying,
+          " of them argued ", tot$min_args, " or more times. Companion cases ",
+          "argued together count once. An argument made as <em>amicus</em> ",
+          "counts here and nowhere below: the judgment ran for or against the ",
+          "parties, and an amicus is neither.")))),
+        t_args,
+
+        tags$h3("Winning, against a Court that reverses"),
+        tags$div(class = "rates", tagList(
+          tags$div(tags$div(class = "big", .cpct(arate_of("petitioner"), 1)),
+                   tags$div(class = "lab", "Arguing for the petitioner"),
+                   tags$div(class = "sub", paste0(.cn(an_of("petitioner")), " arguments"))),
+          tags$div(tags$div(class = "big", .cpct(arate_of("respondent"), 1)),
+                   tags$div(class = "lab", "Arguing for the respondent"),
+                   tags$div(class = "sub", paste0(.cn(an_of("respondent")), " arguments"))))),
+        tags$p(class = "cnote2", HTML(smarten(paste0(
+          "The Court takes cases in order to reverse them, so which side of the ",
+          "&ldquo;v.&rdquo; an advocate stood on matters more than anything they ",
+          "said. A pooled ranking would mostly sort advocates by that, and its top ",
+          "would be the Solicitor General&rsquo;s office, which chooses the cases ",
+          "in which the United States petitions. So the record is split in two and ",
+          "each board is read against its own base rate above. The judgment below ",
+          "either stood or it did not: it stood on an affirmance and on a ",
+          "dismissed appeal, it fell on a reversal or vacatur. ",
+          tot$arg_unscored, " arguments ended in a split judgment or a writ ",
+          "dismissed as improvidently granted and are scored for neither side.")))),
+
+        tags$h4("Arguing for the petitioner"),
+        side_tbl(arg_pet),
+        tags$h4("Arguing for the respondent"),
+        side_tbl(arg_res),
+        tags$p(class = "cnote2", HTML(smarten(paste0(
+          "The strongest ", tot$arg_board_n, " records on each side, of ",
+          tot$arg_pet_qualifying, " and ", tot$arg_res_qualifying,
+          " advocates who argued ", tot$min_args, " or more times for that side. ",
+          "These are records inside this window, not careers — several of the ",
+          "advocates here have argued well over a hundred cases, and a handful of ",
+          "arguments on one side of the &ldquo;v.&rdquo; is a small sample of ",
+          "anyone."))))
+      ) else NULL,
+
       tags$section(class = "method", tagList(
         tags$h2("How to read this"),
         tags$p(HTML(smarten(paste0(
@@ -673,7 +1211,16 @@ render_counsel_page <- function(stats, out_dir) {
           "Paid petitions only, from ", tot$terms, ", through ",
           format(as.Date(tot$as_of), "%B %e, %Y") |> str_squish(),
           ". Self-represented petitioners are excluded. Pending petitions count ",
-          "toward cases filed and relists but not toward a grant rate."))))
+          "toward cases filed and relists but not toward a grant rate.")))),
+        if (nrow(args)) tags$p(HTML(smarten(paste0(
+          "The argument boards come from a different record and cover a different ",
+          "span: the argument and judgment entries for a Term&rsquo;s granted cases ",
+          "appear after that Term&rsquo;s archive was taken, so they are read from a ",
+          "re-fetch of the argued grants. An advocate can therefore appear at the ",
+          "lectern without appearing above it — much of the Solicitor ",
+          "General&rsquo;s office argues cases it did not petition in — and the ",
+          "counts are of arguments made, not of cases won for a client."))))
+        else NULL
       )),
       tags$p(class = "back", HTML("<a href='/'>&larr; Supreme Court Report</a>"))
     ))

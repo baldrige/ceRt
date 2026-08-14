@@ -570,9 +570,13 @@ if (!file.exists(cstats) && !file.exists(cpage)) {
     # nonsense. Bounded to cell contents so the word cannot match in prose.
     bad <- length(gregexpr(">(NA|NaN|Inf|-Inf)%?<", ch, perl = TRUE)[[1]][
       gregexpr(">(NA|NaN|Inf|-Inf)%?<", ch, perl = TRUE)[[1]] > 0])
-    if (ntab < 4 || nrows < 20) {
+    # Seven boards: four over petitions, three over oral argument. The argument
+    # half reads a DIFFERENT file (data-raw/arg_refresh.rds), so it can go missing
+    # on its own while the petition boards stay perfect -- and the page would
+    # still render, styled and valid, simply four tables shorter.
+    if (ntab < 7 || nrows < 20) {
       fail("counsel boards populated",
-           sprintf("%d table(s), %d ranked row(s) -- expected 4 tables", ntab, nrows))
+           sprintf("%d table(s), %d ranked row(s) -- expected 7 tables", ntab, nrows))
     } else if (bad) {
       fail("counsel boards populated", sprintf("%d cell(s) render NA/NaN/Inf", bad))
     } else {
