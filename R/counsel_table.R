@@ -429,44 +429,64 @@ APPLICATION_RX <- regex(paste0(
 counsel_arguments <- function(paths, refresh = COUNSEL_ARG_REFRESH) {
   files <- c(if (file.exists(refresh)) refresh, paths)
   combined <- files |> map(readRDS) |> bind_rows() |> distinct(dkt, .keep_all = TRUE)
+  # EVERY argued entry, with its date -- not just the last one on each docket.
+  # A case can be reargued, and the advocates need not be the same: Louisiana v.
+  # Callais was argued in March 2025 and again in October, and keeping only the
+  # later entry erased Stuart Naifeh from the record entirely.
+  argued_entries <- function(events) {
+    if (!is.data.frame(events) || !("Proceedings and Orders" %in% names(events)))
+      return(tibble(argued = character(), argued_date = as.Date(character())))
+    t <- coalesce(events[["Proceedings and Orders"]], "")
+    i <- which(str_detect(t, ARGUED_RX))
+    tibble(argued = t[i],
+           argued_date = suppressWarnings(lubridate::mdy(events$Date[i])))
+  }
   a <- combined |>
-    mutate(argued = map_chr(events, .last_entry, ARGUED_RX),
-           judgment = map_chr(events, .last_entry, JUDGMENT_RX),
-           app_disp = map_chr(events, .last_entry, APPLICATION_RX)) |>
-    filter(!is.na(argued))
+    mutate(judgment = map_chr(events, .last_entry, JUDGMENT_RX),
+           app_disp = map_chr(events, .last_entry, APPLICATION_RX),
+           .arg = map(events, argued_entries)) |>
+    select(dkt, judgment, app_disp, .arg) |>
+    tidyr::unnest(.arg)
   if (!nrow(a)) return(tibble())
 
-  # VIDED companions share the argument entry VERBATIM -- one argument, several
-  # docket numbers. Collapsing on the text is exact rather than a heuristic, and
-  # it is the same correction the caption collapse makes for petitions: without
-  # it an advocate who argued one consolidated case is credited with three.
-  # Grouped on the SQUISHED text, not the raw text. 21A240 and 21A241 carry the
-  # same argument entry differing by one double space after "D. C." -- exact
-  # matching left them as two arguments and double-counted all three advocates in
-  # them. Whitespace is not a distinction the Court is drawing.
+  # VIDED companions share the argument entry -- one argument, several docket
+  # numbers -- so the collapse key is the entry itself. Two refinements, each
+  # found by trying to break it:
+  #
+  #   * SQUISHED, not raw. 21A240 and 21A241 carry the same entry differing by one
+  #     double space after "D. C."; exact matching made them two arguments and
+  #     double-counted all three advocates in them.
+  #   * WITH THE DATE. Text alone is not unique. Biden v. Texas (21-954, argued
+  #     26 Apr 2022) and United States v. Texas (22-58, argued 29 Nov 2022) are
+  #     different cases seven months apart whose entries are byte-identical --
+  #     Prelogar for petitioners, the Texas Solicitor General for respondents --
+  #     and collapsing on text alone merged them, losing an argument and its
+  #     outcome. It also merges a reargument into its own first sitting.
+  #
+  # `case_id` is the dispute; `argument_id` is one sitting of it. They differ only
+  # for a reargued case, and that difference is what lets volume count two
+  # appearances while the win boards count one outcome.
   one <- a |>
-    mutate(argued_key = str_squish(argued)) |>
+    mutate(argued_key = paste0(str_squish(argued), "|", argued_date)) |>
     group_by(argued_key) |>
     summarise(argued = first(argued),
-              argument_id = min(dkt),
+              argued_date = first(argued_date),
+              case_id = min(dkt),
               n_dockets = n(),
               judgment = { j <- judgment[!is.na(judgment)]
                            if (length(j)) j[[1]] else NA_character_ },
               app_disp = { j <- app_disp[!is.na(app_disp)]
                            if (length(j)) j[[1]] else NA_character_ },
-              argued_date = suppressWarnings(min(lubridate::mdy(
-                map_chr(events, function(e) {
-                  i <- which(str_detect(coalesce(e[["Proceedings and Orders"]], ""), ARGUED_RX))
-                  if (length(i)) e$Date[[i[[length(i)]]]] else NA_character_
-                })), na.rm = TRUE)),
-              .groups = "drop")
+              .groups = "drop") |>
+    mutate(argument_id = paste0(case_id, "@", argued_date))
 
   who <- map2_dfr(one$argued, one$argument_id, .parse_argued)
   if (!nrow(who)) return(tibble())
 
   who |>
     filter(nzchar(advocate), str_detect(advocate, "[A-Za-z]{2}")) |>
-    left_join(one |> select(argument_id, judgment, app_disp, argued_date, n_dockets),
+    left_join(one |> select(argument_id, case_id, judgment, app_disp,
+                            argued_date, n_dockets),
               by = "argument_id") |>
     mutate(
       counsel_key = map_chr(advocate, counsel_key),
@@ -496,7 +516,7 @@ counsel_arguments <- function(paths, refresh = COUNSEL_ARG_REFRESH) {
       # outcome with the stay ruling: Glossip (22-7466) would have been scored on
       # "Application (22A941) for stay of execution" instead of on "Judgment
       # REVERSED".
-      .is_app = funnel_case_type(argument_id) == "app",
+      .is_app = funnel_case_type(case_id) == "app",
       .app_won = str_detect(coalesce(app_disp, ""), .APP_GRANTED_RX),
       won = case_when(
         .is_app & !is.na(app_disp) & side == "petitioner" ~ .app_won,
@@ -595,6 +615,12 @@ counsel_boards <- function(cases, agg, min_cases = COUNSEL_MIN_RATE_CASES) {
 counsel_argument_boards <- function(app, min_args = COUNSEL_ARG_MIN) {
   if (!nrow(app)) return(list(volume = tibble(), sides = tibble(), rates = tibble()))
   modal <- function(x) names(sort(table(x), decreasing = TRUE))[1]
+  # Two units, deliberately. An APPEARANCE is one advocate at one sitting, and
+  # that is what "arguments" counts -- a reargued case really was stood up twice.
+  # An OUTCOME belongs to the case, not the sitting: Louisiana v. Callais was
+  # argued twice and decided once, and counting its judgment against each sitting
+  # would credit or charge the same result twice.
+  out <- app |> distinct(counsel_key, case_id, side, .keep_all = TRUE)
   # NOTE THE OUTPUT NAMES. summarise() evaluates in order and a result binding
   # SHADOWS the column it was computed from, so `won = sum(won)` followed by
   # `decided = sum(!is.na(won))` counts the scalar, not the column, and every
@@ -609,13 +635,15 @@ counsel_argument_boards <- function(app, min_args = COUNSEL_ARG_MIN) {
               as_respondent = sum(side == "respondent"),
               as_amicus = sum(side == "amicus"),
               office = modal(office),
-              arg_won = sum(won %in% TRUE),
-              arg_decided = sum(!is.na(won)),
               .groups = "drop") |>
+    left_join(out |> group_by(counsel_key) |>
+                summarise(arg_won = sum(won %in% TRUE),
+                          arg_decided = sum(!is.na(won)), .groups = "drop"),
+              by = "counsel_key") |>
     filter(arguments >= min_args) |>
     arrange(desc(arguments), desc(arg_won))
 
-  sides <- app |>
+  sides <- out |>
     filter(side %in% c("petitioner", "respondent"), !is.na(won)) |>
     group_by(counsel_key, side) |>
     summarise(arg_name = .display_name(advocate), side_n = n(),
@@ -626,7 +654,7 @@ counsel_argument_boards <- function(app, min_args = COUNSEL_ARG_MIN) {
 
   # Same shadowing hazard as above: the rate is derived AFTER the summarise, from
   # the two counts, rather than as a third expression that reads `won`.
-  rates <- app |>
+  rates <- out |>
     filter(side %in% c("petitioner", "respondent"), !is.na(won)) |>
     group_by(side) |>
     summarise(arguments = n(), won = sum(won), .groups = "drop") |>
@@ -737,7 +765,8 @@ counsel_stats_from <- function(pet, terms, fingerprint, app = NULL,
       top_n = top_n,
       terms = terms,
       arguments = nrow(app),
-      argued_cases = if (nrow(app)) dplyr::n_distinct(app$argument_id) else 0L,
+      argued_cases = if (nrow(app)) dplyr::n_distinct(app$case_id) else 0L,
+      argument_sittings = if (nrow(app)) dplyr::n_distinct(app$argument_id) else 0L,
       arg_advocates = if (nrow(app)) dplyr::n_distinct(app$counsel_key) else 0L,
       arg_qualifying = nrow(ab$volume),
       arg_board_n = COUNSEL_ARG_BOARD_N,
@@ -747,9 +776,11 @@ counsel_stats_from <- function(pet, terms, fingerprint, app = NULL,
       # scored -- mixed dispositions and improvident dismissals. Counted, not
       # hardcoded: the page states this figure, and an earlier draft had it typed
       # in, which is exactly how a number goes stale one grammar change later.
+      # Counted in CASES, matching the sentence it feeds: a case whose judgment
+      # cannot be scored is one case, however many times it was argued.
       arg_unscored = if (nrow(app))
-        dplyr::n_distinct(app$argument_id[!is.na(app$judgment) & is.na(app$won) &
-                                          app$side %in% c("petitioner", "respondent")])
+        dplyr::n_distinct(app$case_id[!is.na(app$judgment) & is.na(app$won) &
+                                      app$side %in% c("petitioner", "respondent")])
         else 0L,
       arg_from = if (nrow(app)) as.character(suppressWarnings(min(app$argued_date, na.rm = TRUE))) else NA,
       arg_to = if (nrow(app)) as.character(suppressWarnings(max(app$argued_date, na.rm = TRUE))) else NA,
@@ -1111,8 +1142,11 @@ render_counsel_page <- function(stats, out_dir) {
         tags$p(class = "cnote2", HTML(smarten(paste0(
           "A different question, from a different record: the docket names the ",
           "advocate who actually stood up, and the side they stood on. ",
-          .cn(tot$argued_cases), " arguments by ", .cn(tot$arg_advocates),
-          " advocates, ",
+          # Sittings, not cases -- it is what the board's "Arguments" column
+          # counts. The two differ only where a case was reargued, and saying
+          # both is how a reader can tell that is what happened.
+          .cn(tot$argument_sittings), " arguments in ", .cn(tot$argued_cases),
+          " cases by ", .cn(tot$arg_advocates), " advocates, ",
           format(as.Date(tot$arg_from), "%B %Y"), " to ",
           format(as.Date(tot$arg_to), "%B %Y"), " — ", tot$arg_qualifying,
           " of them argued ", tot$min_args, " or more times. Companion cases ",

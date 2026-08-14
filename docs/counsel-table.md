@@ -196,22 +196,35 @@ runs for or against an amicus, and a *court-appointed* one is appointed precisel
 because no party will defend that position, so scoring the loss against them
 would be perverse.
 
-VIDED companions repeat the entry, so collapsing on the argued text is exact
-rather than a heuristic — 522 dockets are 455 arguments. Same correction as the
-caption collapse, same reason.
+### Collapsing companions, and the three ways it goes wrong
 
-Collapse on the **squished** text. 21A240 and 21A241 carry the same entry
-differing by one double space after `D. C.`; exact matching left them as two
-arguments and double-counted all three advocates in them. Whitespace is not a
-distinction the Court is drawing, and normalising it merged six further pairs
-across the set.
+VIDED companions repeat the argument entry, so the entry itself is the collapse
+key — exact, not a heuristic. 522 dockets are **458 sittings** of **456 cases**.
+Each refinement below was found by trying to break the previous one.
+
+- **Squish the text.** 21A240 and 21A241 carry the same entry differing by one
+  double space after `D. C.`; exact matching made them two arguments and
+  double-counted all three advocates.
+- **Key on the text *and the date*.** Text alone is not unique. *Biden v. Texas*
+  (21-954, argued 26 Apr 2022) and *United States v. Texas* (22-58, argued 29 Nov
+  2022) are different cases seven months apart whose entries are **byte-identical**
+  — Prelogar for petitioners, the Texas Solicitor General for respondents — and
+  collapsing on text alone merged them, losing a whole argument and its outcome.
+- **Keep every argued entry, not the last.** A case can be reargued with
+  different counsel. *Louisiana v. Callais* was argued in March 2025 and again in
+  October; taking only the later entry erased Stuart Naifeh from the record.
+
+Hence two identifiers. `case_id` is the dispute; `argument_id` is one sitting of
+it. They differ only for a reargued case, and that difference is exactly what
+lets the volume board count two appearances while the win boards count one
+outcome — *Knick v. Township of Scott* was argued twice and decided once.
 
 ### Why the win boards are split by side
 
 | arguing for | arguments | won | rate |
 | --- | --- | --- | --- |
-| the petitioner | 560 | 411 | **73.4%** |
-| the respondent | 489 | 162 | **33.1%** |
+| the petitioner | 558 | 410 | **73.5%** |
+| the respondent | 490 | 161 | **32.9%** |
 
 **The Court takes cases in order to reverse them.** Which side of the "v." an
 advocate stood on therefore matters more than anything they said, and a pooled
@@ -301,3 +314,43 @@ one person is never printed under two names on one page.
 An advocate can appear at the lectern without appearing above it: much of the
 Solicitor General's office argues cases it did not petition in, and those rows
 have no petition-side counterpart at all.
+
+
+## What the adversarial pass tried and could not break
+
+Every check below was written to falsify something. The ones that found bugs are
+recorded above; these are the ones that held, and they are worth keeping because
+a future change should have to pass them again.
+
+| check | result |
+| --- | --- |
+| Arguments missed by the anchored `^Argued\.` regex | 0 |
+| Extracted "advocates" that are not names (digits, titles, single tokens) | 0 |
+| Single-token counsel keys | 0 |
+| Same advocate counted twice in one sitting | 0 |
+| Known SG-office advocates misclassified | 0 of 14 |
+| Known private-bar advocates misclassified | 0 of 11 |
+| Amicus / split / unresolved appearances ever scored | 0 |
+| Scored rows disagreeing with the stated stood/fell rule | **0 of 1,053** |
+| Mixed-disposition appearances scored | 0 of 35 |
+| Every appearance has exactly one side | 1,196 of 1,196 |
+
+**External sanity check.** Arguments per Term come out at 67, 59, 56, 61, 57, 60,
+62 for OT2018–OT2024 — the Court hears roughly 60–70 a Term. OT2017 (17) and
+OT2025 (19) are partial, at the two ends of the archive window.
+
+### One improvement tested and rejected
+
+The 30 unresolved side labels are party names used where a role belongs
+(`Navajo Nation`, `Texas`, `UTIER`), and all 30 sit on cases with a scorable
+judgment — so resolving them looked worth doing. The obvious method is to match
+the label against the two halves of the caption.
+
+Measured against the appearances where the label *already* gives a side, it
+agrees only **88% of the time** (22 of 25), because a party name can appear on
+both sides of a caption: `appellees Virginia State Board of Elections` matches
+"Virginia" in *Virginia House of Delegates*, and `student respondents` matches
+"Students" in *Students for Fair Admissions*. It also resolves only 16 of the 30.
+
+A 12% error rate on the one thing these boards must not get wrong is a bad trade
+for 16 appearances out of 1,196. Rejected; the 30 stay unresolved and disclosed.

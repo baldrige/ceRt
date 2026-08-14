@@ -1738,13 +1738,13 @@
       "key": "paul clement"
     },
     {
-      "arguments": 27,
-      "as_petitioner": 9,
+      "arguments": 28,
+      "as_petitioner": 10,
       "as_respondent": 14,
       "as_amicus": 4,
       "office": "osg",
-      "arg_won": 12,
-      "arg_decided": 22,
+      "arg_won": 13,
+      "arg_decided": 23,
       "name": "Elizabeth B. Prelogar",
       "n_variants": 1,
       "variants": "Elizabeth B. Prelogar",
@@ -1816,8 +1816,8 @@
       "key": "jeffrey wall"
     },
     {
-      "arguments": 17,
-      "as_petitioner": 13,
+      "arguments": 18,
+      "as_petitioner": 14,
       "as_respondent": 3,
       "as_amicus": 0,
       "office": "osg",
@@ -2113,6 +2113,18 @@
     },
     {
       "side": "petitioner",
+      "side_n": 10,
+      "side_won": 9,
+      "office": "osg",
+      "side_rate": 0.9,
+      "side_lo": 0.595843614502428,
+      "name": "Elizabeth B. Prelogar",
+      "n_variants": 1,
+      "variants": "Elizabeth B. Prelogar",
+      "key": "elizabeth prelogar"
+    },
+    {
+      "side": "petitioner",
       "side_n": 5,
       "side_won": 5,
       "office": "osg",
@@ -2146,18 +2158,6 @@
       "n_variants": 2,
       "variants": "Anthony A. Yang / Anthony Yang",
       "key": "anthony yang"
-    },
-    {
-      "side": "petitioner",
-      "side_n": 9,
-      "side_won": 8,
-      "office": "osg",
-      "side_rate": 0.888888888888889,
-      "side_lo": 0.56499378523194,
-      "name": "Elizabeth B. Prelogar",
-      "n_variants": 1,
-      "variants": "Elizabeth B. Prelogar",
-      "key": "elizabeth prelogar"
     },
     {
       "side": "petitioner",
@@ -2417,15 +2417,15 @@
   "arg_rates": [
     {
       "side": "petitioner",
-      "arguments": 556,
-      "won": 409,
-      "rate": 0.735611510791367
+      "arguments": 558,
+      "won": 410,
+      "rate": 0.734767025089606
     },
     {
       "side": "respondent",
-      "arguments": 489,
+      "arguments": 490,
       "won": 161,
-      "rate": 0.329243353783231
+      "rate": 0.328571428571429
     }
   ],
   "totals": {
@@ -2442,18 +2442,19 @@
     "min_args": 5,
     "top_n": 25,
     "terms": "OT2017–2024",
-    "arguments": 1188,
-    "argued_cases": 455,
-    "arg_advocates": 472,
+    "arguments": 1196,
+    "argued_cases": 456,
+    "argument_sittings": 458,
+    "arg_advocates": 473,
     "arg_qualifying": 54,
     "arg_board_n": 15,
     "arg_pet_qualifying": 27,
-    "arg_res_qualifying": 19,
+    "arg_res_qualifying": 20,
     "arg_unscored": 17,
     "arg_from": "2018-02-21",
     "arg_to": "2026-01-12",
     "as_of": "2025-06-18"
   },
-  "fingerprint": "f198a3d947fa32e6ca5b379fe6f1f431",
+  "fingerprint": "34655923315e8f81f988a5904d1861de",
   "generated": "2026-08-14"
 }
