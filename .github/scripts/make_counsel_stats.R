@@ -45,11 +45,17 @@ for (k in names(st$totals)) cat(sprintf("  %-18s %s\n", k, st$totals[[k]]))
 cat("\ngrant rate by petitioner:\n")
 print(as.data.frame(st$by_side |>
   mutate(rate = sprintf("%.1f%%", 100 * rate))), row.names = FALSE)
+if (nrow(st$arg_rates)) {
+  cat("\nargument win rate by side (the reason those boards are split):\n")
+  print(as.data.frame(st$arg_rates |>
+    mutate(rate = sprintf("%.1f%%", 100 * rate))), row.names = FALSE)
+}
 
 # What actually moved at the top of each board -- the part a reader would notice.
 if (length(old$filings)) {
   cat("\n=== leaders: committed -> recomputed ===\n")
-  for (b in c("filings", "relists", "grants_private", "grants_government")) {
+  for (b in c("filings", "relists", "grants_private", "grants_government",
+              "arguments", "arg_petitioner", "arg_respondent")) {
     o <- if (length(old[[b]])) old[[b]][[1]]$name else "(none)"
     n <- if (nrow(st[[b]])) st[[b]]$name[[1]] else "(none)"
     cat(sprintf("  %-18s %-24s %s %s\n", b, o, if (identical(o, n)) "==" else "->",

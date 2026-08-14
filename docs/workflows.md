@@ -104,10 +104,10 @@ None of these fire on a schedule. Trigger with `gh workflow run <file> --ref mai
 | **`enrich-petitions.yml`** | Petition-PDF Rule 10 signals → commits `data-raw/petition_signals.json` to **`main`** | **No** |
 | **`backfill-qp.yml`** | QP PDFs (argued grants) → commits `conferences/qp_cache.json` **cache** to `gh-pages` | **No HTML** |
 | **`backfill-qp-all.yml`** | QP PDFs (all paid petitions) → same `conferences/qp_cache.json` cache | **No HTML** |
-| **`refetch-argued.yml`** | Re-fetch ~500 granted OT17–24 dockets → commits `data-raw/arg_refresh.rds` to **`main`** | **No** |
+| **`refetch-argued.yml`** | Re-fetch ~500 granted OT17–24 dockets → commits `data-raw/arg_refresh.rds` to **`main`** | **No** — but it is the input to the Counsel Table's argument boards, so refresh it before re-rendering those |
 | **`probe-scotus.yml`** | **No** — read-only WAF/throttle diagnostic; logs HTTP status codes | **No** |
 | **`render-funnel.yml`** | **No fetch** — reuses `cases-*.rds` from a prior `conferences.yml` run (artifacts expire after 3 days) | **Yes → `funnel/index.html` only** |
-| **`render-counsel.yml`** | **No fetch, no artifacts** — reads the committed archives via `data/counsel_stats.json` | **Yes → `counsel/index.html` only** |
+| **`render-counsel.yml`** | **No fetch, no artifacts** — reads the committed archives (incl. `arg_refresh.rds`) via `data/counsel_stats.json` | **Yes → `counsel/index.html` only** |
 | **`patch-leaf-chrome.yml`** | **No** — post-pass over published leaves | **Yes** — feed autodiscovery on already-rendered leaf pages |
 | **`seed-pending.yml`** | Seeds `cases/pending.json` on `gh-pages` | **No HTML** |
 

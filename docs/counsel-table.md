@@ -1,9 +1,9 @@
 # The Counsel Table (`/counsel/`)
 
-Four leaderboards over petitioner's counsel of record, computed from the
-committed term archives. **No fetch, ever** — `data-raw/ot_*.rds` is the only
-input, so the page changes when the archives or the classifier change and at no
-other time.
+Seven leaderboards, from two different records: four over **petitioner's counsel
+of record**, three over **who argued**. **No fetch, ever** — the inputs are
+`data-raw/ot_*.rds` and `data-raw/arg_refresh.rds`, both committed, so the page
+changes when the archives or the classifier change and at no other time.
 
 | piece | where |
 | --- | --- |
@@ -11,6 +11,7 @@ other time.
 | Regenerate the committed stats | `.github/scripts/make_counsel_stats.R` |
 | CI render | `.github/scripts/render_counsel.R` |
 | Committed summary | `data/counsel_stats.json` |
+| Argument input | `data-raw/arg_refresh.rds`, refreshed by `refetch-argued.yml` |
 | Workflows | `conferences.yml` (weekly, self-healing) · `render-counsel.yml` (dispatch) |
 
 ## The unit is a case, not a petition
@@ -141,3 +142,83 @@ and commit the result.
   Supreme Court bar actually does — is invisible here.
 - Paid petitions only; self-represented petitioners excluded; pending petitions
   count toward cases filed and relists but never toward a grant rate.
+
+
+## The argument boards
+
+A different population, a different source, and a different span.
+
+The petition boards read `data-raw/ot_*.rds`. That is the wrong file for
+arguments: **a Term's snapshot is taken before its own granted cases are argued
+and decided**, so the argument and judgment entries are simply not in it.
+`data-raw/arg_refresh.rds` is a re-fetch of the argued grants and is the only
+current record of how OT17–23 came out. Precedence is the same as
+`render_arguments.R`: refresh first, archives second, dedupe by docket.
+
+### What the docket gives that a petition cannot
+
+One entry carries all of it:
+
+```
+Argued. For petitioner: Jeffrey L. Fisher, Stanford, Cal.  For respondent:
+Vivek Suri, Assistant to the Solicitor General, Department of Justice,
+Washington, D. C.
+```
+
+That names the advocate who actually **stood up** (not merely who signed the
+petition), the **side** they stood on, and — from the title they are announced
+under — the **office**. The title is a far cleaner government signal than the
+party-name grammar the cert boards need: `Assistant to the Solicitor General,
+Department of Justice` is unambiguous, and `Solicitor General, Baton Rouge, La.`
+is unambiguously a State's. Side resolution reaches all but 37 of 1,206
+appearances.
+
+VIDED companions repeat the entry **verbatim**, so collapsing on the argued text
+is exact rather than a heuristic — 522 dockets are 461 arguments. Same correction
+as the caption collapse, same reason.
+
+### Why the win boards are split by side
+
+| arguing for | arguments | won | rate |
+| --- | --- | --- | --- |
+| the petitioner | 544 | 408 | **75.0%** |
+| the respondent | 487 | 151 | **31.0%** |
+
+**The Court takes cases in order to reverse them.** Which side of the "v." an
+advocate stood on therefore matters more than anything they said, and a pooled
+"success at argument" ranking would largely sort advocates by that — with the
+Solicitor General's office at the top, since it chooses the cases in which the
+United States petitions. Two boards against two published base rates say what one
+board cannot.
+
+Reversed or vacated counts for the petitioner, affirmed for the respondent. The
+18 mixed dispositions (`AFFIRMED as to No. 22-23; REVERSED as to No. 22-331`) and
+improvident dismissals are scored for **neither** — each is a case where "who
+won" genuinely has two answers. Amicus arguments count toward volume and never
+toward a record: the judgment ran for or against the parties.
+
+### Floors, and why the side boards are shorter
+
+`COUNSEL_ARG_MIN` is **5**, not the 8 the petition rate boards use: arguments are
+two orders of magnitude rarer than petitions (461 against 8,875), and 8 would
+leave seven advocates on the respondent side.
+
+`COUNSEL_ARG_BOARD_N` caps the two side boards at **15** rows, against 25
+elsewhere. Only 19 advocates clear the floor as respondent, so a 25-cap publishes
+*all* of them — and the bottom of that list is a named person at 0 wins in 7
+arguments. That is a complete ranking wearing a leaderboard's clothes, and it
+makes a reputational claim the data cannot carry: seven respondent-side arguments
+inside one eight-year window is not a career, and the advocates it would name that
+way have argued well over a hundred cases between them. The qualifying counts are
+published beside the boards so the truncation is visible rather than silent.
+
+### One name per person, across both halves
+
+The two sources spell people differently — the petition dockets carry
+"Lisa Schiavo Blatt", the argument entries "Lisa S. Blatt". A name registry built
+from the union of both keys the display name and the published variant list, so
+one person is never printed under two names on one page.
+
+An advocate can appear at the lectern without appearing above it: much of the
+Solicitor General's office argues cases it did not petition in, and those rows
+have no petition-side counterpart at all.

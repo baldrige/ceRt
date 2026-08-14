@@ -43,12 +43,25 @@ if (is.null(stats)) {
 
 # jsonlite round-trips a data frame as a data frame; the renderer wants tibbles,
 # and `totals` back as a plain list rather than a one-row frame.
-for (b in c("filings", "relists", "grants_private", "grants_government", "by_side"))
+for (b in c("filings", "relists", "grants_private", "grants_government", "by_side",
+            "arguments", "arg_petitioner", "arg_respondent", "arg_rates"))
   if (!is.null(stats[[b]])) stats[[b]] <- as_tibble(stats[[b]])
 if (is.data.frame(stats$totals)) stats$totals <- as.list(stats$totals[1, ])
 
 p <- render_counsel_page(stats, file.path(site_dir, "counsel"))
 cat("Rendered", p, "\n")
-cat(sprintf("  %d advocates over %s cases | boards: %d private, %d government\n",
+cat(sprintf("  %d advocates over %s cases | grant boards: %d private, %d government\n",
             stats$totals$qualifying, format(stats$totals$cases, big.mark = ","),
             stats$totals$board_private, stats$totals$board_government))
+cat(sprintf("  %s arguments by %s advocates | win boards: %d petitioner, %d respondent\n",
+            format(stats$totals$argued_cases %||% 0, big.mark = ","),
+            format(stats$totals$arg_advocates %||% 0, big.mark = ","),
+            stats$totals$arg_pet_qualifying %||% 0L,
+            stats$totals$arg_res_qualifying %||% 0L))
+# The argument half depends on a file the petition half does not. Absent, the
+# page still renders -- four tables instead of seven -- so say so loudly rather
+# than let a silently shorter page publish.
+if (!file.exists(COUNSEL_ARG_REFRESH))
+  cat("!! ", COUNSEL_ARG_REFRESH, " is missing: the argument boards are built ",
+      "from whatever the term archives happen to hold, which for recent Terms is ",
+      "nothing. Refresh with the refetch-argued.yml workflow.\n", sep = "")
