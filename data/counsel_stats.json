@@ -1731,7 +1731,7 @@
       "as_amicus": 1,
       "office": "private",
       "arg_won": 24,
-      "arg_decided": 28,
+      "arg_decided": 29,
       "name": "Paul D. Clement",
       "n_variants": 1,
       "variants": "Paul D. Clement",
@@ -1809,7 +1809,7 @@
       "as_amicus": 0,
       "office": "private",
       "arg_won": 9,
-      "arg_decided": 17,
+      "arg_decided": 18,
       "name": "Lisa Schiavo Blatt",
       "n_variants": 2,
       "variants": "Lisa S. Blatt / Lisa Schiavo Blatt",
@@ -1830,12 +1830,12 @@
     },
     {
       "arguments": 17,
-      "as_petitioner": 12,
-      "as_respondent": 5,
+      "as_petitioner": 13,
+      "as_respondent": 3,
       "as_amicus": 0,
       "office": "osg",
-      "arg_won": 8,
-      "arg_decided": 14,
+      "arg_won": 6,
+      "arg_decided": 13,
       "name": "Noel J. Francisco",
       "n_variants": 4,
       "variants": "Noel Francisco / Noel G. Francisco / Noel J. Francisco / Noel John Francisco",
@@ -1843,11 +1843,11 @@
     },
     {
       "arguments": 16,
-      "as_petitioner": 9,
-      "as_respondent": 7,
+      "as_petitioner": 10,
+      "as_respondent": 6,
       "as_amicus": 0,
       "office": "osg",
-      "arg_won": 11,
+      "arg_won": 12,
       "arg_decided": 16,
       "name": "Anthony A. Yang",
       "n_variants": 2,
@@ -1925,8 +1925,8 @@
       "as_respondent": 4,
       "as_amicus": 4,
       "office": "osg",
-      "arg_won": 7,
-      "arg_decided": 9,
+      "arg_won": 8,
+      "arg_decided": 10,
       "name": "Sopan Joshi",
       "n_variants": 1,
       "variants": "Sopan Joshi",
@@ -1977,8 +1977,8 @@
       "as_respondent": 5,
       "as_amicus": 2,
       "office": "osg",
-      "arg_won": 4,
-      "arg_decided": 8,
+      "arg_won": 5,
+      "arg_decided": 10,
       "name": "Vivek Suri",
       "n_variants": 1,
       "variants": "Vivek Suri",
@@ -1991,7 +1991,7 @@
       "as_amicus": 1,
       "office": "osg",
       "arg_won": 3,
-      "arg_decided": 7,
+      "arg_decided": 8,
       "name": "Brian H. Fletcher",
       "n_variants": 2,
       "variants": "Brian H. Fletcher / Brian Halligan Fletcher",
@@ -2025,6 +2025,19 @@
     },
     {
       "arguments": 10,
+      "as_petitioner": 6,
+      "as_respondent": 3,
+      "as_amicus": 1,
+      "office": "osg",
+      "arg_won": 7,
+      "arg_decided": 9,
+      "name": "Michael R. Huston",
+      "n_variants": 3,
+      "variants": "Michael Huston / Michael R. Huston / Michael Robert Huston",
+      "key": "michael huston"
+    },
+    {
+      "arguments": 10,
       "as_petitioner": 5,
       "as_respondent": 4,
       "as_amicus": 1,
@@ -2035,29 +2048,16 @@
       "n_variants": 2,
       "variants": "Christopher G. Michel / Christopher George Michel",
       "key": "christopher michel"
-    },
-    {
-      "arguments": 10,
-      "as_petitioner": 5,
-      "as_respondent": 4,
-      "as_amicus": 1,
-      "office": "osg",
-      "arg_won": 6,
-      "arg_decided": 9,
-      "name": "Michael R. Huston",
-      "n_variants": 3,
-      "variants": "Michael Huston / Michael R. Huston / Michael Robert Huston",
-      "key": "michael huston"
     }
   ],
   "arg_petitioner": [
     {
       "side": "petitioner",
-      "side_n": 24,
+      "side_n": 25,
       "side_won": 23,
       "office": "private",
-      "side_rate": 0.958333333333333,
-      "side_lo": 0.797577737511578,
+      "side_rate": 0.92,
+      "side_lo": 0.750334878770422,
       "name": "Paul D. Clement",
       "n_variants": 1,
       "variants": "Paul D. Clement",
@@ -2089,6 +2089,42 @@
     },
     {
       "side": "petitioner",
+      "side_n": 6,
+      "side_won": 6,
+      "office": "osg",
+      "side_rate": 1,
+      "side_lo": 0.609656966346935,
+      "name": "Jonathan Y. Ellis",
+      "n_variants": 3,
+      "variants": "Jonathan Ellis / Jonathan Y. Ellis / Jonathan Yates Ellis",
+      "key": "jonathan ellis"
+    },
+    {
+      "side": "petitioner",
+      "side_n": 6,
+      "side_won": 6,
+      "office": "osg",
+      "side_rate": 1,
+      "side_lo": 0.609656966346935,
+      "name": "Michael R. Huston",
+      "n_variants": 3,
+      "variants": "Michael Huston / Michael R. Huston / Michael Robert Huston",
+      "key": "michael huston"
+    },
+    {
+      "side": "petitioner",
+      "side_n": 10,
+      "side_won": 9,
+      "office": "osg",
+      "side_rate": 0.9,
+      "side_lo": 0.595843614502428,
+      "name": "Anthony A. Yang",
+      "n_variants": 2,
+      "variants": "Anthony A. Yang / Anthony Yang",
+      "key": "anthony yang"
+    },
+    {
+      "side": "petitioner",
       "side_n": 5,
       "side_won": 5,
       "office": "osg",
@@ -2113,42 +2149,6 @@
     },
     {
       "side": "petitioner",
-      "side_n": 5,
-      "side_won": 5,
-      "office": "osg",
-      "side_rate": 1,
-      "side_lo": 0.565508505247919,
-      "name": "Jonathan Y. Ellis",
-      "n_variants": 3,
-      "variants": "Jonathan Ellis / Jonathan Y. Ellis / Jonathan Yates Ellis",
-      "key": "jonathan ellis"
-    },
-    {
-      "side": "petitioner",
-      "side_n": 5,
-      "side_won": 5,
-      "office": "osg",
-      "side_rate": 1,
-      "side_lo": 0.565508505247919,
-      "name": "Michael R. Huston",
-      "n_variants": 3,
-      "variants": "Michael Huston / Michael R. Huston / Michael Robert Huston",
-      "key": "michael huston"
-    },
-    {
-      "side": "petitioner",
-      "side_n": 9,
-      "side_won": 8,
-      "office": "osg",
-      "side_rate": 0.888888888888889,
-      "side_lo": 0.56499378523194,
-      "name": "Anthony A. Yang",
-      "n_variants": 2,
-      "variants": "Anthony A. Yang / Anthony Yang",
-      "key": "anthony yang"
-    },
-    {
-      "side": "petitioner",
       "side_n": 9,
       "side_won": 8,
       "office": "osg",
@@ -2170,18 +2170,6 @@
       "n_variants": 2,
       "variants": "Roman Martinez / Roman Martinez V",
       "key": "roman martinez"
-    },
-    {
-      "side": "petitioner",
-      "side_n": 9,
-      "side_won": 7,
-      "office": "osg",
-      "side_rate": 0.777777777777778,
-      "side_lo": 0.452583343672805,
-      "name": "Noel J. Francisco",
-      "n_variants": 4,
-      "variants": "Noel Francisco / Noel G. Francisco / Noel J. Francisco / Noel John Francisco",
-      "key": "noel francisco"
     },
     {
       "side": "petitioner",
@@ -2230,6 +2218,18 @@
       "n_variants": 1,
       "variants": "Seth P. Waxman",
       "key": "seth waxman"
+    },
+    {
+      "side": "petitioner",
+      "side_n": 5,
+      "side_won": 4,
+      "office": "private",
+      "side_rate": 0.8,
+      "side_lo": 0.375528264118539,
+      "name": "Allon Kedem",
+      "n_variants": 1,
+      "variants": "Allon Kedem",
+      "key": "allon kedem"
     }
   ],
   "arg_respondent": [
@@ -2300,6 +2300,18 @@
       "office": "osg",
       "side_rate": 0.5,
       "side_lo": 0.187612806899409,
+      "name": "Anthony A. Yang",
+      "n_variants": 2,
+      "variants": "Anthony A. Yang / Anthony Yang",
+      "key": "anthony yang"
+    },
+    {
+      "side": "respondent",
+      "side_n": 6,
+      "side_won": 3,
+      "office": "osg",
+      "side_rate": 0.5,
+      "side_lo": 0.187612806899409,
       "name": "Austin Raynor",
       "n_variants": 2,
       "variants": "Austin L. Raynor / Austin Raynor",
@@ -2316,18 +2328,6 @@
       "n_variants": 2,
       "variants": "Erica L. Ross / Erica Ross",
       "key": "erica ross"
-    },
-    {
-      "side": "respondent",
-      "side_n": 7,
-      "side_won": 3,
-      "office": "osg",
-      "side_rate": 0.428571428571429,
-      "side_lo": 0.158216922262627,
-      "name": "Anthony A. Yang",
-      "n_variants": 2,
-      "variants": "Anthony A. Yang / Anthony Yang",
-      "key": "anthony yang"
     },
     {
       "side": "respondent",
@@ -2380,14 +2380,14 @@
     {
       "side": "respondent",
       "side_n": 5,
-      "side_won": 1,
+      "side_won": 2,
       "office": "osg",
-      "side_rate": 0.2,
-      "side_lo": 0.0362231609697875,
-      "name": "Noel J. Francisco",
-      "n_variants": 4,
-      "variants": "Noel Francisco / Noel G. Francisco / Noel J. Francisco / Noel John Francisco",
-      "key": "noel francisco"
+      "side_rate": 0.4,
+      "side_lo": 0.117618231159253,
+      "name": "Vivek Suri",
+      "n_variants": 1,
+      "variants": "Vivek Suri",
+      "key": "vivek suri"
     },
     {
       "side": "respondent",
@@ -2417,15 +2417,15 @@
   "arg_rates": [
     {
       "side": "petitioner",
-      "arguments": 544,
-      "won": 408,
-      "rate": 0.75
+      "arguments": 560,
+      "won": 411,
+      "rate": 0.733928571428571
     },
     {
       "side": "respondent",
-      "arguments": 487,
-      "won": 151,
-      "rate": 0.31006160164271
+      "arguments": 489,
+      "won": 162,
+      "rate": 0.331288343558282
     }
   ],
   "totals": {
@@ -2447,12 +2447,13 @@
     "arg_advocates": 472,
     "arg_qualifying": 55,
     "arg_board_n": 15,
-    "arg_pet_qualifying": 25,
+    "arg_pet_qualifying": 27,
     "arg_res_qualifying": 19,
+    "arg_unscored": 17,
     "arg_from": "2018-02-21",
     "arg_to": "2026-01-12",
     "as_of": "2025-06-18"
   },
-  "fingerprint": "9fc8094e89e4da0a41b91e9dde4d03a2",
+  "fingerprint": "dfe70f9fb7f2cf61bf87c8dd58c3934e",
   "generated": "2026-08-14"
 }

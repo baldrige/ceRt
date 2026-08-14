@@ -299,8 +299,37 @@ COUNSEL_ARG_BOARD_N <- 15L
   if (length(h)) h[[length(h)]] else NA_character_
 }
 ARGUED_RX <- regex("^Argued\\.", ignore_case = TRUE)
-JUDGMENT_RX <- regex("(Judgment|Adjudged to be) (AFFIRMED|REVERSED|VACATED)",
-                     ignore_case = TRUE)
+
+# The merits disposition. Two things this has to be loose about, both found by
+# checking the cases it missed rather than by reading it:
+#
+#   * THE CONNECTOR VARIES. "Judgment VACATED", "Adjudged to be AFFIRMED", and
+#     "Judgment is AFFIRMED and case REMANDED" are the same kind of entry. An
+#     earlier version required the verb to sit immediately after "Judgment", and
+#     the twelve dockets it dropped were AFFIRMANCES, every one -- a one-sided
+#     miss that inflated the petitioner win rate and deflated the respondent's,
+#     which are the two headline numbers on the argument section.
+#   * A DIRECT APPEAL IS NOT DISPOSED OF BY WRIT. Mandatory-jurisdiction appeals
+#     end "Appeal dismissed", and the judgment below then stands exactly as on an
+#     affirmance -- the appellant has lost. 18-281 (Virginia House of Delegates)
+#     is that case: dismissed for want of standing, and a loss for the appellants.
+#
+# A writ DIG'd is matched here and then scored NA, rather than left unmatched.
+# Both routes exclude it, but only this one can COUNT it: the page states how many
+# arguments ended without a scorable outcome, and while the DIG phrase went
+# unrecognised nine of them fell into "no disposition found" and the published
+# figure said 8 where the truth was 17. Recognised-and-excluded and
+# never-recognised look identical in a rate and completely different in a tally.
+JUDGMENT_RX <- regex(paste0(
+  "(judgments?|adjudged)\\b[^.]{0,18}?\\b(affirmed|reversed|vacated)",
+  "|\\bappeal\\s+dismissed",
+  "|\\bimprovidently granted"), ignore_case = TRUE)
+
+# The judgment below stood / the judgment below fell. Case-insensitive: the Court
+# writes both "Judgment is AFFIRMED" and "Judgment is affirmed".
+.STANDS_RX <- regex("affirmed|appeal\\s+dismissed", ignore_case = TRUE)
+.UPSET_RX <- regex("reversed|vacated", ignore_case = TRUE)
+.DIG_RX <- regex("improvidently", ignore_case = TRUE)
 
 # Split one "Argued." entry into (label, advocate, title) rows.
 #
@@ -326,15 +355,41 @@ JUDGMENT_RX <- regex("(Judgment|Adjudged to be) (AFFIRMED|REVERSED|VACATED)",
   })
 }
 
-# Which side of the "v." an advocate stood on.
+# Which OUTCOME the advocate stood up to ask for -- which is not always the side
+# their client is captioned on, and the outcome is what a win board can score.
+#
+# Three constructions matter, and a rule that only reads "petitioner" vs
+# "respondent" gets two of them wrong:
+#
+#   "respondent in support of petitioner"  -- client respondent, wants REVERSAL
+#   "respondent in support of vacatur"     -- client respondent, wants VACATUR
+#   "petitioner in 17-1618 and respondents in 17-1623" -- genuinely both
+#
+# Testing petitioner-before-respondent scored the first correctly by accident and
+# the second exactly backwards: eight advocates who asked the Court to vacate or
+# reverse, and got it, were recorded as having LOST. So the position clause is
+# read first, and a label that names both sides without stating a position is
+# "split" -- counted as an argument, scored for neither, because the same advocate
+# really was on both sides of a consolidated pair.
 #
 # "appellant"/"appellee" are the direct-appeal spellings of the same two roles.
-# An amicus argument is a real argument and counts toward volume, but it has no
-# win or loss: the Court's judgment ran for or against the PARTIES.
+# Amicus is tested first and stays out of the win boards: an amicus has no
+# judgment run for or against it, and a court-appointed one is appointed precisely
+# because no party will defend that position -- scoring the loss against them
+# would be perverse.
+.POS_PET_RX <- regex(paste0("(support|supporting|supports)\\b.{0,24}\\b",
+  "(petitioner|appellant|reversal|vacatur|vacate)"), ignore_case = TRUE)
+.POS_RES_RX <- regex(paste0("(support|supporting|supports)\\b.{0,24}\\b",
+  "(respondent|appellee|affirmance|judgment below)"), ignore_case = TRUE)
+.SIDE_PET_RX <- regex("petitioner|appellant", ignore_case = TRUE)
+.SIDE_RES_RX <- regex("respondent|appellee", ignore_case = TRUE)
 .argued_side <- function(label) case_when(
   str_detect(label, regex("amicus", ignore_case = TRUE)) ~ "amicus",
-  str_detect(label, regex("petitioner|appellant", ignore_case = TRUE)) ~ "petitioner",
-  str_detect(label, regex("respondent|appellee", ignore_case = TRUE)) ~ "respondent",
+  str_detect(label, .POS_PET_RX) ~ "petitioner",
+  str_detect(label, .POS_RES_RX) ~ "respondent",
+  str_detect(label, .SIDE_PET_RX) & str_detect(label, .SIDE_RES_RX) ~ "split",
+  str_detect(label, .SIDE_PET_RX) ~ "petitioner",
+  str_detect(label, .SIDE_RES_RX) ~ "respondent",
   TRUE ~ "unresolved")
 
 # The office the advocate was announced under. Read from the TITLE the Court
@@ -385,21 +440,25 @@ counsel_arguments <- function(paths, refresh = COUNSEL_ARG_REFRESH) {
       counsel_key = map_chr(advocate, counsel_key),
       side = .argued_side(label),
       office = .argued_office(title),
-      # Affirmed means the judgment below stood, so the respondent prevailed;
-      # reversed or vacated means the petitioner got relief. Mixed dispositions
-      # ("AFFIRMED as to No. 22-23; REVERSED as to No. 22-331") and improvident
-      # dismissals are scored NA rather than guessed -- 18 of 486, and each one
-      # is a case where "who won" genuinely has two answers.
-      .aff = str_detect(coalesce(judgment, ""), "AFFIRMED"),
-      .rev = str_detect(coalesce(judgment, ""), "REVERSED|VACATED"),
-      .dig = str_detect(coalesce(judgment, ""), regex("improvidently", ignore_case = TRUE)),
+      # The judgment below either stood or it did not. It STOOD on an affirmance
+      # and on a dismissed appeal, which is a loss for whoever was attacking it;
+      # it FELL on a reversal or vacatur. Mixed dispositions ("AFFIRMED as to No.
+      # 22-23; REVERSED as to No. 22-331") and improvident dismissals are scored
+      # NA rather than guessed -- each is a case where "who won" genuinely has two
+      # answers, or none.
+      #
+      # `side` is the POSITION argued, not the client (see .argued_side), so a
+      # respondent who asked for vacatur and got it is scored a win.
+      .stands = str_detect(coalesce(judgment, ""), .STANDS_RX),
+      .upset = str_detect(coalesce(judgment, ""), .UPSET_RX),
+      .dig = str_detect(coalesce(judgment, ""), .DIG_RX),
       won = case_when(
-        is.na(judgment) | .dig | !xor(.aff, .rev) ~ NA,
-        side == "petitioner" ~ .rev,
-        side == "respondent" ~ .aff,
+        is.na(judgment) | .dig | !xor(.stands, .upset) ~ NA,
+        side == "petitioner" ~ .upset,
+        side == "respondent" ~ .stands,
         TRUE ~ NA)) |>
     filter(nzchar(counsel_key)) |>
-    select(-.aff, -.rev, -.dig) |>
+    select(-.stands, -.upset, -.dig) |>
     # One advocate can be listed twice in one entry; count the argument once.
     distinct(argument_id, counsel_key, .keep_all = TRUE)
 }
@@ -635,6 +694,14 @@ counsel_stats_from <- function(pet, terms, fingerprint, app = NULL,
       arg_board_n = COUNSEL_ARG_BOARD_N,
       arg_pet_qualifying = sum(ab$sides$side == "petitioner"),
       arg_res_qualifying = sum(ab$sides$side == "respondent"),
+      # Arguments that reached a judgment the grammar recognised but could not be
+      # scored -- mixed dispositions and improvident dismissals. Counted, not
+      # hardcoded: the page states this figure, and an earlier draft had it typed
+      # in, which is exactly how a number goes stale one grammar change later.
+      arg_unscored = if (nrow(app))
+        dplyr::n_distinct(app$argument_id[!is.na(app$judgment) & is.na(app$won) &
+                                          app$side %in% c("petitioner", "respondent")])
+        else 0L,
       arg_from = if (nrow(app)) as.character(suppressWarnings(min(app$argued_date, na.rm = TRUE))) else NA,
       arg_to = if (nrow(app)) as.character(suppressWarnings(max(app$argued_date, na.rm = TRUE))) else NA,
       as_of = as.character(suppressWarnings(max(pet$date, na.rm = TRUE)))),
@@ -688,7 +755,11 @@ counsel_stats_fingerprint <- function(paths, refresh = COUNSEL_ARG_REFRESH) {
                    COUNSEL_MIN_CASES, COUNSEL_TOP_N, COUNSEL_GOV_MAX_PRIVATE,
                    COUNSEL_MIN_RATE_CASES, COUNSEL_ARG_MIN, COUNSEL_ARG_BOARD_N,
                    COUNSEL_ARG_REFRESH,
-                   as.character(ARGUED_RX), as.character(JUDGMENT_RX)),
+                   as.character(ARGUED_RX), as.character(JUDGMENT_RX),
+                   as.character(.STANDS_RX), as.character(.UPSET_RX),
+                   as.character(.DIG_RX),
+                   as.character(.POS_PET_RX), as.character(.POS_RES_RX),
+                   as.character(.SIDE_PET_RX), as.character(.SIDE_RES_RX)),
     # arg_refresh.rds is an INPUT, not a cache: refetch-argued.yml rewrites it
     # when new merits judgments land, and every argument board moves with it.
     archives = unname(tools::md5sum(sort(c(paths,
@@ -1014,9 +1085,11 @@ render_counsel_page <- function(stats, out_dir) {
           "said. A pooled ranking would mostly sort advocates by that, and its top ",
           "would be the Solicitor General&rsquo;s office, which chooses the cases ",
           "in which the United States petitions. So the record is split in two and ",
-          "each board is read against its own base rate above. Reversed or vacated ",
-          "counts for the petitioner, affirmed for the respondent; the ",
-          "18 mixed and improvidently-dismissed judgments are scored for neither.")))),
+          "each board is read against its own base rate above. The judgment below ",
+          "either stood or it did not: it stood on an affirmance and on a ",
+          "dismissed appeal, it fell on a reversal or vacatur. ",
+          tot$arg_unscored, " arguments ended in a split judgment or a writ ",
+          "dismissed as improvidently granted and are scored for neither side.")))),
 
         tags$h4("Arguing for the petitioner"),
         side_tbl(arg_pet),

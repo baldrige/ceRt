@@ -173,6 +173,29 @@ Department of Justice` is unambiguous, and `Solicitor General, Baton Rouge, La.`
 is unambiguously a State's. Side resolution reaches all but 37 of 1,206
 appearances.
 
+### The side label names a client; the win board needs a position
+
+These are not the same thing, and three constructions separate them:
+
+| label | client | asks for |
+| --- | --- | --- |
+| `respondent in support of petitioner` | respondent | reversal |
+| `respondent in support of vacatur` | respondent | vacatur |
+| `petitioner in 17-1618 and respondents in 17-1623` | both | both |
+
+A rule that only tests "petitioner" against "respondent" scores the first
+correctly *by accident* and the second exactly **backwards**: measured, eight
+advocates who asked the Court to vacate or reverse, and got it, were recorded as
+having lost. So `.argued_side()` reads the position clause first. A label naming
+both sides with no position stated is **`split`** — counted as an argument,
+scored for neither, because the advocate really was on both sides of a
+consolidated pair.
+
+Amicus is tested before all of it and stays out of the win boards: no judgment
+runs for or against an amicus, and a *court-appointed* one is appointed precisely
+because no party will defend that position, so scoring the loss against them
+would be perverse.
+
 VIDED companions repeat the entry **verbatim**, so collapsing on the argued text
 is exact rather than a heuristic — 522 dockets are 461 arguments. Same correction
 as the caption collapse, same reason.
@@ -181,8 +204,8 @@ as the caption collapse, same reason.
 
 | arguing for | arguments | won | rate |
 | --- | --- | --- | --- |
-| the petitioner | 544 | 408 | **75.0%** |
-| the respondent | 487 | 151 | **31.0%** |
+| the petitioner | 560 | 411 | **73.4%** |
+| the respondent | 489 | 162 | **33.1%** |
 
 **The Court takes cases in order to reverse them.** Which side of the "v." an
 advocate stood on therefore matters more than anything they said, and a pooled
@@ -191,11 +214,39 @@ Solicitor General's office at the top, since it chooses the cases in which the
 United States petitions. Two boards against two published base rates say what one
 board cannot.
 
-Reversed or vacated counts for the petitioner, affirmed for the respondent. The
-18 mixed dispositions (`AFFIRMED as to No. 22-23; REVERSED as to No. 22-331`) and
-improvident dismissals are scored for **neither** — each is a case where "who
-won" genuinely has two answers. Amicus arguments count toward volume and never
-toward a record: the judgment ran for or against the parties.
+### The judgment below either stood or it did not
+
+That is the whole test, and getting the grammar for it wrong was one-sided.
+
+| disposition | judgment below | scores for |
+| --- | --- | --- |
+| `Judgment REVERSED` / `VACATED` | fell | the petitioner |
+| `Judgment (is) AFFIRMED` | stood | the respondent |
+| `Appeal dismissed` (mandatory jurisdiction) | stood | the respondent |
+| split (`AFFIRMED as to No. 22-23; REVERSED as to No. 22-331`) | both | neither |
+| writ `DISMISSED as improvidently granted` | stood, undecided | neither |
+
+Two corrections, both found by reading the cases the grammar dropped rather than
+the grammar itself:
+
+- **The connector varies.** The first version required the verb to sit
+  immediately after "Judgment", but the Court frequently writes **"Judgment is
+  AFFIRMED and case REMANDED"**. The twelve dockets that dropped were
+  **affirmances, every one** — a perfectly one-sided miss that inflated the
+  petitioner win rate and deflated the respondent's. Fixing it moved the two
+  published base rates from 75.0%/31.0% to 73.4%/33.1%.
+- **A direct appeal is not disposed of by writ.** Mandatory-jurisdiction appeals
+  end `Appeal dismissed`; the judgment below then stands exactly as on an
+  affirmance and the appellant has lost. 18-281 (*Virginia House of Delegates*)
+  is that case — dismissed for want of standing, and a loss for the appellants
+  it was previously not charged to.
+
+A writ DIG'd is deliberately excluded even though the judgment below stands
+there too: the Court expressly declined to decide, and the convention in
+published counts is to set those aside rather than charge them to an advocate.
+
+Amicus arguments count toward volume and never toward a record: the judgment ran
+for or against the parties.
 
 ### Floors, and why the side boards are shorter
 
