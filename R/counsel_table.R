@@ -331,6 +331,26 @@ JUDGMENT_RX <- regex(paste0(
 .UPSET_RX <- regex("reversed|vacated", ignore_case = TRUE)
 .DIG_RX <- regex("improvidently", ignore_case = TRUE)
 
+# An argued EMERGENCY APPLICATION has an outcome too -- it is granted or denied --
+# and the advocate who stood up for it won or lost accordingly. These never reach
+# a merits judgment, so the grammar above finds nothing and they were being
+# dropped as "no disposition" while being, in fact, decided.
+#
+# ANCHORED ON "application(s) for ... stay", NOT ON "granted". These dockets are
+# thick with procedural grants -- "Motion for divided argument filed by
+# respondents GRANTED" appears on nearly every one of them -- and a bare
+# granted/denied test would score the argument-time allocation as the outcome.
+# The [^.]{0,120} keeps the match inside one sentence, so the filing entry
+# ("Application (24A884) for a partial stay, submitted to The Chief Justice.")
+# cannot reach a later sentence's verb.
+#
+# An application granted disturbs the order below, which is the applicant's win
+# and structurally the petitioner's role; denied leaves it standing.
+APPLICATION_RX <- regex(paste0(
+  "\\bapplications?\\s*(\\([^)]*\\))?\\s*for\\s+(a\\s+)?(partial\\s+)?stays?\\b",
+  "[^.]{0,120}?\\b(granted|denied)\\b"), ignore_case = TRUE)
+.APP_GRANTED_RX <- regex("\\bgranted\\b", ignore_case = TRUE)
+
 # Split one "Argued." entry into (label, advocate, title) rows.
 #
 # The entry is a sequence of "For <label>: <Name>, <title/place>." segments, with
@@ -381,7 +401,10 @@ JUDGMENT_RX <- regex(paste0(
   "(petitioner|appellant|reversal|vacatur|vacate)"), ignore_case = TRUE)
 .POS_RES_RX <- regex(paste0("(support|supporting|supports)\\b.{0,24}\\b",
   "(respondent|appellee|affirmance|judgment below)"), ignore_case = TRUE)
-.SIDE_PET_RX <- regex("petitioner|appellant", ignore_case = TRUE)
+# "applicant" is the emergency docket's word for the moving party -- the one
+# asking the Court to disturb what the court below did, which is the petitioner's
+# role under another name.
+.SIDE_PET_RX <- regex("petitioner|appellant|applicant", ignore_case = TRUE)
 .SIDE_RES_RX <- regex("respondent|appellee", ignore_case = TRUE)
 .argued_side <- function(label) case_when(
   str_detect(label, regex("amicus", ignore_case = TRUE)) ~ "amicus",
@@ -408,7 +431,8 @@ counsel_arguments <- function(paths, refresh = COUNSEL_ARG_REFRESH) {
   combined <- files |> map(readRDS) |> bind_rows() |> distinct(dkt, .keep_all = TRUE)
   a <- combined |>
     mutate(argued = map_chr(events, .last_entry, ARGUED_RX),
-           judgment = map_chr(events, .last_entry, JUDGMENT_RX)) |>
+           judgment = map_chr(events, .last_entry, JUDGMENT_RX),
+           app_disp = map_chr(events, .last_entry, APPLICATION_RX)) |>
     filter(!is.na(argued))
   if (!nrow(a)) return(tibble())
 
@@ -416,11 +440,19 @@ counsel_arguments <- function(paths, refresh = COUNSEL_ARG_REFRESH) {
   # docket numbers. Collapsing on the text is exact rather than a heuristic, and
   # it is the same correction the caption collapse makes for petitions: without
   # it an advocate who argued one consolidated case is credited with three.
+  # Grouped on the SQUISHED text, not the raw text. 21A240 and 21A241 carry the
+  # same argument entry differing by one double space after "D. C." -- exact
+  # matching left them as two arguments and double-counted all three advocates in
+  # them. Whitespace is not a distinction the Court is drawing.
   one <- a |>
-    group_by(argued) |>
-    summarise(argument_id = min(dkt),
+    mutate(argued_key = str_squish(argued)) |>
+    group_by(argued_key) |>
+    summarise(argued = first(argued),
+              argument_id = min(dkt),
               n_dockets = n(),
               judgment = { j <- judgment[!is.na(judgment)]
+                           if (length(j)) j[[1]] else NA_character_ },
+              app_disp = { j <- app_disp[!is.na(app_disp)]
                            if (length(j)) j[[1]] else NA_character_ },
               argued_date = suppressWarnings(min(lubridate::mdy(
                 map_chr(events, function(e) {
@@ -434,7 +466,7 @@ counsel_arguments <- function(paths, refresh = COUNSEL_ARG_REFRESH) {
 
   who |>
     filter(nzchar(advocate), str_detect(advocate, "[A-Za-z]{2}")) |>
-    left_join(one |> select(argument_id, judgment, argued_date, n_dockets),
+    left_join(one |> select(argument_id, judgment, app_disp, argued_date, n_dockets),
               by = "argument_id") |>
     mutate(
       counsel_key = map_chr(advocate, counsel_key),
@@ -452,13 +484,30 @@ counsel_arguments <- function(paths, refresh = COUNSEL_ARG_REFRESH) {
       .stands = str_detect(coalesce(judgment, ""), .STANDS_RX),
       .upset = str_detect(coalesce(judgment, ""), .UPSET_RX),
       .dig = str_detect(coalesce(judgment, ""), .DIG_RX),
+      # An application is scored on its OWN disposition, in its own branch. The
+      # two grammars must not be merged: "DISMISSED as improvidently granted"
+      # contains the word "granted", so folding application-granted into
+      # .UPSET_RX would silently turn every DIG into a petitioner win.
+      #
+      # AND THE BRANCH IS GATED ON THE DOCKET BEING AN APPLICATION. 18 argued
+      # CERT cases carry an ancillary stay application in their history -- a stay
+      # of execution, a stay pending certiorari -- and every one of them also has
+      # a real merits judgment. Ungated, this branch fires first and replaces the
+      # outcome with the stay ruling: Glossip (22-7466) would have been scored on
+      # "Application (22A941) for stay of execution" instead of on "Judgment
+      # REVERSED".
+      .is_app = funnel_case_type(argument_id) == "app",
+      .app_won = str_detect(coalesce(app_disp, ""), .APP_GRANTED_RX),
       won = case_when(
+        .is_app & !is.na(app_disp) & side == "petitioner" ~ .app_won,
+        .is_app & !is.na(app_disp) & side == "respondent" ~ !.app_won,
+        .is_app ~ NA,
         is.na(judgment) | .dig | !xor(.stands, .upset) ~ NA,
         side == "petitioner" ~ .upset,
         side == "respondent" ~ .stands,
         TRUE ~ NA)) |>
     filter(nzchar(counsel_key)) |>
-    select(-.stands, -.upset, -.dig) |>
+    select(-.stands, -.upset, -.dig, -.app_won, -.is_app) |>
     # One advocate can be listed twice in one entry; count the argument once.
     distinct(argument_id, counsel_key, .keep_all = TRUE)
 }
@@ -758,6 +807,7 @@ counsel_stats_fingerprint <- function(paths, refresh = COUNSEL_ARG_REFRESH) {
                    as.character(ARGUED_RX), as.character(JUDGMENT_RX),
                    as.character(.STANDS_RX), as.character(.UPSET_RX),
                    as.character(.DIG_RX),
+                   as.character(APPLICATION_RX), as.character(.APP_GRANTED_RX),
                    as.character(.POS_PET_RX), as.character(.POS_RES_RX),
                    as.character(.SIDE_PET_RX), as.character(.SIDE_RES_RX)),
     # arg_refresh.rds is an INPUT, not a cache: refetch-argued.yml rewrites it

@@ -1725,13 +1725,13 @@
   ],
   "arguments": [
     {
-      "arguments": 30,
-      "as_petitioner": 25,
+      "arguments": 29,
+      "as_petitioner": 24,
       "as_respondent": 4,
       "as_amicus": 1,
       "office": "private",
-      "arg_won": 24,
-      "arg_decided": 29,
+      "arg_won": 23,
+      "arg_decided": 28,
       "name": "Paul D. Clement",
       "n_variants": 1,
       "variants": "Paul D. Clement",
@@ -1744,19 +1744,19 @@
       "as_amicus": 4,
       "office": "osg",
       "arg_won": 12,
-      "arg_decided": 21,
+      "arg_decided": 22,
       "name": "Elizabeth B. Prelogar",
       "n_variants": 1,
       "variants": "Elizabeth B. Prelogar",
       "key": "elizabeth prelogar"
     },
     {
-      "arguments": 27,
-      "as_petitioner": 18,
+      "arguments": 26,
+      "as_petitioner": 17,
       "as_respondent": 7,
       "as_amicus": 0,
       "office": "osg",
-      "arg_won": 12,
+      "arg_won": 11,
       "arg_decided": 24,
       "name": "Malcolm L. Stewart",
       "n_variants": 1,
@@ -1764,13 +1764,13 @@
       "key": "malcolm stewart"
     },
     {
-      "arguments": 25,
+      "arguments": 24,
       "as_petitioner": 7,
-      "as_respondent": 16,
+      "as_respondent": 15,
       "as_amicus": 2,
       "office": "osg",
-      "arg_won": 14,
-      "arg_decided": 20,
+      "arg_won": 13,
+      "arg_decided": 19,
       "name": "Eric J. Feigin",
       "n_variants": 1,
       "variants": "Eric J. Feigin",
@@ -1792,19 +1792,6 @@
     {
       "arguments": 20,
       "as_petitioner": 11,
-      "as_respondent": 3,
-      "as_amicus": 3,
-      "office": "osg",
-      "arg_won": 13,
-      "arg_decided": 14,
-      "name": "Jeffrey B. Wall",
-      "n_variants": 1,
-      "variants": "Jeffrey B. Wall",
-      "key": "jeffrey wall"
-    },
-    {
-      "arguments": 20,
-      "as_petitioner": 11,
       "as_respondent": 9,
       "as_amicus": 0,
       "office": "private",
@@ -1816,17 +1803,17 @@
       "key": "lisa blatt"
     },
     {
-      "arguments": 17,
+      "arguments": 19,
       "as_petitioner": 11,
-      "as_respondent": 6,
-      "as_amicus": 0,
-      "office": "private",
-      "arg_won": 8,
-      "arg_decided": 17,
-      "name": "Jeffrey L. Fisher",
+      "as_respondent": 3,
+      "as_amicus": 2,
+      "office": "osg",
+      "arg_won": 13,
+      "arg_decided": 14,
+      "name": "Jeffrey B. Wall",
       "n_variants": 1,
-      "variants": "Jeffrey L. Fisher",
-      "key": "jeffrey fisher"
+      "variants": "Jeffrey B. Wall",
+      "key": "jeffrey wall"
     },
     {
       "arguments": 17,
@@ -1843,16 +1830,16 @@
     },
     {
       "arguments": 16,
-      "as_petitioner": 10,
-      "as_respondent": 6,
+      "as_petitioner": 11,
+      "as_respondent": 5,
       "as_amicus": 0,
-      "office": "osg",
-      "arg_won": 12,
+      "office": "private",
+      "arg_won": 8,
       "arg_decided": 16,
-      "name": "Anthony A. Yang",
-      "n_variants": 2,
-      "variants": "Anthony A. Yang / Anthony Yang",
-      "key": "anthony yang"
+      "name": "Jeffrey L. Fisher",
+      "n_variants": 1,
+      "variants": "Jeffrey L. Fisher",
+      "key": "jeffrey fisher"
     },
     {
       "arguments": 16,
@@ -1868,30 +1855,17 @@
       "key": "kannon shanmugam"
     },
     {
-      "arguments": 16,
-      "as_petitioner": 9,
-      "as_respondent": 7,
-      "as_amicus": 0,
-      "office": "private",
-      "arg_won": 6,
-      "arg_decided": 14,
-      "name": "Neal Kumar Katyal",
-      "n_variants": 2,
-      "variants": "Neal K. Katyal / Neal Kumar Katyal",
-      "key": "neal katyal"
-    },
-    {
       "arguments": 15,
-      "as_petitioner": 6,
+      "as_petitioner": 9,
       "as_respondent": 6,
-      "as_amicus": 3,
+      "as_amicus": 0,
       "office": "osg",
-      "arg_won": 8,
-      "arg_decided": 12,
-      "name": "Erica L. Ross",
+      "arg_won": 11,
+      "arg_decided": 15,
+      "name": "Anthony A. Yang",
       "n_variants": 2,
-      "variants": "Erica L. Ross / Erica Ross",
-      "key": "erica ross"
+      "variants": "Anthony A. Yang / Anthony Yang",
+      "key": "anthony yang"
     },
     {
       "arguments": 15,
@@ -1905,6 +1879,19 @@
       "n_variants": 1,
       "variants": "Frederick Liu",
       "key": "frederick liu"
+    },
+    {
+      "arguments": 15,
+      "as_petitioner": 8,
+      "as_respondent": 7,
+      "as_amicus": 0,
+      "office": "private",
+      "arg_won": 5,
+      "arg_decided": 13,
+      "name": "Neal Kumar Katyal",
+      "n_variants": 2,
+      "variants": "Neal K. Katyal / Neal Kumar Katyal",
+      "key": "neal katyal"
     },
     {
       "arguments": 15,
@@ -1933,6 +1920,19 @@
       "key": "sopan joshi"
     },
     {
+      "arguments": 14,
+      "as_petitioner": 5,
+      "as_respondent": 6,
+      "as_amicus": 3,
+      "office": "osg",
+      "arg_won": 7,
+      "arg_decided": 11,
+      "name": "Erica L. Ross",
+      "n_variants": 2,
+      "variants": "Erica L. Ross / Erica Ross",
+      "key": "erica ross"
+    },
+    {
       "arguments": 13,
       "as_petitioner": 3,
       "as_respondent": 9,
@@ -1959,19 +1959,6 @@
       "key": "daniel geyser"
     },
     {
-      "arguments": 13,
-      "as_petitioner": 4,
-      "as_respondent": 9,
-      "as_amicus": 0,
-      "office": "private",
-      "arg_won": 2,
-      "arg_decided": 13,
-      "name": "David C. Frederick",
-      "n_variants": 1,
-      "variants": "David C. Frederick",
-      "key": "david frederick"
-    },
-    {
       "arguments": 12,
       "as_petitioner": 5,
       "as_respondent": 5,
@@ -1986,16 +1973,16 @@
     },
     {
       "arguments": 12,
-      "as_petitioner": 5,
-      "as_respondent": 4,
-      "as_amicus": 1,
-      "office": "osg",
-      "arg_won": 3,
-      "arg_decided": 8,
-      "name": "Brian H. Fletcher",
-      "n_variants": 2,
-      "variants": "Brian H. Fletcher / Brian Halligan Fletcher",
-      "key": "brian fletcher"
+      "as_petitioner": 3,
+      "as_respondent": 9,
+      "as_amicus": 0,
+      "office": "private",
+      "arg_won": 2,
+      "arg_decided": 12,
+      "name": "David C. Frederick",
+      "n_variants": 1,
+      "variants": "David C. Frederick",
+      "key": "david frederick"
     },
     {
       "arguments": 11,
@@ -2022,6 +2009,19 @@
       "n_variants": 5,
       "variants": "Colleen E. R. Sinzdak / Colleen E. Roh Sinzdak / Colleen E. Sinzdak / Colleen Elizabeth Roh Sinzdak / Colleen R. Sinzdak",
       "key": "colleen sinzdak"
+    },
+    {
+      "arguments": 11,
+      "as_petitioner": 6,
+      "as_respondent": 4,
+      "as_amicus": 1,
+      "office": "osg",
+      "arg_won": 4,
+      "arg_decided": 9,
+      "name": "Brian H. Fletcher",
+      "n_variants": 2,
+      "variants": "Brian H. Fletcher / Brian Halligan Fletcher",
+      "key": "brian fletcher"
     },
     {
       "arguments": 10,
@@ -2053,11 +2053,11 @@
   "arg_petitioner": [
     {
       "side": "petitioner",
-      "side_n": 25,
-      "side_won": 23,
+      "side_n": 24,
+      "side_won": 22,
       "office": "private",
-      "side_rate": 0.92,
-      "side_lo": 0.750334878770422,
+      "side_rate": 0.916666666666667,
+      "side_lo": 0.741507847985494,
       "name": "Paul D. Clement",
       "n_variants": 1,
       "variants": "Paul D. Clement",
@@ -2113,18 +2113,6 @@
     },
     {
       "side": "petitioner",
-      "side_n": 10,
-      "side_won": 9,
-      "office": "osg",
-      "side_rate": 0.9,
-      "side_lo": 0.595843614502428,
-      "name": "Anthony A. Yang",
-      "n_variants": 2,
-      "variants": "Anthony A. Yang / Anthony Yang",
-      "key": "anthony yang"
-    },
-    {
-      "side": "petitioner",
       "side_n": 5,
       "side_won": 5,
       "office": "osg",
@@ -2154,6 +2142,18 @@
       "office": "osg",
       "side_rate": 0.888888888888889,
       "side_lo": 0.56499378523194,
+      "name": "Anthony A. Yang",
+      "n_variants": 2,
+      "variants": "Anthony A. Yang / Anthony Yang",
+      "key": "anthony yang"
+    },
+    {
+      "side": "petitioner",
+      "side_n": 9,
+      "side_won": 8,
+      "office": "osg",
+      "side_rate": 0.888888888888889,
+      "side_lo": 0.56499378523194,
       "name": "Elizabeth B. Prelogar",
       "n_variants": 1,
       "variants": "Elizabeth B. Prelogar",
@@ -2170,30 +2170,6 @@
       "n_variants": 2,
       "variants": "Roman Martinez / Roman Martinez V",
       "key": "roman martinez"
-    },
-    {
-      "side": "petitioner",
-      "side_n": 18,
-      "side_won": 12,
-      "office": "osg",
-      "side_rate": 0.666666666666667,
-      "side_lo": 0.437490693442504,
-      "name": "Malcolm L. Stewart",
-      "n_variants": 1,
-      "variants": "Malcolm L. Stewart",
-      "key": "malcolm stewart"
-    },
-    {
-      "side": "petitioner",
-      "side_n": 6,
-      "side_won": 5,
-      "office": "osg",
-      "side_rate": 0.833333333333333,
-      "side_lo": 0.436490563436354,
-      "name": "Erica L. Ross",
-      "n_variants": 2,
-      "variants": "Erica L. Ross / Erica Ross",
-      "key": "erica ross"
     },
     {
       "side": "petitioner",
@@ -2221,6 +2197,18 @@
     },
     {
       "side": "petitioner",
+      "side_n": 17,
+      "side_won": 11,
+      "office": "osg",
+      "side_rate": 0.647058823529412,
+      "side_lo": 0.412999667212118,
+      "name": "Malcolm L. Stewart",
+      "n_variants": 1,
+      "variants": "Malcolm L. Stewart",
+      "key": "malcolm stewart"
+    },
+    {
+      "side": "petitioner",
       "side_n": 5,
       "side_won": 4,
       "office": "private",
@@ -2230,6 +2218,18 @@
       "n_variants": 1,
       "variants": "Allon Kedem",
       "key": "allon kedem"
+    },
+    {
+      "side": "petitioner",
+      "side_n": 5,
+      "side_won": 4,
+      "office": "osg",
+      "side_rate": 0.8,
+      "side_lo": 0.375528264118539,
+      "name": "Erica L. Ross",
+      "n_variants": 2,
+      "variants": "Erica L. Ross / Erica Ross",
+      "key": "erica ross"
     }
   ],
   "arg_respondent": [
@@ -2247,11 +2247,11 @@
     },
     {
       "side": "respondent",
-      "side_n": 15,
-      "side_won": 9,
+      "side_n": 14,
+      "side_won": 8,
       "office": "osg",
-      "side_rate": 0.6,
-      "side_lo": 0.357464427565077,
+      "side_rate": 0.571428571428571,
+      "side_lo": 0.325902669028694,
       "name": "Eric J. Feigin",
       "n_variants": 1,
       "variants": "Eric J. Feigin",
@@ -2331,11 +2331,11 @@
     },
     {
       "side": "respondent",
-      "side_n": 12,
+      "side_n": 13,
       "side_won": 4,
       "office": "osg",
-      "side_rate": 0.333333333333333,
-      "side_lo": 0.138117839897361,
+      "side_rate": 0.307692307692308,
+      "side_lo": 0.126804971616181,
       "name": "Elizabeth B. Prelogar",
       "n_variants": 1,
       "variants": "Elizabeth B. Prelogar",
@@ -2396,36 +2396,36 @@
       "office": "private",
       "side_rate": 0.2,
       "side_lo": 0.0362231609697875,
-      "name": "Shay Dvoretzky",
-      "n_variants": 1,
-      "variants": "Shay Dvoretzky",
-      "key": "shay dvoretzky"
-    },
-    {
-      "side": "respondent",
-      "side_n": 6,
-      "side_won": 1,
-      "office": "private",
-      "side_rate": 0.166666666666667,
-      "side_lo": 0.0300525858717303,
       "name": "Jeffrey L. Fisher",
       "n_variants": 1,
       "variants": "Jeffrey L. Fisher",
       "key": "jeffrey fisher"
+    },
+    {
+      "side": "respondent",
+      "side_n": 5,
+      "side_won": 1,
+      "office": "private",
+      "side_rate": 0.2,
+      "side_lo": 0.0362231609697875,
+      "name": "Shay Dvoretzky",
+      "n_variants": 1,
+      "variants": "Shay Dvoretzky",
+      "key": "shay dvoretzky"
     }
   ],
   "arg_rates": [
     {
       "side": "petitioner",
-      "arguments": 560,
-      "won": 411,
-      "rate": 0.733928571428571
+      "arguments": 556,
+      "won": 409,
+      "rate": 0.735611510791367
     },
     {
       "side": "respondent",
       "arguments": 489,
-      "won": 162,
-      "rate": 0.331288343558282
+      "won": 161,
+      "rate": 0.329243353783231
     }
   ],
   "totals": {
@@ -2442,10 +2442,10 @@
     "min_args": 5,
     "top_n": 25,
     "terms": "OT2017–2024",
-    "arguments": 1206,
-    "argued_cases": 461,
+    "arguments": 1188,
+    "argued_cases": 455,
     "arg_advocates": 472,
-    "arg_qualifying": 55,
+    "arg_qualifying": 54,
     "arg_board_n": 15,
     "arg_pet_qualifying": 27,
     "arg_res_qualifying": 19,
@@ -2454,6 +2454,6 @@
     "arg_to": "2026-01-12",
     "as_of": "2025-06-18"
   },
-  "fingerprint": "dfe70f9fb7f2cf61bf87c8dd58c3934e",
+  "fingerprint": "f198a3d947fa32e6ca5b379fe6f1f431",
   "generated": "2026-08-14"
 }

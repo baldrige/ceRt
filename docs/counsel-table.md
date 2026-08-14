@@ -196,9 +196,15 @@ runs for or against an amicus, and a *court-appointed* one is appointed precisel
 because no party will defend that position, so scoring the loss against them
 would be perverse.
 
-VIDED companions repeat the entry **verbatim**, so collapsing on the argued text
-is exact rather than a heuristic — 522 dockets are 461 arguments. Same correction
-as the caption collapse, same reason.
+VIDED companions repeat the entry, so collapsing on the argued text is exact
+rather than a heuristic — 522 dockets are 455 arguments. Same correction as the
+caption collapse, same reason.
+
+Collapse on the **squished** text. 21A240 and 21A241 carry the same entry
+differing by one double space after `D. C.`; exact matching left them as two
+arguments and double-counted all three advocates in them. Whitespace is not a
+distinction the Court is drawing, and normalising it merged six further pairs
+across the set.
 
 ### Why the win boards are split by side
 
@@ -218,11 +224,13 @@ board cannot.
 
 That is the whole test, and getting the grammar for it wrong was one-sided.
 
-| disposition | judgment below | scores for |
+| disposition | order below | scores for |
 | --- | --- | --- |
 | `Judgment REVERSED` / `VACATED` | fell | the petitioner |
 | `Judgment (is) AFFIRMED` | stood | the respondent |
 | `Appeal dismissed` (mandatory jurisdiction) | stood | the respondent |
+| application for a stay **granted** | fell | the applicant |
+| application for a stay **denied** | stood | the respondent |
 | split (`AFFIRMED as to No. 22-23; REVERSED as to No. 22-331`) | both | neither |
 | writ `DISMISSED as improvidently granted` | stood, undecided | neither |
 
@@ -240,6 +248,26 @@ the grammar itself:
   affirmance and the appellant has lost. 18-281 (*Virginia House of Delegates*)
   is that case — dismissed for want of standing, and a loss for the appellants
   it was previously not charged to.
+
+### Argued emergency applications
+
+Four arguments in the window were on the **emergency docket** (`NNA###`), which
+never reaches a merits judgment — but an application is granted or denied, and
+that is a win or a loss for whoever moved. `applicant` is the emergency docket's
+word for the petitioner's role, and `APPLICATION_RX` reads the disposition.
+
+Two traps, both live:
+
+- **Anchor on "application(s) for … stay", never on "granted".** These dockets
+  are thick with procedural grants — `Motion for divided argument filed by
+  respondents GRANTED` appears on nearly every one — and a bare granted/denied
+  test scores the argument-time allocation as the outcome.
+- **Gate the branch on the docket being an application.** 17 argued *certiorari*
+  cases carry an ancillary stay in their history (a stay of execution, a stay
+  pending cert) and every one of them also has a real merits judgment. Ungated,
+  the application branch fires first and replaces the outcome with the stay
+  ruling: *Glossip* (22-7466) would have been scored on `Application (22A941)
+  for stay of execution` rather than on `Judgment REVERSED`.
 
 A writ DIG'd is deliberately excluded even though the judgment below stands
 there too: the Court expressly declined to decide, and the convention in
