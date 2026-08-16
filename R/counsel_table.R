@@ -654,13 +654,42 @@ counsel_argument_boards <- function(app, min_args = COUNSEL_ARG_MIN) {
 
   # Same shadowing hazard as above: the rate is derived AFTER the summarise, from
   # the two counts, rather than as a third expression that reads `won`.
-  rates <- out |>
-    filter(side %in% c("petitioner", "respondent"), !is.na(won)) |>
+  scored <- out |> filter(side %in% c("petitioner", "respondent"), !is.na(won))
+  rates <- scored |>
     group_by(side) |>
     summarise(arguments = n(), won = sum(won), .groups = "drop") |>
     mutate(rate = won / arguments)
 
-  list(volume = volume, sides = sides, rates = rates)
+  # THE TWO RATES ABOVE DO NOT SUM TO 100%, AND THAT IS NOT AN ERROR.
+  #
+  # They are the right baselines for the boards -- an appearance-weighted board
+  # needs an appearance-weighted comparator -- but they are rates over two
+  # different populations, not two halves of one. Decomposed, the 106.3%:
+  #
+  #   one case, one outcome                       70.4% + 29.6% = 100.0%
+  #   + weighted by advocates per side            72.3% + 32.9% = 105.2%
+  #   + cases with no scored opponent             73.5% + 32.9% = 106.3%
+  #
+  # The weighting term is not noise: the side that wins brings more advocates to
+  # the lectern (1.34 vs 1.15 when the petitioner wins; 1.18 vs 1.29 when it
+  # loses), so both rates are pulled up together. The last term is the fourteen
+  # cases whose judgment below was defended by a COURT-APPOINTED AMICUS, who is
+  # deliberately unscored -- leaving a petitioner-side win with no counterpart.
+  #
+  # `case_rate` is the clean partition, published alongside so the page can state
+  # how often the Court actually reverses without implying the board baselines
+  # are halves of it.
+  cas <- scored |> group_by(case_id) |>
+    summarise(pet_won = any(won[side == "petitioner"]),
+              has_pet = any(side == "petitioner"),
+              has_res = any(side == "respondent"), .groups = "drop")
+  case_rates <- tibble(
+    cases = sum(cas$has_pet),
+    pet_won = sum(cas$pet_won & cas$has_pet),
+    rate = if (sum(cas$has_pet)) sum(cas$pet_won & cas$has_pet) / sum(cas$has_pet) else NA_real_,
+    no_opponent = sum(cas$has_pet & !cas$has_res))
+
+  list(volume = volume, sides = sides, rates = rates, case_rates = case_rates)
 }
 
 # Everything data/counsel_stats.json holds, as R objects.
@@ -731,6 +760,7 @@ counsel_stats_from <- function(pet, terms, fingerprint, app = NULL,
   # these carry their own name and are NOT joined to the petition frame.
   app <- if (is.null(app)) tibble() else app
   ab <- counsel_argument_boards(app, min_args = min_args)
+  cr <- if (nrow(ab$case_rates)) as.list(ab$case_rates[1, ]) else list()
   arg_cols <- function(d) if (!nrow(d)) tibble() else
     named(d) |> mutate(key = counsel_key) |> select(-counsel_key)
 
@@ -770,6 +800,9 @@ counsel_stats_from <- function(pet, terms, fingerprint, app = NULL,
       arg_advocates = if (nrow(app)) dplyr::n_distinct(app$counsel_key) else 0L,
       arg_qualifying = nrow(ab$volume),
       arg_board_n = COUNSEL_ARG_BOARD_N,
+      arg_case_rate = cr$rate %||% NA_real_,
+      arg_cases_scored = cr$cases %||% 0L,
+      arg_no_opponent = cr$no_opponent %||% 0L,
       arg_pet_qualifying = sum(ab$sides$side == "petitioner"),
       arg_res_qualifying = sum(ab$sides$side == "respondent"),
       # Arguments that reached a judgment the grammar recognised but could not be
@@ -1164,13 +1197,25 @@ render_counsel_page <- function(stats, out_dir) {
                    tags$div(class = "lab", "Arguing for the respondent"),
                    tags$div(class = "sub", paste0(.cn(an_of("respondent")), " arguments"))))),
         tags$p(class = "cnote2", HTML(smarten(paste0(
-          "The Court takes cases in order to reverse them, so which side of the ",
-          "&ldquo;v.&rdquo; an advocate stood on matters more than anything they ",
-          "said. A pooled ranking would mostly sort advocates by that, and its top ",
-          "would be the Solicitor General&rsquo;s office, which chooses the cases ",
-          "in which the United States petitions. So the record is split in two and ",
-          "each board is read against its own base rate above. The judgment below ",
-          "either stood or it did not: it stood on an affirmance and on a ",
+          "The Court takes cases in order to reverse them &mdash; case by case it ",
+          "did so in ", .cpct(tot$arg_case_rate, 0), " of the ",
+          .cn(tot$arg_cases_scored), " cases scored here &mdash; so which side ",
+          "of the &ldquo;v.&rdquo; an advocate stood on matters more than anything ",
+          "they said. A pooled ranking would mostly sort advocates by that, and its ",
+          "top would be the Solicitor General&rsquo;s office, which chooses the ",
+          "cases in which the United States petitions. So the record is split in two ",
+          "and each board is read against its own figure above.")))),
+        # The two figures are the right comparators for the boards, and they do
+        # not sum to 100. Saying so is not a caveat, it is the difference between
+        # a reader trusting the page and a reader finding the discrepancy alone.
+        tags$p(class = "cnote2", HTML(smarten(paste0(
+          "<strong>Those two figures do not add to 100%</strong>, because they are ",
+          "rates over arguments rather than two halves of one case. A side can send ",
+          "more than one advocate to the lectern, and the side that wins usually ",
+          "does; and in ", tot$arg_no_opponent, " cases the judgment below was ",
+          "defended by a court-appointed <em>amicus</em>, who has no client and is ",
+          "not scored, so the petitioner&rsquo;s win has no counterpart. The judgment ",
+          "below either stood or it did not: it stood on an affirmance and on a ",
           "dismissed appeal, it fell on a reversal or vacatur. ",
           tot$arg_unscored, " arguments ended in a split judgment or a writ ",
           "dismissed as improvidently granted and are scored for neither side.")))),
