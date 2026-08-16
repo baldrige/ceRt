@@ -226,6 +226,33 @@ outcome — *Knick v. Township of Scott* was argued twice and decided once.
 | the petitioner | 558 | 410 | **73.5%** |
 | the respondent | 490 | 161 | **32.9%** |
 
+### Those two rates do not sum to 100%, and that is not an error
+
+They are the right comparators for the boards — an appearance-weighted board
+needs an appearance-weighted baseline — but they are rates over two different
+populations, not two halves of one case. The 106.3% decomposes exactly:
+
+| | petitioner | respondent | sum |
+| --- | ---: | ---: | ---: |
+| one case, one outcome (426 cases) | 70.4% | 29.6% | **100.0%** |
+| + weighted by advocates per side | 72.3% | 32.9% | 105.2% |
+| + cases with no scored opponent | **73.5%** | **32.9%** | **106.3%** |
+
+The weighting term is not noise. **The side that wins brings more advocates to
+the lectern** — 1.34 against 1.15 when the petitioner prevails, 1.18 against 1.29
+when it does not — so both rates are pulled up together.
+
+The last term is the **14 cases whose judgment below was defended by a
+court-appointed amicus**, who is deliberately unscored (no client, and appointed
+precisely because no party would take the position). The petitioner-side win in
+those has no counterpart on the other board.
+
+`case_rates` carries the clean partition so the page can state how often the
+Court actually reverses — 70.4% — without implying the board baselines are
+halves of it. The page says in terms that the two do not add to 100 and why: a
+reader who finds that discrepancy unaided has been given a reason to distrust
+every other number on the page.
+
 **The Court takes cases in order to reverse them.** Which side of the "v." an
 advocate stood on therefore matters more than anything they said, and a pooled
 "success at argument" ranking would largely sort advocates by that — with the

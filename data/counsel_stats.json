@@ -2448,6 +2448,9 @@
     "arg_advocates": 473,
     "arg_qualifying": 54,
     "arg_board_n": 15,
+    "arg_case_rate": 0.704225352112676,
+    "arg_cases_scored": 426,
+    "arg_no_opponent": 14,
     "arg_pet_qualifying": 27,
     "arg_res_qualifying": 20,
     "arg_unscored": 17,
@@ -2455,6 +2458,6 @@
     "arg_to": "2026-01-12",
     "as_of": "2025-06-18"
   },
-  "fingerprint": "34655923315e8f81f988a5904d1861de",
-  "generated": "2026-08-14"
+  "fingerprint": "8e6bf6caddd335edb77a521b332d19c5",
+  "generated": "2026-08-15"
 }
