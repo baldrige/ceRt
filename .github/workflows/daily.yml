@@ -46,10 +46,8 @@ jobs:
           ref: gh-pages
           path: site
 
-      - name: Install system dependencies (poppler + tesseract for pdftools/OCR)
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y libpoppler-cpp-dev libtesseract-dev tesseract-ocr libcurl4-openssl-dev
+      - name: System dependencies (poppler + tesseract for pdftools/OCR)
+        uses: ./.github/actions/system-deps
 
       - name: Setup R
         uses: r-lib/actions/setup-r@v2
