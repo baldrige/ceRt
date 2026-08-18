@@ -482,9 +482,18 @@ scotus_dash <- function(range = today() - 1, year = "26",
       strip_caption_roles(hits$caption),
       hits$dkt),
     Grant = unname(grant_map[hits$dkt]),
+    # No str_trunc(30) -- the same call the conference reports already dropped,
+    # for the same reason. A truncated court name loses exactly the part that
+    # distinguishes it: at 30 characters "Court of Appeal of California, Second
+    # Appellate District" and its First, Third, Fourth and Sixth siblings all
+    # render as the identical "Court of Appeal of Californ...", and the
+    # ellipsis is not recoverable by hovering, sorting or searching, because the
+    # truncation happens before the value ever reaches the page. It bit 12.4% of
+    # rows in OT2024 -- state courts almost exclusively, since the federal
+    # circuits are shortened to "Ninth Circuit" and fit. The column wraps
+    # instead; two lines cost less than a lost name.
     Court = str_replace(coalesce(hits$lower, "—"),
-              "^United States Court of Appeals for the (.+?Circuit)$", "\\1") |>
-              str_trunc(30),
+              "^United States Court of Appeals for the (.+?Circuit)$", "\\1"),
     Counsel = map_chr(hits$parties, petitioner_counsel_html),
     Documents = map_chr(hits$events, function(e)
                   case_documents(e, c("Petition", "Application", "Appendix"))),
@@ -518,7 +527,10 @@ scotus_dash <- function(range = today() - 1, year = "26",
     # Type holds three short words and was sized by its header, not its data.
     # Case gains the 10px the docket line needs. Both match the conference
     # reports, which is the point -- the two tables show the same kind of row.
-    cols_width(Case ~ px(230), Type ~ px(76), QP ~ px(190))
+    # Court needs an explicit width now that it is no longer truncated: without
+    # one it sizes to its longest value, and a 73-character court name widens the
+    # table instead of wrapping inside it. 160px is the conference reports' width.
+    cols_width(Case ~ px(230), Type ~ px(76), Court ~ px(160), QP ~ px(190))
   if (has_grant) {
     t <- t |>
       fmt_percent(columns = Grant, decimals = 0) |>
