@@ -1,0 +1,66 @@
+name: System dependencies
+description: >-
+  Install the poppler/tesseract/curl headers that pdftools and the QP OCR path
+  need, bounded by timeouts and retries so a stalled Ubuntu mirror fails fast
+  instead of hanging the job.
+
+inputs:
+  packages:
+    description: Space-separated apt packages to install.
+    required: false
+    default: libpoppler-cpp-dev libtesseract-dev tesseract-ocr libcurl4-openssl-dev
+
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      env:
+        PACKAGES: ${{ inputs.packages }}
+      run: |
+        set -euo pipefail
+
+        # Every apt call is wrapped in timeout(1), and that is the load-bearing
+        # part -- not the Acquire::*::Timeout options below.
+        #
+        # On 2026-08-18 the daily hung here for 2h31m. azure.archive.ubuntu.com
+        # (the runner image's default mirror) went unreachable, apt fell back to
+        # archive.ubuntu.com, and that connection stalled part-way through
+        # noble-security/InRelease. Acquire::http::Timeout never fired: the
+        # socket stayed open and simply stopped delivering bytes, which apt does
+        # not count as a timeout. Only an external clock ends that state.
+        #
+        # It ran 2h31m rather than failing because nothing bounded it -- and
+        # composite action steps cannot set timeout-minutes, so the bound has to
+        # live in here. Worst case now is ~22 min (3 x 120s update + 3 x 300s
+        # install + backoff) against GitHub's 6-hour job limit.
+        APT_OPTS=(
+          -o Acquire::Retries=3
+          -o Acquire::http::Timeout=30
+          -o Acquire::https::Timeout=30
+          # Guards the other known hang: the image's unattended-upgrades timer
+          # holding the dpkg lock, which apt otherwise waits on forever.
+          -o DPkg::Lock::Timeout=120
+        )
+
+        apt_run() {  # apt_run <timeout-seconds> <apt-get args...>
+          local secs="$1"; shift
+          local verb="$1"
+          local attempt
+          for attempt in 1 2 3; do
+            if sudo timeout "$secs" apt-get "$@" "${APT_OPTS[@]}"; then
+              return 0
+            fi
+            if [ "$attempt" = 3 ]; then
+              echo "::error::apt-get ${verb} failed or stalled on all 3 attempts"
+              return 1
+            fi
+            echo "::warning::apt-get ${verb} failed or stalled (attempt ${attempt}/3); retrying"
+            sleep $((attempt * 15))
+          done
+        }
+
+        apt_run 120 update
+        # PACKAGES is deliberately unquoted: it word-splits into one argument
+        # per package.
+        # shellcheck disable=SC2086
+        apt_run 300 install -y $PACKAGES
