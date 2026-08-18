@@ -53,6 +53,53 @@ A compact legend renders under the "Proceedings" heading **only** on pages that
 carry at least one colored dot. Colors are defined as CSS custom properties in
 `DOCKET_CSS` and applied per entry via an inline `--dot` variable.
 
+### Direct appeals: the jurisdictional statement is the petition
+
+A case that reaches the Court on **direct appeal** (28 U.S.C. § 1253, from a
+three-judge district court) has no petition for certiorari. It opens with a
+**jurisdictional statement**, and that document plays every role the petition
+plays: it carries the Questions Presented, it is what gets distributed for
+conference, Rule 33.1(g) prints it on the same white cover, and "PROBABLE
+JURISDICTION NOTED" is its grant. So everywhere this codebase reaches for "the
+petition" — the QP scrape, the Rule 10 signals, the case-page document link, the
+timeline dot — an appeal's jurisdictional statement stands in for it.
+
+These are rare but steady: **34 of the 48,985 cases** in the 2017–2024 archive,
+three to nine a Term, and almost all redistricting or apportionment (Rucho,
+Lamone v. Benisek, Trump v. New York, FEC v. Cruz, Alexander, Callais). Before
+v20 they resolved no opening document at all.
+
+**The docket labels the appeal twice and the two labels disagree** — this is the
+whole trap:
+
+| where | wording | count |
+| --- | --- | --- |
+| link description (`docs_*`) | `Jurisdictional Statement` | 29 of 30 linked |
+| proceedings text | `Statement as to jurisdiction filed.` | 34 of 34 |
+
+Matching the *text* against `^jurisdictional statement` therefore finds nothing,
+which is exactly what `brief_cover()` did until v20 — the branch was there, and
+matched zero entries in eight Terms, so every appeal's opening filing rendered as
+a hollow procedural dot.
+
+URL resolution is `find_opening_doc_url()` in `R/qp_extract.R` (aliased by
+`conference_dash.R` and `argument_nav.R`, mirrored against the raw JSON in
+`scotus_dash_new.R`). It runs **two separate full passes** — every row scanned for
+a `^Petition` description, then every row for `^Jurisdictional Statement` — rather
+than one pass testing both per row, so a petition anywhere on the docket still
+outranks a jurisdictional statement in an earlier row and no cert case changes.
+A final text-keyed fallback catches the one appeal whose statement is described
+only as a generic `Main Document`.
+
+Two cases are worth knowing about because they look like bugs and are not:
+
+- **21-1086** (Merrill v. Milligan) resolves an *application booklet*, because the
+  Court treated a stay application as the jurisdictional statement and the docket
+  links that description to the booklet. It has no QP heading, so the QP is `—`.
+  The code is following the docket correctly.
+- **18-247** is a genuine *certiorari* petition whose link the clerk described as
+  "Jurisdictional Statement". It never resolved before v20; now it does.
+
 ### Cert-stage vs merits split — `granted_on`
 
 `granted_on` is the cert-grant date, detected from the docket. Entries before it

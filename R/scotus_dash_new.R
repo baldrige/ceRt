@@ -252,14 +252,35 @@ build_events <- function(po) {
   })
 }
 
-# Direct URL of the petition PDF (for the question-presented extraction).
+# Direct URL of the petition PDF (for the question-presented extraction) -- or,
+# on a direct appeal, of the jurisdictional statement that stands in for it. Same
+# preference order and same rationale as find_opening_doc_url() in qp_extract.R,
+# but against the RAW docket JSON (a Links data frame per row) rather than the
+# flattened docs_*/links_* events tibble, so the traversal cannot be shared; only
+# the patterns are.
 find_petition_url <- function(po) {
   if (is.null(po) || !is.data.frame(po) || !("Links" %in% names(po))) return(NA_character_)
+  by_desc <- function(rx) {
+    for (i in seq_len(nrow(po))) {
+      lk <- po$Links[[i]]
+      if (is.data.frame(lk) && nrow(lk) > 0) {
+        hit <- which(!is.na(lk$Description) & str_detect(lk$Description, rx))
+        if (length(hit) > 0 && !is.na(lk$DocumentUrl[hit[1]])) return(lk$DocumentUrl[hit[1]])
+      }
+    }
+    NA_character_
+  }
+  u <- by_desc(PETITION_DOC_RE); if (!is.na(u)) return(u)
+  u <- by_desc(JS_DOC_RE);       if (!is.na(u)) return(u)
+  # The appeal whose statement is described only as a generic "Main Document".
+  if (!("Text" %in% names(po))) return(NA_character_)
   for (i in seq_len(nrow(po))) {
+    t <- po$Text[i]
+    if (is.na(t) || !str_detect(t, JS_FILED_RE)) next
     lk <- po$Links[[i]]
     if (is.data.frame(lk) && nrow(lk) > 0) {
-      hit <- which(!is.na(lk$Description) & str_detect(lk$Description, "^Petition"))
-      if (length(hit) > 0) return(lk$DocumentUrl[hit[1]])
+      u <- lk$DocumentUrl[!is.na(lk$DocumentUrl)]
+      if (length(u) > 0) return(u[1])
     }
   }
   NA_character_

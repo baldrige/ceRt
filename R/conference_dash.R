@@ -27,6 +27,11 @@ local({
   }
   sys.source(find("page_style.R"), envir = globalenv())
   sys.source(find("interactive_theme.R"), envir = globalenv())
+  # find_opening_doc_url(). Named rather than relied on transitively:
+  # run_conferences.R sources only this file, so a transitive dependency would
+  # break there and nowhere else -- the same trap that cost three render entry
+  # points the GVR line.
+  sys.source(find("qp_extract.R"), envir = globalenv())
 })
 
 CONF_PATTERN <- regex(
@@ -46,23 +51,11 @@ derive_case_type <- function(dkt) {
   )
 }
 
-# URL of the petition-for-certiorari PDF from a case's events. Handles both the
-# historical scrape (Document_*/links_* columns) and the JSON build_events()
-# layout (docs_*/links_*), where description column N pairs with link column N.
-find_petition_url <- function(events) {
-  if (!is.data.frame(events) || nrow(events) == 0) return(NA_character_)
-  desc_cols <- str_subset(names(events), "^(docs_|Document_)")
-  link_cols <- str_subset(names(events), "^links_")
-  if (length(desc_cols) == 0 || length(link_cols) == 0) return(NA_character_)
-  for (i in seq_len(nrow(events))) {
-    descs <- unlist(events[i, desc_cols], use.names = FALSE)
-    links <- unlist(events[i, link_cols], use.names = FALSE)
-    hit <- which(!is.na(descs) & str_detect(descs, regex("^Petition", ignore_case = TRUE)))
-    hit <- hit[hit <= length(links)]
-    if (length(hit) > 0 && !is.na(links[hit[1]])) return(links[hit[1]])
-  }
-  NA_character_
-}
+# URL of the petition-for-certiorari PDF from a case's events -- or, for a direct
+# appeal, of the jurisdictional statement that stands in for it. Thin alias; the
+# canonical implementation lives in qp_extract.R, which this file now sources,
+# because an identical copy also lived in argument_nav.R and the two would drift.
+find_petition_url <- function(events) find_opening_doc_url(events)
 
 # The conference dates one case's events were distributed for (sorted, unique).
 # Thin alias. The canonical implementation lives in cert_funnel.R so that

@@ -176,7 +176,14 @@ write_docket_css <- function(out_dir) {
 # corrected brief re-appears under its own entry, so counting both double-counts.
 # v19: feed autodiscovery in the <head>. A markup change, so it bumps -- roll it
 # with rerender-dockets.yml (reuse_from_runs, ~20 min, no re-fetch).
-PAGE_TEMPLATE_VERSION <- "v19"
+# v20: direct appeals. Their jurisdictional statement now fills the petition slot
+# (document link + QP + Rule 10 signals) and its docket entry takes the white
+# petition cover instead of rendering hollow. Only ~34 pages in the whole
+# back-catalogue change, but the bump is still the right call: `qp` and `sig` are
+# in the manifest key, so without it those pages would re-render one at a time as
+# their QP cache happened to refill -- some appeals fixed, some not, for as long
+# as the caps took. Roll it with rerender-dockets.yml (reuse_from_runs).
+PAGE_TEMPLATE_VERSION <- "v20"
 
 # ---- small helpers ------------------------------------------------------------
 .esc <- function(x) { x <- x %||% ""; x[is.na(x)] <- ""; htmltools::htmlEscape(x) }
@@ -261,12 +268,25 @@ brief_cover <- function(text, granted_on = as.Date(NA), entry_date = as.Date(NA)
   if (has("^reply\\b"))
     return(cov("tan", "Reply to brief in opposition"))
   # The petition itself (and its jurisdictional-statement / extraordinary-writ
-  # cousins). Guarded on "filed" so a granted/denied ORDER line stays procedural.
+  # cousins), all three white under Rule 33.1(g). Guarded on "filed" so a
+  # granted/denied ORDER line stays procedural.
+  #
+  # "^statement as to jurisdiction" is how the Court actually words a direct
+  # appeal's opening filing; "^jurisdictional statement" is how this code assumed
+  # it did, and matched 0 of the 34 appeals in the 2017-2024 archive, so their
+  # opening filing has always rendered as a hollow procedural dot. The wrong
+  # pattern is kept because it costs nothing and the docket's wording is not
+  # guaranteed uniform.
   if (has("filed") && !has("rehearing") &&
       (has("^petition for (a )?writ of certiorari") ||
+       has("^statement as to jurisdiction") ||
        has("^jurisdictional statement") ||
-       has("^petition for an? extraordinary writ")))
-    return(cov("white", "Petition for certiorari"))
+       has("^petition for an? extraordinary writ"))) {
+    # Same cover, but name the document the reader is hovering over. The legend
+    # is keyed on the colour ("Petition"), not on this label, so it stays true.
+    js <- has("^statement as to jurisdiction") || has("^jurisdictional statement")
+    return(cov("white", if (js) "Jurisdictional statement" else "Petition for certiorari"))
+  }
   # Fixed tan (checked before the merits briefs so a "supplemental brief of
   # petitioner" isn't mistaken for the merits opener).
   if (has("joint appendix") || has("supplemental brief") || has("petition for rehearing"))

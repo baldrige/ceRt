@@ -156,6 +156,73 @@ get_qp <- function(url) {
   extract_qp(url)
 }
 
+# ---- the operative opening document ------------------------------------------
+# Most cases open with a petition for a writ of certiorari. A DIRECT APPEAL --
+# 28 U.S.C. 1253, from a three-judge district court -- opens with a
+# JURISDICTIONAL STATEMENT instead, and that document plays every role the
+# petition plays: it carries the Questions Presented, it is what the Court
+# distributes for conference, Rule 33.1(g) prints it on the same white cover, and
+# "PROBABLE JURISDICTION NOTED" is its grant. So wherever this codebase reaches
+# for "the petition", an appeal's jurisdictional statement stands in for it.
+#
+# These are rare but steady: 34 of the 48,985 cases in the 2017-2024 archive,
+# three to nine a Term. Before this they resolved NO opening document at all --
+# no QP, no Rule 10 signals, no document link on the case page.
+#
+# Two different keys are needed, because the docket labels the appeal twice and
+# the two labels do not agree:
+#   the LINK is described "Jurisdictional Statement"   (29 of 30 in the archive)
+#   the TEXT reads       "Statement as to jurisdiction filed."  (34 of 34)
+# Matching the text against "^jurisdictional statement" therefore finds nothing;
+# that is a live bug in docket_page.R, fixed alongside this.
+PETITION_DOC_RE <- regex("^Petition", ignore_case = TRUE)
+JS_DOC_RE       <- regex("^Jurisdictional\\s+Statement", ignore_case = TRUE)
+JS_FILED_RE     <- regex("^Statement as to jurisdiction filed", ignore_case = TRUE)
+
+# URL of a case's opening document from its `events` tibble -- the petition if
+# there is one, otherwise the jurisdictional statement. Handles both the
+# historical scrape (Document_*/links_*) and the JSON build_events() layout
+# (docs_*/links_*), where description column N pairs with link column N.
+#
+# The petition and jurisdictional-statement scans are two separate FULL passes,
+# deliberately, rather than one pass testing both patterns per row: a petition
+# anywhere on the docket must still win over a jurisdictional statement in an
+# earlier row, so that every cert case resolves exactly the URL it did before
+# appeals were handled at all. Verified against all 48,985 archived cases.
+find_opening_doc_url <- function(events) {
+  if (!is.data.frame(events) || nrow(events) == 0) return(NA_character_)
+  desc_cols <- str_subset(names(events), "^(docs_|Document_)")
+  link_cols <- str_subset(names(events), "^links_")
+  if (length(desc_cols) == 0 || length(link_cols) == 0) return(NA_character_)
+
+  by_desc <- function(rx) {
+    for (i in seq_len(nrow(events))) {
+      descs <- unlist(events[i, desc_cols], use.names = FALSE)
+      links <- unlist(events[i, link_cols], use.names = FALSE)
+      hit <- which(!is.na(descs) & str_detect(descs, rx))
+      hit <- hit[hit <= length(links)]
+      if (length(hit) > 0 && !is.na(links[hit[1]])) return(links[hit[1]])
+    }
+    NA_character_
+  }
+  u <- by_desc(PETITION_DOC_RE); if (!is.na(u)) return(u)
+  u <- by_desc(JS_DOC_RE);       if (!is.na(u)) return(u)
+
+  # Last resort: the appeal whose jurisdictional statement is described only as a
+  # generic "Main Document" (1 of the 30 linked appeals in the archive). The
+  # description is useless there, so identify the filing by its docket text and
+  # take that entry's first link.
+  if (!("Proceedings and Orders" %in% names(events))) return(NA_character_)
+  txt <- events[["Proceedings and Orders"]]
+  for (i in seq_len(nrow(events))) {
+    if (is.na(txt[i]) || !str_detect(txt[i], JS_FILED_RE)) next
+    links <- unlist(events[i, link_cols], use.names = FALSE)
+    links <- links[!is.na(links)]
+    if (length(links) > 0) return(links[1])
+  }
+  NA_character_
+}
+
 # A cached "QP" that is really the cover-page counsel block -- the pre-fix
 # extractor's failure mode when counsel overflowed onto page 2 and pushed the
 # real QP to page 3. It carries law-firm / attorney markers and none of the
