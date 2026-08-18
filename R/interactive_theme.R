@@ -96,9 +96,23 @@ case_documents <- function(ev, kinds) {
   txt <- ev[["Proceedings and Orders"]] %||% rep("", nrow(ev))
   main_url <- function(i) { ls <- unlist(ev[i, lcols], use.names = FALSE); ls[which(!is.na(ls))][1] }
   found <- character()
+  # Link text per slot, defaulting to the slot name. Only the petition slot
+  # currently differs from its name: a direct appeal fills it with a
+  # jurisdictional statement, and labelling that "Petition" would misname the
+  # document the reader is about to open.
+  labs <- character()
   for (i in seq_len(nrow(ev))) {
     t <- txt[i] %||% ""
-    if ("Petition" %in% kinds && str_detect(t, "^Petition for a writ of certiorari")) { u <- main_url(i); if (!is.na(u)) found["Petition"] <- u }
+    if ("Petition" %in% kinds && str_detect(t, "^Petition for a writ of certiorari")) { u <- main_url(i); if (!is.na(u)) { found["Petition"] <- u; labs["Petition"] <- "Petition" } }
+    # A direct appeal (28 U.S.C. 1253) opens with a jurisdictional statement
+    # instead. The docket text is "Statement as to jurisdiction filed." -- note
+    # it is NOT "Jurisdictional statement filed", which matches nothing. Guarded
+    # on the slot being empty so the first (filed) statement wins over any later
+    # amended or supplemental one.
+    if ("Petition" %in% kinds && is.na(found["Petition"]) &&
+        str_detect(t, regex("^Statement as to jurisdiction filed", ignore_case = TRUE))) {
+      u <- main_url(i); if (!is.na(u)) { found["Petition"] <- u; labs["Petition"] <- "Jurisdictional Statement" }
+    }
     # Applications (26A#) file an "Application (…)" whose link is a generic "Main
     # Document"; match the proceeding text and keep the FIRST one with a link (the
     # filed application, not a later order/response).
@@ -113,7 +127,9 @@ case_documents <- function(ev, kinds) {
   }
   found <- found[intersect(kinds, names(found))]
   if (!length(found)) return("—")
-  paste(sprintf("<a href='%s' target='_blank'>%s</a>", found, names(found)), collapse = "<br>")
+  lab <- unname(labs[names(found)])
+  lab[is.na(lab)] <- names(found)[is.na(lab)]
+  paste(sprintf("<a href='%s' target='_blank'>%s</a>", found, lab), collapse = "<br>")
 }
 
 # Petitioner's counsel of record as "Name<br>Firm" from the JSON parties tibble.

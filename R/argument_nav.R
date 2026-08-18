@@ -32,6 +32,7 @@ local({
   sys.source(find("cert_funnel.R"), envir = globalenv())
   sys.source(find("page_style.R"), envir = globalenv())
   sys.source(find("interactive_theme.R"), envir = globalenv())
+  sys.source(find("qp_extract.R"), envir = globalenv())   # find_opening_doc_url()
 })
 
 # ---- argument-stage classification --------------------------------------------
@@ -124,22 +125,12 @@ extract_advocates <- function(argued_text) {
   str_trunc(paste(unique(str_squish(segs[, 2])), collapse = " · "), 70)
 }
 
-# Petition-for-certiorari URL from a case's events (handles both the historical
-# scrape's Document_*/links_* and the JSON build_events() docs_*/links_* layouts).
-arg_petition_url <- function(events) {
-  if (!is.data.frame(events) || nrow(events) == 0) return(NA_character_)
-  desc_cols <- str_subset(names(events), "^(docs_|Document_)")
-  link_cols <- str_subset(names(events), "^links_")
-  if (length(desc_cols) == 0 || length(link_cols) == 0) return(NA_character_)
-  for (i in seq_len(nrow(events))) {
-    descs <- unlist(events[i, desc_cols], use.names = FALSE)
-    links <- unlist(events[i, link_cols], use.names = FALSE)
-    hit <- which(!is.na(descs) & str_detect(descs, regex("^Petition", ignore_case = TRUE)))
-    hit <- hit[hit <= length(links)]
-    if (length(hit) > 0 && !is.na(links[hit[1]])) return(links[hit[1]])
-  }
-  NA_character_
-}
+# Petition-for-certiorari URL from a case's events -- or, for a direct appeal,
+# the jurisdictional statement standing in for it. Thin alias; see
+# find_opening_doc_url() in qp_extract.R. This was a byte-for-byte copy of
+# conference_dash.R's find_petition_url(), which is why neither learned about
+# appeals when the other did.
+arg_petition_url <- function(events) find_opening_doc_url(events)
 
 # ---- oral-argument media (transcript + audio) ---------------------------------
 # The docket JSON does not carry the argument transcript/audio, but supremecourt
