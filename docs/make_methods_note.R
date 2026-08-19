@@ -86,9 +86,10 @@ style_css <- "<style>
      wider than the 40rem index and 44rem funnel text columns it sits above.
      Overhanging the column is the site design, not a defect to correct here.
 
-     The letter sheet is not lost, only moved: @media print below restores the
-     compact measures, so the note still prints as the one-pager it was built
-     to be. */
+     There is no two-column layout any more, on screen or on paper. It was the
+     only one in the codebase, it was print furniture, and at web measures it
+     read as cramped. @media print keeps the compact type; it no longer keeps
+     the one-page sheet, which the columns were what made possible. */
   @ROOT@
   *{box-sizing:border-box} html{-webkit-text-size-adjust:100%}
   body{font-family:'Newsreader',Georgia,serif;color:var(--ink);background:var(--paper);
@@ -104,8 +105,7 @@ style_css <- "<style>
     color:var(--accent);margin:2.2rem 0 .6rem;border-bottom:1px solid var(--rule);
     padding-bottom:.25rem}
   p{margin:0 0 .9rem}
-  .grid{display:block}
-  ul{margin:0 0 .9rem;padding-left:1.15rem} li{margin:.35rem 0}
+    ul{margin:0 0 .9rem;padding-left:1.15rem} li{margin:.35rem 0}
   table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;
     margin:.8rem 0 1rem;font-size:.95rem}
   th,td{text-align:right;padding:.4rem .5rem;border-bottom:1px solid var(--rule)}
@@ -115,16 +115,13 @@ style_css <- "<style>
   .note{font-size:.95rem;line-height:1.5;color:var(--ink-soft);font-style:italic}
   figure{margin:1rem 0;text-align:center} figure img{width:100%;max-width:26rem}
   figcaption{font-size:.85rem;line-height:1.45;color:var(--faint);margin-top:.4rem}
-  .fig-wrap{display:block}
-  footer{margin-top:2.4rem;border-top:2px solid var(--ink);padding-top:.7rem;
+    footer{margin-top:2.4rem;border-top:2px solid var(--ink);padding-top:.7rem;
     font-size:.9rem;line-height:1.5;color:var(--ink-soft)}
   b,.stat{color:var(--accent)}
-  /* The two-column .grid and the figure pair are PRINT layout, restored in the
-     print block below. Holding them on screen would set body prose about 40
-     characters to the line inside a 44rem column; letting them run full width
-     gives roughly 65, which is the measure the rest of the site reads at. */
   @media(max-width:38rem){ h1{font-size:2rem} }
-  /* The original letter sheet, restored for paper only. */
+  /* Compact measures for paper. This no longer prints as a single sheet: the
+     two-column layout that made it fit is gone from the document entirely, so
+     print is the same single column as screen, just tighter. */
   @page{size:letter;margin:.4in}
   @media print{
     body{background:#fff;font-size:10.5pt;line-height:1.4}
@@ -133,8 +130,6 @@ style_css <- "<style>
     .dek{font-size:11pt;margin:.1rem 0 .5rem}
     h2{font-size:11pt;margin:.5rem 0 .2rem}
     p{margin:.2rem 0} li{margin:.12rem 0} ul{margin:.2rem 0}
-    .grid{display:grid;grid-template-columns:1fr 1fr;gap:0 1.3rem}
-    .fig-wrap{display:grid;grid-template-columns:1.1fr 1fr;gap:1.3rem;align-items:center}
     table{font-size:inherit;margin:.3rem 0} th,td{padding:2px 5px}
     thead th{font-size:8.5pt}
     .note{font-size:9pt} figcaption{font-size:8.5pt} figure img{max-width:3.7in}
@@ -153,54 +148,38 @@ html <- sprintf('<!DOCTYPE html><html lang="en"><head><script async src="/analyt
 <h1>Predicting the Probability of Certiorari</h1>
 <p class="dek">Three calibrated models estimating whether a <i>paid</i> petition will be granted plenary review.</p>
 
-<div class="grid">
-  <div>
-    <h2>The models</h2>
-    <p><b>Baseline</b> &mdash; grant probability from case structure known at filing (shown on the daily petition dashboards). <b>Enhanced</b> &mdash; adds docket-development signals (conference reports). <b>GVR</b> &mdash; the companion &ldquo;hold&rdquo; risk of a grant-vacate-remand. IFP petitions (grant rate ~0.1%%) are a separate regime and excluded.</p>
-    <h2>Data &amp; target</h2>
-    <p>Eight Terms, OT2017&ndash;OT2024: <b>%s paid petitions</b>, of which <b>%s were granted</b>. Target is plenary <i>granted</i> vs. <i>denied</i>; GVRs, dismissals, and pending petitions are excluded from training. Every docket-development feature is snapshotted <i>strictly before</i> the decision date &mdash; leakage-safe.</p>
-    <h2>Method</h2>
-    <p>Logistic regression, Platt-calibrated. Validated <b>leave-one-term-out</b>: each Term is scored by a model trained on the other seven, and the calibration map is fitted out-of-fold. That is out-of-<i>fold</i>, not out-of-time — a rolling-origin check (train only on earlier Terms) reproduces it to within 0.003 AUC.</p>
-  </div>
-  <div>
-    <h2>Validation (leave-one-term-out)</h2>
-    <table><thead><tr><th>Model</th><th>Base rate</th><th>AUC</th><th>Avg.&nbsp;prec.</th><th>Brier</th></tr></thead><tbody>
-      %s%s%s
-    </tbody></table>
-    <p class="note"><b>AUC</b> &mdash; chance the model ranks a random grant above a random denial. <b>Avg. precision</b> is the imbalance-aware metric (baseline %.3f vs. a %s base rate &asymp; %.1f&times; chance). <b>Brier</b> &mdash; the reference is a constant forecast at each model&rsquo;s own base rate, %s, %s and %s; all three beat it. Accuracy is meaningless at a %s base rate.</p>
-  </div>
-</div>
+  <h2>The models</h2>
+  <p><b>Baseline</b> &mdash; grant probability from case structure known at filing (shown on the daily petition dashboards). <b>Enhanced</b> &mdash; adds docket-development signals (conference reports). <b>GVR</b> &mdash; the companion &ldquo;hold&rdquo; risk of a grant-vacate-remand. IFP petitions (grant rate ~0.1%%) are a separate regime and excluded.</p>
+  <h2>Data &amp; target</h2>
+  <p>Eight Terms, OT2017&ndash;OT2024: <b>%s paid petitions</b>, of which <b>%s were granted</b>. Target is plenary <i>granted</i> vs. <i>denied</i>; GVRs, dismissals, and pending petitions are excluded from training. Every docket-development feature is snapshotted <i>strictly before</i> the decision date &mdash; leakage-safe.</p>
+  <h2>Method</h2>
+  <p>Logistic regression, Platt-calibrated. Validated <b>leave-one-term-out</b>: each Term is scored by a model trained on the other seven, and the calibration map is fitted out-of-fold. That is out-of-<i>fold</i>, not out-of-time — a rolling-origin check (train only on earlier Terms) reproduces it to within 0.003 AUC.</p>
+  <h2>Validation (leave-one-term-out)</h2>
+  <table><thead><tr><th>Model</th><th>Base rate</th><th>AUC</th><th>Avg.&nbsp;prec.</th><th>Brier</th></tr></thead><tbody>
+    %s%s%s
+  </tbody></table>
+  <p class="note"><b>AUC</b> &mdash; chance the model ranks a random grant above a random denial. <b>Avg. precision</b> is the imbalance-aware metric (baseline %.3f vs. a %s base rate &asymp; %.1f&times; chance). <b>Brier</b> &mdash; the reference is a constant forecast at each model&rsquo;s own base rate, %s, %s and %s; all three beat it. Accuracy is meaningless at a %s base rate.</p>
 
-<div class="fig-wrap">
-  <figure><img src="%s" alt="Calibration plot: predicted vs observed grant rate by decile">
-    <figcaption>Predicted vs. observed grant rate by risk decile. Point size &prop; petitions in the bin.</figcaption></figure>
-  <div>
-    <h2>What drives the estimate</h2>
-    <ul>
-      <li><b>U.S. as petitioner</b> (the Solicitor General): ~43%% granted vs. 3.7%% &mdash; the largest structural cue.</li>
-      <li><b>Relists</b> (enhanced): non-monotonic &mdash; ~1%% at zero, ~20%% at one, ~44%% at two, falling to ~19%% at 5+ (the &ldquo;hold&rdquo; zone). Modeled as a bucket, not a line.</li>
-      <li><b>Rule&nbsp;10 dissent / circuit split</b>, parsed from the petition PDF.</li>
-      <li><b>Counsel track record</b> — prior petitions and prior wins, counted strictly before this petition was docketed.</li>
-      <li><b>Court below</b>: federal circuits far above state courts.</li>
-    </ul>
-  </div>
-</div>
+<figure><img src="%s" alt="Calibration plot: predicted vs observed grant rate by decile">
+  <figcaption>Predicted vs. observed grant rate by risk decile. Point size &prop; petitions in the bin.</figcaption></figure>
+  <h2>What drives the estimate</h2>
+  <ul>
+    <li><b>U.S. as petitioner</b> (the Solicitor General): ~43%% granted vs. 3.7%% &mdash; the largest structural cue.</li>
+    <li><b>Relists</b> (enhanced): non-monotonic &mdash; ~1%% at zero, ~20%% at one, ~44%% at two, falling to ~19%% at 5+ (the &ldquo;hold&rdquo; zone). Modeled as a bucket, not a line.</li>
+    <li><b>Rule&nbsp;10 dissent / circuit split</b>, parsed from the petition PDF.</li>
+    <li><b>Counsel track record</b> — prior petitions and prior wins, counted strictly before this petition was docketed.</li>
+    <li><b>Court below</b>: federal circuits far above state courts.</li>
+  </ul>
 
-<div class="grid">
-  <div>
-    <h2>Calibration</h2>
-    <p>Predicted probabilities track observed frequencies across deciles: the enhanced model&rsquo;s top decile predicts %s and observes %s; the baseline&rsquo;s predicts %s and observes %s. A &ldquo;17%%&rdquo; means about 17%%.</p>
-  </div>
-  <div>
-    <h2>Limitations</h2>
-    <ul>
-      <li>Rare outcome &mdash; only %s grants across eight Terms.</li>
-      <li>OT2024 is right-censored (late petitions undecided): a pessimistic test Term.</li>
-      <li>The dissent signal defaults to &ldquo;absent&rdquo; for the ~9%% of petitions with no parseable PDF, conservatively understating it.</li>
-      <li>Entity typing and counsel matching are heuristic (regex).</li>
-    </ul>
-  </div>
-</div>
+  <h2>Calibration</h2>
+  <p>Predicted probabilities track observed frequencies across deciles: the enhanced model&rsquo;s top decile predicts %s and observes %s; the baseline&rsquo;s predicts %s and observes %s. A &ldquo;17%%&rdquo; means about 17%%.</p>
+  <h2>Limitations</h2>
+  <ul>
+    <li>Rare outcome &mdash; only %s grants across eight Terms.</li>
+    <li>OT2024 is right-censored (late petitions undecided): a pessimistic test Term.</li>
+    <li>The dissent signal defaults to &ldquo;absent&rdquo; for the ~9%% of petitions with no parseable PDF, conservatively understating it.</li>
+    <li>Entity typing and counsel matching are heuristic (regex).</li>
+  </ul>
 
 <footer>Generated %s from the deployed model artifacts &middot; Full methods: <b>docs/cert_model.md</b> &middot; These are descriptive statistical estimates &mdash; <b>not legal advice, and not a prediction about any particular case</b>.</footer>
 </main></body></html>',
