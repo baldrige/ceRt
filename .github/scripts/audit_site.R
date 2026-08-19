@@ -633,6 +633,55 @@ if (file.exists(flog)) {
   }
 }
 
+# ---- freshness ---------------------------------------------------------------
+# When did the site last publish?
+#
+# This is the one failure nothing else here can see, because it is not a broken
+# invariant -- it is a site where every invariant still holds and nothing has
+# moved. Two ways to get there, both of which report success the whole time:
+#
+#   * A throttle-degraded fetch. build_dashboards.R deliberately quits with
+#     status 0 rather than publish a half-fetched day, which is the right call
+#     and is invisible: a green check on every run and a site that stops
+#     updating. Five such runs happened in four days in July 2026.
+#   * The crons being switched off. GitHub disables scheduled workflows after 60
+#     days without repo activity, and a workflow that never runs fails nothing
+#     and emails nobody.
+#
+# The signal is the gh-pages HEAD commit date, because that IS the publish. File
+# mtimes cannot be used: a fresh checkout stamps them with the checkout time.
+#
+# 36 hours is measured, not guessed. Over the 40 commits to 2026-08-19 the gaps
+# ran median 3.6h and worst 19.1h, so the threshold sits at ~1.9x the worst
+# healthy gap -- comfortably clear of a quiet weekend, and still inside two days
+# of a genuine freeze. FAIL rather than WARN on purpose: a WARN exits 0, and a
+# check that emails nobody is exactly the gap this was added to close.
+local({
+  age_h <- tryCatch({
+    d <- suppressWarnings(system2("git", c("-C", site, "log", "-1", "--format=%ct"),
+                                  stdout = TRUE, stderr = FALSE))
+    # NOT return(NA_real_) here. return() inside a tryCatch expression returns
+    # from the ENCLOSING function -- local() -- not from the tryCatch, so the
+    # early exit skipped the whole check and this reported nothing at all on a
+    # non-git SITE_DIR. A check that silently does nothing is the failure this
+    # file exists to prevent, so it is an if/else that yields a value instead.
+    if (length(d) != 1 || !nzchar(d[1])) NA_real_ else
+      as.numeric(difftime(Sys.time(), as.POSIXct(as.numeric(d[1]), origin = "1970-01-01",
+                                                 tz = "UTC"), units = "hours"))
+  }, error = function(e) NA_real_)
+
+  if (is.na(age_h)) {
+    # Not a git checkout -- a local run against a plain directory. Say so rather
+    # than passing quietly, which would let the check rot unnoticed in CI too.
+    warn("site freshness", "no git metadata in SITE_DIR; cannot read publish time")
+  } else if (age_h > 36) {
+    fail("site freshness",
+         sprintf("last publish %.1f h ago (>36h) -- the site has stopped updating while runs report success", age_h))
+  } else {
+    ok("site freshness", sprintf("last publish %.1f h ago", age_h))
+  }
+})
+
 # ---- verdict -----------------------------------------------------------------
 lv <- vapply(results, function(r) r$level, character(1))
 cat(sprintf("\n%d checks: %d ok, %d WARN, %d FAIL\n",
