@@ -184,7 +184,15 @@ write_docket_css <- function(out_dir) {
 # in the manifest key, so without it those pages would re-render one at a time as
 # their QP cache happened to refill -- some appeals fixed, some not, for as long
 # as the caps took. Roll it with rerender-dockets.yml (reuse_from_runs).
-PAGE_TEMPLATE_VERSION <- "v20"
+# v21: social metadata in the <head> -- description, canonical, og:*, twitter:*.
+# A markup change on all 55k case pages, and the whole point of it is that case
+# pages are the unit people share, so it has to reach the back-catalogue rather
+# than only pages a daily happens to touch.
+#
+# v20 has not been rolled out either (55,345 of 55,498 pages are still v19 as of
+# the 2026-08-19 audit), so one re-render now carries both -- rerender-dockets.yml
+# with reuse_from_runs, ~20 min, no re-fetch.
+PAGE_TEMPLATE_VERSION <- "v21"
 
 # ---- small helpers ------------------------------------------------------------
 .esc <- function(x) { x <- x %||% ""; x[is.na(x)] <- ""; htmltools::htmlEscape(x) }
