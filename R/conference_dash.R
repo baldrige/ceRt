@@ -307,11 +307,18 @@ conference_dash <- function(dist, conf_date,
       strip_caption_roles(d$caption),
       d$dkt),
     Relists = d$distribution_no - 1L,
-    Forecast = fc_cell(p_grant, p_ever, p_gvr),
-    # Sort key only: `Forecast` is markup, so arranging on it would sort "4%"
-    # after "12%". Dropped before the table is built.
-    # Sorts by the number the cell now leads with.
-    .fc_sort = p_ever,
+    # The NUMBER, not the rendered cell. reactable sorts on the underlying data
+    # value, so a column whose data is markup sorts as text ("4%" after "12%")
+    # -- which is why this used to carry a separate .fc_sort key and why the dek
+    # could not invite a click on the header. The markup is attached further
+    # down by fmt(), which leaves the data numeric and hands reactable a
+    # pre-rendered cell[] array instead. One object is now both the sort key and
+    # the display, so the two cannot drift apart.
+    Forecast = p_ever,
+    # Carried only so the cell can be built AFTER the arrange() below, in final
+    # row order. Dropped before the table is built.
+    .fc_here = p_grant,
+    .fc_gvr  = p_gvr,
     # No str_trunc(28). A truncated court name loses exactly the part that
     # distinguishes it -- "Supreme Court of the State of New York, App..." --
     # and the ellipsis is not recoverable by hovering, sorting or searching,
@@ -327,7 +334,26 @@ conference_dash <- function(dist, conf_date,
     Documents = map_chr(d$events, function(e)
                   case_documents(e, c("Petition", "Appendix", "BIO", "Reply"))),
     QP = { q <- map_chr(d$dkt, qp_get); ifelse(is.na(q) | q == "", "—", q) }
-  ) |> arrange(desc(Relists), desc(.fc_sort)) |> select(-.fc_sort)
+  ) |>
+    # Grant probability first, relists second. The forecast is the question a
+    # reader opens a conference page with -- which of these is likely to be
+    # granted -- and relists are the tiebreak among petitions the model rates
+    # alike, where a fourth distribution says something a first does not.
+    #
+    # Non-paid rows land at the bottom as a side effect, not by a Type key:
+    # p_ever is NA for them, and desc() sorts NA last. That is the right place
+    # for a row whose Forecast cell is an em dash, and it is worth knowing it
+    # falls out of the sort rather than being imposed on it.
+    arrange(desc(Forecast), desc(Relists))
+
+  # Build the cells AFTER the arrange, so cell[i] belongs to row i of the table
+  # as it is finally ordered. reactable indexes cell[] by the row's ORIGINAL
+  # data index and carries that index through sorting, so a reader re-sorting
+  # the page cannot shear the markup away from its row -- but that guarantee
+  # starts from this order, which is why the carriers ride through the arrange
+  # rather than the strings being built up with the tibble.
+  fc_html <- fc_cell(tbl$.fc_here, tbl$Forecast, tbl$.fc_gvr)
+  tbl <- select(tbl, -.fc_here, -.fc_gvr)
 
   # Drop the forecast column on conferences with no paid petitions, and any
   # column that is entirely empty -- e.g. QP and Counsel on the pre-JSON
@@ -350,7 +376,7 @@ conference_dash <- function(dist, conf_date,
 
   t <- tbl |>
     gt() |>
-    fmt_markdown(columns = any_of(c("Case", "Counsel", "Documents", "QP", "Forecast"))) |>
+    fmt_markdown(columns = any_of(c("Case", "Counsel", "Documents", "QP"))) |>
     data_color(columns = Type, method = "factor",
       palette = TYPE_CHIPS) |>
     cols_align("center", columns = everything()) |>
@@ -364,7 +390,13 @@ conference_dash <- function(dist, conf_date,
   # header is short on purpose: "Granted here" was ~12 characters of uppercase
   # tracked caps holding open a column whose data is three, and across three such
   # columns the labels, not the numbers, were setting the table's width.
-  if (has_grant) t <- t |> cols_label(Forecast = "Grant forecast") |>
+  # fmt() rather than fmt_markdown(): it renders each cell to HTML for display
+  # while leaving the column's DATA as the numeric probability, which is the
+  # value reactable sorts on. fns is called once with the whole column in row
+  # order, so returning the pre-built vector aligns element-for-element.
+  if (has_grant) t <- t |>
+    fmt(columns = Forecast, fns = function(x) fc_html) |>
+    cols_label(Forecast = "Grant forecast") |>
     cols_width(Forecast ~ px(120))
 
   footer <- if (has_grant) paste0(
@@ -379,14 +411,15 @@ conference_dash <- function(dist, conf_date,
   ) else ""
 
   n_case <- nrow(tbl)
-  # No longer "sort by Granted ever": the three forecast columns are one cell of
-  # markup now, so it sorts as text rather than by value and pointing readers at
-  # it would be pointing them at nonsense. Relists alone does what that sentence
-  # was for, and the shading finds the live petitions by eye without sorting.
+  # The page arrives in grant-forecast order and the column now sorts by value,
+  # so the reader can leave that order and come back to it. Both halves of that
+  # sentence had to become true before it could be written: the earlier caveat
+  # ("do not point them at this header, it sorts as text") was accurate about a
+  # column whose data was markup.
   dek <- paste0(n_case, if (n_case == 1) " case" else " cases",
-    " distributed for this conference &mdash; sortable and filterable. Sort by ",
-    "<em>Relists</em> to surface the serially-relisted cases; the darkest ",
-    "<em>Grant forecast</em> cells are the likeliest grants.")
+    " distributed for this conference &mdash; sortable and filterable. Ordered by ",
+    "<em>Grant forecast</em>, then by <em>Relists</em>; the darkest cells are the ",
+    "likeliest grants. Both columns sort by value.")
 
   scr_interactive(t, n_rows = nrow(tbl)) |>
     scr_write_page(

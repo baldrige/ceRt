@@ -154,12 +154,22 @@ relist_watch <- function(dist, out_dir, qp_map = NULL, models = NULL,
     Status = ifelse(held, "Held", "Relisted"),
     Last = fmt_d(d$last_conf),
     Next = fmt_d(d$next_conf),
-    Forecast = fc_cell(p_grant, p_ever, p_gvr),
+    # The NUMBER, not the rendered cell -- reactable sorts on the underlying
+    # data value, so a markup column sorts as text ("4%" after "12%"). The
+    # markup is attached by fmt() below, which leaves the data numeric. Same
+    # mechanism as the conference reports, deliberately: a reader moving
+    # between the two pages should find the same column behaving the same way.
+    #
+    # d is already in final row order (relist_watch_table() arranges it) and
+    # p_* are filled by looping over d, so fc_html aligns element-for-element
+    # without carrying the parts through the tibble.
+    Forecast = p_ever,
     Court = ifelse(is.na(d$lower) | d$lower == "", "—", d$lower),
     Documents = map_chr(d$events, function(e)
       case_documents(e, c("Petition", "Appendix", "BIO", "Reply"))),
     QP = { q <- map_chr(d$dkt, qp_get); ifelse(is.na(q) | q == "", "—", q) })
 
+  fc_html <- fc_cell(p_grant, p_ever, p_gvr)
   has_fc <- any(!is.na(p_ever)) || any(!is.na(p_grant))
   if (!has_fc) tbl <- select(tbl, -Forecast)
   for (col in c("QP", "Documents")) {
@@ -171,7 +181,7 @@ relist_watch <- function(dist, out_dir, qp_map = NULL, models = NULL,
 
   t <- tbl |>
     gt() |>
-    fmt_markdown(columns = any_of(c("Case", "Documents", "QP", "Forecast"))) |>
+    fmt_markdown(columns = any_of(c("Case", "Documents", "QP"))) |>
     data_color(columns = Status, method = "factor",
                palette = c("Relisted" = STATUS_FILL[["Scheduled"]],
                            "Held" = STATUS_FILL[["Granted"]])) |>
@@ -179,7 +189,12 @@ relist_watch <- function(dist, out_dir, qp_map = NULL, models = NULL,
     cols_width(Case ~ px(230), Relists ~ px(76), Status ~ px(88),
                Last ~ px(112), Next ~ px(112), Court ~ px(160))
   if (has_qp) t <- t |> cols_label(QP = "Questions Presented") |> cols_width(QP ~ px(190))
-  if (has_fc) t <- t |> cols_label(Forecast = "Grant forecast") |>
+  # fmt(), not fmt_markdown(): renders the cell to HTML for display while the
+  # column's DATA stays the numeric probability reactable sorts on. fns is
+  # called once with the whole column in row order.
+  if (has_fc) t <- t |>
+    fmt(columns = Forecast, fns = function(x) fc_html) |>
+    cols_label(Forecast = "Grant forecast") |>
     cols_width(Forecast ~ px(120))
 
   n_held <- sum(tbl$Status == "Held")
