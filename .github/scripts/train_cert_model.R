@@ -134,3 +134,38 @@ missing <- setdiff(c("baseline", "enhanced", "gvr", "conference", "counsel_index
 if (length(missing))
   stop("load_cert_models() rejected: ", paste(missing, collapse = ", "))
 cat("\nload_cert_models() accepts all artifacts.\n")
+
+# ---- regenerate the documents that describe these artifacts ------------------
+# The methods note and the coefficient reference are built FROM the artifacts, so
+# retraining without rebuilding them leaves the site describing models that are
+# no longer serving. That is not hypothetical: the reference sat in the repo
+# built from 2026-07-25 artifacts while 2026-07-30 models served forecasts, and
+# nothing caught it -- both documents were hand-run, and the hand stopped.
+#
+# Each runs in its own Rscript process rather than source()-d here. They define
+# dozens of names between them (esc, fnum, b, e, g, cm ...) that would collide
+# with each other and with this script, and a failure in one should be a
+# reported non-zero exit, not a half-populated environment.
+#
+# Skipped unless the artifacts landed in the deployed location: a training run
+# pointed at a scratch OUT_DIR is an experiment, and it must not rewrite the
+# committed documents to describe models nobody is serving.
+docs_ok <- tryCatch(
+  normalizePath(out_dir, mustWork = TRUE) == normalizePath("data", mustWork = TRUE),
+  error = function(e) FALSE)
+
+if (!nzchar(Sys.getenv("SKIP_MODEL_DOCS", "")) && docs_ok) {
+  for (script in c("docs/make_methods_note.R", "docs/make_model_reference.R")) {
+    cat("\nRegenerating from", script, "\n")
+    st <- system2("Rscript", script, env = paste0("MODEL_DIR=", shQuote(out_dir)))
+    if (!identical(st, 0L))
+      stop(script, " failed (exit ", st, "); the artifacts are written but the ",
+           "documents describing them are now stale.")
+  }
+  cat("\nMethods note and coefficient reference regenerated from ", out_dir, ".\n", sep = "")
+} else if (!docs_ok) {
+  cat("\nOUT_DIR is ", out_dir, ", not data/ -- documents NOT regenerated.\n",
+      "They describe the deployed artifacts; rerun with OUT_DIR=data to refresh them.\n", sep = "")
+} else {
+  cat("\nSKIP_MODEL_DOCS set -- methods note and reference not regenerated.\n")
+}
