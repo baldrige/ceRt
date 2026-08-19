@@ -36,6 +36,18 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    # Deliberately loose, and a backstop rather than the real guard. An ordinary
+    # daily runs 4-5 min (median 4.8, max 12.2 over the last 38 successful jobs),
+    # but the full_term dispatch re-fetches an entire term at SCOTUS_FETCH_RPS and
+    # re-renders every date in it -- that path has never run here, so its true
+    # ceiling is unmeasured and a tight cap would kill the first legitimate one.
+    #
+    # A conditional (45 for a scheduled run, 240 for full_term) would bound the
+    # common case far better. It is not used because it cannot be tested before
+    # it ships: an expression that fails to evaluate is an "Invalid workflow
+    # file" that breaks the daily entirely, discovered at the next scheduled run.
+    # The step timeouts below are what actually catch the observed failure.
+    timeout-minutes: 180
     steps:
       - name: Checkout source (main)
         uses: actions/checkout@v5
@@ -51,11 +63,13 @@ jobs:
 
       - name: Setup R
         uses: r-lib/actions/setup-r@v2
+        timeout-minutes: 15
         with:
           use-public-rspm: true
 
       - name: Install R packages (cached)
         uses: r-lib/actions/setup-r-dependencies@v2
+        timeout-minutes: 15
         with:
           packages: |
             any::gt

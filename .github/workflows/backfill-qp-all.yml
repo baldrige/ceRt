@@ -29,6 +29,7 @@ concurrency:
 jobs:
   plan:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     outputs:
       matrix: ${{ steps.p.outputs.matrix }}
     steps:
@@ -59,9 +60,11 @@ jobs:
       - name: System dependencies (poppler + tesseract for pdftools/OCR)
         uses: ./.github/actions/system-deps
       - uses: r-lib/actions/setup-r@v2
+        timeout-minutes: 15
         with:
           use-public-rspm: true
       - uses: r-lib/actions/setup-r-dependencies@v2
+        timeout-minutes: 15
         with:
           packages: |
             any::gt
@@ -87,6 +90,7 @@ jobs:
   combine:
     needs: fetch
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - name: Checkout source (main)
         uses: actions/checkout@v5
@@ -96,9 +100,11 @@ jobs:
           ref: gh-pages
           path: site
       - uses: r-lib/actions/setup-r@v2
+        timeout-minutes: 15
         with:
           use-public-rspm: true
       - uses: r-lib/actions/setup-r-dependencies@v2
+        timeout-minutes: 15
         with:
           packages: any::jsonlite
       - name: Download per-term QP caches
