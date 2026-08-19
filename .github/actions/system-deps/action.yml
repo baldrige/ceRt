@@ -33,6 +33,12 @@ runs:
         # composite action steps cannot set timeout-minutes, so the bound has to
         # live in here. Worst case now is ~22 min (3 x 120s update + 3 x 300s
         # install + backoff) against GitHub's 6-hour job limit.
+        #
+        # 2026-08-19: update raised 120 -> 180. On a day when the Azure mirror
+        # was stalling site-wide, all three attempts hit the 120s wall and the
+        # step failed a conferences publish that had 68 minutes of good fetching
+        # behind it. The retry loop was right; the clock was too tight. Worst
+        # case is now ~25 min (3x180 + 3x300 + backoff).
         APT_OPTS=(
           -o Acquire::Retries=3
           -o Acquire::http::Timeout=30
@@ -59,7 +65,7 @@ runs:
           done
         }
 
-        apt_run 120 update
+        apt_run 180 update
         # PACKAGES is deliberately unquoted: it word-splits into one argument
         # per package.
         # shellcheck disable=SC2086
