@@ -469,9 +469,15 @@ conference_index <- function(out_dir = path.expand("~/public_html/conferences"))
     title = "Conference Reports — SCOTUS",
     kicker = "Supreme Court of the United States",
     heading = "Conference Reports",
-    dek = "What the Justices consider at each private conference, sorted by relists.",
+    # This line is now the shared-link description as well as the page dek, so it
+    # has to stay true: the tables lead on the grant forecast since #78, not on
+    # relists. A stale dek used to be a small editorial slip; it is now the
+    # sentence that shows up wherever the page is posted.
+    dek = "What the Justices consider at each private conference, ordered by grant forecast.",
     items = items,
-    active = "/conferences/"   # was back = "← All dashboards" -> "/" (wrong both ways)
+    active = "/conferences/",   # was back = "← All dashboards" -> "/" (wrong both ways)
+    # Canonical URL for this page (see social_meta()).
+    path = "/conferences/"
   )
   patch_prev_next(out_dir, "^conf_\\d{4}-\\d{2}-\\d{2}\\.html$", "conference",
                   key   = function(f) as.Date(str_extract(f, "\\d{4}-\\d{2}-\\d{2}")),

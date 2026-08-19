@@ -1274,7 +1274,12 @@ render_counsel_page <- function(stats, out_dir) {
     "<!DOCTYPE html>\n<html lang=\"en\">\n",
     page_head("The Counsel Table — Supreme Court Report",
               jsonld = site_breadcrumb_jsonld("The Counsel Table"),
-              extra_css = COUNSEL_CSS), "\n",
+              extra_css = COUNSEL_CSS,
+              description = paste(
+                "Who files at the Supreme Court and who wins: petition counts,",
+                "grant rates and argument records for the advocates who appear",
+                "most often."),
+              path = "/counsel/"), "\n",
     as.character(body), "\n</html>\n")
   out <- file.path(out_dir, "index.html")
   writeLines(enc2utf8(smarten_html(html)), out, useBytes = TRUE)

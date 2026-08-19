@@ -374,7 +374,9 @@ argument_index <- function(out_dir) {
     heading = "Oral Argument Navigator",
     dek = "Every granted case and when it is heard, Term by Term and sitting by sitting.",
     items = items,
-    active = "/arguments/"     # was back = "← All dashboards" -> "/" (wrong both ways)
+    active = "/arguments/",   # was back = "← All dashboards" -> "/" (wrong both ways)
+    # Canonical URL for this page (see social_meta()).
+    path = "/arguments/"
   )
   patch_prev_next(out_dir, "^arg_\\d{4}\\.html$", "Term",
                   key   = function(f) as.integer(str_extract(f, "\\d{4}")),

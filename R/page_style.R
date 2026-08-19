@@ -26,6 +26,7 @@ local({
   }
   sys.source(find("palette.R"),  envir = globalenv())
   sys.source(find("site_nav.R"), envir = globalenv())
+  sys.source(find("site_meta.R"), envir = globalenv())   # social_meta()
 })
 
 # Google Fonts used across the site (kept identical to the Cert Funnel page).
@@ -333,7 +334,14 @@ feed_autodiscovery_links <- function() {
 # counsel leaderboards). It exists so such a page can still come through here:
 # the alternative is a hand-built <head>, and this site has four of those, each
 # of which has silently missed a sitewide head change at least once.
-page_head <- function(title, jsonld = NULL, extra_css = NULL) {
+# `description` and `path` feed social_meta(): the one-or-two sentences a shared
+# link shows, and the canonical URL. Both default to NULL so a caller that has
+# nothing sensible to say says nothing, rather than shipping a card captioned
+# with boilerplate.
+page_head <- function(title, jsonld = NULL, extra_css = NULL,
+                      description = NULL, path = NULL,
+                      og_type = c("website", "article")) {
+  og_type <- match.arg(og_type)
   paste0(
     "<head>",
     "<script async src='/analytics.js'></script>",
@@ -350,6 +358,7 @@ page_head <- function(title, jsonld = NULL, extra_css = NULL) {
     # advertised nothing at all.
     feed_autodiscovery_links(),
     "<title>", htmlEscape(title), "</title>",
+    social_meta(title, description, path, og_type),
     '<link rel="preconnect" href="https://fonts.googleapis.com">',
     '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>',
     '<link rel="stylesheet" href="', PAGE_FONTS_URL, '">',
@@ -468,7 +477,11 @@ write_about_page <- function(out_path) {
       )
     ))
   html <- paste0("<!DOCTYPE html>\n<html lang=\"en\">\n",
-                 page_head("About — Supreme Court Report"), "\n",
+                 page_head("About — Supreme Court Report",
+                   description = paste(
+                     "Who publishes Supreme Court Report, where the docket data comes from,",
+                     "and what the forecasts do and do not claim."),
+                   path = "/about.html"), "\n",
                  as.character(body), "\n</html>\n")
   writeLines(enc2utf8(html), out_path, useBytes = TRUE)
   invisible(out_path)
@@ -517,7 +530,11 @@ styled_index_page <- function(out_path, title, heading, items,
                               new_tab = TRUE, search = FALSE, panel = NULL,
                               active = NULL, crumb = NULL, wordmark_only = FALSE,
                               search_json = "cases/search.json",
-                              search_prefix = "cases/", feeds = FALSE) {
+                              search_prefix = "cases/", feeds = FALSE,
+                              # Shared-link card. `dek` is the page's own one-line
+                              # summary and is exactly what a card wants, so it is
+                              # the default rather than a second thing to write.
+                              description = NULL, path = NULL) {
   rows <- lapply(items, function(it) {
     a_args <- list(class = "row", href = it$href)
     if (isTRUE(new_tab)) { a_args$target <- "_blank"; a_args$rel <- "noopener" }
@@ -567,7 +584,8 @@ styled_index_page <- function(out_path, title, heading, items,
   jsonld <- if (!is.null(crumb))
     site_breadcrumb_jsonld(crumb$label, crumb$section) else NULL
   html <- paste0("<!DOCTYPE html>\n<html lang=\"en\">\n",
-                 page_head(title, jsonld), "\n", as.character(body), "\n</html>\n")
+                 page_head(title, jsonld, description = description %||% dek,
+                           path = path), "\n", as.character(body), "\n</html>\n")
   writeLines(enc2utf8(html), out_path, useBytes = TRUE)
   invisible(out_path)
 }
