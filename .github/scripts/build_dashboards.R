@@ -24,6 +24,13 @@ dir.create(dash_dir, recursive = TRUE, showWarnings = FALSE)
 if (file.exists("analytics.js"))
   file.copy("analytics.js", file.path(site_dir, "analytics.js"), overwrite = TRUE)
 
+# The social-card image, on the same re-assert-every-run principle. It is a
+# committed static asset (docs/make_og_image.R regenerates it), and every page's
+# og:image points at /og.png -- so a run that forgot it would leave the whole
+# site advertising a card that 404s.
+if (file.exists("og.png"))
+  file.copy("og.png", file.path(site_dir, "og.png"), overwrite = TRUE)
+
 # robots.txt, on the same re-assert-every-run principle and for the same reason:
 # it is a root file nothing else writes, so a rebuild that forgot it would drop
 # the only pointer crawlers have to the sitemap.
@@ -262,7 +269,9 @@ styled_index_page(
       note = sprintf("Ranked by page views over the %d days ending %s %d, %d.",
                      MOST_READ_DAYS, format(Sys.Date() - 1, "%B"),
                      as.integer(format(Sys.Date() - 1, "%d")),
-                     as.integer(format(Sys.Date() - 1, "%Y")))))
+                     as.integer(format(Sys.Date() - 1, "%Y"))))),
+  # Canonical URL for this page (see social_meta()).
+  path = "/"
 )
 
 # Feeds and sitemaps, last: both enumerate what is on disk, so they have to run

@@ -50,6 +50,8 @@ local({
     file.path(here, "palette.R")
   else if (file.exists("R/palette.R")) "R/palette.R" else "palette.R"
   sys.source(f, envir = globalenv())
+  m <- sub("palette\\.R$", "site_meta.R", f)
+  if (file.exists(m)) sys.source(m, envir = globalenv())   # social_meta()
 })
 
 suppressPackageStartupMessages({
@@ -795,6 +797,12 @@ render_funnel_page <- function(live, baselines, out_dir,
     # by entry points that may not have.
     if (exists("feed_autodiscovery_links")) feed_autodiscovery_links() else "",
     "<title>The Cert Funnel &mdash; how Supreme Court petitions live and die</title>",
+    if (exists("social_meta")) social_meta(
+      "The Cert Funnel — how Supreme Court petitions live and die",
+      paste("Of every hundred petitions for certiorari, how many are distributed,",
+            "relisted, granted or denied — the whole funnel, counted from eight",
+            "Terms of docket data."),
+      "/funnel/", "article") else "",
     '<link rel="preconnect" href="https://fonts.googleapis.com">',
     '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>',
     '<link rel="stylesheet" href="', font_url, '">',

@@ -624,7 +624,9 @@ dashboard_index <- function(out_dir = path.expand("~/public_html/dashboards")) {
     # thing. This link previously read "← All dashboards" and pointed at "/" --
     # copy-pasted verbatim into the conference and argument indexes, where the
     # label was simply wrong. That is what having no shared nav cost.
-    active = "/dashboards/"
+    active = "/dashboards/",
+    # Canonical URL for this page (see social_meta()).
+    path = "/dashboards/"
   )
   patch_prev_next(out_dir, "^dash_\\d{4}-\\d{2}-\\d{2}\\.html$", "day",
                   key   = function(f) as.Date(str_extract(f, "\\d{4}-\\d{2}-\\d{2}")),

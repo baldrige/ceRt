@@ -31,6 +31,7 @@ local({
   }
   sys.source(find("palette.R"),  envir = globalenv())
   sys.source(find("site_nav.R"), envir = globalenv())
+  sys.source(find("site_meta.R"), envir = globalenv())   # social_meta()
 })
 
 # A procedural entry is marked with a TICK across the timeline rule, not a dot.
@@ -183,7 +184,15 @@ write_docket_css <- function(out_dir) {
 # in the manifest key, so without it those pages would re-render one at a time as
 # their QP cache happened to refill -- some appeals fixed, some not, for as long
 # as the caps took. Roll it with rerender-dockets.yml (reuse_from_runs).
-PAGE_TEMPLATE_VERSION <- "v20"
+# v21: social metadata in the <head> -- description, canonical, og:*, twitter:*.
+# A markup change on all 55k case pages, and the whole point of it is that case
+# pages are the unit people share, so it has to reach the back-catalogue rather
+# than only pages a daily happens to touch.
+#
+# v20 has not been rolled out either (55,345 of 55,498 pages are still v19 as of
+# the 2026-08-19 audit), so one re-render now carries both -- rerender-dockets.yml
+# with reuse_from_runs, ~20 min, no re-fetch.
+PAGE_TEMPLATE_VERSION <- "v21"
 
 # ---- small helpers ------------------------------------------------------------
 .esc <- function(x) { x <- x %||% ""; x[is.na(x)] <- ""; htmltools::htmlEscape(x) }
@@ -667,6 +676,22 @@ docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
     # Machine-readable template-version stamp: the fill-throttled scanner reads it
     # to spot a page a version bump left behind (see fetch_missing_dockets.R).
     "<meta name='tv' content='", PAGE_TEMPLATE_VERSION, "'>",
+    # The shared-link card for a case page, which is the unit people actually
+    # post. Built from what the docket already knows -- number, court below,
+    # docketing date -- rather than a generic line, so a shared link says which
+    # case it is. Same argument as the feed autodiscovery below: these pages are
+    # 99.5% of the site and the ones a search result lands on.
+    if (exists("social_meta")) social_meta(
+      paste0(str_squish(str_remove_all(cx$caption %||% dkt,
+                                       ", Petitioners?|, Respondents?")),
+             " — No. ", dkt),
+      paste0("Supreme Court docket No. ", dkt,
+             if (!is.na(cx$lower %||% NA) && nzchar(cx$lower %||% ""))
+               paste0(", on review from ", str_squish(cx$lower)) else "",
+             if (!is.na(cx$date %||% NA))
+               paste0(". Docketed ", format(cx$date, "%B %e, %Y")) else "",
+             ". Filings, proceedings timeline and questions presented."),
+      paste0("/cases/", dkt, ".html"), "article") else "",
     # The FOURTH hand-built <head> on this site, and the last to get feed
     # autodiscovery -- which means 55,357 pages, 99.5% of the site, carried none
     # while the eight index pages read green. These matter most, not least: a

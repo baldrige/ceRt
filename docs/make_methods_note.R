@@ -260,6 +260,7 @@ style_css <- "<style>
 html <- sprintf('<!DOCTYPE html><html lang="en"><head><script async src="/analytics.js"></script><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Predicting Certiorari &mdash; Methods Note</title>
+@SOCIAL@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&display=swap">
 @STYLE@</head><body><main class="sheet">
@@ -324,6 +325,15 @@ html <- sprintf('<!DOCTYPE html><html lang="en"><head><script async src="/analyt
 # No nav_max argument. This was the last caller in the codebase overriding it
 # (with 7.4in, computed to sit flush on the old 8.1in print sheet); the masthead
 # is uniformly SITE_NAV_MAX now and is meant to overhang the text column.
+# The FIFTH head on this site. Same block, from the same function, so a change
+# to the card reaches this page too.
+source("R/site_meta.R")
+html <- sub("@SOCIAL@", social_meta(
+  "Predicting Certiorari — Methods Note",
+  paste("Three calibrated models estimating whether a paid petition will be",
+        "granted plenary review: data, validation, calibration, and every",
+        "coefficient with standard errors and p-values."),
+  "/methods.html", "article"), html, fixed = TRUE)
 html <- sub("@COEFS@", coef_section, html, fixed = TRUE)
 html <- sub("@STYLE@", style_css, html, fixed = TRUE)
 html <- sub("@ROOT@", palette_root(), html, fixed = TRUE)

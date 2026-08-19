@@ -19,6 +19,8 @@ local({
     file.path(here, "palette.R")
   else if (file.exists("R/palette.R")) "R/palette.R" else "palette.R"
   sys.source(f, envir = globalenv())
+  m <- sub("palette\\.R$", "site_meta.R", f)
+  if (file.exists(m)) sys.source(m, envir = globalenv())   # social_meta()
 })
 
 SCR_FONTS <- "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap"
@@ -200,10 +202,30 @@ scr_inline_libs <- function(html, base_dir) {
 # list(label=, section=) for the breadcrumb; `pnav` is prev_next_nav() output.
 # `leaf_max` is this page type's width ceiling, in rem. Default 92 preserves the
 # previous behaviour for any caller that does not set one.
+# Site-absolute URL path for a page being written to `out_path`, for the
+# canonical link. Derived rather than passed: all four callers already hand this
+# function the path they are writing to, and asking each to repeat it as a URL is
+# how the two get to disagree.
+#
+# Returns NULL when out_path is not under SITE_DIR -- a local render to a scratch
+# directory has no canonical URL, and inventing one would point every shared card
+# at a page that may not exist.
+.site_rel_path <- function(out_path) {
+  sd <- Sys.getenv("SITE_DIR", unset = "site")
+  op <- gsub("\\\\", "/", out_path)
+  sd <- sub("/+$", "", gsub("\\\\", "/", sd))
+  if (!nzchar(sd) || !startsWith(op, paste0(sd, "/"))) return(NULL)
+  paste0("/", substring(op, nchar(sd) + 2L))
+}
+
 scr_write_page <- function(gt_tbl, out_path, kicker, title, dek, n_rows,
                            left_cols = integer(0), footer = "", back = NULL,
                            active = NULL, crumb = NULL, pnav = "",
-                           leaf_max = 92) {
+                           leaf_max = 92,
+                           # `dek` already says what the page is in one line, so
+                           # it is the card description unless a caller overrides.
+                           # `path` is the site-absolute URL for the canonical.
+                           description = NULL, path = NULL) {
   # Typographic quotes for the page chrome (prose only -- never the widget body,
   # whose JSON payload uses " structurally). smarten() lives in page_style.R,
   # always sourced alongside this module in production; fall back to identity.
@@ -241,6 +263,12 @@ scr_write_page <- function(gt_tbl, out_path, kicker, title, dek, n_rows,
     "<!DOCTYPE html><html lang='en'><head><script async src='/analytics.js'></script><meta charset='utf-8'>",
     "<meta name='viewport' content='width=device-width, initial-scale=1'>",
     "<link rel='icon' href='/favicon.svg' type='image/svg+xml'><link rel='alternate icon' href='/favicon.ico' sizes='any'>",
+    # Leaves are what get shared: a reader posts a conference report or a
+    # dashboard, not /conferences/. og:type is "article" for the same reason --
+    # each of these is a page about one dated thing.
+    if (exists("social_meta"))
+      social_meta(title, description %||% dek,
+                  path %||% .site_rel_path(out_path), "article") else "",
     # The THIRD hand-built <head> on this site, after page_head() and the funnel's.
     # It was also the last one still advertising no feeds: every leaf page -- 261
     # conference reports, 30 dashboards, 9 argument pages -- carried none, and the
