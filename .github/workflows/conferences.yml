@@ -100,7 +100,14 @@ jobs:
         with:
           name: cases-${{ matrix.term }}
           path: cases-${{ matrix.term }}.rds
-          retention-days: 3
+          # 30 days, not 5. These term snapshots are the expensive thing in the
+          # whole pipeline -- a full fetch is ~3 h across ten runners at
+          # SCOTUS_FETCH_RPS -- and they exist so a later render-only run can
+          # skip it. At 5 days they expired before the next template bump wanted
+          # them: the 2026-08-11 snapshots lapsed on 08-16, and the v20/v21
+          # re-render on 08-19 had to re-fetch everything. Storage is free on a
+          # public repo; a wasted 3 h is not.
+          retention-days: 30
 
   # The long-held stragglers, fetched BY NAME rather than by widening the Term
   # window. A {T, T-1} range loses the cases a relist leaderboard is about --
@@ -154,7 +161,14 @@ jobs:
         with:
           name: cases-pending
           path: cases-pending.rds
-          retention-days: 3
+          # 30 days, not 5. These term snapshots are the expensive thing in the
+          # whole pipeline -- a full fetch is ~3 h across ten runners at
+          # SCOTUS_FETCH_RPS -- and they exist so a later render-only run can
+          # skip it. At 5 days they expired before the next template bump wanted
+          # them: the 2026-08-11 snapshots lapsed on 08-16, and the v20/v21
+          # re-render on 08-19 had to re-fetch everything. Storage is free on a
+          # public repo; a wasted 3 h is not.
+          retention-days: 30
 
   publish:
     # Waits for fetch-pending so its artifact is downloadable, but does NOT
