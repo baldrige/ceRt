@@ -38,11 +38,13 @@ MODELS <- list(
     frame="At-risk panel &mdash; one row per petition &times; conference",
     use="Conference reports, GVR line"))
 
-art <- lapply(names(MODELS), function(k) readRDS(sprintf("data/cert_model_%s.rds", k)))
+model_dir <- Sys.getenv("MODEL_DIR", "data")   # see make_methods_note.R
+art <- lapply(names(MODELS), function(k)
+  readRDS(file.path(model_dir, sprintf("cert_model_%s.rds", k))))
 names(art) <- names(MODELS)
 coefs <- do.call(rbind, Map(logit_tbl, art, names(art)))
-cm <- readRDS("data/cert_model_conference.rds")
-built <- as.character(file.info("data/cert_model_baseline.rds")$mtime)
+cm <- readRDS(file.path(model_dir, "cert_model_conference.rds"))
+built <- as.character(file.info(file.path(model_dir, "cert_model_baseline.rds"))$mtime)
 
 # ---- pieces ------------------------------------------------------------------
 bar <- function(est, scale) {

@@ -8,10 +8,15 @@
 suppressPackageStartupMessages({ library(tidyverse); library(scales); library(nnet) })
 source("R/palette.R")   # the colour source: :root below and the plot series
 
-b <- readRDS("data/cert_model_baseline.rds")
-e <- readRDS("data/cert_model_enhanced.rds")
-g <- readRDS("data/cert_model_gvr.rds")
-cm <- readRDS("data/cert_model_conference.rds")
+# Which artifacts to describe. Defaults to the deployed set; train_cert_model.R
+# points it at whatever it just wrote, so the note cannot describe one set of
+# models while another is serving.
+model_dir <- Sys.getenv("MODEL_DIR", "data")
+art_ <- function(nm) readRDS(file.path(model_dir, nm))
+b  <- art_("cert_model_baseline.rds")
+e  <- art_("cert_model_enhanced.rds")
+g  <- art_("cert_model_gvr.rds")
+cm <- art_("cert_model_conference.rds")
 # beta / SE / z / p / odds ratio, shared with the standalone reference so the
 # two documents cannot drift apart on the same numbers.
 source("docs/model_coef_table.R")
