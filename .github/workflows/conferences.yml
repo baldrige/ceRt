@@ -40,7 +40,12 @@ concurrency:
 jobs:
   setup:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    # Must exceed the sum of this job's step caps (currently 45: setup-r 30 +
+    # setup-r-dependencies 15), or the job dies first and the step caps never
+    # fire -- which is strictly worse, because a job-level cancel does not say
+    # WHICH step hung, while a step timeout names it. 60 = 45 + a 15 min work
+    # allowance, ~5x the measured maximum for any of these light jobs.
+    timeout-minutes: 60
     outputs:
       matrix: ${{ steps.plan.outputs.matrix }}
       min_conf: ${{ steps.plan.outputs.min_conf }}
@@ -121,7 +126,12 @@ jobs:
   fetch-pending:
     needs: setup
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    # Must exceed the sum of this job's step caps (currently 45: setup-r 30 +
+    # setup-r-dependencies 15), or the job dies first and the step caps never
+    # fire -- which is strictly worse, because a job-level cancel does not say
+    # WHICH step hung, while a step timeout names it. 60 = 45 + a 15 min work
+    # allowance, ~5x the measured maximum for any of these light jobs.
+    timeout-minutes: 60
     continue-on-error: true
     steps:
       - uses: actions/checkout@v5
