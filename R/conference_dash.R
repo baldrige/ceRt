@@ -327,7 +327,17 @@ conference_dash <- function(dist, conf_date,
     Documents = map_chr(d$events, function(e)
                   case_documents(e, c("Petition", "Appendix", "BIO", "Reply"))),
     QP = { q <- map_chr(d$dkt, qp_get); ifelse(is.na(q) | q == "", "—", q) }
-  ) |> arrange(desc(Relists), desc(.fc_sort)) |> select(-.fc_sort)
+  ) |>
+    # Grant probability first, relists second. The forecast is the question a
+    # reader opens a conference page with -- which of these is likely to be
+    # granted -- and relists are the tiebreak among petitions the model rates
+    # alike, where a fourth distribution says something a first does not.
+    #
+    # Non-paid rows land at the bottom as a side effect, not by a Type key:
+    # p_ever is NA for them, and desc() sorts NA last. That is the right place
+    # for a row whose Forecast cell is an em dash, and it is worth knowing it
+    # falls out of the sort rather than being imposed on it.
+    arrange(desc(.fc_sort), desc(Relists)) |> select(-.fc_sort)
 
   # Drop the forecast column on conferences with no paid petitions, and any
   # column that is entirely empty -- e.g. QP and Counsel on the pre-JSON
@@ -379,14 +389,19 @@ conference_dash <- function(dist, conf_date,
   ) else ""
 
   n_case <- nrow(tbl)
-  # No longer "sort by Granted ever": the three forecast columns are one cell of
-  # markup now, so it sorts as text rather than by value and pointing readers at
-  # it would be pointing them at nonsense. Relists alone does what that sentence
-  # was for, and the shading finds the live petitions by eye without sorting.
+  # The page now ARRIVES in grant-forecast order, so the dek says so rather than
+  # sending the reader to a column to do it themselves.
+  #
+  # It still does not invite them to sort BY the forecast, and that restraint is
+  # deliberate: the three forecast numbers are one cell of markup, so the browser
+  # sorts them as text ("4%" after "12%") rather than by value. The R-side
+  # arrange() above uses the numeric key the cell is built from, which is why the
+  # default order is trustworthy and a click on that header would not be. Relists
+  # is a real integer column and sorts properly, so it is still worth naming.
   dek <- paste0(n_case, if (n_case == 1) " case" else " cases",
-    " distributed for this conference &mdash; sortable and filterable. Sort by ",
-    "<em>Relists</em> to surface the serially-relisted cases; the darkest ",
-    "<em>Grant forecast</em> cells are the likeliest grants.")
+    " distributed for this conference &mdash; sortable and filterable. Ordered by ",
+    "<em>Grant forecast</em>, then by <em>Relists</em>; the darkest cells are the ",
+    "likeliest grants. Sort by <em>Relists</em> to surface the serially-relisted cases.")
 
   scr_interactive(t, n_rows = nrow(tbl)) |>
     scr_write_page(
