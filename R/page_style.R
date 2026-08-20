@@ -107,6 +107,27 @@ INDEX_CSS <- paste0("\n  ", palette_root(), "
   .wr:focus-visible+label{outline:2px solid var(--accent);outline-offset:2px}
   .lead:has(#w7:checked) .g28,.lead:has(#w7:checked) .n28,
   .lead:has(#w28:checked) .g7,.lead:has(#w28:checked) .n7{display:none}
+  /* --- Upcoming at the Court ------------------------------------------------
+     A date gutter and a two-line body, the same shape as the grant rows above
+     it, so the two panels read as one page rather than two widgets. */
+  .cal{margin:0 0 1.9rem}
+  ol.cal{list-style:none;margin:0;padding:0}
+  ol.cal li{border-top:1px solid var(--rule)}
+  ol.cal li:last-child{border-bottom:1px solid var(--rule)}
+  ol.cal a{display:flex;gap:.95rem;align-items:baseline;text-decoration:none;
+    color:inherit;padding:.55rem .1rem}
+  ol.cal a:hover{background:rgba(@accent:rgb@,.05)}
+  ol.cal a:hover .ckind{color:var(--accent)}
+  ol.cal .cwhen{flex:none;width:4.6rem;font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.96rem;color:var(--ink);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  ol.cal .cdow{display:block;font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);text-transform:uppercase;letter-spacing:.08em}
+  ol.cal .ctx{flex:1;min-width:0}
+  ol.cal .ckind{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:.98rem;line-height:1.25}
+  ol.cal .cdet{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.12rem}
   ol.grants{list-style:none;margin:0;padding:0}
   ol.grants li{border-top:1px solid var(--rule)}
   ol.grants li:last-child{border-bottom:1px solid var(--rule)}
@@ -644,6 +665,36 @@ write_about_page <- function(out_path) {
 # the site's traffic volume -- but here the number *is* the claim, and a rank
 # without it would assert a distinction the reader cannot check. `note` must
 # carry the base rate: 14% reads as "unlikely" until you know the floor is 4.1%.
+# "Upcoming at the Court": the next conferences and argument days, chronological.
+#
+# Dates carry a weekday. The Court's calendar is a weekly rhythm -- conferences
+# on Fridays, arguments Monday through Wednesday -- and "Mon Oct 5" tells a
+# reader something "Oct 5" does not.
+#
+# Returns NULL on no events, which is the correct state for most of the summer:
+# an empty "Upcoming" heading is worse than no heading, because it reads as a
+# thing that broke rather than a Court that is in recess.
+calendar_panel <- function(events, heading = "Upcoming at the Court",
+                           note = NULL) {
+  if (is.null(events) || !nrow(events)) return(NULL)
+  rows <- lapply(seq_len(nrow(events)), function(i) {
+    d <- events$date[i]
+    tags$li(tags$a(
+      href = events$href[i],
+      tags$span(class = "cwhen",
+                tags$span(class = "cdow", format(d, "%a")),
+                format(d, "%b %e")),
+      tags$span(class = "ctx",
+                tags$span(class = "ckind", events$label[i]),
+                tags$span(class = "cdet", smarten(events$detail[i])))))
+  })
+  tags$section(
+    class = "panel cal",
+    tags$h2(heading),
+    if (!is.null(note)) tags$p(class = "pnote", smarten(note)),
+    tags$ol(class = "cal", rows))
+}
+
 # The Likeliest-Grants panel: the site's front-page answer to "what should I
 # look at". Each row is a case, its forecast, and -- where one could be reduced
 # to a single readable line -- the question it asks.

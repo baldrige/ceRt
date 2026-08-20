@@ -226,6 +226,7 @@ most_read <- top_viewed_cases(site_dir, n = 5L, days = MOST_READ_DAYS)
 # score_case() call the daily dashboard's "Grant forecast" column uses, so the
 # home page and the dashboard cannot show different numbers for one case.
 source("R/site_forecast.R")
+source("R/site_calendar.R")
 # Two windows, scored separately. The wider one is not a superset that could be
 # filtered down: top_forecast_cases() applies its own lift floor and suppression
 # rule per call, so 28 days can carry a panel on a week when 7 days cannot.
@@ -255,6 +256,19 @@ note_for <- function(days) sprintf(paste0(
   "Paid-docket cases filed in the last %d days, against a %.1f%% base rate. ",
   "An estimate, not a prediction about any case."),
   days, 100 * grant_model$base_rate)
+
+# "Upcoming at the Court". Read from manifests the conference and argument
+# renderers wrote -- see R/site_calendar.R for why this is a file and not a
+# computation. Filtered against today on every build, so a manifest written a
+# week ago cannot advertise a conference that has already happened.
+upcoming <- tryCatch(read_upcoming(c(
+  file.path(site_dir, "conferences", "upcoming.json"),
+  file.path(site_dir, "arguments",   "upcoming.json"))), error = function(e) NULL)
+cat("Upcoming events on the landing page:",
+    if (is.null(upcoming)) 0 else nrow(upcoming), "\n")
+calendar <- calendar_panel(
+  upcoming,
+  note = "The next conferences and argument days on the Court's calendar.")
 
 sharpest_panel <- forecast_panel(
   sharpest, sharpest_long,
@@ -300,7 +314,11 @@ styled_index_page(
   # sees only the top of the screen should see it. It sits ABOVE the search box
   # and the section list, which is what panel_top is for. NULL when the week was
   # too quiet to publish a panel, and the slot simply collapses.
-  panel_top = sharpest_panel,
+  # Forecast first, calendar under it: what the Court might take, then when it
+  # next sits. Either may be NULL -- a quiet week suppresses the panel, and the
+  # summer recess empties the calendar -- and tagList() drops a NULL, so the page
+  # simply closes up rather than showing an empty heading.
+  panel_top = tagList(sharpest_panel, calendar),
   # Most-read stays below the section list. It is a footnote to the forecast, not
   # a peer of it -- what readers clicked is downstream of what the Court did.
   #
