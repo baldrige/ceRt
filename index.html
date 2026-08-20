@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><script async src='/analytics.js'></script><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate icon" href="/favicon.ico" sizes="any"><link rel="alternate" type="application/atom+xml" title="Supreme Court Report" href="/feed.xml"><link rel="alternate" type="application/atom+xml" title="Certiorari grants" href="/grants.xml"><title>Supreme Court Report</title><meta name="description" content="Quantifying the U.S. Supreme Court's behavior and making it legible for the public."><link rel="canonical" href="https://supremecourt.report/"><meta property="og:site_name" content="Supreme Court Report"><meta property="og:type" content="website"><meta property="og:title" content="Supreme Court Report"><meta property="og:description" content="Quantifying the U.S. Supreme Court's behavior and making it legible for the public."><meta property="og:url" content="https://supremecourt.report/"><meta property="og:image" content="https://supremecourt.report/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Supreme Court Report - docket analytics for the Supreme Court of the United States"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Supreme Court Report"><meta name="twitter:description" content="Quantifying the U.S. Supreme Court's behavior and making it legible for the public."><meta name="twitter:image" content="https://supremecourt.report/og.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap"><style>
+<head><script async src='/analytics.js'></script><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate icon" href="/favicon.ico" sizes="any"><link rel="alternate" type="application/atom+xml" title="Supreme Court Report" href="/feed.xml"><link rel="alternate" type="application/atom+xml" title="Certiorari grants" href="/grants.xml"><title>Supreme Court Report</title><meta name="description" content="Every case the Supreme Court is asked to hear, what it asks, and the odds it is granted — rebuilt three times a day from the Court's own docket."><link rel="canonical" href="https://supremecourt.report/"><meta property="og:site_name" content="Supreme Court Report"><meta property="og:type" content="website"><meta property="og:title" content="Supreme Court Report"><meta property="og:description" content="Every case the Supreme Court is asked to hear, what it asks, and the odds it is granted — rebuilt three times a day from the Court's own docket."><meta property="og:url" content="https://supremecourt.report/"><meta property="og:image" content="https://supremecourt.report/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Supreme Court Report - docket analytics for the Supreme Court of the United States"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Supreme Court Report"><meta name="twitter:description" content="Every case the Supreme Court is asked to hear, what it asks, and the odds it is granted — rebuilt three times a day from the Court's own docket."><meta name="twitter:image" content="https://supremecourt.report/og.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap"><style>
   :root{--paper:#fdfcfa;--panel:#ffffff;--ink:#1a1a1e;--ink-soft:#484850;--faint:#63636b;--accent:#9c0e3a;--link:#9c0e3a;--rule:#dbd8d2;--nav-max:54rem}
   *{box-sizing:border-box}
   html{-webkit-text-size-adjust:100%}
@@ -47,6 +47,59 @@
   .panel h2{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
     color:var(--accent);margin:0 0 .25rem}
   .panel .pnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:0 0 .5rem}
+  /* --- Likeliest grants -----------------------------------------------------
+     Its own rows rather than ol.mostread's: this panel carries a question under
+     the caption, which that list has no room for, and a percentage that has to
+     read as the row's subject rather than as a trailing note.
+     The window toggle is two real radio inputs plus :has() -- no JavaScript.
+     Both windows are rendered at build time and one is hidden, which is the only
+     way a static site can offer the choice: there is no server to ask for the
+     other one. Real radios, not styled buttons, so the control is reachable by
+     keyboard and announced as a choice. */
+  .lead{margin:0 0 1.9rem}
+  .lead h2{margin-bottom:.35rem}
+  .lead .pnote{margin:0 0 .7rem}
+  .wr{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+  .win{display:inline-flex;gap:.25rem;margin:0 0 .55rem;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .win label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .win label:hover{color:var(--ink)}
+  .lead:has(#w7:checked) label[for=w7],
+  .lead:has(#w28:checked) label[for=w28]{background:var(--accent);color:var(--paper)}
+  .wr:focus-visible+label{outline:2px solid var(--accent);outline-offset:2px}
+  .lead:has(#w7:checked) .g28,.lead:has(#w7:checked) .n28,
+  .lead:has(#w28:checked) .g7,.lead:has(#w28:checked) .n7{display:none}
+  ol.grants{list-style:none;margin:0;padding:0}
+  ol.grants li{border-top:1px solid var(--rule)}
+  ol.grants li:last-child{border-bottom:1px solid var(--rule)}
+  ol.grants a{display:flex;gap:.95rem;align-items:baseline;text-decoration:none;
+    color:inherit;padding:.62rem .1rem}
+  ol.grants a:hover{background:rgba(156,14,58,.05)}
+  ol.grants a:hover .gc{color:var(--accent)}
+  ol.grants .gv{flex:none;width:3.5rem;text-align:right;
+    font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.22rem;
+    line-height:1.1;color:var(--accent);font-variant-numeric:tabular-nums}
+  ol.grants .gx{font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);margin-left:.3rem}
+  ol.grants .gtx{flex:1;min-width:0}
+  ol.grants .gc{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:1rem;line-height:1.25}
+  ol.grants .gq{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.16rem}
+  ol.grants .gd{flex:none;font-size:.76rem;color:var(--faint);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  .more{margin:.75rem 0 0;font-size:.92rem}
+  .more a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.35)}
+  .more a:hover{border-bottom-color:var(--link)}
+  h2.sec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:.88rem;
+    letter-spacing:.09em;color:var(--faint);text-transform:uppercase;
+    margin:2.1rem 0 .6rem;padding-bottom:.28rem;border-bottom:1px solid var(--rule)}
+  @media(max-width:40rem){
+    ol.grants a{flex-wrap:wrap}
+    ol.grants .gd{width:100%;padding-left:4.45rem;margin-top:-.1rem}
+  }
   ol.mostread{list-style:none;counter-reset:mr;padding:0;margin:0}
   ol.mostread li{counter-increment:mr;border-bottom:1px solid var(--rule)}
   ol.mostread a{display:flex;align-items:baseline;gap:.7rem;padding:.6rem .4rem;
@@ -215,12 +268,157 @@
 }
 </style></head>
 <body>
-  <a class='skip' href='#main'>Skip to content</a><header><div class='smast-in'><a class='smast-wm' href='/'>Supreme Court <em>Report</em></a></div><div class='smast-rule-w'><hr class='smast-rule'></div></header>
+  <a class='skip' href='#main'>Skip to content</a><header><div class='smast-in'><a class='smast-wm' href='/'>Supreme Court <em>Report</em></a><nav aria-label='Sections'><ul class='snav'><li><a href='/dashboards/'>Docket</a></li><li><a href='/conferences/'>Conferences</a></li><li><a href='/relists/'>Relists</a></li><li><a href='/arguments/'>Arguments</a></li><li><a href='/counsel/'>Counsel</a></li><li><a href='/funnel/'>The Funnel</a></li><li><a href='/methods.html'>Model</a></li><li><a href='/about.html'>About</a></li></ul></nav></div><div class='smast-rule-w'><hr class='smast-rule'></div></header>
   <main id="main" class="wrap">
     <p class="kicker">A window on the Court’s docket</p>
     <h1>Supreme Court Report</h1>
     <hr class="brule"/>
-    <p class="dek">Quantifying the U.S. Supreme Court’s behavior and making it legible for the public.</p>
+    <p class="dek">Every case the Supreme Court is asked to hear, what it asks, and the odds it is granted — rebuilt three times a day from the Court’s own docket.</p>
+    <section class="panel lead">
+      <h2>Likeliest grants</h2>
+      <input class="wr" type="radio" name="win" id="w7" checked aria-label="Last 7 days"/>
+      <input class="wr" type="radio" name="win" id="w28" aria-label="Last 28 days"/>
+      <div class="win">
+        <label for="w7">7 days</label>
+        <label for="w28">28 days</label>
+      </div>
+      <p class="pnote n7">Paid-docket cases filed in the last 7 days, against a 4.1% base rate. An estimate, not a prediction about any case.</p>
+      <p class="pnote n28">Paid-docket cases filed in the last 28 days, against a 4.1% base rate. An estimate, not a prediction about any case.</p>
+      <ol class="grants g7">
+        <li>
+          <a href="cases/26-205.html">
+            <span class="gv">
+              67%
+              <span class="gx">16×</span>
+            </span>
+            <span class="gtx">
+              <span class="gc">University of South Florida College Republicans v. Howard W. Lutnick, Secretary of Commerce</span>
+              <span class="gq">Whether Florida residents and a Member of Congress who allege that the Census Bureau’s use of statistical…</span>
+            </span>
+            <span class="gd">No. 26-205</span>
+          </a>
+        </li>
+        <li>
+          <a href="cases/26-201.html">
+            <span class="gv">
+              64%
+              <span class="gx">16×</span>
+            </span>
+            <span class="gtx">
+              <span class="gc">Federal Trade Commission v. National Horsemen’s Benevolent and Protective Association</span>
+              <span class="gq">Whether the enforcement provisions of the Horseracing Integrity and Safety Act of 2020, 15 U.S.C. 3051 et…</span>
+            </span>
+            <span class="gd">No. 26-201</span>
+          </a>
+        </li>
+        <li>
+          <a href="cases/26-204.html">
+            <span class="gv">
+              64%
+              <span class="gx">15×</span>
+            </span>
+            <span class="gtx">
+              <span class="gc">Department of Justice v. Scott McNutt</span>
+              <span class="gq">Whether the prohibition on the production of distilled spirits in particular locations, including “in any…</span>
+            </span>
+            <span class="gd">No. 26-204</span>
+          </a>
+        </li>
+        <li>
+          <a href="cases/26-210.html">
+            <span class="gv">
+              56%
+              <span class="gx">14×</span>
+            </span>
+            <span class="gtx">
+              <span class="gc">Donald J. Trump, President of the United States v. Neeta Thakur, Individually and on Behalf of All Others Similarly Situated</span>
+              <span class="gq">Whether the First Amendment prohibits the government from considering the viewpoints furthered by academic…</span>
+            </span>
+            <span class="gd">No. 26-210</span>
+          </a>
+        </li>
+        <li>
+          <a href="cases/26-199.html">
+            <span class="gv">
+              24%
+              <span class="gx">6×</span>
+            </span>
+            <span class="gtx">
+              <span class="gc">Horseracing Integrity and Safety Authority, Incorporated v. National Horsemen’s Benevolent and Protective Association</span>
+              <span class="gq">Whether the enforcement provisions of the Horseracing Integrity and Safety Act are facially unconstitutional…</span>
+            </span>
+            <span class="gd">No. 26-199</span>
+          </a>
+        </li>
+      </ol>
+      <ol class="grants g28">
+        <li>
+          <a href="cases/26-205.html">
+            <span class="gv">
+              67%
+              <span class="gx">16×</span>
+            </span>
+            <span class="gtx">
+              <span class="gc">University of South Florida College Republicans v. Howard W. Lutnick, Secretary of Commerce</span>
+              <span class="gq">Whether Florida residents and a Member of Congress who allege that the Census Bureau’s use of statistical…</span>
+            </span>
+            <span class="gd">No. 26-205</span>
+          </a>
+        </li>
+        <li>
+          <a href="cases/26-201.html">
+            <span class="gv">
+              64%
+              <span class="gx">16×</span>
+            </span>
+            <span class="gtx">
+              <span class="gc">Federal Trade Commission v. National Horsemen’s Benevolent and Protective Association</span>
+              <span class="gq">Whether the enforcement provisions of the Horseracing Integrity and Safety Act of 2020, 15 U.S.C. 3051 et…</span>
+            </span>
+            <span class="gd">No. 26-201</span>
+          </a>
+        </li>
+        <li>
+          <a href="cases/26-204.html">
+            <span class="gv">
+              64%
+              <span class="gx">15×</span>
+            </span>
+            <span class="gtx">
+              <span class="gc">Department of Justice v. Scott McNutt</span>
+              <span class="gq">Whether the prohibition on the production of distilled spirits in particular locations, including “in any…</span>
+            </span>
+            <span class="gd">No. 26-204</span>
+          </a>
+        </li>
+        <li>
+          <a href="cases/26-210.html">
+            <span class="gv">
+              56%
+              <span class="gx">14×</span>
+            </span>
+            <span class="gtx">
+              <span class="gc">Donald J. Trump, President of the United States v. Neeta Thakur, Individually and on Behalf of All Others Similarly Situated</span>
+              <span class="gq">Whether the First Amendment prohibits the government from considering the viewpoints furthered by academic…</span>
+            </span>
+            <span class="gd">No. 26-210</span>
+          </a>
+        </li>
+        <li>
+          <a href="cases/26-183.html">
+            <span class="gv">
+              26%
+              <span class="gx">6×</span>
+            </span>
+            <span class="gtx">
+              <span class="gc">United Airlines, Incorporated v. Genise Kincannon, Individually and on Behalf of All Others Similarly Situated</span>
+            </span>
+            <span class="gd">No. 26-183</span>
+          </a>
+        </li>
+      </ol>
+      <p class="more"><a href='dashboards/'>All petitions this week &rarr;</a>&nbsp;&middot;&nbsp;<a href='methods.html'>How the forecast works &rarr;</a></p>
+    </section>
     <div class='csearch'><input type='search' id='cq' autocomplete='off' spellcheck='false' placeholder='Search all cases by name or docket number…' aria-label='Search cases'><ul id='cres' class='cres' role='listbox'></ul></div>
     <ul class="idx">
       <li>
@@ -296,47 +494,6 @@
         </a>
       </li>
     </ul>
-    <section class="panel">
-      <h2>Likeliest Grants</h2>
-      <p class="pnote">Structural estimate for paid-docket cases filed in the last 7 days, against a 4.1% base rate. An estimate, not a prediction about any case.</p>
-      <ol class="mostread">
-        <li>
-          <a href="cases/26-205.html">
-            <span class="mc">University of South Florida College Republicans v. Howard W. Lutnick, Secretary of Commerce</span>
-            <span class="mdk">No. 26-205</span>
-            <span class="mv fc">67%</span>
-          </a>
-        </li>
-        <li>
-          <a href="cases/26-201.html">
-            <span class="mc">Federal Trade Commission v. National Horsemen’s Benevolent and Protective Association</span>
-            <span class="mdk">No. 26-201</span>
-            <span class="mv fc">64%</span>
-          </a>
-        </li>
-        <li>
-          <a href="cases/26-204.html">
-            <span class="mc">Department of Justice v. Scott McNutt</span>
-            <span class="mdk">No. 26-204</span>
-            <span class="mv fc">64%</span>
-          </a>
-        </li>
-        <li>
-          <a href="cases/26-210.html">
-            <span class="mc">Donald J. Trump, President of the United States v. Neeta Thakur, Individually and on Behalf of All Others Similarly Situated</span>
-            <span class="mdk">No. 26-210</span>
-            <span class="mv fc">56%</span>
-          </a>
-        </li>
-        <li>
-          <a href="cases/26-199.html">
-            <span class="mc">Horseracing Integrity and Safety Authority, Incorporated v. National Horsemen’s Benevolent and Protective Association</span>
-            <span class="mdk">No. 26-199</span>
-            <span class="mv fc">24%</span>
-          </a>
-        </li>
-      </ol>
-    </section>
     <section class="panel">
       <h2>Most-Read Cases</h2>
       <p class="pnote">Ranked by page views over the 30 days ending August 19, 2026.</p>
