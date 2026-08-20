@@ -183,7 +183,11 @@ resolve <- function(href) {
   if (p == "" || grepl("/$", p)) p <- paste0(p, "index.html")
   file.exists(file.path(site, p))
 }
-targets <- c("/", vapply(SECTIONS, function(s) s$href, character(1)), "/cases/")
+# /404.html is in this list because nothing links to it -- GitHub Pages reaches
+# it by convention alone, so a build that stopped writing it would break the one
+# page a lost reader sees, silently and for as long as nobody typed a bad URL.
+targets <- c("/", vapply(SECTIONS, function(s) s$href, character(1)),
+             "/cases/", "/404.html")
 bad <- targets[!vapply(targets, resolve, logical(1))]
 if (length(bad)) {
   fail("nav targets resolve", paste("404:", paste(bad, collapse = ", ")))

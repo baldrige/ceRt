@@ -206,6 +206,12 @@ if (file.exists("docs/cert_model_methods.html")) {
 # to. Written unconditionally (it has no external dependency) and listed last, so
 # the sections a reader came for stay above it.
 write_about_page(file.path(site_dir, "about.html"))
+
+# The 404. GitHub Pages serves it for any path it cannot resolve, so it is a
+# root file nothing else writes -- same re-assert-every-run reasoning as
+# robots.txt and og.png. Deliberately NOT added to `items`: it is not a section
+# a reader chooses, and listing it on the landing page would be odd.
+write_404_page(file.path(site_dir, "404.html"))
 items <- c(items, list(list(href = "about.html", label = "About",
                             meta = "who makes this")))
 # Most-read cases over the trailing 30 days, from GA4. Needs the GA4_PROPERTY_ID
