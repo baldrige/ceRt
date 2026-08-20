@@ -23,6 +23,7 @@ dir.create(conf_dir, recursive = TRUE, showWarnings = FALSE)
 
 source("R/qp_extract.R")
 source("R/conference_dash.R")
+source("R/site_calendar.R")   # upcoming_conferences(), write_upcoming()
 source("R/cert_funnel.R")   # classify_petition_events (relist grammar)
 source("R/cert_model.R")    # score_disposition + load_cert_models
 source("R/argument_nav.R")  # classify_argument (docket-page lifecycle)
@@ -93,6 +94,15 @@ cat("Combined cases:", nrow(combined), "\n")
 # last/next conference are properties of the CASE, and computing them from a
 # date-windowed slice would compute them from a fragment.
 dist_all <- conference_distributions(combined)
+
+# The landing page's "Upcoming at the Court" list. dist_all, not the windowed
+# `dist` below: the render window starts at min_conf and a FUTURE conference is
+# always inside it, but the window is an argument the caller controls and this
+# should not silently depend on it.
+up_conf <- upcoming_conferences(dist_all)
+write_upcoming(up_conf, file.path(conf_dir, "upcoming.json"))
+cat("Upcoming conferences:", nrow(up_conf),
+    if (nrow(up_conf)) paste0(" (next ", format(up_conf$date[1], "%b %e"), ")") else "", "\n")
 dist <- dist_all |> filter(conf_date >= min_conf)
 dates <- dist |> distinct(conf_date) |> arrange(conf_date) |> pull(conf_date)
 

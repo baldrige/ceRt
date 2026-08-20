@@ -18,6 +18,7 @@ dir.create(arg_dir, recursive = TRUE, showWarnings = FALSE)
 
 source("R/qp_extract.R")
 source("R/argument_nav.R")   # sources cert_funnel.R + page_style.R
+source("R/site_calendar.R")   # upcoming_arguments(), write_upcoming()
 source("R/cert_model.R")     # score_case (docket-page forecast)
 source("R/docket_page.R")    # render_dockets_for
 
@@ -58,6 +59,14 @@ if (nrow(tbl) > 0) {
   cat("QP attached for", sum(!is.na(tbl$qp)), "of", nrow(tbl), "cases",
       if (qp_max > 0) paste0(" (fetched up to ", qp_max, " new)") else " (cache-only)", "\n")
 }
+
+# The landing page's "Upcoming at the Court" list. Written here because this is
+# the only place that knows the argument calendar: a sitting draws cases from
+# several docket terms, and the daily fetches one.
+up <- upcoming_arguments(tbl)
+write_upcoming(up, file.path(arg_dir, "upcoming.json"))
+cat("Upcoming argument days:", nrow(up),
+    if (nrow(up)) paste0(" (next ", format(up$date[1], "%b %e"), ")") else "", "\n")
 
 terms <- render_argument_nav(out_dir = arg_dir, tbl = tbl)
 # Typographic (smart) quotes across the per-Term argument pages (the index is
