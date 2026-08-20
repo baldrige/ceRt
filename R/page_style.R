@@ -84,6 +84,59 @@ INDEX_CSS <- paste0("\n  ", palette_root(), "
   .panel h2{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
     color:var(--accent);margin:0 0 .25rem}
   .panel .pnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:0 0 .5rem}
+  /* --- Likeliest grants -----------------------------------------------------
+     Its own rows rather than ol.mostread's: this panel carries a question under
+     the caption, which that list has no room for, and a percentage that has to
+     read as the row's subject rather than as a trailing note.
+     The window toggle is two real radio inputs plus :has() -- no JavaScript.
+     Both windows are rendered at build time and one is hidden, which is the only
+     way a static site can offer the choice: there is no server to ask for the
+     other one. Real radios, not styled buttons, so the control is reachable by
+     keyboard and announced as a choice. */
+  .lead{margin:0 0 1.9rem}
+  .lead h2{margin-bottom:.35rem}
+  .lead .pnote{margin:0 0 .7rem}
+  .wr{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+  .win{display:inline-flex;gap:.25rem;margin:0 0 .55rem;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .win label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .win label:hover{color:var(--ink)}
+  .lead:has(#w7:checked) label[for=w7],
+  .lead:has(#w28:checked) label[for=w28]{background:var(--accent);color:var(--paper)}
+  .wr:focus-visible+label{outline:2px solid var(--accent);outline-offset:2px}
+  .lead:has(#w7:checked) .g28,.lead:has(#w7:checked) .n28,
+  .lead:has(#w28:checked) .g7,.lead:has(#w28:checked) .n7{display:none}
+  ol.grants{list-style:none;margin:0;padding:0}
+  ol.grants li{border-top:1px solid var(--rule)}
+  ol.grants li:last-child{border-bottom:1px solid var(--rule)}
+  ol.grants a{display:flex;gap:.95rem;align-items:baseline;text-decoration:none;
+    color:inherit;padding:.62rem .1rem}
+  ol.grants a:hover{background:rgba(@accent:rgb@,.05)}
+  ol.grants a:hover .gc{color:var(--accent)}
+  ol.grants .gv{flex:none;width:3.5rem;text-align:right;
+    font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.22rem;
+    line-height:1.1;color:var(--accent);font-variant-numeric:tabular-nums}
+  ol.grants .gx{font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);margin-left:.3rem}
+  ol.grants .gtx{flex:1;min-width:0}
+  ol.grants .gc{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:1rem;line-height:1.25}
+  ol.grants .gq{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.16rem}
+  ol.grants .gd{flex:none;font-size:.76rem;color:var(--faint);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  .more{margin:.75rem 0 0;font-size:.92rem}
+  .more a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(@link:rgb@,.35)}
+  .more a:hover{border-bottom-color:var(--link)}
+  h2.sec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:.88rem;
+    letter-spacing:.09em;color:var(--faint);text-transform:uppercase;
+    margin:2.1rem 0 .6rem;padding-bottom:.28rem;border-bottom:1px solid var(--rule)}
+  @media(max-width:40rem){
+    ol.grants a{flex-wrap:wrap}
+    ol.grants .gd{width:100%;padding-left:4.45rem;margin-top:-.1rem}
+  }
   ol.mostread{list-style:none;counter-reset:mr;padding:0;margin:0}
   ol.mostread li{counter-increment:mr;border-bottom:1px solid var(--rule)}
   ol.mostread a{display:flex;align-items:baseline;gap:.7rem;padding:.6rem .4rem;
@@ -591,25 +644,76 @@ write_about_page <- function(out_path) {
 # the site's traffic volume -- but here the number *is* the claim, and a rank
 # without it would assert a distinction the reader cannot check. `note` must
 # carry the base rate: 14% reads as "unlikely" until you know the floor is 4.1%.
-forecast_panel <- function(df, heading = "Likeliest Grants", note = NULL) {
-  if (is.null(df) || !nrow(df)) return(NULL)
-  rows <- lapply(seq_len(nrow(df)), function(i) {
-    tags$li(tags$a(
-      href = df$href[i],
-      tags$span(class = "mc", smarten(df$caption[i])),
-      tags$span(class = "mdk", paste0("No. ", df$dkt[i])),
-      # Integer percent, matching describe_forecast() and the dashboard's Grant
-      # forecast column. A second decimal would imply a precision the calibrator
-      # does not have.
-      tags$span(class = "mv fc", sprintf("%d%%", round(100 * df$prob[i])))
-    ))
-  })
+# The Likeliest-Grants panel: the site's front-page answer to "what should I
+# look at". Each row is a case, its forecast, and -- where one could be reduced
+# to a single readable line -- the question it asks.
+#
+# `short` and `long` are top_forecast_cases() frames for the two windows; either
+# may be zero rows, because the panel suppresses itself when too few cases clear
+# the lift floor. All three combinations are handled:
+#   both        -> the toggle
+#   one only    -> that window, rendered plain, with no control to click
+#   neither     -> NULL, and the caller drops the panel entirely
+# A toggle with one working side would be worse than no toggle: it invites a
+# click that silently does nothing.
+#
+# `qp` is a named dkt -> one-line question vector (qp_lines_from_cache()). A
+# missing entry is normal and shows the caption alone -- see qp_line() for why
+# roughly a quarter of cases have no usable line.
+forecast_panel <- function(short, long = NULL, qp = character(),
+                           base_rate = NULL, heading = "Likeliest grants",
+                           note_short = NULL, note_long = NULL,
+                           links = NULL) {
+  has <- function(d) !is.null(d) && is.data.frame(d) && nrow(d) > 0
+  if (!has(short) && !has(long)) return(NULL)
+
+  rows <- function(df, cls) {
+    if (!has(df)) return(NULL)
+    lis <- lapply(seq_len(nrow(df)), function(i) {
+      dkt <- df$dkt[i]
+      q   <- if (!is.null(qp) && dkt %in% names(qp)) unname(qp[[dkt]]) else NA_character_
+      # lift comes off the frame rather than being recomputed here: it is the
+      # model's own number, and dividing by a base rate this function was handed
+      # separately is how the two quietly disagree.
+      mult <- if (!is.null(df$lift) && is.finite(df$lift[i]))
+        sprintf("%.0f×", df$lift[i]) else NULL
+      tags$li(tags$a(
+        href = df$href[i],
+        tags$span(class = "gv", sprintf("%d%%", round(100 * df$prob[i])),
+                  if (!is.null(mult)) tags$span(class = "gx", mult)),
+        tags$span(class = "gtx",
+                  tags$span(class = "gc", smarten(df$caption[i])),
+                  if (!is.na(q)) tags$span(class = "gq", smarten(q))),
+        tags$span(class = "gd", paste0("No. ", dkt))))
+    })
+    tags$ol(class = paste("grants", cls), lis)
+  }
+
+  both <- has(short) && has(long)
+  toggle <- if (both) tagList(
+    # Checked state lives on the SHORT window, so a reader who never touches the
+    # control sees the same seven days the panel has always shown.
+    tags$input(class = "wr", type = "radio", name = "win", id = "w7",
+               checked = NA, `aria-label` = "Last 7 days"),
+    tags$input(class = "wr", type = "radio", name = "win", id = "w28",
+               `aria-label` = "Last 28 days"),
+    tags$div(class = "win",
+             tags$label(`for` = "w7", "7 days"),
+             tags$label(`for` = "w28", "28 days"))) else NULL
+
+  note <- function(txt, cls) if (!is.null(txt))
+    tags$p(class = paste("pnote", cls), smarten(txt)) else NULL
+
   tags$section(
-    class = "panel",
+    class = "panel lead",
     tags$h2(heading),
-    if (!is.null(note)) tags$p(class = "pnote", smarten(note)),
-    tags$ol(class = "mostread", rows)
-  )
+    toggle,
+    # When only one window survived, its note carries no toggle class -- there is
+    # nothing to hide it against.
+    if (both) tagList(note(note_short, "n7"), note(note_long, "n28"))
+    else note(if (has(short)) note_short else note_long, ""),
+    rows(short, "g7"), rows(long, "g28"),
+    if (!is.null(links)) tags$p(class = "more", HTML(links)))
 }
 
 # Render a styled index/landing page. `items` is a list of lists with $href,
@@ -623,6 +727,12 @@ forecast_panel <- function(df, heading = "Likeliest Grants", note = NULL) {
 styled_index_page <- function(out_path, title, heading, items,
                               kicker = NULL, dek = NULL, back = NULL,
                               new_tab = TRUE, search = FALSE, panel = NULL,
+                              # A block that belongs ABOVE the search box and the
+                              # section list. `panel` sits below both, which was
+                              # right while that list was the page's navigation --
+                              # the landing page's masthead carries that now, so the
+                              # forecast leads and the list is a reference under it.
+                              panel_top = NULL,
                               active = NULL, crumb = NULL, wordmark_only = FALSE,
                               search_json = "cases/search.json",
                               search_prefix = "cases/", feeds = FALSE,
@@ -667,6 +777,7 @@ styled_index_page <- function(out_path, title, heading, items,
     heading_node,
     tags$hr(class = "brule"),
     if (!is.null(dek)) tags$p(class = "dek", smarten(dek)),
+    panel_top,
     if (isTRUE(search)) HTML(SEARCH_HTML),
     tags$ul(class = "idx", rows),
     panel,
