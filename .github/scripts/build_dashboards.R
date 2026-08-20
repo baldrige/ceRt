@@ -226,36 +226,71 @@ most_read <- top_viewed_cases(site_dir, n = 5L, days = MOST_READ_DAYS)
 # score_case() call the daily dashboard's "Grant forecast" column uses, so the
 # home page and the dashboard cannot show different numbers for one case.
 source("R/site_forecast.R")
+# Two windows, scored separately. The wider one is not a superset that could be
+# filtered down: top_forecast_cases() applies its own lift floor and suppression
+# rule per call, so 28 days can carry a panel on a week when 7 days cannot.
 sharpest <- top_forecast_cases(ot, grant_model, site_dir,
                                signals_map = signals_map,
                                counsel_index = counsel_ix, n = 5L)
-# Note built only when there are rows: grant_model may be NULL, and the base
-# rate has to come off the model rather than a literal so it stays true across
-# refits.
-sharpest_panel <- if (nrow(sharpest)) forecast_panel(
-  sharpest,
-  heading = "Likeliest Grants",
+sharpest_long <- top_forecast_cases(ot, grant_model, site_dir,
+                                    signals_map = signals_map,
+                                    counsel_index = counsel_ix, n = 5L,
+                                    days = FORECAST_WINDOW_LONG)
+
+# One-line questions for the rows, from the QP caches already on the site. Read
+# AFTER scotus_dash() has run, so dashboards/qp_cache.json holds this run's
+# freshly-extracted petitions; the conference cache backs it for anything older
+# than the daily's fetch window, which is most of the 28-day list.
+qp_lines <- tryCatch(qp_lines_from_cache(c(
+  file.path(site_dir, "conferences", "qp_cache.json"),
+  file.path(site_dir, "arguments",   "qp_cache.json"),
+  file.path(site_dir, "dashboards",  "qp_cache.json"))), error = function(e) character())
+cat("Front-page questions available for", length(qp_lines), "docket(s)\n")
+
+note_for <- function(days) sprintf(paste0(
   # "paid-docket cases", not "paid petitions": the paid docket carries 28 U.S.C.
   # 1253 direct appeals alongside petitions, and the first two entries this panel
   # ever published were the Allen redistricting APPEALS. Calling them petitions
   # on the front page was wrong in the same way the model's cue text was.
-  note = sprintf(paste0("Structural estimate for paid-docket cases filed in the ",
-                        "last %d days, against a %.1f%% base rate. An estimate, ",
-                        "not a prediction about any case."),
-                 FORECAST_WINDOW_DAYS, 100 * grant_model$base_rate)) else NULL
+  "Paid-docket cases filed in the last %d days, against a %.1f%% base rate. ",
+  "An estimate, not a prediction about any case."),
+  days, 100 * grant_model$base_rate)
+
+sharpest_panel <- forecast_panel(
+  sharpest, sharpest_long,
+  qp = qp_lines,
+  heading = "Likeliest grants",
+  note_short = note_for(FORECAST_WINDOW_DAYS),
+  note_long  = note_for(FORECAST_WINDOW_LONG),
+  links = paste0(
+    "<a href='dashboards/'>All petitions this week &rarr;</a>",
+    "&nbsp;&middot;&nbsp;<a href='methods.html'>How the forecast works &rarr;</a>"))
 
 styled_index_page(
   file.path(site_dir, "index.html"),
   title = "Supreme Court Report",
   kicker = "A window on the Court's docket",
   heading = "Supreme Court Report",
-  dek = "Quantifying the U.S. Supreme Court's behavior and making it legible for the public.",
+  # Concrete rather than aspirational: testers could not tell what the page was
+  # FOR. This says what it holds, in the order the page now presents it.
+  #
+  # A literal em dash, not "&mdash;". styled_index_page() puts the dek through
+  # tags$p(), and htmltools escapes the text children of a tag -- an entity here
+  # ships as "&amp;mdash;" and prints itself at the reader. smarten() converts
+  # quotes, not dashes, so it will not rescue one either.
+  dek = paste("Every case the Supreme Court is asked to hear, what it asks, and the odds",
+              "it is granted \u2014 rebuilt three times a day from the Court's own docket."),
   items = items,
   new_tab = FALSE,
   search = TRUE,
-  # Wordmark only: this page IS the section list, and repeating it 200px above
-  # itself is noise.
-  wordmark_only = TRUE,
+  # The section nav rides at the top here as it does everywhere else. It used to
+  # be suppressed -- "this page IS the section list, and repeating it 200px above
+  # itself is noise" -- and that was right while the section list WAS the
+  # navigation. Leading with the forecast inverts it: the nav is now how a reader
+  # leaves this page, and the list below is a reference with descriptions the
+  # nav's one-word labels cannot carry. Testers reported not knowing what to do
+  # with the page; having somewhere to go, above the fold, is most of the answer.
+  wordmark_only = FALSE,
   # The visible follow-by-feed line. Only the landing page carries it: the feeds
   # were shipped with autodiscovery alone, which made them findable by software
   # and invisible to readers. The section indexes are deliberately left alone --

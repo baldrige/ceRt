@@ -156,6 +156,69 @@ get_qp <- function(url) {
   extract_qp(url)
 }
 
+# ---- one-line question, for a summary row -------------------------------------
+# The Question Presented, reduced to a single line that says what the case asks.
+#
+# Three things have to happen to the cached text before it can sit in a table row:
+#
+#   * Rejoin words the PDF broke across lines. pdftools preserves the printed
+#     hyphenation, so the cache holds "actual Enumera- tion" and "the govern-
+#     ment", which read as typos anywhere they are shown.
+#   * Find the operative clause. Roughly a third of petitions open with a
+#     paragraph of scene-setting before the question -- "Since the Founding era,
+#     Congress has imposed an excise tax..." -- so the first sentence is often
+#     background, not the question. The clause almost always begins "Whether".
+#   * Stop at the first sentence, without breaking on "U.S.C." or "v." or an
+#     initial, which a naive split on "." does.
+#
+# Returns NA unless the result reads as a QUESTION. Measured over the 206 paid
+# dockets with a cached QP, 63% do; the rest open with background that reads as a
+# non-sequitur once it is cut to one line. A row with no question shows its
+# caption alone, which is quiet and never wrong -- the alternative is a subtitle
+# that confuses the reader about what the case is about.
+QP_OPENERS <- "^(Whether|Wether|Did|Does|Do|Is|Are|May|Can|Must|Should|When|Whose|Which)\\b"
+
+qp_line <- function(txt, max_chars = 112L) {
+  if (is.null(txt) || length(txt) != 1L || is.na(txt) ||
+      !nzchar(txt) || identical(txt, "-")) return(NA_character_)
+  x <- gsub("([[:alpha:]])-[[:space:]]+([[:lower:]])", "\\1\\2", txt)  # de-hyphenate
+  x <- str_squish(x)
+  x <- str_remove(x, "^\\(?[0-9IVXivx]{1,3}[.)]\\s+")                  # leading "1." / "I."
+  # Prefer the operative clause wherever it starts.
+  w <- str_extract(x, "Whether\\b.*")
+  cand <- if (!is.na(w)) w else x
+  # First sentence: a terminator followed by whitespace and a capital, so "U.S.C.
+  # 3051" and "Mallory v. Norfolk" do not end it.
+  s <- str_extract(cand, "^.*?[.?](?=\\s+[A-Z\u201c\"(]|$)")
+  out <- str_squish(if (!is.na(s) && nchar(s) > 40L) s else cand)
+  # A trailing enumerator from a multi-question petition ("... 922(g)(1). 2.").
+  out <- str_squish(str_remove(out, "\\s+[0-9]{1,2}\\.$"))
+  if (!nzchar(out) || !str_detect(out, QP_OPENERS)) return(NA_character_)
+  if (nchar(out) > max_chars) {
+    cut <- substr(out, 1L, max_chars)
+    sp  <- regexpr("\\s[^\\s]*$", cut, perl = TRUE)
+    if (sp > 0L) cut <- substr(cut, 1L, sp - 1L)
+    out <- paste0(str_remove(cut, "[ ,;:\u2014-]+$"), "\u2026")
+  }
+  out
+}
+
+# Named dkt -> one-line question, read from the QP caches a build has on disk.
+# Later files win, matching render_dockets_for()'s merge order.
+qp_lines_from_cache <- function(paths, max_chars = 112L) {
+  out <- character()
+  for (p in paths) {
+    if (!file.exists(p)) next
+    cache <- tryCatch(fromJSON(p, simplifyVector = FALSE), error = function(e) NULL)
+    if (is.null(cache)) next
+    for (d in names(cache)) {
+      l <- tryCatch(qp_line(cache[[d]]$qp, max_chars), error = function(e) NA_character_)
+      if (!is.na(l)) out[[d]] <- l
+    }
+  }
+  out
+}
+
 # ---- the operative opening document ------------------------------------------
 # Most cases open with a petition for a writ of certiorari. A DIRECT APPEAL --
 # 28 U.S.C. 1253, from a three-judge district court -- opens with a

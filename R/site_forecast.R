@@ -47,6 +47,7 @@ local({
 #
 # Raise these as the model sharpens -- they are deliberately a one-line edit.
 FORECAST_WINDOW_DAYS <- 7L    # trailing days of docketing to consider
+FORECAST_WINDOW_LONG <- 28L   # the wider window the front page can toggle to
 FORECAST_MIN_LIFT    <- 2.0   # x base rate required, per entry
 FORECAST_MIN_ENTRIES <- 3L    # below this it is not a list, it is a coincidence
 
