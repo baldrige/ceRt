@@ -296,21 +296,24 @@ styled_index_page(
   # and invisible to readers. The section indexes are deliberately left alone --
   # one quiet line where people arrive, not a subscribe prompt on every page.
   feeds = TRUE,
-  # Two panels; either may be NULL and tagList() drops it. Forecast first: it is
-  # about petitions that arrived this week, which is the site's subject. What
-  # readers clicked is a footnote to that, not a peer of it.
-  panel = tagList(
-    sharpest_panel,
-    # Rank only, no counts: the ordering is the story, and printing the raw
-    # numbers would publish the site's traffic volume as a side effect.
-    most_read_panel(
-      most_read,
-      heading = "Most-Read Cases",
-      show_counts = FALSE,
-      note = sprintf("Ranked by page views over the %d days ending %s %d, %d.",
-                     MOST_READ_DAYS, format(Sys.Date() - 1, "%B"),
-                     as.integer(format(Sys.Date() - 1, "%d")),
-                     as.integer(format(Sys.Date() - 1, "%Y"))))),
+  # The forecast leads the page: it is the reason to come back, and a reader who
+  # sees only the top of the screen should see it. It sits ABOVE the search box
+  # and the section list, which is what panel_top is for. NULL when the week was
+  # too quiet to publish a panel, and the slot simply collapses.
+  panel_top = sharpest_panel,
+  # Most-read stays below the section list. It is a footnote to the forecast, not
+  # a peer of it -- what readers clicked is downstream of what the Court did.
+  #
+  # Rank only, no counts: the ordering is the story, and printing the raw numbers
+  # would publish the site's traffic volume as a side effect.
+  panel = most_read_panel(
+    most_read,
+    heading = "Most-Read Cases",
+    show_counts = FALSE,
+    note = sprintf("Ranked by page views over the %d days ending %s %d, %d.",
+                   MOST_READ_DAYS, format(Sys.Date() - 1, "%B"),
+                   as.integer(format(Sys.Date() - 1, "%d")),
+                   as.integer(format(Sys.Date() - 1, "%Y")))),
   # Canonical URL for this page (see social_meta()).
   path = "/"
 )

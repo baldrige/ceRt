@@ -727,6 +727,12 @@ forecast_panel <- function(short, long = NULL, qp = character(),
 styled_index_page <- function(out_path, title, heading, items,
                               kicker = NULL, dek = NULL, back = NULL,
                               new_tab = TRUE, search = FALSE, panel = NULL,
+                              # A block that belongs ABOVE the search box and the
+                              # section list. `panel` sits below both, which was
+                              # right while that list was the page's navigation --
+                              # the landing page's masthead carries that now, so the
+                              # forecast leads and the list is a reference under it.
+                              panel_top = NULL,
                               active = NULL, crumb = NULL, wordmark_only = FALSE,
                               search_json = "cases/search.json",
                               search_prefix = "cases/", feeds = FALSE,
@@ -771,6 +777,7 @@ styled_index_page <- function(out_path, title, heading, items,
     heading_node,
     tags$hr(class = "brule"),
     if (!is.null(dek)) tags$p(class = "dek", smarten(dek)),
+    panel_top,
     if (isTRUE(search)) HTML(SEARCH_HTML),
     tags$ul(class = "idx", rows),
     panel,
