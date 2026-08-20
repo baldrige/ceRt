@@ -338,9 +338,12 @@ feed_autodiscovery_links <- function() {
 # link shows, and the canonical URL. Both default to NULL so a caller that has
 # nothing sensible to say says nothing, rather than shipping a card captioned
 # with boilerplate.
+# `extra_head` is raw markup appended last, for the rare page that needs a tag
+# the shared head has no business carrying sitewide -- currently only the 404's
+# robots noindex.
 page_head <- function(title, jsonld = NULL, extra_css = NULL,
                       description = NULL, path = NULL,
-                      og_type = c("website", "article")) {
+                      og_type = c("website", "article"), extra_head = NULL) {
   og_type <- match.arg(og_type)
   paste0(
     "<head>",
@@ -365,6 +368,7 @@ page_head <- function(title, jsonld = NULL, extra_css = NULL,
     "<style>", INDEX_CSS, NAV_CSS, if (!is.null(extra_css)) extra_css else "",
     "</style>",
     if (!is.null(jsonld)) jsonld else "",
+    if (!is.null(extra_head)) extra_head else "",
     "</head>")
 }
 
@@ -407,6 +411,91 @@ most_read_panel <- function(df, heading = "Most-Read Cases", note = NULL,
 # a search result. Giving them somewhere to send it is the whole job, which is
 # why "About" is in SITE_SECTIONS rather than tucked into the landing page: it
 # has to be reachable from a case page, since that is where readers actually are.
+# The 404. GitHub Pages serves this file for ANY path it cannot resolve, and
+# that one fact drives the whole design:
+#
+#   * Every href and fetch is root-absolute. The browser's URL stays at the
+#     path the reader asked for, so a relative "cases/search.json" resolves to
+#     /cases/cases/search.json from a case URL and the search silently returns
+#     nothing -- the exact failure search_script()'s own comment warns about.
+#   * The page cannot know what was requested at build time, so the one thing
+#     it can usefully do about it is read location.pathname in the browser.
+#
+# Case pages are 99.5% of the site, so a mistyped or stale docket number is by
+# far the likeliest way to land here. That is worth answering specifically
+# rather than with a generic apology: the script below recognises a docket-
+# shaped path, names the number that is not on file, and pre-runs the search
+# for it.
+write_404_page <- function(out_path) {
+  # Root-absolute, because this page is served from paths it cannot predict.
+  search_html <- search_script("/cases/search.json", "/cases/")
+
+  # Docket-aware opener. Kept to one small script rather than a framework:
+  #   /cases/24-1234.html -> "No. 24-1234 is not on file here."
+  # and the search box is seeded with the number so the reader sees near
+  # matches (a renumbered docket, the same case at a different stage) without
+  # retyping it.
+  #
+  # dispatchEvent rather than focus(): the search loads its index on focus, and
+  # calling focus() would yank the caret and the screen-reader cursor away from
+  # the top of the page. Dispatching the event runs the same listener without
+  # moving anything.
+  dkt_script <- paste0("<script>(function(){",
+    "var m=location.pathname.match(/\\/cases\\/([0-9]{2}[A-Za-z]?-?[0-9]+)\\.html$/);",
+    "if(!m)return;var d=m[1];",
+    "var h=document.getElementById('nf-dkt');",
+    "if(h){h.textContent='No. '+d+' is not on file here.';h.hidden=false;}",
+    "var q=document.getElementById('cq');",
+    "if(q){q.value=d;q.dispatchEvent(new Event('focus'));",
+    "q.dispatchEvent(new Event('input'));}",
+    "})();</script>")
+
+  body <- tags$body(
+    HTML(site_masthead()),
+    tags$main(
+      id = "main", class = "wrap",
+      tags$p(class = "kicker", "Not found"),
+      tags$h1("No page at that address"),
+      tags$hr(class = "brule"),
+      # Filled in by the script when the path names a docket; hidden otherwise,
+      # so a reader who lands here from a non-case URL is not told about a
+      # docket number that was never in play.
+      tags$p(id = "nf-dkt", class = "dek", hidden = NA, ""),
+      tags$p(class = "dek", smarten(paste(
+        "The link may be mistyped or out of date. Every docket the Court has",
+        "opened since October Term 2017 has a page here -- search for a case",
+        "by name or number below, or start from one of the sections."))),
+      HTML(SEARCH_HTML),
+      tags$ul(class = "idx", lapply(SITE_SECTIONS, function(sec)
+        tags$li(tags$a(
+          class = "row", href = sec$href,
+          tags$span(class = "d", HTML(sec$label)),
+          tags$span(class = "count", HTML(sec$long)))))),
+      tags$p(class = "back", tags$a(href = "/", smarten("&larr; Supreme Court Report")))
+    ),
+    # No footer block: about.html does not carry one either, and case_footer()
+    # is specific to a docket page (it links out to that case on
+    # supremecourt.gov). The masthead is the navigation here.
+    HTML(search_html),
+    HTML(dkt_script)
+  )
+  html <- paste0("<!DOCTYPE html>\n<html lang=\"en\">\n",
+    page_head("Page not found — Supreme Court Report",
+              description = paste(
+                "That address does not match a page on Supreme Court Report.",
+                "Search the full docket by case name or number."),
+              # No canonical: this file answers for every unresolved path, and
+              # naming one URL as its canonical would be a lie on all the others.
+              path = NULL,
+              # A 404 is served with a 404 status, which crawlers already
+              # respect -- but /404.html itself returns 200 if visited directly,
+              # and that copy should not be indexed.
+              extra_head = "<meta name=\"robots\" content=\"noindex\">"),
+    "\n", as.character(body), "\n</html>\n")
+  writeLines(enc2utf8(smarten_html(html)), out_path, useBytes = TRUE)
+  invisible(out_path)
+}
+
 write_about_page <- function(out_path) {
   a <- function(href, ...) tags$a(href = href, target = "_blank", rel = "noopener", ...)
   body <- tags$body(
