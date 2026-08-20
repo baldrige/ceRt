@@ -60,7 +60,31 @@ fail <- function(check, detail) record("FAIL", check, detail)
 # would pull the whole ~30KB page; the <meta name='tv'> sits in the first ~250.
 head_bytes <- function(path, n = 600L) {
   con <- file(path, "rb"); on.exit(close(con))
-  rawToChar(readBin(con, "raw", n = n))
+  r <- readBin(con, "raw", n = n)
+  # Drop a multi-byte UTF-8 character that the fixed-size read cut in half.
+  #
+  # This killed the 2026-08-20 audit outright. Byte 600 of 26-5322.html landed
+  # inside the em dash in "In Re Ricardo Villanueva-Martinez \u2014 No. 26-5322",
+  # leaving a lone 0xE2; rawToChar() produced invalid UTF-8 and the sub() below
+  # errored with "input string 55219 is invalid". One page in 55,539, and the
+  # whole audit stopped before its FIRST check -- exactly the failure this file's
+  # header warns about, since a run that cannot finish looks the same as a red one.
+  #
+  # It only started biting when the social <head> block landed: before that the
+  # 600-byte window ended in ASCII markup, and now it can end inside a caption.
+  # Reading more bytes would just move the boundary, not remove it.
+  if (length(r)) {
+    i <- length(r)
+    # Walk back over continuation bytes (10xxxxxx).
+    while (i > 0L && r[i] >= as.raw(0x80) && r[i] <= as.raw(0xBF)) i <- i - 1L
+    if (i > 0L) {
+      lead <- as.integer(r[i])
+      need <- if (lead >= 0xF0) 4L else if (lead >= 0xE0) 3L else
+              if (lead >= 0xC0) 2L else 1L
+      if (need > length(r) - i + 1L) r <- utils::head(r, i - 1L)
+    }
+  }
+  rawToChar(r)
 }
 
 # Whole file as one string. Lives HERE, with the other helpers, and not beside
