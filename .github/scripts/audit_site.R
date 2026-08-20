@@ -333,6 +333,41 @@ if (length(ph_hits)) {
      sprintf("no unresolved @token@ in %d sampled page(s)", length(ph_files)))
 }
 
+# Double-escaped HTML entities. "&amp;mdash;" in the output means an entity went
+# through an escaper that treated it as literal text, so the page prints
+# "&mdash;" at the reader instead of an em dash.
+#
+# Two of these shipped, from different causes, which is why it is worth a check
+# rather than a fix: htmltools escapes the text children of a tag, so a bare
+# "&larr;" handed to tags$a() became "&amp;larr;" on the 404; and social_meta()
+# escaped titles without first decoding them, so nine argument pages advertised
+# og:title="OT2025 &amp;mdash; Oral Arguments".
+#
+# The pattern is deliberately anchored to a KNOWN entity name. A bare "&amp;"
+# is correct and extremely common here -- "Hanzada for Import &amp; Export" is
+# right -- so matching "&amp;" alone would fail on hundreds of real captions.
+cat("\nEntity escaping\n")
+ent_files <- Filter(file.exists, c(
+  ph_files,
+  file.path(site, "404.html"),
+  head(sort(list.files(file.path(site, "arguments"), pattern = "^arg_",
+                       full.names = TRUE), decreasing = TRUE), 3)))
+ENT_RE <- paste0("&amp;(larr|rarr|mdash|ndash|nbsp|amp|lt|gt|quot|rsquo|lsquo|",
+                 "ldquo|rdquo|middot|hellip|times|prop|asymp|bull);")
+ent_hits <- unlist(lapply(ent_files, function(f) {
+  m <- regmatches(slurp(f), gregexpr(ENT_RE, slurp(f)))[[1]]
+  if (length(m)) sprintf("%s (%s)", sub(paste0("^", site, "/"), "", f),
+                         paste(unique(m), collapse = " ")) else NULL
+}))
+if (length(ent_hits)) {
+  fail("no double-escaped entities",
+       sprintf("%d page(s): %s", length(ent_hits),
+               paste(utils::head(ent_hits, 4), collapse = "; ")))
+} else {
+  ok("no double-escaped entities",
+     sprintf("none in %d sampled page(s)", length(ent_files)))
+}
+
 stray <- unlist(lapply(src, function(f) {
   ln <- readLines(f, warn = FALSE)
   hit <- grep("#[0-9a-fA-F]{6}\\b", ln)

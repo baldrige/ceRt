@@ -471,7 +471,13 @@ write_404_page <- function(out_path) {
           class = "row", href = sec$href,
           tags$span(class = "d", HTML(sec$label)),
           tags$span(class = "count", HTML(sec$long)))))),
-      tags$p(class = "back", tags$a(href = "/", smarten("&larr; Supreme Court Report")))
+      # HTML(), not a bare string: htmltools escapes the text children of a tag,
+      # so smarten("&larr; ...") shipped a literal "&amp;larr;" and the page
+      # showed the entity instead of the arrow. The section labels two lines up
+      # already use HTML() for the same reason. The leaf pages get away with the
+      # bare entity because scr_write_page() pastes its back link as a string
+      # rather than building it with tags.
+      tags$p(class = "back", tags$a(href = "/", HTML("&larr; Supreme Court Report")))
     ),
     # No footer block: about.html does not carry one either, and case_footer()
     # is specific to a docket page (it links out to that case on

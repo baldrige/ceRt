@@ -37,17 +37,31 @@ if (!exists("%||%")) `%||%` <- function(a, b) if (is.null(a)) b else a
 # Trim to a length the cards actually show, on a word boundary. Facebook and
 # Bluesky cut around 200 characters and Google around 155; going long is not
 # penalised, it is just invisible, so this keeps the useful part first.
-.meta_clip <- function(x, n = 200L) {
-  x <- as.character(x %||% "")
-  # Strip markup and decode the few entities the deks use. Page deks are HTML --
-  # "docketed <strong>December 03, 2024</strong> &mdash; sortable" -- and a card
-  # renders a description literally, tags and all. This is the difference between
-  # a shared link that reads like a sentence and one that reads like source.
-  x <- gsub("<[^>]*>", "", x)
+# Strip markup and decode the entities the page chrome uses, so what reaches a
+# card is text rather than source.
+#
+# Both the title AND the description need this, which the first version got half
+# right: only the description was decoded, so a page whose title carries an
+# entity -- "OT2025 &mdash; Oral Arguments" -- had its ampersand escaped by
+# .meta_esc() into "&amp;mdash;" and shipped a card reading the entity out loud.
+# Nine argument pages went out that way.
+#
+# &amp; is decoded LAST on purpose. Decoding it first would turn "&amp;mdash;"
+# into "&mdash;" and then into an em dash, silently unescaping one level too
+# many; leaving it until the named entities are gone means a genuine "AT&amp;T"
+# resolves to "AT&T" and nothing else moves.
+.meta_decode <- function(x) {
+  x <- gsub("<[^>]*>", "", as.character(x %||% ""))
   for (e in list(c("&mdash;", "\u2014"), c("&ndash;", "\u2013"), c("&rsquo;", "\u2019"),
                  c("&lsquo;", "\u2018"), c("&ldquo;", "\u201c"), c("&rdquo;", "\u201d"),
+                 c("&middot;", "\u00b7"), c("&hellip;", "\u2026"),
                  c("&nbsp;", " "), c("&amp;", "&"), c("&lt;", "<"), c("&gt;", ">")))
     x <- gsub(e[1], e[2], x, fixed = TRUE)
+  x
+}
+
+.meta_clip <- function(x, n = 200L) {
+  x <- .meta_decode(x)
   x <- gsub("\\s+", " ", trimws(x))
   if (!nzchar(x) || nchar(x) <= n) return(x)
   cut <- substr(x, 1L, n)
@@ -76,7 +90,7 @@ social_meta <- function(title, description = NULL, path = NULL,
     if (!is.null(url)) paste0('<link rel="canonical" href="', .meta_esc(url), '">'),
     '<meta property="og:site_name" content="Supreme Court Report">',
     '<meta property="og:type" content="', type, '">',
-    '<meta property="og:title" content="', .meta_esc(title), '">',
+    '<meta property="og:title" content="', .meta_esc(.meta_decode(title)), '">',
     if (nzchar(d)) paste0('<meta property="og:description" content="', .meta_esc(d), '">'),
     if (!is.null(url)) paste0('<meta property="og:url" content="', .meta_esc(url), '">'),
     '<meta property="og:image" content="', SITE_BASE, OG_IMAGE, '">',
@@ -86,7 +100,7 @@ social_meta <- function(title, description = NULL, path = NULL,
     # summary_large_image, not summary: the card is a 1200x630 wordmark and the
     # small variant crops it to a square that cuts the wordmark in half.
     '<meta name="twitter:card" content="summary_large_image">',
-    '<meta name="twitter:title" content="', .meta_esc(title), '">',
+    '<meta name="twitter:title" content="', .meta_esc(.meta_decode(title)), '">',
     if (nzchar(d)) paste0('<meta name="twitter:description" content="', .meta_esc(d), '">'),
     '<meta name="twitter:image" content="', SITE_BASE, OG_IMAGE, '">')
 }
