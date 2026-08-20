@@ -70,6 +70,27 @@
   .wr:focus-visible+label{outline:2px solid var(--accent);outline-offset:2px}
   .lead:has(#w7:checked) .g28,.lead:has(#w7:checked) .n28,
   .lead:has(#w28:checked) .g7,.lead:has(#w28:checked) .n7{display:none}
+  /* --- Upcoming at the Court ------------------------------------------------
+     A date gutter and a two-line body, the same shape as the grant rows above
+     it, so the two panels read as one page rather than two widgets. */
+  .cal{margin:0 0 1.9rem}
+  ol.cal{list-style:none;margin:0;padding:0}
+  ol.cal li{border-top:1px solid var(--rule)}
+  ol.cal li:last-child{border-bottom:1px solid var(--rule)}
+  ol.cal a{display:flex;gap:.95rem;align-items:baseline;text-decoration:none;
+    color:inherit;padding:.55rem .1rem}
+  ol.cal a:hover{background:rgba(156,14,58,.05)}
+  ol.cal a:hover .ckind{color:var(--accent)}
+  ol.cal .cwhen{flex:none;width:4.6rem;font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.96rem;color:var(--ink);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  ol.cal .cdow{display:block;font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);text-transform:uppercase;letter-spacing:.08em}
+  ol.cal .ctx{flex:1;min-width:0}
+  ol.cal .ckind{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:.98rem;line-height:1.25}
+  ol.cal .cdet{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.12rem}
   ol.grants{list-style:none;margin:0;padding:0}
   ol.grants li{border-top:1px solid var(--rule)}
   ol.grants li:last-child{border-bottom:1px solid var(--rule)}
