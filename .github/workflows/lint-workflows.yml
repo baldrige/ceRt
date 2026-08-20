@@ -1,0 +1,44 @@
+# Check the timeout invariants on the workflows themselves.
+#
+# Cheap and fast: no R, no site checkout, no network beyond the checkout. It
+# runs on any change under .github/ so a timeout edit cannot land without the
+# arithmetic being checked -- which is how eight jobs ended up with a cap below
+# the sum of their own step caps on 2026-08-19, silently disabling every step
+# timeout they contained.
+name: Lint workflows
+
+on:
+  push:
+    paths:
+      - '.github/workflows/**'
+      - '.github/actions/**'
+      - '.github/scripts/lint_workflows.py'
+  pull_request:
+    paths:
+      - '.github/workflows/**'
+      - '.github/actions/**'
+      - '.github/scripts/lint_workflows.py'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: lint-workflows-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    # No step caps in this job, so the rule the linter enforces does not apply
+    # to it; 10 is a backstop for a job whose work is a sub-second parse.
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+      # Explicit, rather than trusting the runner image to carry PyYAML. The
+      # linter refuses to run without it instead of skipping silently, so an
+      # image change would turn into a red build rather than a quiet pass.
+      - name: Install PyYAML
+        run: python3 -m pip install --quiet pyyaml
+      - name: Check workflow timeout invariants
+        run: python3 .github/scripts/lint_workflows.py
