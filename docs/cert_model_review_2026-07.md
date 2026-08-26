@@ -176,6 +176,17 @@ accumulates enough true cert-before-judgment petitions to estimate one.
 
 ## Other open questions
 
+- **`pro_se` is measured from a snapshot that the grant itself changes.**
+  `petitioner_pro_se()` reads counsel of record on the *current* party table.
+  When a self-filed petition is granted the petitioner acquires merits counsel,
+  who takes counsel of record, and the filer drops to a second attorney entry —
+  so the feature flips to `FALSE` on exactly the petitions the coefficient is
+  fitted against. Testing "petitioner appears as their own attorney anywhere on
+  the petitioner side" instead finds three IFP pro se plenary grants in OT2017–24
+  (Banister 18-6943, Lomax 18-8369, Wooden 20-5279) where the shipped test finds
+  zero. The paid-side "0 grants in 3,016" survives (0 in 3,030 here); the IFP side
+  is partly measurement. Unquantified: how much of the fitted separation is real.
+  **[pro-se-grants.md](pro-se-grants.md)**.
 - **Entity typing remains heuristic.** ~14.5% of respondents were mistyped before
   this pass (bare state names, federal AGs, universities, unions typed as
   `individual`); the residual rate after the fix is unmeasured.
