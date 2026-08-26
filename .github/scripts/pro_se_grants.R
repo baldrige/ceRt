@@ -1,24 +1,44 @@
 # Reproduce every number in docs/pro-se-grants.md: how often the Court grants
 # more than one self-filed petition in a month, and in a Term.
 #
-#   Rscript .github/scripts/pro_se_grants.R           # ~12 min (classification)
+#   Rscript .github/scripts/pro_se_grants.R           # ~15 min (classification)
 #   PRO_SE_CACHE=/tmp/ps.rds Rscript ...              # cache the classification
 #
 # No fetch and no CI job. This is an analysis script, kept in-tree so the doc's
 # tables can be regenerated after a classifier change rather than trusted.
 #
-# Env: PRO_SE_CACHE (optional path; written on first run, read on later ones).
+# Env: PRO_SE_CACHE (optional path; written on first run, read on later ones),
+#      PRO_SE_EXTRA (comma-separated extra snapshots; default data-raw/snapshot_*.rds).
 
 suppressPackageStartupMessages({library(tidyverse)})
 source("R/cert_funnel.R")
 
 cache <- Sys.getenv("PRO_SE_CACHE", unset = "")
 
+# Two sources, and the order between them is load-bearing.
+#
+# `data-raw/ot_*.rds` is the committed archive, OT2017-OT2024. `snapshot_*` is
+# NOT part of that glob on purpose: dropping an ot_2025.rds into data-raw would
+# silently re-base the Cert Funnel, the Counsel Table and the model's training
+# corpus, all of which glob `ot_*.rds`. The snapshots carry OT2025, OT2026 and a
+# re-fetch of every petition the archives still had at `pending` -- an OT2024
+# petition granted after the July 2025 archive snapshot is invisible otherwise,
+# and ~22% of a Term's grants are of a petition docketed the Term before.
+#
+# Snapshots load LAST and win: keep the final occurrence of a docket, not the
+# first, so a refreshed docket overrides its stale archive copy.
 arch <- sort(Sys.glob("data-raw/ot_*.rds"))
 if (!length(arch)) stop("no archives matched data-raw/ot_*.rds")
-cases <- map_dfr(arch, read_rds) |> distinct(dkt, .keep_all = TRUE)
-cat("archives:", paste(str_extract(basename(arch), "\\d{4}"), collapse = ", "),
-    "| dockets:", nrow(cases), "\n")
+extra <- Sys.getenv("PRO_SE_EXTRA", unset = "")
+extra <- if (nzchar(extra)) trimws(unlist(strsplit(extra, ","))) else
+         sort(Sys.glob("data-raw/snapshot_*.rds"))
+extra <- extra[file.exists(extra)]
+
+cases <- map_dfr(c(arch, extra), read_rds)
+cases <- cases[!duplicated(cases$dkt, fromLast = TRUE), ]
+cat("archives:", paste(str_extract(basename(arch), "\\d{4}"), collapse = ", "), "\n")
+cat("snapshots:", if (length(extra)) paste(basename(extra), collapse = ", ") else "(none)", "\n")
+cat("dockets:", nrow(cases), "\n")
 
 # ---- pro se ------------------------------------------------------------------
 # The petitioner appears as their OWN attorney anywhere on the petitioner side --
@@ -88,6 +108,20 @@ d <- cls |>
          ord_term = ot_of(outcome_date),
          month    = if_else(is.na(outcome_date), as.Date(NA), floor_date(outcome_date, "month")))
 
+# Which Terms exist, and which of them can carry a "did it happen twice" verdict.
+#
+# LAST_COMPLETE is a judgment, not a date arithmetic: a Term formally runs to the
+# day before its successor opens, so OT2025 does not "end" until 4 Oct 2026 -- but
+# the Court's last order list of a Term lands in late June or early July, and
+# nothing further issues under that Term's number. A Term whose June sitting has
+# passed is complete for the purpose of counting grants. OT2026 is not: its
+# petitions are being docketed but the Term has not opened, so it contributes
+# denominators and no grants, and would drag every fraction down if pooled in.
+TERMS <- sort(unique(d$dkt_term))
+LAST_COMPLETE <- suppressWarnings(as.integer(Sys.getenv("PRO_SE_LAST_COMPLETE", "2025")))
+cat("Terms present: OT", paste(TERMS, collapse = ", OT"),
+    " | complete through OT", LAST_COMPLETE, "\n", sep = "")
+
 allg      <- d |> filter(outcome %in% c("granted", "gvr"), !is.na(month))
 months_all <- seq(min(allg$month), max(allg$month), by = "month")   # every calendar month
 months_ord <- sort(unique(allg$month))                              # months with any grant
@@ -116,11 +150,16 @@ for (nm in c("plenary grants", "plenary + GVR")) {
 
   cat("(b) Terms\n")
   for (v in c("ord_term", "dkt_term")) {
-    t <- tibble(y = 2017:2024) |>
+    t <- tibble(y = TERMS) |>
       left_join(count(g, y = .data[[v]], name = "k"), by = "y") |> mutate(k = replace_na(k, 0L))
-    cat(sprintf("  %-9s %s | >=1 %d/8 | >=2 %d/8 | max %d\n", v,
-                paste(sprintf("%2d", t$k), collapse = " "), sum(t$k >= 1), sum(t$k >= 2), max(t$k)))
+    tc <- filter(t, y <= LAST_COMPLETE)
+    cat(sprintf("  %-9s %s | over OT%d-OT%d: >=1 %d/%d | >=2 %d/%d | max %d\n", v,
+                paste(sprintf("%2d", t$k), collapse = " "), min(TERMS), LAST_COMPLETE,
+                sum(tc$k >= 1), nrow(tc), sum(tc$k >= 2), nrow(tc), max(t$k)))
   }
+  inc <- setdiff(TERMS, TERMS[TERMS <= LAST_COMPLETE])
+  if (length(inc)) cat("  (OT", paste(inc, collapse = ", "),
+                       " excluded from the fractions -- see LAST_COMPLETE)\n", sep = "")
 }
 
 cat("\n== base rates (resolved petitions) ==\n")
@@ -128,8 +167,24 @@ print(d |> filter(!is.na(outcome_date)) |> group_by(type, pro_se) |>
         summarise(resolved = n(), granted = sum(outcome == "granted"),
                   gvr = sum(outcome == "gvr"), .groups = "drop") |> as.data.frame(), right = FALSE)
 
+roll <- d |> filter(pro_se, outcome %in% c("granted", "gvr")) |> arrange(outcome_date)
+
 cat("\n== the full roll ==\n")
-print(d |> filter(pro_se, outcome %in% c("granted", "gvr")) |> arrange(outcome_date) |>
-        transmute(dkt, date = outcome_date, ot_order = ord_term, ot_docket = dkt_term,
-                  type, outcome, caption = str_trunc(caption, 60)) |>
+print(roll |> transmute(dkt, date = outcome_date, ot_order = ord_term, ot_docket = dkt_term,
+                        type, outcome, caption = str_trunc(caption, 60)) |>
         as.data.frame(), right = FALSE)
+
+# PRO_SE_MD=1 emits the roll as the markdown table docs/pro-se-grants.md carries,
+# so the doc is regenerated rather than hand-edited after a re-run.
+if (nzchar(Sys.getenv("PRO_SE_MD", ""))) {
+  cat("\n== markdown roll ==\n")
+  cat("| # | docket | order date | OT (order) | OT (docket) | type | disposition | case |\n")
+  cat("| --- | --- | --- | --- | --- | --- | --- | --- |\n")
+  for (i in seq_len(nrow(roll))) cat(sprintf(
+    "| %d | %s | %s | OT%d | OT%d | %s | %s | %s |\n", i,
+    if (roll$outcome[i] == "granted") paste0("**", roll$dkt[i], "**") else roll$dkt[i],
+    format(roll$outcome_date[i], "%Y-%m-%d"), roll$ord_term[i], roll$dkt_term[i],
+    if (roll$type[i] == "ifp") "IFP" else "Paid",
+    if (roll$outcome[i] == "granted") "**plenary grant**" else "GVR / summary",
+    str_replace_all(roll$caption[i], "\\|", "-")))
+}

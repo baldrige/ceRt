@@ -184,8 +184,12 @@ accumulates enough true cert-before-judgment petitions to estimate one.
   fitted against. Testing "petitioner appears as their own attorney anywhere on
   the petitioner side" instead finds three IFP pro se plenary grants in OT2017–24
   (Banister 18-6943, Lomax 18-8369, Wooden 20-5279) where the shipped test finds
-  zero. The paid-side "0 grants in 3,016" survives (0 in 3,030 here); the IFP side
-  is partly measurement. Unquantified: how much of the fitted separation is real.
+  zero, and two more once OT2025 is fetched (Maxwell 25-5930, Grand 25-965). The
+  IFP side of the separation is therefore partly measurement. **And the paid side
+  is no longer separated at all**: Grand paid the docketing fee and was granted on
+  30 June 2026, making the cell 1 grant in 3,398 rather than 0 in 3,016. The
+  Firth penalty was added because that cell was empty; it is not. Unquantified:
+  how much of the fitted separation survives either correction.
   **[pro-se-grants.md](pro-se-grants.md)**.
 - **Entity typing remains heuristic.** ~14.5% of respondents were mistyped before
   this pass (bare state names, federal AGs, universities, unions typed as
