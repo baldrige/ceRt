@@ -23,12 +23,24 @@ Court docket across every term the pipeline has fetched (currently OT2017–pres
 
 ### `PAGE_TEMPLATE_VERSION`
 
-A string constant near the top of `docket_page.R`. **Bump it whenever the
-markup/CSS/coloring logic changes** — it is part of every page's content hash, so a
-bump invalidates the whole manifest and forces every page to re-render. This is a
-*render-only* change: no re-fetch of docket data is required (see "Rolling a
-template change to the back-catalog" below). The version history is kept in the
-code header comment (v5 … v12).
+A string constant near the top of `docket_page.R`. **Bump it whenever anything
+changes what a page says** — markup, CSS, coloring logic, *or* the classifier
+behind the text. It is part of every page's content hash, so a bump invalidates
+the whole manifest and forces every page to re-render. This is a *render-only*
+change: no re-fetch of docket data is required (see "Rolling a template change to
+the back-catalog" below). The version history is kept in the code header comment.
+
+**Classifier changes count, and this is the trap.** The hash digests a page's
+*inputs* — caption, events, parties, lower court, `qp`, `sig`, `model_id`, and
+this constant — never the classified *output*. A fix that reinterprets the same
+docket entries leaves every hashed input byte-identical, so the key matches, the
+page is skipped, and it stays wrong through any number of runs. That is what
+happened to 18-6943 after the `GRANT_FORMS` fix in #93: the status chip read
+"Pending" on a page that said "Decided June 1, 2020" three lines below it,
+because the argument block reads the events through `classify_argument()` and
+never touched the broken pattern. Adding the outcome to the key is *not* the fix
+— it would re-render a page every time a forecast moved, which is precisely what
+the key exists to prevent. Bump the version instead.
 
 ## Brief-cover timeline dots (Rule 33.1(g))
 
