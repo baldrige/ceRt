@@ -28,7 +28,7 @@ site, partitioned so they never fight over the same paths.
 
 | workflow | schedule (cron is **UTC**) | data | public pages |
 | --- | --- | --- | --- |
-| **`daily.yml`** | 3×/day: `30 0`, `0 18`, `0 22` (00:30 / 18:00 / 22:00 UTC — the ET-anchored two ≈ 2pm & 6pm ET) | **Yes** — incremental fetch | **Yes** — dashboards, recent cases, landing |
+| **`daily.yml`** | 3×/day: `3 23`, `33 16`, `33 20` (23:03 / 16:33 / 20:33 UTC — the ET-anchored two ≈ 12:33pm & 4:33pm ET) | **Yes** — incremental fetch | **Yes** — dashboards, recent cases, landing |
 | **`conferences.yml`** | Weekly `0 6 * * 1` (**Mon 06:00 UTC**), year-round | **Yes** — full-term fetch | **Yes** — conferences, relists, arguments, funnel, counsel |
 
 ### `daily.yml`

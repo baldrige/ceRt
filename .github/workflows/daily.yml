@@ -12,9 +12,30 @@ on:
     # Cron is UTC and does NOT observe US daylight saving, so the ET-anchored
     # runs below are set for EDT (UTC-4); during standard time (Nov-Mar) they
     # land one hour earlier in ET.
-    - cron: "30 0 * * *"   # ~00:30 UTC, shortly after the ~00:05 UTC JSON re-export
-    - cron: "0 18 * * *"   # 2pm ET (EDT); 1pm ET during standard time
-    - cron: "0 22 * * *"   # 6pm ET (EDT); 5pm ET during standard time
+    #
+    # All three moved 87 minutes EARLIER on 2026-08-27, and the nominal times
+    # are no longer the point -- the ACTUAL fire times are. GitHub dispatches
+    # `schedule` on a best-effort queue and sheds it under load, worst at the
+    # top of the hour. Measured drift over 08-10..08-27: the :00 crons landed
+    # 16-30 min late on a good day, and on 08-26/27 three of six slots were
+    # dropped outright while the survivors ran 1h48 and 2h20 late, one of them
+    # detaching from its slot entirely (a 10:03 UTC run matching no cron).
+    #
+    # 87 minutes early plus :03/:33 minute marks buys back the typical drift and
+    # moves every slot off the contended hour boundary. If GitHub ever dispatches
+    # these on time, read the *intent* column, not the clock:
+    #
+    #   23:03 UTC  intended: the ~00:05 UTC JSON re-export.  ON TIME THIS RUNS
+    #              62 MIN EARLY AND SEES YESTERDAY'S EXPORT. It works only while
+    #              the drift it is compensating for persists. Revert this one to
+    #              "30 0" the day scheduling is reliable again.
+    #   16:33 UTC  12:33pm EDT -- BEFORE the 2pm ET GA4 window flip, so this is
+    #              no longer the run that picks up new analytics.
+    #   20:33 UTC  4:33pm EDT -- after the flip, so this is now the GA-bearing
+    #              run for the landing page's Most-Read Cases panel.
+    - cron: "3 23 * * *"    # was "30 0": the JSON-re-export run, now 62 min ahead of it
+    - cron: "33 16 * * *"   # was "0 18": 12:33pm ET (EDT); 11:33am ET during standard time
+    - cron: "33 20 * * *"   # was "0 22": 4:33pm ET (EDT); 3:33pm ET during standard time
   workflow_dispatch:
     inputs:
       full_term:
