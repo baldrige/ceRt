@@ -189,10 +189,29 @@ write_docket_css <- function(out_dir) {
 # pages are the unit people share, so it has to reach the back-catalogue rather
 # than only pages a daily happens to touch.
 #
-# v20 has not been rolled out either (55,345 of 55,498 pages are still v19 as of
-# the 2026-08-19 audit), so one re-render now carries both -- rerender-dockets.yml
-# with reuse_from_runs, ~20 min, no re-fetch.
-PAGE_TEMPLATE_VERSION <- "v21"
+# v22: no markup change at all -- the CLASSIFIER changed underneath the pages.
+# GRANT_FORMS gained three wording families it could not read (#93), which moved
+# four petitions: 18-6943 pending -> granted, 21-1087 gvr -> granted (and its
+# date back sixteen months), 24-1177 and 24-1246 pending -> gvr.
+#
+# This bump exists because the manifest key CANNOT see that change. It digests
+# the page's INPUTS -- caption, events, parties, lower court, qp, sig, model_id,
+# and this constant -- not the classifier's OUTPUT. A fix that reinterprets the
+# same docket entries leaves every hashed input byte-identical, so the key
+# matches and the page is skipped forever. 18-6943 sat at "Pending" on a page
+# that also said "Decided June 1, 2020" three lines down, because the argument
+# block reads the events through classify_argument() and never went through the
+# broken pattern. Two readings of one docket, one of them wrong, and nothing in
+# the incremental path could tell.
+#
+# So: bump on a logic change that alters what a page SAYS, not only on markup.
+# The alternative -- adding the classified outcome to the key -- would re-render
+# a page every time a forecast moved, which is what the key is designed to avoid.
+#
+# v20 and v21 have not been rolled out either (55,345 of 55,498 pages are still
+# v19 as of the 2026-08-19 audit), so one re-render now carries all three --
+# rerender-dockets.yml with reuse_from_runs, ~20 min, no re-fetch.
+PAGE_TEMPLATE_VERSION <- "v22"
 
 # ---- small helpers ------------------------------------------------------------
 .esc <- function(x) { x <- x %||% ""; x[is.na(x)] <- ""; htmltools::htmlEscape(x) }
