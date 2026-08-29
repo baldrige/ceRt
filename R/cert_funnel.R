@@ -82,8 +82,14 @@ GRANT_FORMS <- c(
   # split-motion form: "Motion to proceed in forma pauperis GRANTED. Petition
   # for a writ of certiorari GRANTED limited to ..." (case-insensitive: the
   # uppercase-GRANTED convention is not universal)
-  "(?i)^Motion (of petitioner )?(for leave )?to proceed in forma pauperis (is )?GRANTED[.,]?\\s+(and )?the petition[^.]{0,200}GRANTED",
-  "(?i)^Motion (of petitioner )?(for leave )?to proceed in forma pauperis (is )?GRANTED[.,]?\\s+petition[^.]{0,200}GRANTED",
+  #
+  # "the" is optional AND independent of "and". This used to be two alternatives
+  # -- one requiring "and the petition", one requiring a bare "petition" -- and
+  # the Court's fourth combination, "GRANTED, and petition for a writ of
+  # certiorari GRANTED limited to ...", matched neither. That is exactly how
+  # 18-6943 (Banister v. Davis) was written, so a case the Court granted, heard
+  # and decided classified as `pending` and was dropped from training entirely.
+  "(?i)^Motion (of petitioner )?(for leave )?to proceed in forma pauperis (is )?GRANTED[.,]?\\s+(and )?(the )?petitions?[^.]{0,200}GRANTED",
   # lowercase per-curiam prose ("The petition for a writ of certiorari is
   # granted[, the judgment ... is vacated ...]"). "a writ of" is optional: the
   # Court also writes the bare "The petition for certiorari is granted" (17-1660,
@@ -94,7 +100,15 @@ GRANT_FORMS <- c(
   # event rows carry an embedded CRLF, which silently broke this match on
   # hard-wrapped entries. Sentence-scoping with [^.] is separately defeated by
   # docket citations ("No. 21-588"), hence the plain span.
-  "(?i)treated as a petition for a writ of certiorari[\\s\\S]{0,250}granted",
+  #
+  # Both voices. The Court writes this order two ways -- "The application ... is
+  # treated as a petition for a writ of certiorari", and "applicants suggested
+  # this Court treat the application as a petition for a writ of certiorari;
+  # doing so, the petition is granted". Only the past participle was matched, so
+  # the active-voice form fell through: 24-1177 (A.A.R.P. v. Trump) and 24-1246
+  # (U.S. DOGE Service v. CREW) both sat at `pending`. The [^.]{0,40} spans the
+  # object ("the application", "the stay application").
+  "(?i)treat(ed|ing|s)?[^.]{0,40}as a petition for a writ of certiorari[\\s\\S]{0,250}granted",
   # appeal equivalents of a grant (often mid-entry inside a stay order, so
   # unanchored)
   "(?i)probable jurisdiction (is )?noted",
