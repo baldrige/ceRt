@@ -20,11 +20,33 @@
 
 suppressPackageStartupMessages({ library(jsonlite) })
 
-# One row per event: date, kind, label, detail, href.
+# A row's individually linkable cases. Carried as a list-column of (dkt, cap)
+# frames so an argument day can name every case it hears and point each one at
+# its own page, which a single `href` cannot do.
+#
+# Normalised on the way in because the JSON round trip is not symmetric: a row
+# that had cases reads back as a data.frame, one that had none reads back as an
+# empty list, and a manifest written before this column existed has no `items`
+# at all. All three mean "no linkable cases" and must not reach the renderer as
+# three different shapes.
+.cal_items <- function(x) {
+  empty <- data.frame(dkt = character(), cap = character(), stringsAsFactors = FALSE)
+  if (is.null(x) || !is.data.frame(x) || !nrow(x) ||
+      !all(c("dkt", "cap") %in% names(x))) return(empty)
+  data.frame(dkt = as.character(x$dkt), cap = as.character(x$cap),
+             stringsAsFactors = FALSE)
+}
+
+# One row per event: date, kind, label, detail, href, items.
 .cal_df <- function(date = as.Date(character()), kind = character(),
-                    label = character(), detail = character(), href = character())
-  data.frame(date = as.Date(date), kind = kind, label = label,
-             detail = detail, href = href, stringsAsFactors = FALSE)
+                    label = character(), detail = character(), href = character(),
+                    items = NULL) {
+  d <- data.frame(date = as.Date(date), kind = kind, label = label,
+                  detail = detail, href = href, stringsAsFactors = FALSE)
+  d$items <- if (is.null(items)) rep(list(.cal_items(NULL)), nrow(d))
+             else lapply(items, .cal_items)
+  d
+}
 
 #' Upcoming argument days from a build_argument_table() frame.
 #'
@@ -33,6 +55,10 @@ suppressPackageStartupMessages({ library(jsonlite) })
 #' argument -- a date in the future with an argued_date already set would be a
 #' case argued early, which does not happen, but filtering on status keeps the
 #' list honest if the docket ever says otherwise.
+#' Every case on the day is named, and each one carries its docket so the panel
+#' can link it to its own page. The old form printed the first caption and "and
+#' 1 other", which is the one thing a reader on this page cannot look up: the
+#' cases are the reason to care about the date.
 upcoming_arguments <- function(tbl, as_of = Sys.Date()) {
   if (is.null(tbl) || !nrow(tbl) ||
       !all(c("scheduled_date", "caption", "term") %in% names(tbl)))
@@ -44,12 +70,19 @@ upcoming_arguments <- function(tbl, as_of = Sys.Date()) {
   by <- split(d, d$scheduled_date)
   out <- lapply(names(by), function(k) {
     g <- by[[k]]
-    first <- strip_caption_roles(g$caption[1])
-    detail <- if (nrow(g) == 1L) first else
-      sprintf("%s and %d other%s", first, nrow(g) - 1L, if (nrow(g) > 2L) "s" else "")
+    caps <- strip_caption_roles(g$caption)
+    # A docket is only useful here if it can address a page; without the column
+    # the row still lists every case, just unlinked.
+    dkts <- if ("dkt" %in% names(g)) as.character(g$dkt) else rep(NA_character_, nrow(g))
+    items <- data.frame(dkt = dkts, cap = caps, stringsAsFactors = FALSE)
+    items <- items[!is.na(items$dkt) & nzchar(items$dkt), , drop = FALSE]
     .cal_df(as.Date(k), "argument",
             if (nrow(g) == 1L) "Argument" else sprintf("%d arguments", nrow(g)),
-            detail, sprintf("arguments/arg_%d.html", g$term[1]))
+            # The detail string stays the plain-text form of the same list, so a
+            # manifest read by an older renderer still names every case.
+            paste(caps, collapse = " · "),
+            sprintf("arguments/arg_%d.html", g$term[1]),
+            items = list(items))
   })
   do.call(rbind, out)
 }
@@ -92,7 +125,14 @@ read_upcoming <- function(paths, as_of = Sys.Date(), n = 6L) {
     if (is.null(j) || !is.data.frame(j) || !nrow(j)) next
     if (!all(c("date", "kind", "label", "detail", "href") %in% names(j))) next
     j$date <- as.Date(j$date)
-    rows[[length(rows) + 1L]] <- j[, c("date", "kind", "label", "detail", "href")]
+    # `items` is absent from any manifest written before it existed, and the two
+    # pipelines re-render on different schedules, so one file can have it while
+    # the other does not. Normalise per row before the rbind below, which would
+    # otherwise fail on mismatched columns.
+    it <- if ("items" %in% names(j)) j$items else vector("list", nrow(j))
+    k <- j[, c("date", "kind", "label", "detail", "href")]
+    k$items <- lapply(seq_len(nrow(k)), function(i) .cal_items(it[[i]]))
+    rows[[length(rows) + 1L]] <- k
   }
   if (!length(rows)) return(.cal_df())
   all <- do.call(rbind, rows)

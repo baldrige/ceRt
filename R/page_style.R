@@ -114,10 +114,15 @@ INDEX_CSS <- paste0("\n  ", palette_root(), "
   ol.cal{list-style:none;margin:0;padding:0}
   ol.cal li{border-top:1px solid var(--rule)}
   ol.cal li:last-child{border-bottom:1px solid var(--rule)}
-  ol.cal a{display:flex;gap:.95rem;align-items:baseline;text-decoration:none;
-    color:inherit;padding:.55rem .1rem}
-  ol.cal a:hover{background:rgba(@accent:rgb@,.05)}
-  ol.cal a:hover .ckind{color:var(--accent)}
+  /* The row is a container, not an anchor: an argument day carries one link per
+     case it hears and anchors cannot nest. Hover lives on the row so it still
+     reads as one unit, and each link colours on its own hover. */
+  ol.cal .crow{display:flex;gap:.95rem;align-items:baseline;padding:.55rem .1rem}
+  ol.cal .crow:hover{background:rgba(@accent:rgb@,.05)}
+  ol.cal a{text-decoration:none;color:inherit}
+  ol.cal a:hover,ol.cal a:focus-visible{color:var(--accent)}
+  ol.cal .cdet a{border-bottom:1px solid rgba(@link:rgb@,.35)}
+  ol.cal .cdet a:hover{border-bottom-color:var(--accent)}
   ol.cal .cwhen{flex:none;width:4.6rem;font-family:'Fraunces',Georgia,serif;
     font-weight:600;font-size:.96rem;color:var(--ink);white-space:nowrap;
     font-variant-numeric:tabular-nums}
@@ -674,19 +679,44 @@ write_about_page <- function(out_path) {
 # Returns NULL on no events, which is the correct state for most of the summer:
 # an empty "Upcoming" heading is worse than no heading, because it reads as a
 # thing that broke rather than a Court that is in recess.
+# Put `sep` between every pair of `xs`, so a list of links renders as one run of
+# text rather than needing a separator baked into each item.
+.interleave <- function(xs, sep) {
+  if (!length(xs)) return(list())
+  out <- vector("list", 2L * length(xs) - 1L)
+  out[seq(1, length(out), by = 2L)] <- xs
+  if (length(xs) > 1L) out[seq(2, length(out), by = 2L)] <- list(sep)
+  out
+}
+
 calendar_panel <- function(events, heading = "Upcoming at the Court",
                            note = NULL) {
   if (is.null(events) || !nrow(events)) return(NULL)
+  # The row is no longer one big anchor. An argument day names every case it
+  # hears and each one links to its own page, and anchors cannot nest -- so the
+  # row is a plain container, the label links to the day's page (the argument
+  # session, or that conference's report), and each case links to itself.
+  has_items <- "items" %in% names(events)
   rows <- lapply(seq_len(nrow(events)), function(i) {
     d <- events$date[i]
-    tags$li(tags$a(
-      href = events$href[i],
+    it <- if (has_items) events$items[[i]] else NULL
+    detail <- if (is.data.frame(it) && nrow(it)) {
+      # Separated by a middot, not a comma: captions contain commas of their own
+      # ("Trump, President of the United States v. ..."), and a comma list of
+      # them cannot be read apart.
+      linked <- lapply(seq_len(nrow(it)), function(k)
+        tags$a(href = paste0("cases/", it$dkt[k], ".html"), smarten(it$cap[k])))
+      tags$span(class = "cdet",
+                do.call(tagList, .interleave(linked, HTML(" &middot; "))))
+    } else tags$span(class = "cdet", smarten(events$detail[i]))
+    tags$li(tags$div(
+      class = "crow",
       tags$span(class = "cwhen",
                 tags$span(class = "cdow", format(d, "%a")),
                 format(d, "%b %e")),
       tags$span(class = "ctx",
-                tags$span(class = "ckind", events$label[i]),
-                tags$span(class = "cdet", smarten(events$detail[i])))))
+                tags$a(class = "ckind", href = events$href[i], events$label[i]),
+                detail)))
   })
   tags$section(
     class = "panel cal",
