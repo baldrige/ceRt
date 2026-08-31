@@ -102,6 +102,7 @@ p{margin:.5rem 0}
 .tl-legend span{display:inline-flex;align-items:center;gap:.35rem;white-space:nowrap}
 .tl-legend i{width:9px;height:9px;border-radius:50%;border:1px solid rgba(@ink:rgb@,.45);flex:none}
 .tl-legend i.hollow{width:11px;height:0;border-radius:0;background:none;border:0;border-top:1.5px solid var(--faint);opacity:.7;align-self:center}
+.tl-none{font-size:.94rem;color:var(--faint);font-style:italic;margin:.2rem 0 0}
 .tl-docs{margin-top:.2rem;display:flex;flex-wrap:wrap;gap:.2rem .8rem}
 .tl-docs a{font-size:.85rem;color:var(--link);border-bottom:1px solid rgba(@link:rgb@,.4);text-decoration:none}
 .kicker a{color:inherit;border-bottom:1px solid rgba(@accent:rgb@,.4)}
@@ -220,7 +221,15 @@ write_docket_css <- function(out_dir) {
 # NFIB v. OSHA among them. The whole back-catalogue is at v22 as of the
 # 2026-08-30 audit, so the stamp check in fetch_missing_dockets.R flags every
 # affected page without an explicit docket list.
-PAGE_TEMPLATE_VERSION <- "v23"
+#
+# v24: a docket with no proceedings says so, instead of rendering a bare
+# "Proceedings" heading over an empty <ol>. Markup + one CSS rule; it reaches a
+# single page (22A226, whose JSON returns "ProceedingsandOrder":[] and whose
+# official HTML docket is equally empty -- an upstream absence, not a fetch
+# failure). Bumped anyway for the usual reason: the manifest digests inputs, and
+# that page's inputs have not moved since v23, so without a bump it keeps the
+# empty list forever.
+PAGE_TEMPLATE_VERSION <- "v24"
 
 # ---- small helpers ------------------------------------------------------------
 .esc <- function(x) { x <- x %||% ""; x[is.na(x)] <- ""; htmltools::htmlEscape(x) }
@@ -820,6 +829,19 @@ docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
   qp_html <- .mdq(qp)
   tl <- docket_timeline(ev, granted_on, resp_brief_on)
   tl_legend <- if (isTRUE(attr(tl, "any_cover"))) DOCKET_LEGEND else ""
+  # A docket with no proceedings at all renders a bare "Proceedings" heading over
+  # an empty <ol>, which reads as a broken page rather than as an absence. Say
+  # what is true instead: the Court's own record is empty here, not ours.
+  #
+  # 22A226 is the only one of 55,686 pages in this state -- its JSON returns
+  # "ProceedingsandOrder":[] and the official HTML docket goes straight from the
+  # heading to the attorney table -- so this is a rare-but-real upstream
+  # condition, not a fetch failure. A throttled fetch never lands here: it fails
+  # the case outright and leaves the previous page standing.
+  tl_body <- if (!nzchar(str_trim(tl %||% "")))
+    paste0("<p class='tl-none'>No proceedings are recorded on this docket. ",
+           "The Court's docket for this case lists no entries.</p>")
+  else paste0("<ol class='timeline'>", tl, "</ol>")
   amic <- amicus_counts(ev, granted_on, resp_brief_on)
   adv <- if (exists("extract_advocates")) extract_advocates(arg$argued_text) else NA
 
@@ -933,7 +955,7 @@ docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
     if (nzchar(qp_html)) paste0("<section><h2>Question", if (str_count(qp, "(?m)^\\s*\\d+[.)]") >= 2) "s" else "", " presented</h2><div class='qp'>", qp_html, "</div></section>") else "",
     "<div class='grid'>", counsel_panel, case_panel, "</div>",
     argsec,
-    "<section><h2>Proceedings</h2>", tl_legend, "<ol class='timeline'>", tl, "</ol></section>",
+    "<section><h2>Proceedings</h2>", tl_legend, tl_body, "</section>",
     case_footer(dkurl, .fmtdate(rendered)),
     "</main></body></html>")
   writeLines(enc2utf8(page), file.path(out_dir, paste0(dkt, ".html")), useBytes = TRUE)
