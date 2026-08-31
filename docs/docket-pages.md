@@ -185,6 +185,61 @@ party actually opposing the petitioner. Single-respondent cases are unaffected
 > — clean single boundary; **23-477** (US v. Skrmetti) — the cross-aligned case that
 > motivated the latest-brief rule.
 
+## Application dispositions (`NNA###`)
+
+Applications are excluded from `classify_petitions()`, so `classify_application_events()`
+in `docket_page.R` is the **only** classifier an application docket gets and nothing
+downstream cross-checks it. Until v23 the rule was two lines —
+`^Application.*grant` beating `^Application.*(deni|dismiss)` — and it was wrong in
+both directions at once: **52 pages said the Court granted an application it had
+denied** (two of them capital stays), and **85 resolved applications sat at
+"Application pending"**.
+
+Three properties of the docket's phrasing drive the design:
+
+**1. The grant in a denial order usually belongs to something else.** An order
+refusing an application grants the housekeeping motions in the same breath, and a
+noted dissent says *"would grant the application"*. Both sat inside the old `.*`:
+
+> Application (18A1238) denied by the Court. … The applications **for leave to file**
+> … under seal … are **granted**.
+
+That is Dunn v. Price — a stay of execution denied over a four-Justice dissent —
+published as "Application granted". So spans are `[^.]`, which cannot leave the
+sentence, and grant no longer outranks deny within an entry.
+
+**2. Two voices, and only one carries a docket number.** The clerk writes
+`Application (21A244) granted by Justice X`; the full Court writes a per curiam
+order beginning `The application(s) …` with no number at all. Hence two tiers:
+
+| tier | shape | tempering |
+| --- | --- | --- |
+| 1 (authoritative) | the entry ties **this docket's number** to the verb | none — the number identifies the subject |
+| 2 (prose) | no number; read from the sentence start | skip collateral clauses, and the run-up must not pass a `motion` |
+
+Tier 1 must *not* be tempered: plenty of applications **are** a request for
+collateral relief and get their own docket for it (`Application (18A653) to file a
+consolidated brief … in excess of the word limit granted`). Tier 2 must be, and must
+also check what precedes the noun — 17A745 (Rucho) carries *"The **motion** of
+appellees to construe **the application** … is denied"* on a docket whose application
+was **granted**.
+
+**3. A grant is not retracted by a later refusal to extend it.** 69 dockets run
+`granted … extending the time to file until DATE` → `to extend further` → `denied`.
+Both entries are correctly classified; only the precedence is a judgment call, and
+the site publishes the relief that actually issued. **Extension grants only** — widened
+to any grant it swallows `Application No. 22A489 DENIED AS MOOT`, where the denial
+is the last word.
+
+Outcomes are `granted` / `denied` / `dismissed` / `partial` ("granted in part") /
+`withdrawn` / `closed` (the clerk's "completed"/"closed", terminal but not a ruling),
+or `NA` for genuinely undisposed. Sorted by date first: `ev` arrives in raw docket
+order, which is why `docket_timeline()` sorts it too rather than trusting it.
+
+> Validation: 30 asserted landmarks, and a full replay over all **10,261** published
+> application pages — 147 change, none backwards (nothing resolved becomes pending,
+> nothing flips grant↔deny except the 52 confirmed contaminations).
+
 ## Fetch model (`R/scotus_dash_new.R`)
 
 - **No persistent per-docket cache.** `fetch_cases(dkts)` re-hits supremecourt.gov
