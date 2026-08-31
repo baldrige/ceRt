@@ -240,7 +240,14 @@ write_docket_css <- function(out_dir) {
 # existing cases-*.rds snapshots were built before build_case() read the field,
 # so they carry no `linked` column and a render-only pass would publish nothing
 # new. Needs a full-fetch rerender.
-PAGE_TEMPLATE_VERSION <- "v25"
+#
+# v26: the Related and Linked docket rows link to the referenced case pages
+# (#101). Markup only over data already in the snapshots, so this one CAN roll
+# out with reuse_from_runs -- unlike v25. The set of linkable dockets is resolved
+# once per batch (resolvable_dockets) and each page's slice of it is part of its
+# manifest key, so a reference that could not resolve on one run becomes a link
+# on the run after its target appears, instead of being skipped forever.
+PAGE_TEMPLATE_VERSION <- "v26"
 
 # ---- small helpers ------------------------------------------------------------
 .esc <- function(x) { x <- x %||% ""; x[is.na(x)] <- ""; htmltools::htmlEscape(x) }
@@ -704,7 +711,8 @@ docket_disposition <- function(outcome, outcome_date, arg, p_base, p_gvr, sig, i
 # (outcome/outcome_date); if NULL it is computed. `models`/`signals`/`qp` are
 # optional enrichments (no network is ever performed here).
 docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
-                        signals = NULL, qp = NA_character_, rendered = Sys.Date()) {
+                        signals = NULL, qp = NA_character_, rendered = Sys.Date(),
+                        available = character()) {
   dkt <- cx$dkt; ev <- cx$events[[1]]; par <- cx$parties[[1]]; rel <- cx$related %||% ""
   # The linked application/petition docket. NA-safe on purpose: %||% catches a
   # snapshot rendered before build_case() carried the column, but a present-and-NA
@@ -916,12 +924,14 @@ docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
   case_panel <- paste0("<div class='panel", if (!nzchar(counsel_panel)) " wide" else "", "'><h3>Case</h3>",
     "<p><span class='side'>Conference history</span><br>", conf_line, "</p>",
     amicus_line,
-    if (nzchar(rel)) paste0("<p><span class='side'>Related</span><br>", .esc(rel), "</p>") else "",
+    if (nzchar(rel)) paste0("<p><span class='side'>Related</span><br>",
+                            docket_refs_html(rel, available), "</p>") else "",
     # A separate row from Related, not merged into it: "Vide, 25-566" is a
     # companion petition, "Linked with 22A539" is this case's own stay or
     # extension application. Labelled for what it is so the two never read as
     # one. %||% guards a snapshot rendered before build_case() carried the field.
-    if (nzchar(lnk)) paste0("<p><span class='side'>Linked docket</span><br>", .esc(lnk), "</p>") else "",
+    if (nzchar(lnk)) paste0("<p><span class='side'>Linked docket</span><br>",
+                            docket_refs_html(lnk, available), "</p>") else "",
     "</div>")
   cap <- .esc(str_squish(str_remove_all(cx$caption %||% dkt, ", Petitioners?|, Respondents?")))
   dkurl <- paste0("https://www.supremecourt.gov/search.aspx?filename=/docket/docketfiles/html/public/", dkt, ".html")
@@ -986,6 +996,59 @@ docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
   invisible(nchar(page))
 }
 
+# ---- cross-links between case pages -------------------------------------------
+# The Related ("Vide, 25-566") and Linked docket ("21A758, 22A226") rows name
+# other dockets in this corpus, so each one that has a page becomes a link.
+#
+# The set of linkable dockets is resolved ONCE per batch, before any page
+# renders, and that is the whole point of doing it here rather than inside
+# docket_page(). A file.exists() check per page would depend on render ORDER: a
+# page could fall back to plain text purely because its target had not been
+# written yet this run. And the manifest key digests a page's INPUTS, so that
+# page would keep the hash it already has, be skipped on every later run, and
+# stay unlinked forever -- the 18-6943 failure mode again, in new clothes. A set
+# fixed before the loop is order-independent, and each page's slice of it goes
+# into the key, so a page really does re-render when its target appears.
+resolvable_dockets <- function(cases, out_dir) {
+  ipath <- file.path(out_dir, "search.json")
+  known <- if (file.exists(ipath))
+    tryCatch(names(as.list(jsonlite::fromJSON(ipath))), error = function(e) character())
+  else character()
+  # search.json accumulates across runs and can outlive a renumbered docket, so
+  # confirm the page is actually on disk -- write_cases_index() does the same,
+  # for the same reason: linking one that isn't there publishes a 404.
+  if (length(known))
+    known <- known[file.exists(file.path(out_dir, paste0(known, ".html")))]
+  # This batch's own dockets will exist by the time the run finishes, so they are
+  # linkable even though they may not be written yet.
+  unique(c(known, cases$dkt %||% character()))
+}
+
+# The dockets a given page will actually link to. Part of its manifest key.
+link_targets <- function(cx, available) {
+  refs <- c(cx$related %||% "", cx$linked %||% "")
+  refs <- refs[!is.na(refs) & nzchar(refs)]
+  if (!length(refs) || !length(available)) return(character())
+  toks <- unlist(str_extract_all(paste(refs, collapse = ", "), "[0-9]{2}[-A][0-9]+"))
+  sort(unique(toks[toks %in% available]))
+}
+
+# Render a comma-separated docket reference with the resolvable dockets linked.
+# Prose in the field is preserved: "Vide, 25-566" keeps its "Vide," and links
+# only the number. An unresolvable docket (pre-OT2017, renumbered, never
+# fetched) stays plain text rather than becoming a 404.
+docket_refs_html <- function(x, available = character()) {
+  if (is.null(x) || !length(x) || is.na(x[1]) || !nzchar(x[1])) return("")
+  parts <- str_split(x[1], ",")[[1]]
+  out <- vapply(parts, function(p) {
+    d <- str_squish(p)
+    if (!nzchar(d)) return("")
+    ok <- str_detect(d, "^[0-9]{2}[-A][0-9]+$") && d %in% available
+    if (ok) sprintf("<a href='%s.html'>%s</a>", d, .esc(d)) else .esc(d)
+  }, character(1), USE.NAMES = FALSE)
+  paste(out[nzchar(out)], collapse = ", ")
+}
+
 # ---- batch render (incremental) -----------------------------------------------
 # Renders a page per row of `cases`. `qp_map`/`signals_map` are named by docket;
 # absent entries just omit that section. A manifest of per-page content hashes
@@ -1003,6 +1066,9 @@ render_docket_pages <- function(cases, out_dir, models = NULL, qp_map = NULL,
   cls_by <- if (!is.null(cls)) split(cls, cls$dkt) else list()
   # Stable model id so retraining invalidates pending-case (forecast) pages.
   model_id <- if (!is.null(models)) digest::digest(models) else ""
+  # Linkable dockets, fixed before the loop so no page's markup depends on the
+  # order pages happen to be written in. See resolvable_dockets().
+  available <- resolvable_dockets(cases, out_dir)
 
   n_written <- 0L; new_manifest <- manifest   # preserve entries for cases not in this batch
   for (i in seq_len(nrow(cases))) {
@@ -1011,15 +1077,18 @@ render_docket_pages <- function(cases, out_dir, models = NULL, qp_map = NULL,
     qp  <- if (!is.null(qp_map)) qp_map[[dkt]] %||% NA_character_ else NA_character_
     clr <- if (length(cls_by)) cls_by[[dkt]][1, ] else NULL
     # Hash every page-determining input (+ template + model); skip if unchanged.
+    # link_targets() is in here because WHICH of this page's references resolve
+    # is page-determining too: without it, a page that rendered a reference as
+    # plain text would never re-render once that target's page appeared.
     key <- digest::digest(list(PAGE_TEMPLATE_VERSION, model_id, cx$caption, cx$events,
              cx$parties, cx$lower, cx$lower_dkt, cx$lower_date, cx$date, cx$type,
-             qp, sig, cx$related, cx$linked))
+             qp, sig, cx$related, cx$linked, link_targets(cx, available)))
     if (incremental && identical(manifest[[dkt]] %||% "", key) &&
         file.exists(file.path(out_dir, paste0(dkt, ".html")))) {
       new_manifest[[dkt]] <- key; next
     }
     tryCatch({ docket_page(cx, out_dir, models = models, cls_row = clr, signals = sig,
-                           qp = qp, rendered = rendered)
+                           qp = qp, rendered = rendered, available = available)
                n_written <- n_written + 1L }, error = function(e)
       message("docket_page failed for ", dkt, ": ", conditionMessage(e)))
     new_manifest[[dkt]] <- key
