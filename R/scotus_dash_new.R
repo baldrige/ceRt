@@ -311,6 +311,15 @@ build_case <- function(j, dkt) {
     type = unname(TYPE_MAP[j$sJsonCaseType %|||% ""]) %|||% NA_character_,
     capital = isTRUE(j$bCapitalCase),
     related = str_c(as.character(j$RelatedCaseNumber %|||% character()), collapse = ", "),
+    # The docket's OTHER linkage, and a different relationship from `related`.
+    # Two fields in this JSON are called Links: the per-proceeding one (document
+    # URLs, read by build_events) and this top-level string, which reads
+    # "Linked with 22A539" and ties a petition to its own stay/extension
+    # application -- where `related` is "Vide, 25-566", companion PETITIONS heard
+    # together. Kept separate deliberately: hold_signal()'s companion tier reads
+    # `related`, and folding a case's own application into it would score that as
+    # a companion grant.
+    linked = j$Links %|||% NA_character_,
     petition_url = find_petition_url(j$ProceedingsandOrder),
     parties = list(build_parties(j)),
     events = list(build_events(j$ProceedingsandOrder))

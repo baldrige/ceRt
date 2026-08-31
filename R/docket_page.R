@@ -229,7 +229,18 @@ write_docket_css <- function(out_dir) {
 # failure). Bumped anyway for the usual reason: the manifest digests inputs, and
 # that page's inputs have not moved since v23, so without a bump it keeps the
 # empty list forever.
-PAGE_TEMPLATE_VERSION <- "v24"
+#
+# v25: surface the docket's linked application/petition ("Linked docket"), from
+# the top-level `Links` field build_case() now carries. See #99 -- it is a
+# DIFFERENT relationship from `related` and is kept in its own field and its own
+# row, because hold_signal()'s companion tier reads `related` and would score a
+# case's own stay application as a companion grant.
+#
+# ⚠️ Unlike v23 and v24, this one CANNOT be rolled out with reuse_from_runs. The
+# existing cases-*.rds snapshots were built before build_case() read the field,
+# so they carry no `linked` column and a render-only pass would publish nothing
+# new. Needs a full-fetch rerender.
+PAGE_TEMPLATE_VERSION <- "v25"
 
 # ---- small helpers ------------------------------------------------------------
 .esc <- function(x) { x <- x %||% ""; x[is.na(x)] <- ""; htmltools::htmlEscape(x) }
@@ -695,6 +706,14 @@ docket_disposition <- function(outcome, outcome_date, arg, p_base, p_gvr, sig, i
 docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
                         signals = NULL, qp = NA_character_, rendered = Sys.Date()) {
   dkt <- cx$dkt; ev <- cx$events[[1]]; par <- cx$parties[[1]]; rel <- cx$related %||% ""
+  # The linked application/petition docket. NA-safe on purpose: %||% catches a
+  # snapshot rendered before build_case() carried the column, but a present-and-NA
+  # value survives it, and nzchar(NA) is TRUE -- the same trap that silently made
+  # related_present a constant (cert_model.R:427). Strip the "Linked with "
+  # prefix; the row is already labelled.
+  lnk <- cx$linked %||% ""
+  lnk <- if (length(lnk) == 0 || is.na(lnk[1])) "" else
+    str_squish(str_remove(lnk[1], regex("^linked with\\s*", ignore_case = TRUE)))
   if (length(qp) > 1) qp <- paste(qp, collapse = "\n")   # a qp_map value may be a vector
   is_app <- identical(cx$type %||% "", "app")
   if (is.null(cls_row) && !is_app && exists("classify_petitions"))
@@ -898,6 +917,11 @@ docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
     "<p><span class='side'>Conference history</span><br>", conf_line, "</p>",
     amicus_line,
     if (nzchar(rel)) paste0("<p><span class='side'>Related</span><br>", .esc(rel), "</p>") else "",
+    # A separate row from Related, not merged into it: "Vide, 25-566" is a
+    # companion petition, "Linked with 22A539" is this case's own stay or
+    # extension application. Labelled for what it is so the two never read as
+    # one. %||% guards a snapshot rendered before build_case() carried the field.
+    if (nzchar(lnk)) paste0("<p><span class='side'>Linked docket</span><br>", .esc(lnk), "</p>") else "",
     "</div>")
   cap <- .esc(str_squish(str_remove_all(cx$caption %||% dkt, ", Petitioners?|, Respondents?")))
   dkurl <- paste0("https://www.supremecourt.gov/search.aspx?filename=/docket/docketfiles/html/public/", dkt, ".html")
@@ -989,7 +1013,7 @@ render_docket_pages <- function(cases, out_dir, models = NULL, qp_map = NULL,
     # Hash every page-determining input (+ template + model); skip if unchanged.
     key <- digest::digest(list(PAGE_TEMPLATE_VERSION, model_id, cx$caption, cx$events,
              cx$parties, cx$lower, cx$lower_dkt, cx$lower_date, cx$date, cx$type,
-             qp, sig, cx$related))
+             qp, sig, cx$related, cx$linked))
     if (incremental && identical(manifest[[dkt]] %||% "", key) &&
         file.exists(file.path(out_dir, paste0(dkt, ".html")))) {
       new_manifest[[dkt]] <- key; next
