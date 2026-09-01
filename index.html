@@ -77,10 +77,15 @@
   ol.cal{list-style:none;margin:0;padding:0}
   ol.cal li{border-top:1px solid var(--rule)}
   ol.cal li:last-child{border-bottom:1px solid var(--rule)}
-  ol.cal a{display:flex;gap:.95rem;align-items:baseline;text-decoration:none;
-    color:inherit;padding:.55rem .1rem}
-  ol.cal a:hover{background:rgba(156,14,58,.05)}
-  ol.cal a:hover .ckind{color:var(--accent)}
+  /* The row is a container, not an anchor: an argument day carries one link per
+     case it hears and anchors cannot nest. Hover lives on the row so it still
+     reads as one unit, and each link colours on its own hover. */
+  ol.cal .crow{display:flex;gap:.95rem;align-items:baseline;padding:.55rem .1rem}
+  ol.cal .crow:hover{background:rgba(156,14,58,.05)}
+  ol.cal a{text-decoration:none;color:inherit}
+  ol.cal a:hover,ol.cal a:focus-visible{color:var(--accent)}
+  ol.cal .cdet a{border-bottom:1px solid rgba(156,14,58,.35)}
+  ol.cal .cdet a:hover{border-bottom-color:var(--accent)}
   ol.cal .cwhen{flex:none;width:4.6rem;font-family:'Fraunces',Georgia,serif;
     font-weight:600;font-size:.96rem;color:var(--ink);white-space:nowrap;
     font-variant-numeric:tabular-nums}
@@ -307,19 +312,6 @@
       <p class="pnote n28">Paid-docket cases filed in the last 28 days, against a 4.1% base rate. An estimate, not a prediction about any case.</p>
       <ol class="grants g7">
         <li>
-          <a href="cases/26-240.html">
-            <span class="gv">
-              28%
-              <span class="gx">7×</span>
-            </span>
-            <span class="gtx">
-              <span class="gc">Cameron Johnson v. A. Scott Fleming, Director of the State Council of Higher Education for Virginia</span>
-              <span class="gq">Whether the Religion Clauses allow governments to exclude some religious degrees while funding similar…</span>
-            </span>
-            <span class="gd">No. 26-240</span>
-          </a>
-        </li>
-        <li>
           <a href="cases/26-247.html">
             <span class="gv">
               20%
@@ -330,19 +322,6 @@
               <span class="gq">Whether 18 U.S.C. § 3664(n), which requires an incarcerated defendant who “receives substantial resources” to…</span>
             </span>
             <span class="gd">No. 26-247</span>
-          </a>
-        </li>
-        <li>
-          <a href="cases/26-244.html">
-            <span class="gv">
-              17%
-              <span class="gx">4×</span>
-            </span>
-            <span class="gtx">
-              <span class="gc">The Kroger Co., dba Fred Meyer, Inc. v. Elisha Solano, Individually and on Behalf of Other Customers</span>
-              <span class="gq">Whether a federal court may certify a class action pursuant to Federal Rule of Civil Procedure 23(b)(3) when…</span>
-            </span>
-            <span class="gd">No. 26-244</span>
           </a>
         </li>
         <li>
@@ -368,6 +347,32 @@
               <span class="gq">Whether the Establishment Clause forbids a state from mandating the permanent, conspicuous display of a…</span>
             </span>
             <span class="gd">No. 26-257</span>
+          </a>
+        </li>
+        <li>
+          <a href="cases/26-245.html">
+            <span class="gv">
+              13%
+              <span class="gx">3×</span>
+            </span>
+            <span class="gtx">
+              <span class="gc">AstraZeneca UK Limited v. Joshua Atchley</span>
+              <span class="gq">Whether the ATA authorizes liability for aiding and abetting acts of terror based on aid that is (1) neither…</span>
+            </span>
+            <span class="gd">No. 26-245</span>
+          </a>
+        </li>
+        <li>
+          <a href="cases/26-256.html">
+            <span class="gv">
+              11%
+              <span class="gx">3×</span>
+            </span>
+            <span class="gtx">
+              <span class="gc">Christopher Dier v. Jeff Landry, Governor of Louisiana</span>
+              <span class="gq">Whether petitioner’s Establishment Clause challenge to Louisiana’s law is ripe.</span>
+            </span>
+            <span class="gd">No. 26-256</span>
           </a>
         </li>
       </ol>
@@ -444,76 +449,76 @@
       <p class="pnote">The next conferences and argument days on the Court’s calendar.</p>
       <ol class="cal">
         <li>
-          <a href="conferences/conf_2026-09-28.html">
+          <div class="crow">
             <span class="cwhen">
               <span class="cdow">Mon</span>
               Sep 28
             </span>
             <span class="ctx">
-              <span class="ckind">Conference</span>
+              <a class="ckind" href="conferences/conf_2026-09-28.html">Conference</a>
               <span class="cdet">799 cases distributed</span>
             </span>
-          </a>
+          </div>
         </li>
         <li>
-          <a href="arguments/arg_2026.html">
+          <div class="crow">
             <span class="cwhen">
               <span class="cdow">Mon</span>
               Oct  5
             </span>
             <span class="ctx">
-              <span class="ckind">2 arguments</span>
+              <a class="ckind" href="arguments/arg_2026.html">2 arguments</a>
               <span class="cdet">Suncor Energy (U.S.A.) Inc. v. County Commissioners of Boulder County and 1 other</span>
             </span>
-          </a>
+          </div>
         </li>
         <li>
-          <a href="arguments/arg_2026.html">
+          <div class="crow">
             <span class="cwhen">
               <span class="cdow">Tue</span>
               Oct  6
             </span>
             <span class="ctx">
-              <span class="ckind">Argument</span>
+              <a class="ckind" href="arguments/arg_2026.html">Argument</a>
               <span class="cdet">Winston R. Anderson v. Intel Corporation Investment Policy Committee</span>
             </span>
-          </a>
+          </div>
         </li>
         <li>
-          <a href="arguments/arg_2026.html">
+          <div class="crow">
             <span class="cwhen">
               <span class="cdow">Wed</span>
               Oct  7
             </span>
             <span class="ctx">
-              <span class="ckind">Argument</span>
+              <a class="ckind" href="arguments/arg_2026.html">Argument</a>
               <span class="cdet">Department of the Air Force v. Prutehi Guahan, fka Prutehi Litekyan</span>
             </span>
-          </a>
+          </div>
         </li>
         <li>
-          <a href="arguments/arg_2026.html">
+          <div class="crow">
             <span class="cwhen">
               <span class="cdow">Tue</span>
               Oct 13
             </span>
             <span class="ctx">
-              <span class="ckind">2 arguments</span>
+              <a class="ckind" href="arguments/arg_2026.html">2 arguments</a>
               <span class="cdet">Kenneth Genalo, Director of the New York Field Office of U.S. Immigration and Customs Enforcement v. Carol Williams Black and 1 other</span>
             </span>
-          </a>
+          </div>
         </li>
         <li>
-          <a href="arguments/arg_2026.html">
+          <div class="crow">
             <span class="cwhen">
               <span class="cdow">Wed</span>
               Oct 14
             </span>
             <span class="ctx">
-              <span class="ckind">Argument</span>
+              <a class="ckind" href="arguments/arg_2026.html">Argument</a>
               <span class="cdet">Michael Salazar v. Paramount Global, dba 247Sports</span>
             </span>
-          </a>
+          </div>
         </li>
       </ol>
     </section>
@@ -594,7 +599,7 @@
     </ul>
     <section class="panel">
       <h2>Most-Read Cases</h2>
-      <p class="pnote">Ranked by page views over the 30 days ending August 30, 2026.</p>
+      <p class="pnote">Ranked by page views over the 30 days ending August 31, 2026.</p>
       <ol class="mostread">
         <li>
           <a href="cases/26-180.html">

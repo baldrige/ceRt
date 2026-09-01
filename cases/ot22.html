@@ -77,10 +77,15 @@
   ol.cal{list-style:none;margin:0;padding:0}
   ol.cal li{border-top:1px solid var(--rule)}
   ol.cal li:last-child{border-bottom:1px solid var(--rule)}
-  ol.cal a{display:flex;gap:.95rem;align-items:baseline;text-decoration:none;
-    color:inherit;padding:.55rem .1rem}
-  ol.cal a:hover{background:rgba(156,14,58,.05)}
-  ol.cal a:hover .ckind{color:var(--accent)}
+  /* The row is a container, not an anchor: an argument day carries one link per
+     case it hears and anchors cannot nest. Hover lives on the row so it still
+     reads as one unit, and each link colours on its own hover. */
+  ol.cal .crow{display:flex;gap:.95rem;align-items:baseline;padding:.55rem .1rem}
+  ol.cal .crow:hover{background:rgba(156,14,58,.05)}
+  ol.cal a{text-decoration:none;color:inherit}
+  ol.cal a:hover,ol.cal a:focus-visible{color:var(--accent)}
+  ol.cal .cdet a{border-bottom:1px solid rgba(156,14,58,.35)}
+  ol.cal .cdet a:hover{border-bottom-color:var(--accent)}
   ol.cal .cwhen{flex:none;width:4.6rem;font-family:'Fraunces',Georgia,serif;
     font-weight:600;font-size:.96rem;color:var(--ink);white-space:nowrap;
     font-variant-numeric:tabular-nums}
