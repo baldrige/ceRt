@@ -5,8 +5,15 @@
   <link rel="self" href="https://supremecourt.report/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://supremecourt.report/"/>
   <id>https://supremecourt.report/feed.xml</id>
-  <updated>2026-08-31T00:00:00Z</updated>
+  <updated>2026-09-01T00:00:00Z</updated>
   <author><name>Supreme Court Report</name></author>
+  <entry>
+    <title>Docket for September 1, 2026</title>
+    <link href="https://supremecourt.report/dashboards/dash_2026-09-01.html"/>
+    <id>https://supremecourt.report/dashboards/dash_2026-09-01.html</id>
+    <updated>2026-09-01T00:00:00Z</updated>
+    <summary>Petitions and applications docketed on September 1, 2026.</summary>
+  </entry>
   <entry>
     <title>Docket for August 31, 2026</title>
     <link href="https://supremecourt.report/dashboards/dash_2026-08-31.html"/>
@@ -139,13 +146,6 @@
     <id>https://supremecourt.report/dashboards/dash_2026-08-06.html</id>
     <updated>2026-08-06T00:00:00Z</updated>
     <summary>Petitions and applications docketed on August 6, 2026.</summary>
-  </entry>
-  <entry>
-    <title>Docket for August 5, 2026</title>
-    <link href="https://supremecourt.report/dashboards/dash_2026-08-05.html"/>
-    <id>https://supremecourt.report/dashboards/dash_2026-08-05.html</id>
-    <updated>2026-08-05T00:00:00Z</updated>
-    <summary>Petitions and applications docketed on August 5, 2026.</summary>
   </entry>
   <entry>
     <title>Certiorari granted: Kenneth J. Jouppi v. Alaska (No. 25-246)</title>
