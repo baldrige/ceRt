@@ -108,7 +108,15 @@ GRANT_FORMS <- c(
   # the active-voice form fell through: 24-1177 (A.A.R.P. v. Trump) and 24-1246
   # (U.S. DOGE Service v. CREW) both sat at `pending`. The [^.]{0,40} spans the
   # object ("the application", "the stay application").
-  "(?i)treat(ed|ing|s)?[^.]{0,40}as a petition for a writ of certiorari[\\s\\S]{0,250}granted",
+  #
+  # Both numbers. When the Court converts two applications in one order it
+  # writes the plural -- "The applications are also treated as petitions for a
+  # writ of certiorari before judgment (25-1083, 25-1084), and the petitions
+  # are GRANTED" -- and the singular form above missed it, so Mullin v. Doe and
+  # Trump v. Miot sat at `pending` through argument and decision, and off the
+  # Navigator's OT25 page. Measured across OT17-OT26: the plural matches
+  # exactly those two dockets and nothing else.
+  "(?i)treat(ed|ing|s)?[^.]{0,40}as (a )?petitions? for (a )?writs? of certiorari[\\s\\S]{0,250}granted",
   # appeal equivalents of a grant (often mid-entry inside a stay order, so
   # unanchored)
   "(?i)probable jurisdiction (is )?noted",

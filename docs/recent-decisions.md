@@ -21,8 +21,10 @@ Two things the build found that the proposal did not anticipate:
   which also keeps them out of the Navigator. The decisions panel does not gate
   the argued kind on the funnel's outcome: an "Argued." entry followed by a
   decision is a merits decision whatever the grant looked like. The funnel
-  grammar itself is left alone here; it is the model's training corpus and a
-  change to it is its own decision.
+  grammar was fixed separately (the conversion form now accepts the plural),
+  after measuring that the widened form matches exactly those two dockets
+  across OT17-OT26; the panel's independence from the funnel's outcome stays,
+  because the next unfamiliar grant form will arrive the same way.
 
 ## What it is
 
