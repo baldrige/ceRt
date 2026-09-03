@@ -133,6 +133,14 @@ INDEX_CSS <- paste0("\n  ", palette_root(), "
     font-size:.98rem;line-height:1.25}
   ol.cal .cdet{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
     margin-top:.12rem}
+  /* Recent decisions reuses the calendar rows and adds exactly two things: the
+     kind word that opens the detail line, and the one outbound link (the slip
+     opinion), which takes the link colour the rest of the row deliberately
+     does not. */
+  ol.cal .dk{font-weight:600;color:var(--ink)}
+  ol.cal .cdet a.pdf{color:var(--link)}
+  ol.cal .cdet a.pdf:hover,ol.cal .cdet a.pdf:focus-visible{color:var(--accent);
+    border-bottom-color:var(--accent)}
   ol.grants{list-style:none;margin:0;padding:0}
   ol.grants li{border-top:1px solid var(--rule)}
   ol.grants li:last-child{border-bottom:1px solid var(--rule)}
@@ -723,6 +731,63 @@ calendar_panel <- function(events, heading = "Upcoming at the Court",
     tags$h2(heading),
     if (!is.null(note)) tags$p(class = "pnote", smarten(note)),
     tags$ol(class = "cal", rows))
+}
+
+# "Recent decisions": the cases most recently decided by written opinion, from
+# read_decided() in R/site_decisions.R. The calendar's rows, reused: a date
+# gutter and a two-line body, so the two panels read as one page.
+#
+# The detail line is kind · author · disposition · Opinion. The kind word is
+# plain bold text, not a chip -- TYPE_CHIPS belong to the dashboards' data
+# tables, and a chip on a prose row would be the one element on the page styled
+# that way. The opinion link is the row's one outbound link and the only one
+# that takes the link colour; it opens in a new tab like the docket pages' own
+# "Decided" link, because it is a PDF on another site.
+#
+# Rows sharing a `group` (one opinion, several dockets) render as one row that
+# names every case and links each to its own page -- the same choice the
+# calendar made when it stopped printing "and 1 other".
+#
+# Returns NULL on no rows, and the caller drops the panel entirely.
+DECISION_KIND_LABELS <- c(argued = "Argued", application = "Emergency application",
+                          summary = "Summary reversal")
+
+decisions_panel <- function(rows, heading = "Recent decisions", note = NULL, more = NULL) {
+  if (is.null(rows) || !is.data.frame(rows) || !nrow(rows)) return(NULL)
+  if (!("group" %in% names(rows))) rows$group <- rows$dkt
+  groups <- unique(rows$group)
+  lis <- lapply(groups, function(g) {
+    r <- rows[rows$group == g, , drop = FALSE]
+    d <- r$date[1]
+    caps <- lapply(seq_len(nrow(r)), function(k)
+      tags$a(href = paste0("cases/", r$dkt[k], ".html"), smarten(r$caption[k])))
+    kind <- DECISION_KIND_LABELS[[r$kind[1]]] %||% r$kind[1]
+    author <- r$author[1]
+    if (!is.na(author) && identical(tolower(author), "per curiam")) author <- "Per curiam"
+    bits <- list(tags$span(class = "dk", kind))
+    if (!is.na(author) && nzchar(author)) bits <- c(bits, list(author))
+    disp <- r$disposition[1]
+    if (!is.na(disp) && nzchar(disp)) bits <- c(bits, list(disp))
+    url <- r$opinion_url[1]
+    if (!is.na(url) && nzchar(url))
+      bits <- c(bits, list(tags$a(class = "pdf", href = url, target = "_blank",
+                                  rel = "noopener", "Opinion")))
+    tags$li(tags$div(
+      class = "crow",
+      tags$span(class = "cwhen",
+                tags$span(class = "cdow", format(d, "%a")),
+                format(d, "%b %e")),
+      tags$span(class = "ctx",
+                # Middots, not commas: captions carry commas of their own.
+                tags$span(class = "ckind", do.call(tagList, .interleave(caps, HTML(" &middot; ")))),
+                tags$span(class = "cdet", do.call(tagList, .interleave(bits, HTML(" &middot; ")))))))
+  })
+  tags$section(
+    class = "panel cal",
+    tags$h2(heading),
+    if (!is.null(note)) tags$p(class = "pnote", smarten(note)),
+    tags$ol(class = "cal", lis),
+    if (!is.null(more)) tags$p(class = "more", HTML(more)))
 }
 
 # The Likeliest-Grants panel: the site's front-page answer to "what should I

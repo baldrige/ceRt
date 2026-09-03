@@ -19,6 +19,7 @@ dir.create(arg_dir, recursive = TRUE, showWarnings = FALSE)
 source("R/qp_extract.R")
 source("R/argument_nav.R")   # sources cert_funnel.R + page_style.R
 source("R/site_calendar.R")   # upcoming_arguments(), write_upcoming()
+source("R/site_decisions.R")  # recent_decisions(), decisions_watch() -- landing page
 source("R/cert_model.R")     # score_case (docket-page forecast)
 source("R/docket_page.R")    # render_dockets_for
 
@@ -67,6 +68,23 @@ up <- upcoming_arguments(tbl)
 write_upcoming(up, file.path(arg_dir, "upcoming.json"))
 cat("Upcoming argument days:", nrow(up),
     if (nrow(up)) paste0(" (next ", format(up$date[1], "%b %e"), ")") else "", "\n")
+
+# The landing page's "Recent decisions" list, and the watch list the daily
+# fetches by name between these weekly runs. Written here for the same reason as
+# upcoming.json: this is the run that holds every docket a decision can land on
+# -- argued cases from several Terms, the emergency docket, the cert docket --
+# and the daily holds a fortnight of filings. See R/site_decisions.R.
+dec <- recent_decisions(combined)
+write_decided(dec, file.path(arg_dir, DECIDED_FILE))
+cat("Recent decisions (", DECIDED_KEEP_DAYS, " days): ", nrow(dec),
+    if (nrow(dec)) paste0(" -- ", paste(sprintf("%s %d", names(table(dec$kind)),
+                                              as.integer(table(dec$kind))), collapse = ", ")),
+    "\n", sep = "")
+watch <- decisions_watch(combined)
+write_watch(watch, file.path(arg_dir, WATCH_FILE))
+cat("Watch list for the daily:", nrow(watch), "docket(s)",
+    if (nrow(watch)) paste0(" (", sum(watch$kind == "argued"), " argued, ",
+                            sum(watch$kind == "application"), " referred applications)"), "\n")
 
 terms <- render_argument_nav(out_dir = arg_dir, tbl = tbl)
 # Typographic (smart) quotes across the per-Term argument pages (the index is
