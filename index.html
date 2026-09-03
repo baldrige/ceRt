@@ -96,6 +96,14 @@
     font-size:.98rem;line-height:1.25}
   ol.cal .cdet{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
     margin-top:.12rem}
+  /* Recent decisions reuses the calendar rows and adds exactly two things: the
+     kind word that opens the detail line, and the one outbound link (the slip
+     opinion), which takes the link colour the rest of the row deliberately
+     does not. */
+  ol.cal .dk{font-weight:600;color:var(--ink)}
+  ol.cal .cdet a.pdf{color:var(--link)}
+  ol.cal .cdet a.pdf:hover,ol.cal .cdet a.pdf:focus-visible{color:var(--accent);
+    border-bottom-color:var(--accent)}
   ol.grants{list-style:none;margin:0;padding:0}
   ol.grants li{border-top:1px solid var(--rule)}
   ol.grants li:last-child{border-bottom:1px solid var(--rule)}
@@ -444,6 +452,77 @@
       <p class="more"><a href='dashboards/'>All petitions this week &rarr;</a>&nbsp;&middot;&nbsp;<a href='methods.html'>How the forecast works &rarr;</a></p>
     </section>
     <section class="panel cal">
+      <h2>Recent decisions</h2>
+      <p class="pnote">The Court’s most recent written opinions, argued or not.</p>
+      <ol class="cal">
+        <li>
+          <div class="crow">
+            <span class="cwhen">
+              <span class="cdow">Mon</span>
+              Aug 31
+            </span>
+            <span class="ctx">
+              <span class="ckind">
+                <a href="cases/26A203.html">National Park Service v. National Trust for Historic Preservation in the United States</a>
+              </span>
+              <span class="cdet">
+                <span class="dk">Emergency application</span>
+                 &middot; 
+                Per curiam
+                 &middot; 
+                Granted
+                 &middot; 
+                <a class="pdf" href="https://www.supremecourt.gov/opinions/25pdf/26a203_2b8e.pdf" target="_blank" rel="noopener">Opinion</a>
+              </span>
+            </span>
+          </div>
+        </li>
+        <li>
+          <div class="crow">
+            <span class="cwhen">
+              <span class="cdow">Mon</span>
+              Aug 24
+            </span>
+            <span class="ctx">
+              <span class="ckind">
+                <a href="cases/26A124.html">Donald J. Trump, President of the United States v. California</a>
+              </span>
+              <span class="cdet">
+                <span class="dk">Emergency application</span>
+                 &middot; 
+                Per curiam
+                 &middot; 
+                Granted
+                 &middot; 
+                <a class="pdf" href="https://www.supremecourt.gov/opinions/25pdf/26a124_hgci.pdf" target="_blank" rel="noopener">Opinion</a>
+              </span>
+            </span>
+          </div>
+        </li>
+        <li>
+          <div class="crow">
+            <span class="cwhen">
+              <span class="cdow">Mon</span>
+              Aug 24
+            </span>
+            <span class="ctx">
+              <span class="ckind">
+                <a href="cases/26A139.html">Alabama v. California</a>
+              </span>
+              <span class="cdet">
+                <span class="dk">Emergency application</span>
+                 &middot; 
+                Per curiam
+                 &middot; 
+                Denied as moot
+              </span>
+            </span>
+          </div>
+        </li>
+      </ol>
+      <p class="more"><a href='arguments/'>All argued cases &rarr;</a></p>
+    </section>
+    <section class="panel cal">
       <h2>Upcoming at the Court</h2>
       <p class="pnote">The next conferences and argument days on the Court’s calendar.</p>
       <ol class="cal">
@@ -455,7 +534,7 @@
             </span>
             <span class="ctx">
               <a class="ckind" href="conferences/conf_2026-09-28.html">Conference</a>
-              <span class="cdet">834 cases distributed</span>
+              <span class="cdet">888 cases distributed</span>
             </span>
           </div>
         </li>

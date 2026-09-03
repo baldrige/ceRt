@@ -96,6 +96,14 @@
     font-size:.98rem;line-height:1.25}
   ol.cal .cdet{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
     margin-top:.12rem}
+  /* Recent decisions reuses the calendar rows and adds exactly two things: the
+     kind word that opens the detail line, and the one outbound link (the slip
+     opinion), which takes the link colour the rest of the row deliberately
+     does not. */
+  ol.cal .dk{font-weight:600;color:var(--ink)}
+  ol.cal .cdet a.pdf{color:var(--link)}
+  ol.cal .cdet a.pdf:hover,ol.cal .cdet a.pdf:focus-visible{color:var(--accent);
+    border-bottom-color:var(--accent)}
   ol.grants{list-style:none;margin:0;padding:0}
   ol.grants li{border-top:1px solid var(--rule)}
   ol.grants li:last-child{border-bottom:1px solid var(--rule)}
