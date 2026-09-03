@@ -128,6 +128,38 @@ dashboard_index(dash_dir)
 # whose page changed are rewritten). Keeps /cases/ current for the daily links.
 render_dockets_for(ot, site_dir)
 
+# The watch list: dockets the weekly conferences run flagged as able to produce
+# an opinion soon -- argued and undecided, or a live emergency application --
+# fetched here by name so a Thursday opinion is on the landing page Thursday and
+# not the following Monday. A few dozen requests at the June peak, zero in
+# October, through the same paced fetcher as everything else. Never fatal: a
+# throttled watch fetch costs the panel a day, not the dashboards.
+# See R/site_decisions.R and docs/recent-decisions.md.
+source("R/site_decisions.R")
+watch <- setdiff(read_watch(file.path(site_dir, "arguments", WATCH_FILE)), ot$dkt)
+watch_cases <- NULL
+if (length(watch)) {
+  cat("Watch list:", length(watch), "docket(s) to fetch by name\n")
+  watch_cases <- tryCatch(fetch_cases(watch), error = function(e) {
+    cat("watch fetch failed:", conditionMessage(e), "-- panel falls back to the weekly manifest\n")
+    NULL
+  })
+  if (!is.null(watch_cases) && nrow(watch_cases)) {
+    cat("Watch fetched:", nrow(watch_cases), "of", length(watch),
+        "| unresolved:", attr(watch_cases, "n_failed") %||% 0, "\n")
+    # Their case pages too, so /cases says "Decided" the same day the panel does.
+    render_dockets_for(watch_cases, site_dir)
+  }
+}
+# The daily's own manifest: decisions among the watch dockets AND among the
+# trailing fetch (a fast emergency application can be decided inside it). Kept
+# separate from the weekly run's file -- two pipelines writing one path on
+# different schedules is a race -- and merged at read time below.
+seen <- if (!is.null(watch_cases) && nrow(watch_cases)) bind_rows(ot, watch_cases) else ot
+daily_dec <- recent_decisions(seen)
+write_decided(daily_dec, file.path(dash_dir, DECIDED_FILE))
+cat("Decisions seen by the daily:", nrow(daily_dec), "\n")
+
 # The /cases/ browse index. Must exist before any page links to it: the case
 # breadcrumb's middle crumb points at /cases/, which returned a 404 until now.
 write_cases_index(file.path(site_dir, "cases"))
@@ -270,6 +302,19 @@ calendar <- calendar_panel(
   upcoming,
   note = "The next conferences and argument days on the Court's calendar.")
 
+# "Recent decisions". The daily's manifest first, so a decision it fetched today
+# outranks the weekly run's copy of the same docket; the window and the row cap
+# are applied here, on every build.
+decided <- tryCatch(read_decided(c(
+  file.path(dash_dir, DECIDED_FILE),
+  file.path(site_dir, "arguments", DECIDED_FILE))), error = function(e) NULL)
+cat("Recent decisions on the landing page:",
+    if (is.null(decided)) 0 else length(unique(decided$group)), "\n")
+decisions <- decisions_panel(
+  decided,
+  note = "The Court's most recent written opinions, argued or not.",
+  more = "<a href='arguments/'>All argued cases &rarr;</a>")
+
 sharpest_panel <- forecast_panel(
   sharpest, sharpest_long,
   qp = qp_lines,
@@ -314,11 +359,12 @@ styled_index_page(
   # sees only the top of the screen should see it. It sits ABOVE the search box
   # and the section list, which is what panel_top is for. NULL when the week was
   # too quiet to publish a panel, and the slot simply collapses.
-  # Forecast first, calendar under it: what the Court might take, then when it
-  # next sits. Either may be NULL -- a quiet week suppresses the panel, and the
-  # summer recess empties the calendar -- and tagList() drops a NULL, so the page
+  # Forecast first, decisions under it, calendar last: what the Court might take,
+  # what it just did, when it next sits. Any may be NULL -- a quiet week
+  # suppresses the forecast, a quiet month empties the decisions, the summer
+  # recess empties the calendar -- and tagList() drops a NULL, so the page
   # simply closes up rather than showing an empty heading.
-  panel_top = tagList(sharpest_panel, calendar),
+  panel_top = tagList(sharpest_panel, decisions, calendar),
   # Most-read stays below the section list. It is a footnote to the forecast, not
   # a peer of it -- what readers clicked is downstream of what the Court did.
   #

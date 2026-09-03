@@ -84,6 +84,12 @@ classify_argument <- function(events) {
     str_detect(txt, regex("Adjudged to be (AFFIRMED|REVERSED)", ignore_case = TRUE)) |
     str_detect(txt, "^Judgment Issued")
   )
+  # A case that was argued is decided AFTER it was argued. Without this, 25-332
+  # (Trump v. Slaughter) was "decided" on 22 Sep 2025 -- its grant date -- because
+  # the same day's entry granted the companion stay application with a linked
+  # per curiam, and the first decision-shaped entry won. The merits opinion came
+  # nine months later.
+  if (!is.na(argued_date)) dec_idx <- dec_idx[edate[dec_idx] >= argued_date]
   decided_date <- if (length(dec_idx)) edate[dec_idx[1]] else as.Date(NA)
 
   # Opinion author + slip-opinion URL from the decision entries.

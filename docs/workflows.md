@@ -164,6 +164,9 @@ rebase cleanly.
 | `dashboards/`, landing `index.html`, `methods.html`, `analytics.js` | `daily.yml` |
 | `conferences/` (+ `qp_cache.json`) | `conferences.yml`; cache also by `backfill-qp*.yml` |
 | `arguments/` (+ `qp_cache.json`) | `conferences.yml` |
+| `arguments/upcoming.json`, `conferences/upcoming.json` (landing-page calendar manifests) | `conferences.yml` |
+| `arguments/decided.json`, `arguments/watch.json` (landing-page "Recent decisions" manifest and the daily's named-fetch watch list) | `conferences.yml` |
+| `dashboards/decided.json` (the daily's own decisions manifest, from the watch-list fetch) | `daily.yml` |
 | `relists/` | `conferences.yml` |
 | `funnel/` | `conferences.yml` · `render-funnel.yml` |
 | `counsel/` | `conferences.yml` · `render-counsel.yml` |
