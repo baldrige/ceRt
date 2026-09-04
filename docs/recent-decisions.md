@@ -181,7 +181,7 @@ even when empty, for the same reason `write_upcoming()` always writes:
 | `kind` | `argued` / `application` / `summary` |
 | `author` | `"Per Curiam"`, `"Kagan"`, `"Roberts, C.J."`, or `null` |
 | `disposition` | short label, see below; `null` if none matched |
-| `opinion_url` | `null` when the docket has not linked one (most applications) |
+| `opinion_url` | from the entry's anchor, else the Court's opinion listing (see Edge cases); `null` when neither has it |
 | `argued` | argued date for `kind == "argued"`, else `null` |
 | `term` | for the label link to `arguments/arg_{term}.html` on argued rows |
 
@@ -291,10 +291,21 @@ terminal entry wins).
 
 To decide in the build:
 
-- **Opinion link posted after the entry.** Common for applications, occasional
-  for argued cases. The row renders without the PDF link; both manifests are
-  rewritten wholesale from what the run saw, so the link appears on the next
-  run without special handling. Accept this; do not suppress the row.
+- **Opinion link missing from the entry.** Common for applications, occasional
+  for argued cases. 26A274 (NRCC v. Brown, 4 Sep 2026) was granted "Opinion
+  per curiam. Detached Opinion." with no anchor and an empty `Links[]`, while
+  the Court's listing at `/opinions/slipopinion/25` already carried the PDF.
+  So the writer has a failsafe (`fetch_opinion_listing()` in
+  `R/site_decisions.R`): a row that still has no URL after the entry and its
+  same-day companions are read looks itself up in the two listings for its
+  Term, slip opinions (argued cases and the emergency-docket per curiams) and
+  opinions relating to orders (summary reversals). Two paced requests per
+  Term, made only when a row needs one, never fatal. The listing tables differ
+  in shape (the slip page has an "R-" column, the orders page does not), so the
+  parser finds the docket cell by its text, not its position, and prefers a
+  same-day entry when a docket lists more than one. Both manifests are still
+  rewritten wholesale from what the run saw, so a link the listing did not
+  have yet appears on the next run. Do not suppress a row that has no link.
 - **An application decided with an opinion and later argued.** 25A312 was
   decided by a signed opinion after argument on the application itself. It
   qualifies as `application`, with the author. The argued-case rule does not
