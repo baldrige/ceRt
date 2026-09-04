@@ -37,6 +37,11 @@ refresh <- list.files("data-raw", pattern = "^arg_refresh\\.rds$", full.names = 
 art <- c(list.files(cases_dir, pattern = "^cases-\\d{2}\\.rds$",
                     full.names = TRUE, recursive = TRUE),
          list.files(cases_dir, pattern = "^cases-pending\\.rds$",
+                    full.names = TRUE, recursive = TRUE),
+         # The original docket (22O###), fetched by name alongside the pending
+         # stragglers. 16 of its 44 cases have been argued, and a sitting that
+         # hears one should name it. See R/original_dockets.R.
+         list.files(cases_dir, pattern = "^cases-original\\.rds$",
                     full.names = TRUE, recursive = TRUE))
 hist <- list.files("data-raw", pattern = "^ot_\\d+\\.rds$", full.names = TRUE)
 files <- c(refresh, art, hist)
