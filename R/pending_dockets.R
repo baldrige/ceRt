@@ -108,7 +108,10 @@ update_pending <- function(site_dir, cases, classify = NULL, as_of = Sys.Date())
       # their siblings were the bulk. They are also not what this cache is for: an
       # application is resolved in days and never relisted, so it can never be a
       # long-lived out-of-window straggler.
-      if (identical(funnel_case_type(dkt), "app")) next
+      # Original actions (22O###) likewise: a motion for leave to file a bill of
+      # complaint is not a petition, and the original docket has its own by-name
+      # fetch list (cases/original.json, R/original_dockets.R).
+      if (!funnel_case_type(dkt) %in% c("paid", "ifp")) next
       seen <- c(seen, dkt)
       cl <- tryCatch(classify(cases$events[[i]]), error = function(e) NULL)
       if (is.null(cl) || !identical(cl$outcome[[1]], "pending")) next

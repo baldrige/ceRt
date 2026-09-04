@@ -197,10 +197,18 @@ funnel_case_type <- function(dkt) {
   n <- suppressWarnings(as.integer(str_extract(dkt, "\\d+$")))
   case_when(
     str_detect(dkt, "A\\d+$") ~ "app",
+    # 22O### is the original-jurisdiction docket (R/original_dockets.R). Tested
+    # before the sequence-number rule, which would otherwise file 22O141 as a
+    # paid petition and score a State-v-State water case for cert.
+    str_detect(dkt, "O\\d+$") ~ "orig",
     !is.na(n) & n >= 5001 ~ "ifp",
     TRUE ~ "paid"
   )
 }
+
+# The petition types: what the funnel, the conference reports, the model and the
+# feeds are about. Not "everything but an application" -- see funnel_case_type().
+PETITION_TYPES <- c("paid", "ifp")
 
 # ---- per-case classification --------------------------------------------------
 
@@ -311,12 +319,13 @@ classify_petition_events <- function(events) {
   )
 }
 
-# Classify every petition (paid + IFP; applications excluded) in a case tibble.
+# Classify every petition (paid + IFP; applications and original actions
+# excluded) in a case tibble.
 classify_petitions <- function(cases) {
   stopifnot(all(c("dkt", "events") %in% names(cases)))
   cases |>
     mutate(type = funnel_case_type(dkt)) |>
-    filter(type != "app") |>
+    filter(type %in% PETITION_TYPES) |>
     mutate(cls = map(events, classify_petition_events)) |>
     select(dkt, type, date, any_of("caption"), cls) |>
     unnest(cls) |>

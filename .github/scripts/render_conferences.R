@@ -212,4 +212,13 @@ nxt <- pending_to_fetch(site_dir, .terms_present)
 cat("Next run will name", length(nxt), "out-of-window docket(s)",
     if (length(nxt)) paste0(": ", paste(head(nxt, 20), collapse = ", "),
                             if (length(nxt) > 20) ", ..." else "") else "", "\n")
+
+# The original-jurisdiction manifest (cases/original.json): every 22O### docket
+# this run fetched, with its last activity and outcome. The weekly's by-name
+# fetch list, and the daily's (live dockets only). Rewritten wholesale, like the
+# pending cache, and only ever from here. See R/original_dockets.R.
+source("R/original_dockets.R")
+os <- update_originals(site_dir, combined)
+cat(sprintf("Original docket manifest: %d docket(s) [fetched this run: %d | carried unseen: %d]\n",
+            os$total, os$fetched, os$carried))
 cat("Done.\n")

@@ -40,7 +40,10 @@ parse_scotus_date <- function(x) {
 }
 
 # Map the API's case type to the short codes used throughout the dashboard.
-TYPE_MAP <- c(Paid = "paid", IFP = "ifp", Application = "app")
+# "Original" is the 22O### docket (see R/original_dockets.R); it maps to its own
+# code so that nothing downstream can mistake a State-v-State action for a
+# petition -- unmapped it came out NA, and NA defaulted to "paid".
+TYPE_MAP <- c(Paid = "paid", IFP = "ifp", Application = "app", Original = "orig")
 
 # ---- JSON docket API --------------------------------------------------------
 
@@ -308,7 +311,10 @@ build_case <- function(j, dkt) {
     lower = j$LowerCourt %|||% NA_character_,
     lower_dkt = if (length(lower_dkt) == 0) NA_character_ else lower_dkt,
     lower_date = parse_scotus_date(j$LowerCourtDecision),
-    type = unname(TYPE_MAP[j$sJsonCaseType %|||% ""]) %|||% NA_character_,
+    # The docket number is authoritative for the original docket: 22O138's JSON
+    # carries no case type at all, and the number says what it is.
+    type = if (grepl("^\\d{2}O\\d+$", dkt)) "orig"
+           else unname(TYPE_MAP[j$sJsonCaseType %|||% ""]) %|||% NA_character_,
     capital = isTRUE(j$bCapitalCase),
     related = str_c(as.character(j$RelatedCaseNumber %|||% character()), collapse = ", "),
     # The docket's OTHER linkage, and a different relationship from `related`.
