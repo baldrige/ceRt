@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <sitemap>
+    <loc>https://supremecourt.report/sitemap-cases-original.xml</loc>
+  </sitemap>
+  <sitemap>
     <loc>https://supremecourt.report/sitemap-cases-ot17.xml</loc>
   </sitemap>
   <sitemap>
