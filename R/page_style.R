@@ -304,9 +304,24 @@ CAPTION_ROLE_TAIL <- paste0(
   ", Petitioners?|, Respondents?|, Applicants?|, Appellants?|, Appellees?",
   "|, et al\\.")
 
+# The Clerk sometimes writes the role with no comma at all: "National Republican
+# Congressional Committee, et al. Applicants v. Sherrod Brown" (26A274), where
+# stripping ", et al." alone left "Committee Applicants" on the landing page.
+# Measured over the 55,799 captions in cases/search.json: 24 carry a role word
+# without a comma, and 11 of those are "Sealed Appellant v. United States", a
+# PARTY NAME the Court uses for a sealed case -- so the word goes only where it
+# ends a party name (right before " v." or the end) and is not "Sealed ___".
+# "Appellant 1 and Appellant 2 v. United States" (22-7096) is untouched, and so
+# is "Michael T. Willan v. Petitioner", where the word IS the whole party.
+CAPTION_ROLE_BARE <- paste0(
+  "(?<!Sealed)(?<!\\bv\\.)\\s+(Petitioners?|Respondents?|Applicants?|Appellants?|Appellees?)",
+  "(?=\\s+v\\.|\\s*$)")
+
 strip_caption_roles <- function(x) {
   if (is.null(x)) return(x)
-  trimws(gsub("\\s+", " ", gsub(CAPTION_ROLE_TAIL, "", x)))
+  x <- gsub(CAPTION_ROLE_TAIL, "", x)
+  x <- gsub(CAPTION_ROLE_BARE, "", x, perl = TRUE)
+  trimws(gsub("\\s+", " ", x))
 }
 
 # Convert straight quotes/apostrophes in DISPLAY text to typographic ("smart")
