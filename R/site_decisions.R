@@ -41,6 +41,8 @@
 # embeds <a href> around the word "Opinion", so the raw text of 26A203 reads
 # "<a ...>Opinion</a> per curiam" and a literal phrase match misses it. The URL
 # comes from that anchor -- the entry's Links[] array is empty for opinion PDFs.
+# And when there is no anchor either (26A274), from the Court's opinion
+# listings: see "the Court's opinion listings" below.
 
 suppressPackageStartupMessages({ library(jsonlite); library(stringr) })
 
@@ -150,6 +152,99 @@ DECIDED_KEEP_DAYS <- 90L
     "denied"    = if (moot) "Denied as moot" else "Denied",
     "dismissed" = "Dismissed",
     NA_character_)
+}
+
+# ---- the Court's opinion listings: a failsafe for the URL --------------------
+#
+# The URL above comes from the anchor the Clerk embeds in the docket entry, and
+# the Clerk does not always embed one. 26A274 (NRCC v. Brown, 4 Sep 2026) was
+# granted "Opinion per curiam. Detached Opinion." with no anchor and an empty
+# Links[] -- while the Court's own listing at /opinions/slipopinion/25 already
+# carried the PDF (R-71, "PC"). The docket entry marks the decision; the listing
+# is where the file is. So a row that still has no URL after the entry and the
+# same-day companions have been read looks itself up in the listings for its
+# Term: slip opinions (argued cases AND the emergency-docket per curiams) and
+# opinions relating to orders (summary reversals issued with an orders list).
+#
+# Two pages per Term, fetched only when a row needs one, through the paced
+# fetcher when it is loaded. Never fatal: a failed lookup is a row without a
+# link, which is what it was before.
+OPINION_LISTING_URL <- "https://www.supremecourt.gov/opinions/%s/%s"
+OPINION_LISTING_KINDS <- c("slipopinion", "relatingtoorders")
+
+.listing_df <- function(dkt = character(), date = as.Date(character()), url = character())
+  data.frame(dkt = dkt, date = as.Date(date), url = url, stringsAsFactors = FALSE)
+
+# The Court files a decision under the Term it was decided in: OT25 runs from
+# the first Monday in October 2025 until its successor opens, so a September
+# 2026 decision is on the "25" page.
+.listing_terms <- function(dates) {
+  dates <- as.Date(dates); dates <- dates[!is.na(dates)]
+  if (!length(dates)) return(character())
+  y <- as.integer(format(dates, "%Y")) - as.integer(as.integer(format(dates, "%m")) < 10L)
+  sprintf("%02d", unique(y) %% 100L)
+}
+
+# One listing page -> (dkt, date, url). Column positions are NOT relied on: the
+# slip-opinion table leads with an "R-" column that the relating-to-orders table
+# lacks. The docket cell is the one whose whole text is a docket number, and the
+# PDF is whichever cell links one. "141, Orig." rows have no docket in our sense
+# and drop out; a row without a PDF drops out.
+.parse_opinion_listing <- function(html) {
+  rows <- str_match_all(html, regex("<tr[^>]*>(.*?)</tr>", dotall = TRUE))[[1]][, 2]
+  if (!length(rows)) return(.listing_df())
+  one <- function(r) {
+    tds <- str_match_all(r, regex("<td[^>]*>(.*?)</td>", dotall = TRUE))[[1]][, 2]
+    if (length(tds) < 3) return(NULL)
+    txt <- .strip_tags(tds)
+    dk <- txt[str_detect(txt, paste0("^", .DOCKET_REF_RX, "$"))]
+    href <- str_match(r, "href\\s*=\\s*['\"]([^'\"]+\\.pdf)['\"]")[1, 2]
+    if (!length(dk) || is.na(href)) return(NULL)
+    if (str_starts(href, "/")) href <- paste0("https://www.supremecourt.gov", href)
+    d <- suppressWarnings(lubridate::mdy(txt[str_detect(txt, "^\\d{1,2}/\\d{1,2}/\\d{2,4}$")]))
+    .listing_df(dk[1], if (length(d)) d[1] else as.Date(NA), href)
+  }
+  out <- do.call(rbind, lapply(rows, one))
+  if (is.null(out)) .listing_df() else out
+}
+
+.fetch_listing_page <- function(url) {
+  resp <- if (exists("scotus_perform") && exists("scotus_req"))
+    scotus_perform(scotus_req(url))
+  else
+    httr2::req_perform(httr2::req_user_agent(httr2::request(url), "ceRt SCOTUS docketing dashboard (httr2)"))
+  if (httr2::resp_status(resp) != 200L) stop("HTTP ", httr2::resp_status(resp))
+  httr2::resp_body_string(resp)
+}
+
+#' The Court's opinion listings for `terms` ("25", "26"), as (dkt, date, url).
+#' A page that cannot be fetched or parsed contributes nothing and says so.
+fetch_opinion_listing <- function(terms, kinds = OPINION_LISTING_KINDS) {
+  parts <- list()
+  for (t in unique(terms)) for (k in kinds) {
+    url <- sprintf(OPINION_LISTING_URL, k, t)
+    got <- tryCatch(.parse_opinion_listing(.fetch_listing_page(url)), error = function(e) {
+      cat("Opinion listing", url, "unavailable:", conditionMessage(e), "\n"); NULL
+    })
+    if (!is.null(got) && nrow(got)) parts[[length(parts) + 1L]] <- got
+  }
+  if (!length(parts)) return(.listing_df())
+  do.call(rbind, parts)
+}
+
+# Fill the URL of every row that lacks one from the listing. A docket normally
+# has one opinion per Term, but a same-day entry wins over any other, and the
+# slip-opinion page (listed first) wins over relating-to-orders.
+.listing_urls <- function(out, listing) {
+  if (is.null(listing) || !nrow(listing)) return(out)
+  need <- which(is.na(out$opinion_url) | !nzchar(out$opinion_url))
+  for (i in need) {
+    j <- which(listing$dkt == out$dkt[i])
+    if (!length(j)) next
+    same <- j[!is.na(listing$date[j]) & listing$date[j] == out$date[i]]
+    out$opinion_url[i] <- listing$url[if (length(same)) same[1] else j[1]]
+  }
+  out
 }
 
 # ---- rows -----------------------------------------------------------------------
@@ -268,7 +363,12 @@ DECIDED_KEEP_DAYS <- 90L
 #' newest thing on its docket, so a docket quiet for longer than the window
 #' cannot hold one. That turns a pass over the whole back-catalogue (~80k
 #' dockets on the conferences run) into a pass over a few hundred.
-recent_decisions <- function(cases, as_of = Sys.Date(), days = DECIDED_KEEP_DAYS) {
+#'
+#' `listing`: the Court's opinion listing as (dkt, date, url), for rows whose
+#' docket entry links no PDF. `NULL` fetches it for the Terms those rows fall in,
+#' and only if there are any; pass `.listing_df()` to forbid the lookup.
+recent_decisions <- function(cases, as_of = Sys.Date(), days = DECIDED_KEEP_DAYS,
+                             listing = NULL) {
   if (is.null(cases) || !nrow(cases) || !all(c("dkt", "events") %in% names(cases)))
     return(.dec_df())
   as_of <- as.Date(as_of)
@@ -291,7 +391,17 @@ recent_decisions <- function(cases, as_of = Sys.Date(), days = DECIDED_KEEP_DAYS
   out <- do.call(rbind, rows[hit])
   out <- .borrow_urls(out, named)
   ok <- !is.na(out$date) & out$date >= as_of - days & out$date <= as_of + 1L & !duplicated(out$dkt)
-  out <- out[ok, , drop = FALSE]
+  out <- out[ok, , drop = FALSE]; named <- named[ok]
+  # The listing failsafe, then the companions borrow again: the listing names
+  # the lead docket, and a companion still needs the lead's URL.
+  need <- is.na(out$opinion_url) | !nzchar(out$opinion_url)
+  if (any(need)) {
+    if (is.null(listing)) listing <- fetch_opinion_listing(.listing_terms(out$date[need]))
+    out <- .listing_urls(out, listing)
+    out <- .borrow_urls(out, named)
+    filled <- sum(need) - sum(is.na(out$opinion_url) | !nzchar(out$opinion_url))
+    if (filled > 0) cat("Opinion listing filled", filled, "URL(s) the docket entry lacked\n")
+  }
   out[order(out$date, out$dkt, decreasing = c(TRUE, FALSE), method = "radix"), , drop = FALSE]
 }
 
