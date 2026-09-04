@@ -164,6 +164,22 @@ jobs:
           WINDOW_TERMS: ${{ join(fromJSON(needs.setup.outputs.matrix), ',') }}
           OUT_FILE: cases-pending.rds
         run: Rscript .github/scripts/fetch_pending.R
+      # The original-jurisdiction docket (22O###), on the same runner: every
+      # known docket plus a short probe above the highest number, ~70 requests
+      # a week (200 on the very first run, which has no manifest to name from).
+      # Its numbering is sparse, so it cannot be a Term-matrix range fetch. See
+      # R/original_dockets.R. Same never-fatal contract as the pending fetch.
+      - name: Fetch original-jurisdiction dockets
+        env:
+          SITE_DIR: site
+          OUT_FILE: cases-original.rds
+        run: Rscript .github/scripts/fetch_originals.R
+      - uses: actions/upload-artifact@v4
+        if: hashFiles('cases-original.rds') != ''
+        with:
+          name: cases-original
+          path: cases-original.rds
+          retention-days: 30
       - uses: actions/upload-artifact@v4
         # Absent when there was nothing to name, which is the normal state until
         # the render step has written a pending.json.

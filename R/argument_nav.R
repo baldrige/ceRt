@@ -204,8 +204,32 @@ unscheduled_arg_term <- function(grant_date) {
 # raw docket -> QP <details> HTML.
 build_argument_table <- function(cases, qp_map = NULL) {
   cls <- classify_petitions(cases)
-  granted <- cls |> filter(outcome == "granted") |> distinct(dkt, .keep_all = TRUE) |>
-    transmute(dkt, grant_date = outcome_date)
+  # No petitions at all (a frame of original actions alone) unnests to a frame
+  # with no columns, and filter() on it would error.
+  granted <- if (nrow(cls)) cls |> filter(outcome == "granted") |> distinct(dkt, .keep_all = TRUE) |>
+    transmute(dkt, grant_date = outcome_date) else tibble(dkt = character(), grant_date = as.Date(character()))
+  # Original actions (22O###) are not petitions and classify_petitions() no
+  # longer sees them, but 16 of the 44 have been argued -- on exceptions to a
+  # Special Master's report -- and a sitting that hears one should name it. The
+  # "grant" is the order granting leave to file the bill of complaint, or the
+  # docketing date for the handful with no such entry. Known limitation: a case
+  # argued twice (No. 141: 2018 and 2024) keeps its first argument only, because
+  # classify_argument() does. See docs/original-jurisdiction.md.
+  if (exists("classify_original_events")) {
+    oi <- which(str_detect(cases$dkt, "^\\d{2}O\\d+$"))
+    oi <- oi[vapply(cases$events[oi], function(ev)
+      is.data.frame(ev) && any(str_detect(coalesce(ev[["Proceedings and Orders"]], ""),
+        regex("^Argued\\.|SET FOR ARGUMENT", ignore_case = TRUE))), logical(1))]
+    if (length(oi)) {
+      og <- tibble(dkt = cases$dkt[oi], grant_date = as.Date(vapply(oi, function(i) {
+        ev <- cases$events[[i]]
+        oc <- classify_original_events(ev[["Proceedings and Orders"]], suppressWarnings(mdy(ev$Date)))
+        as.numeric(if (!is.na(oc$leave_granted)) oc$leave_granted else cases$date[i])
+      }, numeric(1)), origin = "1970-01-01"))
+      granted <- bind_rows(granted, og |> filter(!dkt %in% granted$dkt))
+    }
+  }
+  orig_dkts <- granted$dkt[str_detect(granted$dkt, "^\\d{2}O\\d+$")]
   g <- cases |> filter(dkt %in% granted$dkt) |> distinct(dkt, .keep_all = TRUE)
   if (nrow(g) == 0) return(tibble())
 
@@ -231,6 +255,13 @@ build_argument_table <- function(cases, qp_map = NULL) {
     # that ended before ever being scheduled (dismissed/DIG'd with no argument),
     # e.g. a Rule 46 settlement after cert -- they are not oral arguments.
     filter(!is.na(term), !is.na(arg_ref) | status == "Granted")
+  # Original actions only in Terms the Navigator already covers: the archive
+  # begins at OT17, and No. 8 (Arizona v. California) was argued in 1962. A
+  # one-case page for OT1961 is not a Navigator Term.
+  if (length(orig_dkts)) {
+    pet_terms <- unique(arg$term[!arg$dkt %in% orig_dkts])
+    arg <- arg |> filter(!(dkt %in% orig_dkts) | term %in% pet_terms)
+  }
   arg
 }
 

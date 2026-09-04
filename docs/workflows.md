@@ -174,7 +174,24 @@ rebase cleanly.
 | `feed.xml`, `grants.xml`, `sitemap*.xml`, `robots.txt` | `daily.yml` |
 | `cases/grants.json` (grants cache) | `conferences.yml` (full-term, the real source) · `daily.yml` (only what is inside its trailing fetch window) |
 | `cases/pending.json` (live-docket cache) | `conferences.yml` only |
+| `cases/original.json` (the original-jurisdiction docket manifest; the daily reads it) | `conferences.yml` only |
 | `cases/forecasts.json` (prospective forecast log) | `conferences.yml` only |
+
+## The original-jurisdiction docket: fetched by name, on the pending runner
+
+`22O###` dockets (State v. State actions) are not a Term bucket: the `22O` is a
+fixed prefix and the numbers are sparse (44 of the first 200 exist), so a range
+fetch cannot enumerate them. The `fetch-pending` job runs
+`.github/scripts/fetch_originals.R` after the straggler fetch: every docket
+`cases/original.json` knows plus 25 numbers above the highest, ~70 requests,
+saved to the `cases-original.rds` artifact (200 requests once, on the first run
+with no manifest). `render_conferences.R` renders their pages and rewrites the
+manifest; `render_arguments.R` loads the artifact by name so an argued original
+action gets a Navigator row. The daily re-fetches only the **live** ones
+(activity in the last two years, plus a three-number probe) and never writes the
+manifest. Same never-fatal contract as the pending fetch, and the manifest is
+likewise **not** in `publish_site.sh`'s `DERIVED` list. Full design:
+**[original-jurisdiction.md](original-jurisdiction.md)**.
 
 ## Naming the live stragglers instead of widening the Term window
 

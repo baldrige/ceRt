@@ -250,6 +250,12 @@ order, which is why `docket_timeline()` sorts it too rather than trusting it.
   `NNA1..`. `binary_search_max()` finds each bucket's highest live number.
   ⚠️ Application dockets use the form `NNA###` (an "A"), **not** a dash — code that
   scans/globs docket pages must match `[-A]`, not just `-`.
+- **The original docket is not a term bucket.** `22O###` is a fixed prefix plus
+  a sequence number across the whole original docket, sparse (44 of the first
+  200 numbers exist), so it is fetched **by name** from `cases/original.json`,
+  never by range. Its lifecycle classifier and status words live in
+  `R/original_dockets.R`; see **[original-jurisdiction.md](original-jurisdiction.md)**.
+  Code that globs docket pages must now match `[-AO]`.
 - `get_scotus_update(year)` — the **daily** fetch: only the **trailing ~50 dockets
   of each bucket**. This is why the daily refreshes only the ~150 most-recent
   current-term pages and why a template change does *not* reach older pages on its

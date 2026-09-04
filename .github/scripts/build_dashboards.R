@@ -151,11 +151,32 @@ if (length(watch)) {
     render_dockets_for(watch_cases, site_dir)
   }
 }
+# The original-jurisdiction docket (22O###): the LIVE ones -- any activity in
+# the last two years, from the manifest the weekly run writes -- fetched by name
+# so their pages keep up between weekly runs, plus a three-number probe above
+# the highest known docket. A dozen requests at most; none until the weekly has
+# seeded cases/original.json. The daily never writes that manifest. Never
+# fatal. See R/original_dockets.R and docs/original-jurisdiction.md.
+source("R/original_dockets.R")
+orig_dkts <- setdiff(originals_to_fetch(site_dir, live_only = TRUE), watch)
+orig_cases <- NULL
+if (length(orig_dkts)) {
+  cat("Original docket:", length(orig_dkts), "live docket(s) to fetch by name\n")
+  orig_cases <- tryCatch(fetch_cases(orig_dkts), error = function(e) {
+    cat("original docket fetch failed:", conditionMessage(e), "-- pages left as they are\n")
+    NULL
+  })
+  if (!is.null(orig_cases) && nrow(orig_cases)) {
+    cat("Original docket fetched:", nrow(orig_cases), "of", length(orig_dkts),
+        "| unresolved:", attr(orig_cases, "n_failed") %||% 0, "\n")
+    render_dockets_for(orig_cases, site_dir)
+  }
+}
 # The daily's own manifest: decisions among the watch dockets AND among the
 # trailing fetch (a fast emergency application can be decided inside it). Kept
 # separate from the weekly run's file -- two pipelines writing one path on
 # different schedules is a race -- and merged at read time below.
-seen <- if (!is.null(watch_cases) && nrow(watch_cases)) bind_rows(ot, watch_cases) else ot
+seen <- bind_rows(ot, watch_cases, orig_cases)
 daily_dec <- recent_decisions(seen)
 write_decided(daily_dec, file.path(dash_dir, DECIDED_FILE))
 cat("Decisions seen by the daily:", nrow(daily_dec), "\n")

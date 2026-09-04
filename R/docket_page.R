@@ -32,6 +32,10 @@ local({
   sys.source(find("palette.R"),  envir = globalenv())
   sys.source(find("site_nav.R"), envir = globalenv())
   sys.source(find("site_meta.R"), envir = globalenv())   # social_meta()
+  # The original docket's lifecycle (22O###) -- classify_original_events() and
+  # its status words. Named here for the same reason as the nav: the back-catalog
+  # entry points source this file alone.
+  sys.source(find("original_dockets.R"), envir = globalenv())
 })
 
 # A procedural entry is marked with a TICK across the timeline rule, not a dot.
@@ -642,7 +646,11 @@ classify_application_events <- function(et, ed, dkt = NA_character_) {
 # (a prediction); resolved cases lead with the outcome and keep the pre-decision
 # estimate as a retrospective note.
 docket_disposition <- function(outcome, outcome_date, arg, p_base, p_gvr, sig, is_app = FALSE, why = "", why_retro = "",
-                               p_lo = NA_real_, p_hi = NA_real_, p_ever = NA_real_) {
+                               p_lo = NA_real_, p_hi = NA_real_, p_ever = NA_real_,
+                               word_override = NULL) {
+  # `word_override`: the box's word decided elsewhere, for a docket whose
+  # lifecycle is neither a petition's nor an application's (an original action,
+  # R/original_dockets.R). Used for the pending and the resolved forms alike.
   pct <- function(p) sprintf("%d%%", round(100 * p))
   # A 95% interval, shown only where it is wide enough to change how the number
   # reads. Measured widths: ~0.5pp below 1%, 3.5pp around 3%, 14pp around 16%,
@@ -678,10 +686,12 @@ docket_disposition <- function(outcome, outcome_date, arg, p_base, p_gvr, sig, i
       why_html <- if (nzchar(why %||% "")) sprintf("<p class='forecast-why'>%s</p>", why) else ""
       return(paste0(box, why_html))
     }
-    return(sprintf("<div class='disp'><div class='disp-word'>%s</div></div>", if (is_app) "Application pending" else "Pending"))
+    return(sprintf("<div class='disp'><div class='disp-word'>%s</div></div>",
+                   word_override %||% if (is_app) "Application pending" else "Pending"))
   }
   # Resolved: lead with a word + date, keep the estimate as a footnote.
-  word <- if (is_app) switch(outcome, granted = "Application granted", denied = "Application denied",
+  word <- if (!is.null(word_override)) word_override
+    else if (is_app) switch(outcome, granted = "Application granted", denied = "Application denied",
                               dismissed = "Application dismissed",
                               # "granted in part and denied in part" is neither, and
                               # flattening it to "granted" overstates what the Court did.
@@ -724,7 +734,10 @@ docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
     str_squish(str_remove(lnk[1], regex("^linked with\\s*", ignore_case = TRUE)))
   if (length(qp) > 1) qp <- paste(qp, collapse = "\n")   # a qp_map value may be a vector
   is_app <- identical(cx$type %||% "", "app")
-  if (is.null(cls_row) && !is_app && exists("classify_petitions"))
+  # An original action (22O###). Typed from the docket number as well as from
+  # the JSON's case type, because the historical snapshots predate the type.
+  is_orig <- identical(cx$type %||% "", "orig") || is_original_docket(dkt)
+  if (is.null(cls_row) && !is_app && !is_orig && exists("classify_petitions"))
     cls_row <- tryCatch(classify_petitions(cx)[1, ], error = function(e) NULL)
   outcome <- cls_row$outcome %||% NA_character_
   outcome_date <- cls_row$outcome_date %||% as.Date(NA)
@@ -809,6 +822,20 @@ docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
                                       suppressWarnings(lubridate::mdy(ev$Date)), dkt)
     outcome <- ac$outcome; outcome_date <- ac$date
   }
+  # An original action has its own lifecycle (motion for leave -> Special Master
+  # -> exceptions -> argument -> decree), classified in R/original_dockets.R. The
+  # box word comes from there; the argument block below still reads the events
+  # through classify_argument(), which knows "Argued." and "delivered the
+  # opinion" whatever the docket. A granted motion for leave is the merits
+  # boundary for brief-cover colouring, the way a cert grant is.
+  orig_word <- NULL
+  if (is_orig && is.data.frame(ev)) {
+    oc <- classify_original_events(ev[["Proceedings and Orders"]] %||% "",
+                                   suppressWarnings(lubridate::mdy(ev$Date)))
+    outcome <- oc$outcome; outcome_date <- original_status_date(oc)
+    orig_word <- original_status_word(oc)
+    if (is.na(granted_on) && !is.na(oc$leave_granted)) granted_on <- oc$leave_granted
+  }
 
   # Forecast (paid only; pure, from in-memory models).
   p_base <- NA_real_; p_gvr <- NA_real_; fc_why <- ""; fc_why_retro <- ""
@@ -849,7 +876,8 @@ docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
 
   disp <- docket_disposition(outcome, outcome_date, arg, p_base, p_gvr, signals,
                              is_app = is_app, why = fc_why, why_retro = fc_why_retro,
-                             p_lo = p_lo, p_hi = p_hi, p_ever = p_ever)
+                             p_lo = p_lo, p_hi = p_hi, p_ever = p_ever,
+                             word_override = orig_word)
   # Conference history = TOTAL distributions (a case seen at one conference counts).
   n_dist <- if (is.data.frame(ev))
     sum(str_detect(ev[["Proceedings and Orders"]] %||% "", "DISTRIBUTED for Conference"), na.rm = TRUE) else 0L
@@ -885,11 +913,20 @@ docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
     ad <- c(ad, sprintf("<p><b>%s</b> %s.%s</p>", dword, .fmtdate(arg$decided_date),
       if (!is.na(arg$opinion_author)) paste0(" Opinion by <b>", .esc(arg$opinion_author), "</b>.") else ""))
   }
-  argsec <- if (length(ad) && !(outcome %in% c("gvr", "dismissed")))
+  # An original action's "dismissed" comes AFTER its argument and opinion (No.
+  # 142, Florida v. Georgia), so the block stays for those -- but only where the
+  # case was set for argument or argued: a denied motion for leave with a
+  # dissent's PDF linked (No. 158) reads as "decided" to the argument grammar,
+  # and there was no argument to report.
+  show_arg <- if (is_orig) !is.na(arg$argued_date) || !is.na(arg$scheduled_date)
+              else !(outcome %in% c("gvr", "dismissed"))
+  argsec <- if (length(ad) && show_arg)
     paste0("<section><h2>Argument &amp; decision</h2>", paste(ad, collapse = ""), "</section>") else ""
 
   ty <- cx$type %||% "paid"; if (is.na(ty)) ty <- "paid"
-  ptype <- unname(c("paid" = "Paid petition", "ifp" = "IFP petition", "app" = "Application")[ty])
+  if (is_orig) ty <- "orig"
+  ptype <- unname(c("paid" = "Paid petition", "ifp" = "IFP petition", "app" = "Application",
+                    "orig" = "Original jurisdiction")[ty])
   if (is.na(ptype)) ptype <- "Petition"
   posture <- str_squish(paste0(ptype,
     if (!is.na(cx$lower) && nzchar(cx$lower)) paste0(" &middot; ", .esc(cx$lower)),
@@ -1160,14 +1197,18 @@ render_dockets_for <- function(cases, site_dir, model_dir = "data") {
 # paid NN-1..NN-4999, IFP NN-5001.., applications NNA### (an "A", not a dash).
 .docket_bucket <- function(dkt) {
   ifelse(grepl("^\\d{2}A\\d+$", dkt), "applications",
+    ifelse(grepl("^\\d{2}O\\d+$", dkt), "original",
     ifelse(grepl("^\\d{2}-\\d+$", dkt),
       ifelse(suppressWarnings(as.integer(sub("^\\d{2}-", "", dkt))) >= 5000L,
              "ifp", "paid"),
-      NA_character_))
+      NA_character_)))
 }
-.docket_term <- function(dkt) suppressWarnings(as.integer(substr(dkt, 1, 2)))
+# The original docket's "22" is a fixed prefix, not a Term (R/original_dockets.R),
+# so its Term is NA and it is listed on the hub alone, never on an ot page.
+.docket_term <- function(dkt)
+  ifelse(grepl("^\\d{2}O", dkt), NA_integer_, suppressWarnings(as.integer(substr(dkt, 1, 2))))
 .docket_seq  <- function(dkt)
-  suppressWarnings(as.integer(sub("^\\d{2}[-A]", "", dkt)))
+  suppressWarnings(as.integer(sub("^\\d{2}[-AO]", "", dkt)))
 
 BUCKET_LABELS <- list(paid = "Paid petitions", ifp = "In forma pauperis",
                       applications = "Applications")
@@ -1187,11 +1228,14 @@ write_cases_index <- function(cases_dir, n_recent = 60L) {
   df <- data.frame(dkt = dkt, cap = unlist(idx, use.names = FALSE),
                    bucket = .docket_bucket(dkt), term = .docket_term(dkt),
                    seq = .docket_seq(dkt), stringsAsFactors = FALSE)
-  df <- df[!is.na(df$bucket) & !is.na(df$term) & !is.na(df$seq), , drop = FALSE]
-  if (!nrow(df)) return(invisible(NULL))
+  df <- df[!is.na(df$bucket) & !is.na(df$seq), , drop = FALSE]
   # A page is only listed if it actually exists: search.json accumulates across
   # runs and can outlive a renumbered docket, and linking one would publish a 404.
   df <- df[file.exists(file.path(cases_dir, paste0(df$dkt, ".html"))), , drop = FALSE]
+  # The original docket has no Term: its own hub section, all of it, newest first.
+  orig <- df[df$bucket == "original", , drop = FALSE]
+  orig <- orig[order(-orig$seq), , drop = FALSE]
+  df <- df[df$bucket != "original" & !is.na(df$term), , drop = FALSE]
   if (!nrow(df)) return(invisible(NULL))
 
   row_html <- function(d) paste0(
@@ -1242,6 +1286,11 @@ write_cases_index <- function(cases_dir, n_recent = 60L) {
     section(shown, paste0(BUCKET_LABELS[[b]], " <span class='cn'>",
                           format(total, big.mark = ","), "</span>"), note)
   }, character(1)), collapse = "")
+  # Original actions: the whole docket, since it is 44 cases across a century
+  # and has no Term to browse by.
+  origsec <- section(orig, paste0("Original jurisdiction <span class='cn'>",
+                                  format(nrow(orig), big.mark = ","), "</span>"),
+                     if (nrow(orig)) "Cases between States, and the occasional State against the United States, that begin in this Court. Numbered 22O plus a sequence number; the 22 is not a Term." else NULL)
   termlist <- paste0(
     "<h2 class='csec'>By Term</h2><ul class='terms'>",
     paste(vapply(terms, function(t) paste0(
@@ -1253,10 +1302,11 @@ write_cases_index <- function(cases_dir, n_recent = 60L) {
     title = "Cases — Supreme Court Report",
     heading = "Cases", kicker = "Supreme Court of the United States",
     dek = paste0("Every docket the Court has opened since ", ot(min(terms)),
-                 " &mdash; ", format(nrow(df), big.mark = ","),
+                 " &mdash; ", format(nrow(df) + nrow(orig), big.mark = ","),
                  " in all. Search by name or number, or browse by Term."),
-    crumb_label = "Cases", body = paste0(hub, termlist), search = TRUE)
-  message("cases index: ", nrow(df), " dockets across ", length(terms), " term(s)")
+    crumb_label = "Cases", body = paste0(hub, origsec, termlist), search = TRUE)
+  message("cases index: ", nrow(df), " dockets across ", length(terms), " term(s)",
+          if (nrow(orig)) paste0(" + ", nrow(orig), " original") else "")
   invisible(nrow(df))
 }
 

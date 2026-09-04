@@ -46,6 +46,7 @@ derive_case_type <- function(dkt) {
   n <- suppressWarnings(as.integer(str_extract(dkt, "\\d+$")))
   case_when(
     str_detect(dkt, "A\\d+$") ~ "app",
+    str_detect(dkt, "O\\d+$") ~ "orig",   # 22O###, the original docket
     !is.na(n) & n >= 5001 ~ "ifp",
     TRUE ~ "paid"
   )
@@ -78,6 +79,11 @@ case_conference_dates <- function(events) {
 conference_distributions <- function(cases) {
   stopifnot("events" %in% names(cases))
   cases |>
+    # Original actions (22O###) are distributed for conference too -- 41 of the
+    # 44 carry a DISTRIBUTED entry -- but their motions for leave are not in the
+    # petition grammar, and a conference report is the product. Kept out until
+    # they have their own row treatment; see docs/original-jurisdiction.md.
+    filter(!str_detect(dkt, "O\\d+$")) |>
     mutate(
       .cid = row_number(),
       conf_date = map(events, case_conference_dates)

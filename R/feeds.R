@@ -226,6 +226,10 @@ update_grants_cache <- function(site_dir, cases, classify = NULL) {
   for (i in seq_len(nrow(cases))) {
     dkt <- cases$dkt[i]
     if (!is.null(idx[[dkt]])) next
+    # Petitions only. An application never reaches here with a grant the grammar
+    # recognises; an original action (22O###) can -- "Motion for leave to file a
+    # bill of complaint is GRANTED" -- and that is not a cert grant.
+    if (grepl("[AO]\\d+$", dkt)) next
     cl <- tryCatch(classify(cases$events[[i]]), error = function(e) NULL)
     if (is.null(cl) || !identical(cl$outcome[[1]], "granted") ||
         is.na(cl$outcome_date[[1]])) next
@@ -378,6 +382,9 @@ write_sitemaps <- function(site_dir, base = SITE_URL, max_urls = SITEMAP_MAX) {
   dockets <- setdiff(all_html, c("index.html", grep("^ot\\d+\\.html$", all_html, value = TRUE)))
   if (length(dockets)) {
     term <- substr(dockets, 1, 2)
+    # The original docket (22O###) has no Term: its "22" is a fixed prefix, not
+    # OT22. One child of its own, so it is not filed under a Term it is not in.
+    term[grepl("^\\d{2}O\\d+\\.html$", dockets)] <- "original"
     for (tm in sort(unique(term))) {
       f <- sort(dockets[term == tm])
       urls <- paste0(base, "/cases/", f)
@@ -385,8 +392,8 @@ write_sitemaps <- function(site_dir, base = SITE_URL, max_urls = SITEMAP_MAX) {
       # so that if one ever is, the sitemap splits instead of being rejected.
       chunks <- split(urls, ceiling(seq_along(urls) / max_urls))
       for (k in seq_along(chunks)) {
-        nm <- if (length(chunks) == 1) sprintf("sitemap-cases-ot%s.xml", tm)
-              else sprintf("sitemap-cases-ot%s-%d.xml", tm, k)
+        stem <- if (identical(tm, "original")) "sitemap-cases-original" else paste0("sitemap-cases-ot", tm)
+        nm <- if (length(chunks) == 1) paste0(stem, ".xml") else sprintf("%s-%d.xml", stem, k)
         children[[nm]] <- list(urls = chunks[[k]], lastmod = NULL)
       }
     }

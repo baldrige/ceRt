@@ -188,8 +188,9 @@ OPINION_LISTING_KINDS <- c("slipopinion", "relatingtoorders")
 # One listing page -> (dkt, date, url). Column positions are NOT relied on: the
 # slip-opinion table leads with an "R-" column that the relating-to-orders table
 # lacks. The docket cell is the one whose whole text is a docket number, and the
-# PDF is whichever cell links one. "141, Orig." rows have no docket in our sense
-# and drop out; a row without a PDF drops out.
+# PDF is whichever cell links one. An original action is listed as "141, Orig."
+# and the docket API knows it as 22O141 (R/original_dockets.R), so the cell is
+# rewritten to that form; a row without a PDF drops out.
 .parse_opinion_listing <- function(html) {
   rows <- str_match_all(html, regex("<tr[^>]*>(.*?)</tr>", dotall = TRUE))[[1]][, 2]
   if (!length(rows)) return(.listing_df())
@@ -197,7 +198,8 @@ OPINION_LISTING_KINDS <- c("slipopinion", "relatingtoorders")
     tds <- str_match_all(r, regex("<td[^>]*>(.*?)</td>", dotall = TRUE))[[1]][, 2]
     if (length(tds) < 3) return(NULL)
     txt <- .strip_tags(tds)
-    dk <- txt[str_detect(txt, paste0("^", .DOCKET_REF_RX, "$"))]
+    txt <- str_replace(txt, regex("^(\\d{1,4}),?\\s*Orig\\.?$", ignore_case = TRUE), "22O\\1")
+    dk <- txt[str_detect(txt, paste0("^", .DOCKET_REF_RX, "$")) | str_detect(txt, "^\\d{2}O\\d+$")]
     href <- str_match(r, "href\\s*=\\s*['\"]([^'\"]+\\.pdf)['\"]")[1, 2]
     if (!length(dk) || is.na(href)) return(NULL)
     if (str_starts(href, "/")) href <- paste0("https://www.supremecourt.gov", href)
