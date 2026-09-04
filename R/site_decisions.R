@@ -184,6 +184,29 @@ DECIDED_KEEP_DAYS <- 90L
   list(raw = raw, stripped = .strip_tags(raw))
 }
 
+# The other dockets an entry names ("in No. 26A124"). When one order disposes
+# of several dockets, the Clerk attaches the slip-opinion anchors to the LEAD
+# docket only: 26A124 (Trump v. California) carries them, and 26A139 (Alabama v.
+# California) carries the identical order text with no anchors at all, checked
+# live. The companion's entry still names the lead, so a row with no URL can
+# borrow the URL from a same-day row for a docket it names.
+.DOCKET_REF_RX <- "\\b(\\d{2}A\\d{1,4}|\\d{2}-\\d{1,5})\\b"
+.named_dockets <- function(stripped, self) {
+  m <- unlist(str_extract_all(paste(stripped, collapse = " "), .DOCKET_REF_RX))
+  setdiff(unique(m), self)
+}
+.borrow_urls <- function(out, named) {
+  need <- which(is.na(out$opinion_url) | !nzchar(out$opinion_url))
+  for (i in need) {
+    for (d in named[[i]]) {
+      j <- which(out$dkt == d & out$date == out$date[i] &
+                 !is.na(out$opinion_url) & nzchar(out$opinion_url))
+      if (length(j)) { out$opinion_url[i] <- out$opinion_url[j[1]]; break }
+    }
+  }
+  out
+}
+
 # One case -> zero or one decision row.
 .classify_decision <- function(dkt, caption, ev) {
   if (!.events_ok(ev)) return(NULL)
@@ -257,11 +280,18 @@ recent_decisions <- function(cases, as_of = Sys.Date(), days = DECIDED_KEEP_DAYS
   rows <- lapply(keep, function(i)
     tryCatch(.classify_decision(cases$dkt[i], caps[i], cases$events[[i]]),
              error = function(e) NULL))
-  rows <- rows[!vapply(rows, is.null, logical(1))]
-  if (!length(rows)) return(.dec_df())
-  out <- do.call(rbind, rows)
-  out <- out[!is.na(out$date) & out$date >= as_of - days & out$date <= as_of + 1L, , drop = FALSE]
-  out <- out[!duplicated(out$dkt), , drop = FALSE]
+  hit <- !vapply(rows, is.null, logical(1))
+  if (!any(hit)) return(.dec_df())
+  # The dockets each decision entry names, for .borrow_urls() below. Kept beside
+  # the rows rather than in them: it is a list-column the manifest has no use for.
+  named <- lapply(which(hit), function(k) {
+    i <- keep[k]
+    .named_dockets(.entries_on(cases$events[[i]], rows[[k]]$date)$stripped, cases$dkt[i])
+  })
+  out <- do.call(rbind, rows[hit])
+  out <- .borrow_urls(out, named)
+  ok <- !is.na(out$date) & out$date >= as_of - days & out$date <= as_of + 1L & !duplicated(out$dkt)
+  out <- out[ok, , drop = FALSE]
   out[order(out$date, out$dkt, decreasing = c(TRUE, FALSE), method = "radix"), , drop = FALSE]
 }
 
