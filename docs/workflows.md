@@ -62,6 +62,12 @@ site, partitioned so they never fight over the same paths.
   ordering would be produced by the docket-number tiebreak rather than by
   readers. Suppression is logged with the counts that failed it, so a dark panel
   is always distinguishable from a broken one.
+- **The Court's order lists:** reads `/orders/ordersofthecourt/NN` for the
+  current and prior Term (two requests), downloads and parses only the PDFs
+  `orders/orders.json` does not hold, renders `orders/`, and puts a "Latest
+  orders" panel on the landing page. Dispatch inputs `orders_terms` /
+  `orders_max_new` backfill older Terms. Never fatal. See
+  **[order-lists.md](order-lists.md)**.
 - **Guard:** `fetch_is_degraded(tol=0.1)` — if >10% of dockets were lost to
   throttling it `quit(0)`s and publishes nothing (site unchanged).
 - **Scope caveat:** only the current term's ~150 most-recent pages. A
@@ -175,6 +181,7 @@ rebase cleanly.
 | `cases/grants.json` (grants cache) | `conferences.yml` (full-term, the real source) · `daily.yml` (only what is inside its trailing fetch window) |
 | `cases/pending.json` (live-docket cache) | `conferences.yml` only |
 | `cases/original.json` (the original-jurisdiction docket manifest; the daily reads it) | `conferences.yml` only |
+| `orders/` (order-list pages, `orders.json`, `data/`) | `daily.yml` only — see **[order-lists.md](order-lists.md)** |
 | `cases/forecasts.json` (prospective forecast log) | `conferences.yml` only |
 
 ## The original-jurisdiction docket: fetched by name, on the pending runner

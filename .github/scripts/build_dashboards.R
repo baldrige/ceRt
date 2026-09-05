@@ -336,6 +336,23 @@ decisions <- decisions_panel(
   note = "The Court's most recent written opinions, argued or not.",
   more = "<a href='arguments/'>All argued cases &rarr;</a>")
 
+# The Court's order lists (R/orders_list.R, docs/order-lists.md). The daily owns
+# orders/: two listing requests (current and prior Term), then only the PDFs the
+# manifest does not hold -- on an ordinary day none, on a Monday one. The first
+# run pulls a Term's worth (~100 documents), which ORDERS_MAX_NEW bounds. Never
+# fatal: a throttled listing costs the panel a run, not the dashboards.
+source("R/orders_list.R")
+ord_terms <- trimws(strsplit(Sys.getenv("ORDERS_TERMS", ""), "[,[:space:]]+")[[1]])
+ord_terms <- if (length(ord_terms) && any(nzchar(ord_terms))) ord_terms[nzchar(ord_terms)] else orders_terms()
+ord <- tryCatch(update_orders(site_dir, terms = ord_terms,
+                              max_new = as.integer(Sys.getenv("ORDERS_MAX_NEW", "250"))),
+                error = function(e) { cat("Order lists: update failed:", conditionMessage(e), "\n"); NULL })
+if (!is.null(ord)) cat(sprintf("Order lists: %d listed for Terms %s | %d new parsed | %d failed | %d in manifest\n",
+                               ord$listed, paste(ord_terms, collapse = ","), ord$new, ord$failed, ord$total))
+tryCatch(render_orders(site_dir), error = function(e) cat("Order lists: render failed:", conditionMessage(e), "\n"))
+orders <- tryCatch(orders_panel(site_dir), error = function(e) { cat("Order lists: panel failed:", conditionMessage(e), "\n"); NULL })
+cat("Latest orders on the landing page:", if (is.null(orders)) "none in window" else "yes", "\n")
+
 sharpest_panel <- forecast_panel(
   sharpest, sharpest_long,
   qp = qp_lines,
@@ -385,7 +402,9 @@ styled_index_page(
   # suppresses the forecast, a quiet month empties the decisions, the summer
   # recess empties the calendar -- and tagList() drops a NULL, so the page
   # simply closes up rather than showing an empty heading.
-  panel_top = tagList(sharpest_panel, decisions, calendar),
+  # Orders sit between decisions and the calendar: what the Court decided, what
+  # it ordered, when it next sits. Same NULL-collapses rule as the others.
+  panel_top = tagList(sharpest_panel, decisions, orders, calendar),
   # Most-read stays below the section list. It is a footnote to the forecast, not
   # a peer of it -- what readers clicked is downstream of what the Court did.
   #
