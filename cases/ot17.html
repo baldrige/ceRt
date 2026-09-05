@@ -66,10 +66,13 @@
     padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
   .win label:hover{color:var(--ink)}
   .lead:has(#w7:checked) label[for=w7],
-  .lead:has(#w28:checked) label[for=w28]{background:var(--accent);color:var(--paper)}
+  .lead:has(#w28:checked) label[for=w28],
+  .lead:has(#wall:checked) label[for=wall]{background:var(--accent);color:var(--paper)}
   .wr:focus-visible+label{outline:2px solid var(--accent);outline-offset:2px}
-  .lead:has(#w7:checked) .g28,.lead:has(#w7:checked) .n28,
-  .lead:has(#w28:checked) .g7,.lead:has(#w28:checked) .n7{display:none}
+  /* Three windows, one shown: the checked radio hides the other two. */
+  .lead:has(#w7:checked) :is(.g28,.n28,.gall,.nall),
+  .lead:has(#w28:checked) :is(.g7,.n7,.gall,.nall),
+  .lead:has(#wall:checked) :is(.g7,.n7,.g28,.n28){display:none}
   /* The show/hide controls for a panel's secondary line -- the question under
      a forecast row, the holding under a decision. Same box as the window
      toggle, a checkbox instead of radios, and no script: the sibling rule does

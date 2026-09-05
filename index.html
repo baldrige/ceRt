@@ -66,10 +66,13 @@
     padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
   .win label:hover{color:var(--ink)}
   .lead:has(#w7:checked) label[for=w7],
-  .lead:has(#w28:checked) label[for=w28]{background:var(--accent);color:var(--paper)}
+  .lead:has(#w28:checked) label[for=w28],
+  .lead:has(#wall:checked) label[for=wall]{background:var(--accent);color:var(--paper)}
   .wr:focus-visible+label{outline:2px solid var(--accent);outline-offset:2px}
-  .lead:has(#w7:checked) .g28,.lead:has(#w7:checked) .n28,
-  .lead:has(#w28:checked) .g7,.lead:has(#w28:checked) .n7{display:none}
+  /* Three windows, one shown: the checked radio hides the other two. */
+  .lead:has(#w7:checked) :is(.g28,.n28,.gall,.nall),
+  .lead:has(#w28:checked) :is(.g7,.n7,.gall,.nall),
+  .lead:has(#wall:checked) :is(.g7,.n7,.g28,.n28){display:none}
   /* The show/hide controls for a panel's secondary line -- the question under
      a forecast row, the holding under a decision. Same box as the window
      toggle, a checkbox instead of radios, and no script: the sibling rule does
@@ -336,12 +339,15 @@
       </div>
       <input class="wr" type="radio" name="win" id="w7" checked aria-label="Last 7 days"/>
       <input class="wr" type="radio" name="win" id="w28" aria-label="Last 28 days"/>
+      <input class="wr" type="radio" name="win" id="wall" aria-label="Every pending case"/>
       <div class="win">
         <label for="w7">7 days</label>
         <label for="w28">28 days</label>
+        <label for="wall">All pending</label>
       </div>
       <p class="pnote n7">Paid-docket cases filed in the last 7 days, against a 4.1% base rate. An estimate, not a prediction about any case.</p>
       <p class="pnote n28">Paid-docket cases filed in the last 28 days, against a 4.1% base rate. An estimate, not a prediction about any case.</p>
+      <p class="pnote nall">Every pending paid-docket case the site holds, whenever filed, against a 4.1% base rate; each re-checked against its docket today. An estimate, not a prediction about any case.</p>
       <ol class="grants g7">
         <li>
           <a href="cases/26-267.html">
@@ -476,6 +482,137 @@
           </a>
         </li>
       </ol>
+      <ol class="grants gall">
+        <li>
+          <a href="cases/26-205.html">
+            <span class="gv">
+              67%
+              <span class="gx">16×</span>
+            </span>
+            <span class="gtx">
+              <span class="gc">University of South Florida College Republicans v. Howard W. Lutnick, Secretary of Commerce</span>
+              <span class="gq">Whether Florida residents and a Member of Congress who allege that the Census Bureau’s use of statistical methods cost their State a seat in the House of Representatives have Article III standing to challenge those methods.</span>
+            </span>
+            <span class="gd">No. 26-205</span>
+          </a>
+        </li>
+        <li>
+          <a href="cases/25-845.html">
+            <span class="gv">
+              66%
+              <span class="gx">16×</span>
+            </span>
+            <span class="gtx">
+              <span class="gc">Greg Abbott, in His Official Capacity as Governor of Texas v. League of United Latin American Citizens</span>
+            </span>
+            <span class="gd">No. 25-845</span>
+          </a>
+        </li>
+        <li>
+          <a href="cases/26-201.html">
+            <span class="gv">
+              64%
+              <span class="gx">16×</span>
+            </span>
+            <span class="gtx">
+              <span class="gc">Federal Trade Commission v. National Horsemen’s Benevolent and Protective Association</span>
+              <span class="gq">Whether the enforcement provisions of the Horseracing Integrity and Safety Act of 2020, 15 U.S.C. 3051 et seq.—which authorize the Horseracing Integrity and Safety Authority, a private entity, to assist the Federal Trade Commission in enforcing the statute—violate the private nondelegation doctrine on their face.</span>
+            </span>
+            <span class="gd">No. 26-201</span>
+          </a>
+        </li>
+        <li>
+          <a href="cases/26-204.html">
+            <span class="gv">
+              64%
+              <span class="gx">15×</span>
+            </span>
+            <span class="gtx">
+              <span class="gc">Department of Justice v. Scott McNutt</span>
+              <span class="gq">Whether the prohibition on the production of distilled spirits in particular locations, including “in any dwelling house” or “in any shed, yard, or inclosure connected with any dwelling house,” 26 U.S.C. 5178(a)(1)(B), is necessary and proper for carrying into execution Congress’s enumerated power to lay and collect taxes.</span>
+            </span>
+            <span class="gd">No. 26-204</span>
+          </a>
+        </li>
+        <li>
+          <a href="cases/26-239.html">
+            <span class="gv">
+              63%
+              <span class="gx">15×</span>
+            </span>
+            <span class="gtx">
+              <span class="gc">Markwayne Mullin, Secretary of Homeland Security v. Refugee and Immigrant Center for Education and Legal Services</span>
+              <span class="gq">Whether Presidential Proclamation No. 10,888, 90 Fed. Reg. 8333 (Jan. 29, 2025), and its implementing guidance—which suspended the entry of certain aliens and precluded their access to statutory provisions that would enable their continued presence in the country, including asylum—are lawful.</span>
+            </span>
+            <span class="gd">No. 26-239</span>
+          </a>
+        </li>
+        <li>
+          <a href="cases/26-96.html">
+            <span class="gv">
+              63%
+              <span class="gx">15×</span>
+            </span>
+            <span class="gtx">
+              <span class="gc">Department of the Interior v. Shoshone-Bannock Tribes of the Fort Hall Reservation</span>
+              <span class="gq">Whether the United States may invoke FLPMA to dispose of land that the government previously acquired from an Indian tribe, when the statute that approved the land’s earlier purchase stated that the land “shall be opened to settlement by the proclamation of the President, and shall be subject to disposal under the homestead, town-site, stone and timber…</span>
+            </span>
+            <span class="gd">No. 26-96</span>
+          </a>
+        </li>
+        <li>
+          <a href="cases/26-142.html">
+            <span class="gv">
+              62%
+              <span class="gx">15×</span>
+            </span>
+            <span class="gtx">
+              <span class="gc">United States v. E. Jean Carroll</span>
+              <span class="gq">Whether the court of appeals misconstrued the Westfall Act, 28 U.S.C. 2679, in rejecting the Attorney General’s certification that statements made by President Trump during his first term fell within the scope of his federal office for purposes of the Act.</span>
+            </span>
+            <span class="gd">No. 26-142</span>
+          </a>
+        </li>
+        <li>
+          <a href="cases/26-267.html">
+            <span class="gv">
+              62%
+              <span class="gx">15×</span>
+            </span>
+            <span class="gtx">
+              <span class="gc">The Capital Group Companies, Inc. v. Cathy Pover</span>
+              <span class="gq">Whether “appropriate relief” for a defined-contribution-plan participant under ERISA § 502(a)(2) includes monetary recovery to other participants’ individual retirement accounts.</span>
+            </span>
+            <span class="gd">No. 26-267</span>
+          </a>
+        </li>
+        <li>
+          <a href="cases/26-272.html">
+            <span class="gv">
+              59%
+              <span class="gx">14×</span>
+            </span>
+            <span class="gtx">
+              <span class="gc">United States v. Nicolas Talbott</span>
+              <span class="gq">Whether a Department of War policy that generally disqualifies from military service individuals who have gender dysphoria, a history of the condition, or a history of related interventions—issued by Secretary of War Hegseth in implementing Executive Order No. 14,183— violates the equal-protection component of the Due Process Clause of the Fifth Amendment.</span>
+            </span>
+            <span class="gd">No. 26-272</span>
+          </a>
+        </li>
+        <li>
+          <a href="cases/26-210.html">
+            <span class="gv">
+              56%
+              <span class="gx">14×</span>
+            </span>
+            <span class="gtx">
+              <span class="gc">Donald J. Trump, President of the United States v. Neeta Thakur, Individually and on Behalf of All Others Similarly Situated</span>
+              <span class="gq">Whether the First Amendment prohibits the government from considering the viewpoints furthered by academic research projects when deciding whether to grant or terminate funding for those projects through competitive grant programs.</span>
+            </span>
+            <span class="gd">No. 26-210</span>
+          </a>
+        </li>
+      </ol>
       <p class="more"><a href='dashboards/'>All petitions this week &rarr;</a>&nbsp;&middot;&nbsp;<a href='methods.html'>How the forecast works &rarr;</a></p>
     </section>
     <section class="panel cal">
@@ -574,6 +711,7 @@
                  &middot; 
                 <a class="pdf" href="https://www.supremecourt.gov/opinions/25pdf/26a124_hgci.pdf" target="_blank" rel="noopener">Opinion</a>
               </span>
+              <span class="chold">The Government’s application to stay the District Court’s injunction in 26A124—which forbids the Government to implement §§2 and 3 of Executive Order No.</span>
             </span>
           </div>
         </li>
