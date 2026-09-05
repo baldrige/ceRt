@@ -1661,9 +1661,9 @@
       "variants": "D. John Sauer",
       "cases": 20,
       "petitions": 20,
-      "resolved": 13,
+      "resolved": 14,
       "granted": 6,
-      "gvr": 2,
+      "gvr": 3,
       "relisted": 5,
       "n_us": 12,
       "n_state": 3,
@@ -1706,9 +1706,9 @@
   "by_side": [
     {
       "side": "private",
-      "cases": 8230,
+      "cases": 8232,
       "granted": 379,
-      "rate": 0.0460510328068044
+      "rate": 0.0460398445092323
     },
     {
       "side": "state",
@@ -1719,8 +1719,8 @@
     {
       "side": "us",
       "cases": 167,
-      "granted": 84,
-      "rate": 0.502994011976048
+      "granted": 85,
+      "rate": 0.508982035928144
     }
   ],
   "arguments": [
@@ -2458,6 +2458,6 @@
     "arg_to": "2026-01-12",
     "as_of": "2025-06-18"
   },
-  "fingerprint": "8e6bf6caddd335edb77a521b332d19c5",
-  "generated": "2026-08-15"
+  "fingerprint": "56801a7008162f20c87c39e1e728c0a4",
+  "generated": "2026-09-05"
 }
