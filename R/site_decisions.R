@@ -487,6 +487,15 @@ recent_decisions <- function(cases, as_of = Sys.Date(), days = DECIDED_KEEP_DAYS
     out <- .listing_urls(out, listing)
     out <- .borrow_urls(out, named)
     out <- .listing_holdings(out, listing)
+    # A companion decided by the lead's opinion (26A139 by 26A124's) is not in
+    # the feed under its own number; it shares the lead's URL, so it shares the
+    # lead's holding.
+    lack <- which(is.na(out$holding) | !nzchar(out$holding))
+    for (i in lack) {
+      j <- which(!is.na(out$opinion_url) & out$opinion_url == (out$opinion_url[i] %||% NA) &
+                 !is.na(out$holding) & nzchar(out$holding))
+      if (length(j)) out$holding[i] <- out$holding[j[1]]
+    }
     filled <- sum(need) - sum(is.na(out$opinion_url) | !nzchar(out$opinion_url))
     if (filled > 0) cat("Opinion listing filled", filled, "URL(s) the docket entry lacked\n")
     got_h <- sum(!is.na(out$holding) & nzchar(out$holding))
