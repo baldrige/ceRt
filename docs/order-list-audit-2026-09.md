@@ -12,7 +12,7 @@ snapshots (`data-raw/ot_2017.rds` … `ot_2024.rds`, `snapshot_25.rds`,
 | | entries |
 | --- | --- |
 | list entries about a petition docket that say granted, GVR'd, denied or dismissed | 41,318 |
-| of which the snapshots hold the docket and postdate the order | **40,283** |
+| of which the snapshots hold the docket and postdate the order | **40,292** |
 | agree on the outcome | **40,274 (99.96%)** |
 | agree on the outcome and the date | 40,273 (99.95%) |
 | disagree | 18 |
@@ -92,7 +92,7 @@ Court in a run the parser grouped under a GVR text; and 18-7739 above.
 | 17-243 Abdirahman v. United States | denied 28 Jun 2018; "The petition for rehearing is granted. The order ... denying the petition ... is vacated as to petitioner ... The petition ... is granted. The judgment is vacated ..." (6 Aug 2018) | pending -- the rehearing grant resets the outcome and the GVR that follows is not recognised |
 | 19-373 Walker v. United States | granted 15 Nov 2019; "It appearing that petitioner died ..., the petition ... is DISMISSED" (27 Jan 2020) | granted -- a post-grant dismissal in a form other than Rule 46 |
 
-Five dockets in 40,283. None is worth a grammar change on its own; they are
+Five dockets in 40,292. None is worth a grammar change on its own; they are
 recorded so that the next one has company. The two that could matter for a
 product are 20-74 (a case the relist and hold logic would have treated as gone
 for eight months while it was being held for Arthrex) and 17-243 (a docket
