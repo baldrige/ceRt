@@ -122,10 +122,16 @@ PDF, downloaded once and never again -- only the parsed entries are kept.
 - **Byte stability.** The manifest carries event dates and counts only, never a
   build time; the `rendered` field is the template version.
 
+## The audit
+
+Done, 2026-09-05, over OT17–OT25: `.github/scripts/audit_order_lists.R`
+joins every list entry to `classify_petitions()`'s reading of the same docket.
+40,276 comparable entries; 99.96% agree on the outcome and 99.95% on the date
+as well. Findings, the reading rules the audit needed, and the five real
+grammar gaps in nine Terms: **[order-list-audit-2026-09.md](order-list-audit-2026-09.md)**.
+
 ## Follow-ons
 
-- Cross-check `classify_petitions()` against the granted and denied sections
-  and log every disagreement: the audit this data exists for.
 - Link each docket page to the order list that disposed of it.
 - A grants feed entry from the list, hours before the docket JSON re-export.
 - Parse the separate writings attached to a list (dissents from denial) into
