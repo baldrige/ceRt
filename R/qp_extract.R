@@ -205,6 +205,35 @@ QP_OPENERS <- "^(Whether|Wether|Did|Does|Do|Is|Are|May|Can|Must|Should|When|Whos
 # the lines that did come out were cut at 112 characters with an ellipsis: the
 # median operative sentence is 239 characters. The cap is now 360, at a clause
 # break where possible.
+# The first sentence of a question, which is not the first period followed by
+# a capital: a case citation is a run of exactly those. 26-271 reads "Whether a
+# State's 'generic,' New Orleans Pub. Serv., Inc. v. Council of City of New
+# Orleans, 491 U.S. 350, 365 (1989), interest in regulating ..." and the line
+# ended at "Pub." So the periods of the Bluebook's party-name abbreviations,
+# of "v.", "No." and a single initial ("U. S.", "J. Smith") are masked first,
+# the sentence found, and the periods restored. A word that is not on the
+# list -- "Act", "Clause", "Code" -- still ends a sentence, as it should.
+QP_CITE_ABBR <- c(
+  "v", "vs", "No", "Nos", "Inc", "Corp", "Co", "Cos", "Ltd", "LLC", "LLP", "L\\.L\\.C",
+  "Pub", "Serv", "Servs", "Ass'n", "Ass'ns", "Assn", "Dept", "Dep't", "Bd", "Comm'n", "Comm",
+  "Nat'l", "Natl", "Nat", "Ins", "Mfg", "Sec", "Univ", "Hosp", "Auth", "Dist", "Cty", "Cnty",
+  "Ctr", "Sys", "Gov't", "Int'l", "Fed", "Mut", "Ry", "St", "Mt", "Ft", "Jr", "Sr", "Am",
+  "Ave", "Bros", "Cent", "Cir", "Educ", "Elec", "Enters", "Envtl", "Ind", "Indus", "Labs",
+  "Mgmt", "Pet", "Prods", "Prof'l", "Pharm", "Res", "Sav", "Soc'y", "Tel", "Transp", "Tr",
+  "Trs", "Bldg", "Ch", "Cmty", "Consol", "Constr", "Dev", "Def", "Fin", "Gen", "Grp", "Hous",
+  "Inst", "Liab", "Mach", "Med", "Mktg", "Mun", "Org", "Pac", "Prop", "Ret", "Sch", "Tech",
+  "Util", "Op", "Att'y", "Atty", "Sup", "Ct", "Cts", "App", "Div", "Reg", "Admin", "Agric",
+  "Bhd", "Comp", "Cong", "Corr", "Ent", "Exch", "Hon", "Lab", "Mem'l", "Mfrs", "Nw", "Pers",
+  "Pres", "Prot", "Ref", "Rev", "Sav", "Sci", "Se", "Sw", "Tp", "Twp", "Vill", "Wash", "Ry")
+.qp_sentence <- function(cand) {
+  mask <- "\uE000"
+  rx <- paste0("\\b(", paste(QP_CITE_ABBR, collapse = "|"), "|[A-Z])\\.")
+  masked <- str_replace_all(cand, rx, paste0("\\1", mask))
+  s <- str_extract(masked, "^.*?[.?](?=\\s+[A-Z\u201c\"(]|$)")
+  if (is.na(s)) return(NA_character_)
+  str_replace_all(s, mask, ".")
+}
+
 qp_line <- function(txt, max_chars = 360L) {
   if (is.null(txt) || length(txt) != 1L || is.na(txt) ||
       !nzchar(txt) || identical(txt, "-")) return(NA_character_)
@@ -231,10 +260,7 @@ qp_line <- function(txt, max_chars = 360L) {
     if (!is.na(m)) w <- str_replace_all(paste0("W", substr(m, 2L, nchar(m))), "(?<=(regardless|irrespective)) of if\\b", " of whether")
   }
   cand <- if (!is.na(w)) w else x
-  # First sentence: a terminator followed by whitespace and a capital, so "U.S.C.
-  # 3051" does not end it -- and not the period of "v.", "No." or an initial,
-  # which precede a capital by construction ("Williams v. Florida").
-  s <- str_extract(cand, "^.*?(?<!\\bv|\\bNo|\\b[A-Z])[.?](?=\\s+[A-Z\u201c\"(]|$)")
+  s <- .qp_sentence(cand)
   out <- str_squish(if (!is.na(s) && nchar(s) > 40L) s else cand)
   # A trailing enumerator from a multi-question petition ("... 922(g)(1). 2.").
   out <- str_squish(str_remove(out, "\\s+[0-9]{1,2}\\.$"))
