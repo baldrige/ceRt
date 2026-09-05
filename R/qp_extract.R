@@ -176,28 +176,87 @@ get_qp <- function(url) {
 # non-sequitur once it is cut to one line. A row with no question shows its
 # caption alone, which is quiet and never wrong -- the alternative is a subtitle
 # that confuses the reader about what the case is about.
-QP_OPENERS <- "^(Whether|Wether|Did|Does|Do|Is|Are|May|Can|Must|Should|When|Whose|Which)\\b"
+QP_OPENERS <- "^(Whether|Wether|Did|Does|Do|Is|Are|May|Can|Must|Should|When|Whose|Which|Has|Have|Was|Were|Will|Would|Could)\\b"
 
-qp_line <- function(txt, max_chars = 112L) {
+# Some petitions' PDFs carry a subset font with no ToUnicode map, and pdftools
+# hands back every glyph shifted 29 code points down: "48(67,21 35(6(17('" is
+# "QUESTION PRESENTED". The tell is a text full of digits, "$", "&", "(", ")"
+# and "," in the positions letters should be. A handful of texts in 16,000
+# (measured 2026-09-05), so the trigger is the signature itself: "48(67,21"
+# is QUESTION, "&(57,25$5," is CERTIORARI. Shift it back before anything
+# else looks at it.
+.qp_unshift <- function(x) {
+  probe <- substr(x, 1L, 600L)
+  if (!str_detect(probe, "48\\(67,21|&\\(57,25\\$5,|3\\(7,7,21")) return(x)
+  ch <- utf8ToInt(x)
+  up <- ch >= 36L & ch <= 93L               # "$".."]" -> "A".."z"
+  ch[up] <- ch[up] + 29L
+  intToUtf8(ch)
+}
+
+# The measured reasons a cached question produced no line, 2026-09-05, over the
+# 720 dockets in the daily cache (30% produced none) and the 15,693 in the
+# conference cache (39%): OCR of a handwritten pro se petition (unfixable and
+# correctly refused); the operative clause in lowercase after "The question
+# presented is whether" (67 of 213 refused daily texts contained "whether");
+# "WHETHER" in an all-caps petition; "(A) Has the Fifth Circuit ..." behind a
+# lettered enumerator; "Has"/"Was"/"Will" openers; and a run of dashes or
+# underscores from a scanned form ahead of "1. Has the Court ...". And 87% of
+# the lines that did come out were cut at 112 characters with an ellipsis: the
+# median operative sentence is 239 characters. The cap is now 360, at a clause
+# break where possible.
+qp_line <- function(txt, max_chars = 360L) {
   if (is.null(txt) || length(txt) != 1L || is.na(txt) ||
       !nzchar(txt) || identical(txt, "-")) return(NA_character_)
-  x <- gsub("([[:alpha:]])-[[:space:]]+([[:lower:]])", "\\1\\2", txt)  # de-hyphenate
+  x <- .qp_unshift(txt)
+  x <- gsub("([[:alpha:]])-[[:space:]]+([[:lower:]])", "\\1\\2", x)   # de-hyphenate
   x <- str_squish(x)
-  x <- str_remove(x, "^\\(?[0-9IVXivx]{1,3}[.)]\\s+")                  # leading "1." / "I."
-  # Prefer the operative clause wherever it starts.
+  x <- str_remove(x, "^[^A-Za-z(\\[\u201c\"]+")                        # a scanned form's dashes / underscores
+  x <- str_remove(x, "^(\\(?[0-9IVXivxA-Da-d]{1,3}[.)]\\s+)+")          # leading "1." / "I." / "(A)" / "1. (a)"
+  x <- str_remove(x, regex("^(the )?questions? presented( for review)?( (is|are))?[:.]?\\s*", ignore_case = TRUE))
+  x <- str_remove(x, "^(\\(?[0-9IVXivxA-Da-d]{1,3}[.)]\\s+)+")
+  # The operative clause wherever it starts: "Whether", else "WHETHER", else a
+  # lowercase "whether" that follows "question presented is" or opens a clause
+  # after a colon -- not the "regardless of whether" of a background paragraph.
   w <- str_extract(x, "Whether\\b.*")
+  if (is.na(w)) w <- str_extract(x, "WHETHER\\b.*")
+  if (is.na(w)) {
+    # The first lowercase "whether" anywhere -- "The question presented is
+    # whether ...", "This case presents the question whether ...", "Petitioner
+    # asks whether ..." -- except the "regardless of whether" of a background
+    # sentence, which is cut out before looking. A clause that begins "whether"
+    # reads as the question wherever the petition put it.
+    x2 <- str_replace_all(x, regex("\\b(regardless|irrespective) of whether\\b", ignore_case = TRUE), "\\1 of if")
+    m <- str_match(x2, "\\b(whether\\b.{40,})")[1, 2]
+    if (!is.na(m)) w <- str_replace_all(paste0("W", substr(m, 2L, nchar(m))), "(?<=(regardless|irrespective)) of if\\b", " of whether")
+  }
   cand <- if (!is.na(w)) w else x
   # First sentence: a terminator followed by whitespace and a capital, so "U.S.C.
-  # 3051" and "Mallory v. Norfolk" do not end it.
-  s <- str_extract(cand, "^.*?[.?](?=\\s+[A-Z\u201c\"(]|$)")
+  # 3051" does not end it -- and not the period of "v.", "No." or an initial,
+  # which precede a capital by construction ("Williams v. Florida").
+  s <- str_extract(cand, "^.*?(?<!\\bv|\\bNo|\\b[A-Z])[.?](?=\\s+[A-Z\u201c\"(]|$)")
   out <- str_squish(if (!is.na(s) && nchar(s) > 40L) s else cand)
   # A trailing enumerator from a multi-question petition ("... 922(g)(1). 2.").
   out <- str_squish(str_remove(out, "\\s+[0-9]{1,2}\\.$"))
-  if (!nzchar(out) || !str_detect(out, QP_OPENERS)) return(NA_character_)
+  # An all-caps petition reads as shouting on a summary row; sentence-case it,
+  # keeping "U.S." and the like intact by only touching words of three or more
+  # letters. Proper nouns lose their capitals, which is the lesser harm.
+  if (nchar(out) > 20L && str_count(out, "[A-Z]") > 0.8 * str_count(out, "[A-Za-z]")) {
+    out <- str_replace_all(out, "\\b[A-Z]{2,}\\b", tolower)
+    out <- str_replace_all(out, "(?<=\\s)A(?=\\s)", "a")
+    out <- str_replace(out, "^([a-z])", toupper)
+  }
+  if (!nzchar(out) || !str_detect(out, regex(QP_OPENERS, ignore_case = TRUE))) return(NA_character_)
+  # Refuse OCR noise that happened to start with a question word: a real
+  # question is letters, spaces, punctuation, the odd digit and section sign.
+  if (str_count(out, "[A-Za-z0-9 ,.;:'\u2019\u201c\u201d\"()?\u00a7&/\\[\\]\u2014-]") < 0.92 * nchar(out)) return(NA_character_)
   if (nchar(out) > max_chars) {
     cut <- substr(out, 1L, max_chars)
-    sp  <- regexpr("\\s[^\\s]*$", cut, perl = TRUE)
-    if (sp > 0L) cut <- substr(cut, 1L, sp - 1L)
+    # Prefer a clause break (";", ",", " -- ", " and ") in the last third of the
+    # allowance, else the last word break.
+    cl <- regexpr("[;,]\\s[^;,]*$|\\s(?:and|or|because|where)\\s[^;,]*$", cut, perl = TRUE)
+    if (cl > 0L && cl > 0.6 * max_chars) cut <- substr(cut, 1L, cl - 1L)
+    else { sp <- regexpr("\\s[^\\s]*$", cut, perl = TRUE); if (sp > 0L) cut <- substr(cut, 1L, sp - 1L) }
     out <- paste0(str_remove(cut, "[ ,;:\u2014-]+$"), "\u2026")
   }
   out
@@ -205,7 +264,7 @@ qp_line <- function(txt, max_chars = 112L) {
 
 # Named dkt -> one-line question, read from the QP caches a build has on disk.
 # Later files win, matching render_dockets_for()'s merge order.
-qp_lines_from_cache <- function(paths, max_chars = 112L) {
+qp_lines_from_cache <- function(paths, max_chars = 360L) {
   out <- character()
   for (p in paths) {
     if (!file.exists(p)) next

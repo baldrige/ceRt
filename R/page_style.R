@@ -107,6 +107,22 @@ INDEX_CSS <- paste0("\n  ", palette_root(), "
   .wr:focus-visible+label{outline:2px solid var(--accent);outline-offset:2px}
   .lead:has(#w7:checked) .g28,.lead:has(#w7:checked) .n28,
   .lead:has(#w28:checked) .g7,.lead:has(#w28:checked) .n7{display:none}
+  /* The show/hide controls for a panel's secondary line -- the question under
+     a forecast row, the holding under a decision. Same box as the window
+     toggle, a checkbox instead of radios, and no script: the sibling rule does
+     the work and the lines simply show where :has() is unsupported. The
+     questions are on by default (they are what a forecast row asks); the
+     holdings are off (the caption, kind and disposition already say what
+     happened, and the holding is the more). */
+  .opts{display:inline-flex;gap:.25rem;margin:0 .45rem .55rem 0;vertical-align:top;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .opts label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .opts label:hover{color:var(--ink)}
+  .lead:has(#qon:checked) label[for=qon],
+  .panel:has(#hon:checked) label[for=hon]{background:var(--accent);color:var(--paper)}
+  .lead:has(#qon:not(:checked)) .gq{display:none}
+  .panel:has(#hon:not(:checked)) .chold{display:none}
   /* --- Upcoming at the Court ------------------------------------------------
      A date gutter and a two-line body, the same shape as the grant rows above
      it, so the two panels read as one page rather than two widgets. */
@@ -818,10 +834,17 @@ decisions_panel <- function(rows, heading = "Recent decisions", note = NULL, mor
                 tags$span(class = "cdet", do.call(tagList, .interleave(bits, HTML(" &middot; ")))),
                 hold_node)))
   })
+  # "Holdings": off by default. Only offered when at least one row has one.
+  any_hold <- "holding" %in% names(rows) && any(!is.na(rows$holding) & nzchar(rows$holding))
+  hopt <- if (any_hold) tagList(
+    tags$input(class = "wr", type = "checkbox", id = "hon",
+               `aria-label` = "Show each decision's holding"),
+    tags$div(class = "opts", tags$label(`for` = "hon", "Holdings"))) else NULL
   tags$section(
     class = "panel cal",
     tags$h2(heading),
     if (!is.null(note)) tags$p(class = "pnote", smarten(note)),
+    hopt,
     tags$ol(class = "cal", lis),
     if (!is.null(more)) tags$p(class = "more", HTML(more)))
 }
@@ -872,6 +895,12 @@ forecast_panel <- function(short, long = NULL, qp = character(),
   }
 
   both <- has(short) && has(long)
+  # "Questions": shows or hides the one-line question under each row. Checked
+  # by default; see the .opts rules for why.
+  qopt <- if (length(qp)) tagList(
+    tags$input(class = "wr", type = "checkbox", id = "qon", checked = NA,
+               `aria-label` = "Show the question each case asks"),
+    tags$div(class = "opts", tags$label(`for` = "qon", "Questions"))) else NULL
   toggle <- if (both) tagList(
     # Checked state lives on the SHORT window, so a reader who never touches the
     # control sees the same seven days the panel has always shown.
@@ -889,7 +918,7 @@ forecast_panel <- function(short, long = NULL, qp = character(),
   tags$section(
     class = "panel lead",
     tags$h2(heading),
-    toggle,
+    qopt, toggle,
     # When only one window survived, its note carries no toggle class -- there is
     # nothing to hide it against.
     if (both) tagList(note(note_short, "n7"), note(note_long, "n28"))
