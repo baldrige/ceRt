@@ -342,7 +342,7 @@ write_sitemaps <- function(site_dir, base = SITE_URL, max_urls = SITEMAP_MAX) {
       sub("^/(.*)/$", "\\1", Filter(function(h) grepl("/$", h),
                                     vapply(SITE_SECTIONS, `[[`, character(1), "href")))
     else c("dashboards", "conferences", "arguments", "funnel"),
-    "cases")
+    "cases", "orders")
   for (s in unique(dir_sections)) {
     if (file.exists(rel(s, "index.html"))) {
       page_urls <- c(page_urls, paste0(base, "/", s, "/"))
@@ -351,7 +351,9 @@ write_sitemaps <- function(site_dir, base = SITE_URL, max_urls = SITEMAP_MAX) {
   }
   # Dated leaves: the date is in the filename, so <lastmod> is real here.
   for (s in list(list("dashboards", "^dash_\\d{4}-\\d{2}-\\d{2}\\.html$"),
-                 list("conferences", "^conf_\\d{4}-\\d{2}-\\d{2}\\.html$"))) {
+                 list("conferences", "^conf_\\d{4}-\\d{2}-\\d{2}\\.html$"),
+                 # Order lists and miscellaneous orders (R/orders_list.R).
+                 list("orders", "^\\d{4}-\\d{2}-\\d{2}(-misc\\d*)?\\.html$"))) {
     d <- rel(s[[1]])
     if (!dir.exists(d)) next
     f <- sort(list.files(d, pattern = s[[2]]))

@@ -50,6 +50,14 @@ on:
         description: "With full_term, render only dates on/after this (YYYY-MM-DD). Blank = every date in the term."
         required: false
         default: ""
+      orders_terms:
+        description: "Order lists: two-digit Terms to read the Court's listing for (e.g. 23,24). Blank = current and prior. Use to backfill orders/ for older Terms."
+        required: false
+        default: ""
+      orders_max_new:
+        description: "Order lists: cap on documents to download and parse this run. A Term is ~110 documents."
+        required: false
+        default: "250"
 
 permissions:
   contents: write
@@ -124,6 +132,10 @@ jobs:
           TERM_YEAR: "26"
           DASH_FULL_TERM: ${{ inputs.full_term }}
           DASH_MIN_DATE: ${{ inputs.min_date }}
+          # The Court's order lists (R/orders_list.R): which Terms' listings to
+          # read, and how many new documents to pull. Blank/default on a cron.
+          ORDERS_TERMS: ${{ inputs.orders_terms }}
+          ORDERS_MAX_NEW: ${{ inputs.orders_max_new || '250' }}
           # Read-only GA4 access for the landing page's "Most-Read Cases" panel.
           # Optional: if these are unset the panel is omitted and the build is
           # otherwise unaffected (see R/site_analytics.R).

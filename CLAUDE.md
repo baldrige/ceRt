@@ -17,6 +17,7 @@ and served by GitHub Pages.
 | The Counsel Table | `counsel/` | `R/counsel_table.R` — see **[docs/counsel-table.md](docs/counsel-table.md)** |
 | Cert-grant forecast model + methods | `methods.html` | `R/cert_model.R` — see **[docs/cert_model.md](docs/cert_model.md)** |
 | Conference forecast (competing risks) | `conferences/` | `R/cert_model.R` — two published columns, see **[docs/cert_model.md](docs/cert_model.md)** |
+| The Court's order lists | `orders/` | `daily.yml` → `R/orders_list.R` — see **[docs/order-lists.md](docs/order-lists.md)** |
 
 Every section is built and published by a GitHub Actions workflow. For the full
 inventory — each workflow's triggers, whether it updates data and/or the public
