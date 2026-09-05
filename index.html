@@ -70,6 +70,22 @@
   .wr:focus-visible+label{outline:2px solid var(--accent);outline-offset:2px}
   .lead:has(#w7:checked) .g28,.lead:has(#w7:checked) .n28,
   .lead:has(#w28:checked) .g7,.lead:has(#w28:checked) .n7{display:none}
+  /* The show/hide controls for a panel's secondary line -- the question under
+     a forecast row, the holding under a decision. Same box as the window
+     toggle, a checkbox instead of radios, and no script: the sibling rule does
+     the work and the lines simply show where :has() is unsupported. The
+     questions are on by default (they are what a forecast row asks); the
+     holdings are off (the caption, kind and disposition already say what
+     happened, and the holding is the more). */
+  .opts{display:inline-flex;gap:.25rem;margin:0 .45rem .55rem 0;vertical-align:top;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .opts label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .opts label:hover{color:var(--ink)}
+  .lead:has(#qon:checked) label[for=qon],
+  .panel:has(#hon:checked) label[for=hon]{background:var(--accent);color:var(--paper)}
+  .lead:has(#qon:not(:checked)) .gq{display:none}
+  .panel:has(#hon:not(:checked)) .chold{display:none}
   /* --- Upcoming at the Court ------------------------------------------------
      A date gutter and a two-line body, the same shape as the grant rows above
      it, so the two panels read as one page rather than two widgets. */
@@ -314,6 +330,10 @@
     <p class="dek">Every case the Supreme Court is asked to hear, what it asks, and the odds it is granted — rebuilt three times a day from the Court’s own docket.</p>
     <section class="panel lead">
       <h2>Likeliest grants</h2>
+      <input class="wr" type="checkbox" id="qon" checked aria-label="Show the question each case asks"/>
+      <div class="opts">
+        <label for="qon">Questions</label>
+      </div>
       <input class="wr" type="radio" name="win" id="w7" checked aria-label="Last 7 days"/>
       <input class="wr" type="radio" name="win" id="w28" aria-label="Last 28 days"/>
       <div class="win">
@@ -331,6 +351,7 @@
             </span>
             <span class="gtx">
               <span class="gc">The Capital Group Companies, Inc. v. Cathy Pover</span>
+              <span class="gq">Whether “appropriate relief” for a defined-contribution-plan participant under ERISA § 502(a)(2) includes monetary recovery to other participants’ individual retirement accounts.</span>
             </span>
             <span class="gd">No. 26-267</span>
           </a>
@@ -343,7 +364,7 @@
             </span>
             <span class="gtx">
               <span class="gc">United States v. Nicolas Talbott</span>
-              <span class="gq">Whether a Department of War policy that generally disqualifies from military service individuals who have…</span>
+              <span class="gq">Whether a Department of War policy that generally disqualifies from military service individuals who have gender dysphoria, a history of the condition, or a history of related interventions—issued by Secretary of War Hegseth in implementing Executive Order No. 14,183— violates the equal-protection component of the Due Process Clause of the Fifth Amendment.</span>
             </span>
             <span class="gd">No. 26-272</span>
           </a>
@@ -356,7 +377,7 @@
             </span>
             <span class="gtx">
               <span class="gc">Kentucky v. Environmental Protection Agency</span>
-              <span class="gq">Whether the Clean Air Act gives EPA the authority to revise NAAQS without conducting a thorough review merely…</span>
+              <span class="gq">Whether the Clean Air Act gives EPA the authority to revise NAAQS without conducting a thorough review merely because the revision occurs before the normal, five-year review.</span>
             </span>
             <span class="gd">No. 26-277</span>
           </a>
@@ -382,7 +403,7 @@
             </span>
             <span class="gtx">
               <span class="gc">City of Brunswick, Georgia v. Honeywell International, Inc.</span>
-              <span class="gq">Whether an appeal from a remand order under 28 U.S.C. §1447(d) triggers an automatic stay, barring the state…</span>
+              <span class="gq">Whether an appeal from a remand order under 28 U.S.C. §1447(d) triggers an automatic stay, barring the state court from proceeding with the case.</span>
             </span>
             <span class="gd">No. 26-289</span>
           </a>
@@ -397,6 +418,7 @@
             </span>
             <span class="gtx">
               <span class="gc">The Capital Group Companies, Inc. v. Cathy Pover</span>
+              <span class="gq">Whether “appropriate relief” for a defined-contribution-plan participant under ERISA § 502(a)(2) includes monetary recovery to other participants’ individual retirement accounts.</span>
             </span>
             <span class="gd">No. 26-267</span>
           </a>
@@ -409,7 +431,7 @@
             </span>
             <span class="gtx">
               <span class="gc">United States v. Nicolas Talbott</span>
-              <span class="gq">Whether a Department of War policy that generally disqualifies from military service individuals who have…</span>
+              <span class="gq">Whether a Department of War policy that generally disqualifies from military service individuals who have gender dysphoria, a history of the condition, or a history of related interventions—issued by Secretary of War Hegseth in implementing Executive Order No. 14,183— violates the equal-protection component of the Due Process Clause of the Fifth Amendment.</span>
             </span>
             <span class="gd">No. 26-272</span>
           </a>
@@ -422,7 +444,7 @@
             </span>
             <span class="gtx">
               <span class="gc">Kentucky v. Environmental Protection Agency</span>
-              <span class="gq">Whether the Clean Air Act gives EPA the authority to revise NAAQS without conducting a thorough review merely…</span>
+              <span class="gq">Whether the Clean Air Act gives EPA the authority to revise NAAQS without conducting a thorough review merely because the revision occurs before the normal, five-year review.</span>
             </span>
             <span class="gd">No. 26-277</span>
           </a>
@@ -448,7 +470,7 @@
             </span>
             <span class="gtx">
               <span class="gc">City of Brunswick, Georgia v. Honeywell International, Inc.</span>
-              <span class="gq">Whether an appeal from a remand order under 28 U.S.C. §1447(d) triggers an automatic stay, barring the state…</span>
+              <span class="gq">Whether an appeal from a remand order under 28 U.S.C. §1447(d) triggers an automatic stay, barring the state court from proceeding with the case.</span>
             </span>
             <span class="gd">No. 26-289</span>
           </a>
@@ -459,6 +481,10 @@
     <section class="panel cal">
       <h2>Recent decisions</h2>
       <p class="pnote">The Court’s most recent written opinions, argued or not.</p>
+      <input class="wr" type="checkbox" id="hon" aria-label="Show each decision&#39;s holding"/>
+      <div class="opts">
+        <label for="hon">Holdings</label>
+      </div>
       <ol class="cal">
         <li>
           <div class="crow">
@@ -502,6 +528,7 @@
                  &middot; 
                 <a class="pdf" href="https://www.supremecourt.gov/opinions/25pdf/26a203_2b8e.pdf" target="_blank" rel="noopener">Opinion</a>
               </span>
+              <span class="chold">Because the government has established that it is likely to prevail in showing that the Trust lacks Article III standing to challenge the East Wing project in federal court, that it would likely suffer irreparable harm without a stay, and…</span>
             </span>
           </div>
         </li>
@@ -524,6 +551,7 @@
                  &middot; 
                 <a class="pdf" href="https://www.supremecourt.gov/opinions/25pdf/26a124_hgci.pdf" target="_blank" rel="noopener">Opinion</a>
               </span>
+              <span class="chold">The Government’s application to stay the District Court’s injunction in 26A124—which forbids the Government to implement §§2 and 3 of Executive Order No.</span>
             </span>
           </div>
         </li>
