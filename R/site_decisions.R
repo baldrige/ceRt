@@ -171,9 +171,62 @@ DECIDED_KEEP_DAYS <- 90L
 # link, which is what it was before.
 OPINION_LISTING_URL <- "https://www.supremecourt.gov/opinions/%s/%s"
 OPINION_LISTING_KINDS <- c("slipopinion", "relatingtoorders")
+# The slip opinions also come as RSS, back to OT17, and the feed is the better
+# source: the caption and docket in the title, the author or "per curiam", the
+# PDF, and -- as the description -- the Reporter's one-paragraph statement of
+# the holding, which the HTML table does not carry. The HTML page stays as the
+# fallback for the slip opinions and the only source for opinions relating to
+# orders, which have no feed.
+OPINION_RSS_URL <- "https://www.supremecourt.gov/rss/slipopinion_rss.aspx?TYear=%s"
 
-.listing_df <- function(dkt = character(), date = as.Date(character()), url = character())
-  data.frame(dkt = dkt, date = as.Date(date), url = url, stringsAsFactors = FALSE)
+.listing_df <- function(dkt = character(), date = as.Date(character()), url = character(),
+                        holding = rep(NA_character_, length(dkt)), author = rep(NA_character_, length(dkt)))
+  data.frame(dkt = dkt, date = as.Date(date), url = url, holding = holding, author = author,
+             stringsAsFactors = FALSE)
+
+# One slip-opinion RSS feed -> (dkt, date, url, holding, author). An item:
+#   <title><![CDATA[National Republican Congressional Committee v. Brown (26A274) - (per curiam) ]]></title>
+#   <description><![CDATA[Because the Fourth Circuit likely lacked ... is granted. ]]></description>
+#   <link>http://www.supremecourt.gov/opinions/25pdf/26a274_l537.pdf</link>
+#   <pubDate>Fri, 04 Sep 2026 15:16:53 EDT</pubDate>
+#   <category>Unsigned Per Curiam Opinion</category>  <category>609 U. S., Part 2</category>
+# A signed opinion's author is a category ("Justice Brett M. Kavanaugh"; "Chief
+# Justice John G. Roberts, Jr."), reduced to the surname form the docket rows
+# use. Links come as http:// and, occasionally, root-relative.
+.parse_slip_rss <- function(xml) {
+  blocks <- str_match_all(xml, regex("<item>(.*?)</item>", dotall = TRUE))[[1]][, 2]
+  if (!length(blocks)) return(.listing_df())
+  field <- function(b, tag) {
+    m <- str_match(b, regex(paste0("<", tag, ">(.*?)</", tag, ">"), dotall = TRUE))[1, 2]
+    if (is.na(m)) return(NA_character_)
+    str_squish(.strip_tags(str_remove_all(m, "<!\\[CDATA\\[|\\]\\]>")))
+  }
+  rows <- lapply(blocks, function(b) {
+    title <- field(b, "title"); link <- field(b, "link"); pub <- field(b, "pubDate")
+    if (is.na(title) || is.na(link)) return(NULL)
+    dk <- unlist(str_extract_all(title, "\\d{2}[-A]\\d{1,5}|\\d{1,4}, Orig\\."))
+    dk <- str_replace(dk, "^(\\d{1,4}), Orig\\.$", "22O\\1")
+    if (!length(dk)) return(NULL)
+    url <- str_replace(link, "^http://", "https://")
+    if (str_starts(url, "/")) url <- paste0("https://www.supremecourt.gov", url)
+    d <- suppressWarnings(lubridate::dmy(str_extract(pub %||% "", "\\d{1,2} [A-Za-z]{3} \\d{4}")))
+    cats <- str_match_all(b, regex("<category>(.*?)</category>", dotall = TRUE))[[1]][, 2]
+    cats <- str_squish(str_remove_all(cats, "<!\\[CDATA\\[|\\]\\]>"))
+    author <- NA_character_
+    if (any(str_detect(cats, regex("per curiam", ignore_case = TRUE)))) author <- "Per Curiam"
+    j <- str_match(cats, "^(Chief )?Justice (.+)$"); j <- j[!is.na(j[, 1]), , drop = FALSE]
+    if (nrow(j)) {
+      surname <- str_remove(str_squish(j[1, 3]), ",?\\s*(Jr|Sr|II|III)\\.?$")
+      surname <- tail(str_split(surname, "\\s+")[[1]], 1)
+      author <- if (!is.na(j[1, 2]) && nzchar(j[1, 2])) paste0(surname, ", C.J.") else surname
+    }
+    holding <- field(b, "description")
+    if (!is.na(holding) && !nzchar(holding)) holding <- NA_character_
+    .listing_df(dk, rep(d, length(dk)), rep(url, length(dk)), rep(holding, length(dk)), rep(author, length(dk)))
+  })
+  rows <- rows[!vapply(rows, is.null, logical(1))]
+  if (!length(rows)) .listing_df() else do.call(rbind, rows)
+}
 
 # The Court files a decision under the Term it was decided in: OT25 runs from
 # the first Monday in October 2025 until its successor opens, so a September
@@ -224,14 +277,41 @@ OPINION_LISTING_KINDS <- c("slipopinion", "relatingtoorders")
 fetch_opinion_listing <- function(terms, kinds = OPINION_LISTING_KINDS) {
   parts <- list()
   for (t in unique(terms)) for (k in kinds) {
-    url <- sprintf(OPINION_LISTING_URL, k, t)
-    got <- tryCatch(.parse_opinion_listing(.fetch_listing_page(url)), error = function(e) {
-      cat("Opinion listing", url, "unavailable:", conditionMessage(e), "\n"); NULL
-    })
+    got <- NULL
+    if (k == "slipopinion") {
+      # The feed first; the table only if the feed is down or empty.
+      url <- sprintf(OPINION_RSS_URL, t)
+      got <- tryCatch(.parse_slip_rss(.fetch_listing_page(url)), error = function(e) {
+        cat("Opinion feed", url, "unavailable:", conditionMessage(e), "-- falling back to the listing page\n"); NULL
+      })
+    }
+    if (is.null(got) || !nrow(got)) {
+      url <- sprintf(OPINION_LISTING_URL, k, t)
+      got <- tryCatch(.parse_opinion_listing(.fetch_listing_page(url)), error = function(e) {
+        cat("Opinion listing", url, "unavailable:", conditionMessage(e), "\n"); NULL
+      })
+    }
     if (!is.null(got) && nrow(got)) parts[[length(parts) + 1L]] <- got
   }
   if (!length(parts)) return(.listing_df())
   do.call(rbind, parts)
+}
+
+# Fill the holding (and an author the docket did not name) from the listing,
+# for every row the listing knows; same-day entry preferred. The docket entry
+# never carries a holding, so this is the one field that comes only from here.
+.listing_holdings <- function(out, listing) {
+  if (is.null(listing) || !nrow(listing) || !("holding" %in% names(listing))) return(out)
+  if (!("holding" %in% names(out))) out$holding <- rep(NA_character_, nrow(out))
+  for (i in seq_len(nrow(out))) {
+    j <- which(listing$dkt == out$dkt[i] & !is.na(listing$holding))
+    if (!length(j)) next
+    same <- j[!is.na(listing$date[j]) & listing$date[j] == out$date[i]]
+    k <- if (length(same)) same[1] else j[1]
+    if (is.na(out$holding[i]) || !nzchar(out$holding[i])) out$holding[i] <- listing$holding[k]
+    if ((is.na(out$author[i]) || !nzchar(out$author[i])) && !is.na(listing$author[k])) out$author[i] <- listing$author[k]
+  }
+  out
 }
 
 # Fill the URL of every row that lacks one from the listing. A docket normally
@@ -254,10 +334,11 @@ fetch_opinion_listing <- function(terms, kinds = OPINION_LISTING_KINDS) {
 .dec_df <- function(date = as.Date(character()), dkt = character(), caption = character(),
                     kind = character(), author = character(), disposition = character(),
                     opinion_url = character(), argued = as.Date(character()),
-                    term = integer()) {
+                    term = integer(), holding = rep(NA_character_, length(dkt))) {
   data.frame(date = as.Date(date), dkt = dkt, caption = caption, kind = kind,
              author = author, disposition = disposition, opinion_url = opinion_url,
              argued = as.Date(argued), term = as.integer(term),
+             holding = as.character(holding),
              stringsAsFactors = FALSE)
 }
 
@@ -397,12 +478,19 @@ recent_decisions <- function(cases, as_of = Sys.Date(), days = DECIDED_KEEP_DAYS
   # The listing failsafe, then the companions borrow again: the listing names
   # the lead docket, and a companion still needs the lead's URL.
   need <- is.na(out$opinion_url) | !nzchar(out$opinion_url)
-  if (any(need)) {
-    if (is.null(listing)) listing <- fetch_opinion_listing(.listing_terms(out$date[need]))
+  # The listing is read whenever a row lacks a URL or a holding -- which is every
+  # run with rows, since the holding comes only from the feed. Two to four
+  # requests, for the Terms the rows fall in.
+  need_hold <- is.na(out$holding) | !nzchar(out$holding)
+  if (any(need) || any(need_hold)) {
+    if (is.null(listing)) listing <- fetch_opinion_listing(.listing_terms(out$date[need | need_hold]))
     out <- .listing_urls(out, listing)
     out <- .borrow_urls(out, named)
+    out <- .listing_holdings(out, listing)
     filled <- sum(need) - sum(is.na(out$opinion_url) | !nzchar(out$opinion_url))
     if (filled > 0) cat("Opinion listing filled", filled, "URL(s) the docket entry lacked\n")
+    got_h <- sum(!is.na(out$holding) & nzchar(out$holding))
+    if (got_h > 0) cat("Opinion feed supplied", got_h, "holding(s)\n")
   }
   out[order(out$date, out$dkt, decreasing = c(TRUE, FALSE), method = "radix"), , drop = FALSE]
 }
@@ -432,7 +520,8 @@ write_decided <- function(rows, path) {
   .dec_df(as.Date(j$date), as.character(j$dkt), as.character(j$caption), as.character(j$kind),
           chr(col("author", NA_character_)), chr(col("disposition", NA_character_)),
           chr(col("opinion_url", NA_character_)),
-          as.Date(chr(col("argued", NA_character_))), suppressWarnings(as.integer(col("term", NA))))
+          as.Date(chr(col("argued", NA_character_))), suppressWarnings(as.integer(col("term", NA))),
+          chr(col("holding", NA_character_)))
 }
 
 #' Merge every manifest found, dedupe by docket (first path wins, so pass the

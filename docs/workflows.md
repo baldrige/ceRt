@@ -30,6 +30,13 @@ site, partitioned so they never fight over the same paths.
 | --- | --- | --- | --- |
 | **`daily.yml`** | 3×/day: `33 0`, `33 16`, `33 20` (00:33 / 16:33 / 20:33 UTC — the ET-anchored two ≈ 12:33pm & 4:33pm ET) | **Yes** — incremental fetch | **Yes** — dashboards, recent cases, landing |
 | **`conferences.yml`** | Weekly `0 6 * * 1` (**Mon 06:00 UTC**), year-round | **Yes** — full-term fetch | **Yes** — conferences, relists, arguments, funnel, counsel |
+| **`watch-court.yml`** | Every 15 min (`7,22,37,52 * * * *`) | **No** — reads a 1 KB feed | **Indirectly** — dispatches `daily.yml` when the Court's Hermes transfer feed changes |
+
+The daily also has a fourth cron, Mondays at 14:03 UTC, after the 9:30 ET
+order list. `watch-court.yml` (`.github/scripts/court_watch.py`) fingerprints
+the Court's `/rss/hermes_transfer.xml` and dispatches the daily on a change,
+at most once per 20 minutes and never while a daily is queued or running; the
+last fingerprint rides in the Actions cache. See **[data-sources.md](data-sources.md)**.
 
 ### `daily.yml`
 
