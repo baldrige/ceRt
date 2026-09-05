@@ -103,10 +103,13 @@ INDEX_CSS <- paste0("\n  ", palette_root(), "
     padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
   .win label:hover{color:var(--ink)}
   .lead:has(#w7:checked) label[for=w7],
-  .lead:has(#w28:checked) label[for=w28]{background:var(--accent);color:var(--paper)}
+  .lead:has(#w28:checked) label[for=w28],
+  .lead:has(#wall:checked) label[for=wall]{background:var(--accent);color:var(--paper)}
   .wr:focus-visible+label{outline:2px solid var(--accent);outline-offset:2px}
-  .lead:has(#w7:checked) .g28,.lead:has(#w7:checked) .n28,
-  .lead:has(#w28:checked) .g7,.lead:has(#w28:checked) .n7{display:none}
+  /* Three windows, one shown: the checked radio hides the other two. */
+  .lead:has(#w7:checked) :is(.g28,.n28,.gall,.nall),
+  .lead:has(#w28:checked) :is(.g7,.n7,.gall,.nall),
+  .lead:has(#wall:checked) :is(.g7,.n7,.g28,.n28){display:none}
   /* The show/hide controls for a panel's secondary line -- the question under
      a forecast row, the holding under a decision. Same box as the window
      toggle, a checkbox instead of radios, and no script: the sibling rule does
@@ -868,7 +871,11 @@ decisions_panel <- function(rows, heading = "Recent decisions", note = NULL, mor
 forecast_panel <- function(short, long = NULL, qp = character(),
                            base_rate = NULL, heading = "Likeliest grants",
                            note_short = NULL, note_long = NULL,
-                           links = NULL) {
+                           links = NULL,
+                           # A third window: every pending paid-docket case the
+                           # site holds, from the weekly run's manifest
+                           # (R/site_forecast.R), re-checked by the daily.
+                           all = NULL, note_all = NULL) {
   has <- function(d) !is.null(d) && is.data.frame(d) && nrow(d) > 0
   if (!has(short) && !has(long)) return(NULL)
 
@@ -894,23 +901,28 @@ forecast_panel <- function(short, long = NULL, qp = character(),
     tags$ol(class = paste("grants", cls), lis)
   }
 
-  both <- has(short) && has(long)
+  # The windows that survived, in display order. Each is a radio, a label, a
+  # note and a list; the CSS hides every window but the checked one.
+  wins <- list(
+    list(id = "w7",   cls = "7",   label = "7 days",      aria = "Last 7 days",      df = short, note = note_short),
+    list(id = "w28",  cls = "28",  label = "28 days",     aria = "Last 28 days",     df = long,  note = note_long),
+    list(id = "wall", cls = "all", label = "All pending", aria = "Every pending case", df = all,  note = note_all))
+  wins <- Filter(function(w) has(w$df), wins)
+  multi <- length(wins) > 1L
   # "Questions": shows or hides the one-line question under each row. Checked
   # by default; see the .opts rules for why.
   qopt <- if (length(qp)) tagList(
     tags$input(class = "wr", type = "checkbox", id = "qon", checked = NA,
                `aria-label` = "Show the question each case asks"),
     tags$div(class = "opts", tags$label(`for` = "qon", "Questions"))) else NULL
-  toggle <- if (both) tagList(
-    # Checked state lives on the SHORT window, so a reader who never touches the
-    # control sees the same seven days the panel has always shown.
-    tags$input(class = "wr", type = "radio", name = "win", id = "w7",
-               checked = NA, `aria-label` = "Last 7 days"),
-    tags$input(class = "wr", type = "radio", name = "win", id = "w28",
-               `aria-label` = "Last 28 days"),
-    tags$div(class = "win",
-             tags$label(`for` = "w7", "7 days"),
-             tags$label(`for` = "w28", "28 days"))) else NULL
+  toggle <- if (multi) tagList(
+    # Checked state lives on the FIRST window (the seven days), so a reader who
+    # never touches the control sees what the panel has always shown.
+    lapply(seq_along(wins), function(k) do.call(tags$input, c(
+      list(class = "wr", type = "radio", name = "win", id = wins[[k]]$id),
+      if (k == 1L) list(checked = NA),
+      list(`aria-label` = wins[[k]]$aria)))),
+    tags$div(class = "win", lapply(wins, function(w) tags$label(`for` = w$id, w$label)))) else NULL
 
   note <- function(txt, cls) if (!is.null(txt))
     tags$p(class = paste("pnote", cls), smarten(txt)) else NULL
@@ -921,9 +933,8 @@ forecast_panel <- function(short, long = NULL, qp = character(),
     qopt, toggle,
     # When only one window survived, its note carries no toggle class -- there is
     # nothing to hide it against.
-    if (both) tagList(note(note_short, "n7"), note(note_long, "n28"))
-    else note(if (has(short)) note_short else note_long, ""),
-    rows(short, "g7"), rows(long, "g28"),
+    lapply(wins, function(w) note(w$note, if (multi) paste0("n", w$cls) else "")),
+    lapply(wins, function(w) rows(w$df, paste0("g", w$cls))),
     if (!is.null(links)) tags$p(class = "more", HTML(links)))
 }
 
