@@ -13,8 +13,8 @@ snapshots (`data-raw/ot_2017.rds` … `ot_2024.rds`, `snapshot_25.rds`,
 | --- | --- |
 | list entries about a petition docket that say granted, GVR'd, denied or dismissed | 41,318 |
 | of which the snapshots hold the docket and postdate the order | **40,283** |
-| agree on the outcome | **40,265 (99.96%)** |
-| agree on the outcome and the date | 40,264 (99.95%) |
+| agree on the outcome | **40,274 (99.96%)** |
+| agree on the outcome and the date | 40,273 (99.95%) |
 | disagree | 18 |
 
 | Term of the docket | compared | agree | % |
@@ -111,9 +111,11 @@ in any list. They sort into:
   writs of certiorari in No. 20-1530, No. / 20-1531, No. 20-1778, and No.
   20-1780 are granted" had its second line read as a new docket, because it
   begins with one. Parser p2 (same PR) treats a docket-leading line with
-  lowercase words as prose; the five West Virginia v. EPA dockets and the two
-  tariffs cases (24-1287, 25-250) resolve once the site re-parses. 25-332 and
-  20-1539 are the same wrap in their miscellaneous orders.
+  lowercase words as prose. Re-parsed the same night: the five West Virginia
+  v. EPA dockets and the two tariffs cases (24-1287, 25-250) resolved, and the
+  reverse list fell from 37 to 24. Two grants are still not located in any
+  document the listing carries: 25-332 (Trump v. Slaughter, 22 Sep 2025) and
+  20-1539 (18 Oct 2021).
 - **Forms the audit does not read** and has no need to: "further consideration
   of the *questions* of jurisdiction *are* postponed" (17-586, 17-626), a writ
   of mandamus treated as a petition (18-557), and a few grants whose nearest
