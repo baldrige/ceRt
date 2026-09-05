@@ -178,6 +178,7 @@ rebase cleanly.
 | `conferences/` (+ `qp_cache.json`) | `conferences.yml`; cache also by `backfill-qp*.yml` |
 | `arguments/` (+ `qp_cache.json`) | `conferences.yml` |
 | `arguments/upcoming.json`, `conferences/upcoming.json` (landing-page calendar manifests) | `conferences.yml` |
+| `conferences/pending_forecasts.json` (the landing page's "All pending" forecast window; the daily re-checks its top rows by name) | `conferences.yml` |
 | `arguments/decided.json`, `arguments/watch.json` (landing-page "Recent decisions" manifest and the daily's named-fetch watch list) | `conferences.yml` |
 | `dashboards/decided.json` (the daily's own decisions manifest, from the watch-list fetch) | `daily.yml` |
 | `relists/` | `conferences.yml` |

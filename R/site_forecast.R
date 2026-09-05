@@ -145,3 +145,130 @@ top_forecast_cases <- function(cases, model, site_dir, signals_map = NULL,
   rownames(out) <- NULL
   out[, c("dkt", "caption", "prob", "lift", "href")]
 }
+
+# ---- "All pending": the third window ----------------------------------------------
+#
+# The daily fetches the trailing ~50 dockets of each bucket, so the two windows
+# above can only ever rank the last four weeks of filings. Every pending
+# paid-docket case the site holds is a question only the weekly conferences run
+# can answer -- it fetches the current and prior Terms in full -- so, as with
+# the calendar and the decisions, that run writes a manifest and the daily
+# reads it (docs/recent-decisions.md, "Data flow", for the pattern).
+#
+# The manifest goes stale inside a week: a Monday order list denies dozens of
+# the petitions it names. So the daily does not trust it. It re-fetches the top
+# PENDING_VERIFY dockets by name (a couple of dozen paced requests), drops any
+# the docket now says is granted, denied or otherwise disposed of, and shows
+# the top PENDING_SHOW that survive. A docket that could not be fetched is kept:
+# a throttled run should cost the window a stale row, not the whole window.
+#
+# The number is the same petition-stage, structural estimate the other two
+# windows print, from the same score_case() call, so the three windows rank on
+# one scale. The conference-stage estimate (relists, a reply, a CVSG) is a
+# different number, printed where it belongs -- on the conference reports and
+# the docket pages -- and not mixed in here.
+PENDING_FORECASTS <- "pending_forecasts.json"   # under conferences/
+PENDING_KEEP   <- 40L    # rows the weekly writes
+PENDING_VERIFY <- 25L    # rows the daily re-fetches by name
+PENDING_SHOW   <- 10L    # rows the window shows
+
+.pending_df <- function() data.frame(dkt = character(), caption = character(), date = as.Date(character()),
+                                     prob = numeric(), lift = numeric(), stringsAsFactors = FALSE)
+
+#' Score every pending paid-docket case in `cases` with the baseline model and
+#' write the top PENDING_KEEP to `path`. Event dates only, never a build time.
+write_pending_forecasts <- function(cases, model, site_dir, counsel_index = NULL,
+                                    path = file.path(site_dir, "conferences", PENDING_FORECASTS),
+                                    keep = PENDING_KEEP) {
+  dir.create(dirname(path), recursive = TRUE, showWarnings = FALSE)
+  write_rows <- function(df) {
+    df$date <- format(as.Date(df$date), "%Y-%m-%d")
+    jsonlite::write_json(df, path, auto_unbox = TRUE, dataframe = "rows", na = "null", digits = 6)
+    invisible(nrow(df))
+  }
+  if (is.null(model) || is.null(cases) || !nrow(cases) || !exists("classify_petitions")) return(write_rows(.pending_df()))
+  base <- model$base_rate
+  if (is.null(base) || !is.finite(base) || base <= 0) return(write_rows(.pending_df()))
+  cls <- tryCatch(classify_petitions(cases), error = function(e) NULL)
+  if (is.null(cls) || !nrow(cls)) return(write_rows(.pending_df()))
+  pend <- cls$dkt[cls$type == "paid" & cls$outcome %in% "pending"]
+  w <- cases[cases$dkt %in% pend, , drop = FALSE]
+  w <- w[!duplicated(w$dkt), , drop = FALSE]
+  if (!nrow(w)) return(write_rows(.pending_df()))
+  # The Rule 10 signals, merged the way render_dockets_for() merges them.
+  signals_map <- tryCatch(jsonlite::fromJSON("data-raw/petition_signals.json", simplifyVector = FALSE),
+                          error = function(e) list())
+  cache_p <- file.path(site_dir, "dashboards", "petition_signals_cache.json")
+  if (file.exists(cache_p)) {
+    fresh <- tryCatch(jsonlite::fromJSON(cache_p, simplifyVector = FALSE), error = function(e) NULL)
+    if (!is.null(fresh) && length(fresh)) signals_map[names(fresh)] <- fresh
+  }
+  probs <- vapply(seq_len(nrow(w)), function(i) tryCatch(
+    score_case(model, w$caption[i], w$lower[i], w$parties[[i]], w$date[i],
+               w$lower_date[i], w$related[i], signals = signals_map[[w$dkt[i]]],
+               counsel_index = counsel_index)$prob,
+    error = function(e) NA_real_), numeric(1))
+  cap <- strip_caption_roles(w$caption)
+  cap <- ifelse(is.na(cap) | !nzchar(cap), w$dkt, cap)
+  df <- data.frame(dkt = w$dkt, caption = cap, date = as.Date(w$date), prob = probs,
+                   stringsAsFactors = FALSE)
+  df <- df[!is.na(df$prob), , drop = FALSE]
+  df$lift <- df$prob / base
+  df <- df[order(-df$prob, df$dkt), , drop = FALSE]
+  df <- utils::head(df, keep)
+  rownames(df) <- NULL
+  message(sprintf("write_pending_forecasts(): %d pending paid-docket case(s) scored; kept %d (top %s %.1f%%, %.1fx)",
+                  nrow(w), nrow(df), if (nrow(df)) df$dkt[1] else "-", if (nrow(df)) 100 * df$prob[1] else 0,
+                  if (nrow(df)) df$lift[1] else 0))
+  write_rows(df)
+}
+
+read_pending_forecasts <- function(path) {
+  if (!file.exists(path)) return(.pending_df())
+  j <- tryCatch(jsonlite::fromJSON(path, simplifyDataFrame = TRUE), error = function(e) NULL)
+  if (is.null(j) || !is.data.frame(j) || !nrow(j) || !all(c("dkt", "caption", "prob", "lift") %in% names(j))) return(.pending_df())
+  data.frame(dkt = as.character(j$dkt), caption = as.character(j$caption),
+             date = as.Date(if ("date" %in% names(j)) j$date else NA),
+             prob = as.numeric(j$prob), lift = as.numeric(j$lift), stringsAsFactors = FALSE)
+}
+
+#' The rows of `rows` whose docket, as fetched in `fetched`, is still pending.
+#' A docket absent from `fetched` is kept (unverified, and said so in the log).
+verify_pending <- function(rows, fetched) {
+  if (!nrow(rows)) return(rows)
+  if (is.null(fetched) || !nrow(fetched) || !exists("classify_petition_events")) {
+    message("verify_pending(): nothing fetched -- ", nrow(rows), " row(s) unverified")
+    return(rows)
+  }
+  gone <- character()
+  for (d in intersect(rows$dkt, fetched$dkt)) {
+    ev <- fetched$events[[match(d, fetched$dkt)]]
+    cl <- tryCatch(classify_petition_events(ev), error = function(e) NULL)
+    if (!is.null(cl) && !identical(cl$outcome[[1]], "pending")) gone <- c(gone, d)
+  }
+  unverified <- setdiff(rows$dkt, fetched$dkt)
+  message(sprintf("verify_pending(): %d checked, %d no longer pending%s, %d unverified",
+                  length(intersect(rows$dkt, fetched$dkt)), length(gone),
+                  if (length(gone)) paste0(" (", paste(gone, collapse = ", "), ")") else "",
+                  length(unverified)))
+  rows[!rows$dkt %in% gone, , drop = FALSE]
+}
+
+#' The "All pending" window: the same floor as the other two, pages that
+#' exist, the top `n`.
+pending_forecast_rows <- function(rows, site_dir, n = PENDING_SHOW) {
+  none <- data.frame(dkt = character(), caption = character(), prob = numeric(),
+                     lift = numeric(), href = character(), stringsAsFactors = FALSE)
+  if (is.null(rows) || !nrow(rows)) return(none)
+  df <- rows[order(-rows$prob, rows$dkt), , drop = FALSE]
+  df <- df[file.exists(file.path(site_dir, "cases", paste0(df$dkt, ".html"))), , drop = FALSE]
+  ok <- df$lift >= FORECAST_MIN_LIFT
+  if (sum(ok) < FORECAST_MIN_ENTRIES) {
+    message(sprintf("pending_forecast_rows(): window SUPPRESSED -- %d of %d clear %.1fx", sum(ok), nrow(df), FORECAST_MIN_LIFT))
+    return(none)
+  }
+  out <- utils::head(df[ok, , drop = FALSE], n)
+  out$href <- paste0("cases/", out$dkt, ".html")
+  rownames(out) <- NULL
+  out[, c("dkt", "caption", "prob", "lift", "href")]
+}

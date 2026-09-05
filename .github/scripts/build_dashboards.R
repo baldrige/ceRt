@@ -283,6 +283,26 @@ source("R/site_calendar.R")
 # Two windows, scored separately. The wider one is not a superset that could be
 # filtered down: top_forecast_cases() applies its own lift floor and suppression
 # rule per call, so 28 days can carry a panel on a week when 7 days cannot.
+# "All pending": every pending paid-docket case the site holds, from the manifest
+# the weekly conferences run writes (write_pending_forecasts, R/site_forecast.R).
+# Re-checked here by name -- a Monday order list denies dozens of the petitions
+# it names -- before the top rows are shown. A couple of dozen paced requests,
+# skipping any docket this run has already fetched. Never fatal.
+pend_all <- tryCatch({
+  pf <- read_pending_forecasts(file.path(site_dir, "conferences", PENDING_FORECASTS))
+  cat("Pending forecasts manifest:", nrow(pf), "row(s)\n")
+  if (nrow(pf)) {
+    cand <- head(pf, PENDING_VERIFY)
+    have <- bind_rows(ot, watch_cases, orig_cases)
+    need <- setdiff(cand$dkt, have$dkt)
+    got <- if (length(need)) tryCatch(fetch_cases(need), error = function(e) {
+      cat("pending re-fetch failed:", conditionMessage(e), "\n"); NULL }) else NULL
+    fetched <- bind_rows(have[have$dkt %in% cand$dkt, ], got)
+    pending_forecast_rows(verify_pending(cand, fetched), site_dir)
+  } else pending_forecast_rows(pf, site_dir)
+}, error = function(e) { cat("All-pending window failed:", conditionMessage(e), "\n"); NULL })
+cat("All-pending window:", if (is.null(pend_all) || !nrow(pend_all)) "none" else paste(nrow(pend_all), "row(s)"), "\n")
+
 sharpest <- top_forecast_cases(ot, grant_model, site_dir,
                                signals_map = signals_map,
                                counsel_index = counsel_ix, n = 5L)
@@ -359,6 +379,11 @@ sharpest_panel <- forecast_panel(
   heading = "Likeliest grants",
   note_short = note_for(FORECAST_WINDOW_DAYS),
   note_long  = note_for(FORECAST_WINDOW_LONG),
+  all = pend_all,
+  note_all = sprintf(paste0(
+    "Every pending paid-docket case the site holds, whenever filed, against a %.1f%% ",
+    "base rate; each re-checked against its docket today. An estimate, not a prediction about any case."),
+    100 * grant_model$base_rate),
   links = paste0(
     "<a href='dashboards/'>All petitions this week &rarr;</a>",
     "&nbsp;&middot;&nbsp;<a href='methods.html'>How the forecast works &rarr;</a>"))

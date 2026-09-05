@@ -166,6 +166,16 @@ tryCatch({
 # current for the conference Case links.
 render_dockets_for(combined, site_dir)
 
+# The landing page's "All pending" forecast window: every pending paid-docket
+# case in `combined`, scored with the baseline model, the top rows written as a
+# manifest the daily reads and re-checks. See R/site_forecast.R.
+tryCatch({
+  source("R/site_forecast.R")
+  n_pf <- write_pending_forecasts(combined, cert_models$baseline, site_dir,
+                                  counsel_index = cert_models$counsel_index)
+  cat("Pending forecasts manifest:", n_pf, "row(s) written\n")
+}, error = function(e) message("Pending forecasts manifest skipped: ", conditionMessage(e)))
+
 # The grants cache, which feeds grants.xml and the site feed.
 #
 # This is where grants are actually visible. The daily fetches only the trailing
