@@ -1,0 +1,1817 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script async src='/analytics.js'></script><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate icon" href="/favicon.ico" sizes="any"><link rel="alternate" type="application/atom+xml" title="Supreme Court Report" href="/feed.xml"><link rel="alternate" type="application/atom+xml" title="Certiorari grants" href="/grants.xml"><title>Orders — Supreme Court Report</title><meta name="description" content="Every order list and miscellaneous order the Court has issued, in the Court's own words: what it granted, what it sent back, what it turned away."><link rel="canonical" href="https://supremecourt.report/orders/"><meta property="og:site_name" content="Supreme Court Report"><meta property="og:type" content="website"><meta property="og:title" content="Orders — Supreme Court Report"><meta property="og:description" content="Every order list and miscellaneous order the Court has issued, in the Court's own words: what it granted, what it sent back, what it turned away."><meta property="og:url" content="https://supremecourt.report/orders/"><meta property="og:image" content="https://supremecourt.report/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Supreme Court Report - docket analytics for the Supreme Court of the United States"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Orders — Supreme Court Report"><meta name="twitter:description" content="Every order list and miscellaneous order the Court has issued, in the Court's own words: what it granted, what it sent back, what it turned away."><meta name="twitter:image" content="https://supremecourt.report/og.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap"><style>
+  :root{--paper:#fdfcfa;--panel:#ffffff;--ink:#1a1a1e;--ink-soft:#484850;--faint:#63636b;--accent:#9c0e3a;--link:#9c0e3a;--rule:#dbd8d2;--nav-max:54rem}
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{font-family:'Newsreader',Georgia,serif;font-size:19px;line-height:1.6;
+    color:var(--ink);background:var(--paper);margin:0;font-feature-settings:'onum' 1}
+  body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
+    opacity:.5;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");}
+  .wrap{max-width:40rem;margin:0 auto;padding:3rem 1.4rem 4rem}
+  .kicker{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 1rem}
+  h1{font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:clamp(2.4rem,7vw,3.6rem);line-height:1;letter-spacing:-.015em;
+    margin:0 0 1rem;color:var(--ink)}
+  h1 em{font-style:italic;font-weight:500;color:var(--accent)}
+  .dek{font-size:1.15rem;line-height:1.5;color:var(--ink-soft);font-style:italic;
+    margin:0 0 1.4rem}
+  .brule{border:0;height:0;border-top:2px solid var(--ink);margin:1.4rem 0 .3rem;
+    position:relative}
+  .brule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+    border-top:1px solid var(--rule)}
+  ul.idx{list-style:none;padding:0;margin:1.6rem 0}
+  ul.idx li{border-bottom:1px solid var(--rule)}
+  /* Whole row is one block-level link: a large, reliable tap target on mobile. */
+  ul.idx a.row{display:flex;justify-content:space-between;align-items:baseline;
+    gap:1rem;padding:.9rem .4rem;text-decoration:none;border:0;color:inherit}
+  ul.idx a.row:hover{background:rgba(156,14,58,.05)}
+  ul.idx .d{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.16rem;
+    color:var(--accent);line-height:1.25}
+  ul.idx a.row:hover .d{text-decoration:underline;text-underline-offset:3px}
+  ul.idx .count{color:var(--faint);font-size:.9rem;font-style:italic;white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  /* Compact horizontal strip of the most recent pages beneath a category row. */
+  ul.idx .recent{display:flex;flex-wrap:wrap;align-items:baseline;
+    gap:.3rem .85rem;padding:0 .4rem 1rem;margin-top:-.35rem}
+  ul.idx .recent .rlabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  ul.idx .recent a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--ink-soft);text-decoration:none;font-variant-numeric:tabular-nums;
+    border-bottom:1px solid var(--rule);padding-bottom:1px}
+  ul.idx .recent a:hover{color:var(--accent);border-color:var(--accent)}
+  /* Optional panel beneath the section index (home page: most-read cases). */
+  .panel{margin:2.4rem 0 0}
+  .panel h2{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 .25rem}
+  .panel .pnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:0 0 .5rem}
+  /* --- Likeliest grants -----------------------------------------------------
+     Its own rows rather than ol.mostread's: this panel carries a question under
+     the caption, which that list has no room for, and a percentage that has to
+     read as the row's subject rather than as a trailing note.
+     The window toggle is two real radio inputs plus :has() -- no JavaScript.
+     Both windows are rendered at build time and one is hidden, which is the only
+     way a static site can offer the choice: there is no server to ask for the
+     other one. Real radios, not styled buttons, so the control is reachable by
+     keyboard and announced as a choice. */
+  .lead{margin:0 0 1.9rem}
+  .lead h2{margin-bottom:.35rem}
+  .lead .pnote{margin:0 0 .7rem}
+  .wr{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+  .win{display:inline-flex;gap:.25rem;margin:0 0 .55rem;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .win label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .win label:hover{color:var(--ink)}
+  .lead:has(#w7:checked) label[for=w7],
+  .lead:has(#w28:checked) label[for=w28]{background:var(--accent);color:var(--paper)}
+  .wr:focus-visible+label{outline:2px solid var(--accent);outline-offset:2px}
+  .lead:has(#w7:checked) .g28,.lead:has(#w7:checked) .n28,
+  .lead:has(#w28:checked) .g7,.lead:has(#w28:checked) .n7{display:none}
+  /* --- Upcoming at the Court ------------------------------------------------
+     A date gutter and a two-line body, the same shape as the grant rows above
+     it, so the two panels read as one page rather than two widgets. */
+  .cal{margin:0 0 1.9rem}
+  ol.cal{list-style:none;margin:0;padding:0}
+  ol.cal li{border-top:1px solid var(--rule)}
+  ol.cal li:last-child{border-bottom:1px solid var(--rule)}
+  /* The row is a container, not an anchor: an argument day carries one link per
+     case it hears and anchors cannot nest. Hover lives on the row so it still
+     reads as one unit, and each link colours on its own hover. */
+  ol.cal .crow{display:flex;gap:.95rem;align-items:baseline;padding:.55rem .1rem}
+  ol.cal .crow:hover{background:rgba(156,14,58,.05)}
+  ol.cal a{text-decoration:none;color:inherit}
+  ol.cal a:hover,ol.cal a:focus-visible{color:var(--accent)}
+  ol.cal .cdet a{border-bottom:1px solid rgba(156,14,58,.35)}
+  ol.cal .cdet a:hover{border-bottom-color:var(--accent)}
+  ol.cal .cwhen{flex:none;width:4.6rem;font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.96rem;color:var(--ink);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  ol.cal .cdow{display:block;font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);text-transform:uppercase;letter-spacing:.08em}
+  ol.cal .ctx{flex:1;min-width:0}
+  ol.cal .ckind{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:.98rem;line-height:1.25}
+  ol.cal .cdet{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.12rem}
+  /* Recent decisions reuses the calendar rows and adds exactly two things: the
+     kind word that opens the detail line, and the one outbound link (the slip
+     opinion), which takes the link colour the rest of the row deliberately
+     does not. */
+  ol.cal .dk{font-weight:600;color:var(--ink)}
+  ol.cal .cdet a.pdf{color:var(--link)}
+  ol.cal .cdet a.pdf:hover,ol.cal .cdet a.pdf:focus-visible{color:var(--accent);
+    border-bottom-color:var(--accent)}
+  ol.grants{list-style:none;margin:0;padding:0}
+  ol.grants li{border-top:1px solid var(--rule)}
+  ol.grants li:last-child{border-bottom:1px solid var(--rule)}
+  ol.grants a{display:flex;gap:.95rem;align-items:baseline;text-decoration:none;
+    color:inherit;padding:.62rem .1rem}
+  ol.grants a:hover{background:rgba(156,14,58,.05)}
+  ol.grants a:hover .gc{color:var(--accent)}
+  ol.grants .gv{flex:none;width:3.5rem;text-align:right;
+    font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.22rem;
+    line-height:1.1;color:var(--accent);font-variant-numeric:tabular-nums}
+  ol.grants .gx{font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);margin-left:.3rem}
+  ol.grants .gtx{flex:1;min-width:0}
+  ol.grants .gc{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:1rem;line-height:1.25}
+  ol.grants .gq{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.16rem}
+  ol.grants .gd{flex:none;font-size:.76rem;color:var(--faint);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  .more{margin:.75rem 0 0;font-size:.92rem}
+  .more a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.35)}
+  .more a:hover{border-bottom-color:var(--link)}
+  h2.sec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:.88rem;
+    letter-spacing:.09em;color:var(--faint);text-transform:uppercase;
+    margin:2.1rem 0 .6rem;padding-bottom:.28rem;border-bottom:1px solid var(--rule)}
+  @media(max-width:40rem){
+    ol.grants a{flex-wrap:wrap}
+    ol.grants .gd{width:100%;padding-left:4.45rem;margin-top:-.1rem}
+  }
+  ol.mostread{list-style:none;counter-reset:mr;padding:0;margin:0}
+  ol.mostread li{counter-increment:mr;border-bottom:1px solid var(--rule)}
+  ol.mostread a{display:flex;align-items:baseline;gap:.7rem;padding:.6rem .4rem;
+    text-decoration:none;color:inherit}
+  ol.mostread a:hover{background:rgba(156,14,58,.05)}
+  ol.mostread a::before{content:counter(mr);font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.95rem;color:var(--faint);min-width:1.1rem;
+    font-variant-numeric:tabular-nums}
+  ol.mostread .mc{flex:1;font-size:1rem;line-height:1.3}
+  ol.mostread a:hover .mc{color:var(--accent);text-decoration:underline;
+    text-underline-offset:3px}
+  ol.mostread .mdk{color:var(--accent);font-weight:600;font-size:.82rem;
+    font-variant-numeric:tabular-nums;white-space:nowrap}
+  ol.mostread .mv{color:var(--faint);font-size:.85rem;font-style:italic;
+    white-space:nowrap;font-variant-numeric:tabular-nums}
+  /* Forecast percentages carry weight the most-read counts do not: the number is
+     the claim, not a footnote to the ranking. Upright, accent, tabular. */
+  ol.mostread .mv.fc{color:var(--accent);font-style:normal;font-weight:600;
+    font-size:.95rem;min-width:2.6rem;text-align:right}
+  /* Feed follow line. Deliberately quiet -- a footnote under the section list,
+     styled like .recent rather than like a call to action. */
+  .feeds{display:flex;flex-wrap:wrap;align-items:baseline;gap:.3rem .85rem;
+    margin:2.2rem 0 0;padding-top:1.1rem;border-top:1px solid var(--rule)}
+  .feeds .flabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  .feeds a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .feeds a:hover{border-color:var(--link)}
+  .back{margin-top:2rem;font-size:.95rem}
+  .back a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .back a:hover{border-color:var(--link)}
+  /* Home-page case search. */
+  .csearch{position:relative;margin:0 0 1.4rem}
+  #cq{width:100%;font-family:'Newsreader',Georgia,serif;font-size:1.05rem;color:var(--ink);
+    background:var(--panel);border:1px solid var(--rule);border-radius:3px;padding:.7rem .9rem}
+  #cq:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(156,14,58,.1)}
+  #cq::placeholder{color:var(--faint)}
+  #cq.loading{background-image:linear-gradient(90deg,transparent,rgba(156,14,58,.06),transparent);
+    background-size:40% 100%;background-repeat:no-repeat;animation:csl 1s infinite}
+  @keyframes csl{0%{background-position:-40% 0}100%{background-position:140% 0}}
+  .cres{list-style:none;margin:.35rem 0 0;padding:0;max-height:24rem;overflow-y:auto;
+    border:1px solid var(--rule);border-radius:3px;background:var(--panel)}
+  .cres:empty{display:none}
+  .cres li{border-bottom:1px solid var(--rule)}
+  .cres li:last-child{border-bottom:0}
+  .cres a{display:block;padding:.55rem .7rem;text-decoration:none;color:var(--ink);
+    font-size:.98rem;line-height:1.3}
+  .cres a:hover{background:rgba(156,14,58,.06)}
+  .cres .cd{color:var(--accent);font-variant-numeric:tabular-nums;font-weight:600;
+    margin-right:.5rem;white-space:nowrap}
+  .cnone{padding:.55rem .7rem;color:var(--faint);font-style:italic}
+  /* /cases/ browse index: grouped sections with per-bucket counts. */
+  .csec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+    text-transform:uppercase;letter-spacing:.12em;color:var(--accent);
+    margin:2.2rem 0 .3rem;padding-bottom:.35rem;border-bottom:1px solid var(--rule);
+    display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
+  .csec .cn{font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:.85rem;
+    letter-spacing:0;text-transform:none;color:var(--faint);
+    font-variant-numeric:tabular-nums}
+  .cnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:.5rem 0 0}
+  .cnote a{color:var(--accent)}
+  ul.terms{list-style:none;padding:0;margin:1rem 0 0;display:flex;flex-wrap:wrap;
+    gap:.5rem 1.6rem}
+  ul.terms li{display:inline-flex;align-items:baseline;gap:.4rem}
+  ul.terms a{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.05rem;
+    color:var(--accent);text-decoration:none;border-bottom:1px solid var(--rule)}
+  ul.terms a:hover{border-bottom-color:var(--accent)}
+  ul.terms .cn{color:var(--faint);font-size:.85rem;font-variant-numeric:tabular-nums}
+  /* About page: running prose rather than an index, so it takes a measure and a
+     little more leading than the section rows above it. */
+  .about{margin:1.6rem 0 0;font-size:1.05rem;line-height:1.65;max-width:34rem}
+  .about p{margin:0 0 1rem}
+  .about a{color:var(--accent);text-decoration:none;
+    border-bottom:1px solid var(--rule)}
+  .about a:hover{border-bottom-color:var(--accent)}
+  .about .contact{margin:2rem 0 0;background:var(--panel);border:1px solid var(--rule);
+    border-left:4px solid var(--accent);padding:1.1rem 1.3rem}
+  .about .contact h2{font:600 .78rem/1 'Newsreader',Georgia,serif;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--accent);margin:0 0 .5rem}
+  .about .contact p{margin:0;font-size:1rem}
+
+/* ---- masthead ---- */
+.smast-in{max-width:var(--nav-max,54rem);margin:0 auto;padding:.85rem 1.5rem .5rem;
+  display:flex;align-items:baseline;justify-content:space-between;gap:1.4rem;flex-wrap:wrap}
+.smast-wm{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+  letter-spacing:.005em;color:var(--ink,#1a1a1e);text-decoration:none;white-space:nowrap;flex:none}
+.smast-wm em{font-style:italic;font-weight:500;color:var(--accent,#9c0e3a)}
+.smast-wm:hover{color:var(--accent,#9c0e3a)}
+/* Row gap first, then column. At 1.35rem the six section links measured 596px
+   of max-content -- 4px wider than the 592px row the 40rem index container
+   leaves them -- so ABOUT alone wrapped to a third line under the wordmark, on
+   every page page_style.R writes. 1.05rem brings the row to 572px: 20px of
+   slack at 40rem, and 45px on the 54rem case pages, which were themselves only
+   21px from wrapping. The .4rem row gap is for the day a seventh section
+   overruns it anyway -- a nav that wraps should read as a stack, not an orphan. */
+.snav{display:flex;gap:.4rem 1.05rem;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+.snav a{font:600 .72rem/1 'Newsreader',Georgia,serif;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--ink-soft,var(--soft,#484850));text-decoration:none;display:inline-block;
+  padding:.5rem 0;border-bottom:1.5px solid transparent}
+.snav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--rule,#dbd8d2)}
+.snav a[aria-current='page']{color:var(--accent,#9c0e3a);
+  border-bottom-color:var(--accent,#9c0e3a)}
+.smast-rule-w{max-width:var(--nav-max,54rem);margin:0 auto;padding:0 1.5rem}
+.smast-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0;position:relative}
+.smast-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.skip{position:absolute;left:-9999px;top:0;background:var(--panel,#ffffff);
+  color:var(--accent,#9c0e3a);padding:.6rem 1rem;
+  border:1px solid var(--accent,#9c0e3a);
+  font:600 .8rem/1 'Newsreader',Georgia,serif;letter-spacing:.1em;text-transform:uppercase;z-index:10}
+.skip:focus{left:.5rem;top:.5rem}
+/* ---- breadcrumb ---- */
+.bcrumb{margin:.7rem 0 0}
+.bcrumb ol{list-style:none;display:flex;flex-wrap:wrap;align-items:baseline;
+  gap:.1rem .45rem;margin:0;padding:0}
+.bcrumb li{display:inline-flex;align-items:baseline;gap:.45rem}
+.bcrumb a{font:400 .8rem/1.5 'Newsreader',Georgia,serif;color:var(--ink-soft,var(--soft,#484850));
+  text-decoration:none;border-bottom:1px solid var(--rule,#dbd8d2)}
+.bcrumb a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.bcrumb .sep{color:var(--faint,#63636b);font-size:.8rem;line-height:1.5}
+.bcrumb [aria-current='page']{font:400 .8rem/1.5 'Newsreader',Georgia,serif;
+  color:var(--faint,#63636b);font-variant-numeric:tabular-nums}
+/* ---- case footer ---- */
+.cfoot{margin:2.4rem 0 0}
+.cfoot-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0 0 1rem;position:relative}
+.cfoot-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.cfoot-off{font-size:.95rem;margin:0 0 1.1rem}
+.cfoot-off a{color:var(--link,#9c0e3a);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.4)}
+.cfoot-off a:hover{border-bottom-color:var(--link,#9c0e3a)}
+.cfoot-lab{font:600 .68rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);margin:0 0 .5rem}
+.cfoot-nav{display:flex;flex-wrap:wrap;gap:.35rem 1.1rem;list-style:none;margin:0;padding:0}
+.cfoot-nav a{font-size:.92rem;color:var(--ink-soft,var(--soft,#484850));text-decoration:none;
+  border-bottom:1px solid var(--rule,#dbd8d2);padding-bottom:1px}
+.cfoot-nav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.cfoot-stamp{margin:1.2rem 0 0;font-size:.8rem;color:var(--faint,#63636b);font-style:italic}
+/* ---- prev / next ---- */
+.pnav{margin:2.2rem 0 0;border-top:1px solid var(--rule,#dbd8d2);padding-top:1rem;
+  display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.pnav a,.pnav span.none{text-decoration:none;color:inherit;display:block;padding:.5rem .2rem}
+.pnav a:hover{background:rgba(156,14,58,.05)}
+.pnav .dir{font:600 .66rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);display:block;margin-bottom:.3rem}
+.pnav .lab{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1rem;line-height:1.25;
+  color:var(--accent,#9c0e3a);display:block}
+.pnav a:hover .lab{text-decoration:underline;text-underline-offset:3px}
+.pnav .nx{text-align:right}
+.pnav .none{opacity:.35}
+@media(max-width:640px){
+  .smast-in{padding:.7rem 1.1rem .25rem;gap:.15rem}
+  .smast-wm{font-size:.98rem}
+  .smast-in nav{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+    -webkit-mask-image:linear-gradient(90deg,#000 86%,transparent);
+    mask-image:linear-gradient(90deg,#000 86%,transparent)}
+  .smast-in nav::-webkit-scrollbar{display:none}
+  .snav{flex-wrap:nowrap;gap:1.15rem;padding-right:2.4rem}
+  .snav a{padding:.7rem 0;white-space:nowrap}
+  .smast-rule-w{padding:0 1.1rem}
+  .cfoot-nav{gap:.5rem 1rem}
+  .cfoot-nav a{padding-bottom:.3rem}
+  .pnav{grid-template-columns:1fr;gap:.2rem}
+  .pnav .nx{text-align:left;border-top:1px solid var(--rule,#dbd8d2)}
+}
+</style><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://supremecourt.report/"},{"@type":"ListItem","position":2,"name":"Orders"}]}</script></head>
+<body>
+  <a class='skip' href='#main'>Skip to content</a><header><div class='smast-in'><a class='smast-wm' href='/'>Supreme Court <em>Report</em></a><nav aria-label='Sections'><ul class='snav'><li><a href='/dashboards/'>Docket</a></li><li><a href='/conferences/'>Conferences</a></li><li><a href='/relists/'>Relists</a></li><li><a href='/arguments/'>Arguments</a></li><li><a href='/counsel/'>Counsel</a></li><li><a href='/funnel/'>The Funnel</a></li><li><a href='/methods.html'>Model</a></li><li><a href='/about.html'>About</a></li></ul></nav></div><div class='smast-rule-w'><hr class='smast-rule'></div></header>
+  <main id="main" class="wrap">
+    <nav class='bcrumb' aria-label='Breadcrumb'><ol><li><a href='/'>Home</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><span aria-current='page'>Orders</span></li></ol></nav>
+    <p class="kicker">Supreme Court of the United States</p>
+    <h1>Orders</h1>
+    <hr class="brule"/>
+    <p class="dek">Every order list and miscellaneous order the Court has issued, in the Court’s own words: what it granted, what it sent back, what it turned away.</p>
+    <ul class="idx">
+      <li>
+        <a class="row" href="2026-09-04.html">
+          <span class="d">Order list · Friday, September 4, 2026</span>
+          <span class="count">13 rehearings denied · 10 in pending cases · 4 discipline</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-08-21-misc.html">
+          <span class="d">Miscellaneous order · Friday, August 21, 2026</span>
+          <span class="count">0 order(s)</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-08-18-misc.html">
+          <span class="d">Miscellaneous order · Tuesday, August 18, 2026</span>
+          <span class="count">1 denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-08-17.html">
+          <span class="d">Order list · Monday, August 17, 2026</span>
+          <span class="count">33 rehearings denied · 7 in pending cases · 4 discipline</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-08-13-misc.html">
+          <span class="d">Miscellaneous order · Thursday, August 13, 2026</span>
+          <span class="count">1 denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-08-12-misc.html">
+          <span class="d">Miscellaneous order · Wednesday, August 12, 2026</span>
+          <span class="count">0 order(s)</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-07-28-misc2.html">
+          <span class="d">Miscellaneous order · Tuesday, July 28, 2026</span>
+          <span class="count">1 denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-07-28-misc1.html">
+          <span class="d">Miscellaneous order · Tuesday, July 28, 2026</span>
+          <span class="count">1 denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-07-28-misc.html">
+          <span class="d">Miscellaneous order · Tuesday, July 28, 2026</span>
+          <span class="count">1 denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-07-20.html">
+          <span class="d">Order list · Monday, July 20, 2026</span>
+          <span class="count">1 granted · 19 rehearings denied · 3 in pending cases</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-07-14-misc.html">
+          <span class="d">Miscellaneous order · Tuesday, July 14, 2026</span>
+          <span class="count">1 denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-07-06-misc1.html">
+          <span class="d">Miscellaneous order · Monday, July 6, 2026</span>
+          <span class="count">1 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-07-06-misc.html">
+          <span class="d">Miscellaneous order · Monday, July 6, 2026</span>
+          <span class="count">1 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-07-02-misc.html">
+          <span class="d">Miscellaneous order · Thursday, July 2, 2026</span>
+          <span class="count">1 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-06-30.html">
+          <span class="d">Order list · Tuesday, June 30, 2026</span>
+          <span class="count">4 granted · 7 GVRs · 12 denied · 4 in pending cases</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-06-29.html">
+          <span class="d">Order list · Monday, June 29, 2026</span>
+          <span class="count">6 granted · 19 GVRs · 100 denied · 1 habeas denied · 8 rehearings denied · 10 in pending cases · 3 discipline</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-06-26-misc.html">
+          <span class="d">Miscellaneous order · Friday, June 26, 2026</span>
+          <span class="count">0 order(s)</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-06-25-misc.html">
+          <span class="d">Miscellaneous order · Thursday, June 25, 2026</span>
+          <span class="count">1 denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-06-22.html">
+          <span class="d">Order list · Monday, June 22, 2026</span>
+          <span class="count">1 granted · 2 GVRs · 125 denied · 1 habeas denied · 2 mandamus denied · 6 rehearings denied · 10 in pending cases</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-06-16-misc.html">
+          <span class="d">Miscellaneous order · Tuesday, June 16, 2026</span>
+          <span class="count">1 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-06-15.html">
+          <span class="d">Order list · Monday, June 15, 2026</span>
+          <span class="count">4 granted · 62 denied · 1 habeas denied · 1 mandamus denied · 7 rehearings denied · 8 in pending cases · 1 prohibition denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-06-11-misc.html">
+          <span class="d">Miscellaneous order · Thursday, June 11, 2026</span>
+          <span class="count">1 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-06-08.html">
+          <span class="d">Order list · Monday, June 8, 2026</span>
+          <span class="count">4 GVRs · 74 denied · 3 habeas denied · 4 rehearings denied · 8 in pending cases · 9 discipline · 1 prohibition denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-06-01-misc.html">
+          <span class="d">Miscellaneous order · Monday, June 1, 2026</span>
+          <span class="count">1 denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-06-01.html">
+          <span class="d">Order list · Monday, June 1, 2026</span>
+          <span class="count">1 granted · 37 denied · 3 habeas denied · 1 mandamus denied · 6 rehearings denied · 5 in pending cases</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-05-26.html">
+          <span class="d">Order list · Tuesday, May 26, 2026</span>
+          <span class="count">54 denied · 1 habeas denied · 2 mandamus denied · 12 rehearings denied · 4 in pending cases</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-05-22-misc.html">
+          <span class="d">Miscellaneous order · Friday, May 22, 2026</span>
+          <span class="count">1 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-05-21-misc4.html">
+          <span class="d">Miscellaneous order · Thursday, May 21, 2026</span>
+          <span class="count">1 denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-05-21-misc3.html">
+          <span class="d">Miscellaneous order · Thursday, May 21, 2026</span>
+          <span class="count">1 denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-05-21-misc2.html">
+          <span class="d">Miscellaneous order · Thursday, May 21, 2026</span>
+          <span class="count">1 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-05-21-misc1.html">
+          <span class="d">Miscellaneous order · Thursday, May 21, 2026</span>
+          <span class="count">1 habeas denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-05-21-misc.html">
+          <span class="d">Miscellaneous order · Thursday, May 21, 2026</span>
+          <span class="count">1 denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-05-19-misc.html">
+          <span class="d">Miscellaneous order · Tuesday, May 19, 2026</span>
+          <span class="count">1 denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-05-18.html">
+          <span class="d">Order list · Monday, May 18, 2026</span>
+          <span class="count">1 granted · 115 denied · 1 habeas denied · 6 mandamus denied · 20 rehearings denied · 14 in pending cases · 1 discipline · 2 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-05-15-misc.html">
+          <span class="d">Miscellaneous order · Friday, May 15, 2026</span>
+          <span class="count">1 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-05-11-misc1.html">
+          <span class="d">Miscellaneous order · Monday, May 11, 2026</span>
+          <span class="count">0 order(s)</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-05-11-misc.html">
+          <span class="d">Miscellaneous order · Monday, May 11, 2026</span>
+          <span class="count">0 order(s)</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-05-06-misc.html">
+          <span class="d">Miscellaneous order · Wednesday, May 6, 2026</span>
+          <span class="count">3 in pending cases</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-05-04-misc1.html">
+          <span class="d">Miscellaneous order · Monday, May 4, 2026</span>
+          <span class="count">0 order(s)</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-05-04-misc.html">
+          <span class="d">Miscellaneous order · Monday, May 4, 2026</span>
+          <span class="count">0 order(s)</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-05-04.html">
+          <span class="d">Order list · Monday, May 4, 2026</span>
+          <span class="count">61 denied · 1 mandamus denied · 6 in pending cases · 1 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-04-30-misc3.html">
+          <span class="d">Miscellaneous order · Thursday, April 30, 2026</span>
+          <span class="count">1 denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-04-30-misc2.html">
+          <span class="d">Miscellaneous order · Thursday, April 30, 2026</span>
+          <span class="count">1 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-04-30-misc1.html">
+          <span class="d">Miscellaneous order · Thursday, April 30, 2026</span>
+          <span class="count">1 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-04-30-misc.html">
+          <span class="d">Miscellaneous order · Thursday, April 30, 2026</span>
+          <span class="count">1 denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-04-27.html">
+          <span class="d">Order list · Monday, April 27, 2026</span>
+          <span class="count">1 granted · 55 denied · 2 habeas denied · 12 rehearings denied · 2 in pending cases · 1 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-04-21-misc.html">
+          <span class="d">Miscellaneous order · Tuesday, April 21, 2026</span>
+          <span class="count">1 denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-04-20.html">
+          <span class="d">Order list · Monday, April 20, 2026</span>
+          <span class="count">2 granted · 177 denied · 1 habeas denied · 4 mandamus denied · 18 rehearings denied · 15 in pending cases · 5 discipline · 1 orders · 1 prohibition denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-04-17-misc.html">
+          <span class="d">Miscellaneous order · Friday, April 17, 2026</span>
+          <span class="count">4 in pending cases</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-04-09-misc.html">
+          <span class="d">Miscellaneous order · Thursday, April 9, 2026</span>
+          <span class="count">1 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-04-08.html">
+          <span class="d">Order list · Wednesday, April 8, 2026</span>
+          <span class="count">0 order(s)</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-04-08.html">
+          <span class="d">Order list · Wednesday, April 8, 2026</span>
+          <span class="count">0 order(s)</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-04-08.html">
+          <span class="d">Order list · Wednesday, April 8, 2026</span>
+          <span class="count">0 order(s)</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-04-06.html">
+          <span class="d">Order list · Monday, April 6, 2026</span>
+          <span class="count">1 granted · 6 GVRs · 37 denied · 3 habeas denied · 1 mandamus denied · 5 rehearings denied · 7 in pending cases</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-03-30.html">
+          <span class="d">Order list · Monday, March 30, 2026</span>
+          <span class="count">1 granted · 67 denied · 3 habeas denied · 2 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-03-23.html">
+          <span class="d">Order list · Monday, March 23, 2026</span>
+          <span class="count">185 denied · 4 mandamus denied · 13 rehearings denied · 4 in pending cases · 1 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-03-20-misc.html">
+          <span class="d">Miscellaneous order · Friday, March 20, 2026</span>
+          <span class="count">1 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-03-16-misc1.html">
+          <span class="d">Miscellaneous order · Monday, March 16, 2026</span>
+          <span class="count">2 granted</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-03-16-misc.html">
+          <span class="d">Miscellaneous order · Monday, March 16, 2026</span>
+          <span class="count">1 denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-03-11-misc.html">
+          <span class="d">Miscellaneous order · Wednesday, March 11, 2026</span>
+          <span class="count">1 denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-03-09.html">
+          <span class="d">Order list · Monday, March 9, 2026</span>
+          <span class="count">1 granted · 55 denied · 2 mandamus denied · 4 rehearings denied · 3 in pending cases · 2 prohibition denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-03-03-misc.html">
+          <span class="d">Miscellaneous order · Tuesday, March 3, 2026</span>
+          <span class="count">1 denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-03-02.html">
+          <span class="d">Order list · Monday, March 2, 2026</span>
+          <span class="count">62 denied · 2 habeas denied · 9 rehearings denied · 10 in pending cases</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-02-23.html">
+          <span class="d">Order list · Monday, February 23, 2026</span>
+          <span class="count">1 granted · 323 denied · 7 habeas denied · 9 mandamus denied · 25 rehearings denied · 18 in pending cases · 1 discipline</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-02-20-misc.html">
+          <span class="d">Miscellaneous order · Friday, February 20, 2026</span>
+          <span class="count">1 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-02-17-misc.html">
+          <span class="d">Miscellaneous order · Tuesday, February 17, 2026</span>
+          <span class="count">0 order(s)</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-02-11-misc.html">
+          <span class="d">Miscellaneous order · Wednesday, February 11, 2026</span>
+          <span class="count">1 denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-02-10-misc.html">
+          <span class="d">Miscellaneous order · Tuesday, February 10, 2026</span>
+          <span class="count">1 denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-02-04-misc.html">
+          <span class="d">Miscellaneous order · Wednesday, February 4, 2026</span>
+          <span class="count">1 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-01-28-misc.html">
+          <span class="d">Miscellaneous order · Wednesday, January 28, 2026</span>
+          <span class="count">1 denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-01-26.html">
+          <span class="d">Order list · Monday, January 26, 2026</span>
+          <span class="count">1 granted · 62 denied · 3 mandamus denied · 9 rehearings denied · 5 in pending cases · 2 discipline · 1 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-01-20.html">
+          <span class="d">Order list · Tuesday, January 20, 2026</span>
+          <span class="count">156 denied · 4 mandamus denied · 6 in pending cases · 2 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-01-16-misc.html">
+          <span class="d">Miscellaneous order · Friday, January 16, 2026</span>
+          <span class="count">4 granted</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-01-12.html">
+          <span class="d">Order list · Monday, January 12, 2026</span>
+          <span class="count">3 GVRs · 334 denied · 2 mandamus denied · 53 rehearings denied · 26 in pending cases</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-01-09-misc.html">
+          <span class="d">Miscellaneous order · Friday, January 9, 2026</span>
+          <span class="count">5 granted · 1 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2026-01-07-misc.html">
+          <span class="d">Miscellaneous order · Wednesday, January 7, 2026</span>
+          <span class="count">1 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-12-22-misc.html">
+          <span class="d">Miscellaneous order · Monday, December 22, 2025</span>
+          <span class="count">1 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-12-19-misc.html">
+          <span class="d">Miscellaneous order · Friday, December 19, 2025</span>
+          <span class="count">1 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-12-18-misc1.html">
+          <span class="d">Miscellaneous order · Thursday, December 18, 2025</span>
+          <span class="count">1 denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-12-18-misc.html">
+          <span class="d">Miscellaneous order · Thursday, December 18, 2025</span>
+          <span class="count">1 denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-12-15.html">
+          <span class="d">Order list · Monday, December 15, 2025</span>
+          <span class="count">1 granted · 66 denied · 1 habeas denied · 25 rehearings denied · 11 in pending cases · 2 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-12-11-misc.html">
+          <span class="d">Miscellaneous order · Thursday, December 11, 2025</span>
+          <span class="count">1 denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-12-08.html">
+          <span class="d">Order list · Monday, December 8, 2025</span>
+          <span class="count">119 denied · 3 habeas denied · 3 mandamus denied · 23 rehearings denied · 11 in pending cases · 1 discipline · 1 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-12-05-misc.html">
+          <span class="d">Miscellaneous order · Friday, December 5, 2025</span>
+          <span class="count">4 granted · 1 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-11-26-misc.html">
+          <span class="d">Miscellaneous order · Wednesday, November 26, 2025</span>
+          <span class="count">1 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-11-24.html">
+          <span class="d">Order list · Monday, November 24, 2025</span>
+          <span class="count">85 denied · 1 habeas denied · 8 mandamus denied · 10 rehearings denied · 8 in pending cases</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-11-21-misc.html">
+          <span class="d">Miscellaneous order · Friday, November 21, 2025</span>
+          <span class="count">0 order(s)</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-11-20-misc.html">
+          <span class="d">Miscellaneous order · Thursday, November 20, 2025</span>
+          <span class="count">1 denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-11-17.html">
+          <span class="d">Order list · Monday, November 17, 2025</span>
+          <span class="count">1 granted · 96 denied · 2 habeas denied · 1 mandamus denied · 2 rehearings denied · 9 in pending cases</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-11-14-misc.html">
+          <span class="d">Miscellaneous order · Friday, November 14, 2025</span>
+          <span class="count">0 order(s)</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-11-13-misc1.html">
+          <span class="d">Miscellaneous order · Thursday, November 13, 2025</span>
+          <span class="count">1 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-11-13-misc.html">
+          <span class="d">Miscellaneous order · Thursday, November 13, 2025</span>
+          <span class="count">1 denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-11-12-misc.html">
+          <span class="d">Miscellaneous order · Wednesday, November 12, 2025</span>
+          <span class="count">1 denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-11-11-misc.html">
+          <span class="d">Miscellaneous order · Tuesday, November 11, 2025</span>
+          <span class="count">1 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-11-10-misc.html">
+          <span class="d">Miscellaneous order · Monday, November 10, 2025</span>
+          <span class="count">0 order(s)</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-11-10.html">
+          <span class="d">Order list · Monday, November 10, 2025</span>
+          <span class="count">1 granted · 187 denied · 3 habeas denied · 7 mandamus denied · 2 rehearings denied · 15 in pending cases · 3 discipline</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-11-07-misc.html">
+          <span class="d">Miscellaneous order · Friday, November 7, 2025</span>
+          <span class="count">1 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-11-05-misc.html">
+          <span class="d">Miscellaneous order · Wednesday, November 5, 2025</span>
+          <span class="count">0 order(s)</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-10-29-misc.html">
+          <span class="d">Miscellaneous order · Wednesday, October 29, 2025</span>
+          <span class="count">1 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-10-23-misc1.html">
+          <span class="d">Miscellaneous order · Thursday, October 23, 2025</span>
+          <span class="count">1 denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-10-23-misc.html">
+          <span class="d">Miscellaneous order · Thursday, October 23, 2025</span>
+          <span class="count">2 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-10-20.html">
+          <span class="d">Order list · Monday, October 20, 2025</span>
+          <span class="count">3 granted · 97 denied · 5 habeas denied · 2 mandamus denied · 4 in pending cases · 1 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-10-17-misc.html">
+          <span class="d">Miscellaneous order · Friday, October 17, 2025</span>
+          <span class="count">1 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-10-14-misc1.html">
+          <span class="d">Miscellaneous order · Tuesday, October 14, 2025</span>
+          <span class="count">1 denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-10-14-misc.html">
+          <span class="d">Miscellaneous order · Tuesday, October 14, 2025</span>
+          <span class="count">1 denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-10-14.html">
+          <span class="d">Order list · Tuesday, October 14, 2025</span>
+          <span class="count">116 denied · 6 habeas denied · 4 mandamus denied · 5 rehearings denied · 23 in pending cases · 1 prohibition denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-10-10-misc.html">
+          <span class="d">Miscellaneous order · Friday, October 10, 2025</span>
+          <span class="count">1 granted</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-10-08-misc.html">
+          <span class="d">Miscellaneous order · Wednesday, October 8, 2025</span>
+          <span class="count">1 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-10-06-misc.html">
+          <span class="d">Miscellaneous order · Monday, October 6, 2025</span>
+          <span class="count">1 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-10-06.html">
+          <span class="d">Order list · Monday, October 6, 2025</span>
+          <span class="count">820 denied · 26 habeas denied · 11 mandamus denied · 10 rehearings denied · 43 in pending cases</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-10-03-misc.html">
+          <span class="d">Miscellaneous order · Friday, October 3, 2025</span>
+          <span class="count">5 granted</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-10-02-misc.html">
+          <span class="d">Miscellaneous order · Thursday, October 2, 2025</span>
+          <span class="count">0 order(s)</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-10-01-misc.html">
+          <span class="d">Miscellaneous order · Wednesday, October 1, 2025</span>
+          <span class="count">1 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-09-30-misc1.html">
+          <span class="d">Miscellaneous order · Tuesday, September 30, 2025</span>
+          <span class="count">1 denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-09-30-misc.html">
+          <span class="d">Miscellaneous order · Tuesday, September 30, 2025</span>
+          <span class="count">9 in pending cases</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-09-26-misc.html">
+          <span class="d">Miscellaneous order · Friday, September 26, 2025</span>
+          <span class="count">0 order(s)</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-09-25-misc.html">
+          <span class="d">Miscellaneous order · Thursday, September 25, 2025</span>
+          <span class="count">1 habeas denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-09-22-misc1.html">
+          <span class="d">Miscellaneous order · Monday, September 22, 2025</span>
+          <span class="count">2 denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-09-22-misc.html">
+          <span class="d">Miscellaneous order · Monday, September 22, 2025</span>
+          <span class="count">6 in pending cases</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-09-19-misc.html">
+          <span class="d">Miscellaneous order · Friday, September 19, 2025</span>
+          <span class="count">1 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-09-16-misc.html">
+          <span class="d">Miscellaneous order · Tuesday, September 16, 2025</span>
+          <span class="count">1 denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-09-12-misc.html">
+          <span class="d">Miscellaneous order · Friday, September 12, 2025</span>
+          <span class="count">0 order(s)</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-09-10-misc.html">
+          <span class="d">Miscellaneous order · Wednesday, September 10, 2025</span>
+          <span class="count">1 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-09-09-misc1.html">
+          <span class="d">Miscellaneous order · Tuesday, September 9, 2025</span>
+          <span class="count">4 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-09-09-misc.html">
+          <span class="d">Miscellaneous order · Tuesday, September 9, 2025</span>
+          <span class="count">0 order(s)</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-09-08-misc.html">
+          <span class="d">Miscellaneous order · Monday, September 8, 2025</span>
+          <span class="count">0 order(s)</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-09-05.html">
+          <span class="d">Order list · Friday, September 5, 2025</span>
+          <span class="count">18 rehearings denied · 10 in pending cases · 5 discipline</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-08-27-misc.html">
+          <span class="d">Miscellaneous order · Wednesday, August 27, 2025</span>
+          <span class="count">1 denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-08-19-misc2.html">
+          <span class="d">Miscellaneous order · Tuesday, August 19, 2025</span>
+          <span class="count">1 denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-08-19-misc1.html">
+          <span class="d">Miscellaneous order · Tuesday, August 19, 2025</span>
+          <span class="count">1 denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-08-19-misc.html">
+          <span class="d">Miscellaneous order · Tuesday, August 19, 2025</span>
+          <span class="count">1 denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-08-18.html">
+          <span class="d">Order list · Monday, August 18, 2025</span>
+          <span class="count">25 rehearings denied · 4 discipline · 2 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-08-04-misc3.html">
+          <span class="d">Miscellaneous order · Monday, August 4, 2025</span>
+          <span class="count">1 denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-08-04-misc2.html">
+          <span class="d">Miscellaneous order · Monday, August 4, 2025</span>
+          <span class="count">1 denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-08-04-misc1.html">
+          <span class="d">Miscellaneous order · Monday, August 4, 2025</span>
+          <span class="count">1 denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-08-04-misc.html">
+          <span class="d">Miscellaneous order · Monday, August 4, 2025</span>
+          <span class="count">1 denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-08-01-misc.html">
+          <span class="d">Miscellaneous order · Friday, August 1, 2025</span>
+          <span class="count">2 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-07-30-misc.html">
+          <span class="d">Miscellaneous order · Wednesday, July 30, 2025</span>
+          <span class="count">1 denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-07-24-misc.html">
+          <span class="d">Miscellaneous order · Thursday, July 24, 2025</span>
+          <span class="count">1 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-07-21.html">
+          <span class="d">Order list · Monday, July 21, 2025</span>
+          <span class="count">21 rehearings denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-07-16-misc.html">
+          <span class="d">Miscellaneous order · Wednesday, July 16, 2025</span>
+          <span class="count">0 order(s)</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-07-15-misc1.html">
+          <span class="d">Miscellaneous order · Tuesday, July 15, 2025</span>
+          <span class="count">1 denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-07-15-misc.html">
+          <span class="d">Miscellaneous order · Tuesday, July 15, 2025</span>
+          <span class="count">1 denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-07-09-misc.html">
+          <span class="d">Miscellaneous order · Wednesday, July 9, 2025</span>
+          <span class="count">1 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-07-03-misc.html">
+          <span class="d">Miscellaneous order · Thursday, July 3, 2025</span>
+          <span class="count">5 granted · 2 in pending cases</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-07-01-misc.html">
+          <span class="d">Miscellaneous order · Tuesday, July 1, 2025</span>
+          <span class="count">1 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-06-30.html">
+          <span class="d">Order list · Monday, June 30, 2025</span>
+          <span class="count">7 granted · 21 GVRs · 105 denied · 1 habeas denied · 3 mandamus denied · 5 rehearings denied · 6 in pending cases</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-06-25-misc2.html">
+          <span class="d">Miscellaneous order · Wednesday, June 25, 2025</span>
+          <span class="count">1 denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-06-25-misc1.html">
+          <span class="d">Miscellaneous order · Wednesday, June 25, 2025</span>
+          <span class="count">1 denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-06-25-misc.html">
+          <span class="d">Miscellaneous order · Wednesday, June 25, 2025</span>
+          <span class="count">1 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-06-24-misc.html">
+          <span class="d">Miscellaneous order · Tuesday, June 24, 2025</span>
+          <span class="count">1 denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-06-23.html">
+          <span class="d">Order list · Monday, June 23, 2025</span>
+          <span class="count">1 granted · 77 denied · 2 habeas denied · 2 mandamus denied · 7 rehearings denied · 9 in pending cases</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-06-20-misc.html">
+          <span class="d">Miscellaneous order · Friday, June 20, 2025</span>
+          <span class="count">1 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-06-16.html">
+          <span class="d">Order list · Monday, June 16, 2025</span>
+          <span class="count">2 granted · 73 denied · 3 habeas denied · 2 mandamus denied · 10 rehearings denied · 3 in pending cases · 1 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-06-13-misc.html">
+          <span class="d">Miscellaneous order · Friday, June 13, 2025</span>
+          <span class="count">1 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-06-11-misc.html">
+          <span class="d">Miscellaneous order · Wednesday, June 11, 2025</span>
+          <span class="count">1 denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-06-10-misc1.html">
+          <span class="d">Miscellaneous order · Tuesday, June 10, 2025</span>
+          <span class="count">1 denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-06-10-misc.html">
+          <span class="d">Miscellaneous order · Tuesday, June 10, 2025</span>
+          <span class="count">1 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-06-09-misc2.html">
+          <span class="d">Miscellaneous order · Monday, June 9, 2025</span>
+          <span class="count">1 habeas denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-06-09-misc1.html">
+          <span class="d">Miscellaneous order · Monday, June 9, 2025</span>
+          <span class="count">1 denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-06-09-misc.html">
+          <span class="d">Miscellaneous order · Monday, June 9, 2025</span>
+          <span class="count">0 order(s)</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-06-06-misc.html">
+          <span class="d">Miscellaneous order · Friday, June 6, 2025</span>
+          <span class="count">1 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-06-06.html">
+          <span class="d">Order list · Friday, June 6, 2025</span>
+          <span class="count">4 granted · 45 denied · 2 habeas denied · 2 mandamus denied · 8 rehearings denied · 3 in pending cases · 1 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-06-04-misc.html">
+          <span class="d">Miscellaneous order · Wednesday, June 4, 2025</span>
+          <span class="count">1 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-06-02.html">
+          <span class="d">Order list · Monday, June 2, 2025</span>
+          <span class="count">4 granted · 93 denied · 2 habeas denied · 5 mandamus denied · 8 rehearings denied · 6 in pending cases</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-05-30-misc.html">
+          <span class="d">Miscellaneous order · Friday, May 30, 2025</span>
+          <span class="count">0 order(s)</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-05-29-misc.html">
+          <span class="d">Miscellaneous order · Thursday, May 29, 2025</span>
+          <span class="count">0 order(s)</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-05-27.html">
+          <span class="d">Order list · Tuesday, May 27, 2025</span>
+          <span class="count">1 granted · 2 GVRs · 59 denied · 2 habeas denied · 2 mandamus denied · 7 rehearings denied · 5 in pending cases</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-05-23-misc1.html">
+          <span class="d">Miscellaneous order · Friday, May 23, 2025</span>
+          <span class="count">0 order(s)</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-05-23-misc.html">
+          <span class="d">Miscellaneous order · Friday, May 23, 2025</span>
+          <span class="count">1 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-05-19-misc3.html">
+          <span class="d">Miscellaneous order · Monday, May 19, 2025</span>
+          <span class="count">1 denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-05-19-misc2.html">
+          <span class="d">Miscellaneous order · Monday, May 19, 2025</span>
+          <span class="count">1 denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-05-19-misc1.html">
+          <span class="d">Miscellaneous order · Monday, May 19, 2025</span>
+          <span class="count">1 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-05-19-misc.html">
+          <span class="d">Miscellaneous order · Monday, May 19, 2025</span>
+          <span class="count">0 order(s)</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-05-19.html">
+          <span class="d">Order list · Monday, May 19, 2025</span>
+          <span class="count">3 GVRs · 112 denied · 2 habeas denied · 1 mandamus denied · 13 rehearings denied · 8 in pending cases</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-05-15-misc.html">
+          <span class="d">Miscellaneous order · Thursday, May 15, 2025</span>
+          <span class="count">1 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-05-14-misc.html">
+          <span class="d">Miscellaneous order · Wednesday, May 14, 2025</span>
+          <span class="count">1 denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-05-06-misc.html">
+          <span class="d">Miscellaneous order · Tuesday, May 6, 2025</span>
+          <span class="count">1 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-05-05.html">
+          <span class="d">Order list · Monday, May 5, 2025</span>
+          <span class="count">55 denied · 2 habeas denied · 3 mandamus denied · 6 rehearings denied · 12 in pending cases</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-05-01-misc4.html">
+          <span class="d">Miscellaneous order · Thursday, May 1, 2025</span>
+          <span class="count">1 denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-05-01-misc3.html">
+          <span class="d">Miscellaneous order · Thursday, May 1, 2025</span>
+          <span class="count">1 denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-05-01-misc2.html">
+          <span class="d">Miscellaneous order · Thursday, May 1, 2025</span>
+          <span class="count">1 denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-05-01-misc1.html">
+          <span class="d">Miscellaneous order · Thursday, May 1, 2025</span>
+          <span class="count">1 denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-05-01-misc.html">
+          <span class="d">Miscellaneous order · Thursday, May 1, 2025</span>
+          <span class="count">1 denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-04-28.html">
+          <span class="d">Order list · Monday, April 28, 2025</span>
+          <span class="count">1 granted · 75 denied · 1 habeas denied · 1 mandamus denied · 17 rehearings denied · 4 in pending cases</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-04-25-misc.html">
+          <span class="d">Miscellaneous order · Friday, April 25, 2025</span>
+          <span class="count">1 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-04-23.html">
+          <span class="d">Order list · Wednesday, April 23, 2025</span>
+          <span class="count">0 order(s)</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-04-23.html">
+          <span class="d">Order list · Wednesday, April 23, 2025</span>
+          <span class="count">0 order(s)</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-04-23.html">
+          <span class="d">Order list · Wednesday, April 23, 2025</span>
+          <span class="count">0 order(s)</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-04-23-misc.html">
+          <span class="d">Miscellaneous order · Wednesday, April 23, 2025</span>
+          <span class="count">1 denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-04-22-misc.html">
+          <span class="d">Miscellaneous order · Tuesday, April 22, 2025</span>
+          <span class="count">1 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-04-21.html">
+          <span class="d">Order list · Monday, April 21, 2025</span>
+          <span class="count">1 granted · 140 denied · 4 habeas denied · 18 rehearings denied · 7 in pending cases · 1 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-04-19-misc.html">
+          <span class="d">Miscellaneous order · Saturday, April 19, 2025</span>
+          <span class="count">1 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-04-17-misc1.html">
+          <span class="d">Miscellaneous order · Thursday, April 17, 2025</span>
+          <span class="count">3 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-04-17-misc.html">
+          <span class="d">Miscellaneous order · Thursday, April 17, 2025</span>
+          <span class="count">6 in pending cases</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-04-11-misc.html">
+          <span class="d">Miscellaneous order · Friday, April 11, 2025</span>
+          <span class="count">1 denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-04-10-misc.html">
+          <span class="d">Miscellaneous order · Thursday, April 10, 2025</span>
+          <span class="count">0 order(s)</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-04-09-misc.html">
+          <span class="d">Miscellaneous order · Wednesday, April 9, 2025</span>
+          <span class="count">0 order(s)</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-04-08-misc1.html">
+          <span class="d">Miscellaneous order · Tuesday, April 8, 2025</span>
+          <span class="count">1 denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-04-08-misc.html">
+          <span class="d">Miscellaneous order · Tuesday, April 8, 2025</span>
+          <span class="count">1 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-04-07-misc.html">
+          <span class="d">Miscellaneous order · Monday, April 7, 2025</span>
+          <span class="count">0 order(s)</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-04-07.html">
+          <span class="d">Order list · Monday, April 7, 2025</span>
+          <span class="count">2 granted · 63 denied · 1 habeas denied · 2 mandamus denied · 3 rehearings denied · 6 in pending cases · 1 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-03-31.html">
+          <span class="d">Order list · Monday, March 31, 2025</span>
+          <span class="count">72 denied · 9 rehearings denied · 4 in pending cases · 1 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-03-24.html">
+          <span class="d">Order list · Monday, March 24, 2025</span>
+          <span class="count">168 denied · 2 habeas denied · 5 mandamus denied · 18 rehearings denied · 7 in pending cases</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-03-21-misc.html">
+          <span class="d">Miscellaneous order · Friday, March 21, 2025</span>
+          <span class="count">4 in pending cases</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-03-20-misc2.html">
+          <span class="d">Miscellaneous order · Thursday, March 20, 2025</span>
+          <span class="count">1 denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-03-20-misc1.html">
+          <span class="d">Miscellaneous order · Thursday, March 20, 2025</span>
+          <span class="count">1 denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-03-20-misc.html">
+          <span class="d">Miscellaneous order · Thursday, March 20, 2025</span>
+          <span class="count">1 denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-03-19-misc.html">
+          <span class="d">Miscellaneous order · Wednesday, March 19, 2025</span>
+          <span class="count">1 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-03-14-misc.html">
+          <span class="d">Miscellaneous order · Friday, March 14, 2025</span>
+          <span class="count">0 order(s)</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-03-10.html">
+          <span class="d">Order list · Monday, March 10, 2025</span>
+          <span class="count">2 granted · 75 denied · 2 habeas denied · 2 mandamus denied · 15 rehearings denied · 4 in pending cases · 1 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-03-07-misc.html">
+          <span class="d">Miscellaneous order · Friday, March 7, 2025</span>
+          <span class="count">1 denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-03-06-misc.html">
+          <span class="d">Miscellaneous order · Thursday, March 6, 2025</span>
+          <span class="count">1 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-03-03.html">
+          <span class="d">Order list · Monday, March 3, 2025</span>
+          <span class="count">1 granted · 58 denied · 1 habeas denied · 16 rehearings denied · 5 in pending cases · 6 discipline</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-02-26-misc.html">
+          <span class="d">Miscellaneous order · Wednesday, February 26, 2025</span>
+          <span class="count">0 order(s)</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-02-24.html">
+          <span class="d">Order list · Monday, February 24, 2025</span>
+          <span class="count">3 GVRs · 243 denied · 4 habeas denied · 6 mandamus denied · 32 rehearings denied · 18 in pending cases</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-02-20-misc.html">
+          <span class="d">Miscellaneous order · Thursday, February 20, 2025</span>
+          <span class="count">1 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-02-12-misc1.html">
+          <span class="d">Miscellaneous order · Wednesday, February 12, 2025</span>
+          <span class="count">1 denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-02-12-misc.html">
+          <span class="d">Miscellaneous order · Wednesday, February 12, 2025</span>
+          <span class="count">5 in pending cases</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-02-06-misc.html">
+          <span class="d">Miscellaneous order · Thursday, February 6, 2025</span>
+          <span class="count">5 in pending cases</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-02-05-misc.html">
+          <span class="d">Miscellaneous order · Wednesday, February 5, 2025</span>
+          <span class="count">1 denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-02-03-misc.html">
+          <span class="d">Miscellaneous order · Monday, February 3, 2025</span>
+          <span class="count">0 order(s)</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-01-30-misc.html">
+          <span class="d">Miscellaneous order · Thursday, January 30, 2025</span>
+          <span class="count">1 denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-01-28-misc.html">
+          <span class="d">Miscellaneous order · Tuesday, January 28, 2025</span>
+          <span class="count">2 in pending cases</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-01-27-misc.html">
+          <span class="d">Miscellaneous order · Monday, January 27, 2025</span>
+          <span class="count">1 granted</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-01-27.html">
+          <span class="d">Order list · Monday, January 27, 2025</span>
+          <span class="count">76 denied · 3 mandamus denied · 7 rehearings denied · 5 in pending cases · 8 discipline · 1 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-01-24-misc.html">
+          <span class="d">Miscellaneous order · Friday, January 24, 2025</span>
+          <span class="count">3 granted</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-01-22-misc.html">
+          <span class="d">Miscellaneous order · Wednesday, January 22, 2025</span>
+          <span class="count">0 order(s)</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-01-21.html">
+          <span class="d">Order list · Tuesday, January 21, 2025</span>
+          <span class="count">39 denied · 3 mandamus denied · 5 in pending cases · 1 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-01-17-misc.html">
+          <span class="d">Miscellaneous order · Friday, January 17, 2025</span>
+          <span class="count">5 granted · 2 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-01-13.html">
+          <span class="d">Order list · Monday, January 13, 2025</span>
+          <span class="count">2 GVRs · 288 denied · 4 habeas denied · 4 mandamus denied · 36 rehearings denied · 18 in pending cases · 1 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-01-10-misc.html">
+          <span class="d">Miscellaneous order · Friday, January 10, 2025</span>
+          <span class="count">3 granted</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-01-09-misc.html">
+          <span class="d">Miscellaneous order · Thursday, January 9, 2025</span>
+          <span class="count">1 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2025-01-08-misc.html">
+          <span class="d">Miscellaneous order · Wednesday, January 8, 2025</span>
+          <span class="count">5 in pending cases</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2024-12-31-misc.html">
+          <span class="d">Miscellaneous order · Tuesday, December 31, 2024</span>
+          <span class="count">2 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2024-12-19-misc.html">
+          <span class="d">Miscellaneous order · Thursday, December 19, 2024</span>
+          <span class="count">1 denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2024-12-18-misc1.html">
+          <span class="d">Miscellaneous order · Wednesday, December 18, 2024</span>
+          <span class="count">2 granted</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2024-12-18-misc.html">
+          <span class="d">Miscellaneous order · Wednesday, December 18, 2024</span>
+          <span class="count">1 granted</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2024-12-17-misc1.html">
+          <span class="d">Miscellaneous order · Tuesday, December 17, 2024</span>
+          <span class="count">1 denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2024-12-17-misc.html">
+          <span class="d">Miscellaneous order · Tuesday, December 17, 2024</span>
+          <span class="count">1 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2024-12-16-misc.html">
+          <span class="d">Miscellaneous order · Monday, December 16, 2024</span>
+          <span class="count">1 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2024-12-16.html">
+          <span class="d">Order list · Monday, December 16, 2024</span>
+          <span class="count">55 denied · 4 mandamus denied · 22 rehearings denied · 8 in pending cases · 1 orders · 2 prohibition denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2024-12-13-misc.html">
+          <span class="d">Miscellaneous order · Friday, December 13, 2024</span>
+          <span class="count">2 granted</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2024-12-11-misc.html">
+          <span class="d">Miscellaneous order · Wednesday, December 11, 2024</span>
+          <span class="count">1 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2024-12-09.html">
+          <span class="d">Order list · Monday, December 9, 2024</span>
+          <span class="count">97 denied · 1 habeas denied · 2 mandamus denied · 26 rehearings denied · 16 in pending cases</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2024-12-06-misc.html">
+          <span class="d">Miscellaneous order · Friday, December 6, 2024</span>
+          <span class="count">3 granted</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2024-12-03-misc.html">
+          <span class="d">Miscellaneous order · Tuesday, December 3, 2024</span>
+          <span class="count">1 orders</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2024-12-02-misc.html">
+          <span class="d">Miscellaneous order · Monday, December 2, 2024</span>
+          <span class="count">1 denied</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2024-11-25.html">
+          <span class="d">Order list · Monday, November 25, 2024</span>
+          <span class="count">63 denied · 2 mandamus denied · 18 rehearings denied · 14 in pending cases</span>
+        </a>
+      </li>
+      <li>
+        <a class="row" href="2024-11-22-misc1.html">
+          <span class="d">Miscellaneous order · Friday, November 22, 2024</span>
+          <span class="count">2 granted</span>
+        </a>
+      </li>
+    </ul>
+  </main>
+</body>
+</html>
+
