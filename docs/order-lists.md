@@ -39,11 +39,28 @@ capital petition). The list ends where any attached opinions begin: a
 `SUPREME COURT OF THE UNITED STATES` running head or a `THOMAS, J.,
 dissenting` header. Those are not parsed; the docket pages already link them.
 
-Measured on four documents (a first-Monday list, a January list, the last June
-list, and a one-docket miscellaneous order): 910, 418, 147 and 1 entries, every
-docket assigned to its section, every run of dockets carrying its order text,
-and captions intact. The bracket was the one surprise: it sits **after** the
-caption on some lines, and is stripped from either end.
+Measured on seven documents (a first-Monday list, a January list, the last
+June list, two summer lists, and two miscellaneous orders): 910, 418, 147, 44,
+27, 1 and 1 entries, every docket assigned to its section, every run of dockets
+carrying its order text, and captions intact. Two surprises from the first
+live run:
+
+- **The bracket** sits before a caption, after it, or on a line of its own
+  under it, and is dropped from all three places.
+- **A single-Justice order is not a list.** The Chief Justice's administrative
+  stay in 26A203 (21 Aug 2026) is typeset as a caption page: `No. 26A203`, the
+  parties on separate lines with their role words, `ORDER`, `IT IS ORDERED
+  that ...`, a signature. It parsed to nothing on the first run. The parser
+  now falls back to that form when the list grammar finds no docket: one
+  entry, docket from the `No.` line, caption from the party lines, text from
+  `ORDER` to the signature. A document the manifest holds with zero entries is
+  re-parsed on the next run, so a newly learned grammar reaches the back
+  catalogue at one request per document.
+
+The listing also carries a third kind: the April orders adopting amendments to
+the Federal Rules ("Rules of Evidence", stem `frev26`), three on one day, with
+no dockets in them. They are kept under their own label, named by stem so they
+do not share a page, and never appear on the landing panel.
 
 ## Why it is worth having
 

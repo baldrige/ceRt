@@ -100,9 +100,9 @@ orders_terms <- function(as_of = Sys.Date()) {
 }
 
 .orders_df <- function(date = as.Date(character()), kind = character(), url = character(),
-                       stem = character(), term = character())
+                       stem = character(), term = character(), label = character())
   data.frame(date = as.Date(date), kind = kind, url = url, stem = stem, term = term,
-             stringsAsFactors = FALSE)
+             label = label, stringsAsFactors = FALSE)
 
 # One Term's listing page -> (date, kind, url, stem). The page is a run of
 #   <div style="display:block"><span>09/04/26 &nbsp;</span>
@@ -119,9 +119,15 @@ parse_orders_listing <- function(html, term = NA_character_) {
   url <- ifelse(str_starts(m[, 3], "/"), paste0(ORDERS_BASE, m[, 3]), m[, 3])
   stem <- str_remove(basename(url), "_[A-Za-z0-9]+\\.pdf$")
   stem <- str_remove(stem, "\\.pdf$")
-  kind <- ifelse(str_detect(m[, 4], regex("miscellaneous", ignore_case = TRUE)), "misc", "list")
+  # Three kinds. The listing also carries the April orders adopting amendments
+  # to the Federal Rules ("Rules of Evidence", stem "frev26"): a document with
+  # no dockets in it, kept for completeness under its own label and never on
+  # the landing panel.
+  label <- str_squish(m[, 4])
+  kind <- ifelse(str_detect(label, regex("miscellaneous", ignore_case = TRUE)), "misc",
+          ifelse(str_detect(label, regex("^order list", ignore_case = TRUE)), "list", "rules"))
   d <- suppressWarnings(lubridate::mdy(m[, 2]))
-  out <- .orders_df(d, kind, url, tolower(stem), rep(term, length(d)))
+  out <- .orders_df(d, kind, url, tolower(stem), rep(term, length(d)), label)
   out[!is.na(out$date) & !duplicated(out$stem), , drop = FALSE]
 }
 
@@ -213,6 +219,36 @@ parse_order_document <- function(pages) {
     last_kind <- "text"
   }
   df <- if (length(entries)) do.call(rbind, lapply(entries, as.data.frame, stringsAsFactors = FALSE)) else .entries_df()
+  # A single-Justice order (26A203, 21 Aug 2026: the Chief Justice's
+  # administrative stay) is typeset as a caption page, not a list:
+  #   Supreme Court of the United States / No. 26A203 / NATIONAL PARK SERVICE,
+  #   ET AL., / Applicants / v. / NATIONAL TRUST ... / ORDER / IT IS ORDERED ...
+  # One entry: the docket from the "No." line, the caption from the party lines
+  # (role words dropped), the order from "ORDER" to the signature.
+  if (!nrow(df)) {
+    no <- str_match(lines, "^\\s*No\\.\\s*(\\d{2}[AMO-]\\d{1,5})\\s*$")
+    k <- which(!is.na(no[, 2]))[1]
+    if (!is.na(k)) {
+      rest <- str_squish(lines[(k + 1):length(lines)])
+      rest <- rest[nzchar(rest)]
+      o <- which(str_detect(rest, "^(ORDER|IT IS ORDERED)"))[1]
+      party <- if (!is.na(o) && o > 1) rest[seq_len(o - 1)] else character()
+      party <- party[!str_detect(party, regex("^(applicants?|respondents?|petitioners?|appellants?|appellees?|plaintiffs?|defendants?)\\.?$", ignore_case = TRUE))]
+      caption <- str_squish(str_replace_all(paste(party, collapse = " "), "\\s*,?\\s+v\\.\\s+", " V. "))
+      caption <- str_remove(caption, ",\\s*$")
+      body <- if (!is.na(o)) rest[o:length(rest)] else rest
+      sig <- which(str_detect(body, "^/s/|^Dated this"))[1]
+      if (!is.na(sig)) body <- body[seq_len(sig - 1)]
+      body <- body[!str_detect(body, "^ORDER$")]
+      if (is.na(date)) {
+        dd <- str_match(paste(rest, collapse = " "), "Dated this (\\d{1,2})(?:st|nd|rd|th)?\\s*day of ([A-Za-z]+), (\\d{4})")
+        if (!is.na(dd[1, 1])) date <- suppressWarnings(lubridate::mdy(paste(dd[1, 3], dd[1, 2], dd[1, 4])))
+      }
+      df <- data.frame(section = "other", label = "Order", dkt = no[k, 2], caption = caption,
+                       related = NA_character_, text = str_squish(paste(body, collapse = " ")),
+                       group = 1L, stringsAsFactors = FALSE)
+    }
+  }
   list(date = date, cite = if (is.na(cite)) NA_character_ else str_squish(cite), entries = df)
 }
 
@@ -268,9 +304,16 @@ write_orders_manifest <- function(site_dir, idx) {
 # The page name for a document: the date, with the kind and a sequence for the
 # rare second miscellaneous order on one day.
 .orders_page <- function(stem, date, kind) {
+  # A stem that is not the MMDDYY form (the rules orders: "frev26", "frbk26",
+  # "frap26", three on one day) keeps its own name, or three documents would
+  # share one page.
+  if (!str_detect(stem, "^\\d{6}z")) return(paste0(format(as.Date(date), "%Y-%m-%d"), "-", stem, ".html"))
   suffix <- if (kind == "list") "" else paste0("-misc", str_extract(stem, "\\d+$") %|NA|% "")
   paste0(format(as.Date(date), "%Y-%m-%d"), suffix, ".html")
 }
+# The word for a document's kind, on its page, the index and the panel.
+.ord_kind_word <- function(meta) switch(meta$kind %||% "list",
+  misc = "Miscellaneous order", rules = meta$label %||% "Rules amendments", "Order list")
 `%|NA|%` <- function(a, b) if (is.null(a) || length(a) == 0 || is.na(a)) b else a
 
 #' Fetch the listings, download and parse every document the manifest does not
@@ -281,7 +324,10 @@ update_orders <- function(site_dir, terms = orders_terms(), max_new = 250L) {
   idx <- read_orders_manifest(site_dir)
   listing <- fetch_orders_listing(terms)
   if (!nrow(listing)) return(invisible(list(listed = 0L, new = 0L, failed = 0L, total = length(idx))))
-  todo <- listing[!listing$stem %in% names(idx), , drop = FALSE]
+  # New documents, plus any the manifest holds with nothing parsed out of them:
+  # a grammar the parser has since learned gets another look, at one request.
+  empty <- names(idx)[vapply(idx, function(x) identical(as.integer(x$n %||% 0L), 0L), logical(1))]
+  todo <- listing[!listing$stem %in% setdiff(names(idx), empty), , drop = FALSE]
   if (nrow(todo) > max_new) {
     cat("Order documents: ", nrow(todo), " new, capped at ", max_new, " this run\n", sep = "")
     todo <- head(todo, max_new)
@@ -305,7 +351,7 @@ update_orders <- function(site_dir, terms = orders_terms(), max_new = 250L) {
     counts <- order_counts(ent)
     pick <- function(k) if (nrow(ent)) ent[ent$section == k, c("dkt", "caption"), drop = FALSE] else data.frame()
     idx[[r$stem]] <- list(
-      date = format(date), kind = r$kind, url = r$url, term = r$term,
+      date = format(date), kind = r$kind, label = r$label, url = r$url, term = r$term,
       cite = doc$cite, page = .orders_page(r$stem, date, r$kind),
       n = nrow(ent), counts = as.list(counts),
       granted = pick("granted"), gvr = pick("gvr"),
@@ -357,7 +403,7 @@ update_orders <- function(site_dir, terms = orders_terms(), max_new = 250L) {
 # One document's page. `available` is the set of docket numbers with a case page.
 render_order_page <- function(site_dir, stem, meta, entries, caps, available) {
   date <- as.Date(meta$date)
-  kind_word <- if (identical(meta$kind, "misc")) "Miscellaneous order" else "Order list"
+  kind_word <- .ord_kind_word(meta)
   long_date <- .ord_date(date, "%A, %B %e, %Y")
   title <- paste0(kind_word, " — ", .ord_date(date, "%B %e, %Y"))
   counts <- order_counts(entries)
@@ -421,6 +467,12 @@ render_orders <- function(site_dir) {
   if (!length(idx)) return(invisible(0L))
   caps <- .ord_captions(site_dir)
   available <- names(caps)[file.exists(file.path(site_dir, "cases", paste0(names(caps), ".html")))]
+  # Page names are a function of (stem, date, kind), recomputed here so a change
+  # to the naming rule reaches documents already in the manifest.
+  for (stem in names(idx)) {
+    p <- .orders_page(stem, idx[[stem]]$date, idx[[stem]]$kind %||% "list")
+    if (!identical(idx[[stem]]$page, p)) { idx[[stem]]$page <- p; idx[[stem]]$rendered <- NULL }
+  }
   n <- 0L
   for (stem in names(idx)) {
     meta <- idx[[stem]]
@@ -437,6 +489,11 @@ render_orders <- function(site_dir) {
     if (ok) { idx[[stem]]$rendered <- ORDERS_TEMPLATE_VERSION; n <- n + 1L }
   }
   write_orders_manifest(site_dir, idx)
+  # Only the daily writes orders/, so a page the manifest does not name is a
+  # leftover of an old naming rule, and it goes.
+  pages <- c("index.html", vapply(idx, function(x) x$page, character(1)))
+  stray <- setdiff(list.files(.orders_path(site_dir), pattern = "\\.html$"), pages)
+  if (length(stray)) { unlink(.orders_path(site_dir, stray)); message("orders: removed ", length(stray), " stray page(s)") }
   # The section index: one row per document, newest first.
   d <- vapply(idx, function(x) x$date, character(1))
   ord <- order(d, names(idx), decreasing = TRUE)
@@ -444,9 +501,8 @@ render_orders <- function(site_dir) {
     m <- idx[[stem]]
     cl <- counts_line(unlist(m$counts))
     list(href = m$page,
-         label = paste0(if (identical(m$kind, "misc")) "Miscellaneous order" else "Order list",
-                        " · ", .ord_date(m$date, "%A, %B %e, %Y")),
-         meta = if (nzchar(cl)) cl else paste(m$n, "order(s)"))
+         label = paste0(.ord_kind_word(m), " · ", .ord_date(m$date, "%A, %B %e, %Y")),
+         meta = if (nzchar(cl)) cl else if (identical(m$kind, "rules")) "" else paste(m$n, "order(s)"))
   })
   styled_index_page(
     .orders_path(site_dir, "index.html"),
@@ -485,7 +541,8 @@ orders_panel <- function(site_dir, as_of = Sys.Date(), heading = "Latest orders"
   idx <- read_orders_manifest(site_dir)
   if (!length(idx)) return(NULL)
   d <- as.Date(vapply(idx, function(x) x$date, character(1)))
-  keep <- which(!is.na(d) & d >= as.Date(as_of) - days & d <= as.Date(as_of) + 1L)
+  kinds <- vapply(idx, function(x) x$kind %||% "list", character(1))
+  keep <- which(!is.na(d) & d >= as.Date(as_of) - days & d <= as.Date(as_of) + 1L & kinds != "rules")
   if (!length(keep)) return(NULL)
   keep <- keep[order(d[keep], names(idx)[keep], decreasing = TRUE)]
   keep <- head(keep, max_rows)
@@ -498,8 +555,11 @@ orders_panel <- function(site_dir, as_of = Sys.Date(), heading = "Latest orders"
   rows <- lapply(keep, function(i) {
     m <- idx[[i]]; date <- d[i]
     counts <- unlist(m$counts)
-    # The headline numbers only; the page carries the full breakdown.
+    # The headline numbers where there are any; a list with no grants, GVRs or
+    # denials (the September 4 list: rehearings, discipline, housekeeping) gets
+    # the full breakdown instead, which is short in exactly that case.
     cl <- counts_line(counts, keys = c("granted", "gvr", "denied"))
+    if (!nzchar(cl)) cl <- counts_line(counts)
     if (!nzchar(cl) && !is.null(m$n)) cl <- paste(m$n, if (m$n == 1) "order" else "orders")
     named <- .rows_df(if (identical(m$kind, "misc")) m$dockets else m$granted)
     linked <- if (nrow(named)) lapply(seq_len(nrow(named)), function(k) link(named$dkt[k], named$caption[k])) else list()
@@ -512,8 +572,7 @@ orders_panel <- function(site_dir, as_of = Sys.Date(), heading = "Latest orders"
       class = "crow",
       tags$span(class = "cwhen", tags$span(class = "cdow", format(date, "%a")), format(date, "%b %e")),
       tags$span(class = "ctx",
-                tags$a(class = "ckind", href = paste0(ORDERS_DIR, "/", m$page),
-                       if (identical(m$kind, "misc")) "Miscellaneous order" else "Order list"),
+                tags$a(class = "ckind", href = paste0(ORDERS_DIR, "/", m$page), .ord_kind_word(m)),
                 tags$span(class = "cdet", do.call(tagList, .interleave(bits, HTML(" &middot; ")))))))
   })
   tags$section(
