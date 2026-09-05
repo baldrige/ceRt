@@ -51,7 +51,7 @@ ORDERS_LISTING_URL <- "https://www.supremecourt.gov/orders/ordersofthecourt/%s"
 ORDERS_BASE        <- "https://www.supremecourt.gov"
 ORDERS_DIR         <- "orders"
 ORDERS_MANIFEST    <- "orders.json"
-ORDERS_TEMPLATE_VERSION <- "o1"
+ORDERS_TEMPLATE_VERSION <- "o2"   # o2: captions through strip_caption_roles()
 # Landing-page panel: documents from the last N days, at most M of them.
 ORDERS_PANEL_DAYS <- 21L
 ORDERS_PANEL_MAX  <- 4L
@@ -272,6 +272,7 @@ counts_line <- function(counts, sep = " · ", keys = names(.COUNT_WORDS)) {
     n <- counts[[k]]
     w <- .COUNT_WORDS[[k]]
     if (k == "gvr") w <- if (n == 1L) "GVR" else "GVRs"
+    if (k == "other") w <- if (n == 1L) "order" else "orders"
     paste(format(n, big.mark = ","), w)
   }, character(1))
   paste(bits, collapse = sep)
@@ -373,7 +374,14 @@ update_orders <- function(site_dir, terms = orders_terms(), max_new = 250L) {
 .ord_captions <- function(site_dir) {
   p <- file.path(site_dir, "cases", "search.json")
   if (!file.exists(p)) return(list())
-  tryCatch(as.list(fromJSON(p)), error = function(e) list())
+  caps <- tryCatch(as.list(fromJSON(p)), error = function(e) list())
+  # search.json strips only ", Petitioners" and ", Respondents"; the landing
+  # page's caption rule (strip_caption_roles, page_style.R) also drops
+  # ", Applicants" and "et al." -- "National Park Service, et al., Applicants v."
+  # was the first row this panel published.
+  if (length(caps) && exists("strip_caption_roles"))
+    caps <- as.list(setNames(get("strip_caption_roles")(unlist(caps, use.names = FALSE)), names(caps)))
+  caps
 }
 .ord_case_link <- function(dkt, caption, caps, available, prefix = "../cases/") {
   cap <- caps[[dkt]] %||% caption
