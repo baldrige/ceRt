@@ -139,6 +139,10 @@ INDEX_CSS <- paste0("\n  ", palette_root(), "
      does not. */
   ol.cal .dk{font-weight:600;color:var(--ink)}
   ol.cal .cdet a.pdf{color:var(--link)}
+  /* The holding, from the Court's slip-opinion feed: one sentence, set
+     smaller and in the soft ink so the caption stays the row's headline. */
+  ol.cal .chold{display:block;font-size:.86rem;line-height:1.4;color:var(--ink-soft);
+    font-style:italic;margin-top:.15rem}
   ol.cal .cdet a.pdf:hover,ol.cal .cdet a.pdf:focus-visible{color:var(--accent);
     border-bottom-color:var(--accent)}
   ol.grants{list-style:none;margin:0;padding:0}
@@ -767,6 +771,18 @@ calendar_panel <- function(events, heading = "Upcoming at the Court",
 DECISION_KIND_LABELS <- c(argued = "Argued", application = "Emergency application",
                           summary = "Summary reversal")
 
+# One line of a holding: the first sentence when it is a reasonable length,
+# else the first `max` characters cut at a word break with an ellipsis. The
+# Reporter's summaries are one to three sentences; the first carries the
+# disposition.
+.holding_line <- function(x, max = 240L) {
+  x <- trimws(gsub("\\s+", " ", x))
+  first <- regmatches(x, regexpr("^.*?[.!?](?=\\s|$)", x, perl = TRUE))
+  s <- if (length(first) && nchar(first) <= max) first else x
+  if (nchar(s) > max) s <- paste0(sub("\\s+\\S*$", "", substr(s, 1, max)), "…")
+  s
+}
+
 decisions_panel <- function(rows, heading = "Recent decisions", note = NULL, more = NULL) {
   if (is.null(rows) || !is.data.frame(rows) || !nrow(rows)) return(NULL)
   if (!("group" %in% names(rows))) rows$group <- rows$dkt
@@ -787,6 +803,10 @@ decisions_panel <- function(rows, heading = "Recent decisions", note = NULL, mor
     if (!is.na(url) && nzchar(url))
       bits <- c(bits, list(tags$a(class = "pdf", href = url, target = "_blank",
                                   rel = "noopener", "Opinion")))
+    # The holding, where the slip-opinion feed supplied one: its first sentence,
+    # or the first ~240 characters at a word break if that sentence runs long.
+    hold <- if ("holding" %in% names(r)) r$holding[1] else NA_character_
+    hold_node <- if (!is.na(hold) && nzchar(hold)) tags$span(class = "chold", smarten(.holding_line(hold))) else NULL
     tags$li(tags$div(
       class = "crow",
       tags$span(class = "cwhen",
@@ -795,7 +815,8 @@ decisions_panel <- function(rows, heading = "Recent decisions", note = NULL, mor
       tags$span(class = "ctx",
                 # Middots, not commas: captions carry commas of their own.
                 tags$span(class = "ckind", do.call(tagList, .interleave(caps, HTML(" &middot; ")))),
-                tags$span(class = "cdet", do.call(tagList, .interleave(bits, HTML(" &middot; ")))))))
+                tags$span(class = "cdet", do.call(tagList, .interleave(bits, HTML(" &middot; ")))),
+                hold_node)))
   })
   tags$section(
     class = "panel cal",

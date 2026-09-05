@@ -291,6 +291,15 @@ terminal entry wins).
 
 To decide in the build:
 
+- **The holding line.** Since 2026-09-05 the writer reads the Court's
+  slip-opinion RSS (`/rss/slipopinion_rss.aspx?TYear=NN`) for every row: it
+  carries the Reporter's one-paragraph statement of the holding as the item
+  description, which the docket entry never has, and the manifest gained a
+  `holding` field. The panel prints its first sentence (or the first ~240
+  characters at a word break) as a third, italic line under the row. The feed
+  also names the author, used only where the docket entry did not. The HTML
+  listing page is now the fallback for slip opinions and the only source for
+  opinions relating to orders.
 - **Opinion link missing from the entry.** Common for applications, occasional
   for argued cases. 26A274 (NRCC v. Brown, 4 Sep 2026) was granted "Opinion
   per curiam. Detached Opinion." with no anchor and an empty `Links[]`, while

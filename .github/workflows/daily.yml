@@ -40,6 +40,11 @@ on:
     - cron: "33 0 * * *"    # ~00:33 UTC, shortly after the ~00:05 UTC JSON re-export
     - cron: "33 16 * * *"   # was "0 18": 12:33pm ET (EDT); 11:33am ET during standard time
     - cron: "33 20 * * *"   # was "0 22": 4:33pm ET (EDT); 3:33pm ET during standard time
+    #   14:03 UTC Mon  10:03am EDT, after the 9:30 order list on a Monday. The
+    #              order lists (R/orders_list.R) are the one thing with a known
+    #              posting time that no other slot is near; watch-court.yml
+    #              should catch it too, but a fixed slot is the floor.
+    - cron: "3 14 * * 1"
   workflow_dispatch:
     inputs:
       full_term:

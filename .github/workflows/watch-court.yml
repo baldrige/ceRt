@@ -1,0 +1,62 @@
+name: Watch the Court
+
+# Poll supremecourt.gov's Hermes transfer feed every fifteen minutes and
+# dispatch the daily when it changes, so an afternoon opinion or a Monday
+# order list reaches the site within minutes rather than at the next fixed
+# cron. The three scheduled dailies stay as the floor: GitHub sheds scheduled
+# runs under load, and this one is no exception. See
+# .github/scripts/court_watch.py and docs/data-sources.md.
+#
+# State (the last fingerprint seen) rides in the Actions cache: each run saves
+# its own key and restores the newest one with the prefix, which is the one
+# stateless-repo store that needs no commit and no secret.
+
+on:
+  schedule:
+    # Off the contended :00/:15/:30/:45 marks, for the reason daily.yml gives.
+    - cron: "7,22,37,52 * * * *"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Decide, print, but do not dispatch the daily."
+        required: false
+        default: "false"
+
+permissions:
+  actions: write
+  contents: read
+
+concurrency:
+  group: watch-court
+  cancel-in-progress: false
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    # Two steps carry caps (3 + 2); the job cap must exceed their sum.
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          sparse-checkout: .github/scripts/court_watch.py
+          sparse-checkout-cone-mode: false
+      - name: Restore the last fingerprint
+        uses: actions/cache/restore@v4
+        timeout-minutes: 3
+        with:
+          path: .hermes_state
+          key: hermes-state-${{ github.run_id }}
+          restore-keys: hermes-state-
+      - name: Watch
+        timeout-minutes: 2
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          DRY_RUN: ${{ inputs.dry_run == 'true' && '1' || '' }}
+        run: python3 .github/scripts/court_watch.py
+      - name: Save the fingerprint
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: .hermes_state
+          key: hermes-state-${{ github.run_id }}
