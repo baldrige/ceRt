@@ -52,6 +52,11 @@ ORDERS_BASE        <- "https://www.supremecourt.gov"
 ORDERS_DIR         <- "orders"
 ORDERS_MANIFEST    <- "orders.json"
 ORDERS_TEMPLATE_VERSION <- "o2"   # o2: captions through strip_caption_roles()
+# The parser's version, stamped on each manifest entry. A document parsed by an
+# older parser is fetched and parsed again (one request each, inside the run's
+# ORDERS_MAX_NEW budget, so a bump spreads over a few runs).
+#   p2: a prose line beginning with a docket number is text, not a new docket
+ORDERS_PARSER_VERSION <- "p2"
 # Landing-page panel: documents from the last N days, at most M of them.
 ORDERS_PANEL_DAYS <- 21L
 ORDERS_PANEL_MAX  <- 4L
@@ -189,6 +194,12 @@ parse_order_document <- function(pages) {
       next
     }
     dk <- str_match(ln, .ORD_DOCKET_RX)
+    # A docket line's remainder is a caption, in caps. A prose line that happens
+    # to begin with a docket number -- "20-1531, No. 20-1778, and No. 20-1780
+    # are granted", the wrapped tail of "The petitions for writs of certiorari
+    # in No. 20-1530, No." -- carries lowercase words, and is text. ("McCARTHY"
+    # and "DeBOSE" carry a lowercase letter, not a lowercase word.)
+    if (!is.na(dk[1, 2]) && str_detect(dk[1, 4], "\\b[a-z]{3,}\\b")) dk[1, 2] <- NA_character_
     if (!is.na(dk[1, 2])) {
       # A run of docket lines shares whatever text follows; a docket that comes
       # after text starts a new run.
@@ -336,8 +347,12 @@ update_orders <- function(site_dir, terms = orders_terms(), max_new = 250L) {
   # New documents, plus any the manifest holds with nothing parsed out of them:
   # a grammar the parser has since learned gets another look, at one request.
   empty <- names(idx)[vapply(idx, function(x)
-    identical(as.integer(x$n %||% 0L), 0L) && !identical(x$kind, "rules"), logical(1))]
+    (identical(as.integer(x$n %||% 0L), 0L) || !identical(x$parser %||% "", ORDERS_PARSER_VERSION)) &&
+      !identical(x$kind, "rules"), logical(1))]
   todo <- listing[!listing$stem %in% setdiff(names(idx), empty), , drop = FALSE]
+  # Newest first, so the current Term's documents are re-parsed before the back
+  # catalogue when a parser bump has to spread over runs.
+  todo <- todo[order(todo$date, decreasing = TRUE), , drop = FALSE]
   if (nrow(todo) > max_new) {
     cat("Order documents: ", nrow(todo), " new, capped at ", max_new, " this run\n", sep = "")
     todo <- head(todo, max_new)
@@ -362,6 +377,7 @@ update_orders <- function(site_dir, terms = orders_terms(), max_new = 250L) {
     pick <- function(k) if (nrow(ent)) ent[ent$section == k, c("dkt", "caption"), drop = FALSE] else data.frame()
     idx[[r$stem]] <- list(
       date = format(date), kind = r$kind, label = r$label, url = r$url, term = r$term,
+      parser = ORDERS_PARSER_VERSION,
       cite = doc$cite, page = .orders_page(r$stem, date, r$kind),
       n = nrow(ent), counts = as.list(counts),
       granted = pick("granted"), gvr = pick("gvr"),
