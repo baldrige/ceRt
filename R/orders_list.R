@@ -247,6 +247,14 @@ parse_order_document <- function(pages) {
       df <- data.frame(section = "other", label = "Order", dkt = no[k, 2], caption = caption,
                        related = NA_character_, text = str_squish(paste(body, collapse = " ")),
                        group = 1L, stringsAsFactors = FALSE)
+    } else if (any(str_detect(lines, "^\\s*IT IS (FURTHER )?ORDERED"))) {
+      # An order of the Court with no docket at all (17 Feb 2026: the revised
+      # Rules of the Court take effect). One entry, no docket, the prose.
+      rest <- str_squish(lines[!str_detect(lines, .ORD_FURNITURE_RX) & is.na(str_match(lines, .ORD_DATE_RX)[, 1])])
+      rest <- rest[nzchar(rest) & !str_detect(rest, "^ORDER$")]
+      df <- data.frame(section = "other", label = "Order", dkt = "", caption = "Order of the Court",
+                       related = NA_character_, text = str_squish(paste(rest, collapse = " ")),
+                       group = 1L, stringsAsFactors = FALSE)
     }
   }
   list(date = date, cite = if (is.na(cite)) NA_character_ else str_squish(cite), entries = df)
@@ -327,7 +335,8 @@ update_orders <- function(site_dir, terms = orders_terms(), max_new = 250L) {
   if (!nrow(listing)) return(invisible(list(listed = 0L, new = 0L, failed = 0L, total = length(idx))))
   # New documents, plus any the manifest holds with nothing parsed out of them:
   # a grammar the parser has since learned gets another look, at one request.
-  empty <- names(idx)[vapply(idx, function(x) identical(as.integer(x$n %||% 0L), 0L), logical(1))]
+  empty <- names(idx)[vapply(idx, function(x)
+    identical(as.integer(x$n %||% 0L), 0L) && !identical(x$kind, "rules"), logical(1))]
   todo <- listing[!listing$stem %in% setdiff(names(idx), empty), , drop = FALSE]
   if (nrow(todo) > max_new) {
     cat("Order documents: ", nrow(todo), " new, capped at ", max_new, " this run\n", sep = "")
@@ -440,7 +449,7 @@ render_order_page <- function(site_dir, stem, meta, entries, caps, available) {
         paste0("<span class='otext'>", .ord_esc(r$text), "</span>") else ""
       rel <- if (!is.na(r$related)) paste0(" <span class='odk'>(", .ord_esc(r$related), ")</span>") else ""
       paste0("<li", if (!last_of_group) " class='grp'" else "", ">",
-             "<span class='odk'>", .ord_esc(r$dkt), "</span>",
+             if (nzchar(r$dkt)) paste0("<span class='odk'>", .ord_esc(r$dkt), "</span>") else "",
              "<span class='ocap'>", .ord_case_link(r$dkt, r$caption, caps, available), "</span>", rel,
              txt, "</li>")
     }, character(1))
