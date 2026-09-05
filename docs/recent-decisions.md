@@ -299,7 +299,11 @@ To decide in the build:
   characters at a word break) as a third, italic line under the row. The feed
   also names the author, used only where the docket entry did not. The HTML
   listing page is now the fallback for slip opinions and the only source for
-  opinions relating to orders.
+  opinions relating to orders. The line is behind a "Holdings" control, off by
+  default: a checkbox and label, hidden and shown by a `:has()` sibling rule
+  with no script, the same mechanism as the forecast panel's 7/28-day window
+  and its "Questions" control (on by default, since the question is what a
+  forecast row is for). Where `:has()` is unsupported the lines simply show.
 - **Opinion link missing from the entry.** Common for applications, occasional
   for argued cases. 26A274 (NRCC v. Brown, 4 Sep 2026) was granted "Opinion
   per curiam. Detached Opinion." with no anchor and an empty `Links[]`, while
