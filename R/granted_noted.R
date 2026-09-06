@@ -276,12 +276,16 @@ write_granted_noted <- function(site_dir, df) {
   invisible(nrow(all))
 }
 
-#' The Terms a weekly run should fetch: the current and prior, plus any Term
-#' from GN_FIRST_TERM on that the manifest does not hold yet.
+#' The Terms a weekly run should fetch: the current and prior, the NEXT (the
+#' Court posts next Term's list from the summer -- OT26's was up on 4 August
+#' 2026, and the first run missed it by counting the Term from October), plus
+#' any Term from GN_FIRST_TERM on that the manifest does not hold yet. A Term
+#' whose list does not exist yet is a 404, which fetch_granted_noted() logs and
+#' skips.
 gn_terms_to_fetch <- function(site_dir, as_of = Sys.Date()) {
   y <- as.integer(format(as_of, "%Y")) - as.integer(as.integer(format(as_of, "%m")) < 10L)
   cur <- y %% 100L
   have <- unique(read_granted_noted(site_dir)$term)
-  want <- unique(c(cur, cur - 1L, setdiff(GN_FIRST_TERM:cur, have)))
+  want <- unique(c(cur + 1L, cur, cur - 1L, setdiff(GN_FIRST_TERM:cur, have)))
   sprintf("%02d", want)
 }
