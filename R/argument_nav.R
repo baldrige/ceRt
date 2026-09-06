@@ -61,9 +61,16 @@ classify_argument <- function(events) {
   set_idx <- which(!is.na(set_hits))
   scheduled <- if (length(set_idx)) mdy(tail(set_hits[set_idx], 1)) else as.Date(NA)
 
+  # The LAST argument, not the first. A case restored to the calendar for
+  # reargument -- Knick v. Township of Scott (17-647, argued Oct 2018 and Jan
+  # 2019), Louisiana v. Callais (24-109, Mar 2025 and Oct 2025) -- is decided
+  # after its last argument, and taking the first put Callais's June 2025
+  # reargument order (a dissent's PDF attached) down as its decision, ten
+  # months early. Measured against the Court's Granted & Noted Lists
+  # (docs/granted-noted-audit-2026-09.md).
   arg_idx <- which(str_detect(txt, regex("^Argued\\.", ignore_case = TRUE)))
-  argued_date <- if (length(arg_idx)) edate[arg_idx[1]] else as.Date(NA)
-  argued_text <- if (length(arg_idx)) txt[arg_idx[1]] else NA_character_
+  argued_date <- if (length(arg_idx)) edate[arg_idx[length(arg_idx)]] else as.Date(NA)
+  argued_text <- if (length(arg_idx)) txt[arg_idx[length(arg_idx)]] else NA_character_
 
   dig <- any(str_detect(txt, regex("DISMISSED as improvidently granted", ignore_case = TRUE)))
   # Post-grant dismissal (parties settle/withdraw): a granted case that ends
@@ -333,7 +340,14 @@ argument_term_page <- function(tbl, term, out_dir) {
   has_argued <- any(d$argued_by != "—")
   has_media  <- any(d$media != "—")
   has_qp     <- any(d$qp != "—")
+  # Separate writings, from the Court's Granted & Noted List (R/granted_noted.R):
+  # "Thomas and Alito dissenting; Kagan concurring in the judgment". Joined in
+  # by render_arguments.R as gn_writings; the column appears only where a Term
+  # has any.
+  if ("gn_writings" %in% names(d)) d$writings <- if_else(is.na(d$gn_writings), "—", d$gn_writings)
+  has_writings <- "writings" %in% names(d) && any(d$writings != "—")
   keep <- c("Sitting", if (!all_unscheduled) "When", "Case", "Docket", "status_disp",
+            if (has_writings) "writings",
             if (has_argued) "argued_by", if (has_media) "media", if (has_qp) "qp",
             "status")
   tb <- d |> select(all_of(keep))
@@ -341,9 +355,9 @@ argument_term_page <- function(tbl, term, out_dir) {
   # Left-aligned DATA cells (headers stay centered); status is hidden, so measure
   # nth-child over the visible columns only.
   vis <- setdiff(names(tb), "status")
-  left_cols <- match(intersect(c("Sitting", "Case", "status_disp", "argued_by", "media", "qp"), vis), vis)
+  left_cols <- match(intersect(c("Sitting", "Case", "status_disp", "writings", "argued_by", "media", "qp"), vis), vis)
 
-  labels <- list(status_disp = "Status", argued_by = "Argued by",
+  labels <- list(status_disp = "Status", writings = "Separate writings", argued_by = "Argued by",
                  media = "Argument", qp = "Questions Presented")
   labels <- labels[names(labels) %in% names(tb)]
   gt_tbl <- tb |>
@@ -358,6 +372,7 @@ argument_term_page <- function(tbl, term, out_dir) {
     cols_label(.list = labels) |>
     cols_width(Case ~ px(240))
   if (has_qp) gt_tbl <- gt_tbl |> cols_width(qp ~ px(190))
+  if (has_writings) gt_tbl <- gt_tbl |> cols_width(writings ~ px(170))
 
   n <- nrow(d)
   dek <- if (all_unscheduled)
