@@ -15,6 +15,7 @@ is adopted or the Court changes one.
 | **Slip-opinion RSS** | `/rss/slipopinion_rss.aspx?TYear=NN` | caption and docket, author or per curiam, PDF, posting time, opinion type and citation as categories, and the Reporter's holding summary as the description | `R/site_decisions.R`: opinion URLs and the holding line on Recent decisions |
 | **Opinion listings** | `/opinions/slipopinion/NN` (fallback), `/opinions/relatingtoorders/NN` | HTML tables of docket, date, PDF, author code, citation | the Recent decisions failsafe in `R/site_decisions.R` |
 | **Hermes transfer feed** | `/rss/hermes_transfer.xml` | the files the Court's internal system just pushed, with timestamps; the files themselves are not served | `watch-court.yml`: a change trigger that dispatches the daily |
+| **Granted & Noted List** | `/orders/NNgrantednotedlist.pdf`, OT16 on | per argued case: code, court below, grant, argument and decision dates, author, separate writings with their kind, result, unanimity flags | `R/granted_noted.R`: the Navigator's "Separate writings" column, the same line on Recent decisions, and the argument-grammar audit |
 | **Questions Presented PDFs** | `/qp/NN-NNNNNqp.pdf` | the QP as granted, typeset text | `R/qp_extract.R` |
 | **Argument transcripts index** | `/oral_arguments/argument_transcript/YYYY` | docket → transcript PDF | `attach_media()` in `R/argument_nav.R` |
 | **Argument audio** | `/oral_arguments/audio/YYYY/<docket>` | stable per-case URL | same |
@@ -29,13 +30,10 @@ transferred the afternoon *before* it was posted (Sep 3, 13:34 ET for the
 Sep 4 list), so the feed may lead an order list rather than announce it; the
 Monday 14:03 UTC daily slot is the floor for those.
 
-1. **Granted & Noted List.** `/orders/NNgrantednotedlist.pdf`, ~10 text pages
-   per Term, one block per argued case: docket, court below, grant date,
-   argument date, decision date, author, **separate writings with their kind**
-   ("Other: Jackson (D)"), result. An authoritative cross-check for the
-   Navigator's decided dates and the Counsel Table's judgments; the
-   separate-writings field is structured nowhere else.
-2. **Argument audio and transcript RSS.** `/rss/argument_audio_rss.aspx?TYear=NN`
+The Granted & Noted List was built on 2026-09-06 and has moved to the table
+above (`docs/granted-noted.md`).
+
+1. **Argument audio and transcript RSS.** `/rss/argument_audio_rss.aspx?TYear=NN`
    and `argument_transcripts_rss.aspx`: the same data the Navigator scrapes,
    as a feed with posting times.
 3. **Monthly argument calendars.** `/oral_arguments/argument_calendars/MonthlyArgumentCal<Month><Year>.pdf`,

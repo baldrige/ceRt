@@ -66,6 +66,25 @@ if (nrow(tbl) > 0) {
       if (qp_max > 0) paste0(" (fetched up to ", qp_max, " new)") else " (cache-only)", "\n")
 }
 
+# The Court's Granted & Noted List (R/granted_noted.R): the current and prior
+# Terms every week, plus any Term the manifest lacks (all of them, once). Joined
+# to the argument table for the Navigator's "Separate writings" column, and
+# handed to the decisions writer below for the same line on the landing page.
+source("R/granted_noted.R")
+gn <- tryCatch({
+  gn_new <- fetch_granted_noted(gn_terms_to_fetch(site_dir))
+  n_gn <- write_granted_noted(site_dir, gn_new)
+  cat("Granted & Noted List:", nrow(gn_new), "row(s) fetched for Term(s)",
+      paste(sort(unique(gn_new$term)), collapse = ", "), "|", n_gn, "in manifest\n")
+  read_granted_noted(site_dir)
+}, error = function(e) { cat("Granted & Noted List skipped:", conditionMessage(e), "\n"); read_granted_noted(site_dir) })
+if (nrow(gn)) {
+  tbl <- tbl |> left_join(gn |> distinct(dkt, .keep_all = TRUE) |>
+                            transmute(dkt, gn_writings = writings, gn_result = result, gn_decided = decided,
+                                      gn_author = author, gn_flag = flag), by = "dkt")
+  cat("Separate writings known for", sum(!is.na(tbl$gn_writings)), "of", nrow(tbl), "Navigator row(s)\n")
+}
+
 # The landing page's "Upcoming at the Court" list. Written here because this is
 # the only place that knows the argument calendar: a sitting draws cases from
 # several docket terms, and the daily fetches one.
@@ -79,7 +98,7 @@ cat("Upcoming argument days:", nrow(up),
 # upcoming.json: this is the run that holds every docket a decision can land on
 # -- argued cases from several Terms, the emergency docket, the cert docket --
 # and the daily holds a fortnight of filings. See R/site_decisions.R.
-dec <- recent_decisions(combined)
+dec <- recent_decisions(combined, gn = gn)
 write_decided(dec, file.path(arg_dir, DECIDED_FILE))
 cat("Recent decisions (", DECIDED_KEEP_DAYS, " days): ", nrow(dec),
     if (nrow(dec)) paste0(" -- ", paste(sprintf("%s %d", names(table(dec$kind)),

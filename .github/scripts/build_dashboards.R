@@ -177,7 +177,10 @@ if (length(orig_dkts)) {
 # separate from the weekly run's file -- two pipelines writing one path on
 # different schedules is a race -- and merged at read time below.
 seen <- bind_rows(ot, watch_cases, orig_cases)
-daily_dec <- recent_decisions(seen)
+# The Granted & Noted List manifest the weekly wrote, for the separate-writings
+# line on an argued decision (R/granted_noted.R). Read only; never fetched here.
+source("R/granted_noted.R")
+daily_dec <- recent_decisions(seen, gn = read_granted_noted(site_dir))
 write_decided(daily_dec, file.path(dash_dir, DECIDED_FILE))
 cat("Decisions seen by the daily:", nrow(daily_dec), "\n")
 

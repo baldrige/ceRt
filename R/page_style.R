@@ -818,6 +818,10 @@ decisions_panel <- function(rows, heading = "Recent decisions", note = NULL, mor
     if (!is.na(author) && nzchar(author)) bits <- c(bits, list(author))
     disp <- r$disposition[1]
     if (!is.na(disp) && nzchar(disp)) bits <- c(bits, list(disp))
+    # The separate writings, from the Granted & Noted List, after the
+    # disposition: "Reversed · Thomas and Alito dissenting".
+    w <- if ("writings" %in% names(r)) r$writings[1] else NA_character_
+    if (!is.na(w) && nzchar(w)) bits <- c(bits, list(w))
     url <- r$opinion_url[1]
     if (!is.na(url) && nzchar(url))
       bits <- c(bits, list(tags$a(class = "pdf", href = url, target = "_blank",

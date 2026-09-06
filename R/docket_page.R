@@ -251,7 +251,13 @@ write_docket_css <- function(out_dir) {
 # once per batch (resolvable_dockets) and each page's slice of it is part of its
 # manifest key, so a reference that could not resolve on one run becomes a link
 # on the run after its target appears, instead of being skipped forever.
-PAGE_TEMPLATE_VERSION <- "v26"
+#
+# v27: classify_argument() takes a case's LAST argument, not its first, and the
+# decision after it -- a reargued case (Knick, Callais) was dated to its first
+# argument and, for Callais, to the reargument order. A classifier change, so a
+# bump (see docs/docket-pages.md); it moves a handful of pages, and rolls out
+# with reuse_from_runs. Measured in docs/granted-noted.md.
+PAGE_TEMPLATE_VERSION <- "v27"
 
 # ---- small helpers ------------------------------------------------------------
 .esc <- function(x) { x <- x %||% ""; x[is.na(x)] <- ""; htmltools::htmlEscape(x) }

@@ -334,12 +334,31 @@ fetch_opinion_listing <- function(terms, kinds = OPINION_LISTING_KINDS) {
 .dec_df <- function(date = as.Date(character()), dkt = character(), caption = character(),
                     kind = character(), author = character(), disposition = character(),
                     opinion_url = character(), argued = as.Date(character()),
-                    term = integer(), holding = rep(NA_character_, length(dkt))) {
+                    term = integer(), holding = rep(NA_character_, length(dkt)),
+                    writings = rep(NA_character_, length(dkt))) {
   data.frame(date = as.Date(date), dkt = dkt, caption = caption, kind = kind,
              author = author, disposition = disposition, opinion_url = opinion_url,
              argued = as.Date(argued), term = as.integer(term),
-             holding = as.character(holding),
+             holding = as.character(holding), writings = as.character(writings),
              stringsAsFactors = FALSE)
+}
+
+# The separate writings, from the Court's Granted & Noted List
+# (R/granted_noted.R): "Thomas and Alito dissenting; Kagan concurring in the
+# judgment". Argued cases only, since the list covers only those; the row's
+# author is filled from the list where the docket entry did not name one.
+.gn_fill <- function(out, gn) {
+  if (is.null(gn) || !is.data.frame(gn) || !nrow(gn) || !nrow(out)) return(out)
+  if (!("writings" %in% names(out))) out$writings <- rep(NA_character_, nrow(out))
+  for (i in seq_len(nrow(out))) {
+    j <- which(gn$dkt == out$dkt[i] & !is.na(gn$decided) & gn$decided == out$date[i])
+    if (!length(j)) j <- which(gn$dkt == out$dkt[i] & !is.na(gn$decided))
+    if (!length(j)) next
+    k <- j[1]
+    if (!is.na(gn$writings[k]) && nzchar(gn$writings[k])) out$writings[i] <- gn$writings[k]
+    if ((is.na(out$author[i]) || !nzchar(out$author[i])) && !is.na(gn$author[k])) out$author[i] <- gn$author[k]
+  }
+  out
 }
 
 .events_ok <- function(ev) is.data.frame(ev) && nrow(ev) > 0 &&
@@ -451,7 +470,7 @@ fetch_opinion_listing <- function(terms, kinds = OPINION_LISTING_KINDS) {
 #' docket entry links no PDF. `NULL` fetches it for the Terms those rows fall in,
 #' and only if there are any; pass `.listing_df()` to forbid the lookup.
 recent_decisions <- function(cases, as_of = Sys.Date(), days = DECIDED_KEEP_DAYS,
-                             listing = NULL) {
+                             listing = NULL, gn = NULL) {
   if (is.null(cases) || !nrow(cases) || !all(c("dkt", "events") %in% names(cases)))
     return(.dec_df())
   as_of <- as.Date(as_of)
@@ -501,6 +520,9 @@ recent_decisions <- function(cases, as_of = Sys.Date(), days = DECIDED_KEEP_DAYS
     got_h <- sum(!is.na(out$holding) & nzchar(out$holding))
     if (got_h > 0) cat("Opinion feed supplied", got_h, "holding(s)\n")
   }
+  out <- .gn_fill(out, gn)
+  got_w <- sum(!is.na(out$writings) & nzchar(out$writings))
+  if (got_w > 0) cat("Granted & Noted List supplied", got_w, "separate-writings line(s)\n")
   out[order(out$date, out$dkt, decreasing = c(TRUE, FALSE), method = "radix"), , drop = FALSE]
 }
 
@@ -530,7 +552,7 @@ write_decided <- function(rows, path) {
           chr(col("author", NA_character_)), chr(col("disposition", NA_character_)),
           chr(col("opinion_url", NA_character_)),
           as.Date(chr(col("argued", NA_character_))), suppressWarnings(as.integer(col("term", NA))),
-          chr(col("holding", NA_character_)))
+          chr(col("holding", NA_character_)), chr(col("writings", NA_character_)))
 }
 
 #' Merge every manifest found, dedupe by docket (first path wins, so pass the
