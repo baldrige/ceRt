@@ -16,12 +16,19 @@ is adopted or the Court changes one.
 | **Opinion listings** | `/opinions/slipopinion/NN` (fallback), `/opinions/relatingtoorders/NN` | HTML tables of docket, date, PDF, author code, citation | the Recent decisions failsafe in `R/site_decisions.R` |
 | **Hermes transfer feed** | `/rss/hermes_transfer.xml` | the files the Court's internal system just pushed, with timestamps; the files themselves are not served | `watch-court.yml`: a change trigger that dispatches the daily |
 | **Granted & Noted List** | `/orders/NNgrantednotedlist.pdf`, OT16 on | per argued case: code, court below, grant, argument and decision dates, author, separate writings with their kind, result, unanimity flags | `R/granted_noted.R`: the Navigator's "Separate writings" column, the same line on Recent decisions, and the argument-grammar audit |
+| **Monthly argument calendars** | `/oral_arguments/argument_calendars/MonthlyArgumentCal<Month><Year>.pdf` | each sitting's cases by day and order, ~2 months ahead | `R/argument_calendar.R`: schedules a case the docket has not set; cross-checks the rest |
+| **Day Calls** | `/oral_arguments/daycall/Day Call_MM-DD-YY.pdf` | each argument day's advocates with side, affiliation and minutes | `R/argument_calendar.R`: the Navigator's "Argued by" before the argument |
+| **In-chambers opinions** | `/opinions/in-chambers.aspx` | a single Justice's opinion on an application, all Terms on one page | the Recent decisions failsafe in `R/site_decisions.R` |
 | **Questions Presented PDFs** | `/qp/NN-NNNNNqp.pdf` | the QP as granted, typeset text | `R/qp_extract.R` |
 | **Argument audio and transcript feeds** | `/rss/argument_audio_rss.aspx?TYear=NN`, `/rss/argument_transcripts_rss.aspx?TYear=NN` (OT17 on) | one item per argued case: caption and docket, the audio page or transcript PDF, and when it was posted | `attach_media()` in `R/argument_nav.R`, since 2026-09-06: a link is offered only once the Court has posted the file |
 | **Argument transcripts index** | `/oral_arguments/argument_transcript/YYYY` | docket → transcript PDF | the fallback for a Term whose feed is down |
 | **Argument audio** | `/oral_arguments/audio/YYYY/<docket>` | stable per-case URL | the fallback for a Term whose feed is down |
 
 ## Not read yet, clean, worth having
+
+Nothing remains here as of 2026-09-07: every clean stream the survey found is
+in the table above. The list below is kept as the record of what was found
+and in what order it was taken up.
 
 Ranked by what each adds, from the 2026-09-04 survey. The first two on the
 original list -- the Hermes-feed change trigger and the slip-opinion RSS --

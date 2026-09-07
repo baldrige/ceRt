@@ -55,7 +55,16 @@ cat("Combined cases:", nrow(combined), "\n")
 # Terms). Cached in the argument section's own qp_cache.json. QP_MAX_NEW>0 fetches
 # uncached PDFs this run (they are small text PDFs, no OCR); default 0 stays
 # read-only. The publish runner is fresh, so a full backfill is safe there.
-tbl <- build_argument_table(combined)
+# The Court's monthly argument calendars and Day Calls (R/argument_calendar.R):
+# one index-page request, the calendars for sittings from six weeks ago on, and
+# every Day Call the manifest lacks. The calendar schedules a case the docket
+# has not yet set and cross-checks the ones it has; the Day Call names who
+# argues before the docket does. Never fatal.
+source("R/argument_calendar.R")
+cal_idx <- tryCatch(fetch_calendar_index(), error = function(e) { cat("Calendar index unavailable:", conditionMessage(e), "\n"); NULL })
+cal <- tryCatch(update_argument_calendar(site_dir, cal_idx), error = function(e) { cat("Argument calendar skipped:", conditionMessage(e), "\n"); read_calendar(site_dir) })
+dcs <- tryCatch(update_day_calls(site_dir, cal_idx), error = function(e) { cat("Day Calls skipped:", conditionMessage(e), "\n"); read_day_calls(site_dir) })
+tbl <- build_argument_table(combined, calendar = cal, daycalls = dcs)
 cat("Argued/scheduled grants:", nrow(tbl), "\n")
 qp_max <- as.integer(Sys.getenv("QP_MAX_NEW", unset = "0"))
 cache <- file.path(arg_dir, "qp_cache.json")

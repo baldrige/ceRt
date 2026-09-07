@@ -283,7 +283,32 @@ unscheduled_arg_term <- function(grant_date) {
 # Build a tidy table of every merits grant with an argument date (scheduled or
 # argued), across all docket terms present in `cases`. `qp_map` (optional) maps
 # raw docket -> QP <details> HTML.
-build_argument_table <- function(cases, qp_map = NULL) {
+# Apply the Court's monthly argument calendar (R/argument_calendar.R) to the
+# classified rows: a docket with no "SET FOR ARGUMENT" entry yet but a place on
+# a published calendar is Scheduled for that day. Where both exist and differ,
+# the docket wins and the disagreement is logged -- the calendar is a
+# cross-check, and it is amended as cases are added or moved.
+.apply_calendar <- function(arg0, calendar) {
+  if (is.null(calendar) || !is.data.frame(calendar) || !nrow(calendar)) return(arg0)
+  cal1 <- calendar |> filter(!is.na(date)) |> arrange(desc(date)) |> distinct(dkt, .keep_all = TRUE) |>
+    transmute(dkt, cal_date = date, cal_slot = slot)
+  arg0 <- arg0 |> left_join(cal1, by = "dkt")
+  fill <- is.na(arg0$scheduled_date) & is.na(arg0$argued_date) & !is.na(arg0$cal_date)
+  if (any(fill)) {
+    arg0$scheduled_date[fill] <- arg0$cal_date[fill]
+    arg0$status[fill & arg0$status == "Granted"] <- "Scheduled"
+    message("calendar: scheduled ", sum(fill), " case(s) the docket has not yet set: ",
+            paste(arg0$dkt[fill], collapse = ", "))
+  }
+  differ <- !is.na(arg0$scheduled_date) & !is.na(arg0$cal_date) & is.na(arg0$argued_date) &
+            arg0$scheduled_date != arg0$cal_date
+  if (any(differ))
+    message("calendar: ", sum(differ), " case(s) where the docket's argument date differs from the calendar's: ",
+            paste(sprintf("%s (docket %s, calendar %s)", arg0$dkt[differ], arg0$scheduled_date[differ], arg0$cal_date[differ]), collapse = "; "))
+  arg0
+}
+
+build_argument_table <- function(cases, qp_map = NULL, calendar = NULL, daycalls = NULL) {
   cls <- classify_petitions(cases)
   # No petitions at all (a frame of original actions alone) unnests to a frame
   # with no columns, and filter() on it would error.
@@ -314,10 +339,19 @@ build_argument_table <- function(cases, qp_map = NULL) {
   g <- cases |> filter(dkt %in% granted$dkt) |> distinct(dkt, .keep_all = TRUE)
   if (nrow(g) == 0) return(tibble())
 
-  arg <- bind_cols(
+  arg0 <- bind_cols(
     g |> transmute(dkt, caption = str_squish(caption %||% dkt)),
     map_dfr(g$events, classify_argument)
-  ) |>
+  ) |> .apply_calendar(calendar)
+  # The Day Call's advocates, for a case not yet argued (the docket's own
+  # "Argued. For petitioner: ..." entry comes after the argument).
+  if (!is.null(daycalls) && is.data.frame(daycalls) && nrow(daycalls) && exists("day_call_line")) {
+    dcl <- daycalls |> group_by(dkt) |> summarise(advocates_dc = day_call_line(pick(everything())),
+                                                  minutes_total = suppressWarnings(max(minutes_total, na.rm = TRUE)), .groups = "drop") |>
+      mutate(minutes_total = if_else(is.finite(minutes_total), minutes_total, NA_integer_))
+    arg0 <- arg0 |> left_join(dcl, by = "dkt")
+  } else arg0$advocates_dc <- NA_character_
+  arg <- arg0 |>
     left_join(granted, by = "dkt") |>
     mutate(
       petition_url = map_chr(g$events, arg_petition_url),
@@ -400,7 +434,10 @@ argument_term_page <- function(tbl, term, out_dir) {
         status == "Decided" & !is.na(opinion_author) ~ str_c("Decided · ", opinion_author),
         TRUE ~ as.character(status)
       ),
-      argued_by = if_else(is.na(advocates), "—", advocates),
+      # The docket's "Argued." entry names the advocates after the fact; the
+      # Day Call names them the morning of. For a case not yet argued, the
+      # Day Call's line stands in.
+      argued_by = coalesce(advocates, if ("advocates_dc" %in% names(d)) advocates_dc else NA_character_, "—"),
       media = pmap_chr(list(transcript_url, audio_url), function(tr, au) {
         parts <- c(if (!is.na(tr)) str_c("[Transcript](", tr, ")"),
                    if (!is.na(au)) str_c("[Audio](", au, ")"))
