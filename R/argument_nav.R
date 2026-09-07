@@ -153,13 +153,20 @@ arg_petition_url <- function(events) find_opening_doc_url(events)
 
 # Scrape one Term's transcript index -> named vector (docket -> absolute PDF URL).
 # Returns an empty vector on any failure (media is best-effort, never fatal).
+.media_get <- function(url) {
+  if (exists("scotus_perform") && exists("scotus_req")) {
+    resp <- scotus_perform(scotus_req(url))
+    if (resp_status(resp) != 200L) stop("HTTP ", resp_status(resp))
+    return(resp_body_string(resp))
+  }
+  request(url) |>
+    req_user_agent("ceRt oral-argument navigator (github.com/baldrige/ceRt)") |>
+    req_timeout(30) |> req_perform() |> resp_body_string()
+}
+
 fetch_transcript_map <- function(term) {
   url <- paste0("https://www.supremecourt.gov/oral_arguments/argument_transcript/", term)
-  html <- tryCatch(
-    request(url) |>
-      req_user_agent("ceRt oral-argument navigator (github.com/baldrige/ceRt)") |>
-      req_timeout(30) |> req_perform() |> resp_body_string(),
-    error = function(e) "")
+  html <- tryCatch(.media_get(url), error = function(e) "")
   m <- str_match_all(html, "argument_transcripts/(\\d{4})/([^\"'>\\s]+\\.pdf)")[[1]]
   if (nrow(m) == 0) return(setNames(character(), character()))
   files <- m[, 3]; yrs <- m[, 2]
@@ -170,21 +177,88 @@ fetch_transcript_map <- function(term) {
   setNames(urls[keep], dockets[keep])
 }
 
-# Add transcript_url + audio_url columns to an argument table. Audio is built for
-# any case actually argued; the transcript is looked up in the per-Term index.
+# The Court's argument feeds, one per Term and per medium:
+#   /rss/argument_audio_rss.aspx?TYear=NN        item: title "Sripetch v. SEC (25-466)",
+#   /rss/argument_transcripts_rss.aspx?TYear=NN        link, pubDate (when it was posted)
+# Back to OT17. Every title names exactly one docket (checked over six feeds,
+# 2026-09-06), an original action as "141-Orig". The transcript link is the PDF; the audio link is the Court's
+# player page for the case. Returns (dkt, url, posted) or an empty frame when
+# the feed is down, which the caller treats as "fall back to the scrape".
+.media_df <- function() data.frame(dkt = character(), url = character(), posted = as.Date(character()), stringsAsFactors = FALSE)
+fetch_media_feed <- function(kind = c("audio", "transcripts"), term) {
+  kind <- match.arg(kind)
+  url <- sprintf("https://www.supremecourt.gov/rss/argument_%s_rss.aspx?TYear=%02d", kind, as.integer(term) %% 100L)
+  xml <- tryCatch(.media_get(url), error = function(e) { message("argument ", kind, " feed for OT", term %% 100L, " unavailable: ", conditionMessage(e)); "" })
+  blocks <- str_match_all(xml, regex("<item>(.*?)</item>", dotall = TRUE))[[1]][, 2]
+  if (!length(blocks)) return(.media_df())
+  field <- function(b, tag) {
+    m <- str_match(b, regex(paste0("<", tag, ">(.*?)</", tag, ">"), dotall = TRUE))[1, 2]
+    if (is.na(m)) NA_character_ else str_squish(str_remove_all(m, "<!\\[CDATA\\[|\\]\\]>"))
+  }
+  rows <- lapply(blocks, function(b) {
+    title <- field(b, "title"); link <- field(b, "link"); pub <- field(b, "pubDate")
+    # An original action is titled "(141-Orig)"; the docket API calls it 22O141.
+    dk <- str_extract(title %||% "", "\\d{2}-\\d{1,5}|\\d{2}A\\d{1,4}|22O\\d{1,4}|\\d{1,4}-Orig")
+    if (!is.na(dk)) dk <- str_replace(dk, "^(\\d{1,4})-Orig$", "22O\\1")
+    if (is.na(dk) || is.na(link) || !nzchar(link)) return(NULL)
+    data.frame(dkt = dk, url = str_replace(link, "^http://", "https://"),
+               posted = suppressWarnings(lubridate::dmy(str_extract(pub %||% "", "\\d{1,2} [A-Za-z]{3} \\d{4}"))),
+               stringsAsFactors = FALSE)
+  })
+  rows <- rows[!vapply(rows, is.null, logical(1))]
+  if (!length(rows)) return(.media_df())
+  out <- do.call(rbind, rows)
+  out[!duplicated(out$dkt), , drop = FALSE]
+}
+
+# Add transcript_url, audio_url (and their posting dates) to an argument table.
+#
+# The feeds first: a link the feed carries is a file the Court has posted. The
+# old way built the audio URL for every argued case the moment the docket said
+# "Argued.", which linked a page that 404s until the Court posts the audio, and
+# scraped the transcript index page. The scrape stays as the fallback for a
+# Term whose feed is down, and the built audio URL as the fallback for a Term
+# whose audio feed is down, so a feed outage costs nothing that was there
+# before. Two requests per Term.
 attach_media <- function(tbl) {
   terms <- sort(unique(tbl$term[!is.na(tbl$term)]))
-  tmap <- setNames(lapply(terms, fetch_transcript_map), as.character(terms))
-  tbl |>
-    mutate(
-      transcript_url = map2_chr(dkt, term, function(d, t) {
-        m <- if (is.na(t)) NULL else tmap[[as.character(t)]]
-        if (!is.null(m) && d %in% names(m)) unname(m[[d]]) else NA_character_
-      }),
-      audio_url = if_else(!is.na(argued_date),
-        paste0("https://www.supremecourt.gov/oral_arguments/audio/", term, "/", dkt),
-        NA_character_)
-    )
+  feeds <- lapply(terms, function(t) list(
+    audio = fetch_media_feed("audio", t),
+    transcripts = fetch_media_feed("transcripts", t)))
+  names(feeds) <- as.character(terms)
+  tmap <- setNames(lapply(terms, function(t)
+    if (nrow(feeds[[as.character(t)]]$transcripts)) NULL else fetch_transcript_map(t)), as.character(terms))
+  look <- function(d, t, kind) {
+    if (is.na(t)) return(list(url = NA_character_, posted = as.Date(NA), have_feed = FALSE))
+    f <- feeds[[as.character(t)]][[kind]]
+    if (nrow(f)) {
+      i <- match(d, f$dkt)
+      return(list(url = if (is.na(i)) NA_character_ else f$url[i],
+                  posted = if (is.na(i)) as.Date(NA) else f$posted[i], have_feed = TRUE))
+    }
+    list(url = NA_character_, posted = as.Date(NA), have_feed = FALSE)
+  }
+  n <- nrow(tbl)
+  tr_url <- character(n); tr_posted <- as.Date(rep(NA, n)); au_url <- character(n); au_posted <- as.Date(rep(NA, n))
+  for (i in seq_len(n)) {
+    d <- tbl$dkt[i]; t <- tbl$term[i]
+    tr <- look(d, t, "transcripts")
+    tr_url[i] <- if (tr$have_feed) tr$url else {
+      m <- if (is.na(t)) NULL else tmap[[as.character(t)]]
+      if (!is.null(m) && d %in% names(m)) unname(m[[d]]) else NA_character_ }
+    tr_posted[i] <- tr$posted
+    au <- look(d, t, "audio")
+    au_url[i] <- if (au$have_feed) au$url
+      else if (!is.na(tbl$argued_date[i])) paste0("https://www.supremecourt.gov/oral_arguments/audio/", t, "/", d)
+      else NA_character_
+    au_posted[i] <- au$posted
+  }
+  tbl$transcript_url <- tr_url; tbl$transcript_posted <- tr_posted
+  tbl$audio_url <- au_url; tbl$audio_posted <- au_posted
+  message(sprintf("attach_media(): %d Term(s); transcripts %d, audio %d of %d rows (feeds%s)",
+                  length(terms), sum(!is.na(tr_url)), sum(!is.na(au_url)), n,
+                  if (any(vapply(feeds, function(f) nrow(f$audio) > 0, logical(1)))) "" else " unavailable; scrape and built URLs"))
+  tbl
 }
 
 # ---- assemble the argument table ----------------------------------------------
