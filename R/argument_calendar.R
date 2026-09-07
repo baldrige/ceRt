@@ -152,7 +152,7 @@ parse_argument_calendar <- function(pages) {
 
 .dc_df <- function() data.frame(date = as.Date(character()), dkt = character(), slot = integer(),
                                 minutes_total = integer(), name = character(), affiliation = character(),
-                                side = character(), minutes = integer(), stringsAsFactors = FALSE)
+                                side = character(), minutes = integer(), role = character(), stringsAsFactors = FALSE)
 
 # "(20 minutes – for petitioners)" / "(10 minutes - for United States, as amicus
 # curiae, supporting petitioners)" -> side and minutes.
@@ -197,22 +197,26 @@ parse_day_call <- function(pages, date = as.Date(NA)) {
       cases[[cur_case]]$minutes_total <- as.integer(tm[1, 2]) * if (str_detect(tm[1, 3], "hour")) 60L else 1L
     if (!nzchar(left)) next
     # Left column: an advocate, then affiliation lines, then the parenthetical.
+    # A parenthetical names the side only most of the time ("for the United
+    # States" names none); where it does not, the advocate's place above or
+    # below the "V." stands, as it does on a Day Call with no parenthetical.
+    take_role <- function(p) { r <- .dc_role(p); if (!is.na(r$side)) advs[[cur_adv]]$side <<- r$side; advs[[cur_adv]]$minutes <<- r$minutes; advs[[cur_adv]]$role <<- str_squish(p) }
     if (!is.null(paren)) {
       paren <- paste(paren, left)
-      if (str_detect(left, "\\)")) { r <- .dc_role(paren); advs[[cur_adv]]$side <- r$side; advs[[cur_adv]]$minutes <- r$minutes; paren <- NULL }
+      if (str_detect(left, "\\)")) { take_role(paren); paren <- NULL }
       next
     }
     nm <- str_match(left, "^(MR|MS|MRS|DR|GEN)\\.?\\s+(.*)$")
     if (!is.na(nm[1, 3])) {
       cur_adv <- cur_adv + 1L
       advs[[cur_adv]] <- list(case = max(cur_case, 1L), name = str_squish(nm[1, 3]), affiliation = character(),
-                              side = if (seen_v) "respondent" else "petitioner", minutes = NA_integer_, name_open = TRUE)
+                              side = if (seen_v) "respondent" else "petitioner", minutes = NA_integer_,
+                              role = NA_character_, name_open = TRUE)
       next
     }
     if (cur_adv == 0L) next
     if (str_detect(left, "^\\(")) {
-      if (str_detect(left, "\\)")) { r <- .dc_role(left); advs[[cur_adv]]$side <- r$side; advs[[cur_adv]]$minutes <- r$minutes }
-      else paren <- left
+      if (str_detect(left, "\\)")) take_role(left) else paren <- left
       advs[[cur_adv]]$name_open <- FALSE
       next
     }
@@ -228,7 +232,7 @@ parse_day_call <- function(pages, date = as.Date(NA)) {
     cs <- cases[[min(a$case, length(cases))]]
     data.frame(date = date, dkt = cs$dkt, slot = cs$slot, minutes_total = cs$minutes_total,
                name = str_to_title(a$name), affiliation = paste(a$affiliation, collapse = ", "),
-               side = a$side, minutes = a$minutes, stringsAsFactors = FALSE)
+               side = a$side, minutes = a$minutes, role = a$role %||% NA_character_, stringsAsFactors = FALSE)
   }))
 }
 
@@ -261,6 +265,7 @@ read_day_calls <- function(site_dir) {
   chr <- function(nm) { x <- as.character(j[[nm]]); x[is.na(x) | x == "NA"] <- NA_character_; x }
   data.frame(date = as.Date(j$date), dkt = chr("dkt"), slot = as.integer(j$slot), minutes_total = as.integer(j$minutes_total),
              name = chr("name"), affiliation = chr("affiliation"), side = chr("side"), minutes = as.integer(j$minutes),
+             role = if ("role" %in% names(j)) chr("role") else rep(NA_character_, nrow(j)),
              stringsAsFactors = FALSE)
 }
 .write_rows <- function(df, path, date_cols) {
@@ -300,7 +305,11 @@ update_day_calls <- function(site_dir, index = NULL) {
   old <- read_day_calls(site_dir)
   if (is.null(index)) return(old)
   dc <- index[index$kind == "daycall", , drop = FALSE]
-  todo <- dc[!dc$key %in% format(old$date), , drop = FALSE]
+  # New days, plus any held day with an advocate whose side the parser could
+  # not read: a parser that has since learned the form gets another look.
+  unread <- unique(format(old$date[is.na(old$side)]))
+  todo <- dc[!dc$key %in% setdiff(format(old$date), unread), , drop = FALSE]
+  old <- old[!format(old$date) %in% todo$key, , drop = FALSE]
   todo <- todo[order(todo$key, decreasing = TRUE), , drop = FALSE]
   todo <- head(todo, DAYCALL_MAX_NEW)
   if (!nrow(todo)) { cat("Day Calls: none new (", length(unique(old$date)), " held)\n", sep = ""); return(old) }
