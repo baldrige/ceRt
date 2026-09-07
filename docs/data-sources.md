@@ -17,8 +17,9 @@ is adopted or the Court changes one.
 | **Hermes transfer feed** | `/rss/hermes_transfer.xml` | the files the Court's internal system just pushed, with timestamps; the files themselves are not served | `watch-court.yml`: a change trigger that dispatches the daily |
 | **Granted & Noted List** | `/orders/NNgrantednotedlist.pdf`, OT16 on | per argued case: code, court below, grant, argument and decision dates, author, separate writings with their kind, result, unanimity flags | `R/granted_noted.R`: the Navigator's "Separate writings" column, the same line on Recent decisions, and the argument-grammar audit |
 | **Questions Presented PDFs** | `/qp/NN-NNNNNqp.pdf` | the QP as granted, typeset text | `R/qp_extract.R` |
-| **Argument transcripts index** | `/oral_arguments/argument_transcript/YYYY` | docket → transcript PDF | `attach_media()` in `R/argument_nav.R` |
-| **Argument audio** | `/oral_arguments/audio/YYYY/<docket>` | stable per-case URL | same |
+| **Argument audio and transcript feeds** | `/rss/argument_audio_rss.aspx?TYear=NN`, `/rss/argument_transcripts_rss.aspx?TYear=NN` (OT17 on) | one item per argued case: caption and docket, the audio page or transcript PDF, and when it was posted | `attach_media()` in `R/argument_nav.R`, since 2026-09-06: a link is offered only once the Court has posted the file |
+| **Argument transcripts index** | `/oral_arguments/argument_transcript/YYYY` | docket → transcript PDF | the fallback for a Term whose feed is down |
+| **Argument audio** | `/oral_arguments/audio/YYYY/<docket>` | stable per-case URL | the fallback for a Term whose feed is down |
 
 ## Not read yet, clean, worth having
 
@@ -33,18 +34,18 @@ Monday 14:03 UTC daily slot is the floor for those.
 The Granted & Noted List was built on 2026-09-06 and has moved to the table
 above (`docs/granted-noted.md`).
 
-1. **Argument audio and transcript RSS.** `/rss/argument_audio_rss.aspx?TYear=NN`
-   and `argument_transcripts_rss.aspx`: the same data the Navigator scrapes,
-   as a feed with posting times.
-3. **Monthly argument calendars.** `/oral_arguments/argument_calendars/MonthlyArgumentCal<Month><Year>.pdf`,
+The argument audio and transcript feeds were adopted on 2026-09-06 and have
+moved to the table above.
+
+1. **Monthly argument calendars.** `/oral_arguments/argument_calendars/MonthlyArgumentCal<Month><Year>.pdf`,
    text PDFs listing each argument day's dockets, published ~2 months ahead
    (the October 2026 sitting appeared 4 Aug 2026). Agrees with the dockets'
    "SET FOR ARGUMENT" entries; a cross-check.
-4. **Day Call.** `/oral_arguments/daycall/Day Call_MM-DD-YY.pdf`, one per
+2. **Day Call.** `/oral_arguments/daycall/Day Call_MM-DD-YY.pdf`, one per
    argument day: each advocate's name, city, side, and the time allotted.
    Cleaner than parsing "Argued. For petitioner: …" if the Counsel Table ever
    wants argument time.
-5. **In-chambers opinions.** `/opinions/in-chambers.aspx`, same table shape as
+3. **In-chambers opinions.** `/opinions/in-chambers.aspx`, same table shape as
    the other listings; rare (last: 23A843). A one-line addition to the
    failsafe's listing kinds.
 
