@@ -178,6 +178,7 @@ OPINION_LISTING_KINDS <- c("slipopinion", "relatingtoorders")
 # fallback for the slip opinions and the only source for opinions relating to
 # orders, which have no feed.
 OPINION_RSS_URL <- "https://www.supremecourt.gov/rss/slipopinion_rss.aspx?TYear=%s"
+OPINION_INCHAMBERS_URL <- "https://www.supremecourt.gov/opinions/in-chambers.aspx"
 
 .listing_df <- function(dkt = character(), date = as.Date(character()), url = character(),
                         holding = rep(NA_character_, length(dkt)), author = rep(NA_character_, length(dkt)))
@@ -293,6 +294,12 @@ fetch_opinion_listing <- function(terms, kinds = OPINION_LISTING_KINDS) {
     }
     if (!is.null(got) && nrow(got)) parts[[length(parts) + 1L]] <- got
   }
+  # In-chambers opinions: a single Justice's opinion on an application, on one
+  # page for every Term (rare: Navarro v. United States, 23A843, is the newest
+  # as of 2026-09-07). Same table shape as the other listings; one request.
+  got <- tryCatch(.parse_opinion_listing(.fetch_listing_page(OPINION_INCHAMBERS_URL)), error = function(e) {
+    cat("In-chambers listing unavailable:", conditionMessage(e), "\n"); NULL })
+  if (!is.null(got) && nrow(got)) parts[[length(parts) + 1L]] <- got
   if (!length(parts)) return(.listing_df())
   do.call(rbind, parts)
 }
