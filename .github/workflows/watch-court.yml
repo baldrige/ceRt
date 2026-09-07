@@ -3,13 +3,20 @@ name: Watch the Court
 # Poll supremecourt.gov's Hermes transfer feed every fifteen minutes and
 # dispatch the daily when it changes, so an afternoon opinion or a Monday
 # order list reaches the site within minutes rather than at the next fixed
-# cron. The three scheduled dailies stay as the floor: GitHub sheds scheduled
-# runs under load, and this one is no exception. See
-# .github/scripts/court_watch.py and docs/data-sources.md.
+# cron. See .github/scripts/court_watch.py and docs/data-sources.md.
+#
+# It runs as a CHAIN, not a cron. GitHub honoured 16 of this workflow's first
+# 177 fifteen-minute cron slots (5-7 Sep 2026), a median of 126 minutes apart,
+# so each run now stays up for just under six hours, polling from inside the
+# job, and dispatches the next run before it exits. The cron below is the
+# restart floor: if the chain breaks, the next honoured slot starts a new
+# run; if a run is already in progress, a cron-started run exits at once.
+# The concurrency group keeps it to one active run.
 #
 # State (the last fingerprint seen) rides in the Actions cache: each run saves
 # its own key and restores the newest one with the prefix, which is the one
-# stateless-repo store that needs no commit and no secret.
+# stateless-repo store that needs no commit and no secret. The script also
+# writes it after every poll, so a run cut short loses nothing.
 
 on:
   schedule:
@@ -18,9 +25,13 @@ on:
   workflow_dispatch:
     inputs:
       dry_run:
-        description: "Decide, print, but do not dispatch the daily."
+        description: "Decide, print, but do not dispatch anything."
         required: false
         default: "false"
+      loop_min:
+        description: "Minutes to keep polling inside this run (0 = one poll). Default just under GitHub's six-hour job cap."
+        required: false
+        default: "345"
 
 permissions:
   actions: write
@@ -33,8 +44,9 @@ concurrency:
 jobs:
   watch:
     runs-on: ubuntu-latest
-    # Two steps carry caps (3 + 2); the job cap must exceed their sum.
-    timeout-minutes: 8
+    # The job cap is GitHub's maximum; the polling step's cap leaves the save
+    # step time to run, and the two step caps (3 + 350) stay under it.
+    timeout-minutes: 360
     steps:
       - uses: actions/checkout@v5
         with:
@@ -48,11 +60,15 @@ jobs:
           key: hermes-state-${{ github.run_id }}
           restore-keys: hermes-state-
       - name: Watch
-        timeout-minutes: 2
+        timeout-minutes: 350
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
+          GITHUB_RUN_ID: ${{ github.run_id }}
           DRY_RUN: ${{ inputs.dry_run == 'true' && '1' || '' }}
+          WATCH_LOOP_MIN: ${{ inputs.loop_min || '345' }}
+          POLL_SEC: "900"
+          RECHAIN: "1"
         run: python3 .github/scripts/court_watch.py
       - name: Save the fingerprint
         if: always()
