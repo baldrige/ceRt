@@ -133,8 +133,22 @@ qp_src <- tryCatch({
   message("QP union fell back to conference dockets only: ", conditionMessage(e))
   dist |> distinct(dkt, .keep_all = TRUE)
 })
+# Plus every pending paid-docket case in the two Terms, whatever conference it
+# was distributed to. 25-845 (Abbott v. LULAC, an appeal distributed for the
+# April 2026 conference) had no QP anywhere: its April conference fell before
+# the August min_conf, it was never relisted, and the daily's window had long
+# passed it -- while the landing page's All-pending forecast window ranked it
+# first. A pending case is one a reader can be sent to from the front page, so
+# it gets its question. ~500 dockets, one-time against the cache, inside the
+# same QP_MAX_NEW budget.
+qp_src <- tryCatch({
+  pend <- classify_petitions(combined) |> filter(type == "paid", outcome %in% "pending") |> pull(dkt)
+  extra <- combined |> filter(dkt %in% pend, !dkt %in% qp_src$dkt) |> distinct(dkt, .keep_all = TRUE) |>
+    mutate(petition_url = map_chr(events, find_petition_url))
+  bind_rows(qp_src, extra |> select(any_of(names(qp_src)))) |> distinct(dkt, .keep_all = TRUE)
+}, error = function(e) { message("QP union: pending-docket extension skipped: ", conditionMessage(e)); qp_src })
 uniq <- qp_src
-cat("QP set:", nrow(uniq), "docket(s) (conference window + live relisted)\n")
+cat("QP set:", nrow(uniq), "docket(s) (conference window + live relisted + pending paid)\n")
 qp_raw <- resolve_qps(uniq$dkt, uniq$petition_url,
                       cache_path = file.path(conf_dir, "qp_cache.json"),
                       max_new = qp_max_new)

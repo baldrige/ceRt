@@ -229,7 +229,9 @@ QP_CITE_ABBR <- c(
   mask <- "\uE000"
   rx <- paste0("\\b(", paste(QP_CITE_ABBR, collapse = "|"), "|[A-Z])\\.")
   masked <- str_replace_all(cand, rx, paste0("\\1", mask))
-  s <- str_extract(masked, "^.*?[.?](?=\\s+[A-Z\u201c\"(]|$)")
+  # A sentence ends at a terminator followed by a capital -- or by the next
+  # numbered question ("... alternative congressional map? 2. Did the ...").
+  s <- str_extract(masked, "^.*?[.?](?=\\s+[A-Z\u201c\"(]|\\s+\\(?\\d{1,2}[.)]\\s|$)")
   if (is.na(s)) return(NA_character_)
   str_replace_all(s, mask, ".")
 }
@@ -243,6 +245,9 @@ qp_line <- function(txt, max_chars = 360L) {
   x <- str_remove(x, "^[^A-Za-z(\\[\u201c\"]+")                        # a scanned form's dashes / underscores
   x <- str_remove(x, "^(\\(?[0-9IVXivxA-Da-d]{1,3}[.)]\\s+)+")          # leading "1." / "I." / "(A)" / "1. (a)"
   x <- str_remove(x, regex("^(the )?questions? presented( for review)?( (is|are))?[:.]?\\s*", ignore_case = TRUE))
+  # The extractor sometimes keeps only the tail of that heading -- 25-845's
+  # cached text opens "are: 1. Did the district court err ...".
+  x <- str_remove(x, regex("^(is|are)\\s*[:.]\\s*", ignore_case = TRUE))
   x <- str_remove(x, "^(\\(?[0-9IVXivxA-Da-d]{1,3}[.)]\\s+)+")
   # The operative clause wherever it starts: "Whether", else "WHETHER", else a
   # lowercase "whether" that follows "question presented is" or opens a clause
