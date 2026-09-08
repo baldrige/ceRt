@@ -257,7 +257,11 @@ write_docket_css <- function(out_dir) {
 # argument and, for Callais, to the reargument order. A classifier change, so a
 # bump (see docs/docket-pages.md); it moves a handful of pages, and rolls out
 # with reuse_from_runs. Measured in docs/granted-noted.md.
-PAGE_TEMPLATE_VERSION <- "v27"
+#
+# v28: the funnel reads the first-person summary disposition ("we reverse the
+# District Court's judgment", 25-845), so a page that said "Pending" over a
+# reversal says GVR'd. A classifier change; a handful of pages.
+PAGE_TEMPLATE_VERSION <- "v28"
 
 # ---- small helpers ------------------------------------------------------------
 .esc <- function(x) { x <- x %||% ""; x[is.na(x)] <- ""; htmltools::htmlEscape(x) }

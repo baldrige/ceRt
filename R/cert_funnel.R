@@ -161,6 +161,21 @@ SUMMARY_PROSE_RX <- paste0(
   "(?i)^the judgments?[^.]{0,60}(is|are) (vacated|reversed)",
   "[^.]{0,80}(and|,)[^.]{0,40}remanded")
 
+# The first-person summary disposition. 25-845 (Abbott v. LULAC, a section
+# 1253 appeal, 27 Apr 2026): "For the reasons set forth in Abbott v. League of
+# United Latin American Citizens, 607 U. S. ___ (2025), we reverse the District
+# Court's judgment. Justice Sotomayor, Justice Kagan, and Justice Jackson
+# dissent from the Court's summary reversal." No grant, no "Judgment REVERSED",
+# no remand: none of the forms above, and the funnel held it "pending" -- so it
+# sat on the landing page's All-pending forecast window a month after the
+# Court had disposed of it, and the re-check by name could not see why.
+# Anchored at the entry's start, with room for the "For the reasons ..." clause
+# -- which carries a citation, so periods ("607 U. S. ___") cannot end it --
+# so a recital of what a lower court did cannot match.
+SUMMARY_FIRST_PERSON_RX <- paste0(
+  "(?i)^(for the reasons.{0,260}?\\)\\W{0,3})?",
+  "we (reverse|vacate|affirm)\\b.{0,120}?judgment")
+
 # A granted rehearing VACATES the order it reheard, so an earlier denial that has
 # been vacated is no longer this petition's disposition (17-243: "The petition
 # for rehearing is granted. The order ... denying ... is vacated"). Without this,
@@ -278,6 +293,7 @@ classify_petition_events <- function(events) {
     str_detect(txt, "^Judgments? VACATED and cases? REMANDED") ~ "gvr",
     # the same order in lowercase prose -- see SUMMARY_PROSE_RX
     str_detect(txt, SUMMARY_PROSE_RX) ~ "gvr",
+    str_detect(txt, SUMMARY_FIRST_PERSON_RX) ~ "gvr",
     str_detect(txt, "^Adjudged to be AFFIRMED") ~ "gvr",
     rx_any(txt, DENY_FORMS) ~ "denied",
     rx_any(txt, DISMISS_FORMS) ~ "dismissed",
@@ -489,7 +505,7 @@ funnel_baseline_fingerprint <- function(paths) {
     logic = lapply(c("classify_petition_events", "classify_petitions",
                      "funnel_stats", "conference_dates_from_events"), body_of),
     grammar = list(GRANT_FORMS, DENY_FORMS, DISMISS_FORMS, SUMMARY_RX,
-                   SUMMARY_PROSE_RX, REHEARING_GRANT_RX, FUNNEL_PATTERNS),
+                   SUMMARY_PROSE_RX, SUMMARY_FIRST_PERSON_RX, REHEARING_GRANT_RX, FUNNEL_PATTERNS),
     # Content hashes, not mtimes: a gh-pages/CI checkout rewrites mtimes on every
     # run, which would make the fingerprint churn for no reason.
     archives = unname(tools::md5sum(sort(paths)))
