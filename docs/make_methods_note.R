@@ -133,25 +133,34 @@ for (i in seq_len(nrow(cfc))) {
     esc_(r$term), f3(r$relisted), f3(r$granted), f3(r$gvr)))
 }
 conf_block <- sprintf('<details class="coefs"><summary>Conference <span class="cnt">competing risks &middot; %d terms</span></summary>
-<div class="warn"><p class="note"><b>No standard errors.</b> This tier is a multinomial logit and <code>strip_multinom()</code> drops the Hessian before the artifact is saved, which keeps it at 3&nbsp;KB. SE, z and p cannot be recovered from the stored object &mdash; refit from the at-risk panel if you need them. Below are point estimates only, each the log-odds of that outcome <i>versus denial</i> at the same conference.</p></div>
+<div class="warn"><p class="note"><b>No uncertainty figures for this one.</b> The conference forecast is a different kind of model: at each conference it weighs three outcomes at once (relisted, granted, GVR) against denial. To keep the saved model small, the part that carries its uncertainty estimates (the Hessian) is dropped by <code>strip_multinom()</code> before it is stored, so SE, z and p cannot be recovered from it; refit from the at-risk panel if you need them. Each number below is the points that fact adds to the odds of that outcome <i>versus denial</i> at the same conference.</p></div>
 <div class="coefwrap"><table class="coef"><thead><tr><th>Term</th><th>Relisted</th><th>Granted</th><th>GVR</th></tr></thead>
 <tbody>%s</tbody></table></div></details>', nrow(cfc), crows)
 
 coef_section <- paste0(
   '<h2>Coefficients</h2>\n',
-  '<p>Every term in every deployed model, from the artifacts themselves. ',
-  '&beta; is on the log-odds scale; the odds ratio is <span class="stat">e<sup>&beta;</sup></span>, ',
-  'the multiplier on the odds of the outcome for a one-unit change, holding the rest fixed. ',
-  'A <span class="sig">&bull;</span> marks p&nbsp;&lt;&nbsp;0.05 &mdash; a reading aid, not a finding: ',
-  'this is eight Terms of observational data, nothing is corrected for the ',
+  '<p>This section is for readers who want to check the arithmetic. It lists every ',
+  'term in every model exactly as deployed, read from the model files themselves. ',
+  'For everyone else the sections above are the whole story, and these tables can ',
+  'be skipped.</p>\n',
+  '<p>Each row is one fact the model can see. <b>&beta;</b> is the points that fact ',
+  'adds to a petition&rsquo;s score (a negative number subtracts), and the ',
+  '<b>odds ratio</b>, <span class="stat">e<sup>&beta;</sup></span>, restates the same ',
+  'thing as a multiplier on the odds of the outcome with everything else held equal: ',
+  '2.0 means the odds double, 0.5 means they halve. <b>SE</b> is the uncertainty in ',
+  'the estimate, <b>z</b> is the estimate divided by that uncertainty, and <b>p</b> is ',
+  'the chance of seeing an effect at least this large if the true effect were zero. ',
+  'A <span class="sig">&bull;</span> marks p&nbsp;below&nbsp;0.05. It is a reading aid, ',
+  'not a finding: this is eight Terms of observational data, the ',
   # The logit terms only. The conference tier reports no p-values at all, so its
   # 49 terms are not comparisons and counting them here would overstate the
   # correction that is missing.
   sprintf("%d", nrow(cf_all)),
-  ' tests reported here, and a coefficient is not a cause.</p>\n',
-  logit_block(ord("baseline"), "Baseline", "petition-stage, predicts grant"),
-  logit_block(ord("enhanced"), "At-risk",  "granted ever"),
-  logit_block(ord("gvr"),      "GVR",      "granted, vacated, remanded"),
+  ' tests reported here are not corrected for their number, and a coefficient ',
+  'measures association, not cause.</p>\n',
+  logit_block(ord("baseline"), "Baseline", "at filing; predicts a grant"),
+  logit_block(ord("enhanced"), "Enhanced", "at conference; predicts a grant at any later conference"),
+  logit_block(ord("gvr"),      "GVR",      "at conference; predicts a grant-vacate-remand"),
   conf_block)
 
 
@@ -257,7 +266,17 @@ style_css <- "<style>
   }
 </style>"
 
-html <- sprintf('<!DOCTYPE html><html lang="en"><head><script async src="/analytics.js"></script><meta charset="utf-8">
+# ---- The note itself -----------------------------------------------------------
+# Written for a reader with no statistics: every term of art is introduced by
+# the plain question it answers, and every figure still comes from the artifacts.
+# The page is assembled section by section rather than through one sprintf():
+# R caps a format string at 8192 characters, the old single template ran close
+# to it, and each section now carries its own arguments next to its own text.
+# Sections with no substitutions are plain strings (a bare % is fine there);
+# only the sprintf() sections escape % as %%. No apostrophes anywhere in these
+# single-quoted literals: &rsquo; instead.
+
+head_html <- '<!DOCTYPE html><html lang="en"><head><script async src="/analytics.js"></script><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Predicting Certiorari &mdash; Methods Note</title>
 @SOCIAL@
@@ -266,57 +285,97 @@ html <- sprintf('<!DOCTYPE html><html lang="en"><head><script async src="/analyt
 @STYLE@</head><body><main class="sheet">
 <p class="kicker">supremecourt.report &middot; methods note</p>
 <h1>Predicting the Probability of Certiorari</h1>
-<p class="dek">Three calibrated models estimating whether a <i>paid</i> petition will be granted plenary review.</p>
+<p class="dek">How this site estimates the chance that a petition will be granted, and how those estimates are checked against what the Court actually did.</p>
+'
 
-  <h2>The models</h2>
-  <p><b>Baseline</b> &mdash; grant probability from case structure known at filing (shown on the daily petition dashboards). <b>Enhanced</b> &mdash; adds docket-development signals (conference reports). <b>GVR</b> &mdash; the companion &ldquo;hold&rdquo; risk of a grant-vacate-remand. IFP petitions (grant rate ~0.1%%) are a separate regime and excluded.</p>
-  <h2>Data &amp; target</h2>
-  <p>Eight Terms, OT2017&ndash;OT2024: <b>%s paid petitions</b>, of which <b>%s were granted</b>. Target is plenary <i>granted</i> vs. <i>denied</i>; GVRs, dismissals, and pending petitions are excluded from training. Every docket-development feature is snapshotted <i>strictly before</i> the decision date &mdash; leakage-safe.</p>
-  <h2>Method</h2>
-  <p>Logistic regression, Platt-calibrated. Validated <b>leave-one-term-out</b>: each Term is scored by a model trained on the other seven, and the calibration map is fitted out-of-fold. That is out-of-<i>fold</i>, not out-of-time — a rolling-origin check (train only on earlier Terms) reproduces it to within 0.003 AUC.</p>
-  <h2>Validation (leave-one-term-out)</h2>
+sec_meaning <- sprintf('
+  <h2>What the number means</h2>
+  <p>Every paid petition on this site carries a percentage: the estimated chance that the Court will grant it and hear the case. It works like a rain forecast. A &ldquo;17%%&rdquo; does not say the petition scores 17 out of 100, and it does not say the petition will be granted. It says that, of a hundred petitions that look like this one on the docket, about seventeen have been granted in the past. Most petitions are long shots: across the eight Terms the models learned from, <b>%s</b> of paid petitions were granted, so a petition rated near that figure is simply average.</p>
+', pct(b$base_rate, 1))
+
+sec_models <- '
+  <h2>Three estimates for three moments</h2>
+  <p>A petition&rsquo;s prospects change as its docket develops, so the site carries three related estimates rather than one.</p>
+  <ul>
+    <li><b>At filing.</b> The <b>baseline</b> estimate uses only what is known on the day a petition is docketed: who is asking and whom they are asking against, which court ruled below, how quickly the case came up, whether the petition reports a dissent below or a split among the lower courts, and the lawyers&rsquo; record at the Court. This is the number on the daily petition dashboards and on each case page.</li>
+    <li><b>At conference.</b> The <b>enhanced</b> estimate adds what happened next: whether the other side filed a response or waived it, whether the Court asked for one, whether outside groups filed briefs in support, and whether the Justices have already considered the petition once and carried it over to another conference (a &ldquo;relist&rdquo;). This is the number on the conference reports.</li>
+    <li><b>The other way to win.</b> Some petitions are neither granted nor denied. When the Court has just decided a related case, it often sends similar petitions back to the lower court to reconsider, without briefing or argument. Lawyers call this a GVR, for granted, vacated and remanded. The <b>GVR</b> estimate is the chance of that outcome. It sits beside the grant estimate because a petition being held for a related case can look, on the docket, very much like one about to be granted.</li>
+  </ul>
+  <p>Petitions filed without the fee, by people who cannot afford it, are not scored. About one in a thousand of them is granted, and a model built for paid petitions would be wrong about them in both directions.</p>
+'
+
+sec_data <- sprintf('
+  <h2>What the models learned from</h2>
+  <p>Eight Terms of the Court&rsquo;s own docket records, from the Term that began in October 2017 through the one that began in October 2024: <b>%s paid petitions</b>, of which <b>%s were granted</b> and heard. A petition counts as a success only if the Court took the case in full. Petitions sent back with a GVR, dismissed, or still waiting are left out of the lesson, because they are neither a yes nor a no to the question the model is asking.</p>
+  <p>One rule matters more than any other: the models may see only what was on the docket <i>before</i> the Court acted. A response filed the week after a grant says nothing useful about predicting that grant, and letting it in would make the model look far better than it is. Every docket signal is measured strictly before the decision date.</p>
+', comma(mc(b)$n), comma(mc(b)$n_pos))
+
+sec_method <- '
+  <h2>How the estimate is made</h2>
+  <p>The method is the plainest one that works: a scoring formula. Each fact about a petition adds or subtracts points (the United States as petitioner adds a great many; a petitioner with no lawyer subtracts a great many), the points are totalled, and the total is converted into a probability. Statisticians call this logistic regression. Nobody writes the points by hand: the formula is fitted to the eight Terms of outcomes so that each fact carries the weight it actually had.</p>
+  <p>The conversion from points to a percentage is then checked and, where needed, adjusted, a step called calibration, so that when the model says 17%, about 17 in 100 such petitions really were granted.</p>
+  <p>The checking is done honestly. Fitting a model and then grading it on the same petitions would be like letting a student mark their own homework with the answers open. Instead, each Term is hidden in turn: the model is fitted on the other seven Terms, asked to predict the hidden one, and graded against what actually happened. Every figure in the next section comes from those hidden-Term predictions, never from petitions the model had already seen. A stricter version of the check, fitting only on Terms <i>earlier</i> than the one being predicted, gives the same result to within 0.003 on the AUC scale explained below.</p>
+'
+
+sec_valid <- sprintf('
+  <h2>How well it works</h2>
   <table><thead><tr><th>Model</th><th>Base rate</th><th>AUC</th><th>Avg.&nbsp;prec.</th><th>Brier</th></tr></thead><tbody>
     %s%s%s
   </tbody></table>
-  <p class="note"><b>AUC</b> &mdash; chance the model ranks a random grant above a random denial. <b>Avg. precision</b> is the imbalance-aware metric (baseline %.3f vs. a %s base rate &asymp; %.1f&times; chance). <b>Brier</b> &mdash; the reference is a constant forecast at each model&rsquo;s own base rate, %s, %s and %s; all three beat it. Accuracy is meaningless at a %s base rate.</p>
+  <p><b>Base rate</b> is how often the outcome happened at all: the share of petitions in each model&rsquo;s data that were granted, or for the GVR model sent back. It is the number a model has to beat.</p>
+  <p><b>AUC</b> answers a simple question. Pick one granted petition and one denied petition at random; how often does the model rate the granted one higher? A coin flip scores 0.5 and a perfect model scores 1. The baseline scores %.3f, so it puts the granted petition first about %s of the time.</p>
+  <p><b>Average precision</b> asks how concentrated the grants are near the top of the model&rsquo;s ranking. A random ranking scores the base rate itself, %s. The baseline scores %.3f, about %.1f times better than chance.</p>
+  <p><b>Brier score</b> is the average error of the percentages themselves, so lower is better. The comparison is with the laziest possible forecast, which gives every petition the base rate. That forecast scores %s for the baseline, %s for the enhanced model and %s for the GVR model, and all three models beat it.</p>
+  <p class="note">Plain accuracy is not reported because it would mislead. A model that said &ldquo;denied&rdquo; to every petition would be right %s of the time and would be worthless.</p>
 
 <figure><img src="%s" alt="Calibration plot: predicted vs observed grant rate by decile">
-  <figcaption>Predicted vs. observed grant rate by risk decile. Point size &prop; petitions in the bin.</figcaption></figure>
-  <h2>What drives the estimate</h2>
-  <ul>
-    <li><b>U.S. as petitioner</b> (the Solicitor General): ~43%% granted vs. 3.7%% &mdash; the largest structural cue.</li>
-    <li><b>Relists</b> (enhanced): non-monotonic &mdash; ~1%% at zero, ~20%% at one, ~44%% at two, falling to ~19%% at 5+ (the &ldquo;hold&rdquo; zone). Modeled as a bucket, not a line.</li>
-    <li><b>Rule&nbsp;10 dissent / circuit split</b>, parsed from the petition PDF.</li>
-    <li><b>Counsel track record</b> — prior petitions and prior wins, counted strictly before this petition was docketed.</li>
-    <li><b>Court below</b>: federal circuits far above state courts.</li>
-  </ul>
+  <figcaption>Petitions sorted into ten groups by the model&rsquo;s estimate. Across: what the model predicted for each group. Up: the share actually granted. Points on the dashed line are perfectly calibrated; larger points are groups with more petitions.</figcaption></figure>
+',
+  row("Baseline (at filing)", b), row("Enhanced (at conference)", e), row("GVR (at conference)", g),
+  mc(b)$auc, pct(mc(b)$auc, 0),
+  pct(b$base_rate, 2), mc(b)$ap, mc(b)$ap / b$base_rate,
+  # The three tiers train on different frames and so carry different base
+  # rates (4.1% / 7.8% / 5.4%); a constant forecast at rate p scores p(1-p).
+  brier_ref(b), brier_ref(e), brier_ref(g),
+  pct(1 - b$base_rate, 1),
+  img)
 
-  <h2>Calibration</h2>
-  <p>Predicted probabilities track observed frequencies across deciles: the enhanced model&rsquo;s top decile predicts %s and observes %s; the baseline&rsquo;s predicts %s and observes %s. A &ldquo;17%%&rdquo; means about 17%%.</p>
-  <h2>Limitations</h2>
+sec_drivers <- '
+  <h2>What moves the estimate</h2>
   <ul>
-    <li>Rare outcome &mdash; only %s grants across eight Terms.</li>
-    <li>OT2024 is right-censored (late petitions undecided): a pessimistic test Term.</li>
-    <li>The dissent signal defaults to &ldquo;absent&rdquo; for the ~9%% of petitions with no parseable PDF, conservatively understating it.</li>
-    <li>Entity typing and counsel matching are heuristic (regex).</li>
+    <li><b>The United States as petitioner.</b> When the Solicitor General asks, the Court usually listens: roughly 43% of those petitions are granted, against about 3.7% of everyone else&rsquo;s. Nothing else on the docket comes close.</li>
+    <li><b>Relists.</b> When the Justices take up a petition at conference and, instead of deciding it, carry it over to the next conference, that is a relist. One relist is a strong sign: about 20% of those petitions are granted, against roughly 1% of petitions never relisted. Two is stronger still, about 44%. But five or more usually means the petition is being held for another case, and the grant rate falls back to about 19%. Because the pattern rises and then falls, the model treats each count separately instead of assuming that more is always better.</li>
+    <li><b>A dissent below, or a split among the lower courts.</b> Read from the petition itself. The Court&rsquo;s Rule 10 names disagreement among the lower courts as the main reason it takes cases, and petitions that report one are granted more often.</li>
+    <li><b>Counsel&rsquo;s track record.</b> How many petitions the lawyers had filed before this one and how many were granted, counted only up to the day this petition was docketed so that later successes cannot leak in.</li>
+    <li><b>The court below.</b> Petitions from the federal courts of appeals are granted far more often than petitions from state courts.</li>
   </ul>
+'
 
-@COEFS@
-<footer>Generated %s from the deployed model artifacts &middot; Full methods: <b>docs/cert_model.md</b> &middot; These are descriptive statistical estimates &mdash; <b>not legal advice, and not a prediction about any particular case</b>.</footer>
-</main></body></html>',
-  comma(mc(b)$n), comma(mc(b)$n_pos),
-  row("Baseline (daily)", b), row("Enhanced (conference)", e), row("GVR companion", g),
-  mc(b)$ap, pct(b$base_rate, 2), mc(b)$ap / b$base_rate,
-  # One number no longer serves: the three tiers train on different frames and
-  # so carry different base rates (4.1% / 7.8% / 5.4%), and a constant forecast
-  # at rate p scores p(1-p). The note published a flat 0.042 for all three,
-  # which was only ever the petition-stage figure.
-  brier_ref(b), brier_ref(e), brier_ref(g), pct(b$base_rate, 1),
-  img,
+sec_calib <- sprintf('
+  <h2>Does 17%% really mean 17%%?</h2>
+  <p>Within the limits of the data, yes. Sort the petitions into ten groups by the model&rsquo;s estimate and compare each group&rsquo;s average estimate with the share actually granted. In the riskiest tenth, the enhanced model predicted <b>%s</b> and <b>%s</b> were in fact granted; the baseline predicted <b>%s</b> and <b>%s</b> were granted. The lower groups track just as closely, as the chart above shows.</p>
+',
   pct(tail(e$calibration$pred,1)), pct(tail(e$calibration$obs,1)),
-  pct(tail(b$calibration$pred,1)), pct(tail(b$calibration$obs,1)),
-  comma(mc(b)$n_pos),
-  format(Sys.Date(), "%B %Y"))
+  pct(tail(b$calibration$pred,1)), pct(tail(b$calibration$obs,1)))
+
+sec_limits <- sprintf('
+  <h2>What it cannot do</h2>
+  <ul>
+    <li><b>Grants are rare</b>: only %s in eight Terms. Rare events are hard to learn from, and the estimate for an unusual petition is less certain than the estimate for a typical one.</li>
+    <li><b>The last Term was unfinished.</b> The most recent Term in the data was still in progress when the data was taken, so petitions filed late in it had not been decided. That makes it look like a harder Term than it was.</li>
+    <li><b>Some petitions cannot be read.</b> About 9%% have no readable PDF. For those the model assumes no dissent below and no split, which if anything understates their chances.</li>
+    <li><b>Names are matched by pattern.</b> Deciding what kind of party is asking (a business, a state, the federal government) and recognising the same lawyer across petitions is done by matching names. It is good, not perfect.</li>
+    <li><b>The model knows nothing about the law.</b> It has never read the question presented. It sees only the shape of the docket, which is why a strong petition on a subject the Court has been avoiding can score low, and an ordinary one from the Solicitor General can score high.</li>
+  </ul>
+', comma(mc(b)$n_pos))
+
+foot_html <- sprintf('
+@COEFS@
+<footer>Generated %s from the models in use on this site &middot; Technical detail: <b>docs/cert_model.md</b> in the repository &middot; These are statistical estimates drawn from past dockets &mdash; <b>not legal advice, and not a prediction about any particular case</b>.</footer>
+</main></body></html>', format(Sys.Date(), "%B %Y"))
+
+html <- paste0(head_html, sec_meaning, sec_models, sec_data, sec_method, sec_valid,
+               sec_drivers, sec_calib, sec_limits, foot_html)
 
 # The :root is substituted AFTER sprintf() so it does not have to survive the
 # format string's %% escaping, and so palette.R stays the only place the values
@@ -330,9 +389,9 @@ html <- sprintf('<!DOCTYPE html><html lang="en"><head><script async src="/analyt
 source("R/site_meta.R")
 html <- sub("@SOCIAL@", social_meta(
   "Predicting Certiorari — Methods Note",
-  paste("Three calibrated models estimating whether a paid petition will be",
-        "granted plenary review: data, validation, calibration, and every",
-        "coefficient with standard errors and p-values."),
+  paste("How supremecourt.report estimates a petition's chance of being granted,",
+        "explained for non-specialists: the data, how the estimates are checked,",
+        "what moves them, and every coefficient for readers who want the arithmetic."),
   "/methods.html", "article"), html, fixed = TRUE)
 html <- sub("@COEFS@", coef_section, html, fixed = TRUE)
 html <- sub("@STYLE@", style_css, html, fixed = TRUE)
