@@ -245,8 +245,21 @@ top_viewed_cases <- function(site_dir, n = 5L, days = 30L) {
   }
 
   # Collapse the query-string variants, then re-rank on the combined totals.
-  agg <- stats::aggregate(cbind(views, users) ~ docket, data = df, FUN = sum)
+  # Views add across variants; users do NOT -- one reader who opened the page
+  # twice under two query strings is one reader, and summing published "9
+  # views / 10 users" for 26-179 on 2026-09-08. The variant with the most
+  # users is the floor's conservative count.
+  agg <- merge(stats::aggregate(views ~ docket, data = df, FUN = sum),
+               stats::aggregate(users ~ docket, data = df, FUN = max), by = "docket")
   agg <- agg[order(-agg$views, agg$docket), , drop = FALSE]
+
+  # What GA sees site-wide, every run, so a thin panel can be read against the
+  # traffic behind it without a log-archaeology session: the total for the
+  # window and the top paths. One extra query.
+  seen <- tryCatch(ga4_all_paths(prop, tok, days = days, limit = 5L), error = function(e) NULL)
+  if (!is.null(seen) && nrow(seen))
+    message(sprintf("top_viewed_cases(): site-wide over %dd, top paths: %s", days,
+                    paste(sprintf("%s (%d)", seen$path, seen$views), collapse = ", ")))
 
   # A page can be in GA and gone from the site (a docket renumbered, a stale
   # bookmark). Linking it would publish a 404, so drop before taking the top n.
