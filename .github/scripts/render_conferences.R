@@ -133,16 +133,22 @@ qp_src <- tryCatch({
   message("QP union fell back to conference dockets only: ", conditionMessage(e))
   dist |> distinct(dkt, .keep_all = TRUE)
 })
-# Plus every pending paid-docket case in the two Terms, whatever conference it
-# was distributed to. 25-845 (Abbott v. LULAC, an appeal distributed for the
-# April 2026 conference) had no QP anywhere: its April conference fell before
-# the August min_conf, it was never relisted, and the daily's window had long
-# passed it -- while the landing page's All-pending forecast window ranked it
-# first. A pending case is one a reader can be sent to from the front page, so
-# it gets its question. ~500 dockets, one-time against the cache, inside the
-# same QP_MAX_NEW budget.
+# Plus every pending paid docket and every granted or summarily decided
+# petition in the two Terms, whatever conference it was distributed to. 25-845
+# (Abbott v. LULAC, an appeal distributed for the April 2026 conference) had no
+# QP anywhere: its April conference fell before the August min_conf, it was
+# never relisted, and the daily's window had long passed it -- while the
+# landing page's All-pending forecast window ranked it first. Then the funnel
+# learned to read its summary reversal, and as a decided case it fell out of a
+# pending-only rule on the very run meant to fetch it. Pending, granted and
+# GVR'd cases are the ones a reader is sent to, from the front page or the
+# Navigator, so they get their question. ~500 dockets the first time, a
+# handful a week after, inside the same QP_MAX_NEW budget.
 qp_src <- tryCatch({
-  pend <- classify_petitions(combined) |> filter(type == "paid", outcome %in% "pending") |> pull(dkt)
+  pend <- classify_petitions(combined) |>
+    filter((type == "paid" & outcome %in% "pending") |
+           (type %in% PETITION_TYPES & outcome %in% c("granted", "gvr"))) |>
+    pull(dkt)
   extra <- combined |> filter(dkt %in% pend, !dkt %in% qp_src$dkt) |> distinct(dkt, .keep_all = TRUE) |>
     mutate(petition_url = map_chr(events, find_petition_url))
   bind_rows(qp_src, extra |> select(any_of(names(qp_src)))) |> distinct(dkt, .keep_all = TRUE)
