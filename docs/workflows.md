@@ -68,8 +68,10 @@ watcher already in progress exits at once. See **[data-sources.md](data-sources.
   over the trailing 30 days, read from GA4 (`R/site_analytics.R`). Unset,
   failing, or credential-expired, the panel is omitted and the build is
   otherwise unchanged; it never fails the daily.
-  A **publishing floor** gates it: each entry needs ≥3 distinct readers and ≥5
-  views, and ≥3 entries must clear that before anything renders (fewer than 5
+  A **publishing floor** gates it: each entry needs ≥10 distinct readers and
+  ≥15 views (raised 2026-09-08 from 3 and 5, which the summer's traffic let a
+  search-arrival page and the forecast panel's own dockets clear), and ≥3
+  entries must clear that before anything renders (fewer than 5
   qualifying entries renders fewer than 5, not nothing). Below the floor the
   ordering would be produced by the docket-number tiebreak rather than by
   readers. Suppression is logged with the counts that failed it, so a dark panel

@@ -47,9 +47,17 @@ GA4_SCOPE     <- "https://www.googleapis.com/auth/analytics.readonly"
 # to satisfy by accident.
 #
 # Raise these as traffic grows -- they are deliberately a one-line edit.
-MOST_READ_MIN_USERS   <- 3L  # distinct readers required, per entry
-MOST_READ_MIN_VIEWS   <- 5L  # page views required, per entry
-MOST_READ_MIN_ENTRIES <- 3L  # below this it is a coincidence, not a list
+#
+# Raised 2026-09-08, from 3 readers / 5 views. At the summer's traffic (the
+# leading case page had 17 views in 30 days) that floor admitted a 2021 case
+# arriving one view per reader from search results and three consecutive
+# dockets that were on the forecast panel -- the front page reporting itself
+# back. Ten readers is a number a handful of clicks cannot reach; the panel
+# stays dark until the Term brings readers, which is the honest state.
+# Revisit in November against argument-season traffic.
+MOST_READ_MIN_USERS   <- 10L  # distinct readers required, per entry
+MOST_READ_MIN_VIEWS   <- 15L  # page views required, per entry
+MOST_READ_MIN_ENTRIES <- 3L   # below this it is a coincidence, not a list
 
 # Mint a short-lived access token from a service-account key using the JWT-bearer
 # flow: sign a claim set with the account's private key, trade it for a token.
