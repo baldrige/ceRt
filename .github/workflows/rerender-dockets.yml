@@ -143,6 +143,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
           REUSE: ${{ inputs.reuse_from_runs }}
+          TERMS: ${{ inputs.terms }}
         run: |
           mkdir -p snapshots
           # Fresh-fetch mode pulls this run's own artifacts; reuse mode pulls the
@@ -154,6 +155,18 @@ jobs:
           done
           # gh nests each artifact in its own dir; flatten so RDS_DIR sees cases-*.rds.
           find snapshots -name 'cases-*.rds' -exec mv -f {} snapshots/ \; 2>/dev/null || true
+          # In reuse mode `terms` narrows the render the way it narrows the fetch.
+          # The reused snapshots are as old as the run they came from; rendering
+          # the live Terms from them would overwrite pages the weekly wrote from
+          # fresher fetches. Name the closed Terms and leave the live ones to it.
+          if [ -n "$REUSE" ] && [ -n "$TERMS" ]; then
+            keep=$(echo "$TERMS" | tr ', ' '\n' | sed 's/[^0-9]//g;/^$/d')
+            for f in snapshots/cases-*.rds; do
+              [ -e "$f" ] || continue
+              t=$(basename "$f" .rds | sed 's/^cases-//')
+              echo "$keep" | grep -qx "$t" || { echo "dropping $f (not in terms)"; rm -f "$f"; }
+            done
+          fi
           echo "snapshots present:"; ls -1 snapshots/*.rds 2>/dev/null || echo "  none"
       - name: Re-render docket pages into ./site
         env:

@@ -261,7 +261,13 @@ write_docket_css <- function(out_dir) {
 # v28: the funnel reads the first-person summary disposition ("we reverse the
 # District Court's judgment", 25-845), so a page that said "Pending" over a
 # reversal says GVR'd. A classifier change; a handful of pages.
-PAGE_TEMPLATE_VERSION <- "v28"
+#
+# v29: the disposition box names the summary form the order used -- "Summarily
+# reversed", "Summarily affirmed", "Vacated as moot", "Vacated and remanded" --
+# instead of "GVR'd" for the whole bucket. Wording only; the funnel bucket and
+# its fingerprint are unchanged. Rolls out with reuse_from_runs; touches only
+# the bucket's pages.
+PAGE_TEMPLATE_VERSION <- "v29"
 
 # ---- small helpers ------------------------------------------------------------
 .esc <- function(x) { x <- x %||% ""; x[is.na(x)] <- ""; htmltools::htmlEscape(x) }
@@ -655,6 +661,44 @@ classify_application_events <- function(et, ed, dkt = NA_character_) {
 # Status-adaptive disposition box. Pending paid petitions get the forecast
 # (a prediction); resolved cases lead with the outcome and keep the pre-decision
 # estimate as a retrospective note.
+# The funnel's "gvr" bucket is every summary merits disposition -- one bucket,
+# because the statistics want one. The case page owes the reader the word the
+# order actually used: 25-845 was a summary REVERSAL of a section 1253 appeal,
+# with nothing granted and nothing sent back for reconsideration, and its page
+# said "GVR'd"; a summary affirmance said the same. Reads the entry (or entries)
+# dated to the disposition and names the form. The bucket itself is untouched:
+# this is wording over data the funnel already classified, so the fingerprint
+# the counsel-stats check digests does not move.
+summary_disposition_word <- function(ev, outcome_date) {
+  if (!is.data.frame(ev) || is.na(outcome_date)) return("GVR'd")
+  d <- suppressWarnings(lubridate::mdy(ev$Date))
+  txt <- str_remove_all(coalesce(ev[["Proceedings and Orders"]] %||% "", ""), "<[^>]+>")
+  txt <- str_squish(txt[!is.na(d) & d == as.Date(outcome_date)])
+  # The order that fired the bucket: a grant carrying a summary form, or one of
+  # the standalone forms. Anything else dated the same day (a stay, a motion) is
+  # noise for the question of which word to use.
+  is_disp <- (rx_any(txt, GRANT_FORMS) & str_detect(txt, SUMMARY_RX)) |
+    str_detect(txt, "^Judgments? VACATED and cases? REMANDED") |
+    str_detect(txt, SUMMARY_PROSE_RX) | str_detect(txt, SUMMARY_FIRST_PERSON_RX) |
+    str_detect(txt, "^Adjudged to be AFFIRMED")
+  t <- txt[is_disp][1]
+  if (is.na(t)) return("GVR'd")
+  case_when(
+    str_detect(t, regex("vacated as moot|instructions to dismiss[^.]{0,60}moot|Munsingwear", ignore_case = TRUE)) ~ "Vacated as moot",
+    # 17-1364: "Adjudged to be AFFIRMED in part and REVERSED in part."
+    str_detect(t, regex("affirmed in part[^.]{0,20}reversed in part", ignore_case = TRUE)) ~ "Affirmed in part, reversed in part",
+    str_detect(t, regex("^Adjudged to be AFFIRMED|^the judgment is affirmed|\\bwe affirm\\b", ignore_case = TRUE)) ~ "Summarily affirmed",
+    str_detect(t, regex("judgments?[^.]{0,120}\\breversed\\b|\\bwe reverse\\b", ignore_case = TRUE)) ~ "Summarily reversed",
+    # The GVR proper: granted, and sent back "for further consideration in
+    # light of" a decision the Court names.
+    str_detect(t, regex("in light of", ignore_case = TRUE)) & rx_any(t, GRANT_FORMS) ~ "GVR'd",
+    # Granted and vacated on the Court's own per curiam reasoning ("for further
+    # proceedings consistent with this opinion"): a summary vacatur, not a GVR.
+    rx_any(t, GRANT_FORMS) ~ "Summarily vacated",
+    # The standalone appeal forms, no grant to speak of.
+    TRUE ~ "Vacated and remanded")
+}
+
 docket_disposition <- function(outcome, outcome_date, arg, p_base, p_gvr, sig, is_app = FALSE, why = "", why_retro = "",
                                p_lo = NA_real_, p_hi = NA_real_, p_ever = NA_real_,
                                word_override = NULL) {
@@ -846,6 +890,9 @@ docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
     orig_word <- original_status_word(oc)
     if (is.na(granted_on) && !is.na(oc$leave_granted)) granted_on <- oc$leave_granted
   }
+  # A summary disposition gets the word its order used (see summary_disposition_word).
+  if (is.null(orig_word) && !is_app && identical(outcome, "gvr"))
+    orig_word <- tryCatch(summary_disposition_word(ev, outcome_date), error = function(e) NULL)
 
   # Forecast (paid only; pure, from in-memory models).
   p_base <- NA_real_; p_gvr <- NA_real_; fc_why <- ""; fc_why_retro <- ""

@@ -185,6 +185,27 @@ party actually opposing the petitioner. Single-respondent cases are unaffected
 > — clean single boundary; **23-477** (US v. Skrmetti) — the cross-aligned case that
 > motivated the latest-brief rule.
 
+## Summary dispositions: one funnel bucket, several words
+
+The funnel's `gvr` bucket is every summary merits disposition — the statistics
+want one bucket, and the funnel page says so. The case page does not repeat the
+bucket's name: `summary_disposition_word()` reads the order dated to the
+disposition and names the form it used. Measured across the 652 bucket members
+in the archives (v29):
+
+| order form | case-page word | n |
+| --- | --- | --- |
+| granted, vacated and remanded "for further consideration in light of …" | GVR'd | 571 |
+| granted, vacated "with instructions to dismiss … as moot" (Munsingwear) | Vacated as moot | 24 |
+| granted, "judgment … reversed" / "we reverse" (25-845) | Summarily reversed | 22 |
+| granted, vacated "for proceedings consistent with this opinion" | Summarily vacated | 22 |
+| standalone appeal vacatur, no grant | Vacated and remanded | 11 |
+| "Adjudged to be AFFIRMED" | Summarily affirmed | 1 |
+| affirmed in part and reversed in part (17-1364) | Affirmed in part, reversed in part | 1 |
+
+Wording only: the bucket, the model and the counsel-stats fingerprint are
+untouched.
+
 ## Application dispositions (`NNA###`)
 
 Applications are excluded from `classify_petitions()`, so `classify_application_events()`
@@ -284,6 +305,11 @@ explicitly. Two dispatchable workflows do this:
   for a pure template bump (no data change): ~20 min instead of a ~3 h re-scrape.
   (Reusing multiple runs works only if their artifact names don't collide — the
   flatten step keeps one file per name.)
+- **`terms` narrows a render-only pass too.** Reused snapshots are as old as the
+  run they came from, so rendering the live Terms from them would overwrite
+  pages the weekly wrote from fresher fetches. Name the closed Terms
+  (`-f terms=17,18,19,20,21,22,23,24`) and let the weekly's full re-render carry
+  the bump across the live ones.
 - Rendering is incremental, so a partly-throttled or interrupted run re-dispatches
   cheaply — already-current pages skip.
 
