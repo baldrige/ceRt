@@ -13,6 +13,7 @@ inputs:
 runs:
   using: composite
   steps:
+    - uses: ./.github/actions/apt-sources
     - shell: bash
       env:
         PACKAGES: ${{ inputs.packages }}
@@ -65,19 +66,14 @@ runs:
           done
         }
 
-        # 2026-09-09: two dailies in a row died here on "Hash Sum mismatch" from
+        # 2026-09-09: three dailies in a row died on "Hash Sum mismatch" from
         # dl.google.com -- the runner image's Google Chrome apt source, mid-sync
-        # on Google's side. Nothing here installs from it, or from the other
-        # vendor sources the image carries; poppler and tesseract come from the
-        # Ubuntu archive. Drop the vendor lists so a third party's bad day is
-        # not ours, and treat an incomplete update as a warning: apt still
-        # refreshes the lists it could fetch, and the install below is the
-        # step whose failure actually means something.
-        sudo rm -f /etc/apt/sources.list.d/google-chrome*.list \
-                   /etc/apt/sources.list.d/microsoft-edge*.list \
-                   /etc/apt/sources.list.d/microsoft-prod*.list \
-                   /etc/apt/sources.list.d/*azure-cli*.list \
-                   /etc/apt/sources.list.d/*github-cli*.list 2>/dev/null || true
+        # on Google's side. Nothing here installs from it; poppler and tesseract
+        # come from the Ubuntu archive. The vendor sources are dropped by the
+        # apt-sources step above (by host, since the image ships them as deb822
+        # .sources files a name-based rm missed), and an incomplete update is a
+        # warning: apt still refreshes the lists it could fetch, and the
+        # install below is the step whose failure actually means something.
         apt_run 180 update \
           || echo "::warning::apt-get update did not fully succeed; installing from the lists it could refresh"
         # PACKAGES is deliberately unquoted: it word-splits into one argument
