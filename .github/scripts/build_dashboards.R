@@ -291,9 +291,23 @@ source("R/site_calendar.R")
 # Re-checked here by name -- a Monday order list denies dozens of the petitions
 # it names -- before the top rows are shown. A couple of dozen paced requests,
 # skipping any docket this run has already fetched. Never fatal.
+#
+# Plus this run's own window. The manifest is as old as the last weekly, and
+# a case docketed after that fetch is not in it: 26-304 was docketed on
+# September 8, led the 7-day window at 80% that evening, and was absent from
+# the "All pending" window beside it. The daily's ~150 fresh dockets are scored
+# with the same function the weekly uses and merged in ahead of the manifest,
+# so the window is never a week behind the one next to it. Those rows need no
+# re-fetch: they were fetched this run.
 pend_all <- tryCatch({
   pf <- read_pending_forecasts(file.path(site_dir, "conferences", PENDING_FORECASTS))
   cat("Pending forecasts manifest:", nrow(pf), "row(s)\n")
+  fresh <- tryCatch(score_pending_cases(ot, grant_model, site_dir, counsel_index = counsel_ix),
+                    error = function(e) { cat("pending window scoring failed:", conditionMessage(e), "\n"); NULL })
+  if (!is.null(fresh) && nrow(fresh))
+    cat("This run's window:", nrow(fresh), "pending paid-docket case(s) scored; top",
+        fresh$dkt[1], sprintf("(%.1f%%)", 100 * fresh$prob[1]), "\n")
+  pf <- merge_pending_forecasts(pf, fresh)
   if (nrow(pf)) {
     cand <- head(pf, PENDING_VERIFY)
     have <- bind_rows(ot, watch_cases, orig_cases)

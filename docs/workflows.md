@@ -185,7 +185,7 @@ rebase cleanly.
 | `conferences/` (+ `qp_cache.json`) | `conferences.yml`; cache also by `backfill-qp*.yml` |
 | `arguments/` (+ `qp_cache.json`) | `conferences.yml` |
 | `arguments/upcoming.json`, `conferences/upcoming.json` (landing-page calendar manifests) | `conferences.yml` |
-| `conferences/pending_forecasts.json` (the landing page's "All pending" forecast window; the daily re-checks its top rows by name) | `conferences.yml` |
+| `conferences/pending_forecasts.json` (the landing page's "All pending" forecast window; the daily merges its own freshly-scored window in ahead of it and re-checks the top rows by name) | `conferences.yml` |
 | `arguments/granted_noted.json` (the Court's Granted & Noted Lists, parsed; the Navigator's "Separate writings" column and the decisions rows read it) | `conferences.yml` |
 | `arguments/calendar.json`, `arguments/daycalls.json` (the monthly argument calendars and Day Calls, parsed; see **[argument-calendar.md](argument-calendar.md)**) | `conferences.yml` |
 | `arguments/decided.json`, `arguments/watch.json` (landing-page "Recent decisions" manifest and the daily's named-fetch watch list) | `conferences.yml` |
