@@ -267,7 +267,15 @@ write_docket_css <- function(out_dir) {
 # instead of "GVR'd" for the whole bucket. Wording only; the funnel bucket and
 # its fingerprint are unchanged. Rolls out with reuse_from_runs; touches only
 # the bucket's pages.
-PAGE_TEMPLATE_VERSION <- "v29"
+#
+# v30: the counsel panel knows the original action's side words. The Court's
+# JSON heads the moving side "Attorneys for Plaintiff" and the moving-side
+# pattern knew Petitioner, Applicant and Appellant only, so 22O164 published
+# counsel for the respondent and a dash for the plaintiffs. The side labels
+# now use the Court's own word ("For plaintiff", "For applicant"). Wording and
+# one regex; the back-catalog changes only on the original docket, which the
+# daily renders by name.
+PAGE_TEMPLATE_VERSION <- "v30"
 
 # ---- small helpers ------------------------------------------------------------
 .esc <- function(x) { x <- x %||% ""; x[is.na(x)] <- ""; htmltools::htmlEscape(x) }
@@ -419,6 +427,23 @@ DOCKET_LEGEND <- paste0(
   "<span><i style='background:var(--c-yellow)'></i>Reply (merits)</span>",
   "<span><i style='background:var(--c-tan)'></i>Reply / other</span>",
   "<span><i class='hollow'></i>Procedural</span></div>")
+
+# The two sides of a docket, by the role word the Court's JSON heads them with.
+.SIDE_MOVING_RX   <- "Petitioner|Applicant|Appellant|Plaintiff|Movant"
+.SIDE_OPPOSING_RX <- "Respondent|Appellee|Defendant"
+
+# "For petitioner" / "For plaintiff" / "For applicant": the Court's own role
+# word for the side matching `rx`, lower-cased, or `default` when the docket
+# carries no such side.
+docket_side_label <- function(parties, rx, default) {
+  w <- if (is.data.frame(parties) && nrow(parties) && "type" %in% names(parties))
+    parties$type[str_detect(parties$type %||% "", rx)] else character()
+  w <- w[!is.na(w) & nzchar(w)]
+  # Singular, whatever the Court's count: the panel names a side, not a
+  # party list, and "For respondent" has been its wording on every page.
+  word <- if (length(w)) str_remove(str_to_lower(str_squish(w[1])), "s$") else default
+  paste0("For ", .esc(word))
+}
 
 # Counsel of record + firm for the side matching `rx`, "Name<br><firm>".
 docket_counsel <- function(parties, rx) {
@@ -993,12 +1018,19 @@ docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
 
   # Counsel of record -- omit the panel entirely when we hold no counsel data
   # (rather than showing misleading em-dashes for both sides).
-  pc <- docket_counsel(par, "Petitioner|Applicant|Appellant")
-  rc <- docket_counsel(par, "Respondent|Appellee")
+  # The side words are the Court's own: its JSON heads each side "Attorneys
+  # for Petitioner", "... Applicant", "... Appellant" -- and, on an original
+  # action, "... Plaintiff" and "... Defendant", which the moving-side pattern
+  # did not know. 22O164 (Iowa and Montana v. Arizona) published with counsel
+  # for the respondent and a dash for the plaintiffs. The label under the
+  # heading follows the same word, so an original action says "For plaintiff"
+  # and an application "For applicant".
+  pc <- docket_counsel(par, .SIDE_MOVING_RX)
+  rc <- docket_counsel(par, .SIDE_OPPOSING_RX)
   counsel_panel <- if (pc != "&mdash;" || rc != "&mdash;")
     paste0("<div class='panel'><h3>Counsel of record</h3>",
-      "<p class='cslot'><span class='side'>For petitioner</span><br>", pc, "</p>",
-      "<p class='cslot'><span class='side'>For respondent</span><br>", rc, "</p></div>") else ""
+      "<p class='cslot'><span class='side'>", docket_side_label(par, .SIDE_MOVING_RX, "petitioner"), "</span><br>", pc, "</p>",
+      "<p class='cslot'><span class='side'>", docket_side_label(par, .SIDE_OPPOSING_RX, "respondent"), "</span><br>", rc, "</p></div>") else ""
   # Amicus tally -- shown only when the case drew at least one amicus. The stage
   # segments (cert / merits) and, under the merits, the Rule 37 side split mirror
   # the timeline's cream / light-green / dark-green dots; each segment appears only
