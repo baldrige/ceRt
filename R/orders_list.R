@@ -56,7 +56,8 @@ ORDERS_TEMPLATE_VERSION <- "o2"   # o2: captions through strip_caption_roles()
 # older parser is fetched and parsed again (one request each, inside the run's
 # ORDERS_MAX_NEW budget, so a bump spreads over a few runs).
 #   p2: a prose line beginning with a docket number is text, not a new docket
-ORDERS_PARSER_VERSION <- "p2"
+#   p3: "164, ORIG." is a docket (22O164); "ORDER IN PENDING CASE" is a heading
+ORDERS_PARSER_VERSION <- "p3"
 # Landing-page panel: documents from the last N days, at most M of them.
 ORDERS_PANEL_DAYS <- 21L
 ORDERS_PANEL_MAX  <- 4L
@@ -64,6 +65,10 @@ ORDERS_PANEL_MAX  <- 4L
 # Section headings -> keys. `other` keeps the heading text as its label.
 ORDERS_SECTIONS <- c(
   "ORDERS IN PENDING CASES"            = "pending",
+  # A miscellaneous order with one case is headed in the singular.
+  "ORDER IN PENDING CASE"              = "pending",
+  "ORDER IN PENDING CASES"             = "pending",
+  "ORDERS IN PENDING CASE"             = "pending",
   "CERTIORARI -- SUMMARY DISPOSITIONS" = "gvr",
   "CERTIORARI GRANTED"                 = "granted",
   "CERTIORARI DENIED"                  = "denied",
@@ -151,7 +156,16 @@ fetch_orders_listing <- function(terms = orders_terms()) {
 
 # ---- the parser ---------------------------------------------------------------------
 
-.ORD_DOCKET_RX  <- "^\\s*(\\d{2}-\\d{1,5}|\\d{2}[AMO]\\d{1,4}|D-\\d{1,5})\\s*(\\))?\\s*(.*)$"
+# The original docket is written "164, ORIG." on an order list, never
+# "22O164" -- so the 2026-09-09 miscellaneous order in Iowa and Montana v.
+# Arizona parsed as a list of no orders, on the home page and on its own page.
+# .ord_docket_norm() folds that form onto the JSON API's 22O### name, which is
+# what the case pages are keyed by.
+.ORD_DOCKET_RX  <- "^\\s*(\\d{2}-\\d{1,5}|\\d{2}[AMO]\\d{1,4}|D-\\d{1,5}|\\d{1,3}, ORIG\\.)\\s*(\\))?\\s*(.*)$"
+.ord_docket_norm <- function(d) {
+  o <- str_match(d, "^(\\d{1,3}), ORIG\\.$")[, 2]
+  ifelse(is.na(o), d, paste0("22O", o))
+}
 .ORD_RELATED_RX <- "^\\s*\\((\\d{2}[AMO-]\\d{1,5})\\)\\s*$"
 .ORD_HEADING_RX <- "^[A-Z][A-Z .,&'-]{7,}$"
 .ORD_STOP_RX    <- paste0("^\\s*(SUPREME COURT OF THE UNITED STATES\\s*$|Cite as:|",
@@ -187,7 +201,7 @@ parse_order_document <- function(pages) {
     # A section heading: centred caps, no digits, and not a docket line.
     if (str_detect(t, .ORD_HEADING_RX) && !str_detect(ln, .ORD_DOCKET_RX) &&
         (t %in% names(ORDERS_SECTIONS) ||
-         str_detect(t, "(GRANTED|DENIED|DISPOSITIONS|PENDING CASES|DISCIPLINE|DISMISSED)$"))) {
+         str_detect(t, "(GRANTED|DENIED|DISPOSITIONS|PENDING CASES?|DISCIPLINE|DISMISSED)$"))) {
       section <- unname(ORDERS_SECTIONS[t]); if (is.na(section)) section <- "other"
       label <- if (section == "other") str_to_sentence(t) else unname(ORDERS_SECTION_LABELS[section])
       open <- integer(); last_kind <- "other"
@@ -208,7 +222,7 @@ parse_order_document <- function(pages) {
       # The bracket that groups dockets sharing an order sits before OR after
       # the caption ("25-904    )   LA UNION V. PAXTON" / "25-390   FULL PLAY
       # GROUP, S.A. V. UNITED STATES, ET AL. )"); either way it is not caption.
-      entries[[cur]] <- list(section = section, label = label, dkt = dk[1, 2],
+      entries[[cur]] <- list(section = section, label = label, dkt = .ord_docket_norm(dk[1, 2]),
                              caption = str_squish(str_remove(dk[1, 4], "\\s*\\)\\s*$")),
                              related = NA_character_, text = "", group = group)
       open <- c(open, cur); last_kind <- "docket"
