@@ -1,0 +1,27 @@
+name: Drop vendor apt sources
+description: >
+  Remove the runner image's third-party apt sources (Google Chrome, Microsoft,
+  Azure CLI, GitHub CLI) before anything runs apt-get update. Nothing here
+  installs from them, and r-lib/actions/setup-r runs its own apt-get update,
+  which fails outright when one of those vendors is mid-sync ("Hash Sum
+  mismatch" from dl.google.com took three dailies on 2026-09-09). Matched by
+  the host in the source file, not by file name: the image ships some of them
+  in deb822 .sources files, not .list files, which is how a name-based rm
+  missed google-chrome.sources the first time.
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      run: |
+        set -uo pipefail
+        # Vendors only. The Ubuntu archive and any launchpad PPA stay.
+        hosts='dl.google.com|packages.microsoft.com|packages.cloud.google.com|cli.github.com|apt.llvm.org|apt.postgresql.org|dl.yarnpkg.com|deb.nodesource.com'
+        dropped=0
+        for f in /etc/apt/sources.list.d/*; do
+          [ -f "$f" ] || continue
+          if grep -Eq "$hosts" "$f"; then
+            echo "dropping apt source $(basename "$f")"
+            sudo rm -f "$f"; dropped=$((dropped + 1))
+          fi
+        done
+        echo "vendor apt sources dropped: $dropped"

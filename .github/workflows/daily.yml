@@ -99,6 +99,7 @@ jobs:
       - name: System dependencies (poppler + tesseract for pdftools/OCR)
         uses: ./.github/actions/system-deps
 
+      - uses: ./.github/actions/apt-sources
       - name: Setup R
         uses: r-lib/actions/setup-r@v2
         # 30, raised from 15 on 2026-08-19. This step is not a thin wrapper: it
