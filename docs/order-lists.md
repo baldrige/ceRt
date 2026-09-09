@@ -121,6 +121,12 @@ PDF, downloaded once and never again -- only the parsed entries are kept.
   the daily writes it, so it needs no place in `publish_site.sh`'s union list.
 - **Byte stability.** The manifest carries event dates and counts only, never a
   build time; the `rendered` field is the template version.
+- **The original docket is written "164, ORIG."** on an order list, never
+  "22O164", and a one-case miscellaneous order is headed "ORDER IN PENDING
+  CASE", singular. Parser p3 reads both; before it, the 2026-09-09 order in
+  Iowa and Montana v. Arizona published as a list of no orders. The docket is
+  normalised to the JSON API's `22O###`, which is what the case pages are
+  keyed by.
 
 ## The audit
 
