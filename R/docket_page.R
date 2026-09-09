@@ -275,7 +275,11 @@ write_docket_css <- function(out_dir) {
 # now use the Court's own word ("For plaintiff", "For applicant"). Wording and
 # one regex; the back-catalog changes only on the original docket, which the
 # daily renders by name.
-PAGE_TEMPLATE_VERSION <- "v30"
+#
+# v31: on an original action the second side is "For defendant". The Court's
+# JSON heads it "Attorneys for Respondent" even there, and v30 had followed
+# the JSON. Original docket only.
+PAGE_TEMPLATE_VERSION <- "v31"
 
 # ---- small helpers ------------------------------------------------------------
 .esc <- function(x) { x <- x %||% ""; x[is.na(x)] <- ""; htmltools::htmlEscape(x) }
@@ -1027,10 +1031,16 @@ docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
   # and an application "For applicant".
   pc <- docket_counsel(par, .SIDE_MOVING_RX)
   rc <- docket_counsel(par, .SIDE_OPPOSING_RX)
+  # An original action has plaintiffs and defendants. The Court's JSON heads
+  # the second side "Attorneys for Respondent" even there, so on that docket
+  # the labels follow the posture, not the JSON.
+  side_labels <- if (is_orig) c("For plaintiff", "For defendant") else
+    c(docket_side_label(par, .SIDE_MOVING_RX, "petitioner"),
+      docket_side_label(par, .SIDE_OPPOSING_RX, "respondent"))
   counsel_panel <- if (pc != "&mdash;" || rc != "&mdash;")
     paste0("<div class='panel'><h3>Counsel of record</h3>",
-      "<p class='cslot'><span class='side'>", docket_side_label(par, .SIDE_MOVING_RX, "petitioner"), "</span><br>", pc, "</p>",
-      "<p class='cslot'><span class='side'>", docket_side_label(par, .SIDE_OPPOSING_RX, "respondent"), "</span><br>", rc, "</p></div>") else ""
+      "<p class='cslot'><span class='side'>", side_labels[1], "</span><br>", pc, "</p>",
+      "<p class='cslot'><span class='side'>", side_labels[2], "</span><br>", rc, "</p></div>") else ""
   # Amicus tally -- shown only when the case drew at least one amicus. The stage
   # segments (cert / merits) and, under the merits, the Rule 37 side split mirror
   # the timeline's cream / light-green / dark-green dots; each segment appears only
