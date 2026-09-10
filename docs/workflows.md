@@ -34,9 +34,9 @@ site, partitioned so they never fight over the same paths.
 
 The daily also has a fourth cron, Mondays at 14:03 UTC, after the 9:30 ET
 order list. `watch-court.yml` (`.github/scripts/court_watch.py`) fingerprints
-the Court's `/rss/hermes_transfer.xml` every fifteen minutes and dispatches
-the daily on a change, at most once per 20 minutes and never while a daily is
-queued or running; the last fingerprint rides in the Actions cache and is
+the Court's `/rss/hermes_transfer.xml` every five minutes and dispatches
+the daily on a change, at most once per 10 minutes and never while a daily is
+queued or running (a change seen during either wait is retried next poll); the last fingerprint rides in the Actions cache and is
 written after every poll. It began as a fifteen-minute cron; GitHub honoured
 16 of its first 177 slots (median gap 126 minutes), so each run now stays up
 for just under GitHub's six-hour job cap, polling from inside the job, and

@@ -1,6 +1,6 @@
 name: Watch the Court
 
-# Poll supremecourt.gov's Hermes transfer feed every fifteen minutes and
+# Poll supremecourt.gov's Hermes transfer feed every five minutes and
 # dispatch the daily when it changes, so an afternoon opinion or a Monday
 # order list reaches the site within minutes rather than at the next fixed
 # cron. See .github/scripts/court_watch.py and docs/data-sources.md.
@@ -67,7 +67,7 @@ jobs:
           GITHUB_RUN_ID: ${{ github.run_id }}
           DRY_RUN: ${{ inputs.dry_run == 'true' && '1' || '' }}
           WATCH_LOOP_MIN: ${{ inputs.loop_min || '345' }}
-          POLL_SEC: "900"
+          POLL_SEC: "300"
           RECHAIN: "1"
         run: python3 .github/scripts/court_watch.py
       - name: Save the fingerprint
