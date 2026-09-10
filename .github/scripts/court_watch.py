@@ -14,7 +14,8 @@ This script fingerprints the feed (item names and modified times, the
 channel's own timestamp; Thumbs.db excluded), and when the fingerprint differs
 from the last one it saw, dispatches daily.yml -- unless a daily is already
 queued or running, or one was dispatched from here in the last
-DISPATCH_GAP_MIN minutes.
+DISPATCH_GAP_MIN minutes (a change seen inside that gap, or while a daily is
+live, is left unrecorded so the next poll looks at it again).
 
 WHY IT LOOPS. This began as a fifteen-minute cron. Measured over its first 44
 hours (5-7 Sep 2026): GitHub honoured 16 of 177 slots, a median of 126 minutes
@@ -34,7 +35,7 @@ decision is printed.
 
 Env: STATE_FILE (default .hermes_state/state.json), GH_TOKEN / GH_REPO for
 `gh`, GITHUB_RUN_ID (this run, for the active-watcher check), WATCH_LOOP_MIN
-(0 = poll once and exit), POLL_SEC (default 900), RECHAIN=1 to dispatch the
+(0 = poll once and exit), POLL_SEC (default 300), RECHAIN=1 to dispatch the
 next run at exit, DRY_RUN=1 to decide without dispatching anything.
 """
 import hashlib
@@ -50,10 +51,10 @@ from datetime import datetime, timedelta, timezone
 FEED = "https://www.supremecourt.gov/rss/hermes_transfer.xml"
 UA = "ceRt SCOTUS docketing dashboard (court watch)"
 STATE_FILE = os.environ.get("STATE_FILE", ".hermes_state/state.json")
-DISPATCH_GAP_MIN = 20
+DISPATCH_GAP_MIN = 10
 IGNORE = {"thumbs.db"}
 LOOP_MIN = float(os.environ.get("WATCH_LOOP_MIN", "0") or 0)
-POLL_SEC = int(os.environ.get("POLL_SEC", "900") or 900)
+POLL_SEC = int(os.environ.get("POLL_SEC", "300") or 300)
 DRY = bool(os.environ.get("DRY_RUN"))
 RUN_ID = os.environ.get("GITHUB_RUN_ID", "")
 
@@ -130,7 +131,14 @@ def poll(state):
             since = now - datetime.fromisoformat(last_dispatch)
             gap_ok = since >= timedelta(minutes=DISPATCH_GAP_MIN)
             if not gap_ok:
-                decision = f"changed, but dispatched {int(since.total_seconds() // 60)} min ago -- wait"
+                # Leave the fingerprint unrecorded, as below: recording it here
+                # would make the next poll read this change as "no change" and
+                # the daily it deserves would never be dispatched.
+                decision = f"changed, but dispatched {int(since.total_seconds() // 60)} min ago -- retry next poll"
+                print(f"[{stamp()}] feed {fp[:12]} ({len(its)} item(s), channel {chan!r}): {decision}")
+                state.update({"checked": now.isoformat(timespec="seconds")})
+                save_state(state)
+                return state
         if gap_ok:
             live = live_runs("daily.yml")
             if live:
