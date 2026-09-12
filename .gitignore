@@ -29,3 +29,7 @@ data-raw/cert_corpus.rds
 # derived at-risk (petition x conference) panel; rebuilt by train_cert_model.R
 data-raw/cert_panel.rds
 data-raw/petition_signals_cache.json
+
+# petition text cache (R/petition_signals.R get_petition_text); ~1 GB, rebuilt on demand
+data-raw/petition_text/
+data-raw/petition_signals_measure.*
