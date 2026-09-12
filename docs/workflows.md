@@ -51,7 +51,9 @@ watcher already in progress exits at once. See **[data-sources.md](data-sources.
   persist on-site caches to `gh-pages`: `cases/.manifest.json` (content-hash
   manifest, merged), `cases/search.json` (docket→caption index), and
   `dashboards/petition_signals_cache.json` (Rule 10 signals, capped
-  `PET_SIG_MAX_NEW=400`/run). Loads the cert model read-only; **no retrain**.
+  `PET_SIG_MAX_NEW=400`/run) and `dashboards/word_counts_cache.json` (the
+  certified word count from each petition's Rule 33.1(h) certificate, capped
+  `WORD_COUNT_MAX_NEW=400`/run). Loads the cert model read-only; **no retrain**.
 - **Public pages:** `dashboards/` (per-day dashboards + section index),
   **`cases/<docket>.html`** for current-term dockets just fetched (incremental),
   the landing **`index.html`**, `methods.html` (copied from `docs/`),
@@ -94,7 +96,13 @@ watcher already in progress exits at once. See **[data-sources.md](data-sources.
   own runner/IP, saved to ephemeral `cases-<term>.rds` artifacts (**not
   committed**). The publish job also incrementally fetches Question-Presented PDFs
   into caches committed to `gh-pages`: `conferences/qp_cache.json` (cap
-  `QP_MAX_NEW`, default 600) and `arguments/qp_cache.json` (cap 200). **No retrain.**
+  `QP_MAX_NEW`, default 600) and `arguments/qp_cache.json` (cap 200), and the
+  petition-signals cues for the same dockets into
+  `conferences/petition_signals_cache.json` (cap `PET_SIG_MAX_NEW`, default 600;
+  the log's "Petition signals: resolved for N of M" line is the serve-time
+  coverage the at-risk model depends on), and the certified word counts from each
+  petition's Rule 33.1(h) certificate into `conferences/word_counts_cache.json`
+  (cap `WORD_COUNT_MAX_NEW`, default 600; `R/word_count.R`). **No retrain.**
 - **Public pages:** `conferences/` (per-conference reports + rebuilt index),
   **`relists/index.html`**, **`funnel/index.html`**, **`counsel/index.html`**,
   `arguments/` (navigator index + per-term `arg_*.html`),
@@ -122,6 +130,7 @@ None of these fire on a schedule. Trigger with `gh workflow run <file> --ref mai
 | **`rerender-dockets.yml`** | Fetch mode: full-term → ephemeral `cases-*.rds`. `reuse_from_runs` mode: **no fetch** | **Yes → `cases/` only** — full back-catalog re-render |
 | **`fill-throttled-dockets.yml`** | Targeted re-fetch of only *stale* dockets → ephemeral `cases-*.rds` | **Yes → `cases/` only** — just the stale pages |
 | **`enrich-petitions.yml`** | Petition-PDF Rule 10 signals → commits `data-raw/petition_signals.json` to **`main`** | **No** |
+| **`enrich-word-counts.yml`** | Rule 33.1(h) word-count certificates → commits `data-raw/word_counts.json` to **`main`** (one runner; the files are ~1 KB) | **No** |
 | **`backfill-qp.yml`** | QP PDFs (argued grants) → commits `conferences/qp_cache.json` **cache** to `gh-pages` | **No HTML** |
 | **`backfill-qp-all.yml`** | QP PDFs (all paid petitions) → same `conferences/qp_cache.json` cache | **No HTML** |
 | **`refetch-argued.yml`** | Re-fetch ~500 granted OT17–24 dockets → commits `data-raw/arg_refresh.rds` to **`main`** | **No** — but it is the input to the Counsel Table's argument boards, so refresh it before re-rendering those |
@@ -155,6 +164,10 @@ These feed later renders; **nothing goes public until a rendering job runs.**
   signals (dissent below / circuit split) and merges them into
   `data-raw/petition_signals.json` on **`main`**, the enrichment layer the cert
   model reads at train time. One term per runner; `max_new` caps PDFs/run.
+- `enrich-word-counts.yml` — fetches the Rule 33.1(h) word-count certificate
+  docketed beside each paid, resolved petition and commits the certified counts
+  to `data-raw/word_counts.json` (`R/word_count.R`); the baseline's `word_band`
+  reads it at train time. One runner, resumable; re-dispatch after a term closes.
 - `backfill-qp.yml` / `backfill-qp-all.yml` — extract the Question Presented from
   petition PDFs into the shared `conferences/qp_cache.json` on `gh-pages`. The
   first covers argued grants (from `data-raw/arg_refresh.rds`); the second covers
@@ -182,7 +195,7 @@ rebase cleanly.
 | site path | written by |
 | --- | --- |
 | `dashboards/`, landing `index.html`, `methods.html`, `analytics.js` | `daily.yml` |
-| `conferences/` (+ `qp_cache.json`) | `conferences.yml`; cache also by `backfill-qp*.yml` |
+| `conferences/` (+ `qp_cache.json`, `petition_signals_cache.json` — the Rule 10 cues the at-risk model reads, resolved for the same dockets as the QPs, cap `PET_SIG_MAX_NEW` default 600; `word_counts_cache.json` — the certified word counts, cap `WORD_COUNT_MAX_NEW`) | `conferences.yml`; QP cache also by `backfill-qp*.yml` |
 | `arguments/` (+ `qp_cache.json`) | `conferences.yml` |
 | `arguments/upcoming.json`, `conferences/upcoming.json` (landing-page calendar manifests) | `conferences.yml` |
 | `conferences/pending_forecasts.json` (the landing page's "All pending" forecast window; the daily merges its own freshly-scored window in ahead of it and re-checks the top rows by name) | `conferences.yml` |
@@ -391,6 +404,7 @@ bursty clients).
 | `rerender-dockets.yml` | per-term full (or reuse) | back-catalog cases | `fetch_term.R`, `render_dockets_backfill.R` |
 | `fill-throttled-dockets.yml` | stale dockets only | stale cases | `fetch_missing_dockets.R`, `render_dockets_backfill.R` |
 | `enrich-petitions.yml` | petition PDFs | — (data → `main`) | `enrich_petition_signals.R`, `combine_petition_signals.R` |
+| `enrich-word-counts.yml` | word-count certificate PDFs | — (data → `main`) | `enrich_word_counts.R` |
 | `backfill-qp.yml` | argued-grant petition PDFs | — (cache → gh-pages) | `backfill_qp.R` |
 | `backfill-qp-all.yml` | all paid petition PDFs | — (cache → gh-pages) | `enrich_qp.R`, `combine_qp.R` |
 | `refetch-argued.yml` | ~500 granted OT17–24 dockets | — (data → `main`) | `refetch_argued.R` |

@@ -47,6 +47,7 @@ eval(parse(text = paste(src, collapse = "\n")))
 # Absent artifact -> NULL -> scotus_dash() simply omits the column.
 source("R/cert_model.R")
 source("R/petition_signals.R")   # resolve_petition_signals (Rule 10 from the petition PDF)
+source("R/word_count.R")         # resolve_word_counts (the Rule 33.1(h) certificate)
 source("R/argument_nav.R")       # classify_argument (for docket-page lifecycle)
 source("R/docket_page.R")        # render_dockets_for
 # classify_petition_events(), for the grants feed. argument_nav.R happens to pull
@@ -114,6 +115,17 @@ if (!is.null(grant_model)) {
   if (!is.null(sig)) signals_map <- setNames(
     lapply(seq_len(nrow(sig)), function(i) as.list(sig[i, ])), sig$dkt)
   cat("Petition Rule 10 signals resolved for", length(signals_map), "paid docket(s)\n")
+  # The certified word count (Rule 33.1(h) certificate), read by the baseline's
+  # word_band. Its own on-site cache, merged into each docket's signals entry.
+  wc <- tryCatch(resolve_word_counts(
+    paid$dkt, map_chr(paid$events, find_word_count_url),
+    cache_path = file.path(dash_dir, "word_counts_cache.json"),
+    max_new = as.integer(Sys.getenv("WORD_COUNT_MAX_NEW", unset = "400"))),
+    error = function(e) NULL)
+  if (!is.null(wc)) {
+    signals_map <- attach_word_counts(signals_map, wc)
+    cat("Word counts resolved for", sum(!is.na(wc$words)), "of", nrow(wc), "paid docket(s)\n")
+  }
 }
 
 cat("Rendering", length(dates), "date(s) to", dash_dir, "\n")

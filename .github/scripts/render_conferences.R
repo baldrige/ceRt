@@ -26,6 +26,8 @@ source("R/conference_dash.R")
 source("R/site_calendar.R")   # upcoming_conferences(), write_upcoming()
 source("R/cert_funnel.R")   # classify_petition_events (relist grammar)
 source("R/cert_model.R")    # score_disposition + load_cert_models
+source("R/petition_signals.R")  # resolve_petition_signals (Rule 10 cues for the at-risk model)
+source("R/word_count.R")        # resolve_word_counts / attach_word_counts (the certified length)
 source("R/argument_nav.R")  # classify_argument (docket-page lifecycle)
 source("R/docket_page.R")   # render_dockets_for
 cert_models <- load_cert_models("data")
@@ -164,10 +166,59 @@ qp_map <- setNames(
 )
 cat("QP resolved:", sum(!is.na(qp_map)), "of", length(qp_map), "distinct dockets\n")
 
+# The Rule 10 cues for the same dockets, read by the at-risk grant model (issue
+# #15). Three layers, later ones winning: the committed enrichment of the closed
+# terms (data-raw/petition_signals.json), the daily's on-site cache for the
+# current term (dashboards/petition_signals_cache.json), and this script's own
+# cache, which resolves whatever is still missing -- the same petition PDFs the
+# QP step just fetched, inside PET_SIG_MAX_NEW per run. A docket left unresolved
+# scores as an unresolved petition does in training, so partial coverage
+# degrades honestly; the coverage line below is what to watch, because a cue
+# that is present for 98% of training rows and 60% of served rows is a bias, not
+# an omission.
+signals_map <- tryCatch({
+  m <- tryCatch(jsonlite::fromJSON("data-raw/petition_signals.json", simplifyVector = FALSE),
+                error = function(e) list())
+  daily <- file.path(site_dir, "dashboards", "petition_signals_cache.json")
+  if (file.exists(daily)) {
+    fresh <- tryCatch(jsonlite::fromJSON(daily, simplifyVector = FALSE), error = function(e) NULL)
+    if (length(fresh)) m[names(fresh)] <- fresh
+  }
+  own <- resolve_petition_signals(
+    uniq$dkt, uniq$petition_url,
+    cache_path = file.path(conf_dir, "petition_signals_cache.json"),
+    max_new = as.integer(Sys.getenv("PET_SIG_MAX_NEW", unset = "600")))
+  own <- own[!is.na(own$pet_chars), ]
+  if (nrow(own)) m[own$dkt] <- lapply(seq_len(nrow(own)), function(i) as.list(own[i, ]))
+  # The certified word counts, layered the same way (committed file, the
+  # daily's cache, then this script's own cache for what is still missing) and
+  # merged into each entry as `words` for the baseline's word_band.
+  m <- attach_word_counts(m, load_word_counts())
+  dwc <- file.path(site_dir, "dashboards", "word_counts_cache.json")
+  if (file.exists(dwc)) {
+    fresh <- tryCatch(jsonlite::fromJSON(dwc, simplifyVector = FALSE), error = function(e) NULL)
+    if (length(fresh)) m <- attach_word_counts(m, tibble(
+      dkt = names(fresh), words = map_int(fresh, ~ as.integer(.x$words %||% NA))))
+  }
+  if ("events" %in% names(uniq)) {
+    wc <- resolve_word_counts(
+      uniq$dkt, map_chr(uniq$events, find_word_count_url),
+      cache_path = file.path(conf_dir, "word_counts_cache.json"),
+      max_new = as.integer(Sys.getenv("WORD_COUNT_MAX_NEW", unset = "600")))
+    m <- attach_word_counts(m, wc)
+  }
+  m
+}, error = function(e) { message("petition signals skipped: ", conditionMessage(e)); list() })
+paid_dkts <- if ("type" %in% names(uniq)) unique(uniq$dkt[uniq$type %in% "paid"]) else unique(uniq$dkt)
+has_cue <- vapply(paid_dkts, function(d) !is.null(signals_map[[d]]$pet_chars), logical(1))
+has_wc  <- vapply(paid_dkts, function(d) !is.null(signals_map[[d]]$words), logical(1))
+cat("Petition signals: resolved for", sum(has_cue), "of", length(paid_dkts),
+    "paid docket(s) in the QP set; word counts for", sum(has_wc), "\n")
+
 cat("Rendering", length(dates), "conference(s) on/after", format(min_conf), "\n")
 for (i in seq_along(dates)) {
   conference_dash(dist, dates[i], out_dir = conf_dir, qp_map = qp_map,
-                  models = cert_models)
+                  models = cert_models, signals_map = signals_map)
 }
 conference_index(conf_dir)
 
@@ -177,7 +228,7 @@ conference_index(conf_dir)
 tryCatch({
   # Already sourced above, for the QP union.
   rp <- relist_watch(dist_all, file.path(site_dir, "relists"),
-                     qp_map = qp_map, models = cert_models)
+                     qp_map = qp_map, models = cert_models, signals_map = signals_map)
   cat("Relist Tracker:", if (is.null(rp)) "no live relisted petitions -- not written"
       else paste(nrow(relist_watch_table(dist_all)), "live relisted petition(s)"), "\n")
 }, error = function(e) message("Relist Tracker skipped: ", conditionMessage(e)))

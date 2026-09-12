@@ -334,10 +334,14 @@ COUNSEL_SUFFIXES <- c("jr", "sr", "ii", "iii", "iv", "vi", "esq")
 counsel_key <- function(name) {
   t <- .name_tokens(name)
   if (length(t) == 0) return("")
-  # Strip trailing suffixes, but never down to a single token: a name that is
-  # only "Robert Jr" carries no surname at all, and "robert" alone would pool
-  # every Robert -- strictly worse than the suffix key it replaced.
-  while (length(t) > 2 && t[[length(t)]] %in% COUNSEL_SUFFIXES) t <- t[-length(t)]
+  # Strip trailing suffixes, down to a single token if that is all that is
+  # left. This used to stop at two tokens so that a name that is only "Robert
+  # Jr" would not pool every Robert -- but the two-token case that actually
+  # occurs is "Carney Jr" (an initial-only first name, dropped by
+  # .name_tokens()), and "carney jr" pools every Carney Jr while failing the
+  # suffix guard in train_cert_model.R (2026-09-11). A bare surname is the same
+  # key a mononymous entry gets, and the lesser evil.
+  while (length(t) > 1 && t[[length(t)]] %in% COUNSEL_SUFFIXES) t <- t[-length(t)]
   if (length(t) == 1) return(t[[1]])
   paste(t[[1]], t[[length(t)]])
 }
@@ -642,6 +646,7 @@ assemble_at_risk <- function(paths) {
   panel <- purrr::map_dfr(paths, function(p) { message("  ", basename(p)); assemble_at_risk_term(p) })
   panel |>
     left_join(load_petition_signals(), by = "dkt") |>
+    left_join(load_word_counts(), by = "dkt") |>
     mutate(across(c(dissent_below, dissent_argued, enbanc_dissent, split_argued),
                   ~ coalesce(.x, FALSE)),
            term_year = 2000L + as.integer(term), granted = outcome == "granted") |>
@@ -655,15 +660,37 @@ PETITION_SIGNALS_PATH <- "data-raw/petition_signals.json"
 load_petition_signals <- function(path = PETITION_SIGNALS_PATH) {
   empty <- tibble(dkt = character(), dissent_below = logical(),
                   dissent_argued = logical(), enbanc_dissent = logical(),
-                  split_argued = logical())
+                  split_argued = logical(), n_dissent = integer(),
+                  pet_chars = integer())
   if (!file.exists(path)) return(empty)
   j <- jsonlite::fromJSON(path, simplifyDataFrame = FALSE)
   if (length(j) == 0) return(empty)
+  # n_dissent / pet_chars have been in every cache entry since the extractor
+  # shipped; they were carried as diagnostics until 2026-09-11, when the
+  # derived cues (dissent_bucket / short_petition) became features.
   purrr::imap_dfr(j, function(s, dk) tibble(
     dkt = dk, dissent_below = isTRUE(s$dissent_below),
     dissent_argued = isTRUE(s$dissent_argued),
     enbanc_dissent = isTRUE(s$enbanc_dissent),
-    split_argued = isTRUE(s$split_argued)))
+    split_argued = isTRUE(s$split_argued),
+    n_dissent = as.integer(s$n_dissent %||% NA),
+    pet_chars = as.integer(s$pet_chars %||% NA)))
+}
+PETITION_SIGNAL_COLS <- c("dissent_below", "dissent_argued", "enbanc_dissent",
+                          "split_argued", "n_dissent", "pet_chars")
+
+# The certified word counts (data-raw/word_counts.json, keyed by docket ->
+# {words, chars}; built by .github/scripts/enrich_word_counts.R from the
+# Rule 33.1(h) certificate, see R/word_count.R). JSON only: no pdftools here.
+WORD_COUNTS_PATH <- "data-raw/word_counts.json"
+load_word_counts <- function(path = WORD_COUNTS_PATH) {
+  if (!file.exists(path)) return(tibble(dkt = character(), words = integer()))
+  j <- jsonlite::fromJSON(path, simplifyDataFrame = FALSE)
+  if (!length(j)) return(tibble(dkt = character(), words = integer()))
+  tibble(dkt = names(j),
+         words = vapply(j, function(s) { w <- s$words
+           if (is.null(w) || length(w) == 0) NA_integer_ else as.integer(w) },
+           integer(1), USE.NAMES = FALSE))
 }
 
 # Assemble the full labeled corpus across term files. Adds the binary label,
@@ -677,6 +704,7 @@ assemble_corpus <- function(paths) {
   })
   corpus |>
     left_join(load_petition_signals(), by = "dkt") |>
+    left_join(load_word_counts(), by = "dkt") |>
     mutate(across(c(dissent_below, dissent_argued, enbanc_dissent, split_argued),
                   ~ coalesce(.x, FALSE)),
            term_year = 2000L + as.integer(term), granted = outcome == "granted") |>
@@ -772,6 +800,25 @@ STRUCTURAL_FEATURES <- c("pet_type", "resp_type", "court_below",
 # conference tier also means the conference renderer needs no counsel index.
 COUNSEL_FEATURES <- c("counsel_tier")
 PETITION_SIGNAL_FEATURES <- c("dissent_below", "split_argued")
+# Two more cues from the same cache, added 2026-09-11. Both were carried in every
+# signals entry since the extractor shipped, as diagnostics. `n_dissent` counts
+# every "dissent" in the petition -- which, it turned out, is mostly citations to
+# this Court's own dissents rather than a dissent below, yet it separates grants
+# from denials monotonically (2.0% at zero mentions to 16.2% above ten across the
+# enriched corpus). `word_band` is the petition's length as the filer CERTIFIED
+# it under Rule 33.1(h) (R/word_count.R), in bands against the 9,000-word
+# limit. A text-length flag was tried first (under 40k characters of PDF text:
+# 0.4% granted) and it worked, but it measured two things at once -- a short
+# body, and no appendix bound into the same PDF, which is itself a grant-
+# correlated house style -- so it was replaced by the certified count, which
+# is the body alone by the Rule's own exclusions. Both cues are proxies for how
+# well-resourced the petition is; both are bucketed (never linear -- see the
+# amicus note) and sit beside counsel_tier, which they partly overlap.
+# Measured 2026-09-11, leave-one-term-out on the disposition corpus with the
+# GVR'd/dismissed negatives enriched: the shipped set read AUC 0.858 / AP
+# 0.266; with both cues AUC 0.871 / AP 0.283 (forward OT24 AUC 0.881 -> 0.895).
+# The text-length flag it replaced read 0.868 / 0.271 in the same seat.
+PETITION_SIZE_FEATURES <- c("dissent_bucket", "word_band")
 PROCESS_FEATURES <- c("relist_bucket", "amicus_bucket", "cvsg",
                       "response_requested", "response_filed",
                       "resp_waiver", "reply_filed")
@@ -799,15 +846,49 @@ PROCESS_FEATURES <- c("relist_bucket", "amicus_bucket", "cvsg",
 #    petition_signals_cache.json -- training on a cue that arrives as a default
 #    at serve time is exactly how elite_counsel shipped dead. Recovering the lift
 #    means fixing serve-time coverage first: see issue #15.
-BASELINE_FEATURES <- c(STRUCTURAL_FEATURES, COUNSEL_FEATURES, PETITION_SIGNAL_FEATURES)
+BASELINE_FEATURES <- c(STRUCTURAL_FEATURES, COUNSEL_FEATURES,
+                       PETITION_SIGNAL_FEATURES, PETITION_SIZE_FEATURES)
 ENHANCED_FEATURES <- c(STRUCTURAL_FEATURES, PROCESS_FEATURES)
+# The at-risk GRANT model (cert_model_enhanced.rds) now carries the Rule 10 cues
+# as well (issue #15: +0.012 AUC / +0.043 AP on the panel, measured 2026-07,
+# and held out only until the conference renderer could resolve them). It can,
+# as of 2026-09-11: render_conferences.R resolves the cues for every docket it
+# resolves a QP for, through the same kind of on-site cache, and reports the
+# coverage. The GVR model keeps ENHANCED_FEATURES: data-raw/petition_signals.json
+# covers granted-or-denied dockets only, so in a model whose positive class is
+# GVR an absent cue would read as the outcome.
+ATRISK_FEATURES <- c(ENHANCED_FEATURES, PETITION_SIGNAL_FEATURES)
 
 # Reference levels for the categorical predictors, chosen so a cue's log-odds
 # reads against an intuitive baseline: a private individual party, a state
 # court below, a petition not yet relisted.
 FACTOR_REFERENCES <- list(pet_type = "individual", resp_type = "individual",
                           court_below = "STATE", relist_bucket = "0",
-                          amicus_bucket = "0", counsel_tier = "new")
+                          amicus_bucket = "0", counsel_tier = "new",
+                          dissent_bucket = "0", word_band = "6-9k")
+
+# The petition-size cues. An unresolved petition (no entry in the signals cache,
+# or a PDF that yielded no text; no certificate docketed, or one that did not
+# parse) is "0" dissents and an "unknown" word band -- the same defaults at
+# training and at serve time, which is the property that matters (see the
+# elite_counsel note above).
+dissent_bucket <- function(n) {
+  n <- suppressWarnings(as.integer(n)); n[is.na(n)] <- 0L
+  cut(n, c(-Inf, 0, 2, 5, 10, Inf), labels = c("0", "1-2", "3-5", "6-10", "11+"),
+      right = TRUE) |> as.character()
+}
+# Bands against the 9,000-word limit of Rule 33.1(g): a petition well under it,
+# one at half, one near the cap (the reference: the ordinary petition), and
+# the few over it (a motion to exceed, or a count that includes the excluded
+# parts).
+WORD_BREAKS <- c(0, 3000, 6000, 9000, Inf)
+WORD_LABELS <- c("<3k", "3-6k", "6-9k", "9k+")
+word_band <- function(words) {
+  w <- suppressWarnings(as.numeric(words))
+  out <- as.character(cut(w, WORD_BREAKS, labels = WORD_LABELS, right = FALSE))
+  out[is.na(w)] <- "unknown"
+  out
+}
 
 # Training frame: paid, decided as grant or deny, complete predictors. Residual
 # levels that would separate the likelihood (the "OTHER" court bucket has zero
@@ -830,6 +911,19 @@ model_frame <- function(corpus, features) {
     filter(type == "paid", !is.na(label)) |>
     mutate(relist_bucket = relist_bucket(n_relists),   # bucketed from the raw counts
            amicus_bucket = amicus_bucket(n_amicus_cert))
+  # The size buckets need the raw signal columns, which a corpus cache built
+  # before 2026-09-11 does not carry. Fail here rather than fit on a frame that
+  # silently lacks the feature (drop_na() would empty it, and the aliasing guard
+  # would report the wrong cause).
+  if (any(PETITION_SIZE_FEATURES %in% features)) {
+    miss <- setdiff(c("n_dissent", "words"), names(df))
+    if (length(miss))
+      stop("training frame lacks ", paste(miss, collapse = ", "),
+           " -- the corpus/panel cache predates the size features; delete ",
+           "data-raw/cert_corpus.rds and data-raw/cert_panel.rds and rebuild.")
+    df <- df |> mutate(dissent_bucket = dissent_bucket(n_dissent),
+                       word_band = word_band(words))
+  }
   for (v in names(FACTOR_REFERENCES)) if (v %in% features)
     df[[v]] <- relevel(factor(df[[v]]), ref = FACTOR_REFERENCES[[v]])
   df |>
@@ -1276,6 +1370,18 @@ FORECAST_CUE_PHRASES <- c(
   "gap_fast"          = "a petition filed soon after the judgment below",
   "dissent_belowTRUE" = "a dissent in the court below (flagged in the petition)",
   "split_arguedTRUE"  = "a circuit split argued in the petition",
+  # The dissent count is mostly citations to this Court's own dissents, so the
+  # phrase says "cites", not "has": it reads the petition's argument, not the
+  # court below.
+  "dissent_bucket1-2"  = "a petition citing one or two dissents",
+  "dissent_bucket3-5"  = "a petition citing three to five dissents",
+  "dissent_bucket6-10" = "a petition citing six to ten dissents",
+  "dissent_bucket11+"  = "a petition citing more than ten dissents",
+  # From the Rule 33.1(h) certificate, against the 9,000-word limit.
+  "word_band<3k"     = "a petition under 3,000 words",
+  "word_band3-6k"    = "a petition of 3,000 to 6,000 words",
+  "word_band9k+"     = "a petition over the 9,000-word limit",
+  "word_bandunknown" = "a petition with no word-count certificate on the docket",
   "relist_bucket1"   = "one relist",
   "relist_bucket2"   = "two relists",
   "relist_bucket3-4" = "three or four relists",
@@ -1359,6 +1465,28 @@ describe_forecast <- function(score, top = 3L, eps = 0.05, include_prob = FALSE,
 # Convenience: score a raw case record (caption/lower/parties/...) at a given
 # as-of date. Structural features always apply; process features are included
 # only if the model uses them.
+# The petition-derived cues as a one-row tibble, from a signals-cache entry (a
+# named list: dissent_below, split_argued, n_dissent, pet_chars, and `words`
+# when attach_word_counts() has merged the certified count in) or from nothing.
+# Absence defaults exactly as training does -- FALSE, "0" dissents, "unknown"
+# word band -- so a petition the cache has not resolved is scored as an
+# unresolved petition was in training, not as a petition with no dissent.
+signal_features <- function(signals = NULL) {
+  g <- function(nm) if (!is.null(signals) && !is.null(signals[[nm]])) signals[[nm]] else NULL
+  tibble(
+    dissent_below  = isTRUE(g("dissent_below")),
+    dissent_argued = isTRUE(g("dissent_argued")),
+    enbanc_dissent = isTRUE(g("enbanc_dissent")),
+    split_argued   = isTRUE(g("split_argued")),
+    n_dissent      = as.integer(g("n_dissent") %||% NA),
+    pet_chars      = as.numeric(g("pet_chars") %||% NA),
+    # NULL must become a scalar NA here, or the bucket is length 0 and the
+    # tibble has no rows.
+    words          = as.integer(g("words") %||% NA),
+    dissent_bucket = dissent_bucket(g("n_dissent") %||% NA),
+    word_band      = word_band(g("words") %||% NA))
+}
+
 score_case <- function(model, caption, lower, parties, date, lower_date,
                        related, events = NULL, as_of = Sys.Date(), signals = NULL,
                        counsel_index = NULL) {
@@ -1369,8 +1497,7 @@ score_case <- function(model, caption, lower, parties, date, lower_date,
     f$counsel_tier <- counsel_tier(f$counsel_key, date, counsel_index)
   # Petition-derived Rule 10 signals: supplied by the caller (which fetched/parsed
   # the petition PDF) or defaulted to FALSE (absence) when unavailable at inference.
-  for (nm in c("dissent_below", "dissent_argued", "enbanc_dissent", "split_argued"))
-    f[[nm]] <- if (!is.null(signals) && !is.null(signals[[nm]])) isTRUE(signals[[nm]]) else FALSE
+  f <- bind_cols(f, signal_features(signals))
   if (any(PROCESS_FEATURES %in% model$features)) {
     f <- bind_cols(f, process_features(events, as.Date(as_of)))
     # Relists strictly before the as-of date, via the audited relist grammar in
@@ -1401,9 +1528,10 @@ score_case <- function(model, caption, lower, parties, date, lower_date,
 # the interface the dashboards call.
 score_disposition <- function(grant_model, gvr_model, caption, lower, parties,
                               date, lower_date, related, events, as_of,
-                              granted_dockets = character(), counsel_index = NULL) {
+                              granted_dockets = character(), counsel_index = NULL,
+                              signals = NULL) {
   g <- score_case(grant_model, caption, lower, parties, date, lower_date,
-                  related, events = events, as_of = as_of,
+                  related, events = events, as_of = as_of, signals = signals,
                   counsel_index = counsel_index)
   v <- score_case(gvr_model, caption, lower, parties, date, lower_date,
                   related, events = events, as_of = as_of,
@@ -1434,10 +1562,10 @@ score_disposition <- function(grant_model, gvr_model, caption, lower, parties,
 # other's job, and in opposite directions.
 score_conference <- function(models, caption, lower, parties, date, lower_date,
                              related, events, as_of, conf_idx = NULL,
-                             granted_dockets = character()) {
+                             granted_dockets = character(), signals = NULL) {
   as_of <- as.Date(as_of)
   f <- petition_features(caption, lower, parties, date, lower_date, related)
-  f <- bind_cols(f, process_features(events, as_of))
+  f <- bind_cols(f, process_features(events, as_of), signal_features(signals))
   cl <- tryCatch(classify_petition_events(events), error = function(e) NULL)
   rd <- if (is.null(cl)) as.Date(character()) else cl$relist_dates[[1]]
   nrel <- sum(!is.na(rd) & rd < as_of)
@@ -1505,7 +1633,7 @@ load_cert_models <- function(dir = "data") {
   # are quietly wrong. Drop it loudly instead; the renderers already omit the
   # column when a model is absent, which makes the failure visible.
   expect <- list(baseline = list(f = BASELINE_FEATURES, t = "grant"),
-                 enhanced = list(f = ENHANCED_FEATURES, t = "grant"),
+                 enhanced = list(f = ATRISK_FEATURES, t = "grant"),
                  gvr      = list(f = ENHANCED_FEATURES, t = "gvr"))
   for (nm in names(expect)) {
     m <- out[[nm]]
