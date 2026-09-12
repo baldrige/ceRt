@@ -184,15 +184,14 @@ signals_map <- tryCatch({
     fresh <- tryCatch(jsonlite::fromJSON(daily, simplifyVector = FALSE), error = function(e) NULL)
     if (length(fresh)) m[names(fresh)] <- fresh
   }
-  own <- resolve_petition_signals(
-    uniq$dkt, uniq$petition_url,
-    cache_path = file.path(conf_dir, "petition_signals_cache.json"),
-    max_new = as.integer(Sys.getenv("PET_SIG_MAX_NEW", unset = "600")))
-  own <- own[!is.na(own$pet_chars), ]
-  if (nrow(own)) m[own$dkt] <- lapply(seq_len(nrow(own)), function(i) as.list(own[i, ]))
-  # The certified word counts, layered the same way (committed file, the
-  # daily's cache, then this script's own cache for what is still missing) and
-  # merged into each entry as `words` for the baseline's word_band.
+  # The certified word counts FIRST: a certificate is a page, a petition is a
+  # hundred, and the runner's IP has a per-request budget that the QP fetch
+  # above has already drawn on. The first run to reach this step after ~1,200
+  # petition PDFs got 595 empty certificates in a row (2026-09-12). Layered the
+  # same way as the cues (committed file, the daily's cache, then this script's
+  # own cache for what is still missing -- empties retried each run, and the
+  # resolver stops itself once it sees it is being throttled) and merged into
+  # each entry as `words` for the baseline's word_band.
   m <- attach_word_counts(m, load_word_counts())
   dwc <- file.path(site_dir, "dashboards", "word_counts_cache.json")
   if (file.exists(dwc)) {
@@ -204,9 +203,16 @@ signals_map <- tryCatch({
     wc <- resolve_word_counts(
       uniq$dkt, map_chr(uniq$events, find_word_count_url),
       cache_path = file.path(conf_dir, "word_counts_cache.json"),
-      max_new = as.integer(Sys.getenv("WORD_COUNT_MAX_NEW", unset = "600")))
+      max_new = as.integer(Sys.getenv("WORD_COUNT_MAX_NEW", unset = "600")),
+      retry_unparsed = TRUE)
     m <- attach_word_counts(m, wc)
   }
+  own <- resolve_petition_signals(
+    uniq$dkt, uniq$petition_url,
+    cache_path = file.path(conf_dir, "petition_signals_cache.json"),
+    max_new = as.integer(Sys.getenv("PET_SIG_MAX_NEW", unset = "600")))
+  own <- own[!is.na(own$pet_chars), ]
+  if (nrow(own)) m[own$dkt] <- lapply(seq_len(nrow(own)), function(i) as.list(own[i, ]))
   m
 }, error = function(e) { message("petition signals skipped: ", conditionMessage(e)); list() })
 paid_dkts <- if ("type" %in% names(uniq)) unique(uniq$dkt[uniq$type %in% "paid"]) else unique(uniq$dkt)

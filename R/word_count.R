@@ -109,8 +109,15 @@ fetch_word_count_text <- function(url) {
 # for the docket JSON applies to the PDFs too), or text the parser could not
 # read, which a widened pattern or the OCR fallback may now handle. A
 # certificate that genuinely states no number costs one fetch per pass.
+#
+# `max_consecutive_empty`: once that many downloads in a row come back with no
+# text, the runner's IP is being throttled and every further fetch this run
+# would only write another empty entry -- the first conferences.yml run after
+# this shipped (2026-09-12) had already pulled ~1,200 petition PDFs for QPs and
+# cues, and all 595 certificates it then fetched came back empty. Stop, keep
+# what was learned, and let the next run (with retry_unparsed) take the rest.
 resolve_word_counts <- function(dkts, urls, cache_path, max_new = 0L, pace = 0.75,
-                                retry_unparsed = FALSE) {
+                                retry_unparsed = FALSE, max_consecutive_empty = 10L) {
   cache <- if (file.exists(cache_path)) fromJSON(cache_path, simplifyDataFrame = FALSE) else list()
   is_cached <- function(dk) !is.null(cache[[dk]]) &&
     (!retry_unparsed || !is.na(word_count_of(cache[[dk]])))
@@ -120,16 +127,25 @@ resolve_word_counts <- function(dkts, urls, cache_path, max_new = 0L, pace = 0.7
     message("word counts: fetching ", length(todo), " of ",
             sum(!vapply(dkts, is_cached, logical(1))), " uncached (cap ", max_new, ")")
     url_of <- setNames(urls, dkts)
+    empties <- 0L
     for (i in seq_along(todo)) {
       dk <- todo[i]
       txt <- fetch_word_count_text(url_of[[dk]])
       # An unparsed count is written as JSON null, not the string "NA" that
       # jsonlite's default would emit for an NA integer.
       cache[[dk]] <- list(words = parse_word_count(txt), chars = nchar(txt))
+      empties <- if (nchar(txt) == 0) empties + 1L else 0L
+      if (empties >= max_consecutive_empty) {
+        message("word counts: ", empties, " empty downloads in a row after ", i,
+                " fetch(es) -- throttled; stopping this run (retry next run)")
+        break
+      }
       if (i %% 100 == 0) { write_json(cache, cache_path, auto_unbox = TRUE, na = "null"); message("  ...", i, "/", length(todo)) }
       if (pace > 0) Sys.sleep(pace)
     }
     write_json(cache, cache_path, auto_unbox = TRUE, na = "null")
+    message("word counts: ", sum(!is.na(vapply(todo[seq_len(i)], function(d) word_count_of(cache[[d]]), integer(1)))),
+            " parsed of ", i, " fetched")
   }
   tibble(dkt = dkts, words = vapply(dkts, function(dk) word_count_of(cache[[dk]]), integer(1), USE.NAMES = FALSE))
 }

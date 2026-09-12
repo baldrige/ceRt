@@ -120,7 +120,8 @@ if (!is.null(grant_model)) {
   wc <- tryCatch(resolve_word_counts(
     paid$dkt, map_chr(paid$events, find_word_count_url),
     cache_path = file.path(dash_dir, "word_counts_cache.json"),
-    max_new = as.integer(Sys.getenv("WORD_COUNT_MAX_NEW", unset = "400"))),
+    max_new = as.integer(Sys.getenv("WORD_COUNT_MAX_NEW", unset = "400")),
+    retry_unparsed = TRUE),
     error = function(e) NULL)
   if (!is.null(wc)) {
     signals_map <- attach_word_counts(signals_map, wc)
