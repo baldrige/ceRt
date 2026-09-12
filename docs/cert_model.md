@@ -148,6 +148,13 @@ On granted-vs-denied rows alone the word band reads AUC 0.881 / AP 0.374
 against 0.879 / 0.368 for the flag. Its coefficients against the `6-9k`
 reference: `<3k` −1.89, `3-6k` −0.84, `9k+` −0.19, `unknown` +0.16.
 
+`dissent_below` and `split_argued` are the **v1** cues of `R/petition_signals.R`,
+matched over the whole text; their semantics are frozen while the fitted model
+depends on them. A segmented **v2** generation (`dissent_below2`, `split_argued2`, …)
+is extracted alongside them and measured by
+`.github/scripts/measure_petition_signals.R`, but is not yet a feature — see
+"The Rule 10 cues, second generation" below.
+
 **Conference stage adds:** `relist_bucket`, `amicus_bucket`, `cvsg`,
 `response_requested`, `response_filed`, `resp_waiver`, `reply_filed`, and (the
 at-risk grant model only, `ATRISK_FEATURES`) the two Rule 10 cues — see "The
@@ -312,3 +319,70 @@ At serve time `render_conferences.R` resolves the cues for every docket it
 resolves a QP for, layered over the committed file and the daily's on-site
 cache, and prints the coverage. Watch that line: a cue present for 90% of
 training rows and 60% of served rows is a bias, not an omission.
+
+## The Rule 10 cues, second generation
+
+The v1 cues were spot-checked on 2026-09-11 and two failure modes accounted for
+most of their noise:
+
+- **The "dissent below" cue mostly matched citations to this Court's own
+  dissents.** Its byline pattern, `, J., dissenting`, is exactly the form of a
+  citation parenthetical — "(Stevens, J., dissenting)". On a 32-petition
+  sample, 104 of 134 byline hits were such parentheticals, which say nothing
+  about the court below.
+- **The split cue missed the Solicitor General's vocabulary** ("circuit
+  conflict", "conflicts with the decisions of other circuits") — both granted
+  petitions it missed were SG petitions — while matching "conflicting views",
+  "in conflict with our case law" and "intra-circuit split".
+- **The appendix is usually a separate PDF the extractor never opened.** On a
+  300-petition sample, 201 of 288 petition entries carried a document
+  described as "Appendix" beside the "Petition". The reproduced opinion below
+  — the one place a dissent below is printed rather than argued — was
+  therefore unread for two petitions in three. `find_appendix_urls()` returns
+  those documents from the docket entry and `resolve_petition_signals()`
+  fetches them when handed `appx_urls`.
+
+`extract_petition_signals()` now returns a second generation beside the first.
+v2 segments the PDF into front matter, body and appendix by their headings,
+blanks every citation parenthetical to a dissent, and then matches each cue only
+where it means something: a dissent **byline** must start a line in the
+appendix, the way a reproduced opinion prints it; a dissent named in the
+appendix **table of contents** ("Dissenting opinion of Judge Hartz … 25a")
+counts on its own; the argued-dissent cue runs on the body; the split cue is
+widened to the SG's phrasing, requires "conflict" to sit beside a court word,
+and ignores intra-circuit splits. `n_dissent_net` is the raw mention count
+minus citations. The v1 columns are computed exactly as before — a cache entry
+carries `sig_v` so a consumer can tell which generation it holds — and the
+daily's on-site cache keeps serving v1 to the fitted model.
+
+Measured on 100 granted and 200 denied paid petitions from OT22–24
+(2026-09-11; "flagged" = share of that outcome the cue fires on):
+
+| cue | v1 grants / denials flagged | v2 grants / denials flagged | lift v1 → v2 |
+| --- | --- | --- | --- |
+| dissent below | 72% / 30% | 39% / 9% | 3.3 → 2.7 |
+| reproduced dissent (byline) | 69% / 26% | 26% / 5% | 3.3 → 2.6 |
+| en banc dissent | 8% / 1% | 7% / 1% | 2.5 → 2.4 |
+| circuit split argued | 79% / 36% | 85% / 32% | 3.8 → 5.7 |
+
+Two readings of that table matter. The split cue simply got better. The
+dissent cue got *truer* — every v2 byline hit inspected was a real dissent
+below, denials included, and the unflagged grants have no "dissent" in their
+appendix at all — but its lift fell, because the v1 cue was not measuring a
+dissent below so much as *how many dissents the petition cites*, and that is
+itself predictive: in the sample the grant share rose monotonically with the
+citation count, from 18% at zero to 88% above five. So v2 should not replace
+v1 one-for-one. The candidate feature set is the clean `dissent_below2`, the
+widened `split_argued2`, and a bucketed `n_dissent_cite` for the citation
+density the old cue was accidentally carrying (length-confounded — grant
+share also rises with `pet_chars` — so it needs the length covariate beside
+it).
+
+The extracted text can be cached (`PETITION_TEXT_DIR`, one gzipped file per
+docket, gitignored) so a pattern change is a local re-scan rather than a
+10k-PDF re-download. `measure_petition_signals.R` fetches a stratified sample
+(100 granted / 200 denied over OT22–24 by default) into that cache and prints,
+per cue and generation, the share of grants and denials flagged and the lift.
+Promoting v2 to a model feature means re-enriching `petition_signals.json`
+with the text cache wired into `enrich-petitions.yml`, refitting the baseline
+on the v2 columns, and only then switching the serve path.
