@@ -954,7 +954,8 @@ docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
     }
     if (!is.na(as_of_conf) && exists("score_conference")) {
       s <- tryCatch(score_conference(models, cx$caption, cx$lower, par, cx$date,
-             cx$lower_date, rel, events = ev, as_of = as_of_conf),
+             cx$lower_date, rel, events = ev, as_of = as_of_conf,
+             signals = signals),
              error = function(e) NULL)
       if (!is.null(s)) { p_gvr <- s$p_gvr_now; p_ever <- s$p_grant_ever }
     }
@@ -1275,6 +1276,17 @@ render_dockets_for <- function(cases, site_dir, model_dir = "data") {
       fresh <- tryCatch(jsonlite::fromJSON(cache_p, simplifyVector = FALSE),
                         error = function(e) NULL)
       if (!is.null(fresh) && length(fresh)) signals_map[names(fresh)] <- fresh
+    }
+    # The certified word counts, merged in as `words` (see R/word_count.R):
+    # the committed file, then every on-site cache a workflow may have written.
+    if (exists("attach_word_counts")) {
+      signals_map <- attach_word_counts(signals_map, load_word_counts())
+      for (wp in file.path(site_dir, c("dashboards", "conferences"), "word_counts_cache.json")) {
+        if (!file.exists(wp)) next
+        w <- tryCatch(jsonlite::fromJSON(wp, simplifyVector = FALSE), error = function(e) NULL)
+        if (length(w)) signals_map <- attach_word_counts(signals_map, tibble::tibble(
+          dkt = names(w), words = vapply(w, function(s) as.integer(s$words %||% NA), integer(1), USE.NAMES = FALSE)))
+      }
     }
     render_docket_pages(cases, file.path(site_dir, "cases"),
                         models = models, qp_map = qp_map, signals_map = signals_map)

@@ -102,13 +102,59 @@ to docketing.
 
 **Petition stage adds:** `counsel_tier` — an expanding-window record of the
 petitioner's counsel of record (`new` / `some` / `vet` / `won`);
-`dissent_below`, `split_argued` — Rule 10 cues parsed from the petition PDF.
+`dissent_below`, `split_argued` — Rule 10 cues parsed from the petition PDF;
+and, since 2026-09-11, two more petition-size cues: `dissent_bucket` (how
+many times the petition says "dissent", in bands `0 / 1-2 / 3-5 / 6-10 /
+11+`, from the same parse as the Rule 10 cues — mostly citations to this
+Court's own dissents, not a dissent below) and `word_band` (the length the
+filer **certified** under Rule 33.1(h), in bands against the 9,000-word limit:
+`<3k / 3-6k / 6-9k / 9k+ / unknown`, reference `6-9k`). Both are proxies for
+how well-resourced the petition is.
+
+The word count comes from `data-raw/word_counts.json` (`R/word_count.R`,
+built by `enrich-word-counts.yml`): the "Certificate of Word Count" the Clerk
+dockets beside the petition for 91–94% of paid filers, or — for the Solicitor
+General, who dockets none — the certification inside its proof of service.
+Scanned certificates are OCR'd. Coverage is 79% of the paid, labelled training
+rows; the remainder (`unknown`, grant rate 3.5%, about the base) has no
+certificate link in the archive or a certificate that states no number. The
+gradient is steep and monotone up to the cap:
+
+| certified words | n | grant rate |
+| --- | --- | --- |
+| under 3,000 | 1,182 | 0.6% |
+| 3,000 – 6,000 | 2,783 | 1.7% |
+| 6,000 – 9,000 | 5,188 | 6.8% |
+| over 9,000 | 129 | 2.3% |
+
+A text-length flag (under 40k characters of the petition PDF's text) was
+tried first and worked, but the PDF's length counts the appendix whenever it
+is bound into the same file — 2 petitions in 7, and itself a grant-correlated
+house style — so it measured two things at once. The certified count is the
+body alone by the Rule's own exclusions, and beats the flag on every metric.
+Leave-one-term-out on the disposition corpus, GVR'd and dismissed negatives
+enriched (see the note under "The Rule 10 cues at conference", which lowers
+every baseline figure against the ones published before):
+
+| baseline model | AUC | AP | Brier | forward OT24 AUC / AP |
+| --- | --- | --- | --- | --- |
+| shipped features (before 2026-09-11) | 0.858 | 0.266 | 0.0351 | 0.881 / 0.356 |
+| + dissent_bucket | 0.862 | 0.267 | 0.0351 | 0.891 / 0.331 |
+| + dissent_bucket + text-length flag | 0.868 | 0.271 | 0.0349 | 0.894 / 0.352 |
+| **+ dissent_bucket + word_band (shipped)** | **0.871** | **0.283** | **0.0346** | **0.895 / 0.361** |
+| + both length cues | 0.873 | 0.283 | 0.0346 | 0.897 / 0.363 |
+
+On granted-vs-denied rows alone the word band reads AUC 0.881 / AP 0.374
+against 0.879 / 0.368 for the flag. Its coefficients against the `6-9k`
+reference: `<3k` −1.89, `3-6k` −0.84, `9k+` −0.19, `unknown` +0.16.
 
 **Conference stage adds:** `relist_bucket`, `amicus_bucket`, `cvsg`,
-`response_requested`, `response_filed`, `resp_waiver`, `reply_filed`. The
-competing-risks model further adds `conf_f` (conference index) and `phase`
-(position in the Term — the September long conference and the late-June clean-up
-conferences behave nothing like an ordinary sitting).
+`response_requested`, `response_filed`, `resp_waiver`, `reply_filed`, and (the
+at-risk grant model only, `ATRISK_FEATURES`) the two Rule 10 cues — see "The
+Rule 10 cues at conference" below. The competing-risks model further adds
+`conf_f` (conference index) and `phase` (position in the Term — the September
+long conference and the late-June clean-up conferences behave nothing like an
+ordinary sitting).
 
 Notes on specification, all of them learned the hard way:
 
@@ -128,16 +174,15 @@ Notes on specification, all of them learned the hard way:
   ~3.5% is honest. `pro_se` (0 grants in 3,016) is likewise finite only under
   Firth.
 - **The two tiers are not nested, on purpose.** The conference tier is not the
-  petition tier plus process signals — it drops `counsel_tier` and the Rule 10
-  cues, for different reasons. `counsel_tier` is genuinely *redundant* there:
-  adding it costs −0.0025 AUC / −0.0033 AP out-of-fold and its coefficients
-  collapse (`counsel_tierwon` +1.41 → +0.41), because an elite advocate's effect
-  is mediated by the docket behaviour the process features already capture. The
-  Rule 10 cues are a different story — they are worth **+0.012 AUC / +0.043 AP**
-  on the at-risk panel, and are held out only because the conference renderer
-  cannot compute them (no PDF parsing, no `petition_signals_cache.json`).
-  Training on a cue that arrives as a default at serve time is the
-  `elite_counsel` failure below, wearing a different hat. See issue #15.
+  petition tier plus process signals — it drops `counsel_tier` and the
+  petition-size cues. `counsel_tier` is genuinely *redundant* there: adding it
+  costs −0.0025 AUC / −0.0033 AP out-of-fold and its coefficients collapse
+  (`counsel_tierwon` +1.41 → +0.41), because an elite advocate's effect is
+  mediated by the docket behaviour the process features already capture. The
+  size cues cost −0.009 AUC on the panel for the same reason. The Rule 10 cues
+  *are* in the at-risk grant model since 2026-09-11 — see "The Rule 10 cues at
+  conference" below for what they are worth there, which is a fifth of what
+  was first measured.
 - **`elite_counsel` was removed.** It matched a fixed list of ~13 advocates and
   was worth −0.0006 AUC once `counsel_tier` existed. It had also been silently
   dead: the extractor read the live parties schema, the archives use a different
@@ -231,5 +276,39 @@ bare integers for scannability. A rendered `39%` means roughly 28–49%.
 - **OT2024 is right-censored** and excluded from the base-rate calculation
   (`complete_terms()`), though retained in the fit. Treating the censoring more
   aggressively was measured and does not help.
-- `data-raw/petition_signals.json` covers only granted-or-denied dockets, so the
-  Rule 10 cues **must not** be used in any model with a GVR or dismissed class.
+- `data-raw/petition_signals.json` covered only granted-or-denied dockets until
+  2026-09-11; it now holds every resolved paid petition with a readable PDF
+  (GVR'd petitions at 82% coverage against 91% for denials — the rest have no
+  petition link in the archive). The Rule 10 cues still **must not** be used in
+  a model whose positive class is GVR or dismissed: the residual coverage gap
+  would read as the outcome.
+
+## The Rule 10 cues at conference
+
+Issue #15 measured the two cues at **+0.012 AUC / +0.043 AP** on the at-risk
+panel and held them out only because the conference renderer could not
+resolve them. Wiring them in (2026-09-11) surfaced that four fifths of that
+gain was an artifact. The at-risk grant model counts every resolved petition
+as a negative, GVRs and dismissals included, and the enrichment had skipped
+exactly those — so every GVR'd petition carried "no cue" by construction, and
+the model learned that an absent cue means not-a-grant. Measured on the same
+panel:
+
+| at-risk grant model | AUC | AP | Brier |
+| --- | --- | --- | --- |
+| process features only (shipped before) | 0.8747 | 0.3582 | 0.0595 |
+| + Rule 10 cues, GVRs unenriched | 0.8868 | 0.4004 | 0.0572 |
+| + Rule 10 cues, GVRs enriched | **0.8807** | **0.3663** | **0.0590** |
+| granted-vs-denied rows only, without / with cues | 0.8939 / 0.8986 | 0.4772 / 0.4819 | 0.0569 / 0.0565 |
+
+The real gain is about +0.006 AUC / +0.008 AP, consistent on both frames, and
+it is nearly all `split_argued` (+0.75 log-odds; `dissent_below` fits +0.02
+beside the process features, which is the counsel-tier story again: by the
+time a petition has drawn a response and a relist, a dissent below has done
+its work). The cues ship in `ATRISK_FEATURES` for the grant model only; the
+GVR model keeps `ENHANCED_FEATURES`.
+
+At serve time `render_conferences.R` resolves the cues for every docket it
+resolves a QP for, layered over the committed file and the daily's on-site
+cache, and prints the coverage. Watch that line: a cue present for 90% of
+training rows and 60% of served rows is a bias, not an omission.

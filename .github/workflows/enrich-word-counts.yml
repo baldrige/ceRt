@@ -1,0 +1,73 @@
+name: Enrich word counts
+
+# Incremental: fetch the Rule 33.1(h) word-count certificate docketed with each
+# paid, resolved petition in the term archives (R/word_count.R), parse the
+# certified count, and commit data-raw/word_counts.json to main. The baseline
+# cert-grant model reads this layer at train time (word_band). The
+# certificates are ~1 KB each, so one runner covers every term; the cache is
+# resumable, so re-dispatch until "resolved" stops growing. First run
+# 2026-09-11 was made locally; this exists for the terms that close after it.
+
+on:
+  workflow_dispatch:
+    inputs:
+      max_new:
+        description: "Max certificates to fetch this run."
+        required: false
+        default: "20000"
+      terms_glob:
+        description: "Term archives to read (glob). Default: every data-raw/ot_*.rds."
+        required: false
+        default: "data-raw/ot_*.rds"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: enrich-word-counts
+  cancel-in-progress: false
+
+jobs:
+  enrich:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    steps:
+      - uses: actions/checkout@v5
+      - name: System dependencies (poppler for pdftools)
+        uses: ./.github/actions/system-deps
+      - uses: ./.github/actions/apt-sources
+      - uses: r-lib/actions/setup-r@v2
+        timeout-minutes: 30
+        with:
+          use-public-rspm: true
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        timeout-minutes: 15
+        with:
+          packages: |
+            any::tidyverse
+            any::httr2
+            any::jsonlite
+            any::pdftools
+      - name: Enrich
+        env:
+          OUT: data-raw/word_counts.json
+          MAX_NEW: ${{ inputs.max_new || '20000' }}
+          TERMS_GLOB: ${{ inputs.terms_glob || 'data-raw/ot_*.rds' }}
+        run: Rscript .github/scripts/enrich_word_counts.R
+      - name: Commit enrichment layer to main
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data-raw/word_counts.json
+          if git diff --cached --quiet; then
+            echo "No change to word_counts.json."
+          else
+            git commit -m "Enrich word counts $(date -u +%F)"
+            for i in 1 2 3 4 5; do
+              if git push origin HEAD:main; then exit 0; fi
+              echo "push rejected; rebasing (attempt $i)"
+              git pull --rebase origin main
+              sleep $((RANDOM % 5 + 3))
+            done
+            echo "could not push after retries" >&2; exit 1
+          fi

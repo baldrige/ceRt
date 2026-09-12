@@ -147,7 +147,7 @@ counsel_cell <- function(parties) {
 # (both in `models`, from load_cert_models()). Paid petitions only; everything
 # else -- non-paid, absent models, a scoring error, or the scoring functions not
 # being sourced -- yields an em dash, so this never breaks a render.
-conference_forecast <- function(d, conf_date, models) {
+conference_forecast <- function(d, conf_date, models, signals_map = NULL) {
   out <- rep("—", nrow(d))
   if (is.null(models) || is.null(models$enhanced) || is.null(models$gvr) ||
       !exists("score_disposition")) return(out)
@@ -162,7 +162,8 @@ conference_forecast <- function(d, conf_date, models) {
     s <- tryCatch(score_disposition(
       models$enhanced, models$gvr, d$caption[i], d$lower[i], d$parties[[i]],
       dt[i], ld[i], rel[i], events = d$events[[i]], as_of = conf_date,
-      granted_dockets = gd, counsel_index = models$counsel_index),
+      granted_dockets = gd, counsel_index = models$counsel_index,
+      signals = signals_map[[d$dkt[i]]]),
       error = function(e) NULL)
     if (is.null(s) || is.na(s$p_grant)) next
     out[i] <- if (isTRUE(s$held)) {
@@ -178,9 +179,14 @@ conference_forecast <- function(d, conf_date, models) {
 # `qp_map` (optional) is a named vector: raw docket -> <details> QP HTML.
 # Counsel and QP columns are included only when the data provides them (so
 # historical pages stay clean). Returns the output path (invisibly), or NULL.
+# `signals_map` (optional) is a named list: docket -> petition-signals cache
+# entry (dissent_below, split_argued, n_dissent, pet_chars, ...), read by the
+# at-risk grant model. A docket absent from it scores as an unresolved petition
+# does in training, so a partial map degrades honestly.
 conference_dash <- function(dist, conf_date,
                             out_dir = path.expand("~/public_html/conferences"),
-                            qp_map = NULL, models = NULL, pnav = "") {
+                            qp_map = NULL, models = NULL, pnav = "",
+                            signals_map = NULL) {
   dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
   conf_date <- as.Date(conf_date)
 
@@ -227,7 +233,8 @@ conference_dash <- function(dist, conf_date,
       s <- tryCatch(score_conference(
         models, d$caption[i], d$lower[i], par, dt[i], ld[i], rel[i],
         events = d$events[[i]], as_of = conf_date,
-        conf_idx = d$distribution_no[i], granted_dockets = gd),
+        conf_idx = d$distribution_no[i], granted_dockets = gd,
+        signals = signals_map[[d$dkt[i]]]),
         error = function(e) NULL)
       if (!is.null(s)) {
         p_grant[i] <- s$p_grant_now; p_gvr[i] <- s$p_gvr_now

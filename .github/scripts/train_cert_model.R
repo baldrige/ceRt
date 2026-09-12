@@ -97,7 +97,9 @@ print(as.data.frame(
 # ---- fit ---------------------------------------------------------------------
 cat("\n=== fitting ===\n")
 baseline <- fit_cert_model(corpus, BASELINE_FEATURES, target = "grant", complete = complete)
-enhanced <- fit_cert_model(panel,  ENHANCED_FEATURES, target = "grant", complete = complete)
+# The at-risk grant model carries the Rule 10 cues (ATRISK_FEATURES); the GVR
+# model does not (ENHANCED_FEATURES) -- see the note by their definitions.
+enhanced <- fit_cert_model(panel,  ATRISK_FEATURES, target = "grant", complete = complete)
 gvr      <- fit_cert_model(set_target(panel, "gvr"), ENHANCED_FEATURES,
                            target = "gvr", complete = complete)
 conference <- fit_conference_model(panel)

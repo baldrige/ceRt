@@ -83,7 +83,7 @@ relist_watch_table <- function(dist, as_of = Sys.Date()) {
 # Render /relists/index.html. Returns the path, or NULL when there is nothing
 # live to show (a page reading "0 cases" is worse than no page).
 relist_watch <- function(dist, out_dir, qp_map = NULL, models = NULL,
-                         as_of = Sys.Date()) {
+                         as_of = Sys.Date(), signals_map = NULL) {
   dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
   d <- relist_watch_table(dist, as_of = as_of)
   if (!nrow(d)) {
@@ -107,7 +107,8 @@ relist_watch <- function(dist, out_dir, qp_map = NULL, models = NULL,
       s <- tryCatch(score_conference(
         models, d$caption[i], d$lower[i], d$parties[[i]], d$date[i],
         d$lower_date[i], d$related[i], events = d$events[[i]], as_of = at,
-        conf_idx = d$n_dist[i] + 1L, granted_dockets = gd), error = function(e) NULL)
+        conf_idx = d$n_dist[i] + 1L, granted_dockets = gd,
+        signals = signals_map[[d$dkt[i]]]), error = function(e) NULL)
       if (!is.null(s)) {
         p_grant[i] <- s$p_grant_now; p_gvr[i] <- s$p_gvr_now
         p_ever[i] <- s$p_grant_ever; held[i] <- isTRUE(s$held)

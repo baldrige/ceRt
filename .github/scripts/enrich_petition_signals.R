@@ -26,7 +26,12 @@ sel <- cases |>
   left_join(cls, by = "dkt") |>
   mutate(ctype = funnel_case_type(dkt),
          url = purrr::map_chr(events, find_petition_url)) |>
-  filter(ctype == "paid", outcome %in% c("granted", "denied"),
+  # Every RESOLVED paid petition, not only granted-or-denied. GVR'd and dismissed
+  # petitions are negatives in the at-risk grant model, and when only grants and
+  # denials were enriched their cues were absent by construction -- which the
+  # model read as "no cue means not a grant", inflating the cues' apparent lift
+  # at conference five-fold (+0.043 AP measured vs +0.008 real; 2026-09-11).
+  filter(ctype == "paid", outcome %in% c("granted", "denied", "gvr", "dismissed"),
          !is.na(url), nzchar(url)) |>
   distinct(dkt, .keep_all = TRUE)
 
