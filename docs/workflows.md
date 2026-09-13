@@ -207,6 +207,7 @@ rebase cleanly.
 | `funnel/` | `conferences.yml` · `render-funnel.yml` |
 | `counsel/` | `conferences.yml` · `render-counsel.yml` |
 | `cases/` (+ `.manifest.json`, `search.json`, `style.css`) | `daily.yml` (current term) · `conferences.yml` (touched cases) · `rerender-dockets.yml` / `fill-throttled-dockets.yml` (back-catalog) |
+| `lib/` (the React / reactable / htmlwidgets files every interactive leaf links, in gtsave's own `<pkg>-<version>/` layout, only ever added to) and `leaf.css` (the leaves' theme + nav, linked with `?v=<hash>`) | `daily.yml` · `conferences.yml` — whichever renders an interactive leaf; identical bytes, so no conflict. `patch-leaf-chrome.yml` migrates already-published leaves onto them (content-matched; see `R/leaf_assets.R`) |
 | `feed.xml`, `grants.xml`, `sitemap*.xml`, `robots.txt` | `daily.yml` |
 | `cases/grants.json` (grants cache) | `conferences.yml` (full-term, the real source) · `daily.yml` (only what is inside its trailing fetch window) |
 | `cases/pending.json` (live-docket cache) | `conferences.yml` only |

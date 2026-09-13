@@ -313,7 +313,11 @@ ph_files <- Filter(file.exists, c(
   file.path(site, c("index.html", "about.html", "funnel/index.html",
                     "conferences/index.html", "arguments/index.html",
                     "dashboards/index.html", "cases/index.html",
-                    "relists/index.html", "counsel/index.html")),
+                    "relists/index.html", "counsel/index.html",
+                    # The leaves' theme now lives here, not in each page, so a
+                    # leaked placeholder would be in this file and nowhere the
+                    # sampled leaves below could show it.
+                    "leaf.css", "cases/style.css")),
   head(list.files(file.path(site, "cases"), pattern = "^[0-9]", full.names = TRUE), 5),
   head(sort(list.files(file.path(site, "conferences"),
                        pattern = "^conf_", full.names = TRUE), decreasing = TRUE), 2),
@@ -570,6 +574,59 @@ if (n_feeds) {
     ok("feed autodiscovery (leaves)",
        sprintf("all %d sampled leaf/leaves advertise all %d feed(s)", length(lvs), n_feeds))
   }
+}
+
+# ---- shared leaf assets -------------------------------------------------------
+#
+# Interactive leaves (conference reports, dashboards, argument navigators, the
+# relist tracker) link the widget libraries from /lib/ and their theme from
+# /leaf.css instead of inlining ~600 KB of both into every page. That trades
+# one failure mode for another: a page that inlined everything could not
+# reference a file that was not there, and a page that links CAN -- and a
+# missing /lib/ script is a table that renders blank, silently, on every page
+# at once. So this reads every leaf's <head> and FAILS on a dangling reference.
+#
+# Coverage (how many leaves still carry the inline form) is a WARN, like the
+# feed-link check and for the same reason: patch-leaf-chrome.yml clears it,
+# and a leaf embedding a library version /lib/ does not hold stays inline by
+# design rather than break.
+cat("\nShared leaf assets\n")
+leaf_pages <- c(
+  list.files(file.path(site, "conferences"), pattern = "^conf_\\d{4}-\\d{2}-\\d{2}\\.html$", full.names = TRUE),
+  list.files(file.path(site, "dashboards"), pattern = "^dash_\\d{4}-\\d{2}-\\d{2}\\.html$", full.names = TRUE),
+  list.files(file.path(site, "arguments"), pattern = "^arg_\\d{4}\\.html$", full.names = TRUE),
+  Filter(file.exists, file.path(site, "relists", "index.html")))
+if (length(leaf_pages)) {
+  # The <head> ends well inside 32 KB on a shared page (the social block and the
+  # seven asset tags), and an inlined page's first base64 script begins before
+  # that too, so one bounded read classifies either form.
+  heads <- vapply(leaf_pages, function(p) head_bytes(p, 32768L), character(1))
+  shared <- grepl("src=\"/lib/", heads, fixed = TRUE)
+  inline <- grepl("data:application/javascript;base64,", heads, fixed = TRUE)
+  refs <- unique(unlist(regmatches(heads, gregexpr("(?<=src=\"|href=\")/lib/[^\"?]+", heads, perl = TRUE))))
+  css_refs <- unique(unlist(regmatches(heads, gregexpr("(?<=href=')/leaf\\.css", heads, perl = TRUE))))
+  missing <- Filter(function(r) !file.exists(file.path(site, sub("^/", "", r))), c(refs, css_refs))
+  if (length(missing)) {
+    fail("shared assets resolve",
+         sprintf("%d referenced file(s) are not on the site: %s", length(missing),
+                 paste(utils::head(missing, 4), collapse = ", ")))
+  } else if (sum(shared)) {
+    ok("shared assets resolve",
+       sprintf("all %d /lib/ and stylesheet reference(s) across %d shared leaf/leaves exist",
+               length(c(refs, css_refs)), sum(shared)))
+  }
+  rel <- function(v) paste(sub(paste0("^", site, "/"), "", utils::head(v, 4)), collapse = ", ")
+  if (sum(inline)) {
+    warn("shared assets coverage",
+         sprintf("%d of %d leaf/leaves still inline their widget libraries (patch-leaf-chrome.yml migrates them): %s",
+                 sum(inline), length(leaf_pages), rel(leaf_pages[inline])))
+  } else {
+    ok("shared assets coverage", sprintf("all %d leaf/leaves link /lib/", length(leaf_pages)))
+  }
+  neither <- !shared & !inline
+  if (sum(neither))
+    warn("shared assets coverage",
+         sprintf("%d leaf/leaves carry neither form in their first 32 KB: %s", sum(neither), rel(leaf_pages[neither])))
 }
 
 # ---- the counsel table --------------------------------------------------------

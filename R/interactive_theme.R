@@ -21,6 +21,10 @@ local({
   sys.source(f, envir = globalenv())
   m <- sub("palette\\.R$", "site_meta.R", f)
   if (file.exists(m)) sys.source(m, envir = globalenv())   # social_meta()
+  # The shared /lib/ and /leaf.css machinery. Named here, not inherited: the
+  # same trap as qp_extract.R in conference_dash.R -- run_conferences.R sources
+  # one file and would be the only entry point to break.
+  sys.source(sub("palette\\.R$", "leaf_assets.R", f), envir = globalenv())
 })
 
 SCR_FONTS <- "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap"
@@ -172,9 +176,14 @@ scr_interactive <- function(gt_tbl, n_rows, page_size_default = 25) {
 }
 
 # Inline the reactable/React widget dependencies that gtsave writes as external
-# `lib/...` files, so each page is fully self-contained (no orphaned lib/ dir).
+# `lib/...` files, so the page is fully self-contained (no orphaned lib/ dir).
 # Scripts become base64 data-URIs (bulletproof against an embedded </script>);
 # stylesheets are inlined as <style>. base_dir is where gtsave wrote `lib/`.
+#
+# Now the STANDALONE path only, for renders outside the site checkout. Pages
+# written into SITE_DIR link the shared /lib/ instead (scr_link_libs(), in
+# leaf_assets.R); the published archive was migrated off this form by
+# patch_leaf_chrome.R, content-matching each inlined script to a published file.
 scr_inline_libs <- function(html, base_dir) {
   b64 <- function(f) jsonlite::base64_enc(readBin(f, "raw", file.info(f)$size))
   sm <- str_match_all(html, "<script[^>]*\\ssrc=\"(lib/[^\"]+)\"[^>]*>\\s*</script>")[[1]]
@@ -194,6 +203,29 @@ scr_inline_libs <- function(html, base_dir) {
         html, fixed = TRUE)
   }
   html
+}
+
+# Publish the shared leaf stylesheet (theme + nav) at the site root and return
+# the href to link it by. The ?v= is the first eight hex digits of the file's
+# md5: GitHub Pages serves everything with a 10-minute max-age, so a recolour
+# linked under an unchanging name would paint the old palette for ten minutes
+# after the publish. The FILE name stays fixed on purpose -- an older page
+# linking ?v=<old> still gets the current sheet, which is the point of sharing
+# it: a palette change reaches every leaf, not only the ones rendered since.
+#
+# Base R only for the hash (tools::md5sum), so the light post-pass and audit can
+# recompute it without the model stack.
+write_leaf_css <- function(site_root) {
+  css <- paste0(SCR_CSS, NAV_CSS)
+  dst <- file.path(site_root, LEAF_CSS)
+  tmp <- tempfile(fileext = ".css")
+  writeLines(enc2utf8(css), tmp, useBytes = TRUE)
+  # Write only on change, so a run that touched nothing leaves nothing to commit.
+  if (!file.exists(dst) || !identical(unname(tools::md5sum(dst)), unname(tools::md5sum(tmp))))
+    file.copy(tmp, dst, overwrite = TRUE)
+  v <- substr(unname(tools::md5sum(dst)), 1L, 8L)
+  unlink(tmp)
+  paste0("/", LEAF_CSS, "?v=", v)
 }
 
 # gtsave the widget, then wrap in the page chrome + inject the theme, an "All"
@@ -233,12 +265,18 @@ scr_write_page <- function(gt_tbl, out_path, kicker, title, dek, n_rows,
   kicker <- sm(kicker); title <- sm(title); dek <- sm(dek)
   if (nzchar(footer)) footer <- sm(footer)
   if (!is.null(back)) back$label <- sm(back$label)
-  # Render into an isolated dir so the widget's `lib/` can be inlined and swept.
+  # Render into an isolated dir so the widget's `lib/` can be swept afterwards.
+  # Inside the site checkout the libraries are published once under /lib/ and
+  # the theme once as /leaf.css, and the page links both (see leaf_assets.R for
+  # the measurements). Anywhere else -- a local render to a scratch directory --
+  # there is no site root to publish into, so the page is made self-contained
+  # by inlining, exactly as every page was before.
   wdir <- tempfile("scrpage"); dir.create(wdir)
   tmp <- file.path(wdir, "widget.html")
   gtsave(gt_tbl, tmp)
   w <- paste(readLines(tmp, warn = FALSE), collapse = "\n")
-  w <- scr_inline_libs(w, wdir)
+  site_root <- leaf_site_root(out_path)
+  w <- if (is.null(site_root)) scr_inline_libs(w, wdir) else scr_link_libs(w, wdir, site_root)
   unlink(wdir, recursive = TRUE)
   # Extract the widget's <head>/<body> inner content by POSITION. A greedy
   # `(?s).*<head>(.*)</head>.*` sub backtracks catastrophically and trips PCRE's
@@ -259,6 +297,15 @@ scr_write_page <- function(gt_tbl, out_path, kicker, title, dek, n_rows,
       "{text-align:left!important}", collapse = "\n")) else ""
   script <- sprintf("<script>(function(){var N=%d;function fix(){document.querySelectorAll('select').forEach(function(s){Array.prototype.forEach.call(s.options,function(o){if(String(o.value)===String(N)&&o.text!=='All'){o.text='All';}});});}new MutationObserver(fix).observe(document.body,{childList:true,subtree:true});setTimeout(fix,250);setTimeout(fix,1000);})();</script>", n_rows)
   back_html <- if (!is.null(back)) paste0("<p class='back'><a href='", back$href, "'>", back$label, "</a></p>") else ""
+  # The theme: linked when shared, inlined when standalone. The left-alignment
+  # rules are per page (they name column positions) and stay inline either way,
+  # AFTER the shared sheet so they keep winning the cascade as they always did.
+  theme_html <- if (is.null(site_root)) {
+    paste0("<style>", SCR_CSS, NAV_CSS, leftcss, "</style>")
+  } else {
+    paste0("<link rel='stylesheet' href='", write_leaf_css(site_root), "'>",
+           if (nzchar(leftcss)) paste0("<style>", leftcss, "</style>") else "")
+  }
   page <- paste0(
     "<!DOCTYPE html><html lang='en'><head><script async src='/analytics.js'></script><meta charset='utf-8'>",
     "<meta name='viewport' content='width=device-width, initial-scale=1'>",
@@ -279,7 +326,7 @@ scr_write_page <- function(gt_tbl, out_path, kicker, title, dek, n_rows,
     "<title>", title, "</title>",
     "<link rel='preconnect' href='https://fonts.googleapis.com'>",
     "<link rel='stylesheet' href='", SCR_FONTS, "'>",
-    head_inner, "<style>", SCR_CSS, NAV_CSS, leftcss, "</style>",
+    head_inner, theme_html,
     if (!is.null(crumb)) site_breadcrumb_jsonld(crumb$label, crumb$section) else "",
     "</head><body>",
     site_masthead(active = active),
