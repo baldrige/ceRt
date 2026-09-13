@@ -119,6 +119,24 @@ resolve_derived() {
     rm -f "$ours" "$theirs"
   done
 
+  # ---- the shared leaf stylesheet --------------------------------------------
+  #
+  # /leaf.css is written by every workflow that renders an interactive leaf
+  # (daily, conferences), from the SCR_CSS/NAV_CSS in the main checkout each
+  # was dispatched with. Two runs on the same main write identical bytes and
+  # never conflict; two runs straddling a stylesheet change on main do, and
+  # either side is acceptable -- the next full publish rewrites the file from
+  # whatever main is by then. Keep the copy being replayed (:3), which is the
+  # later checkout. The ?v= hashes in the other side's pages point at the
+  # sheet's fixed name and still resolve; they only miss Pages' cache, once.
+  #
+  # /lib/ needs no rule: every file there is named by package version and is
+  # only ever added, and git resolves two identical adds without conflict.
+  if git ls-files -u -- leaf.css | grep -q .; then
+    git show ":3:leaf.css" > leaf.css && git add leaf.css &&
+      echo "  resolved leaf.css by keeping this run's render" || ok=0
+  fi
+
   # ---- docket pages -----------------------------------------------------------
   #
   # On 2026-08-10 a conferences run and the 18:57 daily overlapped. Both had just

@@ -46,6 +46,13 @@ site, and which pages it writes — see **[docs/workflows.md](docs/workflows.md)
 - **Render**: R builds static HTML/`gt` tables. Docket pages are incremental via a
   content-hash manifest keyed by a `PAGE_TEMPLATE_VERSION` constant — bump it to
   force a full re-render after a markup/logic change (render-only, no re-fetch).
+  Interactive leaves (conference reports, dashboards, argument navigators, the
+  relist tracker) **link** the React/reactable libraries from `/lib/` and their
+  theme from `/leaf.css` (`R/leaf_assets.R`) rather than inlining ~600 KB into
+  each page; a render outside `SITE_DIR` falls back to inlining so it stays
+  self-contained. `patch-leaf-chrome.yml` migrates the published archive onto the
+  shared files, content-matched, so an unmatched library version stays inline
+  rather than breaking.
 - **Publish**: workflows check out gh-pages into `./site`, render, and push with a
   **rebase-and-retry** loop (daily/conferences/backfill can race). Each publish
   re-asserts `CNAME` = `supremecourt.report`.

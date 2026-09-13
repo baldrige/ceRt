@@ -1,13 +1,20 @@
 name: Patch leaf-page chrome
 
-# Bring already-published conference / dashboard / argument LEAF pages' feed
-# autodiscovery up to date, without re-rendering them.
+# Bring already-published conference / dashboard / argument / relist LEAF pages'
+# chrome up to date without re-rendering them: feed autodiscovery, and the
+# shared widget libraries (each leaf used to inline ~575 KB of React/reactable;
+# this swaps a page onto the copies published once under /lib/, and only when
+# the bytes match exactly -- see .github/scripts/patch_leaf_chrome.R).
 #
 # Those pages are never revisited by a normal run -- render_conferences.R renders
 # only conferences on/after MIN_CONF_DATE -- so a change to the shared <head>
 # reaches new leaves and leaves the archive behind forever. Re-rendering them
 # properly would mean reassembling the whole multi-term case database to change
 # two lines of chrome.
+#
+# The library pass needs /lib/ to exist on gh-pages, which the first daily or
+# conference run after the change publishes. Dispatched before that, it patches
+# feeds only and says so.
 #
 # NOT for docket pages: those carry a template-version stamp and roll through
 # rerender-dockets.yml. See .github/scripts/patch_leaf_chrome.R.
@@ -56,10 +63,12 @@ jobs:
       - uses: r-lib/actions/setup-r-dependencies@v2
         timeout-minutes: 15
         with:
-          # htmltools only. This renders nothing and resolves no PDFs, so it
-          # skips both the model stack and the poppler system install.
+          # htmltools and jsonlite only (the latter decodes the inlined base64
+          # scripts). This renders nothing and resolves no PDFs, so it skips
+          # both the model stack and the poppler system install.
           packages: |
             any::htmltools
+            any::jsonlite
       - name: Patch
         env:
           SITE_DIR: site
@@ -68,8 +77,11 @@ jobs:
       - name: Publish
         if: ${{ inputs.dry_run == false }}
         working-directory: site
-        # Only the three leaf directories. This job renders nothing else and a
-        # path-less publish would sweep up whatever the checkout holds.
+        # Only the leaf directories. The library pass READS /lib/ and never
+        # writes it, so it is not listed -- and must not be, since `git add`
+        # of a path that is not on gh-pages yet is a hard error under bash -e.
+        # This job renders nothing else and a path-less publish would sweep up
+        # whatever the checkout holds.
         run: |
-          ../.github/scripts/publish_site.sh "Patch leaf feed autodiscovery" \
-            conferences arguments dashboards
+          ../.github/scripts/publish_site.sh "Patch leaf chrome (feeds, shared libraries)" \
+            conferences arguments dashboards relists
