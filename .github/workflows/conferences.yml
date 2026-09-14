@@ -272,6 +272,7 @@ jobs:
         run: Rscript .github/scripts/render_conferences.R
       - name: Render cert funnel
         # Never let a funnel failure block conference publishing.
+        id: funnel
         continue-on-error: true
         env:
           SITE_DIR: site
@@ -286,12 +287,18 @@ jobs:
         # path: if a change to the classifier leaves the committed stats stale,
         # the weekly run notices the fingerprint miss and republishes a correct
         # page rather than leaving a wrong one up until someone dispatches.
+        id: counsel
         continue-on-error: true
         env:
           SITE_DIR: site
         run: Rscript .github/scripts/render_counsel.R
       - name: Render argument navigator
-        # Never let an argument-nav failure block conference publishing.
+        # Never let an argument-nav failure block conference publishing --
+        # but SAY SO at the end of the run (the "Report silent render failures"
+        # step). From 2026-09-07 to 09-14 this step died on every run and the
+        # site went a week without a Navigator refresh, an upcoming list, a
+        # decisions manifest or a watch list, and the runs read green.
+        id: argnav
         continue-on-error: true
         env:
           SITE_DIR: site
@@ -306,6 +313,7 @@ jobs:
         # manifest this reads. Never let it block conference publishing.
         # Fetches the syllabus of any newly decided case (a handful a week in
         # season; the back-catalogue went through render-justices.yml).
+        id: justices
         continue-on-error: true
         env:
           SITE_DIR: site
@@ -315,3 +323,13 @@ jobs:
         working-directory: site
         run: |
           ../.github/scripts/publish_site.sh "Conference refresh $(date -u +%F)"
+      - name: Report silent render failures
+        # The four render steps above are continue-on-error so that none of
+        # them can block the conference publish. This step runs AFTER the
+        # publish and fails the run if any of them failed, so the run reads
+        # red in the Actions list instead of green with a dead section inside
+        # it. The publish has already happened; nothing here is lost.
+        if: ${{ always() && (steps.funnel.outcome == 'failure' || steps.counsel.outcome == 'failure' || steps.argnav.outcome == 'failure' || steps.justices.outcome == 'failure') }}
+        run: |
+          echo "::error::A render step failed after the publish went out -- funnel=${{ steps.funnel.outcome }} counsel=${{ steps.counsel.outcome }} argnav=${{ steps.argnav.outcome }} justices=${{ steps.justices.outcome }}. Read that step's log."
+          exit 1

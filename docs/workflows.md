@@ -91,6 +91,15 @@ watcher already in progress exits at once. See **[data-sources.md](data-sources.
 
 ### `conferences.yml`
 
+Its four post-render steps (funnel, counsel, argument navigator, Justices) are
+`continue-on-error`, so none can block the conference publish — and a final
+**Report silent render failures** step fails the run *after* the publish if
+any of them failed. It exists because from 2026-09-07 to 09-14 the navigator
+step died on every run (a `.cal_df` helper in `argument_calendar.R` shadowed
+`site_calendar.R`'s) and six green runs published without a Navigator refresh,
+an upcoming list, a decisions manifest or a watch list. A red run with the
+site already updated is the right shape for that.
+
 - **Data:** a per-term matrix runs `fetch_term.R` → `get_scotus_term(year)` for a
   **full-term** scrape (current sitting's term + the prior year), each term on its
   own runner/IP, saved to ephemeral `cases-<term>.rds` artifacts (**not
