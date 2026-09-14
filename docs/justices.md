@@ -69,9 +69,13 @@ Verified against the list on the first 140 decisions (OT16 and most of OT17):
 **0 author disagreements; the separate writers match on 137 of 140**, and the
 three that differ are the list's own gaps (an `Other:` the list left empty,
 and Cox v. United States, dismissed, under which the list files Ortiz's
-writings). Each cached entry carries `pv = LINEUP_PARSER_VERSION`; bump it after
-a grammar change and dispatch `render-justices.yml` with `lineup_retry` to
-re-read the archive.
+writings). Each cached entry carries `pv = LINEUP_PARSER_VERSION` and its lineup text.
+Bump the version after a grammar change: the next render re-reads every
+syllabus-parsed entry from its cached text at no cost (546 entries in under a
+second on 2026-09-14), and only per curiams, whose writings came from the body
+pages, need `lineup_retry` to fetch again. A preliminary print's "Page Proof
+Pending Publication" watermark sits inside the text and is stripped before
+either parse.
 
 ## How things are counted
 
@@ -99,7 +103,15 @@ re-read the archive.
 - **Who sat.** The roster (`JUSTICE_ROSTER`) is by seat date, and participation
   is decided per decision date, not per Term: OT16 opened with eight Justices,
   OT20 with eight. A Justice not yet seated is neither a participant nor a
-  recusal.
+  recusal. And a signed opinion's syllabus names every participant, as author,
+  joiner or separate writer, so a Justice named nowhere in it did not sit —
+  seated after the argument (Gorsuch through the spring of 2017, Barrett
+  through the autumn of 2020) or recused without the syllabus saying so. That
+  rule took OT16's coverage from 42 to 61 of 62.
+- **A decision with no PDF.** The feed named none for ~20 of 691 (seven of
+  OT20's, the tail of a Term the preliminary print had not reached). The
+  docket page is tried next (`opinions/NNpdf/` links, OT19 on); failing that
+  the decision counts in panels 1 and 4 and is left out of 2 and 3.
 - **Merits only.** Argued cases on the Granted & Noted List. Dissents from denial
   and emergency-docket writings live on the order lists and are not counted
   here (a separate stream, when it comes).
