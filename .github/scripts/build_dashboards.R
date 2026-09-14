@@ -23,6 +23,10 @@ dir.create(dash_dir, recursive = TRUE, showWarnings = FALSE)
 # day (which exits early) still refreshes it.
 if (file.exists("analytics.js"))
   file.copy("analytics.js", file.path(site_dir, "analytics.js"), overwrite = TRUE)
+# The case-search matcher (/search.js), same reasoning: every page with the
+# search box loads it, and the matcher is what makes the box worth typing in.
+if (file.exists("search.js"))
+  file.copy("search.js", file.path(site_dir, "search.js"), overwrite = TRUE)
 
 # The social-card image, on the same re-assert-every-run principle. It is a
 # committed static asset (docs/make_og_image.R regenerates it), and every page's
@@ -446,6 +450,10 @@ styled_index_page(
   items = items,
   new_tab = FALSE,
   search = TRUE,
+  # The box leads the page, above the forecast: the search is the door to
+  # 56,000 case pages and a returning reader wants a case before a forecast.
+  # The forecast is still on the first screen beneath it.
+  search_top = TRUE,
   # The section nav rides at the top here as it does everywhere else. It used to
   # be suppressed -- "this page IS the section list, and repeating it 200px above
   # itself is noise" -- and that was right while the section list WAS the
