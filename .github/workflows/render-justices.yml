@@ -1,0 +1,81 @@
+name: Render the Justices
+
+# Re-render justices/ on demand, and fetch opinion PDFs for decisions whose
+# syllabus lineup is not cached yet.
+#
+# Needs nothing from a prior run's artifacts: the Granted & Noted List is read
+# from gh-pages (arguments/granted_noted.json), the opinion PDF for each
+# decision is named by the Court's slip-opinion feed (one request per Term),
+# and the parsed lineups accumulate in justices/lineups.json. See
+# .github/scripts/render_justices.R and docs/justices.md.
+#
+# The first run after the section shipped is the back-catalogue: ~700 PDFs
+# across OT16-OT25, paced at 0.75 s, stopping by itself if the runner is
+# throttled (empty downloads in a row) and picking up where it left off on the
+# next dispatch. The weekly (conferences.yml) then keeps it current with a
+# small cap.
+#
+# Publishes justices/ only.
+
+on:
+  workflow_dispatch:
+    inputs:
+      lineup_max_new:
+        description: "Opinion PDFs to fetch this run (0 = render from the cache only)"
+        required: false
+        default: "800"
+      lineup_retry:
+        description: "Re-fetch cached decisions whose PDF yielded no lineup"
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+# Shares the conferences lane: conferences.yml also renders this section, and
+# both write through publish_site.sh, so they must not race.
+concurrency:
+  group: conference-reports
+  cancel-in-progress: false
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    # setup-r 30 + setup-r-dependencies 15 + up to ~15 min of paced fetching
+    # (800 x 0.75 s plus download time) with headroom.
+    timeout-minutes: 90
+    steps:
+      - name: Checkout source (main)
+        uses: actions/checkout@v5
+      - name: Checkout published site (gh-pages) into ./site
+        uses: actions/checkout@v5
+        with:
+          ref: gh-pages
+          path: site
+      - uses: ./.github/actions/apt-sources
+      - uses: r-lib/actions/setup-r@v2
+        timeout-minutes: 30
+        with:
+          use-public-rspm: true
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        timeout-minutes: 15
+        with:
+          packages: |
+            any::tidyverse
+            any::htmltools
+            any::jsonlite
+            any::httr2
+            any::pdftools
+            any::lubridate
+
+      - name: Render the Justices
+        env:
+          SITE_DIR: site
+          LINEUP_MAX_NEW: ${{ inputs.lineup_max_new }}
+          LINEUP_RETRY: ${{ inputs.lineup_retry }}
+        run: Rscript .github/scripts/render_justices.R
+
+      - name: Publish
+        working-directory: site
+        run: ../.github/scripts/publish_site.sh "Justices re-render $(date -u +%F)" justices

@@ -41,6 +41,10 @@ SITE_SECTIONS <- list(
   list(href = "/conferences/", label = "Conferences", long = "Conference reports"),
   list(href = "/relists/",     label = "Relists",     long = "Relist Tracker"),
   list(href = "/arguments/",   label = "Arguments",   long = "Oral arguments"),
+  # Ninth link. docs/navigation.md measured the seven-link nav at 654px against
+  # the 54rem (864px) masthead; nine fit with ~120px to spare at the desktop
+  # widths that matter, and the strip wraps cleanly below that.
+  list(href = "/justices/",    label = "Justices",    long = "The Justices, by Term"),
   list(href = "/counsel/",     label = "Counsel",     long = "The Counsel Table"),
   list(href = "/funnel/",      label = "The Funnel",  long = "The cert funnel"),
   list(href = "/methods.html", label = "Model",       long = "The forecast model"),
