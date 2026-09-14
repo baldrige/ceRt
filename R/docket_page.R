@@ -285,7 +285,17 @@ write_docket_css <- function(out_dir) {
 # classify_argument() ranks Dismissed above Argued and Scheduled and records
 # the date; the bump is what lets a page whose data has not changed since
 # pick the new word up.
-PAGE_TEMPLATE_VERSION <- "v32"
+# v33: a question glued to the end of the one before it is split off again
+# (unglue_enumerators in R/qp_extract.R). The QP extractor pasted continuation
+# pages together with a space, so a question that closed one page and the
+# "2." that opened the next shared a line, and the reflow -- which only sees an
+# enumerator at a line start -- ran them together: 26-336 showed two questions
+# for three. The join is fixed for new fetches; the reflow repair reaches the
+# ~70 cached texts already glued (measured 2026-09-14) without a re-fetch. The
+# heading's plural now follows the rendered list rather than the raw text. The
+# cached QP is a manifest input and does not change, so only the bump gets
+# these pages re-rendered.
+PAGE_TEMPLATE_VERSION <- "v33"
 
 # ---- small helpers ------------------------------------------------------------
 .esc <- function(x) { x <- x %||% ""; x[is.na(x)] <- ""; htmltools::htmlEscape(x) }
@@ -1138,7 +1148,10 @@ docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
     "<h1>", cap, "</h1>",
     "<p class='posture'>", posture, "</p><hr class='brule'>",
     disp,
-    if (nzchar(qp_html)) paste0("<section><h2>Question", if (str_count(qp, "(?m)^\\s*\\d+[.)]") >= 2) "s" else "", " presented</h2><div class='qp'>", qp_html, "</div></section>") else "",
+    # Plural iff the RENDERED list has two or more items -- counted on the raw
+    # text, a question glued mid-line to the end of the one before it (26-336)
+    # was invisible, and the heading disagreed with the list beneath it.
+    if (nzchar(qp_html)) paste0("<section><h2>Question", if (str_count(qp_html, fixed("<li>")) >= 2) "s" else "", " presented</h2><div class='qp'>", qp_html, "</div></section>") else "",
     "<div class='grid'>", counsel_panel, case_panel, "</div>",
     argsec,
     "<section><h2>Proceedings</h2>", tl_legend, tl_body, "</section>",

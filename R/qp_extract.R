@@ -123,7 +123,12 @@ qp_from_pages <- function(pages, scan_pages = 8L, max_cont = 3L) {
       if (!is.na(st) && st <= 3L) break            # page opens with next section
       if (!qp_continues(acc, pg)) break            # QP looks complete -> stop
       piece <- if (!is.na(st)) str_sub(pg, 1L, st - 1L) else pg
-      acc <- strip_trailing_pagenum(paste0(str_trim(acc), " ", str_trim(piece)))
+      # Join on a NEWLINE, not a space. A question that ends at the foot of one
+      # page and the "2." that opens the next were glued onto one line, and
+      # reflow_qp() only recognises an enumerator at the start of a line -- so
+      # 26-336's second question ran on from its first. The line break costs
+      # nothing: reflow joins wrapped lines itself and repairs a soft hyphen.
+      acc <- strip_trailing_pagenum(paste0(str_trim(acc), "\n", str_trim(piece)))
       if (!is.na(st)) break                        # next section began mid-page
       cont <- cont + 1L; j <- j + 1L
     }
@@ -572,6 +577,58 @@ resolve_granted_qps <- function(dockets, cache_path = NULL, max_new = Inf) {
   }, character(1), USE.NAMES = FALSE)
 }
 
+# Break a line at an enumerator that is glued mid-line: "... First Amendment.
+# 2. Whether California's ..." becomes two lines, so the marker test below sees
+# "2." at a line start. The cached corpus holds hundreds of these -- until the
+# page-join fix above, a question that ended one page and the marker that
+# opened the next were pasted onto one line -- and this repairs them without a
+# re-fetch. Two guards keep it from inventing questions out of citations:
+#   * the number must be the NEXT in sequence after the last line-start marker
+#     seen (so "App. 12. In holding" and a statute's "(4) He knows" quoted
+#     inside question 2 are left alone), and
+#   * the word before the terminal punctuation must not be a citation
+#     abbreviation or a single letter ("cl. 3. The Vicinage Clause",
+#     "Sec. 2. Federal", "art. I, § 2, cl. 3." all end a cite, not a question),
+#   * and after a COLON the enumerator must open a question ("The questions
+#     presented are: 1. Whether ..."), because a colon also introduces the
+#     sub-list of a sentence -- "can apply only if: (1) Penn is a minister and
+#     (2) NYMH is a religious ..." -- which is not a question at all. Measured
+#     on the 17,000 cached texts (2026-09-14): every glued question after a
+#     colon opened with a question word; every sub-list did not.
+unglue_enumerators <- function(lines) {
+  glued <- regex(paste0(
+    "(?<=[.?!:][\"'\u201d\u2019)\\]]?)[ \\t]+",   # terminal punctuation, then a gap
+    "(?=\\(?(\\d{1,2})[.)][ \\t]+[A-Z(\"\u201c])")) # "2. W", "(2) W" -- capital follows
+  abbr <- regex(paste0("(?:\\b(?:", paste(QP_CITE_ABBR, collapse = "|"),
+                       "|[A-Za-z]|cl|art|Art|pt|Pt|para|Para|Stat|Rule|R|Id|id|Tit|tit|Cl)",
+                       "|\\d|\u00a7)[.?!:][\"'\u201d\u2019)\\]]?$"))
+  out <- character(0); last <- 0L
+  for (ln in lines) {
+    repeat {
+      m <- str_locate_all(ln, glued)[[1]]
+      cut <- NA_integer_
+      if (nrow(m)) for (i in seq_len(nrow(m))) {
+        head_ <- str_sub(ln, 1L, m[i, "start"] - 1L)
+        tail_ <- str_sub(ln, m[i, "end"] + 1L)
+        n <- as.integer(str_match(tail_, "^\\(?(\\d{1,2})")[1, 2])
+        after_colon <- str_detect(head_, ":[\"'\u201d\u2019)\\]]?$")
+        opens_q <- str_detect(str_remove(tail_, "^\\(?\\d{1,2}[.)][ \\t]+[\"\u201c']?"),
+                              regex(QP_OPENERS, ignore_case = TRUE))
+        if (identical(n, last + 1L) && !str_detect(head_, abbr) &&
+            (!after_colon || opens_q)) { cut <- i; break }
+      }
+      if (is.na(cut)) break
+      out <- c(out, str_trim(str_sub(ln, 1L, m[cut, "start"] - 1L)))
+      ln <- str_sub(ln, m[cut, "end"] + 1L)
+      last <- last + 1L
+    }
+    lead <- as.integer(str_match(ln, "^\\(?(\\d{1,2})[.)]\\s")[1, 2])
+    if (!is.na(lead)) last <- lead
+    out <- c(out, ln)
+  }
+  out[out != ""]
+}
+
 # Reflow an extracted QP for clean markdown rendering. Petition PDFs wrap each
 # question across lines and separate questions with blank lines, which markdown
 # fragments into stray one-item lists and loose paragraphs. This rebuilds a
@@ -602,6 +659,7 @@ reflow_qp <- function(txt) {
     str_squish(out)
   }
 
+  lines <- unglue_enumerators(lines)
   marker <- str_detect(lines, "^\\(?\\d+[.)]\\s")
   if (sum(marker) < 2) return(join_lines(lines)) # not a numbered list -> prose
 
