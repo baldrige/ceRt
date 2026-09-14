@@ -62,7 +62,20 @@ dispositions, DIGs and dismissals), 549 with separate writings.
   fetches the current and prior Terms every run (two requests) plus any Term
   the manifest lacks, so the first run pulls all eleven and later runs pull two.
   A Term's rows are replaced whole, since a Term's list is complete every time
-  it is read. Event dates only.
+  it is read. Event dates only. Every row carries `pv = GN_PARSER_VERSION`, and
+  a Term whose rows carry an older stamp is re-fetched on the next run, so a
+  grammar fix reaches the archive by itself; `render_justices.R` refreshes the
+  manifest the same way, so the Justices workflow can carry one too.
+
+  Two grammar fixes on 2026-09-14, each found from the Justices pages and
+  measured by re-parsing all eleven lists (764 rows against 763; nothing else
+  moved):
+  - a flag run with a space inside it, `19-1442)1 ** #   CFX   CARR v. SAUL`,
+    was dropped where its sibling `20-105 )2 **#` was read, so Davis v. Saul
+    sat on the OT20 page with no lineup — its opinion is filed under Carr;
+  - a footnote digit set flush against the docket, `17-16181`, is the
+    footnote: no docket has five digits after the dash, so the fifth is
+    stripped (Bostock and Altitude Express).
 - **The Navigator** gains a "Separate writings" column, shown on a Term's page
   when any row has one: "Thomas and Alito dissenting; Kagan concurring in the
   judgment". Joined by docket in `render_arguments.R`.

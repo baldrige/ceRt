@@ -82,4 +82,8 @@ jobs:
 
       - name: Publish
         working-directory: site
-        run: ../.github/scripts/publish_site.sh "Justices re-render $(date -u +%F)" justices
+        # justices/ and the Granted & Noted manifest the render refreshes on
+        # the way in (arguments/granted_noted.json is a derived cache the
+        # weekly also writes; a Term's rows are replaced whole, so the two
+        # never disagree about a row).
+        run: ../.github/scripts/publish_site.sh "Justices re-render $(date -u +%F)" justices arguments/granted_noted.json
