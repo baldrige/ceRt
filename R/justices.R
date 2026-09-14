@@ -476,11 +476,16 @@ parse_body_headers <- function(pages, max_pages = 40L) {
 # opinion, under the lead docket -- can find the lineup through the entry
 # that names it. Dashes are normalised to the hyphen the list uses.
 .dockets_in <- function(pages) {
-  # The first page only: the header and the "Together with" footnote are on
-  # it, and a later page may cite another case's docket, which would link two
-  # decisions that merely mention each other.
-  txt <- paste(head(pages, 1L), collapse = "\n")
-  d <- str_extract_all(txt, "\\b\\d{2}[–-]\\d{1,5}\\b|\\b\\d{2}A\\d{1,4}\\b|\\b22O\\d{1,4}\\b")[[1]]
+  # The first three pages -- the excerpt-style slips (603us1r54_o7jp.pdf)
+  # open with a cover page, so page one alone came back empty for Loper
+  # Bright -- but only the dockets in a header or a "Together with" clause:
+  # "No. 22-451. Argued", "Nos. 19-1442 and 20-105. Argued", "Together with
+  # No. 22-1219, Relentless ... and No. 16-1017, Cox ...". A syllabus that
+  # merely cites another case's docket does not link the two.
+  txt <- str_squish(paste(head(pages, 3L), collapse = " "))
+  segs <- c(str_extract_all(txt, "\\bNos?\\.\\s*\\d{2}[–-]\\d{1,5}[^.]{0,80}?(?=\\.\\s*(?:Argued|Decided|Reargued))")[[1]],
+            str_extract_all(txt, "Together with No\\.\\s*\\d{2}[–-]\\d{1,5}(?:[^.]{0,120}?(?:,| and) No\\.\\s*\\d{2}[–-]\\d{1,5})*")[[1]])
+  d <- unlist(str_extract_all(segs, "\\b\\d{2}[–-]\\d{1,5}\\b|\\b\\d{2}A\\d{1,4}\\b|\\b22O\\d{1,4}\\b"))
   unique(str_replace_all(d, "–", "-"))
 }
 
@@ -529,7 +534,7 @@ resolve_lineups <- function(dec, urls, site_dir, max_new = 0L, pace = 0.75,
   # hand-deleted cache.
   # ... or it predates the `also` field, which only a fetch can fill.
   is_cached <- function(dk) !is.null(cache[[dk]]) &&
-    (!retry || (isTRUE(cache[[dk]]$parsed) && identical(cache[[dk]]$pv, LINEUP_PARSER_VERSION) && !is.null(cache[[dk]]$also)))
+    (!retry || (isTRUE(cache[[dk]]$parsed) && identical(cache[[dk]]$pv, LINEUP_PARSER_VERSION) && length(cache[[dk]]$also) > 0))
   url_for <- function(dkts) { u <- urls[dkts]; u <- u[!is.na(u)]; if (length(u)) u[[1]] else NA_character_ }
   todo <- dec |> filter(!vapply(dkt, is_cached, logical(1))) |>
     mutate(url = vapply(dkts, url_for, character(1))) |> filter(!is.na(url))

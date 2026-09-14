@@ -74,6 +74,10 @@ jobs:
           SITE_DIR: site
           LINEUP_MAX_NEW: ${{ inputs.lineup_max_new }}
           LINEUP_RETRY: ${{ inputs.lineup_retry }}
+          # A full retry re-fetches ~600 PDFs; at 0.75 s the 2026-09-14 run
+          # tripped the per-IP limit partway and left a third of the archive
+          # unfilled. One second holds.
+          LINEUP_PACE: "1.0"
         run: Rscript .github/scripts/render_justices.R
 
       - name: Publish
