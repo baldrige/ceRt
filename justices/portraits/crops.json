@@ -146,13 +146,14 @@
   "file": "breyer.jpg",
   "iw": 250,
   "ih": 312,
-  "fx": 75,
-  "fy": 58,
-  "fw": 59,
-  "fh": 59,
-  "nx": 104.5,
-  "ny": 92.2,
+  "fx": 80,
+  "fy": 25,
+  "fw": 60,
+  "fh": 70,
+  "nx": 110.0,
+  "ny": 66.0,
   "source": "Stephen_Breyer,_SCOTUS_photo_portrait.jpg",
-  "license": "Public domain"
+  "license": "Public domain",
+  "manual": "detector box sat on the chin and collar; set by hand 2026-09-14"
  }
 }
