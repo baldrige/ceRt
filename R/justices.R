@@ -663,11 +663,15 @@ term_stats <- function(term, gn, lineups, captions = NULL) {
   # split list showed one. The closest splits each get their own lineup:
   # tibble(n_maj, n_min, n, maj_set, min_set, top) with the most frequent
   # lineup per split, for the splits that occurred at least twice.
-  lineups <- per_dec |> filter((n_maj == 6L & n_min == 3L) | (n_maj == 5L & n_min == 4L) | (n_maj == 5L & n_min == 3L)) |>
+  # `close_splits`, NOT `lineups`: that name is this function's argument, the
+  # cache, and the writings list below reads it. The first version of this
+  # block shadowed it with this tibble, and every "joined by" cell on every
+  # Term page read "lineup not parsed" for a day.
+  close_splits <- per_dec |> filter((n_maj == 6L & n_min == 3L) | (n_maj == 5L & n_min == 4L) | (n_maj == 5L & n_min == 3L)) |>
     group_by(n_maj, n_min) |> mutate(n = n()) |> count(n_maj, n_min, n, maj_set, min_set, name = "top", sort = TRUE) |>
     group_by(n_maj, n_min) |> slice_head(n = 1) |> ungroup() |> filter(n >= 2L) |> arrange(desc(n_maj), desc(n_min))
   n_63 <- sum(per_dec$n_maj == 6L & per_dec$n_min == 3L)
-  top_lineup <- lineups |> filter(n_maj == 6L, n_min == 3L)
+  top_lineup <- close_splits |> filter(n_maj == 6L, n_min == 3L)
 
   # Per Justice from the votes: in the majority, lone dissents, solo writings.
   by_j <- if (n_lineup) V |> filter(!no_part) |> group_by(name) |>
@@ -729,7 +733,7 @@ term_stats <- function(term, gn, lineups, captions = NULL) {
 
   list(term = term, court = court, dec = dec, n_dec = nrow(dec), n_signed = n_signed,
        n_lineup = n_lineup, written = written, agree_j = agree_j, agree_f = agree_f, n_pair = n_pair,
-       splits = splits, top_lineup = top_lineup, lineups = lineups, n_63 = n_63, by_j = by_j, lone = lone, solo_w = solo_w,
+       splits = splits, top_lineup = top_lineup, lineups = close_splits, n_63 = n_63, by_j = by_j, lone = lone, solo_w = solo_w,
        n_unan = n_unan, n_unan_j = n_unan_j, writings = wl)
 }
 
