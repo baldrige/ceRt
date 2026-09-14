@@ -213,7 +213,7 @@ rebase cleanly.
 | `arguments/decided.json`, `arguments/watch.json` (landing-page "Recent decisions" manifest and the daily's named-fetch watch list) | `conferences.yml` |
 | `dashboards/decided.json` (the daily's own decisions manifest, from the watch-list fetch) | `daily.yml` |
 | `relists/` | `conferences.yml` |
-| `justices/` (+ `lineups.json` — the parsed syllabus lineups, cap `LINEUP_MAX_NEW`; see **[justices.md](justices.md)**) | `conferences.yml` · `render-justices.yml` |
+| `justices/` (+ `lineups.json` — the parsed syllabus lineups, cap `LINEUP_MAX_NEW`; `network.js` and `portraits/`, the agreement network's script and the twelve official portraits with their face geometry, re-asserted from the repo on every render; see **[justices.md](justices.md)**) | `conferences.yml` · `render-justices.yml` |
 | `funnel/` | `conferences.yml` · `render-funnel.yml` |
 | `counsel/` | `conferences.yml` · `render-counsel.yml` |
 | `cases/` (+ `.manifest.json`, `search.json`, `style.css`) | `daily.yml` (current term) · `conferences.yml` (touched cases) · `rerender-dockets.yml` / `fill-throttled-dockets.yml` (back-catalog) |

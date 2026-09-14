@@ -149,8 +149,39 @@ baseline blue for the Court's opinion, the timeline's orange and light green
 for concurrences, the accent for dissents. Validated with the data-viz palette
 checker on the paper surface; the orange/green pair sits in the colour-vision
 warn band, which the 2px gaps between segments and the counts table beside the
-chart are there to cover. The agreement matrix is the grant ramp (paper →
-accent) over 50–100%.
+chart are there to cover. The agreement matrix cells carry an accent wash
+whose alpha rises from 40% to 100% agreement; the network's lines are the
+accent at a width and opacity that rise from the slider's threshold to 95%.
+
+## The network (panel 2)
+
+Since 2026-09-14 the agreement panel is the Justices as a network, the form
+prototyped as an artifact for OT25 and then moved into the renderer:
+
+- `justices_network.js` (repo root, served as `/justices/network.js`) reads
+  the Term's data from `<script type="application/json" id="jx-net">` on the
+  page and draws into `#jx-svg`. A spring layout over all pairs -- rest length
+  grows with disagreement, a repulsion keeps a bloc legible -- seeded on a
+  circle in seniority order and iterated to rest, so the same matrix always
+  draws the same picture. Lines join pairs at or above the threshold slider,
+  which starts at the measure's floor (the weakest pair, rounded down) so
+  every connection shows by default. Circle radius is the share of decisions
+  in the majority, 60–100% onto 14–24px. Labels sit on the far side of each
+  node from the centre; a collision pass nudges any that would overlap a
+  circle or another label outward, and one that had to travel gets a leader.
+- **Portraits.** `data/portraits/<surname>.jpg`, the twelve official Court
+  photographs of everyone who sat from OT16 (250px wide, ~15 KB each), all
+  U.S. government works in the public domain (licence checked on Commons;
+  Kagan's Wikipedia lead image is CC BY-SA and was replaced by her official
+  portrait). `crops.json` holds each face box found by OpenCV's Haar cascade
+  and the nose point (the box's centre line, 58% down); the script scales the
+  portrait so the face spans 85% of the circle and centres the nose. A Justice
+  without a portrait gets an empty circle. `render_justices()` copies the
+  directory to `justices/portraits/` on every render.
+- **The tables.** Both matrices are rendered server-side as tables, accent-
+  washed, and switched by the same radio pair the script listens to, so with
+  script off the numbers are all still there and the stage says why it is
+  empty.
 
 ## Rollout
 

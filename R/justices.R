@@ -873,15 +873,36 @@ main.wrap{max-width:54rem}
 .jx-mx #mx-judg:focus-visible~.jx-toggle label[for=mx-judg],.jx-mx #mx-full:focus-visible~.jx-toggle label[for=mx-full]{outline:2px solid var(--accent)}
 .jx-mx .m{display:none}
 .jx-mx #mx-judg:checked~.m.judg,.jx-mx #mx-full:checked~.m.full{display:block}
-.jx-mwrap{overflow-x:auto}
-.jx-matrix{display:grid;grid-template-columns:5.6rem repeat(var(--k),minmax(3.3rem,3.6rem));gap:2px;font-size:.84rem;min-width:34rem}
-.jx-matrix .h{font-size:.68rem;letter-spacing:.02em;color:var(--ink-soft);align-self:end;text-align:center;padding-bottom:.25rem;line-height:1.1;overflow-wrap:anywhere}
-.jx-matrix .rh{font-size:.84rem;align-self:center;text-align:right;padding-right:.45rem}
-.jx-cell{aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;border-radius:2px;font-variant-numeric:tabular-nums;color:var(--ink);cursor:default}
-.jx-cell.dark{color:var(--paper)}.jx-cell.self{border:1px solid var(--rule)}.jx-cell.na{color:var(--faint)}
-.jx-cell:not(.self):hover{outline:2px solid var(--ink);outline-offset:-1px}
-.jx-ramp{display:flex;align-items:center;gap:.5rem;font-size:.78rem;color:var(--faint);margin:.7rem 0 0}
-.jx-ramp i{height:.6rem;flex:0 0 9rem;background:linear-gradient(90deg,RAMP_STOPS);border:1px solid var(--rule)}
+/* The agreement network (justices/network.js draws into #jx-svg) and the
+   matrix tables beneath it, which the same radios switch. */
+.jx-controls{display:flex;flex-wrap:wrap;gap:.8rem 1.6rem;align-items:center;font-size:.9rem;margin:0 0 1rem}
+.jx-controls label.thr{display:inline-flex;align-items:center;gap:.5rem;color:var(--ink-soft)}
+.jx-controls input[type=range]{accent-color:var(--accent);width:11rem}
+.jx-thrv{font-variant-numeric:tabular-nums;min-width:3ch;display:inline-block;color:var(--ink)}
+.jx-stage{position:relative;background:var(--panel);border:1px solid var(--rule)}
+.jx-stage svg{display:block;width:100%;height:auto;max-width:100%}
+.jx-edge{stroke:var(--accent);stroke-linecap:round;transition:opacity .2s}
+.jx-leader{stroke:var(--faint);stroke-width:1}
+.jx-node circle{fill:var(--panel);stroke:var(--ink);stroke-width:2;cursor:default}
+.jx-node .ring{fill:none}.jx-node image{pointer-events:none}
+.jx-node text{font-family:'Newsreader',serif;font-weight:600;font-size:14px;fill:var(--ink);pointer-events:none}
+.jx-node .sub{font-weight:400;font-size:11px;fill:var(--faint);font-variant-numeric:tabular-nums}
+.jx-node.dim circle{stroke:var(--rule)}.jx-node.dim text{fill:var(--faint)}
+.jx-node.hot circle{stroke:var(--accent);stroke-width:3}
+.jx-edge.dim{opacity:.06!important}.jx-edge.hot{opacity:1!important}
+.jx-tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--paper);font-size:.8rem;padding:.25rem .55rem;border-radius:2px;white-space:nowrap;transform:translate(-50%,-130%);opacity:0;transition:opacity .12s}
+.jx-tip.on{opacity:1}
+.jx-legend{display:flex;flex-wrap:wrap;gap:.6rem 1.4rem;align-items:center;font-size:.84rem;color:var(--faint);margin:.7rem 0 0}
+.jx-legend i{display:inline-block;vertical-align:middle;margin-right:.4rem;border-radius:2px;background:var(--accent)}
+.jx-legend .n{display:inline-block;width:.9rem;height:.9rem;border:2px solid var(--ink);border-radius:50%;background:var(--panel);vertical-align:middle;margin-right:.4rem}
+.jx-mwrap{overflow-x:auto;margin-top:1.2rem}
+.jx-mtable th{font-size:.66rem;letter-spacing:.03em;padding:.3rem .35rem}
+.jx-mtable td{padding:.3rem .4rem;font-size:.88rem}
+.jx-mtable td.self{color:var(--rule);text-align:center}
+.jx-mtable td.na{color:var(--faint);text-align:center}
+.jx-mtable th.n,.jx-mtable td.n{text-align:right}
+.jx-mtable tbody tr:nth-child(even){background:transparent}
+@media (prefers-reduced-motion:reduce){.jx-edge,.jx-tip{transition:none}}
 .jx-tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(11rem,1fr));gap:1rem;margin:0 0 1.2rem}
 .jx-tile{border-top:2px solid var(--ink);padding-top:.5rem}
 .jx-tile .big{font-family:'Fraunces',Georgia,serif;font-size:2rem;font-weight:500;line-height:1;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
@@ -908,32 +929,45 @@ main.wrap{max-width:54rem}
 "))
 
 # The agreement ramp: paper -> accent, the grant ramp, over 50%..100%.
-.jx_ramp <- local({
-  f <- grDevices::colorRamp(GRANT_RAMP)
-  function(v) {
-    t <- max(0, min(1, (v - 0.5) / 0.5))
-    rgb <- f(t)
-    list(css = sprintf("rgb(%d,%d,%d)", round(rgb[1]), round(rgb[2]), round(rgb[3])), dark = t > 0.55)
-  }
-})
-
-.jx_matrix <- function(M, N, court, cls) {
-  J <- court$name; k <- length(J)
-  cells <- character()
-  cells <- c(cells, "<div></div>", paste0("<div class='h' role='columnheader'>", J, "</div>"))
-  for (a in seq_len(k)) {
-    cells <- c(cells, paste0("<div class='rh' role='rowheader'>", J[a], "</div>"))
-    for (b in seq_len(k)) {
-      if (a == b) { cells <- c(cells, "<div class='jx-cell self' role='cell'></div>"); next }
+# The matrix as a table: seniority order both ways, each cell the rounded
+# share with a wash of the accent behind it that deepens from 40% to 100%
+# (an accent alpha, from the palette -- no colour is written here). This is
+# the form the OT25 network mockup used, and it reads better than the grid of
+# squares it replaces: the numbers line up, the row names are a column.
+.jx_matrix_table <- function(M, N, court, cls, note) {
+  J <- court$name; k <- length(J); acc <- pal_rgb("accent")
+  head <- paste0("<tr><th></th>", paste(sprintf("<th class='n'>%s</th>", J), collapse = ""), "</tr>")
+  rows <- vapply(seq_len(k), function(a) {
+    cells <- vapply(seq_len(k), function(b) {
+      if (a == b) return("<td class='self'>&middot;</td>")
       v <- M[a, b]; n <- N[a, b]
-      if (is.na(v) || n == 0) { cells <- c(cells, "<div class='jx-cell na' role='cell' title='no shared decisions with a parsed lineup'>&middot;</div>"); next }
-      r <- .jx_ramp(v)
-      cells <- c(cells, sprintf("<div class='jx-cell%s' role='cell' style='background:%s' title='%s and %s: %d of %d decisions both took part in'>%d</div>",
-                                if (r$dark) " dark" else "", r$css, J[a], J[b], round(n * v), n, round(100 * v)))
-    }
+      if (is.na(v) || n == 0) return("<td class='na' title='no shared decisions with a parsed lineup'>&middot;</td>")
+      t <- max(0, min(1, (v - 0.4) / 0.6))
+      sprintf("<td class='n' style='background:rgba(%s,%.2f)' title='%s and %s: %d of %d decisions both took part in'>%d</td>",
+              acc, 0.04 + 0.42 * t, J[a], J[b], round(n * v), n, round(100 * v))
+    }, character(1))
+    paste0("<tr><td>", J[a], "</td>", paste(cells, collapse = ""), "</tr>")
+  }, character(1))
+  paste0("<div class='m ", cls, "'><div class='jx-mwrap'><table class='jx-mtable' aria-label='Pairwise agreement'><thead>", head,
+         "</thead><tbody>", paste(rows, collapse = ""), "</tbody></table></div><p class='pend'>", note, "</p></div>")
+}
+
+# The portraits the network draws into its circles: data/portraits/<name>.jpg
+# with the face geometry OpenCV found (data/portraits/crops.json), copied to
+# justices/portraits/ by render_justices(). Official Court photographs, U.S.
+# government works in the public domain. A Justice with no portrait on file
+# gets an empty circle, never an error.
+PORTRAITS_SRC <- "data/portraits"
+.jx_portraits <- function(court) {
+  cj <- file.path(PORTRAITS_SRC, "crops.json")
+  crops <- if (file.exists(cj)) fromJSON(cj, simplifyVector = FALSE) else list()
+  out <- list()
+  for (nm in court$name) {
+    c <- crops[[nm]]
+    if (is.null(c)) next
+    out[[nm]] <- list(url = paste0("portraits/", c$file), iw = c$iw, ih = c$ih, fw = c$fw, nx = c$nx, ny = c$ny)
   }
-  paste0("<div class='m ", cls, "'><div class='jx-mwrap'><div class='jx-matrix' role='table' aria-label='Pairwise agreement' style='--k:", k, "'>",
-         paste(cells, collapse = ""), "</div></div></div>")
+  out
 }
 
 #' Write justices/otYYYY.html for one Term from term_stats() output.
@@ -998,19 +1032,36 @@ render_justices_term <- function(st, site_dir, terms_all) {
 
   # Panel 2.
   cov <- sprintf("%d of %d decisions", st$n_lineup, st$n_dec)
+  # The network needs a script; the tables do not. The radios sit first inside
+  # .jx-mx so the CSS ~ combinator switches the labels and the tables, and
+  # network.js listens to the same radios so the picture follows. Without
+  # script the tables still show and the stage says why it is empty.
+  by_name <- function(v) { m <- match(court$name, st$by_j$name); ifelse(is.na(m), NA, st$by_j$in_maj[m]) }
+  net <- list(names = court$label, short = court$name,
+              judg = unname(round(st$agree_j, 3)), full = unname(round(st$agree_f, 3)), n = unname(st$n_pair),
+              in_maj = round(by_name(), 3), portraits = .jx_portraits(court), accent_rgb = pal_rgb("accent"))
+  net_json <- toJSON(net, auto_unbox = TRUE, digits = NA, na = "null", matrix = "rowmajor", null = "null")
   panel2 <- paste0(
     "<section class='jx' id='agree'><h2>Who agreed with whom <span class='tag'>Lineups parsed for ", cov, "</span></h2>",
-    "<p class='note'>Each cell is the share of decisions both Justices took part in where they landed on the same side. Seniority order on both axes, the diagonal left empty. The stricter reading counts only decisions where both joined the opinion of the Court in full. Hover a cell for the count.</p>",
+    "<p class='note'>Every pair of Justices, as a network. A line joins two who ended on the same side of the judgment at least as often as the threshold; the thicker and darker, the more often. Distance is the layout's reading of the whole matrix: pairs who agree sit close. Circle size is the share of decisions in the majority. The stricter reading counts only decisions where both joined the opinion of the Court in full. Hover a Justice or a line for the numbers.</p>",
     if (st$n_lineup == 0) "<p class='pend'>No lineups parsed for this Term yet.</p>" else paste0(
-      # The two radios sit first inside .jx-mx so the ~ combinator can reach
-      # both the labels and the matrices; no script.
       "<div class='jx-mx'>",
       "<input type='radio' name='mx' id='mx-judg' checked><input type='radio' name='mx' id='mx-full'>",
-      "<div class='jx-toggle' role='radiogroup' aria-label='Agreement measure'>",
+      "<div class='jx-controls'><div class='jx-toggle' role='radiogroup' aria-label='Agreement measure'>",
       "<label for='mx-judg'>Same side of the judgment</label>",
       "<label for='mx-full'>Joined the same opinion in full</label></div>",
-      .jx_matrix(st$agree_j, st$n_pair, court, "judg"), .jx_matrix(st$agree_f, st$n_pair, court, "full"),
-      "</div><p class='jx-ramp'><span>50%</span><i></i><span>100% agreement</span></p>"),
+      "<label class='thr' for='jx-thr'>Show pairs agreeing at least <span class='jx-thrv' id='jx-thrv'>&ndash;</span>% <input type='range' id='jx-thr' min='40' max='95' step='1' value='50'></label></div>",
+      "<div class='jx-stage' id='jx-stage'><svg id='jx-svg' viewBox='0 0 860 560' role='img' aria-label='Agreement network of the Justices'></svg><div class='jx-tip' id='jx-tip'></div>",
+      "<noscript><p class='pend' style='padding:1rem'>The network is drawn by script; the matrix below carries the same numbers.</p></noscript></div>",
+      "<p class='jx-legend'><span><i style='width:2.2rem;height:2px'></i>weaker</span><span><i style='width:2.2rem;height:7px'></i>stronger agreement</span><span><span class='n'></span>circle size: share of decisions in the majority</span></p>",
+      if (length(net$portraits)) "<p class='pend'>Portraits: the Justices&rsquo; official photographs, Collection of the Supreme Court of the United States, public domain as works of the U.S. government, via Wikimedia Commons.</p>" else "",
+      .jx_matrix_table(st$agree_j, st$n_pair, court, "judg",
+        "Share of decisions both took part in where both were on the same side of the judgment. A Justice who concurred in part and dissented in part is on neither side for that decision."),
+      .jx_matrix_table(st$agree_f, st$n_pair, court, "full",
+        "Share of decisions both took part in where both joined the opinion of the Court without a qualifier; a plurality or a split opinion counts for no one."),
+      "</div>",
+      "<script type='application/json' id='jx-net'>", net_json, "</script>",
+      "<script src='/justices/network.js' defer></script>"),
     "</section>")
 
   # Panel 3.
@@ -1101,6 +1152,15 @@ render_justices_term <- function(st, site_dir, terms_all) {
 
 #' Render every Term page and the section index. Returns the Terms rendered.
 render_justices <- function(site_dir, gn, lineups, captions = NULL) {
+  # The section's static assets, re-asserted on every render like
+  # analytics.js: the network script and the portraits with their face
+  # geometry. Copied whole so a page never references a file that is not there.
+  out_dir <- file.path(site_dir, JUSTICES_DIR); dir.create(out_dir, showWarnings = FALSE, recursive = TRUE)
+  if (file.exists("justices_network.js")) file.copy("justices_network.js", file.path(out_dir, "network.js"), overwrite = TRUE)
+  if (dir.exists(PORTRAITS_SRC)) {
+    pd <- file.path(out_dir, "portraits"); dir.create(pd, showWarnings = FALSE)
+    file.copy(list.files(PORTRAITS_SRC, full.names = TRUE), pd, overwrite = TRUE)
+  }
   terms <- sort(unique(gn$term[!is.na(gn$decided)]))
   stats <- lapply(terms, function(t) term_stats(t, gn, lineups, captions))
   keep <- !vapply(stats, is.null, logical(1)); terms <- terms[keep]; stats <- stats[keep]
