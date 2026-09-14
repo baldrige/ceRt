@@ -104,7 +104,12 @@ gn_decisions <- function(gn, term) {
   d |>
     mutate(.g = if_else(is.na(group), paste0("solo:", dkt), paste0("g:", group, ":", decided))) |>
     group_by(.g) |>
-    summarise(dkt = first(dkt), dkts = list(dkt), caption = first(caption),
+    # `dkts` BEFORE `dkt`: summarise() evaluates in order and a later
+    # expression sees the column an earlier one just made, so `dkt = first(dkt)`
+    # followed by `list(dkt)` pooled exactly one docket per group. Advocate
+    # Health (16-74, 16-86, 16-258) carried only 16-258, which the feed does
+    # not name, and went without a lineup for a day.
+    summarise(dkts = list(dkt), dkt = first(dkt), caption = first(caption),
               decided = first(decided), author = first(author), others = first(others),
               writings = first(writings), result = first(result), flag = first(flag),
               no_part = first(no_part), .groups = "drop") |>
