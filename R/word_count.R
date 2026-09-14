@@ -69,7 +69,13 @@ parse_word_count <- function(text) {
   m <- ifelse(is.na(m), m2, m)
   n <- suppressWarnings(as.integer(str_remove_all(m, ",")))
   # A count under 100 or over 40,000 is not a petition's; treat as unparsed.
-  ifelse(!is.na(n) & n >= 100 & n <= 40000, n, NA_integer_)
+  out <- ifelse(!is.na(n) & n >= 100 & n <= 40000, n, NA_integer_)
+  # Exactly one integer, always: a zero-length text (a download that returned
+  # nothing) fell through the matchers as a zero-length result, the cache
+  # wrote it as {} (52 entries on 2026-09-14), and every reader that expected
+  # one number stopped -- including the docket-page render, which then
+  # published a dashboard with no pages behind its new dockets.
+  if (length(out) != 1L) NA_integer_ else as.integer(out)
 }
 
 fetch_word_count_text <- function(url) {
@@ -153,8 +159,12 @@ resolve_word_counts <- function(dkts, urls, cache_path, max_new = 0L, pace = 0.7
 # The integer count out of a cache entry: NA for a missing entry, a null, or
 # the string "NA" the first corpus pass wrote.
 word_count_of <- function(entry) {
-  w <- entry$words
-  if (is.null(w) || length(w) == 0) return(NA_integer_)
+  w <- if (is.list(entry)) entry$words else NULL
+  # NULL, a JSON null, the string "NA" the first pass wrote, the {} of
+  # 2026-09-14, or anything but a single value: no count. A missing count is
+  # what `retry_unparsed` re-fetches, so a malformed entry heals on the next
+  # pass rather than needing the cache edited.
+  if (is.null(w) || is.list(w) || length(w) != 1L) return(NA_integer_)
   suppressWarnings(as.integer(w))
 }
 

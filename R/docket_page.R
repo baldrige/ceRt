@@ -1299,8 +1299,17 @@ render_dockets_for <- function(cases, site_dir, model_dir = "data") {
       for (wp in file.path(site_dir, c("dashboards", "conferences"), "word_counts_cache.json")) {
         if (!file.exists(wp)) next
         w <- tryCatch(jsonlite::fromJSON(wp, simplifyVector = FALSE), error = function(e) NULL)
+        # A count is one integer or nothing. The weekly of 2026-09-14 wrote 52
+        # entries as {"words": {}} (an empty download parsed to an empty named
+        # list, which jsonlite writes as an object), and `as.integer(s$words)`
+        # on those was length 0 -- vapply() aborted, render_dockets_for()
+        # caught it, and the daily published a dashboard whose fourteen new
+        # dockets had no page. Anything that is not a single number is NA here.
         if (length(w)) signals_map <- attach_word_counts(signals_map, tibble::tibble(
-          dkt = names(w), words = vapply(w, function(s) as.integer(s$words %||% NA), integer(1), USE.NAMES = FALSE)))
+          dkt = names(w), words = vapply(w, function(s) {
+            v <- if (is.list(s)) s$words else NULL
+            if (is.list(v) || length(v) != 1L) NA_integer_ else suppressWarnings(as.integer(v))
+          }, integer(1), USE.NAMES = FALSE)))
       }
     }
     render_docket_pages(cases, file.path(site_dir, "cases"),
