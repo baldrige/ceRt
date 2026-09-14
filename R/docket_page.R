@@ -279,7 +279,13 @@ write_docket_css <- function(out_dir) {
 # v31: on an original action the second side is "For defendant". The Court's
 # JSON heads it "Attorneys for Respondent" even there, and v30 had followed
 # the JSON. Original docket only.
-PAGE_TEMPLATE_VERSION <- "v31"
+# v32: a granted case dismissed after it was set for argument reads
+# "Dismissed · <date of the Court's entry>", not "Set for argument · <the day
+# it will not be heard>" (Genalo v. Black, 25-886, Rule 46, 11 Sep 2026).
+# classify_argument() ranks Dismissed above Argued and Scheduled and records
+# the date; the bump is what lets a page whose data has not changed since
+# pick the new word up.
+PAGE_TEMPLATE_VERSION <- "v32"
 
 # ---- small helpers ------------------------------------------------------------
 .esc <- function(x) { x <- x %||% ""; x[is.na(x)] <- ""; htmltools::htmlEscape(x) }
@@ -783,14 +789,22 @@ docket_disposition <- function(outcome, outcome_date, arg, p_base, p_gvr, sig, i
                               closed = "Application closed",
                               "Application acted on")
     else switch(outcome,
-      granted = if (!is.na(arg$decided_date)) "Decided" else if (!is.na(arg$argued_date)) "Argued"
+      # Dismissed sits between Decided and Argued, as in classify_argument():
+      # a granted case withdrawn under Rule 46 after being set for argument
+      # (Genalo v. Black, 25-886) read "Set for argument" for the date it
+      # would no longer be heard.
+      granted = if (!is.na(arg$decided_date)) "Decided"
+                else if (identical(arg$status, "Dismissed")) "Dismissed"
+                else if (!is.na(arg$argued_date)) "Argued"
                 else if (!is.na(arg$scheduled_date)) "Set for argument" else "Certiorari granted",
       denied = "Certiorari denied", dismissed = "Dismissed", gvr = "GVR'd", outcome)
   # Link the "Decided" word to the slip opinion (the primary way to reach it).
   if (identical(word, "Decided") && !is.na(arg$opinion_url))
     word <- sprintf("<a href='%s' target='_blank' rel='noopener'>Decided</a>", arg$opinion_url)
   dt <- if (!is_app && identical(outcome, "granted"))
-    coalesce(arg$decided_date, arg$argued_date, arg$scheduled_date, as.Date(outcome_date)) else as.Date(outcome_date)
+    coalesce(arg$decided_date,
+             if (identical(arg$status, "Dismissed")) as.Date(arg$dismissed_date %||% NA) else as.Date(NA),
+             arg$argued_date, arg$scheduled_date, as.Date(outcome_date)) else as.Date(outcome_date)
   when <- if (length(dt) && !is.na(dt)) paste0(" &middot; ", .fmtdate(dt)) else ""
   box <- sprintf("<div class='disp'><div class='disp-word'>%s%s</div>%s</div>", word, when, est_note)
   # Retrospective forecast note for decided paid petitions: what the model
@@ -826,6 +840,7 @@ docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
   outcome_date <- cls_row$outcome_date %||% as.Date(NA)
   arg <- if (exists("classify_argument")) classify_argument(ev) else
     list(argued_date = as.Date(NA), decided_date = as.Date(NA), scheduled_date = as.Date(NA),
+         dismissed_date = as.Date(NA), status = "Granted",
          argued_text = NA, opinion_author = NA, opinion_url = NA)
 
   # Cert-grant date -- the stage line for brief-cover coloring. Detected straight

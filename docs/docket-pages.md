@@ -372,3 +372,23 @@ redeploys within ~1–2 min of a push; a viewer may see a cached copy for up to 
 | `.github/workflows/daily.yml` | 3×/day current-term dashboards + recent docket pages |
 | `.github/workflows/rerender-dockets.yml` | full back-catalog re-render (+ reuse mode) |
 | `.github/workflows/fill-throttled-dockets.yml` | fetch/re-render throttle-casualty pages |
+
+## A granted case dismissed after it was set for argument
+
+Genalo v. Black (25-886) was set for argument on 13 October 2026 and dismissed
+under Rule 46 on 11 September. The daily fetched the entry the next morning
+(a scheduled case is on the decisions watch list), and `classify_argument()`
+recognised "Case Dismissed - Rule 46." — but its status ladder put Dismissed
+*below* Scheduled, on the assumption that a withdrawal comes before a
+setting, so the page read "Set for argument · October 13, 2026", the
+Navigator said Scheduled, and the landing page's upcoming list kept the day.
+
+Since 2026-09-14: Dismissed outranks Argued and Scheduled (and stays below
+Decided); the classifier records `dismissed_date`; the disposition box reads
+"Dismissed · September 11, 2026"; `upcoming_arguments()` drops Dismissed,
+DIG'd and Decided rows; and the dismissal pattern matches the Court's own
+entry only — the earlier loose "Rule 46 … dismiss" also matched a joint
+stipulation *filed*, before the Court had acted. No template bump: the
+current Term's pages re-render when their data changes, which a dismissal
+is; a back-catalogue case dismissed after a setting would wait for the next
+bump.
