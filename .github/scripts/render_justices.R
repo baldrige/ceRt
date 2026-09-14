@@ -29,6 +29,17 @@ source("R/granted_noted.R")   # read_granted_noted(), gn_others()
 source("R/site_decisions.R")  # fetch_opinion_listing()
 source("R/justices.R")
 
+# Refresh the Granted & Noted manifest the same way the weekly does: the
+# current, next and prior Terms, any Term the manifest lacks, and any Term
+# whose rows carry an older GN_PARSER_VERSION. Two to eleven small PDFs, and
+# it is what lets a list-parser fix (Carr v. Saul's dropped row) reach the
+# Justices pages from this workflow alone. Never fatal.
+gn_fetch <- tryCatch({
+  gn_new <- fetch_granted_noted(gn_terms_to_fetch(site_dir))
+  if (nrow(gn_new)) { write_granted_noted(site_dir, gn_new)
+    cat("Granted & Noted List refreshed for Term(s)", paste(sort(unique(gn_new$term)), collapse = ", "), "\n") }
+  TRUE
+}, error = function(e) { cat("Granted & Noted List refresh skipped:", conditionMessage(e), "\n"); FALSE })
 gn <- read_granted_noted(site_dir)
 if (!nrow(gn)) stop("no Granted & Noted manifest at ", file.path(site_dir, "arguments"), " -- run render_arguments.R first")
 terms <- sort(unique(gn$term[!is.na(gn$decided)]))

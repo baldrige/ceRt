@@ -124,11 +124,21 @@ gn_writings_phrase <- function(o) {
   granted = as.Date(character()), argued = as.Date(character()), argued_first = as.Date(character()),
   decided = as.Date(character()), decided_note = character(), author = character(),
   others = character(), writings = character(), result = character(), no_part = character(),
-  orders = character(), as_of = as.Date(character()), stringsAsFactors = FALSE)
+  orders = character(), as_of = as.Date(character()), pv = character(), stringsAsFactors = FALSE)
+
+# Stamped on every manifest row. Bump after a change to the list grammar: the
+# next run re-fetches every Term whose rows carry an older stamp (a Term's list
+# is ten small pages; all eleven are ~2 MB), so a parser fix reaches the
+# archive without anyone deleting a manifest.
+GN_PARSER_VERSION <- "g2"
 
 # The flags can sit tight against the docket ("24-440#") or a space away
 # ("21-432 * CFX"); the code is two to five capitals; the caption follows.
-.GN_DOCKET_RX <- "^\\s*(\\d{2}-\\d{1,5}|\\d{2}A\\d{1,4}|22O\\d{1,4}|\\d{2}M\\d{1,4})\\s?([*#]*)\\s?(\\)\\d?)?\\s?([*#]*)\\s+([A-Z]{2,5})\\s+(\\S.*)$"
+# The flag run after the footnote may carry spaces INSIDE it: OT20 prints
+# "19-1442)1 ** #   CFX   CARR v. SAUL" beside "20-105 )2 **#    CFX   DAVIS
+# V. SAUL", and a run that admitted only "[*#]*" dropped Carr -- the lead
+# docket of the pair -- so Davis sat on the Justices page with no lineup.
+.GN_DOCKET_RX <- "^\\s*(\\d{2}-\\d{1,5}|\\d{2}A\\d{1,4}|22O\\d{1,4}|\\d{2}M\\d{1,4})\\s?([*#]*)\\s?(\\)\\d?)?\\s?((?:[*#]\\s*)*)\\s*([A-Z]{2,5})\\s+(\\S.*)$"
 
 # A footnote digit set flush against the docket comes out of the text layer
 # glued to it: Bostock, "17-1618" with footnote 1, read as "17-16181" for a
@@ -163,7 +173,7 @@ parse_granted_noted <- function(pages, term) {
       # after another docket line joins its run (a consolidated case).
       if (!is.null(cur)) flush()
       if (!length(open)) group <- group + 1L
-      flags <- paste0(dk[1, 3], dk[1, 5])
+      flags <- str_remove_all(paste0(dk[1, 3], dk[1, 5]), "\\s")
       open[[length(open) + 1L]] <- list(dkt = .gn_dkt(dk[1, 2]), flags = flags, foot = str_remove(dk[1, 4] %||% "", "\\)"),
                                         code = dk[1, 6], caption = str_squish(dk[1, 7]), group = group)
       last_label <- "caption"
@@ -221,7 +231,7 @@ parse_granted_noted <- function(pages, term) {
         author = .gn_author(f$Author), others = str_squish(f$Other %||% NA_character_),
         writings = gn_writings_phrase(f$Other), result = res$result, no_part = res$no_part,
         orders = if (length(f$orders)) paste(f$orders, collapse = " | ") else NA_character_,
-        as_of = as_of, stringsAsFactors = FALSE)
+        as_of = as_of, pv = GN_PARSER_VERSION, stringsAsFactors = FALSE)
     }))
   })
   out <- do.call(rbind, rows)
@@ -265,7 +275,7 @@ read_granted_noted <- function(site_dir) {
              granted = dt("granted"), argued = dt("argued"), argued_first = dt("argued_first"),
              decided = dt("decided"), decided_note = chr("decided_note"), author = chr("author"),
              others = chr("others"), writings = chr("writings"), result = chr("result"), no_part = chr("no_part"),
-             orders = chr("orders"), as_of = dt("as_of"), stringsAsFactors = FALSE)
+             orders = chr("orders"), as_of = dt("as_of"), pv = chr("pv"), stringsAsFactors = FALSE)
 }
 
 #' Replace the manifest's rows for each Term in `df` (a Term's list is complete
@@ -292,7 +302,10 @@ write_granted_noted <- function(site_dir, df) {
 gn_terms_to_fetch <- function(site_dir, as_of = Sys.Date()) {
   y <- as.integer(format(as_of, "%Y")) - as.integer(as.integer(format(as_of, "%m")) < 10L)
   cur <- y %% 100L
-  have <- unique(read_granted_noted(site_dir)$term)
-  want <- unique(c(cur + 1L, cur, cur - 1L, setdiff(GN_FIRST_TERM:cur, have)))
+  gn <- read_granted_noted(site_dir)
+  have <- unique(gn$term)
+  # ... plus any Term whose rows were written by an older parser.
+  stale <- unique(gn$term[is.na(gn$pv) | gn$pv != GN_PARSER_VERSION])
+  want <- unique(c(cur + 1L, cur, cur - 1L, setdiff(GN_FIRST_TERM:cur, have), stale))
   sprintf("%02d", want)
 }
