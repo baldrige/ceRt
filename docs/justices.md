@@ -69,7 +69,14 @@ Verified against the list on the first 140 decisions (OT16 and most of OT17):
 **0 author disagreements; the separate writers match on 137 of 140**, and the
 three that differ are the list's own gaps (an `Other:` the list left empty,
 and Cox v. United States, dismissed, under which the list files Ortiz's
-writings). Each cached entry carries `pv = LINEUP_PARSER_VERSION` and its lineup text.
+writings). Across the whole archive after the p4 re-parse (2026-09-14):
+writers match on **564 of 595**; the remaining author gaps were entries from
+the first parser version with no cached text, re-fetched with `lineup_retry`.
+
+Vote splits are exact: a 5–3 on an eight-member Court is a 5–3, not a 6–3,
+and each close split (6–3, 5–4, and 5–3 where it occurred) reports its own
+most frequent lineup. The first version counted "three in the minority" as
+6–3 and OT16's page said seven where its split list showed one. Each cached entry carries `pv = LINEUP_PARSER_VERSION` and its lineup text.
 Bump the version after a grammar change: the next render re-reads every
 syllabus-parsed entry from its cached text at no cost (546 entries in under a
 second on 2026-09-14), and only per curiams, whose writings came from the body
