@@ -91,7 +91,7 @@ inventory.
 
 - **Masthead** — wordmark + section links, `aria-current` on the active one,
   reuses the existing `.brule` double-rule as its divider. Reads `--nav-max`,
-  which is now the single site-wide `SITE_NAV_MAX` (**54rem**) rather than each
+  which is now the single site-wide `SITE_NAV_MAX` (**60rem**) rather than each
   page's own container.
 
   It tracked the container until 2026-08-10, so the rule landed flush on the text
@@ -99,7 +99,23 @@ inventory.
   Chrome at 1440/1280/1024, the nav needs **654px**, a 40rem masthead offers
   **592px**, and every index page wrapped its nav onto a second line. The 44rem
   funnel fitted in exactly 654px — no slack, one label from the same fate. 54rem
-  was already the widest value in use and leaves ~210px.
+  was already the widest value in use and left ~210px.
+
+  It failed again at nine (2026-09-14, the Justices link): measured on the live
+  page at 1440px, nine labels needed **833px** and the 54rem masthead offered
+  **816px** inside its padding, so "About" wrapped on every page at every
+  width. Two changes: "The Funnel" became "Funnel" (about 35px), and the
+  masthead grew to **60rem**, 912px inside the padding, leaving ~115px — one
+  more short label, not two. The widths that matter, for the next time:
+
+  | links | nav needs | masthead inside padding | slack |
+  | --- | --- | --- | --- |
+  | seven (2026-08) | 654px | 54rem → 816px | 162px |
+  | nine, "The Funnel" | 833px | 54rem → 816px | −17px, wraps |
+  | nine, "Funnel" | ~798px | 60rem → 912px | ~115px |
+
+  Docket pages carry the masthead inline and pick the new label up on their next
+  template bump; the width reaches them at once through `cases/style.css`.
 
   The cost, which is visible: on the 40rem index pages and the 44rem funnel the
   masthead and rule are now wider than the column beneath them. If that ever
