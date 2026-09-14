@@ -1,7 +1,7 @@
 
 /* Token names and the two AA colour corrections match page_style.R and
    docket_page.R -- see the note above DOCKET_CSS. */
-:root{--paper:#fdfcfa;--panel:#ffffff;--ink:#1a1a1e;--ink-soft:#484850;--faint:#63636b;--accent:#9c0e3a;--link:#9c0e3a;--rule:#dbd8d2;--stripe:#f7f5f1;--field:#f5f3ef;--link-hover:#78092c;--nav-max:54rem}
+:root{--paper:#fdfcfa;--panel:#ffffff;--ink:#1a1a1e;--ink-soft:#484850;--faint:#63636b;--accent:#9c0e3a;--link:#9c0e3a;--rule:#dbd8d2;--stripe:#f7f5f1;--field:#f5f3ef;--link-hover:#78092c;--nav-max:60rem}
 *{box-sizing:border-box}
 body{font-family:'Newsreader',Georgia,serif;color:var(--ink);background:var(--paper);margin:0}
 body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.5;mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E")}
@@ -62,7 +62,7 @@ h1{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:clamp(1.9rem,4
 .rt-page-size-select:focus{outline:none;border-color:var(--accent)!important;box-shadow:0 0 0 2px rgba(156,14,58,.12)}
 
 /* ---- masthead ---- */
-.smast-in{max-width:var(--nav-max,54rem);margin:0 auto;padding:.85rem 1.5rem .5rem;
+.smast-in{max-width:var(--nav-max,60rem);margin:0 auto;padding:.85rem 1.5rem .5rem;
   display:flex;align-items:baseline;justify-content:space-between;gap:1.4rem;flex-wrap:wrap}
 .smast-wm{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
   letter-spacing:.005em;color:var(--ink,#1a1a1e);text-decoration:none;white-space:nowrap;flex:none}
@@ -82,7 +82,7 @@ h1{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:clamp(1.9rem,4
 .snav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--rule,#dbd8d2)}
 .snav a[aria-current='page']{color:var(--accent,#9c0e3a);
   border-bottom-color:var(--accent,#9c0e3a)}
-.smast-rule-w{max-width:var(--nav-max,54rem);margin:0 auto;padding:0 1.5rem}
+.smast-rule-w{max-width:var(--nav-max,60rem);margin:0 auto;padding:0 1.5rem}
 .smast-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0;position:relative}
 .smast-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
   border-top:1px solid var(--rule,#dbd8d2)}
