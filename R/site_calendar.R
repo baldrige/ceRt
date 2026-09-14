@@ -65,6 +65,10 @@ upcoming_arguments <- function(tbl, as_of = Sys.Date()) {
     return(.cal_df())
   d <- tbl[!is.na(tbl$scheduled_date) & tbl$scheduled_date >= as_of, , drop = FALSE]
   if ("argued_date" %in% names(d)) d <- d[is.na(d$argued_date), , drop = FALSE]
+  # A case withdrawn or dismissed after being set keeps its date on the docket
+  # and will not be heard: Genalo v. Black (25-886) stayed on the landing page
+  # for 13 October 2026 after its Rule 46 dismissal on 11 September.
+  if ("status" %in% names(d)) d <- d[!as.character(d$status) %in% c("Dismissed", "DIG'd", "Decided"), , drop = FALSE]
   if (!nrow(d)) return(.cal_df())
   d <- d[order(d$scheduled_date), , drop = FALSE]
   by <- split(d, d$scheduled_date)

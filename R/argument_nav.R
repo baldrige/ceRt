@@ -43,7 +43,7 @@ local({
 # written to tolerate them, and the anchor is what yields the slip-opinion URL.
 classify_argument <- function(events) {
   empty <- tibble(scheduled_date = as.Date(NA), argued_date = as.Date(NA),
-                  decided_date = as.Date(NA), n_settings = 0L,
+                  decided_date = as.Date(NA), dismissed_date = as.Date(NA), n_settings = 0L,
                   vided = FALSE, dig = FALSE, argued_text = NA_character_,
                   opinion_author = NA_character_, opinion_url = NA_character_,
                   status = "granted")
@@ -73,12 +73,20 @@ classify_argument <- function(events) {
   argued_text <- if (length(arg_idx)) txt[arg_idx[length(arg_idx)]] else NA_character_
 
   dig <- any(str_detect(txt, regex("DISMISSED as improvidently granted", ignore_case = TRUE)))
-  # Post-grant dismissal (parties settle/withdraw): a granted case that ends
-  # before argument, e.g. "Case Dismissed - Rule 46." or removed from the docket.
-  dismissed <- any(
+  # Post-grant dismissal (parties settle/withdraw): "Case Dismissed - Rule 46."
+  # or removed from the docket. The COURT'S entry only. The first version also
+  # matched "Rule 46 ... dismiss" loosely, which a "Joint stipulation to
+  # dismiss the case pursuant to Rule 46.1 filed" satisfies on the day it is
+  # filed, before the Court has acted. Dated, so the page can say when.
+  dis_idx <- which(
     str_detect(txt, regex("^Case [Dd]ismissed", ignore_case = TRUE)) |
-    str_detect(txt, regex("dismissed[^.]{0,40}Rule 46|Rule 46[^.]{0,40}dismiss", ignore_case = TRUE)) |
-    str_detect(txt, regex("removed from the docket", ignore_case = TRUE)))
+    str_detect(txt, regex("^(the )?(petition|case|appeal)[^.]{0,60}\\bis dismissed\\b[^.]{0,40}Rule 46", ignore_case = TRUE)) |
+    # The CASE removed, not a filing: 25-886's May 2026 entry has a suggestion
+    # of mootness "removed from the docket" mid-sentence, and the bare phrase
+    # called the case dismissed four months early.
+    str_detect(txt, regex("^(the )?case (is |was )?removed from the docket|^removed from the docket", ignore_case = TRUE)))
+  dismissed <- length(dis_idx) > 0
+  dismissed_date <- if (dismissed) edate[dis_idx[length(dis_idx)]] else as.Date(NA)
 
   # Decision entry. Several tolerant signals; the caps-disposition uses a dot-
   # crossing gap because the docket infixes the case number ("Judgment in No.
@@ -113,15 +121,20 @@ classify_argument <- function(events) {
     if (!is.na(um[1, 2])) opinion_url <- um[1, 2]
   }
 
+  # Dismissed outranks Argued and Scheduled: a case can be set for argument and
+  # then withdrawn (Genalo v. Black, 25-886, set for 13 Oct 2026 and dismissed
+  # under Rule 46 on 11 Sep 2026), and the first version put Dismissed below
+  # Scheduled on the assumption that a withdrawal comes before a setting. It
+  # stays below Decided: a case with an opinion is decided whatever came after.
   status <- if (dig) "DIG'd"
     else if (!is.na(decided_date)) "Decided"
+    else if (dismissed) "Dismissed"
     else if (!is.na(argued_date)) "Argued"
     else if (!is.na(scheduled)) "Scheduled"
-    else if (dismissed) "Dismissed"          # granted, then withdrawn before scheduling
     else "Granted"
 
   tibble(scheduled_date = scheduled, argued_date = argued_date,
-         decided_date = decided_date, n_settings = length(set_idx),
+         decided_date = decided_date, dismissed_date = dismissed_date, n_settings = length(set_idx),
          vided = any(str_detect(txt, regex("SET FOR ARGUMENT.*VIDED", ignore_case = TRUE))),
          dig = dig, argued_text = argued_text,
          opinion_author = opinion_author, opinion_url = opinion_url,
