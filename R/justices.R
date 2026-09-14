@@ -43,7 +43,7 @@ JUSTICES_TEMPLATE_VERSION <- "j1"
 # Stamped on every cached lineup. Bump after a change to the lineup grammar;
 # a LINEUP_RETRY=1 dispatch then re-reads every entry parsed under an older
 # version (render-justices.yml, `lineup_retry`).
-LINEUP_PARSER_VERSION <- "p2"
+LINEUP_PARSER_VERSION <- "p4"
 
 # ---- the roster ---------------------------------------------------------------
 # Seat dates, for which nine sat in a Term and in what order. Seniority is the
@@ -198,17 +198,36 @@ lineup_text <- function(pages, max_pages = 15L) {
   # deliberately NOT an end marker: the body is recognised by its own first
   # sentence instead.
   s <- str_remove_all(s, "(?m)^\\s*Opinion of the Court\\s*$")
-  # End: the opinion body ("JUSTICE X delivered" in a slip, "Justice X
-  # delivered" in a volume), the counsel paragraph a volume prints after the
-  # lineup, or the next document header.
-  end <- regexpr("\\n\\s*(NOTICE:|SUPREME COURT OF THE UNITED STATES|(CHIEF )?JUSTICE [A-Z]+ delivered|(Chief )?Justice [A-Z][a-z]+ delivered|_{6,}|[A-Z][A-Za-z.' -]+ argued the cause)", s, perl = TRUE)
+  # End: the next document header (fresh text only, so line-anchored) ...
+  end <- regexpr("\\n\\s*(NOTICE:|SUPREME COURT OF THE UNITED STATES|_{6,})", s, perl = TRUE)
   if (end > 0) s <- substr(s, 1L, end - 1L)
   s <- substr(s, 1L, 4000L)
   # The volumes hyphenate at line ends ("con- curring", "Gor- such", "Mem-
   # bers") and cite each writing's page ("post, p. 128"); neither is grammar.
   s <- str_replace_all(s, "([A-Za-z])-\\s*\\n\\s*([a-z])", "\\1\\2")
   s <- str_remove_all(s, ",?\\s*post,\\s*p\\.\\s*\\d+")
-  .strip_watermark(str_squish(s))
+  .cut_lineup(.strip_watermark(str_squish(s)))
+}
+
+# ... and the opinion body or the counsel paragraph, cut on the squished
+# text so it applies to a cached paragraph as well as a fresh one. The body
+# opens "JUSTICE X delivered" (slip) or "Justice X delivered" (volume) -- or
+# "announced the judgment", which the first version did not know, so Sessions
+# v. Dimaya's paragraph ran on into its plurality opinion and the body's own
+# lineup sentence overwrote the syllabus's. A volume prints counsel between
+# the lineup and the body ("Deputy Solicitor General Kneedler argued and
+# reargued the cause"), which is the other stop.
+#
+# The counsel marker is anchored at a sentence boundary -- a period-space
+# followed by one to eight capitalised, comma-free words and then "argued".
+# The first version let the name run back through commas, so the match began
+# inside the last lineup sentence ("Kagan, JJ., joined. George S. Isaacson
+# argued") and four OT17 dissents lost their joiners.
+.cut_lineup <- function(s) {
+  end <- regexpr(paste0("(?:(?:CHIEF )?JUSTICE [A-Z]+|(?:Chief )?Justice [A-Z][a-z]+) (?:delivered|announced)\\b",
+                        "|\\. (?=(?:[A-Z][A-Za-z.'-]+ ){1,8}(?:argued|reargued)\\b)"), s, perl = TRUE)
+  if (end > 0) s <- substr(s, 1L, if (substr(s, end, end) == ".") end else end - 1L)
+  str_squish(s)
 }
 
 # A preliminary print's text layer carries its watermark in the running text:
@@ -265,7 +284,10 @@ parse_lineup <- function(s) {
       out$no_part <- c(out$no_part, .names_in(seg))
       if (!str_detect(sent, regex("delivered|announced|f(?:i)?led", ignore_case = TRUE))) next
     }
-    if (str_detect(sent, regex("delivered the opinion (of|for) (the|a unanimous) Court|announced the judgment", ignore_case = TRUE))) {
+    # The first lead sentence wins: a syllabus has one, and anything later
+    # that reads like one is the body leaking in.
+    if (is.na(out$lead$kind) &&
+        str_detect(sent, regex("delivered the opinion (of|for) (the|a unanimous) Court|announced the judgment", ignore_case = TRUE))) {
       out$lead$kind <- if (str_detect(sent, "announced the judgment") &&
                            !str_detect(sent, "delivered the opinion of the Court")) "judgment" else "court"
       out$lead$author <- .names_in(str_extract(sent, regex("^.*?(?=delivered|announced)", ignore_case = TRUE)))[1]
@@ -461,7 +483,9 @@ resolve_lineups <- function(dec, urls, site_dir, max_new = 0L, pace = 0.75,
   }, logical(1))]
   if (length(stale)) {
     for (dk in stale) {
-      e <- cache[[dk]]; e$text <- .strip_watermark(e$text); p <- parse_lineup(e$text)
+      # Parse a cut copy; the cached text stays as fetched, so a later, better
+      # cut still has the whole paragraph to work from.
+      e <- cache[[dk]]; p <- parse_lineup(.cut_lineup(.strip_watermark(e$text)))
       if (is.na(p$lead$kind)) next   # leave it for the fetch path
       e$lead <- p$lead; e$writings <- p$writings; e$no_part <- p$no_part; e$pv <- LINEUP_PARSER_VERSION
       cache[[dk]] <- e
@@ -633,8 +657,17 @@ term_stats <- function(term, gn, lineups, captions = NULL) {
               min_set = paste(sort(name[side != "majority"]), collapse = "|"), .groups = "drop") else
     tibble(i = integer(), n_maj = integer(), n_min = integer(), maj_set = character(), min_set = character())
   splits <- per_dec |> count(n_maj, n_min) |> arrange(desc(n_maj))
-  top_lineup <- per_dec |> filter(n_min == 3L) |> count(maj_set, min_set, sort = TRUE) |> slice_head(n = 1)
-  n_63 <- sum(per_dec$n_min == 3L)
+  # Exact splits, not "three in the minority": on an eight-member Court (OT16
+  # until April, OT20 until late October) a 5-3 is the close case, and the
+  # first version counted those as 6-3s -- OT16's page said seven where the
+  # split list showed one. The closest splits each get their own lineup:
+  # tibble(n_maj, n_min, n, maj_set, min_set, top) with the most frequent
+  # lineup per split, for the splits that occurred at least twice.
+  lineups <- per_dec |> filter((n_maj == 6L & n_min == 3L) | (n_maj == 5L & n_min == 4L) | (n_maj == 5L & n_min == 3L)) |>
+    group_by(n_maj, n_min) |> mutate(n = n()) |> count(n_maj, n_min, n, maj_set, min_set, name = "top", sort = TRUE) |>
+    group_by(n_maj, n_min) |> slice_head(n = 1) |> ungroup() |> filter(n >= 2L) |> arrange(desc(n_maj), desc(n_min))
+  n_63 <- sum(per_dec$n_maj == 6L & per_dec$n_min == 3L)
+  top_lineup <- lineups |> filter(n_maj == 6L, n_min == 3L)
 
   # Per Justice from the votes: in the majority, lone dissents, solo writings.
   by_j <- if (n_lineup) V |> filter(!no_part) |> group_by(name) |>
@@ -696,7 +729,7 @@ term_stats <- function(term, gn, lineups, captions = NULL) {
 
   list(term = term, court = court, dec = dec, n_dec = nrow(dec), n_signed = n_signed,
        n_lineup = n_lineup, written = written, agree_j = agree_j, agree_f = agree_f, n_pair = n_pair,
-       splits = splits, top_lineup = top_lineup, n_63 = n_63, by_j = by_j, lone = lone, solo_w = solo_w,
+       splits = splits, top_lineup = top_lineup, lineups = lineups, n_63 = n_63, by_j = by_j, lone = lone, solo_w = solo_w,
        n_unan = n_unan, n_unan_j = n_unan_j, writings = wl)
 }
 
@@ -909,22 +942,29 @@ render_justices_term <- function(st, site_dir, terms_all) {
     sprintf("<div class='jx-tile'><div class='big'>%d<small>of %d</small></div><div class='l'>Unanimous</div><div class='s'>%d fully, %d in the judgment only</div></div>",
             st$n_unan + st$n_unan_j, st$n_dec, st$n_unan, st$n_unan_j),
     if (st$n_lineup) sprintf("<div class='jx-tile'><div class='big'>%d</div><div class='l'>Decided 6–3</div><div class='s'>%s</div></div>",
-                             st$n_63, if (nrow(st$top_lineup)) sprintf("%d of them on the most frequent lineup", st$top_lineup$n) else "") else "",
+                             st$n_63, if (nrow(st$top_lineup)) sprintf("%d of them on the most frequent lineup", st$top_lineup$top)
+                                      else if (st$n_63 == 1L) "one decision" else "") else "",
     if (!is.null(top_lone) && top_lone$lone > 0) sprintf("<div class='jx-tile'><div class='big'>%s</div><div class='l'>Most often alone</div><div class='s'>%d lone dissent%s, %d solo concurrence%s</div></div>",
                                                         lab_of(top_lone$name), top_lone$lone, if (top_lone$lone == 1) "" else "s", solo_c(top_lone$name), if (solo_c(top_lone$name) == 1) "" else "s") else "",
     if (!is.null(top_maj)) sprintf("<div class='jx-tile'><div class='big'>%s</div><div class='l'>Most often in the majority</div><div class='s'>%s of the decisions with a parsed lineup</div></div>",
                                    lab_of(top_maj$name), .jx_pct(top_maj$in_maj)) else "")
   sp <- st$splits
   splits <- if (nrow(sp)) paste0("<h3>Vote splits</h3><div class='jx-splits'>",
-    paste(vapply(seq_len(nrow(sp)), function(i) sprintf("<div>%d–%d</div><div class='b%s' style='width:%.1f%%' title='%d decisions'></div><div class='n'>%d</div>",
-      sp$n_maj[i], sp$n_min[i], if (sp$n_min[i] == 0) " u" else "", 100 * sp$n[i] / max(sp$n), sp$n[i], sp$n[i]), character(1)), collapse = ""),
+    paste(vapply(seq_len(nrow(sp)), function(i) sprintf("<div>%d–%d</div><div class='b%s' style='width:%.1f%%' title='%d decision%s'></div><div class='n'>%d</div>",
+      sp$n_maj[i], sp$n_min[i], if (sp$n_min[i] == 0) " u" else "", 100 * sp$n[i] / max(sp$n), sp$n[i], if (sp$n[i] == 1) "" else "s", sp$n[i]), character(1)), collapse = ""),
     "</div><p class='pend'>From the ", st$n_lineup, " decisions with a parsed lineup. A Justice concurring in part and dissenting in part counts on the minority side.</p>") else ""
-  lineup <- if (nrow(st$top_lineup)) {
-    tl <- st$top_lineup
-    side <- function(s) paste(sprintf("<span class='side'>%s</span>", lab_of(str_split(s, "\\|")[[1]])), collapse = "")
-    paste0("<h3>Most frequent 6–3 lineup</h3><p class='jx-lineup'>", side(tl$maj_set), " over ", side(tl$min_set),
-           sprintf(" <span class='pend'>· %d of %d six-to-three decisions</span></p>", tl$n, st$n_63))
-  } else ""
+  # One line per close split that occurred at least twice: 6-3 and 5-4, and
+  # 5-3 on an eight-member Court. Each names its own split, so a Term with one
+  # 6-3 and six 5-3s says so rather than calling all seven six-to-three.
+  side <- function(s) paste(sprintf("<span class='side'>%s</span>", lab_of(str_split(s, "\\|")[[1]])), collapse = "")
+  words <- c("3" = "three", "4" = "four", "5" = "five", "6" = "six")
+  lineup <- if (nrow(st$lineups)) paste(vapply(seq_len(nrow(st$lineups)), function(i) {
+    tl <- st$lineups[i, ]
+    paste0(sprintf("<h3>Most frequent %d–%d lineup</h3><p class='jx-lineup'>", tl$n_maj, tl$n_min),
+           side(tl$maj_set), " over ", side(tl$min_set),
+           sprintf(" <span class='pend'>· %d of %d %s-to-%s decisions</span></p>", tl$top, tl$n,
+                   words[[as.character(tl$n_maj)]], words[[as.character(tl$n_min)]]))
+  }, character(1)), collapse = "") else ""
   panel3 <- paste0("<section class='jx' id='shape'><h2>The shape of the Term</h2>",
                    "<p class='note'>Unanimity comes from the Court's own flags on the Granted &amp; Noted List and covers every decision. The splits and lineups come from the parsed syllabi and cover ", cov, ".</p>",
                    "<div class='jx-tiles'>", tiles, "</div>", splits, lineup, "</section>")
