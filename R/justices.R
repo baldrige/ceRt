@@ -868,9 +868,13 @@ main.wrap{max-width:54rem}
 .jx-toggle{display:inline-flex;border:1px solid var(--rule);border-radius:2px;overflow:hidden;font-size:.82rem;margin:0 0 .9rem}
 .jx-toggle label{padding:.3rem .7rem;cursor:pointer;color:var(--ink-soft);background:var(--field)}
 .jx-mx{position:relative}
-.jx-mx input{position:absolute;opacity:0;width:0;height:0}
-.jx-mx #mx-judg:checked~.jx-toggle label[for=mx-judg],.jx-mx #mx-full:checked~.jx-toggle label[for=mx-full]{background:var(--ink);color:var(--paper)}
-.jx-mx #mx-judg:focus-visible~.jx-toggle label[for=mx-judg],.jx-mx #mx-full:focus-visible~.jx-toggle label[for=mx-full]{outline:2px solid var(--accent)}
+/* Only the two radios are hidden -- the range slider is an input in the same
+   block and vanished with them when this said `input`. The selected label is
+   reached through the controls row the toggle now sits in: the radios' sibling
+   is .jx-controls, not .jx-toggle. */
+.jx-mx > input[type=radio]{position:absolute;opacity:0;width:0;height:0}
+.jx-mx #mx-judg:checked~.jx-controls label[for=mx-judg],.jx-mx #mx-full:checked~.jx-controls label[for=mx-full]{background:var(--ink);color:var(--paper)}
+.jx-mx #mx-judg:focus-visible~.jx-controls label[for=mx-judg],.jx-mx #mx-full:focus-visible~.jx-controls label[for=mx-full]{outline:2px solid var(--accent)}
 .jx-mx .m{display:none}
 .jx-mx #mx-judg:checked~.m.judg,.jx-mx #mx-full:checked~.m.full{display:block}
 /* The agreement network (justices/network.js draws into #jx-svg) and the
