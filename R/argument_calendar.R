@@ -86,7 +86,13 @@ fetch_calendar_index <- function() {
 
 # ---- the calendar -------------------------------------------------------------------
 
-.cal_df <- function() data.frame(session = as.Date(character()), date = as.Date(character()), slot = integer(),
+# .arg_cal_df, not .cal_df: site_calendar.R has a .cal_df of its own (the
+# landing page's upcoming-argument rows), render_arguments.R sources this file
+# after it, and from 2026-09-07 to 09-14 this definition shadowed that one --
+# upcoming_arguments() died on "unused arguments", and because the step is
+# continue-on-error, six weekly runs published without a Navigator, an
+# upcoming list, a decisions manifest or a watch list, and nobody saw it.
+.arg_cal_df <- function() data.frame(session = as.Date(character()), date = as.Date(character()), slot = integer(),
                                  dkt = character(), caption = character(), stringsAsFactors = FALSE)
 .WEEKDAY_RX <- "(Monday|Tuesday|Wednesday|Thursday|Friday), ([A-Z][a-z]+ \\d{1,2})"
 .DOCKET_RX  <- "^\\s*(\\d{2}-\\d{1,5}|\\d{2}A\\d{1,4}|22O\\d{1,4})\\s+(\\S.*)$"
@@ -114,7 +120,7 @@ fetch_calendar_index <- function() {
     }
     if (cur > 0L && !str_detect(t, "[a-z]")) out[[cur]]$caption <- str_squish(paste(out[[cur]]$caption, t))
   }
-  if (!length(out)) .cal_df() else do.call(rbind, out)
+  if (!length(out)) .arg_cal_df() else do.call(rbind, out)
 }
 
 #' One calendar PDF -> (session, date, slot, dkt, caption).
@@ -251,9 +257,9 @@ day_call_line <- function(rows) {
 
 read_calendar <- function(site_dir) {
   p <- .cal_path(site_dir, CAL_FILE)
-  if (!file.exists(p)) return(.cal_df())
+  if (!file.exists(p)) return(.arg_cal_df())
   j <- tryCatch(fromJSON(p, simplifyDataFrame = TRUE), error = function(e) NULL)
-  if (is.null(j) || !is.data.frame(j) || !nrow(j)) return(.cal_df())
+  if (is.null(j) || !is.data.frame(j) || !nrow(j)) return(.arg_cal_df())
   data.frame(session = as.Date(j$session), date = as.Date(j$date), slot = as.integer(j$slot),
              dkt = as.character(j$dkt), caption = as.character(j$caption), stringsAsFactors = FALSE)
 }
