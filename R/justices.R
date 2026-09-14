@@ -43,7 +43,7 @@ JUSTICES_TEMPLATE_VERSION <- "j1"
 # Stamped on every cached lineup. Bump after a change to the lineup grammar;
 # a LINEUP_RETRY=1 dispatch then re-reads every entry parsed under an older
 # version (render-justices.yml, `lineup_retry`).
-LINEUP_PARSER_VERSION <- "p4"
+LINEUP_PARSER_VERSION <- "p5"
 
 # ---- the roster ---------------------------------------------------------------
 # Seat dates, for which nine sat in a Term and in what order. Seniority is the
@@ -298,6 +298,16 @@ parse_lineup <- function(s) {
       out$lead$joins <- .join_clauses(sent)
       if (str_detect(sent, regex("unanimous Court|in which all (other )?Members joined", ignore_case = TRUE)))
         out$lead$joins <- list(list(who = "ALL", partial = FALSE))
+      # The Court's convention: joiners are listed only where fewer than all
+      # joined. "JACKSON, J., delivered the opinion of the Court with respect
+      # to Parts I-IV-B, and an opinion with respect to Part IV-C, in which
+      # ROBERTS, C. J., and SOTOMAYOR and KAGAN, JJ., joined" means the whole
+      # Court joined Parts I-IV-B and three joined IV-C. A Court clause with
+      # no "in which" of its own is therefore joined by every participant not
+      # on the dissent side (Barrett v. United States read as 5-0 before this).
+      court_clause <- str_extract(sent, regex("delivered the opinion of the Court.*?(?=, and an opinion|\\.$|$)", ignore_case = TRUE))
+      out$lead$implicit_all <- !is.na(court_clause) && !str_detect(court_clause, regex("in which", ignore_case = TRUE)) &&
+        !str_detect(sent, regex("unanimous Court|all (other )?Members", ignore_case = TRUE))
       next
     }
     if (str_detect(sent, filed_rx)) {
@@ -611,6 +621,12 @@ decision_votes <- function(entry, court, gn_no_part = NULL, decided = NULL) {
     else maj <- c(maj, who)
   }
   if (identical(lead$kind %||% "", "per curiam")) maj <- c(maj, setdiff(part, c(dis, mix)))
+  # A Court clause with no joiner list (see parse_lineup): everyone who did not
+  # dissent joined it. Full-opinion agreement still follows `split`.
+  if (isTRUE(lead$implicit_all)) {
+    who <- setdiff(part, c(dis, mix)); maj <- c(maj, who)
+    if (identical(lead$kind, "court") && !isTRUE(lead$split)) full <- c(full, who)
+  }
   # A signed opinion's syllabus names every participant -- as author, joiner,
   # or separate writer. A Justice named nowhere did not sit: seated after the
   # argument (Gorsuch in the spring of OT16, Barrett in the autumn of OT20) or
