@@ -206,7 +206,8 @@
   .cres li:last-child{border-bottom:0}
   .cres a{display:block;padding:.55rem .7rem;text-decoration:none;color:var(--ink);
     font-size:.98rem;line-height:1.3}
-  .cres a:hover{background:rgba(156,14,58,.06)}
+  .cres a:hover,.cres li.act a{background:rgba(156,14,58,.06)}
+  .cres mark{background:rgba(156,14,58,.14);color:inherit;padding:0 .05em;border-radius:2px}
   .cres .cd{color:var(--accent);font-variant-numeric:tabular-nums;font-weight:600;
     margin-right:.5rem;white-space:nowrap}
   .cnone{padding:.55rem .7rem;color:var(--faint);font-style:italic}
@@ -331,6 +332,7 @@
     <h1>Supreme Court Report</h1>
     <hr class="brule"/>
     <p class="dek">Every case the Supreme Court is asked to hear, what it asks, and the odds it is granted — rebuilt three times a day from the Court’s own docket.</p>
+    <div class='csearch'><input type='search' id='cq' autocomplete='off' spellcheck='false' placeholder='Search all cases by name or docket number…' aria-label='Search cases'><ul id='cres' class='cres' role='listbox'></ul></div>
     <section class="panel lead">
       <h2>Likeliest grants</h2>
       <input class="wr" type="checkbox" id="qon" checked aria-label="Show the question each case asks"/>
@@ -855,10 +857,8 @@
               Oct 13
             </span>
             <span class="ctx">
-              <a class="ckind" href="arguments/arg_2026.html">2 arguments</a>
+              <a class="ckind" href="arguments/arg_2026.html">Argument</a>
               <span class="cdet">
-                <a href="cases/25-886.html">Kenneth Genalo, Director of the New York Field Office of U.S. Immigration and Customs Enforcement v. Carol Williams Black</a>
-                 &middot; 
                 <a href="cases/25-5343.html">Kendrick Jarrell Beaird v. United States</a>
               </span>
             </span>
@@ -880,7 +880,6 @@
         </li>
       </ol>
     </section>
-    <div class='csearch'><input type='search' id='cq' autocomplete='off' spellcheck='false' placeholder='Search all cases by name or docket number…' aria-label='Search cases'><ul id='cres' class='cres' role='listbox'></ul></div>
     <ul class="idx">
       <li>
         <a class="row" href="dashboards/">
@@ -889,9 +888,9 @@
         </a>
         <div class="recent">
           <span class="rlabel">Latest</span>
+          <a href="dashboards/dash_2026-09-14.html">Sep 14</a>
           <a href="dashboards/dash_2026-09-11.html">Sep 11</a>
           <a href="dashboards/dash_2026-09-10.html">Sep 10</a>
-          <a href="dashboards/dash_2026-09-09.html">Sep 9</a>
         </div>
       </li>
       <li>
@@ -1008,7 +1007,7 @@
       <a href="/feed.xml" type="application/atom+xml">All updates</a>
       <a href="/grants.xml" type="application/atom+xml">Certiorari grants</a>
     </p>
-    <script>(function(){var q=document.getElementById('cq'),r=document.getElementById('cres'),E=null,t;function esc(s){return s.replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c];});}function load(){if(E)return;q.classList.add('loading');fetch('cases/search.json').then(function(x){return x.json();}).then(function(j){E=Object.keys(j).map(function(d){return [d,j[d],d.toLowerCase(),j[d].toLowerCase()];});q.classList.remove('loading');run();}).catch(function(){q.classList.remove('loading');});}q.addEventListener('focus',load);q.addEventListener('input',function(){clearTimeout(t);t=setTimeout(run,110);});function run(){var s=q.value.trim().toLowerCase();if(!s||!E){r.innerHTML='';return;}var o=[],n=0;for(var i=0;i<E.length;i++){if(E[i][2].indexOf(s)>-1||E[i][3].indexOf(s)>-1){o.push(E[i]);if(++n>=40)break;}}r.innerHTML=o.length?o.map(function(e){return "<li><a href='cases/"+e[0]+".html'><span class='cd'>No. "+e[0]+"</span>"+esc(e[1])+"</a></li>";}).join(''):"<li class='cnone'>No matching cases.</li>";}})();</script>
+    <script>window.SCR_SEARCH={json:'cases/search.json',prefix:'cases/'};</script><script src='/search.js' defer></script>
   </main>
 </body>
 </html>
