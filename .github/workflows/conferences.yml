@@ -301,6 +301,16 @@ jobs:
           # fresh (it did no JSON-API fetching).
           QP_MAX_NEW: "200"
         run: Rscript .github/scripts/render_arguments.R
+      - name: Render the Justices
+        # After the argument navigator, which writes the Granted & Noted
+        # manifest this reads. Never let it block conference publishing.
+        # Fetches the syllabus of any newly decided case (a handful a week in
+        # season; the back-catalogue went through render-justices.yml).
+        continue-on-error: true
+        env:
+          SITE_DIR: site
+          LINEUP_MAX_NEW: "120"
+        run: Rscript .github/scripts/render_justices.R
       - name: Commit and publish changes
         working-directory: site
         run: |

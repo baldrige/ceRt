@@ -18,6 +18,7 @@ and served by GitHub Pages.
 | Cert-grant forecast model + methods | `methods.html` | `R/cert_model.R` — see **[docs/cert_model.md](docs/cert_model.md)** |
 | Conference forecast (competing risks) | `conferences/` | `R/cert_model.R` — two published columns, see **[docs/cert_model.md](docs/cert_model.md)** |
 | The Court's order lists | `orders/` | `daily.yml` → `R/orders_list.R` — see **[docs/order-lists.md](docs/order-lists.md)** |
+| The Justices (opinions by kind, agreement, splits, per Term) | `justices/` | `conferences.yml` / `render-justices.yml` → `render_justices.R` → `R/justices.R` — see **[docs/justices.md](docs/justices.md)** |
 
 Every section is built and published by a GitHub Actions workflow. For the full
 inventory — each workflow's triggers, whether it updates data and/or the public

@@ -83,8 +83,20 @@ PALETTE_EVENTS <- list(
 #' gt is either an error three frames away or, worse, a cell that silently loses
 #' its shading. This is the codebase that shipped an aliased model coefficient
 #' contributing exactly zero for months -- fail on the typo instead.
+# The four opinion kinds on the Justices pages (R/justices.R): a categorical set,
+# not a scale, so the stacked bars separate at a glance. Validated 2026-09-13
+# with the data-viz palette checker on the paper surface: lightness band and
+# chroma floor pass; the orange/green pair sits in the CVD warn band (dE 6.7
+# deutan), which the 2px gaps between segments and the companion counts table
+# are there to cover; orange and green are below 3:1 against paper, which the
+# same table relieves. Court is the blue the model chart already uses for its
+# baseline series, dissent is the accent.
+PALETTE_OPINIONS <- list(
+  "op-court" = "#3a6db3", "op-conc" = "#e07b1f",
+  "op-judg"  = "#7fb069", "op-diss" = "#9c0e3a")
+
 pal <- function(name) {
-  v <- c(PALETTE, PALETTE_FUNNEL, PALETTE_UI, PALETTE_EVENTS)[[name]]
+  v <- c(PALETTE, PALETTE_FUNNEL, PALETTE_UI, PALETTE_EVENTS, PALETTE_OPINIONS)[[name]]
   if (is.null(v)) stop("pal(): no such colour token: ", name, call. = FALSE)
   v
 }
@@ -161,7 +173,7 @@ palette_root <- function(nav_max = SITE_NAV_MAX, extra = NULL) {
 pal_rgb <- function(name) paste(as.vector(grDevices::col2rgb(pal(name))), collapse = ",")
 
 fill_palette <- function(css) {
-  for (nm in names(c(PALETTE, PALETTE_FUNNEL, PALETTE_UI, PALETTE_EVENTS))) {
+  for (nm in names(c(PALETTE, PALETTE_FUNNEL, PALETTE_UI, PALETTE_EVENTS, PALETTE_OPINIONS))) {
     hex <- pal(nm)
     css <- gsub(paste0("@", nm, ":rgb@"),
                 paste(as.vector(grDevices::col2rgb(hex)), collapse = ","),

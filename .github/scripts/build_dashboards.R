@@ -244,6 +244,17 @@ if (dir.exists(file.path(site_dir, "arguments"))) {
                                 "^arg_\\d{4}\\.html$",
                                 year_key, arg_label, "arguments/"))))
 }
+# The Justices, directly after the arguments they decide. Guarded on the
+# index file like the others: the section is written by the weekly and by
+# render-justices.yml, never by this run.
+if (file.exists(file.path(site_dir, "justices", "index.html"))) {
+  items <- c(items, list(list(href = "justices/", label = "The Justices",
+                              meta = "opinions and agreement, by Term",
+                              recent = recent_children(
+                                file.path(site_dir, "justices"),
+                                "^ot\\d{4}\\.html$",
+                                year_key, arg_label, "justices/"))))
+}
 if (file.exists(file.path(site_dir, "cases", "index.html"))) {
   items <- c(items, list(list(href = "cases/", label = "All Cases",
                               meta = "browse by Term")))

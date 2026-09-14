@@ -502,7 +502,12 @@ argument_term_page <- function(tbl, term, out_dir) {
       dek = dek, n_rows = n, left_cols = left_cols,
       footer = paste0("Status tracks each grant from Granted through Scheduled, ",
                       "Argued, and Decided (with the majority author, linked to the ",
-                      "slip opinion)."),
+                      "slip opinion).",
+                      # The Justices page for the same Term: who wrote these
+                      # opinions and who joined whom. The Granted & Noted List
+                      # starts at OT16, so earlier Terms have no page to link.
+                      if (term >= 2016L) paste0(" <a href='/justices/ot", term, ".html'>",
+                                                "The Justices in OT", term, ": opinions written and agreement &rarr;</a>") else ""),
       active = "/arguments/",
       crumb = list(label = paste0("October Term ", term),
                    section = list(href = "/arguments/", label = "Arguments")),
