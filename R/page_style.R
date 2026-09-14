@@ -243,7 +243,8 @@ INDEX_CSS <- paste0("\n  ", palette_root(), "
   .cres li:last-child{border-bottom:0}
   .cres a{display:block;padding:.55rem .7rem;text-decoration:none;color:var(--ink);
     font-size:.98rem;line-height:1.3}
-  .cres a:hover{background:rgba(@accent:rgb@,.06)}
+  .cres a:hover,.cres li.act a{background:rgba(@accent:rgb@,.06)}
+  .cres mark{background:rgba(@accent:rgb@,.14);color:inherit;padding:0 .05em;border-radius:2px}
   .cres .cd{color:var(--accent);font-variant-numeric:tabular-nums;font-weight:600;
     margin-right:.5rem;white-space:nowrap}
   .cnone{padding:.55rem .7rem;color:var(--faint);font-style:italic}
@@ -288,24 +289,18 @@ SEARCH_HTML <- paste0(
 # page reaches the index at cases/search.json, the /cases/ index at search.json.
 # Getting this wrong yields /cases/cases/search.json and a search box that
 # silently never returns a result, so it is a parameter rather than a constant.
+#
+# The matcher itself is /search.js at the site root -- a static file the daily
+# copies beside analytics.js -- not a string in this file. It used to be: forty
+# lines of escaped JavaScript inside paste0(), doing a substring test in file
+# order (oldest docket first). The matcher now normalises, prefix-matches
+# tokens in any order, tolerates a typo, reads docket forms, and ranks with
+# the newest Term first; docs/search.md has the probes. Living in its own file
+# it is cached across pages and testable in Node (.github/scripts/
+# search_probe.js). This emits only the page's two parameters and the tag.
 search_script <- function(json = "cases/search.json", href_prefix = "cases/")
-  gsub("@JSON@", json, gsub("@HREF@", href_prefix, SEARCH_SCRIPT, fixed = TRUE), fixed = TRUE)
-
-SEARCH_SCRIPT <- paste0("<script>(function(){",
-  "var q=document.getElementById('cq'),r=document.getElementById('cres'),E=null,t;",
-  "function esc(s){return s.replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c];});}",
-  "function load(){if(E)return;q.classList.add('loading');",
-  "fetch('@JSON@').then(function(x){return x.json();}).then(function(j){",
-  "E=Object.keys(j).map(function(d){return [d,j[d],d.toLowerCase(),j[d].toLowerCase()];});",
-  "q.classList.remove('loading');run();}).catch(function(){q.classList.remove('loading');});}",
-  "q.addEventListener('focus',load);",
-  "q.addEventListener('input',function(){clearTimeout(t);t=setTimeout(run,110);});",
-  "function run(){var s=q.value.trim().toLowerCase();if(!s||!E){r.innerHTML='';return;}",
-  "var o=[],n=0;for(var i=0;i<E.length;i++){if(E[i][2].indexOf(s)>-1||E[i][3].indexOf(s)>-1){",
-  "o.push(E[i]);if(++n>=40)break;}}",
-  "r.innerHTML=o.length?o.map(function(e){return \"<li><a href='@HREF@\"+e[0]+\".html'>",
-  "<span class='cd'>No. \"+e[0]+\"</span>\"+esc(e[1])+\"</a></li>\";}).join(''):",
-  "\"<li class='cnone'>No matching cases.</li>\";}})();</script>")
+  paste0("<script>window.SCR_SEARCH={json:'", json, "',prefix:'", href_prefix, "'};</script>",
+         "<script src='/search.js' defer></script>")
 
 # Strip the party-role tail the Court appends to a docket caption, for DISPLAY
 # only. "United States v. E. Jean Carroll, et al." is how the docket reads; on a
@@ -959,6 +954,11 @@ styled_index_page <- function(out_path, title, heading, items,
                               # the landing page's masthead carries that now, so the
                               # forecast leads and the list is a reference under it.
                               panel_top = NULL,
+                              # search_top puts the box directly under the dek,
+                              # ABOVE panel_top. The landing page asks for it:
+                              # the search is the door to 56,000 pages and a
+                              # returning reader wants a case before a forecast.
+                              search_top = FALSE,
                               active = NULL, crumb = NULL, wordmark_only = FALSE,
                               search_json = "cases/search.json",
                               search_prefix = "cases/", feeds = FALSE,
@@ -1003,8 +1003,9 @@ styled_index_page <- function(out_path, title, heading, items,
     heading_node,
     tags$hr(class = "brule"),
     if (!is.null(dek)) tags$p(class = "dek", smarten(dek)),
+    if (isTRUE(search) && isTRUE(search_top)) HTML(SEARCH_HTML),
     panel_top,
-    if (isTRUE(search)) HTML(SEARCH_HTML),
+    if (isTRUE(search) && !isTRUE(search_top)) HTML(SEARCH_HTML),
     tags$ul(class = "idx", rows),
     panel,
     # Below the panels, above the back link: a reader who has scrolled the whole

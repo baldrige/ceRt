@@ -194,7 +194,7 @@ rebase cleanly.
 
 | site path | written by |
 | --- | --- |
-| `dashboards/`, landing `index.html`, `methods.html`, `analytics.js` | `daily.yml` |
+| `dashboards/`, landing `index.html`, `methods.html`, `analytics.js`, `search.js` (the case-search matcher every search box loads; see **[search.md](search.md)**) | `daily.yml` |
 | `conferences/` (+ `qp_cache.json`, `petition_signals_cache.json` — the Rule 10 cues the at-risk model reads, resolved for the same dockets as the QPs, cap `PET_SIG_MAX_NEW` default 600; `word_counts_cache.json` — the certified word counts, cap `WORD_COUNT_MAX_NEW`) | `conferences.yml`; QP cache also by `backfill-qp*.yml` |
 | `arguments/` (+ `qp_cache.json`) | `conferences.yml` |
 | `arguments/upcoming.json`, `conferences/upcoming.json` (landing-page calendar manifests) | `conferences.yml` |
