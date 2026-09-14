@@ -35,28 +35,40 @@ terms <- sort(unique(gn$term[!is.na(gn$decided)]))
 cat("Granted & Noted List:", nrow(gn), "rows;", sum(!is.na(gn$decided)), "decided across Terms",
     paste(terms, collapse = ", "), "\n")
 
-# Opinion URLs, only for the Terms that still have uncached decisions.
+# Opinion URLs, only for the Terms that still have uncached decisions. Two
+# sources: the Court's slip-opinion feed (one request per Term), and, for a
+# decision the feed does not name -- seven of OT20's on 2026-09-14, the tail of
+# a Term the preliminary print had not reached -- the docket page already on
+# the site, which carries the slip-opinion link from the docket JSON (OT19 on).
 lineups <- read_lineups(site_dir)
 urls <- character()
-if (max_new > 0) {
-  need <- terms[vapply(terms, function(t) {
-    d <- gn_decisions(gn, t)
-    any(!vapply(d$dkt, function(k) !is.null(lineups[[k]]) && (!retry || isTRUE(lineups[[k]]$parsed)), logical(1)))
-  }, logical(1))]
-  if (length(need)) {
-    cat("Fetching opinion listings for Term(s)", paste(need, collapse = ", "), "\n")
-    lst <- fetch_opinion_listing(sprintf("%02d", as.integer(need)), kinds = "slipopinion")
-    lst <- lst |> filter(!is.na(url)) |> distinct(dkt, .keep_all = TRUE)
-    urls <- setNames(lst$url, lst$dkt)
-    cat("Opinion PDFs named:", length(urls), "\n")
-    for (t in need) {
-      d <- gn_decisions(gn, t)
-      lineups <- resolve_lineups(d, urls, site_dir, max_new = max_new, pace = pace, retry = retry)
-      # One cap for the whole run, spent oldest Term first.
-      max_new <- max_new - (attr(lineups, "n_fetched") %||% 0L)
-      if (max_new <= 0) break
-    }
+docket_page_url <- function(dk) {
+  p <- file.path(site_dir, "cases", paste0(dk, ".html"))
+  if (!file.exists(p)) return(NA_character_)
+  txt <- paste(readLines(p, warn = FALSE, encoding = "UTF-8"), collapse = "")
+  m <- regmatches(txt, regexpr("https://www\\.supremecourt\\.gov/opinions/[0-9]+pdf/[^'\"]+\\.pdf", txt))
+  if (length(m)) m[1] else NA_character_
+}
+is_current <- function(k) !is.null(lineups[[k]]) && (!retry || (isTRUE(lineups[[k]]$parsed) && identical(lineups[[k]]$pv, LINEUP_PARSER_VERSION)))
+need <- terms[vapply(terms, function(t) any(!vapply(gn_decisions(gn, t)$dkt, is_current, logical(1))), logical(1))]
+if (max_new > 0 && length(need)) {
+  cat("Fetching opinion listings for Term(s)", paste(need, collapse = ", "), "\n")
+  lst <- fetch_opinion_listing(sprintf("%02d", as.integer(need)), kinds = "slipopinion")
+  lst <- lst |> filter(!is.na(url)) |> distinct(dkt, .keep_all = TRUE)
+  urls <- setNames(lst$url, lst$dkt)
+  n_feed <- length(urls)
+  for (t in need) for (dk in gn_decisions(gn, t)$dkt) if (is.na(urls[dk])) {
+    u <- docket_page_url(dk); if (!is.na(u)) urls[dk] <- u
   }
+  cat("Opinion PDFs named:", n_feed, "by the feed,", length(urls) - n_feed, "from docket pages\n")
+}
+# Every Term goes through resolve_lineups() even at cap 0: that is where a
+# cached entry parsed under an older grammar is re-read from its text.
+for (t in terms) {
+  d <- gn_decisions(gn, t)
+  lineups <- resolve_lineups(d, urls, site_dir, max_new = max(max_new, 0L), pace = pace, retry = retry)
+  # One cap for the whole run, spent oldest Term first.
+  max_new <- max_new - (attr(lineups, "n_fetched") %||% 0L)
 }
 n_parsed <- sum(vapply(lineups, function(e) isTRUE(e$parsed), logical(1)))
 cat("Lineups cached:", length(lineups), "| parsed:", n_parsed, "\n")

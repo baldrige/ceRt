@@ -43,7 +43,7 @@ JUSTICES_TEMPLATE_VERSION <- "j1"
 # Stamped on every cached lineup. Bump after a change to the lineup grammar;
 # a LINEUP_RETRY=1 dispatch then re-reads every entry parsed under an older
 # version (render-justices.yml, `lineup_retry`).
-LINEUP_PARSER_VERSION <- "p1"
+LINEUP_PARSER_VERSION <- "p2"
 
 # ---- the roster ---------------------------------------------------------------
 # Seat dates, for which nine sat in a Term and in what order. Seniority is the
@@ -208,8 +208,13 @@ lineup_text <- function(pages, max_pages = 15L) {
   # bers") and cite each writing's page ("post, p. 128"); neither is grammar.
   s <- str_replace_all(s, "([A-Za-z])-\\s*\\n\\s*([a-z])", "\\1\\2")
   s <- str_remove_all(s, ",?\\s*post,\\s*p\\.\\s*\\d+")
-  str_squish(s)
+  .strip_watermark(str_squish(s))
 }
+
+# A preliminary print's text layer carries its watermark in the running text:
+# "Breyer, J., filed a Page Proof Pending Publication dissenting opinion".
+# Applied to fresh text and to cached text alike, so a re-parse sees it gone.
+.strip_watermark <- function(s) str_squish(str_remove_all(s, regex("Page Proof Pending Publication", ignore_case = TRUE)))
 
 # The Justices named in a fragment, in order, as keys.
 .names_in <- function(x) justice_key(str_extract_all(x %||% "", regex(paste0("\\b", JUSTICE_NAMES_RX, "\\b"), ignore_case = TRUE))[[1]])
@@ -252,7 +257,10 @@ parse_lineup <- function(s) {
     # the phrase, after any "except"; the sentence is NOT consumed, because the
     # lead sentence still has to be read.
     if (str_detect(sent, "took no part")) {
-      seg <- str_extract(sent, "[^.]*took no part")
+      # From the sentence start, not from the last period: "ROBERTS, C. J.,
+      # took no part" has one inside the title, and a `[^.]*` there kept only
+      # ", took no part" and no name (Life Technologies, Ziglar).
+      seg <- str_extract(sent, "^.*?took no part")
       seg <- str_remove(seg, regex("^.*\\bexcept\\b", ignore_case = TRUE))
       out$no_part <- c(out$no_part, .names_in(seg))
       if (!str_detect(sent, regex("delivered|announced|f(?:i)?led", ignore_case = TRUE))) next
@@ -443,9 +451,29 @@ read_lineups <- function(site_dir) {
 resolve_lineups <- function(dec, urls, site_dir, max_new = 0L, pace = 0.75,
                             retry = FALSE, max_consecutive_empty = 8L) {
   cache <- read_lineups(site_dir)
+  # A grammar fix first re-reads the cached lineup TEXT, which costs nothing:
+  # every entry parsed from a syllabus keeps its paragraph. Only entries whose
+  # writings came from the body headers (per curiams) need the pages again,
+  # and those go through the fetch below when `retry` is set.
+  stale <- names(cache)[vapply(names(cache), function(dk) {
+    e <- cache[[dk]]; isTRUE(e$parsed) && !identical(e$pv, LINEUP_PARSER_VERSION) &&
+      !is.null(e$text) && nzchar(e$text) && !identical(e$lead$kind, "per curiam")
+  }, logical(1))]
+  if (length(stale)) {
+    for (dk in stale) {
+      e <- cache[[dk]]; e$text <- .strip_watermark(e$text); p <- parse_lineup(e$text)
+      if (is.na(p$lead$kind)) next   # leave it for the fetch path
+      e$lead <- p$lead; e$writings <- p$writings; e$no_part <- p$no_part; e$pv <- LINEUP_PARSER_VERSION
+      cache[[dk]] <- e
+    }
+    message("lineups: re-parsed ", length(stale), " cached entr", if (length(stale) == 1) "y" else "ies",
+            " under parser ", LINEUP_PARSER_VERSION)
+    write_lineups(cache, site_dir)
+  }
   # With `retry`, an entry is stale if its PDF yielded nothing OR it was parsed
-  # by an older parser: the stamp lets a grammar fix reach the archive with one
-  # dispatch instead of a hand-deleted cache.
+  # by an older parser and could not be re-read from its text: the stamp lets
+  # a grammar fix reach the archive with one dispatch instead of a
+  # hand-deleted cache.
   is_cached <- function(dk) !is.null(cache[[dk]]) &&
     (!retry || (isTRUE(cache[[dk]]$parsed) && identical(cache[[dk]]$pv, LINEUP_PARSER_VERSION)))
   url_for <- function(dkts) { u <- urls[dkts]; u <- u[!is.na(u)]; if (length(u)) u[[1]] else NA_character_ }
@@ -538,6 +566,15 @@ decision_votes <- function(entry, court, gn_no_part = NULL, decided = NULL) {
     else maj <- c(maj, who)
   }
   if (identical(lead$kind %||% "", "per curiam")) maj <- c(maj, setdiff(part, c(dis, mix)))
+  # A signed opinion's syllabus names every participant -- as author, joiner,
+  # or separate writer. A Justice named nowhere did not sit: seated after the
+  # argument (Gorsuch in the spring of OT16, Barrett in the autumn of OT20) or
+  # recused without the syllabus saying so. Neither is a vote.
+  if (!is.null(lead) && (lead$kind %||% "") %in% c("court", "judgment")) {
+    named <- unique(c(maj, dis, mix))
+    no_part <- unique(c(no_part, setdiff(part, named)))
+    part <- setdiff(names, no_part)
+  }
   side <- vapply(names, function(n) {
     if (n %in% no_part) return(NA_character_)
     in_m <- n %in% maj; in_d <- n %in% dis; in_x <- n %in% mix
