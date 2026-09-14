@@ -41,12 +41,15 @@ SITE_SECTIONS <- list(
   list(href = "/conferences/", label = "Conferences", long = "Conference reports"),
   list(href = "/relists/",     label = "Relists",     long = "Relist Tracker"),
   list(href = "/arguments/",   label = "Arguments",   long = "Oral arguments"),
-  # Ninth link. docs/navigation.md measured the seven-link nav at 654px against
-  # the 54rem (864px) masthead; nine fit with ~120px to spare at the desktop
-  # widths that matter, and the strip wraps cleanly below that.
+  # Ninth link, and the one that did not fit: measured on the live page at
+  # 1440px, nine labels needed 833px and the 54rem masthead offered 816px, so
+  # "About" wrapped everywhere. The first version of this comment claimed
+  # 120px of slack from the doc's 654px figure, which was measured before
+  # Model and About existed. Fixed by "Funnel" (was "The Funnel") and a 60rem
+  # masthead -- see SITE_NAV_MAX in palette.R and docs/navigation.md.
   list(href = "/justices/",    label = "Justices",    long = "The Justices, by Term"),
   list(href = "/counsel/",     label = "Counsel",     long = "The Counsel Table"),
-  list(href = "/funnel/",      label = "The Funnel",  long = "The cert funnel"),
+  list(href = "/funnel/",      label = "Funnel",      long = "The cert funnel"),
   list(href = "/methods.html", label = "Model",       long = "The forecast model"),
   # About carries the contact address. It is in the masthead and the case footer
   # rather than only on the landing page because the error reports worth having
@@ -65,7 +68,7 @@ CASES_CRUMB <- list(href = "/cases/", label = "Cases")
 # 40rem index container and the 54rem case container; each host :root sets it.
 NAV_CSS <- "
 /* ---- masthead ---- */
-.smast-in{max-width:var(--nav-max,54rem);margin:0 auto;padding:.85rem 1.5rem .5rem;
+.smast-in{max-width:var(--nav-max,60rem);margin:0 auto;padding:.85rem 1.5rem .5rem;
   display:flex;align-items:baseline;justify-content:space-between;gap:1.4rem;flex-wrap:wrap}
 .smast-wm{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
   letter-spacing:.005em;color:var(--ink,@ink@);text-decoration:none;white-space:nowrap;flex:none}
@@ -85,7 +88,7 @@ NAV_CSS <- "
 .snav a:hover{color:var(--accent,@accent@);border-bottom-color:var(--rule,@rule@)}
 .snav a[aria-current='page']{color:var(--accent,@accent@);
   border-bottom-color:var(--accent,@accent@)}
-.smast-rule-w{max-width:var(--nav-max,54rem);margin:0 auto;padding:0 1.5rem}
+.smast-rule-w{max-width:var(--nav-max,60rem);margin:0 auto;padding:0 1.5rem}
 .smast-rule{border:0;height:0;border-top:2px solid var(--ink,@ink@);margin:0;position:relative}
 .smast-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
   border-top:1px solid var(--rule,@rule@)}

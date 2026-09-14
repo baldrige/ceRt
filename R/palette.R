@@ -130,7 +130,15 @@ pal <- function(name) {
 #' masthead rather than a mistake -- but it is a real change, and if it reads
 #' badly the honest alternative is not to re-couple the width, it is to spend
 #' fewer characters on the nav.
-SITE_NAV_MAX <- "54rem"
+#'
+#' 60rem since 2026-09-14. The ninth link (Justices) made the nav 833px against
+#' the 816px a 54rem masthead offers inside its padding, and "About" wrapped on
+#' every page at every viewport width. Two changes together: "The Funnel"
+#' became "Funnel" (about 35px), and the masthead grew to 60rem (912px inside
+#' the padding), which leaves ~115px -- room for one more short label, not
+#' two. The 54rem case column and 40rem index columns are unchanged; the
+#' masthead was decoupled from them precisely so it could grow like this.
+SITE_NAV_MAX <- "60rem"
 
 #' `nav_max` defaults to SITE_NAV_MAX and no caller should now pass anything
 #' else. The parameter is kept so a one-off page can still opt out, and so this
