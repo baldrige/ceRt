@@ -96,7 +96,10 @@ justice_key <- function(x) {
 # One row per DECISION: consolidated dockets argued together share a block on
 # the list (its `group`), and the opinion is one opinion.
 gn_decisions <- function(gn, term) {
-  d <- gn |> filter(term == !!term, !is.na(decided))
+  # The same footnote-digit repair the list parser now applies (.gn_dkt()),
+  # for a manifest written before it did.
+  d <- gn |> filter(term == !!term, !is.na(decided)) |>
+    mutate(dkt = str_replace(dkt, "^(\\d{2}-\\d{4})\\d$", "\\1"))
   if (!nrow(d)) return(d |> mutate(dkts = list(character())))
   d |>
     mutate(.g = if_else(is.na(group), paste0("solo:", dkt), paste0("g:", group, ":", decided))) |>
@@ -455,6 +458,22 @@ parse_body_headers <- function(pages, max_pages = 40L) {
   list(pages = pages[win], fetched = v$fetched)
 }
 
+# Every docket number an opinion names on its first two pages: its own
+# ("No. 16-74. Argued ..."), and the companions decided with it ("Together
+# with No. 16-258, Dignity Health v. Rollins ..." in a slip's footnote; "Nos.
+# 16-74 and 16-258" in a volume's header). Stored on the cache entry as `also`,
+# so a companion that has no PDF of its own -- the feed names one file per
+# opinion, under the lead docket -- can find the lineup through the entry
+# that names it. Dashes are normalised to the hyphen the list uses.
+.dockets_in <- function(pages) {
+  # The first page only: the header and the "Together with" footnote are on
+  # it, and a later page may cite another case's docket, which would link two
+  # decisions that merely mention each other.
+  txt <- paste(head(pages, 1L), collapse = "\n")
+  d <- str_extract_all(txt, "\\b\\d{2}[–-]\\d{1,5}\\b|\\b\\d{2}A\\d{1,4}\\b|\\b22O\\d{1,4}\\b")[[1]]
+  unique(str_replace_all(d, "–", "-"))
+}
+
 lineups_path <- function(site_dir) file.path(site_dir, JUSTICES_DIR, LINEUPS_FILE)
 
 read_lineups <- function(site_dir) {
@@ -498,8 +517,9 @@ resolve_lineups <- function(dec, urls, site_dir, max_new = 0L, pace = 0.75,
   # by an older parser and could not be re-read from its text: the stamp lets
   # a grammar fix reach the archive with one dispatch instead of a
   # hand-deleted cache.
+  # ... or it predates the `also` field, which only a fetch can fill.
   is_cached <- function(dk) !is.null(cache[[dk]]) &&
-    (!retry || (isTRUE(cache[[dk]]$parsed) && identical(cache[[dk]]$pv, LINEUP_PARSER_VERSION)))
+    (!retry || (isTRUE(cache[[dk]]$parsed) && identical(cache[[dk]]$pv, LINEUP_PARSER_VERSION) && !is.null(cache[[dk]]$also)))
   url_for <- function(dkts) { u <- urls[dkts]; u <- u[!is.na(u)]; if (length(u)) u[[1]] else NA_character_ }
   todo <- dec |> filter(!vapply(dkt, is_cached, logical(1))) |>
     mutate(url = vapply(dkts, url_for, character(1))) |> filter(!is.na(url))
@@ -528,6 +548,7 @@ resolve_lineups <- function(dec, urls, site_dir, max_new = 0L, pace = 0.75,
         }
         entry$parsed <- TRUE; entry$chars <- sum(nchar(pages)); entry$text <- txt
         entry$lead <- p$lead; entry$writings <- p$writings; entry$no_part <- p$no_part
+        entry$also <- .dockets_in(pages)
       }
       cache[[todo$dkt[i]]] <- entry
       if (empties >= max_consecutive_empty) {
@@ -615,13 +636,48 @@ term_stats <- function(term, gn, lineups, captions = NULL) {
   court <- term_court(term)
   dec <- gn_decisions(gn, term)
   if (!nrow(dec)) return(NULL)
+
+  # The lineup for a decision: under its own docket, else an entry from the
+  # same day that names the docket among the cases decided with it (`also`).
+  find_entry <- function(dkts, decided) {
+    for (d in dkts) if (!is.null(lineups[[d]]) && isTRUE(lineups[[d]]$parsed)) return(lineups[[d]])
+    for (e in lineups) if (isTRUE(e$parsed) && identical(e$decided, as.character(decided)) &&
+                           any(dkts %in% unlist(e$also))) return(e)
+    NULL
+  }
+  ent <- lapply(seq_len(nrow(dec)), function(i) find_entry(dec$dkts[[i]], dec$decided[i]))
+  # One opinion, one decision. Companions the list files as separate blocks
+  # (Little v. Hecox beside West Virginia v. B. P. J.; Lamone beside Rucho)
+  # were being counted twice in the matrix and the splits. Two rows are the
+  # same opinion when, on the same day, the dockets they and their entries
+  # name overlap (the smallest docket of the pooled set is the key), or when
+  # they share a slip-opinion file. NOT when their lineup text matches: two
+  # unanimous opinions by one author on one day read identically. A volume
+  # URL is one file for a hundred opinions, so it never keys anything.
+  dec$.key <- vapply(seq_along(ent), function(i) {
+    e <- ent[[i]]
+    if (is.null(e)) return(paste0("own:", i))
+    if (!is.null(e$also)) return(paste0(dec$decided[i], "|", sort(unique(c(dec$dkts[[i]], unlist(e$also))))[1]))
+    if (!grepl("#", e$url %||% "")) return(paste0(dec$decided[i], "|url:", e$url))
+    paste0("own:", i)
+  }, character(1))
+  dec <- dec |> group_by(.key) |> mutate(dkts = list(unique(unlist(dkts)))) |>
+    arrange(is.na(author), .by_group = TRUE) |> slice_head(n = 1) |> ungroup() |> select(-.key) |>
+    arrange(decided, dkt)
+  ent <- lapply(seq_len(nrow(dec)), function(i) find_entry(dec$dkts[[i]], dec$decided[i]))
+  # A decided row with no author, no separate writings and no opinion anywhere
+  # is a disposition by order -- a dismissal, a vacatur as moot -- not a
+  # decision by written opinion, and does not belong in the count.
+  keep <- !(is.na(dec$author) & vapply(ent, is.null, logical(1)) & !nzchar(coalesce(dec$others, "")))
+  dec <- dec[keep, ]; ent <- ent[keep]
+  if (!nrow(dec)) return(NULL)
+
   written <- gn_written(dec, court)
   n_signed <- sum(!is.na(dec$author) & dec$author != "Per Curiam")
 
   # Votes per decision, where the lineup parsed and accounts for everyone.
   votes <- lapply(seq_len(nrow(dec)), function(i) {
-    e <- NULL
-    for (d in dec$dkts[[i]]) if (!is.null(lineups[[d]]) && isTRUE(lineups[[d]]$parsed)) { e <- lineups[[d]]; break }
+    e <- ent[[i]]
     if (is.null(e)) return(NULL)
     v <- decision_votes(e, court, dec$no_part[i], dec$decided[i])
     if (any(is.na(v$side) & !v$no_part)) return(NULL)   # incomplete: leave out
@@ -680,12 +736,9 @@ term_stats <- function(term, gn, lineups, captions = NULL) {
   lone <- per_dec |> filter(n_min == 1L) |> count(min_set, name = "lone")
   solo_w <- if (n_lineup) {
     rows <- list()
-    for (i in which(ok)) for (d in dec$dkts[[i]]) if (!is.null(lineups[[d]]) && isTRUE(lineups[[d]]$parsed)) {
-      for (w in lineups[[d]]$writings %||% list()) {
-        nj <- length(unlist(lapply(w$joins %||% list(), function(j) unlist(j$who))))
-        rows[[length(rows) + 1L]] <- tibble(name = justice_key(w$who), kind = w$kind, solo = nj == 0L)
-      }
-      break
+    for (i in which(ok)) for (w in ent[[i]]$writings %||% list()) {
+      nj <- length(unlist(lapply(w$joins %||% list(), function(j) unlist(j$who))))
+      rows[[length(rows) + 1L]] <- tibble(name = justice_key(w$who), kind = w$kind, solo = nj == 0L)
     }
     if (length(rows)) bind_rows(rows) |> filter(solo) |> count(name, kind) else tibble(name = character(), kind = character(), n = integer())
   } else tibble(name = character(), kind = character(), n = integer())
@@ -696,8 +749,7 @@ term_stats <- function(term, gn, lineups, captions = NULL) {
   # The writings list: every writing, per Justice, with joins where known.
   wl <- list()
   for (i in seq_len(nrow(dec))) {
-    e <- NULL
-    for (d in dec$dkts[[i]]) if (!is.null(lineups[[d]]) && isTRUE(lineups[[d]]$parsed)) { e <- lineups[[d]]; break }
+    e <- ent[[i]]
     joined_by <- function(who, kind) {
       if (is.null(e)) return(NA_character_)
       if (kind == "court") {

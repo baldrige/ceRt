@@ -115,10 +115,28 @@ either parse.
   seated after the argument (Gorsuch through the spring of 2017, Barrett
   through the autumn of 2020) or recused without the syllabus saying so. That
   rule took OT16's coverage from 42 to 61 of 62.
-- **A decision with no PDF.** The feed named none for ~20 of 691 (seven of
-  OT20's, the tail of a Term the preliminary print had not reached). The
-  docket page is tried next (`opinions/NNpdf/` links, OT19 on); failing that
-  the decision counts in panels 1 and 4 and is left out of 2 and 3.
+- **Companions.** The feed names one PDF per opinion, under the lead docket,
+  and the list files a companion decided with it as its own block (Dignity
+  Health beside Advocate Health; Relentless beside Loper Bright). Each cache
+  entry records every docket its opinion names on its first two pages
+  (`also`: "Together with No. 16-258" in a slip's footnote, "Nos. 16-74 and
+  16-258" in a volume's header), and a decision with no entry of its own
+  finds its lineup through an entry from the same day that names it. Where
+  the feed named the same PDF under both dockets (Little v. Hecox beside West
+  Virginia v. B. P. J.), the two rows resolve to the same lineup text on the
+  same day and are merged into one decision, the authored row leading and the
+  dockets pooled; they were counted twice in the matrix before this.
+- **Dispositions by order.** A decided row with no author, no separate
+  writings and no opinion anywhere -- a dismissal as improvidently granted, a
+  vacatur as moot, a GVR the list records as decided -- is not a decision by
+  written opinion and is dropped from the count (eleven across ten Terms on
+  2026-09-14).
+- **A decision with no PDF** counts in panels 1 and 4 and is left out of 2
+  and 3; the coverage line on each page says how many.
+- **Bostock's docket.** The list printed a footnote digit flush against
+  "17-1618" and the parser read "17-16181". No docket has five digits after
+  the dash, so a fifth digit is now stripped as the footnote, in the list
+  parser (`.gn_dkt()`) and, for a manifest written before that, on read.
 - **Merits only.** Argued cases on the Granted & Noted List. Dissents from denial
   and emergency-docket writings live on the order lists and are not counted
   here (a separate stream, when it comes).

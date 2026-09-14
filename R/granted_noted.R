@@ -129,6 +129,13 @@ gn_writings_phrase <- function(o) {
 # The flags can sit tight against the docket ("24-440#") or a space away
 # ("21-432 * CFX"); the code is two to five capitals; the caption follows.
 .GN_DOCKET_RX <- "^\\s*(\\d{2}-\\d{1,5}|\\d{2}A\\d{1,4}|22O\\d{1,4}|\\d{2}M\\d{1,4})\\s?([*#]*)\\s?(\\)\\d?)?\\s?([*#]*)\\s+([A-Z]{2,5})\\s+(\\S.*)$"
+
+# A footnote digit set flush against the docket comes out of the text layer
+# glued to it: Bostock, "17-1618" with footnote 1, read as "17-16181" for a
+# year and matched no docket page and no opinion. No docket has five digits
+# after the dash (paid numbers run to ~1700, IFP 5001-9999), so a fifth digit
+# is the footnote.
+.gn_dkt <- function(d) str_replace(d, "^(\\d{2}-\\d{4})\\d$", "\\1")
 # A section heading inside or after the list ("DISPOSED OF WITH ARGUMENT:",
 # "CASES (ARGUMENTS) FOR 2025 TERM"): all capitals, no docket, and a field
 # value must not run on into it.
@@ -157,7 +164,7 @@ parse_granted_noted <- function(pages, term) {
       if (!is.null(cur)) flush()
       if (!length(open)) group <- group + 1L
       flags <- paste0(dk[1, 3], dk[1, 5])
-      open[[length(open) + 1L]] <- list(dkt = dk[1, 2], flags = flags, foot = str_remove(dk[1, 4] %||% "", "\\)"),
+      open[[length(open) + 1L]] <- list(dkt = .gn_dkt(dk[1, 2]), flags = flags, foot = str_remove(dk[1, 4] %||% "", "\\)"),
                                         code = dk[1, 6], caption = str_squish(dk[1, 7]), group = group)
       last_label <- "caption"
       next
