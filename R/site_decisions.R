@@ -81,7 +81,9 @@ DECIDED_KEEP_DAYS <- 90L
   "opinion per curiam|(?<![(\\[])per curiam|delivered the opinion|",
   "announced the judgment|opinion of the court"), ignore_case = TRUE)
 # A separate writing is present (dissent, concurrence, statement).
-.DEC_SEPARATE_RX <- regex("dissent|concurr|statement of (the chief )?justice|respecting the denial",
+# Both of the Clerk's verb forms: "Justice Kagan, dissenting." and "Justice
+# Kagan ... dissents." / "Justice Kavanaugh concurs." (25A11).
+.DEC_SEPARATE_RX <- regex("dissent|concurr|concurs|statement of (the chief )?justice|respecting the denial",
                           ignore_case = TRUE)
 # A GVR "for further consideration in light of" is an order, not an opinion,
 # even when a Justice dissents from it in writing (25-273).
@@ -108,6 +110,70 @@ DECIDED_KEEP_DAYS <- 90L
   s <- paste(stripped, collapse = " ")
   if (str_detect(s, .DEC_COURT_RX)) return(TRUE)
   !is.na(url) && !str_detect(s, .DEC_SEPARATE_RX)
+}
+
+# Does the entry carry a WRITTEN separate opinion -- not the Court's, a
+# Justice's? "Justice Kavanaugh, concurring. (Detached Opinion) Justice Alito,
+# joined by Justice Thomas, dissenting. (Detached Opinion)" (26A305) is one;
+# "Justice Alito would deny the application" is not, and neither is a bare
+# "Justice Sotomayor, dissenting." with nothing filed. The Clerk marks a filed
+# writing with "(Detached Opinion)" or an anchor into /opinions/, and the test
+# asks for one of those beside the writing word. An application decided this
+# way is on the panel since 2026-09-14: the Court's own reasoning may be two
+# sentences of the order, but the writings are the opinions of the day.
+.DEC_DETACHED_RX <- regex("\\(\\s*Detached Opinion\\s*\\)", ignore_case = TRUE)
+.has_separate_opinion <- function(stripped, url) {
+  s <- paste(stripped, collapse = " ")
+  str_detect(s, .DEC_SEPARATE_RX) && (str_detect(s, .DEC_DETACHED_RX) || !is.na(url))
+}
+
+# The separate writings named in an application's disposition entry, as one
+# line in the Granted & Noted phrase style: "Kavanaugh concurring; Alito, joined
+# by Thomas, dissenting". The Clerk's forms are "Justice X, concurring.",
+# "Justice X, joined by Justice Y and Justice Z, dissenting.", "Justice X, with
+# whom Justice Y joins, dissenting in part." and "The Chief Justice, ...". The
+# kind phrase is kept whole up to its period ("concurring in the judgment",
+# "dissenting from the denial of the application"). NA when none.
+.APP_WHO_RX <- "(?:[Tt]he Chief Justice|Justice [A-Z][A-Za-z'\u2019-]+)"
+.APP_WRITING_RX <- paste0(
+  "(", .APP_WHO_RX, ")",
+  "(?:, (?:joined by|with whom) ((?:", .APP_WHO_RX, "(?:, | and |, and )?)+?)(?: joins?)?)?",
+  ",? ((?:concurring|dissenting|concurs|dissents)[^.()]*?)\\.")
+.app_writings <- function(stripped) {
+  s <- paste(stripped, collapse = " ")
+  m <- str_match_all(s, .APP_WRITING_RX)[[1]]
+  if (!nrow(m)) return(NA_character_)
+  name <- function(x) if (str_detect(x, regex("chief justice", ignore_case = TRUE))) "Roberts, C.J."
+                      else str_remove(x, "^Justice ")
+  parts <- vapply(seq_len(nrow(m)), function(i) {
+    lead <- name(m[i, 2])
+    joiners <- if (is.na(m[i, 3])) character() else
+      vapply(str_extract_all(m[i, 3], .APP_WHO_RX)[[1]], name, character(1))
+    join <- if (!length(joiners)) "" else paste0(", joined by ",
+      if (length(joiners) == 1) joiners else
+        paste(paste(head(joiners, -1), collapse = ", "), "and", tail(joiners, 1)), ",")
+    # One participle form for both of the Clerk's phrasings.
+    kind <- str_replace(str_squish(m[i, 4]), "^(concur|dissent)s\\b", "\\1ing")
+    kind <- str_replace(kind, "^concuring", "concurring")
+    paste0(lead, join, " ", kind)
+  }, character(1))
+  paste(unique(parts), collapse = "; ")
+}
+
+# The writings' own PDFs, from the entry's RAW text: the Clerk anchors the
+# word "Opinion" inside each "(Detached Opinion)" marker -- 25A11 carries
+# "...25a11_2cp3.pdf" on the concurrence and "...#page=3" on the dissent --
+# so the anchors fall in the writings' order and pair with them one to one.
+# "Writer <url>" per line, or NA when the counts disagree or there are none;
+# the listing (.writing_urls) fills what this leaves.
+.app_writing_urls <- function(raw, writings) {
+  if (is.na(writings) || !nzchar(writings)) return(NA_character_)
+  urls <- str_match_all(paste(raw, collapse = " "),
+                        regex("Detached\\s*<a[^>]*href\\s*=\\s*['\"]([^'\"]+)['\"]", ignore_case = TRUE))[[1]]
+  if (!nrow(urls)) return(NA_character_)
+  writers <- str_remove(strsplit(writings, "; ", fixed = TRUE)[[1]], ",? (joined by|concurring|dissenting).*$")
+  if (length(writers) != nrow(urls)) return(NA_character_)
+  paste(paste(writers, urls[, 2]), collapse = "\n")
 }
 
 # "Kagan" / "Roberts, C.J." / "Per Curiam" / NA. Same shape classify_argument()
@@ -245,6 +311,16 @@ OPINION_INCHAMBERS_URL <- "https://www.supremecourt.gov/opinions/in-chambers.asp
 # PDF is whichever cell links one. An original action is listed as "141, Orig."
 # and the docket API knows it as 22O141 (R/original_dockets.R), so the cell is
 # rewritten to that form; a row without a PDF drops out.
+# The initials the Court's opinion tables print in their author column,
+# tallied over three Terms of the relating-to-orders page (2026-09-14): SS 40,
+# A 28, T 24, KJ 20, NG 17, BK 11, EK 9, AB 2, R 1. Surnames in the form the
+# rows use; the Chief takes the suffix, per curiam its own label.
+OPINION_AUTHOR_CODES <- c(
+  R = "Roberts, C.J.", T = "Thomas", A = "Alito", SS = "Sotomayor", EK = "Kagan",
+  NG = "Gorsuch", BK = "Kavanaugh", AB = "Barrett", KJ = "Jackson", KBJ = "Jackson",
+  PC = "Per Curiam", B = "Breyer", SB = "Breyer", G = "Ginsburg", RBG = "Ginsburg",
+  K = "Kennedy", AK = "Kennedy")
+
 .parse_opinion_listing <- function(html) {
   rows <- str_match_all(html, regex("<tr[^>]*>(.*?)</tr>", dotall = TRUE))[[1]][, 2]
   if (!length(rows)) return(.listing_df())
@@ -254,11 +330,19 @@ OPINION_INCHAMBERS_URL <- "https://www.supremecourt.gov/opinions/in-chambers.asp
     txt <- .strip_tags(tds)
     txt <- str_replace(txt, regex("^(\\d{1,4}),?\\s*Orig\\.?$", ignore_case = TRUE), "22O\\1")
     dk <- txt[str_detect(txt, paste0("^", .DOCKET_REF_RX, "$")) | str_detect(txt, "^\\d{2}O\\d+$")]
-    href <- str_match(r, "href\\s*=\\s*['\"]([^'\"]+\\.pdf)['\"]")[1, 2]
+    # Keep a "#page=N" fragment: two writings in one PDF are two rows that
+    # differ only by it (26A305, BK at page 1 and A at "#page=2"), and a
+    # pattern that stopped at ".pdf" dropped the second row outright.
+    href <- str_match(r, "href\\s*=\\s*['\"]([^'\"]+\\.pdf(?:#[^'\"]*)?)['\"]")[1, 2]
     if (!length(dk) || is.na(href)) return(NULL)
     if (str_starts(href, "/")) href <- paste0("https://www.supremecourt.gov", href)
     d <- suppressWarnings(lubridate::mdy(txt[str_detect(txt, "^\\d{1,2}/\\d{1,2}/\\d{2,4}$")]))
-    .listing_df(dk[1], if (length(d)) d[1] else as.Date(NA), href)
+    # The author column: the Court's initials code ("BK", "SS", "PC"), which
+    # is how a docket with two writings on one day (26A305: BK and A) tells
+    # its PDFs apart. Unknown code -> NA, never a guess.
+    code <- txt[str_detect(txt, "^[A-Z]{1,3}$")]
+    author <- if (length(code)) unname(OPINION_AUTHOR_CODES[code[1]]) else NA_character_
+    .listing_df(dk[1], if (length(d)) d[1] else as.Date(NA), href, author = author)
   }
   out <- do.call(rbind, lapply(rows, one))
   if (is.null(out)) .listing_df() else out
@@ -326,12 +410,46 @@ fetch_opinion_listing <- function(terms, kinds = OPINION_LISTING_KINDS) {
 # slip-opinion page (listed first) wins over relating-to-orders.
 .listing_urls <- function(out, listing) {
   if (is.null(listing) || !nrow(listing)) return(out)
-  need <- which(is.na(out$opinion_url) | !nzchar(out$opinion_url))
+  court <- if ("court_opinion" %in% names(out)) !(out$court_opinion %in% FALSE) else rep(TRUE, nrow(out))
+  # A row without an opinion of the Court has nothing for this link to point
+  # at: the listing's same-day rows are the separate writings, and they are
+  # linked by name through .writing_urls() instead.
+  need <- which(court & (is.na(out$opinion_url) | !nzchar(out$opinion_url)))
   for (i in need) {
     j <- which(listing$dkt == out$dkt[i])
     if (!length(j)) next
     same <- j[!is.na(listing$date[j]) & listing$date[j] == out$date[i]]
-    out$opinion_url[i] <- listing$url[if (length(same)) same[1] else j[1]]
+    if (!length(same)) same <- j
+    # The Court's own PDF first (feed rows carry no code; the table's is
+    # "PC"), so a per curiam with a concurrence beside it links the per curiam.
+    own <- is.na(listing$author[same]) | listing$author[same] == "Per Curiam"
+    out$opinion_url[i] <- listing$url[same[order(!own)][1]]
+  }
+  out
+}
+
+# For every application row, the PDFs of its separate writings from the
+# listing's same-day rows, by author: "Kavanaugh <url>\nAlito <url>". The
+# panel turns each writer's name in the writings line into a link. Rows
+# without a writings line are left alone.
+.writing_urls <- function(out, listing) {
+  if (is.null(listing) || !nrow(listing) || !("author" %in% names(listing))) return(out)
+  if (!("writing_urls" %in% names(out))) out$writing_urls <- rep(NA_character_, nrow(out))
+  for (i in seq_len(nrow(out))) {
+    if (!identical(out$kind[i], "application")) next
+    # The entry's own anchors (.app_writing_urls) win; the listing fills the rest.
+    if (!is.na(out$writing_urls[i]) && nzchar(out$writing_urls[i])) next
+    w <- out$writings[i]
+    if (is.na(w) || !nzchar(w)) next
+    j <- which(listing$dkt == out$dkt[i] & !is.na(listing$date) & listing$date == out$date[i] &
+               !is.na(listing$author) & listing$author != "Per Curiam")
+    if (!length(j)) next
+    # Only writers the line names: a listing row for a Justice the entry
+    # does not mention is a mismatch, not a link.
+    surname <- str_remove(listing$author[j], ",.*$")
+    keep <- vapply(surname, function(s) str_detect(w, fixed(s)), logical(1))
+    if (!any(keep)) next
+    out$writing_urls[i] <- paste(paste(listing$author[j][keep], listing$url[j][keep]), collapse = "\n")
   }
   out
 }
@@ -342,11 +460,21 @@ fetch_opinion_listing <- function(terms, kinds = OPINION_LISTING_KINDS) {
                     kind = character(), author = character(), disposition = character(),
                     opinion_url = character(), argued = as.Date(character()),
                     term = integer(), holding = rep(NA_character_, length(dkt)),
-                    writings = rep(NA_character_, length(dkt))) {
+                    writings = rep(NA_character_, length(dkt)),
+                    # FALSE for an application decided by an order whose only
+                    # opinions are the Justices' separate writings (26A305).
+                    # Such a row takes no "Opinion" link from the listing --
+                    # there is no opinion of the Court to link -- and its
+                    # writers link to their own PDFs through `writing_urls`,
+                    # "Kavanaugh <url>\nAlito <url>", one writing per line.
+                    court_opinion = rep(TRUE, length(dkt)),
+                    writing_urls = rep(NA_character_, length(dkt))) {
   data.frame(date = as.Date(date), dkt = dkt, caption = caption, kind = kind,
              author = author, disposition = disposition, opinion_url = opinion_url,
              argued = as.Date(argued), term = as.integer(term),
              holding = as.character(holding), writings = as.character(writings),
+             court_opinion = as.logical(court_opinion),
+             writing_urls = as.character(writing_urls),
              stringsAsFactors = FALSE)
 }
 
@@ -425,9 +553,16 @@ fetch_opinion_listing <- function(terms, kinds = OPINION_LISTING_KINDS) {
         is.na(r$date)) return(NULL)
     e <- .entries_on(ev, r$date)
     url <- .opinion_url(e$raw)
-    if (!.is_court_opinion(e$stripped, url)) return(NULL)
+    court <- .is_court_opinion(e$stripped, url)
+    if (!court && !.has_separate_opinion(e$stripped, url)) return(NULL)
+    # An anchor in a separate-writings-only entry is a writing's PDF, not the
+    # Court's; the row links its writers instead (writing_urls, below).
+    w <- .app_writings(e$stripped)
     return(.dec_df(r$date, dkt, cap, "application", .decision_author(e$stripped),
-                   .application_label(r$outcome, e$stripped), url, as.Date(NA), NA_integer_))
+                   .application_label(r$outcome, e$stripped),
+                   if (court) url else NA_character_, as.Date(NA), NA_integer_,
+                   writings = w, court_opinion = court,
+                   writing_urls = .app_writing_urls(e$raw, w)))
   }
 
   # Argued first, and NOT gated on the funnel calling the case "granted": 25-1083
@@ -513,6 +648,7 @@ recent_decisions <- function(cases, as_of = Sys.Date(), days = DECIDED_KEEP_DAYS
     out <- .listing_urls(out, listing)
     out <- .borrow_urls(out, named)
     out <- .listing_holdings(out, listing)
+    out <- .writing_urls(out, listing)
     # A companion decided by the lead's opinion (26A139 by 26A124's) is not in
     # the feed under its own number; it shares the lead's URL, so it shares the
     # lead's holding.
@@ -527,9 +663,12 @@ recent_decisions <- function(cases, as_of = Sys.Date(), days = DECIDED_KEEP_DAYS
     got_h <- sum(!is.na(out$holding) & nzchar(out$holding))
     if (got_h > 0) cat("Opinion feed supplied", got_h, "holding(s)\n")
   }
+  had_w <- !is.na(out$writings) & nzchar(out$writings)   # applications carry their own
   out <- .gn_fill(out, gn)
-  got_w <- sum(!is.na(out$writings) & nzchar(out$writings))
+  got_w <- sum(!is.na(out$writings) & nzchar(out$writings) & !had_w)
   if (got_w > 0) cat("Granted & Noted List supplied", got_w, "separate-writings line(s)\n")
+  got_a <- sum(had_w & !is.na(out$writing_urls))
+  if (got_a > 0) cat("Application entries and listings linked", got_a, "row(s) of separate writings\n")
   out[order(out$date, out$dkt, decreasing = c(TRUE, FALSE), method = "radix"), , drop = FALSE]
 }
 
@@ -559,7 +698,11 @@ write_decided <- function(rows, path) {
           chr(col("author", NA_character_)), chr(col("disposition", NA_character_)),
           chr(col("opinion_url", NA_character_)),
           as.Date(chr(col("argued", NA_character_))), suppressWarnings(as.integer(col("term", NA))),
-          chr(col("holding", NA_character_)), chr(col("writings", NA_character_)))
+          chr(col("holding", NA_character_)), chr(col("writings", NA_character_)),
+          # A manifest written before the column existed holds only rows that
+          # passed the Court's-opinion test, so the default is TRUE.
+          court_opinion = !(as.logical(col("court_opinion", TRUE)) %in% FALSE),
+          writing_urls = chr(col("writing_urls", NA_character_)))
 }
 
 #' Merge every manifest found, dedupe by docket (first path wins, so pass the
