@@ -172,6 +172,36 @@ PENDING_KEEP   <- 40L    # rows the weekly writes
 PENDING_VERIFY <- 25L    # rows the daily re-fetches by name
 PENDING_SHOW   <- 10L    # rows the window shows
 
+# The signals map from what is on disk, for a caller that has none: the Rule 10
+# cues (committed enrichment, then the daily's cache, later winning) and the
+# certified word counts (committed file, then every on-site cache), merged into
+# each entry as `words` the way render_dockets_for() and the weekly do. A cache
+# entry that is not a single number is no count (the {"words": {}} of
+# 2026-09-14), never an error.
+pending_signals_map <- function(site_dir) {
+  m <- tryCatch(jsonlite::fromJSON("data-raw/petition_signals.json", simplifyVector = FALSE),
+                error = function(e) list())
+  cache_p <- file.path(site_dir, "dashboards", "petition_signals_cache.json")
+  if (file.exists(cache_p)) {
+    fresh <- tryCatch(jsonlite::fromJSON(cache_p, simplifyVector = FALSE), error = function(e) NULL)
+    if (!is.null(fresh) && length(fresh)) m[names(fresh)] <- fresh
+  }
+  if (!exists("attach_word_counts")) return(m)
+  if (exists("load_word_counts")) m <- attach_word_counts(m, load_word_counts())
+  for (wp in file.path(site_dir, c("dashboards", "conferences"), "word_counts_cache.json")) {
+    if (!file.exists(wp)) next
+    w <- tryCatch(jsonlite::fromJSON(wp, simplifyVector = FALSE), error = function(e) NULL)
+    if (!length(w)) next
+    m <- attach_word_counts(m, data.frame(
+      dkt = names(w),
+      words = vapply(w, function(s) {
+        v <- if (is.list(s)) s$words else NULL
+        if (is.list(v) || length(v) != 1L) NA_integer_ else suppressWarnings(as.integer(v))
+      }, integer(1), USE.NAMES = FALSE), stringsAsFactors = FALSE))
+  }
+  m
+}
+
 .pending_df <- function() data.frame(dkt = character(), caption = character(), date = as.Date(character()),
                                      prob = numeric(), lift = numeric(), stringsAsFactors = FALSE)
 
@@ -183,7 +213,19 @@ PENDING_SHOW   <- 10L    # rows the window shows
 #' the "All pending" window until the next weekly -- 26-304 led the 7-day
 #' window at 80% on the day it was docketed and was absent from the window
 #' beside it.
-score_pending_cases <- function(cases, model, site_dir, counsel_index = NULL) {
+#' `signals_map`: the per-docket Rule 10 cues WITH the certified word count
+#' merged in as `words` -- the map the caller already built for its other
+#' windows. Pass it. Built here only when NULL, from the committed files and
+#' the on-site caches (pending_signals_map()).
+#'
+#' Until 2026-09-15 this function built its own map from the cues alone and
+#' never attached the word counts, so every case with a certificate was scored
+#' in the model's "unknown" word band here and in its real band in the 7- and
+#' 28-day windows beside it. 26-304 (8,972 words, the 6-9k reference band)
+#' read 75% in "All pending" and 72% in the 28-day window: the whole gap was
+#' the +0.155 logit the model gives "unknown". One case, two numbers, on one
+#' page.
+score_pending_cases <- function(cases, model, site_dir, counsel_index = NULL, signals_map = NULL) {
   if (is.null(model) || is.null(cases) || !nrow(cases) || !exists("classify_petitions")) return(.pending_df())
   base <- model$base_rate
   if (is.null(base) || !is.finite(base) || base <= 0) return(.pending_df())
@@ -193,14 +235,7 @@ score_pending_cases <- function(cases, model, site_dir, counsel_index = NULL) {
   w <- cases[cases$dkt %in% pend, , drop = FALSE]
   w <- w[!duplicated(w$dkt), , drop = FALSE]
   if (!nrow(w)) return(.pending_df())
-  # The Rule 10 signals, merged the way render_dockets_for() merges them.
-  signals_map <- tryCatch(jsonlite::fromJSON("data-raw/petition_signals.json", simplifyVector = FALSE),
-                          error = function(e) list())
-  cache_p <- file.path(site_dir, "dashboards", "petition_signals_cache.json")
-  if (file.exists(cache_p)) {
-    fresh <- tryCatch(jsonlite::fromJSON(cache_p, simplifyVector = FALSE), error = function(e) NULL)
-    if (!is.null(fresh) && length(fresh)) signals_map[names(fresh)] <- fresh
-  }
+  if (is.null(signals_map)) signals_map <- pending_signals_map(site_dir)
   probs <- vapply(seq_len(nrow(w)), function(i) tryCatch(
     score_case(model, w$caption[i], w$lower[i], w$parties[[i]], w$date[i],
                w$lower_date[i], w$related[i], signals = signals_map[[w$dkt[i]]],
@@ -221,9 +256,9 @@ score_pending_cases <- function(cases, model, site_dir, counsel_index = NULL) {
 #' written to `path`. Event dates only, never a build time.
 write_pending_forecasts <- function(cases, model, site_dir, counsel_index = NULL,
                                     path = file.path(site_dir, "conferences", PENDING_FORECASTS),
-                                    keep = PENDING_KEEP) {
+                                    keep = PENDING_KEEP, signals_map = NULL) {
   dir.create(dirname(path), recursive = TRUE, showWarnings = FALSE)
-  all <- score_pending_cases(cases, model, site_dir, counsel_index)
+  all <- score_pending_cases(cases, model, site_dir, counsel_index, signals_map = signals_map)
   df <- utils::head(all, keep)
   message(sprintf("write_pending_forecasts(): %d pending paid-docket case(s) scored; kept %d (top %s %.1f%%, %.1fx)",
                   nrow(all), nrow(df), if (nrow(df)) df$dkt[1] else "-", if (nrow(df)) 100 * df$prob[1] else 0,
