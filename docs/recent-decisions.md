@@ -38,7 +38,7 @@ Three kinds of case qualify, and the row says which:
 | kind | what it is | docket bucket |
 | --- | --- | --- |
 | **Argued** | a merits case decided after oral argument | `NN-###` grants |
-| **Emergency application** | an application referred to the Court and decided with a written opinion, signed or per curiam | `NNA###` |
+| **Emergency application** | an application referred to the Court and decided with a written opinion — the Court's own, signed or per curiam, **or** a Justice's separate writing filed as a detached opinion (since 2026-09-14) | `NNA###` |
 | **Summary reversal** | a petition granted and the judgment below reversed or vacated in the same order, with a per curiam opinion, no argument | `NN-###` |
 
 "Likeliest grants" says what the Court might take. "Upcoming" says when it next
@@ -56,6 +56,10 @@ Jun 27   Argued · Barrett, J. · Judgment vacated · Opinion (PDF)
 
 TUE      Noem v. Vasquez Perdomo
 Sep  8   Emergency application · Stay granted · Kavanaugh, J., concurring · Opinion (PDF)
+
+MON      Postal Service v. California
+Sep 14   Emergency application · Denied · Kavanaugh concurring; Alito, joined by Thomas, dissenting
+         (each writer's name links that writing's PDF; no "Opinion" link, the Court wrote none)
 
 MON      Klein v. Cabrera
 Jun  2   Summary reversal · Per curiam · Reversed and remanded
@@ -101,12 +105,31 @@ contains any of:
 announced the judgment  |  href=...supremecourt.gov/opinions/
 ```
 
-**and** is not *only* a separate writing on an otherwise bare order. An entry
-whose only marker is "Justice X, dissenting" or "concurring in the denial" is
-an order with a dissent, not an opinion of the Court. Measured: 16 of the 37
-marked applications are that, and they are excluded. The operative words are
-the ones that name the Court's own opinion: "Opinion per curiam", "The
+That is the Court's own opinion, and the row links it as "Opinion". The
+operative words are the ones that name it: "Opinion per curiam", "The
 application ... is granted. [prose]", "delivered the opinion".
+
+**Or** (since 2026-09-14) the entry carries a Justice's *filed* separate
+writing: a writing word ("concurring", "dissenting", "statement of") beside
+"(Detached Opinion)" or an `/opinions/` anchor. 26A305 (Postal Service v.
+California, 14 Sep 2026) is the case that changed the rule: the stay was
+denied in two sentences of the order, with a Kavanaugh concurrence and an
+Alito dissent joined by Thomas, both detached opinions — and the Court's own
+relating-to-orders page lists both. The panel had excluded it as "an order
+with a dissent" (16 of the 37 marked applications in the survey were that),
+which is a procedural distinction a reader asking what the Court decided today
+does not draw. A bare "Justice X, dissenting." with nothing filed, or "Justice
+X would deny the application", still does not qualify.
+
+Such a row (`court_opinion = FALSE` in the manifest) takes **no** "Opinion"
+link: there is no opinion of the Court, and the anchor in its entry, when
+there is one, is a writing's PDF. Instead the writings line is parsed from
+the entry itself — "Kavanaugh concurring; Alito, joined by Thomas,
+dissenting" — and each writer's name links to that writing's PDF, matched by
+the author-initials column of the Court's listing (`OPINION_AUTHOR_CODES`:
+BK, A, SS, ...; `writing_urls` in the manifest, "Kavanaugh <url>" per line).
+A Court-opinion application row gets the same writings line and links beside
+its "Opinion" link.
 
 The disposition itself (granted, denied, granted in part) comes from the rule
 the docket page already applies in `R/docket_page.R`. Do not write a second

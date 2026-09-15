@@ -797,6 +797,38 @@ DECISION_KIND_LABELS <- c(argued = "Argued", application = "Emergency applicatio
   s
 }
 
+# The writings line as a node: plain text, except that each writer named in
+# `urls` ("Kavanaugh <url>" per line, from R/site_decisions.R) becomes a link
+# to that writing's PDF -- the same class, colour and new-tab behaviour as the
+# row's "Opinion" link, since it is the same kind of thing. A surname is
+# linked at its first occurrence only; "Roberts, C.J." links on "Roberts".
+.writings_node <- function(w, urls = NA_character_) {
+  if (is.na(urls) || !nzchar(urls)) return(w)
+  pairs <- strsplit(strsplit(urls, "\n", fixed = TRUE)[[1]], " ", fixed = TRUE)
+  pairs <- pairs[vapply(pairs, length, integer(1)) == 2L]
+  if (!length(pairs)) return(w)
+  rest <- w; out <- ""
+  esc <- htmltools::htmlEscape
+  # Walk the line left to right, splitting at the earliest linked surname.
+  # Built as one HTML string rather than a tagList: htmltools puts each child
+  # on its own line, and the newline before ", joined by" would render as
+  # "Alito , joined by".
+  repeat {
+    hits <- lapply(pairs, function(p) regexpr(sub(",.*$", "", p[1]), rest, fixed = TRUE))
+    pos <- vapply(hits, function(h) as.integer(h), integer(1))
+    if (!any(pos > 0)) break
+    k <- which(pos > 0)[which.min(pos[pos > 0])]
+    at <- pos[k]; len <- attr(hits[[k]], "match.length")
+    out <- paste0(out, esc(substr(rest, 1, at - 1)),
+                  "<a class=\"pdf\" href=\"", esc(pairs[[k]][2], attribute = TRUE),
+                  "\" target=\"_blank\" rel=\"noopener\">", esc(substr(rest, at, at + len - 1)), "</a>")
+    rest <- substr(rest, at + len, nchar(rest))
+    pairs <- pairs[-k]
+    if (!length(pairs)) break
+  }
+  HTML(paste0(out, esc(rest)))
+}
+
 decisions_panel <- function(rows, heading = "Recent decisions", note = NULL, more = NULL) {
   if (is.null(rows) || !is.data.frame(rows) || !nrow(rows)) return(NULL)
   if (!("group" %in% names(rows))) rows$group <- rows$dkt
@@ -813,10 +845,16 @@ decisions_panel <- function(rows, heading = "Recent decisions", note = NULL, mor
     if (!is.na(author) && nzchar(author)) bits <- c(bits, list(author))
     disp <- r$disposition[1]
     if (!is.na(disp) && nzchar(disp)) bits <- c(bits, list(disp))
-    # The separate writings, from the Granted & Noted List, after the
-    # disposition: "Reversed · Thomas and Alito dissenting".
+    # The separate writings, from the Granted & Noted List (argued cases) or
+    # the docket entry itself (applications), after the disposition:
+    # "Reversed · Thomas and Alito dissenting". Where the Court's listing
+    # supplied each writing's PDF (`writing_urls`, "Kavanaugh <url>" per
+    # line), the writer's name is the link -- an application decided by an
+    # order with a concurrence and a dissent (26A305) has no opinion of the
+    # Court to hang an "Opinion" link on, and its writings ARE the opinions.
     w <- if ("writings" %in% names(r)) r$writings[1] else NA_character_
-    if (!is.na(w) && nzchar(w)) bits <- c(bits, list(w))
+    wu <- if ("writing_urls" %in% names(r)) r$writing_urls[1] else NA_character_
+    if (!is.na(w) && nzchar(w)) bits <- c(bits, list(.writings_node(w, wu)))
     url <- r$opinion_url[1]
     if (!is.na(url) && nzchar(url))
       bits <- c(bits, list(tags$a(class = "pdf", href = url, target = "_blank",
