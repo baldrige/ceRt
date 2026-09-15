@@ -212,7 +212,15 @@ signals_map <- tryCatch({
     cache_path = file.path(conf_dir, "petition_signals_cache.json"),
     max_new = as.integer(Sys.getenv("PET_SIG_MAX_NEW", unset = "600")))
   own <- own[!is.na(own$pet_chars), ]
-  if (nrow(own)) m[own$dkt] <- lapply(seq_len(nrow(own)), function(i) as.list(own[i, ]))
+  # MERGE into the entry, never replace it: the word count was attached above,
+  # and `m[own$dkt] <- list(...)` dropped `words` from every docket this cache
+  # resolved, so those scored in the "unknown" band -- the "word counts for N"
+  # line below is where that showed. Seen 2026-09-15, chasing 26-304's two
+  # numbers on the landing page.
+  for (i in seq_len(nrow(own))) {
+    d <- own$dkt[i]
+    m[[d]] <- utils::modifyList(if (is.list(m[[d]])) m[[d]] else list(), as.list(own[i, ]))
+  }
   m
 }, error = function(e) { message("petition signals skipped: ", conditionMessage(e)); list() })
 paid_dkts <- if ("type" %in% names(uniq)) unique(uniq$dkt[uniq$type %in% "paid"]) else unique(uniq$dkt)
@@ -249,7 +257,8 @@ render_dockets_for(combined, site_dir)
 tryCatch({
   source("R/site_forecast.R")
   n_pf <- write_pending_forecasts(combined, cert_models$baseline, site_dir,
-                                  counsel_index = cert_models$counsel_index)
+                                  counsel_index = cert_models$counsel_index,
+                                  signals_map = signals_map)   # word counts included
   cat("Pending forecasts manifest:", n_pf, "row(s) written\n")
 }, error = function(e) message("Pending forecasts manifest skipped: ", conditionMessage(e)))
 

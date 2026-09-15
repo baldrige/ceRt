@@ -330,7 +330,10 @@ source("R/site_calendar.R")
 pend_all <- tryCatch({
   pf <- read_pending_forecasts(file.path(site_dir, "conferences", PENDING_FORECASTS))
   cat("Pending forecasts manifest:", nrow(pf), "row(s)\n")
-  fresh <- tryCatch(score_pending_cases(ot, grant_model, site_dir, counsel_index = counsel_ix),
+  # The same signals map as the 7- and 28-day windows, word counts included,
+  # so one case cannot read two numbers on one page (see score_pending_cases).
+  fresh <- tryCatch(score_pending_cases(ot, grant_model, site_dir, counsel_index = counsel_ix,
+                                        signals_map = signals_map),
                     error = function(e) { cat("pending window scoring failed:", conditionMessage(e), "\n"); NULL })
   if (!is.null(fresh) && nrow(fresh))
     cat("This run's window:", nrow(fresh), "pending paid-docket case(s) scored; top",
