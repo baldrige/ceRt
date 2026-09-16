@@ -169,8 +169,17 @@ still overrides the timing.
    (*"respondents' briefs on the merits … October 13, 2026"*, the 25-1017
    form, which the singular-only pattern left unread).
 
-The logic is `resp_merits_brief_on(ev, granted_on)` in `R/docket_page.R`, a
-function so it can be tested against a docket's events without rendering.
+The logic is `resp_merits_brief_on(ev, granted_on, sides)` in `R/docket_page.R`,
+a function so it can be tested against a docket's events without rendering.
+Two more signals since 2026-09-16, from an audit of all 21 OT2026 argument
+dockets: (c) a merits "Brief of <respondent's name>" with the role omitted
+counts as (1); and (d) a **Court-appointed amicus** defending the judgment
+(25-5343, Beaird v. United States, where the government filed "Supporting
+Vacatur") files on the respondent's schedule and anchors the split as the
+respondent's brief would. A respondent brief "supporting vacatur / reversal"
+is a side-switch and is excluded from (1) like "in support of petitioner".
+"Not accepted for filing" is excluded everywhere — a rejected tender is no
+filing and took a second cover beside the corrected brief.
 
 (2) exists because the docket frequently names the **party** rather than its role,
 and then (1) matches nothing at all: 25-170's respondent brief reads *"Brief of

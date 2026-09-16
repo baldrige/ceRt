@@ -315,7 +315,14 @@ write_docket_css <- function(out_dir) {
 # v37: papers on a stay application docketed beside a petition are procedural.
 # "Reply of applicant Apple Inc. filed." (25-1311, Aug 13, application 26A194)
 # opened "Reply" after the grant and took the yellow merits-reply cover.
-PAGE_TEMPLATE_VERSION <- "v37"
+# v38: from an audit of all 21 OT2026 argument dockets (2026-09-16). A rejected
+# tender ("not accepted for filing") is no filing; a respondent brief
+# "supporting vacatur / reversal" is a side-switch and does not anchor the
+# Rule 37 split (25-5343, 25-5930); the Court-appointed amicus defending the
+# judgment is coloured and anchors it instead; and the Court's "is granted and
+# the time is extended to" due-date wording is read (25-1003). Rolled with
+# v34-v37 in one pass.
+PAGE_TEMPLATE_VERSION <- "v38"
 
 # ---- small helpers ------------------------------------------------------------
 .esc <- function(x) { x <- x %||% ""; x[is.na(x)] <- ""; htmltools::htmlEscape(x) }
@@ -351,7 +358,7 @@ brief_cover <- function(text, granted_on = as.Date(NA), entry_date = as.Date(NA)
   merits <- !is.na(granted_on) && !is.na(entry_date) && entry_date >= granted_on
 
   # Motions and applications are procedural even when they name a brief.
-  if (has("^motion\\b") || has("^application\\b")) return(NULL)
+  if (has("^(joint |unopposed |consent )?motion\\b") || has("^application\\b")) return(NULL)
   # So is a scheduling order, which names every brief it schedules: 25-6623's
   # "The time to file the joint appendix and petitioner's brief on the merits
   # is extended to ... The reply brief shall be filed pursuant to Rule 25.3"
@@ -363,6 +370,12 @@ brief_cover <- function(text, granted_on = as.Date(NA), entry_date = as.Date(NA)
   # reply cover because it opened "Reply" after the grant (2026-09-16).
   if (has("\\bapplicants?\\b") || has("^(opposition|response) to (the )?(request for|application)"))
     return(NULL)
+  # A rejected tender is not a filing: "Brief of Kendrick Beaird not accepted
+  # for filing. (To be corrected - July 09, 2026)" sat beside the corrected
+  # brief as a second blue dot on 25-5343, and likewise red on 25-170, 25-352
+  # and 25-498 (audit of the OT2026 argument docket, 2026-09-16). The amicus
+  # rule already excluded it; now every rule does.
+  if (has("not accepted for filing")) return(NULL)
   # Amicus: cream at the petition stage; green on the merits. Dark green =
   # supporting respondent, light green = supporting petitioner or neither party.
   # The docket text usually omits the side, so Rule 37's schedule is the tell:
@@ -388,6 +401,15 @@ brief_cover <- function(text, granted_on = as.Date(NA), entry_date = as.Date(NA)
   #
   # Anchored at the start so "Motion for leave to file an amicus brief" does not
   # match (motions already return procedural above, but only just).
+  # An amicus the Court appointed to defend the judgment below, where the
+  # respondent has abandoned it (25-5343, Beaird v. United States: the
+  # government filed "Supporting Vacatur" and the Court appointed counsel to
+  # argue the other side). The entry reads "Brief of Court-appointed amicus
+  # curiae filed", which neither amicus form matched, so it rendered hollow. It
+  # argues the respondent's side by construction, so it takes that shade, and
+  # it anchors the Rule 37 split the way the respondent's brief would (see
+  # resp_merits_brief_on()).
+  if (has("court-?appointed amic")) return(cov("dgreen", "Court-appointed amicus brief (defending the judgment below)"))
   if ((has("brief\\s+amic(us|i)\\s+curiae") || has("^amicus\\s+brief\\b")) &&
       !has("not accepted for filing")) {
     if (merits) {
@@ -434,7 +456,10 @@ brief_cover <- function(text, granted_on = as.Date(NA), entry_date = as.Date(NA)
   }
   # Fixed tan (checked before the merits briefs so a "supplemental brief of
   # petitioner" isn't mistaken for the merits opener).
-  if (has("joint appendix"))
+  # Anchored: "Joint motion ... to dispense with printing the joint appendix"
+  # (25-840) is a motion, and the guard above now catches it, but the filing
+  # itself always opens "Joint appendix".
+  if (has("^joint appendix"))
     return(cov("tan", "Joint appendix"))
   if (has("supplemental brief") || has("petition for rehearing"))
     return(cov("tan", "Supplemental / rehearing filing"))
@@ -565,16 +590,33 @@ resp_merits_brief_on <- function(ev, granted_on = as.Date(NA), sides = NULL) {
     str_detect(low, "^brief (of|for) ") &
     vapply(str_remove(low, "^brief (of|for) "),
            function(w) identical(party_side(w, sides), "resp"), logical(1))
+  # A respondent that has switched sides is not the opposing party: "in
+  # support of petitioner" (25-1017), and the confession-of-error forms
+  # "supporting vacatur" / "supporting reversal" (25-5343, 25-5930: the
+  # government and a warden filing on the petitioner's schedule, after which
+  # every amicus for vacatur was coloured as the respondent's).
+  aligned <- regex(paste0("in (partial )?support of (the )?(petitioner|appellant)|",
+                          "support(ing|s) (vacatur|reversal|(the )?petitioner)"), ignore_case = TRUE)
   ri <- which((str_detect(et, regex("^brief (of|for) (the )?(respondent|appellee)", ignore_case = TRUE)) | by_name) &
-              !str_detect(et, regex("in opposition|supplement", ignore_case = TRUE)) &
-              !str_detect(et, regex("in (partial )?support of (the )?(petitioner|appellant)", ignore_case = TRUE)) &
+              !str_detect(et, regex("in opposition|supplement|not accepted for filing", ignore_case = TRUE)) &
+              !str_detect(et, aligned) &
               !is.na(ed) & ed >= granted_on)
   if (length(ri)) resp_brief_on <- suppressWarnings(max(ed[ri], na.rm = TRUE))
   if (is.infinite(resp_brief_on)) resp_brief_on <- as.Date(NA)
+  # (d) A Court-appointed amicus defending the judgment files on the
+  #     respondent's schedule and IS the opposing brief for Rule 37 purposes.
+  ci <- which(str_detect(low, "court-?appointed amic") & !str_detect(low, "not accepted for filing|^motion") &
+              !is.na(ed) & ed >= granted_on)
+  if (length(ci)) {
+    d_ci <- max(ed[ci])
+    resp_brief_on <- if (is.na(resp_brief_on)) d_ci else min(resp_brief_on, d_ci)
+  }
   due <- suppressWarnings(lubridate::mdy(str_match(et, regex(
-    paste0("respondents?.{0,3} briefs? on the merits (is|are) extended to and ",
+    # ".{0,40}" between: the Court also writes "... brief on the merits is
+    # granted and the time is extended to and including ..." (25-1003).
+    paste0("respondents?.{0,3} briefs? on the merits.{0,40}?extended to and ",
            "including ([A-Z][a-z]+ \\d{1,2}, \\d{4})"),
-    ignore_case = TRUE))[, 3]))
+    ignore_case = TRUE))[, 2]))
   due <- due[!is.na(due) & due >= granted_on]
   if (length(due)) {
     d_due <- max(due)   # the last extension granted is the operative deadline
