@@ -413,7 +413,7 @@ petition_features <- function(caption, lower, parties, date, lower_date, related
   gap_c <- if (is.na(g)) 160 else pmin(pmax(g, 0), 400)
   tibble(
     pet_type       = pet_type,
-    resp_type      = resp_type,
+    resp_type      = fold_resp_other(resp_type),   # see model_frame()
     us_petitioner  = pet_type == "us_fed",
     us_respondent  = resp_type == "us_fed",
     business_pet   = pet_type == "business",
@@ -425,7 +425,10 @@ petition_features <- function(caption, lower, parties, date, lower_date, related
     pro_se         = petitioner_pro_se(parties),
     days_lower_gap = g,
     gap_fast       = pmax(0, 120 - gap_c) / 30,
-    gap_na         = is.na(g),
+    # A lower court and no judgment date. A mandamus petition has neither, and
+    # court_below OTHER says so; without this exclusion the two dummies
+    # described one fact (see model_frame()).
+    gap_na         = is.na(g) & court_below != "OTHER",
     # NA-safe: nzchar(NA) is TRUE, which silently made this a constant on the
     # historical archives (they carry no `related` column).
     related_present = !is.na(related) && nzchar(str_squish(related %||% ""))
@@ -818,7 +821,16 @@ PETITION_SIGNAL_FEATURES <- c("dissent_below", "split_argued")
 # GVR'd/dismissed negatives enriched: the shipped set read AUC 0.858 / AP
 # 0.266; with both cues AUC 0.871 / AP 0.283 (forward OT24 AUC 0.881 -> 0.895).
 # The text-length flag it replaced read 0.868 / 0.271 in the same seat.
-PETITION_SIZE_FEATURES <- c("dissent_bucket", "word_band")
+#
+# 2026-09-16: `dissent_bucket` and `dissent_below` were two readings of one
+# thing (Cramer's V 0.84; the bucket's 1-2 level fitted +0.46 alone and -0.18
+# beside the flag, and the page said "weights this down for a petition citing
+# one or two dissents"). Measured on the frame: with no dissent below, the
+# mention count does not separate (2.3% to 3.3% across every bucket); with one,
+# it does (4.4% / 7.7% / 14.9%). So one ordered cue, `dissent_level`, nests the
+# count under the flag -- see dissent_level() -- and the baseline carries it in
+# place of both.
+PETITION_SIZE_FEATURES <- c("dissent_level", "word_band")
 PROCESS_FEATURES <- c("relist_bucket", "amicus_bucket", "cvsg",
                       "response_requested", "response_filed",
                       "resp_waiver", "reply_filed")
@@ -846,8 +858,10 @@ PROCESS_FEATURES <- c("relist_bucket", "amicus_bucket", "cvsg",
 #    petition_signals_cache.json -- training on a cue that arrives as a default
 #    at serve time is exactly how elite_counsel shipped dead. Recovering the lift
 #    means fixing serve-time coverage first: see issue #15.
+# split_argued alone from the Rule 10 pair: dissent_below is inside
+# dissent_level here (2026-09-16). The at-risk model still carries the pair.
 BASELINE_FEATURES <- c(STRUCTURAL_FEATURES, COUNSEL_FEATURES,
-                       PETITION_SIGNAL_FEATURES, PETITION_SIZE_FEATURES)
+                       "split_argued", PETITION_SIZE_FEATURES)
 ENHANCED_FEATURES <- c(STRUCTURAL_FEATURES, PROCESS_FEATURES)
 # The at-risk GRANT model (cert_model_enhanced.rds) now carries the Rule 10 cues
 # as well (issue #15: +0.012 AUC / +0.043 AP on the panel, measured 2026-07,
@@ -865,18 +879,30 @@ ATRISK_FEATURES <- c(ENHANCED_FEATURES, PETITION_SIGNAL_FEATURES)
 FACTOR_REFERENCES <- list(pet_type = "individual", resp_type = "individual",
                           court_below = "STATE", relist_bucket = "0",
                           amicus_bucket = "0", counsel_tier = "new",
-                          dissent_bucket = "0", word_band = "6k+")
+                          dissent_level = "none", word_band = "6k+")
 
 # The petition-size cues. An unresolved petition (no entry in the signals cache,
 # or a PDF that yielded no text; no certificate docketed, or one that did not
 # parse) is "0" dissents and an "unknown" word band -- the same defaults at
 # training and at serve time, which is the property that matters (see the
 # elite_counsel note above).
-dissent_bucket <- function(n) {
-  n <- suppressWarnings(as.integer(n)); n[is.na(n)] <- 0L
-  cut(n, c(-Inf, 0, 2, 5, 10, Inf), labels = c("0", "1-2", "3-5", "6-10", "11+"),
-      right = TRUE) |> as.character()
+# The dissent read, one ordered cue: no dissent below (whatever the petition
+# says about other courts' dissents -- the mention count does not separate
+# there), else a dissent below with the count nested under it. "none" is the
+# reference. Absence (no cue resolved) is "none", the same default as training.
+DISSENT_LEVELS <- c("none", "below", "below3-10", "below11+")
+dissent_level <- function(dissent_below, n_dissent) {
+  n <- suppressWarnings(as.integer(n_dissent)); n[is.na(n)] <- 0L
+  below <- !is.na(dissent_below) & as.logical(dissent_below)
+  out <- ifelse(!below, "none",
+         ifelse(n <= 2L, "below", ifelse(n <= 10L, "below3-10", "below11+")))
+  as.character(out)
 }
+
+# The entity typer's "other" respondent -- an empty caption, almost always an
+# "In re" mandamus petition that court_below OTHER already describes -- folds
+# into the reference at BOTH training and serve time (see model_frame()).
+fold_resp_other <- function(x) ifelse(!is.na(x) & x == "other", "individual", x)
 # Bands against the 9,000-word limit of Rule 33.1(g): a petition well under it,
 # one at half, and the full-length petition (the reference: the ordinary one).
 #
@@ -935,9 +961,21 @@ model_frame <- function(corpus, features) {
       stop("training frame lacks ", paste(miss, collapse = ", "),
            " -- the corpus/panel cache predates the size features; delete ",
            "data-raw/cert_corpus.rds and data-raw/cert_panel.rds and rebuild.")
-    df <- df |> mutate(dissent_bucket = dissent_bucket(n_dissent),
+    df <- df |> mutate(dissent_level = dissent_level(dissent_below, n_dissent),
                        word_band = word_band(words))
   }
+  # The "In re" triplet (2026-09-16). A mandamus petition with no lower court
+  # was three dummies at once -- court_below OTHER, resp_type "other" (no named
+  # respondent) and gap_na (no judgment date) -- correlated 0.60 to 0.82, each
+  # with a standard error of 1.4 to 1.7. It is one fact. court_below OTHER
+  # carries it alone: gap_na means "a lower court, and no judgment date", which
+  # is its own signal (199 rows, 12.6% granted -- the cert-before-judgment
+  # shape), and the 228 "other" respondents fold into the reference, 220 of
+  # them being those same mandamus petitions. Recomputed here rather than read
+  # from the cache, which predates the change; petition_features() and
+  # score_case() do the same at serve time.
+  df <- df |> mutate(gap_na = is.na(days_lower_gap) & court_below != "OTHER",
+                     resp_type = fold_resp_other(resp_type))
   for (v in names(FACTOR_REFERENCES)) if (v %in% features)
     df[[v]] <- relevel(factor(df[[v]]), ref = FACTOR_REFERENCES[[v]])
   df |>
@@ -1091,6 +1129,66 @@ complete_terms <- function(corpus, max_pending = 0.015) {
     pull(term_year)
 }
 
+# How much the cues overlap, measured on the training frame at every fit and
+# printed by the trainer, so a drift shows up at retrain time and not on a case
+# page. Two readings:
+#   * the generalised VIF per feature (Fox & Monette), scaled to a per-coefficient
+#     figure comparable to sqrt(VIF): above 2 is notable, above 3 high. Measured
+#     2026-09-16 the design was mild -- every feature under 2, condition number
+#     4.7 -- so the coefficients ARE estimable;
+#   * each feature's coefficients fitted ALONE against JOINTLY. This is where the
+#     overlap actually lives: counsel_tier won read 2.58 alone and 1.38 jointly,
+#     and dissent_bucket 1-2 read +0.46 alone and -0.18 jointly, a sign flip the
+#     page then published as a reason. A term whose joint sign disagrees with its
+#     sign alone (and whose alone effect is not negligible) is UNSTABLE: its
+#     partial effect is an artefact of what sits beside it, and describe_forecast()
+#     leaves it out of the reasons it names. The model still uses it -- the
+#     prediction is the sum, and that is protected -- only the attribution is.
+# Returns list(gvif = data.frame, terms = data.frame, unstable = character).
+collinearity_report <- function(mf, features, joint = NULL, flip_min = 0.2) {
+  form <- reformulate(features, response = "label")
+  X <- model.matrix(form, mf)
+  asg <- attr(X, "assign")[-1]; X <- X[, -1, drop = FALSE]
+  labs <- attr(terms(form), "term.labels")
+  gvif <- data.frame(feature = labs, df = NA_integer_, gvif = NA_real_, scaled = NA_real_)
+  R <- suppressWarnings(cor(X))
+  if (all(is.finite(R))) {
+    ld <- function(M) if (!length(M)) 0 else determinant(M, logarithm = TRUE)$modulus[1]
+    for (j in seq_along(labs)) {
+      i <- which(asg == j); o <- setdiff(seq_len(ncol(X)), i)
+      g <- exp(ld(R[i, i, drop = FALSE]) + ld(R[o, o, drop = FALSE]) - ld(R))
+      gvif$df[j] <- length(i); gvif$gvif[j] <- g; gvif$scaled[j] <- g^(1 / (2 * length(i)))
+    }
+  }
+  if (is.null(joint)) joint <- fit_logit(mf, features)
+  cj <- coef(joint)
+  rows <- lapply(features, function(f) {
+    nm <- grep(paste0("^", f), names(cj), value = TRUE)
+    if (!length(nm)) return(NULL)
+    ca <- coef(fit_logit(mf, f))[nm]
+    data.frame(feature = f, term = nm, alone = unname(ca), joint = unname(cj[nm]))
+  })
+  tm <- do.call(rbind, rows)
+  tm$flip <- is.finite(tm$alone) & is.finite(tm$joint) &
+    sign(tm$alone) != sign(tm$joint) & abs(tm$alone) >= flip_min
+  list(gvif = gvif[order(-gvif$scaled), ], terms = tm, unstable = tm$term[tm$flip])
+}
+
+print_collinearity <- function(rep, target = "") {
+  message("Collinearity [", target, "]: scaled GVIF, highest first")
+  g <- rep$gvif
+  message(paste(sprintf("  %-16s df=%-2d GVIF=%6.2f  scaled=%.2f", g$feature, g$df, g$gvif, g$scaled),
+                collapse = "\n"))
+  message("Coefficients alone vs joint (flip = sign disagrees, |alone| >= 0.2):")
+  t <- rep$terms
+  message(paste(sprintf("  %-26s alone=%6.2f  joint=%6.2f%s", t$term, t$alone, t$joint,
+                        ifelse(t$flip, "  FLIP", "")), collapse = "\n"))
+  if (length(rep$unstable))
+    message("  UNSTABLE (kept in the model, left out of the page's reasons): ",
+            paste(rep$unstable, collapse = ", "))
+  else message("  no unstable terms")
+}
+
 fit_cert_model <- function(corpus, features = BASELINE_FEATURES, target = "grant",
                            complete = NULL) {
   mf <- model_frame(corpus, features)
@@ -1125,9 +1223,14 @@ fit_cert_model <- function(corpus, features = BASELINE_FEATURES, target = "grant
     stop("aliased (NA) coefficient(s) -- feature is constant or collinear in the ",
          "training frame, and would contribute nothing at serve time: ",
          paste(aliased, collapse = ", "))
+  col <- collinearity_report(mf, features, joint = final)
+  print_collinearity(col, target)
   structure(list(
     glm = strip_glm(final), calibrator = strip_glm(cal), features = features,
     target = target, xlevels = final$xlevels, base_rate = base_rate, xbar = xbar,
+    # Terms whose partial-effect sign is an artefact of the cues beside them:
+    # scored, never named as a reason (see collinearity_report).
+    unstable = col$unstable, collinearity = col[c("gvif", "terms")],
     metrics = metrics_raw, metrics_calibrated = metrics_cal,
     calibration = calibration_table(mf$label, cal_oof),
     loto = tibble(dkt = mf$dkt, term_year = mf$term_year,
@@ -1189,6 +1292,12 @@ conf_model_frame <- function(panel) {
     filter(type == "paid", conf_outcome %in% CONF_LEVELS) |>
     mutate(relist_bucket = relist_bucket(n_relists),
            amicus_bucket = amicus_bucket(n_amicus_cert),
+           # The same structural read as model_frame() and petition_features():
+           # the panel cache predates the "In re" fold (2026-09-16), and a
+           # frame that kept the cached flag would train on one definition of
+           # gap_na and be served another.
+           gap_na = is.na(days_lower_gap) & court_below != "OTHER",
+           resp_type = fold_resp_other(resp_type),
            conf_f = factor(pmin(conf_idx, 5L)),
            phase  = relevel(factor(conference_phase(conf_date)), ref = "fall"),
            y = factor(conf_outcome, levels = CONF_LEVELS)) |>
@@ -1338,7 +1447,9 @@ score_features <- function(model, newrow) {
   list(prob = as.numeric(prob), raw = as.numeric(raw),
        base_rate = model$base_rate, lift = as.numeric(prob) / model$base_rate,
        se_eta = se_eta, ci_low = ci[[1]], ci_high = ci[[2]],
-       cues = cues)
+       cues = cues,
+       # Carried so describe_forecast() can leave them out of the reasons.
+       unstable = model$unstable %||% character())
 }
 
 # ---- forecast description (plain-English cue read) ----------------------------
@@ -1387,10 +1498,11 @@ FORECAST_CUE_PHRASES <- c(
   # The dissent count is mostly citations to this Court's own dissents, so the
   # phrase says "cites", not "has": it reads the petition's argument, not the
   # court below.
-  "dissent_bucket1-2"  = "a petition citing one or two dissents",
-  "dissent_bucket3-5"  = "a petition citing three to five dissents",
-  "dissent_bucket6-10" = "a petition citing six to ten dissents",
-  "dissent_bucket11+"  = "a petition citing more than ten dissents",
+  # The baseline's one dissent cue (dissent_level); the at-risk model's
+  # dissent_belowTRUE phrase stays above for that model.
+  "dissent_levelbelow"      = "a dissent below",
+  "dissent_levelbelow3-10"  = "a dissent below, cited three to ten times",
+  "dissent_levelbelow11+"   = "a dissent below, cited more than ten times",
   # From the Rule 33.1(h) certificate, against the 9,000-word limit.
   "word_band<3k"     = "a petition under 3,000 words",
   "word_band3-6k"    = "a petition of 3,000 to 6,000 words",
@@ -1463,6 +1575,10 @@ describe_forecast <- function(score, top = 3L, eps = 0.05, include_prob = FALSE,
 
   cu <- score$cues
   cu <- cu[is.finite(cu$log_odds) & abs(cu$log_odds) >= eps, , drop = FALSE]
+  # A term the trainer marked unstable -- its joint sign disagrees with its
+  # sign alone -- is a partial effect the reader would misread as a fact about
+  # the case. It stays in the sum; it is not named. See collinearity_report().
+  if (length(score$unstable)) cu <- cu[!cu$term %in% score$unstable, , drop = FALSE]
   ph <- function(terms) { v <- unname(FORECAST_CUE_PHRASES[terms]); v[!is.na(v)] }
   up <- ph(head(dplyr::arrange(dplyr::filter(cu, log_odds > 0), dplyr::desc(log_odds))$term, top))
   dn <- ph(head(dplyr::arrange(dplyr::filter(cu, log_odds < 0), log_odds)$term, top))
@@ -1496,7 +1612,7 @@ signal_features <- function(signals = NULL) {
     # NULL must become a scalar NA here, or the bucket is length 0 and the
     # tibble has no rows.
     words          = as.integer(g("words") %||% NA),
-    dissent_bucket = dissent_bucket(g("n_dissent") %||% NA),
+    dissent_level  = dissent_level(isTRUE(g("dissent_below")), g("n_dissent") %||% NA),
     word_band      = word_band(g("words") %||% NA))
 }
 

@@ -98,18 +98,24 @@ Three, and each was violated at some point:
 **Structural** (both tiers): `pet_type`, `resp_type` — entity buckets from the
 caption; `court_below` — 13 circuits, `STATE`, `CAAF`, `USDC_APPEAL`, `FED_SPEC`,
 `OTHER`; `pro_se`; `gap_fast`/`gap_na` — a hinge on days from the judgment below
-to docketing.
+to docketing, and the flag for a lower court with no judgment date at all (a
+mandamus petition has no lower court and is `court_below OTHER`, not `gap_na`
+— see "Covariance among the cues" below).
 
 **Petition stage adds:** `counsel_tier` — an expanding-window record of the
 petitioner's counsel of record (`new` / `some` / `vet` / `won`);
-`dissent_below`, `split_argued` — Rule 10 cues parsed from the petition PDF;
-and, since 2026-09-11, two more petition-size cues: `dissent_bucket` (how
-many times the petition says "dissent", in bands `0 / 1-2 / 3-5 / 6-10 /
-11+`, from the same parse as the Rule 10 cues — mostly citations to this
-Court's own dissents, not a dissent below) and `word_band` (the length the
-filer **certified** under Rule 33.1(h), in bands against the 9,000-word limit:
-`<3k / 3-6k / 6k+ / unknown`, reference `6k+`, right-closed). Both are proxies
-for how well-resourced the petition is.
+`split_argued` — a Rule 10 cue parsed from the petition PDF; `dissent_level`
+— since 2026-09-16, ONE ordered dissent cue: `none` (no dissent below, whatever
+the petition says about other courts' dissents) / `below` / `below3-10` /
+`below11+` (a dissent below, with the count of the word "dissent" nested under
+it). It replaces the pair `dissent_below` + `dissent_bucket` (the count alone,
+`0 / 1-2 / 3-5 / 6-10 / 11+`), which were two readings of one thing: Cramér's
+V 0.84, and with no dissent below the count did not separate (2.3% to 3.3%
+granted across every bucket) while with one it did (4.4% / 7.7% / 14.9%). And
+`word_band` (the length the filer **certified** under Rule 33.1(h), in bands
+against the 9,000-word limit: `<3k / 3-6k / 6k+ / unknown`, reference `6k+`,
+right-closed). The size cues are proxies for how well-resourced the petition
+is. The at-risk model keeps `dissent_below` itself; it never carried the count.
 
 Until 2026-09-16 there was a fourth band, `9k+`, and the cut was left-closed,
 so a petition certified at exactly 9,000 words — the limit, which the Rule
@@ -123,6 +129,48 @@ carries no separate weight. Retrained on the change: AUC 0.871 / AP 0.283,
 identical to before at three decimals, which is the same model with one bad
 cue removed. A measured over-length flag is worth revisiting once there are a
 few hundred such petitions.
+
+### Covariance among the cues (2026-09-16)
+
+Measured on the baseline frame (11,814 paid petitions, 38 design columns)
+before the changes below: classical multicollinearity was mild — every
+feature's generalised VIF, scaled per coefficient, under 2, condition number
+4.7 — so the coefficients were estimable. The overlap lived in the
+*attribution*: each published coefficient is a partial effect, and several
+read very differently alone and jointly (`counsel_tier won` 2.58 → 1.38;
+`pet_type us_fed` 3.15 → 1.90; `dissent_bucket 11+` 1.96 → 0.66; `dissent_bucket
+1-2` **+0.46 → −0.18**, a sign flip the case page published as "weights this
+down for a petition citing one or two dissents"). Two clusters drove it:
+
+- the two dissent cues (V 0.84; scaled VIF 1.85, the model's highest) — folded
+  into `dissent_level`, above;
+- the "In re" triplet: `court_below OTHER`, `resp_type other` and `gap_na`
+  correlated 0.60–0.82 with standard errors of 1.4–1.7 — three dummies for one
+  fact, a mandamus petition with no lower court. Now `court_below OTHER`
+  carries it alone: `gap_na` means "a lower court, and no judgment date" (199
+  rows, 12.6% granted — the cert-before-judgment shape, its own signal), and
+  the 228 "other" respondents (220 of them those same petitions, 1 grant) fold
+  into the reference at training and serve time alike (`fold_resp_other()`).
+
+After: highest scaled VIF 1.13 (`pro_se`), `resp_type` GVIF 5.71 → 1.46,
+`court_below` 4.91 → 1.74, and one flip left in the baseline
+(`word_band unknown`, −0.67 alone / +0.17 jointly). Predictively neutral, as it
+should be — leave-one-term-out AUC 0.8725 → 0.8737 (95% CI on the difference
+[−0.0003, +0.0036]), AP 0.2867 → 0.2885 [−0.0001, +0.0047]; rolling origin
++0.0012 / +0.0007, both intervals straddling zero. Shipped metrics: baseline
+AUC 0.872 / AP 0.285; at-risk 0.881 / 0.370.
+
+Two guards now run at every fit (`collinearity_report()`, printed by the
+trainer): the scaled GVIF table, and each feature's coefficients alone versus
+jointly. A term whose joint sign disagrees with its sign alone (|alone| ≥ 0.2)
+is stored in the artifact as **unstable**: still scored — the prediction is the
+sum and that is protected — but never named as a reason by
+`describe_forecast()`. The at-risk model has four (`resp_type business`,
+`court_below CA7`, `relist_bucket 5+`, `response_filed`: alone +1.87, jointly
+−0.97 beside `response_requested`), the GVR model nine. Attribution by
+construct (summing a group's cues before naming it) was the fuller answer and
+is not built; with the two folds in, the remaining overlaps are the party-type
+and court/gap pairs, and the flip guard covers what those produce.
 
 The word count comes from `data-raw/word_counts.json` (`R/word_count.R`,
 built by `enrich-word-counts.yml`): the "Certificate of Word Count" the Clerk
