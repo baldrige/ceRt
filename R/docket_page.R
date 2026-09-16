@@ -295,7 +295,13 @@ write_docket_css <- function(out_dir) {
 # heading's plural now follows the rendered list rather than the raw text. The
 # cached QP is a manifest input and does not change, so only the bump gets
 # these pages re-rendered.
-PAGE_TEMPLATE_VERSION <- "v33"
+# v34: merits-amicus side. resp_merits_brief_on() no longer takes a respondent
+# brief filed "in support of petitioner" as the opposing respondent's brief, and
+# reads the Court's "respondents' briefs on the merits ... extended to" date
+# (plural) as well as the singular. 25-1017 had 17 petitioner-side amici
+# coloured as the respondent's. A classifier change with the events unchanged,
+# so only the bump re-renders the pages that carry it.
+PAGE_TEMPLATE_VERSION <- "v34"
 
 # ---- small helpers ------------------------------------------------------------
 .esc <- function(x) { x <- x %||% ""; x[is.na(x)] <- ""; htmltools::htmlEscape(x) }
@@ -417,6 +423,69 @@ brief_cover <- function(text, granted_on = as.Date(NA), entry_date = as.Date(NA)
 # (light green = petitioner/neither, dark green = respondent). Returns a list of
 # integer counts; brief_cover is a cheap regex pass so re-classifying here (rather
 # than threading counts back out of docket_timeline) keeps the two concerns clean.
+# The respondent's merits-brief date: the Rule 37 split point for colouring
+# merits amici (amici for respondent are due after it, amici for petitioner or
+# neither party before it). NA if no opposing respondent brief is on the docket
+# and the Court has stated no due date, in which case merits amici take the
+# petitioner/neither (light-green) reading.
+#
+# (a) The role is stated: "Brief of respondents ... filed." LATEST, not
+#     earliest: a respondent aligned WITH the petitioner (private plaintiffs
+#     where the United States is petitioner, as in 23-477) files on the
+#     petitioner's earlier schedule, so only the last respondent brief marks
+#     the party actually opposing. And a respondent brief that SAYS it supports
+#     the petitioner is not that party's brief at all -- 25-1017 (RNC v. Mi
+#     Familia Vota) had three of them on Aug 28 ("Brief of respondent United
+#     States in support of petitioner", "... in partial support of
+#     petitioner") and nothing yet from the respondents actually opposing, due
+#     Oct 13; taking the latest of the three dated the split Aug 28 and
+#     coloured all 17 of the Sep 3-4 amici, Kansas et al. among them, as
+#     supporting the respondent. Excluded (2026-09-16).
+#
+# (b) The Court often names the PARTY instead of its role, and then (a)
+#     matches nothing at all. 25-170's respondent brief reads "Brief of Cty.
+#     Comm'rs of Boulder Cty., et al. submitted." -- no "respondent", and not
+#     even "filed" -- so the date came out NA and all 21 of its respondent-side
+#     amici rendered light green.
+#
+#     The fix is not to loosen (a) to any "Brief of ...": on a VIDED cross-
+#     petition that matches the wrong side. 24-1287 carries "Brief of State
+#     Respondents in No. 25-250" and "Brief of private respondents V.O.S.
+#     Selections (as to 25-250)" -- parties aligned WITH this docket's
+#     petitioners -- and a loosened rule flipped 33 of its amici to the
+#     respondent's side.
+#
+#     Use instead the date the Court states outright when it extends the merits
+#     schedule. Where both signals exist they agree exactly (7 of 7 argued
+#     cases sampled), so this only ever fills a gap. Take the EARLIER of the
+#     two: Rule 37 keys amici off the date the brief was DUE, so 25-170's brief
+#     -- rejected on its due date and corrected a week later -- still anchors
+#     its Jul 31 amicus to Jul 27. The Court writes "respondents' briefs on the
+#     merits" as often as "respondent's brief", so the pattern takes both;
+#     the singular-only form is what left 25-1017's Oct 13 unread.
+resp_merits_brief_on <- function(ev, granted_on = as.Date(NA)) {
+  resp_brief_on <- as.Date(NA)
+  if (!is.data.frame(ev) || is.na(granted_on)) return(resp_brief_on)
+  et <- ev[["Proceedings and Orders"]] %||% ""; et[is.na(et)] <- ""
+  ed <- suppressWarnings(lubridate::mdy(ev$Date))
+  ri <- which(str_detect(et, regex("^brief (of|for) (the )?(respondent|appellee)", ignore_case = TRUE)) &
+              !str_detect(et, regex("in opposition|supplement", ignore_case = TRUE)) &
+              !str_detect(et, regex("in (partial )?support of (the )?(petitioner|appellant)", ignore_case = TRUE)) &
+              !is.na(ed) & ed >= granted_on)
+  if (length(ri)) resp_brief_on <- suppressWarnings(max(ed[ri], na.rm = TRUE))
+  if (is.infinite(resp_brief_on)) resp_brief_on <- as.Date(NA)
+  due <- suppressWarnings(lubridate::mdy(str_match(et, regex(
+    paste0("respondents?.{0,3} briefs? on the merits (is|are) extended to and ",
+           "including ([A-Z][a-z]+ \\d{1,2}, \\d{4})"),
+    ignore_case = TRUE))[, 3]))
+  due <- due[!is.na(due) & due >= granted_on]
+  if (length(due)) {
+    d_due <- max(due)   # the last extension granted is the operative deadline
+    resp_brief_on <- if (is.na(resp_brief_on)) d_due else min(resp_brief_on, d_due)
+  }
+  resp_brief_on
+}
+
 amicus_counts <- function(ev, granted_on = as.Date(NA), resp_brief_on = as.Date(NA)) {
   out <- list(cert = 0L, merits = 0L, mpet = 0L, mresp = 0L)
   if (!is.data.frame(ev) || nrow(ev) == 0) return(out)
@@ -878,49 +947,7 @@ docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
   # earlier schedule, so only the last respondent brief marks the party actually
   # opposing the petitioner. NA if the respondent filed no merits brief, in which
   # case merits amici default to the petitioner/neither (light-green) reading.
-  resp_brief_on <- as.Date(NA)
-  if (is.data.frame(ev) && !is.na(granted_on)) {
-    et <- ev[["Proceedings and Orders"]] %||% ""; ed <- suppressWarnings(lubridate::mdy(ev$Date))
-    # (a) The role is stated: "Brief of respondents ... filed." LATEST, not
-    # earliest: a respondent aligned WITH the petitioner (private plaintiffs
-    # where the United States is petitioner, as in 23-477) files on the
-    # petitioner's earlier schedule, so only the last respondent brief marks the
-    # party actually opposing.
-    ri <- which(str_detect(et, regex("^brief (of|for) (the )?(respondent|appellee)", ignore_case = TRUE)) &
-                !str_detect(et, regex("in opposition|supplement", ignore_case = TRUE)) &
-                !is.na(ed) & ed >= granted_on)
-    if (length(ri)) resp_brief_on <- suppressWarnings(max(ed[ri], na.rm = TRUE))
-    if (is.infinite(resp_brief_on)) resp_brief_on <- as.Date(NA)
-
-    # (b) The Court often names the PARTY instead of its role, and then (a)
-    # matches nothing at all. 25-170's respondent brief reads "Brief of Cty.
-    # Comm'rs of Boulder Cty., et al. submitted." -- no "respondent", and not
-    # even "filed" -- so resp_brief_on came out NA and all 21 of its
-    # respondent-side amici rendered light green.
-    #
-    # The fix is not to loosen (a) to any "Brief of ...": on a VIDED cross-
-    # petition that matches the wrong side. 24-1287 carries "Brief of State
-    # Respondents in No. 25-250" and "Brief of private respondents V.O.S.
-    # Selections (as to 25-250)" -- parties aligned WITH this docket's
-    # petitioners -- and a loosened rule flipped 33 of its amici to the
-    # respondent's side.
-    #
-    # Use instead the date the Court states outright when it extends the merits
-    # schedule. Where both signals exist they agree exactly (7 of 7 argued cases
-    # sampled), so this only ever fills a gap. Take the EARLIER of the two: Rule
-    # 37 keys amici off the date the brief was DUE, so 25-170's brief -- rejected
-    # on its due date and corrected a week later -- still anchors its Jul 31
-    # amicus to Jul 27.
-    due <- suppressWarnings(lubridate::mdy(str_match(et, regex(
-      paste0("respondents?.{0,3} brief on the merits is extended to and ",
-             "including ([A-Z][a-z]+ \\d{1,2}, \\d{4})"),
-      ignore_case = TRUE))[, 2]))
-    due <- due[!is.na(due) & due >= granted_on]
-    if (length(due)) {
-      d_due <- max(due)   # the last extension granted is the operative deadline
-      resp_brief_on <- if (is.na(resp_brief_on)) d_due else min(resp_brief_on, d_due)
-    }
-  }
+  resp_brief_on <- resp_merits_brief_on(ev, granted_on)
 
   # Applications are excluded from classify_petitions; derive their disposition
   # from the docket text. See classify_application_events() for why this is not
