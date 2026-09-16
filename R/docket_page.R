@@ -312,7 +312,10 @@ write_docket_css <- function(out_dir) {
 # Inc. filed." days later; the caption's two sides now colour it (blue / red),
 # and the respondent's such brief also anchors the Rule 37 split. The joint
 # appendix is labelled as itself. Rolled with v34 and v35 in one pass.
-PAGE_TEMPLATE_VERSION <- "v36"
+# v37: papers on a stay application docketed beside a petition are procedural.
+# "Reply of applicant Apple Inc. filed." (25-1311, Aug 13, application 26A194)
+# opened "Reply" after the grant and took the yellow merits-reply cover.
+PAGE_TEMPLATE_VERSION <- "v37"
 
 # ---- small helpers ------------------------------------------------------------
 .esc <- function(x) { x <- x %||% ""; x[is.na(x)] <- ""; htmltools::htmlEscape(x) }
@@ -354,6 +357,12 @@ brief_cover <- function(text, granted_on = as.Date(NA), entry_date = as.Date(NA)
   # is extended to ... The reply brief shall be filed pursuant to Rule 25.3"
   # took the yellow reply cover on the words "reply brief" (2026-09-16).
   if (has("^the time to file") || has("is extended to and including")) return(NULL)
+  # And so are the papers on a stay application docketed alongside a petition
+  # (Rule 33.1(g) gives them no booklet cover): 25-1311's "Reply of applicant
+  # Apple Inc. filed." (Aug 13, on application 26A194) took the yellow merits-
+  # reply cover because it opened "Reply" after the grant (2026-09-16).
+  if (has("\\bapplicants?\\b") || has("^(opposition|response) to (the )?(request for|application)"))
+    return(NULL)
   # Amicus: cream at the petition stage; green on the merits. Dark green =
   # supporting respondent, light green = supporting petitioner or neither party.
   # The docket text usually omits the side, so Rule 37's schedule is the tell:
