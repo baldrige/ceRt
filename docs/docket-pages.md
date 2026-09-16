@@ -45,7 +45,11 @@ the key exists to prevent. Bump the version instead.
 ## Brief-cover timeline dots (Rule 33.1(g))
 
 Each proceedings-timeline dot is tinted to the Court's booklet-cover color for that
-filing. Classification is `brief_cover(text, granted_on, entry_date, resp_brief_on)`,
+filing. Classification is `brief_cover(text, granted_on, entry_date, resp_brief_on, sides)`
+— `sides` being the caption's two party names from `caption_sides()`, because
+the e-filing entry names the party without its role ("Brief of Apple Inc.
+submitted.", 25-1311) until the Clerk corrects it days later, and a merits
+"Brief of <name>" is coloured by which side `party_side()` says the name is —
 driven purely by the docket's "Proceedings and Orders" phrasing:
 
 | filing | color |
