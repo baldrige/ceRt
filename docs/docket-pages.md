@@ -153,10 +153,20 @@ still overrides the timing.
 `resp_brief_on` comes from two signals, whichever is **earlier**:
 
 1. the **latest** "Brief of/for respondent" on/after the grant, excluding the
-   cert-stage "in opposition" and any supplemental brief; and
+   cert-stage "in opposition", any supplemental brief, and — since 2026-09-16 —
+   any respondent brief filed *"in (partial) support of petitioner"*. That last
+   one is not the opposing respondent's brief: 25-1017 (RNC v. Mi Familia Vota)
+   had three such briefs on Aug 28 and nothing yet from the respondents
+   actually opposing, due Oct 13, and the latest-of-three rule dated the split
+   Aug 28 and coloured all 17 Sep 3–4 amici as the respondent's; and
 2. the date the Court states when it extends the merits schedule —
    *"The time to file respondents' brief on the merits is extended to and
-   including July 27, 2026."*
+   including July 27, 2026."* — matched in the singular **and** the plural
+   (*"respondents' briefs on the merits … October 13, 2026"*, the 25-1017
+   form, which the singular-only pattern left unread).
+
+The logic is `resp_merits_brief_on(ev, granted_on)` in `R/docket_page.R`, a
+function so it can be tested against a docket's events without rendering.
 
 (2) exists because the docket frequently names the **party** rather than its role,
 and then (1) matches nothing at all: 25-170's respondent brief reads *"Brief of
