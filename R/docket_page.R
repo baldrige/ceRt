@@ -301,7 +301,12 @@ write_docket_css <- function(out_dir) {
 # (plural) as well as the singular. 25-1017 had 17 petitioner-side amici
 # coloured as the respondent's. A classifier change with the events unchanged,
 # so only the bump re-renders the pages that carry it.
-PAGE_TEMPLATE_VERSION <- "v34"
+# v35: a scheduling order is procedural. "The time to file ... is extended to
+# and including ... The reply brief shall be filed pursuant to Rule 25.3"
+# (25-6623, Jul 20) took the yellow reply cover on "reply brief"; the reply rule
+# is anchored to the filing entry and extension orders return early. Rolled
+# with v34 in one pass -- v34 never reached the archive.
+PAGE_TEMPLATE_VERSION <- "v35"
 
 # ---- small helpers ------------------------------------------------------------
 .esc <- function(x) { x <- x %||% ""; x[is.na(x)] <- ""; htmltools::htmlEscape(x) }
@@ -338,6 +343,11 @@ brief_cover <- function(text, granted_on = as.Date(NA), entry_date = as.Date(NA)
 
   # Motions and applications are procedural even when they name a brief.
   if (has("^motion\\b") || has("^application\\b")) return(NULL)
+  # So is a scheduling order, which names every brief it schedules: 25-6623's
+  # "The time to file the joint appendix and petitioner's brief on the merits
+  # is extended to ... The reply brief shall be filed pursuant to Rule 25.3"
+  # took the yellow reply cover on the words "reply brief" (2026-09-16).
+  if (has("^the time to file") || has("is extended to and including")) return(NULL)
   # Amicus: cream at the petition stage; green on the merits. Dark green =
   # supporting respondent, light green = supporting petitioner or neither party.
   # The docket text usually omits the side, so Rule 37's schedule is the tell:
@@ -381,7 +391,9 @@ brief_cover <- function(text, granted_on = as.Date(NA), entry_date = as.Date(NA)
     return(cov("orange", "Brief in opposition"))
   # Merits reply (yellow) vs. cert-stage reply to the opposition (tan). A merits
   # reply reads "Reply brief of petitioner ..."; the cert reply, "Reply of ...".
-  if (has("reply brief") || (has("^reply\\b") && merits))
+  # Anchored: the filing entry OPENS with "Reply brief of ..."; an order that
+  # merely mentions one ("The reply brief shall be filed ...") does not.
+  if (has("^reply brief") || (has("^reply\\b") && merits))
     return(cov("yellow", "Reply brief on the merits"))
   if (has("^reply\\b"))
     return(cov("tan", "Reply to brief in opposition"))
