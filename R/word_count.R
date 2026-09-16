@@ -139,7 +139,12 @@ resolve_word_counts <- function(dkts, urls, cache_path, max_new = 0L, pace = 0.7
       txt <- fetch_word_count_text(url_of[[dk]])
       # An unparsed count is written as JSON null, not the string "NA" that
       # jsonlite's default would emit for an NA integer.
-      cache[[dk]] <- list(words = parse_word_count(txt), chars = nchar(txt))
+      # Exactly one integer or NA, never a length-0 result: an empty download
+      # once wrote {"words": {}} (2026-09-14, 52 entries; again 09-16, five),
+      # and a reader that expected a scalar fell over the whole cache.
+      w <- parse_word_count(txt)
+      if (length(w) != 1L) w <- NA_integer_
+      cache[[dk]] <- list(words = w, chars = nchar(txt))
       empties <- if (nchar(txt) == 0) empties + 1L else 0L
       if (empties >= max_consecutive_empty) {
         message("word counts: ", empties, " empty downloads in a row after ", i,

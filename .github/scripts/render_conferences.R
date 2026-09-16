@@ -196,8 +196,14 @@ signals_map <- tryCatch({
   dwc <- file.path(site_dir, "dashboards", "word_counts_cache.json")
   if (file.exists(dwc)) {
     fresh <- tryCatch(jsonlite::fromJSON(dwc, simplifyVector = FALSE), error = function(e) NULL)
+    # word_count_of(), not as.integer(.x$words): a cache entry can be
+    # {"words": {}} (an empty download the daily parsed to an empty list), and
+    # map_int() on that is "Result must be length 1, not 0" -- which on
+    # 2026-09-16 (26-289) threw out of this whole block, so the conference
+    # report was served with NO petition cues for any of its 663 paid dockets.
+    # The docket-page renderer had guarded this shape since 09-14; this did not.
     if (length(fresh)) m <- attach_word_counts(m, tibble(
-      dkt = names(fresh), words = map_int(fresh, ~ as.integer(.x$words %||% NA))))
+      dkt = names(fresh), words = vapply(fresh, word_count_of, integer(1), USE.NAMES = FALSE)))
   }
   if ("events" %in% names(uniq)) {
     wc <- resolve_word_counts(
