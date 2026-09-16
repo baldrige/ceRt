@@ -306,7 +306,13 @@ write_docket_css <- function(out_dir) {
 # (25-6623, Jul 20) took the yellow reply cover on "reply brief"; the reply rule
 # is anchored to the filing entry and extension orders return early. Rolled
 # with v34 in one pass -- v34 never reached the archive.
-PAGE_TEMPLATE_VERSION <- "v35"
+# v36: a merits brief is recognised by the PARTY'S NAME when the entry omits
+# the role. The e-filing form "Brief of Apple Inc. submitted." (25-1311, Sep 14)
+# rendered hollow until the Clerk's correction to "Brief of petitioner Apple
+# Inc. filed." days later; the caption's two sides now colour it (blue / red),
+# and the respondent's such brief also anchors the Rule 37 split. The joint
+# appendix is labelled as itself. Rolled with v34 and v35 in one pass.
+PAGE_TEMPLATE_VERSION <- "v36"
 
 # ---- small helpers ------------------------------------------------------------
 .esc <- function(x) { x <- x %||% ""; x[is.na(x)] <- ""; htmltools::htmlEscape(x) }
@@ -331,7 +337,7 @@ PAGE_TEMPLATE_VERSION <- "v35"
 # Returns list(color, label) for a filed brief, or NULL for a procedural entry
 # (order, application, distribution, waiver, argument) -- which renders hollow.
 brief_cover <- function(text, granted_on = as.Date(NA), entry_date = as.Date(NA),
-                        resp_brief_on = as.Date(NA)) {
+                        resp_brief_on = as.Date(NA), sides = NULL) {
   t <- text %||% ""
   if (length(t) == 0 || is.na(t)) return(NULL)
   t <- str_squish(str_replace_all(t, "<[^>]*>", ""))
@@ -419,14 +425,76 @@ brief_cover <- function(text, granted_on = as.Date(NA), entry_date = as.Date(NA)
   }
   # Fixed tan (checked before the merits briefs so a "supplemental brief of
   # petitioner" isn't mistaken for the merits opener).
-  if (has("joint appendix") || has("supplemental brief") || has("petition for rehearing"))
+  if (has("joint appendix"))
+    return(cov("tan", "Joint appendix"))
+  if (has("supplemental brief") || has("petition for rehearing"))
     return(cov("tan", "Supplemental / rehearing filing"))
   # Merits briefs -- only after a grant; before it these strings don't occur.
   if (merits && has("brief (of|for) (the )?(petitioner|appellant)"))
     return(cov("blue", "Petitioner's brief on the merits"))
   if (merits && has("brief (of|for) (the )?(respondent|appellee)"))
     return(cov("red", "Respondent's brief on the merits"))
+  # The role is often missing at filing time: the e-filing entry reads "Brief
+  # of Apple Inc. submitted." and the Clerk corrects it to "Brief of petitioner
+  # Apple Inc. filed." days later (25-1311, Sep 14 2026), so the page rendered
+  # in between showed the petitioner's merits brief as a hollow procedural dot.
+  # Same for the respondent (25-170's "Brief of Cty. Comm'rs of Boulder Cty.,
+  # et al. submitted"). Match the PARTY instead, from the caption: a merits
+  # "Brief of/for <name> ..." whose name is the petitioner's is blue, the
+  # respondent's red. Anchored at the start and only after a grant, so an
+  # amicus ("Brief amicus curiae of ...") or a cert-stage opposition never
+  # reaches here.
+  if (merits && !is.null(sides) && has("^brief (of|for) ")) {
+    side <- party_side(str_remove(low, "^brief (of|for) "), sides)
+    if (identical(side, "pet"))  return(cov("blue", "Petitioner's brief on the merits"))
+    if (identical(side, "resp")) return(cov("red", "Respondent's brief on the merits"))
+  }
   NULL
+}
+
+# The two sides' short names from a docket caption ("Apple Inc., Petitioner v.
+# Epic Games, Inc." -> pet "apple inc", resp "epic games inc"): roles and
+# punctuation stripped, lower case. NULL when the caption has no "v.".
+caption_sides <- function(caption) {
+  cap <- str_squish(str_remove_all(caption %||% "",
+    regex(",\\s*(petitioners?|respondents?|appellants?|appellees?|applicants?|plaintiffs?|defendants?)\\b",
+          ignore_case = TRUE)))
+  if (is.na(cap) || !str_detect(cap, "\\bv\\.?\\s")) return(NULL)
+  parts <- str_split_fixed(cap, "\\s+v\\.?\\s+", 2)
+  norm <- function(x) str_squish(str_replace_all(tolower(x), "[^a-z0-9 ]", " "))
+  list(pet = norm(parts[1, 1]), resp = norm(parts[1, 2]))
+}
+
+# How strongly `who` (the text after "brief of", lower case) names this party:
+# 0 = not at all. The whole name as a phrase ("united states", "epic games
+# inc") scores its length, so when one side's name contains the other's
+# ("United States" v. "United States Postal Service") the longer, more specific
+# match wins at the caller. Failing that, the docket abbreviates freely ("Cty.
+# Comm'rs of Boulder Cty., et al." for "Board of County Commissioners of
+# Boulder County"), so a distinctive word -- not an article, not the "of the
+# united states" boilerplate, not a corporate suffix -- appearing as a whole
+# word scores 1; two such words, 2. A caller treats a tie as no match.
+party_score <- function(who, name) {
+  if (is.null(name) || is.na(name) || !nzchar(name)) return(0)
+  who_w <- str_squish(str_replace_all(who, "[^a-z0-9 ]", " "))
+  core <- str_squish(str_remove(name, "\\bet al\\b.*$"))
+  if (nzchar(core) && str_detect(who_w, paste0("\\b", core, "\\b"))) return(10 + nchar(core))
+  stop_w <- c("the", "of", "a", "an", "and", "et", "al", "inc", "llc", "llp", "co", "corp",
+              "corporation", "company", "ltd", "state", "states", "united", "in", "re", "ex", "rel")
+  w <- setdiff(str_split(core, " ")[[1]], stop_w)
+  w <- unique(w[nchar(w) >= 4])
+  if (!length(w)) return(0)
+  # Every distinctive word, not the first few: "Cty. Comm'rs of Boulder Cty."
+  # keeps only the fourth word of "Board of County Commissioners of Boulder
+  # County" intact.
+  sum(vapply(w, function(x) str_detect(who_w, paste0("\\b", x, "\\b")), logical(1)))
+}
+# Which side `who` names: "pet", "resp", or NA when neither or both equally.
+party_side <- function(who, sides) {
+  if (is.null(sides)) return(NA_character_)
+  sp <- party_score(who, sides$pet); sr <- party_score(who, sides$resp)
+  if (sp == 0 && sr == 0 || sp == sr) return(NA_character_)
+  if (sp > sr) "pet" else "resp"
 }
 
 # Amicus tallies for the Case panel, derived from the SAME brief_cover
@@ -475,12 +543,20 @@ brief_cover <- function(text, granted_on = as.Date(NA), entry_date = as.Date(NA)
 #     its Jul 31 amicus to Jul 27. The Court writes "respondents' briefs on the
 #     merits" as often as "respondent's brief", so the pattern takes both;
 #     the singular-only form is what left 25-1017's Oct 13 unread.
-resp_merits_brief_on <- function(ev, granted_on = as.Date(NA)) {
+resp_merits_brief_on <- function(ev, granted_on = as.Date(NA), sides = NULL) {
   resp_brief_on <- as.Date(NA)
   if (!is.data.frame(ev) || is.na(granted_on)) return(resp_brief_on)
   et <- ev[["Proceedings and Orders"]] %||% ""; et[is.na(et)] <- ""
   ed <- suppressWarnings(lubridate::mdy(ev$Date))
-  ri <- which(str_detect(et, regex("^brief (of|for) (the )?(respondent|appellee)", ignore_case = TRUE)) &
+  low <- tolower(str_squish(str_replace_all(et, "<[^>]*>", "")))
+  # (c) The role is missing but the PARTY is the respondent by name -- the
+  #     e-filing form "Brief of Epic Games, Inc. submitted." before the Clerk
+  #     adds "respondent" (see brief_cover(), 25-1311). Same exclusions as (a).
+  by_name <- if (is.null(sides)) rep(FALSE, length(low)) else
+    str_detect(low, "^brief (of|for) ") &
+    vapply(str_remove(low, "^brief (of|for) "),
+           function(w) identical(party_side(w, sides), "resp"), logical(1))
+  ri <- which((str_detect(et, regex("^brief (of|for) (the )?(respondent|appellee)", ignore_case = TRUE)) | by_name) &
               !str_detect(et, regex("in opposition|supplement", ignore_case = TRUE)) &
               !str_detect(et, regex("in (partial )?support of (the )?(petitioner|appellant)", ignore_case = TRUE)) &
               !is.na(ed) & ed >= granted_on)
@@ -498,13 +574,13 @@ resp_merits_brief_on <- function(ev, granted_on = as.Date(NA)) {
   resp_brief_on
 }
 
-amicus_counts <- function(ev, granted_on = as.Date(NA), resp_brief_on = as.Date(NA)) {
+amicus_counts <- function(ev, granted_on = as.Date(NA), resp_brief_on = as.Date(NA), sides = NULL) {
   out <- list(cert = 0L, merits = 0L, mpet = 0L, mresp = 0L)
   if (!is.data.frame(ev) || nrow(ev) == 0) return(out)
   po <- ev[["Proceedings and Orders"]] %||% ""
   ed <- suppressWarnings(lubridate::mdy(ev$Date))
   for (i in seq_along(po)) {
-    cv <- brief_cover(po[i], granted_on, ed[i], resp_brief_on)
+    cv <- brief_cover(po[i], granted_on, ed[i], resp_brief_on, sides)
     if (is.null(cv)) next
     if (grepl("c-cream", cv$color, fixed = TRUE)) out$cert  <- out$cert  + 1L
     else if (grepl("c-lgreen", cv$color, fixed = TRUE)) out$mpet  <- out$mpet  + 1L
@@ -564,7 +640,7 @@ docket_counsel <- function(parties, rx) {
 # scramble the order). Proceeding text is stripped of any inline HTML and escaped;
 # document links come from the docs_/links_ (JSON) or Document_/links_ (historical
 # scrape) columns. The links div is emitted only when there is at least one link.
-docket_timeline <- function(ev, granted_on = as.Date(NA), resp_brief_on = as.Date(NA)) {
+docket_timeline <- function(ev, granted_on = as.Date(NA), resp_brief_on = as.Date(NA), sides = NULL) {
   if (!is.data.frame(ev) || nrow(ev) == 0) return("")
   dcols <- str_subset(names(ev), "^(docs_|Document_)"); lcols <- str_subset(names(ev), "^links_")
   edate <- suppressWarnings(lubridate::mdy(ev$Date))
@@ -576,7 +652,7 @@ docket_timeline <- function(ev, granted_on = as.Date(NA), resp_brief_on = as.Dat
     tx <- .esc(str_replace_all(raw, "<[^>]*>", ""))
     # Booklet-cover dot: colored + tooltipped for a filed brief, hollow (proc)
     # for orders/applications/etc.
-    cov <- brief_cover(raw, granted_on, edate[i], resp_brief_on)
+    cov <- brief_cover(raw, granted_on, edate[i], resp_brief_on, sides)
     if (is.null(cov)) {
       li_open <- "<li class='proc'>"
     } else {
@@ -959,7 +1035,8 @@ docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
   # earlier schedule, so only the last respondent brief marks the party actually
   # opposing the petitioner. NA if the respondent filed no merits brief, in which
   # case merits amici default to the petitioner/neither (light-green) reading.
-  resp_brief_on <- resp_merits_brief_on(ev, granted_on)
+  sides <- tryCatch(caption_sides(cx$caption), error = function(e) NULL)
+  resp_brief_on <- resp_merits_brief_on(ev, granted_on, sides)
 
   # Applications are excluded from classify_petitions; derive their disposition
   # from the docket text. See classify_application_events() for why this is not
@@ -1033,7 +1110,7 @@ docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
   n_dist <- if (is.data.frame(ev))
     sum(str_detect(ev[["Proceedings and Orders"]] %||% "", "DISTRIBUTED for Conference"), na.rm = TRUE) else 0L
   qp_html <- .mdq(qp)
-  tl <- docket_timeline(ev, granted_on, resp_brief_on)
+  tl <- docket_timeline(ev, granted_on, resp_brief_on, sides)
   tl_legend <- if (isTRUE(attr(tl, "any_cover"))) DOCKET_LEGEND else ""
   # A docket with no proceedings at all renders a bare "Proceedings" heading over
   # an empty <ol>, which reads as a broken page rather than as an absence. Say
@@ -1048,7 +1125,7 @@ docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
     paste0("<p class='tl-none'>No proceedings are recorded on this docket. ",
            "The Court's docket for this case lists no entries.</p>")
   else paste0("<ol class='timeline'>", tl, "</ol>")
-  amic <- amicus_counts(ev, granted_on, resp_brief_on)
+  amic <- amicus_counts(ev, granted_on, resp_brief_on, sides)
   adv <- if (exists("extract_advocates")) extract_advocates(arg$argued_text) else NA
 
   # Argument & decision -- only for a genuine merits track (suppressed for GVR /
