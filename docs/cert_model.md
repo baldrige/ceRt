@@ -108,8 +108,21 @@ many times the petition says "dissent", in bands `0 / 1-2 / 3-5 / 6-10 /
 11+`, from the same parse as the Rule 10 cues — mostly citations to this
 Court's own dissents, not a dissent below) and `word_band` (the length the
 filer **certified** under Rule 33.1(h), in bands against the 9,000-word limit:
-`<3k / 3-6k / 6-9k / 9k+ / unknown`, reference `6-9k`). Both are proxies for
-how well-resourced the petition is.
+`<3k / 3-6k / 6k+ / unknown`, reference `6k+`, right-closed). Both are proxies
+for how well-resourced the petition is.
+
+Until 2026-09-16 there was a fourth band, `9k+`, and the cut was left-closed,
+so a petition certified at exactly 9,000 words — the limit, which the Rule
+allows — was "over the limit". 108 of that band's 129 training petitions were
+exactly 9,000; the 21 genuinely over it were the minority, and case pages told
+readers the model weighted an at-limit petition down for exceeding the cap.
+Cut right-closed, the 21 stood alone at +1.30 on the logit, SE 0.98, p = 0.19:
+a 3.7× odds ratio the page would have announced on 21 rows spanning odds of
+0.5× to 26×. So the top band is now open, `6k+`, and an over-length petition
+carries no separate weight. Retrained on the change: AUC 0.871 / AP 0.283,
+identical to before at three decimals, which is the same model with one bad
+cue removed. A measured over-length flag is worth revisiting once there are a
+few hundred such petitions.
 
 The word count comes from `data-raw/word_counts.json` (`R/word_count.R`,
 built by `enrich-word-counts.yml`): the "Certificate of Word Count" the Clerk
@@ -146,7 +159,9 @@ every baseline figure against the ones published before):
 
 On granted-vs-denied rows alone the word band reads AUC 0.881 / AP 0.374
 against 0.879 / 0.368 for the flag. Its coefficients against the `6-9k`
-reference: `<3k` −1.89, `3-6k` −0.84, `9k+` −0.19, `unknown` +0.16.
+reference, as measured then with the left-closed cut (see the band note
+above for why `9k+` was mostly at-limit petitions and is gone): `<3k` −1.89,
+`3-6k` −0.84, `9k+` −0.19, `unknown` +0.16.
 
 `dissent_below` and `split_argued` are the **v1** cues of `R/petition_signals.R`,
 matched over the whole text; their semantics are frozen while the fitted model

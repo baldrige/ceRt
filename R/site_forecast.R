@@ -221,7 +221,7 @@ pending_signals_map <- function(site_dir) {
 #' Until 2026-09-15 this function built its own map from the cues alone and
 #' never attached the word counts, so every case with a certificate was scored
 #' in the model's "unknown" word band here and in its real band in the 7- and
-#' 28-day windows beside it. 26-304 (8,972 words, the 6-9k reference band)
+#' 28-day windows beside it. 26-304 (8,972 words, the full-length reference band)
 #' read 75% in "All pending" and 72% in the 28-day window: the whole gap was
 #' the +0.155 logit the model gives "unknown". One case, two numbers, on one
 #' page.

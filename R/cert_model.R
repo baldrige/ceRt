@@ -865,7 +865,7 @@ ATRISK_FEATURES <- c(ENHANCED_FEATURES, PETITION_SIGNAL_FEATURES)
 FACTOR_REFERENCES <- list(pet_type = "individual", resp_type = "individual",
                           court_below = "STATE", relist_bucket = "0",
                           amicus_bucket = "0", counsel_tier = "new",
-                          dissent_bucket = "0", word_band = "6-9k")
+                          dissent_bucket = "0", word_band = "6k+")
 
 # The petition-size cues. An unresolved petition (no entry in the signals cache,
 # or a PDF that yielded no text; no certificate docketed, or one that did not
@@ -878,14 +878,28 @@ dissent_bucket <- function(n) {
       right = TRUE) |> as.character()
 }
 # Bands against the 9,000-word limit of Rule 33.1(g): a petition well under it,
-# one at half, one near the cap (the reference: the ordinary petition), and
-# the few over it (a motion to exceed, or a count that includes the excluded
-# parts).
-WORD_BREAKS <- c(0, 3000, 6000, 9000, Inf)
-WORD_LABELS <- c("<3k", "3-6k", "6-9k", "9k+")
+# one at half, and the full-length petition (the reference: the ordinary one).
+#
+# Until 2026-09-16 there was a fourth band, "9k+", cut LEFT-closed at 9,000 --
+# so a petition certified at exactly 9,000 words, the limit, which the Rule
+# allows, read "over the limit", and 108 of the band's 129 training petitions
+# were exactly that: the band measured "filled the limit to the word", the
+# ordinary well-resourced petition, not the 21 that actually exceeded it (a
+# motion to exceed granted, or a count that includes the excluded parts).
+# Cut right-closed instead, those 21 stood alone: +1.30 on the logit, SE 0.98,
+# p = 0.19 -- a 3.7x odds ratio the page would have announced as "weights this
+# up for a petition over the limit" on the strength of 21 rows spanning odds
+# of 0.5x to 26x. So the top band is open: full length and over-length are
+# one level, and an over-length petition carries no separate weight. (An
+# over-length flag is a thing to measure again when there are a few hundred
+# of them, not before.)
+WORD_BREAKS <- c(0, 3000, 6000, Inf)
+WORD_LABELS <- c("<3k", "3-6k", "6k+")
+# Right-closed, so 3,000 and 6,000 belong to the band they close.
 word_band <- function(words) {
   w <- suppressWarnings(as.numeric(words))
-  out <- as.character(cut(w, WORD_BREAKS, labels = WORD_LABELS, right = FALSE))
+  out <- as.character(cut(w, WORD_BREAKS, labels = WORD_LABELS, right = TRUE,
+                          include.lowest = TRUE))
   out[is.na(w)] <- "unknown"
   out
 }
@@ -1380,7 +1394,6 @@ FORECAST_CUE_PHRASES <- c(
   # From the Rule 33.1(h) certificate, against the 9,000-word limit.
   "word_band<3k"     = "a petition under 3,000 words",
   "word_band3-6k"    = "a petition of 3,000 to 6,000 words",
-  "word_band9k+"     = "a petition over the 9,000-word limit",
   "word_bandunknown" = "a petition with no word-count certificate on the docket",
   "relist_bucket1"   = "one relist",
   "relist_bucket2"   = "two relists",
