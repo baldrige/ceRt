@@ -106,22 +106,28 @@ number are *not* the rule: taking them for it emptied Barrett's one-page
 dissent in Chatrie into the notes). Line-end hyphenation is repaired and bare
 section numerals dropped before anything is counted.
 
-A **preliminary print or bound volume** (which is what the feed names once a
-Term is in the Reports — most of OT25 by September 2026, and all of OT16–18)
-sets its heads in mixed case (`Gorsuch, J., concurring`), carries `Counsel`
-and `Syllabus` sections of its own, drops the "fi" ligature (`traffcking`),
-and draws **no footnote rule**: the notes are a smaller face with nothing in
-the text layer to mark them, and a body line like `83 Fed. Reg. 3553 (2018).
-And those tariffs …` is indistinguishable from a note's first line. So from a
-print the footnote measures are **unknown**, not zero: the entry carries
-`has_rule`, the panel shows a dash, and a Justice's footnote share pools only
-the slip-sourced writings. The footnotes stay **inside the body** for such a
-writing, which shortens its sentences and raises its citation rate (OT16
-Thomas reads 12.8 words per sentence from the volume against 17.2 from OT25's
-slips), so the panel's footer says how many of the Term's writings came from
-a print and that such Terms compare with care. Word counts by kind are
-unaffected in spirit — a print's count includes the notes — but not in
-number.
+**Footnotes are found by type size, not by the rule** (`t2`, 2026-09-18).
+Only a fresh slip draws the em-dash rule above its notes. Everything else
+the feed names — the excerpt-style reissued slips (`604us1r06_5ifl.pdf`,
+which is what OT19–OT24 resolve to now), the preliminary prints (most of
+OT25 by September 2026) and the bound volumes (OT16–18) — sets the notes in
+a smaller face with nothing in the text layer to mark them, and a body line
+like `83 Fed. Reg. 3553 (2018). And those tariffs …` is indistinguishable
+from a note's first line. The first version (`t1`) split only at the rule,
+so the archive's footnotes read as unknown and, worse, stayed inside the
+body, which shortened sentences and raised the citation rate (OT16 Thomas
+read 12.8 words per sentence against 17.2 from the OT25 slips).
+
+Now the PDF's word geometry (`pdftools::pdf_data()`) decides: the Court sets
+footnotes two points smaller than the body in every format measured (slip 13
+vs 10; excerpt slip and print 10 vs 8), so a page's footnote block is the
+trailing run of lines whose type is smaller than the page's dominant size,
+and the running head is the leading such run. `page_lines()` groups words
+into lines, `.page_body_geom()` splits them, `.fetch_pdf_geom()` fetches text
+and geometry together (a volume's geometry is memoised per run like its
+text). The text-layer path remains as the fallback when geometry cannot be
+read, and `has_rule` then says the notes are unknown. `n_print` in the panel
+footer counts such writings; after the `t2` re-read it should be zero.
 
 **Measures, per writing**: words (body) and footnote words; sentences, words
 per sentence and its spread, share of sentences over 40 words;

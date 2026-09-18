@@ -26,7 +26,9 @@
 
 suppressPackageStartupMessages({ library(stringr); library(tibble); library(dplyr) })
 
-OPINION_TEXT_VERSION <- "t1"
+# t1: text-layer split (footnotes only below a slip's em-dash rule).
+# t2: footnotes by type size from the word geometry, every format (2026-09-18).
+OPINION_TEXT_VERSION <- "t2"
 
 # ---- segmentation --------------------------------------------------------------
 
@@ -88,6 +90,99 @@ OPINION_TEXT_VERSION <- "t1"
   list(body = paste(ls, collapse = "\n"), notes = paste(notes, collapse = "\n"), has_rule = length(rule) > 0)
 }
 
+# ---- geometry: footnotes by type size --------------------------------------------
+# The text layer alone cannot find a print's footnotes (no rule; a note's
+# first line looks like any body line). The PDF's word geometry can: the
+# Court sets footnotes two points smaller than the body in every format
+# measured (2026-09-18: slip 13 vs 10, excerpt-style slip and preliminary
+# print 10 vs 8), so a page's footnote block is the trailing run of lines
+# whose type is smaller than the page's dominant size. The running head is
+# smaller too, and sits at the top, so it is dropped the same way. This path
+# is used whenever pdf_data() is available for the file; the text-layer path
+# above is the fallback.
+
+# One page of pdf_data() words -> lines: tibble(y, h, n, txt), top to bottom,
+# words in reading order within a line.
+page_lines <- function(words) {
+  if (is.null(words) || !nrow(words)) return(tibble(y = numeric(), h = numeric(), n = integer(), txt = character()))
+  words |> mutate(y = round(y / 2) * 2) |> arrange(y, x) |> group_by(y) |>
+    summarise(h = stats::median(height), n = dplyr::n(), txt = paste(text, collapse = " "), .groups = "drop") |>
+    arrange(y)
+}
+
+# Body and notes of a page from its lines. `body_h` is the modal height of
+# lines with four or more words; leading smaller lines are the running head,
+# a trailing run of smaller lines is the footnote block. Returns the same
+# shape as .page_body(), with has_rule = TRUE because the notes are known.
+.page_body_geom <- function(ln, body_h = NULL, first = FALSE) {
+  ln <- ln[!str_detect(ln$txt, regex("Page Proof Pending Publication", ignore_case = TRUE)), ]
+  if (!nrow(ln)) return(list(body = "", notes = "", has_rule = TRUE))
+  # The body size is decided for the whole writing (see opinion_sections()),
+  # because on a first page the caption block and byline can outvote the body.
+  if (is.null(body_h)) body_h <- .body_height(ln)
+  small <- ln$h < body_h - 0.6
+  # Running head: the leading smaller lines (at most three).
+  lead <- 0L; while (lead < min(3L, nrow(ln)) && small[lead + 1L]) lead <- lead + 1L
+  # Footnotes: the trailing smaller lines. Not the whole page (a page that is
+  # all small type is a counsel list or an appendix, which is body here).
+  k <- nrow(ln); run <- 0L; while (k > lead && small[k]) { run <- run + 1L; k <- k - 1L }
+  if (k <= lead) { run <- 0L; k <- nrow(ln) }
+  body <- ln$txt[seq.int(lead + 1L, length.out = k - lead)]
+  notes <- if (run) ln$txt[(k + 1L):nrow(ln)] else character()
+  # On a writing's FIRST page a trailing small block that opens with neither
+  # the rule nor a note number is the excerpt-style counsel list ("the Local
+  # Government Legal Center et al. by Colin D. Dougherty ..."): not notes, not
+  # body. Elsewhere a block without a marker is a note continuing from the
+  # page before and is kept.
+  if (first && length(notes) && !str_detect(str_squish(notes[1]), "^(?:[-—–]{3,}|\\*|\\d{1,2}\\b)")) notes <- character()
+  list(body = paste(body, collapse = "\n"), notes = paste(notes, collapse = "\n"), has_rule = TRUE)
+}
+# The dominant type size of a set of lines: the modal rounded height among
+# lines of four or more words.
+.body_height <- function(ln) {
+  hs <- round(ln$h[ln$n >= 4])
+  if (length(hs)) as.numeric(names(which.max(table(hs)))) else stats::median(ln$h)
+}
+
+# Word geometry for a whole file: a list, one page_lines() tibble per page.
+.pdf_geom <- function(path) {
+  d <- tryCatch(suppressWarnings(pdftools::pdf_data(path)), error = function(e) NULL)
+  if (is.null(d)) return(NULL)
+  lapply(d, page_lines)
+}
+
+# Like .fetch_pdf_pages() (R/justices.R) but returning the geometry as well:
+# list(pages, geom, fetched). A slip is downloaded once for both; a volume or
+# preliminary print reuses the memoised text pages and memoises its geometry
+# the same way (one more download per volume per run).
+.fetch_pdf_geom <- function(url, dkts = character()) {
+  anchor <- suppressWarnings(as.integer(str_match(url, "#page=(\\d+)")[1, 2]))
+  base <- str_remove(url, "#.*$")
+  if (is.na(anchor)) {
+    tf <- .download_pdf(base, 120)
+    if (is.null(tf)) return(list(pages = character(), geom = NULL, fetched = TRUE))
+    pages <- tryCatch(suppressWarnings(pdftools::pdf_text(tf)), error = function(e) character())
+    geom <- if (length(pages)) .pdf_geom(tf) else NULL
+    unlink(tf)
+    return(list(pages = pages, geom = geom, fetched = TRUE))
+  }
+  res <- .fetch_pdf_pages(url, dkts, whole = TRUE)
+  if (!length(res$pages)) return(list(pages = character(), geom = NULL, fetched = res$fetched))
+  key <- paste0(base, "#geom")
+  if (!exists(key, envir = .volume_memo, inherits = FALSE)) {
+    cands <- base
+    vol <- str_match(base, "preliminaryprint/(\\d{3})US")[1, 2]
+    if (!is.na(vol)) cands <- c(base, sprintf("https://www.supremecourt.gov/opinions/boundvolumes/%sBV.pdf", vol))
+    g <- NULL
+    for (u in cands) { tf <- .download_pdf(u, 600); if (is.null(tf)) next; g <- .pdf_geom(tf); unlink(tf); if (!is.null(g)) break }
+    assign(key, g, envir = .volume_memo)
+    message("  volume ", basename(base), ": geometry ", if (is.null(g)) "unavailable" else "memoised for this run")
+  }
+  g <- get(key, envir = .volume_memo)
+  geom <- if (!is.null(g) && all(res$idx <= length(g))) g[res$idx] else NULL
+  list(pages = res$pages, geom = geom, fetched = TRUE)
+}
+
 # The front matter of a writing's first page, cut at the byline. Three
 # bylines: "JUSTICE X delivered the opinion of the Court.", "JUSTICE X
 # announced the judgment of the Court and delivered ...", and the separate
@@ -97,14 +192,28 @@ OPINION_TEXT_VERSION <- "t1"
 # byline is found the text is returned whole rather than emptied.
 .strip_front_matter <- function(body) {
   x <- body
+  # Tolerant of what the geometry path does to a small-caps byline: the
+  # capitals of "JUSTICE KAVANAUGH" land on their own line ("J K") and the
+  # rest ("USTICE AVANAUGH") can sort after "delivered the opinion of the
+  # Court.", and a print's "announced the judgment of the [Chief Justice
+  # Roberts] Court and delivered the opinion of the Court, except as to Part
+  # III." interleaves the name. So the byline's tail is what is matched, with
+  # room to the sentence end, and small-cap fragments left at the start are
+  # swept up afterwards.
   rx <- paste0("(?s)^.*?(?:",
-    "delivered the opinion of the Court(?: with respect to [^.]{0,80})?\\.|",
-    "announced the judgment of the Court[^.]{0,200}\\.|",
+    "delivered the opinion of the Court[^.]{0,160}\\.|",
+    "announced the judgment of the[^.]{0,240}\\.|",
     "(?:CHIEF )?JUSTICE [A-Z]+(?:, with whom [^.]{0,200}?)?, (?:concurring|dissenting)[^.]{0,80}\\.|",
     "\\bPER CURIAM\\.)")
   # Case-insensitive: a slip's byline is "JUSTICE KAVANAUGH delivered ...", a
   # print's "Chief Justice Roberts announced the judgment ...".
   y <- str_replace(x, regex(rx, ignore_case = TRUE), "")
+  y <- str_replace(y, "^\\s*(?:[A-Z]\\s+)*(?:USTICE|HIEF)\\s+[A-Z]+(?:\\s+(?:USTICE|HIEF)\\s+[A-Z]+)*(?:, with whom [^.]{0,200}?joins?,)?\\s*", "")
+  # The print's mixed-case form of the same ("Justice Kavanaugh" on its own
+  # line after the byline's tail), and a caption's "*" (the "Together with"
+  # marker) that lands at the head of the body.
+  y <- str_replace(y, "^\\s*(?:Chief )?Justice [A-Z][a-z]+(?:, with whom [^.]{0,200}?joins?,)?\\s+(?=[A-Z“\"*])", "")
+  y <- str_replace(y, "^\\s*[*†]\\s*", "")
   if (identical(y, x)) {
     # No byline: drop just the NOTICE paragraph and the masthead if present.
     y <- str_replace(x, regex("(?s)^.*?formal errors\\.\\s*"), "")
@@ -126,8 +235,9 @@ OPINION_TEXT_VERSION <- "t1"
 # `who` is the Justice's surname in lower case ("court" / "percuriam" for the
 # Court's own), `kind` one of court / percuriam / concurring / dissenting /
 # mixed / judgment / opinion (a partial or plurality opinion of X, J.).
-opinion_sections <- function(pages) {
+opinion_sections <- function(pages, geom = NULL) {
   sec <- vapply(pages, .page_section, character(1), USE.NAMES = FALSE)
+  use_geom <- !is.null(geom) && length(geom) == length(pages)
   # A page with no head continues the section before it (a wrapped head).
   for (i in seq_along(sec)) if (is.na(sec[i]) && i > 1) sec[i] <- sec[i - 1]
   keep <- !is.na(sec) & !sec %in% c("syllabus", "counsel", "appendix")
@@ -135,7 +245,10 @@ opinion_sections <- function(pages) {
                                 pages = integer(), body = character(), notes = character()))
   out <- lapply(unique(sec[keep]), function(s) {
     idx <- which(sec == s)
-    pb <- lapply(pages[idx], .page_body)
+    pb <- if (use_geom) {
+      bh <- .body_height(bind_rows(geom[idx]))
+      lapply(seq_along(idx), function(j) .page_body_geom(geom[[idx[j]]], bh, first = j == 1L))
+    } else lapply(pages[idx], .page_body)
     # The first page of a writing opens with the slip's front matter: the
     # "NOTICE: This opinion is subject to formal revision ..." paragraph (the
     # Court's opinion only), then "SUPREME COURT OF THE UNITED STATES", the
@@ -224,8 +337,8 @@ text_measures <- function(body, notes = "", notes_known = TRUE) {
 }
 
 # Every writing in a slip opinion, measured: one row per section.
-opinion_text_stats <- function(pages) {
-  secs <- opinion_sections(pages)
+opinion_text_stats <- function(pages, geom = NULL) {
+  secs <- opinion_sections(pages, geom)
   if (!nrow(secs)) return(secs)
   ms <- bind_rows(lapply(seq_len(nrow(secs)), function(i) text_measures(secs$body[i], secs$notes[i], secs$has_rule[i])))
   bind_cols(secs |> select(section, who, kind, pages), ms)
@@ -251,8 +364,8 @@ write_opinion_text <- function(cache, site_dir) {
 }
 # A cache entry from a decision's pages (shared with the lineup fetch, which
 # has the same pages in hand -- see resolve_lineups()).
-opinion_text_entry <- function(pages, url, decided) {
-  st <- tryCatch(opinion_text_stats(pages), error = function(e) NULL)
+opinion_text_entry <- function(pages, url, decided, geom = NULL) {
+  st <- tryCatch(opinion_text_stats(pages, geom), error = function(e) NULL)
   e <- list(url = url, decided = as.character(decided), fetched = as.character(Sys.Date()), tv = OPINION_TEXT_VERSION)
   if (is.null(st) || !nrow(st)) { e$ok <- FALSE; return(e) }
   st <- st |> mutate(across(where(is.numeric), ~ round(.x, 4)))
@@ -278,14 +391,14 @@ resolve_opinion_text <- function(dec, urls, site_dir, max_new = 0L, pace = 1,
     message("opinion text: fetching ", nrow(todo), " of ", n_uncached, " uncached decision(s) (cap ", max_new, ")")
     empties <- 0L
     for (i in seq_len(nrow(todo))) {
-      res <- .fetch_pdf_pages(todo$url[i], todo$dkts[[i]], whole = TRUE); pages <- res$pages
+      res <- .fetch_pdf_geom(todo$url[i], todo$dkts[[i]]); pages <- res$pages
       if (!length(pages)) {
         if (res$fetched) empties <- empties + 1L
         cache[[todo$dkt[i]]] <- list(url = todo$url[i], decided = as.character(todo$decided[i]),
                                      fetched = as.character(Sys.Date()), tv = OPINION_TEXT_VERSION, ok = FALSE)
       } else {
         if (res$fetched) empties <- 0L
-        cache[[todo$dkt[i]]] <- opinion_text_entry(pages, todo$url[i], todo$decided[i])
+        cache[[todo$dkt[i]]] <- opinion_text_entry(pages, todo$url[i], todo$decided[i], res$geom)
       }
       if (empties >= max_consecutive_empty) {
         message("opinion text: ", empties, " empty downloads in a row after ", i,
