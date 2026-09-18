@@ -461,7 +461,7 @@ parse_body_headers <- function(pages, max_pages = 40L) {
     tf <- .download_pdf(base, 60)
     if (is.null(tf)) return(list(pages = character(), fetched = TRUE))
     pages <- tryCatch(suppressWarnings(pdf_text(tf)), error = function(e) character()); unlink(tf)
-    return(list(pages = pages, fetched = TRUE))
+    return(list(pages = pages, fetched = TRUE, idx = seq_along(pages)))
   }
   v <- .volume_pages(base)
   pages <- v$pages
@@ -479,7 +479,9 @@ parse_body_headers <- function(pages, max_pages = 40L) {
   # first pass). The next case opens with its own "No. ... Argued" header.
   nxt <- which(str_detect(pages[win[-1]], "Nos?\\.[^\\n]{0,80}?\\b\\d{2}[–-]\\d{1,5}\\b[^\\n]{0,80}?Argued"))
   if (length(nxt)) win <- win[seq_len(nxt[1])]
-  list(pages = pages[win], fetched = v$fetched)
+  # `idx`: the window's page numbers within the file, so a caller that also
+  # wants the file's word geometry (R/opinion_text.R) can take the same pages.
+  list(pages = pages[win], fetched = v$fetched, idx = win)
 }
 
 # Every docket number an opinion names on its first two pages: its own
