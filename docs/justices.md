@@ -115,7 +115,13 @@ the text layer to mark them, and a body line like `83 Fed. Reg. 3553 (2018).
 And those tariffs …` is indistinguishable from a note's first line. So from a
 print the footnote measures are **unknown**, not zero: the entry carries
 `has_rule`, the panel shows a dash, and a Justice's footnote share pools only
-the slip-sourced writings. Sentence, word and citation measures are unaffected.
+the slip-sourced writings. The footnotes stay **inside the body** for such a
+writing, which shortens its sentences and raises its citation rate (OT16
+Thomas reads 12.8 words per sentence from the volume against 17.2 from OT25's
+slips), so the panel's footer says how many of the Term's writings came from
+a print and that such Terms compare with care. Word counts by kind are
+unaffected in spirit — a print's count includes the notes — but not in
+number.
 
 **Measures, per writing**: words (body) and footnote words; sentences, words
 per sentence and its spread, share of sentences over 40 words;

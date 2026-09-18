@@ -380,6 +380,10 @@ term_text_stats <- function(rows, court) {
     left_join(pooled, by = "name")
   pc <- pooled[pooled$name == "Per Curiam", ]
   list(by_justice = out, per_curiam = if (nrow(pc)) pc else NULL, n_writings = nrow(rows),
+       # Writings read from a print or volume: their footnotes stayed in the
+       # body (no rule to cut at), which shortens sentences and raises the
+       # citation rate. The page says how many so a Term is read accordingly.
+       n_print = sum(is.na(rows$words_notes)),
        n_dec = dplyr::n_distinct(rows$dkt), court_sent = weighted.mean(rows$sent_mean, rows$words),
        court_fk = weighted.mean(rows$fk_grade, rows$words), court_cites = weighted.mean(rows$cites_per_k, rows$words + rows$words_notes))
 }
