@@ -29,6 +29,15 @@ on:
         required: false
         type: boolean
         default: false
+      text_max_new:
+        description: "Opinion PDFs to re-read for the text measures this run (0 = none; the archive is ~600)"
+        required: false
+        default: "300"
+      text_retry:
+        description: "Re-read cached decisions whose text measures failed or predate OPINION_TEXT_VERSION"
+        required: false
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -74,6 +83,8 @@ jobs:
           SITE_DIR: site
           LINEUP_MAX_NEW: ${{ inputs.lineup_max_new }}
           LINEUP_RETRY: ${{ inputs.lineup_retry }}
+          TEXT_MAX_NEW: ${{ inputs.text_max_new }}
+          TEXT_RETRY: ${{ inputs.text_retry }}
           # A full retry re-fetches ~600 PDFs; at 0.75 s the 2026-09-14 run
           # tripped the per-IP limit partway and left a third of the archive
           # unfilled. One second holds.

@@ -39,7 +39,8 @@ JUSTICES_UA  <- "Mozilla/5.0 (ceRt SCOTUS research; +https://supremecourt.report
 # Bump to force every Term page to be rewritten after a markup change. The
 # pages are cheap (no fetch), so the render simply always rewrites them; this
 # is stamped into each page for the audit to read.
-JUSTICES_TEMPLATE_VERSION <- "j1"
+# j2: the "How they write" panel (R/opinion_text.R), 2026-09-18.
+JUSTICES_TEMPLATE_VERSION <- "j2"
 # Stamped on every cached lineup. Bump after a change to the lineup grammar;
 # a LINEUP_RETRY=1 dispatch then re-reads every entry parsed under an older
 # version (render-justices.yml, `lineup_retry`).
@@ -445,7 +446,11 @@ parse_body_headers <- function(pages, max_pages = 40L) {
 # Returns list(pages = character(), fetched = TRUE/FALSE): `fetched` says a
 # network request was made, for the pacing and throttle counters. `dkts` are
 # the decision's docket numbers, for locating it inside a volume.
-.fetch_pdf_pages <- function(url, dkts = character()) {
+# `whole = TRUE` reads the decision's every page (for the text measures in
+# R/opinion_text.R): a slip is one file anyway; in a volume the window runs
+# from the case's syllabus to the next case's header without the fifteen-page
+# cap the lineup needs.
+.fetch_pdf_pages <- function(url, dkts = character(), whole = FALSE) {
   anchor <- suppressWarnings(as.integer(str_match(url, "#page=(\\d+)")[1, 2]))
   base <- str_remove(url, "#.*$")
   if (is.na(anchor)) {
@@ -463,7 +468,7 @@ parse_body_headers <- function(pages, max_pages = 40L) {
   hit <- if (length(dkts)) which(str_detect(pages, rx))[1] else NA_integer_
   p <- if (!is.na(hit)) hit else anchor
   if (p > length(pages)) return(list(pages = character(), fetched = v$fetched))
-  win <- seq(p, min(length(pages), p + 14L))
+  win <- seq(p, min(length(pages), p + (if (whole) 299L else 14L)))
   # Stop at the next case. A dismissal or a short per curiam runs a page or
   # two, and a fixed window would then read the following case's lineup as
   # this one's (Cox v. United States took Ohio v. American Express's on the
@@ -658,7 +663,7 @@ decision_votes <- function(entry, court, gn_no_part = NULL, decided = NULL) {
 # ---- statistics ----------------------------------------------------------------
 #' Everything a Term page shows. `gn` is read_granted_noted(); `lineups` is
 #' read_lineups(); `captions` an optional docket -> caption map (cases/search.json).
-term_stats <- function(term, gn, lineups, captions = NULL) {
+term_stats <- function(term, gn, lineups, captions = NULL, texts = NULL) {
   court <- term_court(term)
   dec <- gn_decisions(gn, term)
   if (!nrow(dec)) return(NULL)
@@ -809,10 +814,16 @@ term_stats <- function(term, gn, lineups, captions = NULL) {
     if (!is.null(captions)) { cp <- unname(captions[wl$dkt]); wl$caption <- ifelse(is.na(cp), wl$caption, cp) }
   }
 
+  # The text measures (R/opinion_text.R), where the cache has the Term's
+  # opinions; NULL renders no panel.
+  text <- if (!is.null(texts) && length(texts) && exists("term_text_rows"))
+    tryCatch(term_text_stats(term_text_rows(dec, wl, texts), court), error = function(e) {
+      message("text measures skipped for OT", term, ": ", conditionMessage(e)); NULL }) else NULL
+
   list(term = term, court = court, dec = dec, n_dec = nrow(dec), n_signed = n_signed,
        n_lineup = n_lineup, written = written, agree_j = agree_j, agree_f = agree_f, n_pair = n_pair,
        splits = splits, top_lineup = top_lineup, lineups = close_splits, n_63 = n_63, by_j = by_j, lone = lone, solo_w = solo_w,
-       n_unan = n_unan, n_unan_j = n_unan_j, writings = wl)
+       n_unan = n_unan, n_unan_j = n_unan_j, writings = wl, text = text)
 }
 
 # ---- rendering ---------------------------------------------------------------------
@@ -863,7 +874,9 @@ main.wrap{max-width:54rem}
 .jx td{padding:.4rem .55rem;border-bottom:1px solid var(--rule);vertical-align:top}
 .jx tbody tr:nth-child(even){background:var(--stripe)}
 .jx td.n,.jx th.n{text-align:right;white-space:nowrap}
-.jx td.pc{font-size:.82rem;color:var(--faint)}
+.jx td.pc,.jx .pc{font-size:.82rem;color:var(--faint);font-weight:400;text-transform:none;letter-spacing:0}
+.jx .dim{color:var(--rule)}
+.jx tr.pc-row td{color:var(--ink-soft);font-style:italic}
 .jx tfoot td{color:var(--faint);font-size:.82rem;border-bottom:0;padding-top:.5rem;font-style:italic}
 .jx-toggle{display:inline-flex;border:1px solid var(--rule);border-radius:2px;overflow:hidden;font-size:.82rem;margin:0 0 .9rem}
 .jx-toggle label{padding:.3rem .7rem;cursor:pointer;color:var(--ink-soft);background:var(--field)}
@@ -1134,6 +1147,39 @@ render_justices_term <- function(st, site_dir, terms_all) {
     "<p><b>Merits only.</b> Argued cases on the Granted &amp; Noted List. Dissents from denial and emergency-docket writings are not counted here.</p>",
     "</div></section>")
 
+  # Panel 5: how they write. Word counts by kind of opinion, and the style
+  # measures pooled over every writing (R/opinion_text.R). Rendered only when
+  # the text cache covers this Term's decisions; the tag says how many.
+  panel_text <- ""
+  tx <- st$text
+  if (!is.null(tx) && !is.null(tx$by_justice) && nrow(tx$by_justice)) {
+    B <- tx$by_justice
+    fmt_n <- function(n, med) if (is.na(n) || n == 0) "<span class='dim'>—</span>" else
+      sprintf("%d <span class='pc'>· %s</span>", as.integer(n), format(round(med), big.mark = ","))
+    f1 <- function(x, d = 1) if (is.na(x)) "<span class='dim'>—</span>" else formatC(x, format = "f", digits = d)
+    rows5 <- paste(vapply(seq_len(nrow(B)), function(i) { b <- B[i, ]
+      sprintf("<tr><td>%s</td><td class='n'>%s</td><td class='n'>%s</td><td class='n'>%s</td><td class='n'>%s</td><td class='n'>%s</td><td class='n'>%s</td><td class='n'>%s</td><td class='n'>%s</td><td class='n'>%s</td></tr>",
+              b$label, fmt_n(b$court_n, b$court_med), fmt_n(b$conc_n, b$conc_med), fmt_n(b$diss_n, b$diss_med),
+              f1(b$sent_mean), if (is.na(b$sent_over40)) "<span class='dim'>—</span>" else .jx_pct(b$sent_over40),
+              f1(b$fk_grade), f1(b$cites_per_k), if (is.na(b$fn_share)) "<span class='dim'>—</span>" else .jx_pct(b$fn_share),
+              f1(b$contractions_per_k, 1))
+    }, character(1)), collapse = "")
+    pcrow <- if (!is.null(tx$per_curiam)) { p <- tx$per_curiam
+      sprintf("<tr class='pc-row'><td>Per curiam</td><td class='n'>%d <span class='pc'>· %s</span></td><td class='n'><span class='dim'>—</span></td><td class='n'><span class='dim'>—</span></td><td class='n'>%s</td><td class='n'>%s</td><td class='n'>%s</td><td class='n'>%s</td><td class='n'>%s</td><td class='n'>%s</td></tr>",
+              as.integer(p$n), format(round(p$words_total / p$n), big.mark = ","), f1(p$sent_mean), .jx_pct(p$sent_over40), f1(p$fk_grade), f1(p$cites_per_k),
+              if (is.na(p$fn_share)) "<span class='dim'>—</span>" else .jx_pct(p$fn_share), f1(p$contractions_per_k))
+    } else ""
+    panel_text <- paste0(
+      "<section class='jx' id='write'><h2>How they write <span class='tag'>Measured from ", tx$n_dec, " of ", st$n_dec, " decisions</span></h2>",
+      "<p class='note'>Every opinion of the Term, read from the slip-opinion PDF and measured by writing: the Court's opinion, each concurrence and each dissent, body text only (footnotes counted apart, citations counted once each). Each count is followed by the median length in words. The style measures pool a Justice's writings of every kind, weighted by length.</p>",
+      "<div class='jx-tw'><table><thead><tr><th>Justice</th><th class='n'>Court<br><span class='pc'>n · median words</span></th><th class='n'>Concurrences<br><span class='pc'>n · median words</span></th><th class='n'>Dissents<br><span class='pc'>n · median words</span></th>",
+      "<th class='n'>Words per sentence</th><th class='n'>Sentences over 40 words</th><th class='n'>Grade level</th><th class='n'>Citations per 1,000 words</th><th class='n'>Footnote share</th><th class='n'>Contractions per 1,000 words</th></tr></thead>",
+      "<tbody>", rows5, pcrow, "</tbody><tfoot><tr><td colspan='10'>",
+      sprintf("Across the Term's %d writings: %.1f words per sentence, grade level %.1f, %.1f citations per 1,000 words. ", tx$n_writings, tx$court_sent, tx$court_fk, tx$court_cites),
+      "Grade level is Flesch–Kincaid, computed after citations are masked; on legal prose it is an index for comparing Justices, not a reading age. A concurrence in the judgment is counted with the concurrences; a mixed writing with the dissents.",
+      "</td></tr></tfoot></table></div></section>")
+  }
+
   crumb <- list(href = paste0("/", JUSTICES_DIR, "/"), label = "Justices")
   html <- paste0(
     "<!DOCTYPE html>\n<html lang=\"en\">\n",
@@ -1146,7 +1192,7 @@ render_justices_term <- function(st, site_dir, terms_all) {
     site_breadcrumb(paste0("October Term ", yyyy), crumb),
     "<p class='kicker'>Supreme Court of the United States · The Justices</p>",
     "<h1>October Term ", yyyy, "</h1><p class='dek'>", dek, "</p>", sw, "<hr class='brule'>",
-    court_html, panel1, panel2, panel3, panel4, defs,
+    court_html, panel1, panel_text, panel2, panel3, panel4, defs,
     "<p class='back'><a href='index.html'>&larr; All Terms</a> · <a href='/arguments/arg_", yyyy, ".html'>This Term's oral arguments &rarr;</a></p>",
     "</main></body>\n</html>\n")
   out <- file.path(out_dir, paste0("ot", yyyy, ".html"))
@@ -1155,7 +1201,7 @@ render_justices_term <- function(st, site_dir, terms_all) {
 }
 
 #' Render every Term page and the section index. Returns the Terms rendered.
-render_justices <- function(site_dir, gn, lineups, captions = NULL) {
+render_justices <- function(site_dir, gn, lineups, captions = NULL, texts = NULL) {
   # The section's static assets, re-asserted on every render like
   # analytics.js: the network script and the portraits with their face
   # geometry. Copied whole so a page never references a file that is not there.
@@ -1166,7 +1212,7 @@ render_justices <- function(site_dir, gn, lineups, captions = NULL) {
     file.copy(list.files(PORTRAITS_SRC, full.names = TRUE), pd, overwrite = TRUE)
   }
   terms <- sort(unique(gn$term[!is.na(gn$decided)]))
-  stats <- lapply(terms, function(t) term_stats(t, gn, lineups, captions))
+  stats <- lapply(terms, function(t) term_stats(t, gn, lineups, captions, texts))
   keep <- !vapply(stats, is.null, logical(1)); terms <- terms[keep]; stats <- stats[keep]
   for (st in stats) render_justices_term(st, site_dir, terms)
   items <- lapply(rev(seq_along(terms)), function(i) {
