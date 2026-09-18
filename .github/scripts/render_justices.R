@@ -20,6 +20,11 @@ site_dir <- Sys.getenv("SITE_DIR", unset = "site")
 max_new  <- as.integer(Sys.getenv("LINEUP_MAX_NEW", unset = "0"))
 retry    <- tolower(Sys.getenv("LINEUP_RETRY", "")) %in% c("1", "true", "yes")
 pace     <- as.numeric(Sys.getenv("LINEUP_PACE", unset = "0.75"))
+# The text measures (R/opinion_text.R) re-read the opinion PDFs the lineups
+# were parsed from, under their own cap: a slip is ~1 MB and the archive is
+# ~600 of them, so the backlog is spread over runs like the lineups were.
+text_max <- as.integer(Sys.getenv("TEXT_MAX_NEW", unset = "0"))
+text_retry <- tolower(Sys.getenv("TEXT_RETRY", "")) %in% c("1", "true", "yes")
 
 source("R/palette.R")
 source("R/site_nav.R")
@@ -28,6 +33,7 @@ source("R/page_style.R")
 source("R/granted_noted.R")   # read_granted_noted(), gn_others()
 source("R/site_decisions.R")  # fetch_opinion_listing()
 source("R/justices.R")
+source("R/opinion_text.R")    # resolve_opinion_text(), term_text_stats()
 
 # Refresh the Granted & Noted manifest the same way the weekly does: the
 # current, next and prior Terms, any Term the manifest lacks, and any Term
@@ -61,8 +67,13 @@ docket_page_url <- function(dk) {
   if (length(m)) m[1] else NA_character_
 }
 is_current <- function(k) !is.null(lineups[[k]]) && (!retry || (isTRUE(lineups[[k]]$parsed) && identical(lineups[[k]]$pv, LINEUP_PARSER_VERSION)))
-need <- terms[vapply(terms, function(t) any(!vapply(gn_decisions(gn, t)$dkt, is_current, logical(1))), logical(1))]
-if (max_new > 0 && length(need)) {
+texts <- read_opinion_text(site_dir)
+text_current <- function(k) !is.null(texts[[k]]) && (!text_retry || (isTRUE(texts[[k]]$ok) && identical(texts[[k]]$tv, OPINION_TEXT_VERSION)))
+need <- terms[vapply(terms, function(t) {
+  d <- gn_decisions(gn, t)$dkt
+  (max_new > 0 && any(!vapply(d, is_current, logical(1)))) || (text_max > 0 && any(!vapply(d, text_current, logical(1))))
+}, logical(1))]
+if ((max_new > 0 || text_max > 0) && length(need)) {
   cat("Fetching opinion listings for Term(s)", paste(need, collapse = ", "), "\n")
   lst <- fetch_opinion_listing(sprintf("%02d", as.integer(need)), kinds = "slipopinion")
   lst <- lst |> filter(!is.na(url)) |> distinct(dkt, .keep_all = TRUE)
@@ -84,6 +95,15 @@ for (t in terms) {
 n_parsed <- sum(vapply(lineups, function(e) isTRUE(e$parsed), logical(1)))
 cat("Lineups cached:", length(lineups), "| parsed:", n_parsed, "\n")
 
+# The text measures, newest Term first: the current Term's page is the one
+# read, and the cap is spent there before the archive.
+for (t in rev(terms)) {
+  d <- gn_decisions(gn, t)
+  texts <- resolve_opinion_text(d, urls, site_dir, max_new = max(text_max, 0L), pace = pace, retry = text_retry)
+  text_max <- text_max - (attr(texts, "n_fetched") %||% 0L)
+}
+cat("Opinion text cached:", length(texts), "| measured:", sum(vapply(texts, function(e) isTRUE(e$ok), logical(1))), "\n")
+
 # Proper captions for the writings list, where the site has them.
 captions <- NULL
 sj <- file.path(site_dir, "cases", "search.json")
@@ -93,5 +113,5 @@ if (file.exists(sj)) captions <- tryCatch({
   else if (is.list(s) && !is.null(names(s))) unlist(s) else NULL
 }, error = function(e) NULL)
 
-rendered <- render_justices(site_dir, gn, lineups, captions)
+rendered <- render_justices(site_dir, gn, lineups, captions, texts)
 cat("Rendered Justices pages for Term(s):", paste(rendered, collapse = ", "), "+ index\n")

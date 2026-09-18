@@ -85,6 +85,66 @@ pages, need `lineup_retry` to fetch again. A preliminary print's "Page Proof
 Pending Publication" watermark sits inside the text and is stripped before
 either parse.
 
+## How they write — the text measures (2026-09-18)
+
+A fifth panel, from `R/opinion_text.R`: every opinion of the Term read from
+its slip-opinion PDF and measured **by writing** — the Court's opinion, each
+concurrence, each dissent — so a Justice's row says how many of each kind they
+wrote and the median length, and pools the style measures over everything
+they wrote, weighted by length.
+
+**Segmentation.** The running head of every page names its section
+(`Syllabus`, `Opinion of the Court`, `Per Curiam`, `SOTOMAYOR, J.,
+dissenting`, `Opinion of KAGAN, J.` for a plurality or partial opinion), so a
+page is assigned by its head and a writing is its pages concatenated. The
+head is within the first three non-empty lines of every OT25 page. A writing's
+first page carries the slip's front matter — the `NOTICE: This opinion is
+subject to formal revision …` paragraph, the masthead, docket line, caption
+and byline — and the body starts after the byline. The footnote block is
+everything below the em-dash rule (the underscore rules that box the docket
+number are *not* the rule: taking them for it emptied Barrett's one-page
+dissent in Chatrie into the notes). Line-end hyphenation is repaired and bare
+section numerals dropped before anything is counted.
+
+A **preliminary print or bound volume** (which is what the feed names once a
+Term is in the Reports — most of OT25 by September 2026, and all of OT16–18)
+sets its heads in mixed case (`Gorsuch, J., concurring`), carries `Counsel`
+and `Syllabus` sections of its own, drops the "fi" ligature (`traffcking`),
+and draws **no footnote rule**: the notes are a smaller face with nothing in
+the text layer to mark them, and a body line like `83 Fed. Reg. 3553 (2018).
+And those tariffs …` is indistinguishable from a note's first line. So from a
+print the footnote measures are **unknown**, not zero: the entry carries
+`has_rule`, the panel shows a dash, and a Justice's footnote share pools only
+the slip-sourced writings. Sentence, word and citation measures are unaffected.
+
+**Measures, per writing**: words (body) and footnote words; sentences, words
+per sentence and its spread, share of sentences over 40 words;
+Flesch–Kincaid grade (an index for comparing Justices, not a reading age);
+citations per 1,000 words, with each reporter, statute and `Id.`/`Ibid.`
+cite masked to one token first so its periods do not end sentences; footnote
+count and footnote share; and register markers per 1,000 words — first person
+plural, contractions (not possessives), rhetorical questions, hedges, boosters,
+references to "the dissent"/"the majority". Nothing here needs a model or a
+network; it is regexes over pdftools text.
+
+**Kind** comes from the Granted & Noted writings list where it names the
+Justice's writing on that docket (so a mixed writing is filed as the list files
+it), else from the running head. A per curiam is its own row.
+
+**Cache**: `justices/opinion_text.json`, keyed by docket, measures only (never
+the text), each entry stamped `tv = OPINION_TEXT_VERSION`. `resolve_opinion_text()`
+mirrors `resolve_lineups()`: a cap per run (`TEXT_MAX_NEW`; the weekly spends
+60, `render-justices.yml` defaults to 300), paced, stopping when throttled,
+newest Term first so the current page fills before the archive; `TEXT_RETRY`
+re-reads entries that failed or predate the version. A volume (OT16–18) is
+windowed from the case's syllabus to the next case's header with no page cap.
+The panel names its coverage ("Measured from 61 of 63 decisions").
+
+Measured on OT25 first (2026-09-18, 117 writings across 71 decisions): the
+measures that separate the Justices are sentence length and its spread,
+footnote share and citation density; grade level is nearly flat across the
+Court (9–13) and is shown because readers expect it.
+
 ## How things are counted
 
 - **A decision** is one written opinion of the Court in an argued case.

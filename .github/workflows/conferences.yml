@@ -318,6 +318,7 @@ jobs:
         env:
           SITE_DIR: site
           LINEUP_MAX_NEW: "120"
+          TEXT_MAX_NEW: "60"
         run: Rscript .github/scripts/render_justices.R
       - name: Commit and publish changes
         working-directory: site
