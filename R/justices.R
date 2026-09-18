@@ -43,7 +43,8 @@ JUSTICES_UA  <- "Mozilla/5.0 (ceRt SCOTUS research; +https://supremecourt.report
 # j3: portraits beside the names in "The Court, in order of seniority".
 # j4: "How they write" as two tables with in-cell length bars; scroll shadows
 #     on every wide table.
-JUSTICES_TEMPLATE_VERSION <- "j4"
+# j5: the style table's columns shaded by value.
+JUSTICES_TEMPLATE_VERSION <- "j5"
 # Stamped on every cached lineup. Bump after a change to the lineup grammar;
 # a LINEUP_RETRY=1 dispatch then re-reads every entry parsed under an older
 # version (render-justices.yml, `lineup_retry`).
@@ -1221,9 +1222,25 @@ render_justices_term <- function(st, site_dir, terms_all) {
     rows_len <- paste(vapply(seq_len(nrow(B)), function(i) { b <- B[i, ]
       paste0("<tr><td>", b$label, "</td>", wc(b$court_n, b$court_med), wc(b$conc_n, b$conc_med), wc(b$diss_n, b$diss_med), "</tr>")
     }, character(1)), collapse = "")
+    # Each style column shaded light to dark from its lowest to its highest
+    # value among the Justices (per curiam left out of the range and unshaded):
+    # the accent at an alpha of .06 to .42 over the paper, so the ink stays
+    # readable and no colour outside palette.R is written. A column with one
+    # value, or none, shades nothing.
+    sty_cols <- c("sent_mean", "sent_over40", "fk_grade", "cites_per_k", "fn_share", "contractions_per_k")
+    rng <- lapply(sty_cols, function(v) { x <- B[[v]]; x <- x[is.finite(x)]; if (length(x)) range(x) else c(NA, NA) })
+    names(rng) <- sty_cols
+    acc <- pal_rgb("accent")
+    heat <- function(v, x) {
+      r <- rng[[v]]
+      if (is.na(x) || any(is.na(r)) || r[2] <= r[1]) return("")
+      sprintf(" style='background:rgba(%s,%.2f)'", acc, 0.06 + 0.36 * (x - r[1]) / (r[2] - r[1]))
+    }
     rows_sty <- paste(vapply(seq_len(nrow(B)), function(i) { b <- B[i, ]
-      sprintf("<tr><td>%s</td><td class='n'>%s</td><td class='n'>%s</td><td class='n'>%s</td><td class='n'>%s</td><td class='n'>%s</td><td class='n'>%s</td></tr>",
-              b$label, f1(b$sent_mean), pct(b$sent_over40), f1(b$fk_grade), f1(b$cites_per_k), pct(b$fn_share), f1(b$contractions_per_k))
+      cell <- function(v, txt) sprintf("<td class='n heat'%s>%s</td>", heat(v, b[[v]]), txt)
+      paste0("<tr><td>", b$label, "</td>",
+             cell("sent_mean", f1(b$sent_mean)), cell("sent_over40", pct(b$sent_over40)), cell("fk_grade", f1(b$fk_grade)),
+             cell("cites_per_k", f1(b$cites_per_k)), cell("fn_share", pct(b$fn_share)), cell("contractions_per_k", f1(b$contractions_per_k)), "</tr>")
     }, character(1)), collapse = "")
     pc_len <- if (!is.null(pc)) paste0("<tr class='pc-row'><td>Per curiam</td>", wc(pc$n, pc$words_total / pc$n),
                                        "<td class='wc none'>", dash, "</td><td class='wc none'>", dash, "</td></tr>") else ""
@@ -1242,7 +1259,7 @@ render_justices_term <- function(st, site_dir, terms_all) {
       "<h3>Style, pooled over every writing</h3>",
       "<div class='jx-tw'><table><thead><tr><th>Justice</th><th class='n'>Words per sentence</th><th class='n'>Sentences over 40&nbsp;words</th><th class='n'>Grade level</th><th class='n'>Citations per 1,000&nbsp;words</th><th class='n'>Footnote share</th><th class='n'>Contractions per 1,000&nbsp;words</th></tr></thead>",
       "<tbody>", rows_sty, pc_sty, "</tbody></table></div><p class='jx-foot'>",
-      sprintf("A Justice's writings of every kind, weighted by length. Across the Term's %d writings: %.1f words per sentence, grade level %.1f, %.1f citations per 1,000 words. ", tx$n_writings, tx$court_sent, tx$court_fk, tx$court_cites),
+      sprintf("A Justice's writings of every kind, weighted by length. Each column is shaded from its lowest value (lightest) to its highest (darkest) among the Justices. Across the Term's %d writings: %.1f words per sentence, grade level %.1f, %.1f citations per 1,000 words. ", tx$n_writings, tx$court_sent, tx$court_fk, tx$court_cites),
       "Grade level is Flesch–Kincaid, computed after citations are masked; on legal prose it is an index for comparing Justices, not a reading age.",
       if (!is.null(tx$n_print) && tx$n_print > 0) sprintf(" %d of the %d writings were read from the printed Reports rather than a slip opinion; there the footnotes could not be separated and are counted with the body, which shortens the sentences and raises the citation rate. Compare such Terms with care.", tx$n_print, tx$n_writings) else "",
       "</p></section>")
