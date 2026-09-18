@@ -385,5 +385,6 @@ term_text_stats <- function(rows, court) {
        # citation rate. The page says how many so a Term is read accordingly.
        n_print = sum(is.na(rows$words_notes)),
        n_dec = dplyr::n_distinct(rows$dkt), court_sent = weighted.mean(rows$sent_mean, rows$words),
-       court_fk = weighted.mean(rows$fk_grade, rows$words), court_cites = weighted.mean(rows$cites_per_k, rows$words + rows$words_notes))
+       court_fk = weighted.mean(rows$fk_grade, rows$words),
+       court_cites = weighted.mean(rows$cites_per_k, rows$words + coalesce(rows$words_notes, 0)))
 }

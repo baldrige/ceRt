@@ -41,7 +41,9 @@ JUSTICES_UA  <- "Mozilla/5.0 (ceRt SCOTUS research; +https://supremecourt.report
 # is stamped into each page for the audit to read.
 # j2: the "How they write" panel (R/opinion_text.R), 2026-09-18.
 # j3: portraits beside the names in "The Court, in order of seniority".
-JUSTICES_TEMPLATE_VERSION <- "j3"
+# j4: "How they write" as two tables with in-cell length bars; scroll shadows
+#     on every wide table.
+JUSTICES_TEMPLATE_VERSION <- "j4"
 # Stamped on every cached lineup. Bump after a change to the lineup grammar;
 # a LINEUP_RETRY=1 dispatch then re-reads every entry parsed under an older
 # version (render-justices.yml, `lineup_retry`).
@@ -870,7 +872,18 @@ main.wrap{max-width:54rem}
 .jx-seg.court{background:var(--op-court)}.jx-seg.conc{background:var(--op-conc)}.jx-seg.judg{background:var(--op-judg)}.jx-seg.diss{background:var(--op-diss)}
 .jx-seg.part{background-image:repeating-linear-gradient(135deg,transparent 0 3px,rgba(@paper:rgb@,.75) 3px 5px)}
 .jx-axis{grid-column:2;display:flex;justify-content:space-between;font-size:.72rem;color:var(--faint);font-variant-numeric:tabular-nums;border-top:1px solid var(--rule);padding-top:.2rem;margin-top:.2rem}
-.jx-tw{overflow-x:auto}
+/* A wide table scrolls sideways inside its wrapper, and the wrapper SAYS so:
+   the two edge shadows are painted only where content continues past the
+   edge (the classic four-layer background with `background-attachment:
+   local` on the covering layers), so a table that fits shows nothing and a
+   table that overflows shows a shadow on the side it overflows. No script. */
+.jx-tw{overflow-x:auto;-webkit-overflow-scrolling:touch;
+  background:linear-gradient(to right,var(--paper) 30%,rgba(@paper:rgb@,0)),linear-gradient(to left,var(--paper) 30%,rgba(@paper:rgb@,0)),
+    radial-gradient(farthest-side at 0 50%,rgba(@ink:rgb@,.22),rgba(@ink:rgb@,0)),radial-gradient(farthest-side at 100% 50%,rgba(@ink:rgb@,.22),rgba(@ink:rgb@,0));
+  background-position:left center,right center,left center,right center;background-repeat:no-repeat;
+  background-size:40px 100%,40px 100%,14px 100%,14px 100%;background-attachment:local,local,scroll,scroll}
+/* The stripes must be translucent or they paint over the shadows. */
+.jx-tw table{background:transparent}.jx tbody tr:nth-child(even){background:rgba(@ink:rgb@,.04)}
 .jx table{border-collapse:collapse;width:100%;font-size:.92rem;font-variant-numeric:tabular-nums}
 .jx th{font-weight:600;font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);text-align:left;border-bottom:2px solid var(--ink);padding:.4rem .55rem;white-space:nowrap}
 .jx td{padding:.4rem .55rem;border-bottom:1px solid var(--rule);vertical-align:top}
@@ -930,6 +943,19 @@ main.wrap{max-width:54rem}
 .jx-tile .s{font-size:.84rem;color:var(--faint)}
 .jx-splits{display:grid;grid-template-columns:3.2rem 1fr 2.4rem;gap:.35rem .6rem;align-items:center;font-size:.92rem;max-width:34rem}
 .jx-splits .b{height:.9rem;background:var(--ink);border-radius:2px}.jx-splits .b.u{background:var(--op-court)}
+/* How they write: headers may wrap (the other panels' headers are short; these
+   are phrases), and a length cell is count · bar · median on one line. */
+.jx-write th,.jx-write th.n{white-space:normal;line-height:1.2;vertical-align:bottom;max-width:7.5rem}
+.jx-write tbody td:first-child{white-space:nowrap}
+.jx-write td.wc{white-space:nowrap;min-width:11rem}
+.jx-write .wc-bar.over{box-shadow:inset -3px 0 0 var(--ink)}
+.jx .jx-foot{color:var(--faint);font-size:.82rem;font-style:italic;margin:.5rem 0 1.4rem;max-width:46rem}
+.jx-write .wc-n{display:inline-block;width:1.6rem;text-align:right;font-weight:600}
+.jx-write .wc-bar{display:inline-block;width:5.2rem;height:.75rem;vertical-align:-.05em;margin:0 .5rem;background:rgba(@ink:rgb@,.06);border-radius:2px;overflow:hidden}
+.jx-write .wc-bar i{display:block;height:100%;background:var(--accent);border-radius:2px}
+.jx-write .wc-med{color:var(--ink-soft);font-variant-numeric:tabular-nums}
+.jx-write td.wc.none{text-align:center}
+@media (max-width:520px){.jx-write .wc-bar{width:3.2rem}.jx-write td.wc{min-width:8.5rem}}
 .jx-splits .n{font-variant-numeric:tabular-nums;color:var(--ink-soft);font-size:.88rem}
 .jx-lineup{font-size:.95rem}.jx-lineup .side{display:inline-block;padding:.1rem .45rem;border-radius:2px;margin:.15rem .3rem .15rem 0;background:var(--stripe);border:1px solid var(--rule)}
 .jx-chip{display:inline-block;font-size:.72rem;letter-spacing:.05em;text-transform:uppercase;padding:.1rem .45rem;border-radius:2px;color:#fff;white-space:nowrap}
@@ -1173,31 +1199,53 @@ render_justices_term <- function(st, site_dir, terms_all) {
   tx <- st$text
   if (!is.null(tx) && !is.null(tx$by_justice) && nrow(tx$by_justice)) {
     B <- tx$by_justice
-    fmt_n <- function(n, med) if (is.na(n) || n == 0) "<span class='dim'>—</span>" else
-      sprintf("%d <span class='pc'>· %s</span>", as.integer(n), format(round(med), big.mark = ","))
-    f1 <- function(x, d = 1) if (is.na(x)) "<span class='dim'>—</span>" else formatC(x, format = "f", digits = d)
-    rows5 <- paste(vapply(seq_len(nrow(B)), function(i) { b <- B[i, ]
-      sprintf("<tr><td>%s</td><td class='n'>%s</td><td class='n'>%s</td><td class='n'>%s</td><td class='n'>%s</td><td class='n'>%s</td><td class='n'>%s</td><td class='n'>%s</td><td class='n'>%s</td><td class='n'>%s</td></tr>",
-              b$label, fmt_n(b$court_n, b$court_med), fmt_n(b$conc_n, b$conc_med), fmt_n(b$diss_n, b$diss_med),
-              f1(b$sent_mean), if (is.na(b$sent_over40)) "<span class='dim'>—</span>" else .jx_pct(b$sent_over40),
-              f1(b$fk_grade), f1(b$cites_per_k), if (is.na(b$fn_share)) "<span class='dim'>—</span>" else .jx_pct(b$fn_share),
-              f1(b$contractions_per_k, 1))
+    dash <- "<span class='dim'>—</span>"
+    f1 <- function(x, d = 1) if (is.na(x)) dash else formatC(x, format = "f", digits = d)
+    pct <- function(x) if (is.na(x)) dash else .jx_pct(x)
+    # Two tables, not one: ten columns did not fit the 54rem column and the
+    # overflow was invisible. Length by kind first, with an in-cell bar per
+    # median on ONE scale across the three kinds (so a dissent's bar is
+    # comparable to a Court opinion's), then the style measures.
+    # The scale is the longest median among cells with at least two writings,
+    # so one outlier (a lone 17,000-word dissent) does not squash every other
+    # bar; a median beyond it fills the bar and is marked.
+    ns <- c(B$court_n, B$conc_n, B$diss_n); meds <- c(B$court_med, B$conc_med, B$diss_med)
+    pc <- tx$per_curiam
+    max_med <- max(c(meds[!is.na(ns) & ns >= 2], if (all(is.na(ns) | ns < 2)) meds else NULL), na.rm = TRUE)
+    wc <- function(n, med) {
+      if (is.na(n) || n == 0 || is.na(med)) return(paste0("<td class='wc none'>", dash, "</td>"))
+      w <- 100 * med / max_med
+      sprintf("<td class='wc'><span class='wc-n'>%d</span><span class='wc-bar%s'><i style='width:%.1f%%'></i></span><span class='wc-med'>%s</span></td>",
+              as.integer(n), if (w > 100) " over" else "", min(w, 100), format(round(med), big.mark = ","))
+    }
+    rows_len <- paste(vapply(seq_len(nrow(B)), function(i) { b <- B[i, ]
+      paste0("<tr><td>", b$label, "</td>", wc(b$court_n, b$court_med), wc(b$conc_n, b$conc_med), wc(b$diss_n, b$diss_med), "</tr>")
     }, character(1)), collapse = "")
-    pcrow <- if (!is.null(tx$per_curiam)) { p <- tx$per_curiam
-      sprintf("<tr class='pc-row'><td>Per curiam</td><td class='n'>%d <span class='pc'>· %s</span></td><td class='n'><span class='dim'>—</span></td><td class='n'><span class='dim'>—</span></td><td class='n'>%s</td><td class='n'>%s</td><td class='n'>%s</td><td class='n'>%s</td><td class='n'>%s</td><td class='n'>%s</td></tr>",
-              as.integer(p$n), format(round(p$words_total / p$n), big.mark = ","), f1(p$sent_mean), .jx_pct(p$sent_over40), f1(p$fk_grade), f1(p$cites_per_k),
-              if (is.na(p$fn_share)) "<span class='dim'>—</span>" else .jx_pct(p$fn_share), f1(p$contractions_per_k))
-    } else ""
+    rows_sty <- paste(vapply(seq_len(nrow(B)), function(i) { b <- B[i, ]
+      sprintf("<tr><td>%s</td><td class='n'>%s</td><td class='n'>%s</td><td class='n'>%s</td><td class='n'>%s</td><td class='n'>%s</td><td class='n'>%s</td></tr>",
+              b$label, f1(b$sent_mean), pct(b$sent_over40), f1(b$fk_grade), f1(b$cites_per_k), pct(b$fn_share), f1(b$contractions_per_k))
+    }, character(1)), collapse = "")
+    pc_len <- if (!is.null(pc)) paste0("<tr class='pc-row'><td>Per curiam</td>", wc(pc$n, pc$words_total / pc$n),
+                                       "<td class='wc none'>", dash, "</td><td class='wc none'>", dash, "</td></tr>") else ""
+    pc_sty <- if (!is.null(pc)) sprintf("<tr class='pc-row'><td>Per curiam</td><td class='n'>%s</td><td class='n'>%s</td><td class='n'>%s</td><td class='n'>%s</td><td class='n'>%s</td><td class='n'>%s</td></tr>",
+                                        f1(pc$sent_mean), pct(pc$sent_over40), f1(pc$fk_grade), f1(pc$cites_per_k), pct(pc$fn_share), f1(pc$contractions_per_k)) else ""
     panel_text <- paste0(
-      "<section class='jx' id='write'><h2>How they write <span class='tag'>Measured from ", tx$n_dec, " of ", st$n_dec, " decisions</span></h2>",
-      "<p class='note'>Every opinion of the Term, read from the slip-opinion PDF and measured by writing: the Court's opinion, each concurrence and each dissent, body text only (footnotes counted apart, citations counted once each). Each count is followed by the median length in words. The style measures pool a Justice's writings of every kind, weighted by length.</p>",
-      "<div class='jx-tw'><table><thead><tr><th>Justice</th><th class='n'>Court<br><span class='pc'>n · median words</span></th><th class='n'>Concurrences<br><span class='pc'>n · median words</span></th><th class='n'>Dissents<br><span class='pc'>n · median words</span></th>",
-      "<th class='n'>Words per sentence</th><th class='n'>Sentences over 40 words</th><th class='n'>Grade level</th><th class='n'>Citations per 1,000 words</th><th class='n'>Footnote share</th><th class='n'>Contractions per 1,000 words</th></tr></thead>",
-      "<tbody>", rows5, pcrow, "</tbody><tfoot><tr><td colspan='10'>",
-      sprintf("Across the Term's %d writings: %.1f words per sentence, grade level %.1f, %.1f citations per 1,000 words. ", tx$n_writings, tx$court_sent, tx$court_fk, tx$court_cites),
-      "Grade level is Flesch–Kincaid, computed after citations are masked; on legal prose it is an index for comparing Justices, not a reading age. A concurrence in the judgment is counted with the concurrences; a mixed writing with the dissents.",
+      "<section class='jx jx-write' id='write'><h2>How they write <span class='tag'>Measured from ", tx$n_dec, " of ", st$n_dec, " decisions</span></h2>",
+      "<p class='note'>Every opinion of the Term, read from its PDF and measured by writing: the Court's opinion, each concurrence and each dissent, body text only (footnotes counted apart, citations counted once each).</p>",
+      "<h3>Length, by kind of writing</h3>",
+      "<div class='jx-tw'><table><thead><tr><th>Justice</th><th>Opinions of the Court</th><th>Concurrences</th><th>Dissents</th></tr></thead>",
+      "<tbody>", rows_len, pc_len, "</tbody></table></div>",
+      # The notes sit OUTSIDE the scrolling wrapper: as a footer row they took
+      # the table's width and scrolled off the phone screen with it.
+      "<p class='jx-foot'>Each cell is the number written, a bar, and the median length in words. The bars share one scale, so a dissent's length reads against a Court opinion's: a bar is full at ",
+      format(round(max_med), big.mark = ","), " words, the longest median among cells with two or more writings, and a longer one is marked. A concurrence in the judgment is counted with the concurrences; a mixed writing with the dissents.</p>",
+      "<h3>Style, pooled over every writing</h3>",
+      "<div class='jx-tw'><table><thead><tr><th>Justice</th><th class='n'>Words per sentence</th><th class='n'>Sentences over 40&nbsp;words</th><th class='n'>Grade level</th><th class='n'>Citations per 1,000&nbsp;words</th><th class='n'>Footnote share</th><th class='n'>Contractions per 1,000&nbsp;words</th></tr></thead>",
+      "<tbody>", rows_sty, pc_sty, "</tbody></table></div><p class='jx-foot'>",
+      sprintf("A Justice's writings of every kind, weighted by length. Across the Term's %d writings: %.1f words per sentence, grade level %.1f, %.1f citations per 1,000 words. ", tx$n_writings, tx$court_sent, tx$court_fk, tx$court_cites),
+      "Grade level is Flesch–Kincaid, computed after citations are masked; on legal prose it is an index for comparing Justices, not a reading age.",
       if (!is.null(tx$n_print) && tx$n_print > 0) sprintf(" %d of the %d writings were read from the printed Reports rather than a slip opinion; there the footnotes could not be separated and are counted with the body, which shortens the sentences and raises the citation rate. Compare such Terms with care.", tx$n_print, tx$n_writings) else "",
-      "</td></tr></tfoot></table></div></section>")
+      "</p></section>")
   }
 
   crumb <- list(href = paste0("/", JUSTICES_DIR, "/"), label = "Justices")
