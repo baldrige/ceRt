@@ -1196,6 +1196,7 @@ render_justices_term <- function(st, site_dir, terms_all) {
       "<tbody>", rows5, pcrow, "</tbody><tfoot><tr><td colspan='10'>",
       sprintf("Across the Term's %d writings: %.1f words per sentence, grade level %.1f, %.1f citations per 1,000 words. ", tx$n_writings, tx$court_sent, tx$court_fk, tx$court_cites),
       "Grade level is Flesch–Kincaid, computed after citations are masked; on legal prose it is an index for comparing Justices, not a reading age. A concurrence in the judgment is counted with the concurrences; a mixed writing with the dissents.",
+      if (!is.null(tx$n_print) && tx$n_print > 0) sprintf(" %d of the %d writings were read from the printed Reports rather than a slip opinion; there the footnotes could not be separated and are counted with the body, which shortens the sentences and raises the citation rate. Compare such Terms with care.", tx$n_print, tx$n_writings) else "",
       "</td></tr></tfoot></table></div></section>")
   }
 
