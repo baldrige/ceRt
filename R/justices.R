@@ -40,7 +40,8 @@ JUSTICES_UA  <- "Mozilla/5.0 (ceRt SCOTUS research; +https://supremecourt.report
 # pages are cheap (no fetch), so the render simply always rewrites them; this
 # is stamped into each page for the audit to read.
 # j2: the "How they write" panel (R/opinion_text.R), 2026-09-18.
-JUSTICES_TEMPLATE_VERSION <- "j2"
+# j3: portraits beside the names in "The Court, in order of seniority".
+JUSTICES_TEMPLATE_VERSION <- "j3"
 # Stamped on every cached lineup. Bump after a change to the lineup grammar;
 # a LINEUP_RETRY=1 dispatch then re-reads every entry parsed under an older
 # version (render-justices.yml, `lineup_retry`).
@@ -849,8 +850,9 @@ JUSTICES_CSS <- sub("RAMP_STOPS", paste(GRANT_RAMP, collapse = ","), fixed = TRU
 main.wrap{max-width:54rem}
 .jx-court{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem 1rem;margin:0 0 2.2rem;padding:0;list-style:none}
 @media (max-width:520px){.jx-court{grid-template-columns:1fr 1fr}}
-.jx-court li{border-top:1px solid var(--rule);padding-top:.4rem;font-size:.92rem}
-.jx-court .nm{display:block;font-weight:600}.jx-court .since{display:block;color:var(--faint);font-size:.8rem;font-variant-numeric:tabular-nums}
+.jx-court li{border-top:1px solid var(--rule);padding-top:.4rem;font-size:.92rem;display:grid;grid-template-columns:44px 1fr;grid-template-rows:auto auto;column-gap:.6rem;align-items:center}
+.jx-court .pt{grid-row:1/3;width:44px;height:44px;border-radius:50%;background-repeat:no-repeat;background-color:var(--stripe);border:1px solid var(--rule);box-shadow:inset 0 0 0 1px rgba(@paper:rgb@,.6)}
+.jx-court .nm{display:block;font-weight:600;align-self:end}.jx-court .since{display:block;color:var(--faint);font-size:.8rem;font-variant-numeric:tabular-nums;align-self:start}
 .jx h2{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.55rem;letter-spacing:-.01em;margin:0 0 .3rem;display:flex;flex-wrap:wrap;align-items:center;gap:.6rem}
 .jx h3{font-family:'Newsreader',serif;font-weight:600;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);margin:1.4rem 0 .6rem}
 .jx{margin:0 0 3rem}
@@ -1006,8 +1008,25 @@ render_justices_term <- function(st, site_dir, terms_all) {
                  y <- 2000L + as.integer(t)
                  sprintf("<li><a href='ot%d.html'%s>OT%d</a></li>", y, if (t == term) " aria-current='page'" else "", y)
                }, character(1)), collapse = ""), "</ul>")
+  # A portrait beside each name, cropped to the face from the geometry in
+  # data/portraits/crops.json (the same file the network uses): a square
+  # window two and a half face-widths wide, centred a little above the face
+  # centre so the hair is in and the collar is not, clamped to the image, and
+  # expressed as a CSS background so no image is re-encoded. A Justice with no
+  # portrait keeps the slot empty and the columns aligned.
+  pts <- .jx_portraits(court); PT <- 44   # thumbnail size in CSS px
+  thumb <- function(nm) {
+    p <- pts[[nm]]; if (is.null(p)) return("<span class='pt none'></span>")
+    side <- min(max(p$fw * 2.1, 70), p$iw, p$ih)
+    x0 <- min(max(p$nx - side / 2, 0), p$iw - side)
+    y0 <- min(max(p$ny - side * 0.5, 0), p$ih - side)
+    k <- PT / side
+    sprintf("<span class='pt' style='background-image:url(%s);background-size:%.1fpx %.1fpx;background-position:%.1fpx %.1fpx'></span>",
+            p$url, p$iw * k, p$ih * k, -x0 * k, -y0 * k)
+  }
   court_html <- paste0("<div class='jx'><h3>The Court, in order of seniority</h3><ul class='jx-court'>",
-                       paste(sprintf("<li><span class='nm'>%s</span><span class='since'>%s</span></li>", court$label,
+                       paste(sprintf("<li>%s<span class='nm'>%s</span><span class='since'>%s</span></li>",
+                                     vapply(court$name, thumb, character(1)), court$label,
                                      ifelse(court$cj, paste0("Chief Justice since ", format(court$from, "%Y")),
                                             paste0("since ", format(court$from, "%Y")))), collapse = ""), "</ul></div>")
 
