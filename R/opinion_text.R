@@ -284,6 +284,27 @@ opinion_sections <- function(pages, geom = NULL) {
   # A page with no head continues the section before it (a wrapped head).
   for (i in seq_along(sec)) if (is.na(sec[i]) && i > 1) sec[i] <- sec[i - 1]
   keep <- !is.na(sec) & !sec %in% c("syllabus", "counsel", "appendix")
+  # A one-line per curiam -- a dismissal as improvidently granted (23-970,
+  # NVIDIA v. Ohman, "The writ of certiorari is dismissed as improvidently
+  # granted.") -- has no page of its own in an excerpt: the byline and the
+  # sentence sit at the foot of the counsel page under a "Counsel" head. When
+  # no opinion page was found at all, a page carrying a byline is the opinion.
+  if (!any(keep)) {
+    by <- str_detect(pages, regex("\\bPER\\s+CURIAM\\.|delivered\\s+the\\s+opinion\\s+of\\s+the", ignore_case = TRUE))
+    if (any(by)) {
+      first <- which(by)[1]
+      lab <- if (str_detect(pages[first], regex("\\bPER\\s+CURIAM\\.", ignore_case = TRUE))) "percuriam" else "court"
+      # That page and the unlabelled pages after it, stopping at the excerpt's
+      # "Reporter's Note" or any labelled section.
+      run <- first
+      while (run < length(sec) && is.na(sec[run + 1L]) &&
+             !str_detect(pages[run + 1L], regex("Reporter.s Note", ignore_case = TRUE))) run <- run + 1L
+      sec[first:run] <- lab
+      keep <- seq_along(sec) >= first & seq_along(sec) <= run
+      rescued <- TRUE
+    }
+  }
+  if (!exists("rescued", inherits = FALSE)) rescued <- FALSE
   if (!any(keep)) return(tibble(section = character(), who = character(), kind = character(),
                                 pages = integer(), body = character(), notes = character()))
   out <- lapply(unique(sec[keep]), function(s) {
@@ -303,6 +324,9 @@ opinion_sections <- function(pages, geom = NULL) {
     # the byline can sit on the section's second page (15-8049).
     n2 <- min(3L, length(pb)); head2 <- paste(vapply(pb[seq_len(n2)], `[[`, character(1), "body"), collapse = "\n")
     stripped <- .strip_front_matter(head2)
+    # A rescued page carries the counsel or amicus list after the order; the
+    # opinion ends at "It is so ordered."
+    if (rescued) stripped <- str_replace(stripped, regex("(?s)(It is so ordered\\.).*$", ignore_case = TRUE), "\\1")
     pb[[1]]$body <- stripped; for (j in seq_len(n2)[-1]) pb[[j]]$body <- ""
     who <- if (s %in% c("court", "percuriam")) s else str_remove(s, ":.*$")
     k <- if (s %in% c("court", "percuriam")) s else str_remove(s, "^[a-z]+:")
@@ -363,30 +387,35 @@ text_measures <- function(body, notes = "", notes_known = TRUE) {
   w <- .words(m$text); nw <- length(w)
   # From a print (no footnote rule) the note measures are unknown, not zero.
   n_notes <- if (notes_known) length(.words(nm$text)) else NA_integer_
-  if (nw < 20) return(tibble(words = nw, words_notes = n_notes, sentences = NA_integer_))
+  if (nw < 1) return(tibble(words = 0L, words_notes = n_notes, sentences = NA_integer_))
   s <- .sentences(m$text); sl <- vapply(s, function(z) length(.words(z)), integer(1)); sl <- sl[sl > 0]
   syl <- .syllables(w)
   low <- tolower(m$text)
   count_terms <- function(terms) sum(vapply(terms, function(t) str_count(low, paste0("\\b", t, "\\b")), numeric(1)))
+  # A writing under twenty words -- a dismissal as improvidently granted is
+  # two sentences -- is counted and its length reported, but its style
+  # measures are NA: a rate per thousand words means nothing on twelve.
+  short <- nw < 20
+  na_if_short <- function(x) if (short) NA_real_ else x
   tibble(
     words = nw, words_notes = n_notes,
     sentences = length(sl),
-    sent_mean = mean(sl), sent_sd = sd(sl), sent_over40 = mean(sl > 40),
-    fk_grade = 0.39 * mean(sl) + 11.8 * mean(syl) - 15.59,
-    syl_per_word = mean(syl), long_words = mean(nchar(w) >= 9),
-    ttr = length(unique(w)) / nw,
-    cites = m$n + nm$n, cites_per_k = 1000 * (m$n + nm$n) / (nw + (if (notes_known) length(.words(nm$text)) else 0L)),
+    sent_mean = na_if_short(mean(sl)), sent_sd = na_if_short(sd(sl)), sent_over40 = na_if_short(mean(sl > 40)),
+    fk_grade = na_if_short(0.39 * mean(sl) + 11.8 * mean(syl) - 15.59),
+    syl_per_word = na_if_short(mean(syl)), long_words = na_if_short(mean(nchar(w) >= 9)),
+    ttr = na_if_short(length(unique(w)) / nw),
+    cites = m$n + nm$n, cites_per_k = na_if_short(1000 * (m$n + nm$n) / (nw + (if (notes_known) length(.words(nm$text)) else 0L))),
     footnotes = if (notes_known) str_count(notes %||% "", "(?m)^\\s*\\d{1,3}\\s*[A-Z“\"]") else NA_integer_,
-    we_per_k = 1000 * sum(w %in% c("we", "our", "us", "ourselves")) / nw,
-    i_per_k = 1000 * sum(w %in% c("i", "my", "me")) / nw,
+    we_per_k = na_if_short(1000 * sum(w %in% c("we", "our", "us", "ourselves")) / nw),
+    i_per_k = na_if_short(1000 * sum(w %in% c("i", "my", "me")) / nw),
     # Not "'s": a possessive ("the Court's") is not a contraction, and it is
     # the commonest apostrophe in an opinion. Both apostrophe glyphs.
-    contractions_per_k = 1000 * sum(str_detect(w, "n['’]t$|['’](re|ve|ll|d|m)$|^(it|that|there|what|who|here|let)['’]s$")) / nw,
-    questions_per_k = 1000 * str_count(m$text, "\\?") / nw,
-    hedges_per_k = 1000 * count_terms(HEDGES) / nw,
-    boosters_per_k = 1000 * count_terms(BOOSTERS) / nw,
-    dissent_refs_per_k = 1000 * str_count(low, "\\bthe (principal )?dissent\\b|\\bthe concurrence\\b|\\bthe majority\\b|\\bthe court'?s opinion\\b|\\bthe plurality\\b") / nw,
-    passive_per_k = 1000 * str_count(low, "\\b(is|are|was|were|be|been|being)\\s+(\\w+ly\\s+)?\\w+(ed|en)\\b") / nw)
+    contractions_per_k = na_if_short(1000 * sum(str_detect(w, "n['’]t$|['’](re|ve|ll|d|m)$|^(it|that|there|what|who|here|let)['’]s$")) / nw),
+    questions_per_k = na_if_short(1000 * str_count(m$text, "\\?") / nw),
+    hedges_per_k = na_if_short(1000 * count_terms(HEDGES) / nw),
+    boosters_per_k = na_if_short(1000 * count_terms(BOOSTERS) / nw),
+    dissent_refs_per_k = na_if_short(1000 * str_count(low, "\\bthe (principal )?dissent\\b|\\bthe concurrence\\b|\\bthe majority\\b|\\bthe court'?s opinion\\b|\\bthe plurality\\b") / nw),
+    passive_per_k = na_if_short(1000 * str_count(low, "\\b(is|are|was|were|be|been|being)\\s+(\\w+ly\\s+)?\\w+(ed|en)\\b") / nw))
 }
 
 # Every writing in a slip opinion, measured: one row per section.
@@ -480,7 +509,9 @@ term_text_rows <- function(dec, writings, cache) {
     e <- NULL; for (d in dec$dkts[[i]]) if (!is.null(cache[[d]]) && isTRUE(cache[[d]]$ok)) { e <- cache[[d]]; break }
     if (is.null(e)) next
     for (s in e$sections) {
-      if (is.null(s$sentences) || is.na(s$sentences %||% NA)) next
+      # Every writing with words counts, even a two-sentence dismissal whose
+      # style measures are NA; the pooling below drops NA measures pairwise.
+      if (is.null(s$words) || is.na(s$words %||% NA) || s$words < 1) next
       # Roster form throughout ("Roberts", not the list's "Roberts, C.J."),
       # via justice_key() where the Justices module is loaded.
       who <- if (s$who %in% c("court", "percuriam")) {
@@ -493,13 +524,14 @@ term_text_rows <- function(dec, writings, cache) {
         w <- if (!is.null(writings)) writings[writings$dkt %in% dec$dkts[[i]] & writings$name == who & writings$kind != "court", ] else NULL
         if (!is.null(w) && nrow(w)) w$kind[1] else switch(s$kind, concurring = "conc", judgment = "judg", dissenting = "diss", mixed = "diss", opinion = "judg", "conc")
       }
+      nz <- function(v) as.numeric(v %||% NA)   # a JSON null (a short writing's NA) reads back as NULL
       rows[[length(rows) + 1L]] <- tibble(dkt = dec$dkt[i], decided = as.character(dec$decided[i]), name = who, kind = kind,
-                                          words = s$words, words_notes = as.numeric(s$words_notes %||% NA), sent_mean = s$sent_mean,
-                                          sent_sd = s$sent_sd, sent_over40 = s$sent_over40, fk_grade = s$fk_grade,
-                                          cites_per_k = s$cites_per_k, footnotes = as.numeric(s$footnotes %||% NA), we_per_k = s$we_per_k,
-                                          contractions_per_k = s$contractions_per_k, questions_per_k = s$questions_per_k,
-                                          hedges_per_k = s$hedges_per_k, boosters_per_k = s$boosters_per_k,
-                                          dissent_refs_per_k = s$dissent_refs_per_k)
+                                          words = nz(s$words), words_notes = nz(s$words_notes), sent_mean = nz(s$sent_mean),
+                                          sent_sd = nz(s$sent_sd), sent_over40 = nz(s$sent_over40), fk_grade = nz(s$fk_grade),
+                                          cites_per_k = nz(s$cites_per_k), footnotes = nz(s$footnotes), we_per_k = nz(s$we_per_k),
+                                          contractions_per_k = nz(s$contractions_per_k), questions_per_k = nz(s$questions_per_k),
+                                          hedges_per_k = nz(s$hedges_per_k), boosters_per_k = nz(s$boosters_per_k),
+                                          dissent_refs_per_k = nz(s$dissent_refs_per_k))
     }
   }
   if (!length(rows)) return(NULL)
@@ -513,11 +545,15 @@ term_text_rows <- function(dec, writings, cache) {
   out |> group_by(dkt, decided, name, kind) |> summarise(
     words_notes = na_sum(words_notes), footnotes = na_sum(footnotes),
     across(c(sent_mean, sent_sd, sent_over40, fk_grade, we_per_k, contractions_per_k, questions_per_k,
-             hedges_per_k, boosters_per_k, dissent_refs_per_k), ~ weighted.mean(.x, words)),
-    cites_per_k = weighted.mean(cites_per_k, words + coalesce(words_notes, 0)),
+             hedges_per_k, boosters_per_k, dissent_refs_per_k), ~ .wmean(.x, words)),
+    cites_per_k = .wmean(cites_per_k, words + coalesce(words_notes, 0)),
     words = sum(words), .groups = "drop") |>
     relocate(words, .after = kind)
 }
+
+# A weighted mean that drops NA measures pairwise (a two-sentence dismissal
+# has a length but no style measures); NA when nothing remains.
+.wmean <- function(x, w) { ok <- !is.na(x) & !is.na(w) & w > 0; if (!any(ok)) NA_real_ else stats::weighted.mean(x[ok], w[ok]) }
 
 # Per Justice: counts and medians by kind, plus the style measures pooled over
 # every writing (weighted by words). `court` is term_court(); rows in seniority.
@@ -529,15 +565,15 @@ term_text_stats <- function(rows, court) {
   # a Justice whose Term came entirely from prints shows them as unknown.
   pooled <- rows |> group_by(name) |> summarise(
     n = n(), words_total = sum(words), pages_words = sum(words + coalesce(words_notes, 0)),
-    sent_mean = weighted.mean(sent_mean, words), sent_over40 = weighted.mean(sent_over40, words),
-    fk_grade = weighted.mean(fk_grade, words), cites_per_k = weighted.mean(cites_per_k, words + coalesce(words_notes, 0)),
+    sent_mean = .wmean(sent_mean, words), sent_over40 = .wmean(sent_over40, words),
+    fk_grade = .wmean(fk_grade, words), cites_per_k = .wmean(cites_per_k, words + coalesce(words_notes, 0)),
     footnotes = if (all(is.na(footnotes))) NA_real_ else mean(footnotes, na.rm = TRUE),
     fn_share = if (all(is.na(words_notes))) NA_real_ else
       sum(words_notes, na.rm = TRUE) / sum((words + words_notes)[!is.na(words_notes)]),
-    we_per_k = weighted.mean(we_per_k, words), contractions_per_k = weighted.mean(contractions_per_k, words),
-    questions_per_k = weighted.mean(questions_per_k, words),
-    hedge_boost = sum(hedges_per_k * words) / pmax(sum(boosters_per_k * words), 1),
-    dissent_refs_per_k = weighted.mean(dissent_refs_per_k, words), .groups = "drop")
+    we_per_k = .wmean(we_per_k, words), contractions_per_k = .wmean(contractions_per_k, words),
+    questions_per_k = .wmean(questions_per_k, words),
+    hedge_boost = sum(hedges_per_k * words, na.rm = TRUE) / pmax(sum(boosters_per_k * words, na.rm = TRUE), 1),
+    dissent_refs_per_k = .wmean(dissent_refs_per_k, words), .groups = "drop")
   out <- tibble(name = court$name, label = court$label) |>
     mutate(court_n = vapply(name, pick, numeric(1), k = "court", f = "n"), court_med = vapply(name, pick, numeric(1), k = "court", f = "med"),
            conc_n = vapply(name, function(nm) sum(by_kind$n[by_kind$name == nm & by_kind$kind %in% c("conc", "judg")]), numeric(1)),
@@ -550,7 +586,7 @@ term_text_stats <- function(rows, court) {
        # body (no rule to cut at), which shortens sentences and raises the
        # citation rate. The page says how many so a Term is read accordingly.
        n_print = sum(is.na(rows$words_notes)),
-       n_dec = dplyr::n_distinct(rows$dkt), court_sent = weighted.mean(rows$sent_mean, rows$words),
-       court_fk = weighted.mean(rows$fk_grade, rows$words),
-       court_cites = weighted.mean(rows$cites_per_k, rows$words + coalesce(rows$words_notes, 0)))
+       n_dec = dplyr::n_distinct(rows$dkt), court_sent = .wmean(rows$sent_mean, rows$words),
+       court_fk = .wmean(rows$fk_grade, rows$words),
+       court_cites = .wmean(rows$cites_per_k, rows$words + coalesce(rows$words_notes, 0)))
 }
