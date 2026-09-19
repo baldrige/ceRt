@@ -28,7 +28,12 @@ suppressPackageStartupMessages({ library(stringr); library(tibble); library(dply
 
 # t1: text-layer split (footnotes only below a slip's em-dash rule).
 # t2: footnotes by type size from the word geometry, every format (2026-09-18).
-OPINION_TEXT_VERSION <- "t2"
+# t3: the volumes' cite forms masked ("562 U. S., at 536", "Ante, at 116",
+#     "Fed. Appx."), state-reporter abbreviations protected in the sentence
+#     split, and a small-caps byline recognised however the geometry splits
+#     it -- a volume starts a writing mid-page, and an unrecognised byline
+#     left the previous opinion's tail in the next one (2026-09-19).
+OPINION_TEXT_VERSION <- "t3"
 
 # ---- segmentation --------------------------------------------------------------
 
@@ -105,9 +110,26 @@ OPINION_TEXT_VERSION <- "t2"
 # words in reading order within a line.
 page_lines <- function(words) {
   if (is.null(words) || !nrow(words)) return(tibble(y = numeric(), h = numeric(), n = integer(), txt = character()))
-  words |> mutate(y = round(y / 2) * 2) |> arrange(y, x) |> group_by(y) |>
-    summarise(h = stats::median(height), n = dplyr::n(), txt = paste(text, collapse = " "), .groups = "drop") |>
-    arrange(y)
+  # Words are clustered into lines by PROXIMITY, not by an exact baseline: a
+  # small-caps name sits a few pixels off the line it belongs to ("Justice
+  # Gorsuch," four pixels below "concurring."; "T" above "HOMAS"), and a
+  # superscript note number a few above its note. Grouping on the rounded y
+  # split all of those into lines of their own, in the wrong order. A word
+  # starts a new line when it is more than six tenths of a line's height
+  # below the line's first word; words within a line read left to right.
+  # The preliminary print's watermark is four large words set diagonally
+  # across the page; grouped by proximity they would land inside body lines.
+  w <- words |> filter(!(height >= 14 & text %in% c("Page", "Proof", "Pending", "Publication"))) |> arrange(y, x)
+  if (!nrow(w)) return(tibble(y = numeric(), h = numeric(), n = integer(), txt = character()))
+  lid <- integer(nrow(w)); cur <- 1L; y0 <- w$y[1]; h0 <- w$height[1]; lid[1] <- 1L
+  for (i in seq_len(nrow(w))[-1]) {
+    if (w$y[i] - y0 > 0.6 * max(h0, w$height[i], 4)) { cur <- cur + 1L; y0 <- w$y[i]; h0 <- w$height[i] }
+    lid[i] <- cur
+  }
+  w$lid <- lid
+  w |> group_by(lid) |> arrange(x, .by_group = TRUE) |>
+    summarise(y = min(y), h = stats::median(height), n = dplyr::n(), txt = paste(text, collapse = " "), .groups = "drop") |>
+    arrange(y) |> select(y, h, n, txt)
 }
 
 # Body and notes of a page from its lines. `body_h` is the modal height of
@@ -200,15 +222,32 @@ page_lines <- function(words) {
   # III." interleaves the name. So the byline's tail is what is matched, with
   # room to the sentence end, and small-cap fragments left at the start are
   # swept up afterwards.
-  rx <- paste0("(?s)^.*?(?:",
-    "delivered the opinion of the Court[^.]{0,160}\\.|",
-    "announced the judgment of the[^.]{0,240}\\.|",
-    "(?:CHIEF )?JUSTICE [A-Z]+(?:, with whom [^.]{0,200}?)?, (?:concurring|dissenting)[^.]{0,80}\\.|",
-    "\\bPER CURIAM\\.)")
+  # A Justice's name in a byline, as the geometry path may deliver it: whole
+  # ("JUSTICE THOMAS", "Justice Thomas"), or with the small-cap initials on a
+  # line of their own ("J T" then "USTICE HOMAS"), or those initials sorted
+  # after ("USTICE HOMAS" alone). A volume starts a writing mid-page, so a
+  # byline that is not matched leaves the previous opinion's tail in this one.
+  # ... and the commonest shape of all, the initials inline as their own
+  # words: "J USTICE T HOMAS , concurring." (24-43, every separate writing).
+  # Whitespace between words is \s+ throughout: a byline wraps ("delivered
+  # the opinion of the" / "Court.", 15-8049 in the volume).
+  who <- "(?:(?:CHIEF\\s+)?JUSTICE\\s+[A-Z]+|(?:[A-Z]\\s+){0,4}(?:HIEF\\s+)?USTICE\\s+(?:[A-Z]\\s+)?[A-Z]+)"
+  # GREEDY: the LAST byline on the page. This runs on a writing's first page
+  # only, and in a volume that page can also hold the syllabus's lineup
+  # paragraph ("ROBERTS, C. J., delivered the opinion of the Court, in which
+  # ...") and the counsel list before the opinion's own byline; a lazy match
+  # cut at the syllabus and left the counsel in the body (15-8049). The
+  # commas are given room because pdf_data() sets each as its own word
+  # ("HOMAS , concurring.").
+  rx <- paste0("(?s)^.*(?:",
+    "delivered\\s+the\\s+opinion\\s+of\\s+the\\s+Court[^.]{0,160}\\.|",
+    "announced\\s+the\\s+judgment\\s+of\\s+the[^.]{0,240}\\.|",
+    who, "\\s*(?:,\\s*with\\s+whom\\s+[^.]{0,200}?)?\\s*,\\s*(?:concurring|dissenting)[^.]{0,80}\\.|",
+    "\\bPER\\s+CURIAM\\.)")
   # Case-insensitive: a slip's byline is "JUSTICE KAVANAUGH delivered ...", a
   # print's "Chief Justice Roberts announced the judgment ...".
   y <- str_replace(x, regex(rx, ignore_case = TRUE), "")
-  y <- str_replace(y, "^\\s*(?:[A-Z]\\s+)*(?:USTICE|HIEF)\\s+[A-Z]+(?:\\s+(?:USTICE|HIEF)\\s+[A-Z]+)*(?:, with whom [^.]{0,200}?joins?,)?\\s*", "")
+  y <- str_replace(y, "^\\s*(?:[A-Z]\\s+)*(?:USTICE|HIEF)\\s+(?:[A-Z]\\s+)?[A-Z]+(?:\\s+(?:USTICE|HIEF)\\s+(?:[A-Z]\\s+)?[A-Z]+)*(?:\\s*,\\s*with whom [^.]{0,200}?joins?\\s*,)?\\s*", "")
   # The print's mixed-case form of the same ("Justice Kavanaugh" on its own
   # line after the byline's tail), and a caption's "*" (the "Together with"
   # marker) that lands at the head of the body.
@@ -226,6 +265,10 @@ page_lines <- function(words) {
 # lines that are only a section numeral ("I", "II", "A", "1"), and join lines.
 .clean_body <- function(body) {
   x <- str_replace_all(body %||% "", "([A-Za-z])-\\s*\\n\\s*([a-z])", "\\1\\2")
+  # Small caps in the geometry path arrive as an initial and a remainder
+  # ("J USTICE S OTOMAYOR"); rejoined so a name counts as its words.
+  x <- str_replace_all(x, "\\b([A-Z])\\s+(USTICE|HIEF)\\b", "\\1\\2")
+  x <- str_replace_all(x, "\\b(JUSTICE|CHIEF)\\s+([A-Z])\\s+([A-Z]{2,})\\b", "\\1 \\2\\3")
   ls <- str_split(x, "\n")[[1]]
   ls <- ls[!str_detect(str_squish(ls), "^(?:[IVX]{1,5}|[A-D]|\\d{1,2})$")]
   str_squish(paste(ls, collapse = " "))
@@ -255,7 +298,12 @@ opinion_sections <- function(pages, geom = NULL) {
     # docket line, the caption, "ON WRIT OF CERTIORARI TO ...", the date, and
     # the byline ("JUSTICE KAVANAUGH delivered the opinion of the Court." /
     # "JUSTICE JACKSON, dissenting."). The body starts after the byline.
-    pb[[1]]$body <- .strip_front_matter(pb[[1]]$body)
+    # Stripped over the first TWO pages' text: a volume prints "Opinion of
+    # the Court" above a page that is still the syllabus and counsel list, so
+    # the byline can sit on the section's second page (15-8049).
+    n2 <- min(3L, length(pb)); head2 <- paste(vapply(pb[seq_len(n2)], `[[`, character(1), "body"), collapse = "\n")
+    stripped <- .strip_front_matter(head2)
+    pb[[1]]$body <- stripped; for (j in seq_len(n2)[-1]) pb[[j]]$body <- ""
     who <- if (s %in% c("court", "percuriam")) s else str_remove(s, ":.*$")
     k <- if (s %in% c("court", "percuriam")) s else str_remove(s, "^[a-z]+:")
     kind <- switch(k, "concurring" = "concurring", "dissenting" = "dissenting",
@@ -278,9 +326,13 @@ opinion_sections <- function(pages, geom = NULL) {
 # statutes ("28 U. S. C. §1331", "42 U. S. C. §§1983, 1988"), and the
 # short-form "Id., at 412" / "Ibid." The count is returned with the text.
 .CITE_RX <- paste0(
-  "\\b\\d{1,3} U\\. ?S\\. ?(?:C\\. ?)?(?:§+ ?[\\dA-Za-z().\\-, ]+|\\d+|_{2,})(?:, (?:at )?\\d+(?:[-–]\\d+)?)*(?: \\(\\d{4}\\))?|",
-  "\\b\\d{1,4} (?:F\\. ?(?:2d|3d|4th)|F\\. ?Supp\\. ?(?:2d|3d)?|S\\. ?Ct\\.|L\\. ?Ed\\. ?2d|So\\. ?(?:2d|3d)|N\\. ?E\\. ?(?:2d|3d)|P\\. ?(?:2d|3d)|A\\. ?(?:2d|3d)|Wheat\\.|How\\.|Cranch|Pet\\.|Wall\\.|Dall\\.) \\d+(?:, \\d+)*(?: \\([^)]{1,40}\\))?|",
-  "\\bIbid\\.|\\bId\\.,? (?:at \\d+[\\dA-Za-z–-]*)?|\\b\\d{1,3} Stat\\. \\d+|\\b\\d{1,3} C\\. ?F\\. ?R\\. ?§+ ?[\\d.]+")
+  # "603 U. S. 369, 412 (2024)", "28 U. S. C. §1331", and the volumes' short
+  # form "562 U. S., at 536-537".
+  "\\b\\d{1,3} U\\. ?S\\. ?(?:C\\. ?)?(?:§+ ?[\\dA-Za-z().\\-, ]+|\\d+|_{2,}|, at \\d+)(?:, (?:at )?\\d+(?:[-\u2013]\\d+)?)*(?: \\(\\d{4}\\))?|",
+  "\\b\\d{1,4} (?:F\\. ?(?:2d|3d|4th)|F\\. ?Supp\\. ?(?:2d|3d)?|F(?:ed)?\\. ?Appx\\.|S\\. ?Ct\\.|L\\. ?Ed\\. ?2d|So\\. ?(?:2d|3d)|N\\. ?E\\. ?(?:2d|3d)|N\\. ?W\\. ?(?:2d|3d)|S\\. ?E\\. ?(?:2d|3d)|S\\. ?W\\. ?(?:2d|3d)|P\\. ?(?:2d|3d)|A\\. ?(?:2d|3d)|Wheat\\.|How\\.|Cranch|Pet\\.|Wall\\.|Dall\\.) \\d+(?:, \\d+)*(?: \\([^)]{1,40}\\))?|",
+  # "Ante, at 116", "post, at 3", "supra, at 12": internal cross-references.
+  "\\b(?:[Aa]nte|[Pp]ost|[Ss]upra|[Ii]nfra), at \\d+(?:[-\u2013]\\d+)?(?:, n\\. \\d+)?|",
+  "\\bIbid\\.|\\bId\\.,? (?:at \\d+[\\dA-Za-z\u2013-]*)?|\\b\\d{1,3} Stat\\. \\d+|\\b\\d{1,3} C\\. ?F\\. ?R\\. ?§+ ?[\\d.]+")
 .mask_cites <- function(x) {
   n <- str_count(x, .CITE_RX)
   list(text = str_replace_all(x, .CITE_RX, " CITE "), n = n)
@@ -292,7 +344,8 @@ opinion_sections <- function(pages, geom = NULL) {
 # cite mask has already removed the periods inside citations, and the
 # commonest legal abbreviations are protected.
 .sentences <- function(x) {
-  x <- str_replace_all(x, "\\b(v|Mr|Mrs|Ms|Dr|J|JJ|C|No|Nos|Inc|Co|Corp|Art|Amdt|cf|e\\.g|i\\.e|U\\.S|Stat|Cong|Sess|Rev|Ct|App|Cir|Dist|Ed|Tr|Pet|Br|Ibid|Id|Sec|supra|infra|ante|post|ch|para|pp|p|n|nn|vol|ed|Jr|Sr)\\.", "\\1<DOT>")
+  x <- str_replace_all(x, paste0("\\b(v|Mr|Mrs|Ms|Dr|J|JJ|C|No|Nos|Inc|Co|Corp|Ltd|Art|Amdt|cf|e\\.g|i\\.e|U\\.S|Stat|Cong|Sess|Rev|Ct|Cts|App|Appx|Crim|Civ|Cir|Dist|Ed|Tr|Pet|Br|Ibid|Id|Sec|supra|infra|ante|post|ch|para|pp|p|n|nn|vol|ed|Jr|Sr|",
+    "Ala|Ariz|Ark|Cal|Colo|Conn|Del|Fla|Ga|Ill|Ind|Kan|Ky|La|Md|Mass|Mich|Minn|Miss|Mo|Mont|Neb|Nev|Okla|Ore|Pa|Tenn|Tex|Va|Vt|Wash|Wis|Wyo|Sup|Super|Ann|Rep|Comm|Dept|Gen|Assn|Bd|Fed|Nat|Natl|Soc|Univ|Ins|Ry|St|Mt|Ft)\\."), "\\1<DOT>")
   s <- str_split(x, "(?<=[.?!][\"”')\\]]?)\\s+(?=[\"“(\\[]?[A-Z])")[[1]]
   s <- str_replace_all(s, "<DOT>", "."); s <- str_squish(s); s[nchar(s) > 1]
 }
