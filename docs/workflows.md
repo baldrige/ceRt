@@ -206,7 +206,7 @@ rebase cleanly.
 | `dashboards/`, landing `index.html`, `methods.html`, `analytics.js`, `search.js` (the case-search matcher every search box loads; see **[search.md](search.md)**) | `daily.yml` |
 | `conferences/` (+ `qp_cache.json`, `petition_signals_cache.json` — the Rule 10 cues the at-risk model reads, resolved for the same dockets as the QPs, cap `PET_SIG_MAX_NEW` default 600; `word_counts_cache.json` — the certified word counts, cap `WORD_COUNT_MAX_NEW`) | `conferences.yml`; QP cache also by `backfill-qp*.yml` |
 | `arguments/` (+ `qp_cache.json`) | `conferences.yml` |
-| `arguments/upcoming.json`, `conferences/upcoming.json` (landing-page calendar manifests) | `conferences.yml` |
+| `arguments/upcoming.json`, `conferences/upcoming.json`, `conferences/upcoming_orders.json` (landing-page calendar manifests), `conferences/court_calendar.json` (the Court's calendar they derive from) | `conferences.yml` |
 | `conferences/pending_forecasts.json` (the landing page's "All pending" forecast window; the daily merges its own freshly-scored window in ahead of it and re-checks the top rows by name) | `conferences.yml` |
 | `arguments/granted_noted.json` (the Court's Granted & Noted Lists, parsed; the Navigator's "Separate writings" column and the decisions rows read it) | `conferences.yml` |
 | `arguments/calendar.json`, `arguments/daycalls.json` (the monthly argument calendars and Day Calls, parsed; see **[argument-calendar.md](argument-calendar.md)**) | `conferences.yml` |
