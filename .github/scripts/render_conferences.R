@@ -24,6 +24,7 @@ dir.create(conf_dir, recursive = TRUE, showWarnings = FALSE)
 source("R/qp_extract.R")
 source("R/conference_dash.R")
 source("R/site_calendar.R")   # upcoming_conferences(), write_upcoming()
+source("R/court_calendar.R")  # update_court_calendar(), expected_order_lists()
 source("R/cert_funnel.R")   # classify_petition_events (relist grammar)
 source("R/cert_model.R")    # score_disposition + load_cert_models
 source("R/petition_signals.R")  # resolve_petition_signals (Rule 10 cues for the at-risk model)
@@ -105,6 +106,14 @@ up_conf <- upcoming_conferences(dist_all)
 write_upcoming(up_conf, file.path(conf_dir, "upcoming.json"))
 cat("Upcoming conferences:", nrow(up_conf),
     if (nrow(up_conf)) paste0(" (next ", format(up_conf$date[1], "%b %e"), ")") else "", "\n")
+
+# The order lists those conferences will produce, from the Court's own calendar
+# (R/court_calendar.R). Its own manifest, like every other event type: a home
+# page that will not answer costs the panel its order lists and nothing else.
+up_ord <- tryCatch(upcoming_order_lists(expected_order_lists(update_court_calendar(site_dir))),
+                   error = function(e) { cat("Order-list calendar failed:", conditionMessage(e), "\n"); NULL })
+if (!is.null(up_ord)) write_upcoming(up_ord, file.path(conf_dir, "upcoming_orders.json"))
+cat("Upcoming order lists:", if (is.null(up_ord)) 0 else nrow(up_ord), "\n")
 dist <- dist_all |> filter(conf_date >= min_conf)
 dates <- dist |> distinct(conf_date) |> arrange(conf_date) |> pull(conf_date)
 

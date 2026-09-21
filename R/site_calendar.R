@@ -107,6 +107,22 @@ upcoming_conferences <- function(dist, as_of = Sys.Date()) {
           sprintf("conferences/conf_%s.html", dates[ord]))
 }
 
+#' Upcoming order lists from an expected_order_lists() frame (R/court_calendar.R).
+#'
+#' "Expected", and said so on the page: the Court announces conferences, not
+#' order lists, and the date is the Monday-after rule applied to its calendar.
+#' The detail names the conference the list reports, which is what a reader
+#' following a petition distributed for it wants to know.
+upcoming_order_lists <- function(ol, as_of = Sys.Date()) {
+  if (is.null(ol) || !nrow(ol) || !all(c("date", "conference") %in% names(ol))) return(.cal_df())
+  d <- ol[!is.na(ol$date) & ol$date >= as_of, , drop = FALSE]
+  if (!nrow(d)) return(.cal_df())
+  d <- d[order(d$date), , drop = FALSE]
+  .cal_df(d$date, "orders", "Order list",
+          sprintf("Expected, from the %s conference", gsub(" +", " ", format(d$conference, "%B %e"))),   # %e pads
+          rep("orders/", nrow(d)))
+}
+
 #' Write a manifest. Always writes, even empty: an absent file and an empty one
 #' mean different things, and only one of them is "this pipeline ran and there
 #' is nothing upcoming".

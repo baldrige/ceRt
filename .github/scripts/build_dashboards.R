@@ -384,12 +384,13 @@ note_for <- function(days) sprintf(paste0(
 # week ago cannot advertise a conference that has already happened.
 upcoming <- tryCatch(read_upcoming(c(
   file.path(site_dir, "conferences", "upcoming.json"),
+  file.path(site_dir, "conferences", "upcoming_orders.json"),
   file.path(site_dir, "arguments",   "upcoming.json"))), error = function(e) NULL)
 cat("Upcoming events on the landing page:",
     if (is.null(upcoming)) 0 else nrow(upcoming), "\n")
 calendar <- calendar_panel(
   upcoming,
-  note = "The next conferences and argument days on the Court's calendar.")
+  note = "The next conferences, order lists and argument days on the Court's calendar.")
 
 # "Recent decisions". The daily's manifest first, so a decision it fetched today
 # outranks the weekly run's copy of the same docket; the window and the row cap

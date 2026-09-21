@@ -17,6 +17,7 @@ is adopted or the Court changes one.
 | **Hermes transfer feed** | `/rss/hermes_transfer.xml` | the files the Court's internal system just pushed, with timestamps; the files themselves are not served | `watch-court.yml`: a change trigger that dispatches the daily |
 | **Granted & Noted List** | `/orders/NNgrantednotedlist.pdf`, OT16 on | per argued case: code, court below, grant, argument and decision dates, author, separate writings with their kind, result, unanimity flags | `R/granted_noted.R`: the Navigator's "Separate writings" column, the same line on Recent decisions, and the argument-grammar audit |
 | **Monthly argument calendars** | `/oral_arguments/argument_calendars/MonthlyArgumentCal<Month><Year>.pdf` | each sitting's cases by day and order, ~2 months ahead | `R/argument_calendar.R`: schedules a case the docket has not set; cross-checks the rest |
+| **The home-page calendar** | `/` (a Telerik RadCalendar; another month is a postback with `__EVENTARGUMENT=n:k`) | every marked day, September 2021 to the end of the announced Term: conferences, argument and non-argument days, holidays by name; order-list days only in retrospect | `R/court_calendar.R`: future conference dates, and the order lists expected from them (`conferences/court_calendar.json`, the landing page's calendar) |
 | **Day Calls** | `/oral_arguments/daycall/Day Call_MM-DD-YY.pdf` | each argument day's advocates with side, affiliation and minutes | `R/argument_calendar.R`: the Navigator's "Argued by" before the argument |
 | **In-chambers opinions** | `/opinions/in-chambers.aspx` | a single Justice's opinion on an application, all Terms on one page | the Recent decisions failsafe in `R/site_decisions.R` |
 | **Questions Presented PDFs** | `/qp/NN-NNNNNqp.pdf` | the QP as granted, typeset text | `R/qp_extract.R` |
@@ -59,11 +60,13 @@ moved to the table above.
 ## Not clean, or not worth it
 
 - **The Term court calendar PDF** (`/oral_arguments/2026TermCourtCalendar.pdf`)
-  has no text layer. It would be the best source for future conference dates,
-  which the site infers from distribution entries on dockets.
+  has no text layer. Superseded: the home-page calendar above is the same data
+  as text.
 - **The Journal** (`/orders/journal/JnlNN.pdf`): one enormous PDF per Term.
 - **Press releases** (`/publicinfo/press/pressreleases.aspx`): prose; the
-  "Summer Order Lists" release does announce future order dates.
+  "Summer Order Lists" release (around 1 July) is the only place the Court
+  announces order-list dates, and the three summer lists are the ones
+  `expected_order_lists()` cannot infer, since they follow no conference.
 - **The case distribution schedule**: a Court publication (paper-due and
   distribution dates per conference), not found at any URL tried
   (`/casedistributionschedule.aspx`, `/orders/…`, `/casehand/…`, `/docket/…`).
