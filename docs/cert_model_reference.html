@@ -122,15 +122,15 @@ table.conf td{vertical-align:top}
   <p class="eyebrow">Supreme Court Report &mdash; model reference</p>
   <h1>Certiorari models: variables and regression output</h1>
   <p class="dek">Every coefficient in the four deployed models, with the standard errors, significance and odds ratios behind them. Generated directly from the fitted artifacts in <code>data/</code>.</p>
-  <p class="stamp">Artifacts built 2026-09-16 09:30:59.030113 &nbsp;&middot;&nbsp; 260 coefficients across four models</p>
+  <p class="stamp">Artifacts built 2026-09-21 22:34:51.400166 &nbsp;&middot;&nbsp; 261 coefficients across four models</p>
 </header>
 <section class="intro"><div class="cards">
   <article class="card"><header><h3>Baseline</h3><p class="eyebrow">Petition-stage</p></header>
     <p class="target"><code>grant</code></p>
     <dl class="stats">
       <div><dt>AUC</dt><dd class="num">0.872</dd></div>
-      <div><dt>Avg. precision</dt><dd class="num">0.285</dd></div>
-      <div><dt>Brier</dt><dd class="num">0.0345</dd></div>
+      <div><dt>Avg. precision</dt><dd class="num">0.287</dd></div>
+      <div><dt>Brier</dt><dd class="num">0.0344</dd></div>
       <div><dt>Base rate</dt><dd class="num">4.14%</dd></div>
       <div><dt>Rows</dt><dd class="num">11,814</dd></div>
       <div><dt>Positives</dt><dd class="num">498</dd></div>
@@ -139,7 +139,7 @@ table.conf td{vertical-align:top}
     <p class="target"><code>grant</code></p>
     <dl class="stats">
       <div><dt>AUC</dt><dd class="num">0.881</dd></div>
-      <div><dt>Avg. precision</dt><dd class="num">0.370</dd></div>
+      <div><dt>Avg. precision</dt><dd class="num">0.371</dd></div>
       <div><dt>Brier</dt><dd class="num">0.0589</dd></div>
       <div><dt>Base rate</dt><dd class="num">7.81%</dd></div>
       <div><dt>Rows</dt><dd class="num">16,338</dd></div>
@@ -148,9 +148,9 @@ table.conf td{vertical-align:top}
   <article class="card"><header><h3>GVR</h3><p class="eyebrow">Granted, vacated, remanded</p></header>
     <p class="target"><code>gvr</code></p>
     <dl class="stats">
-      <div><dt>AUC</dt><dd class="num">0.823</dd></div>
-      <div><dt>Avg. precision</dt><dd class="num">0.197</dd></div>
-      <div><dt>Brier</dt><dd class="num">0.0459</dd></div>
+      <div><dt>AUC</dt><dd class="num">0.838</dd></div>
+      <div><dt>Avg. precision</dt><dd class="num">0.206</dd></div>
+      <div><dt>Brier</dt><dd class="num">0.0460</dd></div>
       <div><dt>Base rate</dt><dd class="num">5.45%</dd></div>
       <div><dt>Rows</dt><dd class="num">16,338</dd></div>
       <div><dt>Positives</dt><dd class="num">861</dd></div>
@@ -169,281 +169,283 @@ table.conf td{vertical-align:top}
   <li><b>&beta;</b> is on the log-odds scale. The <b>odds ratio</b> is e<sup>&beta;</sup>: how the odds multiply when the term is true, holding everything else fixed.</li>
   <li>Fitted with a <b>Firth (Jeffreys-prior) penalty</b>, so standard errors come from the penalised covariance rather than the ordinary one. The penalty is what keeps near-separated cells &mdash; rare court-below buckets, pro&nbsp;se petitions &mdash; from running to infinity.</li>
   <li>Every model is fitted on <b>all terms</b>; AUC, average precision and Brier are <b>leave-one-term-out</b>, with the Platt calibration itself refitted out-of-fold. They are held-out numbers, not in-sample ones.</li>
-  <li>A dot (&bull;) marks p&nbsp;&lt;&nbsp;0.05; non-significant rows are set in a lighter tone. 76 of 116 coefficients clear the threshold.</li>
+  <li>A dot (&bull;) marks p&nbsp;&lt;&nbsp;0.05; non-significant rows are set in a lighter tone. 77 of 117 coefficients clear the threshold.</li>
   <li>Factor coefficients are differences from the reference level named above each table, never absolute effects.</li>
 </ul></div></section>
 
 <section class="model" id="baseline"><div class="modelhead"><div>
   <p class="eyebrow">Petition-stage</p><h2>Baseline</h2><p class="frame">Disposition corpus &mdash; one row per petition, features as at its outcome</p>
-  <p class="frame"><strong>Target:</strong> <code>grant</code> &nbsp;&middot;&nbsp; 36 coefficients &nbsp;&middot;&nbsp; Platt: a&nbsp;=&nbsp;-0.1770, b&nbsp;=&nbsp;0.9359</p>
+  <p class="frame"><strong>Target:</strong> <code>grant</code> &nbsp;&middot;&nbsp; 36 coefficients &nbsp;&middot;&nbsp; Platt: a&nbsp;=&nbsp;-0.1756, b&nbsp;=&nbsp;0.9363</p>
 </div><figure class="calib"><svg viewBox="0 0 120 120" role="img"
     aria-label="Calibration: predicted versus observed rate across ten equal-count bins">
     <line class="ident" x1="8" y1="112" x2="112" y2="8"/>
-    <polyline class="curve" points="8.0,112.0 8.1,112.0 8.7,111.2 11.3,108.9 14.0,107.8 17.3,102.8 21.8,99.3 28.7,92.0 42.2,74.7 111.2,8.0"/><g class="dots"><circle cx="8.0" cy="112.0" r="2.4"/><circle cx="8.1" cy="112.0" r="2.4"/><circle cx="8.7" cy="111.2" r="2.4"/><circle cx="11.3" cy="108.9" r="2.4"/><circle cx="14.0" cy="107.8" r="2.4"/><circle cx="17.3" cy="102.8" r="2.4"/><circle cx="21.8" cy="99.3" r="2.4"/><circle cx="28.7" cy="92.0" r="2.4"/><circle cx="42.2" cy="74.7" r="2.4"/><circle cx="111.2" cy="8.0" r="2.4"/></g></svg>
+    <polyline class="curve" points="8.0,112.0 8.1,112.0 8.7,111.2 11.3,108.9 14.0,107.4 17.2,103.5 21.7,98.9 28.7,91.2 42.3,75.0 111.9,8.0"/><g class="dots"><circle cx="8.0" cy="112.0" r="2.4"/><circle cx="8.1" cy="112.0" r="2.4"/><circle cx="8.7" cy="111.2" r="2.4"/><circle cx="11.3" cy="108.9" r="2.4"/><circle cx="14.0" cy="107.4" r="2.4"/><circle cx="17.2" cy="103.5" r="2.4"/><circle cx="21.7" cy="98.9" r="2.4"/><circle cx="28.7" cy="91.2" r="2.4"/><circle cx="42.3" cy="75.0" r="2.4"/><circle cx="111.9" cy="8.0" r="2.4"/></g></svg>
     <figcaption>Predicted vs observed, 10 equal-count bins. Diagonal is perfect calibration.</figcaption></figure></div><div class="refs"><p class="refhead">Reference levels &mdash; every coefficient below is relative to these</p><ul><li><code>pet_type</code> <span class="ref">individual</span> <span class="lv">4 levels</span></li><li><code>resp_type</code> <span class="ref">individual</span> <span class="lv">4 levels</span></li><li><code>court_below</code> <span class="ref">STATE</span> <span class="lv">17 levels</span></li><li><code>counsel_tier</code> <span class="ref">new</span> <span class="lv">4 levels</span></li><li><code>dissent_level</code> <span class="ref">none</span> <span class="lv">4 levels</span></li><li><code>word_band</code> <span class="ref">6k+</span> <span class="lv">4 levels</span></li></ul></div><div class="tablewrap"><table class="coef"><thead><tr>
     <th scope="col">Term</th><th scope="col" class="num">&beta;</th>
     <th scope="col" class="num">SE</th><th scope="col" class="num">z</th>
     <th scope="col" class="num">p</th><th scope="col" class="num">Odds ratio</th>
     <th scope="col">&minus;&nbsp;&nbsp;0&nbsp;&nbsp;+</th></tr></thead>
-    <tbody><tr class="grouprow"><th colspan="7" scope="colgroup">Intercept</th></tr><tr class="sig"><th scope="row"><code>(Intercept)</code></th><td class="num">-4.722<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">0.225</td><td class="num">-20.95</td><td class="num">1.9e-97</td>
-       <td class="num">0.009</td><td class="barcell"></td></tr><tr class="grouprow"><th colspan="7" scope="colgroup">Counsel</th></tr><tr class="sig"><th scope="row"><code>counsel_tiersome</code></th><td class="num">0.475<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">0.139</td><td class="num">3.43</td><td class="num">0.0006</td>
-       <td class="num">1.607</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:5.0%"></i></span></td></tr><tr class="sig"><th scope="row"><code>counsel_tiervet</code></th><td class="num">0.866<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">0.182</td><td class="num">4.76</td><td class="num">1.9e-06</td>
-       <td class="num">2.378</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:9.1%"></i></span></td></tr><tr class="sig"><th scope="row"><code>counsel_tierwon</code></th><td class="num">1.375<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">0.132</td><td class="num">10.38</td><td class="num">3.1e-25</td>
-       <td class="num">3.955</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:14.5%"></i></span></td></tr><tr class="grouprow"><th colspan="7" scope="colgroup">Petition signal</th></tr><tr class="nsig"><th scope="row"><code>dissent_levelbelow</code></th><td class="num">0.023</td>
-       <td class="num">0.169</td><td class="num">0.13</td><td class="num">0.8940</td>
-       <td class="num">1.023</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:0.2%"></i></span></td></tr><tr class="sig"><th scope="row"><code>dissent_levelbelow11+</code></th><td class="num">0.831<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">0.142</td><td class="num">5.87</td><td class="num">4.5e-09</td>
-       <td class="num">2.295</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:8.7%"></i></span></td></tr><tr class="sig"><th scope="row"><code>dissent_levelbelow3-10</code></th><td class="num">0.335<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">0.136</td><td class="num">2.46</td><td class="num">0.0139</td>
-       <td class="num">1.398</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:3.5%"></i></span></td></tr><tr class="sig"><th scope="row"><code>split_arguedTRUE</code></th><td class="num">0.779<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">0.120</td><td class="num">6.50</td><td class="num">8.1e-11</td>
-       <td class="num">2.179</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:8.2%"></i></span></td></tr><tr class="sig"><th scope="row"><code>word_band&lt;3k</code></th><td class="num">-1.891<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">0.396</td><td class="num">-4.78</td><td class="num">1.8e-06</td>
-       <td class="num">0.151</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="neg" style="right:50%;width:19.9%"></i></span></td></tr><tr class="sig"><th scope="row"><code>word_band3-6k</code></th><td class="num">-0.833<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">0.166</td><td class="num">-5.02</td><td class="num">5.1e-07</td>
-       <td class="num">0.435</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="neg" style="right:50%;width:8.8%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>word_bandunknown</code></th><td class="num">0.168</td>
-       <td class="num">0.166</td><td class="num">1.01</td><td class="num">0.3115</td>
-       <td class="num">1.183</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:1.8%"></i></span></td></tr><tr class="grouprow"><th colspan="7" scope="colgroup">Structural</th></tr><tr class="sig"><th scope="row"><code>court_belowCA1</code></th><td class="num">1.018<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">0.311</td><td class="num">3.28</td><td class="num">0.0011</td>
-       <td class="num">2.767</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:10.7%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>court_belowCA10</code></th><td class="num">0.342</td>
-       <td class="num">0.305</td><td class="num">1.12</td><td class="num">0.2617</td>
-       <td class="num">1.408</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:3.6%"></i></span></td></tr><tr class="sig"><th scope="row"><code>court_belowCA11</code></th><td class="num">0.599<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">0.267</td><td class="num">2.24</td><td class="num">0.0249</td>
-       <td class="num">1.821</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:6.3%"></i></span></td></tr><tr class="sig"><th scope="row"><code>court_belowCA2</code></th><td class="num">0.681<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">0.248</td><td class="num">2.75</td><td class="num">0.0060</td>
-       <td class="num">1.976</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:7.2%"></i></span></td></tr><tr class="sig"><th scope="row"><code>court_belowCA3</code></th><td class="num">0.758<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">0.281</td><td class="num">2.70</td><td class="num">0.0070</td>
-       <td class="num">2.135</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:8.0%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>court_belowCA4</code></th><td class="num">0.289</td>
-       <td class="num">0.277</td><td class="num">1.04</td><td class="num">0.2964</td>
-       <td class="num">1.335</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:3.0%"></i></span></td></tr><tr class="sig"><th scope="row"><code>court_belowCA5</code></th><td class="num">0.792<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+    <tbody><tr class="grouprow"><th colspan="7" scope="colgroup">Intercept</th></tr><tr class="sig"><th scope="row"><code>(Intercept)</code></th><td class="num">-4.752<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">0.226</td><td class="num">-21.04</td><td class="num">3.1e-98</td>
+       <td class="num">0.009</td><td class="barcell"></td></tr><tr class="grouprow"><th colspan="7" scope="colgroup">Counsel</th></tr><tr class="sig"><th scope="row"><code>counsel_tiersome</code></th><td class="num">0.472<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">0.139</td><td class="num">3.41</td><td class="num">0.0007</td>
+       <td class="num">1.604</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:5.0%"></i></span></td></tr><tr class="sig"><th scope="row"><code>counsel_tiervet</code></th><td class="num">0.862<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">0.182</td><td class="num">4.72</td><td class="num">2.3e-06</td>
+       <td class="num">2.367</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:9.1%"></i></span></td></tr><tr class="sig"><th scope="row"><code>counsel_tierwon</code></th><td class="num">1.368<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">0.133</td><td class="num">10.33</td><td class="num">5.3e-25</td>
+       <td class="num">3.929</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:14.4%"></i></span></td></tr><tr class="grouprow"><th colspan="7" scope="colgroup">Petition signal</th></tr><tr class="nsig"><th scope="row"><code>dissent_levelbelow</code></th><td class="num">0.050</td>
+       <td class="num">0.169</td><td class="num">0.30</td><td class="num">0.7667</td>
+       <td class="num">1.051</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:0.5%"></i></span></td></tr><tr class="sig"><th scope="row"><code>dissent_levelbelow11+</code></th><td class="num">0.872<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">0.141</td><td class="num">6.17</td><td class="num">6.7e-10</td>
+       <td class="num">2.393</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:9.2%"></i></span></td></tr><tr class="sig"><th scope="row"><code>dissent_levelbelow3-10</code></th><td class="num">0.388<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">0.136</td><td class="num">2.86</td><td class="num">0.0042</td>
+       <td class="num">1.474</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:4.1%"></i></span></td></tr><tr class="sig"><th scope="row"><code>split_arguedTRUE</code></th><td class="num">0.781<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">0.120</td><td class="num">6.53</td><td class="num">6.7e-11</td>
+       <td class="num">2.184</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:8.2%"></i></span></td></tr><tr class="sig"><th scope="row"><code>word_band&lt;3k</code></th><td class="num">-1.878<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">0.396</td><td class="num">-4.74</td><td class="num">2.2e-06</td>
+       <td class="num">0.153</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="neg" style="right:50%;width:19.8%"></i></span></td></tr><tr class="sig"><th scope="row"><code>word_band3-6k</code></th><td class="num">-0.823<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">0.166</td><td class="num">-4.96</td><td class="num">7.1e-07</td>
+       <td class="num">0.439</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="neg" style="right:50%;width:8.7%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>word_bandunknown</code></th><td class="num">0.188</td>
+       <td class="num">0.166</td><td class="num">1.14</td><td class="num">0.2555</td>
+       <td class="num">1.207</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:2.0%"></i></span></td></tr><tr class="grouprow"><th colspan="7" scope="colgroup">Structural</th></tr><tr class="sig"><th scope="row"><code>court_belowCA1</code></th><td class="num">1.019<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">0.311</td><td class="num">3.27</td><td class="num">0.0011</td>
+       <td class="num">2.770</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:10.7%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>court_belowCA10</code></th><td class="num">0.342</td>
+       <td class="num">0.305</td><td class="num">1.12</td><td class="num">0.2618</td>
+       <td class="num">1.408</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:3.6%"></i></span></td></tr><tr class="sig"><th scope="row"><code>court_belowCA11</code></th><td class="num">0.598<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">0.267</td><td class="num">2.24</td><td class="num">0.0253</td>
+       <td class="num">1.818</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:6.3%"></i></span></td></tr><tr class="sig"><th scope="row"><code>court_belowCA2</code></th><td class="num">0.684<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">0.248</td><td class="num">2.76</td><td class="num">0.0058</td>
+       <td class="num">1.982</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:7.2%"></i></span></td></tr><tr class="sig"><th scope="row"><code>court_belowCA3</code></th><td class="num">0.761<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">0.281</td><td class="num">2.70</td><td class="num">0.0068</td>
+       <td class="num">2.140</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:8.0%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>court_belowCA4</code></th><td class="num">0.287</td>
+       <td class="num">0.277</td><td class="num">1.04</td><td class="num">0.2995</td>
+       <td class="num">1.333</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:3.0%"></i></span></td></tr><tr class="sig"><th scope="row"><code>court_belowCA5</code></th><td class="num">0.793<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
        <td class="num">0.227</td><td class="num">3.49</td><td class="num">0.0005</td>
-       <td class="num">2.208</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:8.3%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>court_belowCA6</code></th><td class="num">0.410</td>
-       <td class="num">0.268</td><td class="num">1.53</td><td class="num">0.1262</td>
-       <td class="num">1.507</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:4.3%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>court_belowCA7</code></th><td class="num">0.007</td>
-       <td class="num">0.328</td><td class="num">0.02</td><td class="num">0.9833</td>
-       <td class="num">1.007</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:0.1%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>court_belowCA8</code></th><td class="num">0.578</td>
-       <td class="num">0.300</td><td class="num">1.92</td><td class="num">0.0543</td>
-       <td class="num">1.782</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:6.1%"></i></span></td></tr><tr class="sig"><th scope="row"><code>court_belowCA9</code></th><td class="num">0.686<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">2.210</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:8.4%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>court_belowCA6</code></th><td class="num">0.409</td>
+       <td class="num">0.268</td><td class="num">1.52</td><td class="num">0.1279</td>
+       <td class="num">1.505</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:4.3%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>court_belowCA7</code></th><td class="num">0.007</td>
+       <td class="num">0.328</td><td class="num">0.02</td><td class="num">0.9828</td>
+       <td class="num">1.007</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:0.1%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>court_belowCA8</code></th><td class="num">0.581</td>
+       <td class="num">0.300</td><td class="num">1.94</td><td class="num">0.0530</td>
+       <td class="num">1.789</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:6.1%"></i></span></td></tr><tr class="sig"><th scope="row"><code>court_belowCA9</code></th><td class="num">0.687<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
        <td class="num">0.209</td><td class="num">3.28</td><td class="num">0.0010</td>
-       <td class="num">1.985</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:7.2%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>court_belowCAAF</code></th><td class="num">0.658</td>
-       <td class="num">0.722</td><td class="num">0.91</td><td class="num">0.3618</td>
-       <td class="num">1.932</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:6.9%"></i></span></td></tr><tr class="sig"><th scope="row"><code>court_belowCADC</code></th><td class="num">0.913<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">0.284</td><td class="num">3.21</td><td class="num">0.0013</td>
-       <td class="num">2.491</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:9.6%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>court_belowCAFED</code></th><td class="num">0.462</td>
-       <td class="num">0.290</td><td class="num">1.59</td><td class="num">0.1116</td>
-       <td class="num">1.587</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:4.9%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>court_belowOTHER</code></th><td class="num">-1.594</td>
-       <td class="num">1.449</td><td class="num">-1.10</td><td class="num">0.2713</td>
-       <td class="num">0.203</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="neg" style="right:50%;width:16.8%"></i></span></td></tr><tr class="sig"><th scope="row"><code>court_belowUSDC_APPEAL</code></th><td class="num">2.372<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">0.486</td><td class="num">4.88</td><td class="num">1.1e-06</td>
-       <td class="num">10.722</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:24.9%"></i></span></td></tr><tr class="sig"><th scope="row"><code>gap_fast</code></th><td class="num">0.512<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">0.058</td><td class="num">8.77</td><td class="num">1.8e-18</td>
-       <td class="num">1.669</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:5.4%"></i></span></td></tr><tr class="sig"><th scope="row"><code>gap_naTRUE</code></th><td class="num">0.813<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">0.274</td><td class="num">2.97</td><td class="num">0.0030</td>
-       <td class="num">2.255</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:8.5%"></i></span></td></tr><tr class="sig"><th scope="row"><code>pet_typebusiness</code></th><td class="num">0.384<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">0.130</td><td class="num">2.96</td><td class="num">0.0031</td>
-       <td class="num">1.468</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:4.0%"></i></span></td></tr><tr class="sig"><th scope="row"><code>pet_typestate_local</code></th><td class="num">0.698<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">0.227</td><td class="num">3.07</td><td class="num">0.0021</td>
-       <td class="num">2.009</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:7.3%"></i></span></td></tr><tr class="sig"><th scope="row"><code>pet_typeus_fed</code></th><td class="num">1.904<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">0.189</td><td class="num">10.05</td><td class="num">9.4e-24</td>
-       <td class="num">6.712</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:20.0%"></i></span></td></tr><tr class="sig"><th scope="row"><code>pro_seTRUE</code></th><td class="num">-4.756<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">1.385</td><td class="num">-3.43</td><td class="num">0.0006</td>
-       <td class="num">0.009</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="neg" style="right:50%;width:50.0%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>resp_typebusiness</code></th><td class="num">-0.202</td>
-       <td class="num">0.151</td><td class="num">-1.34</td><td class="num">0.1807</td>
-       <td class="num">0.817</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="neg" style="right:50%;width:2.1%"></i></span></td></tr><tr class="sig"><th scope="row"><code>resp_typestate_local</code></th><td class="num">-0.362<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">0.170</td><td class="num">-2.13</td><td class="num">0.0330</td>
-       <td class="num">0.696</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="neg" style="right:50%;width:3.8%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>resp_typeus_fed</code></th><td class="num">-0.033</td>
-       <td class="num">0.138</td><td class="num">-0.24</td><td class="num">0.8116</td>
-       <td class="num">0.968</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="neg" style="right:50%;width:0.3%"></i></span></td></tr></tbody></table></div></section>
+       <td class="num">1.988</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:7.2%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>court_belowCAAF</code></th><td class="num">0.663</td>
+       <td class="num">0.722</td><td class="num">0.92</td><td class="num">0.3583</td>
+       <td class="num">1.941</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:7.0%"></i></span></td></tr><tr class="sig"><th scope="row"><code>court_belowCADC</code></th><td class="num">0.915<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">0.284</td><td class="num">3.22</td><td class="num">0.0013</td>
+       <td class="num">2.498</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:9.7%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>court_belowCAFED</code></th><td class="num">0.460</td>
+       <td class="num">0.290</td><td class="num">1.58</td><td class="num">0.1133</td>
+       <td class="num">1.584</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:4.8%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>court_belowOTHER</code></th><td class="num">-1.606</td>
+       <td class="num">1.450</td><td class="num">-1.11</td><td class="num">0.2682</td>
+       <td class="num">0.201</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="neg" style="right:50%;width:16.9%"></i></span></td></tr><tr class="sig"><th scope="row"><code>court_belowUSDC_APPEAL</code></th><td class="num">2.211<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">0.493</td><td class="num">4.48</td><td class="num">7.4e-06</td>
+       <td class="num">9.126</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:23.3%"></i></span></td></tr><tr class="sig"><th scope="row"><code>gap_fast</code></th><td class="num">0.511<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">0.058</td><td class="num">8.74</td><td class="num">2.4e-18</td>
+       <td class="num">1.666</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:5.4%"></i></span></td></tr><tr class="sig"><th scope="row"><code>gap_naTRUE</code></th><td class="num">0.802<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">0.274</td><td class="num">2.93</td><td class="num">0.0034</td>
+       <td class="num">2.231</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:8.5%"></i></span></td></tr><tr class="sig"><th scope="row"><code>pet_typebusiness</code></th><td class="num">0.386<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">0.130</td><td class="num">2.97</td><td class="num">0.0030</td>
+       <td class="num">1.471</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:4.1%"></i></span></td></tr><tr class="sig"><th scope="row"><code>pet_typestate_local</code></th><td class="num">0.695<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">0.227</td><td class="num">3.06</td><td class="num">0.0022</td>
+       <td class="num">2.004</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:7.3%"></i></span></td></tr><tr class="sig"><th scope="row"><code>pet_typeus_fed</code></th><td class="num">1.904<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">0.190</td><td class="num">10.04</td><td class="num">1.0e-23</td>
+       <td class="num">6.715</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:20.1%"></i></span></td></tr><tr class="sig"><th scope="row"><code>pro_seTRUE</code></th><td class="num">-4.740<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">1.385</td><td class="num">-3.42</td><td class="num">0.0006</td>
+       <td class="num">0.009</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="neg" style="right:50%;width:50.0%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>resp_typebusiness</code></th><td class="num">-0.199</td>
+       <td class="num">0.151</td><td class="num">-1.32</td><td class="num">0.1885</td>
+       <td class="num">0.820</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="neg" style="right:50%;width:2.1%"></i></span></td></tr><tr class="sig"><th scope="row"><code>resp_typestate_local</code></th><td class="num">-0.358<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">0.170</td><td class="num">-2.11</td><td class="num">0.0347</td>
+       <td class="num">0.699</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="neg" style="right:50%;width:3.8%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>resp_typeus_fed</code></th><td class="num">-0.028</td>
+       <td class="num">0.138</td><td class="num">-0.20</td><td class="num">0.8386</td>
+       <td class="num">0.972</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="neg" style="right:50%;width:0.3%"></i></span></td></tr></tbody></table></div></section>
 <section class="model" id="enhanced"><div class="modelhead"><div>
   <p class="eyebrow">Granted ever</p><h2>At-risk</h2><p class="frame">At-risk panel &mdash; one row per petition &times; conference</p>
-  <p class="frame"><strong>Target:</strong> <code>grant</code> &nbsp;&middot;&nbsp; 41 coefficients &nbsp;&middot;&nbsp; Platt: a&nbsp;=&nbsp;-0.2219, b&nbsp;=&nbsp;0.8748</p>
+  <p class="frame"><strong>Target:</strong> <code>grant</code> &nbsp;&middot;&nbsp; 41 coefficients &nbsp;&middot;&nbsp; Platt: a&nbsp;=&nbsp;-0.2213, b&nbsp;=&nbsp;0.8750</p>
 </div><figure class="calib"><svg viewBox="0 0 120 120" role="img"
     aria-label="Calibration: predicted versus observed rate across ten equal-count bins">
     <line class="ident" x1="8" y1="112" x2="112" y2="8"/>
-    <polyline class="curve" points="8.0,112.0 8.2,112.0 9.7,111.7 11.3,110.2 13.3,108.1 17.1,103.7 23.7,96.4 34.2,85.0 52.0,59.7 112.0,12.0"/><g class="dots"><circle cx="8.0" cy="112.0" r="2.4"/><circle cx="8.2" cy="112.0" r="2.4"/><circle cx="9.7" cy="111.7" r="2.4"/><circle cx="11.3" cy="110.2" r="2.4"/><circle cx="13.3" cy="108.1" r="2.4"/><circle cx="17.1" cy="103.7" r="2.4"/><circle cx="23.7" cy="96.4" r="2.4"/><circle cx="34.2" cy="85.0" r="2.4"/><circle cx="52.0" cy="59.7" r="2.4"/><circle cx="112.0" cy="12.0" r="2.4"/></g></svg>
+    <polyline class="curve" points="8.0,112.0 8.2,112.0 9.7,111.7 11.2,110.2 13.3,108.1 17.1,103.7 23.7,96.5 34.2,84.6 52.0,59.9 112.0,12.1"/><g class="dots"><circle cx="8.0" cy="112.0" r="2.4"/><circle cx="8.2" cy="112.0" r="2.4"/><circle cx="9.7" cy="111.7" r="2.4"/><circle cx="11.2" cy="110.2" r="2.4"/><circle cx="13.3" cy="108.1" r="2.4"/><circle cx="17.1" cy="103.7" r="2.4"/><circle cx="23.7" cy="96.5" r="2.4"/><circle cx="34.2" cy="84.6" r="2.4"/><circle cx="52.0" cy="59.9" r="2.4"/><circle cx="112.0" cy="12.1" r="2.4"/></g></svg>
     <figcaption>Predicted vs observed, 10 equal-count bins. Diagonal is perfect calibration.</figcaption></figure></div><div class="refs"><p class="refhead">Reference levels &mdash; every coefficient below is relative to these</p><ul><li><code>pet_type</code> <span class="ref">individual</span> <span class="lv">4 levels</span></li><li><code>resp_type</code> <span class="ref">individual</span> <span class="lv">4 levels</span></li><li><code>court_below</code> <span class="ref">STATE</span> <span class="lv">17 levels</span></li><li><code>relist_bucket</code> <span class="ref">0</span> <span class="lv">5 levels</span></li><li><code>amicus_bucket</code> <span class="ref">0</span> <span class="lv">5 levels</span></li></ul></div><div class="tablewrap"><table class="coef"><thead><tr>
     <th scope="col">Term</th><th scope="col" class="num">&beta;</th>
     <th scope="col" class="num">SE</th><th scope="col" class="num">z</th>
     <th scope="col" class="num">p</th><th scope="col" class="num">Odds ratio</th>
     <th scope="col">&minus;&nbsp;&nbsp;0&nbsp;&nbsp;+</th></tr></thead>
-    <tbody><tr class="grouprow"><th colspan="7" scope="colgroup">Intercept</th></tr><tr class="sig"><th scope="row"><code>(Intercept)</code></th><td class="num">-5.012<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">0.164</td><td class="num">-30.64</td><td class="num">3.7e-206</td>
-       <td class="num">0.007</td><td class="barcell"></td></tr><tr class="grouprow"><th colspan="7" scope="colgroup">Petition signal</th></tr><tr class="nsig"><th scope="row"><code>dissent_belowTRUE</code></th><td class="num">0.016</td>
-       <td class="num">0.073</td><td class="num">0.22</td><td class="num">0.8269</td>
-       <td class="num">1.016</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:0.2%"></i></span></td></tr><tr class="sig"><th scope="row"><code>split_arguedTRUE</code></th><td class="num">0.756<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">0.077</td><td class="num">9.86</td><td class="num">6.3e-23</td>
-       <td class="num">2.130</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:8.8%"></i></span></td></tr><tr class="grouprow"><th colspan="7" scope="colgroup">Process</th></tr><tr class="sig"><th scope="row"><code>amicus_bucket1</code></th><td class="num">0.827<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">0.095</td><td class="num">8.67</td><td class="num">4.2e-18</td>
-       <td class="num">2.286</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:9.7%"></i></span></td></tr><tr class="sig"><th scope="row"><code>amicus_bucket2</code></th><td class="num">0.875<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">0.120</td><td class="num">7.31</td><td class="num">2.6e-13</td>
-       <td class="num">2.399</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:10.2%"></i></span></td></tr><tr class="sig"><th scope="row"><code>amicus_bucket3-4</code></th><td class="num">0.966<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">0.113</td><td class="num">8.59</td><td class="num">8.7e-18</td>
-       <td class="num">2.628</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:11.3%"></i></span></td></tr><tr class="sig"><th scope="row"><code>amicus_bucket5+</code></th><td class="num">1.066<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">0.110</td><td class="num">9.66</td><td class="num">4.6e-22</td>
-       <td class="num">2.904</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:12.5%"></i></span></td></tr><tr class="sig"><th scope="row"><code>cvsgTRUE</code></th><td class="num">0.724<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">0.171</td><td class="num">4.23</td><td class="num">2.3e-05</td>
-       <td class="num">2.062</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:8.5%"></i></span></td></tr><tr class="sig"><th scope="row"><code>relist_bucket1</code></th><td class="num">1.413<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">0.088</td><td class="num">15.97</td><td class="num">2.1e-57</td>
-       <td class="num">4.109</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:16.5%"></i></span></td></tr><tr class="sig"><th scope="row"><code>relist_bucket2</code></th><td class="num">0.788<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">0.142</td><td class="num">5.56</td><td class="num">2.7e-08</td>
-       <td class="num">2.199</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:9.2%"></i></span></td></tr><tr class="sig"><th scope="row"><code>relist_bucket3-4</code></th><td class="num">0.472<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">0.152</td><td class="num">3.11</td><td class="num">0.0019</td>
-       <td class="num">1.604</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:5.5%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>relist_bucket5+</code></th><td class="num">-0.250</td>
-       <td class="num">0.167</td><td class="num">-1.50</td><td class="num">0.1341</td>
-       <td class="num">0.779</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="neg" style="right:50%;width:2.9%"></i></span></td></tr><tr class="sig"><th scope="row"><code>reply_filedTRUE</code></th><td class="num">1.974<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">0.166</td><td class="num">11.87</td><td class="num">1.7e-32</td>
-       <td class="num">7.199</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:23.1%"></i></span></td></tr><tr class="sig"><th scope="row"><code>resp_waiverTRUE</code></th><td class="num">-0.719<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">0.113</td><td class="num">-6.36</td><td class="num">2.1e-10</td>
-       <td class="num">0.487</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="neg" style="right:50%;width:8.4%"></i></span></td></tr><tr class="sig"><th scope="row"><code>response_filedTRUE</code></th><td class="num">-0.965<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">0.151</td><td class="num">-6.38</td><td class="num">1.8e-10</td>
+    <tbody><tr class="grouprow"><th colspan="7" scope="colgroup">Intercept</th></tr><tr class="sig"><th scope="row"><code>(Intercept)</code></th><td class="num">-5.023<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">0.164</td><td class="num">-30.66</td><td class="num">1.7e-206</td>
+       <td class="num">0.007</td><td class="barcell"></td></tr><tr class="grouprow"><th colspan="7" scope="colgroup">Petition signal</th></tr><tr class="nsig"><th scope="row"><code>dissent_belowTRUE</code></th><td class="num">0.045</td>
+       <td class="num">0.073</td><td class="num">0.61</td><td class="num">0.5414</td>
+       <td class="num">1.046</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:0.5%"></i></span></td></tr><tr class="sig"><th scope="row"><code>split_arguedTRUE</code></th><td class="num">0.756<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">0.077</td><td class="num">9.87</td><td class="num">5.9e-23</td>
+       <td class="num">2.130</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:8.9%"></i></span></td></tr><tr class="grouprow"><th colspan="7" scope="colgroup">Process</th></tr><tr class="sig"><th scope="row"><code>amicus_bucket1</code></th><td class="num">0.824<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">0.095</td><td class="num">8.65</td><td class="num">5.3e-18</td>
+       <td class="num">2.281</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:9.7%"></i></span></td></tr><tr class="sig"><th scope="row"><code>amicus_bucket2</code></th><td class="num">0.871<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">0.120</td><td class="num">7.28</td><td class="num">3.4e-13</td>
+       <td class="num">2.390</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:10.2%"></i></span></td></tr><tr class="sig"><th scope="row"><code>amicus_bucket3-4</code></th><td class="num">0.959<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">0.113</td><td class="num">8.52</td><td class="num">1.5e-17</td>
+       <td class="num">2.610</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:11.2%"></i></span></td></tr><tr class="sig"><th scope="row"><code>amicus_bucket5+</code></th><td class="num">1.059<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">0.110</td><td class="num">9.59</td><td class="num">8.6e-22</td>
+       <td class="num">2.883</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:12.4%"></i></span></td></tr><tr class="sig"><th scope="row"><code>cvsgTRUE</code></th><td class="num">0.726<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">0.171</td><td class="num">4.24</td><td class="num">2.2e-05</td>
+       <td class="num">2.067</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:8.5%"></i></span></td></tr><tr class="sig"><th scope="row"><code>relist_bucket1</code></th><td class="num">1.413<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">0.089</td><td class="num">15.97</td><td class="num">2.2e-57</td>
+       <td class="num">4.110</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:16.6%"></i></span></td></tr><tr class="sig"><th scope="row"><code>relist_bucket2</code></th><td class="num">0.786<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">0.142</td><td class="num">5.55</td><td class="num">2.9e-08</td>
+       <td class="num">2.196</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:9.2%"></i></span></td></tr><tr class="sig"><th scope="row"><code>relist_bucket3-4</code></th><td class="num">0.470<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">0.152</td><td class="num">3.09</td><td class="num">0.0020</td>
+       <td class="num">1.600</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:5.5%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>relist_bucket5+</code></th><td class="num">-0.250</td>
+       <td class="num">0.167</td><td class="num">-1.50</td><td class="num">0.1332</td>
+       <td class="num">0.779</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="neg" style="right:50%;width:2.9%"></i></span></td></tr><tr class="sig"><th scope="row"><code>reply_filedTRUE</code></th><td class="num">1.972<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">0.166</td><td class="num">11.86</td><td class="num">1.8e-32</td>
+       <td class="num">7.185</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:23.1%"></i></span></td></tr><tr class="sig"><th scope="row"><code>resp_waiverTRUE</code></th><td class="num">-0.718<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">0.113</td><td class="num">-6.35</td><td class="num">2.2e-10</td>
+       <td class="num">0.488</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="neg" style="right:50%;width:8.4%"></i></span></td></tr><tr class="sig"><th scope="row"><code>response_filedTRUE</code></th><td class="num">-0.966<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">0.151</td><td class="num">-6.38</td><td class="num">1.7e-10</td>
        <td class="num">0.381</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="neg" style="right:50%;width:11.3%"></i></span></td></tr><tr class="sig"><th scope="row"><code>response_requestedTRUE</code></th><td class="num">0.537<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">0.112</td><td class="num">4.82</td><td class="num">1.4e-06</td>
-       <td class="num">1.711</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:6.3%"></i></span></td></tr><tr class="grouprow"><th colspan="7" scope="colgroup">Structural</th></tr><tr class="sig"><th scope="row"><code>court_belowCA1</code></th><td class="num">0.811<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">0.213</td><td class="num">3.81</td><td class="num">0.0001</td>
-       <td class="num">2.250</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:9.5%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>court_belowCA10</code></th><td class="num">0.110</td>
-       <td class="num">0.215</td><td class="num">0.51</td><td class="num">0.6090</td>
-       <td class="num">1.116</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:1.3%"></i></span></td></tr><tr class="sig"><th scope="row"><code>court_belowCA11</code></th><td class="num">0.648<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">0.168</td><td class="num">3.85</td><td class="num">0.0001</td>
-       <td class="num">1.913</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:7.6%"></i></span></td></tr><tr class="sig"><th scope="row"><code>court_belowCA2</code></th><td class="num">0.586<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">0.163</td><td class="num">3.59</td><td class="num">0.0003</td>
-       <td class="num">1.798</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:6.9%"></i></span></td></tr><tr class="sig"><th scope="row"><code>court_belowCA3</code></th><td class="num">1.144<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">0.184</td><td class="num">6.20</td><td class="num">5.6e-10</td>
-       <td class="num">3.139</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:13.4%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>court_belowCA4</code></th><td class="num">0.332</td>
-       <td class="num">0.177</td><td class="num">1.88</td><td class="num">0.0604</td>
-       <td class="num">1.393</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:3.9%"></i></span></td></tr><tr class="sig"><th scope="row"><code>court_belowCA5</code></th><td class="num">0.843<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">0.148</td><td class="num">5.71</td><td class="num">1.2e-08</td>
-       <td class="num">2.324</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:9.9%"></i></span></td></tr><tr class="sig"><th scope="row"><code>court_belowCA6</code></th><td class="num">0.462<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">0.175</td><td class="num">2.64</td><td class="num">0.0082</td>
-       <td class="num">1.588</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:5.4%"></i></span></td></tr><tr class="sig"><th scope="row"><code>court_belowCA7</code></th><td class="num">-0.444<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">0.216</td><td class="num">-2.05</td><td class="num">0.0402</td>
-       <td class="num">0.642</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="neg" style="right:50%;width:5.2%"></i></span></td></tr><tr class="sig"><th scope="row"><code>court_belowCA8</code></th><td class="num">0.532<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">0.202</td><td class="num">2.63</td><td class="num">0.0084</td>
-       <td class="num">1.702</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:6.2%"></i></span></td></tr><tr class="sig"><th scope="row"><code>court_belowCA9</code></th><td class="num">0.756<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">0.112</td><td class="num">4.82</td><td class="num">1.5e-06</td>
+       <td class="num">1.711</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:6.3%"></i></span></td></tr><tr class="grouprow"><th colspan="7" scope="colgroup">Structural</th></tr><tr class="sig"><th scope="row"><code>court_belowCA1</code></th><td class="num">0.810<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">0.213</td><td class="num">3.80</td><td class="num">0.0001</td>
+       <td class="num">2.248</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:9.5%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>court_belowCA10</code></th><td class="num">0.106</td>
+       <td class="num">0.215</td><td class="num">0.50</td><td class="num">0.6204</td>
+       <td class="num">1.112</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:1.2%"></i></span></td></tr><tr class="sig"><th scope="row"><code>court_belowCA11</code></th><td class="num">0.645<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">0.168</td><td class="num">3.84</td><td class="num">0.0001</td>
+       <td class="num">1.907</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:7.6%"></i></span></td></tr><tr class="sig"><th scope="row"><code>court_belowCA2</code></th><td class="num">0.585<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">0.163</td><td class="num">3.58</td><td class="num">0.0003</td>
+       <td class="num">1.794</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:6.9%"></i></span></td></tr><tr class="sig"><th scope="row"><code>court_belowCA3</code></th><td class="num">1.145<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">0.184</td><td class="num">6.21</td><td class="num">5.4e-10</td>
+       <td class="num">3.142</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:13.4%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>court_belowCA4</code></th><td class="num">0.328</td>
+       <td class="num">0.177</td><td class="num">1.86</td><td class="num">0.0631</td>
+       <td class="num">1.389</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:3.8%"></i></span></td></tr><tr class="sig"><th scope="row"><code>court_belowCA5</code></th><td class="num">0.842<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">0.148</td><td class="num">5.69</td><td class="num">1.2e-08</td>
+       <td class="num">2.320</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:9.9%"></i></span></td></tr><tr class="sig"><th scope="row"><code>court_belowCA6</code></th><td class="num">0.458<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">0.175</td><td class="num">2.62</td><td class="num">0.0088</td>
+       <td class="num">1.582</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:5.4%"></i></span></td></tr><tr class="sig"><th scope="row"><code>court_belowCA7</code></th><td class="num">-0.447<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">0.216</td><td class="num">-2.06</td><td class="num">0.0390</td>
+       <td class="num">0.640</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="neg" style="right:50%;width:5.2%"></i></span></td></tr><tr class="sig"><th scope="row"><code>court_belowCA8</code></th><td class="num">0.530<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">0.202</td><td class="num">2.63</td><td class="num">0.0087</td>
+       <td class="num">1.699</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:6.2%"></i></span></td></tr><tr class="sig"><th scope="row"><code>court_belowCA9</code></th><td class="num">0.755<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
        <td class="num">0.135</td><td class="num">5.59</td><td class="num">2.2e-08</td>
-       <td class="num">2.129</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:8.8%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>court_belowCAAF</code></th><td class="num">0.920</td>
-       <td class="num">0.548</td><td class="num">1.68</td><td class="num">0.0932</td>
-       <td class="num">2.510</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:10.8%"></i></span></td></tr><tr class="sig"><th scope="row"><code>court_belowCADC</code></th><td class="num">0.586<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">0.188</td><td class="num">3.11</td><td class="num">0.0018</td>
-       <td class="num">1.797</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:6.9%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>court_belowCAFED</code></th><td class="num">0.120</td>
-       <td class="num">0.197</td><td class="num">0.61</td><td class="num">0.5443</td>
-       <td class="num">1.127</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:1.4%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>court_belowOTHER</code></th><td class="num">-2.250</td>
-       <td class="num">1.447</td><td class="num">-1.55</td><td class="num">0.1201</td>
-       <td class="num">0.105</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="neg" style="right:50%;width:26.3%"></i></span></td></tr><tr class="sig"><th scope="row"><code>court_belowUSDC_APPEAL</code></th><td class="num">2.324<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">0.372</td><td class="num">6.25</td><td class="num">4.2e-10</td>
-       <td class="num">10.212</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:27.2%"></i></span></td></tr><tr class="sig"><th scope="row"><code>gap_fast</code></th><td class="num">0.378<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">0.041</td><td class="num">9.20</td><td class="num">3.5e-20</td>
-       <td class="num">1.460</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:4.4%"></i></span></td></tr><tr class="sig"><th scope="row"><code>gap_naTRUE</code></th><td class="num">0.931<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">0.197</td><td class="num">4.72</td><td class="num">2.4e-06</td>
-       <td class="num">2.537</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:10.9%"></i></span></td></tr><tr class="sig"><th scope="row"><code>pet_typebusiness</code></th><td class="num">0.503<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">0.087</td><td class="num">5.78</td><td class="num">7.5e-09</td>
-       <td class="num">1.654</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:5.9%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>pet_typestate_local</code></th><td class="num">0.200</td>
-       <td class="num">0.151</td><td class="num">1.33</td><td class="num">0.1851</td>
-       <td class="num">1.222</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:2.3%"></i></span></td></tr><tr class="sig"><th scope="row"><code>pet_typeus_fed</code></th><td class="num">1.805<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">0.125</td><td class="num">14.47</td><td class="num">1.8e-47</td>
-       <td class="num">6.077</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:21.1%"></i></span></td></tr><tr class="sig"><th scope="row"><code>pro_seTRUE</code></th><td class="num">-4.274<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">1.405</td><td class="num">-3.04</td><td class="num">0.0024</td>
-       <td class="num">0.014</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="neg" style="right:50%;width:50.0%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>resp_typebusiness</code></th><td class="num">0.030</td>
-       <td class="num">0.108</td><td class="num">0.28</td><td class="num">0.7814</td>
-       <td class="num">1.030</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:0.4%"></i></span></td></tr><tr class="sig"><th scope="row"><code>resp_typestate_local</code></th><td class="num">-0.301<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">0.107</td><td class="num">-2.81</td><td class="num">0.0049</td>
-       <td class="num">0.740</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="neg" style="right:50%;width:3.5%"></i></span></td></tr><tr class="sig"><th scope="row"><code>resp_typeus_fed</code></th><td class="num">0.315<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">0.097</td><td class="num">3.25</td><td class="num">0.0011</td>
-       <td class="num">1.370</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:3.7%"></i></span></td></tr></tbody></table></div></section>
+       <td class="num">2.128</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:8.9%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>court_belowCAAF</code></th><td class="num">0.920</td>
+       <td class="num">0.548</td><td class="num">1.68</td><td class="num">0.0931</td>
+       <td class="num">2.509</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:10.8%"></i></span></td></tr><tr class="sig"><th scope="row"><code>court_belowCADC</code></th><td class="num">0.586<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">0.188</td><td class="num">3.12</td><td class="num">0.0018</td>
+       <td class="num">1.798</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:6.9%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>court_belowCAFED</code></th><td class="num">0.118</td>
+       <td class="num">0.197</td><td class="num">0.60</td><td class="num">0.5495</td>
+       <td class="num">1.125</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:1.4%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>court_belowOTHER</code></th><td class="num">-2.267</td>
+       <td class="num">1.447</td><td class="num">-1.57</td><td class="num">0.1171</td>
+       <td class="num">0.104</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="neg" style="right:50%;width:26.6%"></i></span></td></tr><tr class="sig"><th scope="row"><code>court_belowUSDC_APPEAL</code></th><td class="num">2.292<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">0.372</td><td class="num">6.16</td><td class="num">7.1e-10</td>
+       <td class="num">9.899</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:26.9%"></i></span></td></tr><tr class="sig"><th scope="row"><code>gap_fast</code></th><td class="num">0.378<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">0.041</td><td class="num">9.19</td><td class="num">4.0e-20</td>
+       <td class="num">1.459</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:4.4%"></i></span></td></tr><tr class="sig"><th scope="row"><code>gap_naTRUE</code></th><td class="num">0.928<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">0.197</td><td class="num">4.70</td><td class="num">2.6e-06</td>
+       <td class="num">2.530</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:10.9%"></i></span></td></tr><tr class="sig"><th scope="row"><code>pet_typebusiness</code></th><td class="num">0.504<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">0.087</td><td class="num">5.79</td><td class="num">7.2e-09</td>
+       <td class="num">1.655</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:5.9%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>pet_typestate_local</code></th><td class="num">0.198</td>
+       <td class="num">0.151</td><td class="num">1.31</td><td class="num">0.1909</td>
+       <td class="num">1.218</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:2.3%"></i></span></td></tr><tr class="sig"><th scope="row"><code>pet_typeus_fed</code></th><td class="num">1.803<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">0.125</td><td class="num">14.45</td><td class="num">2.4e-47</td>
+       <td class="num">6.065</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:21.1%"></i></span></td></tr><tr class="sig"><th scope="row"><code>pro_seTRUE</code></th><td class="num">-4.264<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">1.405</td><td class="num">-3.03</td><td class="num">0.0024</td>
+       <td class="num">0.014</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="neg" style="right:50%;width:50.0%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>resp_typebusiness</code></th><td class="num">0.031</td>
+       <td class="num">0.108</td><td class="num">0.28</td><td class="num">0.7767</td>
+       <td class="num">1.031</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:0.4%"></i></span></td></tr><tr class="sig"><th scope="row"><code>resp_typestate_local</code></th><td class="num">-0.302<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">0.107</td><td class="num">-2.82</td><td class="num">0.0048</td>
+       <td class="num">0.739</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="neg" style="right:50%;width:3.5%"></i></span></td></tr><tr class="sig"><th scope="row"><code>resp_typeus_fed</code></th><td class="num">0.316<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">0.097</td><td class="num">3.27</td><td class="num">0.0011</td>
+       <td class="num">1.372</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:3.7%"></i></span></td></tr></tbody></table></div></section>
 <section class="model" id="gvr"><div class="modelhead"><div>
   <p class="eyebrow">Granted, vacated, remanded</p><h2>GVR</h2><p class="frame">At-risk panel &mdash; one row per petition &times; conference</p>
-  <p class="frame"><strong>Target:</strong> <code>gvr</code> &nbsp;&middot;&nbsp; 39 coefficients &nbsp;&middot;&nbsp; Platt: a&nbsp;=&nbsp;-0.3873, b&nbsp;=&nbsp;0.8232</p>
+  <p class="frame"><strong>Target:</strong> <code>gvr</code> &nbsp;&middot;&nbsp; 40 coefficients &nbsp;&middot;&nbsp; Platt: a&nbsp;=&nbsp;-0.3989, b&nbsp;=&nbsp;0.8131</p>
 </div><figure class="calib"><svg viewBox="0 0 120 120" role="img"
     aria-label="Calibration: predicted versus observed rate across ten equal-count bins">
     <line class="ident" x1="8" y1="112" x2="112" y2="8"/>
-    <polyline class="curve" points="8.7,111.7 10.5,108.4 13.0,109.2 15.2,105.1 18.5,105.9 23.0,92.1 28.4,96.5 36.2,87.1 51.5,57.3 112.0,8.7"/><g class="dots"><circle cx="8.7" cy="111.7" r="2.4"/><circle cx="10.5" cy="108.4" r="2.4"/><circle cx="13.0" cy="109.2" r="2.4"/><circle cx="15.2" cy="105.1" r="2.4"/><circle cx="18.5" cy="105.9" r="2.4"/><circle cx="23.0" cy="92.1" r="2.4"/><circle cx="28.4" cy="96.5" r="2.4"/><circle cx="36.2" cy="87.1" r="2.4"/><circle cx="51.5" cy="57.3" r="2.4"/><circle cx="112.0" cy="8.7" r="2.4"/></g></svg>
+    <polyline class="curve" points="8.8,111.7 10.5,109.8 12.6,110.4 14.7,106.7 17.8,104.3 21.7,100.6 26.7,96.6 34.2,82.2 49.3,56.7 112.0,12.0"/><g class="dots"><circle cx="8.8" cy="111.7" r="2.4"/><circle cx="10.5" cy="109.8" r="2.4"/><circle cx="12.6" cy="110.4" r="2.4"/><circle cx="14.7" cy="106.7" r="2.4"/><circle cx="17.8" cy="104.3" r="2.4"/><circle cx="21.7" cy="100.6" r="2.4"/><circle cx="26.7" cy="96.6" r="2.4"/><circle cx="34.2" cy="82.2" r="2.4"/><circle cx="49.3" cy="56.7" r="2.4"/><circle cx="112.0" cy="12.0" r="2.4"/></g></svg>
     <figcaption>Predicted vs observed, 10 equal-count bins. Diagonal is perfect calibration.</figcaption></figure></div><div class="refs"><p class="refhead">Reference levels &mdash; every coefficient below is relative to these</p><ul><li><code>pet_type</code> <span class="ref">individual</span> <span class="lv">4 levels</span></li><li><code>resp_type</code> <span class="ref">individual</span> <span class="lv">4 levels</span></li><li><code>court_below</code> <span class="ref">STATE</span> <span class="lv">17 levels</span></li><li><code>relist_bucket</code> <span class="ref">0</span> <span class="lv">5 levels</span></li><li><code>amicus_bucket</code> <span class="ref">0</span> <span class="lv">5 levels</span></li></ul></div><div class="tablewrap"><table class="coef"><thead><tr>
     <th scope="col">Term</th><th scope="col" class="num">&beta;</th>
     <th scope="col" class="num">SE</th><th scope="col" class="num">z</th>
     <th scope="col" class="num">p</th><th scope="col" class="num">Odds ratio</th>
     <th scope="col">&minus;&nbsp;&nbsp;0&nbsp;&nbsp;+</th></tr></thead>
-    <tbody><tr class="grouprow"><th colspan="7" scope="colgroup">Intercept</th></tr><tr class="sig"><th scope="row"><code>(Intercept)</code></th><td class="num">-2.426<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">0.130</td><td class="num">-18.72</td><td class="num">3.2e-78</td>
-       <td class="num">0.088</td><td class="barcell"></td></tr><tr class="grouprow"><th colspan="7" scope="colgroup">Process</th></tr><tr class="nsig"><th scope="row"><code>amicus_bucket1</code></th><td class="num">-0.028</td>
-       <td class="num">0.109</td><td class="num">-0.26</td><td class="num">0.7968</td>
-       <td class="num">0.972</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="neg" style="right:50%;width:0.5%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>amicus_bucket2</code></th><td class="num">0.045</td>
-       <td class="num">0.149</td><td class="num">0.30</td><td class="num">0.7637</td>
-       <td class="num">1.046</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:0.8%"></i></span></td></tr><tr class="sig"><th scope="row"><code>amicus_bucket3-4</code></th><td class="num">-1.078<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">0.191</td><td class="num">-5.66</td><td class="num">1.6e-08</td>
-       <td class="num">0.340</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="neg" style="right:50%;width:20.5%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>amicus_bucket5+</code></th><td class="num">-0.029</td>
-       <td class="num">0.140</td><td class="num">-0.21</td><td class="num">0.8334</td>
-       <td class="num">0.971</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="neg" style="right:50%;width:0.6%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>cvsgTRUE</code></th><td class="num">0.441</td>
-       <td class="num">0.271</td><td class="num">1.63</td><td class="num">0.1041</td>
-       <td class="num">1.555</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:8.4%"></i></span></td></tr><tr class="sig"><th scope="row"><code>relist_bucket1</code></th><td class="num">1.169<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">0.109</td><td class="num">10.77</td><td class="num">4.9e-27</td>
-       <td class="num">3.219</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:22.2%"></i></span></td></tr><tr class="sig"><th scope="row"><code>relist_bucket2</code></th><td class="num">1.619<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">0.148</td><td class="num">10.95</td><td class="num">6.4e-28</td>
-       <td class="num">5.049</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:30.8%"></i></span></td></tr><tr class="sig"><th scope="row"><code>relist_bucket3-4</code></th><td class="num">1.502<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">0.161</td><td class="num">9.32</td><td class="num">1.2e-20</td>
-       <td class="num">4.490</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:28.5%"></i></span></td></tr><tr class="sig"><th scope="row"><code>relist_bucket5+</code></th><td class="num">2.022<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">0.146</td><td class="num">13.81</td><td class="num">2.1e-43</td>
-       <td class="num">7.555</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:38.4%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>reply_filedTRUE</code></th><td class="num">0.060</td>
-       <td class="num">0.137</td><td class="num">0.44</td><td class="num">0.6590</td>
-       <td class="num">1.062</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:1.1%"></i></span></td></tr><tr class="sig"><th scope="row"><code>resp_waiverTRUE</code></th><td class="num">-1.976<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">0.114</td><td class="num">-17.36</td><td class="num">1.5e-67</td>
-       <td class="num">0.139</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="neg" style="right:50%;width:37.5%"></i></span></td></tr><tr class="sig"><th scope="row"><code>response_filedTRUE</code></th><td class="num">-0.620<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">0.135</td><td class="num">-4.60</td><td class="num">4.1e-06</td>
-       <td class="num">0.538</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="neg" style="right:50%;width:11.8%"></i></span></td></tr><tr class="sig"><th scope="row"><code>response_requestedTRUE</code></th><td class="num">1.403<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">0.107</td><td class="num">13.15</td><td class="num">1.8e-39</td>
-       <td class="num">4.069</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:26.7%"></i></span></td></tr><tr class="grouprow"><th colspan="7" scope="colgroup">Structural</th></tr><tr class="sig"><th scope="row"><code>court_belowCA1</code></th><td class="num">-1.016<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">0.323</td><td class="num">-3.15</td><td class="num">0.0016</td>
-       <td class="num">0.362</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="neg" style="right:50%;width:19.3%"></i></span></td></tr><tr class="sig"><th scope="row"><code>court_belowCA10</code></th><td class="num">-0.525<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">0.224</td><td class="num">-2.35</td><td class="num">0.0189</td>
-       <td class="num">0.591</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="neg" style="right:50%;width:10.0%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>court_belowCA11</code></th><td class="num">0.055</td>
-       <td class="num">0.172</td><td class="num">0.32</td><td class="num">0.7508</td>
-       <td class="num">1.056</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:1.0%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>court_belowCA2</code></th><td class="num">-0.257</td>
-       <td class="num">0.185</td><td class="num">-1.39</td><td class="num">0.1649</td>
-       <td class="num">0.773</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="neg" style="right:50%;width:4.9%"></i></span></td></tr><tr class="sig"><th scope="row"><code>court_belowCA3</code></th><td class="num">-0.755<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">0.266</td><td class="num">-2.84</td><td class="num">0.0045</td>
-       <td class="num">0.470</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="neg" style="right:50%;width:14.3%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>court_belowCA4</code></th><td class="num">-0.289</td>
-       <td class="num">0.188</td><td class="num">-1.54</td><td class="num">0.1242</td>
-       <td class="num">0.749</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="neg" style="right:50%;width:5.5%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>court_belowCA5</code></th><td class="num">-0.136</td>
-       <td class="num">0.161</td><td class="num">-0.84</td><td class="num">0.3994</td>
-       <td class="num">0.873</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="neg" style="right:50%;width:2.6%"></i></span></td></tr><tr class="sig"><th scope="row"><code>court_belowCA6</code></th><td class="num">-0.567<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">0.194</td><td class="num">-2.92</td><td class="num">0.0035</td>
-       <td class="num">0.567</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="neg" style="right:50%;width:10.8%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>court_belowCA7</code></th><td class="num">-0.177</td>
-       <td class="num">0.189</td><td class="num">-0.94</td><td class="num">0.3494</td>
-       <td class="num">0.838</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="neg" style="right:50%;width:3.4%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>court_belowCA8</code></th><td class="num">0.207</td>
-       <td class="num">0.199</td><td class="num">1.04</td><td class="num">0.2977</td>
-       <td class="num">1.230</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:3.9%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>court_belowCA9</code></th><td class="num">0.114</td>
-       <td class="num">0.136</td><td class="num">0.84</td><td class="num">0.4027</td>
-       <td class="num">1.121</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:2.2%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>court_belowCAAF</code></th><td class="num">-2.355</td>
-       <td class="num">1.469</td><td class="num">-1.60</td><td class="num">0.1089</td>
-       <td class="num">0.095</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="neg" style="right:50%;width:44.7%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>court_belowCADC</code></th><td class="num">0.005</td>
-       <td class="num">0.209</td><td class="num">0.03</td><td class="num">0.9797</td>
-       <td class="num">1.005</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:0.1%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>court_belowCAFED</code></th><td class="num">-0.462</td>
-       <td class="num">0.236</td><td class="num">-1.96</td><td class="num">0.0506</td>
-       <td class="num">0.630</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="neg" style="right:50%;width:8.8%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>court_belowOTHER</code></th><td class="num">-1.067</td>
-       <td class="num">0.652</td><td class="num">-1.64</td><td class="num">0.1018</td>
-       <td class="num">0.344</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="neg" style="right:50%;width:20.3%"></i></span></td></tr><tr class="sig"><th scope="row"><code>court_belowUSDC_APPEAL</code></th><td class="num">1.147<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">0.348</td><td class="num">3.30</td><td class="num">0.0010</td>
-       <td class="num">3.149</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:21.8%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>gap_fast</code></th><td class="num">0.018</td>
-       <td class="num">0.052</td><td class="num">0.34</td><td class="num">0.7329</td>
-       <td class="num">1.018</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:0.3%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>gap_naTRUE</code></th><td class="num">0.197</td>
-       <td class="num">0.248</td><td class="num">0.79</td><td class="num">0.4267</td>
-       <td class="num">1.218</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:3.7%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>pet_typebusiness</code></th><td class="num">0.067</td>
-       <td class="num">0.115</td><td class="num">0.58</td><td class="num">0.5602</td>
-       <td class="num">1.069</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:1.3%"></i></span></td></tr><tr class="sig"><th scope="row"><code>pet_typestate_local</code></th><td class="num">1.078<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">0.142</td><td class="num">7.60</td><td class="num">3.0e-14</td>
-       <td class="num">2.938</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:20.5%"></i></span></td></tr><tr class="sig"><th scope="row"><code>pet_typeus_fed</code></th><td class="num">1.447<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">0.135</td><td class="num">10.75</td><td class="num">6.0e-27</td>
-       <td class="num">4.250</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:27.5%"></i></span></td></tr><tr class="sig"><th scope="row"><code>pro_seTRUE</code></th><td class="num">-2.632<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">0.399</td><td class="num">-6.60</td><td class="num">4.2e-11</td>
-       <td class="num">0.072</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="neg" style="right:50%;width:50.0%"></i></span></td></tr><tr class="sig"><th scope="row"><code>resp_typebusiness</code></th><td class="num">-0.426<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">0.135</td><td class="num">-3.17</td><td class="num">0.0016</td>
-       <td class="num">0.653</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="neg" style="right:50%;width:8.1%"></i></span></td></tr><tr class="sig"><th scope="row"><code>resp_typestate_local</code></th><td class="num">-0.509<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">0.127</td><td class="num">-4.01</td><td class="num">6.0e-05</td>
-       <td class="num">0.601</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="neg" style="right:50%;width:9.7%"></i></span></td></tr><tr class="sig"><th scope="row"><code>resp_typeus_fed</code></th><td class="num">0.416<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
-       <td class="num">0.111</td><td class="num">3.75</td><td class="num">0.0002</td>
-       <td class="num">1.517</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:7.9%"></i></span></td></tr></tbody></table></div></section>
+    <tbody><tr class="grouprow"><th colspan="7" scope="colgroup">Intercept</th></tr><tr class="sig"><th scope="row"><code>(Intercept)</code></th><td class="num">-2.789<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">0.138</td><td class="num">-20.18</td><td class="num">1.6e-90</td>
+       <td class="num">0.061</td><td class="barcell"></td></tr><tr class="grouprow"><th colspan="7" scope="colgroup">Petition signal</th></tr><tr class="sig"><th scope="row"><code>gvr_askTRUE</code></th><td class="num">1.149<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">0.095</td><td class="num">12.08</td><td class="num">1.3e-33</td>
+       <td class="num">3.156</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:23.5%"></i></span></td></tr><tr class="grouprow"><th colspan="7" scope="colgroup">Process</th></tr><tr class="nsig"><th scope="row"><code>amicus_bucket1</code></th><td class="num">-0.074</td>
+       <td class="num">0.111</td><td class="num">-0.67</td><td class="num">0.5048</td>
+       <td class="num">0.929</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="neg" style="right:50%;width:1.5%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>amicus_bucket2</code></th><td class="num">0.088</td>
+       <td class="num">0.150</td><td class="num">0.59</td><td class="num">0.5580</td>
+       <td class="num">1.092</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:1.8%"></i></span></td></tr><tr class="sig"><th scope="row"><code>amicus_bucket3-4</code></th><td class="num">-0.959<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">0.190</td><td class="num">-5.05</td><td class="num">4.5e-07</td>
+       <td class="num">0.383</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="neg" style="right:50%;width:19.6%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>amicus_bucket5+</code></th><td class="num">0.041</td>
+       <td class="num">0.141</td><td class="num">0.29</td><td class="num">0.7727</td>
+       <td class="num">1.042</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:0.8%"></i></span></td></tr><tr class="sig"><th scope="row"><code>cvsgTRUE</code></th><td class="num">0.578<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">0.272</td><td class="num">2.12</td><td class="num">0.0336</td>
+       <td class="num">1.783</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:11.8%"></i></span></td></tr><tr class="sig"><th scope="row"><code>relist_bucket1</code></th><td class="num">1.089<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">0.110</td><td class="num">9.89</td><td class="num">4.8e-23</td>
+       <td class="num">2.970</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:22.3%"></i></span></td></tr><tr class="sig"><th scope="row"><code>relist_bucket2</code></th><td class="num">1.538<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">0.150</td><td class="num">10.22</td><td class="num">1.6e-24</td>
+       <td class="num">4.654</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:31.5%"></i></span></td></tr><tr class="sig"><th scope="row"><code>relist_bucket3-4</code></th><td class="num">1.514<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">0.164</td><td class="num">9.24</td><td class="num">2.4e-20</td>
+       <td class="num">4.545</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:31.0%"></i></span></td></tr><tr class="sig"><th scope="row"><code>relist_bucket5+</code></th><td class="num">2.037<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">0.148</td><td class="num">13.73</td><td class="num">6.8e-43</td>
+       <td class="num">7.669</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:41.7%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>reply_filedTRUE</code></th><td class="num">0.093</td>
+       <td class="num">0.139</td><td class="num">0.67</td><td class="num">0.5045</td>
+       <td class="num">1.097</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:1.9%"></i></span></td></tr><tr class="sig"><th scope="row"><code>resp_waiverTRUE</code></th><td class="num">-1.874<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">0.116</td><td class="num">-16.15</td><td class="num">1.1e-58</td>
+       <td class="num">0.153</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="neg" style="right:50%;width:38.4%"></i></span></td></tr><tr class="sig"><th scope="row"><code>response_filedTRUE</code></th><td class="num">-0.643<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">0.138</td><td class="num">-4.67</td><td class="num">3.0e-06</td>
+       <td class="num">0.526</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="neg" style="right:50%;width:13.2%"></i></span></td></tr><tr class="sig"><th scope="row"><code>response_requestedTRUE</code></th><td class="num">1.372<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">0.109</td><td class="num">12.56</td><td class="num">3.5e-36</td>
+       <td class="num">3.943</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:28.1%"></i></span></td></tr><tr class="grouprow"><th colspan="7" scope="colgroup">Structural</th></tr><tr class="sig"><th scope="row"><code>court_belowCA1</code></th><td class="num">-0.932<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">0.317</td><td class="num">-2.94</td><td class="num">0.0033</td>
+       <td class="num">0.394</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="neg" style="right:50%;width:19.1%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>court_belowCA10</code></th><td class="num">-0.248</td>
+       <td class="num">0.225</td><td class="num">-1.10</td><td class="num">0.2703</td>
+       <td class="num">0.780</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="neg" style="right:50%;width:5.1%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>court_belowCA11</code></th><td class="num">0.233</td>
+       <td class="num">0.175</td><td class="num">1.33</td><td class="num">0.1826</td>
+       <td class="num">1.263</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:4.8%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>court_belowCA2</code></th><td class="num">-0.098</td>
+       <td class="num">0.188</td><td class="num">-0.52</td><td class="num">0.6024</td>
+       <td class="num">0.907</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="neg" style="right:50%;width:2.0%"></i></span></td></tr><tr class="sig"><th scope="row"><code>court_belowCA3</code></th><td class="num">-0.583<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">0.268</td><td class="num">-2.17</td><td class="num">0.0299</td>
+       <td class="num">0.558</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="neg" style="right:50%;width:11.9%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>court_belowCA4</code></th><td class="num">-0.278</td>
+       <td class="num">0.193</td><td class="num">-1.44</td><td class="num">0.1508</td>
+       <td class="num">0.757</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="neg" style="right:50%;width:5.7%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>court_belowCA5</code></th><td class="num">0.029</td>
+       <td class="num">0.165</td><td class="num">0.18</td><td class="num">0.8605</td>
+       <td class="num">1.029</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:0.6%"></i></span></td></tr><tr class="sig"><th scope="row"><code>court_belowCA6</code></th><td class="num">-0.406<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">0.197</td><td class="num">-2.05</td><td class="num">0.0400</td>
+       <td class="num">0.667</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="neg" style="right:50%;width:8.3%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>court_belowCA7</code></th><td class="num">0.001</td>
+       <td class="num">0.191</td><td class="num">0.01</td><td class="num">0.9945</td>
+       <td class="num">1.001</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:0.0%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>court_belowCA8</code></th><td class="num">0.261</td>
+       <td class="num">0.203</td><td class="num">1.28</td><td class="num">0.1993</td>
+       <td class="num">1.298</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:5.3%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>court_belowCA9</code></th><td class="num">0.271</td>
+       <td class="num">0.139</td><td class="num">1.94</td><td class="num">0.0520</td>
+       <td class="num">1.311</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:5.6%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>court_belowCAAF</code></th><td class="num">-2.373</td>
+       <td class="num">1.487</td><td class="num">-1.60</td><td class="num">0.1105</td>
+       <td class="num">0.093</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="neg" style="right:50%;width:48.6%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>court_belowCADC</code></th><td class="num">0.196</td>
+       <td class="num">0.211</td><td class="num">0.93</td><td class="num">0.3532</td>
+       <td class="num">1.216</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:4.0%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>court_belowCAFED</code></th><td class="num">-0.437</td>
+       <td class="num">0.242</td><td class="num">-1.81</td><td class="num">0.0707</td>
+       <td class="num">0.646</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="neg" style="right:50%;width:8.9%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>court_belowOTHER</code></th><td class="num">-0.822</td>
+       <td class="num">0.652</td><td class="num">-1.26</td><td class="num">0.2074</td>
+       <td class="num">0.440</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="neg" style="right:50%;width:16.8%"></i></span></td></tr><tr class="sig"><th scope="row"><code>court_belowUSDC_APPEAL</code></th><td class="num">1.283<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">0.354</td><td class="num">3.63</td><td class="num">0.0003</td>
+       <td class="num">3.609</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:26.3%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>gap_fast</code></th><td class="num">0.007</td>
+       <td class="num">0.052</td><td class="num">0.13</td><td class="num">0.8983</td>
+       <td class="num">1.007</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:0.1%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>gap_naTRUE</code></th><td class="num">0.003</td>
+       <td class="num">0.257</td><td class="num">0.01</td><td class="num">0.9905</td>
+       <td class="num">1.003</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:0.1%"></i></span></td></tr><tr class="nsig"><th scope="row"><code>pet_typebusiness</code></th><td class="num">0.041</td>
+       <td class="num">0.116</td><td class="num">0.36</td><td class="num">0.7219</td>
+       <td class="num">1.042</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:0.8%"></i></span></td></tr><tr class="sig"><th scope="row"><code>pet_typestate_local</code></th><td class="num">1.149<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">0.145</td><td class="num">7.94</td><td class="num">2.0e-15</td>
+       <td class="num">3.154</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:23.5%"></i></span></td></tr><tr class="sig"><th scope="row"><code>pet_typeus_fed</code></th><td class="num">1.350<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">0.137</td><td class="num">9.84</td><td class="num">7.6e-23</td>
+       <td class="num">3.858</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:27.7%"></i></span></td></tr><tr class="sig"><th scope="row"><code>pro_seTRUE</code></th><td class="num">-2.440<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">0.400</td><td class="num">-6.11</td><td class="num">1.0e-09</td>
+       <td class="num">0.087</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="neg" style="right:50%;width:50.0%"></i></span></td></tr><tr class="sig"><th scope="row"><code>resp_typebusiness</code></th><td class="num">-0.398<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">0.138</td><td class="num">-2.88</td><td class="num">0.0040</td>
+       <td class="num">0.671</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="neg" style="right:50%;width:8.2%"></i></span></td></tr><tr class="sig"><th scope="row"><code>resp_typestate_local</code></th><td class="num">-0.406<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">0.128</td><td class="num">-3.18</td><td class="num">0.0015</td>
+       <td class="num">0.666</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="neg" style="right:50%;width:8.3%"></i></span></td></tr><tr class="sig"><th scope="row"><code>resp_typeus_fed</code></th><td class="num">0.479<span class="star" title="p &lt; 0.05">&nbsp;&bull;</span></td>
+       <td class="num">0.113</td><td class="num">4.25</td><td class="num">2.2e-05</td>
+       <td class="num">1.614</td><td class="barcell"><span class="bar" aria-hidden="true"><i class="pos" style="left:50%;width:9.8%"></i></span></td></tr></tbody></table></div></section>
 <section class="model" id="conference"><div class="modelhead"><div>
   <p class="eyebrow">Competing risks &mdash; multinomial logit</p><h2>Conference</h2>
   <p class="frame">At-risk panel &mdash; one row per petition &times; conference. Models what happens <em>at</em> a given conference, four outcomes at once.</p>
