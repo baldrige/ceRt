@@ -293,7 +293,7 @@ shipped artifact by 0.026 AP without anyone noticing).
 | At-risk | P(grant ever) | 0.881 | 0.371 | 0.0589 | 7.81% |
 | GVR | P(GVR ever) | 0.838 | 0.206 | 0.0460 | 5.45% |
 
-Retrained 2026-09-21 on OT2017–2024; base rates from the complete Terms (2017–2022).
+Retrained 2026-09-22 on OT2017–2024; base rates from the complete Terms (2017–2022).
 <!-- metrics:end -->
 
 These are **not** comparable to figures published before 2026-07 (baseline 0.720
@@ -411,6 +411,21 @@ The cue fits +1.62 log-odds alone and **+1.15** beside the process features
 (GVIF 1.06; not flagged unstable). `word_band` was tried in the same seat
 first and rejected (0.819 / 0.197; see the review doc): a GVR petition is
 short because of what it asks for, and the ask is the signal.
+
+**The number a reader sees is the conference model's, and it carries the cue
+too.** The docket page's "GVR risk" and the conference reports' GVR column are
+the competing-risks model's per-conference hazard; `cert_model_gvr.rds` fed only
+`conference_forecast()`, which nothing calls. So `gvr_ask` is in `CONF_FEATURES`
+as well (2026-09-22). Leave-one-term-out, one-vs-rest at conference:
+
+| conference model | GVR AUC | GVR AP | grant AUC | grant AP |
+| --- | --- | --- | --- | --- |
+| without | 0.874 | 0.154 | 0.918 | 0.276 |
+| + `gvr_ask` | **0.893** | **0.168** | 0.919 | 0.282 |
+
+It fits +1.57 on the GVR hazard, +0.54 on relisted (a petition asking to be
+held is, often, held), −0.19 on granted. `conf_model_frame()` applies the same
+≥85%-measured refusal as `model_frame()`.
 
 Serve-time coverage is the same discipline as the Rule 10 cues. A cache
 entry below `PETITION_SIGNALS_VERSION` reports the cue `NA`; the daily, the

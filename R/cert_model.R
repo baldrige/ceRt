@@ -1306,7 +1306,15 @@ forward_eval <- function(corpus, features = BASELINE_FEATURES) {
 # certiorari, so excluding it is defensible -- but it is a choice, not a fact,
 # and it belongs in the methods note.
 CONF_LEVELS <- c("denied", "relisted", "granted", "gvr")
-CONF_FEATURES <- c("conf_f", "phase", STRUCTURAL_FEATURES, PROCESS_FEATURES)
+# gvr_ask (2026-09-22): the docket page's "GVR risk" and the reports' GVR
+# column are THIS model's per-conference hazard, not cert_model_gvr.rds --
+# which conference_forecast() alone consumed, and nothing calls it. So the cue
+# that fixed the binary model (#188) had to come here to reach a page.
+# Leave-one-term-out on the panel, one-vs-rest at conference: GVR AUC 0.874 ->
+# 0.893, AP 0.154 -> 0.168; grant 0.918 -> 0.919 / 0.276 -> 0.282. Fitted
+# +1.57 on the GVR hazard and +0.54 on relisted (a petition asking to be held
+# is, often, held), -0.19 on granted.
+CONF_FEATURES <- c("conf_f", "phase", STRUCTURAL_FEATURES, PROCESS_FEATURES, "gvr_ask")
 
 # Where in the Term a conference falls. The September "long conference" clears a
 # summer's backlog and the late-June conferences clean up before recess; both
@@ -1321,6 +1329,12 @@ conference_phase <- function(d) {
 }
 
 conf_model_frame <- function(panel) {
+  # The same refusal as model_frame(): gvr_ask fitted on a panel where it was
+  # not measured would learn that "nobody looked" means "not a GVR".
+  if (!"gvr_ask_measured" %in% names(panel) || mean(panel$gvr_ask_measured) < 0.85)
+    stop("conf_model_frame(): gvr_ask is measured for ",
+         if ("gvr_ask_measured" %in% names(panel)) sprintf("%.0f%%", 100 * mean(panel$gvr_ask_measured)) else "none",
+         " of the panel; re-run enrich-petitions.yml and rebuild data-raw/cert_panel.rds.")
   panel |>
     filter(type == "paid", conf_outcome %in% CONF_LEVELS) |>
     mutate(relist_bucket = relist_bucket(n_relists),
