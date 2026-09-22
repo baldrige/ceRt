@@ -261,7 +261,10 @@ build_events <- function(po) {
 # but against the RAW docket JSON (a Links data frame per row) rather than the
 # flattened docs_*/links_* events tibble, so the traversal cannot be shared; only
 # the patterns are.
-find_petition_url <- function(po) {
+# .json_petition_url, not find_petition_url: conference_dash.R owns that name for
+# the archive layout (docs_k/links_k), and this one reads the raw JSON
+# ProceedingsandOrder. Never co-sourced today; lint_r_names.py keeps it so.
+.json_petition_url <- function(po) {
   if (is.null(po) || !is.data.frame(po) || !("Links" %in% names(po))) return(NA_character_)
   by_desc <- function(rx) {
     for (i in seq_len(nrow(po))) {
@@ -326,7 +329,7 @@ build_case <- function(j, dkt) {
     # `related`, and folding a case's own application into it would score that as
     # a companion grant.
     linked = j$Links %|||% NA_character_,
-    petition_url = find_petition_url(j$ProceedingsandOrder),
+    petition_url = .json_petition_url(j$ProceedingsandOrder),
     parties = list(build_parties(j)),
     events = list(build_events(j$ProceedingsandOrder))
   )

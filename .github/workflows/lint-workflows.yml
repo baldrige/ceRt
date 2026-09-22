@@ -5,6 +5,10 @@
 # arithmetic being checked -- which is how eight jobs ended up with a cap below
 # the sum of their own step caps on 2026-08-19, silently disabling every step
 # timeout they contained.
+#
+# Also the R name check (lint_r_names.py): a top-level name defined in two R/
+# files is a silent last-source()-wins, and it has cost this site a landing-page
+# calendar and, for six days, every federal petitioner's forecast.
 name: Lint workflows
 
 on:
@@ -13,11 +17,15 @@ on:
       - '.github/workflows/**'
       - '.github/actions/**'
       - '.github/scripts/lint_workflows.py'
+      - '.github/scripts/lint_r_names.py'
+      - 'R/**'
   pull_request:
     paths:
       - '.github/workflows/**'
       - '.github/actions/**'
       - '.github/scripts/lint_workflows.py'
+      - '.github/scripts/lint_r_names.py'
+      - 'R/**'
   workflow_dispatch:
 
 permissions:
@@ -42,3 +50,5 @@ jobs:
         run: python3 -m pip install --quiet pyyaml
       - name: Check workflow timeout invariants
         run: python3 .github/scripts/lint_workflows.py
+      - name: Check R/ for names defined in two files
+        run: python3 .github/scripts/lint_r_names.py
