@@ -489,7 +489,16 @@ brief_cover <- function(text, granted_on = as.Date(NA), entry_date = as.Date(NA)
 # The two sides' short names from a docket caption ("Apple Inc., Petitioner v.
 # Epic Games, Inc." -> pet "apple inc", resp "epic games inc"): roles and
 # punctuation stripped, lower case. NULL when the caption has no "v.".
-caption_sides <- function(caption) {
+#
+# NOT caption_sides(). This was born under that name (#175, 2026-09-16) and
+# every entry point sources this file after cert_model.R, so for six days it
+# replaced the model's caption_sides() -- the one classify_entity() reads the
+# petitioner from. Lower-cased, "United States" no longer matched the
+# case-sensitive US_FED_RX, and every federal petitioner scored as a private
+# individual: 26-304 fell from 75% to 32% and out of the "All pending" window
+# it should have led. lint_r_names.py now fails the build on a top-level name
+# defined in two R/ files.
+.brief_caption_sides <- function(caption) {
   cap <- str_squish(str_remove_all(caption %||% "",
     regex(",\\s*(petitioners?|respondents?|appellants?|appellees?|applicants?|plaintiffs?|defendants?)\\b",
           ignore_case = TRUE)))
@@ -1086,7 +1095,7 @@ docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
   # earlier schedule, so only the last respondent brief marks the party actually
   # opposing the petitioner. NA if the respondent filed no merits brief, in which
   # case merits amici default to the petitioner/neither (light-green) reading.
-  sides <- tryCatch(caption_sides(cx$caption), error = function(e) NULL)
+  sides <- tryCatch(.brief_caption_sides(cx$caption), error = function(e) NULL)
   resp_brief_on <- resp_merits_brief_on(ev, granted_on, sides)
 
   # Applications are excluded from classify_petitions; derive their disposition
