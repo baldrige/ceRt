@@ -38,10 +38,38 @@
 # NOT BACKFILLED, EVER. There is no way to reconstruct what the site would have
 # said, and a backfilled entry is indistinguishable in the file from a real one.
 # The log starts empty and earns its contents.
+#
+# THE ONE EXCEPTION, AND ITS SHAPE. An entry written by code that was broken is
+# still a record of what the site said, so it is not deleted or edited in
+# place. It is SUPERSEDED: if its conference is still ahead, the entry is
+# re-scored under the same key -- prospectively, so the leakage rule holds --
+# and the numbers it replaced move into a `superseded` block with the reason.
+# If its conference has passed it cannot be re-scored; it gets a `void` field
+# and score_forecast_log() leaves it out. Each such episode is one row of
+# FORECAST_VOID_WINDOWS, by scored_on date, so the file itself says which of
+# its entries a reader may not trust and why.
 
 suppressPackageStartupMessages(library(jsonlite))
 
 FORECAST_LOG <- "cases/forecasts.json"
+
+# scored_on windows whose entries were produced by broken code. Closed, dated,
+# and never removed: an entry's `superseded` block cites the reason verbatim.
+FORECAST_VOID_WINDOWS <- list(
+  # docket_page.R's caption_sides() shadowed cert_model.R's (#175 -> #192):
+  # every federal, agency and most State petitioners scored as private
+  # individuals. 31 entries, all for the 9 October 2026 conference.
+  list(from = as.Date("2026-09-16"), to = as.Date("2026-09-22"),
+       reason = "petitioner mistyped as an individual (shadowed caption_sides, #192)")
+)
+
+# The void-window reason an entry falls under, or NULL.
+.flog_void_reason <- function(e) {
+  sd <- tryCatch(as.Date(e$scored_on), error = function(err) as.Date(NA))
+  if (is.na(sd)) return(NULL)
+  for (w in FORECAST_VOID_WINDOWS) if (sd >= w$from && sd <= w$to) return(w$reason)
+  NULL
+}
 
 .flog_path <- function(site_dir) file.path(site_dir, FORECAST_LOG)
 
@@ -91,10 +119,15 @@ append_forecasts <- function(site_dir, dist, models, as_of = Sys.Date()) {
   rel <- gc_("related", NA_character_)
   has_parties <- "parties" %in% names(fut)
 
-  added <- 0L
+  added <- 0L; superseded <- 0L
   for (i in seq_len(nrow(fut))) {
     key <- paste0(fut$dkt[i], "@", format(fut$conf_date[i]))
-    if (!is.null(idx[[key]])) next          # never overwrite
+    prior <- idx[[key]]
+    # Never overwrite -- unless the entry was written inside a void window and
+    # has not been superseded already. Its conference is still ahead (this is
+    # the `fut` loop), so the re-score is as prospective as the original.
+    void <- if (is.null(prior) || !is.null(prior$superseded)) NULL else .flog_void_reason(prior)
+    if (!is.null(prior) && is.null(void)) next
     gd <- if (all(c("outcome", "outcome_date") %in% names(dist)))
       unique(dist$dkt[dist$outcome %in% "granted" & !is.na(dist$outcome_date) &
                       dist$outcome_date < fut$conf_date[i]]) else character()
@@ -113,10 +146,29 @@ append_forecasts <- function(site_dir, dist, models, as_of = Sys.Date()) {
       p_grant_ever = round(s$p_grant_ever %||% NA_real_, 5),
       conf_idx = as.integer(s$conf_idx), n_relists = as.integer(s$n_relists),
       held = isTRUE(s$held))
-    added <- added + 1L
+    if (!is.null(void)) {
+      keep <- prior[intersect(names(prior), c("scored_on", "model_id", "p_grant_now",
+                                              "p_gvr_now", "p_grant_ever", "held"))]
+      idx[[key]]$superseded <- c(keep, list(reason = void))
+      superseded <- superseded + 1L
+    } else added <- added + 1L
   }
 
-  if (added > 0L) {
+  # An entry from a void window whose conference has passed cannot be re-scored.
+  # Mark it so the scorecard skips it; the numbers stay, as what was said.
+  voided <- 0L
+  for (key in names(idx)) {
+    e <- idx[[key]]
+    if (!is.null(e$superseded) || !is.null(e$void)) next
+    r <- .flog_void_reason(e)
+    cd <- tryCatch(as.Date(e$conf_date), error = function(err) as.Date(NA))
+    if (!is.null(r) && !is.na(cd) && cd <= as_of) { idx[[key]]$void <- r; voided <- voided + 1L }
+  }
+  if (superseded + voided > 0L)
+    message(sprintf("append_forecasts(): %d entr(y/ies) from a void window re-scored, %d voided (conference passed)",
+                    superseded, voided))
+
+  if (added + superseded + voided > 0L) {
     dir.create(dirname(.flog_path(site_dir)), recursive = TRUE, showWarnings = FALSE)
     jsonlite::write_json(idx, .flog_path(site_dir), auto_unbox = TRUE)
   }
@@ -141,6 +193,8 @@ score_forecast_log <- function(site_dir, cases, window_days = 7L,
     classify <- get("classify_petition_events")
   }
   idx <- read_forecast_log(site_dir)
+  # A voided entry (broken code, conference already past) is not a forecast.
+  idx <- Filter(function(e) is.null(e$void), idx)
   if (!length(idx)) return(NULL)
   cls <- setNames(lapply(seq_len(nrow(cases)), function(i)
     tryCatch(classify(cases$events[[i]]), error = function(e) NULL)), cases$dkt)
