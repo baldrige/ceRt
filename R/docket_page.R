@@ -1466,11 +1466,24 @@ render_dockets_for <- function(cases, site_dir, model_dir = "data") {
     # a docket page uses the SAME signals as the dashboard -- otherwise a current
     # petition with a dissent/split reads structural-only here (e.g. 2%) but
     # signal-boosted on the dashboard (e.g. 5%).
-    cache_p <- file.path(site_dir, "dashboards", "petition_signals_cache.json")
-    if (file.exists(cache_p)) {
+    #
+    # Both on-site caches, the conferences run's last so it wins. The daily's
+    # covers only the trailing window of each bucket; a petition distributed
+    # for conference is past that window within weeks, and its page is then
+    # rendered by the conferences run from the conferences cache. Reading only
+    # the daily's here left 26-139 -- cache entry refreshed to v3, gvr_ask TRUE
+    # in conferences/ -- scored without the cue on its own page (2026-09-22).
+    # A newer entry (higher sig_v) is never overwritten by an older one.
+    for (cache_p in file.path(site_dir, c("dashboards", "conferences"), "petition_signals_cache.json")) {
+      if (!file.exists(cache_p)) next
       fresh <- tryCatch(jsonlite::fromJSON(cache_p, simplifyVector = FALSE),
                         error = function(e) NULL)
-      if (!is.null(fresh) && length(fresh)) signals_map[names(fresh)] <- fresh
+      if (is.null(fresh) || !length(fresh)) next
+      for (dk in names(fresh)) {
+        have <- signals_map[[dk]]
+        if (is.null(have) || (fresh[[dk]]$sig_v %||% 1L) >= (have$sig_v %||% 1L))
+          signals_map[[dk]] <- fresh[[dk]]
+      }
     }
     # The certified word counts, merged in as `words` (see R/word_count.R):
     # the committed file, then every on-site cache a workflow may have written.
