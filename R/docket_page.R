@@ -322,7 +322,14 @@ write_docket_css <- function(out_dir) {
 # judgment is coloured and anchors it instead; and the Court's "is granted and
 # the time is extended to" due-date wording is read (25-1003). Rolled with
 # v34-v37 in one pass.
-PAGE_TEMPLATE_VERSION <- "v38"
+# v39: a re-render, not a template change. From 2026-09-16 to 22 the forecast
+# on every page was scored with the petitioner mistyped (#192): the fix was to
+# scoring code, which this key does not hash -- only the template, the model
+# artifacts and the case's own data -- so every page rendered in that window
+# hashed as unchanged and kept its wrong number through two fixed runs (26-304:
+# 32% on the page, 73% in the manifest beside it). Also folds in gvr_ask and
+# the below-base-rate reasons (#187, #191), which pages missed the same way.
+PAGE_TEMPLATE_VERSION <- "v39"
 
 # ---- small helpers ------------------------------------------------------------
 .esc <- function(x) { x <- x %||% ""; x[is.na(x)] <- ""; htmltools::htmlEscape(x) }
