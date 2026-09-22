@@ -40,7 +40,10 @@ suppressPackageStartupMessages({
 })
 
 PETITION_UA <- "Mozilla/5.0 (ceRt SCOTUS research; +https://supremecourt.report)"
-PETITION_SIGNALS_VERSION <- 2L
+# 3 added `gvr_ask` (2026-09-21). An entry below the current version lacks the
+# newer cues; resolve_petition_signals() reports them NA, and a fit that needs
+# them must re-enrich first (train_cert_model.R checks).
+PETITION_SIGNALS_VERSION <- 3L
 
 # ---- v1 patterns (operate on the whole text; semantics frozen, see above) ------
 
@@ -130,6 +133,34 @@ RX_SPLIT2 <- str_c(
 # "intra-circuit split" is a plea about one court's own inconsistency, not a
 # Rule 10(a) conflict; it is blanked before RX_SPLIT2 runs.
 RX_INTRA_SPLIT <- "(?i)\\bintra-?\\s?circuit\\s+(split|conflict)s?\\b"
+
+# ---- v3: what the petition asks for -------------------------------------------
+#
+# A petition that asks to be HELD for a pending case, or for a GVR in light of
+# one just decided, is not asking for plenary review, and the GVR model could
+# not see that: Monsanto v. Dennis (26-139), 760 words asking to vacate and
+# remand in light of Durnell, read 1% GVR risk (2026-09-21). Two idioms, both
+# matched in the front matter and body (never the appendix, where the court
+# below may recite the same words about its own remand):
+#
+#   * the ask -- "further consideration in light of", "vacate ... in light of"
+#     and "in light of ..., vacate" (26-139's own order: "in light of Durnell,
+#     this Court should vacate"), "grant, vacate, and remand", "GVR";
+#   * the hold -- "hold this petition", "held pending".
+#
+# Measured on 480 OT21-24 paid petitions fetched for the purpose (105 GVR'd,
+# 188 denied, 187 granted): the union hits 65% of the GVR'd against 6% of the
+# denied and 8% of the granted, and holds Term by Term (36/51, 11/19, 14/27,
+# 7/8). Either half alone reads about half that. Two widenings were measured
+# and left out: the bare triad "grant ... vacate ... remand" in one sentence
+# (+3 GVR'd, +9 others -- merits petitions ask for it too), and "case pending
+# before this Court" (+8 points of recall at +4 of false positives).
+RX_GVR_ASK <- str_c(
+  "(?i)further\\s+(consideration|proceedings)\\s+in\\s+light\\s+of",
+  "|(?i)vacat[^.]{0,250}in\\s+light\\s+of",
+  "|(?i)in\\s+light\\s+of[^.]{0,200}\\bvacat",
+  "|(?i)\\bGVR\\b|(?i)grant,?\\s+vacate,?\\s+and\\s+remand",
+  "|(?i)\\bhold\\s+(this|the)\\s+petition\\b|(?i)\\bheld\\s+pending\\b")
 
 # Structural headings that segment a petition.
 RX_REASONS_HEAD <- "(?m)^[ \\t]*([IVX]+\\.\\s+)?(REASONS? FOR (GRANTING|ALLOWING) THE (PETITION|WRIT)|ARGUMENT)\\b"
@@ -280,6 +311,8 @@ extract_petition_signals <- function(text, appendix_text = "") {
     n_dissent_net   = pmax(0L, str_count(text, "(?i)\\bdissent") - n_cite),
     has_appendix    = has_appendix,
     appx_chars      = nchar(appendix_text),
+    # ---- v3 ----
+    gvr_ask         = str_detect(paste(seg$front, seg$body, sep = "\n"), RX_GVR_ASK),
     sig_v           = PETITION_SIGNALS_VERSION
   )
 }
@@ -334,10 +367,14 @@ V2_FIELDS <- c("dissent_byline", "dissent_toc", "dissent_argued2", "dissent_belo
 # uncached dockets are fetched this run (0 = cache-only). Returns a tibble with
 # one row per docket in `dkts` (signals NA when unresolved). Mirrors resolve_qps.
 #
-# A cache entry written by the v1 extractor has no v2 columns; they come back NA
-# (not FALSE) so a consumer can tell "not measured" from "measured, absent".
-# `refresh_v1_entries = TRUE` re-extracts those entries (from the text cache when
-# present, else re-downloading), counting against `max_new`.
+# A cache entry written by an older extractor lacks the newer columns; they
+# come back NA (not FALSE) so a consumer can tell "not measured" from
+# "measured, absent". `refresh_v1_entries = TRUE` re-extracts every entry below
+# PETITION_SIGNALS_VERSION (from the text cache when present, else
+# re-downloading), counting against `max_new`. The daily, the conferences run
+# and the enrichment all pass it: `gvr_ask` is a GVR-model feature, and a
+# pending petition scored from a v2 entry would read "does not ask for a GVR"
+# when the truth is "nobody looked".
 #
 # `appx_urls`, when given, is a list parallel to `dkts` of each petition's
 # separately filed appendix URL(s) (see find_appendix_urls()); they are fetched
@@ -385,9 +422,10 @@ resolve_petition_signals <- function(dkts, urls, cache_path, max_new = 0L,
                     n_dissent = NA_integer_, pet_chars = NA_integer_,
                     !!!setNames(rep(list(NA), length(V2_FIELDS)), V2_FIELDS),
                     n_dissent_cite = NA_integer_, n_dissent_net = NA_integer_,
-                    appx_chars = NA_integer_, sig_v = NA_integer_))
+                    appx_chars = NA_integer_, gvr_ask = NA, sig_v = NA_integer_))
     }
     v2 <- isTRUE((s$sig_v %||% 1L) >= 2L)
+    v3 <- isTRUE((s$sig_v %||% 1L) >= 3L)
     tibble(dkt = dk, dissent_below = isTRUE(s$dissent_below),
            dissent_argued = isTRUE(s$dissent_argued),
            dissent_header = isTRUE(s$dissent_header),
@@ -399,6 +437,7 @@ resolve_petition_signals <- function(dkts, urls, cache_path, max_new = 0L,
            n_dissent_cite = as.integer(s$n_dissent_cite %||% NA),
            n_dissent_net = as.integer(s$n_dissent_net %||% NA),
            appx_chars = as.integer(s$appx_chars %||% NA),
+           gvr_ask = lgl_or_na(s, "gvr_ask", v3),
            sig_v = as.integer(s$sig_v %||% 1L))
   })
 }

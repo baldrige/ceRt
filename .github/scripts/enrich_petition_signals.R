@@ -36,7 +36,10 @@ sel <- cases |>
   distinct(dkt, .keep_all = TRUE)
 
 cat("OT", term, "— paid granted/denied with a petition URL:", nrow(sel), "\n")
-invisible(resolve_petition_signals(sel$dkt, sel$url, cache_path = out, max_new = max_new))
+# refresh: an entry below PETITION_SIGNALS_VERSION is re-extracted, so a new
+# cue (gvr_ask, v3) reaches the whole corpus by re-dispatching this workflow.
+invisible(resolve_petition_signals(sel$dkt, sel$url, cache_path = out, max_new = max_new,
+                                   refresh_v1_entries = TRUE))
 
 done <- fromJSON(out, simplifyDataFrame = FALSE)
 have_text <- sum(purrr::map_lgl(done, ~ isTRUE((.x$pet_chars %||% 0) > 500)))

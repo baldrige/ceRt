@@ -108,6 +108,7 @@ artifacts; blank means not since the pass itself.
 | Rolling-origin instead of LOTO | Reproduces LOTO to within 0.003 AUC. Not worth rebuilding the evaluation — but LOTO is out-of-*fold*, not out-of-time, and the docs said otherwise. | Not re-tested — needs the rolling-origin harness. |
 | Platt-vs-refit scale mismatch | Real in principle, ≤4pp in practice, direction conservative. Term-to-term drift dwarfs it. | Not re-tested. |
 | Alternative calibrators (7 tested) | Total spread 0.0004 Brier. Not where the problem was. | Not re-tested — needs the calibrator harness. |
+| `word_band` in the GVR model | **2026-09-21.** Prompted by Monsanto v. Dennis (26-139): a 760-word petition asking for a GVR in light of *Durnell*, shown at 1% GVR risk. The band is not the reason. Coverage is fine (the certificate cache holds 66–92% of GVR'd dockets per Term, the same as denials, so no absent-cue leakage), but on the panel a <3k petition is GVR'd at 3.1% against 2.2% for 6k+, and jointly it reads +0.66 (<3k) / +0.57 (unknown) with LOTO AUC 0.823 → 0.819, AP 0.197 → 0.197. Nothing. What separates a GVR petition is what it asks for, not how long it is; see `gvr_ask`. | — |
 
 ## Known issues
 

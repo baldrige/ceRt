@@ -652,6 +652,9 @@ assemble_at_risk <- function(paths) {
     left_join(load_word_counts(), by = "dkt") |>
     mutate(across(c(dissent_below, dissent_argued, enbanc_dissent, split_argued),
                   ~ coalesce(.x, FALSE)),
+           # Absent reads as FALSE, the serve-time default -- but model_frame()
+           # refuses to fit gvr_ask unless it was actually measured for the frame.
+           gvr_ask_measured = !is.na(gvr_ask), gvr_ask = coalesce(gvr_ask, FALSE),
            term_year = 2000L + as.integer(term), granted = outcome == "granted") |>
     set_target("grant")
 }
@@ -664,23 +667,27 @@ load_petition_signals <- function(path = PETITION_SIGNALS_PATH) {
   empty <- tibble(dkt = character(), dissent_below = logical(),
                   dissent_argued = logical(), enbanc_dissent = logical(),
                   split_argued = logical(), n_dissent = integer(),
-                  pet_chars = integer())
+                  pet_chars = integer(), gvr_ask = logical())
   if (!file.exists(path)) return(empty)
   j <- jsonlite::fromJSON(path, simplifyDataFrame = FALSE)
   if (length(j) == 0) return(empty)
   # n_dissent / pet_chars have been in every cache entry since the extractor
   # shipped; they were carried as diagnostics until 2026-09-11, when the
   # derived cues (dissent_bucket / short_petition) became features.
+  # gvr_ask arrived with v3 of the extractor (2026-09-21): NA from an older
+  # entry, so the trainer can tell "not measured" from "absent" and refuse to
+  # fit on a corpus that was not re-enriched.
   purrr::imap_dfr(j, function(s, dk) tibble(
     dkt = dk, dissent_below = isTRUE(s$dissent_below),
     dissent_argued = isTRUE(s$dissent_argued),
     enbanc_dissent = isTRUE(s$enbanc_dissent),
     split_argued = isTRUE(s$split_argued),
     n_dissent = as.integer(s$n_dissent %||% NA),
-    pet_chars = as.integer(s$pet_chars %||% NA)))
+    pet_chars = as.integer(s$pet_chars %||% NA),
+    gvr_ask = if (isTRUE((s$sig_v %||% 1L) >= 3L)) isTRUE(s$gvr_ask) else NA))
 }
 PETITION_SIGNAL_COLS <- c("dissent_below", "dissent_argued", "enbanc_dissent",
-                          "split_argued", "n_dissent", "pet_chars")
+                          "split_argued", "n_dissent", "pet_chars", "gvr_ask")
 
 # The certified word counts (data-raw/word_counts.json, keyed by docket ->
 # {words, chars}; built by .github/scripts/enrich_word_counts.R from the
@@ -710,6 +717,9 @@ assemble_corpus <- function(paths) {
     left_join(load_word_counts(), by = "dkt") |>
     mutate(across(c(dissent_below, dissent_argued, enbanc_dissent, split_argued),
                   ~ coalesce(.x, FALSE)),
+           # Absent reads as FALSE, the serve-time default -- but model_frame()
+           # refuses to fit gvr_ask unless it was actually measured for the frame.
+           gvr_ask_measured = !is.na(gvr_ask), gvr_ask = coalesce(gvr_ask, FALSE),
            term_year = 2000L + as.integer(term), granted = outcome == "granted") |>
     set_target("grant")
 }
@@ -963,6 +973,22 @@ model_frame <- function(corpus, features) {
            "data-raw/cert_corpus.rds and data-raw/cert_panel.rds and rebuild.")
     df <- df |> mutate(dissent_level = dissent_level(dissent_below, n_dissent),
                        word_band = word_band(words))
+  }
+  # gvr_ask is a v3 signal. A corpus/panel cache from before it has no column;
+  # one assembled from a signals file that was not re-enriched has the column
+  # but NA where the extractor never ran, and the assembler's coalesce() would
+  # fit that as "asks for nothing" -- the absent-cue-reads-as-outcome trap the
+  # GVR model's feature note describes. Both fail here, by name.
+  if ("gvr_ask" %in% features) {
+    if (!"gvr_ask" %in% names(df))
+      stop("training frame lacks gvr_ask -- the corpus/panel cache predates ",
+           "petition signals v3; delete data-raw/cert_corpus.rds and ",
+           "data-raw/cert_panel.rds and rebuild.")
+    if (!"gvr_ask_measured" %in% names(df) || mean(df$gvr_ask_measured) < 0.85)
+      stop("gvr_ask is measured for ",
+           if ("gvr_ask_measured" %in% names(df)) sprintf("%.0f%%", 100 * mean(df$gvr_ask_measured)) else "none",
+           " of the frame; re-run enrich-petitions.yml (it re-extracts entries ",
+           "below PETITION_SIGNALS_VERSION) and rebuild the caches.")
   }
   # The "In re" triplet (2026-09-16). A mandamus petition with no lower court
   # was three dummies at once -- court_below OTHER, resp_type "other" (no named
@@ -1523,7 +1549,8 @@ FORECAST_CUE_PHRASES <- c(
   # the coefficient's sign, so the wording has to read sensibly either way.
   "response_filedTRUE"     = "an opposition brief on the docket",
   "resp_waiverTRUE"        = "the respondent waiving its right to respond",
-  "reply_filedTRUE"        = "a reply brief from the petitioner"
+  "reply_filedTRUE"        = "a reply brief from the petitioner",
+  "gvr_askTRUE"            = "a petition asking to be held, or vacated and remanded in light of another case"
 )
 
 # Turn a score_features() result into one model-faithful sentence: the forecast's
@@ -1553,15 +1580,35 @@ describe_forecast <- function(score, top = 3L, eps = 0.05, include_prob = FALSE,
 
   lift <- score$lift; base <- pctd(score$base_rate)
 
-  # Below the base rate, DON'T list drivers. The per-cue log-odds are measured
-  # against a very-low-grant reference profile (a private party, a state court
-  # below), so almost any federal case shows a large positive "up" cue for its
-  # circuit of origin -- which reads as a grant signal on a case the model
-  # actually rates as unremarkable. Say that plainly instead.
+  # Below the base rate, DON'T list the drivers. The per-cue log-odds are
+  # measured against a very-low-grant reference profile (a private party, a
+  # state court below), so almost any federal case shows a large positive "up"
+  # cue for its circuit of origin -- which reads as a grant signal on a case the
+  # model actually rates as unremarkable. Say that plainly instead.
+  #
+  # Two exceptions, both for the reader who knows the case. When one cue is
+  # doing the pushing down (a 760-word GVR petition, a pro se filer), name it:
+  # "well below" with no reason reads as a verdict on the merits. And when a
+  # cue outside the court-of-origin set is strongly up, say it counts the other
+  # way: Monsanto v. Dennis (26-139) was filed by counsel with 24 prior grants,
+  # and the page said "no standout signals" while the model was weighting that
+  # +1.2 -- true of the sum, false of the cues, and the reader could see the
+  # name on the same page (2026-09-21).
   if (!is.na(lift) && lift <= 0.85) {
     lead <- paste0(pre, "well below the ", base, " base rate")
     if (include_prob) lead <- paste0(pre, pcti(score$prob), " — well below the ", base, " base rate")
-    return(paste0(cap1(lead), ", with no standout signals pointing toward a grant."))
+    cu <- score$cues
+    cu <- cu[is.finite(cu$log_odds) & !cu$term %in% (score$unstable %||% character()), , drop = FALSE]
+    ph1 <- function(term) { v <- unname(FORECAST_CUE_PHRASES[term]); if (length(v) && !is.na(v)) v else NULL }
+    dn <- cu[cu$log_odds <= -1, , drop = FALSE]
+    dn <- if (nrow(dn)) ph1(dn$term[which.min(dn$log_odds)]) else NULL
+    up <- cu[cu$log_odds >= 1.2 & !grepl("^court_below", cu$term), , drop = FALSE]
+    up <- if (nrow(up)) ph1(up$term[which.max(up$log_odds)]) else NULL
+    body <- if (!is.null(dn)) sprintf(": the model %s this down for %s", wv, dn)
+            else ", with no standout signals pointing toward a grant"
+    tail <- if (!is.null(up)) sprintf(", though %s %s the other way", up,
+                                      if (retrospective) "counted" else "counts") else ""
+    return(paste0(cap1(lead), body, tail, "."))
   }
 
   # At or above the base rate, name the real drivers (biggest |log-odds| first).
@@ -1612,6 +1659,10 @@ signal_features <- function(signals = NULL) {
     # NULL must become a scalar NA here, or the bucket is length 0 and the
     # tibble has no rows.
     words          = as.integer(g("words") %||% NA),
+    # v3 (2026-09-21): the petition asks to be held or GVR'd. NA from a v2
+    # cache entry is FALSE here, the same default as an unresolved petition;
+    # the serve-time caches refresh below-version entries so it is brief.
+    gvr_ask        = isTRUE(g("gvr_ask")),
     dissent_level  = dissent_level(isTRUE(g("dissent_below")), g("n_dissent") %||% NA),
     word_band      = word_band(g("words") %||% NA))
 }

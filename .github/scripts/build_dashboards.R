@@ -114,7 +114,8 @@ if (!is.null(grant_model)) {
   sig <- tryCatch(resolve_petition_signals(
     paid$dkt, paid$petition_url,
     cache_path = file.path(dash_dir, "petition_signals_cache.json"),
-    max_new = as.integer(Sys.getenv("PET_SIG_MAX_NEW", unset = "400"))),
+    max_new = as.integer(Sys.getenv("PET_SIG_MAX_NEW", unset = "400")),
+    refresh_v1_entries = TRUE),
     error = function(e) NULL)
   if (!is.null(sig)) signals_map <- setNames(
     lapply(seq_len(nrow(sig)), function(i) as.list(sig[i, ])), sig$dkt)
