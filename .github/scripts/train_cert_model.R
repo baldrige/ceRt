@@ -113,13 +113,32 @@ for (nm in names(files)) saveRDS(files[[nm]], file.path(out_dir, nm))
 
 # ---- report ------------------------------------------------------------------
 # Generated, not hand-maintained: the published table drifted out of sync with
-# the shipped artifacts and stayed wrong for months.
-cat("\n=== paste into docs/cert_model.md ===\n")
-cat("| Model | Target | AUC | AP | Brier | Base rate |\n|---|---|---|---|---|---|\n")
-for (x in list(list(baseline, "Baseline"), list(enhanced, "At-risk"), list(gvr, "GVR"))) {
+# the shipped artifacts and stayed wrong for months. Then it was printed for
+# someone to paste, the paste was skipped, and the doc sat 0.026 AP off the
+# shipped artifact (2026-09-22). Now it is written into docs/cert_model.md,
+# between its metrics:begin / metrics:end markers.
+metrics_rows <- vapply(list(list(baseline, "Baseline", "P(grant)"),
+                            list(enhanced, "At-risk", "P(grant ever)"),
+                            list(gvr, "GVR", "P(GVR ever)")), function(x) {
   m <- x[[1]]; mc <- m$metrics_calibrated
-  cat(sprintf("| %s | %s | %.3f | %.3f | %.4f | %.2f%% |\n",
-              x[[2]], m$target, mc$auc, mc$ap, mc$brier, 100 * m$base_rate))
+  sprintf("| %s | %s | %.3f | %.3f | %.4f | %.2f%% |",
+          x[[2]], x[[3]], mc$auc, mc$ap, mc$brier, 100 * m$base_rate)
+}, character(1))
+terms <- sort(unique(corpus$term))
+metrics_block <- c(
+  "| Model | Target | AUC | AP | Brier | Base rate |", "|---|---|---|---|---|---|",
+  metrics_rows, "",
+  sprintf("Retrained %s on OT20%s–20%s; base rates from the complete Terms (%s–%s).",
+          format(Sys.Date()), min(terms), max(terms), min(complete), max(complete)))
+cat("\n=== docs/cert_model.md metrics ===\n", paste(metrics_block, collapse = "\n"), "\n", sep = "")
+doc_path <- "docs/cert_model.md"
+if (file.exists(doc_path)) {
+  doc <- readLines(doc_path, encoding = "UTF-8", warn = FALSE)
+  b <- grep("^<!-- metrics:begin -->", doc); e <- grep("^<!-- metrics:end -->", doc)
+  if (length(b) != 1L || length(e) != 1L || e <= b)
+    stop("docs/cert_model.md: expected one metrics:begin / metrics:end marker pair")
+  writeLines(enc2utf8(c(doc[seq_len(b)], metrics_block, doc[e:length(doc)])), doc_path, useBytes = TRUE)
+  cat("Rewrote the metrics block in", doc_path, "\n")
 }
 cat("\nConference model: ", conference$n, " rows; per-conference outcome mix\n", sep = "")
 print(round(conference$rates, 4))
@@ -159,7 +178,13 @@ docs_ok <- tryCatch(
 if (!nzchar(Sys.getenv("SKIP_MODEL_DOCS", "")) && docs_ok) {
   for (script in c("docs/make_methods_note.R", "docs/make_model_reference.R")) {
     cat("\nRegenerating from", script, "\n")
-    st <- system2("Rscript", script, env = paste0("MODEL_DIR=", shQuote(out_dir)))
+    # Inherited, not passed through system2(env=): on Linux that argument is a
+    # shell prefix and shQuote() made the path literally "'data'"; on Windows it
+    # is spliced in as a command argument and Rscript tried to run a file named
+    # "MODEL_DIR=data". Either way this step had failed on every retrain since
+    # it was added, and the docs it guards went stale anyway (found 2026-09-22).
+    Sys.setenv(MODEL_DIR = out_dir)
+    st <- system2("Rscript", script)
     if (!identical(st, 0L))
       stop(script, " failed (exit ", st, "); the artifacts are written but the ",
            "documents describing them are now stale.")
