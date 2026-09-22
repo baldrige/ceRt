@@ -142,6 +142,25 @@ for (i in seq_along(dates)) {
 }
 dashboard_index(dash_dir)
 
+# The Court's order lists (R/orders_list.R, docs/order-lists.md). The daily owns
+# orders/: two listing requests (current and prior Term), then only the PDFs the
+# manifest does not hold -- on an ordinary day none, on a Monday one. The first
+# run pulls a Term's worth (~100 documents), which ORDERS_MAX_NEW bounds. Never
+# fatal: a throttled listing costs the panel a run, not the dashboards.
+#
+# Parsed BEFORE the docket pages render: each case page links the order lists
+# that named it, and that link is in the page's manifest key. A Monday list
+# parsed after the render would reach a denied docket's page only the next time
+# some run happened to re-render it.
+source("R/orders_list.R")
+ord_terms <- trimws(strsplit(Sys.getenv("ORDERS_TERMS", ""), "[,[:space:]]+")[[1]])
+ord_terms <- if (length(ord_terms) && any(nzchar(ord_terms))) ord_terms[nzchar(ord_terms)] else orders_terms()
+ord <- tryCatch(update_orders(site_dir, terms = ord_terms,
+                              max_new = as.integer(Sys.getenv("ORDERS_MAX_NEW", "250"))),
+                error = function(e) { cat("Order lists: update failed:", conditionMessage(e), "\n"); NULL })
+if (!is.null(ord)) cat(sprintf("Order lists: %d listed for Terms %s | %d new parsed | %d failed | %d in manifest\n",
+                               ord$listed, paste(ord_terms, collapse = ","), ord$new, ord$failed, ord$total))
+
 # Docket pages for the current-term cases just fetched (incremental: only dockets
 # whose page changed are rewritten). Keeps /cases/ current for the daily links.
 render_dockets_for(ot, site_dir)
@@ -406,19 +425,9 @@ decisions <- decisions_panel(
   note = "The Court's most recent written opinions, argued or not.",
   more = "<a href='arguments/'>All argued cases &rarr;</a>")
 
-# The Court's order lists (R/orders_list.R, docs/order-lists.md). The daily owns
-# orders/: two listing requests (current and prior Term), then only the PDFs the
-# manifest does not hold -- on an ordinary day none, on a Monday one. The first
-# run pulls a Term's worth (~100 documents), which ORDERS_MAX_NEW bounds. Never
-# fatal: a throttled listing costs the panel a run, not the dashboards.
-source("R/orders_list.R")
-ord_terms <- trimws(strsplit(Sys.getenv("ORDERS_TERMS", ""), "[,[:space:]]+")[[1]])
-ord_terms <- if (length(ord_terms) && any(nzchar(ord_terms))) ord_terms[nzchar(ord_terms)] else orders_terms()
-ord <- tryCatch(update_orders(site_dir, terms = ord_terms,
-                              max_new = as.integer(Sys.getenv("ORDERS_MAX_NEW", "250"))),
-                error = function(e) { cat("Order lists: update failed:", conditionMessage(e), "\n"); NULL })
-if (!is.null(ord)) cat(sprintf("Order lists: %d listed for Terms %s | %d new parsed | %d failed | %d in manifest\n",
-                               ord$listed, paste(ord_terms, collapse = ","), ord$new, ord$failed, ord$total))
+# The Court's order lists: fetched and parsed further up, before the docket
+# pages, and rendered here, after them, so an order page links every case page
+# this run wrote.
 tryCatch(render_orders(site_dir), error = function(e) cat("Order lists: render failed:", conditionMessage(e), "\n"))
 orders <- tryCatch(orders_panel(site_dir), error = function(e) { cat("Order lists: panel failed:", conditionMessage(e), "\n"); NULL })
 cat("Latest orders on the landing page:", if (is.null(orders)) "none in window" else "yes", "\n")

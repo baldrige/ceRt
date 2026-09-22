@@ -179,7 +179,9 @@ if (!file.exists(sj_path)) {
 # the site root, so a missing target is a 404 on every page that carries it.
 cat("\nNavigation targets\n")
 resolve <- function(href) {
-  p <- sub("^/", "", href)
+  # A fragment names a place in the page, not a file: the case pages link
+  # /orders/<date>.html#d-<docket>.
+  p <- sub("[?#].*$", "", sub("^/", "", href))
   if (p == "" || grepl("/$", p)) p <- paste0(p, "index.html")
   file.exists(file.path(site, p))
 }
