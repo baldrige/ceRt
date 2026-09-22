@@ -51,7 +51,8 @@ ORDERS_LISTING_URL <- "https://www.supremecourt.gov/orders/ordersofthecourt/%s"
 ORDERS_BASE        <- "https://www.supremecourt.gov"
 ORDERS_DIR         <- "orders"
 ORDERS_MANIFEST    <- "orders.json"
-ORDERS_TEMPLATE_VERSION <- "o2"   # o2: captions through strip_caption_roles()
+ORDERS_TEMPLATE_VERSION <- "o3"   # o2: captions through strip_caption_roles()
+                                  # o3: every docket row anchored #d-<docket>, for the case pages
 # The parser's version, stamped on each manifest entry. A document parsed by an
 # older parser is fetched and parsed again (one request each, inside the run's
 # ORDERS_MAX_NEW budget, so a bump spreads over a few runs).
@@ -445,6 +446,9 @@ update_orders <- function(site_dir, terms = orders_terms(), max_new = 250L) {
   ol.olist .otext{display:block;margin:.25rem 0 0 0;color:var(--ink-soft);font-size:.95rem;line-height:1.45}
   ol.olist li.grp{border-bottom:0;padding-bottom:.1rem}
   ol.olist.dense li{padding:.22rem 0;border-bottom:0}
+  ol.olist li[id]{scroll-margin-top:1.5rem}
+  ol.olist li:target{background:var(--panel);box-shadow:-.5rem 0 0 var(--panel),.5rem 0 0 var(--panel)}
+  ol.olist li:target .odk{color:var(--accent)}
 "
 
 # One document's page. `available` is the set of docket numbers with a case page.
@@ -461,6 +465,7 @@ render_order_page <- function(site_dir, stem, meta, entries, caps, available) {
     if (!is.null(meta$cite) && !is.na(meta$cite)) paste0(" &middot; ", .ord_esc(meta$cite)) else "",
     "</p>")
   secs <- unique(entries$section)
+  seen <- character()   # dockets already anchored on this page
   secs <- c(intersect(ORDERS_SECTION_ORDER, secs), setdiff(secs, ORDERS_SECTION_ORDER))
   body <- vapply(secs, function(s) {
     e <- entries[entries$section == s, , drop = FALSE]
@@ -478,7 +483,11 @@ render_order_page <- function(site_dir, stem, meta, entries, caps, available) {
       txt <- if (nzchar(r$text) && last_of_group)
         paste0("<span class='otext'>", .ord_esc(r$text), "</span>") else ""
       rel <- if (!is.na(r$related)) paste0(" <span class='odk'>(", .ord_esc(r$related), ")</span>") else ""
-      paste0("<li", if (!last_of_group) " class='grp'" else "", ">",
+      # Every row anchored, so a docket page can link to its own line. A docket
+      # listed twice (a motion and a GVR) anchors its first row only.
+      aid <- if (!is.na(r$dkt) && nzchar(r$dkt) && !(r$dkt %in% seen)) { seen <<- c(seen, r$dkt)
+        paste0(" id='d-", .ord_esc(r$dkt), "'") } else ""
+      paste0("<li", aid, if (!last_of_group) " class='grp'" else "", ">",
              if (nzchar(r$dkt)) paste0("<span class='odk'>", .ord_esc(r$dkt), "</span>") else "",
              "<span class='ocap'>", .ord_case_link(r$dkt, r$caption, caps, available), "</span>", rel,
              txt, "</li>")
@@ -563,6 +572,59 @@ render_orders <- function(site_dir) {
     path = paste0("/", ORDERS_DIR, "/"))
   message("orders: ", n, " page(s) rendered / ", length(idx), " document(s)")
   invisible(n)
+}
+
+# ---- docket -> the documents that name it ---------------------------------------------
+# The docket pages link each case to the order lists that acted on it, at the
+# docket's own row (the order pages anchor every row as #d-<docket>). Built from
+# orders/data/*.json, which holds every parsed entry -- the manifest keeps only
+# the grants and GVRs, and a denial is the order most dockets ever get.
+#
+# ~1,000 small files across OT17 on, read once per site directory per R
+# session: the daily calls render_dockets_for() three times. Keyed on the
+# manifest's mtime so update_orders() earlier in the same session is seen.
+
+# How a docket page names the section that acted on it.
+ORDERS_DOCKET_WORDS <- c(
+  pending = "Order", gvr = "Summary disposition", granted = "Certiorari granted",
+  denied = "Certiorari denied", habeas = "Habeas corpus denied",
+  mandamus = "Mandamus denied", prohibition = "Prohibition denied",
+  rehearing = "Rehearing denied", discipline = "Attorney discipline", other = "Order")
+
+.orders_dix_cache <- new.env(parent = emptyenv())
+
+#' Named list, docket -> data.frame(date, word, kind, page), oldest first. A
+#' docket named twice in one document (a GVR and a motion) gets one row, worded
+#' by the first section it appears in, in ORDERS_SECTION_ORDER.
+orders_docket_index <- function(site_dir) {
+  mp <- .orders_path(site_dir, ORDERS_MANIFEST)
+  if (!file.exists(mp)) return(list())
+  ck <- paste(normalizePath(site_dir, mustWork = FALSE), file.mtime(mp))
+  if (!is.null(.orders_dix_cache[[ck]])) return(.orders_dix_cache[[ck]])
+  idx <- read_orders_manifest(site_dir)
+  rows <- lapply(names(idx), function(stem) {
+    m <- idx[[stem]]
+    if (identical(m$kind, "rules") || is.null(m$page)) return(NULL)
+    ep <- .orders_path(site_dir, "data", paste0(stem, ".json"))
+    e <- if (file.exists(ep)) tryCatch(fromJSON(ep), error = function(e) NULL) else NULL
+    if (!is.data.frame(e) || !nrow(e) || is.null(e$dkt)) return(NULL)
+    e <- e[!is.na(e$dkt) & nzchar(e$dkt), c("dkt", "section"), drop = FALSE]
+    if (!nrow(e)) return(NULL)
+    e <- e[order(match(e$section, ORDERS_SECTION_ORDER, nomatch = 99L)), , drop = FALSE]
+    e <- e[!duplicated(e$dkt), , drop = FALSE]
+    data.frame(dkt = e$dkt, date = m$date, stem = stem,
+               word = unname(ORDERS_DOCKET_WORDS[e$section]),
+               kind = .ord_kind_word(m), page = m$page, stringsAsFactors = FALSE)
+  })
+  all <- do.call(rbind, Filter(Negate(is.null), rows))
+  out <- if (is.null(all) || !nrow(all)) list() else {
+    all$word[is.na(all$word)] <- "Order"
+    all <- all[order(all$date, all$stem), , drop = FALSE]
+    lapply(split(all[, c("date", "word", "kind", "page")], all$dkt),
+           function(d) { rownames(d) <- NULL; d })
+  }
+  .orders_dix_cache[[ck]] <- out
+  out
 }
 
 # A (dkt, caption) block as it comes back from the manifest: a data.frame when

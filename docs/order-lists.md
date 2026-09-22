@@ -84,7 +84,8 @@ name.
 3. writes each document's entries to `orders/data/<stem>.json` and its summary
    (date, kind, counts, the granted dockets, the GVR'd dockets) to the manifest,
 4. renders `orders/index.html` and one page per document, incrementally by
-   `ORDERS_TEMPLATE_VERSION`, and
+   `ORDERS_TEMPLATE_VERSION` -- every docket row anchored `#d-<docket>` (o3), so
+   a case page can link its own line -- and
 5. puts a **"Latest orders"** panel on the landing page: documents from the
    last 21 days, at most four, each with the day, a link to its page, the
    headline counts (granted, GVRs, denied), and the granted cases by name, each
@@ -136,9 +137,13 @@ joins every list entry to `classify_petitions()`'s reading of the same docket.
 as well. Findings, the reading rules the audit needed, and the five real
 grammar gaps in nine Terms: **[order-list-audit-2026-09.md](order-list-audit-2026-09.md)**.
 
+Steps 1-3 run **before** the daily renders docket pages, and step 4 after:
+each case page links the documents that named it (the Case panel's "Orders"
+row, `orders_docket_index()`; see `docs/docket-pages.md`), and each order page
+links the case pages the run wrote.
+
 ## Follow-ons
 
-- Link each docket page to the order list that disposed of it.
 - A grants feed entry from the list, hours before the docket JSON re-export.
 - Parse the separate writings attached to a list (dissents from denial) into
   the Recent decisions grammar's "separate writing" signal.

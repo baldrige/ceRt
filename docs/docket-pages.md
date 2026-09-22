@@ -208,6 +208,24 @@ party actually opposing the petitioner. Single-respondent cases are unaffected
 > — clean single boundary; **23-477** (US v. Skrmetti) — the cross-aligned case that
 > motivated the latest-brief rule.
 
+## The order lists that acted on a case (v40)
+
+The Case panel carries an **Orders** row: every order list or miscellaneous
+order that named the docket, oldest first, each linked to the docket's own row
+on that page (`/orders/2026-01-12.html#d-25-2`), followed by the section it was
+listed under ("Certiorari denied", "Summary disposition"; nothing for
+pending-case housekeeping). The row is absent when no parsed document names the
+docket — anything before OT17, or a case the Court has not yet acted on.
+
+The data is `orders_docket_index(site_dir)` in `R/orders_list.R`, built from
+every `orders/data/*.json` (~1,000 files, ~5 s, cached per R session and keyed
+on the orders manifest's mtime). Each docket's slice is in the manifest key, so
+a page re-renders when a new list names it. The daily therefore parses new
+order lists **before** it renders docket pages; parsed after, a Monday's list
+would reach a denied docket only when some later run happened to re-render it.
+The weekly conferences run range-fetches the live Terms, so it catches any
+docket the daily's trailing window missed.
+
 ## Summary dispositions: one funnel bucket, several words
 
 The funnel's `gvr` bucket is every summary merits disposition — the statistics

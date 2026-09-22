@@ -36,6 +36,8 @@ local({
   # its status words. Named here for the same reason as the nav: the back-catalog
   # entry points source this file alone.
   sys.source(find("original_dockets.R"), envir = globalenv())
+  # orders_docket_index(): which order lists acted on each docket.
+  if (!exists("orders_docket_index")) sys.source(find("orders_list.R"), envir = globalenv())
 })
 
 # A procedural entry is marked with a TICK across the timeline rule, not a dot.
@@ -329,7 +331,12 @@ write_docket_css <- function(out_dir) {
 # hashed as unchanged and kept its wrong number through two fixed runs (26-304:
 # 32% on the page, 73% in the manifest beside it). Also folds in gvr_ask and
 # the below-base-rate reasons (#187, #191), which pages missed the same way.
-PAGE_TEMPLATE_VERSION <- "v39"
+# v40: the Case panel's "Orders" row -- each order list or miscellaneous order
+# that named this docket, linked to the docket's own row on that page
+# (orders/<date>.html#d-<docket>). The docket's slice of orders_docket_index()
+# is in the manifest key, so a page re-renders when a new list names it; the
+# bump carries the row to the back-catalog.
+PAGE_TEMPLATE_VERSION <- "v40"
 
 # ---- small helpers ------------------------------------------------------------
 .esc <- function(x) { x <- x %||% ""; x[is.na(x)] <- ""; htmltools::htmlEscape(x) }
@@ -1053,7 +1060,7 @@ docket_disposition <- function(outcome, outcome_date, arg, p_base, p_gvr, sig, i
 # optional enrichments (no network is ever performed here).
 docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
                         signals = NULL, qp = NA_character_, rendered = Sys.Date(),
-                        available = character()) {
+                        available = character(), orders = NULL) {
   dkt <- cx$dkt; ev <- cx$events[[1]]; par <- cx$parties[[1]]; rel <- cx$related %||% ""
   # The linked application/petition docket. NA-safe on purpose: %||% catches a
   # snapshot rendered before build_case() carried the column, but a present-and-NA
@@ -1277,6 +1284,7 @@ docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
     # one. %||% guards a snapshot rendered before build_case() carried the field.
     if (nzchar(lnk)) paste0("<p><span class='side'>Linked docket</span><br>",
                             docket_refs_html(lnk, available), "</p>") else "",
+    docket_orders_html(orders, dkt),
     "</div>")
   cap <- .esc(str_squish(str_remove_all(cx$caption %||% dkt, ", Petitioners?|, Respondents?")))
   dkurl <- paste0("https://www.supremecourt.gov/search.aspx?filename=/docket/docketfiles/html/public/", dkt, ".html")
@@ -1397,12 +1405,31 @@ docket_refs_html <- function(x, available = character()) {
   paste(out[nzchar(out)], collapse = ", ")
 }
 
+# The Case panel's "Orders" row: every order list or miscellaneous order that
+# named this docket, oldest first, each linked to the docket's own row on that
+# page. `orders` is this docket's slice of orders_docket_index(). Empty when no
+# parsed document names it (pre-OT17, or a docket the Court has not acted on).
+docket_orders_html <- function(orders, dkt) {
+  if (!is.data.frame(orders) || !nrow(orders)) return("")
+  items <- vapply(seq_len(nrow(orders)), function(i) {
+    o <- orders[i, ]
+    # The link names the document; the section it was listed under follows,
+    # except the pending-case housekeeping ("Order"), which says nothing more.
+    paste0(sprintf("<a href='/orders/%s#d-%s'>%s, %s</a>", .esc(o$page), .esc(dkt),
+                   .esc(o$kind), .fmtdate(as.Date(o$date))),
+           if (!identical(o$word, "Order")) paste0(" &middot; ", .esc(o$word)) else "")
+  }, character(1))
+  paste0("<p><span class='side'>Order", if (nrow(orders) > 1) "s" else "",
+         "</span><br>", paste(items, collapse = "<br>"), "</p>")
+}
+
 # ---- batch render (incremental) -----------------------------------------------
 # Renders a page per row of `cases`. `qp_map`/`signals_map` are named by docket;
 # absent entries just omit that section. A manifest of per-page content hashes
 # (cases/.manifest.json) makes re-runs rewrite only dockets whose page changed.
 render_docket_pages <- function(cases, out_dir, models = NULL, qp_map = NULL,
-                                signals_map = NULL, incremental = TRUE, rendered = Sys.Date()) {
+                                signals_map = NULL, orders_map = NULL, incremental = TRUE,
+                                rendered = Sys.Date()) {
   write_docket_css(out_dir)
   mpath <- file.path(out_dir, ".manifest.json")
   # Always load the existing manifest and MERGE this batch into it, so rendering
@@ -1424,19 +1451,21 @@ render_docket_pages <- function(cases, out_dir, models = NULL, qp_map = NULL,
     sig <- if (!is.null(signals_map)) signals_map[[dkt]] else NULL
     qp  <- if (!is.null(qp_map)) qp_map[[dkt]] %||% NA_character_ else NA_character_
     clr <- if (length(cls_by)) cls_by[[dkt]][1, ] else NULL
+    ords <- if (!is.null(orders_map)) orders_map[[dkt]] else NULL
     # Hash every page-determining input (+ template + model); skip if unchanged.
     # link_targets() is in here because WHICH of this page's references resolve
     # is page-determining too: without it, a page that rendered a reference as
     # plain text would never re-render once that target's page appeared.
     key <- digest::digest(list(PAGE_TEMPLATE_VERSION, model_id, cx$caption, cx$events,
              cx$parties, cx$lower, cx$lower_dkt, cx$lower_date, cx$date, cx$type,
-             qp, sig, cx$related, cx$linked, link_targets(cx, available)))
+             qp, sig, cx$related, cx$linked, link_targets(cx, available), ords))
     if (incremental && identical(manifest[[dkt]] %||% "", key) &&
         file.exists(file.path(out_dir, paste0(dkt, ".html")))) {
       new_manifest[[dkt]] <- key; next
     }
     tryCatch({ docket_page(cx, out_dir, models = models, cls_row = clr, signals = sig,
-                           qp = qp, rendered = rendered, available = available)
+                           qp = qp, rendered = rendered, available = available,
+                           orders = ords)
                n_written <- n_written + 1L }, error = function(e)
       message("docket_page failed for ", dkt, ": ", conditionMessage(e)))
     new_manifest[[dkt]] <- key
@@ -1521,8 +1550,14 @@ render_dockets_for <- function(cases, site_dir, model_dir = "data") {
           }, integer(1), USE.NAMES = FALSE)))
       }
     }
+    # The order lists that named each docket (R/orders_list.R). Read from the
+    # site, so a run sees whatever the daily has parsed; never fatal.
+    orders_map <- if (exists("orders_docket_index"))
+      tryCatch(orders_docket_index(site_dir), error = function(e) {
+        message("orders index unavailable: ", conditionMessage(e)); NULL }) else NULL
     render_docket_pages(cases, file.path(site_dir, "cases"),
-                        models = models, qp_map = qp_map, signals_map = signals_map)
+                        models = models, qp_map = qp_map, signals_map = signals_map,
+                        orders_map = orders_map)
     write_search_index(cases, file.path(site_dir, "cases"))
   }, error = function(e) message("render_dockets_for failed: ", conditionMessage(e)))
 }
