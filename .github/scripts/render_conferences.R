@@ -225,7 +225,8 @@ signals_map <- tryCatch({
   own <- resolve_petition_signals(
     uniq$dkt, uniq$petition_url,
     cache_path = file.path(conf_dir, "petition_signals_cache.json"),
-    max_new = as.integer(Sys.getenv("PET_SIG_MAX_NEW", unset = "600")))
+    max_new = as.integer(Sys.getenv("PET_SIG_MAX_NEW", unset = "600")),
+    refresh_v1_entries = TRUE)
   own <- own[!is.na(own$pet_chars), ]
   # MERGE into the entry, never replace it: the word count was attached above,
   # and `m[own$dkt] <- list(...)` dropped `words` from every docket this cache
