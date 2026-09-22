@@ -16,7 +16,7 @@
 GROUP <- c(pet_type="Structural", resp_type="Structural", court_below="Structural",
   pro_se="Structural", gap_fast="Structural", gap_na="Structural",
   counsel_tier="Counsel", dissent_below="Petition signal", split_argued="Petition signal",
-  dissent_level="Petition signal", word_band="Petition signal",
+  dissent_level="Petition signal", word_band="Petition signal", gvr_ask="Petition signal",
   relist_bucket="Process", amicus_bucket="Process", cvsg="Process",
   response_requested="Process", response_filed="Process", resp_waiver="Process",
   reply_filed="Process", conf_f="Conference", phase="Conference")
@@ -44,6 +44,10 @@ logit_tbl <- function(m, key) {
   stopifnot(!anyNA(se))
   z <- b / se
   v <- vapply(names(b), var_of, character(1), feats = m$features)
+  # A variable GROUP does not know is a silent NA that make_methods_note.R then
+  # trips over at "if (r$group == ...)": say which one.
+  miss <- setdiff(v[v != "(Intercept)"], names(GROUP))
+  if (length(miss)) stop("model_coef_table.R: no GROUP for ", paste(unique(miss), collapse = ", "))
   data.frame(model = key, term = names(b), variable = v,
              group = unname(ifelse(v == "(Intercept)", "—", GROUP[v])),
              estimate = unname(b), se = unname(se), z = unname(z),

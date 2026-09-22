@@ -878,10 +878,17 @@ ENHANCED_FEATURES <- c(STRUCTURAL_FEATURES, PROCESS_FEATURES)
 # and held out only until the conference renderer could resolve them). It can,
 # as of 2026-09-11: render_conferences.R resolves the cues for every docket it
 # resolves a QP for, through the same kind of on-site cache, and reports the
-# coverage. The GVR model keeps ENHANCED_FEATURES: data-raw/petition_signals.json
-# covers granted-or-denied dockets only, so in a model whose positive class is
-# GVR an absent cue would read as the outcome.
+# coverage. The GVR model kept ENHANCED_FEATURES while
+# data-raw/petition_signals.json covered granted-or-denied dockets only: in a
+# model whose positive class is GVR an absent cue would read as the outcome.
+# The enrichment has covered every resolved petition since 2026-09-11, and as
+# of 2026-09-21 the GVR model carries one petition cue of its own -- gvr_ask,
+# whether the petition asks to be held or vacated in light of another case
+# (R/petition_signals.R, v3). It is the one thing a GVR petition says that a
+# merits petition does not; the docket cues the model had could only see the
+# Court's response to it. Measured at the retrain: see docs/cert_model.md.
 ATRISK_FEATURES <- c(ENHANCED_FEATURES, PETITION_SIGNAL_FEATURES)
+GVR_FEATURES    <- c(ENHANCED_FEATURES, "gvr_ask")
 
 # Reference levels for the categorical predictors, chosen so a cue's log-odds
 # reads against an intuitive baseline: a private individual party, a state
@@ -1814,7 +1821,7 @@ load_cert_models <- function(dir = "data") {
   # column when a model is absent, which makes the failure visible.
   expect <- list(baseline = list(f = BASELINE_FEATURES, t = "grant"),
                  enhanced = list(f = ATRISK_FEATURES, t = "grant"),
-                 gvr      = list(f = ENHANCED_FEATURES, t = "gvr"))
+                 gvr      = list(f = GVR_FEATURES, t = "gvr"))
   for (nm in names(expect)) {
     m <- out[[nm]]
     if (is.null(m)) next
