@@ -1311,7 +1311,7 @@ render_justices <- function(site_dir, gn, lineups, captions = NULL, texts = NULL
     file.path(site_dir, JUSTICES_DIR, "index.html"),
     title = "The Justices — Supreme Court Report", heading = "The Justices",
     kicker = "Supreme Court of the United States",
-    dek = "Each Term's opinions by author and kind, who joined whom, and how often the Court split. From the Court's Granted &amp; Noted List and the syllabus of every slip opinion.",
+    dek = "Each Term's opinions by author and kind, who joined whom, and how often the Court split. From the Court's Granted & Noted List and the syllabus of every slip opinion.",
     items = items, new_tab = FALSE, active = paste0("/", JUSTICES_DIR, "/"),
     crumb = list(label = "Justices"), path = paste0("/", JUSTICES_DIR, "/"))
   invisible(terms)
