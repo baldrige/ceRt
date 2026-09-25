@@ -583,7 +583,7 @@ write_404_page <- function(out_path) {
       tags$p(id = "nf-dkt", class = "dek", hidden = NA, ""),
       tags$p(class = "dek", smarten(paste(
         "The link may be mistyped or out of date. Every docket the Court has",
-        "opened since October Term 2017 has a page here -- search for a case",
+        "opened since October Term 2017 has a page here — search for a case",
         "by name or number below, or start from one of the sections."))),
       HTML(SEARCH_HTML),
       tags$ul(class = "idx", lapply(SITE_SECTIONS, function(sec)
@@ -643,7 +643,7 @@ write_about_page <- function(out_path) {
           "Every page here is generated from the Court's own public docket data.",
           "The daily dashboards, the conference reports, the argument navigator",
           "and a page for each of the roughly 55,000 dockets on file are all",
-          "pre-rendered as static HTML -- there is no server, no tracking beyond",
+          "pre-rendered as static HTML — there is no server, no tracking beyond",
           "aggregate page views, and no paywall."))),
         tags$p(HTML(paste0(
           "The cert-grant forecasts are estimates from a statistical model, not ",
