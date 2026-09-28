@@ -6,8 +6,8 @@ models serve two surfaces:
 | Model | Answers | Where it's shown | Artifact |
 |---|---|---|---|
 | **Baseline** | P(granted), from the petition alone | Daily dashboards, case pages | `cert_model_baseline.rds` |
-| **Conference** | P(granted / GVR'd / denied / relisted **at this conference**) | Conference reports, "Granted here" | `cert_model_conference.rds` |
-| **At-risk** | P(granted **ever**) | Conference reports, "Granted ever" | `cert_model_enhanced.rds` + `_gvr.rds` |
+| **Conference** | P(granted / GVR'd / denied / relisted **at this conference**) | Conference reports, "Granted here"; case pages, "At the … conference" | `cert_model_conference.rds` |
+| **At-risk** | P(granted **ever**) | Conference reports, "Granted ever"; case pages | `cert_model_enhanced.rds` + `_gvr.rds` |
 
 Code: `R/cert_model.R` · training driver `.github/scripts/train_cert_model.R` ·
 labels from `classify_petitions()` in `R/cert_funnel.R`.
@@ -413,7 +413,7 @@ first and rejected (0.819 / 0.197; see the review doc): a GVR petition is
 short because of what it asks for, and the ask is the signal.
 
 **The number a reader sees is the conference model's, and it carries the cue
-too.** The docket page's "GVR risk" and the conference reports' GVR column are
+too.** The docket page's GVR figure and the conference reports' GVR column are
 the competing-risks model's per-conference hazard; `cert_model_gvr.rds` fed only
 `conference_forecast()`, which nothing calls. So `gvr_ask` is in `CONF_FEATURES`
 as well (2026-09-22). Leave-one-term-out, one-vs-rest at conference:

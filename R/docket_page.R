@@ -87,6 +87,7 @@ p{margin:.5rem 0}
 .disp-lab span{color:var(--faint);font-size:.86rem}
 .disp-sig{font-size:.9rem;color:var(--ink-soft);font-style:italic;margin-top:.15rem}
 .disp-sub{font-size:.86rem;color:var(--faint);margin-top:.15rem}
+.disp-conf{font-size:.9rem;color:var(--ink-soft);margin-top:.4rem;padding-top:.35rem;border-top:1px solid var(--rule)}
 .disp-word{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.5rem;color:var(--accent);line-height:1.1}
 .forecast-why{margin:.55rem 0 0;font-size:.95rem;line-height:1.5;color:var(--ink-soft);max-width:46rem}
 .disp-word a{color:inherit;text-decoration:underline;text-decoration-color:rgba(@accent:rgb@,.4);text-underline-offset:4px}
@@ -336,10 +337,25 @@ write_docket_css <- function(out_dir) {
 # (orders/<date>.html#d-<docket>). The docket's slice of orders_docket_index()
 # is in the manifest key, so a page re-renders when a new list names it; the
 # bump carries the row to the back-catalog.
-PAGE_TEMPLATE_VERSION <- "v40"
+# v41: the conference forecast on pending paid petitions. The page already
+# scored each petition at its next conference and kept only the GVR hazard (and
+# P(granted ever), shown only 2pp off the headline); it now shows the whole
+# competing-risks split -- granted / GVR / relisted / denied at that conference
+# -- and P(granted ever), the conference report's row for the case. Read as of
+# the render date, which the manifest key does not hash; a page re-renders when
+# the docket moves, which after a conference it normally does (an order, or a
+# fresh DISTRIBUTED entry).
+PAGE_TEMPLATE_VERSION <- "v41"
 
 # ---- small helpers ------------------------------------------------------------
-.esc <- function(x) { x <- x %||% ""; x[is.na(x)] <- ""; htmltools::htmlEscape(x) }
+# A probability at significant figures, as the conference report prints it
+# (conference_dash.R, where the reasoning lives): a GVR hazard is nearly always
+# under 1%, and whole percents render it as a false "0%".
+.pct_sig <- function(p) if (is.na(p)) "&mdash;" else
+  if (p >= 0.10) sprintf("%.0f%%", 100 * p) else
+  if (p >= 0.01) sprintf("%.1f%%", 100 * p) else
+  if (p >= 1e-4) sprintf("%.2f%%", 100 * p) else "0%"
+.esc <-function(x) { x <- x %||% ""; x[is.na(x)] <- ""; htmltools::htmlEscape(x) }
 # Date -> "June 5, 2025" (no %e double-space); "" for missing.
 .fmtdate <- function(d) {
   if (is.null(d) || length(d) == 0 || all(is.na(d))) return("")
@@ -975,7 +991,7 @@ summary_disposition_word <- function(ev, outcome_date) {
     TRUE ~ "Vacated and remanded")
 }
 
-docket_disposition <- function(outcome, outcome_date, arg, p_base, p_gvr, sig, is_app = FALSE, why = "", why_retro = "",
+docket_disposition <- function(outcome, outcome_date, arg, p_base, conf, sig, is_app = FALSE, why = "", why_retro = "",
                                p_lo = NA_real_, p_hi = NA_real_, p_ever = NA_real_,
                                word_override = NULL) {
   # `word_override`: the box's word decided elsewhere, for a docket whose
@@ -1002,7 +1018,6 @@ docket_disposition <- function(outcome, outcome_date, arg, p_base, p_gvr, sig, i
 
   if (is.na(outcome) || outcome %in% c("pending", "relisted")) {
     if (!is.na(p_base)) {
-      gvr <- if (!is.null(p_gvr) && !is.na(p_gvr)) sprintf("<div class='disp-sub'>GVR risk %s</div>", pct(p_gvr)) else ""
       sg  <- if (!is.null(sig_txt)) sprintf("<div class='disp-sig'>%s</div>", .esc(sig_txt)) else ""
       # The conference report scores the same petition with far more information
       # (relists, a reply brief, an opposition) and publishes a different number.
@@ -1010,9 +1025,32 @@ docket_disposition <- function(outcome, outcome_date, arg, p_base, p_gvr, sig, i
       # contradicting each other -- median 2.7% on the case page against 16.1% on
       # the conference report for the same relisted petition. Surface both, each
       # labelled with the stage it belongs to.
-      ev <- if (!is.na(p_ever) && !is.na(p_base) && abs(p_ever - p_base) >= 0.02)
+      #
+      # The conference block is the report's own row for this petition: the
+      # competing-risks split of what happens at the conference in front of it
+      # (granted / GVR / relisted / denied, summing to 1 short of a Rule 46
+      # dismissal) and the at-risk P(granted ever). It used to be a lone "GVR
+      # risk" line plus "Granted ever" only where that moved 2pp off the
+      # headline; the other three hazards were scored and thrown away. Only
+      # for a conference still ahead -- `conf$date` is NULL once the last one
+      # has passed with nothing new on the docket, since "at the Oct 3
+      # conference" would then describe a Friday already gone.
+      conf_html <- if (!is.null(conf) && !is.null(conf$date) && !is.na(conf$date)) {
+        # unname(): each hazard arrives named from its matrix column, and c()
+        # would join the names ("granted.granted").
+        parts <- c(granted = unname(conf$grant), GVR = unname(conf$gvr),
+                   relisted = unname(conf$relist), denied = unname(conf$denied))
+        parts <- parts[!is.na(parts)]
+        here <- if (length(parts)) sprintf(
+          "<div class='disp-conf'><b>At the %s conference:</b> %s</div>",
+          sprintf("%s %d", format(conf$date, "%b"), as.integer(format(conf$date, "%d"))),
+          paste(names(parts), vapply(parts, .pct_sig, ""), collapse = " &middot; ")) else ""
+        ever <- if (!is.na(p_ever))
+          sprintf("<div class='disp-sub'>Granted ever, conference-stage estimate: %s</div>", .pct_sig(p_ever)) else ""
+        paste0(here, ever)
+      } else if (!is.na(p_ever) && !is.na(p_base) && abs(p_ever - p_base) >= 0.02)
         sprintf("<div class='disp-sub'>Conference-stage estimate: %s</div>", pct(p_ever)) else ""
-      box <- sprintf("<div class='disp'><div class='disp-num'>%s</div><div class='disp-lab'><div>estimated cert probability<br><span>(petition-stage, structural)</span></div>%s%s%s%s</div></div>", pct(p_base), ci_note, ev, sg, gvr)
+      box <- sprintf("<div class='disp'><div class='disp-num'>%s</div><div class='disp-lab'><div>estimated cert probability<br><span>(petition-stage, structural)</span></div>%s%s%s</div></div>", pct(p_base), ci_note, sg, conf_html)
       why_html <- if (nzchar(why %||% "")) sprintf("<p class='forecast-why'>%s</p>", why) else ""
       return(paste0(box, why_html))
     }
@@ -1139,7 +1177,7 @@ docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
     orig_word <- tryCatch(summary_disposition_word(ev, outcome_date), error = function(e) NULL)
 
   # Forecast (paid only; pure, from in-memory models).
-  p_base <- NA_real_; p_gvr <- NA_real_; fc_why <- ""; fc_why_retro <- ""
+  p_base <- NA_real_; conf <- NULL; fc_why <- ""; fc_why_retro <- ""
   p_lo <- NA_real_; p_hi <- NA_real_; p_ever <- NA_real_
   if (!is.null(models) && !is.null(models$baseline) && identical(cx$type %||% "", "paid") &&
       exists("score_case")) {
@@ -1172,11 +1210,18 @@ docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
              cx$lower_date, rel, events = ev, as_of = as_of_conf,
              signals = signals),
              error = function(e) NULL)
-      if (!is.null(s)) { p_gvr <- s$p_gvr_now; p_ever <- s$p_grant_ever }
+      if (!is.null(s)) {
+        p_ever <- s$p_grant_ever
+        # The per-conference hazards are published only for a conference still
+        # ahead of the render; see docket_disposition().
+        conf <- list(date = if (as_of_conf >= rendered) as_of_conf else NULL,
+                     grant = s$p_grant_now, gvr = s$p_gvr_now,
+                     relist = s$p_relist_now, denied = s$p_denied_now)
+      }
     }
   }
 
-  disp <- docket_disposition(outcome, outcome_date, arg, p_base, p_gvr, signals,
+  disp <- docket_disposition(outcome, outcome_date, arg, p_base, conf, signals,
                              is_app = is_app, why = fc_why, why_retro = fc_why_retro,
                              p_lo = p_lo, p_hi = p_hi, p_ever = p_ever,
                              word_override = orig_word)
