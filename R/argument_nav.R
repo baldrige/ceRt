@@ -479,6 +479,18 @@ build_argument_table <- function(cases, qp_map = NULL, calendar = NULL, daycalls
     # that ended before ever being scheduled (dismissed/DIG'd with no argument),
     # e.g. a Rule 46 settlement after cert -- they are not oral arguments.
     filter(!is.na(term), !is.na(arg_ref) | status == "Granted")
+  # Set for argument, never argued, and decided anyway: Becerra v. Gresham
+  # (20-37/38) was set for 29 March 2021, taken off the calendar, and its
+  # judgments vacated as moot in April 2022 -- and read "Decided" under an
+  # argument date on which nothing was heard. It stays listed (it was on that
+  # sitting's calendar, as Genalo v. Black is listed "Dismissed"), as "Not
+  # argued". Only once the setting is past: a case decided before its date
+  # comes round is the ordinary Dismissed/DIG'd path.
+  if (nrow(arg)) {
+    gone <- is.na(arg$argued_date) & !is.na(arg$scheduled_date) &
+            arg$status == "Decided" & arg$scheduled_date < Sys.Date()
+    arg$status[gone] <- "Not argued"
+  }
   # A case reargued in a later Term is listed in BOTH: the Term of its first
   # argument as well as the one where it was reargued and decided. Only the
   # last argument used to count, so Louisiana v. Callais (24-109/110, argued
@@ -522,7 +534,8 @@ build_argument_table <- function(cases, qp_map = NULL, calendar = NULL, daycalls
 # docket) -- so factor() turned that case into NA and it rendered with an empty
 # Status cell and the na_color fill. Silent, and only on a Term that happened to
 # contain one, which is why it went unnoticed.
-STATUS_LEVELS <- c("Granted", "Scheduled", "Argued", "Reargued", "Decided", "DIG'd", "Dismissed")
+STATUS_LEVELS <- c("Granted", "Scheduled", "Argued", "Reargued", "Decided", "DIG'd", "Dismissed",
+                   "Not argued")
 # STATUS_FILL itself lives in palette.R; STATUS_LEVELS above is the legend order.
 
 # Render one Term's argument calendar as the interactive editorial table (matches
@@ -568,6 +581,7 @@ argument_term_page <- function(tbl, term, out_dir) {
         status == "Decided" & !is.na(opinion_author) ~ str_c("Decided · ", opinion_author),
         # Linked to the Term it was reargued in, where the case (and its
         # decision) is listed again.
+        status == "Not argued" ~ "Not argued &middot; removed from the calendar",
         status == "Reargued" & !is.na(reargued_term) ~
           str_c("[Reargued in OT", reargued_term, "](arg_", reargued_term, ".html)"),
         TRUE ~ as.character(status)
