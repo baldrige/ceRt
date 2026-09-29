@@ -236,6 +236,17 @@ jobs:
             any::pdftools
             any::htmltools
             any::nnet
+      # Subject areas for the report's Subject column (R/subject_area.R): this
+      # run extracts the QPs of newly distributed petitions, IFP ones included,
+      # so it classifies them itself rather than waiting for the daily. Optional
+      # -- without the secret the render uses the labels already on file.
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: .github/scripts/subject_area/requirements.txt
+      - name: Install the subject-area classifier
+        run: pip install -r .github/scripts/subject_area/requirements.txt
       - name: Download term snapshots (this run, plus any reuse runs)
         env:
           GH_TOKEN: ${{ github.token }}
@@ -269,6 +280,7 @@ jobs:
           CASES_DIR: cases
           MIN_CONF_DATE: ${{ needs.setup.outputs.min_conf }}
           QP_MAX_NEW: ${{ inputs.qp_max_new || '600' }}
+          TYPESAFE_API_KEY: ${{ secrets.TYPESAFE_API_KEY }}
         run: Rscript .github/scripts/render_conferences.R
       - name: Render cert funnel
         # Never let a funnel failure block conference publishing.

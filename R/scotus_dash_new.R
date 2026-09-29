@@ -573,7 +573,9 @@ scotus_dash <- function(range = today() - 1, year = "26",
     data_color(columns = Type, method = "factor",
       palette = TYPE_CHIPS) |>
     cols_align("center", columns = everything()) |>
-    cols_label(QP = "Questions Presented", Subject = "Subject area") |>
+    # "Subject": "Subject area" wrapped to two lines at 120px (as on the
+    # conference reports, which use the same header).
+    cols_label(QP = "Questions Presented", Subject = "Subject") |>
     sub_missing(columns = Subject, missing_text = "—") |>
     # Type holds three short words and was sized by its header, not its data.
     # Case gains the 10px the docket line needs. Both match the conference

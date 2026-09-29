@@ -177,6 +177,10 @@ INDEX_CSS <- paste0("\n  ", palette_root(), "
   ol.grants .gx{font-family:'Newsreader',Georgia,serif;font-weight:400;
     font-size:.7rem;color:var(--faint);margin-left:.3rem}
   ol.grants .gtx{flex:1;min-width:0}
+  /* Subject-area line under the caption, in the section-label idiom (h2.sec):
+     small tracked caps in the faint ink, so it classifies without competing. */
+  ol.grants .gs,ol.mostread .ms{display:block;font-size:.68rem;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--faint);line-height:1.3;margin-top:.12rem}
   ol.grants .gc{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
     font-size:1rem;line-height:1.25}
   ol.grants .gq{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
@@ -203,7 +207,8 @@ INDEX_CSS <- paste0("\n  ", palette_root(), "
     font-weight:600;font-size:.95rem;color:var(--faint);min-width:1.1rem;
     font-variant-numeric:tabular-nums}
   ol.mostread .mc{flex:1;font-size:1rem;line-height:1.3}
-  ol.mostread a:hover .mc{color:var(--accent);text-decoration:underline;
+  ol.mostread .mct{display:block}
+  ol.mostread a:hover .mct{color:var(--accent);text-decoration:underline;
     text-underline-offset:3px}
   ol.mostread .mdk{color:var(--accent);font-weight:600;font-size:.82rem;
     font-variant-numeric:tabular-nums;white-space:nowrap}
@@ -499,12 +504,19 @@ page_head <- function(title, jsonld = NULL, extra_css = NULL,
 # `note` should say plainly what window the ranking covers. The counts are real
 # page views, not a smoothed or modelled figure, and are labelled as such.
 most_read_panel <- function(df, heading = "Most-Read Cases", note = NULL,
-                            show_counts = TRUE) {
+                            show_counts = TRUE, subjects = character()) {
   if (is.null(df) || !nrow(df)) return(NULL)
   rows <- lapply(seq_len(nrow(df)), function(i) {
+    dkt <- df$docket[i]
+    sj  <- if (length(subjects) && dkt %in% names(subjects)) unname(subjects[[dkt]]) else NA_character_
     tags$li(tags$a(
       href = df$href[i],
-      tags$span(class = "mc", smarten(df$caption[i])),
+      # The caption in its own span so the hover underline stays on it and off
+      # the subject line under it (under, as in forecast_panel(), so the rank
+      # and docket stay level with the case name).
+      tags$span(class = "mc",
+                tags$span(class = "mct", smarten(df$caption[i])),
+                if (!is.na(sj)) tags$span(class = "ms", sj)),
       tags$span(class = "mdk", paste0("No. ", df$docket[i])),
       # One text node, not two: htmltools joins sibling children with a newline,
       # which HTML would collapse to "55 views" anyway but leaves the markup
@@ -935,7 +947,9 @@ forecast_panel <- function(short, long = NULL, qp = character(),
                            # A third window: every pending paid-docket case the
                            # site holds, from the weekly run's manifest
                            # (R/site_forecast.R), re-checked by the daily.
-                           all = NULL, note_all = NULL) {
+                           all = NULL, note_all = NULL,
+                           # docket -> subject area, as load_subjects() returns.
+                           subjects = character()) {
   has <- function(d) !is.null(d) && is.data.frame(d) && nrow(d) > 0
   if (!has(short) && !has(long)) return(NULL)
 
@@ -949,12 +963,19 @@ forecast_panel <- function(short, long = NULL, qp = character(),
       # separately is how the two quietly disagree.
       mult <- if (!is.null(df$lift) && is.finite(df$lift[i]))
         sprintf("%.0f×", df$lift[i]) else NULL
+      sj  <- if (length(subjects) && dkt %in% names(subjects)) unname(subjects[[dkt]]) else NA_character_
       tags$li(tags$a(
         href = df$href[i],
         tags$span(class = "gv", sprintf("%d%%", round(100 * df$prob[i])),
                   if (!is.null(mult)) tags$span(class = "gx", mult)),
         tags$span(class = "gtx",
                   tags$span(class = "gc", smarten(df$caption[i])),
+                  # The subject area (R/subject_area.R), UNDER the caption, not
+                  # over it: the row aligns on its first line's baseline, and a
+                  # kicker there set the percentage and docket beside the label
+                  # instead of the case -- and a labelled row out of step with an
+                  # unlabelled one.
+                  if (!is.na(sj)) tags$span(class = "gs", sj),
                   if (!is.na(q)) tags$span(class = "gq", smarten(q))),
         tags$span(class = "gd", paste0("No. ", dkt))))
     })
