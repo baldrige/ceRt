@@ -151,6 +151,43 @@ update_pending <- function(site_dir, cases, classify = NULL, as_of = Sys.Date())
 #
 # Returns them oldest-first so a truncated fetch keeps the longest-lived cases,
 # which are the ones the leaderboard is about.
+# The argued and argument-bound cases the range window cannot see, named from
+# the Court's own Granted & Noted lists (arguments/granted_noted.json, R/
+# granted_noted.R): every docket on the newest `terms_back + 1` argument Terms'
+# lists whose docket-year falls outside the range-fetched Terms.
+#
+# Why this is needed. A case is argued a Term or two after it is docketed, and
+# once the window moved on from {24, 25} to {25, 26} the Navigator's only copy
+# of a 24- case was data-raw/ot_2024.rds -- snapshotted 2025-06-18, before most
+# of OT2025's grants. Those cases classified as pending and were left off: the
+# OT2025 page listed 37 of the 65 cases on the Court's own list (2026-09-29).
+# pending_to_fetch() cannot catch them, because a granted case is not pending,
+# and refetch_argued.R cannot, because it picks its dockets from the same stale
+# snapshots. The Court's list is the authority on what was granted; naming its
+# out-of-window dockets costs ~50 requests a week.
+#
+# Petitions only: an application argued before the Court (25A312, Trump v. Cook)
+# is outside the Navigator's grammar, so fetching it would change nothing.
+granted_noted_to_fetch <- function(site_dir, window_terms, terms_back = 1L, max_n = 200L) {
+  p <- file.path(site_dir, "arguments", "granted_noted.json")
+  if (!file.exists(p)) return(character())
+  gn <- tryCatch(fromJSON(p, simplifyDataFrame = TRUE), error = function(e) NULL)
+  if (!is.data.frame(gn) || !nrow(gn) || !all(c("term", "dkt") %in% names(gn))) return(character())
+  t <- suppressWarnings(as.integer(gn$term))
+  if (all(is.na(t))) return(character())
+  dkt <- as.character(gn$dkt)[!is.na(t) & t >= max(t, na.rm = TRUE) - as.integer(terms_back)]
+  dkt <- unique(dkt[grepl("^\\d{2}-\\d+$", dkt)])
+  yr <- suppressWarnings(as.integer(substr(dkt, 1, 2)))
+  dkt <- dkt[!is.na(yr) & !(yr %in% suppressWarnings(as.integer(window_terms)))]
+  dkt <- sort(dkt)
+  if (length(dkt) > max_n) {
+    warning("granted_noted_to_fetch(): ", length(dkt), " dockets exceeds the cap of ",
+            max_n, " -- fetching the first ", max_n, ".", call. = FALSE)
+    dkt <- head(dkt, max_n)
+  }
+  dkt
+}
+
 pending_to_fetch <- function(site_dir, window_terms, max_n = 500L) {
   idx <- read_pending(site_dir)
   if (!length(idx)) return(character())
