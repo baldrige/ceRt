@@ -20,6 +20,18 @@ hist <- list.files("data-raw", "^ot_20(1[7-9]|2[0-4])\\.rds$", full.names = TRUE
 gr <- classify_petitions(hist) |> filter(outcome == "granted") |>
   distinct(dkt) |> pull(dkt)
 cat("granted (merits) dockets in OT17-24 to refresh:", length(gr), "\n")
+# Plus the applications argued on their own docket, which the Navigator now
+# lists (build_argument_table()): Trump v. CASA (24A884-886) was snapshotted
+# argued-but-undecided, and nothing else re-fetches a closed Term's applications.
+# Same test as the Navigator's -- an "Argued." or "SET FOR ARGUMENT" entry.
+apps <- hist |>
+  filter(str_detect(dkt, "^\\d{2}A\\d+$"),
+         map_lgl(events, ~ is.data.frame(.x) && any(str_detect(
+           coalesce(.x[["Proceedings and Orders"]], ""),
+           regex("^Argued\\.|^SET FOR ARGUMENT", ignore_case = TRUE))))) |>
+  distinct(dkt) |> pull(dkt)
+cat("argued applications to refresh:", length(apps), "\n")
+gr <- union(gr, apps)
 
 fresh <- fetch_cases(gr)
 cat("fetched:", nrow(fresh), "of", length(gr),

@@ -166,8 +166,9 @@ update_pending <- function(site_dir, cases, classify = NULL, as_of = Sys.Date())
 # snapshots. The Court's list is the authority on what was granted; naming its
 # out-of-window dockets costs ~50 requests a week.
 #
-# Petitions only: an application argued before the Court (25A312, Trump v. Cook)
-# is outside the Navigator's grammar, so fetching it would change nothing.
+# Applications too: the Navigator lists an application argued on its own docket
+# (25A312, Trump v. Cook; see build_argument_table()), and the Court's list names
+# them. Original actions are left to their own by-name fetch (R/original_dockets.R).
 granted_noted_to_fetch <- function(site_dir, window_terms, terms_back = 1L, max_n = 200L) {
   p <- file.path(site_dir, "arguments", "granted_noted.json")
   if (!file.exists(p)) return(character())
@@ -176,7 +177,7 @@ granted_noted_to_fetch <- function(site_dir, window_terms, terms_back = 1L, max_
   t <- suppressWarnings(as.integer(gn$term))
   if (all(is.na(t))) return(character())
   dkt <- as.character(gn$dkt)[!is.na(t) & t >= max(t, na.rm = TRUE) - as.integer(terms_back)]
-  dkt <- unique(dkt[grepl("^\\d{2}-\\d+$", dkt)])
+  dkt <- unique(dkt[grepl("^\\d{2}(-|A)\\d+$", dkt)])
   yr <- suppressWarnings(as.integer(substr(dkt, 1, 2)))
   dkt <- dkt[!is.na(yr) & !(yr %in% suppressWarnings(as.integer(window_terms)))]
   dkt <- sort(dkt)

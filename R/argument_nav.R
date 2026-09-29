@@ -41,7 +41,14 @@ local({
 # NB: the JSON proceedings text embeds <a href> anchors (e.g. around "opinion"),
 # which break literal phrases like "opinion of the Court" -- detection here is
 # written to tolerate them, and the anchor is what yields the slip-opinion URL.
-classify_argument <- function(events) {
+#
+# `application`: TRUE for an application docket argued on its own (see
+# build_argument_table()). Its decision can be an order with no opinion phrase
+# at all -- "The applications for stays (21A244 & 21A247) ... are granted", the
+# per curiam in the OSHA mandate case -- so for an application an entry granting
+# or denying it, after the argument, also counts. Off for petitions: there a
+# later stay application's disposition is not the merits decision.
+classify_argument <- function(events, application = FALSE) {
   empty <- tibble(scheduled_date = as.Date(NA), argued_date = as.Date(NA),
                   decided_date = as.Date(NA), dismissed_date = as.Date(NA), n_settings = 0L,
                   vided = FALSE, dig = FALSE, argued_text = NA_character_,
@@ -97,7 +104,10 @@ classify_argument <- function(events) {
     str_detect(txt, regex("announced the judgment", ignore_case = TRUE)) |
     str_detect(txt, regex("delivered the .{0,180}?opinion", ignore_case = TRUE)) |
     str_detect(txt, regex("Adjudged to be (AFFIRMED|REVERSED)", ignore_case = TRUE)) |
-    str_detect(txt, "^Judgment Issued")
+    str_detect(txt, "^Judgment Issued") |
+    (isTRUE(application) &
+       str_detect(txt, regex(paste0("^(the )?applications?\\b[^.]{0,200}?\\b(are |is )?",
+                                    "(granted|denied)\\b"), ignore_case = TRUE)))
   )
   # A case that was argued is decided AFTER it was argued. Without this, 25-332
   # (Trump v. Slaughter) was "decided" on 22 Sep 2025 -- its grant date -- because
@@ -348,13 +358,43 @@ build_argument_table <- function(cases, qp_map = NULL, calendar = NULL, daycalls
       granted <- bind_rows(granted, og |> filter(!dkt %in% granted$dkt))
     }
   }
+  # Emergency applications the Court set for argument and heard on their own
+  # docket: 25A312 (Trump v. Cook), 24A884-886 (Trump v. CASA), 23A349-351 and
+  # 23A384 (Ohio v. EPA), 21A240-247 (the vaccine mandates). They are not
+  # petitions, so classify_petitions() never sees them, and every Term that had
+  # one was a case short against the Court's own Granted & Noted List.
+  #
+  # The test is an "Argued." or "SET FOR ARGUMENT" entry ON THE APPLICATION'S
+  # OWN DOCKET. "Consideration ... deferred pending oral argument" alone is not
+  # enough: TikTok (24A587), Trump v. United States (23A745) and United States v.
+  # Texas (21A85) were deferred and then argued as petitions (24-656, 23-939,
+  # 21-588), which the Navigator already lists -- including their applications
+  # would list each argument twice. The "grant" is the order that set the
+  # argument (or deferred the application pending it), else the docketing date.
+  ai <- which(str_detect(cases$dkt, "^\\d{2}A\\d+$"))
+  if (length(ai)) {
+    ai <- ai[vapply(cases$events[ai], function(ev)
+      is.data.frame(ev) && any(str_detect(coalesce(ev[["Proceedings and Orders"]], ""),
+        regex("^Argued\\.|^SET FOR ARGUMENT", ignore_case = TRUE))), logical(1))]
+    if (length(ai)) {
+      ag <- tibble(dkt = cases$dkt[ai], grant_date = as.Date(vapply(ai, function(i) {
+        ev <- cases$events[[i]]
+        po <- coalesce(ev[["Proceedings and Orders"]], "")
+        d  <- suppressWarnings(mdy(ev$Date))
+        k  <- which(!is.na(d) & str_detect(po, regex("SET FOR ARGUMENT|deferred pending oral argument",
+                                                    ignore_case = TRUE)))
+        as.numeric(if (length(k)) min(d[k]) else as.Date(cases$date[i]))
+      }, numeric(1)), origin = "1970-01-01"))
+      granted <- bind_rows(granted, ag |> filter(!dkt %in% granted$dkt))
+    }
+  }
   orig_dkts <- granted$dkt[str_detect(granted$dkt, "^\\d{2}O\\d+$")]
   g <- cases |> filter(dkt %in% granted$dkt) |> distinct(dkt, .keep_all = TRUE)
   if (nrow(g) == 0) return(tibble())
 
   arg0 <- bind_cols(
     g |> transmute(dkt, caption = str_squish(caption %||% dkt)),
-    map_dfr(g$events, classify_argument)
+    map2_dfr(g$events, str_detect(g$dkt, "^\\d{2}A\\d+$"), classify_argument)
   ) |> .apply_calendar(calendar)
   # The Day Call's advocates, for a case not yet argued (the docket's own
   # "Argued. For petitioner: ..." entry comes after the argument).
