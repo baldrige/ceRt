@@ -88,6 +88,21 @@ top_forecast_cases <- function(cases, model, site_dir, signals_map = NULL,
     return(none)
   }
   w <- w[!duplicated(w$dkt), , drop = FALSE]
+  # Not a docket that began as an emergency application. When the Court treats a
+  # stay application as a petition and grants it, it opens a paid docket that
+  # arrives already granted (26-426, DHS v. D.V.D., from 26A406 on 29 Sep 2026)
+  # -- never filed as a petition, never a forecast. Scored like any filing it
+  # went straight to the top of both windows. conversion_dockets() is
+  # docket_page.R's test, the one behind the case pages' "Began as application".
+  if (exists("conversion_dockets") && "events" %in% names(w)) {
+    conv <- vapply(seq_len(nrow(w)), function(i)
+      length(tryCatch(conversion_dockets(w$events[[i]], w$dkt[i]), error = function(e) character())) > 0,
+      logical(1))
+    if (any(conv)) message("top_forecast_cases(): leaving out ", sum(conv),
+                           " docket(s) that began as an application: ", paste(w$dkt[conv], collapse = ", "))
+    w <- w[!conv, , drop = FALSE]
+    if (!nrow(w)) return(none)
+  }
 
   # Score one at a time so a single bad row cannot lose the whole panel.
   probs <- vapply(seq_len(nrow(w)), function(i) tryCatch(
