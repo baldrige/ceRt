@@ -183,7 +183,7 @@ write_atom_feed <- function(entries, path, title, subtitle, self_path,
 
 # Court text arrives with markup in it ("<i>Stinson</i> v. United States"), and
 # escaped into an Atom summary it reads as literal tags.
-.strip_tags <- function(x) gsub("<[^>]+>", "", x)
+.feed_strip_tags <- function(x) gsub("<[^>]+>", "", x)
 
 # Is this the order that granted review? The classifier's own grant grammar
 # (GRANT_FORMS, R/cert_funnel.R) -- the same test that picked the grant date.
@@ -210,7 +210,7 @@ write_atom_feed <- function(entries, path, title, subtitle, self_path,
   txt[is.na(txt)] <- ""
   hit <- which(!is.na(d) & d == on & .is_grant_order(xml_clean(txt)))
   if (!length(hit)) return("")
-  out <- xml_clean(.strip_tags(txt[hit[1]]))
+  out <- xml_clean(.feed_strip_tags(txt[hit[1]]))
   if (nchar(out) > 500) paste0(substr(out, 1, 497), "...") else out
 }
 
@@ -337,7 +337,7 @@ grant_feed_entries <- function(site_dir, n = 50L, base = SITE_URL) {
   href <- paste0(base, "/cases/", dkt, ".html")
   cap <- vapply(idx, function(g) g$caption, character(1), USE.NAMES = FALSE)
   cap[!nzchar(cap)] <- dkt[!nzchar(cap)]
-  ord <- xml_clean(.strip_tags(vapply(idx, function(g) g$order, character(1), USE.NAMES = FALSE)))
+  ord <- xml_clean(.feed_strip_tags(vapply(idx, function(g) g$order, character(1), USE.NAMES = FALSE)))
   dt  <- suppressWarnings(as.Date(vapply(idx, function(g) g$date, character(1), USE.NAMES = FALSE),
                                   optional = TRUE))
   # An appeal is not certiorari: 24-109 (Louisiana v. Callais) was "probable
