@@ -456,6 +456,32 @@ if (length(feeds)) {
     ok("no future-dated entries", "every entry dated today or earlier")
   }
 
+  # The feed keeps up with the site. Every check above passes on a FROZEN feed --
+  # internally consistent, just old -- and that is exactly how feed.xml sat at
+  # 2026-09-03 for 26 days while the daily kept publishing dashboards: the feed
+  # step threw, a tryCatch turned it into one log line, and nothing here looked.
+  # So: the newest dated page (a dashboard, or a conference already held) must
+  # not be newer than the feed's own <updated>.
+  if ("feed.xml" %in% feeds) {
+    today_et <- as.Date(format(Sys.time(), tz = "America/New_York"))
+    page_dates <- function(dir, rx) {
+      f <- list.files(file.path(site, dir), pattern = rx)
+      d <- as.Date(sub(".*(\\d{4}-\\d{2}-\\d{2}).*", "\\1", f))
+      d[!is.na(d) & d <= today_et]
+    }
+    newest <- suppressWarnings(max(c(
+      page_dates("dashboards", "^dash_\\d{4}-\\d{2}-\\d{2}\\.html$"),
+      page_dates("conferences", "^conf_\\d{4}-\\d{2}-\\d{2}\\.html$"))))
+    feed_up <- as.Date(substr(tagvals(slurp(file.path(site, "feed.xml")), "updated")[1], 1, 10))
+    if (is.finite(newest) && !is.na(feed_up) && newest > feed_up) {
+      fail("feed keeps up with the site",
+           sprintf("feed.xml <updated> is %s but the site has a page dated %s -- the feed step is failing (look for 'Feeds skipped' in the daily's log)",
+                   feed_up, newest))
+    } else {
+      ok("feed keeps up with the site", sprintf("feed.xml current to %s", feed_up))
+    }
+  }
+
   # Every entry links somewhere that exists.
   ent <- unlist(lapply(feeds, function(f) {
     txt <- slurp(file.path(site, f))

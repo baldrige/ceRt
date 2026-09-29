@@ -532,7 +532,16 @@ tryCatch({
   fw <- write_site_feeds(site_dir)
   cat("Feeds:", paste(basename(unlist(Filter(Negate(is.null), fw))), collapse = ", "),
       sprintf("(+%d grant(s) into %s)\n", n_new, GRANTS_CACHE))
-}, error = function(e) message("Feeds skipped: ", conditionMessage(e)))
+  # A source that failed is left out of the feeds rather than sinking them; say
+  # so where it will be seen. `::warning::` is a GitHub annotation -- it shows on
+  # the run's summary page, not only deep in this step's log.
+  for (f in attr(fw, "failed")) cat("::warning title=Feed source skipped::", f, "\n", sep = "")
+}, error = function(e) {
+  # Still non-fatal to the daily, but no longer silent: both feeds sat frozen for
+  # 26 days (2026-09-03 to 09-29) behind a plain message() nobody read.
+  message("Feeds skipped: ", conditionMessage(e))
+  cat("::warning title=Feeds not written::", conditionMessage(e), "\n", sep = "")
+})
 
 tryCatch({
   sm <- write_sitemaps(site_dir)
