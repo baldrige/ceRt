@@ -683,7 +683,7 @@ write_about_page <- function(out_path) {
             "/feed.xml" = paste0(
               as.character(tags$a(href = "/feed.xml", type = "application/atom+xml",
                                   "all updates")),
-              " carries new grants, conference reports and the daily docket"),
+              " carries new grants, the Court's order lists and decisions, conference reports and the daily docket"),
             "/grants.xml" = paste0(
               as.character(tags$a(href = "/grants.xml", type = "application/atom+xml",
                                   "certiorari grants")),

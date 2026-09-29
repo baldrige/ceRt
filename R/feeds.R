@@ -327,19 +327,72 @@ update_grants_cache <- function(site_dir, cases, classify = NULL) {
   added
 }
 
-# Newly granted cases, newest first, from the cache.
+# Grants the Court's order lists announced (orders/orders.json, written by the
+# daily's R/orders_list.R): one row per docket in a document's granted[] list,
+# dated by the document. Petitions only.
+order_list_grants <- function(site_dir) {
+  empty <- data.frame(dkt = character(), date = character(), caption = character(),
+                      page = character(), stringsAsFactors = FALSE)
+  p <- file.path(site_dir, "orders", "orders.json")
+  if (!file.exists(p)) return(empty)
+  idx <- tryCatch(jsonlite::fromJSON(p, simplifyVector = FALSE), error = function(e) list())
+  rows <- lapply(idx, function(o) {
+    g <- o$granted
+    if (!length(g)) return(NULL)
+    data.frame(dkt = vapply(g, function(x) .s1(x$dkt), character(1)),
+               date = .s1(o$date),
+               caption = vapply(g, function(x) .s1(x$caption), character(1)),
+               page = .s1(o$page), stringsAsFactors = FALSE)
+  })
+  out <- do.call(rbind, c(list(empty), rows[!vapply(rows, is.null, logical(1))]))
+  out <- out[nzchar(out$dkt) & !grepl("[AO]\\d+$", out$dkt) & nzchar(out$date), , drop = FALSE]
+  # A docket granted twice over (a rehearing, a corrected list) keeps its first.
+  out <- out[order(out$date, out$dkt), , drop = FALSE]
+  out[!duplicated(out$dkt), , drop = FALSE]
+}
+
+# Newly granted cases, newest first: the grants cache, plus any grant an order
+# list has announced that the cache does not hold yet.
+#
+# The cache is filled from full-term data, which only the weekly conferences run
+# holds, so on its own a grant reached the feeds up to a week late -- and back-
+# dated, so a reader sorting by date buried it (the 25-1083/25-1084 grants of
+# 2026-03-16 reached the cache five months on). The daily parses each order list
+# the day it is posted, and its granted[] names every docket; so the feed takes
+# the grant from there the same day, and the cache's entry -- with the Court's
+# own order text -- replaces it when the conferences run catches up. Same id,
+# so a reader sees one item that gains a summary, not two.
 grant_feed_entries <- function(site_dir, n = 50L, base = SITE_URL) {
   empty <- .entries(character(), character(), character(), as.Date(character()),
                     character())
   idx <- read_grants_cache(site_dir)    # normalised: three strings per petition
-  if (!length(idx)) return(empty)
-  dkt <- names(idx)
-  href <- paste0(base, "/cases/", dkt, ".html")
-  cap <- vapply(idx, function(g) g$caption, character(1), USE.NAMES = FALSE)
+  ol <- order_list_grants(site_dir)
+  ol <- ol[!ol$dkt %in% names(idx), , drop = FALSE]
+  if (!length(idx) && !nrow(ol)) return(empty)
+  # An order list's caption is the Court's short uppercase form ("LACAZE, ROGERS
+  # V. LOUISIANA"); the case page's caption, from search.json, reads better.
+  if (nrow(ol)) {
+    sj <- tryCatch(jsonlite::fromJSON(file.path(site_dir, "cases", "search.json"),
+                                      simplifyVector = FALSE), error = function(e) list())
+    have <- vapply(ol$dkt, function(d) .s1(sj[[d]]), character(1))
+    ol$caption <- ifelse(nzchar(have), have, ol$caption)
+  }
+  dkt <- c(names(idx), ol$dkt)
+  id <- paste0(base, "/cases/", dkt, ".html")
+  # The link is the case page -- or, for a grant so new its case page has not
+  # been rendered, the docket's row on the order list that granted it.
+  href <- id
+  if (nrow(ol)) {
+    k <- length(idx) + seq_len(nrow(ol))
+    no_page <- !file.exists(file.path(site_dir, "cases", paste0(ol$dkt, ".html")))
+    href[k[no_page]] <- paste0(base, "/orders/", ol$page[no_page], "#d-", ol$dkt[no_page])
+  }
+  cap <- c(vapply(idx, function(g) g$caption, character(1), USE.NAMES = FALSE), ol$caption)
   cap[!nzchar(cap)] <- dkt[!nzchar(cap)]
-  ord <- xml_clean(.strip_tags(vapply(idx, function(g) g$order, character(1), USE.NAMES = FALSE)))
-  dt  <- suppressWarnings(as.Date(vapply(idx, function(g) g$date, character(1), USE.NAMES = FALSE),
-                                  optional = TRUE))
+  ord <- xml_clean(.strip_tags(c(vapply(idx, function(g) g$order, character(1), USE.NAMES = FALSE),
+                                 rep("", nrow(ol)))))
+  dt  <- suppressWarnings(as.Date(c(vapply(idx, function(g) g$date, character(1), USE.NAMES = FALSE),
+                                    ol$date), optional = TRUE))
   # An appeal is not certiorari: 24-109 (Louisiana v. Callais) was "probable
   # jurisdiction noted", and its title said "Certiorari granted".
   appeal <- grepl("probable jurisdiction|question of jurisdiction is postponed", ord,
@@ -350,7 +403,7 @@ grant_feed_entries <- function(site_dir, n = 50L, base = SITE_URL) {
   good <- .is_grant_order(ord)
   pretty <- gsub("  ", " ", format(dt, "%B %e, %Y"))
   out <- .entries(
-    id = href,
+    id = id,
     title = paste0(ifelse(appeal, "Probable jurisdiction noted: ", "Certiorari granted: "),
                    cap, " (No. ", dkt, ")"),
     link = href,
@@ -362,6 +415,106 @@ grant_feed_entries <- function(site_dir, n = 50L, base = SITE_URL) {
   # does not depend on the order the cache happens to enumerate keys in.
   out <- out[order(out$updated, out$id, decreasing = TRUE), , drop = FALSE]
   out[seq_len(min(n, nrow(out))), , drop = FALSE]
+}
+
+# The Court's orders, from orders/orders.json (R/orders_list.R): each weekly
+# Order List and each rules order, and a miscellaneous order only when it grants
+# review or GVRs. There are 736 miscellaneous orders in the archive, most of them
+# one housekeeping line about one docket, and in a chronological feed they would
+# bury the grants. Linked to the site's own rendering of the document.
+order_entries <- function(site_dir, n = 15L, base = SITE_URL) {
+  empty <- .entries(character(), character(), character(), as.Date(character()),
+                    character())
+  p <- file.path(site_dir, "orders", "orders.json")
+  if (!file.exists(p)) return(empty)
+  idx <- tryCatch(jsonlite::fromJSON(p, simplifyVector = FALSE), error = function(e) list())
+  if (!length(idx)) return(empty)
+  label <- vapply(idx, function(o) .s1(o$label), character(1))
+  kind  <- vapply(idx, function(o) .s1(o$kind), character(1))
+  page  <- vapply(idx, function(o) .s1(o$page), character(1))
+  dt    <- suppressWarnings(as.Date(vapply(idx, function(o) .s1(o$date), character(1)), optional = TRUE))
+  n_of  <- function(o, k) { v <- o$counts[[k]]; if (is.numeric(v) && length(v) == 1) v else 0 }
+  gr    <- vapply(idx, function(o) length(o$granted), integer(1))
+  gv    <- vapply(idx, function(o) length(o$gvr), integer(1))
+  keep  <- nzchar(page) & !is.na(dt) &
+           (kind != "misc" | label != "Miscellaneous Order" | gr > 0L | gv > 0L)
+  if (!any(keep)) return(empty)
+  idx <- idx[keep]; label <- label[keep]; page <- page[keep]; dt <- dt[keep]
+  gr <- gr[keep]; gv <- gv[keep]
+  ord <- order(dt, page, decreasing = TRUE)
+  ord <- utils::head(ord, n)
+  fmt <- function(x) format(x, big.mark = ",")
+  # The case page's caption where the site has one: an order list's is the
+  # Court's uppercase shorthand ("VIRAMONTES, CUTBERTO, ET AL. V. COOK COUNTY").
+  sj <- tryCatch(jsonlite::fromJSON(file.path(site_dir, "cases", "search.json"),
+                                    simplifyVector = FALSE), error = function(e) list())
+  cap_of <- function(x) {
+    c1 <- .s1(sj[[.s1(x$dkt)]])
+    if (nzchar(c1)) c1 else .s1(x$caption)
+  }
+  summary <- vapply(ord, function(i) {
+    o <- idx[[i]]
+    if (!length(o$counts)) return(paste0(label[i], " of the Supreme Court."))
+    den <- n_of(o, "denied")
+    other <- sum(vapply(names(o$counts), function(k) n_of(o, k), numeric(1))) -
+             n_of(o, "granted") - n_of(o, "gvr") - den
+    bits <- c(if (gr[i]) sprintf("%s granted", fmt(gr[i])),
+              if (gv[i]) sprintf("%s granted, vacated and remanded", fmt(gv[i])),
+              if (den) sprintf("%s denied", fmt(den)),
+              if (other > 0) sprintf("%s other order%s", fmt(other), if (other == 1) "" else "s"))
+    s <- if (length(bits)) paste0(paste(bits, collapse = "; "), ".") else ""
+    # Name the grants: they are the reason most readers open an order list.
+    if (gr[i]) {
+      caps <- vapply(o$granted, cap_of, character(1))
+      tail_txt <- paste0(paste(utils::head(caps, 6), collapse = "; "),
+                         if (length(caps) > 6) sprintf("; and %d more", length(caps) - 6) else "")
+      # A caption can end in its own period ("Epic Games, Inc.", "et al."), and
+      # a second one read "Inc..".
+      s <- paste0(s, " Granted: ", tail_txt, if (grepl("[.]$", tail_txt)) "" else ".")
+    }
+    s
+  }, character(1))
+  href <- paste0(base, "/orders/", page[ord])
+  pretty <- gsub("  ", " ", format(dt[ord], "%B %e, %Y"))
+  .entries(id = href, title = paste0(label[ord], ", ", pretty), link = href,
+           updated = dt[ord], summary = summary)
+}
+
+# The Court's decisions: merits opinions, summary dispositions and emergency
+# applications decided with an opinion, from the same manifests as the landing
+# page's "Recent decisions" panel (read_decided(), R/site_decisions.R; the
+# daily's first, so the fresher copy wins). Consolidated cases decided by one
+# opinion are one entry, under the first docket.
+#
+# The id is the case page plus "#decision": a docket that was granted and later
+# decided is two events, and the grant's entry already uses the bare case URL.
+decision_entries <- function(site_dir, n = 20L, base = SITE_URL) {
+  empty <- .entries(character(), character(), character(), as.Date(character()),
+                    character())
+  if (!exists("read_decided") || !exists("DECIDED_FILE")) return(empty)
+  f <- get("DECIDED_FILE")
+  rows <- get("read_decided")(c(file.path(site_dir, "dashboards", f),
+                                file.path(site_dir, "arguments", f)),
+                              as_of = .today_et(), n = n, days = 120L)
+  if (!nrow(rows)) return(empty)
+  rows <- rows[!duplicated(rows$group), , drop = FALSE]
+  dkt <- rows$dkt
+  page <- file.exists(file.path(site_dir, "cases", paste0(dkt, ".html")))
+  opin <- ifelse(is.na(rows$opinion_url), "", rows$opinion_url)
+  link <- ifelse(page, paste0(base, "/cases/", dkt, ".html"),
+                 ifelse(nzchar(opin), opin, paste0(base, "/cases/", dkt, ".html")))
+  what <- ifelse(rows$kind == "application", "Application decided",
+                 ifelse(rows$kind == "summary", "Summary disposition", "Decided"))
+  disp <- ifelse(is.na(rows$disposition) | !nzchar(rows$disposition), "",
+                 paste0(" (", rows$disposition, ")"))
+  hold <- ifelse(is.na(rows$holding), "", xml_clean(.strip_tags(rows$holding)))
+  hold <- ifelse(nchar(hold) > 500, paste0(substr(hold, 1, 497), "..."), hold)
+  auth <- ifelse(is.na(rows$author) | !nzchar(rows$author), "",
+                 ifelse(rows$author == "Per Curiam", "Per curiam. ",
+                        paste0("Opinion by ", rows$author, ". ")))
+  .entries(id = paste0(base, "/cases/", dkt, ".html#decision"),
+           title = paste0(what, ": ", rows$caption, " (No. ", dkt, ")", disp),
+           link = link, updated = rows$date, summary = paste0(auth, hold))
 }
 
 # Entries for a directory of dated pages (conferences/conf_YYYY-MM-DD.html,
@@ -563,14 +716,20 @@ write_site_feeds <- function(site_dir, base = SITE_URL) {
     "/dashboards/", "Docket for %s",
     "Petitions and applications docketed on %s.", n = 20L, base = base))
 
-  site <- rbind(grants, confs, dash)
+  # The Court's orders and decisions, which the site renders (orders/, the
+  # landing page's Recent decisions) and the feed used to leave out -- so
+  # "All updates" did not carry the two things the Court publishes most.
+  orders <- safely("orders", order_entries(site_dir, base = base))
+  decisions <- safely("decisions", decision_entries(site_dir, base = base))
+
+  site <- rbind(grants, confs, dash, orders, decisions)
 
   structure(list(
     site = write_atom_feed(
       site, file.path(site_dir, "feed.xml"),
       title = "Supreme Court Report",
-      subtitle = paste0("Certiorari grants, conference reports and daily ",
-                        "docket dashboards from the U.S. Supreme Court."),
+      subtitle = paste0("Certiorari grants, order lists, decisions, conference reports ",
+                        "and daily docket dashboards from the U.S. Supreme Court."),
       self_path = "/feed.xml", base = base),
     grants = write_atom_feed(
       grants, file.path(site_dir, "grants.xml"),
