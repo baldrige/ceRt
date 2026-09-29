@@ -887,18 +887,23 @@ counsel_stats_fingerprint <- function(paths, refresh = COUNSEL_ARG_REFRESH) {
 # fill_palette() substitution -- audit_site.R fails the build on a six-digit hex
 # written anywhere but palette.R.
 COUNSEL_CSS <- "
-  /* Wider than the 40rem index measure, and exactly SITE_NAV_MAX, so the
-     masthead rule lands flush on the content column rather than floating wide
-     of it. */
-  .wrap.wide{max-width:54rem}
-  .clede{font-size:1.02rem;line-height:1.62;max-width:36rem;margin:1.4rem 0 0}
+  /* One column for text and tables alike, at the funnel explainer's 44rem.
+     It was 54rem, to land the masthead rule flush on it -- a reason that went
+     when every masthead became SITE_NAV_MAX (60rem) -- while the lede, the
+     table notes and the method note were capped at 36, 38 and 40rem: three
+     ragged right edges, all well short of tables that ran the full 54. At 44rem
+     the text sets at about 80 characters a line and the widest board still
+     fits without scrolling (measured, 2026-09-29), so nothing below carries a
+     max-width of its own. */
+  .wrap.wide{max-width:44rem}
+  .clede{font-size:1.02rem;line-height:1.62;margin:1.4rem 0 0}
   .clede p{margin:0 0 1rem}
   .over{font:600 .74rem/1 'Newsreader',Georgia,serif;letter-spacing:.2em;
     text-transform:uppercase;color:var(--link,@link@);margin:3rem 0 .5rem;
     display:flex;align-items:center;gap:.7rem}
   .over::after{content:'';flex:1;border-top:1px solid var(--rule,@rule@)}
   .cnote2{color:var(--faint,@faint@);font-size:.9rem;font-style:italic;
-    margin:.2rem 0 1rem;max-width:38rem}
+    margin:.2rem 0 1rem}
   /* Tables scroll inside their own box; the page body never scrolls sideways. */
   .ctwrap{overflow-x:auto;margin:0 0 .6rem}
   table.ctab{border-collapse:collapse;width:100%;min-width:34rem;
@@ -956,7 +961,7 @@ COUNSEL_CSS <- "
   table.ctab .rec{white-space:nowrap}
   table.ctab .of{color:var(--faint,@faint@);font-size:.85rem}
   .method{margin:2.6rem 0 0;font-size:.92rem;line-height:1.6;
-    color:var(--ink-soft,@ink-soft@);max-width:40rem}
+    color:var(--ink-soft,@ink-soft@)}
   .method h2{font:600 .74rem/1 'Newsreader',Georgia,serif;letter-spacing:.2em;
     text-transform:uppercase;color:var(--accent,@accent@);margin:0 0 .6rem}
   .method p{margin:0 0 .8rem}
