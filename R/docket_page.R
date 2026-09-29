@@ -353,7 +353,12 @@ write_docket_css <- function(out_dir) {
 # confidence >= SUBJECT_MIN_CONFIDENCE and never for an unreadable QP. The label
 # as displayed is in the manifest key, so a page re-renders when it gains one;
 # the bump carries the row to the back-catalog once subjects.json is filled.
-PAGE_TEMPLATE_VERSION <- "v42"
+# v43: applications the Court treated as petitions and granted (26A406 -> 26-426,
+# 25A952/25A999 -> 25-1083/25-1084, 25A264 -> 25-332). Each side now links the
+# other ("Granted as petition" / "Began as application"; conversion_dockets()),
+# and the petition's page shows the questions the Court set in granting, not
+# text extracted from the stay application (court_directed_qp()).
+PAGE_TEMPLATE_VERSION <- "v43"
 
 # ---- small helpers ------------------------------------------------------------
 # A probability at significant figures, as the conference report prints it
@@ -1236,7 +1241,15 @@ docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
   # Conference history = TOTAL distributions (a case seen at one conference counts).
   n_dist <- if (is.data.frame(ev))
     sum(str_detect(ev[["Proceedings and Orders"]] %||% "", "DISTRIBUTED for Conference"), na.rm = TRUE) else 0L
-  qp_html <- .mdq(qp)
+  # An application converted into a petition (conversion_dockets()): the other
+  # side's docket(s), and -- on the petition -- the questions the Court set.
+  conv <- tryCatch(conversion_dockets(ev, dkt), error = function(e) character())
+  court_qp <- if (!is_app && length(conv)) tryCatch(court_directed_qp(ev), error = function(e) NA_character_)
+              else NA_character_
+  qp_html <- if (!is.na(court_qp))
+    paste0("<p><em>As set by the Court in granting the application", if (length(conv) > 1) "s" else "",
+           " (", paste(.esc(conv), collapse = ", "), "):</em></p>", .mdq(court_qp))
+  else .mdq(qp)
   tl <- docket_timeline(ev, granted_on, resp_brief_on, sides)
   tl_legend <- if (isTRUE(attr(tl, "any_cover"))) DOCKET_LEGEND else ""
   # A docket with no proceedings at all renders a bare "Proceedings" heading over
@@ -1338,6 +1351,13 @@ docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
     # one. %||% guards a snapshot rendered before build_case() carried the field.
     if (nzchar(lnk)) paste0("<p><span class='side'>Linked docket</span><br>",
                             docket_refs_html(lnk, available), "</p>") else "",
+    # The application the Court treated as this petition, or the petition this
+    # application became. Its own row: neither is "Related" or "Linked" in the
+    # Court's sense, and the reader arriving at one needs to find the other.
+    if (length(conv)) paste0("<p><span class='side'>",
+                             if (is_app) "Granted as petition" else "Began as application",
+                             if (length(conv) > 1) "s" else "", "</span><br>",
+                             docket_refs_html(paste(conv, collapse = ", "), available), "</p>") else "",
     docket_orders_html(orders, dkt),
     "</div>")
   cap <- .esc(str_squish(str_remove_all(cx$caption %||% dkt, ", Petitioners?|, Respondents?")))
@@ -1436,11 +1456,55 @@ resolvable_dockets <- function(cases, out_dir) {
 
 # The dockets a given page will actually link to. Part of its manifest key.
 link_targets <- function(cx, available) {
-  refs <- c(cx$related %||% "", cx$linked %||% "")
+  conv <- tryCatch(conversion_dockets(cx$events[[1]], cx$dkt), error = function(e) character())
+  refs <- c(cx$related %||% "", cx$linked %||% "", paste(conv, collapse = ", "))
   refs <- refs[!is.na(refs) & nzchar(refs)]
   if (!length(refs) || !length(available)) return(character())
   toks <- unlist(str_extract_all(paste(refs, collapse = ", "), "[0-9]{2}[-A][0-9]+"))
   sort(unique(toks[toks %in% available]))
+}
+
+# An emergency application the Court treated as a petition for certiorari and
+# granted, opening a new petition docket: 26A406 became 26-426 (DHS v. D.V.D.,
+# 29 Sep 2026), 25A952/25A999 became 25-1083/25-1084, 25A264 became 25-332. The
+# Court's JSON links neither side ("Linked" is empty), so the two pages never
+# pointed at each other. The order itself names both -- "Application (26A406)
+# ... is also treated as a petition for a writ of certiorari, and the petition is
+# granted (case No. 26-426)" -- and it is entered on both dockets. So: every
+# docket that order names, of the OTHER kind (a petition's page lists its
+# applications, an application's its petitions; a companion petition is the
+# Related row's business), minus this one.
+.CONVERSION_RX <- regex("treat(ed|ing|s)?[^.]{0,40}as (a )?petitions? for (a )?writs? of certiorari",
+                        ignore_case = TRUE)
+conversion_dockets <- function(events, dkt) {
+  if (!is.data.frame(events) || !("Proceedings and Orders" %in% names(events))) return(character())
+  txt <- str_remove_all(coalesce(events[["Proceedings and Orders"]], ""), "<[^>]+>")
+  hit <- txt[str_detect(txt, .CONVERSION_RX)]
+  if (!length(hit)) return(character())
+  refs <- unique(unlist(str_extract_all(hit, "\\b\\d{2}A\\d{1,5}\\b|\\b\\d{2}-\\d{1,5}\\b")))
+  want_app <- !str_detect(dkt, "^\\d{2}A\\d+$")
+  refs <- refs[refs != dkt & str_detect(refs, "^\\d{2}A\\d+$") == want_app]
+  sort(refs)
+}
+
+# The questions the Court itself set when it granted -- "The parties are
+# directed to brief and argue the following questions: (1) ... (2) ..." --
+# which for a converted application ARE the questions presented: its
+# "petition" is the stay application, whose text is no statement of the
+# question (25-1083's extracted QP began "If the Court grants certiorari before
+# judgment, the Court should review..."). NA when the grant sets none.
+court_directed_qp <- function(events) {
+  if (!is.data.frame(events) || !("Proceedings and Orders" %in% names(events))) return(NA_character_)
+  txt <- str_squish(str_remove_all(coalesce(events[["Proceedings and Orders"]], ""), "<[^>]+>"))
+  m <- str_match(txt, regex("directed to brief and argue the following questions?:\\s*(.+?)(?=\\s+The Clerk is directed|\\s+The stay shall|\\s+(Justice|The Chief Justice)\\s[A-Z][a-z]+[^.]{0,80}would|$)",
+                            ignore_case = TRUE))[, 2]
+  m <- m[!is.na(m) & nzchar(m)]
+  if (!length(m)) return(NA_character_)
+  q <- m[1]
+  # One numbered question to a paragraph: "(1) ... (2) ..." -> "(1) ...\n\n(2) ...".
+  q <- str_replace_all(q, "\\s+(?=\\(\\d+\\)\\s)", "\n\n")
+  str_squish_lines <- function(s) paste(str_squish(str_split(s, "\n\n")[[1]]), collapse = "\n\n")
+  str_squish_lines(q)
 }
 
 # Render a comma-separated docket reference with the resolvable dockets linked.

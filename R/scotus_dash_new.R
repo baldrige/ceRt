@@ -473,6 +473,16 @@ scotus_dash <- function(range = today() - 1, year = "26",
         error = function(e) NA_real_)
     }
   }
+  # A petition already granted by the time this page renders gets no forecast:
+  # an application the Court treats as a petition and grants arrives on the
+  # docket granted (26-426, docketed and granted 29 Sep 2026 from 26A406), and
+  # a pre-conference estimate beside it -- "4%" for a grant -- reads as
+  # nonsense. The docket line says what happened instead.
+  granted_now <- if (nrow(hits) && exists("classify_petitions")) tryCatch({
+    cl <- classify_petitions(hits |> filter(type %in% c("paid", "ifp")))
+    cl$dkt[cl$outcome %in% c("granted", "gvr")]
+  }, error = function(e) character()) else character()
+  grant_map[names(grant_map) %in% granted_now] <- NA_real_
   if (nrow(hits) == 0) {
     empty <- paste0(
       "<!DOCTYPE html><html lang='en'><head><script async src='/analytics.js'></script><meta charset='utf-8'>",
@@ -524,10 +534,10 @@ scotus_dash <- function(range = today() - 1, year = "26",
     # page the caption links to, so a column whose entire content was a duplicate
     # link target is gone.
     Case = sprintf(
-      "<a href='../cases/%s.html' target='_blank'>%s</a><span class='cdk'>No. %s</span>",
+      "<a href='../cases/%s.html' target='_blank'>%s</a><span class='cdk'>No. %s%s</span>",
       hits$dkt,
       strip_caption_roles(hits$caption),
-      hits$dkt),
+      hits$dkt, ifelse(hits$dkt %in% granted_now, " &middot; granted", "")),
     # Plain text, so the column's filter box matches it ("Criminal", "First").
     # NA -- no QP yet, an unreadable one, or a low-confidence pick -- shows a dash.
     Subject = unname(subj[hits$dkt]),
