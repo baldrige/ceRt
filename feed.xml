@@ -1,361 +1,360 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>Supreme Court Report</title>
-  <subtitle>Certiorari grants, conference reports and daily docket dashboards from the U.S. Supreme Court.</subtitle>
+  <subtitle>Certiorari grants, order lists, decisions, conference reports and daily docket dashboards from the U.S. Supreme Court.</subtitle>
   <link rel="self" href="https://supremecourt.report/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://supremecourt.report/"/>
   <id>https://supremecourt.report/feed.xml</id>
-  <updated>2026-09-03T00:00:00Z</updated>
+  <updated>2026-09-29T12:00:00-04:00</updated>
   <author><name>Supreme Court Report</name></author>
+  <entry>
+    <title>Docket for September 29, 2026</title>
+    <link href="https://supremecourt.report/dashboards/dash_2026-09-29.html"/>
+    <id>https://supremecourt.report/dashboards/dash_2026-09-29.html</id>
+    <updated>2026-09-29T12:00:00-04:00</updated>
+    <summary>Petitions and applications docketed on September 29, 2026.</summary>
+  </entry>
+  <entry>
+    <title>Docket for September 28, 2026</title>
+    <link href="https://supremecourt.report/dashboards/dash_2026-09-28.html"/>
+    <id>https://supremecourt.report/dashboards/dash_2026-09-28.html</id>
+    <updated>2026-09-28T12:00:00-04:00</updated>
+    <summary>Petitions and applications docketed on September 28, 2026.</summary>
+  </entry>
+  <entry>
+    <title>Conference of September 28, 2026</title>
+    <link href="https://supremecourt.report/conferences/conf_2026-09-28.html"/>
+    <id>https://supremecourt.report/conferences/conf_2026-09-28.html</id>
+    <updated>2026-09-28T12:00:00-04:00</updated>
+    <summary>Petitions distributed for the Conference of September 28, 2026, ranked by relists.</summary>
+  </entry>
+  <entry>
+    <title>Docket for September 25, 2026</title>
+    <link href="https://supremecourt.report/dashboards/dash_2026-09-25.html"/>
+    <id>https://supremecourt.report/dashboards/dash_2026-09-25.html</id>
+    <updated>2026-09-25T12:00:00-04:00</updated>
+    <summary>Petitions and applications docketed on September 25, 2026.</summary>
+  </entry>
+  <entry>
+    <title>Application decided: People Not Politicians v. Robert Onder (No. 26A388) (Granted)</title>
+    <link href="https://supremecourt.report/cases/26A388.html"/>
+    <id>https://supremecourt.report/cases/26A388.html#decision</id>
+    <updated>2026-09-25T12:00:00-04:00</updated>
+    <summary>Per curiam. The Court grants the application for stay, and the prior stay entered by this Court on September 10, 2026, likewise remains in effect pending any further order of this Court lifting that stay. The District Court and Court of Appeals should not enjoin or otherwise prohibit the use of the 2022 map in the 2026 congressional election in Missouri; the District Court and Court of Appeals should not order or otherwise require Missouri to use the 2025 map in the 2026 congressional election in Missouri.</summary>
+  </entry>
+  <entry>
+    <title>Application decided: Department of Homeland Security v. League of Women Voters (No. 26A308) (Granted)</title>
+    <link href="https://supremecourt.report/cases/26A308.html"/>
+    <id>https://supremecourt.report/cases/26A308.html#decision</id>
+    <updated>2026-09-25T12:00:00-04:00</updated>
+    <summary>Per curiam. The Court grants the Government’s application to stay the District Court’s order—which set aside and vacated the Government’s modified Systematic Alien Verification for Entitlements (SAVE) program and its related notices—pending the disposition of appeal to the United States Court of Appeals for the District of Columbia and disposition of a petition for a writ of certiorari, if such a writ is timely sought.</summary>
+  </entry>
+  <entry>
+    <title>Docket for September 24, 2026</title>
+    <link href="https://supremecourt.report/dashboards/dash_2026-09-24.html"/>
+    <id>https://supremecourt.report/dashboards/dash_2026-09-24.html</id>
+    <updated>2026-09-24T12:00:00-04:00</updated>
+    <summary>Petitions and applications docketed on September 24, 2026.</summary>
+  </entry>
+  <entry>
+    <title>Docket for September 23, 2026</title>
+    <link href="https://supremecourt.report/dashboards/dash_2026-09-23.html"/>
+    <id>https://supremecourt.report/dashboards/dash_2026-09-23.html</id>
+    <updated>2026-09-23T12:00:00-04:00</updated>
+    <summary>Petitions and applications docketed on September 23, 2026.</summary>
+  </entry>
+  <entry>
+    <title>Docket for September 22, 2026</title>
+    <link href="https://supremecourt.report/dashboards/dash_2026-09-22.html"/>
+    <id>https://supremecourt.report/dashboards/dash_2026-09-22.html</id>
+    <updated>2026-09-22T12:00:00-04:00</updated>
+    <summary>Petitions and applications docketed on September 22, 2026.</summary>
+  </entry>
+  <entry>
+    <title>Docket for September 21, 2026</title>
+    <link href="https://supremecourt.report/dashboards/dash_2026-09-21.html"/>
+    <id>https://supremecourt.report/dashboards/dash_2026-09-21.html</id>
+    <updated>2026-09-21T12:00:00-04:00</updated>
+    <summary>Petitions and applications docketed on September 21, 2026.</summary>
+  </entry>
+  <entry>
+    <title>Docket for September 18, 2026</title>
+    <link href="https://supremecourt.report/dashboards/dash_2026-09-18.html"/>
+    <id>https://supremecourt.report/dashboards/dash_2026-09-18.html</id>
+    <updated>2026-09-18T12:00:00-04:00</updated>
+    <summary>Petitions and applications docketed on September 18, 2026.</summary>
+  </entry>
+  <entry>
+    <title>Docket for September 17, 2026</title>
+    <link href="https://supremecourt.report/dashboards/dash_2026-09-17.html"/>
+    <id>https://supremecourt.report/dashboards/dash_2026-09-17.html</id>
+    <updated>2026-09-17T12:00:00-04:00</updated>
+    <summary>Petitions and applications docketed on September 17, 2026.</summary>
+  </entry>
+  <entry>
+    <title>Docket for September 16, 2026</title>
+    <link href="https://supremecourt.report/dashboards/dash_2026-09-16.html"/>
+    <id>https://supremecourt.report/dashboards/dash_2026-09-16.html</id>
+    <updated>2026-09-16T12:00:00-04:00</updated>
+    <summary>Petitions and applications docketed on September 16, 2026.</summary>
+  </entry>
+  <entry>
+    <title>Docket for September 15, 2026</title>
+    <link href="https://supremecourt.report/dashboards/dash_2026-09-15.html"/>
+    <id>https://supremecourt.report/dashboards/dash_2026-09-15.html</id>
+    <updated>2026-09-15T12:00:00-04:00</updated>
+    <summary>Petitions and applications docketed on September 15, 2026.</summary>
+  </entry>
+  <entry>
+    <title>Docket for September 14, 2026</title>
+    <link href="https://supremecourt.report/dashboards/dash_2026-09-14.html"/>
+    <id>https://supremecourt.report/dashboards/dash_2026-09-14.html</id>
+    <updated>2026-09-14T12:00:00-04:00</updated>
+    <summary>Petitions and applications docketed on September 14, 2026.</summary>
+  </entry>
+  <entry>
+    <title>Application decided: United States Postal Service v. California (No. 26A305) (Denied)</title>
+    <link href="https://supremecourt.report/cases/26A305.html"/>
+    <id>https://supremecourt.report/cases/26A305.html#decision</id>
+    <updated>2026-09-14T12:00:00-04:00</updated>
+  </entry>
+  <entry>
+    <title>Docket for September 11, 2026</title>
+    <link href="https://supremecourt.report/dashboards/dash_2026-09-11.html"/>
+    <id>https://supremecourt.report/dashboards/dash_2026-09-11.html</id>
+    <updated>2026-09-11T12:00:00-04:00</updated>
+    <summary>Petitions and applications docketed on September 11, 2026.</summary>
+  </entry>
+  <entry>
+    <title>Docket for September 10, 2026</title>
+    <link href="https://supremecourt.report/dashboards/dash_2026-09-10.html"/>
+    <id>https://supremecourt.report/dashboards/dash_2026-09-10.html</id>
+    <updated>2026-09-10T12:00:00-04:00</updated>
+    <summary>Petitions and applications docketed on September 10, 2026.</summary>
+  </entry>
+  <entry>
+    <title>Docket for September 9, 2026</title>
+    <link href="https://supremecourt.report/dashboards/dash_2026-09-09.html"/>
+    <id>https://supremecourt.report/dashboards/dash_2026-09-09.html</id>
+    <updated>2026-09-09T12:00:00-04:00</updated>
+    <summary>Petitions and applications docketed on September 9, 2026.</summary>
+  </entry>
+  <entry>
+    <title>Docket for September 8, 2026</title>
+    <link href="https://supremecourt.report/dashboards/dash_2026-09-08.html"/>
+    <id>https://supremecourt.report/dashboards/dash_2026-09-08.html</id>
+    <updated>2026-09-08T12:00:00-04:00</updated>
+    <summary>Petitions and applications docketed on September 8, 2026.</summary>
+  </entry>
+  <entry>
+    <title>Docket for September 7, 2026</title>
+    <link href="https://supremecourt.report/dashboards/dash_2026-09-07.html"/>
+    <id>https://supremecourt.report/dashboards/dash_2026-09-07.html</id>
+    <updated>2026-09-07T12:00:00-04:00</updated>
+    <summary>Petitions and applications docketed on September 7, 2026.</summary>
+  </entry>
+  <entry>
+    <title>Docket for September 6, 2026</title>
+    <link href="https://supremecourt.report/dashboards/dash_2026-09-06.html"/>
+    <id>https://supremecourt.report/dashboards/dash_2026-09-06.html</id>
+    <updated>2026-09-06T12:00:00-04:00</updated>
+    <summary>Petitions and applications docketed on September 6, 2026.</summary>
+  </entry>
+  <entry>
+    <title>Order List, September 4, 2026</title>
+    <link href="https://supremecourt.report/orders/2026-09-04.html"/>
+    <id>https://supremecourt.report/orders/2026-09-04.html</id>
+    <updated>2026-09-04T12:00:00-04:00</updated>
+    <summary>27 other orders.</summary>
+  </entry>
+  <entry>
+    <title>Docket for September 4, 2026</title>
+    <link href="https://supremecourt.report/dashboards/dash_2026-09-04.html"/>
+    <id>https://supremecourt.report/dashboards/dash_2026-09-04.html</id>
+    <updated>2026-09-04T12:00:00-04:00</updated>
+    <summary>Petitions and applications docketed on September 4, 2026.</summary>
+  </entry>
+  <entry>
+    <title>Application decided: National Republican Congressional Committee v. Sherrod Brown (No. 26A274) (Granted)</title>
+    <link href="https://supremecourt.report/cases/26A274.html"/>
+    <id>https://supremecourt.report/cases/26A274.html#decision</id>
+    <updated>2026-09-04T12:00:00-04:00</updated>
+    <summary>Per curiam. Because the Fourth Circuit likely lacked jurisdiction to review the Federal Communications Commission’s lowest-unit-charge requirements while the candidates’ application for review remained pending before the Commission and the party committees would otherwise suffer irreparable First Amendment harm, the party committees’ application for a stay is granted.</summary>
+  </entry>
   <entry>
     <title>Docket for September 3, 2026</title>
     <link href="https://supremecourt.report/dashboards/dash_2026-09-03.html"/>
     <id>https://supremecourt.report/dashboards/dash_2026-09-03.html</id>
-    <updated>2026-09-03T00:00:00Z</updated>
+    <updated>2026-09-03T12:00:00-04:00</updated>
     <summary>Petitions and applications docketed on September 3, 2026.</summary>
   </entry>
   <entry>
-    <title>Docket for September 2, 2026</title>
-    <link href="https://supremecourt.report/dashboards/dash_2026-09-02.html"/>
-    <id>https://supremecourt.report/dashboards/dash_2026-09-02.html</id>
-    <updated>2026-09-02T00:00:00Z</updated>
-    <summary>Petitions and applications docketed on September 2, 2026.</summary>
+    <title>Application decided: National Park Service v. National Trust for Historic Preservation in the United States (No. 26A203) (Granted)</title>
+    <link href="https://supremecourt.report/cases/26A203.html"/>
+    <id>https://supremecourt.report/cases/26A203.html#decision</id>
+    <updated>2026-08-31T12:00:00-04:00</updated>
+    <summary>Per curiam. Because the government has established that it is likely to prevail in showing that the Trust lacks Article III standing to challenge the East Wing project in federal court, that it would likely suffer irreparable harm without a stay, and that the balance of equities tips in its favor, the injunction entered by the District Court is stayed pending the disposition of the government’s forthcoming petition for a writ of certiorari, if such writ is timely sought.</summary>
   </entry>
   <entry>
-    <title>Docket for September 1, 2026</title>
-    <link href="https://supremecourt.report/dashboards/dash_2026-09-01.html"/>
-    <id>https://supremecourt.report/dashboards/dash_2026-09-01.html</id>
-    <updated>2026-09-01T00:00:00Z</updated>
-    <summary>Petitions and applications docketed on September 1, 2026.</summary>
+    <title>Application decided: Alabama v. California (No. 26A139) (Denied as moot)</title>
+    <link href="https://supremecourt.report/cases/26A139.html"/>
+    <id>https://supremecourt.report/cases/26A139.html#decision</id>
+    <updated>2026-08-24T12:00:00-04:00</updated>
+    <summary>Per curiam. The Government’s application to stay the District Court’s injunction in 26A124—which forbids the Government to implement §§2 and 3 of Executive Order No. 14399—is granted; the application for a stay in 26A139 is denied as moot.</summary>
   </entry>
   <entry>
-    <title>Docket for August 31, 2026</title>
-    <link href="https://supremecourt.report/dashboards/dash_2026-08-31.html"/>
-    <id>https://supremecourt.report/dashboards/dash_2026-08-31.html</id>
-    <updated>2026-08-31T00:00:00Z</updated>
-    <summary>Petitions and applications docketed on August 31, 2026.</summary>
+    <title>Application decided: Donald J. Trump, President of the United States v. California (No. 26A124) (Granted)</title>
+    <link href="https://supremecourt.report/cases/26A124.html"/>
+    <id>https://supremecourt.report/cases/26A124.html#decision</id>
+    <updated>2026-08-24T12:00:00-04:00</updated>
+    <summary>Per curiam. The Government’s application to stay the District Court’s injunction in 26A124—which forbids the Government to implement §§2 and 3 of Executive Order No. 14399—is granted; the application for a stay in 26A139 is denied as moot.</summary>
   </entry>
   <entry>
-    <title>Docket for August 28, 2026</title>
-    <link href="https://supremecourt.report/dashboards/dash_2026-08-28.html"/>
-    <id>https://supremecourt.report/dashboards/dash_2026-08-28.html</id>
-    <updated>2026-08-28T00:00:00Z</updated>
-    <summary>Petitions and applications docketed on August 28, 2026.</summary>
+    <title>Order List, August 17, 2026</title>
+    <link href="https://supremecourt.report/orders/2026-08-17.html"/>
+    <id>https://supremecourt.report/orders/2026-08-17.html</id>
+    <updated>2026-08-17T12:00:00-04:00</updated>
+    <summary>44 other orders.</summary>
   </entry>
   <entry>
-    <title>Docket for August 27, 2026</title>
-    <link href="https://supremecourt.report/dashboards/dash_2026-08-27.html"/>
-    <id>https://supremecourt.report/dashboards/dash_2026-08-27.html</id>
-    <updated>2026-08-27T00:00:00Z</updated>
-    <summary>Petitions and applications docketed on August 27, 2026.</summary>
-  </entry>
-  <entry>
-    <title>Docket for August 26, 2026</title>
-    <link href="https://supremecourt.report/dashboards/dash_2026-08-26.html"/>
-    <id>https://supremecourt.report/dashboards/dash_2026-08-26.html</id>
-    <updated>2026-08-26T00:00:00Z</updated>
-    <summary>Petitions and applications docketed on August 26, 2026.</summary>
-  </entry>
-  <entry>
-    <title>Docket for August 25, 2026</title>
-    <link href="https://supremecourt.report/dashboards/dash_2026-08-25.html"/>
-    <id>https://supremecourt.report/dashboards/dash_2026-08-25.html</id>
-    <updated>2026-08-25T00:00:00Z</updated>
-    <summary>Petitions and applications docketed on August 25, 2026.</summary>
-  </entry>
-  <entry>
-    <title>Docket for August 24, 2026</title>
-    <link href="https://supremecourt.report/dashboards/dash_2026-08-24.html"/>
-    <id>https://supremecourt.report/dashboards/dash_2026-08-24.html</id>
-    <updated>2026-08-24T00:00:00Z</updated>
-    <summary>Petitions and applications docketed on August 24, 2026.</summary>
-  </entry>
-  <entry>
-    <title>Docket for August 21, 2026</title>
-    <link href="https://supremecourt.report/dashboards/dash_2026-08-21.html"/>
-    <id>https://supremecourt.report/dashboards/dash_2026-08-21.html</id>
-    <updated>2026-08-21T00:00:00Z</updated>
-    <summary>Petitions and applications docketed on August 21, 2026.</summary>
-  </entry>
-  <entry>
-    <title>Docket for August 20, 2026</title>
-    <link href="https://supremecourt.report/dashboards/dash_2026-08-20.html"/>
-    <id>https://supremecourt.report/dashboards/dash_2026-08-20.html</id>
-    <updated>2026-08-20T00:00:00Z</updated>
-    <summary>Petitions and applications docketed on August 20, 2026.</summary>
-  </entry>
-  <entry>
-    <title>Docket for August 19, 2026</title>
-    <link href="https://supremecourt.report/dashboards/dash_2026-08-19.html"/>
-    <id>https://supremecourt.report/dashboards/dash_2026-08-19.html</id>
-    <updated>2026-08-19T00:00:00Z</updated>
-    <summary>Petitions and applications docketed on August 19, 2026.</summary>
-  </entry>
-  <entry>
-    <title>Docket for August 18, 2026</title>
-    <link href="https://supremecourt.report/dashboards/dash_2026-08-18.html"/>
-    <id>https://supremecourt.report/dashboards/dash_2026-08-18.html</id>
-    <updated>2026-08-18T00:00:00Z</updated>
-    <summary>Petitions and applications docketed on August 18, 2026.</summary>
-  </entry>
-  <entry>
-    <title>Docket for August 17, 2026</title>
-    <link href="https://supremecourt.report/dashboards/dash_2026-08-17.html"/>
-    <id>https://supremecourt.report/dashboards/dash_2026-08-17.html</id>
-    <updated>2026-08-17T00:00:00Z</updated>
-    <summary>Petitions and applications docketed on August 17, 2026.</summary>
-  </entry>
-  <entry>
-    <title>Docket for August 14, 2026</title>
-    <link href="https://supremecourt.report/dashboards/dash_2026-08-14.html"/>
-    <id>https://supremecourt.report/dashboards/dash_2026-08-14.html</id>
-    <updated>2026-08-14T00:00:00Z</updated>
-    <summary>Petitions and applications docketed on August 14, 2026.</summary>
-  </entry>
-  <entry>
-    <title>Docket for August 13, 2026</title>
-    <link href="https://supremecourt.report/dashboards/dash_2026-08-13.html"/>
-    <id>https://supremecourt.report/dashboards/dash_2026-08-13.html</id>
-    <updated>2026-08-13T00:00:00Z</updated>
-    <summary>Petitions and applications docketed on August 13, 2026.</summary>
-  </entry>
-  <entry>
-    <title>Docket for August 12, 2026</title>
-    <link href="https://supremecourt.report/dashboards/dash_2026-08-12.html"/>
-    <id>https://supremecourt.report/dashboards/dash_2026-08-12.html</id>
-    <updated>2026-08-12T00:00:00Z</updated>
-    <summary>Petitions and applications docketed on August 12, 2026.</summary>
-  </entry>
-  <entry>
-    <title>Docket for August 11, 2026</title>
-    <link href="https://supremecourt.report/dashboards/dash_2026-08-11.html"/>
-    <id>https://supremecourt.report/dashboards/dash_2026-08-11.html</id>
-    <updated>2026-08-11T00:00:00Z</updated>
-    <summary>Petitions and applications docketed on August 11, 2026.</summary>
-  </entry>
-  <entry>
-    <title>Docket for August 10, 2026</title>
-    <link href="https://supremecourt.report/dashboards/dash_2026-08-10.html"/>
-    <id>https://supremecourt.report/dashboards/dash_2026-08-10.html</id>
-    <updated>2026-08-10T00:00:00Z</updated>
-    <summary>Petitions and applications docketed on August 10, 2026.</summary>
-  </entry>
-  <entry>
-    <title>Docket for August 9, 2026</title>
-    <link href="https://supremecourt.report/dashboards/dash_2026-08-09.html"/>
-    <id>https://supremecourt.report/dashboards/dash_2026-08-09.html</id>
-    <updated>2026-08-09T00:00:00Z</updated>
-    <summary>Petitions and applications docketed on August 9, 2026.</summary>
+    <title>Order List, July 20, 2026</title>
+    <link href="https://supremecourt.report/orders/2026-07-20.html"/>
+    <id>https://supremecourt.report/orders/2026-07-20.html</id>
+    <updated>2026-07-20T12:00:00-04:00</updated>
+    <summary>1 granted; 22 other orders. Granted: Kenneth J. Jouppi v. Alaska.</summary>
   </entry>
   <entry>
     <title>Certiorari granted: Kenneth J. Jouppi v. Alaska (No. 25-246)</title>
     <link href="https://supremecourt.report/cases/25-246.html"/>
     <id>https://supremecourt.report/cases/25-246.html</id>
-    <updated>2026-07-20T00:00:00Z</updated>
+    <updated>2026-07-20T12:00:00-04:00</updated>
     <summary>Petition GRANTED.</summary>
+  </entry>
+  <entry>
+    <title>Order List, June 30, 2026</title>
+    <link href="https://supremecourt.report/orders/2026-06-30.html"/>
+    <id>https://supremecourt.report/orders/2026-06-30.html</id>
+    <updated>2026-06-30T12:00:00-04:00</updated>
+    <summary>4 granted; 7 granted, vacated and remanded; 12 denied; 4 other orders. Granted: Cutberto Viramontes, et al. v. Cook County, Illinois, et al.; Eddie Grant, Jr., et al. v. Ronnell Higgins, in His Official Capacity as Commissioner of the Connecticut Department of Emergency Services and Public Transportation, et al.; Daniel Grand v. City of University Heights, Ohio, et al.; Apple Inc. v. Epic Games, Inc.</summary>
   </entry>
   <entry>
     <title>Certiorari granted: Daniel Grand v. City of University Heights, Ohio (No. 25-965)</title>
     <link href="https://supremecourt.report/cases/25-965.html"/>
     <id>https://supremecourt.report/cases/25-965.html</id>
-    <updated>2026-06-30T00:00:00Z</updated>
+    <updated>2026-06-30T12:00:00-04:00</updated>
     <summary>Petition GRANTED.</summary>
   </entry>
   <entry>
     <title>Certiorari granted: Eddie Grant, Jr. v. Ronnell Higgins, in His Official Capacity as Commissioner of the Connecticut Department of Emergency Services and Public Transportation (No. 25-566)</title>
     <link href="https://supremecourt.report/cases/25-566.html"/>
     <id>https://supremecourt.report/cases/25-566.html</id>
-    <updated>2026-06-30T00:00:00Z</updated>
+    <updated>2026-06-30T12:00:00-04:00</updated>
     <summary>Petition GRANTED as to the question presented by the petition in No. 25-238. The petition for a writ of certiorari in No. 25-238 is granted. The cases are consolidated, and a total of one hour is allotted for oral argument. VIDED.</summary>
   </entry>
   <entry>
     <title>Certiorari granted: Cutberto Viramontes v. Cook County, Illinois (No. 25-238)</title>
     <link href="https://supremecourt.report/cases/25-238.html"/>
     <id>https://supremecourt.report/cases/25-238.html</id>
-    <updated>2026-06-30T00:00:00Z</updated>
+    <updated>2026-06-30T12:00:00-04:00</updated>
     <summary>Petition GRANTED. The petition for a writ of certiorari in No. 25-566 is granted as to the question presented by the petition in No. 25-238. The cases are consolidated, and a total of one hour is allotted for oral argument. VIDED.</summary>
   </entry>
   <entry>
     <title>Certiorari granted: Apple Inc. v. Epic Games, Inc. (No. 25-1311)</title>
     <link href="https://supremecourt.report/cases/25-1311.html"/>
     <id>https://supremecourt.report/cases/25-1311.html</id>
-    <updated>2026-06-30T00:00:00Z</updated>
+    <updated>2026-06-30T12:00:00-04:00</updated>
     <summary>Petition GRANTED limited to Question 1 presented by the petition.</summary>
+  </entry>
+  <entry>
+    <title>Order List, June 29, 2026</title>
+    <link href="https://supremecourt.report/orders/2026-06-29.html"/>
+    <id>https://supremecourt.report/orders/2026-06-29.html</id>
+    <updated>2026-06-29T12:00:00-04:00</updated>
+    <summary>6 granted; 19 granted, vacated and remanded; 100 denied; 23 other orders. Granted: RiseandShine Corporation, dba Rise Brewing v. PepsiCo, Inc.; Leonard W. Hoffmann, et al. v. WBI Energy Transmission, Inc.; International Partners for Ethical Care, Inc., et al. v. Bob Ferguson, Governor of Washington, et al.; Tamer S. Wassily, et al. v. Todd Blanche, Attorney General; Republican National Committee v. Mi Familia Vota, et al.; Kevin Isaac Montoya Palacios v. Vernon Liggins, Acting Field Office Director, Baltimore, Maryland, Immigration and Customs Enforcement, et al.</summary>
   </entry>
   <entry>
     <title>Conference of June 29, 2026</title>
     <link href="https://supremecourt.report/conferences/conf_2026-06-29.html"/>
     <id>https://supremecourt.report/conferences/conf_2026-06-29.html</id>
-    <updated>2026-06-29T00:00:00Z</updated>
+    <updated>2026-06-29T12:00:00-04:00</updated>
     <summary>Petitions distributed for the Conference of June 29, 2026, ranked by relists.</summary>
   </entry>
   <entry>
     <title>Certiorari granted: Tamer S. Wassily v. Todd Blanche, Acting Attorney General (No. 25-842)</title>
     <link href="https://supremecourt.report/cases/25-842.html"/>
     <id>https://supremecourt.report/cases/25-842.html</id>
-    <updated>2026-06-29T00:00:00Z</updated>
+    <updated>2026-06-29T12:00:00-04:00</updated>
     <summary>Petition GRANTED.</summary>
   </entry>
   <entry>
     <title>Certiorari granted: International Partners for Ethical Care, Inc. v. Bob Ferguson, Governor of Washington (No. 25-840)</title>
     <link href="https://supremecourt.report/cases/25-840.html"/>
     <id>https://supremecourt.report/cases/25-840.html</id>
-    <updated>2026-06-29T00:00:00Z</updated>
+    <updated>2026-06-29T12:00:00-04:00</updated>
     <summary>Petition GRANTED.</summary>
   </entry>
   <entry>
     <title>Certiorari granted: Leonard W. Hoffmann v. WBI Energy Transmission, Inc. (No. 25-159)</title>
     <link href="https://supremecourt.report/cases/25-159.html"/>
     <id>https://supremecourt.report/cases/25-159.html</id>
-    <updated>2026-06-29T00:00:00Z</updated>
+    <updated>2026-06-29T12:00:00-04:00</updated>
     <summary>Petition GRANTED.</summary>
   </entry>
   <entry>
     <title>Certiorari granted: Kevin Isaac Montoya Palacios v. Vernon Liggins, Acting Field Office Director, Baltimore Field Office, United States Immigration and Customs Enforcement (No. 25-1223)</title>
     <link href="https://supremecourt.report/cases/25-1223.html"/>
     <id>https://supremecourt.report/cases/25-1223.html</id>
-    <updated>2026-06-29T00:00:00Z</updated>
+    <updated>2026-06-29T12:00:00-04:00</updated>
     <summary>Petition GRANTED.</summary>
   </entry>
   <entry>
     <title>Certiorari granted: Republican National Committee v. Mi Familia Vota (No. 25-1017)</title>
     <link href="https://supremecourt.report/cases/25-1017.html"/>
     <id>https://supremecourt.report/cases/25-1017.html</id>
-    <updated>2026-06-29T00:00:00Z</updated>
+    <updated>2026-06-29T12:00:00-04:00</updated>
     <summary>Petition GRANTED.</summary>
   </entry>
   <entry>
     <title>Certiorari granted: RiseandShine Corporation, dba Rise Brewing v. PepsiCo, Inc. (No. 24-1016)</title>
     <link href="https://supremecourt.report/cases/24-1016.html"/>
     <id>https://supremecourt.report/cases/24-1016.html</id>
-    <updated>2026-06-29T00:00:00Z</updated>
+    <updated>2026-06-29T12:00:00-04:00</updated>
     <summary>Petition GRANTED.</summary>
   </entry>
   <entry>
     <title>Conference of June 25, 2026</title>
     <link href="https://supremecourt.report/conferences/conf_2026-06-25.html"/>
     <id>https://supremecourt.report/conferences/conf_2026-06-25.html</id>
-    <updated>2026-06-25T00:00:00Z</updated>
+    <updated>2026-06-25T12:00:00-04:00</updated>
     <summary>Petitions distributed for the Conference of June 25, 2026, ranked by relists.</summary>
+  </entry>
+  <entry>
+    <title>Order List, June 22, 2026</title>
+    <link href="https://supremecourt.report/orders/2026-06-22.html"/>
+    <id>https://supremecourt.report/orders/2026-06-22.html</id>
+    <updated>2026-06-22T12:00:00-04:00</updated>
+    <summary>1 granted; 2 granted, vacated and remanded; 125 denied; 19 other orders. Granted: Francis Nielsen v. Kekai Watanabe.</summary>
   </entry>
   <entry>
     <title>Certiorari granted: Francis Nielsen v. Kekai Watanabe (No. 25-417)</title>
     <link href="https://supremecourt.report/cases/25-417.html"/>
     <id>https://supremecourt.report/cases/25-417.html</id>
-    <updated>2026-06-22T00:00:00Z</updated>
+    <updated>2026-06-22T12:00:00-04:00</updated>
     <summary>Petition GRANTED.</summary>
   </entry>
   <entry>
     <title>Conference of June 18, 2026</title>
     <link href="https://supremecourt.report/conferences/conf_2026-06-18.html"/>
     <id>https://supremecourt.report/conferences/conf_2026-06-18.html</id>
-    <updated>2026-06-18T00:00:00Z</updated>
+    <updated>2026-06-18T12:00:00-04:00</updated>
     <summary>Petitions distributed for the Conference of June 18, 2026, ranked by relists.</summary>
   </entry>
   <entry>
-    <title>Certiorari granted: Kenneth Genalo, Director of the New York Field Office of U.S. Immigration and Customs Enforcement v. Carol Williams Black (No. 25-886)</title>
-    <link href="https://supremecourt.report/cases/25-886.html"/>
-    <id>https://supremecourt.report/cases/25-886.html</id>
-    <updated>2026-06-15T00:00:00Z</updated>
-    <summary>Petition GRANTED as to United States Court of Appeals for the Second Circuit Case No. 22-70. In addition to the questions presented by the petition, the parties are directed to brief and argue the following question: Whether G. M.&apos;s case is now moot.</summary>
-  </entry>
-  <entry>
-    <title>Certiorari granted: Hamed Kian v. Florida (No. 25-6623)</title>
-    <link href="https://supremecourt.report/cases/25-6623.html"/>
-    <id>https://supremecourt.report/cases/25-6623.html</id>
-    <updated>2026-06-15T00:00:00Z</updated>
-    <summary>Motion to proceed in forma pauperis and petition for a writ of certiorari GRANTED.</summary>
-  </entry>
-  <entry>
-    <title>Certiorari granted: Eric Guerrero, Director, Texas Department of Criminal Justice, Correctional Institutions Division v. Dexter Johnson (No. 25-1003)</title>
-    <link href="https://supremecourt.report/cases/25-1003.html"/>
-    <id>https://supremecourt.report/cases/25-1003.html</id>
-    <updated>2026-06-15T00:00:00Z</updated>
-    <summary>Motion for leave to proceed in forma pauperis filed by respondent GRANTED.</summary>
-  </entry>
-  <entry>
-    <title>Conference of June 11, 2026</title>
-    <link href="https://supremecourt.report/conferences/conf_2026-06-11.html"/>
-    <id>https://supremecourt.report/conferences/conf_2026-06-11.html</id>
-    <updated>2026-06-11T00:00:00Z</updated>
-    <summary>Petitions distributed for the Conference of June 11, 2026, ranked by relists.</summary>
-  </entry>
-  <entry>
-    <title>Conference of June 4, 2026</title>
-    <link href="https://supremecourt.report/conferences/conf_2026-06-04.html"/>
-    <id>https://supremecourt.report/conferences/conf_2026-06-04.html</id>
-    <updated>2026-06-04T00:00:00Z</updated>
-    <summary>Petitions distributed for the Conference of June 4, 2026, ranked by relists.</summary>
-  </entry>
-  <entry>
-    <title>Certiorari granted: William Maxwell v. Sandra Dinis, Acting Warden (No. 25-5930)</title>
-    <link href="https://supremecourt.report/cases/25-5930.html"/>
-    <id>https://supremecourt.report/cases/25-5930.html</id>
-    <updated>2026-06-01T00:00:00Z</updated>
-    <summary>Motion to proceed in forma pauperis GRANTED. Petition for a writ of certiorari GRANTED limited to the following question: Whether a claim regarding application of time credits under the First Step Act of 2018, 132 Stat. 5195-5208 (codified in relevant part at 18 U. S. C. §§3631–3635), seeking accelerated transfer to a halfway house or home confinement, can be brought in a habeas petition under 28 U. S. C. §2241.</summary>
-  </entry>
-  <entry>
-    <title>Conference of May 28, 2026</title>
-    <link href="https://supremecourt.report/conferences/conf_2026-05-28.html"/>
-    <id>https://supremecourt.report/conferences/conf_2026-05-28.html</id>
-    <updated>2026-05-28T00:00:00Z</updated>
-    <summary>Petitions distributed for the Conference of May 28, 2026, ranked by relists.</summary>
-  </entry>
-  <entry>
-    <title>Conference of May 21, 2026</title>
-    <link href="https://supremecourt.report/conferences/conf_2026-05-21.html"/>
-    <id>https://supremecourt.report/conferences/conf_2026-05-21.html</id>
-    <updated>2026-05-21T00:00:00Z</updated>
-    <summary>Petitions distributed for the Conference of May 21, 2026, ranked by relists.</summary>
-  </entry>
-  <entry>
-    <title>Certiorari granted: Thomas Crowther v. Board of Regents of the University System of Georgia (No. 25-183)</title>
-    <link href="https://supremecourt.report/cases/25-183.html"/>
-    <id>https://supremecourt.report/cases/25-183.html</id>
-    <updated>2026-05-18T00:00:00Z</updated>
-    <summary>Petition GRANTED.</summary>
-  </entry>
-  <entry>
-    <title>Conference of May 14, 2026</title>
-    <link href="https://supremecourt.report/conferences/conf_2026-05-14.html"/>
-    <id>https://supremecourt.report/conferences/conf_2026-05-14.html</id>
-    <updated>2026-05-14T00:00:00Z</updated>
-    <summary>Petitions distributed for the Conference of May 14, 2026, ranked by relists.</summary>
-  </entry>
-  <entry>
-    <title>Conference of May 1, 2026</title>
-    <link href="https://supremecourt.report/conferences/conf_2026-05-01.html"/>
-    <id>https://supremecourt.report/conferences/conf_2026-05-01.html</id>
-    <updated>2026-05-01T00:00:00Z</updated>
-    <summary>Petitions distributed for the Conference of May 1, 2026, ranked by relists.</summary>
-  </entry>
-  <entry>
-    <title>Certiorari granted: Department of Labor v. Sun Valley Orchards, LLC (No. 25-966)</title>
-    <link href="https://supremecourt.report/cases/25-966.html"/>
-    <id>https://supremecourt.report/cases/25-966.html</id>
-    <updated>2026-04-27T00:00:00Z</updated>
-    <summary>Petition GRANTED limited to the following questions: 1) Whether Article III of the Constitution precludes the Department of Labor from adjudicating proceedings to collect monetary remedies from employers who have allegedly violated the terms and conditions of employment of H-2A workers and domestic workers in corresponding employment. 2) Whether 8 U. S. C. §1188(g)(2) authorizes the Department of Labor to adjudicate proceedings to collect monetary remedies from employers who have allegedly vi...</summary>
-  </entry>
-  <entry>
-    <title>Conference of April 24, 2026</title>
-    <link href="https://supremecourt.report/conferences/conf_2026-04-24.html"/>
-    <id>https://supremecourt.report/conferences/conf_2026-04-24.html</id>
-    <updated>2026-04-24T00:00:00Z</updated>
-    <summary>Petitions distributed for the Conference of April 24, 2026, ranked by relists.</summary>
-  </entry>
-  <entry>
-    <title>Certiorari granted: St. Mary Catholic Parish, Littleton, Colorado v. Lisa Roy, in Her Official Capacity as Executive Director of the Colorado Department of Early Childhood (No. 25-581)</title>
-    <link href="https://supremecourt.report/cases/25-581.html"/>
-    <id>https://supremecourt.report/cases/25-581.html</id>
-    <updated>2026-04-20T00:00:00Z</updated>
-    <summary>Petition GRANTED limited to Questions 1 and 2 presented by the petition.</summary>
-  </entry>
-  <entry>
-    <title>Certiorari granted: Kendrick Jarrell Beaird v. United States (No. 25-5343)</title>
-    <link href="https://supremecourt.report/cases/25-5343.html"/>
-    <id>https://supremecourt.report/cases/25-5343.html</id>
-    <updated>2026-04-20T00:00:00Z</updated>
-    <summary>Motion to proceed in forma pauperis GRANTED. Petition for a writ of certiorari GRANTED limited to the following question: Whether &lt;i&gt;Stinson&lt;/i&gt; v. &lt;i&gt;United States&lt;/i&gt;, 508 U. S. 36 (1993), still correctly states the rule for the deference that courts must give the commentary to the Sentencing Guidelines.</summary>
+    <title>Order List, June 15, 2026</title>
+    <link href="https://supremecourt.report/orders/2026-06-15.html"/>
+    <id>https://supremecourt.report/orders/2026-06-15.html</id>
+    <updated>2026-06-15T12:00:00-04:00</updated>
+    <summary>3 granted; 62 denied; 18 other orders. Granted: Kenneth Genalo, Director of the New York Field Office of U.S. Immigration and Customs Enforcement, et al. v. Carol Williams Black, et al.; Eric Guerrero, Director, Texas Department of Criminal Justice, Correctional Institutions Division v. Dexter Johnson; Hamed Kian v. Florida.</summary>
   </entry>
 </feed>
 
