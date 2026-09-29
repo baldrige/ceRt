@@ -308,8 +308,8 @@ regenerate and the daily is the job that runs most often.
 
 | file | contents |
 | --- | --- |
-| `feed.xml` | Atom. Grants, conference reports and daily dashboards, 50 most recent |
-| `grants.xml` | Atom. Certiorari grants only |
+| `feed.xml` | Atom. Grants, the Court's order lists (weekly lists, rules orders, and miscellaneous orders that grant or GVR; `orders/orders.json`), decisions (`decided.json`, as on the landing page), conference reports and daily dashboards, 50 most recent |
+| `grants.xml` | Atom. Certiorari grants only: the grants cache, plus any grant an order list has announced that the cache does not hold yet (same day, rather than after the next conferences run) |
 | `sitemap.xml` | A sitemap **index**, not a urlset |
 | `sitemap-pages.xml` | Sections, dated leaves, `cases/ot*.html` browse pages |
 | `sitemap-cases-ot{NN}.xml` | One per term, docket pages only |
@@ -341,10 +341,13 @@ fatal to the others), a failure is raised as a `::warning::` annotation on the
 run, and `audit_site.R` FAILs when the site has a dashboard or held conference
 newer than `feed.xml`'s `<updated>`. Entry timestamps are noon Eastern.
 
-Consequence: **a new grant reaches the feed on the next weekly conferences run**,
-not the same day. That is a real limitation, not a bug to be fixed by widening the
-daily fetch — widening it means thousands of requests three times a day against a
-WAF that throttles on requests-per-second-per-IP.
+A new grant no longer waits for the weekly conferences run: the daily parses each
+order list the day it is posted (`R/orders_list.R`), and `grant_feed_entries()`
+takes any docket in an order list's `granted[]` that the cache does not hold yet.
+The cache's entry, with the Court's order text, replaces it under the same id
+once the conferences run catches up. (Widening the daily's fetch to see grants
+directly is still the wrong fix — thousands of requests three times a day against
+a WAF that throttles on requests-per-second-per-IP.)
 
 Five things about the feeds are load-bearing:
 
