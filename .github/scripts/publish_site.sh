@@ -74,9 +74,15 @@ PATHS=("$@")
 #   dashboards/qp_cache.json             the daily
 #   dashboards/petition_signals_cache.json  Rule 10 signals, the daily
 #   arguments/qp_cache.json              render_arguments.R
+#   cases/subjects.json                  docket -> subject-area label; the daily
+#                                        and subject-areas.yml. Each entry is a
+#                                        pure function of its own input hash, so
+#                                        the union (this run's entry winning) is
+#                                        right; "_meta" is one more key.
 DERIVED='cases/.manifest.json cases/search.json cases/grants.json cases/forecasts.json
          conferences/qp_cache.json dashboards/qp_cache.json
-         dashboards/petition_signals_cache.json arguments/qp_cache.json'
+         dashboards/petition_signals_cache.json arguments/qp_cache.json
+         cases/subjects.json'
 
 git config user.name  "github-actions[bot]"
 git config user.email "github-actions[bot]@users.noreply.github.com"

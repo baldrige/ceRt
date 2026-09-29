@@ -1,0 +1,3 @@
+# What the pipeline needs (classify_site.py). The evaluation's baseline
+# (eval_scdb.py --baseline) also wants scikit-learn; install it by hand for that.
+pydantic-ai-slim[typesafe]==2.51.0

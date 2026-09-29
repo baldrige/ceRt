@@ -444,6 +444,14 @@ resolve_qps <- function(dockets, urls, cache_path = NULL, max_new = Inf) {
       # longer extracts isn't re-flagged (and re-fetched) on every run.
       if (!identical(qp, "-")) cache[[fetch$dkt[i]]] <- list(url = fetch$url[i], qp = qp)
       else cache[[fetch$dkt[i]]] <- NULL
+      # Checkpoint. An IFP backfill is mostly scanned petitions -- OCR over five
+      # pages each -- and a job killed by its time limit used to lose every
+      # extraction it had made, because the cache was written only after the
+      # loop. Now it loses at most the last 100.
+      if (!is.null(cache_path) && i %% 100 == 0) {
+        dir.create(dirname(cache_path), recursive = TRUE, showWarnings = FALSE)
+        write_json(cache, cache_path, auto_unbox = TRUE)
+      }
     }
     if (!is.null(cache_path)) {
       dir.create(dirname(cache_path), recursive = TRUE, showWarnings = FALSE)

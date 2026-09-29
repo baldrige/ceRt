@@ -1,4 +1,4 @@
-name: Backfill Question Presented (all paid petitions)
+name: Backfill Question Presented (paid or IFP petitions)
 
 # Incremental: extract the Question Presented from every paid petition's PDF, one
 # term per runner (fresh IPs spread supremecourt.gov's PDF rate limit; the
@@ -18,6 +18,10 @@ on:
         description: "Max petition PDFs to fetch per term this run."
         required: false
         default: "3000"
+      types:
+        description: "Petition types: paid, ifp, or paid,ifp. IFP petitions are mostly scans (OCR), so use a smaller max_new -- ~1000 fits a run."
+        required: false
+        default: "paid"
 
 permissions:
   contents: write
@@ -75,14 +79,21 @@ jobs:
             any::jsonlite
             any::pdftools
             any::htmltools
+      # A step limit inside the job's, so a run of slow OCR (IFP petitions are
+      # mostly scans) is stopped with time left to upload what it extracted:
+      # resolve_qps() checkpoints the cache every 100 petitions, and the upload
+      # and the combine job below run whether or not this step finished.
       - name: Extract QP for OT ${{ matrix.term }}
+        timeout-minutes: 150
         env:
           TERM_YEAR: ${{ matrix.term }}
           OUT: qp_${{ matrix.term }}.json
           MAX_NEW: ${{ inputs.max_new || '3000' }}
+          CASE_TYPES: ${{ inputs.types || 'paid' }}
           SEED: site/conferences/qp_cache.json
         run: Rscript .github/scripts/enrich_qp.R
       - uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: qp-${{ matrix.term }}
           path: qp_${{ matrix.term }}.json
@@ -90,6 +101,8 @@ jobs:
 
   combine:
     needs: fetch
+    # Merge whatever terms produced, including a term stopped by its time limit.
+    if: always()
     runs-on: ubuntu-latest
     # Must exceed the sum of this job's step caps (currently 45: setup-r 30 +
     # setup-r-dependencies 15), or the job dies first and the step caps never
@@ -128,5 +141,5 @@ jobs:
       - name: Commit updated cache to gh-pages
         working-directory: site
         run: |
-          ../.github/scripts/publish_site.sh "Backfill QP for paid petitions $(date -u +%F)" \
+          ../.github/scripts/publish_site.sh "Backfill QP for ${{ inputs.types || 'paid' }} petitions $(date -u +%F)" \
             conferences/qp_cache.json

@@ -681,6 +681,29 @@ write_about_page <- function(out_path) {
             "Updates are published as Atom feeds, which any feed reader can ",
             "follow: ", paste(clause[have], collapse = "; "), ".")))
         }),
+        # Case pages and the daily docket link here from their "Subject area"
+        # label, so this is where the label has to explain itself: what the
+        # categories are, what made it, and how often it is wrong.
+        tags$section(
+          id = "subject-areas",
+          tags$h2("Subject areas"),
+          tags$p(HTML(paste0(
+            "Case pages and the daily docket label each petition with a subject area: one of the 14 ",
+            "issue areas of the ",
+            as.character(a("https://scdb.la.psu.edu/", "Supreme Court Database")),
+            " (Criminal Procedure, Civil Rights, First Amendment, Economic Activity, Judicial Power and ",
+            "so on), which scholars have used to classify the Court&rsquo;s decisions for decades. The ",
+            "label is an estimate. A classification model reads the caption and the questions presented ",
+            "and picks the area; it is not the Court&rsquo;s own description of the case, and the ",
+            "Database itself codes only the cases the Court decides."))),
+          tags$p(smarten(paste(
+            "Checked against the Database's coding of 573 cases decided since 2017, the model",
+            "agrees about 78% of the time, and about 81% on a hand-labelled sample of denied",
+            "and pending petitions. Most of the disagreements are close calls, or cases the",
+            "Database codes by how the Court disposed of them (as a question of standing, say)",
+            "rather than by what the petition asked. A label is shown only when the model is",
+            "reasonably sure of it — around 84% of cases — and not at all when the questions",
+            "presented could not be read from the petition, as with many handwritten filings.")))),
         tags$section(
           class = "contact",
           tags$h2("Found a problem?"),
