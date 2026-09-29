@@ -41,14 +41,23 @@ refresh_subjects <- function(site_dir, max_new = 2000L, timeout = 900) {
   py <- Sys.getenv("SUBJECT_PYTHON", unset = Sys.which("python3"))
   if (!nzchar(py)) py <- Sys.which("python")
   if (!nzchar(py)) { message("subjects: no python on PATH"); return(invisible(FALSE)) }
-  out <- tryCatch(
-    system2(py, c(shQuote(normalizePath(script)), "--site", shQuote(normalizePath(site_dir)),
-                  "--max-new", as.integer(max_new)),
-            stdout = TRUE, stderr = TRUE, timeout = timeout),
-    error = function(e) structure(conditionMessage(e), status = 1L), warning = function(w)
-      structure(conditionMessage(w), status = 1L))
+  # A non-zero exit comes back as the command's OUTPUT with a "status"
+  # attribute, plus a warning. Muffle the warning and keep the output: catching
+  # the warning with tryCatch() instead replaced the output with the warning's
+  # own text ("... had status 1"), which is how the first CI failure of this
+  # step (2026-09-29) logged seven times without once saying what went wrong.
+  out <- withCallingHandlers(
+    tryCatch(
+      system2(py, c(shQuote(normalizePath(script)), "--site", shQuote(normalizePath(site_dir)),
+                    "--max-new", as.integer(max_new)),
+              stdout = TRUE, stderr = TRUE, timeout = timeout),
+      error = function(e) structure(conditionMessage(e), status = 1L)),
+    warning = function(w) invokeRestart("muffleWarning"))
+  status <- attr(out, "status")
   message(paste("subjects:", out, collapse = "\n"))
-  invisible(is.null(attr(out, "status")))
+  if (!is.null(status)) message("subjects: classifier exited with status ", status,
+                                "; using the labels already in cases/subjects.json")
+  invisible(is.null(status))
 }
 
 # The Case panel's "Subject area" row. Says where the label comes from, because
