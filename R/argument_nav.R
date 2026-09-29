@@ -52,6 +52,7 @@ classify_argument <- function(events, application = FALSE) {
   empty <- tibble(scheduled_date = as.Date(NA), argued_date = as.Date(NA),
                   decided_date = as.Date(NA), dismissed_date = as.Date(NA), n_settings = 0L,
                   vided = FALSE, dig = FALSE, argued_text = NA_character_,
+                  first_argued_date = as.Date(NA), first_argued_text = NA_character_,
                   opinion_author = NA_character_, opinion_url = NA_character_,
                   status = "granted")
   if (!is.data.frame(events) || !("Proceedings and Orders" %in% names(events)) ||
@@ -78,6 +79,10 @@ classify_argument <- function(events, application = FALSE) {
   arg_idx <- which(str_detect(txt, regex("^Argued\\.", ignore_case = TRUE)))
   argued_date <- if (length(arg_idx)) edate[arg_idx[length(arg_idx)]] else as.Date(NA)
   argued_text <- if (length(arg_idx)) txt[arg_idx[length(arg_idx)]] else NA_character_
+  # ... and the FIRST, which build_argument_table() lists in its own Term when
+  # the reargument fell in a later one (Callais: OT2024 and OT2025).
+  first_argued_date <- if (length(arg_idx)) edate[arg_idx[1]] else as.Date(NA)
+  first_argued_text <- if (length(arg_idx)) txt[arg_idx[1]] else NA_character_
 
   dig <- any(str_detect(txt, regex("DISMISSED as improvidently granted", ignore_case = TRUE)))
   # Post-grant dismissal (parties settle/withdraw): "Case Dismissed - Rule 46."
@@ -147,6 +152,7 @@ classify_argument <- function(events, application = FALSE) {
          decided_date = decided_date, dismissed_date = dismissed_date, n_settings = length(set_idx),
          vided = any(str_detect(txt, regex("SET FOR ARGUMENT.*VIDED", ignore_case = TRUE))),
          dig = dig, argued_text = argued_text,
+         first_argued_date = first_argued_date, first_argued_text = first_argued_text,
          opinion_author = opinion_author, opinion_url = opinion_url,
          status = status)
 }
@@ -208,8 +214,19 @@ fetch_transcript_map <- function(term) {
 # player page for the case. Returns (dkt, url, posted) or an empty frame when
 # the feed is down, which the caller treats as "fall back to the scrape".
 .media_df <- function() data.frame(dkt = character(), url = character(), posted = as.Date(character()), stringsAsFactors = FALSE)
+# Memoised for the run: transcript_arguments() reads the transcript feeds to
+# find arguments a docket does not record, and attach_media() reads them again
+# for the links -- one request per Term, not two.
+.media_feed_memo <- new.env(parent = emptyenv())
 fetch_media_feed <- function(kind = c("audio", "transcripts"), term) {
   kind <- match.arg(kind)
+  key <- paste(kind, as.integer(term) %% 100L)
+  if (exists(key, envir = .media_feed_memo, inherits = FALSE)) return(get(key, envir = .media_feed_memo))
+  out <- .fetch_media_feed(kind, term)
+  assign(key, out, envir = .media_feed_memo)
+  out
+}
+.fetch_media_feed <- function(kind, term) {
   url <- sprintf("https://www.supremecourt.gov/rss/argument_%s_rss.aspx?TYear=%02d", kind, as.integer(term) %% 100L)
   xml <- tryCatch(.media_get(url), error = function(e) { message("argument ", kind, " feed for OT", term %% 100L, " unavailable: ", conditionMessage(e)); "" })
   blocks <- str_match_all(xml, regex("<item>(.*?)</item>", dotall = TRUE))[[1]][, 2]
@@ -232,6 +249,25 @@ fetch_media_feed <- function(kind = c("audio", "transcripts"), term) {
   if (!length(rows)) return(.media_df())
   out <- do.call(rbind, rows)
   out[!duplicated(out$dkt), , drop = FALSE]
+}
+
+# Arguments the Court's transcript feeds record, as (dkt, argued): one row per
+# docket, dated by the day its transcript was posted -- the day of the argument,
+# since the Court posts transcripts the same day (21-588's went up at 2:42 pm on
+# 1 Nov 2021, the afternoon it was argued). build_argument_table() uses it only
+# for a case whose own docket records no argument. `terms`: four-digit Terms.
+transcript_arguments <- function(terms) {
+  parts <- lapply(terms, function(t) {
+    f <- fetch_media_feed("transcripts", t)
+    if (!nrow(f)) return(NULL)
+    data.frame(dkt = f$dkt, argued = f$posted, stringsAsFactors = FALSE)
+  })
+  parts <- parts[!vapply(parts, is.null, logical(1))]
+  if (!length(parts)) return(data.frame(dkt = character(), argued = as.Date(character())))
+  out <- do.call(rbind, parts)
+  out <- out[!is.na(out$argued), , drop = FALSE]
+  out <- out[order(out$dkt, out$argued), , drop = FALSE]
+  out[!duplicated(out$dkt), , drop = FALSE]      # the first argument, where there were two
 }
 
 # Add transcript_url, audio_url (and their posting dates) to an argument table.
@@ -331,7 +367,8 @@ unscheduled_arg_term <- function(grant_date) {
   arg0
 }
 
-build_argument_table <- function(cases, qp_map = NULL, calendar = NULL, daycalls = NULL) {
+build_argument_table <- function(cases, qp_map = NULL, calendar = NULL, daycalls = NULL,
+                                 transcripts = NULL) {
   cls <- classify_petitions(cases)
   # No petitions at all (a frame of original actions alone) unnests to a frame
   # with no columns, and filter() on it would error.
@@ -396,6 +433,25 @@ build_argument_table <- function(cases, qp_map = NULL, calendar = NULL, daycalls
     g |> transmute(dkt, caption = str_squish(caption %||% dkt)),
     map2_dfr(g$events, str_detect(g$dkt, "^\\d{2}A\\d+$"), classify_argument)
   ) |> .apply_calendar(calendar)
+  # A granted case argued without its docket saying so. United States v. Texas
+  # (21-588) was argued on 1 Nov 2021 beside Whole Woman's Health v. Jackson and
+  # dismissed as improvidently granted in December; its docket has no "Argued."
+  # entry, so it had no argument date and fell out of OT2021. The Court's own
+  # transcript is the evidence it was heard: `transcripts` (transcript_arguments())
+  # dates it. Not the Granted & Noted List, which records a SCHEDULED date as
+  # "argued" -- Becerra v. Gresham, taken off the March 2021 calendar, and two
+  # cases dismissed before argument, are "argued" there and were not.
+  if (!is.null(transcripts) && nrow(transcripts)) {
+    fill <- which(is.na(arg0$argued_date) & arg0$dkt %in% transcripts$dkt)
+    if (length(fill)) {
+      d <- transcripts$argued[match(arg0$dkt[fill], transcripts$dkt)]
+      arg0$argued_date[fill] <- d
+      arg0$first_argued_date[fill] <- d
+      arg0$status[fill] <- ifelse(arg0$status[fill] %in% c("Granted", "Scheduled"), "Argued", arg0$status[fill])
+      message("Navigator: argument dated from the Court's transcript for ",
+              paste(arg0$dkt[fill], collapse = ", "))
+    }
+  }
   # The Day Call's advocates, for a case not yet argued (the docket's own
   # "Argued. For petitioner: ..." entry comes after the argument).
   if (!is.null(daycalls) && is.data.frame(daycalls) && nrow(daycalls) && exists("day_call_line")) {
@@ -423,6 +479,42 @@ build_argument_table <- function(cases, qp_map = NULL, calendar = NULL, daycalls
     # that ended before ever being scheduled (dismissed/DIG'd with no argument),
     # e.g. a Rule 46 settlement after cert -- they are not oral arguments.
     filter(!is.na(term), !is.na(arg_ref) | status == "Granted")
+  # Set for argument, never argued, and decided anyway: Becerra v. Gresham
+  # (20-37/38) was set for 29 March 2021, taken off the calendar, and its
+  # judgments vacated as moot in April 2022 -- and read "Decided" under an
+  # argument date on which nothing was heard. It stays listed (it was on that
+  # sitting's calendar, as Genalo v. Black is listed "Dismissed"), as "Not
+  # argued". Only once the setting is past: a case decided before its date
+  # comes round is the ordinary Dismissed/DIG'd path.
+  if (nrow(arg)) {
+    gone <- is.na(arg$argued_date) & !is.na(arg$scheduled_date) &
+            arg$status == "Decided" & arg$scheduled_date < Sys.Date()
+    arg$status[gone] <- "Not argued"
+  }
+  # A case reargued in a later Term is listed in BOTH: the Term of its first
+  # argument as well as the one where it was reargued and decided. Only the
+  # last argument used to count, so Louisiana v. Callais (24-109/110, argued
+  # March 2025, restored to the calendar in June, reargued October 2025) was
+  # missing from OT2024 altogether -- a Term whose argument calendar it was on.
+  # The earlier row is that argument: its date, sitting and advocates, the
+  # status "Reargued", and no decision (the decision belongs to the later row).
+  # A reargument within the same Term (Knick v. Township of Scott, October 2018
+  # and January 2019) stays one row.
+  if (nrow(arg) && "first_argued_date" %in% names(arg)) {
+    early <- arg |>
+      filter(!is.na(first_argued_date), !is.na(argued_date),
+             argument_term(first_argued_date) != argument_term(argued_date)) |>
+      mutate(reargued_term = term,
+             argued_date = first_argued_date, scheduled_date = first_argued_date,
+             arg_ref = first_argued_date, term = argument_term(first_argued_date),
+             sitting_date = floor_date(first_argued_date, "month"),
+             sitting = format(first_argued_date, "%B %Y"),
+             argued_text = first_argued_text,
+             advocates = map_chr(first_argued_text, extract_advocates),
+             status = "Reargued", decided_date = as.Date(NA),
+             opinion_author = NA_character_, opinion_url = NA_character_)
+    if (nrow(early)) arg <- bind_rows(arg, early)
+  }
   # Original actions only in Terms the Navigator already covers: the archive
   # begins at OT17, and No. 8 (Arizona v. California) was argued in 1962. A
   # one-case page for OT1961 is not a Navigator Term.
@@ -442,7 +534,8 @@ build_argument_table <- function(cases, qp_map = NULL, calendar = NULL, daycalls
 # docket) -- so factor() turned that case into NA and it rendered with an empty
 # Status cell and the na_color fill. Silent, and only on a Term that happened to
 # contain one, which is why it went unnoticed.
-STATUS_LEVELS <- c("Granted", "Scheduled", "Argued", "Decided", "DIG'd", "Dismissed")
+STATUS_LEVELS <- c("Granted", "Scheduled", "Argued", "Reargued", "Decided", "DIG'd", "Dismissed",
+                   "Not argued")
 # STATUS_FILL itself lives in palette.R; STATUS_LEVELS above is the legend order.
 
 # Render one Term's argument calendar as the interactive editorial table (matches
@@ -462,6 +555,7 @@ argument_term_page <- function(tbl, term, out_dir) {
             if_else(is.na(arg_ref), str_to_lower(strip_caption_roles(caption)), ""),
             desc(grant_date), as.integer(str_extract(dkt, "\\d+$")))
   if (nrow(d) == 0) return(invisible(NULL))
+  if (!"reargued_term" %in% names(d)) d$reargued_term <- NA_integer_
   all_unscheduled <- all(is.na(d$arg_ref))
 
   d <- d |>
@@ -485,6 +579,11 @@ argument_term_page <- function(tbl, term, out_dir) {
           str_c("[Decided · ", opinion_author, "](", opinion_url, ")"),
         status == "Decided" & !is.na(opinion_url) ~ str_c("[Decided](", opinion_url, ")"),
         status == "Decided" & !is.na(opinion_author) ~ str_c("Decided · ", opinion_author),
+        # Linked to the Term it was reargued in, where the case (and its
+        # decision) is listed again.
+        status == "Not argued" ~ "Not argued &middot; removed from the calendar",
+        status == "Reargued" & !is.na(reargued_term) ~
+          str_c("[Reargued in OT", reargued_term, "](arg_", reargued_term, ".html)"),
         TRUE ~ as.character(status)
       ),
       # The docket's "Argued." entry names the advocates after the fact; the
@@ -509,6 +608,8 @@ argument_term_page <- function(tbl, term, out_dir) {
   # by render_arguments.R as gn_writings; the column appears only where a Term
   # has any.
   if ("gn_writings" %in% names(d)) d$writings <- if_else(is.na(d$gn_writings), "—", d$gn_writings)
+  # The writings are the decision's, joined by docket: not the first argument's.
+  if ("writings" %in% names(d)) d$writings[d$status %in% "Reargued"] <- "—"
   has_writings <- "writings" %in% names(d) && any(d$writings != "—")
   keep <- c("Sitting", if (!all_unscheduled) "When", "Case", "Docket", "status_disp",
             if (has_writings) "writings",

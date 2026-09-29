@@ -64,7 +64,13 @@ source("R/argument_calendar.R")
 cal_idx <- tryCatch(fetch_calendar_index(), error = function(e) { cat("Calendar index unavailable:", conditionMessage(e), "\n"); NULL })
 cal <- tryCatch(update_argument_calendar(site_dir, cal_idx), error = function(e) { cat("Argument calendar skipped:", conditionMessage(e), "\n"); read_calendar(site_dir) })
 dcs <- tryCatch(update_day_calls(site_dir, cal_idx), error = function(e) { cat("Day Calls skipped:", conditionMessage(e), "\n"); read_day_calls(site_dir) })
-tbl <- build_argument_table(combined, calendar = cal, daycalls = dcs)
+# The Court's transcript feeds (OT17 on), which date an argument a docket does not
+# record -- United States v. Texas (21-588). The same feeds attach_media() reads
+# for the links, memoised, so this costs no extra requests. Never fatal.
+tr <- tryCatch(transcript_arguments(2017:argument_term(Sys.Date())), error = function(e) {
+  cat("Transcript feeds unavailable:", conditionMessage(e), "\n"); NULL })
+cat("Transcripts on file:", if (is.null(tr)) 0 else nrow(tr), "argued docket(s)\n")
+tbl <- build_argument_table(combined, calendar = cal, daycalls = dcs, transcripts = tr)
 cat("Argued/scheduled grants:", nrow(tbl), "\n")
 qp_max <- as.integer(Sys.getenv("QP_MAX_NEW", unset = "0"))
 cache <- file.path(arg_dir, "qp_cache.json")
