@@ -214,8 +214,19 @@ fetch_transcript_map <- function(term) {
 # player page for the case. Returns (dkt, url, posted) or an empty frame when
 # the feed is down, which the caller treats as "fall back to the scrape".
 .media_df <- function() data.frame(dkt = character(), url = character(), posted = as.Date(character()), stringsAsFactors = FALSE)
+# Memoised for the run: transcript_arguments() reads the transcript feeds to
+# find arguments a docket does not record, and attach_media() reads them again
+# for the links -- one request per Term, not two.
+.media_feed_memo <- new.env(parent = emptyenv())
 fetch_media_feed <- function(kind = c("audio", "transcripts"), term) {
   kind <- match.arg(kind)
+  key <- paste(kind, as.integer(term) %% 100L)
+  if (exists(key, envir = .media_feed_memo, inherits = FALSE)) return(get(key, envir = .media_feed_memo))
+  out <- .fetch_media_feed(kind, term)
+  assign(key, out, envir = .media_feed_memo)
+  out
+}
+.fetch_media_feed <- function(kind, term) {
   url <- sprintf("https://www.supremecourt.gov/rss/argument_%s_rss.aspx?TYear=%02d", kind, as.integer(term) %% 100L)
   xml <- tryCatch(.media_get(url), error = function(e) { message("argument ", kind, " feed for OT", term %% 100L, " unavailable: ", conditionMessage(e)); "" })
   blocks <- str_match_all(xml, regex("<item>(.*?)</item>", dotall = TRUE))[[1]][, 2]
@@ -238,6 +249,25 @@ fetch_media_feed <- function(kind = c("audio", "transcripts"), term) {
   if (!length(rows)) return(.media_df())
   out <- do.call(rbind, rows)
   out[!duplicated(out$dkt), , drop = FALSE]
+}
+
+# Arguments the Court's transcript feeds record, as (dkt, argued): one row per
+# docket, dated by the day its transcript was posted -- the day of the argument,
+# since the Court posts transcripts the same day (21-588's went up at 2:42 pm on
+# 1 Nov 2021, the afternoon it was argued). build_argument_table() uses it only
+# for a case whose own docket records no argument. `terms`: four-digit Terms.
+transcript_arguments <- function(terms) {
+  parts <- lapply(terms, function(t) {
+    f <- fetch_media_feed("transcripts", t)
+    if (!nrow(f)) return(NULL)
+    data.frame(dkt = f$dkt, argued = f$posted, stringsAsFactors = FALSE)
+  })
+  parts <- parts[!vapply(parts, is.null, logical(1))]
+  if (!length(parts)) return(data.frame(dkt = character(), argued = as.Date(character())))
+  out <- do.call(rbind, parts)
+  out <- out[!is.na(out$argued), , drop = FALSE]
+  out <- out[order(out$dkt, out$argued), , drop = FALSE]
+  out[!duplicated(out$dkt), , drop = FALSE]      # the first argument, where there were two
 }
 
 # Add transcript_url, audio_url (and their posting dates) to an argument table.
@@ -337,7 +367,8 @@ unscheduled_arg_term <- function(grant_date) {
   arg0
 }
 
-build_argument_table <- function(cases, qp_map = NULL, calendar = NULL, daycalls = NULL) {
+build_argument_table <- function(cases, qp_map = NULL, calendar = NULL, daycalls = NULL,
+                                 transcripts = NULL) {
   cls <- classify_petitions(cases)
   # No petitions at all (a frame of original actions alone) unnests to a frame
   # with no columns, and filter() on it would error.
@@ -402,6 +433,25 @@ build_argument_table <- function(cases, qp_map = NULL, calendar = NULL, daycalls
     g |> transmute(dkt, caption = str_squish(caption %||% dkt)),
     map2_dfr(g$events, str_detect(g$dkt, "^\\d{2}A\\d+$"), classify_argument)
   ) |> .apply_calendar(calendar)
+  # A granted case argued without its docket saying so. United States v. Texas
+  # (21-588) was argued on 1 Nov 2021 beside Whole Woman's Health v. Jackson and
+  # dismissed as improvidently granted in December; its docket has no "Argued."
+  # entry, so it had no argument date and fell out of OT2021. The Court's own
+  # transcript is the evidence it was heard: `transcripts` (transcript_arguments())
+  # dates it. Not the Granted & Noted List, which records a SCHEDULED date as
+  # "argued" -- Becerra v. Gresham, taken off the March 2021 calendar, and two
+  # cases dismissed before argument, are "argued" there and were not.
+  if (!is.null(transcripts) && nrow(transcripts)) {
+    fill <- which(is.na(arg0$argued_date) & arg0$dkt %in% transcripts$dkt)
+    if (length(fill)) {
+      d <- transcripts$argued[match(arg0$dkt[fill], transcripts$dkt)]
+      arg0$argued_date[fill] <- d
+      arg0$first_argued_date[fill] <- d
+      arg0$status[fill] <- ifelse(arg0$status[fill] %in% c("Granted", "Scheduled"), "Argued", arg0$status[fill])
+      message("Navigator: argument dated from the Court's transcript for ",
+              paste(arg0$dkt[fill], collapse = ", "))
+    }
+  }
   # The Day Call's advocates, for a case not yet argued (the docket's own
   # "Argued. For petitioner: ..." entry comes after the argument).
   if (!is.null(daycalls) && is.data.frame(daycalls) && nrow(daycalls) && exists("day_call_line")) {
