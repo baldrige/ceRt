@@ -5,8 +5,15 @@
   <link rel="self" href="https://supremecourt.report/grants.xml"/>
   <link rel="alternate" type="text/html" href="https://supremecourt.report/"/>
   <id>https://supremecourt.report/grants.xml</id>
-  <updated>2026-07-20T12:00:00-04:00</updated>
+  <updated>2026-09-29T12:00:00-04:00</updated>
   <author><name>Supreme Court Report</name></author>
+  <entry>
+    <title>Certiorari granted: DEPT. OF HOMELAND SEC., ET AL. V. D.V.D., ET AL. (No. 26-426)</title>
+    <link href="https://supremecourt.report/orders/2026-09-29-misc2.html#d-26-426"/>
+    <id>https://supremecourt.report/cases/26-426.html</id>
+    <updated>2026-09-29T12:00:00-04:00</updated>
+    <summary>The Court granted review on September 29, 2026.</summary>
+  </entry>
   <entry>
     <title>Certiorari granted: Kenneth J. Jouppi v. Alaska (No. 25-246)</title>
     <link href="https://supremecourt.report/cases/25-246.html"/>
@@ -347,13 +354,6 @@
     <title>Certiorari granted: Havana Docks Corporation v. Royal Caribbean Cruises, Ltd. (No. 24-983)</title>
     <link href="https://supremecourt.report/cases/24-983.html"/>
     <id>https://supremecourt.report/cases/24-983.html</id>
-    <updated>2025-10-03T12:00:00-04:00</updated>
-    <summary>Petition GRANTED.</summary>
-  </entry>
-  <entry>
-    <title>Certiorari granted: Exxon Mobil Corporation v. Corporación Cimex, S.A. (Cuba) (No. 24-699)</title>
-    <link href="https://supremecourt.report/cases/24-699.html"/>
-    <id>https://supremecourt.report/cases/24-699.html</id>
     <updated>2025-10-03T12:00:00-04:00</updated>
     <summary>Petition GRANTED.</summary>
   </entry>
