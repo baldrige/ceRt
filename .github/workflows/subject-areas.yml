@@ -1,0 +1,64 @@
+name: Subject areas (classify the back-catalog)
+
+# Classifies every docket with questions presented on the site that has no
+# current subject-area label, and publishes cases/subjects.json. The daily does
+# the same incrementally for new QPs (R/subject_area.R: refresh_subjects); this
+# is for the bulk cases -- the first fill, a QP backfill landing thousands at
+# once, or a change to the model or to areas.py, which re-labels everything.
+#
+# Publishes the labels only. Pages show them once they re-render: the daily's
+# own window does that for recent dockets, and rerender-dockets.yml carries a
+# PAGE_TEMPLATE_VERSION bump (or new labels) to the back-catalog.
+#
+# Cost: Jev charges per input token; ~16,000 dockets is ~5M tokens, well under a
+# dollar. Time: ~8 concurrent requests, a few minutes per thousand.
+# See docs/subject-areas.md.
+
+on:
+  workflow_dispatch:
+    inputs:
+      max_new:
+        description: "Cap on classification requests this run."
+        required: false
+        default: "25000"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: subject-areas
+  cancel-in-progress: false
+
+jobs:
+  classify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - name: Checkout source (main)
+        uses: actions/checkout@v5
+      - name: Checkout published site (gh-pages) into ./site
+        uses: actions/checkout@v5
+        with:
+          ref: gh-pages
+          path: site
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: .github/scripts/subject_area/requirements.txt
+      - name: Install the subject-area classifier
+        run: pip install -r .github/scripts/subject_area/requirements.txt
+      - name: Classify
+        timeout-minutes: 100
+        env:
+          TYPESAFE_API_KEY: ${{ secrets.TYPESAFE_API_KEY }}
+        run: |
+          if [ -z "$TYPESAFE_API_KEY" ]; then
+            echo "::error::The TYPESAFE_API_KEY secret is not set"; exit 1
+          fi
+          cd .github/scripts/subject_area
+          python classify_site.py --site ../../../site --max-new "${{ inputs.max_new || '25000' }}"
+      - name: Publish cases/subjects.json
+        working-directory: site
+        run: |
+          ../.github/scripts/publish_site.sh "Subject areas $(date -u +%F)" cases/subjects.json

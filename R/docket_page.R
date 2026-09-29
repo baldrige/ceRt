@@ -38,6 +38,8 @@ local({
   sys.source(find("original_dockets.R"), envir = globalenv())
   # orders_docket_index(): which order lists acted on each docket.
   if (!exists("orders_docket_index")) sys.source(find("orders_list.R"), envir = globalenv())
+  # load_subjects() / refresh_subjects(): the Case panel's "Subject area" row.
+  sys.source(find("subject_area.R"), envir = globalenv())
 })
 
 # A procedural entry is marked with a TICK across the timeline rule, not a dot.
@@ -345,7 +347,13 @@ write_docket_css <- function(out_dir) {
 # the render date, which the manifest key does not hash; a page re-renders when
 # the docket moves, which after a conference it normally does (an order, or a
 # fresh DISTRIBUTED entry).
-PAGE_TEMPLATE_VERSION <- "v41"
+# v42: the Case panel's "Subject area" row -- which of the Supreme Court
+# Database's 14 issue areas the case is about, estimated from the caption and
+# questions presented (R/subject_area.R, docs/subject-areas.md). Shown only at
+# confidence >= SUBJECT_MIN_CONFIDENCE and never for an unreadable QP. The label
+# as displayed is in the manifest key, so a page re-renders when it gains one;
+# the bump carries the row to the back-catalog once subjects.json is filled.
+PAGE_TEMPLATE_VERSION <- "v42"
 
 # ---- small helpers ------------------------------------------------------------
 # A probability at significant figures, as the conference report prints it
@@ -1098,7 +1106,7 @@ docket_disposition <- function(outcome, outcome_date, arg, p_base, conf, sig, is
 # optional enrichments (no network is ever performed here).
 docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
                         signals = NULL, qp = NA_character_, rendered = Sys.Date(),
-                        available = character(), orders = NULL) {
+                        available = character(), orders = NULL, subject = NA_character_) {
   dkt <- cx$dkt; ev <- cx$events[[1]]; par <- cx$parties[[1]]; rel <- cx$related %||% ""
   # The linked application/petition docket. NA-safe on purpose: %||% catches a
   # snapshot rendered before build_case() carried the column, but a present-and-NA
@@ -1319,6 +1327,7 @@ docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
                           paste(seg, collapse = " &middot; "), side, "</p>")
   }
   case_panel <- paste0("<div class='panel", if (!nzchar(counsel_panel)) " wide" else "", "'><h3>Case</h3>",
+    docket_subject_html(subject),
     "<p><span class='side'>Conference history</span><br>", conf_line, "</p>",
     amicus_line,
     if (nzchar(rel)) paste0("<p><span class='side'>Related</span><br>",
@@ -1473,8 +1482,8 @@ docket_orders_html <- function(orders, dkt) {
 # absent entries just omit that section. A manifest of per-page content hashes
 # (cases/.manifest.json) makes re-runs rewrite only dockets whose page changed.
 render_docket_pages <- function(cases, out_dir, models = NULL, qp_map = NULL,
-                                signals_map = NULL, orders_map = NULL, incremental = TRUE,
-                                rendered = Sys.Date()) {
+                                signals_map = NULL, orders_map = NULL, subject_map = NULL,
+                                incremental = TRUE, rendered = Sys.Date()) {
   write_docket_css(out_dir)
   mpath <- file.path(out_dir, ".manifest.json")
   # Always load the existing manifest and MERGE this batch into it, so rendering
@@ -1497,20 +1506,23 @@ render_docket_pages <- function(cases, out_dir, models = NULL, qp_map = NULL,
     qp  <- if (!is.null(qp_map)) qp_map[[dkt]] %||% NA_character_ else NA_character_
     clr <- if (length(cls_by)) cls_by[[dkt]][1, ] else NULL
     ords <- if (!is.null(orders_map)) orders_map[[dkt]] else NULL
+    # The label as displayed (already thresholded), so a page re-renders when it
+    # gains, changes or loses one -- not when only the confidence moves.
+    subj <- if (length(subject_map) && dkt %in% names(subject_map)) subject_map[[dkt]] else NA_character_
     # Hash every page-determining input (+ template + model); skip if unchanged.
     # link_targets() is in here because WHICH of this page's references resolve
     # is page-determining too: without it, a page that rendered a reference as
     # plain text would never re-render once that target's page appeared.
     key <- digest::digest(list(PAGE_TEMPLATE_VERSION, model_id, cx$caption, cx$events,
              cx$parties, cx$lower, cx$lower_dkt, cx$lower_date, cx$date, cx$type,
-             qp, sig, cx$related, cx$linked, link_targets(cx, available), ords))
+             qp, sig, cx$related, cx$linked, link_targets(cx, available), ords, subj))
     if (incremental && identical(manifest[[dkt]] %||% "", key) &&
         file.exists(file.path(out_dir, paste0(dkt, ".html")))) {
       new_manifest[[dkt]] <- key; next
     }
     tryCatch({ docket_page(cx, out_dir, models = models, cls_row = clr, signals = sig,
                            qp = qp, rendered = rendered, available = available,
-                           orders = ords)
+                           orders = ords, subject = subj)
                n_written <- n_written + 1L }, error = function(e)
       message("docket_page failed for ", dkt, ": ", conditionMessage(e)))
     new_manifest[[dkt]] <- key
@@ -1600,9 +1612,15 @@ render_dockets_for <- function(cases, site_dir, model_dir = "data") {
     orders_map <- if (exists("orders_docket_index"))
       tryCatch(orders_docket_index(site_dir), error = function(e) {
         message("orders index unavailable: ", conditionMessage(e)); NULL }) else NULL
+    # Subject areas (R/subject_area.R): classify any QP the caches gained since
+    # the last run, then read the labels. Both steps are never fatal; without a
+    # key the pages carry the labels subjects.json already holds.
+    refresh_subjects(site_dir)
+    subject_map <- tryCatch(load_subjects(site_dir), error = function(e) {
+      message("subjects unavailable: ", conditionMessage(e)); character() })
     render_docket_pages(cases, file.path(site_dir, "cases"),
                         models = models, qp_map = qp_map, signals_map = signals_map,
-                        orders_map = orders_map)
+                        orders_map = orders_map, subject_map = subject_map)
     write_search_index(cases, file.path(site_dir, "cases"))
   }, error = function(e) message("render_dockets_for failed: ", conditionMessage(e)))
 }

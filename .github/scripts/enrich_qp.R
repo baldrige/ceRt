@@ -25,12 +25,16 @@ f <- sprintf("data-raw/ot_%s.rds", term)
 if (!file.exists(f)) stop("no archive: ", f)
 cases <- readRDS(f)
 
+# CASE_TYPES: which petitions, as funnel_case_type() names them. Paid by
+# default, as this was written for; "ifp" (or "paid,ifp") extends it to the
+# in forma pauperis petitions, whose QPs the subject-area labels need.
+types <- strsplit(Sys.getenv("CASE_TYPES", unset = "paid"), "[, ]+")[[1]]
 sel <- cases |>
   mutate(ctype = funnel_case_type(dkt),
          url = purrr::map_chr(events, find_petition_url)) |>
-  filter(ctype == "paid", !is.na(url), nzchar(url)) |>
+  filter(ctype %in% types, !is.na(url), nzchar(url)) |>
   distinct(dkt, .keep_all = TRUE)
-cat("OT", term, "— paid petitions with a petition URL:", nrow(sel), "\n")
+cat("OT", term, "—", paste(types, collapse = "+"), "petitions with a petition URL:", nrow(sel), "\n")
 
 # Seed the per-term cache from the shared cache so already-extracted QPs (many
 # OT24/OT25 cases are already cached from conference rendering) aren't re-fetched.
@@ -44,4 +48,4 @@ if (nzchar(seed) && file.exists(seed)) {
 invisible(resolve_qps(sel$dkt, sel$url, cache_path = out, max_new = max_new))
 have <- fromJSON(out, simplifyVector = FALSE)
 cat("OT", term, "cache entries:", length(have),
-    "of", nrow(sel), "paid-with-url\n")
+    "of", nrow(sel), "with a petition URL\n")

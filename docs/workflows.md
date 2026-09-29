@@ -141,7 +141,8 @@ None of these fire on a schedule. Trigger with `gh workflow run <file> --ref mai
 | **`enrich-petitions.yml`** | Petition-PDF Rule 10 signals → commits `data-raw/petition_signals.json` to **`main`** | **No** |
 | **`enrich-word-counts.yml`** | Rule 33.1(h) word-count certificates → commits `data-raw/word_counts.json` to **`main`** (one runner; the files are ~1 KB) | **No** |
 | **`backfill-qp.yml`** | QP PDFs (argued grants) → commits `conferences/qp_cache.json` **cache** to `gh-pages` | **No HTML** |
-| **`backfill-qp-all.yml`** | QP PDFs (all paid petitions) → same `conferences/qp_cache.json` cache | **No HTML** |
+| **`backfill-qp-all.yml`** | QP PDFs (paid petitions, or IFP with `types: ifp`) → same `conferences/qp_cache.json` cache | **No HTML** |
+| **`subject-areas.yml`** | **No fetch** — classifies every QP on the site that lacks a current subject-area label (Jev; needs the `TYPESAFE_API_KEY` secret) → `cases/subjects.json` | **No HTML** — pages pick the labels up on their next render |
 | **`refetch-argued.yml`** | Re-fetch ~500 granted OT17–24 dockets → commits `data-raw/arg_refresh.rds` to **`main`** | **No** — but it is the input to the Counsel Table's argument boards, so refresh it before re-rendering those |
 | **`probe-scotus.yml`** | **No** — read-only WAF/throttle diagnostic; logs HTTP status codes | **No** |
 | **`render-funnel.yml`** | **No fetch** — reuses `cases-*.rds` from a prior `conferences.yml` run (artifacts expire after 3 days) | **Yes → `funnel/index.html` only** |
@@ -180,8 +181,16 @@ These feed later renders; **nothing goes public until a rendering job runs.**
 - `backfill-qp.yml` / `backfill-qp-all.yml` — extract the Question Presented from
   petition PDFs into the shared `conferences/qp_cache.json` on `gh-pages`. The
   first covers argued grants (from `data-raw/arg_refresh.rds`); the second covers
-  **all** paid petitions per term (from `data-raw/ot_<term>.rds`). Docket and
+  **all** paid petitions per term (from `data-raw/ot_<term>.rds`), or the IFP
+  petitions with `types: ifp` -- mostly scans, so OCR-bound: keep `max_new` near
+  1000 and re-dispatch. The extraction checkpoints every 100 petitions and a
+  term stopped by its step limit still uploads and merges what it got. Docket and
   argument pages surface these QPs only on their **next** render.
+- `subject-areas.yml` — the bulk run of the subject-area classifier
+  (`.github/scripts/subject_area/classify_site.py`; see
+  **[subject-areas.md](subject-areas.md)**). The daily classifies new QPs itself;
+  this is for the first fill, after a QP backfill, and after any change to the
+  model or `areas.py`. Checkpoints every 500 requests; re-dispatch if it stops.
 - `refetch-argued.yml` — re-fetches the ~500 granted OT17–24 dockets so their
   decisions/opinions are current, saving `data-raw/arg_refresh.rds` to **`main`**
   (the refresh layer `render_arguments.R` prefers over stale snapshots).
@@ -224,6 +233,7 @@ rebase cleanly.
 | `cases/original.json` (the original-jurisdiction docket manifest; the daily reads it) | `conferences.yml` only |
 | `orders/` (order-list pages, `orders.json`, `data/`) | `daily.yml` only — see **[order-lists.md](order-lists.md)** |
 | `cases/forecasts.json` (prospective forecast log) | `conferences.yml` only |
+| `cases/subjects.json` (subject-area labels; union-merged on conflict) | `daily.yml` (new QPs, when the `TYPESAFE_API_KEY` secret is set) · `subject-areas.yml` (bulk) |
 
 ## The original-jurisdiction docket: fetched by name, on the pending runner
 

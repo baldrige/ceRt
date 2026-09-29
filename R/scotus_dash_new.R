@@ -505,6 +505,14 @@ scotus_dash <- function(range = today() - 1, year = "26",
   qp_html <- qp_details(qp_raw)
   qps <- ifelse(is.na(qp_raw) | qp_raw == "" | qp_raw == "-", "—", qp_html)
 
+  # Subject area (R/subject_area.R), from the QPs just resolved: classify the new
+  # ones, then read the labels. Both never fatal, and absent functions (a render
+  # outside build_dashboards.R) just leave the column blank.
+  site_dir <- dirname(out_dir)
+  if (exists("refresh_subjects")) refresh_subjects(site_dir)
+  subj <- if (exists("load_subjects")) tryCatch(load_subjects(site_dir), error = function(e) character())
+          else character()
+
   # One editorial row per docket. Grant stays NUMERIC so the column sorts by
   # value; Type/Grant get color scales, everything else is markdown/HTML.
   tbl <- tibble(
@@ -520,6 +528,9 @@ scotus_dash <- function(range = today() - 1, year = "26",
       hits$dkt,
       strip_caption_roles(hits$caption),
       hits$dkt),
+    # Plain text, so the column's filter box matches it ("Criminal", "First").
+    # NA -- no QP yet, an unreadable one, or a low-confidence pick -- shows a dash.
+    Subject = unname(subj[hits$dkt]),
     Grant = unname(grant_map[hits$dkt]),
     # No str_trunc(30) -- the same call the conference reports already dropped,
     # for the same reason. A truncated court name loses exactly the part that
@@ -553,7 +564,7 @@ scotus_dash <- function(range = today() - 1, year = "26",
   if (has_grant) tbl$.grant_shade <- pmin(tbl$Grant, GRANT_DOMAIN[2])
 
   # Data cells that read better left-aligned (headers stay centered via CSS).
-  left_cols <- match(intersect(c("Case", "Court", "Counsel", "Documents", "QP"),
+  left_cols <- match(intersect(c("Case", "Subject", "Court", "Counsel", "Documents", "QP"),
                                names(tbl)), names(tbl))
 
   t <- tbl |>
@@ -562,14 +573,15 @@ scotus_dash <- function(range = today() - 1, year = "26",
     data_color(columns = Type, method = "factor",
       palette = TYPE_CHIPS) |>
     cols_align("center", columns = everything()) |>
-    cols_label(QP = "Questions Presented") |>
+    cols_label(QP = "Questions Presented", Subject = "Subject area") |>
+    sub_missing(columns = Subject, missing_text = "—") |>
     # Type holds three short words and was sized by its header, not its data.
     # Case gains the 10px the docket line needs. Both match the conference
     # reports, which is the point -- the two tables show the same kind of row.
     # Court needs an explicit width now that it is no longer truncated: without
     # one it sizes to its longest value, and a 73-character court name widens the
     # table instead of wrapping inside it. 160px is the conference reports' width.
-    cols_width(Case ~ px(230), Type ~ px(76), Court ~ px(160), QP ~ px(190))
+    cols_width(Case ~ px(230), Type ~ px(76), Subject ~ px(120), Court ~ px(160), QP ~ px(190))
   if (has_grant) {
     t <- t |>
       fmt_percent(columns = Grant, decimals = 0) |>
