@@ -55,7 +55,7 @@ refresh_subjects <- function(site_dir, max_new = 2000L, timeout = 900) {
     warning = function(w) invokeRestart("muffleWarning"))
   status <- attr(out, "status")
   message(paste("subjects:", out, collapse = "\n"))
-  if (!is.null(status)) message("subjects: classifier exited with status ", status,
+  if (!is.null(status)) message("subjects: classifier (", py, ") exited with status ", status,
                                 "; using the labels already in cases/subjects.json")
   invisible(is.null(status))
 }
