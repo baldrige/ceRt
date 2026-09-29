@@ -552,9 +552,21 @@ resolve_lineups <- function(dec, urls, site_dir, max_new = 0L, pace = 0.75,
   is_cached <- function(dk) !is.null(cache[[dk]]) &&
     (!retry || (isTRUE(cache[[dk]]$parsed) && identical(cache[[dk]]$pv, LINEUP_PARSER_VERSION) && length(cache[[dk]]$also) > 0))
   url_for <- function(dkts) { u <- urls[dkts]; u <- u[!is.na(u)]; if (length(u)) u[[1]] else NA_character_ }
-  todo <- dec |> filter(!vapply(dkt, is_cached, logical(1))) |>
+  # A cached lineup read from a file the Court has since replaced -- a revised
+  # slip opinion, or its U.S. Reports reprint -- is re-read from the new one
+  # (slip_url_superseded(), R/site_decisions.R). Keyed by docket, the cache
+  # otherwise kept the pre-revision text for good: it was versioned by parser,
+  # never by file.
+  sup <- if (exists("slip_url_superseded")) vapply(seq_len(nrow(dec)), function(i) {
+    e <- cache[[dec$dkt[i]]]
+    !is.null(e) && slip_url_superseded(e$url %||% NA_character_, url_for(dec$dkts[[i]]))
+  }, logical(1)) else rep(FALSE, nrow(dec))
+  if (any(sup)) message("lineups: ", sum(sup), " cached opinion(s) superseded by a new file: ",
+                        paste(dec$dkt[sup], collapse = ", "))
+  stale_dkt <- !vapply(dec$dkt, is_cached, logical(1)) | sup
+  todo <- dec[stale_dkt, , drop = FALSE] |>
     mutate(url = vapply(dkts, url_for, character(1))) |> filter(!is.na(url))
-  n_uncached <- sum(!vapply(dec$dkt, is_cached, logical(1)))
+  n_uncached <- sum(stale_dkt)
   todo <- head(todo, max_new)
   if (nrow(todo)) {
     message("lineups: fetching ", nrow(todo), " of ", n_uncached, " uncached decision(s) (cap ", max_new, ")")

@@ -465,9 +465,19 @@ resolve_opinion_text <- function(dec, urls, site_dir, max_new = 0L, pace = 1,
   is_cached <- function(dk) !is.null(cache[[dk]]) &&
     (!retry || (isTRUE(cache[[dk]]$ok) && identical(cache[[dk]]$tv, OPINION_TEXT_VERSION)))
   url_for <- function(dkts) { u <- urls[dkts]; u <- u[!is.na(u)]; if (length(u)) u[[1]] else NA_character_ }
-  todo <- dec |> filter(!vapply(dkt, is_cached, logical(1))) |>
+  # Re-measure an opinion whose file the Court has replaced (a revision, or the
+  # U.S. Reports reprint): its word counts and style measures were taken from
+  # the old text. See slip_url_superseded() in R/site_decisions.R.
+  sup <- if (exists("slip_url_superseded")) vapply(seq_len(nrow(dec)), function(i) {
+    e <- cache[[dec$dkt[i]]]
+    !is.null(e) && slip_url_superseded(e$url %||% NA_character_, url_for(dec$dkts[[i]]))
+  }, logical(1)) else rep(FALSE, nrow(dec))
+  if (any(sup)) message("opinion text: ", sum(sup), " cached opinion(s) superseded by a new file: ",
+                        paste(dec$dkt[sup], collapse = ", "))
+  stale_dkt <- !vapply(dec$dkt, is_cached, logical(1)) | sup
+  todo <- dec[stale_dkt, , drop = FALSE] |>
     mutate(url = vapply(dkts, url_for, character(1))) |> filter(!is.na(url))
-  n_uncached <- sum(!vapply(dec$dkt, is_cached, logical(1)))
+  n_uncached <- sum(stale_dkt)
   todo <- head(todo, max_new)
   if (nrow(todo)) {
     message("opinion text: fetching ", nrow(todo), " of ", n_uncached, " uncached decision(s) (cap ", max_new, ")")

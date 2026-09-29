@@ -73,6 +73,13 @@ need <- terms[vapply(terms, function(t) {
   d <- gn_decisions(gn, t)$dkt
   (max_new > 0 && any(!vapply(d, is_current, logical(1)))) || (text_max > 0 && any(!vapply(d, text_current, logical(1))))
 }, logical(1))]
+# The two newest Terms' listings are read whenever fetching is on, even when
+# every decision in them is cached: that is the only way to see that the Court
+# has replaced an opinion's file -- a revision, or the U.S. Reports reprint --
+# which resolve_lineups() and resolve_opinion_text() then re-read. Without it a
+# fully cached Term never consulted the listing again, and 11 OT25 opinions sat
+# on superseded files (2026-09-29). One or two requests.
+if (max_new > 0 || text_max > 0) need <- sort(unique(c(need, tail(sort(terms), 2))))
 if ((max_new > 0 || text_max > 0) && length(need)) {
   cat("Fetching opinion listings for Term(s)", paste(need, collapse = ", "), "\n")
   lst <- fetch_opinion_listing(sprintf("%02d", as.integer(need)), kinds = "slipopinion")
