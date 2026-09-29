@@ -84,7 +84,10 @@ jobs:
       # resolve_qps() checkpoints the cache every 100 petitions, and the upload
       # and the combine job below run whether or not this step finished.
       - name: Extract QP for OT ${{ matrix.term }}
-        timeout-minutes: 150
+        # 120: with setup-r (30) and its dependencies (15) that is 165, inside the
+        # job's 180 -- lint_workflows.py enforces the margin -- and it leaves the
+        # upload time to run.
+        timeout-minutes: 120
         env:
           TERM_YEAR: ${{ matrix.term }}
           OUT: qp_${{ matrix.term }}.json
