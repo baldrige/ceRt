@@ -23,14 +23,25 @@ data to `main`; a probe writes nothing at all. Only a job that renders HTML into
 
 ## Scheduled runs — the only truly automated ones
 
-Two workflows run on a cron with no human involved. Together they cover the whole
-site, partitioned so they never fight over the same paths.
+**Since 2026-09-29 the schedules are kept by AWS, not GitHub.** GitHub's cron
+started the daily 2.5-5 hours late (the 00:33 UTC slot ran around 05:00-06:00),
+while a `workflow_dispatch` starts within seconds. So `aws/scheduler.yaml` (an
+EventBridge Scheduler + Lambda stack; setup in **[aws/README.md](../aws/README.md)**)
+dispatches `daily.yml`, `conferences.yml` and `audit-site.yml` at the cron times
+below, and polls the Hermes feed every 5 minutes in place of `watch-court.yml`,
+which is **disabled** (`gh workflow enable watch-court.yml` restores it). The
+GitHub crons below stay as a fallback: the function never dispatches a workflow
+that is already queued or running, and a late GitHub start after it finds the
+work done. First on-time run: the 16:33 UTC daily of 2026-09-29, at 16:33:24.
+
+Two workflows run on a schedule with no human involved. Together they cover the
+whole site, partitioned so they never fight over the same paths.
 
 | workflow | schedule (cron is **UTC**) | data | public pages |
 | --- | --- | --- | --- |
 | **`daily.yml`** | 3×/day: `33 0`, `33 16`, `33 20` (00:33 / 16:33 / 20:33 UTC — the ET-anchored two ≈ 12:33pm & 4:33pm ET) | **Yes** — incremental fetch | **Yes** — dashboards, recent cases, landing |
 | **`conferences.yml`** | Weekly `0 6 * * 1` (**Mon 06:00 UTC**), year-round | **Yes** — full-term fetch | **Yes** — conferences, relists, arguments, funnel, counsel |
-| **`watch-court.yml`** | A self-dispatching **chain**: each run polls for ~5h45m, then starts the next; the cron (`7,22,37,52 * * * *`) is only the restart floor | **No** — reads a 1 KB feed | **Indirectly** — dispatches `daily.yml` when the Court's Hermes transfer feed changes |
+| **`watch-court.yml`** — *disabled; replaced by the AWS watcher above* | A self-dispatching **chain**: each run polls for ~5h45m, then starts the next; the cron (`7,22,37,52 * * * *`) is only the restart floor | **No** — reads a 1 KB feed | **Indirectly** — dispatches `daily.yml` when the Court's Hermes transfer feed changes |
 
 The daily also has a fourth cron, Mondays at 14:03 UTC, after the 9:30 ET
 order list. `watch-court.yml` (`.github/scripts/court_watch.py`) fingerprints
