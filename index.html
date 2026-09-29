@@ -140,6 +140,10 @@
   ol.grants .gx{font-family:'Newsreader',Georgia,serif;font-weight:400;
     font-size:.7rem;color:var(--faint);margin-left:.3rem}
   ol.grants .gtx{flex:1;min-width:0}
+  /* Subject-area line under the caption, in the section-label idiom (h2.sec):
+     small tracked caps in the faint ink, so it classifies without competing. */
+  ol.grants .gs,ol.mostread .ms{display:block;font-size:.68rem;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--faint);line-height:1.3;margin-top:.12rem}
   ol.grants .gc{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
     font-size:1rem;line-height:1.25}
   ol.grants .gq{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
@@ -166,7 +170,8 @@
     font-weight:600;font-size:.95rem;color:var(--faint);min-width:1.1rem;
     font-variant-numeric:tabular-nums}
   ol.mostread .mc{flex:1;font-size:1rem;line-height:1.3}
-  ol.mostread a:hover .mc{color:var(--accent);text-decoration:underline;
+  ol.mostread .mct{display:block}
+  ol.mostread a:hover .mct{color:var(--accent);text-decoration:underline;
     text-underline-offset:3px}
   ol.mostread .mdk{color:var(--accent);font-weight:600;font-size:.82rem;
     font-variant-numeric:tabular-nums;white-space:nowrap}
@@ -359,6 +364,7 @@
             </span>
             <span class="gtx">
               <span class="gc">Affirmed Energy, LLC v. Federal Energy Regulatory Commission</span>
+              <span class="gs">Economic Activity</span>
               <span class="gq">Whether, as the Third Circuit held, a legal change is retroactive if it eliminates an entitlement acquired under prior law through a completed past act, even if the entitlement would have been exercised only in the future, or whether, as the D.C. Circuit held, a legal change is retroactive only if it alters the past legal consequences of the completed act.</span>
             </span>
             <span class="gd">No. 26-404</span>
@@ -372,6 +378,7 @@
             </span>
             <span class="gtx">
               <span class="gc">Nestlé USA, Inc. v. Marie Falcone, Individually and on Behalf of All Others Similarly Situated</span>
+              <span class="gs">Judicial Power</span>
               <span class="gq">Whether a consumer who is aware of alleged deception has Article III standing to seek injunctive relief requiring removal of the allegedly deceptive statements.</span>
             </span>
             <span class="gd">No. 26-400</span>
@@ -385,6 +392,7 @@
             </span>
             <span class="gtx">
               <span class="gc">Lawyers For Fair Reciprocal Admission v. United States</span>
+              <span class="gs">Attorneys</span>
               <span class="gq">Whether D.N.J. L.Civ.R. 101.1 and D. Del.</span>
             </span>
             <span class="gd">No. 26-406</span>
@@ -398,6 +406,7 @@
             </span>
             <span class="gtx">
               <span class="gc">Crocs, Inc. v. International Trade Commission</span>
+              <span class="gs">Judicial Power</span>
               <span class="gq">Whether an agency disposition is final as to some issues, thus triggering deadlines for judicial review, while other issues decided in the same disposition remain subject to further executive or administrative review.</span>
             </span>
             <span class="gd">No. 26-421</span>
@@ -425,6 +434,7 @@
             </span>
             <span class="gtx">
               <span class="gc">Donald J. Trump, President of the United States v. Badar Khan Suri</span>
+              <span class="gs">Civil Rights</span>
               <span class="gq">Whether, notwithstanding 8 U.S.C. 1252, an alien detained pending his removal proceedings may challenge that detention in a habeas petition based on claims that also go to the validity of his being removed.</span>
             </span>
             <span class="gd">No. 26-380</span>
@@ -438,6 +448,7 @@
             </span>
             <span class="gtx">
               <span class="gc">Kyle Wagner v. United States</span>
+              <span class="gs">Criminal Procedure</span>
               <span class="gq">Whether an appellate court should review a district court’s order granting or denying pretrial release de novo—as the Sixth, Eighth, Ninth, Tenth, and Eleventh Circuits have held—or whether the appellate court owes some deference to the district court’s determination, as the First, Second, Third, Fourth, Fifth, Seventh and D.C. Circuits have held?</span>
             </span>
             <span class="gd">No. 26-391</span>
@@ -451,6 +462,7 @@
             </span>
             <span class="gtx">
               <span class="gc">Affirmed Energy, LLC v. Federal Energy Regulatory Commission</span>
+              <span class="gs">Economic Activity</span>
               <span class="gq">Whether, as the Third Circuit held, a legal change is retroactive if it eliminates an entitlement acquired under prior law through a completed past act, even if the entitlement would have been exercised only in the future, or whether, as the D.C. Circuit held, a legal change is retroactive only if it alters the past legal consequences of the completed act.</span>
             </span>
             <span class="gd">No. 26-404</span>
@@ -476,6 +488,7 @@
             </span>
             <span class="gtx">
               <span class="gc">Nestlé USA, Inc. v. Marie Falcone, Individually and on Behalf of All Others Similarly Situated</span>
+              <span class="gs">Judicial Power</span>
               <span class="gq">Whether a consumer who is aware of alleged deception has Article III standing to seek injunctive relief requiring removal of the allegedly deceptive statements.</span>
             </span>
             <span class="gd">No. 26-400</span>
@@ -491,6 +504,7 @@
             </span>
             <span class="gtx">
               <span class="gc">Donald J. Trump, President of the United States v. Badar Khan Suri</span>
+              <span class="gs">Civil Rights</span>
               <span class="gq">Whether, notwithstanding 8 U.S.C. 1252, an alien detained pending his removal proceedings may challenge that detention in a habeas petition based on claims that also go to the validity of his being removed.</span>
             </span>
             <span class="gd">No. 26-380</span>
@@ -504,6 +518,7 @@
             </span>
             <span class="gtx">
               <span class="gc">United States v. Devonte Devon Jackson</span>
+              <span class="gs">Miscellaneous</span>
               <span class="gq">Whether a person who becomes the first assistant after a vacancy arises is ineligible to be the acting officer under Section 3345(a)(1).</span>
             </span>
             <span class="gd">No. 26-304</span>
@@ -517,6 +532,7 @@
             </span>
             <span class="gtx">
               <span class="gc">Markwayne Mullin, Secretary of Homeland Security v. Refugee and Immigrant Center for Education and Legal Services</span>
+              <span class="gs">Civil Rights</span>
               <span class="gq">Whether Presidential Proclamation No. 10,888, 90 Fed. Reg. 8333 (Jan. 29, 2025), and its implementing guidance—which suspended the entry of certain aliens and precluded their access to statutory provisions that would enable their continued presence in the country, including asylum—are lawful.</span>
             </span>
             <span class="gd">No. 26-239</span>
@@ -543,6 +559,7 @@
             </span>
             <span class="gtx">
               <span class="gc">United States v. Nicolas Talbott</span>
+              <span class="gs">Civil Rights</span>
               <span class="gq">Whether a Department of War policy that generally disqualifies from military service individuals who have gender dysphoria, a history of the condition, or a history of related interventions—issued by Secretary of War Hegseth in implementing Executive Order No. 14,183— violates the equal-protection component of the Due Process Clause of the Fifth Amendment.</span>
             </span>
             <span class="gd">No. 26-272</span>
@@ -556,6 +573,7 @@
             </span>
             <span class="gtx">
               <span class="gc">Alex Cantero, Individually and on Behalf of All Others Similarly Situated v. Bank of America, N.A.</span>
+              <span class="gs">Federalism</span>
             </span>
             <span class="gd">No. 25-1313</span>
           </a>
@@ -568,6 +586,7 @@
             </span>
             <span class="gtx">
               <span class="gc">North American Derivatives Exchange, Inc., dba Crypto.com | Derivatives North America v. Nevada</span>
+              <span class="gs">Federalism</span>
               <span class="gq">Whether the CEA preempts state regulation of sports-event contracts traded on a DCM.</span>
             </span>
             <span class="gd">No. 26-344</span>
@@ -581,6 +600,7 @@
             </span>
             <span class="gtx">
               <span class="gc">PacifiCorp, an Oregon Business Corporation v. Casey Sixkiller, Director, Washington State Department of Ecology</span>
+              <span class="gs">Economic Activity</span>
               <span class="gq">Whether Tracy exempts a State from dormant Commerce Clause scrutiny when state law imposes different burdens on the same product based on whether the product is sold in state or out of state.</span>
             </span>
             <span class="gd">No. 26-318</span>
@@ -606,6 +626,7 @@
             </span>
             <span class="gtx">
               <span class="gc">The Capital Group Companies, Inc. v. Cathy Pover</span>
+              <span class="gs">Economic Activity</span>
               <span class="gq">Whether “appropriate relief” for a defined-contribution-plan participant under ERISA § 502(a)(2) includes monetary recovery to other participants’ individual retirement accounts.</span>
             </span>
             <span class="gd">No. 26-267</span>
@@ -1015,31 +1036,46 @@
       <ol class="mostread">
         <li>
           <a href="cases/26-300.html">
-            <span class="mc">Jackson W. Holloway v. Nicholas W. Brown, Attorney General of Washington</span>
+            <span class="mc">
+              <span class="mct">Jackson W. Holloway v. Nicholas W. Brown, Attorney General of Washington</span>
+              <span class="ms">Criminal Procedure</span>
+            </span>
             <span class="mdk">No. 26-300</span>
           </a>
         </li>
         <li>
           <a href="cases/26-304.html">
-            <span class="mc">United States v. Devonte Devon Jackson, et al.</span>
+            <span class="mc">
+              <span class="mct">United States v. Devonte Devon Jackson, et al.</span>
+              <span class="ms">Miscellaneous</span>
+            </span>
             <span class="mdk">No. 26-304</span>
           </a>
         </li>
         <li>
           <a href="cases/26-318.html">
-            <span class="mc">PacifiCorp, an Oregon Business Corporation v. Casey Sixkiller, Director, Washington State Department of Ecology</span>
+            <span class="mc">
+              <span class="mct">PacifiCorp, an Oregon Business Corporation v. Casey Sixkiller, Director, Washington State Department of Ecology</span>
+              <span class="ms">Economic Activity</span>
+            </span>
             <span class="mdk">No. 26-318</span>
           </a>
         </li>
         <li>
           <a href="cases/26-298.html">
-            <span class="mc">Chamber of Commerce, et al. v. Environmental Protection Agency, et al.</span>
+            <span class="mc">
+              <span class="mct">Chamber of Commerce, et al. v. Environmental Protection Agency, et al.</span>
+              <span class="ms">Economic Activity</span>
+            </span>
             <span class="mdk">No. 26-298</span>
           </a>
         </li>
         <li>
           <a href="cases/25-170.html">
-            <span class="mc">Suncor Energy (U.S.A.) Inc., et al. v. County Commissioners of Boulder County, et al.</span>
+            <span class="mc">
+              <span class="mct">Suncor Energy (U.S.A.) Inc., et al. v. County Commissioners of Boulder County, et al.</span>
+              <span class="ms">Federalism</span>
+            </span>
             <span class="mdk">No. 25-170</span>
           </a>
         </li>
