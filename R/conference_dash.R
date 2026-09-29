@@ -186,7 +186,7 @@ conference_forecast <- function(d, conf_date, models, signals_map = NULL) {
 conference_dash <- function(dist, conf_date,
                             out_dir = path.expand("~/public_html/conferences"),
                             qp_map = NULL, models = NULL, pnav = "",
-                            signals_map = NULL) {
+                            signals_map = NULL, subject_map = NULL) {
   dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
   conf_date <- as.Date(conf_date)
 
@@ -319,6 +319,10 @@ conference_dash <- function(dist, conf_date,
       d$dkt,
       strip_caption_roles(d$caption),
       d$dkt),
+    # The subject area (R/subject_area.R): plain text, so the column's filter box
+    # matches it. NA -- no QP, an unreadable one, or a pick under the display
+    # threshold -- is an em dash, and the column is dropped when every row is.
+    Subject = if (length(subject_map)) unname(subject_map[d$dkt]) else rep(NA_character_, nrow(d)),
     Relists = d$distribution_no - 1L,
     # The NUMBER, not the rendered cell. reactable sorts on the underlying data
     # value, so a column whose data is markup sorts as text ("4%" after "12%")
@@ -382,9 +386,11 @@ conference_dash <- function(dist, conf_date,
   for (col in c("Counsel", "QP", "Documents")) {
     if (col %in% names(tbl) && all(tbl[[col]] == "—")) tbl <- select(tbl, -all_of(col))
   }
+  if (all(is.na(tbl$Subject))) tbl <- select(tbl, -Subject)
   has_qp <- "QP" %in% names(tbl)
+  has_subject <- "Subject" %in% names(tbl)
 
-  left_cols <- match(intersect(c("Case", "Court", "Counsel", "Documents", "QP"), names(tbl)),
+  left_cols <- match(intersect(c("Case", "Subject", "Court", "Counsel", "Documents", "QP"), names(tbl)),
                      names(tbl))
 
   t <- tbl |>
@@ -398,6 +404,10 @@ conference_dash <- function(dist, conf_date,
     # allowance instead, since it now wraps rather than truncating.
     cols_width(Case ~ px(230), Type ~ px(76), Court ~ px(160))
   if (has_qp) t <- t |> cols_label(QP = "Questions Presented") |> cols_width(QP ~ px(190))
+  # "Subject", not "Subject area": in tracked caps the longer header wrapped to
+  # two lines at this width. The case page's row keeps the full name.
+  if (has_subject) t <- t |> cols_label(Subject = "Subject") |>
+    sub_missing(columns = Subject, missing_text = "—") |> cols_width(Subject ~ px(120))
   # Formatting, shading and the em dash for a non-paid row all happen inside
   # fc_cell() now, so nothing is needed here beyond the header and a width. The
   # header is short on purpose: "Granted here" was ~12 characters of uppercase
@@ -440,11 +450,12 @@ conference_dash <- function(dist, conf_date,
       kicker = "Supreme Court of the United States",
       title = paste0("Conference of ", format(conf_date, "%B %d, %Y")),
       dek = dek, n_rows = nrow(tbl), left_cols = left_cols, footer = footer,
-      # Eight columns now, not eleven: Type, Case, Relists, Grant forecast,
-      # Court, Counsel, Documents, QP. Their natural widths total ~1220px, so
-      # 78rem holds them without the table stretching to fill dead space -- which
-      # is what made a row a 1470px scan from case name to number.
-      leaf_max = 78,
+      # Nine columns: Type, Case, Subject, Relists, Grant forecast, Court,
+      # Counsel, Documents, QP. The other eight's natural widths totalled
+      # ~1220px, which 78rem held; Subject adds 120px, so 84rem. Not wider:
+      # a table stretched to fill dead space is what made a row a 1470px scan
+      # from case name to number.
+      leaf_max = if (has_subject) 84 else 78,
       active = "/conferences/", pnav = pnav,
       crumb = list(label = format(conf_date, "%B %d, %Y"),
                    section = list(href = "/conferences/", label = "Conferences")),

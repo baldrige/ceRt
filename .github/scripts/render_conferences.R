@@ -245,10 +245,20 @@ has_wc  <- vapply(paid_dkts, function(d) !is.null(signals_map[[d]]$words), logic
 cat("Petition signals: resolved for", sum(has_cue), "of", length(paid_dkts),
     "paid docket(s) in the QP set; word counts for", sum(has_wc), "\n")
 
+# Subject areas (R/subject_area.R) for the table's Subject column. Classified
+# here, after the QP step, because this run is where a distributed IFP petition
+# first gets its questions -- the daily never extracts those -- and a report
+# built before classifying would carry a blank for it until next week's run.
+# Never fatal: without the key the labels already on file are used.
+refresh_subjects(site_dir)
+subject_map <- tryCatch(load_subjects(site_dir), error = function(e) character())
+cat("Subject areas: labels for", length(subject_map), "docket(s)\n")
+
 cat("Rendering", length(dates), "conference(s) on/after", format(min_conf), "\n")
 for (i in seq_along(dates)) {
   conference_dash(dist, dates[i], out_dir = conf_dir, qp_map = qp_map,
-                  models = cert_models, signals_map = signals_map)
+                  models = cert_models, signals_map = signals_map,
+                  subject_map = subject_map)
 }
 conference_index(conf_dir)
 

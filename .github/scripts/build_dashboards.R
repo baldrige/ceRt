@@ -432,9 +432,15 @@ tryCatch(render_orders(site_dir), error = function(e) cat("Order lists: render f
 orders <- tryCatch(orders_panel(site_dir), error = function(e) { cat("Order lists: panel failed:", conditionMessage(e), "\n"); NULL })
 cat("Latest orders on the landing page:", if (is.null(orders)) "none in window" else "yes", "\n")
 
+# Subject areas for the two ranked panels (R/subject_area.R). scotus_dash() and
+# the docket render above have already classified this run's new QPs, so this
+# only reads the file.
+subjects <- tryCatch(load_subjects(site_dir), error = function(e) character())
+
 sharpest_panel <- forecast_panel(
   sharpest, sharpest_long,
   qp = qp_lines,
+  subjects = subjects,
   heading = "Likeliest grants",
   note_short = note_for(FORECAST_WINDOW_DAYS),
   note_long  = note_for(FORECAST_WINDOW_LONG),
@@ -502,6 +508,7 @@ styled_index_page(
     most_read,
     heading = "Most-Read Cases",
     show_counts = FALSE,
+    subjects = subjects,
     note = sprintf("Ranked by page views over the %d days ending %s %d, %d.",
                    MOST_READ_DAYS, format(Sys.Date() - 1, "%B"),
                    as.integer(format(Sys.Date() - 1, "%d")),
