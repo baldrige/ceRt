@@ -327,6 +327,19 @@ that any workflow holding full-term data contributes to — in practice
 the cache to build both feeds, and also contributes whatever it can see. The
 cache is append-only per key and is listed in `publish_site.sh`'s `DERIVED`, so
 two workflows publishing concurrently union their grants rather than clobbering.
+The one exception is an entry's order text, which is re-read when the stored
+text is not the grant order (checked against the classifier's `GRANT_FORMS`) and
+the run holds the docket.
+
+**A feed failure is non-fatal but not silent.** Both feeds sat frozen from
+2026-09-03 to 09-29: a malformed grants-cache value (`null` rewritten as `{}` by
+jsonlite) made the feed step throw, the daily logged one "Feeds skipped" line and
+succeeded, and every audit check passed on the stale-but-valid files. Now
+`read_grants_cache()` normalises every value to a string and drops non-petition
+keys, each feed source is built separately (a failed one is left out, not
+fatal to the others), a failure is raised as a `::warning::` annotation on the
+run, and `audit_site.R` FAILs when the site has a dashboard or held conference
+newer than `feed.xml`'s `<updated>`. Entry timestamps are noon Eastern.
 
 Consequence: **a new grant reaches the feed on the next weekly conferences run**,
 not the same day. That is a real limitation, not a bug to be fixed by widening the

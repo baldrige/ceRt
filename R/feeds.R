@@ -69,11 +69,27 @@ xml_clean <- function(x) {
 }
 
 # RFC 3339, which Atom requires. Dates in this pipeline are days, not instants,
-# so they are pinned to midnight UTC rather than given a fabricated time.
+# so each is pinned to NOON EASTERN, with its real offset (-04:00 or -05:00).
+# It used to be midnight UTC, which is 7 or 8 p.m. the evening BEFORE in the
+# Court's own time zone, so every US reader showed a Monday grant as Sunday's.
+# Noon keeps the day the same from Hawaii to Europe. The offset follows the day's
+# DST, so an entry's stamp never changes once written.
 rfc3339 <- function(d) {
   d <- as.Date(d)
-  ifelse(is.na(d), NA_character_, paste0(format(d, "%Y-%m-%d"), "T00:00:00Z"))
+  out <- rep(NA_character_, length(d))
+  ok <- !is.na(d)
+  if (any(ok)) {
+    p <- as.POSIXct(paste(format(d[ok], "%Y-%m-%d"), "12:00:00"), tz = "America/New_York")
+    z <- format(p, "%z")                       # "-0400"
+    out[ok] <- paste0(format(p, "%Y-%m-%dT%H:%M:%S"), substr(z, 1, 3), ":", substr(z, 4, 5))
+  }
+  out
 }
+
+# Today in the Court's time zone. The runner is on UTC, so Sys.Date() is already
+# tomorrow from 8 p.m. Eastern -- which let the 00:33 UTC daily publish the next
+# day's conference as if it had happened.
+.today_et <- function() as.Date(format(Sys.time(), tz = "America/New_York"))
 
 # ---- Atom ---------------------------------------------------------------------
 
@@ -108,7 +124,7 @@ write_atom_feed <- function(entries, path, title, subtitle, self_path,
   # to prevent. So the entry appears on its own date and never moves. That costs
   # the "the long-conference list is up" announcement, which is a real loss and
   # the reason this is a comment rather than a silent filter.
-  entries <- entries[entries$updated <= Sys.Date(), , drop = FALSE]
+  entries <- entries[entries$updated <= .today_et(), , drop = FALSE]
   if (!nrow(entries)) {
     warning("write_atom_feed(): no dated, non-future entries for ", basename(path),
             " -- not written.", call. = FALSE)
@@ -158,19 +174,44 @@ write_atom_feed <- function(entries, path, title, subtitle, self_path,
              stringsAsFactors = FALSE)
 }
 
-# The docket entry that granted the petition, for the entry summary. Taken from
-# the events on the disposition date rather than re-run through the grant
-# grammar: classify_petition_events() has already decided which date is the
-# grant, and the point here is to quote the Court, not to re-classify it.
+# One string, whatever the JSON held. A cache value can come back as NULL
+# (written as null), as an empty list (null written back out: jsonlite turns
+# NULL into {}), or as NA; each of those reached a vapply(character(1)) and
+# threw, and that one throw froze both feeds from 2026-09-03 to 09-29 -- see
+# read_grants_cache().
+.s1 <- function(x) if (is.character(x) && length(x) == 1L && !is.na(x)) x else ""
+
+# Court text arrives with markup in it ("<i>Stinson</i> v. United States"), and
+# escaped into an Atom summary it reads as literal tags.
+.strip_tags <- function(x) gsub("<[^>]+>", "", x)
+
+# Is this the order that granted review? The classifier's own grant grammar
+# (GRANT_FORMS, R/cert_funnel.R) -- the same test that picked the grant date.
+# Without it, "any entry that day containing 'granted'" quoted the first such
+# entry, and a same-day IFP or amicus motion often came first: 25-1003's feed
+# summary read "Motion for leave to proceed in forma pauperis filed by respondent
+# GRANTED." Where cert_funnel.R is not loaded, every non-empty text passes.
+.is_grant_order <- function(txt) {
+  txt <- ifelse(is.na(txt), "", txt)
+  if (!exists("GRANT_FORMS") || !exists("rx_any")) return(nzchar(txt))
+  nzchar(txt) & get("rx_any")(txt, get("GRANT_FORMS"))
+}
+
+# The docket entry that granted the petition, for the entry summary: the entry
+# on the disposition date that the grant grammar recognises. classify_petition_
+# events() has already decided which date is the grant; the point here is to
+# quote the Court, not to re-classify it. "" when no entry that day is the grant
+# order -- a blank summary is honest, a quoted fee-waiver motion is not.
 .grant_order_text <- function(events, on) {
   if (!is.data.frame(events) || !("Proceedings and Orders" %in% names(events)) ||
-      is.na(on)) return(NA_character_)
+      is.na(on)) return("")
   d <- suppressWarnings(lubridate::mdy(events$Date))
-  hit <- which(!is.na(d) & d == on &
-               grepl("granted", events[["Proceedings and Orders"]], ignore.case = TRUE))
-  if (!length(hit)) return(NA_character_)
-  txt <- xml_clean(events[["Proceedings and Orders"]][hit[1]])
-  if (nchar(txt) > 500) paste0(substr(txt, 1, 497), "...") else txt
+  txt <- events[["Proceedings and Orders"]]
+  txt[is.na(txt)] <- ""
+  hit <- which(!is.na(d) & d == on & .is_grant_order(xml_clean(txt)))
+  if (!length(hit)) return("")
+  out <- xml_clean(.strip_tags(txt[hit[1]]))
+  if (nchar(out) > 500) paste0(substr(out, 1, 497), "...") else out
 }
 
 # ---- the grants cache ---------------------------------------------------------
@@ -195,22 +236,45 @@ write_atom_feed <- function(entries, path, title, subtitle, self_path,
 # than one clobbering the other. It is listed there for that reason.
 GRANTS_CACHE <- "cases/grants.json"
 
+# Read and NORMALISE the cache. Every entry comes back as three plain strings, and
+# keys that are not petitions are dropped. attr(, "repaired") counts what was
+# fixed, so update_grants_cache() knows to write the clean copy back.
+#
+# Why normalise on read rather than trust the file: the 2026-08-20 conference run
+# stored ten orders as NA, which jsonlite writes as null; the next rewrite read
+# null as NULL and wrote it back as {}; {} reads as an empty list, which got past
+# `%||%` and made grant_feed_entries() throw. build_dashboards.R caught it as one
+# "Feeds skipped" line and published nothing -- both feeds sat frozen at
+# 2026-09-03 for 26 days. And twelve application dockets (25A952, 23A469, ...)
+# were cached before update_grants_cache() learned to skip them, and nothing
+# ever removed them: 25A952 and 25A999 duplicated the 25-1083/25-1084 grant.
 read_grants_cache <- function(site_dir) {
   p <- file.path(site_dir, GRANTS_CACHE)
-  if (!file.exists(p)) return(list())
-  tryCatch(jsonlite::fromJSON(p, simplifyVector = FALSE), error = function(e) {
+  if (!file.exists(p)) return(structure(list(), repaired = 0L))
+  raw <- tryCatch(jsonlite::fromJSON(p, simplifyVector = FALSE), error = function(e) {
     warning("read_grants_cache(): ", basename(p), " unreadable -- treating as empty.",
             call. = FALSE)
     list()
   })
+  keep <- !grepl("[AO]\\d+$", names(raw))
+  idx <- lapply(raw[keep], function(g) {
+    if (!is.list(g)) g <- list()
+    list(date = .s1(g$date), caption = .s1(g$caption), order = .s1(g$order))
+  })
+  fixed <- sum(!keep) + sum(mapply(function(a, b) !identical(a, b), raw[keep], idx))
+  structure(idx, repaired = as.integer(fixed))
 }
 
 # Merge every granted petition in `cases` into the cache and write it back.
 # Returns the number of grants newly added.
 #
-# Existing keys are NOT overwritten. A grant's date and order text do not change,
-# and leaving them alone means a workflow with a partial view of a term can only
-# ever add to the record, never revise it downward.
+# An existing key's date and caption are NOT overwritten: they do not change, and
+# leaving them alone means a workflow with a partial view of a term can only ever
+# add to the record, never revise it downward. Its ORDER TEXT is the exception:
+# where the stored text is not the grant order (a quoted IFP or amicus motion,
+# from before .grant_order_text() used the grant grammar) and this run holds the
+# docket, it is re-read -- that is how the ~50 bad summaries repair themselves.
+# The file is rewritten when anything was added, repaired, or normalised on read.
 update_grants_cache <- function(site_dir, cases, classify = NULL) {
   if (is.null(cases) || !nrow(cases)) return(0L)
   if (is.null(classify)) {
@@ -222,29 +286,42 @@ update_grants_cache <- function(site_dir, cases, classify = NULL) {
     classify <- get("classify_petition_events")
   }
   idx <- read_grants_cache(site_dir)
-  added <- 0L
+  normalised <- attr(idx, "repaired") %||% 0L
+  added <- 0L; repaired <- 0L
   for (i in seq_len(nrow(cases))) {
     dkt <- cases$dkt[i]
-    if (!is.null(idx[[dkt]])) next
-    # Petitions only. An application never reaches here with a grant the grammar
-    # recognises; an original action (22O###) can -- "Motion for leave to file a
-    # bill of complaint is GRANTED" -- and that is not a cert grant.
+    have <- idx[[dkt]]
+    if (!is.null(have) && .is_grant_order(have$order)) next
+    # Petitions only. An application treated as a petition DOES match the grant
+    # grammar -- it is how 25A952/25A999 got in beside 25-1083/25-1084 -- and an
+    # original action (22O###) can too ("Motion for leave to file a bill of
+    # complaint is GRANTED"). Neither is a grant of certiorari on its own docket.
     if (grepl("[AO]\\d+$", dkt)) next
     cl <- tryCatch(classify(cases$events[[i]]), error = function(e) NULL)
     if (is.null(cl) || !identical(cl$outcome[[1]], "granted") ||
         is.na(cl$outcome_date[[1]])) next
+    ord <- .grant_order_text(cases$events[[i]], cl$outcome_date[[1]])
+    if (!is.null(have)) {
+      # A cached grant with a bad summary: repair the text only, and only with a
+      # real grant order.
+      if (nzchar(ord)) { idx[[dkt]]$order <- ord; repaired <- repaired + 1L }
+      next
+    }
     cap <- cases$caption[i]
     if (exists("strip_caption_roles")) cap <- get("strip_caption_roles")(cap)
     if (is.na(cap) || !nzchar(cap)) cap <- dkt
-    idx[[dkt]] <- list(
-      date = format(cl$outcome_date[[1]]),
-      caption = cap,
-      order = .grant_order_text(cases$events[[i]], cl$outcome_date[[1]]) %||% "")
+    idx[[dkt]] <- list(date = format(cl$outcome_date[[1]]), caption = cap, order = ord)
     added <- added + 1L
   }
-  if (added > 0L) {
+  if (repaired || normalised)
+    message("Grants cache: repaired ", repaired, " summar", if (repaired == 1) "y" else "ies",
+            ", normalised ", normalised, " entr", if (normalised == 1) "y" else "ies")
+  if (added > 0L || repaired > 0L || normalised > 0L) {
     dir.create(dirname(file.path(site_dir, GRANTS_CACHE)), recursive = TRUE,
                showWarnings = FALSE)
+    attr(idx, "repaired") <- NULL
+    # Every value is a string (read_grants_cache() and .grant_order_text() see to
+    # it), so nothing here can serialise as null or {} again.
     jsonlite::write_json(idx, file.path(site_dir, GRANTS_CACHE), auto_unbox = TRUE)
   }
   added
@@ -254,20 +331,31 @@ update_grants_cache <- function(site_dir, cases, classify = NULL) {
 grant_feed_entries <- function(site_dir, n = 50L, base = SITE_URL) {
   empty <- .entries(character(), character(), character(), as.Date(character()),
                     character())
-  idx <- read_grants_cache(site_dir)
+  idx <- read_grants_cache(site_dir)    # normalised: three strings per petition
   if (!length(idx)) return(empty)
   dkt <- names(idx)
   href <- paste0(base, "/cases/", dkt, ".html")
-  cap <- vapply(idx, function(g) g$caption %||% "", character(1), USE.NAMES = FALSE)
+  cap <- vapply(idx, function(g) g$caption, character(1), USE.NAMES = FALSE)
   cap[!nzchar(cap)] <- dkt[!nzchar(cap)]
+  ord <- xml_clean(.strip_tags(vapply(idx, function(g) g$order, character(1), USE.NAMES = FALSE)))
+  dt  <- suppressWarnings(as.Date(vapply(idx, function(g) g$date, character(1), USE.NAMES = FALSE),
+                                  optional = TRUE))
+  # An appeal is not certiorari: 24-109 (Louisiana v. Callais) was "probable
+  # jurisdiction noted", and its title said "Certiorari granted".
+  appeal <- grepl("probable jurisdiction|question of jurisdiction is postponed", ord,
+                  ignore.case = TRUE)
+  # Quote the Court only when the stored text IS the grant order; a summary that
+  # is some other same-day order (cached before .grant_order_text() used the
+  # grant grammar, and not yet repaired) says what happened instead.
+  good <- .is_grant_order(ord)
+  pretty <- gsub("  ", " ", format(dt, "%B %e, %Y"))
   out <- .entries(
     id = href,
-    title = paste0("Certiorari granted: ", cap, " (No. ", dkt, ")"),
+    title = paste0(ifelse(appeal, "Probable jurisdiction noted: ", "Certiorari granted: "),
+                   cap, " (No. ", dkt, ")"),
     link = href,
-    updated = as.Date(vapply(idx, function(g) g$date %||% NA_character_,
-                             character(1), USE.NAMES = FALSE)),
-    summary = vapply(idx, function(g) g$order %||% "", character(1),
-                     USE.NAMES = FALSE))
+    updated = dt,
+    summary = ifelse(good, ord, paste0("The Court granted review on ", pretty, ".")))
   out <- out[!is.na(out$updated), , drop = FALSE]
   if (!nrow(out)) return(empty)
   # id breaks the tie, so which of several same-day grants survives the head()
@@ -446,27 +534,38 @@ write_robots <- function(site_dir, base = SITE_URL) {
 # grants, which is a handful a month and is what most readers actually want to be
 # told about.
 write_site_feeds <- function(site_dir, base = SITE_URL) {
-  grants <- grant_feed_entries(site_dir, base = base)
+  # Each source is built on its own. One bad input -- the grants cache, on
+  # 2026-09-03 -- used to throw out of this function and take BOTH feeds with it,
+  # though the conference and dashboard entries were fine. Now a failed source is
+  # left out, named in attr(, "failed") for the caller to report, and the rest
+  # still publish.
+  empty <- .entries(character(), character(), character(), as.Date(character()), character())
+  failed <- character()
+  safely <- function(label, expr) tryCatch(expr, error = function(e) {
+    failed <<- c(failed, paste0(label, ": ", conditionMessage(e)))
+    empty
+  })
+  grants <- safely("grants", grant_feed_entries(site_dir, base = base))
 
-  confs <- dated_page_entries(
+  confs <- safely("conferences", dated_page_entries(
     file.path(site_dir, "conferences"), "^conf_\\d{4}-\\d{2}-\\d{2}\\.html$",
     "/conferences/", "Conference of %s",
     "Petitions distributed for the Conference of %s, ranked by relists.",
-    base = base)
+    base = base))
 
   # Dashboards are capped well below the feed's own 50, deliberately. There is
   # one per docketing date, so an uncapped contribution would fill the entire
   # feed with the last fifty weekdays and push every grant and conference report
   # out of it -- a chronological feed in which the only thing visible is the
   # thing that happens most often.
-  dash <- dated_page_entries(
+  dash <- safely("dashboards", dated_page_entries(
     file.path(site_dir, "dashboards"), "^dash_\\d{4}-\\d{2}-\\d{2}\\.html$",
     "/dashboards/", "Docket for %s",
-    "Petitions and applications docketed on %s.", n = 20L, base = base)
+    "Petitions and applications docketed on %s.", n = 20L, base = base))
 
   site <- rbind(grants, confs, dash)
 
-  list(
+  structure(list(
     site = write_atom_feed(
       site, file.path(site_dir, "feed.xml"),
       title = "Supreme Court Report",
@@ -477,7 +576,8 @@ write_site_feeds <- function(site_dir, base = SITE_URL) {
       grants, file.path(site_dir, "grants.xml"),
       title = "Supreme Court Report: Certiorari Grants",
       subtitle = "Cases in which the Court has granted plenary review.",
-      self_path = "/grants.xml", base = base))
+      self_path = "/grants.xml", base = base)),
+    failed = failed)
 }
 
 # site_feeds_present() used to live here. It now lives in page_style.R, next to
