@@ -46,11 +46,24 @@ refresh_subjects <- function(site_dir, max_new = 2000L, timeout = 900) {
   # the warning with tryCatch() instead replaced the output with the warning's
   # own text ("... had status 1"), which is how the first CI failure of this
   # step (2026-09-29) logged seven times without once saying what went wrong.
+  # The interpreter's own lib/ ahead of everything on LD_LIBRARY_PATH. Rscript's
+  # launcher puts R's library directories -- /usr/lib/x86_64-linux-gnu among
+  # them -- in front of whatever the environment had, and where the runner
+  # carries Ubuntu's libpython3.12 there, the setup-python interpreter loads THAT
+  # and computes its paths from the system Python's prefix, which has none of
+  # the pip-installed packages. The same binary imported pydantic_ai in the
+  # install step and failed to under R on every call (2026-09-29).
+  env <- character()
+  if (.Platform$OS.type == "unix") {
+    lib <- file.path(dirname(dirname(py)), "lib")
+    if (dir.exists(lib))
+      env <- paste0("LD_LIBRARY_PATH=", shQuote(lib), "${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}")
+  }
   out <- withCallingHandlers(
     tryCatch(
       system2(py, c(shQuote(normalizePath(script)), "--site", shQuote(normalizePath(site_dir)),
                     "--max-new", as.integer(max_new)),
-              stdout = TRUE, stderr = TRUE, timeout = timeout),
+              stdout = TRUE, stderr = TRUE, timeout = timeout, env = env),
       error = function(e) structure(conditionMessage(e), status = 1L)),
     warning = function(w) invokeRestart("muffleWarning"))
   status <- attr(out, "status")
