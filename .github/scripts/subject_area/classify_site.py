@@ -30,7 +30,16 @@ import json
 import os
 from pathlib import Path
 
-from classify import DEFAULT_MODEL, DEFS, api_key, case_text, classify
+try:
+    from classify import DEFAULT_MODEL, DEFS, api_key, case_text, classify
+except ModuleNotFoundError:
+    # Say where this interpreter looked. An import that works in the install
+    # step and fails here means the environment moved it, not that the package
+    # is missing -- and the traceback alone cannot tell those apart.
+    import sys
+    print(f'executable {sys.executable}\nprefix {sys.prefix}\npath {sys.path}\n'
+          f'LD_LIBRARY_PATH {os.environ.get("LD_LIBRARY_PATH")}', file=sys.stderr)
+    raise
 from readable import readable
 
 CHUNK = 500   # requests between checkpoints
