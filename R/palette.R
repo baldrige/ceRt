@@ -233,6 +233,10 @@ TYPE_CHIPS <- c("Paid" = "#e8e8e1", "IFP" = "#f2e8dd", "Application" = "#e2e5ea"
 STATUS_FILL <- c("Granted"   = "#e6e9e0", "Scheduled" = "#e2e5ea",
                  "Argued"    = "#eceadf", "Decided"   = "#e8e6e9",
                  "DIG'd"     = "#f4d9e0", "Dismissed" = "#dcd9d4")
+# A reargued case's row in the Term of its FIRST argument (Louisiana v. Callais:
+# argued March 2025, reargued October 2025). It was argued in that Term, so it
+# takes Argued's fill; the label ("Reargued in OT2025") says what differs.
+STATUS_FILL[["Reargued"]] <- STATUS_FILL[["Argued"]]
 
 # Calibration-plot series (docs/make_methods_note.R). This is the #b5651d that
 # #36 flagged: the value --link held before the WCAG correction, left behind

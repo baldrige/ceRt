@@ -52,6 +52,7 @@ classify_argument <- function(events, application = FALSE) {
   empty <- tibble(scheduled_date = as.Date(NA), argued_date = as.Date(NA),
                   decided_date = as.Date(NA), dismissed_date = as.Date(NA), n_settings = 0L,
                   vided = FALSE, dig = FALSE, argued_text = NA_character_,
+                  first_argued_date = as.Date(NA), first_argued_text = NA_character_,
                   opinion_author = NA_character_, opinion_url = NA_character_,
                   status = "granted")
   if (!is.data.frame(events) || !("Proceedings and Orders" %in% names(events)) ||
@@ -78,6 +79,10 @@ classify_argument <- function(events, application = FALSE) {
   arg_idx <- which(str_detect(txt, regex("^Argued\\.", ignore_case = TRUE)))
   argued_date <- if (length(arg_idx)) edate[arg_idx[length(arg_idx)]] else as.Date(NA)
   argued_text <- if (length(arg_idx)) txt[arg_idx[length(arg_idx)]] else NA_character_
+  # ... and the FIRST, which build_argument_table() lists in its own Term when
+  # the reargument fell in a later one (Callais: OT2024 and OT2025).
+  first_argued_date <- if (length(arg_idx)) edate[arg_idx[1]] else as.Date(NA)
+  first_argued_text <- if (length(arg_idx)) txt[arg_idx[1]] else NA_character_
 
   dig <- any(str_detect(txt, regex("DISMISSED as improvidently granted", ignore_case = TRUE)))
   # Post-grant dismissal (parties settle/withdraw): "Case Dismissed - Rule 46."
@@ -147,6 +152,7 @@ classify_argument <- function(events, application = FALSE) {
          decided_date = decided_date, dismissed_date = dismissed_date, n_settings = length(set_idx),
          vided = any(str_detect(txt, regex("SET FOR ARGUMENT.*VIDED", ignore_case = TRUE))),
          dig = dig, argued_text = argued_text,
+         first_argued_date = first_argued_date, first_argued_text = first_argued_text,
          opinion_author = opinion_author, opinion_url = opinion_url,
          status = status)
 }
@@ -423,6 +429,30 @@ build_argument_table <- function(cases, qp_map = NULL, calendar = NULL, daycalls
     # that ended before ever being scheduled (dismissed/DIG'd with no argument),
     # e.g. a Rule 46 settlement after cert -- they are not oral arguments.
     filter(!is.na(term), !is.na(arg_ref) | status == "Granted")
+  # A case reargued in a later Term is listed in BOTH: the Term of its first
+  # argument as well as the one where it was reargued and decided. Only the
+  # last argument used to count, so Louisiana v. Callais (24-109/110, argued
+  # March 2025, restored to the calendar in June, reargued October 2025) was
+  # missing from OT2024 altogether -- a Term whose argument calendar it was on.
+  # The earlier row is that argument: its date, sitting and advocates, the
+  # status "Reargued", and no decision (the decision belongs to the later row).
+  # A reargument within the same Term (Knick v. Township of Scott, October 2018
+  # and January 2019) stays one row.
+  if (nrow(arg) && "first_argued_date" %in% names(arg)) {
+    early <- arg |>
+      filter(!is.na(first_argued_date), !is.na(argued_date),
+             argument_term(first_argued_date) != argument_term(argued_date)) |>
+      mutate(reargued_term = term,
+             argued_date = first_argued_date, scheduled_date = first_argued_date,
+             arg_ref = first_argued_date, term = argument_term(first_argued_date),
+             sitting_date = floor_date(first_argued_date, "month"),
+             sitting = format(first_argued_date, "%B %Y"),
+             argued_text = first_argued_text,
+             advocates = map_chr(first_argued_text, extract_advocates),
+             status = "Reargued", decided_date = as.Date(NA),
+             opinion_author = NA_character_, opinion_url = NA_character_)
+    if (nrow(early)) arg <- bind_rows(arg, early)
+  }
   # Original actions only in Terms the Navigator already covers: the archive
   # begins at OT17, and No. 8 (Arizona v. California) was argued in 1962. A
   # one-case page for OT1961 is not a Navigator Term.
@@ -442,7 +472,7 @@ build_argument_table <- function(cases, qp_map = NULL, calendar = NULL, daycalls
 # docket) -- so factor() turned that case into NA and it rendered with an empty
 # Status cell and the na_color fill. Silent, and only on a Term that happened to
 # contain one, which is why it went unnoticed.
-STATUS_LEVELS <- c("Granted", "Scheduled", "Argued", "Decided", "DIG'd", "Dismissed")
+STATUS_LEVELS <- c("Granted", "Scheduled", "Argued", "Reargued", "Decided", "DIG'd", "Dismissed")
 # STATUS_FILL itself lives in palette.R; STATUS_LEVELS above is the legend order.
 
 # Render one Term's argument calendar as the interactive editorial table (matches
@@ -462,6 +492,7 @@ argument_term_page <- function(tbl, term, out_dir) {
             if_else(is.na(arg_ref), str_to_lower(strip_caption_roles(caption)), ""),
             desc(grant_date), as.integer(str_extract(dkt, "\\d+$")))
   if (nrow(d) == 0) return(invisible(NULL))
+  if (!"reargued_term" %in% names(d)) d$reargued_term <- NA_integer_
   all_unscheduled <- all(is.na(d$arg_ref))
 
   d <- d |>
@@ -485,6 +516,10 @@ argument_term_page <- function(tbl, term, out_dir) {
           str_c("[Decided · ", opinion_author, "](", opinion_url, ")"),
         status == "Decided" & !is.na(opinion_url) ~ str_c("[Decided](", opinion_url, ")"),
         status == "Decided" & !is.na(opinion_author) ~ str_c("Decided · ", opinion_author),
+        # Linked to the Term it was reargued in, where the case (and its
+        # decision) is listed again.
+        status == "Reargued" & !is.na(reargued_term) ~
+          str_c("[Reargued in OT", reargued_term, "](arg_", reargued_term, ".html)"),
         TRUE ~ as.character(status)
       ),
       # The docket's "Argued." entry names the advocates after the fact; the
@@ -509,6 +544,8 @@ argument_term_page <- function(tbl, term, out_dir) {
   # by render_arguments.R as gn_writings; the column appears only where a Term
   # has any.
   if ("gn_writings" %in% names(d)) d$writings <- if_else(is.na(d$gn_writings), "—", d$gn_writings)
+  # The writings are the decision's, joined by docket: not the first argument's.
+  if ("writings" %in% names(d)) d$writings[d$status %in% "Reargued"] <- "—"
   has_writings <- "writings" %in% names(d) && any(d$writings != "—")
   keep <- c("Sitting", if (!all_unscheduled) "When", "Case", "Docket", "status_disp",
             if (has_writings) "writings",
