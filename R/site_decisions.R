@@ -271,6 +271,8 @@ OPINION_INCHAMBERS_URL <- "https://www.supremecourt.gov/opinions/in-chambers.asp
   rows <- lapply(blocks, function(b) {
     title <- field(b, "title"); link <- field(b, "link"); pub <- field(b, "pubDate")
     if (is.na(title) || is.na(link)) return(NULL)
+    # A revision's "_diff_" PDF (the marked-up changes) is not the opinion.
+    if (str_detect(link, "_diff_")) return(NULL)
     dk <- unlist(str_extract_all(title, "\\d{2}[-A]\\d{1,5}|\\d{1,4}, Orig\\."))
     dk <- str_replace(dk, "^(\\d{1,4}), Orig\\.$", "22O\\1")
     if (!length(dk)) return(NULL)
@@ -333,7 +335,13 @@ OPINION_AUTHOR_CODES <- c(
     # Keep a "#page=N" fragment: two writings in one PDF are two rows that
     # differ only by it (26A305, BK at page 1 and A at "#page=2"), and a
     # pattern that stopped at ".pdf" dropped the second row outright.
-    href <- str_match(r, "href\\s*=\\s*['\"]([^'\"]+\\.pdf(?:#[^'\"]*)?)['\"]")[1, 2]
+    # The first PDF link that is not a revision's "_diff_" file. When the Court
+    # revises an opinion the row's link moves to the "_new_" file and a
+    # "Revisions" link to the marked-up diff appears -- sometimes in the same
+    # row, sometimes as a row of its own -- and neither may become the opinion.
+    hrefs <- str_match_all(r, "href\\s*=\\s*['\"]([^'\"]+\\.pdf(?:#[^'\"]*)?)['\"]")[[1]][, 2]
+    hrefs <- hrefs[!str_detect(hrefs, "_diff_")]
+    href <- if (length(hrefs)) hrefs[1] else NA_character_
     if (!length(dk) || is.na(href)) return(NULL)
     if (str_starts(href, "/")) href <- paste0("https://www.supremecourt.gov", href)
     d <- suppressWarnings(lubridate::mdy(txt[str_detect(txt, "^\\d{1,2}/\\d{1,2}/\\d{2,4}$")]))
@@ -355,6 +363,82 @@ OPINION_AUTHOR_CODES <- c(
     httr2::req_perform(httr2::req_user_agent(httr2::request(url), "ceRt SCOTUS docketing dashboard (httr2)"))
   if (httr2::resp_status(resp) != 200L) stop("HTTP ", httr2::resp_status(resp))
   httr2::resp_body_string(resp)
+}
+
+# ---- is this URL really the opinion? -------------------------------------------
+#
+# A dead link does not announce itself with a status code. On 2026-08-31 the
+# Court posted the 26A203 per curiam at /opinions/25pdf/_1bn2.pdf -- the docket
+# missing from the filename -- and corrected it to 26a203_2b8e.pdf minutes later;
+# anything that read the listing in that window kept a URL that does not work,
+# and the site answers a missing PDF with a 200 and an HTML error page as often
+# as with a 404. So the test is the file's first bytes: a PDF starts "%PDF".
+#
+#   TRUE   the bytes are a PDF
+#   FALSE  a 404/410, or a 200 whose body is not a PDF: do not publish it
+#   NA     could not tell -- a 403/429/5xx is Akamai throttling, not a missing
+#          file, and a transport error says nothing; keep the URL
+#
+# No retries: a throttled check is "could not tell", not something to wait out.
+# Memoised for the run, since a manifest names the same PDF on several rows.
+.pdf_check_memo <- new.env(parent = emptyenv())
+pdf_url_ok <- function(url) {
+  if (is.na(url) || !nzchar(url)) return(NA)
+  u <- sub("#.*$", "", url)
+  if (exists(u, envir = .pdf_check_memo, inherits = FALSE)) return(get(u, envir = .pdf_check_memo))
+  if (exists("scotus_pace")) scotus_pace()
+  ua <- if (exists("UA")) get("UA") else "ceRt SCOTUS docketing dashboard (httr2)"
+  resp <- tryCatch(
+    httr2::request(u) |> httr2::req_user_agent(ua) |> httr2::req_headers(Range = "bytes=0-127") |>
+      httr2::req_timeout(30) |> httr2::req_error(is_error = \(r) FALSE) |> httr2::req_perform(),
+    error = function(e) NULL)
+  ok <- if (is.null(resp)) NA else {
+    st <- httr2::resp_status(resp)
+    if (st %in% c(200L, 206L)) {
+      b <- tryCatch(httr2::resp_body_raw(resp), error = function(e) raw())
+      length(b) >= 4 && identical(b[1:4], charToRaw("%PDF"))
+    } else if (st %in% c(404L, 410L)) FALSE else NA
+  }
+  assign(u, ok, envir = .pdf_check_memo)
+  ok
+}
+
+# Drop every URL a row carries that pdf_url_ok() says is not a PDF -- the
+# opinion link and the separate writings' -- so the row goes out without the
+# link, and the next run (which rebuilds the manifest from scratch) tries again.
+.verify_urls <- function(out) {
+  if (!nrow(out)) return(out)
+  bad <- 0L
+  for (i in seq_len(nrow(out))) {
+    u <- out$opinion_url[i]
+    if (!is.na(u) && nzchar(u) && isFALSE(pdf_url_ok(u))) { out$opinion_url[i] <- NA_character_; bad <- bad + 1L }
+    w <- out$writing_urls[i]
+    if (!is.na(w) && nzchar(w)) {
+      lines <- strsplit(w, "\n", fixed = TRUE)[[1]]
+      keep <- vapply(lines, function(l) !isFALSE(pdf_url_ok(sub("^.* ", "", l))), logical(1))
+      bad <- bad + sum(!keep)
+      out$writing_urls[i] <- if (any(keep)) paste(lines[keep], collapse = "\n") else NA_character_
+    }
+  }
+  if (bad) cat("Opinion links: withheld", bad, "URL(s) that did not serve a PDF; the next run retries\n")
+  out
+}
+
+# Has the Court replaced this opinion's file? When a slip opinion is revised the
+# listing's link moves to a new file -- "_new_" (25-365, Trump v. Barbara),
+# "_new2_" for a second revision (23-1197), or the U.S. Reports reprint
+# ("609us1r55_h315.pdf") once a volume's pages are set -- and anything measured
+# from the old file (the Justices' lineups and word counts) is stale. Measured
+# 2026-09-29: 11 cached OT25 opinions pointed at superseded files, and only one
+# of them by "_new_", so the test is "the link changed", not a filename pattern.
+# Slip-opinion files only (/opinions/NNpdf/): a Term moving from a preliminary
+# print to its bound volume is the same text, and re-reading 1,100-page volumes
+# for a whole Term would buy nothing.
+slip_url_superseded <- function(old, new) {
+  base <- function(u) if (is.null(u) || length(u) != 1 || is.na(u)) NA_character_
+                      else sub("^http:", "https:", sub("#.*$", "", u))
+  o <- base(old); n <- base(new)
+  !is.na(o) && !is.na(n) && grepl("/opinions/\\d{2}pdf/", o) && grepl("/opinions/\\d{2}pdf/", n) && o != n
 }
 
 #' The Court's opinion listings for `terms` ("25", "26"), as (dkt, date, url).
@@ -669,6 +753,8 @@ recent_decisions <- function(cases, as_of = Sys.Date(), days = DECIDED_KEEP_DAYS
   if (got_w > 0) cat("Granted & Noted List supplied", got_w, "separate-writings line(s)\n")
   got_a <- sum(had_w & !is.na(out$writing_urls))
   if (got_a > 0) cat("Application entries and listings linked", got_a, "row(s) of separate writings\n")
+  # Last: no URL reaches the manifest unless it serves a PDF (see pdf_url_ok()).
+  out <- .verify_urls(out)
   out[order(out$date, out$dkt, decreasing = c(TRUE, FALSE), method = "radix"), , drop = FALSE]
 }
 
