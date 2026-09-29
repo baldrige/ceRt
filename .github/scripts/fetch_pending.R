@@ -39,6 +39,15 @@ dkts <- tryCatch(pending_to_fetch(site, wt), error = function(e) {
   cat("pending_to_fetch() failed:", conditionMessage(e), "-- nothing to fetch\n")
   character()
 })
+# Plus the out-of-window cases on the Court's Granted & Noted lists for the
+# current and prior argument Terms -- granted, so never pending, and otherwise
+# seen only through a stale snapshot. See granted_noted_to_fetch().
+gn <- tryCatch(granted_noted_to_fetch(site, wt), error = function(e) {
+  cat("granted_noted_to_fetch() failed:", conditionMessage(e), "\n"); character()
+})
+cat("Granted & Noted dockets outside the window:", length(gn),
+    "| of them not already pending:", length(setdiff(gn, dkts)), "\n")
+dkts <- union(dkts, gn)
 
 if (!length(dkts)) {
   cat("No out-of-window pending dockets to fetch",
