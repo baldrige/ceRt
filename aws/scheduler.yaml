@@ -1,0 +1,283 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: >-
+  ceRt scheduler. Starts the Supreme Court Report's GitHub Actions workflows on
+  time (GitHub's own cron ran them 2.5-5 hours late) and watches the Court's
+  Hermes transfer feed, starting the daily when it changes. Nothing heavy runs
+  here: the work stays on GitHub. See aws/README.md.
+
+Parameters:
+  GitHubToken:
+    Type: String
+    NoEcho: true
+    Description: >-
+      A fine-grained GitHub token for the ceRt repository with the permission
+      "Actions: Read and write". Stored in AWS Secrets Manager.
+  Repository:
+    Type: String
+    Default: baldrige/ceRt
+    Description: The GitHub repository, as owner/name.
+
+Resources:
+  TokenSecret:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      Name: cert-scheduler/github-token
+      Description: GitHub token the ceRt scheduler uses to start workflows.
+      SecretString: !Ref GitHubToken
+
+  WatchState:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: /cert-scheduler/watch-state
+      Type: String
+      Value: "{}"
+      Description: The court watcher's last fingerprint of the Hermes feed (written by the function).
+
+  FunctionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal: { Service: lambda.amazonaws.com }
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+      Policies:
+        - PolicyName: cert-scheduler
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action: secretsmanager:GetSecretValue
+                Resource: !Ref TokenSecret
+              - Effect: Allow
+                Action: [ssm:GetParameter, ssm:PutParameter]
+                Resource: !Sub arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/cert-scheduler/watch-state
+
+  Function:
+    Type: AWS::Lambda::Function
+    Properties:
+      FunctionName: cert-scheduler
+      Description: Starts ceRt's GitHub Actions workflows on time, and watches the Court's Hermes feed.
+      Runtime: python3.12
+      Handler: index.handler
+      Timeout: 60
+      MemorySize: 128
+      Role: !GetAtt FunctionRole.Arn
+      Environment:
+        Variables:
+          REPO: !Ref Repository
+          STATE_PARAM: !Ref WatchState
+          TOKEN_SECRET: !Ref TokenSecret
+      Code:
+        ZipFile: |
+          import json, os, re, hashlib, urllib.request, datetime as dt
+          import boto3
+
+          # Triggers ceRt's GitHub Actions workflows on time. GitHub's own cron started the
+          # daily 2.5-5 hours late (Sep 2026), while a workflow_dispatch starts in seconds.
+          # Two jobs, chosen by the event: {"workflow": "daily.yml"} dispatches that workflow
+          # (unless one is already queued or running); {"action": "watch"} is the Hermes
+          # feed watcher from .github/scripts/court_watch.py -- dispatch the daily when the
+          # Court's transfer feed changes. See aws/README.md.
+          REPO = os.environ["REPO"]
+          PARAM = os.environ["STATE_PARAM"]
+          SECRET = os.environ["TOKEN_SECRET"]
+          FEED = "https://www.supremecourt.gov/rss/hermes_transfer.xml"
+          UA = "ceRt SCOTUS docketing dashboard (court watch, aws)"
+          LIVE = ("queued", "in_progress", "waiting", "pending", "requested")
+          ssm = boto3.client("ssm")
+          sm = boto3.client("secretsmanager")
+          _tok = []
+
+
+          def gh(method, path, body=None):
+              if not _tok:
+                  _tok.append(sm.get_secret_value(SecretId=SECRET)["SecretString"].strip())
+              req = urllib.request.Request(
+                  "https://api.github.com/repos/" + REPO + path, method=method,
+                  data=None if body is None else json.dumps(body).encode(),
+                  headers={"Authorization": "Bearer " + _tok[0], "User-Agent": UA,
+                           "Accept": "application/vnd.github+json"})
+              with urllib.request.urlopen(req, timeout=20) as r:
+                  t = r.read()
+                  return json.loads(t) if t else {}
+
+
+          def live(wf):
+              r = gh("GET", "/actions/workflows/%s/runs?per_page=10" % wf)
+              return [x for x in r.get("workflow_runs", []) if x["status"] in LIVE]
+
+
+          def dispatch(wf):
+              gh("POST", "/actions/workflows/%s/dispatches" % wf, {"ref": "main"})
+
+
+          def fingerprint():
+              req = urllib.request.Request(FEED, headers={"User-Agent": UA})
+              x = urllib.request.urlopen(req, timeout=30).read().decode("utf-8", "replace")
+              its = []
+              for b in re.findall(r"<item>(.*?)</item>", x, re.S):
+                  t = re.sub(r"<!\[CDATA\[|\]\]>", "", re.search(r"<title>(.*?)</title>", b, re.S).group(1)).strip()
+                  p = re.search(r"<pubDate>(.*?)</pubDate>", b, re.S)
+                  if t.lower() != "thumbs.db":
+                      its.append([t, p.group(1).strip() if p else ""])
+              m = re.search(r"<channel>.*?<pubDate>(.*?)</pubDate>", x, re.S)
+              return hashlib.sha1(json.dumps([sorted(its), m.group(1).strip() if m else ""]).encode()).hexdigest()
+
+
+          def watch():
+              now = dt.datetime.now(dt.timezone.utc)
+              try:
+                  st = json.loads(ssm.get_parameter(Name=PARAM)["Parameter"]["Value"])
+              except Exception:
+                  st = {}
+              fp = fingerprint()
+              if not st.get("fp"):
+                  st["fp"], msg = fp, "baseline recorded"
+              elif st["fp"] == fp:
+                  msg = "no change"
+              elif st.get("last") and now - dt.datetime.fromisoformat(st["last"]) < dt.timedelta(minutes=10):
+                  msg = "changed, but dispatched under 10 min ago; retry next poll"
+              elif live("daily.yml"):
+                  msg = "changed, but a daily is live; retry next poll"
+              else:
+                  dispatch("daily.yml")
+                  st.update(fp=fp, last=now.isoformat())
+                  msg = "changed: dispatched daily.yml"
+              ssm.put_parameter(Name=PARAM, Value=json.dumps(st), Type="String", Overwrite=True)
+              print(msg, fp[:12])
+              return msg
+
+
+          def handler(event, context):
+              if event.get("action") == "watch":
+                  return watch()
+              wf = event["workflow"]
+              if live(wf):
+                  print(wf, "already queued or running; not dispatching")
+                  return "skipped " + wf
+              dispatch(wf)
+              print("dispatched", wf)
+              return "dispatched " + wf
+
+  SchedulerRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal: { Service: scheduler.amazonaws.com }
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: invoke-cert-scheduler
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action: lambda:InvokeFunction
+                Resource: !GetAtt Function.Arn
+
+  # The same slots as the workflows' own crons, in UTC -- the daily's comments
+  # explain why each one is where it is. The GitHub crons stay as a fallback: a
+  # late GitHub start after this one has run finds the job done (the function
+  # skips a workflow that is already queued or running).
+  DailyOvernight:
+    Type: AWS::Scheduler::Schedule
+    Properties:
+      Name: cert-daily-0033
+      Description: daily.yml at 00:33 UTC, after the ~00:05 UTC JSON re-export
+      ScheduleExpression: cron(33 0 * * ? *)
+      ScheduleExpressionTimezone: UTC
+      FlexibleTimeWindow: { Mode: "OFF" }
+      Target:
+        Arn: !GetAtt Function.Arn
+        RoleArn: !GetAtt SchedulerRole.Arn
+        Input: '{"workflow": "daily.yml"}'
+
+  DailyMidday:
+    Type: AWS::Scheduler::Schedule
+    Properties:
+      Name: cert-daily-1633
+      Description: daily.yml at 16:33 UTC (12:33pm EDT)
+      ScheduleExpression: cron(33 16 * * ? *)
+      ScheduleExpressionTimezone: UTC
+      FlexibleTimeWindow: { Mode: "OFF" }
+      Target:
+        Arn: !GetAtt Function.Arn
+        RoleArn: !GetAtt SchedulerRole.Arn
+        Input: '{"workflow": "daily.yml"}'
+
+  DailyAfternoon:
+    Type: AWS::Scheduler::Schedule
+    Properties:
+      Name: cert-daily-2033
+      Description: daily.yml at 20:33 UTC (4:33pm EDT)
+      ScheduleExpression: cron(33 20 * * ? *)
+      ScheduleExpressionTimezone: UTC
+      FlexibleTimeWindow: { Mode: "OFF" }
+      Target:
+        Arn: !GetAtt Function.Arn
+        RoleArn: !GetAtt SchedulerRole.Arn
+        Input: '{"workflow": "daily.yml"}'
+
+  DailyMondayOrders:
+    Type: AWS::Scheduler::Schedule
+    Properties:
+      Name: cert-daily-mon-1403
+      Description: daily.yml Mondays at 14:03 UTC, after the 9:30am ET order list
+      ScheduleExpression: cron(3 14 ? * MON *)
+      ScheduleExpressionTimezone: UTC
+      FlexibleTimeWindow: { Mode: "OFF" }
+      Target:
+        Arn: !GetAtt Function.Arn
+        RoleArn: !GetAtt SchedulerRole.Arn
+        Input: '{"workflow": "daily.yml"}'
+
+  Conferences:
+    Type: AWS::Scheduler::Schedule
+    Properties:
+      Name: cert-conferences-mon-0600
+      Description: conferences.yml Mondays at 06:00 UTC
+      ScheduleExpression: cron(0 6 ? * MON *)
+      ScheduleExpressionTimezone: UTC
+      FlexibleTimeWindow: { Mode: "OFF" }
+      Target:
+        Arn: !GetAtt Function.Arn
+        RoleArn: !GetAtt SchedulerRole.Arn
+        Input: '{"workflow": "conferences.yml"}'
+
+  AuditSite:
+    Type: AWS::Scheduler::Schedule
+    Properties:
+      Name: cert-audit-0400
+      Description: audit-site.yml at 04:00 UTC
+      ScheduleExpression: cron(0 4 * * ? *)
+      ScheduleExpressionTimezone: UTC
+      FlexibleTimeWindow: { Mode: "OFF" }
+      Target:
+        Arn: !GetAtt Function.Arn
+        RoleArn: !GetAtt SchedulerRole.Arn
+        Input: '{"workflow": "audit-site.yml"}'
+
+  # Replaces watch-court.yml's runner chain (a GitHub runner held for 6-10
+  # hours at a time to poll a 1 KB feed every 5 minutes).
+  CourtWatch:
+    Type: AWS::Scheduler::Schedule
+    Properties:
+      Name: cert-court-watch
+      Description: Poll the Court's Hermes transfer feed every 5 minutes; start the daily when it changes
+      ScheduleExpression: rate(5 minutes)
+      FlexibleTimeWindow: { Mode: "OFF" }
+      Target:
+        Arn: !GetAtt Function.Arn
+        RoleArn: !GetAtt SchedulerRole.Arn
+        Input: '{"action": "watch"}'
+
+Outputs:
+  FunctionName:
+    Description: Open this in the Lambda console to test or read logs.
+    Value: !Ref Function
