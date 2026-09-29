@@ -183,7 +183,7 @@ write_atom_feed <- function(entries, path, title, subtitle, self_path,
 
 # Court text arrives with markup in it ("<i>Stinson</i> v. United States"), and
 # escaped into an Atom summary it reads as literal tags.
-.strip_tags <- function(x) gsub("<[^>]+>", "", x)
+.feed_strip_tags <- function(x) gsub("<[^>]+>", "", x)
 
 # Is this the order that granted review? The classifier's own grant grammar
 # (GRANT_FORMS, R/cert_funnel.R) -- the same test that picked the grant date.
@@ -210,7 +210,7 @@ write_atom_feed <- function(entries, path, title, subtitle, self_path,
   txt[is.na(txt)] <- ""
   hit <- which(!is.na(d) & d == on & .is_grant_order(xml_clean(txt)))
   if (!length(hit)) return("")
-  out <- xml_clean(.strip_tags(txt[hit[1]]))
+  out <- xml_clean(.feed_strip_tags(txt[hit[1]]))
   if (nchar(out) > 500) paste0(substr(out, 1, 497), "...") else out
 }
 
@@ -389,7 +389,7 @@ grant_feed_entries <- function(site_dir, n = 50L, base = SITE_URL) {
   }
   cap <- c(vapply(idx, function(g) g$caption, character(1), USE.NAMES = FALSE), ol$caption)
   cap[!nzchar(cap)] <- dkt[!nzchar(cap)]
-  ord <- xml_clean(.strip_tags(c(vapply(idx, function(g) g$order, character(1), USE.NAMES = FALSE),
+  ord <- xml_clean(.feed_strip_tags(c(vapply(idx, function(g) g$order, character(1), USE.NAMES = FALSE),
                                  rep("", nrow(ol)))))
   dt  <- suppressWarnings(as.Date(c(vapply(idx, function(g) g$date, character(1), USE.NAMES = FALSE),
                                     ol$date), optional = TRUE))
@@ -507,7 +507,7 @@ decision_entries <- function(site_dir, n = 20L, base = SITE_URL) {
                  ifelse(rows$kind == "summary", "Summary disposition", "Decided"))
   disp <- ifelse(is.na(rows$disposition) | !nzchar(rows$disposition), "",
                  paste0(" (", rows$disposition, ")"))
-  hold <- ifelse(is.na(rows$holding), "", xml_clean(.strip_tags(rows$holding)))
+  hold <- ifelse(is.na(rows$holding), "", xml_clean(.feed_strip_tags(rows$holding)))
   hold <- ifelse(nchar(hold) > 500, paste0(substr(hold, 1, 497), "..."), hold)
   auth <- ifelse(is.na(rows$author) | !nzchar(rows$author), "",
                  ifelse(rows$author == "Per Curiam", "Per curiam. ",
