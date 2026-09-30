@@ -5,8 +5,15 @@
   <link rel="self" href="https://supremecourt.report/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://supremecourt.report/"/>
   <id>https://supremecourt.report/feed.xml</id>
-  <updated>2026-09-29T12:00:00-04:00</updated>
+  <updated>2026-09-30T12:00:00-04:00</updated>
   <author><name>Supreme Court Report</name></author>
+  <entry>
+    <title>Docket for September 30, 2026</title>
+    <link href="https://supremecourt.report/dashboards/dash_2026-09-30.html"/>
+    <id>https://supremecourt.report/dashboards/dash_2026-09-30.html</id>
+    <updated>2026-09-30T12:00:00-04:00</updated>
+    <summary>Petitions and applications docketed on September 30, 2026.</summary>
+  </entry>
   <entry>
     <title>Miscellaneous Order, September 29, 2026</title>
     <link href="https://supremecourt.report/orders/2026-09-29-misc2.html"/>
@@ -194,13 +201,6 @@
     <id>https://supremecourt.report/cases/26A274.html#decision</id>
     <updated>2026-09-04T12:00:00-04:00</updated>
     <summary>Per curiam. Because the Fourth Circuit likely lacked jurisdiction to review the Federal Communications Commission’s lowest-unit-charge requirements while the candidates’ application for review remained pending before the Commission and the party committees would otherwise suffer irreparable First Amendment harm, the party committees’ application for a stay is granted.</summary>
-  </entry>
-  <entry>
-    <title>Docket for September 3, 2026</title>
-    <link href="https://supremecourt.report/dashboards/dash_2026-09-03.html"/>
-    <id>https://supremecourt.report/dashboards/dash_2026-09-03.html</id>
-    <updated>2026-09-03T12:00:00-04:00</updated>
-    <summary>Petitions and applications docketed on September 3, 2026.</summary>
   </entry>
   <entry>
     <title>Application decided: National Park Service v. National Trust for Historic Preservation in the United States (No. 26A203) (Granted)</title>
