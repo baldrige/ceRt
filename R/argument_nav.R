@@ -590,9 +590,16 @@ argument_term_page <- function(tbl, term, out_dir) {
       # Day Call names them the morning of. For a case not yet argued, the
       # Day Call's line stands in.
       argued_by = coalesce(advocates, if ("advocates_dc" %in% names(d)) advocates_dc else NA_character_, "—"),
-      media = pmap_chr(list(transcript_url, audio_url), function(tr, au) {
-        parts <- c(if (!is.na(tr)) str_c("[Transcript](", tr, ")"),
-                   if (!is.na(au)) str_c("[Audio](", au, ")"))
+      # The site's own argument page (R/argument_reader.R) where there is one:
+      # the recording and transcript together, and the bench's lean. The
+      # Court's PDF stays beside it; its audio page is then redundant.
+      media = pmap_chr(list(transcript_url, audio_url,
+                            if ("reader_href" %in% names(d)) reader_href else NA_character_,
+                            if ("lean_p" %in% names(d)) lean_p else NA_real_), function(tr, au, rd, lp) {
+        parts <- c(if (!is.na(rd)) str_c("[Listen and read](", rd, ")",
+                                         if (!is.na(lp)) str_c(" · lean ", round(100 * lp), "%") else ""),
+                   if (!is.na(tr)) str_c("[", if (!is.na(rd)) "PDF" else "Transcript", "](", tr, ")"),
+                   if (!is.na(au) && is.na(rd)) str_c("[Audio](", au, ")"))
         if (length(parts) == 0) "—" else paste(parts, collapse = " · ")
       }),
       qp = if_else(is.na(qp), "—", qp)
@@ -656,7 +663,9 @@ argument_term_page <- function(tbl, term, out_dir) {
       dek = dek, n_rows = n, left_cols = left_cols,
       footer = paste0("Status tracks each grant from Granted through Scheduled, ",
                       "Argued, and Decided (with the majority author, linked to the ",
-                      "slip opinion).",
+                      "slip opinion). <em>Listen and read</em> opens the argument with its ",
+                      "recording and transcript; the <em>lean</em> is the chance the petitioner ",
+                      "prevails, read from how the bench divided its words.",
                       # The Justices page for the same Term: who wrote these
                       # opinions and who joined whom. The Granted & Noted List
                       # starts at OT16, so earlier Terms have no page to link.

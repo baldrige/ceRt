@@ -1,0 +1,58 @@
+{
+  "fitted": "2026-10-01",
+  "base_rate": 0.7083,
+  "case": {
+    "intercept": 0.998524,
+    "lq": -0.416457,
+    "lw": 1.571992
+  },
+  "justice": {
+    "intercept": 0.564181,
+    "offset": {
+      "Alito": 0,
+      "Barrett": 0.521888,
+      "Breyer": -0.126466,
+      "Ginsburg": -0.103162,
+      "Gorsuch": 0.120971,
+      "Jackson": 0.243751,
+      "Kagan": 0.016544,
+      "Kavanaugh": 0.248844,
+      "Kennedy": 0.581659,
+      "Roberts": 0.345107,
+      "Sotomayor": 0.052545,
+      "Thomas": -0.098035
+    },
+    "lw_own": 0.228066,
+    "lw_case": 0.778697
+  },
+  "justice0": {
+    "intercept": 0.434403,
+    "offset": {
+      "Alito": 0,
+      "Barrett": 0.336453,
+      "Breyer": 0.156779,
+      "Ginsburg": -0.091913,
+      "Gorsuch": 0.231261,
+      "Jackson": 0.107921,
+      "Kagan": 0.049023,
+      "Kavanaugh": 0.36485,
+      "Kennedy": 0.50658,
+      "Roberts": 0.381598,
+      "Sotomayor": -0.053036,
+      "Thomas": -0.050733
+    }
+  },
+  "backtest": {
+    "terms": "OT2017–OT2025",
+    "case_n": 504,
+    "case_base_acc": 0.708,
+    "case_model_acc": 0.72,
+    "case_base_brier": 0.2078,
+    "case_model_brier": 0.1955,
+    "justice_n": 4338,
+    "justice_base_acc": 0.638,
+    "justice_model_acc": 0.673,
+    "justice_base_brier": 0.2312,
+    "justice_model_brier": 0.2085
+  }
+}

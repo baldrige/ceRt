@@ -95,8 +95,18 @@ PALETTE_OPINIONS <- list(
   "op-court" = "#3a6db3", "op-conc" = "#e07b1f",
   "op-judg"  = "#7fb069", "op-diss" = "#9c0e3a")
 
+# The two sides of the lectern on the argument reader (R/argument_reader.R):
+# words the bench spoke to the petitioner and to the respondent, and the lean
+# scale between them. A pair, not a scale -- slate for the petitioner, ochre
+# for the respondent -- chosen to stay apart from the accent, which the reader
+# spends on the forecast mark and the Justices' names. Both pass 4.5:1 on paper
+# as text; the tints are the scale's ends and never carry text.
+PALETTE_ARGUMENT <- list(
+  "side-pet" = "#2d5476", "side-resp" = "#9a5b1c",
+  "side-pet-tint" = "#e3ebf3", "side-resp-tint" = "#f4e8da")
+
 pal <- function(name) {
-  v <- c(PALETTE, PALETTE_FUNNEL, PALETTE_UI, PALETTE_EVENTS, PALETTE_OPINIONS)[[name]]
+  v <- c(PALETTE, PALETTE_FUNNEL, PALETTE_UI, PALETTE_EVENTS, PALETTE_OPINIONS, PALETTE_ARGUMENT)[[name]]
   if (is.null(v)) stop("pal(): no such colour token: ", name, call. = FALSE)
   v
 }
@@ -181,7 +191,7 @@ palette_root <- function(nav_max = SITE_NAV_MAX, extra = NULL) {
 pal_rgb <- function(name) paste(as.vector(grDevices::col2rgb(pal(name))), collapse = ",")
 
 fill_palette <- function(css) {
-  for (nm in names(c(PALETTE, PALETTE_FUNNEL, PALETTE_UI, PALETTE_EVENTS, PALETTE_OPINIONS))) {
+  for (nm in names(c(PALETTE, PALETTE_FUNNEL, PALETTE_UI, PALETTE_EVENTS, PALETTE_OPINIONS, PALETTE_ARGUMENT))) {
     hex <- pal(nm)
     css <- gsub(paste0("@", nm, ":rgb@"),
                 paste(as.vector(grDevices::col2rgb(hex)), collapse = ","),
