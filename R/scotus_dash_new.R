@@ -43,7 +43,13 @@ parse_scotus_date <- function(x) {
 # "Original" is the 22O### docket (see R/original_dockets.R); it maps to its own
 # code so that nothing downstream can mistake a State-v-State action for a
 # petition -- unmapped it came out NA, and NA defaulted to "paid".
-TYPE_MAP <- c(Paid = "paid", IFP = "ifp", Application = "app", Original = "orig")
+#
+# "Misc. Motion" is the M docket (26M23): a motion for leave to file a petition
+# under seal, or out of time, distributed for conference like a petition. Its
+# own code for the same reason -- unmapped it was NA, and the sequence-number
+# rule in funnel_case_type() would have read 26M23 as paid petition No. 23.
+TYPE_MAP <- c(Paid = "paid", IFP = "ifp", Application = "app", Original = "orig",
+              "Misc. Motion" = "motion")
 
 # ---- JSON docket API --------------------------------------------------------
 
@@ -403,10 +409,17 @@ get_scotus_update <- function(year) {
 # Every case in a term (the full range of each bucket). Needed for backfills and
 # conference reports, which require the whole term rather than just recent
 # dockets. Thousands of requests -- run it from a clean IP, not a throttled one.
+#
+# The M series (26M1..) too: motions for leave to file under seal or out of
+# time, which the Court distributes for conference alongside the petitions. A
+# conference page without them undercounted the Court's own list -- four of
+# the 207 dockets distributed for October 9, 2026. A hundred or so a Term, and
+# only here: the daily's dashboards are petitions and applications.
 get_scotus_term <- function(year) {
   paid <- binary_search_max(year, "-", 0, 2000)
   ifp <- binary_search_max(year, "-", 5001, 10000)
   apps <- binary_search_max(year, "A", 0, 2000)
+  mots <- binary_search_max(year, "M", 0, 1000)
   full_block <- function(hi, lo_bound, sep) {
     if (hi < lo_bound) return(character())
     paste0(year, sep, lo_bound:hi)
@@ -414,7 +427,8 @@ get_scotus_term <- function(year) {
   fetch_cases(c(
     full_block(paid, 1, "-"),
     full_block(ifp, 5001, "-"),
-    full_block(apps, 1, "A")
+    full_block(apps, 1, "A"),
+    full_block(mots, 1, "M")
   ))
 }
 

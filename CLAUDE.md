@@ -38,7 +38,10 @@ site, and which pages it writes — see **[docs/workflows.md](docs/workflows.md)
   fresh full token bucket on every call, so a per-docket builder silently
   defeats it. No persistent
   per-docket cache. Docket buckets per term: paid `NN-1..`, IFP `NN-5001..`,
-  applications `NNA###` (note the "A", not a dash). The original docket `22O###`
+  applications `NNA###` (note the "A", not a dash), and motions `NNM##`
+  (leave to file under seal or out of time; full-term fetch only, typed
+  `motion` -- never a petition, though the bare sequence number would say
+  "paid"). The original docket `22O###`
   is not a term bucket and is sparse, so it is fetched by name from
   `cases/original.json` (`R/original_dockets.R`, **[docs/original-jurisdiction.md](docs/original-jurisdiction.md)**);
   `funnel_case_type()` types it `orig` and every petition-side consumer filters
