@@ -358,7 +358,11 @@ write_docket_css <- function(out_dir) {
 # other ("Granted as petition" / "Began as application"; conversion_dockets()),
 # and the petition's page shows the questions the Court set in granting, not
 # text extracted from the stay application (court_directed_qp()).
-PAGE_TEMPLATE_VERSION <- "v43"
+# v44: "Distributed for N conferences" counts distinct conferences, not
+# DISTRIBUTED entries (25-1349 went to September 28, 2026 twice and read "2
+# conferences"), noting the entries when they differ; reads the OT2017 archive's
+# spelled-out dates too.
+PAGE_TEMPLATE_VERSION <- "v44"
 
 # ---- small helpers ------------------------------------------------------------
 # A probability at significant figures, as the conference report prints it
@@ -1239,9 +1243,20 @@ docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
                              is_app = is_app, why = fc_why, why_retro = fc_why_retro,
                              p_lo = p_lo, p_hi = p_hi, p_ever = p_ever,
                              word_override = orig_word)
-  # Conference history = TOTAL distributions (a case seen at one conference counts).
-  n_dist <- if (is.data.frame(ev))
-    sum(str_detect(ev[["Proceedings and Orders"]] %||% "", "DISTRIBUTED for Conference"), na.rm = TRUE) else 0L
+  # Conference history: the number of distinct conferences, and the number of
+  # DISTRIBUTED entries when that is more. They differ when a petition is sent
+  # to the same conference twice -- 25-1349 was distributed for September 28,
+  # the Court called for a response, and it was distributed for September 28
+  # again -- and the page used to count entries, so it read "2 conferences".
+  # Both date forms are read: the OT2017 archive writes the long conference out
+  # ("September 25, 2017"), which conference_dates_from_events() does not parse.
+  dist_txt <- if (is.data.frame(ev)) (ev[["Proceedings and Orders"]] %||% character()) else character()
+  dist_txt <- dist_txt[!is.na(dist_txt) & str_detect(dist_txt, "DISTRIBUTED for Conference")]
+  n_entries <- length(dist_txt)
+  conf_raw <- str_match(dist_txt, "DISTRIBUTED for Conference of ([0-9/]+|[A-Z][a-z]+ \\d{1,2}, \\d{4})")[, 2]
+  conf_d <- suppressWarnings(lubridate::parse_date_time(conf_raw, c("mdy"), quiet = TRUE))
+  # An entry whose date cannot be read still counts as a conference of its own.
+  n_dist <- length(unique(conf_d[!is.na(conf_d)])) + sum(is.na(conf_d))
   # An application converted into a petition (conversion_dockets()): the other
   # side's docket(s), and -- on the petition -- the questions the Court set.
   conv <- tryCatch(conversion_dockets(ev, dkt), error = function(e) character())
@@ -1308,7 +1323,8 @@ docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
     if (!is.na(cx$lower) && nzchar(cx$lower)) paste0(" &middot; ", .esc(cx$lower)),
     if (!is.null(cx$lower_dkt) && !is.na(cx$lower_dkt) && nzchar(cx$lower_dkt)) paste0(", No. ", .esc(cx$lower_dkt)),
     if (!is.na(cx$lower_date)) paste0(" &middot; judgment ", .fmtdate(cx$lower_date))))
-  conf_line <- if (n_dist > 0) sprintf("Distributed for %d conference%s", n_dist, if (n_dist == 1) "" else "s") else "&mdash;"
+  conf_line <- if (n_dist > 0) sprintf("Distributed for %d conference%s%s", n_dist, if (n_dist == 1) "" else "s",
+                                       if (n_entries > n_dist) sprintf(" (%d distributions)", n_entries) else "") else "&mdash;"
 
   # Counsel of record -- omit the panel entirely when we hold no counsel data
   # (rather than showing misleading em-dashes for both sides).
