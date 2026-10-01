@@ -32,6 +32,9 @@ and the docket pages (both link the result):
 
 Page details:
 
+- The Term chart sorts each argument by its disposition (`argument_disposition()`):
+  petitioner won, respondent won, **dismissed** (a DIG — disposed of, no
+  winner), or awaiting decision; original actions are not plotted.
 - The lean, bench table and Term chart are in the HTML; only the transcript and
   player need script (`reader.js` fetches the JSON beside the page).
 - The audio is the Court's own MP3
@@ -127,23 +130,29 @@ consolidated arguments where both parties are styled petitioners (e.g. 19-422).
 
 ## Does the questioning predict the outcome?
 
-Outcome: the lead docket's judgment line — REVERSED or VACATED (in whole or in
-part) is a petitioner win, AFFIRMED a loss, dismissals excluded. 521 of 552
-argued cases have one; 72% are petitioner wins. Per-Justice votes come from the
+Outcome: the lead docket's judgment entry (`judgment_of()`, `JUDGMENT_RULES`) —
+reversed or vacated, in whole or in part, is a petitioner win, affirmed a loss,
+a dismissal no outcome; an argued application's "granted / denied by the Court" (or "referred to the
+Court are granted") counts as its applicant's win or loss; an original action
+has no petitioner or respondent and is left out. 528 of 552 argued cases have one; 71% are
+petitioner wins. (Rules `j2`, 2026-10-01: the first version read only capitals,
+missing "Judgment is affirmed", and took a respondent's *motion* to dismiss as
+improvidently granted for a DIG; refitting on the corrected outcomes moved every
+figure below by under a point.) Per-Justice votes come from the
 published `justices/lineups.json` through `decision_votes()`. Every fit is
 **leave-one-Term-out**, so no Term's outcomes inform its own forecast.
 
-### Case level (n = 504, party segments only)
+### Case level (n = 511, party segments only)
 
 | | accuracy | Brier |
 | --- | --- | --- |
-| petitioner always wins | 70.8% | 0.208 |
-| raw rule: side with more Justice **turns** loses | 54.0% | — |
-| raw rule: side with more Justice **words** loses | 56.9% | — |
-| logistic on log(resp/pet) turns and words | **72.0%** | **0.196** |
+| petitioner always wins | 70.5% | 0.210 |
+| raw rule: side with more Justice **turns** loses | 55.0% | — |
+| raw rule: side with more Justice **words** loses | 57.1% | — |
+| logistic on log(resp/pet) turns and words | **72.0%** | **0.197** |
 
 - **Words carry the signal; turn counts do not** once words are in the model
-  (words z = 4.2; turns n.s.).
+  (words z = 4.1; turns n.s.).
 - The raw rules lose to the baseline because petitioners draw more words by
   construction — they go first and have rebuttal. A fitted intercept absorbs that.
 - Accuracy barely moves because the base rate is 71% and the model rarely
@@ -152,20 +161,20 @@ published `justices/lineups.json` through `decision_votes()`. Every fit is
 
 | forecast quintile | median words to resp ÷ to pet | mean forecast | petitioner won |
 | --- | --- | --- | --- |
-| 1 | 0.51 | 52% | 55% |
+| 1 | 0.51 | 51% | 54% |
 | 2 | 0.80 | 66% | 67% |
-| 3 | 0.98 | 73% | 69% |
-| 4 | 1.23 | 78% | 79% |
-| 5 | 1.69 | 85% | 83% |
+| 3 | 0.98 | 72% | 70% |
+| 4 | 1.22 | 78% | 78% |
+| 5 | 1.70 | 85% | 83% |
 
 When the bench gave the petitioner about twice the words it gave the
 respondent, the petitioner won just over half the time; when the respondent got
 1.7×, the petitioner won 83%.
 
 Counting amicus segments toward the side they support makes it worse (Brier
-0.202 vs base 0.205): the SG's amicus time is questioned differently.
+0.204 vs base 0.207): the SG's amicus time is questioned differently.
 
-### Justice level (4,338 votes)
+### Justice level (4,410 votes)
 
 Each Justice's vote from their **own** words to each side plus the whole
 bench's, with a per-Justice intercept, against each Justice's own
@@ -173,8 +182,8 @@ petitioner-vote rate:
 
 | | accuracy | Brier |
 | --- | --- | --- |
-| Justice's own petitioner rate | 63.8% | 0.231 |
-| + own imbalance + bench imbalance | **67.3%** | **0.209** |
+| Justice's own petitioner rate | 63.5% | 0.232 |
+| + own imbalance + bench imbalance | **67.4%** | **0.208** |
 
 Both terms are strong (own z = 14, bench z = 11). The gain is largest for
 Breyer, Jackson, Ginsburg, Sotomayor and Gorsuch (Brier −12 to −17%) and
