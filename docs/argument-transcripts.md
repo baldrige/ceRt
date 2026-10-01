@@ -38,9 +38,42 @@ Page details:
   (`supremecourt.gov/media/audio/mp3files/<docket>.mp3`), played in place. A
   docket argued in two Terms has one MP3 URL, the later argument's, so the
   earlier argument's page links out instead.
-- **Line times are estimates**: the recording's length spread evenly over the
-  words — close near the start, minutes out by the end of a long argument. The
-  page says so. Forced alignment against the audio is the open item.
+- **Line times come from the recording** once `align-arguments.yml` has run on
+  the argument (below); until then they are an even-rate estimate, marked "≈"
+  and labelled as estimated. The estimate ran 15–28 s *ahead* of the audio in
+  Slaughter's first six minutes and varied turn to turn — back-and-forth
+  questioning carries more pause per word than a prepared opening — so no single
+  correction fixes it.
+
+## Timing each line to the recording
+
+`align-arguments.yml` (every six hours; `.github/scripts/align_arguments.py`):
+
+1. **Plan** counts transcripts not yet aligned under `ALIGN_VERSION`. Empty
+   queue, and the run ends there.
+2. **Four shards** each take up to `per_shard` arguments (default 12) within a
+   `budget` of minutes (default 150): current and previous Terms first, then
+   back through the catalogue, newest argument first. Each downloads the
+   Court's MP3, runs `faster-whisper` (`tiny.en`, int8, CPU) for word
+   timestamps, and matches them to the transcript:
+   - **anchors**: four-word phrases that occur exactly once in both texts,
+     kept only where they run forward in both (longest increasing chain), so a
+     repeated phrase cannot pull the clock backwards;
+   - **gaps** between consecutive anchors matched word by word;
+   - every transcript word then gets a time by interpolation between matched
+     words, and each turn's start is its first word's time.
+   Slaughter (2.5 h): 91% of transcript words matched, last line at 9,026 s of a
+   9,030 s recording, Justice Thomas's first question within 0.1 s of a
+   separate check; 4.5 min of CPU on a desktop. The recognised text is never
+   published — it is used only to anchor the Court's own words to the clock.
+3. **Publish** writes the aligned JSON (`turns[].t`, plus `align`:
+   `{v, ok, model, matched, duration}`) to gh-pages. Below 30% matched the
+   argument is marked `ok: false` and not retried until `ALIGN_VERSION` is
+   bumped.
+
+A docket argued in two Terms has one MP3 URL (the later argument's), so its
+earlier argument is never queued. A parser bump (`TX_PARSER_VERSION`) rewrites
+the JSON without times, and the next alignment run re-times it.
 - Case pages carry the link because `readers[[dkt]]` is in their render key, so
   a case page re-renders the run its argument page first appears.
 

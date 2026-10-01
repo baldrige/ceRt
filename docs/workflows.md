@@ -34,13 +34,14 @@ GitHub crons below stay as a fallback: the function never dispatches a workflow
 that is already queued or running, and a late GitHub start after it finds the
 work done. First on-time run: the 16:33 UTC daily of 2026-09-29, at 16:33:24.
 
-Two workflows run on a schedule with no human involved. Together they cover the
-whole site, partitioned so they never fight over the same paths.
+Three workflows run on a schedule with no human involved. The first two cover the
+whole site, partitioned so they never fight over the same paths; the third only adds line times to the argument transcripts.
 
 | workflow | schedule (cron is **UTC**) | data | public pages |
 | --- | --- | --- | --- |
 | **`daily.yml`** | 3×/day: `33 0`, `33 16`, `33 20` (00:33 / 16:33 / 20:33 UTC — the ET-anchored two ≈ 12:33pm & 4:33pm ET) | **Yes** — incremental fetch | **Yes** — dashboards, recent cases, landing |
 | **`conferences.yml`** | Weekly `0 6 * * 1` (**Mon 06:00 UTC**), year-round | **Yes** — full-term fetch | **Yes** — conferences, relists, arguments, funnel, counsel |
+| **`align-arguments.yml`** | Every 6 h, `17 */6 * * *` (GitHub cron; lateness costs nothing here) | **Yes** — line times in `arguments/<yyyy>/*.json` | **Indirectly** — the argument pages' players read them. An empty queue ends the run after the plan job (~1 min). See **[argument-transcripts.md](argument-transcripts.md)** |
 | **`watch-court.yml`** — *disabled; replaced by the AWS watcher above* | A self-dispatching **chain**: each run polls for ~5h45m, then starts the next; the cron (`7,22,37,52 * * * *`) is only the restart floor | **No** — reads a 1 KB feed | **Indirectly** — dispatches `daily.yml` when the Court's Hermes transfer feed changes |
 
 The daily also has a fourth cron, Mondays at 14:03 UTC, after the 9:30 ET
@@ -234,6 +235,7 @@ rebase cleanly.
 | `conferences/pending_forecasts.json` (the landing page's "All pending" forecast window; the daily merges its own freshly-scored window in ahead of it and re-checks the top rows by name) | `conferences.yml` |
 | `arguments/granted_noted.json` (the Court's Granted & Noted Lists, parsed; the Navigator's "Separate writings" column and the decisions rows read it) | `conferences.yml` |
 | `arguments/calendar.json`, `arguments/daycalls.json` (the monthly argument calendars and Day Calls, parsed; see **[argument-calendar.md](argument-calendar.md)**) | `conferences.yml` |
+| `arguments/<yyyy>/<docket>.json` line times (`turns[].t`, `align`) | `align-arguments.yml` (every 6 h; four shards; see **[argument-transcripts.md](argument-transcripts.md)**) |
 | `arguments/<yyyy>/<docket>.{html,json}`, `arguments/reader.js`, `arguments/transcripts.json` (parsed-transcript index, with each argument's judgment once known), `arguments/readers.json` (docket → its argument page, read by the Navigator and the case pages) | `conferences.yml` |
 | `arguments/decided.json`, `arguments/watch.json` (landing-page "Recent decisions" manifest and the daily's named-fetch watch list) | `conferences.yml` |
 | `dashboards/decided.json` (the daily's own decisions manifest, from the watch-list fetch) | `daily.yml` |

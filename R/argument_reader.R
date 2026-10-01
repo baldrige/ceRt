@@ -12,10 +12,11 @@
 #
 # The lean, the bench table and the chart are written into the HTML, so the page
 # reads complete without script; only the transcript and player need it. The
-# audio is the Court's own MP3, played from supremecourt.gov. The transcript's
-# line times are estimated by spreading the recording over the words, which is
-# close at the start and drifts by minutes over a long argument -- the page says
-# so, and forced alignment is the open item (docs/argument-transcripts.md).
+# audio is the Court's own MP3, played from supremecourt.gov. Each line's start
+# time comes from align-arguments.yml, which matches the recording to the
+# transcript (.github/scripts/align_arguments.py) and writes it into the JSON;
+# until an argument is aligned, the times are an even-rate estimate, marked as
+# such on the page (docs/argument-transcripts.md).
 
 suppressPackageStartupMessages({ library(stringr); library(dplyr); library(tibble); library(purrr); library(htmltools) })
 if (!exists("%||%")) `%||%` <- function(a, b) if (is.null(a)) b else a
@@ -234,14 +235,15 @@ READER_CSS <- fill_palette("
   paste0("<div class='chart'>", s, "</div>", cal)
 }
 
-.rd_about_html <- function(bt, timed) {
+.rd_about_html <- function(bt, timed, aligned = FALSE) {
   pc <- function(x) paste0(round(100 * x, 1), "%")
   paste0("<div class='about'><b>About this page.</b> Built from the Court’s own transcript and recording.<ul>",
     sprintf("<li><b>The lean.</b> Backtested leave-one-Term-out on %d decided arguments (%s): %s of outcomes called right against %s for “the petitioner always wins”, with forecast error (Brier score) %.3f against %.3f. It refines a strong base rate more than it flips calls. Each Justice’s lean: %s of %s votes against %s for their usual rate.</li>",
             bt$case_n, bt$terms, pc(bt$case_model_acc), pc(bt$case_base_acc), bt$case_model_brier, bt$case_base_brier,
             pc(bt$justice_model_acc), format(bt$justice_n, big.mark = ","), pc(bt$justice_base_acc)),
     "<li><b>Words, not questions.</b> Every Justice turn in an advocate’s time counts toward that advocate’s side; amicus time counts for neither. Counting turns adds nothing once words are counted, and the raw rule “more questions loses” does worse than the base rate, because petitioners argue first and have rebuttal.</li>",
-    if (timed) "<li><b>Timing.</b> Line times spread the recording evenly over the words: close near the start, minutes out by the end of a long argument. Click a line to jump near it.</li>" else "",
+    if (timed && aligned) "<li><b>Timing.</b> Each line is timed to the recording: speech recognition matched the Court’s audio to its transcript, and its own text is used for nothing but the clock. Click a line to hear it.</li>"
+    else if (timed) "<li><b>Timing.</b> Line times spread the recording evenly over the words until this argument is matched to its audio: close near the start, further out later in a long argument. Click a line to jump near it.</li>" else "",
     "<li>Method and findings: <a href='https://github.com/baldrige/ceRt/blob/main/docs/argument-transcripts.md'>docs/argument-transcripts.md</a>.</li></ul></div>")
 }
 
@@ -260,11 +262,15 @@ render_argument_reader <- function(site_dir, a, pts, model) {
   meta <- paste0("<div class='meta'>", paste(sprintf("<span><b>%s</b> for %s%s</span>", .rd_esc(adv$advocate),
                  .rd_side_word(adv$side), ifelse(adv$amicus, " (amicus)", "")), collapse = ""), "</div>")
   has_audio <- isTRUE(a$audio)
+  # Aligned by align-arguments.yml (each turn carries its start time); the page
+  # script reads the same flag from the JSON, so this only sets the first paint.
+  aligned <- isTRUE(a$tx$meta$align$ok)
   player <- paste0(
     "<div class='player'><button class='play' id='rd-play' aria-label='Play'", if (has_audio) "" else " disabled",
     "><svg viewBox='0 0 16 16' aria-hidden='true'><path id='rd-icon' d='M3 1.5v13l11-6.5z'/></svg></button>",
     "<div class='pt'><div class='now' id='rd-now'>", if (has_audio) "Press play, or click any line of the transcript to start there" else "Transcript only — this argument’s recording is on the Court’s site", "</div>",
-    "<div class='sub' id='rd-sub'>", if (has_audio) "The Court’s recording · line times estimated" else
+    "<div class='sub' id='rd-sub'>", if (has_audio && aligned) "The Court’s recording · each line timed to the audio"
+      else if (has_audio) "The Court’s recording · line times estimated" else
       sprintf("<a href='https://www.supremecourt.gov/oral_arguments/audio/%d/%s' rel='noopener'>Listen on supremecourt.gov</a>", term, dkt), "</div>",
     "<div class='prog' id='rd-prog'><div></div></div></div><span class='clock' id='rd-clock'>0:00</span>",
     if (has_audio) sprintf("<audio id='rd-audio' preload='metadata' src='%s'></audio>", argument_mp3(dkt)) else "",
@@ -295,7 +301,7 @@ render_argument_reader <- function(site_dir, a, pts, model) {
     "</section>",
     "<section><div class='sh'><h2>October Term ", term, ", lean against result</h2><p>Each dot an argument; click one to open it</p></div>",
     .rd_chart_html(pts, dkt, base), "</section>",
-    .rd_about_html(model$backtest, has_audio),
+    .rd_about_html(model$backtest, has_audio, aligned),
     "<p class='back'><a href='/arguments/arg_", term, ".html'>&larr; October Term ", term, " arguments</a> · ",
     "<a href='/cases/", dkt, ".html'>The docket &rarr;</a></p>",
     "</main><script src='/arguments/reader.js' defer></script></body>\n</html>\n")
@@ -404,7 +410,9 @@ READER_JS <- r"---(// arguments/reader.js -- written by R/argument_reader.R. The
       .replace(/([A-Z])([A-Z'-]+)$/, function (m, a, b) { return a + b.toLowerCase(); });
   }
   function side(s) { return s === 'pet' ? "<span class='pet'>for the petitioners</span>" : s === 'resp' ? "<span class='resp'>for the respondents</span>" : '<span>for neither side</span>'; }
+  var aligned = false;
   function setTimes() {
+    if (aligned) return;
     if (!audio || !isFinite(audio.duration) || !audio.duration) return;
     var total = turns.reduce(function (a, t) { return a + t.w; }, 0) || 1, spw = audio.duration / total, acc = 0;
     times = turns.map(function (t) { var s = acc * spw; acc += t.w; return s; });
@@ -439,6 +447,14 @@ READER_JS <- r"---(// arguments/reader.js -- written by R/argument_reader.R. The
     els.forEach(function (el) { el.addEventListener('click', function () {
       if (!audio) return; if (!times.length) setTimes(); if (!times.length) return;
       audio.currentTime = times[+el.dataset.i]; audio.play().catch(function () {}); }); });
+    // Aligned to the recording (.github/scripts/align_arguments.py): each line
+    // carries its own start time. Otherwise the even-rate estimate, marked ≈.
+    aligned = !!(d.align && d.align.ok) && turns.every(function (t) { return typeof t.t === 'number'; });
+    if (aligned) {
+      times = turns.map(function (t) { return t.t; });
+      els.forEach(function (el, i) { var sp = el.querySelector('.who span'); if (sp) sp.textContent = mmss(times[i]); });
+      var sub = document.getElementById('rd-sub'); if (sub && audio) sub.textContent = 'The Court’s recording · each line timed to the audio';
+    }
     if (audio) { if (audio.readyState >= 1) setTimes(); audio.addEventListener('loadedmetadata', setTimes); }
   }).catch(function () { tx.innerHTML = "<p class='fine'>The transcript did not load. It is on the Court’s site, linked below.</p>"; });
   document.querySelectorAll('.bench tbody tr').forEach(function (tr) { tr.addEventListener('click', function () { setFilter(filterJ === tr.dataset.j ? null : tr.dataset.j); }); });
