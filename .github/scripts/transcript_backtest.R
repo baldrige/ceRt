@@ -160,7 +160,7 @@ print(spoke |> group_by(justice) |>
 # go first and have rebuttal); a fitted intercept absorbs that. Leave-one-Term-
 # out: each Justice's vote from their own imbalance and the whole bench's, with
 # a per-Justice intercept, against that Justice's own petitioner rate.
-jd2 <- jd |> left_join(case_d |> select(dkt, lw_case = lw), by = "dkt") |>
+jd2 <- jd |> left_join(case_d |> select(dkt, term, lw_case = lw), by = c("dkt", "term")) |>
   mutate(lw_own = if_else(silent, 0, lw))
 jl <- map_dfr(sort(unique(jd2$term)), function(t) {
   tr <- jd2[jd2$term != t, ]; te <- jd2[jd2$term == t & jd2$justice %in% tr$justice, ]
