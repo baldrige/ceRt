@@ -31,6 +31,7 @@ reader_href <- function(term, dkt) paste0("/arguments/", term, "/", dkt, ".html"
 argument_mp3 <- function(dkt) paste0("https://www.supremecourt.gov/media/audio/mp3files/", dkt, ".mp3")
 
 .rd_pct <- function(p) if (is.na(p)) "—" else paste0(round(100 * p), "%")
+`%|na|%` <- function(a, b) if (is.null(a) || is.na(a)) b else a
 .rd_esc <- function(x) htmlEscape(x %||% "")
 .rd_side_word <- function(s) ifelse(is.na(s), "neither side", ifelse(s == "pet", "the petitioners", "the respondents"))
 
@@ -131,7 +132,12 @@ READER_CSS <- fill_palette("
   ratio <- s$w_pet / max(s$w_resp, 1)
   heavier <- if (ratio >= 1) "petitioner" else "respondent"; r <- if (ratio >= 1) ratio else 1 / ratio
   dir <- if (a$p < base - 0.03) "below" else if (a$p > base + 0.03) "above" else "close to"
-  outcome <- if (is.na(a$pw)) "<span class='chip wait'>Awaiting decision</span>"
+  outcome <- if (identical(a$disp, "orig"))
+               "<span class='chip wait'>Original action</span><br>A case between States, decided on exceptions to a Special Master’s report rather than for a petitioner or a respondent, so the lean is not scored against a result."
+             else if (identical(a$disp, "dismissed")) paste0("<span class='chip wait'>Dismissed</span> ",
+                  .rd_esc(str_trunc(str_remove(a$judgment %||% "", "\\s*(Opinion|Justice|[A-Z][a-z]+, (C\\. )?J\\.).*$"), 90)),
+                  "<br>Disposed of without deciding who wins, so there is nothing to score the lean against.")
+             else if (is.na(a$pw)) "<span class='chip wait'>Awaiting decision</span>"
              else paste0("<span class='chip ", if (a$pw == 1) "pet'>Petitioner won" else "resp'>Respondent won",
                          "</span> ", .rd_esc(str_trunc(str_remove(a$judgment %||% "", "\\s*\\(.*$"), 90)))
   verdict <- if (is.na(a$pw)) "" else if ((a$p >= 0.5) == (a$pw == 1)) " The lean pointed the right way." else " Here the lean pointed the wrong way."
@@ -191,8 +197,13 @@ READER_CSS <- fill_palette("
   pts <- pts[!is.na(pts$p), , drop = FALSE]
   if (nrow(pts) < 3) return("")
   W <- 760; L <- 30; R <- 24; top <- 34; rowH <- 64
-  rows <- list(list(v = 1, lab = "Petitioner won"), list(v = 0, lab = "Respondent won"), list(v = NA, lab = "Awaiting decision"))
-  rows <- Filter(function(r) any(if (is.na(r$v)) is.na(pts$pw) else pts$pw %in% r$v), rows)
+  # Rows by disposition. "Dismissed" is its own row: a DIG is disposed of, with
+  # no winner, and filing it under "awaiting decision" said the Court had not
+  # acted on it.
+  rows <- list(list(v = "pet", lab = "Petitioner won"), list(v = "resp", lab = "Respondent won"),
+               list(v = "dismissed", lab = "Dismissed, no winner"), list(v = NA, lab = "Awaiting decision"))
+  in_row <- function(r) if (is.na(r$v)) is.na(pts$disp) else pts$disp %in% r$v
+  rows <- Filter(function(r) any(in_row(r)), rows)
   H <- top + length(rows) * rowH + 22
   x <- function(p) L + p * (W - L - R)
   s <- sprintf("<svg viewBox='0 0 %d %d' role='img' aria-label='This Term’s arguments by lean and result'>", W, H)
@@ -204,10 +215,10 @@ READER_CSS <- fill_palette("
   for (k in seq_along(rows)) {
     r <- rows[[k]]; y0 <- top + (k - 1) * rowH + 34
     s <- paste0(s, sprintf("<text x='%d' y='%d' style='fill:var(--ink-soft);font-weight:600'>%s</text>", L, y0 - 18, r$lab))
-    d <- pts[if (is.na(r$v)) is.na(pts$pw) else pts$pw %in% r$v, , drop = FALSE]
+    d <- pts[in_row(r), , drop = FALSE]
     d <- d[order(d$p), , drop = FALSE]
     placed_x <- numeric(); placed_k <- integer()
-    col <- if (is.na(r$v)) "var(--faint)" else if (r$v == 1) pal("side-pet") else pal("side-resp")
+    col <- if (is.na(r$v) || r$v == "dismissed") "var(--faint)" else if (r$v == "pet") pal("side-pet") else pal("side-resp")
     for (i in seq_len(nrow(d))) {
       cx <- x(d$p[i]); kk <- 0L
       while (any(abs(placed_x - cx) < 10 & placed_k == kk)) kk <- kk + 1L
@@ -218,7 +229,8 @@ READER_CSS <- fill_palette("
         d$href[i], cx, cy, if (sel) "7" else "4.5", if (sel) "var(--accent)" else col, if (sel) "1" else ".78",
         if (sel) " stroke='var(--paper)' stroke-width='2'" else "",
         .rd_esc(d$label[i]), .rd_pct(d$p[i]),
-        if (is.na(d$pw[i])) ", awaiting decision" else if (d$pw[i] == 1) ", petitioner won" else ", respondent won"))
+        switch(d$disp[i] %|na|% "none", pet = ", petitioner won", resp = ", respondent won",
+               dismissed = ", dismissed", ", awaiting decision")))
     }
   }
   s <- paste0(s, "</svg>")
@@ -289,7 +301,7 @@ render_argument_reader <- function(site_dir, a, pts, model) {
     "<p class='kicker'>No. ", dkt, " · argued ", when, "</p>",
     "<h1 style='font-size:clamp(1.7rem,4.6vw,2.4rem);line-height:1.12'>", .rd_esc(a$caption), "</h1>", meta,
     "<section><div class='sh'><h2>Post-argument lean</h2><p>",
-    if (is.na(a$pw)) "A forecast from the argument alone" else "From the argument alone, before the decision", "</p></div>",
+    if (is.na(a$disp)) "A forecast from the argument alone" else "From the argument alone, before the decision", "</p></div>",
     .rd_lean_html(a, base), "</section>",
     if (!is.null(a$jl) && nrow(a$jl)) paste0("<section><div class='sh'><h2>Each Justice’s questioning</h2><p>",
       if (is.null(a$votes)) "Votes appear once the case is decided" else "Lean beside the vote each Justice cast", "</p></div>",
@@ -338,11 +350,13 @@ render_argument_readers <- function(site_dir, cases, model = load_argument_lean(
   fetched <- 0L; dirty <- FALSE
   for (k in keys) {
     e <- idx[[k]]
-    if (!is.null(e$judgment)) next
+    # A judgment cached under older reading rules is read again (JUDGMENT_RULES).
+    if (!is.null(e$judgment) && identical(e$judgment_v, JUDGMENT_RULES)) next
     i <- by_dkt[[e$dkt]][1]
-    j <- if (!is.na(i %||% NA)) judgment_of(cases$events[[i]]) else NA_character_
+    j <- if (!is.na(i %||% NA)) judgment_of(cases$events[[i]], application = is_application_docket(e$dkt)) else NA_character_
     if (is.na(j) && fetched < fetch_max) { j <- fetch_judgment(e$dkt); fetched <- fetched + 1L }
-    if (!is.na(j)) { idx[[k]]$judgment <- j; dirty <- TRUE }
+    if (!is.na(j)) { idx[[k]]$judgment <- j; idx[[k]]$judgment_v <- JUDGMENT_RULES; dirty <- TRUE }
+    else if (!is.null(e$judgment)) { idx[[k]]$judgment <- NULL; idx[[k]]$judgment_v <- NULL; dirty <- TRUE }
   }
   if (dirty) jsonlite::write_json(idx[order(names(idx))], file.path(site_dir, "arguments", TX_INDEX), auto_unbox = TRUE)
   if (fetched) message("render_argument_readers(): ", fetched, " judgment(s) fetched by name")
@@ -352,8 +366,12 @@ render_argument_readers <- function(site_dir, cases, model = load_argument_lean(
     p <- read_transcript(site_dir, k); if (is.null(p)) return(NULL)
     i <- by_dkt[[e$dkt]][1]
     cap <- if (!is.na(i %||% NA)) cases$caption[i] else e$dkt
-    jd <- e$judgment %||% NA_character_
+    jd <- if (identical(e$judgment_v, JUDGMENT_RULES)) e$judgment %||% NA_character_ else NA_character_
     pw <- petitioner_won(jd)
+    # An original action (22O###) ends in exceptions sustained or overruled and a
+    # decree -- no petitioner and respondent to score the lean against, so it is
+    # neither "awaiting decision" nor a point on the Term chart.
+    disp <- if (grepl("^\\d{2}O\\d+$", e$dkt)) "orig" else argument_disposition(jd)
     sides <- argument_sides(p)
     jl <- justice_leans(model, p, sides)
     votes <- NULL
@@ -365,13 +383,14 @@ render_argument_readers <- function(site_dir, cases, model = load_argument_lean(
         transmute(name, voted_pet = if_else(side == "majority", pw, 1 - pw))
     }
     list(key = k, dkt = e$dkt, term = as.integer(e$term), posted = posted_of(e), url = e$url, tx = p,
-         caption = cap, short = strip_caption_roles(cap), judgment = jd, pw = pw, sides = sides,
+         caption = cap, short = strip_caption_roles(cap), judgment = jd, pw = pw, disp = disp, sides = sides,
          p = case_lean(model, sides), jl = jl, votes = votes,
          audio = identical(as.integer(e$term), as.integer(latest[[e$dkt]])))
   }) |> compact()
 
   pts_all <- tibble(dkt = map_chr(args, "dkt"), term = map_int(args, "term"),
                     p = map_dbl(args, "p"), pw = map_dbl(args, "pw"),
+                    disp = map_chr(args, ~ .x$disp %||% NA_character_),
                     label = map_chr(args, ~ paste0(.x$short, " (No. ", .x$dkt, ")")),
                     href = map2_chr(map_int(args, "term"), map_chr(args, "dkt"), reader_href))
   for (a in args) tryCatch(render_argument_reader(site_dir, a, pts_all[pts_all$term == a$term, ], model),

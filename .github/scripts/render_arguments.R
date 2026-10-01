@@ -139,7 +139,7 @@ rd <- tryCatch({
   update_transcripts(site_dir, 2017:argument_term(Sys.Date()),
                      max_new = as.integer(Sys.getenv("TRANSCRIPTS_MAX_NEW", unset = "150")))
   render_argument_readers(site_dir, combined,
-                          fetch_max = as.integer(Sys.getenv("JUDGMENTS_MAX_FETCH", unset = "120")))
+                          fetch_max = as.integer(Sys.getenv("JUDGMENTS_MAX_FETCH", unset = "400")))
 }, error = function(e) { cat("Argument pages skipped:", conditionMessage(e), "\n"); NULL })
 if (!is.null(rd) && nrow(rd)) {
   tbl <- tbl |> left_join(rd |> transmute(dkt, term, reader_href = href, lean_p = p), by = c("dkt", "term"))

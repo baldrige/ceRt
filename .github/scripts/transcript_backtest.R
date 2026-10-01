@@ -33,7 +33,7 @@ need <- setdiff(tx$dkt[!str_detect(tx$dkt, "^22O")], oc$dkt)
 if (length(need)) {
   cat("Fetching", length(need), "docket(s) for their judgments\n")
   got <- fetch_cases(need)
-  oc <- bind_rows(oc, tibble(dkt = got$dkt, judgment = map_chr(got$events, judgment_of)))
+  oc <- bind_rows(oc, tibble(dkt = got$dkt, judgment = map2_chr(got$events, got$dkt, ~ judgment_of(.x, application = is_application_docket(.y)))))
   saveRDS(oc, oc_path)
 }
 cases <- tx |>

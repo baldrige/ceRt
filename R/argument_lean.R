@@ -28,12 +28,66 @@ load_argument_lean <- function(path = ARGUMENT_LEAN_FILE) {
 
 #' The judgment line on a docket: the first entry that reverses, affirms,
 #' vacates or dismisses. "Judgment issued." (the mandate) is not a judgment.
-judgment_of <- function(events) {
+#
+# Only an entry that IS a judgment, in either case. Two ways the first version
+# went wrong, both found on the Term chart:
+#   * it took any entry mentioning the words, so 25-1083's "Motion to dismiss
+#     the writ of certiorari as improvidently granted filed by respondents" read
+#     as a DIG, months before the Court reversed;
+#   * it looked for capitals, so "Judgment is affirmed and case remanded"
+#     (23-1187, 23-365) was no judgment at all.
+# An argued application ends in "Application(s) ... granted / denied by the
+# Court" (24A884, 25A312), which is its judgment.
+#
+# Matched at the start of any SENTENCE, not only of the entry: 22-506's reads
+# "Application (22A444) DENIED AS MOOT. Judgment REVERSED and case REMANDED."
+JUDGMENT_ENTRY_RX <- regex(paste0(
+  "(^|[.;]\\s+)((The )?Judgments?\\b(?!\\s+issued)|Adjudged|Affirmed|Reversed|Vacated",
+  "|Writs? of certiorari[^.]{0,40}DISMISSED",
+  "|(The )?(petition|writ|appeal|case)s?\\b[^.]{0,80}\\bdismissed)"),
+  ignore_case = TRUE)
+# An argued application's disposition. Only on an application's own docket: a
+# petition docket can carry an earlier stay ruling in these words (19-715's
+# "Application (19A545) granted by the Court"), which is not its judgment.
+#   Two forms: "Application (25A312) denied by the Court." and, in the OT2021
+#   vaccine-mandate cases, "The applications for stay presented to JUSTICE
+#   KAVANAUGH ... and by them referred to the Court are granted."
+APPLICATION_JUDGMENT_RX <- regex(paste0(
+  "^(The )?Applications?\\b[^.]{0,240}\\b(",
+  "(granted|denied)\\b[^.]{0,20}\\bby the Court",
+  "|referred to the Court (is|are) (granted|denied))"), ignore_case = TRUE)
+# Bump when the rules above change: the reader index caches each argument's
+# judgment, and a cached line read under older rules is read again.
+JUDGMENT_RULES <- "j2"
+
+judgment_of <- function(events, application = FALSE) {
   if (!is.data.frame(events) || !"Proceedings and Orders" %in% names(events)) return(NA_character_)
   txt <- str_squish(str_remove_all(coalesce(events[["Proceedings and Orders"]], ""), "<[^>]+>"))
-  hit <- txt[str_detect(txt, "REVERSED|AFFIRMED|VACATED|DISMISSED|improvidently granted") &
-               !str_detect(txt, regex("^Judgment issued", ignore_case = TRUE))]
+  if (isTRUE(application)) {
+    app <- txt[str_detect(txt, APPLICATION_JUDGMENT_RX)]
+    if (length(app)) return(app[length(app)])   # the last: the one after argument
+  }
+  hit <- txt[str_detect(txt, JUDGMENT_ENTRY_RX)]
   if (length(hit)) hit[1] else NA_character_
+}
+
+is_application_docket <- function(dkt) str_detect(dkt %||% "", "^\\d{2}A\\d+$")
+
+#' "pet" (the petitioner -- or applicant -- prevailed), "resp", "dismissed"
+#' (disposed of with no winner: a DIG, a dismissal as moot), or NA (no judgment).
+argument_disposition <- function(j) {
+  case_when(is.na(j) ~ NA_character_,
+            # Only the full "... granted/denied by the Court" form: 22-506's
+            # judgment entry opens "Application (22A444) DENIED AS MOOT." and is
+            # a merits reversal.
+            str_detect(j, APPLICATION_JUDGMENT_RX) &
+              str_detect(j, regex("\\bgranted\\b", ignore_case = TRUE)) ~ "pet",
+            str_detect(j, APPLICATION_JUDGMENT_RX) ~ "resp",
+            str_detect(j, regex("dismissed|improvidently", ignore_case = TRUE)) &
+              !str_detect(j, regex("judgments?[^.]{0,40}(revers|vacat|affirm)", ignore_case = TRUE)) ~ "dismissed",
+            str_detect(j, regex("revers|vacat", ignore_case = TRUE)) ~ "pet",
+            str_detect(j, regex("affirm", ignore_case = TRUE)) ~ "resp",
+            TRUE ~ NA_character_)
 }
 
 #' The judgment of one docket, read straight from its JSON -- for an argument
@@ -48,7 +102,8 @@ fetch_judgment <- function(dkt, pace = 0.6) {
       httr2::req_timeout(30) |> httr2::req_perform()
     po <- httr2::resp_body_json(resp)$ProceedingsandOrder
     txt <- vapply(po, function(e) e$Text %||% "", "")
-    judgment_of(data.frame(`Proceedings and Orders` = txt, check.names = FALSE))
+    judgment_of(data.frame(`Proceedings and Orders` = txt, check.names = FALSE),
+                application = is_application_docket(dkt))
   }, error = function(e) NA_character_)
   j
 }
@@ -56,11 +111,8 @@ fetch_judgment <- function(dkt, pace = 0.6) {
 #' 1 = petitioner won (reversed or vacated, in whole or in part), 0 = affirmed,
 #' NA = dismissed or no judgment yet.
 petitioner_won <- function(j) {
-  case_when(is.na(j) ~ NA_real_,
-            str_detect(j, regex("DISMISSED|improvidently", ignore_case = TRUE)) ~ NA_real_,
-            str_detect(j, "REVERSED|VACATED") ~ 1,
-            str_detect(j, "AFFIRMED") ~ 0,
-            TRUE ~ NA_real_)
+  d <- argument_disposition(j)
+  case_when(d %in% "pet" ~ 1, d %in% "resp" ~ 0, TRUE ~ NA_real_)
 }
 
 #' The case-level inputs from a parsed transcript: Justice turns and words to
