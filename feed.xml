@@ -5,8 +5,36 @@
   <link rel="self" href="https://supremecourt.report/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://supremecourt.report/"/>
   <id>https://supremecourt.report/feed.xml</id>
-  <updated>2026-09-30T12:00:00-04:00</updated>
+  <updated>2026-10-01T12:00:00-04:00</updated>
   <author><name>Supreme Court Report</name></author>
+  <entry>
+    <title>Miscellaneous Order, October 1, 2026</title>
+    <link href="https://supremecourt.report/orders/2026-10-01-misc.html"/>
+    <id>https://supremecourt.report/orders/2026-10-01-misc.html</id>
+    <updated>2026-10-01T12:00:00-04:00</updated>
+    <summary>3 granted; 1 other order. Granted: Missionaries of Saint John the Baptist, Inc. v. Joel Frederic, et ux.; Roxane M. Marschner v. Richard A. Marschner; Philip L. Rhoney, Acting Director of the Buffalo Field Office of U.S. Immigration and Customs Enforcement v. Ricardo Aparecido Barbosa da Cunha.</summary>
+  </entry>
+  <entry>
+    <title>Certiorari granted: Philip L. Rhoney, Acting Director of the Buffalo Field Office of U.S. Immigration and Customs Enforcement v. Ricardo Aparecido Barbosa da Cunha (No. 26-104)</title>
+    <link href="https://supremecourt.report/cases/26-104.html"/>
+    <id>https://supremecourt.report/cases/26-104.html</id>
+    <updated>2026-10-01T12:00:00-04:00</updated>
+    <summary>The Court granted review on October 1, 2026.</summary>
+  </entry>
+  <entry>
+    <title>Certiorari granted: Roxane M. Marschner v. Richard A. Marschner (No. 25-1349)</title>
+    <link href="https://supremecourt.report/cases/25-1349.html"/>
+    <id>https://supremecourt.report/cases/25-1349.html</id>
+    <updated>2026-10-01T12:00:00-04:00</updated>
+    <summary>The Court granted review on October 1, 2026.</summary>
+  </entry>
+  <entry>
+    <title>Certiorari granted: Missionaries of Saint John the Baptist, Inc. v. Joel Frederic, et ux. (No. 25-1131)</title>
+    <link href="https://supremecourt.report/cases/25-1131.html"/>
+    <id>https://supremecourt.report/cases/25-1131.html</id>
+    <updated>2026-10-01T12:00:00-04:00</updated>
+    <summary>The Court granted review on October 1, 2026.</summary>
+  </entry>
   <entry>
     <title>Docket for September 30, 2026</title>
     <link href="https://supremecourt.report/dashboards/dash_2026-09-30.html"/>
@@ -326,34 +354,6 @@
     <id>https://supremecourt.report/cases/25-1223.html</id>
     <updated>2026-06-29T12:00:00-04:00</updated>
     <summary>Petition GRANTED.</summary>
-  </entry>
-  <entry>
-    <title>Certiorari granted: Republican National Committee v. Mi Familia Vota (No. 25-1017)</title>
-    <link href="https://supremecourt.report/cases/25-1017.html"/>
-    <id>https://supremecourt.report/cases/25-1017.html</id>
-    <updated>2026-06-29T12:00:00-04:00</updated>
-    <summary>Petition GRANTED.</summary>
-  </entry>
-  <entry>
-    <title>Certiorari granted: RiseandShine Corporation, dba Rise Brewing v. PepsiCo, Inc. (No. 24-1016)</title>
-    <link href="https://supremecourt.report/cases/24-1016.html"/>
-    <id>https://supremecourt.report/cases/24-1016.html</id>
-    <updated>2026-06-29T12:00:00-04:00</updated>
-    <summary>Petition GRANTED.</summary>
-  </entry>
-  <entry>
-    <title>Conference of June 25, 2026</title>
-    <link href="https://supremecourt.report/conferences/conf_2026-06-25.html"/>
-    <id>https://supremecourt.report/conferences/conf_2026-06-25.html</id>
-    <updated>2026-06-25T12:00:00-04:00</updated>
-    <summary>Petitions distributed for the Conference of June 25, 2026, ranked by relists.</summary>
-  </entry>
-  <entry>
-    <title>Order List, June 22, 2026</title>
-    <link href="https://supremecourt.report/orders/2026-06-22.html"/>
-    <id>https://supremecourt.report/orders/2026-06-22.html</id>
-    <updated>2026-06-22T12:00:00-04:00</updated>
-    <summary>1 granted; 2 granted, vacated and remanded; 125 denied; 19 other orders. Granted: Francis Nielsen v. Kekai Watanabe.</summary>
   </entry>
 </feed>
 
