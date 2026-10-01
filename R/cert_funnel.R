@@ -216,6 +216,9 @@ funnel_case_type <- function(dkt) {
     # before the sequence-number rule, which would otherwise file 22O141 as a
     # paid petition and score a State-v-State water case for cert.
     str_detect(dkt, "O\\d+$") ~ "orig",
+    # 26M23, a motion docket (leave to file under seal): not a petition, and
+    # without this rule it would read as paid petition No. 23.
+    str_detect(dkt, "M\\d+$") ~ "motion",
     !is.na(n) & n >= 5001 ~ "ifp",
     TRUE ~ "paid"
   )

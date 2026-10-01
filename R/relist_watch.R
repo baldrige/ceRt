@@ -58,7 +58,9 @@ relist_watch_table <- function(dist, as_of = Sys.Date()) {
          "in conference_dash.R.", call. = FALSE)
 
   dist |>
-    filter(type != "app", outcome %in% "pending", !is.na(n_relists), n_relists >= 1) |>
+    # The petition types, not "not an application": a motion docket (26M##)
+    # is distributed too, and is no relisted petition.
+    filter(type %in% c("paid", "ifp"), outcome %in% "pending", !is.na(n_relists), n_relists >= 1) |>
     group_by(dkt) |>
     summarise(
       # Everything except conf_date is constant within a docket, so first() is

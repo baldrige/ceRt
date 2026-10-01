@@ -47,6 +47,7 @@ derive_case_type <- function(dkt) {
   case_when(
     str_detect(dkt, "A\\d+$") ~ "app",
     str_detect(dkt, "O\\d+$") ~ "orig",   # 22O###, the original docket
+    str_detect(dkt, "M\\d+$") ~ "motion", # 26M##, a motion for leave (to file under seal)
     !is.na(n) & n >= 5001 ~ "ifp",
     TRUE ~ "paid"
   )
@@ -191,11 +192,17 @@ conference_dash <- function(dist, conf_date,
   conf_date <- as.Date(conf_date)
 
   d <- dist |> filter(conf_date == !!conf_date)
-  # A distribution dated after the petition's own disposition is a rehearing
-  # redistribution, not a live cert petition -- rendering it put a grant forecast
-  # on an already-decided case.
-  if ("outcome_date" %in% names(d))
-    d <- d |> filter(is.na(outcome_date) | conf_date <= outcome_date)
+  # A distribution dated after the petition's own disposition is a rehearing --
+  # a petition for rehearing, or a motion for leave to file one -- not a live
+  # cert petition. These were once dropped, because rendering them put a grant
+  # forecast on an already-decided case; but dropping them left the page short
+  # of the Court's own list (October 9, 2026: 201 rows against the Court's 207,
+  # the gap being two rehearings and four motion dockets the fetch never
+  # reached). They stay as rows, marked, with no forecast and no relist
+  # count -- both describe the petition, which is no longer what is before the
+  # Court.
+  d$rehearing <- if ("outcome_date" %in% names(d))
+    !is.na(d$outcome_date) & d$conf_date > d$outcome_date else rep(FALSE, nrow(d))
   if (nrow(d) == 0) return(invisible(NULL))
 
   # Numeric grant / GVR-risk forecasts, scored as of this conference with the
@@ -228,7 +235,7 @@ conference_dash <- function(dist, conf_date,
                       !is.na(dist$outcome_date) & dist$outcome_date < conf_date])
       else character()
     for (i in seq_len(nrow(d))) {
-      if (!identical(d$type[i], "paid")) next
+      if (!identical(d$type[i], "paid") || isTRUE(d$rehearing[i])) next
       par <- if (has_parties) d$parties[[i]] else NULL
       s <- tryCatch(score_conference(
         models, d$caption[i], d$lower[i], par, dt[i], ld[i], rel[i],
@@ -309,21 +316,25 @@ conference_dash <- function(dist, conf_date,
   # One editorial row per distributed case. Relists = prior distributions.
   qp_get <- function(dk) if (is.null(qp_map)) NA_character_ else unname(qp_map[dk])
   tbl <- tibble(
-    Type = factor(d$type, levels = c("paid", "ifp", "app"),
-                  labels = c("Paid", "IFP", "Application")),
+    Type = factor(d$type, levels = c("paid", "ifp", "app", "motion"),
+                  labels = c("Paid", "IFP", "Application", "Motion")),
     # The docket number now sits under the caption instead of holding a column
     # of its own. It stays searchable -- the search box matches rendered cell
     # text -- and the case page it links to is the same one the caption links to.
+    # A rehearing row says so under the docket number, and a motion docket says
+    # what it is: the caption alone reads like any other petition.
     Case = sprintf(
-      "<a href='../cases/%s.html' target='_blank'>%s</a><span class='cdk'>No. %s</span>",
+      "<a href='../cases/%s.html' target='_blank'>%s</a><span class='cdk'>No. %s%s</span>",
       d$dkt,
       strip_caption_roles(d$caption),
-      d$dkt),
+      d$dkt,
+      ifelse(d$rehearing, " &middot; rehearing",
+             ifelse(d$type %in% "motion", " &middot; motion for leave", ""))),
     # The subject area (R/subject_area.R): plain text, so the column's filter box
     # matches it. NA -- no QP, an unreadable one, or a pick under the display
     # threshold -- is an em dash, and the column is dropped when every row is.
     Subject = if (length(subject_map)) unname(subject_map[d$dkt]) else rep(NA_character_, nrow(d)),
-    Relists = d$distribution_no - 1L,
+    Relists = ifelse(d$rehearing | d$type %in% "motion", NA_integer_, d$distribution_no - 1L),
     # The NUMBER, not the rendered cell. reactable sorts on the underlying data
     # value, so a column whose data is markup sorts as text ("4%" after "12%")
     # -- which is why this used to carry a separate .fc_sort key and why the dek
@@ -398,6 +409,9 @@ conference_dash <- function(dist, conf_date,
     fmt_markdown(columns = any_of(c("Case", "Counsel", "Documents", "QP"))) |>
     data_color(columns = Type, method = "factor",
       palette = TYPE_CHIPS) |>
+    # A rehearing or motion row has no relist count (it describes a petition no
+    # longer before the Court, or none at all): a dash, not "NA".
+    sub_missing(columns = Relists, missing_text = "—") |>
     cols_align("center", columns = everything()) |>
     # Type holds "Paid" / "IFP" / "Application" -- the longest is 11 characters,
     # and reactable was giving the column far more than that. Court gets a real
@@ -442,7 +456,14 @@ conference_dash <- function(dist, conf_date,
   dek <- paste0(n_case, if (n_case == 1) " case" else " cases",
     " distributed for this conference &mdash; sortable and filterable. Ordered by ",
     "<em>Grant forecast</em>, then by <em>Relists</em>; the darkest cells are the ",
-    "likeliest grants. Both columns sort by value.")
+    "likeliest grants. Both columns sort by value.",
+    # The count matches the Court's own list, so say what is in it that is not
+    # a live petition.
+    { n_rh <- sum(d$rehearing); n_mo <- sum(d$type %in% "motion")
+      parts <- c(if (n_rh) paste0(n_rh, if (n_rh == 1) " request for rehearing" else " requests for rehearing"),
+                 if (n_mo) paste0(n_mo, if (n_mo == 1) " motion for leave to file" else " motions for leave to file"))
+      if (length(parts)) paste0(" Includes ", paste(parts, collapse = " and "),
+                                ", which carry no forecast.") else "" })
 
   scr_interactive(t, n_rows = nrow(tbl)) |>
     scr_write_page(

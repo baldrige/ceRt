@@ -70,7 +70,7 @@ cat("Existing cache:", length(before), "docket(s)\n")
 # The age-out is what keeps this from naming a decade of dormant petitions: a
 # case whose last docket entry is from 2019 is not a straggler, it is over.
 cand <- arch |>
-  filter(funnel_case_type(dkt) != "app") |>
+  filter(funnel_case_type(dkt) %in% PETITION_TYPES) |>
   mutate(cls = map(events, ~ tryCatch(classify_petition_events(.x),
                                       error = function(e) NULL))) |>
   filter(!map_lgl(cls, is.null)) |>
