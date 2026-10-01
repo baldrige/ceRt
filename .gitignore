@@ -37,3 +37,5 @@ data-raw/petition_signals_measure.*
 # oral-argument transcripts and their parse (research; .github/scripts/transcript_parse.R)
 data-raw/transcripts/
 data-raw/transcript_turns.rds
+data-raw/transcript_outcomes.rds
+data-raw/transcript_backtest.rds
