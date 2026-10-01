@@ -16,7 +16,9 @@
       .replace(/([A-Z])([A-Z'-]+)$/, function (m, a, b) { return a + b.toLowerCase(); });
   }
   function side(s) { return s === 'pet' ? "<span class='pet'>for the petitioners</span>" : s === 'resp' ? "<span class='resp'>for the respondents</span>" : '<span>for neither side</span>'; }
+  var aligned = false;
   function setTimes() {
+    if (aligned) return;
     if (!audio || !isFinite(audio.duration) || !audio.duration) return;
     var total = turns.reduce(function (a, t) { return a + t.w; }, 0) || 1, spw = audio.duration / total, acc = 0;
     times = turns.map(function (t) { var s = acc * spw; acc += t.w; return s; });
@@ -51,6 +53,14 @@
     els.forEach(function (el) { el.addEventListener('click', function () {
       if (!audio) return; if (!times.length) setTimes(); if (!times.length) return;
       audio.currentTime = times[+el.dataset.i]; audio.play().catch(function () {}); }); });
+    // Aligned to the recording (.github/scripts/align_arguments.py): each line
+    // carries its own start time. Otherwise the even-rate estimate, marked ≈.
+    aligned = !!(d.align && d.align.ok) && turns.every(function (t) { return typeof t.t === 'number'; });
+    if (aligned) {
+      times = turns.map(function (t) { return t.t; });
+      els.forEach(function (el, i) { var sp = el.querySelector('.who span'); if (sp) sp.textContent = mmss(times[i]); });
+      var sub = document.getElementById('rd-sub'); if (sub && audio) sub.textContent = 'The Court’s recording · each line timed to the audio';
+    }
     if (audio) { if (audio.readyState >= 1) setTimes(); audio.addEventListener('loadedmetadata', setTimes); }
   }).catch(function () { tx.innerHTML = "<p class='fine'>The transcript did not load. It is on the Court’s site, linked below.</p>"; });
   document.querySelectorAll('.bench tbody tr').forEach(function (tr) { tr.addEventListener('click', function () { setFilter(filterJ === tr.dataset.j ? null : tr.dataset.j); }); });
