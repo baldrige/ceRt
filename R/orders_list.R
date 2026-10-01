@@ -403,6 +403,37 @@ update_orders <- function(site_dir, terms = orders_terms(), max_new = 250L) {
   invisible(list(listed = nrow(listing), new = nrow(todo) - failed, failed = failed, total = length(idx)))
 }
 
+#' Dockets the Court acted on in the order documents dated within the last
+#' `days` days, for the daily to fetch by name. The daily's range fetch holds
+#' only the newest ~50 dockets of each bucket, so a grant of a petition docketed
+#' in the spring reached its case page only at the next weekly run: on October 1,
+#' 2026 a miscellaneous order granted 25-1131, 25-1349 and 26-104, and their
+#' pages went on showing a forecast all day. Grants, GVRs and miscellaneous
+#' orders come first, then the rest of the list (denials) up to `max_n`, so the
+#' first order list of a Term -- a thousand denials -- cannot turn the daily into
+#' a full fetch. A window of days rather than "parsed this run", so a run that
+#' was throttled on the fetch picks it up again on the next.
+recent_order_dockets <- function(site_dir, days = 2L, max_n = 300L, as_of = Sys.Date()) {
+  idx <- read_orders_manifest(site_dir)
+  if (!length(idx)) return(character())
+  keep <- names(idx)[vapply(idx, function(x) {
+    d <- suppressWarnings(as.Date(x$date %||% NA_character_))
+    !is.na(d) && d >= as_of - days && !identical(x$kind, "rules")
+  }, logical(1))]
+  out <- lapply(keep, function(stem) {
+    p <- .orders_path(site_dir, "data", paste0(stem, ".json"))
+    e <- if (file.exists(p)) tryCatch(fromJSON(p), error = function(e) NULL) else NULL
+    if (!is.data.frame(e) || !nrow(e) || !"dkt" %in% names(e)) return(NULL)
+    e <- e[!is.na(e$dkt) & nzchar(e$dkt), c("dkt", "section"), drop = FALSE]
+    e$first <- e$section %in% c("granted", "gvr") | identical(idx[[stem]]$kind, "misc")
+    e
+  })
+  e <- bind_rows(out)
+  if (!nrow(e)) return(character())
+  e <- e[order(!e$first), , drop = FALSE]
+  head(unique(e$dkt), max_n)
+}
+
 # ---- rendering ------------------------------------------------------------------------
 
 .ord_esc <- function(x) htmltools::htmlEscape(x)

@@ -209,6 +209,26 @@ if (length(orig_dkts)) {
     render_dockets_for(orig_cases, site_dir)
   }
 }
+# Dockets named in the last two days' order lists and miscellaneous orders,
+# fetched by name so a grant (or a denial) of an older petition reaches its case
+# page the day it is ordered rather than at the next weekly run. Grants and GVRs
+# first, capped (R/orders_list.R, recent_order_dockets). Never fatal.
+ord_dkts <- tryCatch(recent_order_dockets(site_dir,
+                       max_n = as.integer(Sys.getenv("ORDERS_REFETCH_MAX", "300"))),
+                     error = function(e) { cat("Order dockets: listing failed:", conditionMessage(e), "\n"); character() })
+ord_dkts <- setdiff(ord_dkts, c(ot$dkt, watch, orig_dkts))
+if (length(ord_dkts)) {
+  cat("Order dockets:", length(ord_dkts), "docket(s) named in recent orders to fetch by name\n")
+  ord_cases <- tryCatch(fetch_cases(ord_dkts), error = function(e) {
+    cat("order docket fetch failed:", conditionMessage(e), "-- pages left as they are\n")
+    NULL
+  })
+  if (!is.null(ord_cases) && nrow(ord_cases)) {
+    cat("Order dockets fetched:", nrow(ord_cases), "of", length(ord_dkts),
+        "| unresolved:", attr(ord_cases, "n_failed") %||% 0, "\n")
+    render_dockets_for(ord_cases, site_dir)
+  }
+}
 # The daily's own manifest: decisions among the watch dockets AND among the
 # trailing fetch (a fast emergency application can be decided inside it). Kept
 # separate from the weekly run's file -- two pipelines writing one path on
