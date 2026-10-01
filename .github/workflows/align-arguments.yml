@@ -1,0 +1,132 @@
+name: Align argument audio
+
+# Line-by-line timing for the argument pages (arguments/<yyyy>/<docket>.html):
+# each transcript is matched to the Court's recording with a small speech-
+# recognition model, and the start of every line is written into the
+# argument's JSON, which the page's player follows. See
+# .github/scripts/align_arguments.py and docs/argument-transcripts.md.
+#
+# Heavy on CPU, light on everything else, so it runs apart from the weekly
+# conferences run: a plan job counts what is waiting, four shards each align
+# up to `per_shard` arguments within `budget` minutes, and one publish job
+# commits the JSON. Current and previous Terms first, then back through the
+# catalogue. Once the queue is empty a run is the plan job alone, about a
+# minute -- the schedule just picks up each week's new arguments.
+
+on:
+  schedule:
+    - cron: "17 */6 * * *"
+  workflow_dispatch:
+    inputs:
+      per_shard:
+        description: "Most arguments each of the four shards aligns this run."
+        required: false
+        default: "12"
+      budget:
+        description: "Minutes a shard may spend before it stops taking new arguments."
+        required: false
+        default: "150"
+
+permissions:
+  contents: write
+
+# Its own lane: it writes only arguments/<yyyy>/*.json, and the publish step's
+# rebase-and-retry absorbs a race with the conferences run.
+concurrency:
+  group: align-arguments
+  cancel-in-progress: false
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    # Must exceed the sum of this job's step caps (5).
+    timeout-minutes: 15
+    outputs:
+      waiting: ${{ steps.count.outputs.waiting }}
+    steps:
+      - name: Checkout source (main)
+        uses: actions/checkout@v5
+      - name: Checkout the argument transcripts (gh-pages, arguments/ only)
+        uses: actions/checkout@v5
+        with:
+          ref: gh-pages
+          path: site
+          sparse-checkout: arguments
+      - name: Count transcripts waiting to be aligned
+        id: count
+        timeout-minutes: 5
+        run: |
+          n=$(python3 .github/scripts/align_arguments.py site --count)
+          echo "waiting=$n" >> "$GITHUB_OUTPUT"
+          echo "Transcripts waiting: $n"
+
+  align:
+    needs: plan
+    if: needs.plan.outputs.waiting != '0'
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [0, 1, 2, 3]
+    # Must exceed the sum of this job's step caps (10 + 10 + 180 = 200).
+    timeout-minutes: 215
+    steps:
+      - name: Checkout source (main)
+        uses: actions/checkout@v5
+      - name: Checkout the argument transcripts (gh-pages, arguments/ only)
+        uses: actions/checkout@v5
+        with:
+          ref: gh-pages
+          path: site
+          sparse-checkout: arguments
+      - uses: actions/setup-python@v5
+        timeout-minutes: 10
+        with:
+          python-version: "3.11"
+      - name: Install the speech-recognition model
+        timeout-minutes: 10
+        run: python -m pip install --quiet "faster-whisper==1.2.1"
+      - name: Align this shard
+        # The budget stops a shard taking new work; the step cap is the backstop
+        # for one argument that runs long (a 2.5-hour argument is ~25 minutes).
+        timeout-minutes: 180
+        run: |
+          python .github/scripts/align_arguments.py site \
+            --shard ${{ matrix.shard }}/4 \
+            --max "${{ inputs.per_shard || '12' }}" \
+            --budget-min "${{ inputs.budget || '150' }}" \
+            --out aligned
+      - name: Hand the aligned transcripts to the publish job
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: aligned-${{ matrix.shard }}
+          path: aligned
+          if-no-files-found: ignore
+          retention-days: 3
+
+  publish:
+    needs: align
+    # A shard that died still leaves the others' work worth publishing.
+    if: always() && needs.align.result != 'skipped'
+    runs-on: ubuntu-latest
+    # Must exceed the sum of this job's step caps (10).
+    timeout-minutes: 25
+    steps:
+      - name: Checkout source (main)
+        uses: actions/checkout@v5
+      - name: Checkout published site (gh-pages) into ./site
+        uses: actions/checkout@v5
+        with:
+          ref: gh-pages
+          path: site
+      - name: Collect the shards' transcripts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: aligned-*
+          merge-multiple: true
+          path: site/arguments
+      - name: Commit and publish
+        timeout-minutes: 10
+        working-directory: site
+        run: ../.github/scripts/publish_site.sh "Align argument audio $(date -u +%F)" arguments
