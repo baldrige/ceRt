@@ -1,0 +1,117 @@
+# Oral-argument transcripts
+
+Research stage, not yet on the site. Two pieces:
+
+- **`R/argument_transcript.R`** — finds each Term's transcript PDFs (the Court's
+  transcript RSS feed via `fetch_media_feed()`, the index scrape as fallback),
+  downloads them paced, and parses one into speaker turns: who spoke, in which
+  advocate's segment, how many words. `tx_bench()` sums the Justices' turns and
+  words by side.
+- **`.github/scripts/transcript_parse.R`** downloads and parses OT2017–OT2025 and
+  prints a parse-quality report. **`.github/scripts/transcript_backtest.R`**
+  backtests the bench's questioning against outcomes. Both write only to
+  gitignored `data-raw/` files.
+
+## How the parser reads a transcript
+
+The Heritage Reporting layout is stable from OT2017 through OT2025: numbered
+body lines 1–25 per page (page numbers and furniture are unnumbered, so keeping
+only numbered lines drops them), the body opens at `P R O C E E D I N G S` and
+closes at `(Whereupon ... submitted.)`, after which comes a word index.
+
+- **Speaker labels** are capitals ending in a colon (`JUSTICE KAGAN:`,
+  `GENERAL PRELOGAR:`, `MR. DUPREE:`). Matching is case-sensitive so that
+  "Mr. Chief Justice, and may it please the Court:" stays speech.
+- **Segments** open at `ORAL ARGUMENT OF …` / `REBUTTAL ARGUMENT OF …`, which
+  run on in capitals ("ON BEHALF OF THE PETITIONERS", "FOR THE UNITED STATES, AS
+  AMICUS CURIAE, SUPPORTING RESPONDENTS"). Every Justice turn in a segment is
+  counted as directed at that segment's side.
+- **Side rules** (`tx_header_side()`): support beats party ("respondents
+  supporting petitioners" is the petitioner's side); "in support of the judgment
+  below" / "affirmance" is the respondent's; a party header that names no role
+  ("on behalf of the United States") takes lectern order — first principal
+  segment petitioner, later respondent, rebuttal petitioner. An amicus
+  supporting neither party counts for neither side.
+
+Gotchas found on the way, each now handled:
+
+- **"Mc" names.** `MR. McCONNELL:` and `ORAL ARGUMENT OF S. MICHAEL McCOLLOCH`
+  fail a capitals test, which silently folded 22-859's entire respondent
+  argument into the petitioner's. Name prefixes (`Mc`, `Mac`, `De`, …) are raised
+  before matching.
+- **Reporter typos** in Justice labels (`SOTOYMAYOR`, `CHIEF JUSTICE ROBERT`) are
+  snapped to the roster by edit distance ≤ 2.
+- **"IN SUPPORT OF"** is as common as "SUPPORTING" in amicus headers.
+
+Quality, OT2017–OT2025 (552 transcripts): all parse; 551 identify both sides;
+1–3% of Justice turns per Term fall in no side's segment, almost all of them
+neutral-amicus segments, which is correct. The exceptions are a handful of
+consolidated arguments where both parties are styled petitioners (e.g. 19-422).
+
+## Does the questioning predict the outcome?
+
+Outcome: the lead docket's judgment line — REVERSED or VACATED (in whole or in
+part) is a petitioner win, AFFIRMED a loss, dismissals excluded. 521 of 552
+argued cases have one; 72% are petitioner wins. Per-Justice votes come from the
+published `justices/lineups.json` through `decision_votes()`. Every fit is
+**leave-one-Term-out**, so no Term's outcomes inform its own forecast.
+
+### Case level (n = 504, party segments only)
+
+| | accuracy | Brier |
+| --- | --- | --- |
+| petitioner always wins | 70.8% | 0.208 |
+| raw rule: side with more Justice **turns** loses | 54.0% | — |
+| raw rule: side with more Justice **words** loses | 56.9% | — |
+| logistic on log(resp/pet) turns and words | **72.0%** | **0.196** |
+
+- **Words carry the signal; turn counts do not** once words are in the model
+  (words z = 4.2; turns n.s.).
+- The raw rules lose to the baseline because petitioners draw more words by
+  construction — they go first and have rebuttal. A fitted intercept absorbs that.
+- Accuracy barely moves because the base rate is 71% and the model rarely
+  calls a respondent win. The forecast itself is well calibrated and spreads
+  usefully:
+
+| forecast quintile | median words to resp ÷ to pet | mean forecast | petitioner won |
+| --- | --- | --- | --- |
+| 1 | 0.51 | 52% | 55% |
+| 2 | 0.80 | 66% | 67% |
+| 3 | 0.98 | 73% | 69% |
+| 4 | 1.23 | 78% | 79% |
+| 5 | 1.69 | 85% | 83% |
+
+When the bench gave the petitioner about twice the words it gave the
+respondent, the petitioner won just over half the time; when the respondent got
+1.7×, the petitioner won 83%.
+
+Counting amicus segments toward the side they support makes it worse (Brier
+0.202 vs base 0.205): the SG's amicus time is questioned differently.
+
+### Justice level (4,356 votes)
+
+Each Justice's vote from their **own** words to each side plus the whole
+bench's, with a per-Justice intercept, against each Justice's own
+petitioner-vote rate:
+
+| | accuracy | Brier |
+| --- | --- | --- |
+| Justice's own petitioner rate | 63.7% | 0.232 |
+| + own imbalance + bench imbalance | **67.2%** | **0.208** |
+
+Both terms are strong (own z = 14, bench z = 11). The gain is largest for
+Breyer, Jackson, Ginsburg, Sotomayor and Gorsuch (Brier −12 to −17%) and
+smallest for Barrett, Kavanaugh and Thomas (−5%). Thomas asked nothing in 35%
+of these cases, nearly all before the 2020 telephone format.
+
+### Reading
+
+The signal is real, stable across Terms, and calibrated — but at the case level
+it is a refinement of a strong base rate, not a lever that flips many calls. It
+is more informative Justice by Justice. A Navigator column would be honest as
+"post-argument lean", shown as a probability with the base rate beside it,
+never as a call.
+
+Open: per-Justice "pleasantness"/tone measures; interruptions (turns ending in
+`--`); whether the seriatim round (OT2021–) changes the signal; the synced
+reader (forced alignment against the Court's audio).

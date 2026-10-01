@@ -33,3 +33,7 @@ data-raw/petition_signals_cache.json
 # petition text cache (R/petition_signals.R get_petition_text); ~1 GB, rebuilt on demand
 data-raw/petition_text/
 data-raw/petition_signals_measure.*
+
+# oral-argument transcripts and their parse (research; .github/scripts/transcript_parse.R)
+data-raw/transcripts/
+data-raw/transcript_turns.rds
