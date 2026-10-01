@@ -13,7 +13,7 @@
 # See docs/argument-transcripts.md.
 
 suppressPackageStartupMessages({
-  library(stringr); library(dplyr); library(tibble); library(purrr)
+  library(stringr); library(dplyr); library(tibble); library(purrr); library(jsonlite)
 })
 if (!exists("%||%")) `%||%` <- function(a, b) if (is.null(a)) b else a
 
@@ -197,6 +197,89 @@ transcript_index <- function(terms) {
   })) |>
     group_by(url, term) |>
     summarise(dkt = first(dkt), dkts = list(unique(dkt)), posted = min(posted), .groups = "drop")
+}
+
+# ---- the site's copy ------------------------------------------------------------
+# One parsed transcript per argument at arguments/{yyyy}/{dkt}.json, beside the
+# reader page that loads it (R/argument_reader.R), and an index at
+# arguments/transcripts.json: {key: {dkt, dkts, term, url, posted, parser}}, the
+# key being "{yyyy}/{dkt}" because a reargued docket has an argument in each of
+# two Terms. The PDFs themselves are never kept -- they are the Court's, at a
+# stable URL, and the parse is all the site needs.
+#
+# Bump TX_PARSER_VERSION after a parser change: every transcript parsed under an
+# older version is fetched and parsed again, newest first, max_new per run.
+TX_PARSER_VERSION <- "t1"
+TX_INDEX <- "transcripts.json"
+
+tx_key <- function(term, dkt) paste0(term, "/", dkt)
+
+read_transcript_index <- function(site_dir) {
+  p <- file.path(site_dir, "arguments", TX_INDEX)
+  if (!file.exists(p)) return(list())
+  tryCatch(jsonlite::fromJSON(p, simplifyVector = FALSE), error = function(e) {
+    warning("read_transcript_index(): ", p, " unreadable -- treating as empty.", call. = FALSE); list() })
+}
+
+read_transcript <- function(site_dir, key) {
+  p <- file.path(site_dir, "arguments", paste0(key, ".json"))
+  if (!file.exists(p)) return(NULL)
+  x <- tryCatch(jsonlite::fromJSON(p), error = function(e) NULL)
+  if (is.null(x)) return(NULL)
+  # Back into parse_transcript()'s shape, so tx_bench() reads either.
+  list(turns = tibble(seq = seq_len(NROW(x$turns)), segment = x$turns$s,
+                      role = ifelse(x$turns$r == "j", "justice", "advocate"),
+                      speaker = x$turns$sp, words = x$turns$w, text = x$turns$x),
+       segments = as_tibble(x$segments), meta = x[setdiff(names(x), c("turns", "segments"))])
+}
+
+#' Fetch and parse every transcript the Court lists for `terms` that the site
+#' lacks (or parsed under an older parser), newest first, at most `max_new`.
+#' Returns the updated index invisibly. Never fatal per transcript: a failed
+#' download or parse is logged and retried next run.
+update_transcripts <- function(site_dir, terms, max_new = 200L, pace = 1) {
+  idx <- read_transcript_index(site_dir)
+  listing <- transcript_index(terms)
+  if (!nrow(listing)) { message("update_transcripts(): no transcripts listed"); return(invisible(idx)) }
+  listing$key <- tx_key(listing$term, listing$dkt)
+  stale <- vapply(listing$key, function(k) {
+    e <- idx[[k]]
+    is.null(e) || !identical(e$parser %||% "", TX_PARSER_VERSION) ||
+      !file.exists(file.path(site_dir, "arguments", paste0(k, ".json")))
+  }, logical(1))
+  todo <- listing[stale, , drop = FALSE]
+  todo <- todo[order(todo$posted, decreasing = TRUE, na.last = TRUE), , drop = FALSE]
+  if (nrow(todo) > max_new) {
+    message("update_transcripts(): ", nrow(todo), " to parse, capped at ", max_new, " this run")
+    todo <- head(todo, max_new)
+  }
+  tmp <- tempfile("tx"); dir.create(tmp)
+  ok <- 0L; failed <- 0L
+  for (i in seq_len(nrow(todo))) {
+    r <- todo[i, ]
+    f <- download_transcripts(r, tmp, pace = pace)
+    p <- if (is.na(f)) NULL else tryCatch(parse_transcript(pdftools::pdf_text(f)), error = function(e) {
+      message("transcript ", r$key, ": parse failed: ", conditionMessage(e)); NULL })
+    if (!is.na(f)) unlink(f)
+    if (is.null(p) || !nrow(p$turns)) { failed <- failed + 1L; next }
+    out <- file.path(site_dir, "arguments", paste0(r$key, ".json"))
+    dir.create(dirname(out), recursive = TRUE, showWarnings = FALSE)
+    jsonlite::write_json(list(
+      dkt = r$dkt, dkts = r$dkts[[1]], term = r$term, url = r$url, posted = format(r$posted),
+      parser = TX_PARSER_VERSION,
+      segments = p$segments |> mutate(advocate = str_to_title(advocate)),
+      turns = p$turns |> transmute(s = segment, r = substr(role, 1, 1), sp = speaker, w = words, x = text)),
+      out, auto_unbox = TRUE, dataframe = "rows", na = "null")
+    idx[[r$key]] <- list(dkt = r$dkt, dkts = r$dkts[[1]], term = r$term, url = r$url,
+                         posted = format(r$posted), parser = TX_PARSER_VERSION)
+    ok <- ok + 1L
+  }
+  unlink(tmp, recursive = TRUE)
+  jsonlite::write_json(idx[order(names(idx))], file.path(site_dir, "arguments", TX_INDEX),
+                       auto_unbox = TRUE, pretty = FALSE)
+  message(sprintf("update_transcripts(): %d listed, %d parsed this run, %d failed, %d on file",
+                  nrow(listing), ok, failed, length(idx)))
+  invisible(idx)
 }
 
 #' Download each transcript once into `dir`, paced. Returns the local paths.

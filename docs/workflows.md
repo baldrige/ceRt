@@ -125,7 +125,11 @@ site already updated is the right shape for that.
   (cap `WORD_COUNT_MAX_NEW`, default 600; `R/word_count.R`). **No retrain.**
 - **Public pages:** `conferences/` (per-conference reports + rebuilt index),
   **`relists/index.html`**, **`funnel/index.html`**, **`counsel/index.html`**,
-  `arguments/` (navigator index + per-term `arg_*.html`),
+  `arguments/` (navigator index + per-term `arg_*.html`, and one page per
+  argument at `arguments/<yyyy>/<docket>.html` with its parsed transcript
+  beside it -- `TRANSCRIPTS_MAX_NEW` new transcripts a run, default 150, and
+  `JUDGMENTS_MAX_FETCH` judgments by name, default 120; see
+  **[argument-transcripts.md](argument-transcripts.md)**),
   and **`cases/<docket>.html`** for the conference/argument cases touched
   (incremental). Re-asserts `CNAME`. **Does not** touch `dashboards/`,
   `methods.html`, or the landing page.
@@ -230,6 +234,7 @@ rebase cleanly.
 | `conferences/pending_forecasts.json` (the landing page's "All pending" forecast window; the daily merges its own freshly-scored window in ahead of it and re-checks the top rows by name) | `conferences.yml` |
 | `arguments/granted_noted.json` (the Court's Granted & Noted Lists, parsed; the Navigator's "Separate writings" column and the decisions rows read it) | `conferences.yml` |
 | `arguments/calendar.json`, `arguments/daycalls.json` (the monthly argument calendars and Day Calls, parsed; see **[argument-calendar.md](argument-calendar.md)**) | `conferences.yml` |
+| `arguments/<yyyy>/<docket>.{html,json}`, `arguments/reader.js`, `arguments/transcripts.json` (parsed-transcript index, with each argument's judgment once known), `arguments/readers.json` (docket → its argument page, read by the Navigator and the case pages) | `conferences.yml` |
 | `arguments/decided.json`, `arguments/watch.json` (landing-page "Recent decisions" manifest and the daily's named-fetch watch list) | `conferences.yml` |
 | `dashboards/decided.json` (the daily's own decisions manifest, from the watch-list fetch) | `daily.yml` |
 | `relists/` | `conferences.yml` |

@@ -125,6 +125,29 @@ cat("Watch list for the daily:", nrow(watch), "docket(s)",
     if (nrow(watch)) paste0(" (", sum(watch$kind == "argued"), " argued, ",
                             sum(watch$kind == "application"), " referred applications)"), "\n")
 
+# The argument pages (R/argument_reader.R): the Court's transcripts fetched and
+# parsed once each (newest first, TRANSCRIPTS_MAX_NEW a run -- the back-catalogue
+# fills over a few runs), then one page per argument with the recording, the
+# transcript and the bench's lean. Before the Navigator, which links them, and
+# before the docket pages below, which link them too. Never fatal: a failure
+# costs the links, not the Navigator.
+source("R/argument_transcript.R")
+source("R/argument_lean.R")
+source("R/justices.R")         # decision_votes(), term_court() for the Justices' votes
+source("R/argument_reader.R")
+rd <- tryCatch({
+  update_transcripts(site_dir, 2017:argument_term(Sys.Date()),
+                     max_new = as.integer(Sys.getenv("TRANSCRIPTS_MAX_NEW", unset = "150")))
+  render_argument_readers(site_dir, combined,
+                          fetch_max = as.integer(Sys.getenv("JUDGMENTS_MAX_FETCH", unset = "120")))
+}, error = function(e) { cat("Argument pages skipped:", conditionMessage(e), "
+"); NULL })
+if (!is.null(rd) && nrow(rd)) {
+  tbl <- tbl |> left_join(rd |> transmute(dkt, term, reader_href = href, lean_p = p), by = c("dkt", "term"))
+  cat("Argument pages:", nrow(rd), "|", sum(!is.na(tbl$reader_href)), "Navigator row(s) linked
+")
+}
+
 terms <- render_argument_nav(out_dir = arg_dir, tbl = tbl)
 # Typographic (smart) quotes across the per-Term argument pages (the index is
 # already smartened by styled_index_page). smarten_html skips <style>/<script>/

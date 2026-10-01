@@ -19,28 +19,14 @@ src <- readLines("R/scotus_dash_new.R")
 src <- src[-grep("^scotus_dash\\(", src)]
 eval(parse(text = paste(src, collapse = "\n")))
 source("R/argument_transcript.R")
+source("R/argument_lean.R")
 source("R/justices.R")
 
 tx <- readRDS("data-raw/transcript_turns.rds")
 tx <- tx[!map_lgl(tx$parsed, is.null), ]
 
 # ---- outcomes ------------------------------------------------------------------------
-# The judgment line on the lead docket: REVERSED or VACATED (in whole or in
-# part) is a petitioner win, AFFIRMED alone a loss, a dismissal no outcome.
-judgment_of <- function(events) {
-  if (!is.data.frame(events) || !"Proceedings and Orders" %in% names(events)) return(NA_character_)
-  txt <- str_squish(str_remove_all(coalesce(events[["Proceedings and Orders"]], ""), "<[^>]+>"))
-  hit <- txt[str_detect(txt, "REVERSED|AFFIRMED|VACATED|DISMISSED|improvidently granted") &
-               !str_detect(txt, regex("^Judgment issued", ignore_case = TRUE))]
-  if (length(hit)) hit[1] else NA_character_
-}
-petitioner_won <- function(j) {
-  case_when(is.na(j) ~ NA_real_,
-            str_detect(j, regex("DISMISSED|improvidently", ignore_case = TRUE)) ~ NA_real_,
-            str_detect(j, "REVERSED|VACATED") ~ 1,
-            str_detect(j, "AFFIRMED") ~ 0,
-            TRUE ~ NA_real_)
-}
+# judgment_of() and petitioner_won() are in R/argument_lean.R.
 oc_path <- "data-raw/transcript_outcomes.rds"
 oc <- if (file.exists(oc_path)) readRDS(oc_path) else tibble(dkt = character(), judgment = character())
 need <- setdiff(tx$dkt[!str_detect(tx$dkt, "^22O")], oc$dkt)

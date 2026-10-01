@@ -1111,7 +1111,8 @@ docket_disposition <- function(outcome, outcome_date, arg, p_base, conf, sig, is
 # optional enrichments (no network is ever performed here).
 docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
                         signals = NULL, qp = NA_character_, rendered = Sys.Date(),
-                        available = character(), orders = NULL, subject = NA_character_) {
+                        available = character(), orders = NULL, subject = NA_character_,
+                        reader = NA_character_) {
   dkt <- cx$dkt; ev <- cx$events[[1]]; par <- cx$parties[[1]]; rel <- cx$related %||% ""
   # The linked application/petition docket. NA-safe on purpose: %||% catches a
   # snapshot rendered before build_case() carried the column, but a present-and-NA
@@ -1271,8 +1272,15 @@ docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
   # Argument & decision -- only for a genuine merits track (suppressed for GVR /
   # dismissed, whose "Judgment VACATED" order otherwise reads as a decision).
   ad <- c()
+  # The site's own argument page (R/argument_reader.R) where the weekly run has
+  # built one -- the recording with the transcript, and the bench's lean --
+  # else the Court's audio page.
   if (!is.na(arg$argued_date))
-    ad <- c(ad, sprintf("<p><b>Argued</b> %s%s. <a href='https://www.supremecourt.gov/oral_arguments/audio/%s/%s' target='_blank' rel='noopener'>Audio and transcript</a></p>",
+    ad <- c(ad, if (!is.na(reader %||% NA))
+      sprintf("<p><b>Argued</b> %s%s. <a href='%s'>Listen and read along</a> &middot; <a href='https://www.supremecourt.gov/oral_arguments/audio/%s/%s' target='_blank' rel='noopener'>the Court&rsquo;s audio</a></p>",
+        .fmtdate(arg$argued_date), if (!is.na(adv)) paste0(" &mdash; ", .esc(adv)) else "",
+        reader, argument_term(arg$argued_date), dkt)
+    else sprintf("<p><b>Argued</b> %s%s. <a href='https://www.supremecourt.gov/oral_arguments/audio/%s/%s' target='_blank' rel='noopener'>Audio and transcript</a></p>",
       .fmtdate(arg$argued_date), if (!is.na(adv)) paste0(" &mdash; ", .esc(adv)) else "",
       argument_term(arg$argued_date), dkt))
   if (!is.na(arg$decided_date)) {
@@ -1562,6 +1570,10 @@ render_docket_pages <- function(cases, out_dir, models = NULL, qp_map = NULL,
   # Linkable dockets, fixed before the loop so no page's markup depends on the
   # order pages happen to be written in. See resolvable_dockets().
   available <- resolvable_dockets(cases, out_dir)
+  # Which dockets have an argument page (arguments/readers.json, written by the
+  # weekly arguments run before it renders these): {dkt: href}.
+  rp <- file.path(dirname(out_dir), "arguments", "readers.json")
+  readers <- if (file.exists(rp)) tryCatch(jsonlite::fromJSON(rp, simplifyVector = FALSE), error = function(e) list()) else list()
 
   n_written <- 0L; new_manifest <- manifest   # preserve entries for cases not in this batch
   for (i in seq_len(nrow(cases))) {
@@ -1579,14 +1591,16 @@ render_docket_pages <- function(cases, out_dir, models = NULL, qp_map = NULL,
     # plain text would never re-render once that target's page appeared.
     key <- digest::digest(list(PAGE_TEMPLATE_VERSION, model_id, cx$caption, cx$events,
              cx$parties, cx$lower, cx$lower_dkt, cx$lower_date, cx$date, cx$type,
-             qp, sig, cx$related, cx$linked, link_targets(cx, available), ords, subj))
+             qp, sig, cx$related, cx$linked, link_targets(cx, available), ords, subj,
+             readers[[dkt]]))
     if (incremental && identical(manifest[[dkt]] %||% "", key) &&
         file.exists(file.path(out_dir, paste0(dkt, ".html")))) {
       new_manifest[[dkt]] <- key; next
     }
     tryCatch({ docket_page(cx, out_dir, models = models, cls_row = clr, signals = sig,
                            qp = qp, rendered = rendered, available = available,
-                           orders = ords, subject = subj)
+                           orders = ords, subject = subj,
+                           reader = readers[[dkt]] %||% NA_character_)
                n_written <- n_written + 1L }, error = function(e)
       message("docket_page failed for ", dkt, ": ", conditionMessage(e)))
     new_manifest[[dkt]] <- key

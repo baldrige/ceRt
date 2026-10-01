@@ -1,6 +1,50 @@
 # Oral-argument transcripts
 
-Research stage, not yet on the site. Two pieces:
+One page per argument at `arguments/<yyyy>/<docket>.html`: the Court's
+recording with its transcript, each Justice's questioning, and the bench's
+**post-argument lean** — the chance the petitioner prevails, read from how the
+Justices divided their words. Linked from the Navigator's "Argument" column and
+from the case page's "Argued" line.
+
+## How it is published
+
+The weekly `conferences.yml` run, in `render_arguments.R`, before the Navigator
+and the docket pages (both link the result):
+
+1. **`update_transcripts()`** (`R/argument_transcript.R`) reads the Court's
+   transcript feeds for OT2017 on, downloads each transcript the site lacks —
+   newest first, `TRANSCRIPTS_MAX_NEW` a run (default 150, so the back-catalogue
+   fills over four runs) — parses it, and writes `arguments/<yyyy>/<docket>.json`
+   plus the index `arguments/transcripts.json`. The PDFs are not kept. Bump
+   `TX_PARSER_VERSION` to re-parse everything after a parser change.
+2. **`render_argument_readers()`** (`R/argument_reader.R`) writes every page,
+   the shared `arguments/reader.js`, and `arguments/readers.json`
+   (docket → page). Each argument's judgment is cached in the index once known;
+   one the run's dockets do not carry is fetched by name (`fetch_judgment()`,
+   `JUDGMENTS_MAX_FETCH` a run, default 120) — an OT2017 case docketed in 2015,
+   or a decision since the last range fetch. The Justices' votes come from the
+   Justices section's `justices/lineups.json`.
+3. The lean is scored with the coefficients in **`data/argument_lean.json`**
+   (`R/argument_lean.R`), which `train_argument_lean.R` writes. Retrain after a
+   Term's decisions are in: `transcript_parse.R` → `transcript_backtest.R` →
+   `train_argument_lean.R`, then commit the JSON. Its stored leave-one-Term-out
+   figures are what the page quotes.
+
+Page details:
+
+- The lean, bench table and Term chart are in the HTML; only the transcript and
+  player need script (`reader.js` fetches the JSON beside the page).
+- The audio is the Court's own MP3
+  (`supremecourt.gov/media/audio/mp3files/<docket>.mp3`), played in place. A
+  docket argued in two Terms has one MP3 URL, the later argument's, so the
+  earlier argument's page links out instead.
+- **Line times are estimates**: the recording's length spread evenly over the
+  words — close near the start, minutes out by the end of a long argument. The
+  page says so. Forced alignment against the audio is the open item.
+- Case pages carry the link because `readers[[dkt]]` is in their render key, so
+  a case page re-renders the run its argument page first appears.
+
+## The research scripts
 
 - **`R/argument_transcript.R`** — finds each Term's transcript PDFs (the Court's
   transcript RSS feed via `fetch_media_feed()`, the index scrape as fallback),
@@ -88,7 +132,7 @@ respondent, the petitioner won just over half the time; when the respondent got
 Counting amicus segments toward the side they support makes it worse (Brier
 0.202 vs base 0.205): the SG's amicus time is questioned differently.
 
-### Justice level (4,356 votes)
+### Justice level (4,338 votes)
 
 Each Justice's vote from their **own** words to each side plus the whole
 bench's, with a per-Justice intercept, against each Justice's own
@@ -96,8 +140,8 @@ petitioner-vote rate:
 
 | | accuracy | Brier |
 | --- | --- | --- |
-| Justice's own petitioner rate | 63.7% | 0.232 |
-| + own imbalance + bench imbalance | **67.2%** | **0.208** |
+| Justice's own petitioner rate | 63.8% | 0.231 |
+| + own imbalance + bench imbalance | **67.3%** | **0.209** |
 
 Both terms are strong (own z = 14, bench z = 11). The gain is largest for
 Breyer, Jackson, Ginsburg, Sotomayor and Gorsuch (Brier −12 to −17%) and
