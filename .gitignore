@@ -39,3 +39,4 @@ data-raw/transcripts/
 data-raw/transcript_turns.rds
 data-raw/transcript_outcomes.rds
 data-raw/transcript_backtest.rds
+data-raw/transcript_party_records.rds

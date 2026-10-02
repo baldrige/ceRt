@@ -1,45 +1,45 @@
 {
-  "fitted": "2026-10-01",
+  "fitted": "2026-10-02",
   "base_rate": 0.7045,
   "case": {
-    "intercept": 0.982712,
-    "lq": -0.313683,
-    "lw": 1.510996
+    "intercept": 0.984303,
+    "lq": -0.328491,
+    "lw": 1.511287
   },
   "justice": {
-    "intercept": 0.573313,
+    "intercept": 0.601499,
     "offset": {
       "Alito": 0,
-      "Barrett": 0.503886,
-      "Breyer": -0.139373,
-      "Ginsburg": -0.119591,
-      "Gorsuch": 0.10581,
-      "Jackson": 0.150786,
-      "Kagan": -0.047057,
-      "Kavanaugh": 0.237138,
-      "Kennedy": 0.516206,
-      "Roberts": 0.329058,
-      "Sotomayor": 0.012006,
-      "Thomas": -0.107367
+      "Barrett": 0.478344,
+      "Breyer": -0.165816,
+      "Ginsburg": -0.142138,
+      "Gorsuch": 0.085031,
+      "Jackson": 0.095827,
+      "Kagan": -0.082352,
+      "Kavanaugh": 0.222947,
+      "Kennedy": 0.494441,
+      "Roberts": 0.310698,
+      "Sotomayor": -0.024633,
+      "Thomas": -0.132968
     },
-    "lw_own": 0.23327,
-    "lw_case": 0.778767
+    "lw_own": 0.238187,
+    "lw_case": 0.797785
   },
   "justice0": {
-    "intercept": 0.444028,
+    "intercept": 0.452454,
     "offset": {
       "Alito": 0,
-      "Barrett": 0.315494,
-      "Breyer": 0.148238,
-      "Ginsburg": -0.115524,
-      "Gorsuch": 0.219087,
-      "Jackson": 0.021335,
-      "Kagan": -0.011443,
-      "Kavanaugh": 0.35705,
-      "Kennedy": 0.436331,
-      "Roberts": 0.366902,
-      "Sotomayor": -0.094274,
-      "Thomas": -0.058366
+      "Barrett": 0.307069,
+      "Breyer": 0.128576,
+      "Ginsburg": -0.12395,
+      "Gorsuch": 0.210661,
+      "Jackson": 0.00064,
+      "Kagan": -0.02836,
+      "Kavanaugh": 0.348624,
+      "Kennedy": 0.427905,
+      "Roberts": 0.358477,
+      "Sotomayor": -0.114582,
+      "Thomas": -0.066791
     }
   },
   "backtest": {
@@ -47,12 +47,12 @@
     "case_n": 511,
     "case_base_acc": 0.705,
     "case_model_acc": 0.72,
-    "case_base_brier": 0.2095,
-    "case_model_brier": 0.1968,
-    "justice_n": 4410,
-    "justice_base_acc": 0.635,
-    "justice_model_acc": 0.674,
-    "justice_base_brier": 0.2318,
-    "justice_model_brier": 0.2084
+    "case_base_brier": 0.2094,
+    "case_model_brier": 0.1972,
+    "justice_n": 4408,
+    "justice_base_acc": 0.634,
+    "justice_model_acc": 0.675,
+    "justice_base_brier": 0.2319,
+    "justice_model_brier": 0.2083
   }
 }

@@ -25,6 +25,29 @@ source("R/justices.R")
 tx <- readRDS("data-raw/transcript_turns.rds")
 tx <- tx[!map_lgl(tx$parsed, is.null), ]
 
+# Sides where a header names no role, from the Court's party records
+# (R/argument_sides.R) -- the same resolution the site uses, so the model is
+# fitted on the sides the pages show. Records cached; an argument whose sides
+# cannot all be placed drops out (its parsed segments get NA sides).
+source("R/argument_sides.R")
+pr_path <- "data-raw/transcript_party_records.rds"
+pr <- if (file.exists(pr_path)) readRDS(pr_path) else list()
+n_res <- 0L; n_inc <- 0L
+for (i in seq_len(nrow(tx))) {
+  sg <- tx$parsed[[i]]$segments
+  if (!nrow(sg)) next
+  explicit <- vapply(sg$header, tx_header_side, "")
+  recs <- list()
+  if (any(is.na(explicit) & !sg$amicus)) {
+    if (is.null(pr[[tx$dkt[i]]])) { pr[[tx$dkt[i]]] <- fetch_party_records(tx$dkt[i]) %||% list(); saveRDS(pr, pr_path) }
+    recs <- pr[[tx$dkt[i]]]; n_res <- n_res + 1L
+  }
+  new <- resolve_argument_sides(sg, recs)
+  if (!isTRUE(attr(new, "complete"))) { new[] <- NA_character_; n_inc <- n_inc + 1L }
+  tx$parsed[[i]]$segments$side <- as.vector(new)
+}
+cat("Sides resolved from party records for", n_res, "argument(s);", n_inc, "left without complete sides\n")
+
 # ---- outcomes ------------------------------------------------------------------------
 # judgment_of() and petitioner_won() are in R/argument_lean.R.
 oc_path <- "data-raw/transcript_outcomes.rds"

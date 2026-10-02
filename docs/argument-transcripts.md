@@ -123,10 +123,44 @@ closes at `(Whereupon ... submitted.)`, after which comes a word index.
   counted as directed at that segment's side.
 - **Side rules** (`tx_header_side()`): support beats party ("respondents
   supporting petitioners" is the petitioner's side); "in support of the judgment
-  below" / "affirmance" is the respondent's; a party header that names no role
-  ("on behalf of the United States") takes lectern order — first principal
-  segment petitioner, later respondent, rebuttal petitioner. An amicus
-  supporting neither party counts for neither side.
+  below" / "affirmance" is the respondent's; applicants are the applicant
+  (petitioner) side. An amicus supporting neither party counts for neither side.
+- **A header that names a party, not a role** ("on behalf of the Federal
+  parties", "... of Michelle Cochran") is placed by `R/argument_sides.R`, below.
+
+### Sides when the header names no role
+
+26 of 552 arguments have one. The parser used to fall back on lectern order —
+first to argue is the petitioner, everyone after the respondent — and about 14
+came out wrong: in a consolidated argument the first to argue is the petitioner
+of *some* docket, not necessarily the page's (24-1287 Learning Resources v.
+Trump: the Solicitor General went first as 25-250's petitioner, so the page
+counted the government as its petitioner), and with several parties a side,
+"everyone after the first" put the House against California and Smith & Nephew
+against the United States.
+
+`resolve_argument_sides()` now places them, at render time and in the backtest:
+
+1. **Title parties** of the docket and its consolidated companions (the JSON's
+   "Vide" links): the page's docket fixes the frame, and a companion joins it
+   through a title party already placed (the President is 25-250's petitioner
+   and 24-1287's respondent, so 25-250's respondent is on 24-1287's petitioner
+   side). Not the full party lists: they record formal roles, not alignment —
+   24-1287 lists the States among its respondents, beside the President they
+   sued.
+2. Each header's party matched to a placed party by **name**, **initials**
+   ("FCC") or **class** (federal, State, tribal, private).
+3. **Argument order** for the rest: each side argues as a block, so the side
+   changes once along the parties' segments. An advocate after the second block
+   begins is in it; one with only a single side in view before them is the
+   other side; one exactly at the boundary is ambiguous.
+4. A rebuttal takes its advocate's side.
+
+Anything still unplaced — the House in California v. Texas, an advocate in ZF
+Automotive whose header names no one — leaves the argument without a lean.
+Resolved sides are cached in the transcript index (`sides_v`, `SIDES_RULES`) and
+written back into the transcript JSON, so the page's segment labels agree with
+its lean.
 
 Gotchas found on the way, each now handled:
 
@@ -162,8 +196,8 @@ published `justices/lineups.json` through `decision_votes()`. Every fit is
 | | accuracy | Brier |
 | --- | --- | --- |
 | petitioner always wins | 70.5% | 0.210 |
-| raw rule: side with more Justice **turns** loses | 55.0% | — |
-| raw rule: side with more Justice **words** loses | 57.1% | — |
+| raw rule: side with more Justice **turns** loses | 54.6% | — |
+| raw rule: side with more Justice **words** loses | 56.8% | — |
 | logistic on log(resp/pet) turns and words | **72.0%** | **0.197** |
 
 - **Words carry the signal; turn counts do not** once words are in the model
@@ -176,20 +210,20 @@ published `justices/lineups.json` through `decision_votes()`. Every fit is
 
 | forecast quintile | median words to resp ÷ to pet | mean forecast | petitioner won |
 | --- | --- | --- | --- |
-| 1 | 0.51 | 51% | 54% |
-| 2 | 0.80 | 66% | 67% |
+| 1 | 0.52 | 52% | 54% |
+| 2 | 0.80 | 66% | 68% |
 | 3 | 0.98 | 72% | 70% |
 | 4 | 1.22 | 78% | 78% |
-| 5 | 1.70 | 85% | 83% |
+| 5 | 1.66 | 85% | 82% |
 
 When the bench gave the petitioner about twice the words it gave the
 respondent, the petitioner won just over half the time; when the respondent got
-1.7×, the petitioner won 83%.
+1.7×, the petitioner won 82%.
 
 Counting amicus segments toward the side they support makes it worse (Brier
-0.204 vs base 0.207): the SG's amicus time is questioned differently.
+0.207 vs base 0.209): the SG's amicus time is questioned differently.
 
-### Justice level (4,410 votes)
+### Justice level (4,408 votes)
 
 Each Justice's vote from their **own** words to each side plus the whole
 bench's, with a per-Justice intercept, against each Justice's own
@@ -197,8 +231,8 @@ petitioner-vote rate:
 
 | | accuracy | Brier |
 | --- | --- | --- |
-| Justice's own petitioner rate | 63.5% | 0.232 |
-| + own imbalance + bench imbalance | **67.4%** | **0.208** |
+| Justice's own petitioner rate | 63.4% | 0.232 |
+| + own imbalance + bench imbalance | **67.5%** | **0.208** |
 
 Both terms are strong (own z = 14, bench z = 11). The gain is largest for
 Breyer, Jackson, Ginsburg, Sotomayor and Gorsuch (Brier −12 to −17%) and
