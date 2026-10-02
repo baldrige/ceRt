@@ -90,6 +90,11 @@ watcher already in progress exits at once. See **[data-sources.md](data-sources.
   ordering would be produced by the docket-number tiebreak rather than by
   readers. Suppression is logged with the counts that failed it, so a dark panel
   is always distinguishable from a broken one.
+- **New oral arguments, same day:** reads the current Term's transcript feed,
+  parses any new transcript, writes its argument page and
+  `arguments/recent.json` (the landing page's **Recent arguments** panel), and
+  dispatches `align-arguments.yml` (hence `actions: write` and `GH_TOKEN`). See
+  **[argument-transcripts.md](argument-transcripts.md)**.
 - **The Court's order lists:** reads `/orders/ordersofthecourt/NN` for the
   current and prior Term (two requests), downloads and parses only the PDFs
   `orders/orders.json` does not hold, renders `orders/`, and puts a "Latest

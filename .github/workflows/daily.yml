@@ -66,6 +66,9 @@ on:
 
 permissions:
   contents: write
+  # To start align-arguments.yml the afternoon a new argument's transcript is
+  # parsed (build_dashboards.R), rather than at its next six-hourly slot.
+  actions: write
 
 concurrency:
   group: daily-dashboards
@@ -169,6 +172,8 @@ jobs:
           GA4_PROPERTY_ID: ${{ secrets.GA4_PROPERTY_ID }}
           GA4_SA_KEY: ${{ secrets.GA4_SA_KEY }}
           TYPESAFE_API_KEY: ${{ secrets.TYPESAFE_API_KEY }}
+          # gh, for dispatching align-arguments.yml after a new transcript.
+          GH_TOKEN: ${{ github.token }}
         run: Rscript .github/scripts/build_dashboards.R
 
       - name: Commit and publish changes

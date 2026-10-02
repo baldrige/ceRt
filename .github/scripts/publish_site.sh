@@ -82,7 +82,7 @@ PATHS=("$@")
 DERIVED='cases/.manifest.json cases/search.json cases/grants.json cases/forecasts.json
          conferences/qp_cache.json dashboards/qp_cache.json
          dashboards/petition_signals_cache.json arguments/qp_cache.json
-         cases/subjects.json arguments/transcripts.json arguments/readers.json'
+         cases/subjects.json arguments/transcripts.json arguments/readers.json arguments/recent.json'
 
 git config user.name  "github-actions[bot]"
 git config user.email "github-actions[bot]@users.noreply.github.com"

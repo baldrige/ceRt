@@ -864,6 +864,50 @@ DECISION_KIND_LABELS <- c(argued = "Argued", application = "Emergency applicatio
   HTML(paste0(out, esc(rest)))
 }
 
+# "Recent arguments": every argument whose transcript the Court posted in the
+# last three weeks, newest first, from arguments/recent.json (written by
+# R/argument_reader.R, the daily's run included, so an argument is here the
+# afternoon it is heard). The same row layout as "Recent decisions": the day,
+# the case (its argument page), who argued, and the bench's lean beside the
+# usual rate. NULL -- no block -- when nothing was argued in the window.
+arguments_panel <- function(site_dir, heading = "Recent arguments", n = 6L,
+                            lean_path = "data/argument_lean.json") {
+  p <- file.path(site_dir, "arguments", "recent.json")
+  if (!file.exists(p)) return(NULL)
+  rows <- tryCatch(jsonlite::fromJSON(p, simplifyVector = FALSE), error = function(e) list())
+  # The window and the order are applied here: the file can carry a stale entry
+  # after a merged publish, and is keyed rather than ordered.
+  rows <- Filter(function(r) !is.null(r$date) && as.Date(r$date) >= Sys.Date() - 21, unname(rows))
+  if (!length(rows)) return(NULL)
+  rows <- utils::head(rows[order(vapply(rows, function(r) r$date, ""), decreasing = TRUE)], n)
+  base <- tryCatch(jsonlite::fromJSON(lean_path)$base_rate, error = function(e) NULL)
+  lis <- lapply(rows, function(r) {
+    d <- as.Date(r$date)
+    adv <- unlist(r$advocates)
+    bits <- list()
+    if (length(adv)) bits <- c(bits, list(paste("Argued by", paste(adv, collapse = ", "))))
+    if (!is.null(r$p)) bits <- c(bits, list(tags$span(class = "dk",
+      sprintf("Lean %d%% petitioner", as.integer(round(100 * as.numeric(r$p)))))))
+    bits <- c(bits, list(tags$a(href = r$href, "Listen and read")))
+    tags$li(tags$div(
+      class = "crow",
+      tags$span(class = "cwhen", tags$span(class = "cdow", format(d, "%a")), format(d, "%b %e")),
+      tags$span(class = "ctx",
+                tags$span(class = "ckind", tags$a(href = r$href, smarten(r$caption %||% r$dkt))),
+                tags$span(class = "cdet", do.call(tagList, .interleave(bits, HTML(" &middot; ")))))))
+  })
+  note <- paste0("Oral arguments of the last three weeks, with the Court's recording and transcript. ",
+                 "The lean is the chance the petitioner prevails, read from how the bench divided its words",
+                 if (!is.null(base)) sprintf(" (petitioners usually win %d%%)", as.integer(round(100 * base))) else "",
+                 "; an estimate, not a prediction about any case.")
+  tags$section(
+    class = "panel cal",
+    tags$h2(heading),
+    tags$p(class = "pnote", smarten(note)),
+    tags$ol(class = "cal", lis),
+    tags$p(class = "more", HTML("<a href='arguments/'>All arguments &rarr;</a>")))
+}
+
 decisions_panel <- function(rows, heading = "Recent decisions", note = NULL, more = NULL) {
   if (is.null(rows) || !is.data.frame(rows) || !nrow(rows)) return(NULL)
   if (!("group" %in% names(rows))) rows$group <- rows$dkt
