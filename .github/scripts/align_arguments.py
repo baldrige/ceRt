@@ -26,10 +26,20 @@ ALIGN_VERSION = "a1"
 UA = "Mozilla/5.0 (ceRt SCOTUS research; +https://supremecourt.report)"
 WPS = 2.6          # words per second, only to extrapolate past the last anchor
 MIN_MATCH = 0.30   # below this share of transcript words matched, call it failed
+RETRY_BELOW = 0.60 # below this, transcribe again without the silence filter
 
 
-def mp3_url(dkt):
-    return f"https://www.supremecourt.gov/media/audio/mp3files/{dkt}.mp3"
+def mp3_url(dkt, nth=1):
+    """The Court's MP3 for a docket's nth argument. Original actions are filed
+    under "141-Orig", not the API's 22O141; a docket argued again has a file of
+    its own for each later argument -- 24-109.mp3 (OT2024) and 24-109_2.mp3
+    (Louisiana v. Callais, reargued OT2025), 141-Orig and 141-Orig_2. The first
+    version used the bare docket for every argument, so the reargument was
+    matched against the first argument's recording (3% of words) and every
+    original action against a file that does not exist."""
+    m = re.match(r"^\d{2}O(\d+)$", dkt or "")
+    stem = f"{m.group(1)}-Orig" if m else dkt
+    return f"https://www.supremecourt.gov/media/audio/mp3files/{stem}{'' if nth <= 1 else f'_{nth}'}.mp3"
 
 
 def argument_term(today=None):
@@ -53,12 +63,16 @@ def candidates(site):
             continue
         out.append({"path": p, "dkt": d.get("dkt"), "term": int(d.get("term") or 0),
                     "posted": d.get("posted") or "", "align": d.get("align") or {}})
-    # A docket argued in two Terms has one MP3 URL, the later argument's: the
-    # earlier transcript cannot be aligned to it.
-    latest = {}
+    # Which argument of its docket each transcript is (first, second...), for
+    # the MP3 name. The transcripts on file run from OT2017; a docket first
+    # argued before that would be numbered one too low, which nothing on file is.
+    by_dkt = {}
     for c in out:
-        latest[c["dkt"]] = max(latest.get(c["dkt"], 0), c["term"])
-    return [c for c in out if c["term"] == latest[c["dkt"]]]
+        by_dkt.setdefault(c["dkt"], []).append(c["term"])
+    for c in out:
+        c["nth"] = sorted(by_dkt[c["dkt"]]).index(c["term"]) + 1
+        c["url"] = mp3_url(c["dkt"], c["nth"])
+    return out
 
 
 def queue(site, max_n, shard=(0, 1), only=None):
@@ -67,7 +81,12 @@ def queue(site, max_n, shard=(0, 1), only=None):
         keys = set(only)
         cs = [c for c in cs if f"{c['term']}/{c['dkt']}" in keys]
     else:
-        cs = [c for c in cs if c["align"].get("v") != ALIGN_VERSION]
+        # Not yet aligned under this version -- or failed against a recording
+        # other than the one this version would use (the original actions and
+        # the reargument, re-queued when the MP3 naming was fixed), without
+        # re-running every argument that aligned.
+        cs = [c for c in cs if c["align"].get("v") != ALIGN_VERSION
+              or (not c["align"].get("ok") and c["align"].get("url") != c["url"])]
     now = argument_term()
     # Current and previous Terms first, then newest Term first; newest argument first.
     cs = sorted(cs, key=lambda c: (0 if c["term"] >= now - 1 else 1, -c["term"],
@@ -223,13 +242,22 @@ def main():
         mp3 = os.path.join(tmp, c["dkt"] + ".mp3")
         t0 = time.time()
         d = json.load(open(c["path"], encoding="utf-8"))
+        vad = True
         try:
-            download(mp3_url(c["dkt"]), mp3)
-            segs, info = model.transcribe(mp3, word_timestamps=True, vad_filter=True, language="en",
-                                          beam_size=1, condition_on_previous_text=False)
-            asr = [(w.word, w.start) for s in segs for w in (s.words or [])]
-            starts, share = align_turns(d["turns"], asr)
-            dur = info.duration
+            download(c["url"], mp3)
+            def run(vad_filter):
+                segs, info = model.transcribe(mp3, word_timestamps=True, vad_filter=vad_filter, language="en",
+                                              beam_size=1, condition_on_previous_text=False)
+                asr = [(w.word, w.start) for s in segs for w in (s.words or [])]
+                return align_turns(d["turns"], asr) + (info.duration,)
+            starts, share, dur = run(True)
+            # The silence filter discards much of the OT2020 telephone audio as
+            # non-speech: 19-351 kept 4,065 words of 14,082 and matched 26%;
+            # without it, 89%. Retry the weak ones unfiltered and keep the better.
+            if share < RETRY_BELOW:
+                s2, sh2, dur2 = run(False)
+                if sh2 > share:
+                    starts, share, dur, vad = s2, sh2, dur2, False
         except Exception as e:
             starts, share, dur = None, 0.0, None
             print(f"  {key}: failed: {e}", flush=True)
@@ -237,7 +265,7 @@ def main():
             if os.path.exists(mp3):
                 os.remove(mp3)
         if starts is None or share < MIN_MATCH:
-            d["align"] = {"v": ALIGN_VERSION, "ok": False, "matched": round(share, 3)}
+            d["align"] = {"v": ALIGN_VERSION, "ok": False, "matched": round(share, 3), "url": c["url"]}
             for t in d["turns"]:
                 t.pop("t", None)
             print(f"  {key}: not aligned (matched {share:.0%})", flush=True)
@@ -245,7 +273,7 @@ def main():
             for t, s in zip(d["turns"], starts):
                 t["t"] = s
             d["align"] = {"v": ALIGN_VERSION, "ok": True, "model": a.model, "matched": round(share, 3),
-                          "duration": round(dur or 0, 1)}
+                          "duration": round(dur or 0, 1), "url": c["url"], "vad": vad}
             print(f"  {key}: aligned, {share:.0%} of words matched, {dur/60:.0f} min of audio in "
                   f"{(time.time() - t0)/60:.1f} min", flush=True)
         dest = c["path"]

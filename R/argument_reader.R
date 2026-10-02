@@ -23,12 +23,23 @@ if (!exists("%||%")) `%||%` <- function(a, b) if (is.null(a)) b else a
 
 READERS_FILE <- "readers.json"
 # Bump to rewrite every reader page after a markup change; stamped into each.
-READER_TEMPLATE_VERSION <- "r1"
+# r2: each argument plays its own recording (a reargument's "_2" MP3, an
+#     original action's "-Orig" file), and the earlier argument of a reargued
+#     docket plays rather than linking out.
+READER_TEMPLATE_VERSION <- "r2"
 READER_ORDER <- c("Roberts", "Kennedy", "Thomas", "Ginsburg", "Breyer", "Alito", "Sotomayor",
                   "Kagan", "Gorsuch", "Kavanaugh", "Barrett", "Jackson")
 
 reader_href <- function(term, dkt) paste0("/arguments/", term, "/", dkt, ".html")
-argument_mp3 <- function(dkt) paste0("https://www.supremecourt.gov/media/audio/mp3files/", dkt, ".mp3")
+# The Court's MP3 for a docket's nth argument: "141-Orig" for the original
+# action the API calls 22O141, and "_2" for a docket's second argument
+# (24-109_2.mp3 is Louisiana v. Callais reargued in OT2025; 24-109.mp3 is OT2024).
+# Kept in step with mp3_url() in .github/scripts/align_arguments.py.
+argument_mp3 <- function(dkt, nth = 1L) {
+  m <- regmatches(dkt, regexec("^[0-9]{2}O([0-9]+)$", dkt))[[1]]
+  stem <- if (length(m) == 2) paste0(m[2], "-Orig") else dkt
+  paste0("https://www.supremecourt.gov/media/audio/mp3files/", stem, if (nth > 1) paste0("_", nth) else "", ".mp3")
+}
 
 .rd_pct <- function(p) if (is.na(p)) "—" else paste0(round(100 * p), "%")
 `%|na|%` <- function(a, b) if (is.null(a) || is.na(a)) b else a
@@ -285,7 +296,7 @@ render_argument_reader <- function(site_dir, a, pts, model) {
       else if (has_audio) "The Court’s recording · line times estimated" else
       sprintf("<a href='https://www.supremecourt.gov/oral_arguments/audio/%d/%s' rel='noopener'>Listen on supremecourt.gov</a>", term, dkt), "</div>",
     "<div class='prog' id='rd-prog'><div></div></div></div><span class='clock' id='rd-clock'>0:00</span>",
-    if (has_audio) sprintf("<audio id='rd-audio' preload='metadata' src='%s'></audio>", argument_mp3(dkt)) else "",
+    if (has_audio) sprintf("<audio id='rd-audio' preload='metadata' src='%s'></audio>", a$mp3 %||% argument_mp3(dkt)) else "",
     "</div>")
   crumb <- list(href = "/arguments/", label = "Arguments")
   dek <- paste0("The argument in No. ", dkt, ", ", when,
@@ -335,10 +346,9 @@ render_argument_readers <- function(site_dir, cases, model = load_argument_lean(
   alias <- unlist(unname(imap(lu, function(e, k) setNames(rep(k, length(unlist(e$also)) + 1L), c(k, unlist(e$also))))))
   alias <- alias[!duplicated(names(alias))]
   by_dkt <- split(seq_len(nrow(cases)), cases$dkt)
-  # A docket argued in two Terms has the Court's one MP3 URL, which is the later
-  # argument's: the earlier page links out rather than play the wrong recording.
+  # Which argument of its docket each one is, for the MP3 name (argument_mp3()).
   keys <- names(idx); dk <- vapply(idx, function(e) e$dkt, ""); tm <- vapply(idx, function(e) as.integer(e$term), 1L)
-  latest <- tapply(tm, dk, max)
+  nth_of <- function(d, t) match(t, sort(tm[dk == d]))
 
   # The judgment: cached in the index once known (a decision does not change),
   # else from this run's dockets, else fetched by name -- newest first, at most
@@ -385,7 +395,7 @@ render_argument_readers <- function(site_dir, cases, model = load_argument_lean(
     list(key = k, dkt = e$dkt, term = as.integer(e$term), posted = posted_of(e), url = e$url, tx = p,
          caption = cap, short = strip_caption_roles(cap), judgment = jd, pw = pw, disp = disp, sides = sides,
          p = case_lean(model, sides), jl = jl, votes = votes,
-         audio = identical(as.integer(e$term), as.integer(latest[[e$dkt]])))
+         audio = TRUE, mp3 = argument_mp3(e$dkt, nth_of(e$dkt, as.integer(e$term))))
   }) |> compact()
 
   pts_all <- tibble(dkt = map_chr(args, "dkt"), term = map_int(args, "term"),
