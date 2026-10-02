@@ -46,17 +46,18 @@ rather than on "not an application":
 | consumer | guard |
 | --- | --- |
 | `classify_petitions()` (funnel, model corpus, Navigator grants, page classifier) | `type %in% PETITION_TYPES` |
-| `conference_distributions()` (conference reports, relist tracker, forecast log) | drops `O\d+$` dockets before anything else |
+| `conference_distributions()` (conference reports, relist tracker, forecast log) | keeps them, typed `orig`; the relist tracker and forecast log filter on the petition types, and the conference page gives them their own row |
 | `update_pending()` (the by-name straggler list) | paid/IFP only |
 | `update_grants_cache()` (the grants feed) | skips `[AO]\d+$` -- "Motion for leave to file a bill of complaint is GRANTED" is not a cert grant |
 | `build_case()` | types by docket number first, because `22O138` has no JSON type |
 
 Original actions **are** distributed for conference -- 41 of the 44 carry a
 DISTRIBUTED entry -- and a motion for leave can be relisted for months (No. 158
-was distributed for six conferences). They are kept out of the conference
-reports for now because their motions are not in the petition grammar and a
-conference report is the product. Giving them a row treatment there is the
-obvious next step; see Follow-ons.
+was distributed for six conferences). Since 2026-10-02 the conference
+reports list them -- a reader found 22O164 (Iowa and Montana v. Arizona)
+missing from October 16 -- as an "Original" row marked "original action", with
+no forecast and no relist count (their motions are not in the petition grammar,
+and the cert model does not apply).
 
 ## The lifecycle, measured over the 44 dockets
 
