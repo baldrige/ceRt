@@ -26,7 +26,11 @@ ALIGN_VERSION = "a1"
 UA = "Mozilla/5.0 (ceRt SCOTUS research; +https://supremecourt.report)"
 WPS = 2.6          # words per second, only to extrapolate past the last anchor
 MIN_MATCH = 0.30   # below this share of transcript words matched, call it failed
-RETRY_BELOW = 0.60 # below this, transcribe again without the silence filter
+# Below this, transcribe again without the silence filter and keep the better.
+# In-person arguments match 88-94%; the remote ones of May 2020 and OT2020 came
+# in as low as 32% filtered (19-351: 26% filtered, 89% not), so 0.80 catches the
+# telephone audio and costs an in-person argument nothing.
+RETRY_BELOW = 0.80
 
 
 def mp3_url(dkt, nth=1):
@@ -86,8 +90,12 @@ def queue(site, max_n, shard=(0, 1), only=None):
         # other than the one this version would use (the original actions and
         # the reargument, re-queued when the MP3 naming was fixed), without
         # re-running every argument that aligned.
+        # And a weak alignment made before the unfiltered retry existed (no
+        # "vad" recorded): about 60 telephone arguments matched 32-80%.
         cs = [c for c in cs if c["align"].get("v") != ALIGN_VERSION
-              or (not c["align"].get("ok") and (c["align"].get("url") != c["url"] or not c["align"].get("alts")))]
+              or (not c["align"].get("ok") and (c["align"].get("url") != c["url"] or not c["align"].get("alts")))
+              or (c["align"].get("ok") and "vad" not in c["align"]
+                  and (c["align"].get("matched") or 0) < RETRY_BELOW)]
     now = argument_term()
     # Current and previous Terms first, then newest Term first; newest argument first.
     cs = sorted(cs, key=lambda c: (0 if c["term"] >= now - 1 else 1, -c["term"],
