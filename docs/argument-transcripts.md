@@ -37,10 +37,12 @@ Page details:
   winner), or awaiting decision; original actions are not plotted.
 - The lean, bench table and Term chart are in the HTML; only the transcript and
   player need script (`reader.js` fetches the JSON beside the page).
-- The audio is the Court's own MP3
-  (`supremecourt.gov/media/audio/mp3files/<docket>.mp3`), played in place. A
-  docket argued in two Terms has one MP3 URL, the later argument's, so the
-  earlier argument's page links out instead.
+- The audio is the Court's own MP3, played in place:
+  `supremecourt.gov/media/audio/mp3files/<docket>.mp3` for a docket's first
+  argument, `<docket>_2.mp3` for its second (24-109 is OT2024, 24-109_2 is
+  Louisiana v. Callais reargued in OT2025), and `<n>-Orig.mp3` for an original
+  action (141-Orig, not the API's 22O141). `argument_mp3()` in R and
+  `mp3_url()` in the aligner hold the same rule.
 - **Line times come from the recording** once `align-arguments.yml` has run on
   the argument (below); until then they are an even-rate estimate, marked "≈"
   and labelled as estimated. The estimate ran 15–28 s *ahead* of the audio in
@@ -74,8 +76,21 @@ Page details:
    argument is marked `ok: false` and not retried until `ALIGN_VERSION` is
    bumped.
 
-A docket argued in two Terms has one MP3 URL (the later argument's), so its
-earlier argument is never queued. A parser bump (`TX_PARSER_VERSION`) rewrites
+Two lessons from the first full pass (426 of 437 aligned, 2026-10-02):
+
+- **The MP3 name.** The first version used the bare docket number for every
+  argument, so the six original actions (files are `<n>-Orig.mp3`) matched 0%
+  and the Callais reargument was matched against the OT2024 recording (3%).
+  With the names above, both align at 91%.
+- **Telephone audio.** The four OT2020 failures (18-1259, 19-351, 19-422,
+  19-547, 22–27% matched) were the silence filter: it discarded much of the
+  remote-argument audio as non-speech — 19-351 kept 4,065 words of 14,082.
+  An argument under 60% matched is transcribed again without the filter and the
+  better result kept (19-351: 89%). `align.vad` records which.
+
+A failed argument is re-queued when the recording it was tried against
+(`align.url`) is not the one the current rules would use, so a naming fix
+retries the failures without re-running the aligned. A parser bump (`TX_PARSER_VERSION`) rewrites
 the JSON without times, and the next alignment run re-times it.
 - Case pages carry the link because `readers[[dkt]]` is in their render key, so
   a case page re-renders the run its argument page first appears.
