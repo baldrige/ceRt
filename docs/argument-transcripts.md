@@ -90,8 +90,11 @@ Two lessons from the first full pass (426 of 437 aligned, 2026-10-02):
 - **Telephone audio.** The four OT2020 failures (18-1259, 19-351, 19-422,
   19-547, 22–27% matched) were the silence filter: it discarded much of the
   remote-argument audio as non-speech — 19-351 kept 4,065 words of 14,082.
-  An argument under 60% matched is transcribed again without the filter and the
-  better result kept (19-351: 89%). `align.vad` records which.
+  An argument under 80% matched is transcribed again without the filter and the
+  better result kept (19-351: 89%). `align.vad` records which. The threshold was
+  60% at first, so about 60 telephone arguments (May 2020 and OT2020) aligned at
+  32-80% with the filter on and were never retried; they are re-queued (no
+  `align.vad`, under 80%), and 19-783 went from 32% to 91%.
 
 A failed argument is re-queued when the recording it was tried against
 (`align.url`) is not the one the current rules would use, so a naming fix
