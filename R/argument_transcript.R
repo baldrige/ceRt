@@ -47,13 +47,13 @@ tx_header_side <- function(h) {
   h <- toupper(str_squish(h %||% ""))
   sup <- str_match(h, "(?:SUPPORTING|IN SUPPORT OF)\\s+(?:THE\\s+)?([A-Z]+)")[, 2]
   if (!is.na(sup)) {
-    if (str_detect(sup, "^(PETITIONER|APPELLANT|PLAINTIFF|REVERSAL|VACATUR|MOVANT)")) return("pet")
+    if (str_detect(sup, "^(PETITIONER|APPELLANT|APPLICANT|PLAINTIFF|REVERSAL|VACATUR|MOVANT)")) return("pet")
     if (str_detect(sup, "^(RESPONDENT|APPELLEE|DEFENDANT|AFFIRMANCE|JUDGMENT)")) return("resp")
     return(NA_character_)
   }
   # First role named wins: in a consolidated argument the lead docket comes
   # first ("ON BEHALF OF THE PETITIONERS IN 20-1199 AND THE RESPONDENTS IN 21-707").
-  p <- str_locate(h, "PETITIONER|APPELLANT|PLAINTIFF|MOVANT")[1, 1]
+  p <- str_locate(h, "PETITIONER|APPELLANT|APPLICANT|PLAINTIFF|MOVANT")[1, 1]
   r <- str_locate(h, "RESPONDENT|APPELLEE|DEFENDANT")[1, 1]
   if (is.na(p) && is.na(r)) return(NA_character_)
   if (is.na(r) || (!is.na(p) && p < r)) "pet" else "resp"

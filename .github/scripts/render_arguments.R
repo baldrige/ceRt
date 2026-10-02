@@ -134,6 +134,7 @@ cat("Watch list for the daily:", nrow(watch), "docket(s)",
 source("R/argument_transcript.R")
 source("R/argument_lean.R")
 source("R/justices.R")         # decision_votes(), term_court() for the Justices' votes
+source("R/argument_sides.R")     # which side each advocate argued for, when unnamed
 source("R/argument_reader.R")
 rd <- tryCatch({
   update_transcripts(site_dir, 2017:argument_term(Sys.Date()),

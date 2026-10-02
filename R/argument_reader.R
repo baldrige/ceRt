@@ -45,6 +45,9 @@ argument_mp3 <- function(dkt, nth = 1L) {
 `%|na|%` <- function(a, b) if (is.null(a) || is.na(a)) b else a
 .rd_esc <- function(x) htmlEscape(x %||% "")
 .rd_side_word <- function(s) ifelse(is.na(s), "neither side", ifelse(s == "pet", "the petitioners", "the respondents"))
+# "for neither side" is an amicus's; a party whose side could not be placed
+# (R/argument_sides.R) is named without one.
+.rd_side_phrase <- function(s, amicus) ifelse(is.na(s) & !amicus, "", paste0(" for ", .rd_side_word(s)))
 
 READER_CSS <- fill_palette("
   .wrap.rd{max-width:54rem}
@@ -135,8 +138,8 @@ READER_CSS <- fill_palette("
 
 .rd_lean_html <- function(a, base) {
   if (is.na(a$p)) return(paste0(
-    "<p class='note'>The transcript could not be divided between the two sides — a consolidated ",
-    "argument in which both parties are styled petitioners, or a header the parser could not read — ",
+    "<p class='note'>The transcript could not be divided between the two sides — an advocate whose ",
+    "side neither the transcript nor the case captions settle, or a header the parser could not read — ",
     "so there is no lean for this argument.</p>"))
   s <- a$sides
   tot <- s$w_pet + s$w_resp; sp <- 100 * s$w_pet / tot
@@ -282,8 +285,8 @@ render_argument_reader <- function(site_dir, a, pts, model) {
   title <- paste0(a$short, " — Oral argument, ", when)
   segs <- a$tx$segments
   adv <- segs[!segs$rebuttal, , drop = FALSE]
-  meta <- paste0("<div class='meta'>", paste(sprintf("<span><b>%s</b> for %s%s</span>", .rd_esc(adv$advocate),
-                 .rd_side_word(adv$side), ifelse(adv$amicus, " (amicus)", "")), collapse = ""), "</div>")
+  meta <- paste0("<div class='meta'>", paste(sprintf("<span><b>%s</b>%s%s</span>", .rd_esc(adv$advocate),
+                 .rd_side_phrase(adv$side, adv$amicus), ifelse(adv$amicus, " (amicus)", "")), collapse = ""), "</div>")
   has_audio <- isTRUE(a$audio)
   # Aligned by align-arguments.yml (each turn carries its start time); the page
   # script reads the same flag from the JSON, so this only sets the first paint.
@@ -337,7 +340,8 @@ render_argument_reader <- function(site_dir, a, pts, model) {
 #' Every reader page the transcript index supports. `cases` is the combined
 #' docket table (captions and judgments); lineups come from the Justices
 #' section's cache. Returns one row per argument: dkt, term, href, p, pw.
-render_argument_readers <- function(site_dir, cases, model = load_argument_lean(), fetch_max = 0L) {
+render_argument_readers <- function(site_dir, cases, model = load_argument_lean(), fetch_max = 0L,
+                                    sides_fetch_max = 60L) {
   idx <- read_transcript_index(site_dir)
   if (!length(idx) || is.null(model)) { message("render_argument_readers(): nothing to render"); return(invisible(tibble())) }
   writeLines(READER_JS, file.path(site_dir, "arguments", "reader.js"), useBytes = TRUE)
@@ -368,6 +372,43 @@ render_argument_readers <- function(site_dir, cases, model = load_argument_lean(
     if (!is.na(j)) { idx[[k]]$judgment <- j; idx[[k]]$judgment_v <- JUDGMENT_RULES; dirty <- TRUE }
     else if (!is.null(e$judgment)) { idx[[k]]$judgment <- NULL; idx[[k]]$judgment_v <- NULL; dirty <- TRUE }
   }
+  # Which side each advocate argued for, where a header names no role --
+  # "ON BEHALF OF THE FEDERAL PARTIES" (R/argument_sides.R). Resolved once from
+  # the Court's party records, cached in the index under SIDES_RULES, and written
+  # back into the transcript JSON when it changes anything, so the page's
+  # segment labels ("for the petitioners") agree with the lean. An argument whose
+  # sides cannot all be placed gets no lean.
+  n_sides <- 0L; n_changed <- 0L
+  for (k in keys) {
+    e <- idx[[k]]
+    if (identical(e$sides_v, SIDES_RULES)) next
+    jp <- file.path(site_dir, "arguments", paste0(k, ".json"))
+    raw <- tryCatch(jsonlite::fromJSON(jp, simplifyVector = FALSE), error = function(err) NULL)
+    if (is.null(raw) || !length(raw$segments)) next
+    sg <- tibble(header = map_chr(raw$segments, ~ .x$header %||% ""),
+                 advocate = map_chr(raw$segments, ~ .x$advocate %||% ""),
+                 rebuttal = map_lgl(raw$segments, ~ isTRUE(.x$rebuttal)),
+                 amicus = map_lgl(raw$segments, ~ isTRUE(.x$amicus)))
+    explicit <- vapply(sg$header, tx_header_side, "")
+    recs <- list()
+    if (any(is.na(explicit) & !sg$amicus)) {
+      if (n_sides >= sides_fetch_max) next
+      recs <- fetch_party_records(e$dkt); n_sides <- n_sides + 1L
+      if (is.null(recs)) next
+    }
+    new <- resolve_argument_sides(sg, recs)
+    old <- map_chr(raw$segments, ~ { s <- .x$side; if (is.null(s) || is.na(s)) NA_character_ else s })
+    if (!identical(unname(old), unname(as.vector(new)))) {
+      for (s in seq_along(raw$segments)) raw$segments[[s]]$side <- if (is.na(new[s])) NA else new[s]
+      jsonlite::write_json(raw, jp, auto_unbox = TRUE, na = "null", digits = NA, null = "null")
+      n_changed <- n_changed + 1L
+    }
+    idx[[k]]$sides_v <- SIDES_RULES; idx[[k]]$sides_complete <- isTRUE(attr(new, "complete"))
+    dirty <- TRUE
+  }
+  if (n_changed) message("render_argument_readers(): sides corrected in ", n_changed, " transcript(s) (",
+                         n_sides, " resolved from party records)")
+
   if (dirty) jsonlite::write_json(idx[order(names(idx))], file.path(site_dir, "arguments", TX_INDEX), auto_unbox = TRUE)
   if (fetched) message("render_argument_readers(): ", fetched, " judgment(s) fetched by name")
 
@@ -382,7 +423,8 @@ render_argument_readers <- function(site_dir, cases, model = load_argument_lean(
     # decree -- no petitioner and respondent to score the lean against, so it is
     # neither "awaiting decision" nor a point on the Term chart.
     disp <- if (grepl("^\\d{2}O\\d+$", e$dkt)) "orig" else argument_disposition(jd)
-    sides <- argument_sides(p)
+    # No lean where the advocates' sides could not all be placed.
+    sides <- if (isFALSE(e$sides_complete)) NULL else argument_sides(p)
     jl <- justice_leans(model, p, sides)
     votes <- NULL
     lk <- alias[intersect(unlist(e$dkts), names(alias))]
@@ -438,7 +480,7 @@ READER_JS <- r"---(// arguments/reader.js -- written by R/argument_reader.R. The
     return t.sp.replace(/^GENERAL /, 'General ').replace(/^(MR|MS|MRS|MISS)\. /, function (m, a) { return a.charAt(0) + a.slice(1).toLowerCase() + '. '; })
       .replace(/([A-Z])([A-Z'-]+)$/, function (m, a, b) { return a + b.toLowerCase(); });
   }
-  function side(s) { return s === 'pet' ? "<span class='pet'>for the petitioners</span>" : s === 'resp' ? "<span class='resp'>for the respondents</span>" : '<span>for neither side</span>'; }
+  function side(s, amicus) { return s === 'pet' ? "<span class='pet'>for the petitioners</span>" : s === 'resp' ? "<span class='resp'>for the respondents</span>" : amicus ? '<span>for neither side</span>' : ''; }
   var aligned = false;
   function setTimes() {
     if (aligned) return;
@@ -460,7 +502,7 @@ READER_JS <- r"---(// arguments/reader.js -- written by R/argument_reader.R. The
     turns.forEach(function (t, i) {
       if (t.s !== last) {
         last = t.s; var s = segs[t.s];
-        html += s ? "<div class='seg'><b>" + (s.rebuttal ? 'Rebuttal' : 'Argument') + ' · ' + esc(s.advocate) + '</b>' + side(s.side) + '</div>'
+        html += s ? "<div class='seg'><b>" + (s.rebuttal ? 'Rebuttal' : 'Argument') + ' · ' + esc(s.advocate) + '</b>' + side(s.side, s.amicus) + '</div>'
                   : "<div class='seg'><b>Opening</b></div>";
       }
       html += "<div class='turn" + (t.r === 'j' ? ' j' : '') + "' data-i='" + i + "' data-sp='" + esc(t.sp) + "'><div class='who'>" + esc(who(t)) +
