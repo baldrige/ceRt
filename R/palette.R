@@ -227,7 +227,7 @@ GRANT_NA     <- pal("panel")
 
 # Docket-type chips. A nominal scale: three kinds of filing, no order.
 TYPE_CHIPS <- c("Paid" = "#e8e8e1", "IFP" = "#f2e8dd", "Application" = "#e2e5ea",
-                "Motion" = "#ebe4ec")
+                "Motion" = "#ebe4ec", "Original" = "#e6ece4")
 
 # Argument Navigator status fills. Nominal again -- a case's position in the
 # argument lifecycle, not a quantity -- but ORDERED in the legend, so keep the

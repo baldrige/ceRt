@@ -80,11 +80,15 @@ case_conference_dates <- function(events) {
 conference_distributions <- function(cases) {
   stopifnot("events" %in% names(cases))
   cases |>
-    # Original actions (22O###) are distributed for conference too -- 41 of the
-    # 44 carry a DISTRIBUTED entry -- but their motions for leave are not in the
-    # petition grammar, and a conference report is the product. Kept out until
-    # they have their own row treatment; see docs/original-jurisdiction.md.
-    filter(!str_detect(dkt, "O\\d+$")) |>
+    # Original actions (22O###) are distributed for conference too -- a motion
+    # for leave to file a bill of complaint, exceptions to a Special Master's
+    # report. They were kept out of this frame entirely, which left them off the
+    # conference pages (22O164, Iowa and Montana v. Arizona, distributed for
+    # October 16, 2026). They are in it now, typed "orig" by derive_case_type();
+    # every petition-side consumer of this frame filters on the petition types
+    # (the forecasts, the relist tracker, the forecast log), and the conference
+    # page gives them a row of their own with no forecast. See
+    # docs/original-jurisdiction.md.
     mutate(
       .cid = row_number(),
       conf_date = map(events, case_conference_dates)
@@ -201,8 +205,10 @@ conference_dash <- function(dist, conf_date,
   # reached). They stay as rows, marked, with no forecast and no relist
   # count -- both describe the petition, which is no longer what is before the
   # Court.
+  # Not for an original action: the petition grammar's "disposition" of one is
+  # some earlier order on its docket, not a decided case being reheard.
   d$rehearing <- if ("outcome_date" %in% names(d))
-    !is.na(d$outcome_date) & d$conf_date > d$outcome_date else rep(FALSE, nrow(d))
+    !is.na(d$outcome_date) & d$conf_date > d$outcome_date & !d$type %in% "orig" else rep(FALSE, nrow(d))
   if (nrow(d) == 0) return(invisible(NULL))
 
   # Numeric grant / GVR-risk forecasts, scored as of this conference with the
@@ -316,8 +322,8 @@ conference_dash <- function(dist, conf_date,
   # One editorial row per distributed case. Relists = prior distributions.
   qp_get <- function(dk) if (is.null(qp_map)) NA_character_ else unname(qp_map[dk])
   tbl <- tibble(
-    Type = factor(d$type, levels = c("paid", "ifp", "app", "motion"),
-                  labels = c("Paid", "IFP", "Application", "Motion")),
+    Type = factor(d$type, levels = c("paid", "ifp", "app", "motion", "orig"),
+                  labels = c("Paid", "IFP", "Application", "Motion", "Original")),
     # The docket number now sits under the caption instead of holding a column
     # of its own. It stays searchable -- the search box matches rendered cell
     # text -- and the case page it links to is the same one the caption links to.
@@ -329,12 +335,13 @@ conference_dash <- function(dist, conf_date,
       strip_caption_roles(d$caption),
       d$dkt,
       ifelse(d$rehearing, " &middot; rehearing",
-             ifelse(d$type %in% "motion", " &middot; motion for leave", ""))),
+             ifelse(d$type %in% "motion", " &middot; motion for leave",
+             ifelse(d$type %in% "orig", " &middot; original action", "")))),
     # The subject area (R/subject_area.R): plain text, so the column's filter box
     # matches it. NA -- no QP, an unreadable one, or a pick under the display
     # threshold -- is an em dash, and the column is dropped when every row is.
     Subject = if (length(subject_map)) unname(subject_map[d$dkt]) else rep(NA_character_, nrow(d)),
-    Relists = ifelse(d$rehearing | d$type %in% "motion", NA_integer_, d$distribution_no - 1L),
+    Relists = ifelse(d$rehearing | d$type %in% c("motion", "orig"), NA_integer_, d$distribution_no - 1L),
     # The NUMBER, not the rendered cell. reactable sorts on the underlying data
     # value, so a column whose data is markup sorts as text ("4%" after "12%")
     # -- which is why this used to carry a separate .fc_sort key and why the dek
@@ -459,9 +466,10 @@ conference_dash <- function(dist, conf_date,
     "likeliest grants. Both columns sort by value.",
     # The count matches the Court's own list, so say what is in it that is not
     # a live petition.
-    { n_rh <- sum(d$rehearing); n_mo <- sum(d$type %in% "motion")
+    { n_rh <- sum(d$rehearing); n_mo <- sum(d$type %in% "motion"); n_or <- sum(d$type %in% "orig")
       parts <- c(if (n_rh) paste0(n_rh, if (n_rh == 1) " request for rehearing" else " requests for rehearing"),
-                 if (n_mo) paste0(n_mo, if (n_mo == 1) " motion for leave to file" else " motions for leave to file"))
+                 if (n_mo) paste0(n_mo, if (n_mo == 1) " motion for leave to file" else " motions for leave to file"),
+                 if (n_or) paste0(n_or, if (n_or == 1) " original action" else " original actions"))
       if (length(parts)) paste0(" Includes ", paste(parts, collapse = " and "),
                                 ", which carry no forecast.") else "" })
 
