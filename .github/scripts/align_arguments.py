@@ -64,8 +64,9 @@ def candidates(site):
         out.append({"path": p, "dkt": d.get("dkt"), "term": int(d.get("term") or 0),
                     "posted": d.get("posted") or "", "align": d.get("align") or {}})
     # Which argument of its docket each transcript is (first, second...), for
-    # the MP3 name. The transcripts on file run from OT2017; a docket first
-    # argued before that would be numbered one too low, which nothing on file is.
+    # the MP3 name. Counted from the transcripts on file, which start in OT2017,
+    # so a case first argued earlier (or whose first argument the feeds miss) is
+    # numbered one too low; main() then tries the docket's other recordings.
     by_dkt = {}
     for c in out:
         by_dkt.setdefault(c["dkt"], []).append(c["term"])
@@ -86,7 +87,7 @@ def queue(site, max_n, shard=(0, 1), only=None):
         # the reargument, re-queued when the MP3 naming was fixed), without
         # re-running every argument that aligned.
         cs = [c for c in cs if c["align"].get("v") != ALIGN_VERSION
-              or (not c["align"].get("ok") and c["align"].get("url") != c["url"])]
+              or (not c["align"].get("ok") and (c["align"].get("url") != c["url"] or not c["align"].get("alts")))]
     now = argument_term()
     # Current and previous Terms first, then newest Term first; newest argument first.
     cs = sorted(cs, key=lambda c: (0 if c["term"] >= now - 1 else 1, -c["term"],
@@ -241,31 +242,64 @@ def main():
         key = f"{c['term']}/{c['dkt']}"
         mp3 = os.path.join(tmp, c["dkt"] + ".mp3")
         t0 = time.time()
+        if os.path.exists(mp3):
+            os.remove(mp3)
         d = json.load(open(c["path"], encoding="utf-8"))
         vad = True
+        used = c["url"]
+
+        def run(vad_filter):
+            segs, info = model.transcribe(mp3, word_timestamps=True, vad_filter=vad_filter, language="en",
+                                          beam_size=1, condition_on_previous_text=False)
+            asr = [(w.word, w.start) for s in segs for w in (s.words or [])]
+            return align_turns(d["turns"], asr) + (info.duration,)
+
+        def attempt(url):
+            download(url, mp3)
+            try:
+                st, sh, du = run(True)
+                v = True
+                # The silence filter discards much of the OT2020 telephone audio
+                # as non-speech: 19-351 kept 4,065 words of 14,082 and matched
+                # 26%; without it, 89%. Retry the weak ones unfiltered.
+                if sh < RETRY_BELOW:
+                    s2, sh2, du2 = run(False)
+                    if sh2 > sh:
+                        st, sh, du, v = s2, sh2, du2, False
+                return st, sh, du, v
+            finally:
+                if os.path.exists(mp3):
+                    os.remove(mp3)
+
+        starts, share, dur = None, 0.0, None
         try:
-            download(c["url"], mp3)
-            def run(vad_filter):
-                segs, info = model.transcribe(mp3, word_timestamps=True, vad_filter=vad_filter, language="en",
-                                              beam_size=1, condition_on_previous_text=False)
-                asr = [(w.word, w.start) for s in segs for w in (s.words or [])]
-                return align_turns(d["turns"], asr) + (info.duration,)
-            starts, share, dur = run(True)
-            # The silence filter discards much of the OT2020 telephone audio as
-            # non-speech: 19-351 kept 4,065 words of 14,082 and matched 26%;
-            # without it, 89%. Retry the weak ones unfiltered and keep the better.
-            if share < RETRY_BELOW:
-                s2, sh2, dur2 = run(False)
-                if sh2 > share:
-                    starts, share, dur, vad = s2, sh2, dur2, False
+            starts, share, dur, vad = attempt(c["url"])
         except Exception as e:
-            starts, share, dur = None, 0.0, None
-            print(f"  {key}: failed: {e}", flush=True)
-        finally:
-            if os.path.exists(mp3):
-                os.remove(mp3)
+            print(f"  {key}: {c['url'].rsplit('/', 1)[1]}: {e}", flush=True)
+        # Still no match: the docket's other recordings. Counting arguments from
+        # the transcripts on file numbers a reargued case from OT2017, so one first
+        # argued in OT2016 (15-1204, 15-1498), or whose first argument the feed
+        # lists under the other Term (17-647), was matched against the wrong
+        # recording. Its own is "_2" in the Court's current naming, or -- for
+        # reargued cases of OT2017-OT2018 -- "rearg" ("15-1498rearg.mp3", as the
+        # Court's own audio index links it). Try the others and keep the best.
+        tried_alts = False
         if starts is None or share < MIN_MATCH:
-            d["align"] = {"v": ALIGN_VERSION, "ok": False, "matched": round(share, 3), "url": c["url"]}
+            tried_alts = True
+            for alt in [mp3_url(c["dkt"], n) for n in (1, 2, 3)] + [mp3_url(c["dkt"]).replace(".mp3", "rearg.mp3")]:
+                if alt == c["url"]:
+                    continue
+                try:
+                    st, sh, du, v = attempt(alt)
+                except Exception:
+                    continue          # no such recording
+                if sh > share:
+                    starts, share, dur, vad, used = st, sh, du, v, alt
+                if share >= RETRY_BELOW:
+                    break
+        if starts is None or share < MIN_MATCH:
+            d["align"] = {"v": ALIGN_VERSION, "ok": False, "matched": round(share, 3), "url": c["url"],
+                          "alts": tried_alts}
             for t in d["turns"]:
                 t.pop("t", None)
             print(f"  {key}: not aligned (matched {share:.0%})", flush=True)
@@ -273,7 +307,7 @@ def main():
             for t, s in zip(d["turns"], starts):
                 t["t"] = s
             d["align"] = {"v": ALIGN_VERSION, "ok": True, "model": a.model, "matched": round(share, 3),
-                          "duration": round(dur or 0, 1), "url": c["url"], "vad": vad}
+                          "duration": round(dur or 0, 1), "url": used, "vad": vad}
             print(f"  {key}: aligned, {share:.0%} of words matched, {dur/60:.0f} min of audio in "
                   f"{(time.time() - t0)/60:.1f} min", flush=True)
         dest = c["path"]

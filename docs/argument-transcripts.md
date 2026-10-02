@@ -42,7 +42,12 @@ Page details:
   argument, `<docket>_2.mp3` for its second (24-109 is OT2024, 24-109_2 is
   Louisiana v. Callais reargued in OT2025), and `<n>-Orig.mp3` for an original
   action (141-Orig, not the API's 22O141). `argument_mp3()` in R and
-  `mp3_url()` in the aligner hold the same rule.
+  `mp3_url()` in the aligner hold the same rule. Two exceptions the rule cannot
+  see: a case first argued before OT2017 (the count starts there), and the
+  Court's older naming for OT2017–OT2018 reargued cases, `<docket>rearg.mp3`
+  (15-1204, 15-1498, 17-647). When an argument fails to match, the aligner tries
+  the docket's other recordings (`_2`, `_3`, `rearg`) and records the one that
+  matched in `align.url`; the page plays that one.
 - **Line times come from the recording** once `align-arguments.yml` has run on
   the argument (below); until then they are an even-rate estimate, marked "≈"
   and labelled as estimated. The estimate ran 15–28 s *ahead* of the audio in

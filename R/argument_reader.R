@@ -26,7 +26,8 @@ READERS_FILE <- "readers.json"
 # r2: each argument plays its own recording (a reargument's "_2" MP3, an
 #     original action's "-Orig" file), and the earlier argument of a reargued
 #     docket plays rather than linking out.
-READER_TEMPLATE_VERSION <- "r2"
+# r3: the player uses the recording the alignment matched ("rearg" files).
+READER_TEMPLATE_VERSION <- "r3"
 READER_ORDER <- c("Roberts", "Kennedy", "Thomas", "Ginsburg", "Breyer", "Alito", "Sotomayor",
                   "Kagan", "Gorsuch", "Kavanaugh", "Barrett", "Jackson")
 
@@ -437,7 +438,12 @@ render_argument_readers <- function(site_dir, cases, model = load_argument_lean(
     list(key = k, dkt = e$dkt, term = as.integer(e$term), posted = posted_of(e), url = e$url, tx = p,
          caption = cap, short = strip_caption_roles(cap), judgment = jd, pw = pw, disp = disp, sides = sides,
          p = case_lean(model, sides), jl = jl, votes = votes,
-         audio = TRUE, mp3 = argument_mp3(e$dkt, nth_of(e$dkt, as.integer(e$term))))
+         audio = TRUE,
+         # The recording the alignment matched, where it found one: the naming
+         # rule cannot see a first argument from before OT2017, and the Court
+         # filed OT2017-OT2018 reargued cases as "15-1498rearg.mp3".
+         mp3 = if (isTRUE(p$meta$align$ok) && length(p$meta$align$url)) p$meta$align$url
+               else argument_mp3(e$dkt, nth_of(e$dkt, as.integer(e$term))))
   }) |> compact()
 
   pts_all <- tibble(dkt = map_chr(args, "dkt"), term = map_int(args, "term"),
