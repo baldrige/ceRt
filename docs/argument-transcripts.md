@@ -8,8 +8,20 @@ from the case page's "Argued" line.
 
 ## How it is published
 
-The weekly `conferences.yml` run, in `render_arguments.R`, before the Navigator
-and the docket pages (both link the result):
+**The day of the argument** (`daily.yml`, `build_dashboards.R`): the daily reads
+the current Term's transcript feed, parses any transcript the site lacks,
+fetches its docket by name, writes just those argument pages
+(`render_argument_readers(only_keys = ...)`) and `arguments/recent.json`, and
+dispatches `align-arguments.yml` so the line times follow within the hour. The
+homepage's **Recent arguments** panel (`arguments_panel()`, `R/page_style.R`)
+reads `recent.json`: arguments of the last three weeks, with advocates, the
+lean and a "Listen and read" link. The Court posts a transcript the afternoon of
+the argument, so the 20:33 UTC daily (or a Hermes-triggered one) carries it.
+What waits for the weekly run: the Term chart on the Term's *other* argument
+pages, and the Navigator's link.
+
+**Every week**, the full build — `conferences.yml`, in `render_arguments.R`,
+before the Navigator and the docket pages (both link the result):
 
 1. **`update_transcripts()`** (`R/argument_transcript.R`) reads the Court's
    transcript feeds for OT2017 on, downloads each transcript the site lacks —
@@ -35,6 +47,8 @@ Page details:
 - The Term chart sorts each argument by its disposition (`argument_disposition()`):
   petitioner won, respondent won, **dismissed** (a DIG — disposed of, no
   winner), or awaiting decision; original actions are not plotted.
+- A playback-speed control (1×–2×) sets the audio's own `playbackRate`, so the
+  follow-along keeps step at any speed; the choice is remembered in the browser.
 - The lean, bench table and Term chart are in the HTML; only the transcript and
   player need script (`reader.js` fetches the JSON beside the page).
 - The audio is the Court's own MP3, played in place:

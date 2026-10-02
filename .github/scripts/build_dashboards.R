@@ -432,6 +432,43 @@ calendar <- calendar_panel(
   upcoming,
   note = "The next conferences, order lists and argument days on the Court's calendar.")
 
+# New oral arguments, the day they are heard. The Court posts each transcript
+# that afternoon; the weekly conferences run builds the argument pages, so an
+# argument used to wait up to a week. Here the daily reads the current Term's
+# transcript feed (two requests), parses any new transcript, fetches its docket
+# by name, writes just those argument pages and arguments/recent.json (the
+# homepage panel below), and asks align-arguments.yml to time the lines now
+# rather than at its next six-hourly slot. Never fatal: a failure here costs the
+# panel a run, not the dashboards. See docs/argument-transcripts.md.
+source("R/argument_transcript.R")
+source("R/argument_lean.R")
+source("R/argument_sides.R")
+source("R/argument_reader.R")
+new_args <- tryCatch({
+  before <- names(read_transcript_index(site_dir))
+  update_transcripts(site_dir, argument_term(Sys.Date()),
+                     max_new = as.integer(Sys.getenv("TRANSCRIPTS_MAX_NEW", unset = "12")))
+  idx_now <- read_transcript_index(site_dir)
+  nk <- setdiff(names(idx_now), before)
+  if (length(nk)) {
+    need <- setdiff(unique(unlist(lapply(idx_now[nk], function(e) c(e$dkt, unlist(e$dkts))))), ot$dkt)
+    got <- if (length(need)) tryCatch(fetch_cases(need), error = function(e) NULL) else NULL
+    render_argument_readers(site_dir, bind_rows(ot, got), only_keys = nk, fetch_max = 0L)
+    # Line times: start the aligner now. The workflow token may dispatch a
+    # workflow (daily.yml grants actions: write); never fatal if it cannot.
+    if (nzchar(Sys.getenv("GH_TOKEN"))) {
+      rc <- suppressWarnings(system2("gh", c("workflow", "run", "align-arguments.yml", "--ref", "main"),
+                                     stdout = TRUE, stderr = TRUE))
+      cat("Alignment dispatched for the new argument(s):", paste(rc, collapse = " "), "\n")
+    }
+  }
+  nk
+}, error = function(e) { cat("New arguments skipped:", conditionMessage(e), "\n"); character() })
+cat("New oral arguments this run:", if (length(new_args)) paste(new_args, collapse = ", ") else "none", "\n")
+recent_args <- tryCatch(arguments_panel(site_dir), error = function(e) {
+  cat("Recent arguments panel failed:", conditionMessage(e), "\n"); NULL })
+cat("Recent arguments on the landing page:", if (is.null(recent_args)) "none in window" else "yes", "\n")
+
 # "Recent decisions". The daily's manifest first, so a decision it fetched today
 # outranks the weekly run's copy of the same docket; the window and the row cap
 # are applied here, on every build.
@@ -518,7 +555,7 @@ styled_index_page(
   # simply closes up rather than showing an empty heading.
   # Orders sit between decisions and the calendar: what the Court decided, what
   # it ordered, when it next sits. Same NULL-collapses rule as the others.
-  panel_top = tagList(sharpest_panel, decisions, orders, calendar),
+  panel_top = tagList(sharpest_panel, decisions, recent_args, orders, calendar),
   # Most-read stays below the section list. It is a footnote to the forecast, not
   # a peer of it -- what readers clicked is downstream of what the Court did.
   #

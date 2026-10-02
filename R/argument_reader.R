@@ -27,7 +27,8 @@ READERS_FILE <- "readers.json"
 #     original action's "-Orig" file), and the earlier argument of a reargued
 #     docket plays rather than linking out.
 # r3: the player uses the recording the alignment matched ("rearg" files).
-READER_TEMPLATE_VERSION <- "r3"
+# r4: a playback-speed control (1x-2x).
+READER_TEMPLATE_VERSION <- "r4"
 READER_ORDER <- c("Roberts", "Kennedy", "Thomas", "Ginsburg", "Breyer", "Alito", "Sotomayor",
                   "Kagan", "Gorsuch", "Kavanaugh", "Barrett", "Jackson")
 
@@ -107,6 +108,9 @@ READER_CSS <- fill_palette("
   .rd .prog{height:4px;background:var(--rule);border-radius:2px;margin-top:.35rem;overflow:hidden;cursor:pointer}
   .rd .prog div{height:100%;width:0;background:var(--accent)}
   .rd .clock{font-size:.85rem;color:var(--ink-soft);font-variant-numeric:tabular-nums lining-nums}
+  .rd .spd select{font:inherit;font-size:.82rem;color:var(--ink);background:var(--panel);border:1px solid var(--rule);
+    border-radius:3px;padding:.15rem .3rem;cursor:pointer;font-variant-numeric:tabular-nums lining-nums}
+  .rd .vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
   .rd .flt{display:flex;gap:.35rem;flex-wrap:wrap;align-items:center;margin:.9rem 0 .3rem}
   .rd .flt button{font:inherit;font-size:.8rem;background:none;border:1px solid var(--rule);border-radius:999px;padding:.15rem .6rem;cursor:pointer;color:var(--ink-soft)}
   .rd .flt button[aria-pressed=true]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
@@ -300,6 +304,12 @@ render_argument_reader <- function(site_dir, a, pts, model) {
       else if (has_audio) "The Court’s recording · line times estimated" else
       sprintf("<a href='https://www.supremecourt.gov/oral_arguments/audio/%d/%s' rel='noopener'>Listen on supremecourt.gov</a>", term, dkt), "</div>",
     "<div class='prog' id='rd-prog'><div></div></div></div><span class='clock' id='rd-clock'>0:00</span>",
+    # Playback speed: the audio element's own playbackRate, so the follow-along
+    # (which reads the recording's clock) stays in step at any speed.
+    if (has_audio) paste0("<label class='spd'><span class='vh'>Playback speed</span><select id='rd-speed'>",
+                          paste(sprintf("<option value='%s'%s>%s×</option>", c("1", "1.25", "1.5", "1.75", "2"),
+                                        c(" selected", "", "", "", ""), c("1", "1.25", "1.5", "1.75", "2")), collapse = ""),
+                          "</select></label>") else "",
     if (has_audio) sprintf("<audio id='rd-audio' preload='metadata' src='%s'></audio>", a$mp3 %||% argument_mp3(dkt)) else "",
     "</div>")
   crumb <- list(href = "/arguments/", label = "Arguments")
@@ -341,8 +351,12 @@ render_argument_reader <- function(site_dir, a, pts, model) {
 #' Every reader page the transcript index supports. `cases` is the combined
 #' docket table (captions and judgments); lineups come from the Justices
 #' section's cache. Returns one row per argument: dkt, term, href, p, pw.
+#'
+#' `only_keys`: render just these arguments' pages ("2025/25-332"), as the daily
+#' does for a transcript posted that day. Their Terms are still read whole, for
+#' the Term chart; readers.json is merged rather than rewritten.
 render_argument_readers <- function(site_dir, cases, model = load_argument_lean(), fetch_max = 0L,
-                                    sides_fetch_max = 60L) {
+                                    sides_fetch_max = 60L, only_keys = NULL) {
   idx <- read_transcript_index(site_dir)
   if (!length(idx) || is.null(model)) { message("render_argument_readers(): nothing to render"); return(invisible(tibble())) }
   writeLines(READER_JS, file.path(site_dir, "arguments", "reader.js"), useBytes = TRUE)
@@ -413,11 +427,18 @@ render_argument_readers <- function(site_dir, cases, model = load_argument_lean(
   if (dirty) jsonlite::write_json(idx[order(names(idx))], file.path(site_dir, "arguments", TX_INDEX), auto_unbox = TRUE)
   if (fetched) message("render_argument_readers(): ", fetched, " judgment(s) fetched by name")
 
-  args <- map(keys, function(k) {
+  # Captions for dockets this run's case data lacks, from the site's own index.
+  sj <- file.path(site_dir, "cases", "search.json")
+  search_caps <- if (file.exists(sj)) tryCatch(jsonlite::fromJSON(sj, simplifyVector = FALSE), error = function(e) list()) else list()
+  read_keys <- if (is.null(only_keys)) keys else {
+    t_only <- unique(vapply(idx[intersect(only_keys, keys)], function(e) as.integer(e$term), 1L))
+    keys[vapply(idx[keys], function(e) as.integer(e$term) %in% t_only, logical(1))]
+  }
+  args <- map(read_keys, function(k) {
     e <- idx[[k]]
     p <- read_transcript(site_dir, k); if (is.null(p)) return(NULL)
     i <- by_dkt[[e$dkt]][1]
-    cap <- if (!is.na(i %||% NA)) cases$caption[i] else e$dkt
+    cap <- if (!is.na(i %||% NA)) cases$caption[i] else as.character(unlist(search_caps[[e$dkt]])[1] %||% e$dkt)
     jd <- if (identical(e$judgment_v, JUDGMENT_RULES)) e$judgment %||% NA_character_ else NA_character_
     pw <- petitioner_won(jd)
     # An original action (22O###) ends in exceptions sustained or overruled and a
@@ -451,14 +472,45 @@ render_argument_readers <- function(site_dir, cases, model = load_argument_lean(
                     disp = map_chr(args, ~ .x$disp %||% NA_character_),
                     label = map_chr(args, ~ paste0(.x$short, " (No. ", .x$dkt, ")")),
                     href = map2_chr(map_int(args, "term"), map_chr(args, "dkt"), reader_href))
-  for (a in args) tryCatch(render_argument_reader(site_dir, a, pts_all[pts_all$term == a$term, ], model),
-                           error = function(err) message("reader page ", a$key, " failed: ", conditionMessage(err)))
+  for (a in args) if (is.null(only_keys) || a$key %in% only_keys)
+    tryCatch(render_argument_reader(site_dir, a, pts_all[pts_all$term == a$term, ], model),
+             error = function(err) message("reader page ", a$key, " failed: ", conditionMessage(err)))
   # dkt -> its latest argument's page, for the Navigator and the case pages.
+  # Merged into the existing map when only some Terms were read.
   latest_href <- pts_all |> group_by(dkt) |> slice_max(term, n = 1, with_ties = FALSE) |> ungroup()
-  jsonlite::write_json(as.list(setNames(latest_href$href, latest_href$dkt)),
-                       file.path(site_dir, "arguments", READERS_FILE), auto_unbox = TRUE)
+  rmap <- if (is.null(only_keys)) list() else read_readers(site_dir)
+  rmap[latest_href$dkt] <- as.list(latest_href$href)
+  jsonlite::write_json(rmap[order(names(rmap))], file.path(site_dir, "arguments", READERS_FILE), auto_unbox = TRUE)
+  write_recent_arguments(site_dir, args)
   message(sprintf("render_argument_readers(): %d page(s), %d with a lean", length(args), sum(!is.na(pts_all$p))))
   invisible(pts_all)
+}
+
+# ---- the homepage's "Recent arguments" ---------------------------------------
+# arguments/recent.json: every argument whose transcript was posted in the last
+# RECENT_ARG_DAYS days, newest first -- caption, date, advocates and lean -- for
+# arguments_panel() (R/page_style.R). Written by every reader render, so the daily
+# puts an argument on the homepage the afternoon it is heard.
+RECENT_ARG_DAYS <- 21L
+RECENT_ARGS_FILE <- "recent.json"
+
+write_recent_arguments <- function(site_dir, args, as_of = Sys.Date()) {
+  rows <- lapply(args, function(a) {
+    d <- suppressWarnings(as.Date(if (nzchar(a$posted %||% "")) a$posted else NA_character_))
+    if (is.na(d) || d < as_of - RECENT_ARG_DAYS) return(NULL)
+    sg <- a$tx$segments; adv <- sg[!sg$rebuttal & !sg$amicus, , drop = FALSE]
+    list(key = a$key, dkt = a$dkt, term = a$term, date = format(d), caption = a$short,
+         href = reader_href(a$term, a$dkt), p = if (is.na(a$p)) NULL else round(a$p, 3),
+         disp = a$disp, advocates = as.list(adv$advocate))
+  })
+  rows <- Filter(Negate(is.null), rows)
+  # Keyed by argument ("2026/25-1234"), an object rather than a list, so that a
+  # daily and a weekly publish racing on it merge by union (publish_site.sh's
+  # DERIVED files); the panel applies the window and the order itself.
+  out <- setNames(rows, vapply(rows, function(r) r$key, ""))
+  jsonlite::write_json(if (length(out)) out else structure(list(), names = character()),
+                       file.path(site_dir, "arguments", RECENT_ARGS_FILE), auto_unbox = TRUE, null = "null")
+  invisible(length(out))
 }
 
 read_readers <- function(site_dir) {
@@ -537,6 +589,15 @@ READER_JS <- r"---(// arguments/reader.js -- written by R/argument_reader.R. The
   document.querySelectorAll('.bench tbody tr').forEach(function (tr) { tr.addEventListener('click', function () { setFilter(filterJ === tr.dataset.j ? null : tr.dataset.j); }); });
   if (!audio) return;
   play.addEventListener('click', function () { if (audio.paused) audio.play().catch(function () {}); else audio.pause(); });
+  // Playback speed, remembered across arguments (a convenience: storage may be refused).
+  var spd = document.getElementById('rd-speed');
+  if (spd) {
+    var setRate = function (v) { var r = parseFloat(v) || 1; audio.playbackRate = r; audio.defaultPlaybackRate = r; if ('preservesPitch' in audio) audio.preservesPitch = true; };
+    try { var saved = localStorage.getItem('rd-speed'); if (saved && spd.querySelector("option[value='" + saved + "']")) spd.value = saved; } catch (e) {}
+    setRate(spd.value);
+    spd.addEventListener('change', function () { setRate(spd.value); try { localStorage.setItem('rd-speed', spd.value); } catch (e) {} });
+    audio.addEventListener('loadedmetadata', function () { setRate(spd.value); });
+  }
   audio.addEventListener('play', function () { icon.setAttribute('d', 'M3 1.5h3.5v13H3zM9.5 1.5H13v13H9.5z'); play.setAttribute('aria-label', 'Pause'); });
   audio.addEventListener('pause', function () { icon.setAttribute('d', 'M3 1.5v13l11-6.5z'); play.setAttribute('aria-label', 'Play'); });
   audio.addEventListener('error', function () { now.innerHTML = "The recording did not load — <a href='https://www.supremecourt.gov/oral_arguments/audio/'>listen on the Court’s site</a>"; play.disabled = true; });
