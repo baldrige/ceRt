@@ -50,6 +50,31 @@ cat("Loading", length(files), "file(s):", paste(basename(files), collapse = ", "
 combined <- files |> map(readRDS) |> bind_rows() |> distinct(dkt, .keep_all = TRUE)
 cat("Combined cases:", nrow(combined), "\n")
 
+# Argued dockets the case data lacks. The archive starts with the 2017 docket
+# year, but OT2017's fall sittings were argued from 2016 dockets (and Jennings
+# and Dimaya from 2015): 46 of OT2017's 63 arguments were missing, so the
+# Navigator dropped the Term and their argument pages read "16-1011" for a
+# caption. The transcript index (R/argument_transcript.R) lists every argument
+# since OT2017, so what it names and `combined` lacks is fetched by name --
+# about fifty dockets, every run, through the paced fetcher in its own
+# environment (scotus_dash_new.R runs a dashboard build when sourced plainly).
+source("R/argument_transcript.R")
+tx_idx <- read_transcript_index(site_dir)
+argued_missing <- setdiff(unique(unlist(lapply(tx_idx, function(e) c(e$dkt, unlist(e$dkts))))), combined$dkt)
+if (length(argued_missing)) {
+  cap <- as.integer(Sys.getenv("ARGUED_FETCH_MAX", unset = "150"))
+  fx <- new.env()
+  src <- readLines("R/scotus_dash_new.R"); src <- src[-grep("^scotus_dash\\(", src)]
+  got <- tryCatch({
+    eval(parse(text = paste(src, collapse = "\n")), envir = fx)
+    fx$fetch_cases(head(argued_missing, cap))
+  }, error = function(e) { cat("Argued-docket fetch skipped:", conditionMessage(e), "\n"); NULL })
+  if (!is.null(got) && nrow(got)) {
+    combined <- bind_rows(combined, got) |> distinct(dkt, .keep_all = TRUE)
+    cat("Argued dockets fetched by name:", nrow(got), "of", length(argued_missing), "missing\n")
+  }
+}
+
 # Build the argument table once; attach QP from the Court's dedicated
 # Questions-Presented PDFs (clean text, present for granted cases across all
 # Terms). Cached in the argument section's own qp_cache.json. QP_MAX_NEW>0 fetches
@@ -147,7 +172,12 @@ if (!is.null(rd) && nrow(rd)) {
   cat("Argument pages:", nrow(rd), "|", sum(!is.na(tbl$reader_href)), "Navigator row(s) linked\n")
 }
 
-terms <- render_argument_nav(out_dir = arg_dir, tbl = tbl)
+# The Navigator starts with the first Term the transcripts cover (OT2017): the
+# Terms before it hold only cases reargued later (Jennings, Dimaya), never a
+# whole Term.
+tx_first <- suppressWarnings(min(vapply(tx_idx, function(e) as.integer(e$term), 1L)))
+terms <- render_argument_nav(out_dir = arg_dir, tbl = tbl,
+                             first_term = if (is.finite(tx_first)) tx_first else NULL)
 # Typographic (smart) quotes across the per-Term argument pages (the index is
 # already smartened by styled_index_page). smarten_html skips <style>/<script>/
 # tags, so the static gt tables' data and CSS are untouched but prose is fixed.
