@@ -1,7 +1,8 @@
 name: Patch leaf-page chrome
 
 # Bring already-published conference / dashboard / argument / relist LEAF pages'
-# chrome up to date without re-rendering them: feed autodiscovery, and the
+# chrome up to date without re-rendering them: missing values shown as an em
+# dash rather than "NA", feed autodiscovery, and the
 # shared widget libraries (each leaf used to inline ~575 KB of React/reactable;
 # this swaps a page onto the copies published once under /lib/, and only when
 # the bytes match exactly -- see .github/scripts/patch_leaf_chrome.R).
