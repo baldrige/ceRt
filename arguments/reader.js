@@ -15,7 +15,7 @@
     return t.sp.replace(/^GENERAL /, 'General ').replace(/^(MR|MS|MRS|MISS)\. /, function (m, a) { return a.charAt(0) + a.slice(1).toLowerCase() + '. '; })
       .replace(/([A-Z])([A-Z'-]+)$/, function (m, a, b) { return a + b.toLowerCase(); });
   }
-  function side(s) { return s === 'pet' ? "<span class='pet'>for the petitioners</span>" : s === 'resp' ? "<span class='resp'>for the respondents</span>" : '<span>for neither side</span>'; }
+  function side(s, amicus) { return s === 'pet' ? "<span class='pet'>for the petitioners</span>" : s === 'resp' ? "<span class='resp'>for the respondents</span>" : amicus ? '<span>for neither side</span>' : ''; }
   var aligned = false;
   function setTimes() {
     if (aligned) return;
@@ -37,7 +37,7 @@
     turns.forEach(function (t, i) {
       if (t.s !== last) {
         last = t.s; var s = segs[t.s];
-        html += s ? "<div class='seg'><b>" + (s.rebuttal ? 'Rebuttal' : 'Argument') + ' · ' + esc(s.advocate) + '</b>' + side(s.side) + '</div>'
+        html += s ? "<div class='seg'><b>" + (s.rebuttal ? 'Rebuttal' : 'Argument') + ' · ' + esc(s.advocate) + '</b>' + side(s.side, s.amicus) + '</div>'
                   : "<div class='seg'><b>Opening</b></div>";
       }
       html += "<div class='turn" + (t.r === 'j' ? ' j' : '') + "' data-i='" + i + "' data-sp='" + esc(t.sp) + "'><div class='who'>" + esc(who(t)) +
