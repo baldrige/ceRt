@@ -719,7 +719,7 @@ argument_index <- function(out_dir) {
 # Build the table (or use a prebuilt `tbl`), render a page per argued Term, and
 # (re)build the index. Passing `tbl` avoids re-running the classifier when the
 # caller has already built the table (e.g. to attach QP from a cache).
-render_argument_nav <- function(cases = NULL, out_dir, qp_map = NULL, tbl = NULL) {
+render_argument_nav <- function(cases = NULL, out_dir, qp_map = NULL, tbl = NULL, first_term = NULL) {
   dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
   if (is.null(tbl)) tbl <- build_argument_table(cases, qp_map = qp_map)
   if (nrow(tbl) == 0) { message("No argued/scheduled grants found."); return(invisible(NULL)) }
@@ -728,8 +728,17 @@ render_argument_nav <- function(cases = NULL, out_dir, qp_map = NULL, tbl = NULL
   # A Term's fall sitting is argued from the PRIOR docket term, so the earliest
   # Term in the archive is incomplete (we lack the term before it). Drop it so it
   # doesn't read as a data error; every later Term has both docket terms present.
-  min_dkt_year <- 2000L + suppressWarnings(min(as.integer(str_sub(tbl$dkt, 1, 2)), na.rm = TRUE))
-  if (length(terms) > 1) terms <- terms[terms > min_dkt_year]
+  #
+  # With `first_term` (the first Term the transcript index covers, from
+  # render_arguments.R), that Term is the floor instead: the run fetches every
+  # argued docket the index names, so from it on each Term is complete, and the
+  # docket-year rule would let a lone reargued case open a Term of its own.
+  if (!is.null(first_term)) {
+    terms <- terms[terms >= first_term]
+  } else {
+    min_dkt_year <- 2000L + suppressWarnings(min(as.integer(str_sub(tbl$dkt, 1, 2)), na.rm = TRUE))
+    if (length(terms) > 1) terms <- terms[terms > min_dkt_year]
+  }
   for (t in terms) argument_term_page(tbl, t, out_dir)
   argument_index(out_dir)
   invisible(terms)
