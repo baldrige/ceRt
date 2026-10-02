@@ -13,8 +13,10 @@
 # -- inject_masthead() and patch_prev_next() are both post-passes for exactly
 # this reason.
 #
-# Two passes, in order:
+# Three passes, in order:
 #
+#   0. Missing values: each interactive column's "na":"NA" becomes an em dash,
+#      as new renders write it (scr_write_page()).
 #   1. Feed autodiscovery (patch_feed_links, site_nav.R).
 #   2. Shared libraries (patch_shared_libs, leaf_assets.R). Every leaf used to
 #      carry ~575 KB of base64-inlined React/reactable; new renders link the
@@ -54,6 +56,26 @@ cat("Leaf pages found:", length(targets), "\n")
 if (!length(targets)) quit(status = 0)
 
 slurp <- function(p) paste(readLines(p, warn = FALSE, encoding = "UTF-8"), collapse = "\n")
+
+# ---- 0. missing values as an em dash -----------------------------------------
+# gt hands reactable every column with "na":"NA", so a missing cell read "NA"
+# (Subject, Relists ...). scr_write_page() has swapped it for an em dash since
+# 2026-10-02; this brings the pages written before that up to date. Bytes in,
+# bytes out: a fixed-token replacement that cannot touch anything else, and no
+# re-encoding of a 1 MB page.
+NA_TOKEN <- charToRaw('"na":"NA"')
+DASH_TOKEN <- c(charToRaw('"na":"'), as.raw(c(0xe2, 0x80, 0x94)), charToRaw('"'))
+na_hits <- 0L; na_pages <- 0L
+for (p in targets) {
+  b <- readBin(p, "raw", file.info(p)$size)
+  s <- rawToChar(b)
+  n <- lengths(regmatches(s, gregexpr('"na":"NA"', s, fixed = TRUE)))
+  if (!n) next
+  na_pages <- na_pages + 1L; na_hits <- na_hits + n
+  if (!dry) writeBin(charToRaw(gsub(rawToChar(NA_TOKEN), rawToChar(DASH_TOKEN), s, fixed = TRUE, useBytes = TRUE)), p)
+}
+cat(if (dry) "DRY RUN -- " else "", "Missing values: ", na_pages, " leaf page(s), ", na_hits,
+    " column(s) ", if (dry) "would show" else "now show", " an em dash, not \"NA\".\n", sep = "")
 
 # ---- 1. feed autodiscovery ---------------------------------------------------
 feeds <- site_feeds_present(site)
