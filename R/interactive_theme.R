@@ -119,6 +119,14 @@ case_documents <- function(ev, kinds) {
         str_detect(t, regex("^Statement as to jurisdiction filed", ignore_case = TRUE))) {
       u <- main_url(i); if (!is.na(u)) { found["Petition"] <- u; labs["Petition"] <- "Jurisdictional Statement" }
     }
+    # An original action (22O###) opens with a motion for leave to file a bill
+    # of complaint, which stands where a petition would. "Motion for leave to
+    # file a bill of complaint filed." (22O164); its first link is the motion.
+    # The first one filed wins, as for the jurisdictional statement.
+    if ("Petition" %in% kinds && is.na(found["Petition"]) &&
+        str_detect(t, regex("^Motion for leave to file a bill of complaint", ignore_case = TRUE))) {
+      u <- main_url(i); if (!is.na(u)) { found["Petition"] <- u; labs["Petition"] <- "Motion for Leave to File a Bill of Complaint" }
+    }
     # Applications (26A#) file an "Application (…)" whose link is a generic "Main
     # Document"; match the proceeding text and keep the FIRST one with a link (the
     # filed application, not a later order/response).
