@@ -471,7 +471,8 @@ conference_dash <- function(dist, conf_date,
                  if (n_mo) paste0(n_mo, if (n_mo == 1) " motion for leave to file" else " motions for leave to file"),
                  if (n_or) paste0(n_or, if (n_or == 1) " original action" else " original actions"))
       if (length(parts)) paste0(" Includes ", paste(parts, collapse = " and "),
-                                ", which carry no forecast.") else "" })
+                                if (n_rh + n_mo + n_or == 1) ", which carries no forecast." else ", which carry no forecast.")
+      else "" })
 
   scr_interactive(t, n_rows = nrow(tbl)) |>
     scr_write_page(
