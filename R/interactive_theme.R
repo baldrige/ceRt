@@ -141,7 +141,11 @@ case_documents <- function(ev, kinds) {
 # Petitioner's counsel of record as "Name<br>Firm" from the JSON parties tibble.
 petitioner_counsel_html <- function(parties) {
   if (!is.data.frame(parties) || nrow(parties) == 0 || !"attys" %in% names(parties)) return("—")
-  pet <- parties[str_detect(parties$type %||% "", "Petitioner|Applicant|Appellant"), , drop = FALSE]
+  # The moving side, as docket_page.R's .SIDE_MOVING_RX reads it: an original
+  # action's filer is the plaintiff ("Attorneys for Plaintiff", 22O164), whose
+  # counsel the conference page showed as a dash until plaintiffs and movants
+  # were included.
+  pet <- parties[str_detect(parties$type %||% "", "Petitioner|Applicant|Appellant|Plaintiff|Movant"), , drop = FALSE]
   if (nrow(pet) == 0) return("—")
   cor <- pet[which(pet$counsel_of_record %in% TRUE), , drop = FALSE]
   row <- if (nrow(cor)) cor[1, ] else pet[1, ]

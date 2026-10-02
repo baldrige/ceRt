@@ -137,7 +137,7 @@ counsel_cell <- function(parties) {
   if (!all(c("attys", "firm", "counsel_of_record", "type") %in% names(parties))) {
     return(NA_character_)
   }
-  pet <- parties |> filter(str_detect(type, "Petitioner|Applicant|Appellant"))
+  pet <- parties |> filter(str_detect(type, "Petitioner|Applicant|Appellant|Plaintiff|Movant"))
   if (nrow(pet) == 0) return(NA_character_)
   cor <- pet |> filter(counsel_of_record %in% TRUE)
   row <- if (nrow(cor) > 0) cor[1, ] else pet[1, ]
