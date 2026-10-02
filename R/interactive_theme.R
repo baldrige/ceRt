@@ -279,6 +279,14 @@ scr_write_page <- function(gt_tbl, out_path, kicker, title, dek, n_rows,
   tmp <- file.path(wdir, "widget.html")
   gtsave(gt_tbl, tmp)
   w <- paste(readLines(tmp, warn = FALSE), collapse = "\n")
+  # A missing value displays as an em dash, not "NA". gt hands reactable every
+  # column with "na":"NA" -- the text the browser shows for a missing cell --
+  # and sub_missing() reaches only gt's own formatting, not the interactive
+  # table, so Subject, Relists and the rest read "NA" on every conference,
+  # dashboard and relist page while Grant forecast, pre-rendered, read "—".
+  # A fixed-string swap on reactable's column option: linear, and nothing else
+  # in the page carries that exact token.
+  w <- gsub('"na":"NA"', '"na":"—"', w, fixed = TRUE)
   site_root <- leaf_site_root(out_path)
   w <- if (is.null(site_root)) scr_inline_libs(w, wdir) else scr_link_libs(w, wdir, site_root)
   unlink(wdir, recursive = TRUE)
