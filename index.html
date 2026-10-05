@@ -47,6 +47,22 @@
   .panel h2{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
     color:var(--accent);margin:0 0 .25rem}
   .panel .pnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:0 0 .5rem}
+  /* "Live now" (live_argument_panel, /live.js): hidden unless the Court is
+     streaming an argument. One red dot, the same --accent as the headings, so
+     the live state is a mark and not a new colour. */
+  .live h2 .ldot{display:inline-block;width:.5rem;height:.5rem;border-radius:50%;
+    background:var(--accent);margin-right:.5rem;vertical-align:.08rem;
+    animation:lpulse 2s ease-in-out infinite}
+  @keyframes lpulse{50%{opacity:.25}}
+  @media (prefers-reduced-motion:reduce){.live h2 .ldot{animation:none}}
+  .lplay{display:flex;flex-wrap:wrap;gap:.6rem .9rem;align-items:center;margin:.8rem 0 .3rem}
+  .lplay button{font:600 .9rem/1 'Newsreader',Georgia,serif;letter-spacing:.04em;
+    color:var(--paper);background:var(--accent);border:0;border-radius:2px;
+    padding:.6rem 1.05rem;cursor:pointer}
+  .lplay button:disabled{opacity:.6;cursor:progress}
+  .lplay button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .lplay audio{width:100%;max-width:30rem}
+  .lplay .lstat{font-size:.85rem;color:var(--faint)}
   /* --- Likeliest grants -----------------------------------------------------
      Its own rows rather than ol.mostread's: this panel carries a question under
      the caption, which that list has no room for, and a percentage that has to
@@ -338,6 +354,114 @@
     <hr class="brule"/>
     <p class="dek">Every case the Supreme Court is asked to hear, what it asks, and the odds it is granted — rebuilt three times a day from the Court’s own docket.</p>
     <div class='csearch'><input type='search' id='cq' autocomplete='off' spellcheck='false' placeholder='Search all cases by name or docket number…' aria-label='Search cases'><ul id='cres' class='cres' role='listbox'></ul></div>
+    <section id="live-arg" class="panel cal live" hidden aria-live="polite">
+      <h2>
+        <span class="ldot" aria-hidden="true"></span>
+        Live now
+      </h2>
+      <p class="pnote">The Court is hearing oral argument. Its live audio, from supremecourt.gov; today’s cases in the order the Court takes them.</p>
+      <ol class="cal" data-day="2026-10-05" hidden>
+        <li>
+          <div class="crow">
+            <span class="cwhen">
+              <span class="cdow">Case</span>
+              First
+            </span>
+            <span class="ctx">
+              <span class="ckind">
+                <a href="cases/25-170.html">Suncor Energy (U.S.A.) Inc. v. County Commissioners of Boulder County</a>
+              </span>
+              <span class="cdet">No. 25-170</span>
+            </span>
+          </div>
+        </li>
+        <li>
+          <div class="crow">
+            <span class="cwhen">
+              <span class="cdow">Case</span>
+              Second
+            </span>
+            <span class="ctx">
+              <span class="ckind">
+                <a href="cases/25-735.html">Floyd D. Johnson v. United States Congress</a>
+              </span>
+              <span class="cdet">No. 25-735</span>
+            </span>
+          </div>
+        </li>
+      </ol>
+      <ol class="cal" data-day="2026-10-06" hidden>
+        <li>
+          <div class="crow">
+            <span class="cwhen">
+              <span class="cdow">Case</span>
+              First
+            </span>
+            <span class="ctx">
+              <span class="ckind">
+                <a href="cases/25-498.html">Winston R. Anderson v. Intel Corporation Investment Policy Committee</a>
+              </span>
+              <span class="cdet">No. 25-498</span>
+            </span>
+          </div>
+        </li>
+      </ol>
+      <ol class="cal" data-day="2026-10-07" hidden>
+        <li>
+          <div class="crow">
+            <span class="cwhen">
+              <span class="cdow">Case</span>
+              First
+            </span>
+            <span class="ctx">
+              <span class="ckind">
+                <a href="cases/25-579.html">Department of the Air Force v. Prutehi Guahan, fka Prutehi Litekyan</a>
+              </span>
+              <span class="cdet">No. 25-579</span>
+            </span>
+          </div>
+        </li>
+      </ol>
+      <ol class="cal" data-day="2026-10-13" hidden>
+        <li>
+          <div class="crow">
+            <span class="cwhen">
+              <span class="cdow">Case</span>
+              First
+            </span>
+            <span class="ctx">
+              <span class="ckind">
+                <a href="cases/25-5343.html">Kendrick Jarrell Beaird v. United States</a>
+              </span>
+              <span class="cdet">No. 25-5343</span>
+            </span>
+          </div>
+        </li>
+      </ol>
+      <ol class="cal" data-day="2026-10-14" hidden>
+        <li>
+          <div class="crow">
+            <span class="cwhen">
+              <span class="cdow">Case</span>
+              First
+            </span>
+            <span class="ctx">
+              <span class="ckind">
+                <a href="cases/25-459.html">Michael Salazar v. Paramount Global, dba 247Sports</a>
+              </span>
+              <span class="cdet">No. 25-459</span>
+            </span>
+          </div>
+        </li>
+      </ol>
+      <div class="lplay">
+        <button type="button" id="live-go">Listen live</button>
+        <audio id="live-audio" controls preload="none" hidden></audio>
+        <span class="lstat" id="live-stat"></span>
+      </div>
+      <p class="more"><a href='https://www.supremecourt.gov/oral_arguments/live.aspx' rel='noopener'>On the Court’s site &rarr;</a></p>
+    </section>
+    <script src="/live.js" defer></script>
     <section class="panel lead">
       <h2>Likeliest grants</h2>
       <input class="wr" type="checkbox" id="qon" checked aria-label="Show the question each case asks"/>
