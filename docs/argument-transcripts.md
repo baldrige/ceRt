@@ -20,6 +20,16 @@ the argument, so the 20:33 UTC daily (or a Hermes-triggered one) carries it.
 What waits for the weekly run: the Term chart on the Term's *other* argument
 pages, and the Navigator's link.
 
+**The argument's date** is the feed's posting date -- the day of argument --
+unless the Court's argument calendar (`arguments/calendar.json`) lists the
+docket in that Term, in which case the calendar's date wins
+(`render_argument_readers()`, written back to the index and the transcript
+JSON, and the page re-rendered). The feed is not always right: OT2026's first
+transcript (Suncor, 25-170, argued 5 Oct 2026) went into the feed's empty
+placeholder item and kept its date, 4 Aug, so the page read "argued August 4"
+and the homepage's three-week window dropped it. Older Terms are outside the
+calendar manifest and keep the feed's date, which was right for them.
+
 **Every week**, the full build — `conferences.yml`, in `render_arguments.R`,
 before the Navigator and the docket pages (both link the result):
 
