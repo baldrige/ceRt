@@ -304,6 +304,29 @@ update_argument_calendar <- function(site_dir, index = NULL, as_of = Sys.Date())
   all
 }
 
+#' The Day Calls for the argument days from `as_of` to `as_of + days`, for the
+#' landing page's live panel: the manifest, with every Day Call in that window
+#' the Court has posted read again. READ-ONLY -- it never writes daycalls.json,
+#' whose one writer is the weekly run (two writers on different schedules is a
+#' race). The Court posts a day's Day Call the afternoon of the business day
+#' before, after that week's weekly run, so without this the panel would name no
+#' counsel for most of a sitting; reading the window again also catches a late
+#' substitution. A handful of small PDFs a run; never fatal.
+day_calls_ahead <- function(site_dir, as_of = Sys.Date(), days = 21L, index = NULL) {
+  old <- read_day_calls(site_dir)
+  index <- index %||% tryCatch(fetch_calendar_index(), error = function(e) NULL)
+  if (is.null(index)) return(old)
+  dc <- index[index$kind == "daycall", , drop = FALSE]
+  k <- suppressWarnings(as.Date(dc$key))
+  dc <- dc[!is.na(k) & k >= as.Date(as_of) & k <= as.Date(as_of) + days, , drop = FALSE]
+  if (!nrow(dc)) return(old)
+  new <- do.call(rbind, lapply(seq_len(nrow(dc)), function(i) tryCatch(
+    parse_day_call(.cal_get(dc$url[i], "pdf"), as.Date(dc$key[i])),
+    error = function(e) { cat("Day Call", dc$url[i], "failed:", conditionMessage(e), "\n"); NULL })))
+  if (is.null(new) || !nrow(new)) return(old)
+  rbind(old[!format(old$date) %in% format(unique(new$date)), , drop = FALSE], new)
+}
+
 #' Fetch every Day Call the index links that the manifest lacks (at most
 #' DAYCALL_MAX_NEW a run), append, rewrite. Returns the manifest.
 update_day_calls <- function(site_dir, index = NULL) {

@@ -9,7 +9,16 @@ the top of the panels, above the forecast.
 | piece | where | what it does |
 | --- | --- | --- |
 | `live_argument_panel()` | `R/page_style.R` | writes the panel **hidden**, with one `<ol data-day="YYYY-MM-DD">` per argument day in the next 21 days (`arguments/calendar.json`), the cases in the Court's order, captions from `cases/search.json` |
+| `day_calls_ahead()` | `R/argument_calendar.R`, called by the daily | the arguing counsel: `daycalls.json` plus every Day Call in the window the Court has posted, read again; **read-only** (the weekly run is the file's one writer) |
 | `/live.js` | repo root, copied by `build_dashboards.R` beside `search.js` | decides, in the reader's browser, whether to show it |
+
+Each row reads: the docket in the small label over "First" / "Second", the
+caption (its case page), and the counsel in the order they rise --
+"Kannon K. Shanmugam (pet.) · Sarah M. Harris (amicus) · Kevin K. Russell
+(resp.)". The Court posts a day's Day Call the afternoon of the business day
+before (Monday 5 October's: Friday 2 October, 1:01 p.m. ET), after that
+week's weekly run, which is why the daily reads them itself; until one is
+posted the counsel line is simply absent.
 | CSS | `INDEX_CSS`, `.live` / `.lplay` | the pulsing dot is `--accent`; no new colour |
 
 The page is rebuilt three times a day and cannot know at build time whether
