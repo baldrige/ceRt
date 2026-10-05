@@ -69,7 +69,25 @@
   // "241046", "25A312" -> "25a312", "22O141" -> "22o141".
   function docketKey(s) { return String(s).toLowerCase().replace(/^no\.?\s*/, '').replace(/[^a-z0-9]/g, ''); }
   function looksLikeDocket(q) { return /^(no\.?\s*)?\d{2}\s*[-\s]?\s*[ao]?\s*\d*$/i.test(q.trim()); }
-  function termOf(d) { var m = /^(\d{2})/.exec(d); return m ? parseInt(m[1], 10) : -1; }
+  // The Term, as a four-digit year, -1 when unknown. A docket's two digits are
+  // its Term -- except the original docket, where every number is "22O###"
+  // (No. 1 was filed in 1922, No. 164 in 2026). An original case takes its Term
+  // from its filing date instead (`orig`, below), and shows none without one.
+  function termOf(d, orig) {
+    if (/^\d{2}o/i.test(d)) return orig && orig[d] != null ? orig[d] : -1;
+    var m = /^(\d{2})/.exec(d); return m ? 2000 + parseInt(m[1], 10) : -1;
+  }
+  // cases/original.json ({dkt: {filed: "YYYY-MM-DD", ...}}) -> {dkt: Term}. The
+  // Court's numbering rolls over on 1 July (26-1 was docketed 1 July 2026), so
+  // a case filed on or after 1 July belongs to that year's Term.
+  function originalTerms(manifest) {
+    var out = {}, d, m;
+    for (d in manifest || {}) {
+      m = /^(\d{4})-(\d{2})/.exec((manifest[d] && manifest[d].filed) || '');
+      if (m) out[d] = parseInt(m[1], 10) - (parseInt(m[2], 10) >= 7 ? 0 : 1);
+    }
+    return out;
+  }
   function numOf(d) { var m = /(\d+)$/.exec(d); return m ? parseInt(m[1], 10) : 0; }
 
   // Optimal-string-alignment distance with an early exit once `max` is passed.
@@ -97,7 +115,8 @@
   // it never scans the 56,000 captions -- T maps each distinct token to the
   // records that contain it, and L buckets the distinct tokens by first letter
   // and length, which is all a one- or two-edit neighbour can differ in.
-  function build(index) {
+  // `orig` is originalTerms()'s map, optional.
+  function build(index, orig) {
     var E = [], keys = Object.keys(index), T = {}, L = {}, i, j, d, c;
     for (i = 0; i < keys.length; i++) {
       d = keys[i]; c = index[d];
@@ -107,7 +126,7 @@
       // United States v. Skrmetti before the applications against the same
       // Attorney General two Terms later.
       var b = /a/i.test(d) ? -3 : /o/i.test(d) ? 1 : numOf(d) >= 5000 ? 0 : 4;
-      E.push({ d: d, c: c, k: docketKey(d), n: n, t: t, j: ' ' + t.join(' ') + ' ', term: termOf(d), num: numOf(d), b: b });
+      E.push({ d: d, c: c, k: docketKey(d), n: n, t: t, j: ' ' + t.join(' ') + ' ', term: termOf(d, orig), num: numOf(d), b: b });
       for (j = 0; j < t.length; j++) {
         var tk = t[j];
         if (!T[tk]) { T[tk] = []; var bk = tk.charAt(0) + tk.length; (L[bk] || (L[bk] = [])).push(tk); }
@@ -226,7 +245,7 @@
     }).join('');
   }
 
-  var api = { normalise: normalise, tokens: tokens, build: build, query: query, editDistance: editDistance, highlight: highlight, looksLikeDocket: looksLikeDocket };
+  var api = { normalise: normalise, tokens: tokens, build: build, query: query, originalTerms: originalTerms, editDistance: editDistance, highlight: highlight, looksLikeDocket: looksLikeDocket };
   if (typeof module !== 'undefined' && module.exports) { module.exports = api; return; }
   root.SCRSearch = api;
 
@@ -238,15 +257,19 @@
   function load() {
     if (E) return;
     q.classList.add('loading');
-    fetch(cfg.json).then(function (x) { return x.json(); }).then(function (j) {
-      E = build(j); q.classList.remove('loading'); run();
+    // The original docket's manifest sits beside the index; it is what dates an
+    // original case. Without it those cases simply show no Term.
+    var orig = fetch(cfg.json.replace(/search\.json$/, 'original.json'))
+      .then(function (x) { return x.ok ? x.json() : {}; }).catch(function () { return {}; });
+    Promise.all([fetch(cfg.json).then(function (x) { return x.json(); }), orig]).then(function (j) {
+      E = build(j[0], originalTerms(j[1])); q.classList.remove('loading'); run();
     }).catch(function () { q.classList.remove('loading'); });
   }
   function render(hits, qt) {
     active = -1; last = hits;
     if (!hits.length) { r.innerHTML = "<li class='cnone'>No matching cases.</li>"; return; }
     r.innerHTML = hits.map(function (h, i) {
-      var e = h.e, term = e.term >= 0 ? ' ' + MIDDOT + ' OT' + (2000 + e.term) : '';
+      var e = h.e, term = e.term >= 0 ? ' ' + MIDDOT + ' OT' + e.term : '';
       return "<li id='cres-" + i + "' role='option'><a href='" + cfg.prefix + e.d + ".html'>" +
         "<span class='cd'>No. " + esc(e.d) + term + "</span>" + highlight(e.c, qt) + "</a></li>";
     }).join('');

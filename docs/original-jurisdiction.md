@@ -112,7 +112,7 @@ Navigator while its box says "Decree entered".
 ## Fetching
 
 Two lists, both from **`cases/original.json`**, a manifest keyed by docket
-(`{caption, last_event, outcome}`) that the weekly conferences run rewrites
+(`{caption, filed, last_event, outcome}`) that the weekly conferences run rewrites
 wholesale from what it fetched, carrying forward anything it did not see. Only
 the weekly writes it; the daily reads it. Like `cases/pending.json`, it is
 deliberately **not** in `publish_site.sh`'s union list -- a docket's
@@ -147,6 +147,12 @@ loads it by name. Both fetches are never-fatal.
   the argued kind through the existing rule. The listing failsafe rewrites the
   Court's "141, Orig." to `22O141`.
 - **Sitemap** -- `sitemap-cases-original.xml`.
+- **Case search** -- labelled with the Term the case was **filed** in, not the
+  docket's "22": `search.js` loads `original.json` beside `search.json` and
+  reads `filed` (the docket's `DocketedDate`) on the Court's own rollover --
+  docketed on or after 1 July is that year's Term, as `26-1` was docketed
+  1 July 2026. No. 141 (filed January 2013) is OT2012; No. 164 (August 2026)
+  is OT2026. A docket with no `filed` yet shows no Term rather than OT2022.
 
 ## Guardrails
 

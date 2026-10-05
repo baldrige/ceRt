@@ -157,8 +157,11 @@ original_status_date <- function(oc) {
 
 # ---- the manifest ---------------------------------------------------------------
 #
-# cases/original.json: {dkt: {caption, last_event, outcome}}, every original
-# docket the site has ever fetched. Rewritten wholesale by the weekly run from
+# cases/original.json: {dkt: {caption, filed, last_event, outcome}}, every
+# original docket the site has ever fetched. `filed` is the docket's
+# DocketedDate: every number shares the "22O" prefix, so the number cannot say
+# which Term a case belongs to, and the search box (search.js) reads its Term
+# from this date instead. Rewritten wholesale by the weekly run from
 # what it fetched, carrying forward anything it did not see; read by the daily
 # for its by-name fetch. The daily never writes it -- two writers on different
 # schedules is a race, and the weekly's copy is the complete one.
@@ -195,8 +198,10 @@ update_originals <- function(site_dir, cases, as_of = Sys.Date()) {
       last <- .orig_last_event(ev)
       cap <- cases$caption[i]
       if (exists("strip_caption_roles")) cap <- get("strip_caption_roles")(cap)
+      filed <- if ("date" %in% names(cases)) as.Date(cases$date[i]) else as.Date(NA)
       new[[dkt]] <- list(
         caption    = if (is.na(cap) || !nzchar(cap)) dkt else cap,
+        filed      = if (is.na(filed)) old[[dkt]]$filed %||% NA_character_ else format(filed),
         last_event = if (is.na(last)) NA_character_ else format(last),
         outcome    = oc$outcome %||% NA_character_)
       seen <- c(seen, dkt)

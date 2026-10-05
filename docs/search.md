@@ -15,6 +15,14 @@ prefix wrong is a box that silently never finds anything).
 page load. Turned into normalised tokens in the browser once, ~700 ms, so the
 JSON stays exactly what the docket pages already write.
 
+Each result's Term is read from the docket's two digits — except an original
+action, whose number is always `22O###` whenever it was filed. For those the
+box also loads `cases/original.json` (beside `search.json`, ~5 KB) and takes
+the Term from its `filed` date, rolling over on 1 July as the Court's numbering
+does (`originalTerms()`): No. 141, filed January 2013, is OT2012, not OT2022.
+An original with no `filed` date, or a manifest that fails to load, shows no
+Term at all. See [original-jurisdiction.md](original-jurisdiction.md).
+
 ## What the matcher does
 
 1. **Normalise** both sides: lower-case, strip diacritics (NFD, drop U+0300–036F)
