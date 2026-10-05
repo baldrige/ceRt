@@ -84,6 +84,22 @@ INDEX_CSS <- paste0("\n  ", palette_root(), "
   .panel h2{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
     color:var(--accent);margin:0 0 .25rem}
   .panel .pnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:0 0 .5rem}
+  /* \"Live now\" (live_argument_panel, /live.js): hidden unless the Court is
+     streaming an argument. One red dot, the same --accent as the headings, so
+     the live state is a mark and not a new colour. */
+  .live h2 .ldot{display:inline-block;width:.5rem;height:.5rem;border-radius:50%;
+    background:var(--accent);margin-right:.5rem;vertical-align:.08rem;
+    animation:lpulse 2s ease-in-out infinite}
+  @keyframes lpulse{50%{opacity:.25}}
+  @media (prefers-reduced-motion:reduce){.live h2 .ldot{animation:none}}
+  .lplay{display:flex;flex-wrap:wrap;gap:.6rem .9rem;align-items:center;margin:.8rem 0 .3rem}
+  .lplay button{font:600 .9rem/1 'Newsreader',Georgia,serif;letter-spacing:.04em;
+    color:var(--paper);background:var(--accent);border:0;border-radius:2px;
+    padding:.6rem 1.05rem;cursor:pointer}
+  .lplay button:disabled{opacity:.6;cursor:progress}
+  .lplay button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .lplay audio{width:100%;max-width:30rem}
+  .lplay .lstat{font-size:.85rem;color:var(--faint)}
   /* --- Likeliest grants -----------------------------------------------------
      Its own rows rather than ol.mostread's: this panel carries a question under
      the caption, which that list has no room for, and a percentage that has to
@@ -906,6 +922,58 @@ arguments_panel <- function(site_dir, heading = "Recent arguments", n = 6L,
     tags$p(class = "pnote", smarten(note)),
     tags$ol(class = "cal", lis),
     tags$p(class = "more", HTML("<a href='arguments/'>All arguments &rarr;</a>")))
+}
+
+# "Live now": the Court's live audio of an oral argument, on the landing page
+# only while the Court is streaming one. The page cannot know that when it is
+# built -- it is rebuilt three times a day -- so this writes the panel HIDDEN,
+# with one list per argument day in the next `days` days (arguments/
+# calendar.json, the cases in the order the Court hears them), and /live.js
+# decides: it shows today's list and the panel while the stream's playlist is
+# moving, and nothing at all on any other day. NULL -- no block, no script --
+# when no argument day falls in the window. See docs/live-argument.md.
+live_argument_panel <- function(site_dir, as_of = Sys.Date(), days = 21L) {
+  p <- file.path(site_dir, "arguments", "calendar.json")
+  if (!file.exists(p)) return(NULL)
+  cal <- tryCatch(jsonlite::fromJSON(p), error = function(e) NULL)
+  if (!is.data.frame(cal) || !nrow(cal) || !all(c("date", "dkt") %in% names(cal))) return(NULL)
+  cal$date <- as.Date(cal$date)
+  cal <- cal[!is.na(cal$date) & cal$date >= as_of & cal$date <= as_of + days, , drop = FALSE]
+  if (!nrow(cal)) return(NULL)
+  cal <- cal[order(cal$date, cal$slot %||% seq_len(nrow(cal))), , drop = FALSE]
+  # The calendar's captions are the Court's capitals; the case pages' own are
+  # cased (and role-stripped, as on every other panel).
+  caps <- if (exists(".ord_captions")) get(".ord_captions")(site_dir) else list()
+  ords <- c("First", "Second", "Third", "Fourth")
+  lists <- lapply(split(cal, cal$date), function(g) {
+    tags$ol(class = "cal", `data-day` = format(g$date[1]), hidden = NA,
+      lapply(seq_len(nrow(g)), function(i) {
+        dkt <- g$dkt[i]
+        cap <- caps[[dkt]] %||% stringr::str_to_title(g$caption[i] %||% dkt)
+        tags$li(tags$div(class = "crow",
+          tags$span(class = "cwhen", tags$span(class = "cdow", "Case"), if (i <= length(ords)) ords[i] else as.character(i)),
+          tags$span(class = "ctx",
+            tags$span(class = "ckind", tags$a(href = paste0("cases/", dkt, ".html"), smarten(cap))),
+            tags$span(class = "cdet", paste("No.", dkt)))))
+      }))
+  })
+  tagList(
+    tags$section(
+      id = "live-arg", class = "panel cal live", hidden = NA,
+      `aria-live` = "polite",
+      tags$h2(tags$span(class = "ldot", `aria-hidden` = "true"), "Live now"),
+      tags$p(class = "pnote", smarten(paste(
+        "The Court is hearing oral argument. Its live audio, from supremecourt.gov;",
+        "today's cases in the order the Court takes them."))),
+      unname(lists),
+      tags$div(class = "lplay",
+        tags$button(type = "button", id = "live-go", "Listen live"),
+        tags$audio(id = "live-audio", controls = NA, preload = "none", hidden = NA),
+        tags$span(class = "lstat", id = "live-stat")),
+      tags$p(class = "more", HTML(paste0(
+        "<a href='https://www.supremecourt.gov/oral_arguments/live.aspx' rel='noopener'>",
+        "On the Court’s site &rarr;</a>")))),
+    tags$script(src = "/live.js", defer = NA))
 }
 
 decisions_panel <- function(rows, heading = "Recent decisions", note = NULL, more = NULL) {

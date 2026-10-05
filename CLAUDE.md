@@ -20,6 +20,7 @@ and served by GitHub Pages.
 | The Court's order lists | `orders/` | `daily.yml` → `R/orders_list.R` — see **[docs/order-lists.md](docs/order-lists.md)** |
 | The Justices (opinions by kind, agreement, splits, per Term) | `justices/` | `conferences.yml` / `render-justices.yml` → `render_justices.R` → `R/justices.R` — see **[docs/justices.md](docs/justices.md)** |
 | Argument pages (recording + transcript + the bench's post-argument lean) | `arguments/<yyyy>/<docket>.html` | `conferences.yml` → `render_arguments.R` → `R/argument_reader.R`; line times by `align-arguments.yml` — see **[docs/argument-transcripts.md](docs/argument-transcripts.md)** |
+| Live argument audio (landing-page panel, shown only while the Court streams) | `index.html` | `build_dashboards.R` → `live_argument_panel()` + `/live.js` — see **[docs/live-argument.md](docs/live-argument.md)** |
 | Subject-area labels (case pages, daily docket column) | `cases/subjects.json` | Python classifier (Jev) in `.github/scripts/subject_area/`, called from `R/subject_area.R`; bulk via `subject-areas.yml` — see **[docs/subject-areas.md](docs/subject-areas.md)** |
 
 Every section is built and published by a GitHub Actions workflow. For the full
