@@ -66,6 +66,15 @@
   document.querySelectorAll('.bench tbody tr').forEach(function (tr) { tr.addEventListener('click', function () { setFilter(filterJ === tr.dataset.j ? null : tr.dataset.j); }); });
   if (!audio) return;
   play.addEventListener('click', function () { if (audio.paused) audio.play().catch(function () {}); else audio.pause(); });
+  // Playback speed, remembered across arguments (a convenience: storage may be refused).
+  var spd = document.getElementById('rd-speed');
+  if (spd) {
+    var setRate = function (v) { var r = parseFloat(v) || 1; audio.playbackRate = r; audio.defaultPlaybackRate = r; if ('preservesPitch' in audio) audio.preservesPitch = true; };
+    try { var saved = localStorage.getItem('rd-speed'); if (saved && spd.querySelector("option[value='" + saved + "']")) spd.value = saved; } catch (e) {}
+    setRate(spd.value);
+    spd.addEventListener('change', function () { setRate(spd.value); try { localStorage.setItem('rd-speed', spd.value); } catch (e) {} });
+    audio.addEventListener('loadedmetadata', function () { setRate(spd.value); });
+  }
   audio.addEventListener('play', function () { icon.setAttribute('d', 'M3 1.5h3.5v13H3zM9.5 1.5H13v13H9.5z'); play.setAttribute('aria-label', 'Pause'); });
   audio.addEventListener('pause', function () { icon.setAttribute('d', 'M3 1.5v13l11-6.5z'); play.setAttribute('aria-label', 'Play'); });
   audio.addEventListener('error', function () { now.innerHTML = "The recording did not load — <a href='https://www.supremecourt.gov/oral_arguments/audio/'>listen on the Court’s site</a>"; play.disabled = true; });
