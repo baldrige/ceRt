@@ -376,7 +376,39 @@ render_argument_readers <- function(site_dir, cases, model = load_argument_lean(
   # (A posting date the feed lacked is stored as an empty value, not a string.)
   posted_of <- function(e) { x <- unlist(e$posted); if (length(x) && !is.na(x[1])) as.character(x[1]) else "" }
   keys <- keys[order(vapply(idx[keys], posted_of, ""), decreasing = TRUE)]
-  fetched <- 0L; dirty <- FALSE
+  fetched <- 0L; dirty <- FALSE; redated <- character()
+  # The argument's DATE. `posted` is the transcript feed's pubDate, which is the
+  # day of argument -- except when it is not: the Court filled OT2026's first
+  # transcript (Suncor, 25-170, argued 5 October 2026) into the feed's
+  # placeholder item, which kept the placeholder's date, 4 August, so the page
+  # read "argued August 4" and the homepage's three-week window dropped it.
+  # Where the Court's argument calendar (arguments/calendar.json) lists the
+  # docket in that Term, its date wins, in the index and in the transcript JSON
+  # (the aligner orders and waits by it). Older Terms, which the calendar
+  # manifest does not hold, keep the feed's date, which was right for them.
+  cal_p <- file.path(site_dir, "arguments", "calendar.json")
+  cal <- if (file.exists(cal_p)) tryCatch(jsonlite::fromJSON(cal_p), error = function(err) NULL) else NULL
+  if (is.data.frame(cal) && nrow(cal) && all(c("date", "dkt") %in% names(cal))) {
+    cd <- as.Date(cal$date)
+    cy <- as.integer(format(cd, "%Y")); ct <- ifelse(as.integer(format(cd, "%m")) >= 9L, cy, cy - 1L)
+    argued <- tapply(format(cd), paste0(ct, "/", cal$dkt), min)
+    n_dated <- 0L
+    for (k in intersect(keys, names(argued))) {
+      d <- unname(argued[[k]])
+      if (identical(posted_of(idx[[k]]), d)) next
+      idx[[k]]$posted <- d; dirty <- TRUE; n_dated <- n_dated + 1L; redated <- c(redated, k)
+      jp <- file.path(site_dir, "arguments", paste0(k, ".json"))
+      raw <- tryCatch(jsonlite::fromJSON(jp, simplifyVector = FALSE), error = function(err) NULL)
+      if (!is.null(raw)) {
+        raw$posted <- d
+        jsonlite::write_json(raw, jp, auto_unbox = TRUE, na = "null", digits = NA, null = "null")
+      }
+    }
+    if (n_dated) {
+      message("render_argument_readers(): ", n_dated, " argument date(s) taken from the argument calendar")
+      keys <- keys[order(vapply(idx[keys], posted_of, ""), decreasing = TRUE)]
+    }
+  }
   for (k in keys) {
     e <- idx[[k]]
     # A judgment cached under older reading rules is read again (JUDGMENT_RULES).
@@ -472,7 +504,9 @@ render_argument_readers <- function(site_dir, cases, model = load_argument_lean(
                     disp = map_chr(args, ~ .x$disp %||% NA_character_),
                     label = map_chr(args, ~ paste0(.x$short, " (No. ", .x$dkt, ")")),
                     href = map2_chr(map_int(args, "term"), map_chr(args, "dkt"), reader_href))
-  for (a in args) if (is.null(only_keys) || a$key %in% only_keys)
+  # A redated argument is rendered again even when this run was asked only for
+  # new ones, so its page stops naming the wrong day the run it is corrected.
+  for (a in args) if (is.null(only_keys) || a$key %in% c(only_keys, redated))
     tryCatch(render_argument_reader(site_dir, a, pts_all[pts_all$term == a$term, ], model),
              error = function(err) message("reader page ", a$key, " failed: ", conditionMessage(err)))
   # dkt -> its latest argument's page, for the Navigator and the case pages.
