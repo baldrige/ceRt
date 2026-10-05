@@ -93,7 +93,13 @@ Page details:
 3. **Publish** writes the aligned JSON (`turns[].t`, plus `align`:
    `{v, ok, model, matched, duration}`) to gh-pages. Below 30% matched the
    argument is marked `ok: false` and not retried until `ALIGN_VERSION` is
-   bumped.
+   bumped. An argument with **no recording to download** — the daily
+   dispatches the aligner the moment it publishes a transcript, and the MP3
+   may not be up yet — is left unwritten, so the next run tries again, for
+   `AWAIT_AUDIO_DAYS` (14) after its transcript was posted; only after that is
+   a missing recording failed. Before this, a run that beat the MP3 marked the
+   argument failed against the right URL with its alternatives tried, which
+   the queue never revisits.
 
 Two lessons from the first full pass (426 of 437 aligned, 2026-10-02):
 

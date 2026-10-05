@@ -18,7 +18,9 @@ job that way). --count prints how many transcripts are waiting, and exits. Order
 current and previous Terms first, then back through the catalogue, newest
 argument first within each. A transcript is skipped once aligned under
 ALIGN_VERSION, or once it has failed under it (so a bad recording is not
-retried every run). See docs/argument-transcripts.md.
+retried every run) -- except that a recording which cannot be downloaded at
+all is waited for, not failed, for AWAIT_AUDIO_DAYS after the transcript was
+posted. See docs/argument-transcripts.md.
 """
 import argparse, bisect, datetime, difflib, glob, json, os, re, sys, tempfile, time, urllib.request
 
@@ -31,6 +33,9 @@ MIN_MATCH = 0.30   # below this share of transcript words matched, call it faile
 # in as low as 32% filtered (19-351: 26% filtered, 89% not), so 0.80 catches the
 # telephone audio and costs an in-person argument nothing.
 RETRY_BELOW = 0.80
+# An argument whose recording cannot be downloaded is waited for, not failed,
+# for this many days after its transcript was posted.
+AWAIT_AUDIO_DAYS = 14
 
 
 def mp3_url(dkt, nth=1):
@@ -49,6 +54,16 @@ def mp3_url(dkt, nth=1):
 def argument_term(today=None):
     d = today or datetime.date.today()
     return d.year if d.month >= 10 else d.year - 1
+
+
+def recent(posted, today=None):
+    """Whether a transcript posted on `posted` (YYYY-MM-DD) is still inside the
+    wait for its recording. An unreadable date is not."""
+    try:
+        d = datetime.date.fromisoformat(str(posted)[:10])
+    except ValueError:
+        return False
+    return ((today or datetime.date.today()) - d).days <= AWAIT_AUDIO_DAYS
 
 
 def norm(w):
@@ -262,8 +277,11 @@ def main():
             asr = [(w.word, w.start) for s in segs for w in (s.words or [])]
             return align_turns(d["turns"], asr) + (info.duration,)
 
+        fetched = []          # recordings that downloaded, whatever their match
+
         def attempt(url):
             download(url, mp3)
+            fetched.append(url)
             try:
                 st, sh, du = run(True)
                 v = True
@@ -305,6 +323,16 @@ def main():
                     starts, share, dur, vad, used = st, sh, du, v, alt
                 if share >= RETRY_BELOW:
                     break
+        # No recording downloaded at all: for a new argument, the MP3 is not up
+        # yet -- the daily dispatches this run the moment it publishes the
+        # transcript. Recording that as a failure would take the argument out of
+        # the queue for good (same version, same URL, alternatives tried), so
+        # write nothing and let the next run look again. Past the grace period a
+        # missing recording is taken as missing, and failed as before, so it
+        # cannot hold a shard's slot for ever.
+        if not fetched and recent(c["posted"]):
+            print(f"  {key}: no recording posted yet; left for the next run", flush=True)
+            continue
         if starts is None or share < MIN_MATCH:
             d["align"] = {"v": ALIGN_VERSION, "ok": False, "matched": round(share, 3), "url": c["url"],
                           "alts": tried_alts}
