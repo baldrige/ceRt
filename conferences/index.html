@@ -47,6 +47,27 @@
   .panel h2{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
     color:var(--accent);margin:0 0 .25rem}
   .panel .pnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:0 0 .5rem}
+  /* "Live now" (live_argument_panel, /live.js): hidden unless the Court is
+     streaming an argument. One red dot, the same --accent as the headings, so
+     the live state is a mark and not a new colour. */
+  .live h2 .ldot{display:inline-block;width:.5rem;height:.5rem;border-radius:50%;
+    background:var(--accent);margin-right:.5rem;vertical-align:.08rem;
+    animation:lpulse 2s ease-in-out infinite}
+  @keyframes lpulse{50%{opacity:.25}}
+  @media (prefers-reduced-motion:reduce){.live h2 .ldot{animation:none}}
+  .lplay{display:flex;flex-wrap:wrap;gap:.6rem .9rem;align-items:center;margin:.8rem 0 .3rem}
+  .lplay button{font:600 .9rem/1 'Newsreader',Georgia,serif;letter-spacing:.04em;
+    color:var(--paper);background:var(--accent);border:0;border-radius:2px;
+    padding:.6rem 1.05rem;cursor:pointer}
+  .lplay button:disabled{opacity:.6;cursor:progress}
+  .lplay button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  /* The player takes a row of its own and may never outgrow the column. A flex
+     item's min-width is auto, which for a replaced element is the browser's own
+     controls' width -- wider than the column on a phone, where mobile Safari
+     and Chrome draw larger controls than the desktop. */
+  .lplay audio{display:block;flex:1 1 100%;width:100%;min-width:0;max-width:100%;
+    box-sizing:border-box;margin:0}
+  .lplay .lstat{font-size:.85rem;color:var(--faint)}
   /* --- Likeliest grants -----------------------------------------------------
      Its own rows rather than ol.mostread's: this panel carries a question under
      the caption, which that list has no room for, and a percentage that has to
@@ -347,13 +368,13 @@
       <li>
         <a class="row" href="conf_2026-10-09.html" target="_blank" rel="noopener">
           <span class="d">October 09, 2026</span>
-          <span class="count">207 cases</span>
+          <span class="count">238 cases</span>
         </a>
       </li>
       <li>
         <a class="row" href="conf_2026-09-28.html" target="_blank" rel="noopener">
           <span class="d">September 28, 2026</span>
-          <span class="count">986 cases</span>
+          <span class="count">987 cases</span>
         </a>
       </li>
       <li>
