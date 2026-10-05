@@ -27,6 +27,9 @@ if (file.exists("analytics.js"))
 # search box loads it, and the matcher is what makes the box worth typing in.
 if (file.exists("search.js"))
   file.copy("search.js", file.path(site_dir, "search.js"), overwrite = TRUE)
+# The landing page's live-argument panel (/live.js), same reasoning.
+if (file.exists("live.js"))
+  file.copy("live.js", file.path(site_dir, "live.js"), overwrite = TRUE)
 
 # The social-card image, on the same re-assert-every-run principle. It is a
 # committed static asset (docs/make_og_image.R regenerates it), and every page's
@@ -468,6 +471,11 @@ cat("New oral arguments this run:", if (length(new_args)) paste(new_args, collap
 recent_args <- tryCatch(arguments_panel(site_dir), error = function(e) {
   cat("Recent arguments panel failed:", conditionMessage(e), "\n"); NULL })
 cat("Recent arguments on the landing page:", if (is.null(recent_args)) "none in window" else "yes", "\n")
+# The live-audio panel: written hidden for the argument days of the next three
+# weeks; /live.js shows it only while the Court's stream is live.
+live_arg <- tryCatch(live_argument_panel(site_dir), error = function(e) {
+  cat("Live argument panel failed:", conditionMessage(e), "\n"); NULL })
+cat("Live argument panel:", if (is.null(live_arg)) "no argument day in window" else "armed", "\n")
 
 # "Recent decisions". The daily's manifest first, so a decision it fetched today
 # outranks the weekly run's copy of the same docket; the window and the row cap
@@ -555,7 +563,9 @@ styled_index_page(
   # simply closes up rather than showing an empty heading.
   # Orders sit between decisions and the calendar: what the Court decided, what
   # it ordered, when it next sits. Same NULL-collapses rule as the others.
-  panel_top = tagList(sharpest_panel, decisions, recent_args, orders, calendar),
+  # "Live now" leads, above the forecast, and is hidden unless the Court is
+  # streaming an argument at the moment the page is read (/live.js decides).
+  panel_top = tagList(live_arg, sharpest_panel, decisions, recent_args, orders, calendar),
   # Most-read stays below the section list. It is a footnote to the forecast, not
   # a peer of it -- what readers clicked is downstream of what the Court did.
   #
