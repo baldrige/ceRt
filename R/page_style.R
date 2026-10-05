@@ -929,6 +929,19 @@ arguments_panel <- function(site_dir, heading = "Recent arguments", n = 6L,
     tags$p(class = "more", HTML("<a href='arguments/'>All arguments &rarr;</a>")))
 }
 
+# "Kannon K. Shanmugam (pet.) · Sarah M. Harris (amicus) · Kevin K. Russell
+# (resp.)": a case's arguing counsel on `date`, in the Day Call's order, which
+# is the order they rise. NA when the Day Call has no row for it.
+.live_counsel <- function(daycalls, date, dkt) {
+  if (is.null(daycalls) || !is.data.frame(daycalls) || !nrow(daycalls)) return(NA_character_)
+  r <- daycalls[as.Date(daycalls$date) == as.Date(date) & daycalls$dkt == dkt & !is.na(daycalls$name), , drop = FALSE]
+  if (!nrow(r)) return(NA_character_)
+  tag <- ifelse(is.na(r$side), "",
+         ifelse(r$side == "petitioner", " (pet.)",
+         ifelse(r$side == "respondent", " (resp.)", " (amicus)")))
+  paste0(r$name, tag, collapse = " · ")
+}
+
 # "Live now": the Court's live audio of an oral argument, on the landing page
 # only while the Court is streaming one. The page cannot know that when it is
 # built -- it is rebuilt three times a day -- so this writes the panel HIDDEN,
@@ -937,7 +950,13 @@ arguments_panel <- function(site_dir, heading = "Recent arguments", n = 6L,
 # decides: it shows today's list and the panel while the stream's playlist is
 # moving, and nothing at all on any other day. NULL -- no block, no script --
 # when no argument day falls in the window. See docs/live-argument.md.
-live_argument_panel <- function(site_dir, as_of = Sys.Date(), days = 21L) {
+#
+# Each row: the docket in the small label, the caption, and the counsel who
+# will argue it, from the Court's Day Call (`daycalls`: read_day_calls()'s
+# frame, R/argument_calendar.R). The Court posts a Day Call the afternoon of
+# the business day before (Monday's went up Friday at 1 p.m.), so the counsel
+# line is simply absent until it has.
+live_argument_panel <- function(site_dir, as_of = Sys.Date(), days = 21L, daycalls = NULL) {
   p <- file.path(site_dir, "arguments", "calendar.json")
   if (!file.exists(p)) return(NULL)
   cal <- tryCatch(jsonlite::fromJSON(p), error = function(e) NULL)
@@ -955,11 +974,12 @@ live_argument_panel <- function(site_dir, as_of = Sys.Date(), days = 21L) {
       lapply(seq_len(nrow(g)), function(i) {
         dkt <- g$dkt[i]
         cap <- caps[[dkt]] %||% stringr::str_to_title(g$caption[i] %||% dkt)
+        counsel <- .live_counsel(daycalls, g$date[1], dkt)
         tags$li(tags$div(class = "crow",
-          tags$span(class = "cwhen", tags$span(class = "cdow", "Case"), if (i <= length(ords)) ords[i] else as.character(i)),
+          tags$span(class = "cwhen", tags$span(class = "cdow", dkt), if (i <= length(ords)) ords[i] else as.character(i)),
           tags$span(class = "ctx",
             tags$span(class = "ckind", tags$a(href = paste0("cases/", dkt, ".html"), smarten(cap))),
-            tags$span(class = "cdet", paste("No.", dkt)))))
+            if (!is.na(counsel)) tags$span(class = "cdet", counsel))))
       }))
   })
   tagList(

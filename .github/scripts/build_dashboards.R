@@ -472,8 +472,15 @@ recent_args <- tryCatch(arguments_panel(site_dir), error = function(e) {
   cat("Recent arguments panel failed:", conditionMessage(e), "\n"); NULL })
 cat("Recent arguments on the landing page:", if (is.null(recent_args)) "none in window" else "yes", "\n")
 # The live-audio panel: written hidden for the argument days of the next three
-# weeks; /live.js shows it only while the Court's stream is live.
-live_arg <- tryCatch(live_argument_panel(site_dir), error = function(e) {
+# weeks; /live.js shows it only while the Court's stream is live. Each case
+# names its counsel from the Court's Day Call, read fresh here for the window
+# (R/argument_calendar.R, day_calls_ahead -- read-only; the weekly run owns
+# daycalls.json).
+source("R/argument_calendar.R")
+live_dc <- tryCatch(day_calls_ahead(site_dir), error = function(e) {
+  cat("Day Calls for the live panel unavailable:", conditionMessage(e), "\n"); NULL })
+cat("Day Call rows for the live panel:", if (is.null(live_dc)) 0 else nrow(live_dc), "\n")
+live_arg <- tryCatch(live_argument_panel(site_dir, daycalls = live_dc), error = function(e) {
   cat("Live argument panel failed:", conditionMessage(e), "\n"); NULL })
 cat("Live argument panel:", if (is.null(live_arg)) "no argument day in window" else "armed", "\n")
 
