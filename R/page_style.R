@@ -98,7 +98,12 @@ INDEX_CSS <- paste0("\n  ", palette_root(), "
     padding:.6rem 1.05rem;cursor:pointer}
   .lplay button:disabled{opacity:.6;cursor:progress}
   .lplay button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-  .lplay audio{width:100%;max-width:30rem}
+  /* The player takes a row of its own and may never outgrow the column. A flex
+     item's min-width is auto, which for a replaced element is the browser's own
+     controls' width -- wider than the column on a phone, where mobile Safari
+     and Chrome draw larger controls than the desktop. */
+  .lplay audio{display:block;flex:1 1 100%;width:100%;min-width:0;max-width:100%;
+    box-sizing:border-box;margin:0}
   .lplay .lstat{font-size:.85rem;color:var(--faint)}
   /* --- Likeliest grants -----------------------------------------------------
      Its own rows rather than ol.mostread's: this panel carries a question under
