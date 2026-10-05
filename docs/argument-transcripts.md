@@ -131,7 +131,11 @@ A failed argument is re-queued when the recording it was tried against
 retries the failures without re-running the aligned. A parser bump (`TX_PARSER_VERSION`) rewrites
 the JSON without times, and the next alignment run re-times it.
 - Case pages carry the link because `readers[[dkt]]` is in their render key, so
-  a case page re-renders the run its argument page first appears.
+  a case page re-renders the run its argument page first appears -- provided
+  that run renders the docket at all. The weekly does; the daily now renders
+  each new argument's dockets straight after their argument pages
+  (`build_dashboards.R`). Before that, a docket outside the daily's trailing
+  fetch kept no link until the weekly (25-170 and 25-735, 5 Oct 2026).
 
 ## The research scripts
 

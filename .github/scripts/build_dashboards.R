@@ -457,6 +457,14 @@ new_args <- tryCatch({
     need <- setdiff(unique(unlist(lapply(idx_now[nk], function(e) c(e$dkt, unlist(e$dkts))))), ot$dkt)
     got <- if (length(need)) tryCatch(fetch_cases(need), error = function(e) NULL) else NULL
     render_argument_readers(site_dir, bind_rows(ot, got), only_keys = nk, fetch_max = 0L)
+    # Their case pages, now that readers.json names the argument page: the link
+    # ("Argued ... Listen and read") is in a case page's render key, but nothing
+    # re-renders an argued docket's page until the weekly run -- the trailing
+    # fetch rendered its own dockets above, before readers.json had the entry.
+    # 25-170 and 25-735 went a day without the link (5 Oct 2026).
+    argued <- unique(unlist(lapply(idx_now[nk], function(e) c(e$dkt, unlist(e$dkts)))))
+    held <- bind_rows(ot, got)
+    render_dockets_for(held[held$dkt %in% argued, , drop = FALSE], site_dir)
     # Line times: start the aligner now. The workflow token may dispatch a
     # workflow (daily.yml grants actions: write); never fatal if it cannot.
     if (nzchar(Sys.getenv("GH_TOKEN"))) {
