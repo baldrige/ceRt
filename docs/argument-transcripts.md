@@ -17,7 +17,7 @@ homepage's **Recent arguments** panel (`arguments_panel()`, `R/page_style.R`)
 reads `recent.json`: arguments of the last three weeks, with advocates, the
 lean and a "Listen and read" link. The Court posts a transcript the afternoon of
 the argument, so the 20:33 UTC daily (or a Hermes-triggered one) carries it.
-What waits for the weekly run: the Term chart on the Term's *other* argument
+What waits for the nightly conferences run (06:00 UTC): the Term chart on the Term's *other* argument
 pages, and the Navigator's link.
 
 **The argument's date** is the feed's posting date -- the day of argument --
@@ -30,7 +30,7 @@ placeholder item and kept its date, 4 Aug, so the page read "argued August 4"
 and the homepage's three-week window dropped it. Older Terms are outside the
 calendar manifest and keep the feed's date, which was right for them.
 
-**Every week**, the full build — `conferences.yml`, in `render_arguments.R`,
+**Every night** (weekly until 2026-10-06), the full build — `conferences.yml`, in `render_arguments.R`,
 before the Navigator and the docket pages (both link the result):
 
 1. **`update_transcripts()`** (`R/argument_transcript.R`) reads the Court's
@@ -132,7 +132,7 @@ retries the failures without re-running the aligned. A parser bump (`TX_PARSER_V
 the JSON without times, and the next alignment run re-times it.
 - Case pages carry the link because `readers[[dkt]]` is in their render key, so
   a case page re-renders the run its argument page first appears -- provided
-  that run renders the docket at all. The weekly does; the daily now renders
+  that run renders the docket at all. The nightly conferences run does; the daily now renders
   each new argument's dockets straight after their argument pages
   (`build_dashboards.R`). Before that, a docket outside the daily's trailing
   fetch kept no link until the weekly (25-170 and 25-735, 5 Oct 2026).

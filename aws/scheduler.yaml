@@ -240,9 +240,9 @@ Resources:
   Conferences:
     Type: AWS::Scheduler::Schedule
     Properties:
-      Name: cert-conferences-mon-0600
-      Description: conferences.yml Mondays at 06:00 UTC
-      ScheduleExpression: cron(0 6 ? * MON *)
+      Name: cert-conferences-0600
+      Description: conferences.yml nightly at 06:00 UTC
+      ScheduleExpression: cron(0 6 * * ? *)
       ScheduleExpressionTimezone: UTC
       FlexibleTimeWindow: { Mode: "OFF" }
       Target:

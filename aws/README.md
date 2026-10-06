@@ -10,7 +10,7 @@ time. The work itself still runs on GitHub Actions; nothing heavy runs on AWS.
 | piece | what it does |
 | --- | --- |
 | a Lambda function, `cert-scheduler` | starts a GitHub workflow, or checks the Court's Hermes feed |
-| seven schedules (EventBridge Scheduler) | the daily at 00:33, 16:33, 20:33 UTC and Mondays 14:03; the conference reports Mondays 06:00; the site audit 04:00; the Hermes watch every 5 minutes |
+| seven schedules (EventBridge Scheduler) | the daily at 00:33, 16:33, 20:33 UTC and Mondays 14:03; the conference reports nightly at 06:00; the site audit 04:00; the Hermes watch every 5 minutes |
 | a secret, `cert-scheduler/github-token` | the GitHub token (Secrets Manager) |
 | a parameter, `/cert-scheduler/watch-state` | the watcher's memory of the feed (Parameter Store) |
 
