@@ -40,7 +40,7 @@ whole site, partitioned so they never fight over the same paths; the third only 
 | workflow | schedule (cron is **UTC**) | data | public pages |
 | --- | --- | --- | --- |
 | **`daily.yml`** | 3×/day: `33 0`, `33 16`, `33 20` (00:33 / 16:33 / 20:33 UTC — the ET-anchored two ≈ 12:33pm & 4:33pm ET) | **Yes** — incremental fetch | **Yes** — dashboards, recent cases, landing |
-| **`conferences.yml`** | Weekly `0 6 * * 1` (**Mon 06:00 UTC**), year-round | **Yes** — full-term fetch | **Yes** — conferences, relists, arguments, funnel, counsel |
+| **`conferences.yml`** | Nightly `0 6 * * *` (**06:00 UTC**), year-round (weekly on Mondays until 2026-10-06) | **Yes** — full-term fetch | **Yes** — conferences, relists, arguments, funnel, counsel |
 | **`align-arguments.yml`** | Every 6 h, `17 */6 * * *` (GitHub cron; lateness costs nothing here) | **Yes** — line times in `arguments/<yyyy>/*.json` | **Indirectly** — the argument pages' players read them. An empty queue ends the run after the plan job (~1 min). See **[argument-transcripts.md](argument-transcripts.md)** |
 | **`watch-court.yml`** — *disabled; replaced by the AWS watcher above* | A self-dispatching **chain**: each run polls for ~5h45m, then starts the next; the cron (`7,22,37,52 * * * *`) is only the restart floor | **No** — reads a 1 KB feed | **Indirectly** — dispatches `daily.yml` when the Court's Hermes transfer feed changes |
 

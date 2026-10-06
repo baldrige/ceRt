@@ -4,12 +4,14 @@ name: Conference reports
 # gh-pages archive. Each term is fetched in its own job (separate runner IP) to
 # keep sustained per-IP load -- and Akamai throttling -- down.
 #
-#   scheduled: Mondays, year-round, auto terms
+#   scheduled: nightly, 06:00 UTC, year-round, auto terms (weekly on Mondays
+#              until 2026-10-06: a new argument then waited up to a week for its
+#              Navigator link, and a case page for its argument link)
 #   manual:    optionally pass explicit `terms` (e.g. 24,25) to backfill
 
 on:
   schedule:
-    - cron: "0 6 * * 1"
+    - cron: "0 6 * * *"
   workflow_dispatch:
     inputs:
       terms:
