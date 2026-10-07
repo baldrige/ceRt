@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?xml-stylesheet type='text/xsl' href='slipopinion.xsl' ?>
+<?xml-stylesheet type='text/xsl' href='slipopinion.css' ?>
+<rss version='2.0'>
+<channel>
+<title>US Supreme Court Oral Argument Transcripts</title>
+<link>https://www.supremecourt.gov/oral_arguments/argument_transcripts.aspx</link>
+<description>US Supreme Court Oral Argument Transcripts</description>
+<pubDate>Wed, 07 Oct 2026 11:39:40 EST</pubDate>
+<item>
+<title><![CDATA[Suncor Energy (U.S.A.) Inc. v. Commissioners of Boulder County (25-170) ]]></title>
+<description><![CDATA[Suncor Energy (U.S.A.) Inc. v. Commissioners of Boulder County (25-170) ]]></description>
+<link>https://www.supremecourt.gov/oral_arguments/argument_transcripts/2026/25-170_8m58.pdf</link>
+<pubDate>Tue, 04 Aug 2026 13:57:34 EDT</pubDate>
+</item>
+<item>
+<title><![CDATA[Johnson v. United States Congress (25-735) ]]></title>
+<description><![CDATA[Johnson v. United States Congress (25-735) ]]></description>
+<link>https://www.supremecourt.gov/oral_arguments/argument_transcripts/2026/25-735_ca7d.pdf</link>
+<pubDate>Mon, 05 Oct 2026 15:17:48 EST</pubDate>
+</item>
+<item>
+<title><![CDATA[Anderson v. Intel Corp. Investment Policy Committee (25-498) ]]></title>
+<description><![CDATA[Anderson v. Intel Corp. Investment Policy Committee (25-498) ]]></description>
+<link>https://www.supremecourt.gov/oral_arguments/argument_transcripts/2026/25-498_febh.pdf</link>
+<pubDate>Tue, 06 Oct 2026 13:09:14 EST</pubDate>
+</item>
+</channel>
+</rss>

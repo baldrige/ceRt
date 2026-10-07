@@ -1,9 +1,11 @@
 AWSTemplateFormatVersion: "2010-09-09"
 Description: >-
   ceRt scheduler. Starts the Supreme Court Report's GitHub Actions workflows on
-  time (GitHub's own cron ran them 2.5-5 hours late) and watches the Court's
-  Hermes transfer feed, starting the daily when it changes. Nothing heavy runs
-  here: the work stays on GitHub. See aws/README.md.
+  time (GitHub's own cron ran them 2.5-5 hours late) and runs the court watcher
+  (aws/watcher/watcher.py): every minute it reads the Court's order, opinion and
+  argument pages and feeds, starts the daily for anything new, and keeps at it
+  until a daily has succeeded, emailing if one has not within 45 minutes.
+  Nothing heavy runs here: the work stays on GitHub. See aws/README.md.
 
 Parameters:
   GitHubToken:
@@ -16,6 +18,27 @@ Parameters:
     Type: String
     Default: baldrige/ceRt
     Description: The GitHub repository, as owner/name.
+  AlertEmail:
+    Type: String
+    Default: ""
+    Description: >-
+      Where the court watcher emails when something the Court published is not
+      on the site after 45 minutes, or the watcher itself keeps failing. Blank =
+      no email. AWS sends a confirmation message first; click its link. (Kept
+      out of the template because the repository is public.)
+  CreateGitHubOIDCProvider:
+    Type: String
+    Default: "true"
+    AllowedValues: ["true", "false"]
+    Description: >-
+      "true" creates the account's GitHub Actions identity provider
+      (token.actions.githubusercontent.com), which lets deploy-watcher.yml
+      deploy the watcher with no stored AWS keys. "false" if the account
+      already has one -- an account can hold only one.
+
+Conditions:
+  HasEmail: !Not [!Equals [!Ref AlertEmail, ""]]
+  MakeOIDC: !Equals [!Ref CreateGitHubOIDCProvider, "true"]
 
 Resources:
   TokenSecret:
@@ -31,7 +54,93 @@ Resources:
       Name: /cert-scheduler/watch-state
       Type: String
       Value: "{}"
-      Description: The court watcher's last fingerprint of the Hermes feed (written by the function).
+      Description: The first watcher's last fingerprint of the Hermes feed (unused since watcher v2; kept for the bootstrap code).
+
+  # The watcher's memory: one JSON document (what each source has shown, what
+  # is pending) and the poll lease. Pay per request: a few thousand tiny reads
+  # and writes a day, inside the free tier.
+  StateTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: cert-scheduler-watch
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - { AttributeName: pk, AttributeType: S }
+      KeySchema:
+        - { AttributeName: pk, KeyType: HASH }
+
+  AlertTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      TopicName: cert-scheduler-alerts
+      DisplayName: ceRt court watch
+
+  AlertSubscription:
+    Type: AWS::SNS::Subscription
+    Condition: HasEmail
+    Properties:
+      TopicArn: !Ref AlertTopic
+      Protocol: email
+      Endpoint: !Ref AlertEmail
+
+  # The watcher failing outright (as opposed to a daily failing, which it
+  # reports itself): errors in three consecutive five-minute windows.
+  WatcherErrorAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: cert-scheduler-errors
+      AlarmDescription: The ceRt court watcher Lambda has been erroring for 15 minutes.
+      Namespace: AWS/Lambda
+      MetricName: Errors
+      Dimensions:
+        - { Name: FunctionName, Value: !Ref Function }
+      Statistic: Sum
+      Period: 300
+      EvaluationPeriods: 3
+      DatapointsToAlarm: 3
+      Threshold: 1
+      ComparisonOperator: GreaterThanOrEqualToThreshold
+      TreatMissingData: notBreaching
+      AlarmActions: [!Ref AlertTopic]
+
+  # deploy-watcher.yml signs in with GitHub's OIDC token -- no AWS keys stored
+  # in the repository -- and may only update this one function's code.
+  GitHubOIDC:
+    Type: AWS::IAM::OIDCProvider
+    Condition: MakeOIDC
+    Properties:
+      Url: https://token.actions.githubusercontent.com
+      ClientIdList: [sts.amazonaws.com]
+      ThumbprintList:
+        - 6938fd4d98bab03faadb97b34396831e3780aea1
+        - 1c58a3a8518e8759bf075b76b750d4f2df264fcd
+
+  DeployRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: cert-scheduler-deploy
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Federated: !If
+                - MakeOIDC
+                - !Ref GitHubOIDC
+                - !Sub arn:aws:iam::${AWS::AccountId}:oidc-provider/token.actions.githubusercontent.com
+            Action: sts:AssumeRoleWithWebIdentity
+            Condition:
+              StringEquals:
+                token.actions.githubusercontent.com:aud: sts.amazonaws.com
+                token.actions.githubusercontent.com:sub: !Sub repo:${Repository}:ref:refs/heads/main
+      Policies:
+        - PolicyName: deploy-watcher
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action: [lambda:UpdateFunctionCode, lambda:GetFunction, lambda:GetFunctionConfiguration]
+                Resource: !GetAtt Function.Arn
 
   FunctionRole:
     Type: AWS::IAM::Role
@@ -55,12 +164,18 @@ Resources:
               - Effect: Allow
                 Action: [ssm:GetParameter, ssm:PutParameter]
                 Resource: !Sub arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/cert-scheduler/watch-state
+              - Effect: Allow
+                Action: [dynamodb:GetItem, dynamodb:PutItem, dynamodb:DeleteItem]
+                Resource: !GetAtt StateTable.Arn
+              - Effect: Allow
+                Action: sns:Publish
+                Resource: !Ref AlertTopic
 
   Function:
     Type: AWS::Lambda::Function
     Properties:
       FunctionName: cert-scheduler
-      Description: Starts ceRt's GitHub Actions workflows on time, and watches the Court's Hermes feed.
+      Description: Starts ceRt's GitHub Actions workflows on time, and watches the Court for orders, opinions and argument transcripts.
       Runtime: python3.12
       Handler: index.handler
       Timeout: 60
@@ -71,6 +186,14 @@ Resources:
           REPO: !Ref Repository
           STATE_PARAM: !Ref WatchState
           TOKEN_SECRET: !Ref TokenSecret
+          STATE_TABLE: !Ref StateTable
+          ALERT_TOPIC: !Ref AlertTopic
+      # BOOTSTRAP ONLY. The running code is aws/watcher/watcher.py, which
+      # deploy-watcher.yml uploads as index.py (so the handler stays
+      # index.handler). This inline copy is the first watcher, kept so the
+      # schedules work from the moment the stack exists. CloudFormation touches
+      # the code only when this block's text changes -- if you edit it, run
+      # deploy-watcher.yml afterwards or the old watcher comes back.
       Code:
         ZipFile: |
           import json, os, re, hashlib, urllib.request, datetime as dt
@@ -269,8 +392,8 @@ Resources:
     Type: AWS::Scheduler::Schedule
     Properties:
       Name: cert-court-watch
-      Description: Poll the Court's Hermes transfer feed every 5 minutes; start the daily when it changes
-      ScheduleExpression: rate(5 minutes)
+      Description: The court watcher; it polls each minute in Court hours (weekdays 9-6 ET), every 5 minutes otherwise
+      ScheduleExpression: rate(1 minute)
       FlexibleTimeWindow: { Mode: "OFF" }
       Target:
         Arn: !GetAtt Function.Arn
@@ -278,6 +401,12 @@ Resources:
         Input: '{"action": "watch"}'
 
 Outputs:
+  DeployRoleArn:
+    Description: Set as the repository variable AWS_DEPLOY_ROLE_ARN (gh variable set AWS_DEPLOY_ROLE_ARN --body <arn>).
+    Value: !GetAtt DeployRole.Arn
+  AlertTopicArn:
+    Description: Where the watcher's alerts go.
+    Value: !Ref AlertTopic
   FunctionName:
     Description: Open this in the Lambda console to test or read logs.
     Value: !Ref Function

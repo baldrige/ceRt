@@ -14,7 +14,7 @@ is adopted or the Court changes one.
 | **Order lists** | `/orders/ordersofthecourt/NN` → `/orders/courtorders/*.pdf` | one Term's order documents (date, kind, PDF); PDF text with a fixed grammar of sections, dockets, captions and order prose | `R/orders_list.R` (the daily); `docs/order-lists.md` |
 | **Slip-opinion RSS** | `/rss/slipopinion_rss.aspx?TYear=NN` | caption and docket, author or per curiam, PDF, posting time, opinion type and citation as categories, and the Reporter's holding summary as the description | `R/site_decisions.R`: opinion URLs and the holding line on Recent decisions |
 | **Opinion listings** | `/opinions/slipopinion/NN` (fallback), `/opinions/relatingtoorders/NN` | HTML tables of docket, date, PDF, author code, citation | the Recent decisions failsafe in `R/site_decisions.R` |
-| **Hermes transfer feed** | `/rss/hermes_transfer.xml` | the files the Court's internal system just pushed, with timestamps; the files themselves are not served. What it carries: [below](#the-hermes-feed-what-it-carries) | the AWS watcher (`aws/scheduler.yaml`; `watch-court.yml` before 2026-09-29): a change trigger that dispatches the daily |
+| **Hermes transfer feed** | `/rss/hermes_transfer.xml` | the files the Court's internal system just pushed, with timestamps; the files themselves are not served. What it carries: [below](#the-hermes-feed-what-it-carries) | the court watcher (`aws/watcher/watcher.py`; `watch-court.yml` before 2026-09-29): a hint alongside the direct sources it now polls |
 | **Granted & Noted List** | `/orders/NNgrantednotedlist.pdf`, OT16 on | per argued case: code, court below, grant, argument and decision dates, author, separate writings with their kind, result, unanimity flags | `R/granted_noted.R`: the Navigator's "Separate writings" column, the same line on Recent decisions, and the argument-grammar audit |
 | **Monthly argument calendars** | `/oral_arguments/argument_calendars/MonthlyArgumentCal<Month><Year>.pdf` | each sitting's cases by day and order, ~2 months ahead | `R/argument_calendar.R`: schedules a case the docket has not set; cross-checks the rest |
 | **The home-page calendar** | `/` (a Telerik RadCalendar; another month is a postback with `__EVENTARGUMENT=n:k`) | every marked day, September 2021 to the end of the announced Term: conferences, argument and non-argument days, holidays by name; order-list days only in retrospect | `R/court_calendar.R`: future conference dates, and the order lists expected from them (`conferences/court_calendar.json`, the landing page's calendar) |
@@ -55,6 +55,12 @@ file's modification time; the channel's `pubDate` is the last transfer.
 `26A428`): it arrived with the channel stamp of 5 Oct 10:05 ET, **35 minutes
 after** the 9:30 release. So the feed does not reliably lead an order list,
 and the Monday 14:03 UTC daily is still the one that carries it.
+
+**Why the watcher no longer relies on it** (October 2026): it misses argument
+transcripts and audio entirely and trails the order list, so the court watcher
+polls the order lists page, the slip-opinion and argument feeds and the
+opinions-relating-to-orders page directly, keyed by content (that page's
+`Last-Modified` moves with no new document on it), with Hermes kept as a hint.
 
 **The feed holds only the last two or three files**, so it is no record:
 `watch-court.yml`'s logs (expiring) were the only history, and the AWS
