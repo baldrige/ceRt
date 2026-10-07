@@ -13,7 +13,7 @@ time. The work itself still runs on GitHub Actions; nothing heavy runs on AWS.
 | seven schedules (EventBridge Scheduler) | the daily at 00:33, 16:33, 20:33 UTC and Mondays 14:03; the conference reports nightly at 06:00; the site audit 04:00; the court watcher every minute |
 | a table, `cert-scheduler-watch` (DynamoDB) | the watcher's memory: what each source has shown, what is pending, and a lease so two polls never overlap |
 | a topic, `cert-scheduler-alerts` (SNS) | emails the `AlertEmail` address when something published is not on the site after 45 minutes, or the watcher keeps erroring (alarm `cert-scheduler-errors`) |
-| a role, `cert-scheduler-deploy`, and GitHub's identity provider | lets `deploy-watcher.yml` upload the watcher's code with no AWS keys stored anywhere |
+| optionally, a role `cert-scheduler-deploy` and GitHub's identity provider | lets `deploy-watcher.yml` upload the watcher's code itself (off by default: `GitHubDeploy`) |
 | a secret, `cert-scheduler/github-token` | the GitHub token (Secrets Manager) |
 
 **The court watcher.** Every minute on weekdays from 9 a.m. to 6 p.m. Eastern
@@ -46,29 +46,33 @@ pieces. About 10 minutes.
    **Replace existing template** → **Upload a template file** → choose
    `aws/scheduler.yaml` → **Next**.
 2. **Parameters:** leave **GitHubToken** and **Repository** as they are. Set
-   **AlertEmail** to the address for alerts. Leave
-   **CreateGitHubOIDCProvider** at `true` -- unless the AWS account already
-   has a GitHub identity provider (IAM → Identity providers lists
-   `token.actions.githubusercontent.com`), in which case `false`. → **Next** →
-   **Next** → tick the IAM acknowledgment → **Submit**. Wait for
-   **UPDATE_COMPLETE**.
+   **AlertEmail** to the address for alerts. Leave **GitHubDeploy** at `none`
+   (see below). → **Next** → **Next** → tick the IAM acknowledgment →
+   **Submit**. Wait for **UPDATE_COMPLETE**.
 3. **Confirm the email.** AWS sends "AWS Notification - Subscription
    Confirmation" to that address; click **Confirm subscription**. No alerts
    arrive until you do.
-4. **Hand GitHub the deploy role.** On the stack's **Outputs** tab, copy
-   **DeployRoleArn**, then (or give it to Claude):
-
-       gh variable set AWS_DEPLOY_ROLE_ARN --body "arn:aws:iam::...:role/cert-scheduler-deploy"
-
-5. **Deploy the watcher:** `gh workflow run deploy-watcher.yml --ref main`. It
-   tests the code, uploads it, and prints the function's handler and state.
-   From then on it deploys by itself whenever `aws/watcher/` changes.
-6. **Check it.** Lambda → `cert-scheduler` → **Test**, event
+4. **Upload the watcher.** Get `watcher-lambda.zip`: the artifact of the latest
+   **Deploy the court watcher** run (Actions → that run → Artifacts), or build
+   it -- it is `aws/watcher/watcher.py` renamed `index.py`, alone in a zip.
+   Then Lambda → `cert-scheduler` → **Code** → **Upload from** → **.zip file**
+   → choose it → **Save**. Repeat whenever `aws/watcher/watcher.py` changes
+   (the workflow builds a fresh zip on every such push).
+5. **Check it.** Lambda → `cert-scheduler` → **Test**, event
    `{"action": "watch", "force": true}`. The first run records what every source
    shows and starts nothing ("new 0 ..."); later runs log what was new, what
    is pending and whether a daily was started.
 
-Until step 5, the function keeps running the first watcher (the template's
+**Why by hand:** this account belongs to an AWS Organization whose service
+control policy denies `iam:CreateOpenIDConnectProvider`, so GitHub cannot be
+given a way to sign in and deploy (the first attempt rolled back on exactly
+that, 7 Oct 2026). If an administrator creates the provider, update the stack
+with **GitHubDeploy** = `existing-provider`, then
+`gh variable set AWS_DEPLOY_ROLE_ARN --body <the DeployRoleArn output>` (and
+`gh variable set AWS_REGION --body <region>` if the stack is not in
+us-east-1), and the workflow deploys by itself.
+
+Until step 4, the function keeps running the first watcher (the template's
 inline code), now every minute -- harmless, and it still starts the daily on
 any Hermes change.
 
@@ -130,8 +134,8 @@ Then tell Claude it's working, and `watch-court.yml` can be switched off.
 - **Change a time:** edit the schedule in `scheduler.yaml`, then CloudFormation →
   `cert-scheduler` → **Update** → **Replace current template** → upload it again.
 - **Remove all of it:** CloudFormation → `cert-scheduler` → **Delete**.
-- **The function's code** is `aws/watcher/watcher.py`, deployed by
-  `deploy-watcher.yml`. The `ZipFile` block in `scheduler.yaml` is only the
+- **The function's code** is `aws/watcher/watcher.py`, uploaded by hand from
+  the zip `deploy-watcher.yml` builds. The `ZipFile` block in `scheduler.yaml` is only the
   bootstrap the stack starts with; CloudFormation rewrites the code only if
   that block's text changes, so after editing it, run `deploy-watcher.yml`.
   (The bootstrap is the first watcher, a port of `.github/scripts/court_watch.py`:
