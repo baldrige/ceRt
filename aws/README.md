@@ -39,6 +39,20 @@ schedules and the email fit in AWS's free tier.
 
 ## Upgrading to the court watcher (October 2026)
 
+*Done 7 Oct 2026, from the AWS CLI: the change set added the table, topic,
+subscription and alarm and modified the rest in place; the code went up with
+`aws lambda update-function-code`. The steps below are the console route.*
+
+**From the command line** (a `cert` profile in `us-east-2`): preview with
+`aws cloudformation create-change-set --stack-name cert-scheduler
+--change-set-name <name> --template-body file://aws/scheduler.yaml
+--capabilities CAPABILITY_IAM CAPABILITY_NAMED_IAM --parameters
+ParameterKey=GitHubToken,UsePreviousValue=true ...`, read it with
+`describe-change-set`, then `execute-change-set`; upload code with
+`aws lambda update-function-code --function-name cert-scheduler
+--zip-file fileb://watcher-lambda.zip`. The stack runs under its own role
+(`CloudFormationRoleManager-us-east-2-stack`), which a change set reuses.
+
 If the stack already exists from the steps below, this adds the watcher's
 pieces. About 10 minutes.
 
@@ -69,8 +83,8 @@ given a way to sign in and deploy (the first attempt rolled back on exactly
 that, 7 Oct 2026). If an administrator creates the provider, update the stack
 with **GitHubDeploy** = `existing-provider`, then
 `gh variable set AWS_DEPLOY_ROLE_ARN --body <the DeployRoleArn output>` (and
-`gh variable set AWS_REGION --body <region>` if the stack is not in
-us-east-1), and the workflow deploys by itself.
+`gh variable set AWS_REGION --body <region>` if the stack moves from
+us-east-2), and the workflow deploys by itself.
 
 Until step 4, the function keeps running the first watcher (the template's
 inline code), now every minute -- harmless, and it still starts the daily on
@@ -96,7 +110,10 @@ any Hermes change.
 
 1. Sign in at <https://console.aws.amazon.com>. (No account yet? **Create an AWS
    account** on that page; it needs a card, but this costs cents.)
-2. Top right, next to your name, set the region to **US East (N. Virginia)**.
+2. Top right, next to your name, set the region to **US East (Ohio)**,
+   `us-east-2`. The stack lives there: this account's AWS Organization denies
+   `us-east-1` outright (service control policy), so it cannot go anywhere
+   else.
 3. In the search bar at the top, type **CloudFormation** and open it.
 4. **Create stack** → **With new resources (standard)**.
 5. **Upload a template file** → **Choose file** → pick `aws/scheduler.yaml` from
