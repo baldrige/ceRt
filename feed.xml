@@ -5,8 +5,15 @@
   <link rel="self" href="https://supremecourt.report/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://supremecourt.report/"/>
   <id>https://supremecourt.report/feed.xml</id>
-  <updated>2026-10-06T12:00:00-04:00</updated>
+  <updated>2026-10-07T12:00:00-04:00</updated>
   <author><name>Supreme Court Report</name></author>
+  <entry>
+    <title>Docket for October 7, 2026</title>
+    <link href="https://supremecourt.report/dashboards/dash_2026-10-07.html"/>
+    <id>https://supremecourt.report/dashboards/dash_2026-10-07.html</id>
+    <updated>2026-10-07T12:00:00-04:00</updated>
+    <summary>Petitions and applications docketed on October 7, 2026.</summary>
+  </entry>
   <entry>
     <title>Docket for October 6, 2026</title>
     <link href="https://supremecourt.report/dashboards/dash_2026-10-06.html"/>
@@ -221,13 +228,6 @@
     <id>https://supremecourt.report/dashboards/dash_2026-09-10.html</id>
     <updated>2026-09-10T12:00:00-04:00</updated>
     <summary>Petitions and applications docketed on September 10, 2026.</summary>
-  </entry>
-  <entry>
-    <title>Docket for September 9, 2026</title>
-    <link href="https://supremecourt.report/dashboards/dash_2026-09-09.html"/>
-    <id>https://supremecourt.report/dashboards/dash_2026-09-09.html</id>
-    <updated>2026-09-09T12:00:00-04:00</updated>
-    <summary>Petitions and applications docketed on September 9, 2026.</summary>
   </entry>
   <entry>
     <title>Order List, September 4, 2026</title>
