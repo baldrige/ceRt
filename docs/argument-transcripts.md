@@ -12,7 +12,11 @@ from the case page's "Argued" line.
 the current Term's transcript feed, parses any transcript the site lacks,
 fetches its docket by name, writes just those argument pages
 (`render_argument_readers(only_keys = ...)`) and `arguments/recent.json`, and
-dispatches `align-arguments.yml` so the line times follow within the hour. The
+-- in a `daily.yml` step **after the publish**, on the build step's
+`new_args` output -- dispatches `align-arguments.yml` so the line times follow
+within the hour. (It used to dispatch from inside the build, which raced the
+publish: on 6 Oct 2026 the aligner checked gh-pages before 25-498 was pushed,
+found "Transcripts waiting: 0", and the argument waited for the schedule.) The
 homepage's **Recent arguments** panel (`arguments_panel()`, `R/page_style.R`)
 reads `recent.json`: arguments of the last three weeks, with advocates, the
 lean and a "Listen and read" link. The Court posts a transcript the afternoon of
