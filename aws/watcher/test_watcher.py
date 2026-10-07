@@ -49,6 +49,16 @@ class Parsers(unittest.TestCase):
         self.assertEqual(w.parse_argument_feed(placeholder), set())
         self.assertEqual(w.parse_argument_feed("<item><title>X v. Y (141-Orig)</title></item>"), {"141-Orig"})
 
+    def test_transcript_feed_keys_on_the_file(self):
+        k = w.parse_transcript_feed(fx("transcripts_26.xml"))
+        self.assertEqual({x.split("|")[0] for x in k}, {"25-170", "25-735", "25-498"})
+        self.assertTrue(all(x.split("|")[1].endswith(".pdf") for x in k))
+        # A corrected transcript under a new name is a new key.
+        a = w.parse_transcript_feed("<item><title>Suncor (25-170)</title><link>https://x/2026/25-170_3e04.pdf</link></item>")
+        b = w.parse_transcript_feed("<item><title>Suncor (25-170)</title><link>https://x/2026/25-170_8m58.pdf</link></item>")
+        self.assertEqual(len(b - a), 1)
+        self.assertEqual(w.parse_transcript_feed("<item><title><![CDATA[ () ]]></title><link>https://x/</link></item>"), set())
+
     def test_hermes(self):
         k = w.parse_hermes(fx("hermes.xml"))
         self.assertTrue(any(x.startswith("100526ZOR.xml|") for x in k))
@@ -120,7 +130,7 @@ def run(created, status="completed", conclusion="success"):
 class Poll(unittest.TestCase):
     def setUp(self):
         self.env = FakeEnv({"argument_transcripts_rss.aspx?TYear=26":
-                            "<item><title>Suncor (25-170)</title></item>"})
+                            "<item><title>Suncor (25-170)</title><link>https://x/25-170_a.pdf</link></item>"})
         w.poll(self.env, T("2026-10-06 16:00"))          # baseline
 
     def test_baseline_dispatches_nothing(self):
@@ -128,10 +138,10 @@ class Poll(unittest.TestCase):
         self.assertEqual(self.env.state.get("pending", {}), {})
 
     def test_new_transcript_dispatches_once_and_clears_on_success(self):
-        self.env.pages["argument_transcripts_rss.aspx?TYear=26"] += "<item><title>Anderson v. Intel (25-498)</title></item>"
+        self.env.pages["argument_transcripts_rss.aspx?TYear=26"] += "<item><title>Anderson v. Intel (25-498)</title><link>https://x/25-498_a.pdf</link></item>"
         w.poll(self.env, T("2026-10-06 17:10"))
         self.assertEqual(self.env.dispatched, ["daily.yml"])
-        self.assertIn("transcripts:25-498", self.env.state["pending"])
+        self.assertIn("transcript-files:25-498|25-498_a.pdf", self.env.state["pending"])
         # Next minute: the run is queued -- no second dispatch.
         self.env.daily = [run("2026-10-06 17:10", "queued", None)]
         w.poll(self.env, T("2026-10-06 17:11"))
@@ -143,7 +153,7 @@ class Poll(unittest.TestCase):
         self.assertEqual(len(self.env.dispatched), 1)
 
     def test_outage_redispatches_with_backoff_then_alerts(self):
-        self.env.pages["argument_transcripts_rss.aspx?TYear=26"] += "<item><title>Anderson v. Intel (25-498)</title></item>"
+        self.env.pages["argument_transcripts_rss.aspx?TYear=26"] += "<item><title>Anderson v. Intel (25-498)</title><link>https://x/25-498_a.pdf</link></item>"
         w.poll(self.env, T("2026-10-06 17:10"))                       # dispatch 1
         self.env.daily = [run("2026-10-06 17:10", conclusion="cancelled")]
         w.poll(self.env, T("2026-10-06 17:12"))                       # inside grace
@@ -163,31 +173,31 @@ class Poll(unittest.TestCase):
 
     def test_run_started_before_the_event_does_not_count(self):
         self.env.daily = [run("2026-10-06 17:00", "in_progress", None)]
-        self.env.pages["argument_transcripts_rss.aspx?TYear=26"] += "<item><title>Anderson v. Intel (25-498)</title></item>"
+        self.env.pages["argument_transcripts_rss.aspx?TYear=26"] += "<item><title>Anderson v. Intel (25-498)</title><link>https://x/25-498_a.pdf</link></item>"
         w.poll(self.env, T("2026-10-06 17:10"))
         self.assertEqual(self.env.dispatched, ["daily.yml"])          # queues behind it
         self.env.daily = [run("2026-10-06 17:00")]                     # the earlier one goes green
         w.poll(self.env, T("2026-10-06 17:20"))
-        self.assertIn("transcripts:25-498", self.env.state["pending"])
+        self.assertIn("transcript-files:25-498|25-498_a.pdf", self.env.state["pending"])
 
     def test_failed_fetch_is_not_a_removal(self):
         self.env.pages["argument_transcripts_rss.aspx?TYear=26"] = RuntimeError("403")
         w.poll(self.env, T("2026-10-06 17:10"))
-        src = self.env.state["sources"]["transcripts/26"]
-        self.assertEqual(src["keys"], ["25-170"])
+        src = self.env.state["sources"]["transcript-files/26"]
+        self.assertEqual(src["keys"], ["25-170|25-170_a.pdf"])
         self.assertEqual(src["fails"], 1)
-        self.assertTrue(w.skipped(self.env.state, "transcripts/26", T("2026-10-06 17:11")))
-        self.assertFalse(w.skipped(self.env.state, "transcripts/26", T("2026-10-06 17:12")))
+        self.assertTrue(w.skipped(self.env.state, "transcript-files/26", T("2026-10-06 17:11")))
+        self.assertFalse(w.skipped(self.env.state, "transcript-files/26", T("2026-10-06 17:12")))
         # Back, with a new item: caught up, one event.
         self.env.pages["argument_transcripts_rss.aspx?TYear=26"] = (
-            "<item><title>Suncor (25-170)</title></item><item><title>Anderson (25-498)</title></item>")
+            "<item><title>Suncor (25-170)</title><link>https://x/25-170_a.pdf</link></item><item><title>Anderson (25-498)</title><link>https://x/25-498_a.pdf</link></item>")
         w.poll(self.env, T("2026-10-06 17:13"))
-        self.assertEqual(list(self.env.state["pending"]), ["transcripts:25-498"])
+        self.assertEqual(list(self.env.state["pending"]), ["transcript-files:25-498|25-498_a.pdf"])
 
     def test_unchanged_page_304_keeps_keys(self):
         self.env.pages["argument_transcripts_rss.aspx?TYear=26"] = ""   # what http_get returns on 304
         w.poll(self.env, T("2026-10-06 17:10"))
-        self.assertEqual(self.env.state["sources"]["transcripts/26"]["keys"], ["25-170"])
+        self.assertEqual(self.env.state["sources"]["transcript-files/26"]["keys"], ["25-170|25-170_a.pdf"])
         self.assertEqual(self.env.dispatched, [])
 
     def test_lease_held_skips(self):

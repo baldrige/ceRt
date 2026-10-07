@@ -242,11 +242,18 @@ update_transcripts <- function(site_dir, terms, max_new = 200L, pace = 1) {
   listing <- transcript_index(terms)
   if (!nrow(listing)) { message("update_transcripts(): no transcripts listed"); return(invisible(idx)) }
   listing$key <- tx_key(listing$term, listing$dkt)
-  stale <- vapply(listing$key, function(k) {
-    e <- idx[[k]]
+  # Stale: never parsed, parsed under an older parser, missing its JSON -- or
+  # RE-POSTED: the Court replaces a transcript with a corrected one under a new
+  # file name (25-170_3e04.pdf, argued 5 Oct 2026, was 25-170_8m58.pdf by the
+  # 7th), and the old parse would otherwise stand for good.
+  stale <- vapply(seq_len(nrow(listing)), function(i) {
+    k <- listing$key[i]; e <- idx[[k]]
     is.null(e) || !identical(e$parser %||% "", TX_PARSER_VERSION) ||
+      !identical(unlist(e$url)[1] %||% "", listing$url[i]) ||
       !file.exists(file.path(site_dir, "arguments", paste0(k, ".json")))
   }, logical(1))
+  reposted <- listing$key[stale & listing$key %in% names(idx)]
+  if (length(reposted)) message("update_transcripts(): re-posted or re-parsed: ", paste(reposted, collapse = ", "))
   todo <- listing[stale, , drop = FALSE]
   todo <- todo[order(todo$posted, decreasing = TRUE, na.last = TRUE), , drop = FALSE]
   if (nrow(todo) > max_new) {
@@ -254,7 +261,7 @@ update_transcripts <- function(site_dir, terms, max_new = 200L, pace = 1) {
     todo <- head(todo, max_new)
   }
   tmp <- tempfile("tx"); dir.create(tmp)
-  ok <- 0L; failed <- 0L
+  ok <- 0L; failed <- 0L; parsed <- character()
   for (i in seq_len(nrow(todo))) {
     r <- todo[i, ]
     f <- download_transcripts(r, tmp, pace = pace)
@@ -272,14 +279,16 @@ update_transcripts <- function(site_dir, terms, max_new = 200L, pace = 1) {
       out, auto_unbox = TRUE, dataframe = "rows", na = "null")
     idx[[r$key]] <- list(dkt = r$dkt, dkts = r$dkts[[1]], term = r$term, url = r$url,
                          posted = format(r$posted), parser = TX_PARSER_VERSION)
-    ok <- ok + 1L
+    ok <- ok + 1L; parsed <- c(parsed, r$key)
   }
   unlink(tmp, recursive = TRUE)
   jsonlite::write_json(idx[order(names(idx))], file.path(site_dir, "arguments", TX_INDEX),
                        auto_unbox = TRUE, pretty = FALSE)
   message(sprintf("update_transcripts(): %d listed, %d parsed this run, %d failed, %d on file",
                   nrow(listing), ok, failed, length(idx)))
-  invisible(idx)
+  # Which keys this run (re)wrote -- new arguments and re-posted ones alike --
+  # so the daily renders, re-links and re-aligns exactly those.
+  invisible(structure(idx, parsed = parsed))
 }
 
 #' Download each transcript once into `dir`, paced. Returns the local paths.
