@@ -157,6 +157,7 @@ jobs:
           echo "SUBJECT_PYTHON=$(python -c 'import sys; print(sys.executable)')" >> "$GITHUB_ENV"
 
       - name: Build dashboards into ./site
+        id: build
         env:
           SITE_DIR: site
           TERM_YEAR: "26"
@@ -172,10 +173,19 @@ jobs:
           GA4_PROPERTY_ID: ${{ secrets.GA4_PROPERTY_ID }}
           GA4_SA_KEY: ${{ secrets.GA4_SA_KEY }}
           TYPESAFE_API_KEY: ${{ secrets.TYPESAFE_API_KEY }}
-          # gh, for dispatching align-arguments.yml after a new transcript.
-          GH_TOKEN: ${{ github.token }}
         run: Rscript .github/scripts/build_dashboards.R
 
       - name: Commit and publish changes
         working-directory: site
         run: ../.github/scripts/publish_site.sh "Daily dashboard refresh $(date -u +%F)"
+
+      # Line times for a new argument: start the aligner only once its
+      # transcript JSON is ON gh-pages. Dispatching from inside the build (as
+      # this used to) raced the publish -- on 6 Oct 2026 the aligner checked
+      # out gh-pages 20 s before this run pushed 25-498 and found nothing to
+      # do. The build reports new arguments through its step output.
+      - name: Align the new arguments' audio
+        if: steps.build.outputs.new_args == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run align-arguments.yml --ref main || echo "::warning::could not dispatch align-arguments.yml; its six-hourly schedule will pick the argument up"

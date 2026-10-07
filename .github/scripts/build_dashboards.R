@@ -465,13 +465,12 @@ new_args <- tryCatch({
     argued <- unique(unlist(lapply(idx_now[nk], function(e) c(e$dkt, unlist(e$dkts)))))
     held <- bind_rows(ot, got)
     render_dockets_for(held[held$dkt %in% argued, , drop = FALSE], site_dir)
-    # Line times: start the aligner now. The workflow token may dispatch a
-    # workflow (daily.yml grants actions: write); never fatal if it cannot.
-    if (nzchar(Sys.getenv("GH_TOKEN"))) {
-      rc <- suppressWarnings(system2("gh", c("workflow", "run", "align-arguments.yml", "--ref", "main"),
-                                     stdout = TRUE, stderr = TRUE))
-      cat("Alignment dispatched for the new argument(s):", paste(rc, collapse = " "), "\n")
-    }
+    # Line times: tell daily.yml there is something to align. It dispatches
+    # align-arguments.yml AFTER its publish step, so the aligner finds the new
+    # transcript on gh-pages; dispatching from here raced the publish.
+    go <- Sys.getenv("GITHUB_OUTPUT")
+    if (nzchar(go)) cat("new_args=true\n", file = go, append = TRUE)
+    cat("Alignment to be dispatched after publish for:", paste(nk, collapse = ", "), "\n")
   }
   nk
 }, error = function(e) { cat("New arguments skipped:", conditionMessage(e), "\n"); character() })
