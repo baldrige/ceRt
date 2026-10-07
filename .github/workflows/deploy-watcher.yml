@@ -1,0 +1,64 @@
+name: Deploy the court watcher
+
+# Tests aws/watcher/watcher.py and uploads it as the code of the cert-scheduler
+# Lambda (aws/scheduler.yaml). Signs in to AWS with GitHub's OIDC token as the
+# stack's cert-scheduler-deploy role, which may update that one function's code
+# and nothing else -- no AWS keys are stored here. The role's ARN is the
+# repository variable AWS_DEPLOY_ROLE_ARN (the stack's DeployRoleArn output).
+#
+# The file goes up as index.py so the handler stays index.handler, the name
+# the template's inline bootstrap code uses: a later stack update that touches
+# the function's configuration then cannot point it at a handler that is not
+# there. See aws/README.md.
+
+on:
+  push:
+    branches: [main]
+    paths: ["aws/watcher/**", ".github/workflows/deploy-watcher.yml"]
+  workflow_dispatch:
+
+permissions:
+  id-token: write     # the OIDC token AWS trusts
+  contents: read
+
+concurrency:
+  group: deploy-watcher
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"     # the Lambda's runtime
+
+      - name: Test
+        working-directory: aws/watcher
+        run: python -m unittest -v test_watcher
+
+      - name: Sign in to AWS
+        if: vars.AWS_DEPLOY_ROLE_ARN != ''
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
+          aws-region: us-east-1
+
+      - name: Upload the code
+        if: vars.AWS_DEPLOY_ROLE_ARN != ''
+        run: |
+          set -euo pipefail
+          mkdir -p build && cp aws/watcher/watcher.py build/index.py
+          (cd build && zip -q ../watcher.zip index.py)
+          aws lambda update-function-code --function-name cert-scheduler \
+            --zip-file fileb://watcher.zip --query '[CodeSha256,LastModified]' --output text
+          aws lambda wait function-updated --function-name cert-scheduler
+          aws lambda get-function-configuration --function-name cert-scheduler \
+            --query '{handler:Handler,runtime:Runtime,state:LastUpdateStatus}'
+
+      - name: No deploy role yet
+        if: vars.AWS_DEPLOY_ROLE_ARN == ''
+        run: echo "::warning::AWS_DEPLOY_ROLE_ARN is not set; tests ran, nothing was deployed. See aws/README.md."

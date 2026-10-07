@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?xml-stylesheet type='text/xsl' href='slipopinion.xsl' ?>
+<?xml-stylesheet type='text/xsl' href='slipopinion.css' ?>
+<rss version='2.0'>
+<channel>
+<title>US Supreme Court Opinions of the Court - 2026 Term</title>
+<link>https://www.supremecourt.gov/oral_arguments/argument_transcript/</link>
+<description>US Supreme Court Opinions of the Court - 2026 Term</description>
+<pubDate>Wed, 07 Oct 2026 11:39:39 EST</pubDate>
+<item>
+<title><![CDATA[ () ]]></title>
+
+<description><![CDATA[ ]]></description>
+<link>http://www.supremecourt.gov/opinions/</link>
+<pubDate>Tue, 04 Aug 2026 13:57:34 EDT</pubDate>
+<category></category>
+<category></category>
+</item>
+</channel>
+</rss>
