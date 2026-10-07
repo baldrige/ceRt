@@ -9,7 +9,7 @@ name: Deploy the court watcher
 # If the provider is ever allowed (the stack's GitHubDeploy parameter), the
 # workflow also uploads the code itself, as the stack's cert-scheduler-deploy
 # role -- set the repository variable AWS_DEPLOY_ROLE_ARN to the stack's
-# DeployRoleArn output, and AWS_REGION if the stack is not in us-east-1.
+# DeployRoleArn output, and AWS_REGION if the stack ever leaves us-east-2.
 #
 # The file goes up as index.py so the handler stays index.handler, the name
 # the template's inline bootstrap code uses: a later stack update that touches
@@ -62,7 +62,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
-          aws-region: ${{ vars.AWS_REGION || 'us-east-1' }}
+          aws-region: ${{ vars.AWS_REGION || 'us-east-2' }}
 
       - name: Upload the code
         if: vars.AWS_DEPLOY_ROLE_ARN != ''
