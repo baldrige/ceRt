@@ -449,10 +449,12 @@ source("R/argument_sides.R")
 source("R/argument_reader.R")
 new_args <- tryCatch({
   before <- names(read_transcript_index(site_dir))
-  update_transcripts(site_dir, argument_term(Sys.Date()),
-                     max_new = as.integer(Sys.getenv("TRANSCRIPTS_MAX_NEW", unset = "12")))
+  upd <- update_transcripts(site_dir, argument_term(Sys.Date()),
+                            max_new = as.integer(Sys.getenv("TRANSCRIPTS_MAX_NEW", unset = "12")))
   idx_now <- read_transcript_index(site_dir)
-  nk <- setdiff(names(idx_now), before)
+  # New arguments, and existing ones whose transcript the Court re-posted
+  # (update_transcripts() reports every key it wrote).
+  nk <- union(setdiff(names(idx_now), before), intersect(attr(upd, "parsed") %||% character(), names(idx_now)))
   if (length(nk)) {
     need <- setdiff(unique(unlist(lapply(idx_now[nk], function(e) c(e$dkt, unlist(e$dkts))))), ot$dkt)
     got <- if (length(need)) tryCatch(fetch_cases(need), error = function(e) NULL) else NULL

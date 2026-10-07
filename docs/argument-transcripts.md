@@ -24,6 +24,16 @@ the argument, so the 20:33 UTC daily (or a Hermes-triggered one) carries it.
 What waits for the nightly conferences run (06:00 UTC): the Term chart on the Term's *other* argument
 pages, and the Navigator's link.
 
+**Re-posted transcripts.** The Court replaces a transcript with a corrected
+one under a new file name -- all three of OT2026's first week (25-170, 25-735,
+25-498) within a day or two. `update_transcripts()` treats a listed URL that
+differs from the index's as stale and parses it again; the JSON is rewritten
+without line times, so the aligner re-times it, and the daily renders the
+page again (it reports every key it wrote, new or re-posted). The court
+watcher keys the transcript feed on docket *and* file name for the same
+reason. Every OT2017-OT2025 URL matched the feeds when this was added, so it
+re-reads nothing old.
+
 **The argument's date** is the feed's posting date -- the day of argument --
 unless the Court's argument calendar (`arguments/calendar.json`) lists the
 docket in that Term, in which case the calendar's date wins

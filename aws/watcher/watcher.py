@@ -14,7 +14,7 @@ WHAT IT WATCHES, and the key that makes an item "new" (docs/data-sources.md):
   orders      /orders/ordersofthecourt/NN, this Term and the last  order PDF stem
   slip        /rss/slipopinion_rss.aspx?TYear=NN                   item link
   relating    /opinions/relatingtoorders/NN                        opinion PDF path
-  transcripts /rss/argument_transcripts_rss.aspx?TYear=NN          docket
+  transcript-files /rss/argument_transcripts_rss.aspx?TYear=NN     docket + PDF name
   audio       /rss/argument_audio_rss.aspx?TYear=NN                docket
   hermes      /rss/hermes_transfer.xml                             file + its date
 
@@ -140,6 +140,20 @@ def parse_argument_feed(xml):
     return out
 
 
+def parse_transcript_feed(xml):
+    """Transcript RSS: docket and PDF file name, "25-170|25-170_8m58.pdf". The
+    file name is in the key because the Court re-posts a corrected transcript
+    under a new name -- all three of the first week's (5-6 Oct 2026) within a
+    day or two -- and a re-post must reach the site as surely as a first post."""
+    out = set()
+    for b in _items(xml):
+        m = _DOCKET.search(_field(b, "title"))
+        link = _field(b, "link")
+        if m and link:
+            out.add("%s|%s" % (m.group(1), link.rstrip("/").rsplit("/", 1)[-1]))
+    return out
+
+
 def parse_hermes(xml):
     """Hermes: each file with its modification time, plus the channel's own
     date (the last transfer). A changed set is the "something moved" hint."""
@@ -162,7 +176,9 @@ def sources(now):
             ("orders/%02d" % t, BASE + "/orders/ordersofthecourt/%02d" % t, parse_orders),
             ("relating/%02d" % t, BASE + "/opinions/relatingtoorders/%02d" % t, parse_relating),
             ("slip/%02d" % t, BASE + "/rss/slipopinion_rss.aspx?TYear=%02d" % t, parse_slip),
-            ("transcripts/%02d" % t, BASE + "/rss/argument_transcripts_rss.aspx?TYear=%02d" % t, parse_argument_feed),
+            # (Named transcript-files, not transcripts: the key changed from the
+            # docket alone, and a new name is a fresh baseline, not 60 "new" items.)
+            ("transcript-files/%02d" % t, BASE + "/rss/argument_transcripts_rss.aspx?TYear=%02d" % t, parse_transcript_feed),
             ("audio/%02d" % t, BASE + "/rss/argument_audio_rss.aspx?TYear=%02d" % t, parse_argument_feed),
         ]
     return out
