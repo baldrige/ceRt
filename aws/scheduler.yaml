@@ -26,19 +26,24 @@ Parameters:
       on the site after 45 minutes, or the watcher itself keeps failing. Blank =
       no email. AWS sends a confirmation message first; click its link. (Kept
       out of the template because the repository is public.)
-  CreateGitHubOIDCProvider:
+  GitHubDeploy:
     Type: String
-    Default: "true"
-    AllowedValues: ["true", "false"]
+    Default: none
+    AllowedValues: [none, create-provider, existing-provider]
     Description: >-
-      "true" creates the account's GitHub Actions identity provider
-      (token.actions.githubusercontent.com), which lets deploy-watcher.yml
-      deploy the watcher with no stored AWS keys. "false" if the account
-      already has one -- an account can hold only one.
+      How the watcher's code reaches the function. "none" (the default): upload
+      it by hand, Lambda console > Code > Upload from > .zip file (see
+      aws/README.md). "create-provider" / "existing-provider": let
+      deploy-watcher.yml deploy it through GitHub's OIDC identity provider,
+      creating that provider or using the account's existing one. This
+      account's AWS Organization denies creating the provider
+      (iam:CreateOpenIDConnectProvider, by service control policy, Oct 2026),
+      so "none" unless an administrator creates it.
 
 Conditions:
   HasEmail: !Not [!Equals [!Ref AlertEmail, ""]]
-  MakeOIDC: !Equals [!Ref CreateGitHubOIDCProvider, "true"]
+  MakeOIDC: !Equals [!Ref GitHubDeploy, create-provider]
+  UseOIDC: !Not [!Equals [!Ref GitHubDeploy, none]]
 
 Resources:
   TokenSecret:
@@ -103,8 +108,9 @@ Resources:
       TreatMissingData: notBreaching
       AlarmActions: [!Ref AlertTopic]
 
-  # deploy-watcher.yml signs in with GitHub's OIDC token -- no AWS keys stored
-  # in the repository -- and may only update this one function's code.
+  # Optional (GitHubDeploy): deploy-watcher.yml signs in with GitHub's OIDC
+  # token -- no AWS keys stored in the repository -- and may only update this
+  # one function's code.
   GitHubOIDC:
     Type: AWS::IAM::OIDCProvider
     Condition: MakeOIDC
@@ -117,6 +123,7 @@ Resources:
 
   DeployRole:
     Type: AWS::IAM::Role
+    Condition: UseOIDC
     Properties:
       RoleName: cert-scheduler-deploy
       AssumeRolePolicyDocument:
@@ -188,9 +195,9 @@ Resources:
           TOKEN_SECRET: !Ref TokenSecret
           STATE_TABLE: !Ref StateTable
           ALERT_TOPIC: !Ref AlertTopic
-      # BOOTSTRAP ONLY. The running code is aws/watcher/watcher.py, which
-      # deploy-watcher.yml uploads as index.py (so the handler stays
-      # index.handler). This inline copy is the first watcher, kept so the
+      # BOOTSTRAP ONLY. The running code is aws/watcher/watcher.py, uploaded as
+      # index.py (so the handler stays index.handler) -- by hand from the zip
+      # deploy-watcher.yml builds, or by that workflow when GitHubDeploy allows. This inline copy is the first watcher, kept so the
       # schedules work from the moment the stack exists. CloudFormation touches
       # the code only when this block's text changes -- if you edit it, run
       # deploy-watcher.yml afterwards or the old watcher comes back.
@@ -402,6 +409,7 @@ Resources:
 
 Outputs:
   DeployRoleArn:
+    Condition: UseOIDC
     Description: Set as the repository variable AWS_DEPLOY_ROLE_ARN (gh variable set AWS_DEPLOY_ROLE_ARN --body <arn>).
     Value: !GetAtt DeployRole.Arn
   AlertTopicArn:

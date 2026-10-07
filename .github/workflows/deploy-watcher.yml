@@ -1,10 +1,15 @@
 name: Deploy the court watcher
 
-# Tests aws/watcher/watcher.py and uploads it as the code of the cert-scheduler
-# Lambda (aws/scheduler.yaml). Signs in to AWS with GitHub's OIDC token as the
-# stack's cert-scheduler-deploy role, which may update that one function's code
-# and nothing else -- no AWS keys are stored here. The role's ARN is the
-# repository variable AWS_DEPLOY_ROLE_ARN (the stack's DeployRoleArn output).
+# Tests aws/watcher/watcher.py and builds the cert-scheduler Lambda's code as
+# watcher-lambda.zip, a run artifact: download it and upload it in the Lambda
+# console (Code > Upload from > .zip file). That is the deploy path for this
+# account: its AWS Organization denies creating GitHub's OIDC identity
+# provider, so the workflow cannot sign in to AWS.
+#
+# If the provider is ever allowed (the stack's GitHubDeploy parameter), the
+# workflow also uploads the code itself, as the stack's cert-scheduler-deploy
+# role -- set the repository variable AWS_DEPLOY_ROLE_ARN to the stack's
+# DeployRoleArn output, and AWS_REGION if the stack is not in us-east-1.
 #
 # The file goes up as index.py so the handler stays index.handler, the name
 # the template's inline bootstrap code uses: a later stack update that touches
@@ -40,25 +45,35 @@ jobs:
         working-directory: aws/watcher
         run: python -m unittest -v test_watcher
 
+      - name: Build the Lambda zip
+        run: |
+          mkdir -p build && cp aws/watcher/watcher.py build/index.py
+          (cd build && zip -q ../watcher-lambda.zip index.py)
+          echo "watcher-lambda.zip: index.py from $(git rev-parse --short HEAD)"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: watcher-lambda
+          path: watcher-lambda.zip
+          retention-days: 90
+
       - name: Sign in to AWS
         if: vars.AWS_DEPLOY_ROLE_ARN != ''
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
-          aws-region: us-east-1
+          aws-region: ${{ vars.AWS_REGION || 'us-east-1' }}
 
       - name: Upload the code
         if: vars.AWS_DEPLOY_ROLE_ARN != ''
         run: |
           set -euo pipefail
-          mkdir -p build && cp aws/watcher/watcher.py build/index.py
-          (cd build && zip -q ../watcher.zip index.py)
           aws lambda update-function-code --function-name cert-scheduler \
-            --zip-file fileb://watcher.zip --query '[CodeSha256,LastModified]' --output text
+            --zip-file fileb://watcher-lambda.zip --query '[CodeSha256,LastModified]' --output text
           aws lambda wait function-updated --function-name cert-scheduler
           aws lambda get-function-configuration --function-name cert-scheduler \
             --query '{handler:Handler,runtime:Runtime,state:LastUpdateStatus}'
 
-      - name: No deploy role yet
+      - name: Upload by hand
         if: vars.AWS_DEPLOY_ROLE_ARN == ''
-        run: echo "::warning::AWS_DEPLOY_ROLE_ARN is not set; tests ran, nothing was deployed. See aws/README.md."
+        run: echo "::notice::Built watcher-lambda.zip (this run's artifact). Upload it in the Lambda console -- cert-scheduler > Code > Upload from > .zip file. See aws/README.md."
