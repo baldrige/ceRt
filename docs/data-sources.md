@@ -14,7 +14,7 @@ is adopted or the Court changes one.
 | **Order lists** | `/orders/ordersofthecourt/NN` → `/orders/courtorders/*.pdf` | one Term's order documents (date, kind, PDF); PDF text with a fixed grammar of sections, dockets, captions and order prose | `R/orders_list.R` (the daily); `docs/order-lists.md` |
 | **Slip-opinion RSS** | `/rss/slipopinion_rss.aspx?TYear=NN` | caption and docket, author or per curiam, PDF, posting time, opinion type and citation as categories, and the Reporter's holding summary as the description | `R/site_decisions.R`: opinion URLs and the holding line on Recent decisions |
 | **Opinion listings** | `/opinions/slipopinion/NN` (fallback), `/opinions/relatingtoorders/NN` | HTML tables of docket, date, PDF, author code, citation | the Recent decisions failsafe in `R/site_decisions.R` |
-| **Hermes transfer feed** | `/rss/hermes_transfer.xml` | the files the Court's internal system just pushed, with timestamps; the files themselves are not served | `watch-court.yml`: a change trigger that dispatches the daily |
+| **Hermes transfer feed** | `/rss/hermes_transfer.xml` | the files the Court's internal system just pushed, with timestamps; the files themselves are not served. What it carries: [below](#the-hermes-feed-what-it-carries) | the AWS watcher (`aws/scheduler.yaml`; `watch-court.yml` before 2026-09-29): a change trigger that dispatches the daily |
 | **Granted & Noted List** | `/orders/NNgrantednotedlist.pdf`, OT16 on | per argued case: code, court below, grant, argument and decision dates, author, separate writings with their kind, result, unanimity flags | `R/granted_noted.R`: the Navigator's "Separate writings" column, the same line on Recent decisions, and the argument-grammar audit |
 | **Monthly argument calendars** | `/oral_arguments/argument_calendars/MonthlyArgumentCal<Month><Year>.pdf` | each sitting's cases by day and order, ~2 months ahead | `R/argument_calendar.R`: schedules a case the docket has not set; cross-checks the rest |
 | **The home-page calendar** | `/` (a Telerik RadCalendar; another month is a postback with `__EVENTARGUMENT=n:k`) | every marked day, September 2021 to the end of the announced Term: conferences, argument and non-argument days, holidays by name; order-list days only in retrospect | `R/court_calendar.R`: future conference dates, and the order lists expected from them (`conferences/court_calendar.json`, the landing page's calendar) |
@@ -25,6 +25,41 @@ is adopted or the Court changes one.
 | **Argument transcripts index** | `/oral_arguments/argument_transcript/YYYY` | docket → transcript PDF | the fallback for a Term whose feed is down |
 | **Argument audio** | `/oral_arguments/audio/YYYY/<docket>` | stable per-case URL | the fallback for a Term whose feed is down |
 
+### The Hermes feed: what it carries
+
+The feed is the Court's **orders and the written opinions that go with them**
+-- not docket activity. Every change to it, of any kind, does the same thing:
+the watcher dispatches `daily.yml` (unless one was dispatched under 10 minutes
+ago or a daily is live, in which case the next 5-minute poll tries again). From
+the ten transfers `watch-court.yml` logged (5-29 Sep 2026) and the feed itself
+(5-7 Oct 2026):
+
+| file | what it was | seen |
+| --- | --- | --- |
+| `MMDDYYzor.xml` | a regular order list | `090426ZOR`, `100526ZOR` |
+| `MMDDYYzr.xml`, `zr1`, `zr2`... | a miscellaneous order, one file per order that day | `090826zr`, `091026zr` and `zr1`, `100126zr` (the three grants) -- every one is in `orders/orders.json` as a `misc` order of that date |
+| `26A###.xml` | the full Court's order on an emergency application referred to it | 26A274 granted (4 Sep); 26A305, 26A308, 26A388 (14 and 25 Sep); 26A428 (30 Sep) -- each the same day as "Application ... referred to the Court" and its disposition |
+| a petition docket, `25-7499.xml` | a written opinion on an order: Justice Sotomayor's statement respecting the denial in *Mulkey v. Alabama*, published with the 5 Oct list | file dated 30 Sep, transferred 5 Oct |
+
+**Not on it:** argument transcripts and audio (the feed did not move through
+the arguments of 5 and 6 Oct 2026), ordinary docket activity (filings,
+distributions, the docket JSON), Day Calls, argument calendars. **Not yet
+observed:** merits opinions -- none were issued in the window. The written
+opinions on orders above suggest slip opinions arrive the same way, as
+docket-numbered files; confirm on the first opinion day.
+
+**Two timestamps, and neither is "posted".** An item's `pubDate` is the
+file's modification time; the channel's `pubDate` is the last transfer.
+`100526ZOR.xml` is dated 1 Oct 15:13 ET, but it was not in the feed on 1 Oct
+(the channel then read 1 Oct 16:44 with only `100126zr`, `zr1` and
+`26A428`): it arrived with the channel stamp of 5 Oct 10:05 ET, **35 minutes
+after** the 9:30 release. So the feed does not reliably lead an order list,
+and the Monday 14:03 UTC daily is still the one that carries it.
+
+**The feed holds only the last two or three files**, so it is no record:
+`watch-court.yml`'s logs (expiring) were the only history, and the AWS
+watcher logs a fingerprint, not the items.
+
 ## Not read yet, clean, worth having
 
 Nothing remains here as of 2026-09-07: every clean stream the survey found is
@@ -33,11 +68,10 @@ and in what order it was taken up.
 
 Ranked by what each adds, from the 2026-09-04 survey. The first two on the
 original list -- the Hermes-feed change trigger and the slip-opinion RSS --
-were built on 2026-09-05 and have moved to the table above. One thing the
-trigger's first week of logs should settle: the order list's `ZOR.xml` was
-transferred the afternoon *before* it was posted (Sep 3, 13:34 ET for the
-Sep 4 list), so the feed may lead an order list rather than announce it; the
-Monday 14:03 UTC daily slot is the floor for those.
+were built on 2026-09-05 and have moved to the table above. The question this
+left -- whether the feed leads an order list (the Sep 4 list's `ZOR.xml` was
+dated Sep 3, 13:34 ET) -- is answered above: that date is the file's, not the
+transfer's, and the 5 Oct list reached the feed 35 minutes after release.
 
 The Granted & Noted List was built on 2026-09-06 and has moved to the table
 above (`docs/granted-noted.md`).
