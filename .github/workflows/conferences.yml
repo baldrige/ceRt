@@ -210,7 +210,12 @@ jobs:
     needs: [setup, fetch, fetch-pending]
     if: always() && needs.setup.result == 'success' && needs.fetch.result == 'success'
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    # Was 60 -- less than its own setup caps (setup-r 30 + dependencies 15)
+    # plus ~40 min of rendering. On 8 Oct 2026 an R package cache miss (19 min
+    # of installs instead of 1) and two stale classifier summaries (~10 min of
+    # recomputation) took it past 60 in "Render the Justices", and the whole
+    # night's refresh was thrown away unpublished. A normal run is ~25 min.
+    timeout-minutes: 120
     steps:
       - name: Checkout source (main)
         uses: actions/checkout@v5
