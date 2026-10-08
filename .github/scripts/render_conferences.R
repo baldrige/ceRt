@@ -268,7 +268,8 @@ conference_index(conf_dir)
 tryCatch({
   # Already sourced above, for the QP union.
   rp <- relist_watch(dist_all, file.path(site_dir, "relists"),
-                     qp_map = qp_map, models = cert_models, signals_map = signals_map)
+                     qp_map = qp_map, models = cert_models, signals_map = signals_map,
+                     subject_map = subject_map)
   cat("Relist Tracker:", if (is.null(rp)) "no live relisted petitions -- not written"
       else paste(nrow(relist_watch_table(dist_all)), "live relisted petition(s)"), "\n")
 }, error = function(e) message("Relist Tracker skipped: ", conditionMessage(e)))

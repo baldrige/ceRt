@@ -76,7 +76,10 @@ FUNNEL_PATTERNS <- list(
 # Grant-entry forms (an entry that grants review). Verified families:
 GRANT_FORMS <- c(
   "^Petition GRANTED",
-  "^Petition for a writ of certiorari( before judgment)? GRANTED",
+  # "(a )?": 25-243 (Allen v. Caster, 11 May 2026) reads "Petition for writ of
+  # certiorari before judgment GRANTED" and sat on the Relist Tracker as live
+  # for five months after it was decided.
+  "^Petition for (a )?writ of certiorari( before judgment)? GRANTED",
   "^Petition for certiorari GRANTED",
   "^Motion to proceed in forma pauperis and petition for a writ of certiorari GRANTED",
   # split-motion form: "Motion to proceed in forma pauperis GRANTED. Petition
@@ -236,6 +239,7 @@ classify_petition_events <- function(events) {
     n_dist = 0L, n_relists = 0L,
     first_dist = as.Date(NA), dist_dates = list(as.Date(character())),
     relist_dates = list(as.Date(character())),
+    relist_confs = list(as.Date(character())),
     outcome = "pending", outcome_date = as.Date(NA),
     has_cfr = FALSE, has_resp = FALSE, has_amicus = FALSE
   )
@@ -273,14 +277,24 @@ classify_petition_events <- function(events) {
 
   # True relists: for each distribution after the first, it is a relist unless a
   # Rescheduled, Response Requested, or CVSG entry intervened since the previous
-  # distribution.
+  # distribution -- and only if it moves the case to a LATER conference after the
+  # earlier one was actually held. A second "DISTRIBUTED for Conference of 9/28"
+  # (25-7499, re-entered after the record arrived) is the same conference, and a
+  # move to a later conference entered before the first one met is a reschedule
+  # the Clerk did not label (25-1413): neither is the Justices deferring. Over
+  # OT17-24 this drops 38 of 6,741 relists (14 and 24 of each kind).
   di <- which(is_dist)
+  conf <- suppressWarnings(lubridate::mdy(
+    str_match(txt[di], "Conference of (\\d{1,2}/\\d{1,2}/\\d{4})")[, 2]))
   relist_flags <- logical(0)
   if (length(di) > 1) {
     relist_flags <- vapply(seq_len(length(di) - 1), function(i) {
       lo <- di[i] + 1L; hi <- di[i + 1L] - 1L
-      if (lo > hi) return(TRUE) # adjacent distributions: nothing intervened
-      !any(is_resched[lo:hi] | is_cfr[lo:hi] | is_cvsg[lo:hi])
+      if (lo <= hi && any(is_resched[lo:hi] | is_cfr[lo:hi] | is_cvsg[lo:hi])) return(FALSE)
+      prev <- conf[i]; nxt <- conf[i + 1L]
+      if (!is.na(prev) && !is.na(nxt) && nxt == prev) return(FALSE)
+      if (!is.na(prev) && !is.na(edate[di[i + 1L]]) && edate[di[i + 1L]] < prev) return(FALSE)
+      TRUE
     }, logical(1))
   }
 
@@ -315,8 +329,19 @@ classify_petition_events <- function(events) {
                  str_detect(txt, regex("vacat", ignore_case = TRUE)))
     reh <- reh[reh > first]
     if (length(reh) > 0) {
-      later <- hit[hit > reh[1]]
-      if (length(later) > 0) first <- later[1] else first <- NA_integer_
+      # The rehearing order can carry its own new disposition: 23-402 (30 Jun
+      # 2025) grants rehearing, vacates the denial, and GVRs the case in one
+      # entry. Read that entry for a grant before looking past it.
+      r <- reh[1]
+      regrant <- str_detect(txt[r], regex("certiorari (is |are )?granted", ignore_case = TRUE))
+      if (regrant) {
+        term_kind[r] <- if (str_detect(txt[r], regex("judgments?[^.]{0,40}(is |are )?(vacated|reversed)", ignore_case = TRUE)))
+          "gvr" else "granted"
+        first <- r
+      } else {
+        later <- hit[hit > r]
+        if (length(later) > 0) first <- later[1] else first <- NA_integer_
+      }
     }
     if (!is.na(first)) {
       outcome <- term_kind[first]
@@ -330,6 +355,9 @@ classify_petition_events <- function(events) {
     first_dist = if (length(di) > 0) edate[di[1]] else as.Date(NA),
     dist_dates = list(edate[di]),
     relist_dates = list(if (length(di) > 1) edate[di[-1]][relist_flags] else as.Date(character())),
+    # The conference each relist sent the case TO -- what the Relist Tracker
+    # shows as the case's history ("Sep 28 -> Oct 9").
+    relist_confs = list(if (length(di) > 1) conf[-1][relist_flags] else as.Date(character())),
     outcome = outcome,
     outcome_date = outcome_date,
     has_cfr = any(is_cfr),

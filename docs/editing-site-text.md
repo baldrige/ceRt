@@ -80,7 +80,7 @@ drift; the phrases don't.
 | --- | --- | --- | --- |
 | Conferences index | `Conference Reports` | "What the Justices consider at each private conference…" | `R/conference_dash.R` :484, dek :489 |
 | A conference report | `Conference of {date}` | "{n} cases distributed for this conference — sortable…" | `R/conference_dash.R` :432–435, title :441 |
-| Relist Tracker | `Relist Tracker` | "{n} petitions the Justices have considered at least twice…" | `R/relist_watch.R` :202–206, title :228 |
+| Relist Tracker | `Relist Tracker` | "{n} petitions relisted and set for conference (the next on {date}); {n} awaiting the Solicitor General; …" | `R/relist_watch.R` :305–314, title :341 |
 | Orders index | `Orders` | "Every order list and miscellaneous order the Court has issued…" | `R/orders_list.R` :567–569 |
 | An order list | the long date | *(no dek — the counts line stands in)* | `R/orders_list.R` :510; counts :462–466 |
 | Order-page section headings | `Certiorari granted`, `Summary dispositions`, … | — | `R/orders_list.R` :81–86 |
@@ -116,7 +116,7 @@ biggest uncatalogued blocks: the case page's panel labels and ten-item timeline
 legend (`R/docket_page.R:669–680`, :1226–1348), the `/counsel/` board headings and
 method notes (`R/counsel_table.R:1123–1267`), and the two footnotes under the
 conference and relist tables (`R/conference_dash.R:415–424`,
-`R/relist_watch.R:208–222`). Grep, don't scroll.
+`R/relist_watch.R:316–335`). Grep, don't scroll.
 
 ---
 
@@ -215,7 +215,7 @@ Most words are free. These aren't:
 | `R/argument_nav.R:502–508` — "N cases argued or scheduled…" | Same trick on `/arguments/`, regex `([0-9,]+)\s+(?:granted\s+)?cases?` (`R/argument_nav.R:543`). Only the word "granted" may sit between the number and "case". Both scrapes are first-match-wins over the whole page. |
 | `R/argument_nav.R:405` — `Granted` `Scheduled` `Argued` `Decided` `DIG'd` `Dismissed` | Also the colour-lookup keys in `STATUS_FILL` (`R/palette.R:233–235`) and minted a second time by `classify_argument()` at `R/argument_nav.R:129–134`. Rename one in only one of the three and its cells lose their shading, silently. |
 | `R/conference_dash.R:313` / `R/scotus_dash_new.R:512` — `Paid` `IFP` `Application` | Same coupling, against `TYPE_CHIPS` (`R/palette.R:219`). |
-| `R/relist_watch.R:155` — `Held` | A display label *and* a lookup key, used again at :188 (palette) and :201 (the dek's "N of them apparently held" clause). The footnote at :212 explains the label and must move with it. |
+| `R/relist_watch.R:56` — `RELIST_GROUPS` (`Up next`, `Awaiting the SG`, `Held`, `No conference set`) | Display labels *and* lookup keys: the group is assigned by name in `relist_watch_table()`, coloured by name at :283–286, counted by name in the dek (:303–312), and the held case's history cell tests for `"Held"`. The footer (:316–335) explains each label and must move with it. |
 | `R/docket_page.R:1686` — `Cases` | Passed as `crumb_label` and compared at `R/docket_page.R:1697` to decide whether the hub shows a middle breadcrumb. The hub's *heading* at :1682 is free; the `crumb_label` is not. |
 | `R/site_nav.R:39–59` — the `long` section names | Pre-escaped HTML, pasted raw into 56k case-page footers (`R/site_nav.R:223`) and wrapped in `HTML()` on the 404 (`R/page_style.R:592–593`). Write `&amp;`, not `&`, in *these* specific strings — the opposite rule from the landing page's labels at `build_dashboards.R:238`. |
 | `R/site_nav.R:39–59` — the `label` values | Also pasted raw, and width-critical: the comment at :44–49 records that nine labels need 833px against a 60rem masthead's 816px, which is why "The Funnel" became "Funnel". A longer label wraps the nav on every page. |
