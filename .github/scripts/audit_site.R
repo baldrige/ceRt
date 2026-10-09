@@ -461,17 +461,19 @@ if (length(feeds)) {
   # 2026-09-03 for 26 days while the daily kept publishing dashboards: the feed
   # step threw, a tryCatch turned it into one log line, and nothing here looked.
   # So: the newest dated page (a dashboard, or a conference already held) must
-  # not be newer than the feed's own <updated>.
+  # not be newer than the feed's own <updated>. A conference page is published
+  # ahead of its date, and today's conference has not been held until the
+  # refresh after it -- counting it made a 04:00 UTC audit fail on 2026-10-09.
   if ("feed.xml" %in% feeds) {
     today_et <- as.Date(format(Sys.time(), tz = "America/New_York"))
-    page_dates <- function(dir, rx) {
+    page_dates <- function(dir, rx, through) {
       f <- list.files(file.path(site, dir), pattern = rx)
       d <- as.Date(sub(".*(\\d{4}-\\d{2}-\\d{2}).*", "\\1", f))
-      d[!is.na(d) & d <= today_et]
+      d[!is.na(d) & d <= through]
     }
     newest <- suppressWarnings(max(c(
-      page_dates("dashboards", "^dash_\\d{4}-\\d{2}-\\d{2}\\.html$"),
-      page_dates("conferences", "^conf_\\d{4}-\\d{2}-\\d{2}\\.html$"))))
+      page_dates("dashboards", "^dash_\\d{4}-\\d{2}-\\d{2}\\.html$", today_et),
+      page_dates("conferences", "^conf_\\d{4}-\\d{2}-\\d{2}\\.html$", today_et - 1))))
     feed_up <- as.Date(substr(tagvals(slurp(file.path(site, "feed.xml")), "updated")[1], 1, 10))
     if (is.finite(newest) && !is.na(feed_up) && newest > feed_up) {
       fail("feed keeps up with the site",
