@@ -263,6 +263,7 @@ rebase cleanly.
 | `cases/original.json` (the original-jurisdiction docket manifest; the daily reads it) | `conferences.yml` only |
 | `orders/` (order-list pages, `orders.json`, `data/`) | `daily.yml` only — see **[order-lists.md](order-lists.md)** |
 | `cases/forecasts.json` (prospective forecast log) | `conferences.yml` only |
+| `scorecard/` (the Forecast Scorecard: `scorecard.json`, `index.html`, `scorecard.js`; this run's copy kept on conflict) | `conferences.yml` (new ledger rows, case details) · `daily.yml` (outcomes, the day an order list is parsed) — see **[scorecard.md](scorecard.md)** |
 | `cases/subjects.json` (subject-area labels; union-merged on conflict) | `daily.yml` (new QPs, when the `TYPESAFE_API_KEY` secret is set) · `subject-areas.yml` (bulk) |
 
 ## The original-jurisdiction docket: fetched by name, on the pending runner

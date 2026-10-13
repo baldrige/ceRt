@@ -319,6 +319,18 @@ tryCatch({
               fl$skipped_past, fl$total))
 }, error = function(e) message("Forecast log skipped: ", conditionMessage(e)))
 
+# The Forecast Scorecard (R/scorecard.R): the log above held to the order lists.
+# Run here, right after the log, so a conference that just entered the ledger is
+# on the page's On deck panel tonight; and with `dist`, which is the only source
+# of each case's court below and counsel. The daily rebuilds it too, the day an
+# order list lands. Same rule as the log: never allowed to break the refresh.
+tryCatch({
+  source("R/scorecard.R")
+  sc <- write_scorecard(site_dir, dist)
+  cat(sprintf("Scorecard: %s | %d conference(s), %d scored | %d ledger row(s)\n",
+              sc$term %||% "-", sc$conferences, sc$decided %||% 0L, sc$cases))
+}, error = function(e) message("Scorecard skipped: ", conditionMessage(e)))
+
 # The live-docket cache, which is how the NEXT run knows which out-of-window
 # stragglers to name. Written from everything this run classified, and rewritten
 # wholesale rather than merged -- a docket disposed of since last week has to stop

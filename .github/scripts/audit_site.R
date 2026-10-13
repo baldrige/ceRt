@@ -288,7 +288,7 @@ src <- setdiff(src[file.exists(src)], "R/palette.R")
 
 # The palette in decimal, so an rgb()/rgba() copy is recognisable.
 pal_dec <- vapply(
-  c(PALETTE, PALETTE_FUNNEL, PALETTE_UI, PALETTE_EVENTS,
+  c(PALETTE, PALETTE_FUNNEL, PALETTE_UI, PALETTE_EVENTS, PALETTE_SCORECARD,
     as.list(c(GRANT_RAMP, TYPE_CHIPS, STATUS_FILL, CHART_SERIES))),
   function(h) paste(as.vector(grDevices::col2rgb(h)), collapse = ","),
   character(1))
@@ -315,7 +315,7 @@ ph_files <- Filter(file.exists, c(
   file.path(site, c("index.html", "about.html", "funnel/index.html",
                     "conferences/index.html", "arguments/index.html",
                     "dashboards/index.html", "cases/index.html",
-                    "relists/index.html", "counsel/index.html",
+                    "relists/index.html", "counsel/index.html", "scorecard/index.html",
                     # The leaves' theme now lives here, not in each page, so a
                     # leaked placeholder would be in this file and nowhere the
                     # sampled leaves below could show it.
@@ -778,6 +778,39 @@ if (file.exists(flog)) {
          sprintf("%d entries, %d distinct model_id(s)", length(fj),
                  length(unique(vapply(fj, function(e) e$model_id, character(1))))))
     }
+  }
+}
+
+# ---- 11. the Forecast Scorecard -----------------------------------------------
+# scorecard/scorecard.json is the ledger above joined to the order lists. The
+# page computes every score from it in the browser, so its rows are what a
+# reader is being shown. Two things would make that dishonest without
+# breaking anything visible: a row that was not logged before its conference,
+# which the ledger check above catches at the source and this catches in the
+# copy the page actually reads; and an outcome on a conference that has not been
+# decided, which would mean the outcome window or the status rule has slipped.
+scj <- file.path(site, "scorecard", "scorecard.json")
+if (file.exists(scj)) {
+  cat("\nForecast Scorecard\n")
+  sc <- tryCatch(fromJSON(scj, simplifyVector = TRUE), error = function(e) NULL)
+  if (is.null(sc) || is.null(sc$cases) || !NROW(sc$cases)) {
+    fail("scorecard parses", "scorecard/scorecard.json is unreadable or has no rows")
+  } else {
+    scc <- sc$cases
+    late <- which(as.Date(scc$scored_on) >= as.Date(scc$conf))
+    st <- setNames(sc$conferences$status, sc$conferences$date)
+    early <- which(!is.na(scc$outcome) & st[scc$conf] != "decided")
+    if (length(late) || length(early)) {
+      fail("scorecard rows honest",
+           sprintf("%d row(s) logged on/after their conference, %d outcome(s) on an undecided conference",
+                   length(late), length(early)))
+    } else {
+      ok("scorecard rows honest",
+         sprintf("%d rows, %d conference(s) scored, all logged in advance",
+                 nrow(scc), sum(st == "decided")))
+    }
+    if (!file.exists(file.path(site, "scorecard", "scorecard.js")))
+      fail("scorecard page", "scorecard/scorecard.js is missing; the page draws nothing without it")
   }
 }
 

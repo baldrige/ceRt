@@ -143,6 +143,22 @@ resolve_derived() {
       echo "  resolved leaf.css by keeping this run's render" || ok=0
   fi
 
+  # ---- the Forecast Scorecard (R/scorecard.R) ---------------------------------
+  #
+  # Rewritten whole by the daily (the day an order list lands) and by the
+  # nightly conferences run (new ledger entries, case details). Every file is a
+  # pure function of the ledger and the order lists, both of which are merged
+  # above or never conflict, so either side is a correct scorecard and the next
+  # run of either workflow rebuilds it from the merged inputs. Keep the copy
+  # being replayed, as for leaf.css.
+  local sc
+  for sc in scorecard/scorecard.json scorecard/index.html scorecard/scorecard.js; do
+    if git ls-files -u -- "$sc" | grep -q .; then
+      git show ":3:$sc" > "$sc" && git add "$sc" &&
+        echo "  resolved $sc by keeping this run's render" || ok=0
+    fi
+  done
+
   # ---- docket pages -----------------------------------------------------------
   #
   # On 2026-08-10 a conferences run and the 18:57 daily overlapped. Both had just
