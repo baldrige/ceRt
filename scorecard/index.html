@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script async src='/analytics.js'></script><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate icon" href="/favicon.ico" sizes="any"><link rel="alternate" type="application/atom+xml" title="Supreme Court Report" href="/feed.xml"><link rel="alternate" type="application/atom+xml" title="Certiorari grants" href="/grants.xml"><title>Forecast Scorecard — Supreme Court Report</title><meta name="description" content="The site's cert-grant forecasts, written down before each conference, held to the orders that followed."><link rel="canonical" href="https://supremecourt.report/scorecard/"><meta property="og:site_name" content="Supreme Court Report"><meta property="og:type" content="website"><meta property="og:title" content="Forecast Scorecard — Supreme Court Report"><meta property="og:description" content="The site's cert-grant forecasts, written down before each conference, held to the orders that followed."><meta property="og:url" content="https://supremecourt.report/scorecard/"><meta property="og:image" content="https://supremecourt.report/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Supreme Court Report - docket analytics for the Supreme Court of the United States"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Forecast Scorecard — Supreme Court Report"><meta name="twitter:description" content="The site's cert-grant forecasts, written down before each conference, held to the orders that followed."><meta name="twitter:image" content="https://supremecourt.report/og.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap"><style>
+  :root{--paper:#fdfcfa;--panel:#ffffff;--ink:#1a1a1e;--ink-soft:#484850;--faint:#63636b;--accent:#9c0e3a;--link:#9c0e3a;--rule:#dbd8d2;--nav-max:60rem}
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{font-family:'Newsreader',Georgia,serif;font-size:19px;line-height:1.6;
+    color:var(--ink);background:var(--paper);margin:0;font-feature-settings:'onum' 1}
+  body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
+    opacity:.5;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");}
+  .wrap{max-width:40rem;margin:0 auto;padding:3rem 1.4rem 4rem}
+  .kicker{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 1rem}
+  h1{font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:clamp(2.4rem,7vw,3.6rem);line-height:1;letter-spacing:-.015em;
+    margin:0 0 1rem;color:var(--ink)}
+  h1 em{font-style:italic;font-weight:500;color:var(--accent)}
+  .dek{font-size:1.15rem;line-height:1.5;color:var(--ink-soft);font-style:italic;
+    margin:0 0 1.4rem}
+  .brule{border:0;height:0;border-top:2px solid var(--ink);margin:1.4rem 0 .3rem;
+    position:relative}
+  .brule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+    border-top:1px solid var(--rule)}
+  ul.idx{list-style:none;padding:0;margin:1.6rem 0}
+  ul.idx li{border-bottom:1px solid var(--rule)}
+  /* Whole row is one block-level link: a large, reliable tap target on mobile. */
+  ul.idx a.row{display:flex;justify-content:space-between;align-items:baseline;
+    gap:1rem;padding:.9rem .4rem;text-decoration:none;border:0;color:inherit}
+  ul.idx a.row:hover{background:rgba(156,14,58,.05)}
+  ul.idx .d{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.16rem;
+    color:var(--accent);line-height:1.25}
+  ul.idx a.row:hover .d{text-decoration:underline;text-underline-offset:3px}
+  ul.idx .count{color:var(--faint);font-size:.9rem;font-style:italic;white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  /* Compact horizontal strip of the most recent pages beneath a category row. */
+  ul.idx .recent{display:flex;flex-wrap:wrap;align-items:baseline;
+    gap:.3rem .85rem;padding:0 .4rem 1rem;margin-top:-.35rem}
+  ul.idx .recent .rlabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  ul.idx .recent a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--ink-soft);text-decoration:none;font-variant-numeric:tabular-nums;
+    border-bottom:1px solid var(--rule);padding-bottom:1px}
+  ul.idx .recent a:hover{color:var(--accent);border-color:var(--accent)}
+  /* Optional panel beneath the section index (home page: most-read cases). */
+  .panel{margin:2.4rem 0 0}
+  .panel h2{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 .25rem}
+  .panel .pnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:0 0 .5rem}
+  /* "Live now" (live_argument_panel, /live.js): hidden unless the Court is
+     streaming an argument. One red dot, the same --accent as the headings, so
+     the live state is a mark and not a new colour. */
+  .live h2 .ldot{display:inline-block;width:.5rem;height:.5rem;border-radius:50%;
+    background:var(--accent);margin-right:.5rem;vertical-align:.08rem;
+    animation:lpulse 2s ease-in-out infinite}
+  @keyframes lpulse{50%{opacity:.25}}
+  @media (prefers-reduced-motion:reduce){.live h2 .ldot{animation:none}}
+  .lplay{display:flex;flex-wrap:wrap;gap:.6rem .9rem;align-items:center;margin:.8rem 0 .3rem}
+  .lplay button{font:600 .9rem/1 'Newsreader',Georgia,serif;letter-spacing:.04em;
+    color:var(--paper);background:var(--accent);border:0;border-radius:2px;
+    padding:.6rem 1.05rem;cursor:pointer}
+  .lplay button:disabled{opacity:.6;cursor:progress}
+  .lplay button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  /* The player takes a row of its own and may never outgrow the column. A flex
+     item's min-width is auto, which for a replaced element is the browser's own
+     controls' width -- wider than the column on a phone, where mobile Safari
+     and Chrome draw larger controls than the desktop. */
+  .lplay audio{display:block;flex:1 1 100%;width:100%;min-width:0;max-width:100%;
+    box-sizing:border-box;margin:0}
+  .lplay .lstat{font-size:.85rem;color:var(--faint)}
+  /* --- Likeliest grants -----------------------------------------------------
+     Its own rows rather than ol.mostread's: this panel carries a question under
+     the caption, which that list has no room for, and a percentage that has to
+     read as the row's subject rather than as a trailing note.
+     The window toggle is two real radio inputs plus :has() -- no JavaScript.
+     Both windows are rendered at build time and one is hidden, which is the only
+     way a static site can offer the choice: there is no server to ask for the
+     other one. Real radios, not styled buttons, so the control is reachable by
+     keyboard and announced as a choice. */
+  .lead{margin:0 0 1.9rem}
+  .lead h2{margin-bottom:.35rem}
+  .lead .pnote{margin:0 0 .7rem}
+  .wr{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+  .win{display:inline-flex;gap:.25rem;margin:0 0 .55rem;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .win label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .win label:hover{color:var(--ink)}
+  .lead:has(#w7:checked) label[for=w7],
+  .lead:has(#w28:checked) label[for=w28],
+  .lead:has(#wall:checked) label[for=wall]{background:var(--accent);color:var(--paper)}
+  .wr:focus-visible+label{outline:2px solid var(--accent);outline-offset:2px}
+  /* Three windows, one shown: the checked radio hides the other two. */
+  .lead:has(#w7:checked) :is(.g28,.n28,.gall,.nall),
+  .lead:has(#w28:checked) :is(.g7,.n7,.gall,.nall),
+  .lead:has(#wall:checked) :is(.g7,.n7,.g28,.n28){display:none}
+  /* The show/hide controls for a panel's secondary line -- the question under
+     a forecast row, the holding under a decision. Same box as the window
+     toggle, a checkbox instead of radios, and no script: the sibling rule does
+     the work and the lines simply show where :has() is unsupported. The
+     questions are on by default (they are what a forecast row asks); the
+     holdings are off (the caption, kind and disposition already say what
+     happened, and the holding is the more). */
+  .opts{display:inline-flex;gap:.25rem;margin:0 .45rem .55rem 0;vertical-align:top;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .opts label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .opts label:hover{color:var(--ink)}
+  .lead:has(#qon:checked) label[for=qon],
+  .panel:has(#hon:checked) label[for=hon]{background:var(--accent);color:var(--paper)}
+  .lead:has(#qon:not(:checked)) .gq{display:none}
+  .panel:has(#hon:not(:checked)) .chold{display:none}
+  /* --- Upcoming at the Court ------------------------------------------------
+     A date gutter and a two-line body, the same shape as the grant rows above
+     it, so the two panels read as one page rather than two widgets. */
+  .cal{margin:0 0 1.9rem}
+  ol.cal{list-style:none;margin:0;padding:0}
+  ol.cal li{border-top:1px solid var(--rule)}
+  ol.cal li:last-child{border-bottom:1px solid var(--rule)}
+  /* The row is a container, not an anchor: an argument day carries one link per
+     case it hears and anchors cannot nest. Hover lives on the row so it still
+     reads as one unit, and each link colours on its own hover. */
+  ol.cal .crow{display:flex;gap:.95rem;align-items:baseline;padding:.55rem .1rem}
+  ol.cal .crow:hover{background:rgba(156,14,58,.05)}
+  ol.cal a{text-decoration:none;color:inherit}
+  ol.cal a:hover,ol.cal a:focus-visible{color:var(--accent)}
+  ol.cal .cdet a{border-bottom:1px solid rgba(156,14,58,.35)}
+  ol.cal .cdet a:hover{border-bottom-color:var(--accent)}
+  ol.cal .cwhen{flex:none;width:4.6rem;font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.96rem;color:var(--ink);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  ol.cal .cdow{display:block;font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);text-transform:uppercase;letter-spacing:.08em}
+  ol.cal .ctx{flex:1;min-width:0}
+  ol.cal .ckind{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:.98rem;line-height:1.25}
+  ol.cal .cdet{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.12rem}
+  /* Recent decisions reuses the calendar rows and adds exactly two things: the
+     kind word that opens the detail line, and the one outbound link (the slip
+     opinion), which takes the link colour the rest of the row deliberately
+     does not. */
+  ol.cal .dk{font-weight:600;color:var(--ink)}
+  ol.cal .cdet a.pdf{color:var(--link)}
+  /* The holding, from the Court's slip-opinion feed: one sentence, set
+     smaller and in the soft ink so the caption stays the row's headline. */
+  ol.cal .chold{display:block;font-size:.86rem;line-height:1.4;color:var(--ink-soft);
+    font-style:italic;margin-top:.15rem}
+  ol.cal .cdet a.pdf:hover,ol.cal .cdet a.pdf:focus-visible{color:var(--accent);
+    border-bottom-color:var(--accent)}
+  ol.grants{list-style:none;margin:0;padding:0}
+  ol.grants li{border-top:1px solid var(--rule)}
+  ol.grants li:last-child{border-bottom:1px solid var(--rule)}
+  ol.grants a{display:flex;gap:.95rem;align-items:baseline;text-decoration:none;
+    color:inherit;padding:.62rem .1rem}
+  ol.grants a:hover{background:rgba(156,14,58,.05)}
+  ol.grants a:hover .gc{color:var(--accent)}
+  ol.grants .gv{flex:none;width:3.5rem;text-align:right;
+    font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.22rem;
+    line-height:1.1;color:var(--accent);font-variant-numeric:tabular-nums}
+  ol.grants .gx{font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);margin-left:.3rem}
+  ol.grants .gtx{flex:1;min-width:0}
+  /* Subject-area line under the caption, in the section-label idiom (h2.sec):
+     small tracked caps in the faint ink, so it classifies without competing. */
+  ol.grants .gs,ol.mostread .ms{display:block;font-size:.68rem;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--faint);line-height:1.3;margin-top:.12rem}
+  ol.grants .gc{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:1rem;line-height:1.25}
+  ol.grants .gq{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.16rem}
+  ol.grants .gd{flex:none;font-size:.76rem;color:var(--faint);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  .more{margin:.75rem 0 0;font-size:.92rem}
+  .more a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.35)}
+  .more a:hover{border-bottom-color:var(--link)}
+  h2.sec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:.88rem;
+    letter-spacing:.09em;color:var(--faint);text-transform:uppercase;
+    margin:2.1rem 0 .6rem;padding-bottom:.28rem;border-bottom:1px solid var(--rule)}
+  @media(max-width:40rem){
+    ol.grants a{flex-wrap:wrap}
+    ol.grants .gd{width:100%;padding-left:4.45rem;margin-top:-.1rem}
+  }
+  ol.mostread{list-style:none;counter-reset:mr;padding:0;margin:0}
+  ol.mostread li{counter-increment:mr;border-bottom:1px solid var(--rule)}
+  ol.mostread a{display:flex;align-items:baseline;gap:.7rem;padding:.6rem .4rem;
+    text-decoration:none;color:inherit}
+  ol.mostread a:hover{background:rgba(156,14,58,.05)}
+  ol.mostread a::before{content:counter(mr);font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.95rem;color:var(--faint);min-width:1.1rem;
+    font-variant-numeric:tabular-nums}
+  ol.mostread .mc{flex:1;font-size:1rem;line-height:1.3}
+  ol.mostread .mct{display:block}
+  ol.mostread a:hover .mct{color:var(--accent);text-decoration:underline;
+    text-underline-offset:3px}
+  ol.mostread .mdk{color:var(--accent);font-weight:600;font-size:.82rem;
+    font-variant-numeric:tabular-nums;white-space:nowrap}
+  ol.mostread .mv{color:var(--faint);font-size:.85rem;font-style:italic;
+    white-space:nowrap;font-variant-numeric:tabular-nums}
+  /* Forecast percentages carry weight the most-read counts do not: the number is
+     the claim, not a footnote to the ranking. Upright, accent, tabular. */
+  ol.mostread .mv.fc{color:var(--accent);font-style:normal;font-weight:600;
+    font-size:.95rem;min-width:2.6rem;text-align:right}
+  /* Feed follow line. Deliberately quiet -- a footnote under the section list,
+     styled like .recent rather than like a call to action. */
+  .feeds{display:flex;flex-wrap:wrap;align-items:baseline;gap:.3rem .85rem;
+    margin:2.2rem 0 0;padding-top:1.1rem;border-top:1px solid var(--rule)}
+  .feeds .flabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  .feeds a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .feeds a:hover{border-color:var(--link)}
+  .back{margin-top:2rem;font-size:.95rem}
+  .back a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .back a:hover{border-color:var(--link)}
+  /* Home-page case search. */
+  .csearch{position:relative;margin:0 0 1.4rem}
+  #cq{width:100%;font-family:'Newsreader',Georgia,serif;font-size:1.05rem;color:var(--ink);
+    background:var(--panel);border:1px solid var(--rule);border-radius:3px;padding:.7rem .9rem}
+  #cq:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(156,14,58,.1)}
+  #cq::placeholder{color:var(--faint)}
+  #cq.loading{background-image:linear-gradient(90deg,transparent,rgba(156,14,58,.06),transparent);
+    background-size:40% 100%;background-repeat:no-repeat;animation:csl 1s infinite}
+  @keyframes csl{0%{background-position:-40% 0}100%{background-position:140% 0}}
+  .cres{list-style:none;margin:.35rem 0 0;padding:0;max-height:24rem;overflow-y:auto;
+    border:1px solid var(--rule);border-radius:3px;background:var(--panel)}
+  .cres:empty{display:none}
+  .cres li{border-bottom:1px solid var(--rule)}
+  .cres li:last-child{border-bottom:0}
+  .cres a{display:block;padding:.55rem .7rem;text-decoration:none;color:var(--ink);
+    font-size:.98rem;line-height:1.3}
+  .cres a:hover,.cres li.act a{background:rgba(156,14,58,.06)}
+  .cres mark{background:rgba(156,14,58,.14);color:inherit;padding:0 .05em;border-radius:2px}
+  .cres .cd{color:var(--accent);font-variant-numeric:tabular-nums;font-weight:600;
+    margin-right:.5rem;white-space:nowrap}
+  .cnone{padding:.55rem .7rem;color:var(--faint);font-style:italic}
+  /* /cases/ browse index: grouped sections with per-bucket counts. */
+  .csec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+    text-transform:uppercase;letter-spacing:.12em;color:var(--accent);
+    margin:2.2rem 0 .3rem;padding-bottom:.35rem;border-bottom:1px solid var(--rule);
+    display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
+  .csec .cn{font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:.85rem;
+    letter-spacing:0;text-transform:none;color:var(--faint);
+    font-variant-numeric:tabular-nums}
+  .cnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:.5rem 0 0}
+  .cnote a{color:var(--accent)}
+  ul.terms{list-style:none;padding:0;margin:1rem 0 0;display:flex;flex-wrap:wrap;
+    gap:.5rem 1.6rem}
+  ul.terms li{display:inline-flex;align-items:baseline;gap:.4rem}
+  ul.terms a{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.05rem;
+    color:var(--accent);text-decoration:none;border-bottom:1px solid var(--rule)}
+  ul.terms a:hover{border-bottom-color:var(--accent)}
+  ul.terms .cn{color:var(--faint);font-size:.85rem;font-variant-numeric:tabular-nums}
+  /* About page: running prose rather than an index, so it takes a measure and a
+     little more leading than the section rows above it. */
+  .about{margin:1.6rem 0 0;font-size:1.05rem;line-height:1.65;max-width:34rem}
+  .about p{margin:0 0 1rem}
+  .about a{color:var(--accent);text-decoration:none;
+    border-bottom:1px solid var(--rule)}
+  .about a:hover{border-bottom-color:var(--accent)}
+  .about .contact{margin:2rem 0 0;background:var(--panel);border:1px solid var(--rule);
+    border-left:4px solid var(--accent);padding:1.1rem 1.3rem}
+  .about .contact h2{font:600 .78rem/1 'Newsreader',Georgia,serif;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--accent);margin:0 0 .5rem}
+  .about .contact p{margin:0;font-size:1rem}
+
+/* ---- masthead ---- */
+.smast-in{max-width:var(--nav-max,60rem);margin:0 auto;padding:.85rem 1.5rem .5rem;
+  display:flex;align-items:baseline;justify-content:space-between;gap:1.4rem;flex-wrap:wrap}
+.smast-wm{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+  letter-spacing:.005em;color:var(--ink,#1a1a1e);text-decoration:none;white-space:nowrap;flex:none}
+.smast-wm em{font-style:italic;font-weight:500;color:var(--accent,#9c0e3a)}
+.smast-wm:hover{color:var(--accent,#9c0e3a)}
+/* Row gap first, then column. At 1.35rem the six section links measured 596px
+   of max-content -- 4px wider than the 592px row the 40rem index container
+   leaves them -- so ABOUT alone wrapped to a third line under the wordmark, on
+   every page page_style.R writes. 1.05rem brings the row to 572px: 20px of
+   slack at 40rem, and 45px on the 54rem case pages, which were themselves only
+   21px from wrapping. The .4rem row gap is for the day a seventh section
+   overruns it anyway -- a nav that wraps should read as a stack, not an orphan. */
+.snav{display:flex;gap:.4rem 1.05rem;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+.snav a{font:600 .72rem/1 'Newsreader',Georgia,serif;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--ink-soft,var(--soft,#484850));text-decoration:none;display:inline-block;
+  padding:.5rem 0;border-bottom:1.5px solid transparent}
+.snav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--rule,#dbd8d2)}
+.snav a[aria-current='page']{color:var(--accent,#9c0e3a);
+  border-bottom-color:var(--accent,#9c0e3a)}
+.smast-rule-w{max-width:var(--nav-max,60rem);margin:0 auto;padding:0 1.5rem}
+.smast-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0;position:relative}
+.smast-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.skip{position:absolute;left:-9999px;top:0;background:var(--panel,#ffffff);
+  color:var(--accent,#9c0e3a);padding:.6rem 1rem;
+  border:1px solid var(--accent,#9c0e3a);
+  font:600 .8rem/1 'Newsreader',Georgia,serif;letter-spacing:.1em;text-transform:uppercase;z-index:10}
+.skip:focus{left:.5rem;top:.5rem}
+/* ---- breadcrumb ---- */
+.bcrumb{margin:.7rem 0 0}
+.bcrumb ol{list-style:none;display:flex;flex-wrap:wrap;align-items:baseline;
+  gap:.1rem .45rem;margin:0;padding:0}
+.bcrumb li{display:inline-flex;align-items:baseline;gap:.45rem}
+.bcrumb a{font:400 .8rem/1.5 'Newsreader',Georgia,serif;color:var(--ink-soft,var(--soft,#484850));
+  text-decoration:none;border-bottom:1px solid var(--rule,#dbd8d2)}
+.bcrumb a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.bcrumb .sep{color:var(--faint,#63636b);font-size:.8rem;line-height:1.5}
+.bcrumb [aria-current='page']{font:400 .8rem/1.5 'Newsreader',Georgia,serif;
+  color:var(--faint,#63636b);font-variant-numeric:tabular-nums}
+/* ---- case footer ---- */
+.cfoot{margin:2.4rem 0 0}
+.cfoot-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0 0 1rem;position:relative}
+.cfoot-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.cfoot-off{font-size:.95rem;margin:0 0 1.1rem}
+.cfoot-off a{color:var(--link,#9c0e3a);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.4)}
+.cfoot-off a:hover{border-bottom-color:var(--link,#9c0e3a)}
+.cfoot-lab{font:600 .68rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);margin:0 0 .5rem}
+.cfoot-nav{display:flex;flex-wrap:wrap;gap:.35rem 1.1rem;list-style:none;margin:0;padding:0}
+.cfoot-nav a{font-size:.92rem;color:var(--ink-soft,var(--soft,#484850));text-decoration:none;
+  border-bottom:1px solid var(--rule,#dbd8d2);padding-bottom:1px}
+.cfoot-nav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.cfoot-stamp{margin:1.2rem 0 0;font-size:.8rem;color:var(--faint,#63636b);font-style:italic}
+/* ---- prev / next ---- */
+.pnav{margin:2.2rem 0 0;border-top:1px solid var(--rule,#dbd8d2);padding-top:1rem;
+  display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.pnav a,.pnav span.none{text-decoration:none;color:inherit;display:block;padding:.5rem .2rem}
+.pnav a:hover{background:rgba(156,14,58,.05)}
+.pnav .dir{font:600 .66rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);display:block;margin-bottom:.3rem}
+.pnav .lab{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1rem;line-height:1.25;
+  color:var(--accent,#9c0e3a);display:block}
+.pnav a:hover .lab{text-decoration:underline;text-underline-offset:3px}
+.pnav .nx{text-align:right}
+.pnav .none{opacity:.35}
+@media(max-width:640px){
+  .smast-in{padding:.7rem 1.1rem .25rem;gap:.15rem}
+  .smast-wm{font-size:.98rem}
+  .smast-in nav{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+    -webkit-mask-image:linear-gradient(90deg,#000 86%,transparent);
+    mask-image:linear-gradient(90deg,#000 86%,transparent)}
+  .smast-in nav::-webkit-scrollbar{display:none}
+  .snav{flex-wrap:nowrap;gap:1.15rem;padding-right:2.4rem}
+  .snav a{padding:.7rem 0;white-space:nowrap}
+  .smast-rule-w{padding:0 1.1rem}
+  .cfoot-nav{gap:.5rem 1rem}
+  .cfoot-nav a{padding-bottom:.3rem}
+  .pnav{grid-template-columns:1fr;gap:.2rem}
+  .pnav .nx{text-align:left;border-top:1px solid var(--rule,#dbd8d2)}
+}
+
+:root{--grid:#ece9e4;--stripe:#f7f5f1;--o-granted:#b0123f;--o-gvr:#2a6cb0;
+  --o-carried:#a8741c;--o-denied:#a3a3aa;--good:#2f6b3d;--warn:#8a5a00;--bad:#9c0e3a;
+  --display:'Fraunces',Georgia,serif;--body:'Newsreader',Georgia,serif;
+  --ui:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif}
+.sc [hidden]{display:none!important}
+.sc .bcrumb{margin:0 0 1.2rem}
+.sc{max-width:60rem;margin:0 auto;padding:1.5rem 16px 4rem;font-size:17px;line-height:1.55;font-feature-settings:normal}
+.sc .prose{max-width:44rem}
+.sc a{color:var(--accent);text-underline-offset:2px}
+.sc .kicker{margin:0 0 .8rem}
+.sc h1{font-size:clamp(2rem,5vw,2.8rem);line-height:1.08;margin:0 0 .75rem}
+.sc h2{font-family:var(--display);font-weight:600;font-size:1.35rem;line-height:1.2;margin:0 0 .35rem;text-wrap:balance}
+.sc .lede{font-size:1.15rem;color:var(--ink-soft);margin:0 0 .5rem}
+.sc .asof{font-family:var(--ui);font-size:.8rem;color:var(--faint);margin:0}
+.sc header{padding-bottom:1.5rem;border-bottom:1px solid var(--rule)}
+.sc section{padding-top:2.25rem}
+.sc .dek{color:var(--ink-soft);margin:0 0 1rem;max-width:44rem;font-style:normal;font-size:1rem}
+.sc .num{font-variant-numeric:tabular-nums}
+.sc .tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);margin-top:1.75rem}
+@media (max-width:760px){.sc .tiles{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:440px){.sc .tiles{grid-template-columns:minmax(0,1fr)}}
+.sc .tile{background:var(--panel);padding:1rem 1.1rem 1.1rem;min-width:0;display:grid;align-content:start;gap:.2rem}
+.sc .tile .k{font-family:var(--ui);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--faint)}
+.sc .tile .v{font-family:var(--display);font-weight:500;font-size:1.9rem;line-height:1.1;font-variant-numeric:tabular-nums}
+.sc .tile .v small{font-family:var(--ui);font-size:.85rem;font-weight:400;color:var(--faint)}
+.sc .tile .s{font-family:var(--ui);font-size:.8rem;color:var(--ink-soft);line-height:1.4}
+.sc .verdict{display:inline-flex;align-items:center;gap:.4rem;font-family:var(--ui);font-size:.78rem;font-weight:600;margin-top:.1rem}
+.sc .verdict i{font-style:normal;display:inline-grid;place-items:center;width:1.05rem;height:1.05rem;border-radius:50%;font-size:.7rem;line-height:1;border:1.5px solid currentColor}
+.sc .verdict.good{color:var(--good)} .sc .verdict.mixed{color:var(--warn)} .sc .verdict.bad{color:var(--bad)}
+.sc .scale{display:block;width:100%;height:auto;margin:.35rem 0 .1rem;overflow:visible}
+.sc .scale text{font-size:9.5px;fill:var(--faint)}
+.sc .controls{display:flex;flex-wrap:wrap;gap:.4rem;margin:0 0 .9rem}
+.sc .controls.basis{margin:.9rem 0 0;align-items:center}
+.sc .controls.basis span{font-family:var(--ui);font-size:.78rem;color:var(--faint);margin-right:.2rem}
+.sc .controls button{font-family:var(--ui);font-size:.82rem;padding:.4rem .8rem;border:1px solid var(--rule);background:var(--panel);color:var(--ink-soft);border-radius:999px;cursor:pointer}
+.sc .controls button:hover{border-color:var(--faint);color:var(--ink)}
+.sc .controls button[aria-pressed=true]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.sc button:focus-visible,.sc a:focus-visible,.sc .dot:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.sc .legend{display:flex;flex-wrap:wrap;gap:.35rem 1.1rem;font-family:var(--ui);font-size:.78rem;color:var(--ink-soft);margin:0 0 .5rem}
+.sc .legend span{display:inline-flex;align-items:center;gap:.4rem}
+.sc .legend i{width:.65rem;height:.65rem;border-radius:50%;display:inline-block}
+.sc .chart{position:relative}
+.sc .scroll{overflow-x:auto}
+.sc svg{display:block;width:100%;height:auto;font-family:var(--ui);overflow:visible}
+.sc svg text{fill:var(--faint);font-size:11px}
+.sc svg .ink{fill:var(--ink)} .sc svg .soft{fill:var(--ink-soft)}
+.sc svg .gridline{stroke:var(--grid);stroke-width:1} .sc svg .axis{stroke:var(--rule);stroke-width:1}
+.sc .dot{cursor:pointer;stroke:var(--paper);stroke-width:1.5}
+.sc .dot.granted{fill:var(--o-granted)} .sc .dot.gvr{fill:var(--o-gvr)} .sc .dot.carried,.sc .dot.pending{fill:var(--o-carried)}
+.sc .dot.denied{fill:var(--o-denied)}
+.sc .dot:hover,.sc .dot.on{stroke:var(--ink);stroke-width:2}
+.sc .cvsg{fill:none;stroke:var(--ink);stroke-width:1}
+.sc .lead{stroke:var(--faint);stroke-width:.75}
+.sc .tip{position:absolute;z-index:5;pointer-events:none;max-width:20rem;background:var(--panel);color:var(--ink);border:1px solid var(--rule);box-shadow:0 4px 16px rgb(0 0 0 / .12);padding:.6rem .75rem;font-family:var(--ui);font-size:.78rem;line-height:1.45}
+.sc .tip b{font-family:var(--body);font-size:.95rem;font-weight:600;display:block;line-height:1.25;margin-bottom:.25rem}
+.sc .tip .row{display:flex;justify-content:space-between;gap:1rem} .sc .tip .row span:first-child{color:var(--faint)}
+.sc .card{margin-top:.75rem;border:1px solid var(--rule);background:var(--panel);padding:.85rem 1rem;font-family:var(--ui);font-size:.85rem;display:grid;gap:.35rem}
+.sc .card h3{font-family:var(--body);font-weight:600;font-size:1.05rem;margin:0;line-height:1.3}
+.sc .card dl{display:grid;grid-template-columns:max-content 1fr;gap:.2rem 1rem;margin:0}
+.sc .card dt{color:var(--faint)} .sc .card dd{margin:0;min-width:0;overflow-wrap:anywhere}
+.sc .note{font-family:var(--ui);font-size:.78rem;color:var(--faint);margin:.5rem 0 0}
+.sc .twocol{display:grid;grid-template-columns:repeat(auto-fit,minmax(20rem,1fr));gap:2rem 2.5rem}
+.sc .twocol>div{min-width:0}
+.sc .ranks{list-style:none;margin:0;padding:0;display:grid;gap:.55rem}
+.sc .ranks li{display:grid;grid-template-columns:1fr auto;gap:.2rem 1rem;align-items:baseline;font-family:var(--ui);font-size:.85rem}
+.sc .ranks .case{font-family:var(--body);font-size:1rem;min-width:0}
+.sc .ranks .meta{grid-column:1/-1;color:var(--faint);font-size:.76rem}
+.sc .ranks .bar{grid-column:1/-1;height:6px;background:var(--grid);border-radius:3px;position:relative}
+.sc .ranks .bar i{position:absolute;top:-3px;width:4px;height:12px;border-radius:2px;background:var(--o-granted)}
+.sc table{border-collapse:collapse;width:100%;font-family:var(--ui);font-size:.8rem;font-variant-numeric:tabular-nums;min-width:760px}
+.sc th,.sc td{text-align:right;padding:.5rem .55rem;border-bottom:1px solid var(--rule);white-space:nowrap}
+.sc th:first-child,.sc td:first-child{text-align:left}
+.sc th{font-weight:600;font-size:.7rem;letter-spacing:.04em;text-transform:uppercase;color:var(--faint);vertical-align:bottom;white-space:normal}
+.sc tbody tr:nth-child(even){background:var(--stripe)}
+.sc tfoot td{font-weight:600;border-top:1px solid var(--ink-soft)}
+.sc td .sub{display:block;color:var(--faint);font-size:.72rem;font-weight:400}
+.sc .pill{display:inline-block;font-size:.68rem;letter-spacing:.04em;text-transform:uppercase;padding:.1rem .45rem;border-radius:999px;border:1px solid var(--ink-soft);color:var(--ink)}
+.sc .deck{display:grid;grid-template-columns:repeat(auto-fit,minmax(18rem,1fr));gap:1.5rem}
+.sc .deck>div{min-width:0}
+.sc .deck h3{font-family:var(--display);font-weight:500;font-size:1.1rem;margin:0 0 .2rem}
+.sc .deck ol{margin:.5rem 0 0;padding-left:1.3rem;font-size:.95rem}
+.sc .deck li{margin-bottom:.3rem} .sc .deck li span{font-family:var(--ui);font-size:.8rem;color:var(--faint)}
+.sc .method{font-size:.95rem;color:var(--ink-soft)}
+.sc .method h3{font-family:var(--display);font-weight:500;font-size:1.05rem;color:var(--ink);margin:1.25rem 0 .3rem}
+.sc .method p{margin:0 0 .7rem}
+.sc .foot{margin-top:2.5rem;padding-top:1rem;border-top:1px solid var(--rule);font-family:var(--ui);font-size:.78rem;color:var(--faint)}
+</style><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://supremecourt.report/"},{"@type":"ListItem","position":2,"name":"Model","item":"https://supremecourt.report/methods.html"},{"@type":"ListItem","position":3,"name":"Scorecard"}]}</script></head>
+<body><a class='skip' href='#main'>Skip to content</a><header><div class='smast-in'><a class='smast-wm' href='/'>Supreme Court <em>Report</em></a><nav aria-label='Sections'><ul class='snav'><li><a href='/dashboards/'>Docket</a></li><li><a href='/conferences/'>Conferences</a></li><li><a href='/relists/'>Relists</a></li><li><a href='/arguments/'>Arguments</a></li><li><a href='/justices/'>Justices</a></li><li><a href='/counsel/'>Counsel</a></li><li><a href='/funnel/'>Funnel</a></li><li><a href='/methods.html' aria-current='page'>Model</a></li><li><a href='/about.html'>About</a></li></ul></nav></div><div class='smast-rule-w'><hr class='smast-rule'></div></header><main id='main' class='sc'><nav class='bcrumb' aria-label='Breadcrumb'><ol><li><a href='/'>Home</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><a href='/methods.html'>Model</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><span aria-current='page'>Scorecard</span></li></ol></nav>
+  <header>
+    <p class='kicker'>The forecast model</p>
+    <h1>Forecast Scorecard</h1>
+    <p class='lede prose'>Weeks before each conference, this site writes down a forecast for every paid petition on the list and never changes it. This page holds those forecasts to the orders that follow.</p>
+    <p class='asof' id='asof'>Loading the scorecard…</p>
+    <div class='controls basis' id='basispick' role='group' aria-label='Choose which forecast to score' hidden></div>
+  </header>
+  <div class='tiles' id='tiles'></div>
+  <section>
+    <h2>Forecast and outcome, petition by petition</h2>
+    <p class='dek'>Each dot is a paid petition at its logged forecast, on a log scale. Rows are what the Court did. Hover or tap a dot for the case.</p>
+    <div class='controls' id='modepick' role='group' aria-label='Choose a forecast'>
+      <button type='button' id='m-here' data-m='here' aria-pressed='true'>Granted at this conference</button>
+      <button type='button' id='m-ever' data-m='ever' aria-pressed='false'>Granted ever</button>
+    </div>
+    <div class='controls' id='confpick' role='group' aria-label='Choose a conference'></div>
+    <div class='legend' id='legend'></div>
+    <div class='chart'>
+      <div class='scroll'><svg id='dots' role='img' aria-label='Forecast against outcome for each petition'></svg></div>
+      <div class='tip' id='tip' hidden></div>
+    </div>
+    <div class='card' id='card' hidden></div>
+    <p class='note' id='dotsnote'></p>
+  </section>
+  <section class='twocol'>
+    <div>
+      <h2>Where the grants ranked</h2>
+      <p class='dek'>Each grant's place among the petitions logged for its conference. A tick at the left edge means the model ranked it first.</p>
+      <ul class='ranks' id='ranks'></ul>
+    </div>
+    <div>
+      <h2>Grants found, reading down the list</h2>
+      <p class='dek'>Sort every logged petition by its forecast and read down. The line is the share of grants found by each point; the diagonal is a list in random order.</p>
+      <div class='chart'><svg id='gains' role='img' aria-label='Cumulative share of grants by share of petitions'></svg><div class='tip' id='tip2' hidden></div></div>
+      <p class='note' id='gainsnote'></p>
+    </div>
+  </section>
+  <section>
+    <h2>Calibration</h2>
+    <p class='dek'>Petitions grouped by forecast. The open diamond is the average forecast in the group; the dot is the share actually granted, with a 95% interval. A well-calibrated model puts the dot on the diamond. Groups with few petitions have wide intervals.</p>
+    <div class='chart'><div class='scroll'><svg id='calib' role='img' aria-label='Average forecast against observed grant rate by forecast group'></svg></div><div class='tip' id='tip3' hidden></div></div>
+    <p class='note' id='calibnote'></p>
+  </section>
+  <section>
+    <h2>Conference by conference</h2>
+    <p class='dek'>Expected grants is the sum of the logged forecasts. Scores use paid petitions only; IFP petitions carry no forecast. Granted ever counts grants at this or any later conference.</p>
+    <div class='scroll'><table id='ledger'></table></div>
+  </section>
+  <section>
+    <h2>On deck</h2>
+    <p class='dek'>Conferences not yet held, with the forecasts already in the ledger. These are the numbers they will be scored on.</p>
+    <div class='deck' id='deck'></div>
+  </section>
+  <section class='prose method'>
+    <h2>How this page is scored</h2>
+    <h3>The forecasts</h3>
+    <p>Each paid petition gets two forecasts at each conference: the chance it is granted at that conference, and the chance it is ever granted. The scores here use the first. The second can be shown on the dot plot and is totalled in the table. Only paid petitions are scored.</p>
+    <h3>Written down in advance</h3>
+    <p>The forecasts come from the site's forecast ledger. The nightly run adds a petition the first time it appears on an upcoming conference's list and never edits the entry afterwards, and nothing is logged for a conference that has already happened. These are the numbers the site committed to, often weeks ahead. Each entry also carries a <b>final forecast</b>: re-scored every night while its conference is ahead and frozen at noon UTC on conference day, before the Justices meet, so it is the last forecast the site made with everything it knew. The switch at the top of the page scores either one. Both can differ from the conference pages, which re-score past conferences with the current model and the case as it stands now. An entry written by code later found to be broken is re-scored if its conference is still ahead, and left out if it is not; the ledger keeps the original numbers either way.</p>
+    <h3>The outcome</h3>
+    <p>Read from the orders released between the conference and the next one. <b>Granted</b> and <b>GVR'd</b> are as ordered. <b>Carried over</b> means the order lists named no disposition: relisted, held, rescheduled, a call for the Solicitor General's views, or only the IFP motion decided. Carried over and GVR'd both count as not granted at this conference. The granted-ever view uses everything ordered since the conference. Habeas, mandamus, prohibition and rehearing entries are left out.</p>
+    <h3>The yardstick</h3>
+    <p>The backtest figures are the conference model's rolling-origin results: trained on earlier Terms and scored on OT2019–OT2024, 11,716 petition-conferences with 346 grants. See <a href='/methods.html'>the methods note</a>. A Term's live record will be noisy for months: the Court grants a few dozen petitions a Term, and AUC and calibration from a handful of grants carry wide intervals.</p>
+  </section>
+  <p class='foot'>Forecasts from the site's forecast ledger (<a href='/cases/forecasts.json'>cases/forecasts.json</a>); outcomes from the Court's order lists as parsed for <a href='/orders/'>the order list pages</a>. The data behind this page: <a href='scorecard.json'>scorecard.json</a>.</p>
+</main>
+<script src='/scorecard/scorecard.js?v=9ce5f1cd' defer></script></body>
+</html>
+
