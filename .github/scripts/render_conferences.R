@@ -313,8 +313,8 @@ cat("Grants cache: +", update_grants_cache(site_dir, combined), " new grant(s)\n
 tryCatch({
   source("R/forecast_log.R")
   fl <- append_forecasts(site_dir, dist, cert_models)
-  cat(sprintf("Forecast log: +%d of %d live row(s) across %s | %d past conf row(s) skipped | %d total\n",
-              fl$added, fl$considered,
+  cat(sprintf("Forecast log: +%d of %d live row(s), %d final(s) refreshed, across %s | %d past conf row(s) skipped | %d total\n",
+              fl$added, fl$considered, fl$finals %||% 0L,
               if (length(fl$conferences)) paste(fl$conferences, collapse = ", ") else "no future conference",
               fl$skipped_past, fl$total))
 }, error = function(e) message("Forecast log skipped: ", conditionMessage(e)))
