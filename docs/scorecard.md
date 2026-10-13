@@ -33,7 +33,7 @@ conference is ahead and frozen at `FORECAST_FINAL_CUTOFF_UTC` (noon UTC) on
 conference day. The conference-morning run, at about 07:00 UTC, writes the last
 one. The page scores the first forecast by default. `#final` (the switch under
 the heading) scores the final one, over the conferences that have finals. The
-switch appears once a decided conference has them; the first was 16 Oct 2026.
+switch appears once a decided conference has them.
 
 **Outcomes: the parsed order lists** (`orders/`, `R/orders_list.R`), so the
 daily can rebuild the scorecard the day a list is released. A conference's
