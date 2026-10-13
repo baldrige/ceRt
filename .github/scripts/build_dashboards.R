@@ -329,6 +329,13 @@ if (file.exists("docs/cert_model_methods.html")) {
   items <- c(items, list(list(href = "methods.html", label = "The Forecast Model",
                               meta = "methods & validation")))
 }
+# The Forecast Scorecard: written further down this script and by the nightly
+# conferences run, so on the very first publish it is not there yet and is
+# listed from the next run on.
+if (file.exists(file.path(site_dir, "scorecard", "index.html"))) {
+  items <- c(items, list(list(href = "scorecard/", label = "Forecast Scorecard",
+                              meta = "the forecasts, held to the orders")))
+}
 # The About page: authorship, the repository, and the address to send corrections
 # to. Written unconditionally (it has no external dependency) and listed last, so
 # the sections a reader came for stay above it.
@@ -512,6 +519,18 @@ decisions <- decisions_panel(
 tryCatch(render_orders(site_dir), error = function(e) cat("Order lists: render failed:", conditionMessage(e), "\n"))
 orders <- tryCatch(orders_panel(site_dir), error = function(e) { cat("Order lists: panel failed:", conditionMessage(e), "\n"); NULL })
 cat("Latest orders on the landing page:", if (is.null(orders)) "none in window" else "yes", "\n")
+
+# The Forecast Scorecard (R/scorecard.R), rebuilt from the order lists just
+# parsed, so a conference is scored the day its list is released rather than
+# at the next nightly run. The daily holds no distributions, so case details
+# carry forward from the last scorecard.json the conferences run wrote.
+tryCatch({
+  source("R/forecast_log.R")
+  source("R/scorecard.R")
+  sc <- write_scorecard(site_dir)
+  cat(sprintf("Scorecard: %s | %d conference(s), %d scored | %d ledger row(s)\n",
+              sc$term %||% "-", sc$conferences, sc$decided %||% 0L, sc$cases))
+}, error = function(e) cat("Scorecard: skipped:", conditionMessage(e), "\n"))
 
 # Subject areas for the two ranked panels (R/subject_area.R). scotus_dash() and
 # the docket render above have already classified this run's new QPs, so this

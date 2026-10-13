@@ -105,8 +105,30 @@ PALETTE_ARGUMENT <- list(
   "side-pet" = "#2d5476", "side-resp" = "#9a5b1c",
   "side-pet-tint" = "#e3ebf3", "side-resp-tint" = "#f4e8da")
 
+# The Forecast Scorecard (R/scorecard.R). Two sets with different jobs.
+#
+# OUTCOMES are categorical: what the Court did with a petition at a conference.
+# Granted takes a red near the accent because a grant is the event the page is
+# about; GVR and carried-over are a blue and an ochre that stay clear of it.
+# Validated 2026-10-13 with the data-viz palette checker on --paper, all pairs:
+# lightness band, chroma floor, CVD separation (worst dE 11.9 deutan) and the
+# normal-vision floor (19.8) pass, and all three clear 3:1 on the ground.
+# Denied is deliberately NOT a fourth hue: it is the bulk of every conference
+# and the background the other three are read against, so it is a recessive
+# grey, and the rows of the chart name every outcome besides.
+#
+# VERDICTS are status colours for the AUC and Brier tiles. They are only ever
+# text, always beside an icon and words, so the test that applies is text
+# contrast on --panel (good 6.4:1, warn 5.9:1) rather than the categorical
+# checks. "Poor" reuses --accent.
+PALETTE_SCORECARD <- list(
+  "sc-granted" = "#b0123f", "sc-gvr" = "#2a6cb0", "sc-carried" = "#a8741c",
+  "sc-denied"  = "#a3a3aa", "sc-grid" = "#ece9e4",
+  "sc-good"    = "#2f6b3d", "sc-warn" = "#8a5a00")
+
 pal <- function(name) {
-  v <- c(PALETTE, PALETTE_FUNNEL, PALETTE_UI, PALETTE_EVENTS, PALETTE_OPINIONS, PALETTE_ARGUMENT)[[name]]
+  v <- c(PALETTE, PALETTE_FUNNEL, PALETTE_UI, PALETTE_EVENTS, PALETTE_OPINIONS, PALETTE_ARGUMENT,
+         PALETTE_SCORECARD)[[name]]
   if (is.null(v)) stop("pal(): no such colour token: ", name, call. = FALSE)
   v
 }
@@ -191,7 +213,8 @@ palette_root <- function(nav_max = SITE_NAV_MAX, extra = NULL) {
 pal_rgb <- function(name) paste(as.vector(grDevices::col2rgb(pal(name))), collapse = ",")
 
 fill_palette <- function(css) {
-  for (nm in names(c(PALETTE, PALETTE_FUNNEL, PALETTE_UI, PALETTE_EVENTS, PALETTE_OPINIONS, PALETTE_ARGUMENT))) {
+  for (nm in names(c(PALETTE, PALETTE_FUNNEL, PALETTE_UI, PALETTE_EVENTS, PALETTE_OPINIONS, PALETTE_ARGUMENT,
+                     PALETTE_SCORECARD))) {
     hex <- pal(nm)
     css <- gsub(paste0("@", nm, ":rgb@"),
                 paste(as.vector(grDevices::col2rgb(hex)), collapse = ","),
