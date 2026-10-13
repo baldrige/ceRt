@@ -63,8 +63,8 @@ conference", over the latest Term with a decided conference:
 
 The yardstick is `SCORECARD_REFERENCE`: the conference model's granted-here
 rolling-origin backtest (OT2019–OT2024, 11,716 rows, 346 grants), all from one
-harness so the figures agree with each other. `docs/cert_model.md`'s
-competing-risks table quotes AUC 0.920 for the same target from an earlier run.
+harness so the figures agree with each other. `docs/cert_model.md` quotes the
+same run.
 
 ## When it runs
 
