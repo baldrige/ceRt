@@ -30,6 +30,20 @@
 # an invariant the file can be held to on its own -- scored_on must precede
 # conf_date. An entry that violates it was logged after the fact.
 #
+# THE FINAL FORECAST, AND WHY IT DOES NOT BREAK THE RULE. The entry is the FIRST
+# forecast, written the first night a petition appears on an upcoming
+# conference -- often weeks ahead, before the response, the relists, a CVSG. It
+# is the honest record of what was said first, and a poor record of the best the
+# site could say: 25-1131 was logged at 0.6% on 3 September and granted at the
+# long conference, while the conference page's later re-score read 17% to be
+# granted ever. So each entry
+# also carries a `final` block, rewritten every run while its conference is
+# ahead and frozen by the clock at FORECAST_FINAL_CUTOFF_UTC on conference day:
+# the last forecast made before the Justices met. Overwriting it is the design,
+# not a leak, because every version of it was prospective; the cutoff is the
+# leakage gate, and the audit checks it from the file (final$scored_at before
+# the cutoff). The top-level numbers are never touched by this.
+#
 # THE FILE. cases/forecasts.json, a flat object keyed "<docket>@<conf_date>",
 # which is the shape publish_site.sh's DERIVED union resolution merges correctly.
 # Unlike cases/pending.json (rewritten wholesale, so deliberately NOT in DERIVED),
@@ -73,6 +87,15 @@ FORECAST_VOID_WINDOWS <- list(
 
 .flog_path <- function(site_dir) file.path(site_dir, FORECAST_LOG)
 
+# The last moment a FINAL forecast may be written: noon UTC on conference day.
+# The Court's conferences open at 9:30 or 10:00 Eastern -- 13:30 UTC at the
+# earliest, under daylight time -- and the nightly run renders at about 07:00
+# UTC, so the conference-morning run lands well inside it and a late one does
+# not. One constant, read by append_forecasts() and by the audit.
+FORECAST_FINAL_CUTOFF_UTC <- "12:00:00"
+.flog_final_cutoff <- function(conf_date)
+  as.POSIXct(paste(format(as.Date(conf_date)), FORECAST_FINAL_CUTOFF_UTC), tz = "UTC")
+
 read_forecast_log <- function(site_dir) {
   p <- .flog_path(site_dir)
   if (!file.exists(p)) return(list())
@@ -85,11 +108,12 @@ read_forecast_log <- function(site_dir) {
 }
 
 # Score every paid petition distributed to a conference that has NOT yet happened,
-# and append the ones not already logged.
+# append the ones not already logged, and refresh every logged entry's `final`
+# block (conference morning included, up to the cutoff).
 #
 # `dist` is a conference_distributions() tibble; `models` a load_cert_models()
 # list. Returns a small summary (invisibly) for the run log.
-append_forecasts <- function(site_dir, dist, models, as_of = Sys.Date()) {
+append_forecasts <- function(site_dir, dist, models, as_of = Sys.Date(), now = Sys.time()) {
   as_of <- as.Date(as_of)
   empty <- list(added = 0L, considered = 0L, conferences = character(),
                 skipped_past = 0L, total = 0L)
@@ -99,11 +123,20 @@ append_forecasts <- function(site_dir, dist, models, as_of = Sys.Date()) {
   }
   if (is.null(dist) || !nrow(dist)) return(invisible(empty))
 
-  # Future conferences only. This is the leakage gate; everything else here is
-  # bookkeeping.
-  fut <- dist |> dplyr::filter(type == "paid", conf_date > as_of)
-  n_past <- sum(dist$type == "paid" & dist$conf_date <= as_of)
-  if (!nrow(fut)) {
+  # Two gates, one per kind of record.
+  #
+  #   * The FIRST forecast (the entry itself): conferences after today only.
+  #     The audit holds every entry to scored_on < conf_date.
+  #   * The FINAL forecast (the entry's `final` block): also conference
+  #     morning, until FORECAST_FINAL_CUTOFF_UTC. The Justices meet at 9:30 or
+  #     10:00 Eastern, 13:30 UTC at the earliest; the nightly run renders about
+  #     07:00 UTC. The audit holds every final to scored_at < conf_date + cutoff.
+  now <- as.POSIXct(now, tz = "UTC")
+  before_cutoff <- function(cd) now < .flog_final_cutoff(cd)
+  live <- dist |> dplyr::filter(type == "paid", conf_date > as_of |
+                                  (conf_date == as_of & before_cutoff(conf_date)))
+  n_past <- sum(dist$type == "paid") - nrow(live)
+  if (!nrow(live)) {
     return(invisible(c(empty, list(skipped_past = n_past,
                                    total = length(read_forecast_log(site_dir))))))
   }
@@ -113,45 +146,57 @@ append_forecasts <- function(site_dir, dist, models, as_of = Sys.Date()) {
   # quantity docket_page.R stamps into the render manifest.
   mid <- substr(digest::digest(models), 1, 16)
   scored_on <- format(as_of)
+  scored_at <- format(now, "%Y-%m-%dT%H:%M:%SZ", tz = "UTC")
 
-  gc_ <- function(nm, def) if (nm %in% names(fut)) fut[[nm]] else rep(def, nrow(fut))
+  gc_ <- function(nm, def) if (nm %in% names(live)) live[[nm]] else rep(def, nrow(live))
   dt <- gc_("date", as.Date(NA)); ld <- gc_("lower_date", as.Date(NA))
   rel <- gc_("related", NA_character_)
-  has_parties <- "parties" %in% names(fut)
+  has_parties <- "parties" %in% names(live)
 
-  added <- 0L; superseded <- 0L
-  for (i in seq_len(nrow(fut))) {
-    key <- paste0(fut$dkt[i], "@", format(fut$conf_date[i]))
+  added <- 0L; superseded <- 0L; finals <- 0L
+  for (i in seq_len(nrow(live))) {
+    key <- paste0(live$dkt[i], "@", format(live$conf_date[i]))
     prior <- idx[[key]]
-    # Never overwrite -- unless the entry was written inside a void window and
-    # has not been superseded already. Its conference is still ahead (this is
-    # the `fut` loop), so the re-score is as prospective as the original.
-    void <- if (is.null(prior) || !is.null(prior$superseded)) NULL else .flog_void_reason(prior)
-    if (!is.null(prior) && is.null(void)) next
+    first_ok <- live$conf_date[i] > as_of
     gd <- if (all(c("outcome", "outcome_date") %in% names(dist)))
       unique(dist$dkt[dist$outcome %in% "granted" & !is.na(dist$outcome_date) &
-                      dist$outcome_date < fut$conf_date[i]]) else character()
+                      dist$outcome_date < live$conf_date[i]]) else character()
     s <- tryCatch(score_conference(
-      models, fut$caption[i], fut$lower[i],
-      if (has_parties) fut$parties[[i]] else NULL,
-      dt[i], ld[i], rel[i], events = fut$events[[i]],
-      as_of = fut$conf_date[i], conf_idx = fut$distribution_no[i],
+      models, live$caption[i], live$lower[i],
+      if (has_parties) live$parties[[i]] else NULL,
+      dt[i], ld[i], rel[i], events = live$events[[i]],
+      as_of = live$conf_date[i], conf_idx = live$distribution_no[i],
       granted_dockets = gd), error = function(e) NULL)
     if (is.null(s) || is.na(s$p_grant_now)) next
-    idx[[key]] <- list(
-      docket = fut$dkt[i], conf_date = format(fut$conf_date[i]),
-      scored_on = scored_on, model_id = mid,
+    nums <- list(
       p_grant_now = round(s$p_grant_now, 5),
       p_gvr_now = round(s$p_gvr_now %||% NA_real_, 5),
       p_grant_ever = round(s$p_grant_ever %||% NA_real_, 5),
       conf_idx = as.integer(s$conf_idx), n_relists = as.integer(s$n_relists),
       held = isTRUE(s$held))
-    if (!is.null(void)) {
-      keep <- prior[intersect(names(prior), c("scored_on", "model_id", "p_grant_now",
-                                              "p_gvr_now", "p_grant_ever", "held"))]
-      idx[[key]]$superseded <- c(keep, list(reason = void))
-      superseded <- superseded + 1L
-    } else added <- added + 1L
+    final <- c(list(scored_on = scored_on, scored_at = scored_at, model_id = mid), nums)
+
+    # The first forecast: never overwritten -- unless it was written inside a
+    # void window and has not been superseded already. Its conference is still
+    # ahead (first_ok), so the re-score is as prospective as the original.
+    void <- if (is.null(prior) || !is.null(prior$superseded)) NULL else .flog_void_reason(prior)
+    if (first_ok && (is.null(prior) || !is.null(void))) {
+      idx[[key]] <- c(list(docket = live$dkt[i], conf_date = format(live$conf_date[i]),
+                           scored_on = scored_on, model_id = mid), nums)
+      if (!is.null(void)) {
+        keep <- prior[intersect(names(prior), c("scored_on", "model_id", "p_grant_now",
+                                                "p_gvr_now", "p_grant_ever", "held"))]
+        idx[[key]]$superseded <- c(keep, list(reason = void))
+        superseded <- superseded + 1L
+      } else added <- added + 1L
+    }
+    # The final forecast: rewritten every run while the conference is ahead,
+    # so it ends as the last one made before it. Only on a logged entry -- a
+    # petition first seen on conference morning gets neither.
+    if (!is.null(idx[[key]])) {
+      idx[[key]]$final <- final
+      finals <- finals + 1L
+    }
   }
 
   # An entry from a void window whose conference has passed cannot be re-scored.
@@ -168,12 +213,12 @@ append_forecasts <- function(site_dir, dist, models, as_of = Sys.Date()) {
     message(sprintf("append_forecasts(): %d entr(y/ies) from a void window re-scored, %d voided (conference passed)",
                     superseded, voided))
 
-  if (added + superseded + voided > 0L) {
+  if (added + superseded + voided + finals > 0L) {
     dir.create(dirname(.flog_path(site_dir)), recursive = TRUE, showWarnings = FALSE)
     jsonlite::write_json(idx, .flog_path(site_dir), auto_unbox = TRUE)
   }
-  invisible(list(added = added, considered = nrow(fut),
-                 conferences = format(sort(unique(fut$conf_date))),
+  invisible(list(added = added, finals = finals, considered = nrow(live),
+                 conferences = format(sort(unique(live$conf_date))),
                  skipped_past = n_past, total = length(idx)))
 }
 
