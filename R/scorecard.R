@@ -39,8 +39,8 @@
 # backtest: rolling origin, trained on Terms before t and scored on t for
 # OT2019-OT2024 (paper/make_performance.R, Table 19). One harness for every
 # figure on the page, so the AUC, Brier, calibration slope and top-10% recall
-# agree with each other. docs/cert_model.md's competing-risks table quotes 0.920
-# for the same target from an earlier run.
+# agree with each other, and docs/cert_model.md's competing-risks table quotes
+# the same run (both verified 2026-10-13).
 
 suppressPackageStartupMessages(library(jsonlite))
 

@@ -1750,14 +1750,16 @@ score_disposition <- function(grant_model, gvr_model, caption, lower, parties,
 # actually wins that target on a like-for-like rolling-origin comparison:
 #
 #   p_grant_now   -- "what happens to this petition on Friday". Competing-risks
-#                    hazard: AUC 0.920 / AP 0.259 / Brier 0.0248, mean 2.87%
-#                    against 2.94% observed. The binary reads 7.77% here, i.e.
-#                    2.6x too high, because it is not a per-conference quantity.
+#                    hazard: AUC 0.914 / AP 0.267 / Brier 0.0247, mean 2.84%
+#                    against 2.95% observed. The binary reads 8.06% here, i.e.
+#                    2.7x too high, because it is not a per-conference quantity.
 #   p_grant_ever  -- "will this petition ever be granted". At-risk binary:
-#                    AUC 0.870 / AP 0.397 / Brier 0.0580, mean 7.77% against
-#                    7.81%. Fitting that target directly beats rolling the
-#                    hazards forward (AP 0.397 vs 0.363), so the forward
+#                    AUC 0.870 / AP 0.390 / Brier 0.0581, mean 8.06% against
+#                    7.83%. Fitting that target directly beats rolling the
+#                    hazards forward (AP 0.390 vs 0.354), so the forward
 #                    recursion is NOT used in production.
+#   Rolling origin, OT2019-2024, 11,716 rows (paper/make_performance.R,
+#   verified 2026-10-13; see docs/cert_model.md).
 #
 # Deliberately not a single model doing both: measured, each is worse at the
 # other's job, and in opposite directions.

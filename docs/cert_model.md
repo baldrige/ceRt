@@ -52,17 +52,28 @@ conference in front of them, and understated the eventual figure 2.8× for a
 first-timer.
 
 Each column now comes from the model that measurably wins that target, on a
-like-for-like rolling-origin comparison over the same rows:
+like-for-like rolling-origin comparison over the same rows: train on Terms
+before t, score Term t, for t = 2019–2024; 11,716 petition-conferences, Rule 46
+dismissals excluded.
 
 | Target | Competing risks | At-risk binary |
 |---|---|---|
-| granted at this conference | **AUC 0.920 · AP 0.259 · Brier 0.0248** | AUC 0.900 · AP 0.223 · Brier 0.0334 |
-| granted eventually | AUC 0.865 · AP 0.363 · Brier 0.0609 | **AUC 0.870 · AP 0.397 · Brier 0.0580** |
-| GVR at this conference | **AUC 0.889 · AP 0.163** | — |
+| granted at this conference | **AUC 0.914 · AP 0.267 · Brier 0.0247** | AUC 0.901 · AP 0.228 · Brier 0.0310 |
+| granted eventually | AUC 0.860 · AP 0.354 · Brier 0.0614 | **AUC 0.870 · AP 0.390 · Brier 0.0581** |
+| GVR at this conference | **AUC 0.892 · AP 0.140 · Brier 0.0178** | GVR binary: AUC 0.834 · AP 0.078 · Brier 0.0209 |
+
+Source: the rolling-origin harness in `paper/make_performance.R`
+(`perf_competing_vs_binary`), run on the deployed artifacts (trained
+2026-09-22). Verified 2026-10-13 by re-running it and by recomputing every cell
+from its cached out-of-sample predictions with independent metric code. This
+table previously read 0.920 / 0.259 / 0.0248 for the first cell, from an
+earlier run that the repository's code cannot reproduce. Its AUC matches
+leave-one-term-out on these rows (0.920), but its AP matches neither scheme
+(LOTO 0.291, rolling origin 0.267).
 
 Each is worse at the other's job, in opposite directions. Notably, deriving
 P(granted ever) by rolling the hazards forward over future conferences is
-**worse** than fitting that target directly (AP 0.363 vs 0.397), so the forward
+**worse** than fitting that target directly (AP 0.354 vs 0.390), so the forward
 recursion (`conference_cumulative()`) exists for analysis and is *not* used in
 production.
 
@@ -307,9 +318,17 @@ P(grant ever).
 The number that moved most is not in the table: the conference-stage calibration
 slope went from **0.578 to ~0.99**.
 
-Rolling-origin evaluation (train on terms < t) reproduces leave-one-term-out to
-within 0.003 AUC, so the LOTO figures are not meaningfully optimistic — but LOTO
-is out-of-*fold*, not out-of-time, and should not be described as the latter.
+LOTO is out-of-*fold*, not out-of-time, and the LOTO figures above are mildly
+optimistic. Rolling origin (train on Terms < t, score t) on the identical
+OT2019–2024 rows trails LOTO by **0.006 AUC** for the baseline and the
+conference hazard, **0.016** for the at-risk model and **0.025** for GVR, and
+by 0.013–0.036 in AP (`paper/make_performance.R`,
+`perf_loto_vs_ro_same_rows`; verified 2026-10-13). This section used to say
+the two agreed "to within 0.003 AUC". No harness in the repository reproduced
+that, and the measured gap is larger. Part of the gap is mechanical: the
+OT2019 origin trains on only two Terms, and no rolling-origin fit sees as much
+data as the deployed model. For a number to quote as out-of-time, use the
+rolling-origin figure.
 
 ## Uncertainty
 
