@@ -5,8 +5,29 @@
   <link rel="self" href="https://supremecourt.report/grants.xml"/>
   <link rel="alternate" type="text/html" href="https://supremecourt.report/"/>
   <id>https://supremecourt.report/grants.xml</id>
-  <updated>2026-10-01T12:00:00-04:00</updated>
+  <updated>2026-10-13T12:00:00-04:00</updated>
   <author><name>Supreme Court Report</name></author>
+  <entry>
+    <title>Certiorari granted: Corey Duran Berry v. United States (No. 25-7026)</title>
+    <link href="https://supremecourt.report/cases/25-7026.html"/>
+    <id>https://supremecourt.report/cases/25-7026.html</id>
+    <updated>2026-10-13T12:00:00-04:00</updated>
+    <summary>The Court granted review on October 13, 2026.</summary>
+  </entry>
+  <entry>
+    <title>Certiorari granted: Todd Blanche, Attorney General v. Izuchukwu Ozurumba (No. 25-1343)</title>
+    <link href="https://supremecourt.report/cases/25-1343.html"/>
+    <id>https://supremecourt.report/cases/25-1343.html</id>
+    <updated>2026-10-13T12:00:00-04:00</updated>
+    <summary>The Court granted review on October 13, 2026.</summary>
+  </entry>
+  <entry>
+    <title>Certiorari granted: U.S. DOGE Service, et al. v. United States District Court for the District of Columbia, et al. (No. 25-1103)</title>
+    <link href="https://supremecourt.report/cases/25-1103.html"/>
+    <id>https://supremecourt.report/cases/25-1103.html</id>
+    <updated>2026-10-13T12:00:00-04:00</updated>
+    <summary>The Court granted review on October 13, 2026.</summary>
+  </entry>
   <entry>
     <title>Certiorari granted: Philip L. Rhoney, Acting Director of the Buffalo Field Office of U.S. Immigration and Customs Enforcement v. Ricardo Aparecido Barbosa da Cunha (No. 26-104)</title>
     <link href="https://supremecourt.report/cases/26-104.html"/>
@@ -334,27 +355,6 @@
     <link href="https://supremecourt.report/cases/24-1260.html"/>
     <id>https://supremecourt.report/cases/24-1260.html</id>
     <updated>2025-11-10T12:00:00-05:00</updated>
-    <summary>Petition GRANTED.</summary>
-  </entry>
-  <entry>
-    <title>Certiorari granted: Thomas Keathley v. Buddy Ayers Construction, Incorporated (No. 25-6)</title>
-    <link href="https://supremecourt.report/cases/25-6.html"/>
-    <id>https://supremecourt.report/cases/25-6.html</id>
-    <updated>2025-10-20T12:00:00-04:00</updated>
-    <summary>Petition GRANTED.</summary>
-  </entry>
-  <entry>
-    <title>Certiorari granted: Flowers Foods, Inc. v. Angelo Brock (No. 24-935)</title>
-    <link href="https://supremecourt.report/cases/24-935.html"/>
-    <id>https://supremecourt.report/cases/24-935.html</id>
-    <updated>2025-10-20T12:00:00-04:00</updated>
-    <summary>Petition GRANTED.</summary>
-  </entry>
-  <entry>
-    <title>Certiorari granted: United States v. Ali Danial Hemani (No. 24-1234)</title>
-    <link href="https://supremecourt.report/cases/24-1234.html"/>
-    <id>https://supremecourt.report/cases/24-1234.html</id>
-    <updated>2025-10-20T12:00:00-04:00</updated>
     <summary>Petition GRANTED.</summary>
   </entry>
 </feed>

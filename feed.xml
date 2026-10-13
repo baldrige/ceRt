@@ -5,8 +5,36 @@
   <link rel="self" href="https://supremecourt.report/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://supremecourt.report/"/>
   <id>https://supremecourt.report/feed.xml</id>
-  <updated>2026-10-10T12:00:00-04:00</updated>
+  <updated>2026-10-13T12:00:00-04:00</updated>
   <author><name>Supreme Court Report</name></author>
+  <entry>
+    <title>Order List, October 13, 2026</title>
+    <link href="https://supremecourt.report/orders/2026-10-13.html"/>
+    <id>https://supremecourt.report/orders/2026-10-13.html</id>
+    <updated>2026-10-13T12:00:00-04:00</updated>
+    <summary>3 granted; 4 granted, vacated and remanded; 166 denied; 22 other orders. Granted: U.S. DOGE Service, et al. v. United States District Court for the District of Columbia, et al.; Todd Blanche, Attorney General v. Izuchukwu Ozurumba; Corey Duran Berry v. United States.</summary>
+  </entry>
+  <entry>
+    <title>Certiorari granted: Corey Duran Berry v. United States (No. 25-7026)</title>
+    <link href="https://supremecourt.report/cases/25-7026.html"/>
+    <id>https://supremecourt.report/cases/25-7026.html</id>
+    <updated>2026-10-13T12:00:00-04:00</updated>
+    <summary>The Court granted review on October 13, 2026.</summary>
+  </entry>
+  <entry>
+    <title>Certiorari granted: Todd Blanche, Attorney General v. Izuchukwu Ozurumba (No. 25-1343)</title>
+    <link href="https://supremecourt.report/cases/25-1343.html"/>
+    <id>https://supremecourt.report/cases/25-1343.html</id>
+    <updated>2026-10-13T12:00:00-04:00</updated>
+    <summary>The Court granted review on October 13, 2026.</summary>
+  </entry>
+  <entry>
+    <title>Certiorari granted: U.S. DOGE Service, et al. v. United States District Court for the District of Columbia, et al. (No. 25-1103)</title>
+    <link href="https://supremecourt.report/cases/25-1103.html"/>
+    <id>https://supremecourt.report/cases/25-1103.html</id>
+    <updated>2026-10-13T12:00:00-04:00</updated>
+    <summary>The Court granted review on October 13, 2026.</summary>
+  </entry>
   <entry>
     <title>Docket for October 10, 2026</title>
     <link href="https://supremecourt.report/dashboards/dash_2026-10-10.html"/>
@@ -326,34 +354,6 @@
     <id>https://supremecourt.report/cases/25-1311.html</id>
     <updated>2026-06-30T12:00:00-04:00</updated>
     <summary>Petition GRANTED limited to Question 1 presented by the petition.</summary>
-  </entry>
-  <entry>
-    <title>Order List, June 29, 2026</title>
-    <link href="https://supremecourt.report/orders/2026-06-29.html"/>
-    <id>https://supremecourt.report/orders/2026-06-29.html</id>
-    <updated>2026-06-29T12:00:00-04:00</updated>
-    <summary>6 granted; 19 granted, vacated and remanded; 100 denied; 23 other orders. Granted: RiseandShine Corporation, dba Rise Brewing v. PepsiCo, Inc.; Leonard W. Hoffmann, et al. v. WBI Energy Transmission, Inc.; International Partners for Ethical Care, Inc., et al. v. Bob Ferguson, Governor of Washington, et al.; Tamer S. Wassily, et al. v. Todd Blanche, Attorney General; Republican National Committee v. Mi Familia Vota, et al.; Kevin Isaac Montoya Palacios v. Vernon Liggins, Acting Field Office Director, Baltimore, Maryland, Immigration and Customs Enforcement, et al.</summary>
-  </entry>
-  <entry>
-    <title>Conference of June 29, 2026</title>
-    <link href="https://supremecourt.report/conferences/conf_2026-06-29.html"/>
-    <id>https://supremecourt.report/conferences/conf_2026-06-29.html</id>
-    <updated>2026-06-29T12:00:00-04:00</updated>
-    <summary>Petitions distributed for the Conference of June 29, 2026, ranked by relists.</summary>
-  </entry>
-  <entry>
-    <title>Certiorari granted: Tamer S. Wassily v. Todd Blanche, Acting Attorney General (No. 25-842)</title>
-    <link href="https://supremecourt.report/cases/25-842.html"/>
-    <id>https://supremecourt.report/cases/25-842.html</id>
-    <updated>2026-06-29T12:00:00-04:00</updated>
-    <summary>Petition GRANTED.</summary>
-  </entry>
-  <entry>
-    <title>Certiorari granted: International Partners for Ethical Care, Inc. v. Bob Ferguson, Governor of Washington (No. 25-840)</title>
-    <link href="https://supremecourt.report/cases/25-840.html"/>
-    <id>https://supremecourt.report/cases/25-840.html</id>
-    <updated>2026-06-29T12:00:00-04:00</updated>
-    <summary>Petition GRANTED.</summary>
   </entry>
 </feed>
 
