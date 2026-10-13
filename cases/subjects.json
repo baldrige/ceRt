@@ -3,7 +3,7 @@
     "model": "typesafe:jev-1.13.0",
     "defs": "ef2b5d8a6205",
     "pending": 0,
-    "updated": "2026-10-13T14:05:06Z"
+    "updated": "2026-10-13T14:18:33Z"
   },
   "15-1204": {
     "area": "Civil Rights",
@@ -114681,6 +114681,20 @@
     "confidence": 1.0,
     "second": "Federal Taxation",
     "hash": "69a3ff5bb3f96b56",
+    "by": "typesafe:jev-1.13.0|ef2b5d8a6205"
+  },
+  "26-479": {
+    "area": "Due Process",
+    "confidence": 1.0,
+    "second": "Criminal Procedure",
+    "hash": "0d78abb823b78b7a",
+    "by": "typesafe:jev-1.13.0|ef2b5d8a6205"
+  },
+  "26-481": {
+    "area": "Attorneys",
+    "confidence": 0.99,
+    "second": "Due Process",
+    "hash": "ccacda4f638b974a",
     "by": "typesafe:jev-1.13.0|ef2b5d8a6205"
   }
 }
