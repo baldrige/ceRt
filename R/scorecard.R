@@ -158,6 +158,10 @@ build_scorecard <- function(site_dir, dist = NULL, as_of = Sys.Date()) {
       }
       ev <- if (status == "upcoming") list(NA_character_, NA_character_) else first_disp(oe, cd, "9999-12-31")
       ever <- if (status == "upcoming") NA_character_ else if (is.na(ev[[1]])) "pending" else ev[[1]]
+      # The final forecast (forecast_log.R): the last one made before the
+      # conference. Treated as absent if it was written inside a void window.
+      fn <- e$final
+      if (!is.null(fn) && !is.null(.flog_void_reason(fn))) fn <- NULL
       m <- dmeta[[d]] %||% prior_meta[[k]] %||% list()
       cap <- m$caption %||% search[[d]] %||% d
       case_rows[[length(case_rows) + 1L]] <- list(
@@ -165,6 +169,10 @@ build_scorecard <- function(site_dir, dist = NULL, as_of = Sys.Date()) {
         p = e$p_grant_now, p_gvr = e$p_gvr_now %||% NA_real_, p_ever = e$p_grant_ever %||% NA_real_,
         scored_on = e$scored_on, model = e$model_id %||% NA_character_,
         relists = e$n_relists %||% NA_integer_, superseded = !is.null(e$superseded),
+        p_final = fn$p_grant_now %||% NA_real_, p_final_gvr = fn$p_gvr_now %||% NA_real_,
+        p_final_ever = fn$p_grant_ever %||% NA_real_, final_on = fn$scored_on %||% NA_character_,
+        final_at = fn$scored_at %||% NA_character_, final_model = fn$model_id %||% NA_character_,
+        final_relists = fn$n_relists %||% NA_integer_,
         outcome = out, decided = odate, ever = ever, ever_date = ev[[2]],
         cvsg = !is.null(ow) && any(grepl("Solicitor General is invited", ow$text, fixed = TRUE)),
         court = m$court %||% NA_character_, counsel = m$counsel %||% NA_character_,
@@ -262,6 +270,8 @@ SCORECARD_CSS <- "
 .sc .scale{display:block;width:100%;height:auto;margin:.35rem 0 .1rem;overflow:visible}
 .sc .scale text{font-size:9.5px;fill:var(--faint)}
 .sc .controls{display:flex;flex-wrap:wrap;gap:.4rem;margin:0 0 .9rem}
+.sc .controls.basis{margin:.9rem 0 0;align-items:center}
+.sc .controls.basis span{font-family:var(--ui);font-size:.78rem;color:var(--faint);margin-right:.2rem}
 .sc .controls button{font-family:var(--ui);font-size:.82rem;padding:.4rem .8rem;border:1px solid var(--rule);background:var(--panel);color:var(--ink-soft);border-radius:999px;cursor:pointer}
 .sc .controls button:hover{border-color:var(--faint);color:var(--ink)}
 .sc .controls button[aria-pressed=true]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
@@ -324,6 +334,7 @@ SCORECARD_BODY <- "
     <h1>Forecast Scorecard</h1>
     <p class='lede prose'>Weeks before each conference, this site writes down a forecast for every paid petition on the list and never changes it. This page holds those forecasts to the orders that follow.</p>
     <p class='asof' id='asof'>Loading the scorecard…</p>
+    <div class='controls basis' id='basispick' role='group' aria-label='Choose which forecast to score' hidden></div>
   </header>
   <div class='tiles' id='tiles'></div>
   <section>
@@ -376,7 +387,7 @@ SCORECARD_BODY <- "
     <h3>The forecasts</h3>
     <p>Each paid petition gets two forecasts at each conference: the chance it is granted at that conference, and the chance it is ever granted. The scores here use the first. The second can be shown on the dot plot and is totalled in the table. Only paid petitions are scored.</p>
     <h3>Written down in advance</h3>
-    <p>The forecasts come from the site's forecast ledger. The nightly run adds a petition the first time it appears on an upcoming conference's list and never edits the entry afterwards, and nothing is logged for a conference that has already happened. These are the numbers the site committed to, often weeks ahead. They can differ from the conference pages, which re-score past conferences with the current model and the case as it stands now. An entry written by code later found to be broken is re-scored if its conference is still ahead, and left out if it is not; the ledger keeps the original numbers either way.</p>
+    <p>The forecasts come from the site's forecast ledger. The nightly run adds a petition the first time it appears on an upcoming conference's list and never edits the entry afterwards, and nothing is logged for a conference that has already happened. These are the numbers the site committed to, often weeks ahead. Each entry also carries a <b>final forecast</b>: re-scored every night while its conference is ahead and frozen at noon UTC on conference day, before the Justices meet, so it is the last forecast the site made with everything it knew. The switch at the top of the page scores either one. Both can differ from the conference pages, which re-score past conferences with the current model and the case as it stands now. An entry written by code later found to be broken is re-scored if its conference is still ahead, and left out if it is not; the ledger keeps the original numbers either way.</p>
     <h3>The outcome</h3>
     <p>Read from the orders released between the conference and the next one. <b>Granted</b> and <b>GVR'd</b> are as ordered. <b>Carried over</b> means the order lists named no disposition: relisted, held, rescheduled, a call for the Solicitor General's views, or only the IFP motion decided. Carried over and GVR'd both count as not granted at this conference. The granted-ever view uses everything ordered since the conference. Habeas, mandamus, prohibition and rehearing entries are left out.</p>
     <h3>The yardstick</h3>
@@ -394,6 +405,23 @@ SCORECARD_JS <- r"---(// scorecard/scorecard.js -- written by R/scorecard.R; edi
 "use strict";
 function init(DATA) {
 const REF = DATA.reference;
+// Which forecast to score: the FIRST one logged (default), or the FINAL one made
+// the morning of the conference. Chosen by the URL's #final, so the choice is
+// linkable; switching reloads the page rather than redrawing it in place.
+const HAS_FINAL = DATA.cases.some(x => x.p_final != null && x.outcome);
+const BASIS = HAS_FINAL && location.hash === "#final" ? "final" : "first";
+if (BASIS === "final") {
+  DATA = Object.assign({}, DATA, { cases: DATA.cases.filter(x => x.p_final != null).map(x => Object.assign({}, x, {
+    p: x.p_final, p_gvr: x.p_final_gvr, p_ever: x.p_final_ever, scored_on: x.final_on,
+    model: x.final_model, relists: x.final_relists ?? x.relists })) });
+}
+if (HAS_FINAL) {
+  const bp = document.getElementById("basispick");
+  bp.hidden = false;
+  bp.innerHTML = `<span>Score the</span>` + [["first", "First forecast"], ["final", "Final forecast"]].map(([k, l]) =>
+    `<button type="button" data-b="${k}" aria-pressed="${k === BASIS}">${l}</button>`).join("");
+  bp.addEventListener("click", e => { const b = e.target.dataset?.b; if (b && b !== BASIS) { location.hash = b; location.reload(); } });
+}
 const OUT = {
   granted: { label: "Granted", row: "Granted" },
   gvr:     { label: "GVR'd", row: "GVR'd" },
@@ -429,7 +457,9 @@ const short = c => { const s = c.split(" v. "); return s.length < 2 ? party(c) :
 
 // The page shows one Term; the on-deck panel reads every upcoming conference.
 const CONFS = DATA.conferences.filter(c => c.term === DATA.term_year);
-const decided = CONFS.filter(c => c.status === "decided");
+// Decided, and with rows to score: on the final basis, a conference held before
+// finals were logged has none.
+const decided = CONFS.filter(c => c.status === "decided" && DATA.cases.some(x => x.conf === c.date));
 const CASES = DATA.cases.filter(x => CONFS.some(c => c.date === x.conf));
 // rank within conference among scored petitions
 for (const c of CONFS) {
@@ -481,6 +511,9 @@ const grantsScored = grantsAll.filter(x => x.p != null);
 const pctiles = grantsScored.map(x => x.rank / x.of).sort((a, b) => a - b);
 const medPct = pctiles.length ? pctiles[Math.floor((pctiles.length - 1) / 2)] : null;
 const aheads = scoredDecided.map(daysAhead).sort((a, b) => a - b), medAhead = aheads.length ? aheads[Math.floor(aheads.length / 2)] : "—";
+// Hours from the final forecast to 13:30 UTC on conference day (9:30 a.m. EDT; an hour short under EST).
+const hrs = scoredDecided.filter(x => x.final_at).map(x => (Date.parse(x.conf + "T13:30:00Z") - Date.parse(x.final_at)) / 36e5).sort((a, b) => a - b);
+const medHours = hrs.length ? Math.round(hrs[Math.floor(hrs.length / 2)]) : "—";
 const top10 = grantsScored.filter(x => x.rank / x.of <= 0.10).length;
 // Bootstrap over logged petitions: a rough interval for the live AUC and Brier skill.
 function boot(rows, B) {
@@ -540,7 +573,9 @@ const tiles = [
   { k: "Brier skill · accuracy", v: isNaN(M.skill) ? "—" : r2(M.skill),
     x: verdict(sCls, sTxt) + scale(-.2, .5, [[-.2, "−0.2"], [0, "0 base rate"], [.5, "0.5"]], M.skill, CI.skill, REF.brier_skill),
     s: `How much closer the forecasts come than giving every petition the average chance. Above 0 is better; range ${r2(CI.skill[0])} to ${r2(CI.skill[1])}; backtest ◇ ${r2(REF.brier_skill)}.` },
-  { k: "Logged ahead", v: `${medAhead}<small> days</small>`, s: "Median time between a forecast's entry in the ledger and its conference." }
+  BASIS === "final"
+    ? { k: "Final forecast", v: `${medHours}<small> hours ahead</small>`, s: "Median time between the final forecast and the Justices' 9:30 a.m. start on conference day." }
+    : { k: "Logged ahead", v: `${medAhead}<small> days</small>`, s: "Median time between a forecast's entry in the ledger and its conference." }
 ];
 $("tiles").innerHTML = tiles.map(t => `<div class="tile"><span class="k">${t.k}</span><span class="v">${t.v}</span>${t.x || ""}<span class="s">${t.s}</span></div>`).join("");
 

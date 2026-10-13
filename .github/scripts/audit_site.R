@@ -764,6 +764,25 @@ if (file.exists(flog)) {
          sprintf("all %d entries scored before their conference (median %d day(s) ahead)",
                  length(fj), as.integer(stats::median(as.numeric(cd - sd), na.rm = TRUE))))
     }
+    # The `final` block is rewritten nightly until noon UTC on conference day
+    # (R/forecast_log.R, FORECAST_FINAL_CUTOFF_UTC). Its own clock, checked
+    # the same way: a final stamped at or after the cutoff was made while or
+    # after the Justices met.
+    fin <- Filter(function(e) !is.null(e$final), fj)
+    if (length(fin)) {
+      fat <- as.POSIXct(vapply(fin, function(e) e$final$scored_at %||% NA_character_, character(1)),
+                        format = "%Y-%m-%dT%H:%M:%SZ", tz = "UTC")
+      fcut <- as.POSIXct(paste(vapply(fin, function(e) e$conf_date, character(1)), "12:00:00"), tz = "UTC")
+      flate <- which(is.na(fat) | fat >= fcut)
+      if (length(flate)) {
+        fail("final forecasts made before the conference",
+             sprintf("%d of %d final(s) stamped at or after noon UTC on conference day, or unstamped: %s",
+                     length(flate), length(fin), paste(utils::head(names(fin)[flate], 4), collapse = ", ")))
+      } else {
+        ok("final forecasts made before the conference",
+           sprintf("%d final(s), all stamped before noon UTC on conference day", length(fin)))
+      }
+    }
     # Named fp, not p: this is a long script of top-level assignments and a bare
     # `p` is exactly the kind of name that collides with something three hundred
     # lines away.

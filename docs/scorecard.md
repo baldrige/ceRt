@@ -25,11 +25,15 @@ not happened yet. Nothing else on the site records what was said in advance:
 Scored from the pages, the first two OT2026 conferences "expected" 23 grants
 against 5. From the ledger, 8.4 against 5.
 
-The ledger keeps a petition's *first* forecast, often weeks ahead (a median of
-49 days for the 2026 long conference). It can trail what was learned later:
-25-1131 was logged at 0.6% and its conference page later showed 17%. A
-second, final forecast logged the morning of the conference would let the page
-score both.
+**First and final forecasts.** A ledger entry is a petition's *first* forecast,
+often weeks ahead (a median of 49 days for the 2026 long conference). It can
+trail what was learned later: 25-1131 was logged at 0.6% and granted. So each
+entry also carries a `final` block, rewritten every nightly run while its
+conference is ahead and frozen at `FORECAST_FINAL_CUTOFF_UTC` (noon UTC) on
+conference day. The conference-morning run, at about 07:00 UTC, writes the last
+one. The page scores the first forecast by default. `#final` (the switch under
+the heading) scores the final one, over the conferences that have finals. The
+switch appears once a decided conference has them; the first was 16 Oct 2026.
 
 **Outcomes: the parsed order lists** (`orders/`, `R/orders_list.R`), so the
 daily can rebuild the scorecard the day a list is released. A conference's
@@ -76,7 +80,8 @@ order lists, so the next run of either workflow rebuilds it.
 
 ## Checks
 
-`audit_site.R` §11 fails if any scorecard row was logged on or after its
+`audit_site.R` §10 fails on a `final` stamped at or after noon UTC on its
+conference day. §11 fails if any scorecard row was logged on or after its
 conference, or carries an outcome for a conference that is not decided. The page
 is in the build-time placeholder sample, and `PALETTE_SCORECARD` is in the
 colour-source check.
