@@ -327,6 +327,7 @@ sec_valid <- sprintf('
   <p><b>Average precision</b> asks how concentrated the grants are near the top of the model&rsquo;s ranking. A random ranking scores the base rate itself, %s. The baseline scores %.3f, about %.1f times better than chance.</p>
   <p><b>Brier score</b> is the average error of the percentages themselves, so lower is better. The comparison is with the laziest possible forecast, which gives every petition the base rate. That forecast scores %s for the baseline, %s for the enhanced model and %s for the GVR model, and all three models beat it.</p>
   <p class="note">Plain accuracy is not reported because it would mislead. A model that said &ldquo;denied&rdquo; to every petition would be right %s of the time and would be worthless.</p>
+  <p class="note">These figures test the model on past Terms. Its live record, scored on forecasts written down before each conference, is on the <a href="/scorecard/">Forecast Scorecard</a>; see &ldquo;Keeping score&rdquo; below.</p>
 
 <figure><img src="%s" alt="Calibration plot: predicted vs observed grant rate by decile">
   <figcaption>Petitions sorted into ten groups by the model&rsquo;s estimate. Across: what the model predicted for each group. Up: the share actually granted. Points on the dashed line are perfectly calibrated; larger points are groups with more petitions.</figcaption></figure>
@@ -359,6 +360,17 @@ sec_calib <- sprintf('
   pct(tail(e$calibration$pred,1)), pct(tail(e$calibration$obs,1)),
   pct(tail(b$calibration$pred,1)), pct(tail(b$calibration$obs,1)))
 
+# The prospective record (R/forecast_log.R) and the page that scores it
+# (R/scorecard.R). No figures here: this document is regenerated only when the
+# models are, and a live number frozen into it would go stale within a week.
+# The scorecard carries the numbers; this says what they are and why to trust them.
+sec_score <- '
+  <h2>Keeping score</h2>
+  <p>Every figure above was computed after the outcomes were known, on Terms the model was not fitted to. That is an honest test, but it is still a test set up after the fact. So the site also keeps a record it cannot revise. Before each conference, the nightly run writes down a forecast for every paid petition on the list and never edits it afterwards. Nothing is written for a conference that has already happened.</p>
+  <p>Each petition gets two forecasts at each conference. The <b>first forecast</b> is written the first night the petition appears on an upcoming conference&rsquo;s list, often weeks ahead. The <b>final forecast</b> is made again every night after that and frozen at noon UTC on the day of the conference, before the Justices meet. It reflects everything the docket showed by then: the response, any relists, an invitation to the Solicitor General.</p>
+  <p>The <a href="/scorecard/">Forecast Scorecard</a> holds both to the orders the Court then issued, conference by conference: how many grants the forecasts expected and how many came, where each grant ranked among the petitions at its conference, and the same AUC and calibration checks as above. Its numbers are less settled than these, because the Court grants only a few dozen petitions a Term, but they are numbers the model could not have seen.</p>
+'
+
 sec_limits <- sprintf('
   <h2>What it cannot do</h2>
   <ul>
@@ -376,7 +388,7 @@ foot_html <- sprintf('
 </main></body></html>', format(Sys.Date(), "%B %Y"))
 
 html <- paste0(head_html, sec_meaning, sec_models, sec_data, sec_method, sec_valid,
-               sec_drivers, sec_calib, sec_limits, foot_html)
+               sec_drivers, sec_calib, sec_score, sec_limits, foot_html)
 
 # The :root is substituted AFTER sprintf() so it does not have to survive the
 # format string's %% escaping, and so palette.R stays the only place the values
