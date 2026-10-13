@@ -62,10 +62,9 @@ dismissals excluded.
 | granted eventually | AUC 0.860 · AP 0.354 · Brier 0.0614 | **AUC 0.870 · AP 0.390 · Brier 0.0581** |
 | GVR at this conference | **AUC 0.892 · AP 0.140 · Brier 0.0178** | GVR binary: AUC 0.834 · AP 0.078 · Brier 0.0209 |
 
-Source: the rolling-origin harness in `paper/make_performance.R`
-(`perf_competing_vs_binary`), run on the deployed artifacts (trained
-2026-09-22). Verified 2026-10-13 by re-running it and by recomputing every cell
-from its cached out-of-sample predictions with independent metric code. This
+Computed on the deployed artifacts (trained 2026-09-22). Verified 2026-10-13 by
+a full re-run of the evaluation and by recomputing every cell from its
+out-of-sample predictions with independent metric code. This
 table previously read 0.920 / 0.259 / 0.0248 for the first cell, from an
 earlier run that the repository's code cannot reproduce. Its AUC matches
 leave-one-term-out on these rows (0.920), but its AP matches neither scheme
@@ -322,8 +321,7 @@ LOTO is out-of-*fold*, not out-of-time, and the LOTO figures above are mildly
 optimistic. Rolling origin (train on Terms < t, score t) on the identical
 OT2019–2024 rows trails LOTO by **0.006 AUC** for the baseline and the
 conference hazard, **0.016** for the at-risk model and **0.025** for GVR, and
-by 0.013–0.036 in AP (`paper/make_performance.R`,
-`perf_loto_vs_ro_same_rows`; verified 2026-10-13). This section used to say
+by 0.013–0.036 in AP (verified 2026-10-13). This section used to say
 the two agreed "to within 0.003 AUC". No harness in the repository reproduced
 that, and the measured gap is larger. Part of the gap is mechanical: the
 OT2019 origin trains on only two Terms, and no rolling-origin fit sees as much

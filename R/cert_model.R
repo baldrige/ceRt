@@ -1758,8 +1758,8 @@ score_disposition <- function(grant_model, gvr_model, caption, lower, parties,
 #                    7.83%. Fitting that target directly beats rolling the
 #                    hazards forward (AP 0.390 vs 0.354), so the forward
 #                    recursion is NOT used in production.
-#   Rolling origin, OT2019-2024, 11,716 rows (paper/make_performance.R,
-#   verified 2026-10-13; see docs/cert_model.md).
+#   Rolling origin, OT2019-2024, 11,716 rows (verified 2026-10-13; see
+#   docs/cert_model.md).
 #
 # Deliberately not a single model doing both: measured, each is worse at the
 # other's job, and in opposite directions.
