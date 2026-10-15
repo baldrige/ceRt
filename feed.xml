@@ -5,8 +5,15 @@
   <link rel="self" href="https://supremecourt.report/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://supremecourt.report/"/>
   <id>https://supremecourt.report/feed.xml</id>
-  <updated>2026-10-14T12:00:00-04:00</updated>
+  <updated>2026-10-15T12:00:00-04:00</updated>
   <author><name>Supreme Court Report</name></author>
+  <entry>
+    <title>Docket for October 15, 2026</title>
+    <link href="https://supremecourt.report/dashboards/dash_2026-10-15.html"/>
+    <id>https://supremecourt.report/dashboards/dash_2026-10-15.html</id>
+    <updated>2026-10-15T12:00:00-04:00</updated>
+    <summary>Petitions and applications docketed on October 15, 2026.</summary>
+  </entry>
   <entry>
     <title>Docket for October 14, 2026</title>
     <link href="https://supremecourt.report/dashboards/dash_2026-10-14.html"/>
@@ -264,13 +271,6 @@
     <id>https://supremecourt.report/dashboards/dash_2026-09-18.html</id>
     <updated>2026-09-18T12:00:00-04:00</updated>
     <summary>Petitions and applications docketed on September 18, 2026.</summary>
-  </entry>
-  <entry>
-    <title>Docket for September 17, 2026</title>
-    <link href="https://supremecourt.report/dashboards/dash_2026-09-17.html"/>
-    <id>https://supremecourt.report/dashboards/dash_2026-09-17.html</id>
-    <updated>2026-09-17T12:00:00-04:00</updated>
-    <summary>Petitions and applications docketed on September 17, 2026.</summary>
   </entry>
   <entry>
     <title>Application decided: United States Postal Service v. California (No. 26A305) (Denied)</title>
