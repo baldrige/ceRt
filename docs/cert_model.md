@@ -301,11 +301,11 @@ shipped artifact by 0.026 AP without anyone noticing).
 <!-- metrics:begin -->
 | Model | Target | AUC | AP | Brier | Base rate |
 |---|---|---|---|---|---|
-| Baseline | P(grant) | 0.872 | 0.287 | 0.0344 | 4.14% |
+| Baseline | P(grant) | 0.876 | 0.292 | 0.0343 | 4.14% |
 | At-risk | P(grant ever) | 0.881 | 0.371 | 0.0589 | 7.81% |
-| GVR | P(GVR ever) | 0.838 | 0.206 | 0.0460 | 5.45% |
+| GVR | P(GVR ever) | 0.837 | 0.204 | 0.0460 | 5.45% |
 
-Retrained 2026-09-22 on OT2017–2024; base rates from the complete Terms (2017–2022).
+Retrained 2026-10-15 on OT2017–2024; base rates from the complete Terms (2017–2022).
 <!-- metrics:end -->
 
 These are **not** comparable to figures published before 2026-07 (baseline 0.720
@@ -550,24 +550,41 @@ otherwise fit the old readings under the same names). The feature names
 changed with the meaning -- `split_argued2`, `dissent_below2`, `cite_bucket` --
 so no artifact can read a cue it was not trained on.
 
-Measured before the re-enrichment, on the v3 file's v2 columns (11,814 paid
-petitions, 498 grants; Platt-calibrated; deltas against the shipped v1 set with
-a paired petition-clustered bootstrap, `paper/exp_rule10_v2.R`):
+**The case for the move is that the cues are now true, not that the models
+are more accurate.** On the v4 file, v1 feature sets against the shipped v2
+sets on the same frames (Platt-calibrated; paired petition-clustered
+bootstrap, B = 300; rolling origin replays the deployment recipe inside each
+origin, as the methods paper's harness does):
 
-| baseline variant | LOTO ΔAUC | LOTO ΔAP | rolling-origin ΔAUC | rolling-origin ΔAP |
-| --- | --- | --- | --- | --- |
-| v2 split only | +0.0043 [+0.0009, +0.0081] | +0.010 [−0.001, +0.021] | +0.0051 [+0.0013, +0.0083] | +0.016 [+0.004, +0.029] |
-| v2 dissent inside `dissent_level` only | −0.0005 | +0.002 | −0.0011 | +0.002 |
-| v2 split + v2 dissent in `dissent_level` | +0.0040 | +0.012 | +0.0042 | +0.017 [+0.002, +0.034] |
-| **v2 split + `dissent_below2` + `cite_bucket`** (shipped) | **+0.0059 [+0.0023, +0.0097]** | **+0.012 [−0.001, +0.025]** | **+0.0064 [+0.0011, +0.0107]** | **+0.021 [+0.005, +0.040]** |
+| model | scheme | v1 AUC / AP | v2 AUC / AP | ΔAUC | ΔAP |
+| --- | --- | --- | --- | --- | --- |
+| Baseline (11,814 petitions, 498 grants) | LOTO | 0.8724 / 0.2871 | 0.8761 / 0.2922 | +0.0037 [−0.0003, +0.0079] | +0.005 [−0.007, +0.017] |
+| | rolling origin | 0.8807 / 0.2984 | 0.8841 / 0.3095 | +0.0035 [−0.0014, +0.0077] | +0.011 [−0.005, +0.026] |
+| At-risk (16,338 rows, 1,287 positive) | LOTO | 0.8805 / 0.3688 | 0.8811 / 0.3706 | +0.0006 [−0.0026, +0.0043] | +0.002 [−0.011, +0.013] |
+| | rolling origin | 0.8682 / 0.3876 | 0.8686 / 0.3872 | +0.0005 [−0.0045, +0.0043] | −0.000 [−0.012, +0.012] |
 
-On the at-risk panel the v2 pair is neutral to slightly positive (rolling
-origin +0.0027 AUC / +0.003 AP, intervals spanning zero); `cite_bucket` adds
-nothing there and is not used. The gain is mostly the split cue: v2's split
-flags 73% of grants and 36% of denials where v1's flagged 66% / 38%. The v2
-dissent flag is far truer (35% / 10% against v1's 62% / 29%) but not more
-predictive, because v1's flag was largely the citation count -- which is why
-that count is now its own cue, phrased as "a petition citing three to ten
+Every baseline point estimate improves and every interval spans zero; the
+at-risk model is flat. The GVR model, refitted on the v4 `gvr_ask`, reads AUC
+0.837 / AP 0.204 against 0.838 / 0.206.
+
+An earlier measurement, on the v3 file's v2 columns (before the negation fix),
+had the baseline at +0.0064 AUC [+0.0011, +0.0107] / +0.021 AP [+0.005, +0.040]
+under rolling origin. The difference is instructive. Without the negation fix
+v2's split cue flagged 73% of grants; with it, 68% (denials 36% -> 35%). The
+petitions that lost the flag say there is no split -- mostly the Solicitor
+General's "even in the absence of a circuit conflict" petitions -- and are
+granted often, so the false flag was predictive as a stand-in for "the
+government wants this reviewed". The model has that honestly already, from
+`pet_type` and `counsel_tier`, and a case page should not tell a reader that a
+petition argues a split it disclaims.
+
+Of the variants tried on the v3 columns, the shipped one (the v2 flag beside a
+citation-count bucket) did best; nesting the count under the v2 flag
+(`dissent_level`) was +0.0042 AUC / +0.017 AP, the v2 dissent flag alone ~0. On
+the panel `cite_bucket` added nothing and is not used. The v2 dissent flag is
+far truer than v1's (35% of grants / 10% of denials, against 62% / 29%) but not
+more predictive, because v1's flag was largely the citation count -- which is
+why that count is now its own cue, phrased as "a petition citing three to ten
 dissents" rather than "a dissent below, cited three to ten times". The v2 cues
 read the petition PDF only; a separately filed appendix is not fetched at
 training or at serve time.

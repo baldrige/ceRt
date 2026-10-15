@@ -835,7 +835,10 @@ COUNSEL_FEATURES <- c("counsel_tier")
 # dissent was three "(Alito, J., dissenting)" parentheticals, its split "in
 # conflict with the Act". Measured on the disposition corpus (11,814 petitions,
 # 498 grants): v1 dissent flags 62% of grants and 29% of denials, v2 35% / 10%;
-# v1 split 66% / 38%, v2 73% / 36%. Model results: docs/cert_model.md.
+# v1 split 66% / 38%, v2 68% / 35%. The move is for truth, not accuracy: on
+# the v4 file the baseline gains +0.0035 AUC / +0.011 AP under rolling origin
+# (intervals spanning zero) and the at-risk model is flat -- docs/cert_model.md,
+# "The models read the v2 cues".
 PETITION_SIGNAL_FEATURES <- c("dissent_below2", "split_argued2")
 # Two more cues from the same cache, added 2026-09-11. Both were carried in every
 # signals entry since the extractor shipped, as diagnostics. `n_dissent` counts
@@ -870,12 +873,11 @@ PETITION_SIGNAL_FEATURES <- c("dissent_below2", "split_argued2")
 # petition cites -- and that stands on its own beside a TRUE dissent below:
 # `cite_bucket` (citation parentheticals to a dissent, n_dissent_cite) next to
 # `dissent_below2` edged the nested `dissent_level` built on the v2 flag
-# (+0.0023 AUC / +0.0039 AP under rolling origin, +0.0020 / +0.0009 LOTO), and
-# of every variant measured it gained the most over the v1 set: +0.0064 AUC
-# [+0.0011, +0.0107] / +0.021 AP [+0.005, +0.040] rolling origin. Its levels
-# also say what they measure, where "a dissent below, cited three to ten
-# times" did not. dissent_level() stays for the measurement scripts; no
-# shipped model reads it.
+# (+0.0023 AUC / +0.0039 AP under rolling origin, measured on the v3 file's v2
+# columns) and was the best of the variants tried there. Its levels also say
+# what they measure, where "a dissent below, cited three to ten times" did
+# not. dissent_level() stays for the measurement scripts; no shipped model
+# reads it.
 PETITION_SIZE_FEATURES <- c("cite_bucket", "word_band")
 PROCESS_FEATURES <- c("relist_bucket", "amicus_bucket", "cvsg",
                       "response_requested", "response_filed",
