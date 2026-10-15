@@ -33,7 +33,12 @@ Lambda by hand from the zip `deploy-watcher.yml` builds): every minute in Court 
 page, the slip-opinion and argument feeds, the opinions-relating-to-orders page
 and the Hermes feed, dispatches `daily.yml` for anything new, re-dispatches
 until a daily that started after it has succeeded, and emails if none has after
-45 minutes. It replaced `watch-court.yml` (Hermes only), which is **disabled**
+45 minutes. A new opinion PDF first waits for its docket: the site builds a
+decision from the docket entry, and the Court's docket JSON can trail the slip
+feed by hours or days (26A476, 14 Oct 2026: three green dailies published
+nothing), so the watcher polls `/RSS/Cases/JSON/<docket>.json` and counts the
+event ready only once it has an entry from that day -- for up to 96 hours,
+without alerting on the Court's lag. It replaced `watch-court.yml` (Hermes only), which is **disabled**
 (`gh workflow enable watch-court.yml` restores it). The
 GitHub crons below stay as a fallback: the function never dispatches a workflow
 that is already queued or running (a GitHub cron that fires hours late, after

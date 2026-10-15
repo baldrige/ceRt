@@ -33,6 +33,19 @@ daily unless one created after the oldest event is queued, running or green;
 after a failure it waits 5, 10, 20 (max 30) minutes before the next try. An
 event still pending after ALERT_AFTER_MIN sends one email (SNS).
 
+AN OPINION WAITS FOR ITS DOCKET. The site builds a decision from the docket
+entry, not from the PDF, and the Court's docket JSON can trail the slip feed:
+the 26A476 per curiam (14 Oct 2026) was on the feed at 20:33 UTC while the JSON
+stayed on its 00:10 copy until 22:04 -- three dailies ran green in between,
+cleared the event, and published nothing. So a slip or relating event whose
+PDF names a docket is "docketed" only once that docket's JSON
+(/RSS/Cases/JSON/<docket>.json) carries an entry dated on or after the day the
+PDF was seen (Eastern time); until then it neither dispatches nor alerts, and
+only a daily started after it was docketed clears it. The Court has taken days
+(26A388: decided Fri 25 Sep, JSON Mon 28 Sep), so after DOCKET_WAIT_MAX_H the
+event stops waiting and is handled like any other. A revision ("_new_") adds
+no docket entry and does not wait.
+
 Cadence: every minute on weekdays 9 a.m.-6 p.m. ET, when orders, opinions and
 transcripts appear; every 5 minutes otherwise. State is one JSON document in
 DynamoDB; a 90-second lease in the same table keeps polls from overlapping
@@ -52,6 +65,8 @@ ALERT_AFTER_MIN = 45
 RETRY_MIN = (5, 10, 20, 30)          # wait after the 1st, 2nd, 3rd, later failure
 DISPATCH_GRACE_S = 180               # a just-dispatched run may not be listed yet
 KEEP_KEYS = 3000                     # per source; a Term's orders are ~150 files
+DOCKET_WAIT_MAX_H = 96               # then an opinion stops waiting for its docket JSON
+DOCKET_JSON = BASE + "/RSS/Cases/JSON/%s.json"
 
 
 # ---- time ------------------------------------------------------------------------
@@ -168,6 +183,38 @@ def parse_hermes(xml):
     return keys
 
 
+def opinion_docket(key):
+    """The docket an opinion PDF is filed under, in the docket JSON's form, from
+    its file name: 26a476_k537.pdf -> "26A476", 24-1015_hfjm.pdf -> "24-1015",
+    162orig_8n6a.pdf -> "22O162". None for a name without one (the Court once
+    posted "_1bn2.pdf"), a U.S. Reports reprint, or a revision ("_new_"), which
+    changes the file and not the docket."""
+    f = key.rstrip("/").rsplit("/", 1)[-1].lower()
+    if "_new" in f:
+        return None
+    m = re.match(r"(\d{2})a(\d{1,5})_", f)
+    if m:
+        return "%sA%s" % m.groups()
+    m = re.match(r"(\d{2}-\d{1,5})_", f)
+    if m:
+        return m.group(1)
+    m = re.match(r"(\d{1,4})orig_", f)
+    if m:
+        return "22O" + m.group(1)
+    return None
+
+
+def docket_dates(text):
+    """The entry dates ("Oct 14 2026") in a docket JSON, as dates."""
+    out = set()
+    for p in json.loads(text.lstrip("﻿")).get("ProceedingsandOrder") or []:
+        try:
+            out.add(dt.datetime.strptime(" ".join((p.get("Date") or "").split()), "%b %d %Y").date())
+        except ValueError:
+            pass
+    return out
+
+
 def sources(now):
     """(name, url, parser) for every source this poll reads."""
     out = [("hermes", BASE + "/rss/hermes_transfer.xml", parse_hermes)]
@@ -206,12 +253,49 @@ def observe(state, name, keys, now):
         src["keys"] = sorted(old | keys)[-KEEP_KEYS:]
     pend = state.setdefault("pending", {})
     ids = []
+    kind = name.split("/")[0]
     for k in new:
-        eid = "%s:%s" % (name.split("/")[0], k)
+        eid = "%s:%s" % (kind, k)
         if eid not in pend:
             pend[eid] = {"seen": iso(now)}
+            d = opinion_docket(k) if kind in ("slip", "relating") else None
+            if d:
+                pend[eid]["docket"] = d
             ids.append(eid)
     return ids
+
+
+def ready_at(ev):
+    """When an event became ready for a daily: when it was seen, or for an
+    opinion, when its docket caught up. None while it is still waiting."""
+    return ev.get("docketed") if ev.get("docket") else ev["seen"]
+
+
+def check_dockets(state, fetch, now):
+    """Mark docketed every waiting opinion whose docket JSON now has an entry on
+    or after the day it was seen, or that has waited DOCKET_WAIT_MAX_H. `fetch`
+    is url -> text; a failed fetch leaves the event waiting. Returns notes."""
+    notes, memo = [], {}
+    for eid, ev in state.get("pending", {}).items():
+        if not ev.get("docket") or ev.get("docketed"):
+            continue
+        seen = parse_iso(ev["seen"])
+        if (now - seen).total_seconds() >= DOCKET_WAIT_MAX_H * 3600:
+            ev["docketed"] = iso(now)
+            ev["gave_up"] = True
+            notes.append("%s: docket %s not updated after %dh; no longer waiting" % (eid, ev["docket"], DOCKET_WAIT_MAX_H))
+            continue
+        d = ev["docket"]
+        if d not in memo:
+            try:
+                memo[d] = docket_dates(fetch(DOCKET_JSON % d))
+            except Exception as e:                  # noqa: BLE001 -- retried next poll
+                memo[d] = None
+                notes.append("docket %s: %s" % (d, e))
+        dates = memo[d]
+        if dates and max(dates) >= et_now(seen).date():
+            ev["docketed"] = iso(now)
+    return notes
 
 
 def skipped(state, name, now):
@@ -229,16 +313,20 @@ def decide(state, runs, now):
         return out
     rs = [dict(r, t=parse_iso(r["created_at"])) for r in runs]
     for eid, ev in list(pend.items()):
-        seen = parse_iso(ev["seen"])
+        at = ready_at(ev)
+        if at is None:
+            continue                               # an opinion waiting for its docket
+        seen = parse_iso(at)
         # >=, not >: the watcher dispatches only after seeing an event, so a
         # run created in the same second as the sighting is one it started.
         if any(r["t"] >= seen and r.get("conclusion") == "success" for r in rs):
             out["cleared"].append(eid)
             del pend[eid]
-    if not pend:
+    ready = [parse_iso(ready_at(ev)) for ev in pend.values() if ready_at(ev)]
+    if not ready:
         state.pop("dispatch", None)
         return out
-    oldest = min(parse_iso(ev["seen"]) for ev in pend.values())
+    oldest = min(ready)
     after = [r for r in rs if r["t"] >= oldest]
     working = [r for r in after if r.get("status") in LIVE]
     failed = [r for r in after if r.get("status") == "completed" and r.get("conclusion") != "success"]
@@ -257,7 +345,9 @@ def decide(state, runs, now):
     if out["dispatch"]:
         state["dispatch"] = {"at": iso(now)}
     for eid, ev in pend.items():
-        if not ev.get("alerted") and (now - parse_iso(ev["seen"])).total_seconds() >= ALERT_AFTER_MIN * 60:
+        # Counted from readiness: the Court's own docket lag is not ours to alert on.
+        at = ready_at(ev)
+        if at and not ev.get("alerted") and (now - parse_iso(at)).total_seconds() >= ALERT_AFTER_MIN * 60:
             ev["alerted"] = iso(now)
             out["alert"].append(eid)
     return out
@@ -371,6 +461,8 @@ def _poll(env, now):
             failed.append(name)
             notes.append("%s: %s" % (name, e))
         new += observe(state, name, keys, now)
+    # Unconditional GETs: a 304 would hide whether the docket has caught up.
+    notes += check_dockets(state, lambda u: env.fetch(u, {}), now)
     act = {"dispatch": False, "cleared": [], "alert": []}
     if state.get("pending"):
         act = decide(state, env.runs("daily.yml"), now)
@@ -382,8 +474,10 @@ def _poll(env, now):
                       + "\n".join("  %s (seen %s)" % (e, state["pending"][e]["seen"]) for e in act["alert"])
                       + "\n\nRuns: https://github.com/%s/actions/workflows/daily.yml" % env.repo)
     env.save(state)
-    msg = "new %d %s | pending %d | dispatch %s | cleared %d | failed %s" % (
-        len(new), new[:6], len(state.get("pending", {})), act["dispatch"], len(act["cleared"]), failed or "-")
+    pend = state.get("pending", {})
+    msg = "new %d %s | pending %d (%d awaiting docket) | dispatch %s | cleared %d | failed %s" % (
+        len(new), new[:6], len(pend), sum(1 for e in pend.values() if not ready_at(e)),
+        act["dispatch"], len(act["cleared"]), failed or "-")
     print(msg, *notes, sep="\n  ")
     return msg
 

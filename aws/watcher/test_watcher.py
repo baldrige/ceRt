@@ -208,6 +208,97 @@ class Poll(unittest.TestCase):
         self.assertEqual(w.poll(self.env, T("2026-10-07 03:01")), "off-minute")
 
 
+SLIP_26 = "slipopinion_rss.aspx?TYear=26"
+FCC_ITEM = ("<item><title><![CDATA[ FCC v. Brown (26A476) - (per curiam) ]]></title>"
+            "<link>http://www.supremecourt.gov/opinions/26pdf/26a476_k537.pdf</link></item>")
+FCC_EVENT = "slip:https://www.supremecourt.gov/opinions/26pdf/26a476_k537.pdf"
+
+
+def docket_json(*dates):
+    import json
+    return json.dumps({"ProceedingsandOrder": [{"Date": d, "Text": "x"} for d in dates]})
+
+
+class OpinionDocket(unittest.TestCase):
+    def test_names(self):
+        self.assertEqual(w.opinion_docket("https://www.supremecourt.gov/opinions/26pdf/26a476_k537.pdf"), "26A476")
+        self.assertEqual(w.opinion_docket("/opinions/25pdf/24-1015_hfjm.pdf"), "24-1015")
+        self.assertEqual(w.opinion_docket("/opinions/25pdf/162orig_8n6a.pdf"), "22O162")
+        self.assertIsNone(w.opinion_docket("/opinions/25pdf/_1bn2.pdf"))
+        self.assertIsNone(w.opinion_docket("/opinions/25pdf/25-365_new_3e04.pdf"))
+        self.assertIsNone(w.opinion_docket("/opinions/boundvolumes/609us1r55_h315.pdf"))
+
+    def test_relating_fixture_names_a_docket_for_every_original(self):
+        # The only unnamed files are revisions, "_new_" and "25a457new_j426.pdf".
+        unnamed = [k for k in w.parse_relating(fx("relating_25.html")) if not w.opinion_docket(k)]
+        self.assertEqual(len(unnamed), 4)
+        self.assertTrue(all("new" in k for k in unnamed))
+
+    def test_docket_dates(self):
+        self.assertEqual(w.docket_dates("﻿" + docket_json("Oct 08 2026", "Oct 14 2026", "")),
+                         {dt.date(2026, 10, 8), dt.date(2026, 10, 14)})
+
+
+class OpinionWaitsForDocket(unittest.TestCase):
+    """14 Oct 2026: the 26A476 per curiam on the feed at 20:33 UTC, its docket
+    JSON stale until 22:04, three green dailies in between that published nothing."""
+    JSON = "JSON/26A476.json"
+
+    def setUp(self):
+        self.env = FakeEnv({SLIP_26: "<rss><channel></channel></rss>"})
+        w.poll(self.env, T("2026-10-14 20:00"))                       # baseline
+        self.env.pages[SLIP_26] = FCC_ITEM
+        self.env.pages[self.JSON] = docket_json("Oct 08 2026", "Oct 11 2026")
+
+    def test_waits_then_dispatches_once_docketed(self):
+        w.poll(self.env, T("2026-10-14 20:34"))
+        ev = self.env.state["pending"][FCC_EVENT]
+        self.assertEqual(ev["docket"], "26A476")
+        self.assertNotIn("docketed", ev)
+        self.assertEqual(self.env.dispatched, [])                      # a daily now would publish nothing
+        self.env.daily = [run("2026-10-14 20:56"), run("2026-10-14 21:15")]
+        w.poll(self.env, T("2026-10-14 21:40"))
+        self.assertIn(FCC_EVENT, self.env.state["pending"])            # green, but before the docket
+        self.assertEqual(self.env.dispatched, [])
+        self.assertEqual(self.env.alerts, [])
+        self.env.pages[self.JSON] = docket_json("Oct 08 2026", "Oct 11 2026", "Oct 14 2026")
+        w.poll(self.env, T("2026-10-14 22:05"))                       # 18:05 EDT: a 5-minute poll
+        self.assertEqual(self.env.dispatched, ["daily.yml"])
+        self.env.daily.append(run("2026-10-14 22:05"))
+        w.poll(self.env, T("2026-10-14 22:30"))
+        self.assertEqual(self.env.state["pending"], {})
+
+    def test_no_alert_while_the_court_lags(self):
+        w.poll(self.env, T("2026-10-14 20:34"))
+        w.poll(self.env, T("2026-10-15 03:00"))
+        self.assertEqual(self.env.alerts, [])
+        self.assertEqual(self.env.dispatched, [])
+
+    def test_docket_already_current_dispatches_at_once(self):
+        self.env.pages[self.JSON] = docket_json("Oct 14 2026")
+        w.poll(self.env, T("2026-10-14 20:34"))
+        self.assertEqual(self.env.dispatched, ["daily.yml"])
+
+    def test_failed_docket_fetch_keeps_waiting(self):
+        self.env.pages[self.JSON] = RuntimeError("403")
+        w.poll(self.env, T("2026-10-14 20:34"))
+        self.assertNotIn("docketed", self.env.state["pending"][FCC_EVENT])
+        self.assertEqual(self.env.dispatched, [])
+
+    def test_gives_up_after_the_cap(self):
+        w.poll(self.env, T("2026-10-14 20:34"))
+        self.env.daily = [run("2026-10-15 00:33")]
+        w.poll(self.env, T("2026-10-18 20:35"))                       # 96 h on
+        ev = self.env.state["pending"][FCC_EVENT]
+        self.assertTrue(ev["gave_up"])
+        self.assertEqual(self.env.dispatched, ["daily.yml"])
+
+    def test_undocketed_name_does_not_wait(self):
+        self.env.pages[SLIP_26] = "<item><link>http://www.supremecourt.gov/opinions/26pdf/_1bn2.pdf</link></item>"
+        w.poll(self.env, T("2026-10-14 20:34"))
+        self.assertEqual(self.env.dispatched, ["daily.yml"])
+
+
 class Scheduled(unittest.TestCase):
     def test_skips_when_live(self):
         e = FakeEnv({})
