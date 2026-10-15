@@ -114,8 +114,11 @@ mandamus petition has no lower court and is `court_below OTHER`, not `gap_na`
 
 **Petition stage adds:** `counsel_tier` — an expanding-window record of the
 petitioner's counsel of record (`new` / `some` / `vet` / `won`);
-`split_argued` — a Rule 10 cue parsed from the petition PDF; `dissent_level`
-— since 2026-09-16, ONE ordered dissent cue: `none` (no dissent below, whatever
+**since 2026-10-15** the v2 Rule 10 pair `split_argued2` and `dissent_below2`,
+then `cite_bucket` (how many dissents the petition cites in a parenthetical,
+`0 / 1-2 / 3-10 / 11+`) and `word_band` — see "The models read the v2 cues"
+below. Before that: `split_argued` — a Rule 10 cue parsed from the petition
+PDF; `dissent_level` — from 2026-09-16, ONE ordered dissent cue: `none` (no dissent below, whatever
 the petition says about other courts' dissents) / `below` / `below3-10` /
 `below11+` (a dissent below, with the count of the word "dissent" nested under
 it). It replaces the pair `dissent_below` + `dissent_bucket` (the count alone,
@@ -222,11 +225,10 @@ above for why `9k+` was mostly at-limit petitions and is gone): `<3k` −1.89,
 `3-6k` −0.84, `9k+` −0.19, `unknown` +0.16.
 
 `dissent_below` and `split_argued` are the **v1** cues of `R/petition_signals.R`,
-matched over the whole text; their semantics are frozen while the fitted model
-depends on them. A segmented **v2** generation (`dissent_below2`, `split_argued2`, …)
-is extracted alongside them and measured by
-`.github/scripts/measure_petition_signals.R`, but is not yet a feature — see
-"The Rule 10 cues, second generation" below.
+matched over the whole text; they are still extracted, but since 2026-10-15 no
+shipped model reads them. The models read the segmented **v2** generation
+(`dissent_below2`, `split_argued2`) — see "The Rule 10 cues, second generation"
+and "The models read the v2 cues" below.
 
 **Conference stage adds:** `relist_bucket`, `amicus_bucket`, `cvsg`,
 `response_requested`, `response_filed`, `resp_waiver`, `reply_filed`, and (the
@@ -486,8 +488,9 @@ counts on its own; the argued-dissent cue runs on the body; the split cue is
 widened to the SG's phrasing, requires "conflict" to sit beside a court word,
 and ignores intra-circuit splits. `n_dissent_net` is the raw mention count
 minus citations. The v1 columns are computed exactly as before — a cache entry
-carries `sig_v` so a consumer can tell which generation it holds — and the
-daily's on-site cache keeps serving v1 to the fitted model.
+carries `sig_v` so a consumer can tell which generation it holds. (Until
+2026-10-15 the daily's on-site cache served v1 to the fitted model; see "The
+models read the v2 cues".)
 
 Measured on 100 granted and 200 denied paid petitions from OT22–24
 (2026-09-11; "flagged" = share of that outcome the cue fires on):
@@ -533,5 +536,38 @@ drops a split mention that is only denied -- "absence of", "lack of",
 "without", "no prospect of", "not yet any". On the 300-petition sample it
 flips exactly five, each a petition that says there is no split (22-704,
 23-852, 24-20, 24-316 granted; 23-48 denied), and no petition that argues one.
-The model is untouched by either change, but it still reads the v1 cues, so a
-forecast can carry a split or dissent the box no longer claims.
+The same v4 fixed `gvr_ask`, which 26-491 also tripped: its "vacat ... in
+light of" alternative matched "universal vacatur ... in light of CASA". It now
+needs the verb (vacate, vacated, ...).
+
+## The models read the v2 cues (2026-10-15)
+
+The baseline and at-risk grant models now score the v2 cues, and the GVR and
+conference models the v4 `gvr_ask`, all from `petition_signals.json`
+re-enriched at v4 (`MODEL_SIGNALS_VERSION`; `model_frame()` refuses a frame
+whose resolved petitions are not at it, because a stale corpus cache would
+otherwise fit the old readings under the same names). The feature names
+changed with the meaning -- `split_argued2`, `dissent_below2`, `cite_bucket` --
+so no artifact can read a cue it was not trained on.
+
+Measured before the re-enrichment, on the v3 file's v2 columns (11,814 paid
+petitions, 498 grants; Platt-calibrated; deltas against the shipped v1 set with
+a paired petition-clustered bootstrap, `paper/exp_rule10_v2.R`):
+
+| baseline variant | LOTO ΔAUC | LOTO ΔAP | rolling-origin ΔAUC | rolling-origin ΔAP |
+| --- | --- | --- | --- | --- |
+| v2 split only | +0.0043 [+0.0009, +0.0081] | +0.010 [−0.001, +0.021] | +0.0051 [+0.0013, +0.0083] | +0.016 [+0.004, +0.029] |
+| v2 dissent inside `dissent_level` only | −0.0005 | +0.002 | −0.0011 | +0.002 |
+| v2 split + v2 dissent in `dissent_level` | +0.0040 | +0.012 | +0.0042 | +0.017 [+0.002, +0.034] |
+| **v2 split + `dissent_below2` + `cite_bucket`** (shipped) | **+0.0059 [+0.0023, +0.0097]** | **+0.012 [−0.001, +0.025]** | **+0.0064 [+0.0011, +0.0107]** | **+0.021 [+0.005, +0.040]** |
+
+On the at-risk panel the v2 pair is neutral to slightly positive (rolling
+origin +0.0027 AUC / +0.003 AP, intervals spanning zero); `cite_bucket` adds
+nothing there and is not used. The gain is mostly the split cue: v2's split
+flags 73% of grants and 36% of denials where v1's flagged 66% / 38%. The v2
+dissent flag is far truer (35% / 10% against v1's 62% / 29%) but not more
+predictive, because v1's flag was largely the citation count -- which is why
+that count is now its own cue, phrased as "a petition citing three to ten
+dissents" rather than "a dissent below, cited three to ten times". The v2 cues
+read the petition PDF only; a separately filed appendix is not fetched at
+training or at serve time.
