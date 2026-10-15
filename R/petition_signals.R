@@ -44,7 +44,8 @@ PETITION_UA <- "Mozilla/5.0 (ceRt SCOTUS research; +https://supremecourt.report)
 # newer cues; resolve_petition_signals() reports them NA, and a fit that needs
 # them must re-enrich first (train_cert_model.R checks). 4 (2026-10-15) stopped
 # `split_argued2`/`split_toc` firing on a split the petition denies
-# (RX_SPLIT_NEG_TAIL); no v1 cue and no model feature changed.
+# (RX_SPLIT_NEG_TAIL), and `gvr_ask` firing on the noun "vacatur" -- a
+# GVR/conference model feature, so its models were retrained on v4 data.
 PETITION_SIGNALS_VERSION <- 4L
 
 # ---- v1 patterns (operate on the whole text; semantics frozen, see above) ------
@@ -187,8 +188,11 @@ split_mentioned <- function(text) {
 # before this Court" (+8 points of recall at +4 of false positives).
 RX_GVR_ASK <- str_c(
   "(?i)further\\s+(consideration|proceedings)\\s+in\\s+light\\s+of",
-  "|(?i)vacat[^.]{0,250}in\\s+light\\s+of",
-  "|(?i)in\\s+light\\s+of[^.]{0,200}\\bvacat",
+  # The verb, not "vacatur": 26-491 argues that "universal vacatur" is wrong
+  # and that the court's "refusal to revisit its own precedent in light of
+  # CASA" shows it, and read as asking for a GVR (v4, 2026-10-15).
+  "|(?i)\\bvacat(e|es|ed|ing)\\b[^.]{0,250}in\\s+light\\s+of",
+  "|(?i)in\\s+light\\s+of[^.]{0,200}\\bvacat(e|es|ed|ing)\\b",
   "|(?i)\\bGVR\\b|(?i)grant,?\\s+vacate,?\\s+and\\s+remand",
   "|(?i)\\bhold\\s+(this|the)\\s+petition\\b|(?i)\\bheld\\s+pending\\b")
 
