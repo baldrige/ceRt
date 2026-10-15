@@ -520,3 +520,18 @@ per cue and generation, the share of grants and denials flagged and the lift.
 Promoting v2 to a model feature means re-enriching `petition_signals.json`
 with the text cache wired into `enrich-petitions.yml`, refitting the baseline
 on the v2 columns, and only then switching the serve path.
+
+**The case page shows v2 (2026-10-15).** The "Rule 10:" line under a case
+page's forecast states facts about the petition, so it reads `dissent_below2`
+and `split_argued2` while the model goes on scoring v1. 26-491 (HHS v. Texas
+Medical Ass'n) had read "dissent below, circuit split argued": v1's dissent was
+three citations to this Court's dissents and an "equally divided Court", v1's
+split was "in conflict with the Act", and the petition's own heading is "The
+absence of a circuit conflict should not preclude review". That heading also
+fired v2, so v4 of the signals (`RX_SPLIT_NEG_TAIL`, `split_mentioned()`)
+drops a split mention that is only denied -- "absence of", "lack of",
+"without", "no prospect of", "not yet any". On the 300-petition sample it
+flips exactly five, each a petition that says there is no split (22-704,
+23-852, 24-20, 24-316 granted; 23-48 denied), and no petition that argues one.
+The model is untouched by either change, but it still reads the v1 cues, so a
+forecast can carry a split or dissent the box no longer claims.

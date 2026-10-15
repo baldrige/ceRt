@@ -362,7 +362,11 @@ write_docket_css <- function(out_dir) {
 # DISTRIBUTED entries (25-1349 went to September 28, 2026 twice and read "2
 # conferences"), noting the entries when they differ; reads the OT2017 archive's
 # spelled-out dates too.
-PAGE_TEMPLATE_VERSION <- "v44"
+# v45: the "Rule 10:" line under the forecast reads the v2 petition cues, not
+# v1. On the conference cache v1 claimed a dissent below on 437 petitions and v2
+# on 124 -- the rest were citations to this Court's dissents -- and the v2 split
+# cue now ignores a split the petition denies (PETITION_SIGNALS_VERSION 4).
+PAGE_TEMPLATE_VERSION <- "v45"
 
 # ---- small helpers ------------------------------------------------------------
 # A probability at significant figures, as the conference report prints it
@@ -1022,9 +1026,16 @@ docket_disposition <- function(outcome, outcome_date, arg, p_base, conf, sig, is
   # conference tables stay scannable.
   ci_note <- if (!is.na(p_base) && !is.na(p_lo) && !is.na(p_hi) && p_base >= 0.05)
       sprintf("<div class='disp-sub'>95%% interval %s&ndash;%s</div>", pct(p_lo), pct(p_hi)) else ""
-  sig_txt <- if (!is.null(sig)) {
-    bits <- c(if (isTRUE(sig$dissent_below)) "dissent below",
-              if (isTRUE(sig$split_argued)) "circuit split argued")
+  # The box states facts about the petition, so it reads the v2 cues
+  # (R/petition_signals.R), never the v1 ones the baseline model still scores:
+  # v1 "dissent below" fires on citations to this Court's own dissents
+  # ("(Alito, J., dissenting)") and v1 "split" on any "in conflict with the
+  # Act". 26-491 read "dissent below, circuit split argued" with neither -- its
+  # petition argues "the absence of a circuit conflict should not preclude
+  # review" (2026-10-15). An entry older than v2 shows no line at all.
+  sig_txt <- if (!is.null(sig) && isTRUE((sig$sig_v %||% 1L) >= 2L)) {
+    bits <- c(if (isTRUE(sig$dissent_below2)) "dissent below",
+              if (isTRUE(sig$split_argued2)) "circuit split argued")
     if (length(bits)) paste0("Rule 10: ", paste(bits, collapse = ", ")) else NULL
   } else NULL
   est_note <- if (!is.na(p_base))
