@@ -452,7 +452,12 @@ resolve_petition_signals <- function(dkts, urls, cache_path, max_new = 0L,
   } else list()
   is_current <- function(dk) !is.null(cache[[dk]]) &&
     (!refresh_v1_entries || isTRUE((cache[[dk]]$sig_v %||% 1L) >= PETITION_SIGNALS_VERSION))
-  todo <- dkts[!vapply(dkts, is_current, logical(1)) & !is.na(urls) & nzchar(urls %|||% "")]
+  # Element-wise, not `%|||%`: that helper coalesces the WHOLE vector when its
+  # first element is NA, so one leading docket without a petition URL emptied
+  # every URL and nothing was fetched. The conferences run (whose QP set mixes in
+  # dockets without one) fetched nothing and its cache sat at v3 through the v4
+  # bump (2026-10-15); the daily filters to non-NA URLs first, so it escaped.
+  todo <- dkts[!vapply(dkts, is_current, logical(1)) & !is.na(urls) & nzchar(coalesce(urls, ""))]
   todo <- head(unique(todo), max_new)
   if (length(todo) > 0) {
     message("petition signals: fetching ", length(todo), " of ",
