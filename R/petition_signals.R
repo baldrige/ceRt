@@ -42,8 +42,10 @@ suppressPackageStartupMessages({
 PETITION_UA <- "Mozilla/5.0 (ceRt SCOTUS research; +https://supremecourt.report)"
 # 3 added `gvr_ask` (2026-09-21). An entry below the current version lacks the
 # newer cues; resolve_petition_signals() reports them NA, and a fit that needs
-# them must re-enrich first (train_cert_model.R checks).
-PETITION_SIGNALS_VERSION <- 3L
+# them must re-enrich first (train_cert_model.R checks). 4 (2026-10-15) stopped
+# `split_argued2`/`split_toc` firing on a split the petition denies
+# (RX_SPLIT_NEG_TAIL); no v1 cue and no model feature changed.
+PETITION_SIGNALS_VERSION <- 4L
 
 # ---- v1 patterns (operate on the whole text; semantics frozen, see above) ------
 
@@ -133,6 +135,34 @@ RX_SPLIT2 <- str_c(
 # "intra-circuit split" is a plea about one court's own inconsistency, not a
 # Rule 10(a) conflict; it is blanked before RX_SPLIT2 runs.
 RX_INTRA_SPLIT <- "(?i)\\bintra-?\\s?circuit\\s+(split|conflict)s?\\b"
+# A split mentioned only to deny it. The government's house argument for
+# certiorari without a conflict -- "2. The absence of a circuit conflict should
+# not preclude review" (26-491, HHS v. Texas Medical Ass'n), "even in the
+# absence of a circuit conflict" (22-704, 23-852, 24-20, 24-316), "there is no
+# prospect of a circuit split" (23-48) -- read as "circuit split argued" on the
+# case page. A mention is negated when the words just before it, in the same
+# sentence, are one of these, ending where the mention begins. "No doubt that",
+# "no dispute that", "no denying that" affirm the split and are not negations;
+# nor is "not only ... the circuit split" (a "not" followed by more than two
+# words before the article).
+RX_SPLIT_NEG_TAIL <- str_c(
+  "(?i)(\\b(absence|lack)\\s+of|\\bwithout|\\bdespite(\\s+the\\s+(absence|lack)\\s+of)?)",
+  "\\s+((any|a|an)\\s+)?[\"“]?\\s*$",
+  "|(?i)\\bno\\s+(?!(doubt|dispute|denying|question)\\b)(\\w+\\s+){0,4}[\"“]?\\s*$",
+  "|(?i)\\b(not|never)\\s+(\\w+\\s+){0,2}(any|a|an)\\s+[\"“]?\\s*$")
+
+# Does `text` mention a split other than to deny one? TRUE if any RX_SPLIT2
+# match is not preceded (within its sentence, 60 characters back) by
+# RX_SPLIT_NEG_TAIL. A petition that both denies and argues a split -- "Nor is
+# there any way to avoid the reality of a deepening circuit split" -- keeps it.
+split_mentioned <- function(text) {
+  loc <- str_locate_all(text, RX_SPLIT2)[[1]]
+  if (!nrow(loc)) return(FALSE)
+  pre <- str_sub(text, pmax(1L, loc[, 1] - 60L), loc[, 1] - 1L)
+  pre <- str_replace(str_squish(pre), "^.*[.;:?!]\\s*", "")       # this sentence only
+  pre <- str_replace_all(pre, "-\\s+", "")                         # "mean- ingful"
+  any(!str_detect(paste0(pre, " "), RX_SPLIT_NEG_TAIL))
+}
 
 # ---- v3: what the petition asks for -------------------------------------------
 #
@@ -305,8 +335,8 @@ extract_petition_signals <- function(text, appendix_text = "") {
     dissent_argued2 = dissent_argued2,
     dissent_below2  = dissent_byline | dissent_toc | dissent_argued2,
     enbanc_dissent2 = str_detect(paste(body_clean, toc_txt, appx_clean, sep = "\n"), RX_ENBANC_DISSENT),
-    split_argued2   = str_detect(body_split, RX_SPLIT2),
-    split_toc       = str_detect(front_split, RX_SPLIT2),
+    split_argued2   = split_mentioned(body_split),
+    split_toc       = split_mentioned(front_split),
     n_dissent_cite  = n_cite,
     n_dissent_net   = pmax(0L, str_count(text, "(?i)\\bdissent") - n_cite),
     has_appendix    = has_appendix,
