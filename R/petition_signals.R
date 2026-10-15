@@ -356,16 +356,41 @@ extract_petition_signals <- function(text, appendix_text = "") {
 # Download a petition PDF and return its extracted text ("" on any failure or a
 # scanned/no-text PDF -- OCR is intentionally NOT attempted here; scanned IFP
 # petitions are rare in the paid docket this feature targets).
+#
+# NA, not "", when the fetch FAILED -- a transport error, a non-2xx status, or a
+# body that is not a PDF. "" means only "a PDF with no text layer", a real and
+# cacheable answer; NA means "nobody looked", and the resolver writes nothing for
+# it so the docket is retried. Until 2026-10-15 every failure read as "": the
+# v4 re-enrichment lost 1,478 of OT2018's 1,547 petitions and ~1,500 of OT2020's
+# to Akamai serving its HTML block page in place of the PDF ("May not be a PDF
+# file ... Illegal character <48>"), cached each as a petition with no text and
+# no cues, and committed that over good v3 entries.
+#
+# Paced: scotus_pace() when the fetcher is loaded (the daily), else at most
+# PETITION_FETCH_RPS requests a second (the enrichment, which does not load it).
+.pet_last_fetch <- new.env(parent = emptyenv())
+.pace_petition <- function() {
+  if (exists("scotus_pace")) return(invisible(scotus_pace()))
+  rps <- suppressWarnings(as.numeric(Sys.getenv("PETITION_FETCH_RPS", "2")))
+  if (is.na(rps) || rps <= 0) return(invisible())
+  last <- .pet_last_fetch$t %||% 0
+  wait <- 1 / rps - (as.numeric(Sys.time()) - last)
+  if (wait > 0) Sys.sleep(wait + stats::runif(1, 0, 0.2))
+  .pet_last_fetch$t <- as.numeric(Sys.time())
+}
 fetch_petition_text <- function(url) {
   if (is.na(url) || !nzchar(url)) return("")
   tf <- tempfile(fileext = ".pdf")
   on.exit(unlink(tf), add = TRUE)
-  ok <- tryCatch({
-    request(url) |> req_user_agent(PETITION_UA) |> req_timeout(90) |>
+  .pace_petition()
+  st <- tryCatch({
+    resp <- request(url) |> req_user_agent(PETITION_UA) |> req_timeout(90) |>
       req_error(is_error = \(resp) FALSE) |> req_perform(path = tf)
-    TRUE
-  }, error = function(e) FALSE)
-  if (!ok) return("")
+    resp_status(resp)
+  }, error = function(e) NA_integer_)
+  if (is.na(st) || st < 200L || st >= 300L) return(NA_character_)
+  head4 <- tryCatch(readBin(tf, "raw", 4L), error = function(e) raw())
+  if (!identical(head4, charToRaw("%PDF"))) return(NA_character_)
   tryCatch(paste(suppressWarnings(pdf_text(tf)), collapse = "\n"),
            error = function(e) "")
 }
@@ -384,6 +409,7 @@ get_petition_text <- function(dkt, url, text_dir = Sys.getenv("PETITION_TEXT_DIR
                           collapse = "\n"), error = function(e) ""))
   }
   txt <- fetch_petition_text(url)
+  if (is.na(txt)) return(txt)          # a failed fetch is not cached; retried next time
   dir.create(text_dir, showWarnings = FALSE, recursive = TRUE)
   con <- gzfile(p, "w", encoding = "UTF-8"); on.exit(close(con), add = TRUE)
   writeLines(txt, con)
@@ -430,13 +456,18 @@ resolve_petition_signals <- function(dkts, urls, cache_path, max_new = 0L,
             sum(!vapply(dkts, is_current, logical(1))), " uncached (cap ", max_new, ")")
     url_of <- setNames(urls, dkts)
     appx_of <- if (is.null(appx_urls)) NULL else setNames(appx_urls, dkts)
+    failed <- character()
     for (i in seq_along(todo)) {
       dk <- todo[i]
       au <- if (is.null(appx_of)) character() else appx_of[[dk]] %||% character()
       au <- au[!is.na(au) & nzchar(au)]
-      appx_txt <- paste(vapply(seq_along(au), function(j)
-        get_petition_text(paste0(dk, ".appx", j), au[j], text_dir), ""), collapse = "\n")
-      sig <- extract_petition_signals(get_petition_text(dk, url_of[[dk]], text_dir), appx_txt)
+      appx <- vapply(seq_along(au), function(j)
+        get_petition_text(paste0(dk, ".appx", j), au[j], text_dir), "")
+      pet <- get_petition_text(dk, url_of[[dk]], text_dir)
+      # A failed fetch (NA) writes NOTHING: the entry already cached, if any,
+      # stands, and the docket is retried on the next run.
+      if (is.na(pet) || anyNA(appx)) { failed <- c(failed, dk); next }
+      sig <- extract_petition_signals(pet, paste(appx, collapse = "\n"))
       cache[[dk]] <- as.list(sig)
       # Flush periodically so a crash/timeout keeps progress (resumable).
       if (i %% 50 == 0) {
@@ -445,6 +476,9 @@ resolve_petition_signals <- function(dkts, urls, cache_path, max_new = 0L,
       }
     }
     write_json(cache, cache_path, auto_unbox = TRUE)
+    if (length(failed))
+      message("petition signals: ", length(failed), " of ", length(todo),
+              " fetch(es) failed (throttled or not a PDF); left as they were, retried next run")
   }
   # Assemble one row per requested docket.
   lgl_or_na <- function(s, k, measured) if (!measured) NA else isTRUE(s[[k]])
