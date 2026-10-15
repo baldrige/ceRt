@@ -20,10 +20,8 @@
 # TWO GENERATIONS OF CUES live side by side, on purpose:
 #
 #  * v1 (`dissent_below`, `dissent_argued`, `dissent_header`, `enbanc_dissent`,
-#    `split_argued`) run the original patterns over the whole text. They are
-#    what the fitted baseline model was trained on, so their SEMANTICS MUST NOT
-#    CHANGE until the model is refitted -- tightening a feature under a trained
-#    coefficient is a silent train/serve skew.
+#    `split_argued`) run the original patterns over the whole text. No shipped
+#    model has read them since 2026-10-15; they are kept for comparison.
 #  * v2 (`dissent_below2`, `dissent_argued2`, `dissent_byline`, `dissent_toc`,
 #    `enbanc_dissent2`, `split_argued2`, `split_toc`) segment the PDF first and
 #    match each cue only where it means something. Measured on a 32-petition
@@ -33,7 +31,12 @@
 #    the Solicitor General's house style ("circuit conflict", "conflicts with
 #    the decisions of other circuits") while matching "conflicting views" and
 #    "intra-circuit split". v2 is measured by
-#    .github/scripts/measure_petition_signals.R and is NOT yet a model feature.
+#    .github/scripts/measure_petition_signals.R, and since 2026-10-15
+#    `dissent_below2`, `split_argued2` and `n_dissent_cite` are model features
+#    (R/cert_model.R), as `gvr_ask` has been since v3. Their SEMANTICS MUST
+#    NOT CHANGE without bumping PETITION_SIGNALS_VERSION, re-enriching, and
+#    refitting (MODEL_SIGNALS_VERSION) -- tightening a cue under a trained
+#    coefficient is a silent train/serve skew.
 
 suppressPackageStartupMessages({
   library(tidyverse); library(httr2); library(pdftools); library(jsonlite)
@@ -333,7 +336,7 @@ extract_petition_signals <- function(text, appendix_text = "") {
     split_argued    = str_detect(text, RX_SPLIT),
     n_dissent       = str_count(text, "(?i)\\bdissent"),
     pet_chars       = nchar(text),
-    # ---- v2 (segmented; not yet a model feature) ----
+    # ---- v2 (segmented; dissent_below2 / split_argued2 / n_dissent_cite are model features) ----
     dissent_byline  = dissent_byline,
     dissent_toc     = dissent_toc,
     dissent_argued2 = dissent_argued2,

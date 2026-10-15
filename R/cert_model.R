@@ -650,7 +650,8 @@ assemble_at_risk <- function(paths) {
   panel |>
     left_join(load_petition_signals(), by = "dkt") |>
     left_join(load_word_counts(), by = "dkt") |>
-    mutate(across(c(dissent_below, dissent_argued, enbanc_dissent, split_argued),
+    mutate(across(c(dissent_below, dissent_argued, enbanc_dissent, split_argued,
+                    dissent_below2, split_argued2),
                   ~ coalesce(.x, FALSE)),
            # Absent reads as FALSE, the serve-time default -- but model_frame()
            # refuses to fit gvr_ask unless it was actually measured for the frame.
@@ -667,7 +668,9 @@ load_petition_signals <- function(path = PETITION_SIGNALS_PATH) {
   empty <- tibble(dkt = character(), dissent_below = logical(),
                   dissent_argued = logical(), enbanc_dissent = logical(),
                   split_argued = logical(), n_dissent = integer(),
-                  pet_chars = integer(), gvr_ask = logical())
+                  pet_chars = integer(), gvr_ask = logical(),
+                  dissent_below2 = logical(), split_argued2 = logical(),
+                  n_dissent_cite = integer(), sig_v = integer())
   if (!file.exists(path)) return(empty)
   j <- jsonlite::fromJSON(path, simplifyDataFrame = FALSE)
   if (length(j) == 0) return(empty)
@@ -684,10 +687,21 @@ load_petition_signals <- function(path = PETITION_SIGNALS_PATH) {
     split_argued = isTRUE(s$split_argued),
     n_dissent = as.integer(s$n_dissent %||% NA),
     pet_chars = as.integer(s$pet_chars %||% NA),
-    gvr_ask = if (isTRUE((s$sig_v %||% 1L) >= 3L)) isTRUE(s$gvr_ask) else NA))
+    gvr_ask = if (isTRUE((s$sig_v %||% 1L) >= 3L)) isTRUE(s$gvr_ask) else NA,
+    # The v2 cues the models read since 2026-10-15 (see PETITION_SIGNAL_FEATURES).
+    # NA from an entry older than v2, so a frame built on one fails by name.
+    dissent_below2 = if (isTRUE((s$sig_v %||% 1L) >= 2L)) isTRUE(s$dissent_below2) else NA,
+    split_argued2  = if (isTRUE((s$sig_v %||% 1L) >= 2L)) isTRUE(s$split_argued2) else NA,
+    n_dissent_cite = as.integer(s$n_dissent_cite %||% NA),
+    sig_v = as.integer(s$sig_v %||% 1L)))
 }
 PETITION_SIGNAL_COLS <- c("dissent_below", "dissent_argued", "enbanc_dissent",
-                          "split_argued", "n_dissent", "pet_chars", "gvr_ask")
+                          "split_argued", "n_dissent", "pet_chars", "gvr_ask",
+                          "dissent_below2", "split_argued2", "n_dissent_cite", "sig_v")
+# The extractor version the models are trained and served on: v4 is the first
+# whose split cue ignores a split the petition denies and whose gvr_ask ignores
+# "vacatur" (R/petition_signals.R). model_frame() refuses a frame below it.
+MODEL_SIGNALS_VERSION <- 4L
 
 # The certified word counts (data-raw/word_counts.json, keyed by docket ->
 # {words, chars}; built by .github/scripts/enrich_word_counts.R from the
@@ -715,7 +729,8 @@ assemble_corpus <- function(paths) {
   corpus |>
     left_join(load_petition_signals(), by = "dkt") |>
     left_join(load_word_counts(), by = "dkt") |>
-    mutate(across(c(dissent_below, dissent_argued, enbanc_dissent, split_argued),
+    mutate(across(c(dissent_below, dissent_argued, enbanc_dissent, split_argued,
+                    dissent_below2, split_argued2),
                   ~ coalesce(.x, FALSE)),
            # Absent reads as FALSE, the serve-time default -- but model_frame()
            # refuses to fit gvr_ask unless it was actually measured for the frame.
@@ -812,7 +827,19 @@ STRUCTURAL_FEATURES <- c("pet_type", "resp_type", "court_below",
 # reasoning the Rule 10 signals are baseline-only. Keeping it out of the
 # conference tier also means the conference renderer needs no counsel index.
 COUNSEL_FEATURES <- c("counsel_tier")
-PETITION_SIGNAL_FEATURES <- c("dissent_below", "split_argued")
+# The v2 cues since 2026-10-15 (R/petition_signals.R): a dissent below that the
+# petition reproduces or argues, with citations to other courts' dissents
+# blanked first, and a split argued in the body that the petition does not
+# deny. The v1 cues they replace were what the case page printed as "Rule 10:
+# dissent below, circuit split argued" for 26-491, which has neither -- v1's
+# dissent was three "(Alito, J., dissenting)" parentheticals, its split "in
+# conflict with the Act". Measured on the disposition corpus (11,814 petitions,
+# 498 grants): v1 dissent flags 62% of grants and 29% of denials, v2 35% / 10%;
+# v1 split 66% / 38%, v2 68% / 35%. The move is for truth, not accuracy: on
+# the v4 file the baseline gains +0.0035 AUC / +0.011 AP under rolling origin
+# (intervals spanning zero) and the at-risk model is flat -- docs/cert_model.md,
+# "The models read the v2 cues".
+PETITION_SIGNAL_FEATURES <- c("dissent_below2", "split_argued2")
 # Two more cues from the same cache, added 2026-09-11. Both were carried in every
 # signals entry since the extractor shipped, as diagnostics. `n_dissent` counts
 # every "dissent" in the petition -- which, it turned out, is mostly citations to
@@ -840,7 +867,18 @@ PETITION_SIGNAL_FEATURES <- c("dissent_below", "split_argued")
 # it does (4.4% / 7.7% / 14.9%). So one ordered cue, `dissent_level`, nests the
 # count under the flag -- see dissent_level() -- and the baseline carries it in
 # place of both.
-PETITION_SIZE_FEATURES <- c("dissent_level", "word_band")
+#
+# 2026-10-15: with the v2 flag, nesting the count under it no longer pays. The
+# count was carrying what v1's flag mostly measured -- how many dissents the
+# petition cites -- and that stands on its own beside a TRUE dissent below:
+# `cite_bucket` (citation parentheticals to a dissent, n_dissent_cite) next to
+# `dissent_below2` edged the nested `dissent_level` built on the v2 flag
+# (+0.0023 AUC / +0.0039 AP under rolling origin, measured on the v3 file's v2
+# columns) and was the best of the variants tried there. Its levels also say
+# what they measure, where "a dissent below, cited three to ten times" did
+# not. dissent_level() stays for the measurement scripts; no shipped model
+# reads it.
+PETITION_SIZE_FEATURES <- c("cite_bucket", "word_band")
 PROCESS_FEATURES <- c("relist_bucket", "amicus_bucket", "cvsg",
                       "response_requested", "response_filed",
                       "resp_waiver", "reply_filed")
@@ -868,10 +906,9 @@ PROCESS_FEATURES <- c("relist_bucket", "amicus_bucket", "cvsg",
 #    petition_signals_cache.json -- training on a cue that arrives as a default
 #    at serve time is exactly how elite_counsel shipped dead. Recovering the lift
 #    means fixing serve-time coverage first: see issue #15.
-# split_argued alone from the Rule 10 pair: dissent_below is inside
-# dissent_level here (2026-09-16). The at-risk model still carries the pair.
+# The Rule 10 pair, then the citation density and the certified length.
 BASELINE_FEATURES <- c(STRUCTURAL_FEATURES, COUNSEL_FEATURES,
-                       "split_argued", PETITION_SIZE_FEATURES)
+                       PETITION_SIGNAL_FEATURES, PETITION_SIZE_FEATURES)
 ENHANCED_FEATURES <- c(STRUCTURAL_FEATURES, PROCESS_FEATURES)
 # The at-risk GRANT model (cert_model_enhanced.rds) now carries the Rule 10 cues
 # as well (issue #15: +0.012 AUC / +0.043 AP on the panel, measured 2026-07,
@@ -896,7 +933,17 @@ GVR_FEATURES    <- c(ENHANCED_FEATURES, "gvr_ask")
 FACTOR_REFERENCES <- list(pet_type = "individual", resp_type = "individual",
                           court_below = "STATE", relist_bucket = "0",
                           amicus_bucket = "0", counsel_tier = "new",
-                          dissent_level = "none", word_band = "6k+")
+                          dissent_level = "none", cite_bucket = "0", word_band = "6k+")
+
+# How many dissents the petition cites in a parenthetical -- "(Stevens, J.,
+# dissenting)" -- overwhelmingly this Court's (n_dissent_cite). A proxy for how
+# well-researched the petition is, not a fact about the court below; the page
+# says "cites". Unresolved is "0", as at training.
+CITE_LEVELS <- c("0", "1-2", "3-10", "11+")
+cite_bucket <- function(n) {
+  n <- suppressWarnings(as.integer(n)); n[is.na(n)] <- 0L
+  ifelse(n == 0L, "0", ifelse(n <= 2L, "1-2", ifelse(n <= 10L, "3-10", "11+")))
+}
 
 # The petition-size cues. An unresolved petition (no entry in the signals cache,
 # or a PDF that yielded no text; no certificate docketed, or one that did not
@@ -972,14 +1019,32 @@ model_frame <- function(corpus, features) {
   # before 2026-09-11 does not carry. Fail here rather than fit on a frame that
   # silently lacks the feature (drop_na() would empty it, and the aliasing guard
   # would report the wrong cause).
-  if (any(PETITION_SIZE_FEATURES %in% features)) {
-    miss <- setdiff(c("n_dissent", "words"), names(df))
+  if (any(c(PETITION_SIZE_FEATURES, "dissent_level") %in% features)) {
+    miss <- setdiff(c("n_dissent", "n_dissent_cite", "words"), names(df))
     if (length(miss))
       stop("training frame lacks ", paste(miss, collapse = ", "),
            " -- the corpus/panel cache predates the size features; delete ",
            "data-raw/cert_corpus.rds and data-raw/cert_panel.rds and rebuild.")
     df <- df |> mutate(dissent_level = dissent_level(dissent_below, n_dissent),
+                       cite_bucket = cite_bucket(n_dissent_cite),
                        word_band = word_band(words))
+  }
+  # The v2 cues and the v4 fixes (MODEL_SIGNALS_VERSION) live in the signals
+  # file, not the code: a corpus/panel cache assembled before the file was
+  # re-enriched still holds the old readings, under the same names, and would
+  # fit on them without a murmur. So every petition-text feature requires the
+  # frame's resolved petitions to be at that version.
+  if (any(c(PETITION_SIGNAL_FEATURES, "cite_bucket", "gvr_ask") %in% features)) {
+    if (!"sig_v" %in% names(df))
+      stop("training frame lacks sig_v -- the corpus/panel cache predates the v2 ",
+           "cues; delete data-raw/cert_corpus.rds and data-raw/cert_panel.rds and rebuild.")
+    v <- df$sig_v[!is.na(df$sig_v)]
+    cur <- if (length(v)) mean(v >= MODEL_SIGNALS_VERSION) else 0
+    if (cur < 0.99)
+      stop(sprintf("only %.0f%% of the frame's resolved petitions are at signals v%d; ",
+                   100 * cur, MODEL_SIGNALS_VERSION),
+           "re-run enrich-petitions.yml (it re-extracts entries below ",
+           "PETITION_SIGNALS_VERSION), then delete the corpus/panel caches and rebuild.")
   }
   # gvr_ask is a v3 signal. A corpus/panel cache from before it has no column;
   # one assembled from a signals file that was not re-enriched has the column
@@ -1550,6 +1615,13 @@ FORECAST_CUE_PHRASES <- c(
   "dissent_levelbelow"      = "a dissent below",
   "dissent_levelbelow3-10"  = "a dissent below, cited three to ten times",
   "dissent_levelbelow11+"   = "a dissent below, cited more than ten times",
+  # The v2 cues (2026-10-15). The dissent is one the petition reproduces or
+  # argues; the citation count is its own cue, phrased as what it is.
+  "dissent_below2TRUE" = "a dissent in the court below",
+  "split_argued2TRUE"  = "a circuit split argued in the petition",
+  "cite_bucket1-2"     = "a petition citing one or two dissents",
+  "cite_bucket3-10"    = "a petition citing three to ten dissents",
+  "cite_bucket11+"     = "a petition citing more than ten dissents",
   # From the Rule 33.1(h) certificate, against the 9,000-word limit.
   "word_band<3k"     = "a petition under 3,000 words",
   "word_band3-6k"    = "a petition of 3,000 to 6,000 words",
@@ -1685,6 +1757,12 @@ signal_features <- function(signals = NULL) {
     # the serve-time caches refresh below-version entries so it is brief.
     gvr_ask        = isTRUE(g("gvr_ask")),
     dissent_level  = dissent_level(isTRUE(g("dissent_below")), g("n_dissent") %||% NA),
+    # The v2 cues the models read (2026-10-15). An entry older than v4 reads
+    # here as it was extracted; the serve-time caches re-extract below-version
+    # entries on their next run (refresh_v1_entries), so that is brief.
+    dissent_below2 = isTRUE(g("dissent_below2")),
+    split_argued2  = isTRUE(g("split_argued2")),
+    cite_bucket    = cite_bucket(g("n_dissent_cite") %||% NA),
     word_band      = word_band(g("words") %||% NA))
 }
 

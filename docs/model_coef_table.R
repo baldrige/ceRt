@@ -17,6 +17,7 @@ GROUP <- c(pet_type="Structural", resp_type="Structural", court_below="Structura
   pro_se="Structural", gap_fast="Structural", gap_na="Structural",
   counsel_tier="Counsel", dissent_below="Petition signal", split_argued="Petition signal",
   dissent_level="Petition signal", word_band="Petition signal", gvr_ask="Petition signal",
+  dissent_below2="Petition signal", split_argued2="Petition signal", cite_bucket="Petition signal",
   relist_bucket="Process", amicus_bucket="Process", cvsg="Process",
   response_requested="Process", response_filed="Process", resp_waiver="Process",
   reply_filed="Process", conf_f="Conference", phase="Conference")
