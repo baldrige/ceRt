@@ -36,6 +36,17 @@ sel <- cases |>
   distinct(dkt, .keep_all = TRUE)
 
 cat("OT", term, "— paid granted/denied with a petition URL:", nrow(sel), "\n")
+# Seed the run's cache from the committed layer, so a re-dispatch fetches only
+# what is missing or below PETITION_SIGNALS_VERSION rather than the whole Term
+# again from a fresh, empty file -- which is what made a throttled run cost a
+# full re-download to repair (2026-10-15).
+committed <- "data-raw/petition_signals.json"
+if (!file.exists(out) && file.exists(committed)) {
+  have <- fromJSON(committed, simplifyDataFrame = FALSE)
+  seed <- have[intersect(names(have), sel$dkt)]
+  if (length(seed)) write_json(seed, out, auto_unbox = TRUE)
+  cat("seeded", length(seed), "entries from", committed, "\n")
+}
 # refresh: an entry below PETITION_SIGNALS_VERSION is re-extracted, so a new
 # cue (gvr_ask, v3) reaches the whole corpus by re-dispatching this workflow.
 invisible(resolve_petition_signals(sel$dkt, sel$url, cache_path = out, max_new = max_new,
@@ -43,4 +54,9 @@ invisible(resolve_petition_signals(sel$dkt, sel$url, cache_path = out, max_new =
 
 done <- fromJSON(out, simplifyDataFrame = FALSE)
 have_text <- sum(purrr::map_lgl(done, ~ isTRUE((.x$pet_chars %||% 0) > 500)))
-cat("cache entries:", length(done), "| text-extractable:", have_text, "\n")
+stale <- sum(!vapply(sel$dkt, function(d) isTRUE((done[[d]]$sig_v %||% 0L) >= PETITION_SIGNALS_VERSION), logical(1)))
+cat("cache entries:", length(done), "| text-extractable:", have_text,
+    "| still below v", PETITION_SIGNALS_VERSION, ": ", stale, "\n", sep = "")
+if (stale > 0)
+  cat("::warning::OT", term, ": ", stale, " petition(s) not at signals v", PETITION_SIGNALS_VERSION,
+      " (fetch failed or capped) -- re-dispatch this term; their committed entries are kept.\n", sep = "")
