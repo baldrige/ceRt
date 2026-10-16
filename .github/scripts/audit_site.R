@@ -464,14 +464,18 @@ if (length(feeds)) {
   # not be newer than the feed's own <updated>.
   if ("feed.xml" %in% feeds) {
     today_et <- as.Date(format(Sys.time(), tz = "America/New_York"))
-    page_dates <- function(dir, rx) {
+    page_dates <- function(dir, rx, through) {
       f <- list.files(file.path(site, dir), pattern = rx)
       d <- as.Date(sub(".*(\\d{4}-\\d{2}-\\d{2}).*", "\\1", f))
-      d[!is.na(d) & d <= today_et]
+      d[!is.na(d) & d <= through]
     }
+    # A conference page exists weeks before the conference, so one dated today
+    # is not yet held: the audit's 04:00 UTC run is midnight ET, before the
+    # day's first daily, and counting it failed every conference day
+    # (2026-10-09, 2026-10-16) on a feed that was current.
     newest <- suppressWarnings(max(c(
-      page_dates("dashboards", "^dash_\\d{4}-\\d{2}-\\d{2}\\.html$"),
-      page_dates("conferences", "^conf_\\d{4}-\\d{2}-\\d{2}\\.html$"))))
+      page_dates("dashboards", "^dash_\\d{4}-\\d{2}-\\d{2}\\.html$", today_et),
+      page_dates("conferences", "^conf_\\d{4}-\\d{2}-\\d{2}\\.html$", today_et - 1))))
     feed_up <- as.Date(substr(tagvals(slurp(file.path(site, "feed.xml")), "updated")[1], 1, 10))
     if (is.finite(newest) && !is.na(feed_up) && newest > feed_up) {
       fail("feed keeps up with the site",
