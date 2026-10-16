@@ -5,8 +5,15 @@
   <link rel="self" href="https://supremecourt.report/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://supremecourt.report/"/>
   <id>https://supremecourt.report/feed.xml</id>
-  <updated>2026-10-15T12:00:00-04:00</updated>
+  <updated>2026-10-16T12:00:00-04:00</updated>
   <author><name>Supreme Court Report</name></author>
+  <entry>
+    <title>Conference of October 16, 2026</title>
+    <link href="https://supremecourt.report/conferences/conf_2026-10-16.html"/>
+    <id>https://supremecourt.report/conferences/conf_2026-10-16.html</id>
+    <updated>2026-10-16T12:00:00-04:00</updated>
+    <summary>Petitions distributed for the Conference of October 16, 2026, ranked by relists.</summary>
+  </entry>
   <entry>
     <title>Docket for October 15, 2026</title>
     <link href="https://supremecourt.report/dashboards/dash_2026-10-15.html"/>
@@ -347,13 +354,6 @@
     <id>https://supremecourt.report/cases/25-965.html</id>
     <updated>2026-06-30T12:00:00-04:00</updated>
     <summary>Petition GRANTED.</summary>
-  </entry>
-  <entry>
-    <title>Certiorari granted: Eddie Grant, Jr. v. Ronnell Higgins, in His Official Capacity as Commissioner of the Connecticut Department of Emergency Services and Public Transportation (No. 25-566)</title>
-    <link href="https://supremecourt.report/cases/25-566.html"/>
-    <id>https://supremecourt.report/cases/25-566.html</id>
-    <updated>2026-06-30T12:00:00-04:00</updated>
-    <summary>Petition GRANTED as to the question presented by the petition in No. 25-238. The petition for a writ of certiorari in No. 25-238 is granted. The cases are consolidated, and a total of one hour is allotted for oral argument. VIDED.</summary>
   </entry>
 </feed>
 
