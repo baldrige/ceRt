@@ -5,8 +5,29 @@
   <link rel="self" href="https://supremecourt.report/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://supremecourt.report/"/>
   <id>https://supremecourt.report/feed.xml</id>
-  <updated>2026-10-17T12:00:00-04:00</updated>
+  <updated>2026-10-19T12:00:00-04:00</updated>
   <author><name>Supreme Court Report</name></author>
+  <entry>
+    <title>Order List, October 19, 2026</title>
+    <link href="https://supremecourt.report/orders/2026-10-19.html"/>
+    <id>https://supremecourt.report/orders/2026-10-19.html</id>
+    <updated>2026-10-19T12:00:00-04:00</updated>
+    <summary>2 granted; 74 denied; 6 other orders. Granted: Association for Education Fairness v. Montgomery County Board of Education, et al.; Department of Justice, et al. v. Scott McNutt, et al.</summary>
+  </entry>
+  <entry>
+    <title>Certiorari granted: Department of Justice, et al. v. Scott McNutt, et al. (No. 26-204)</title>
+    <link href="https://supremecourt.report/cases/26-204.html"/>
+    <id>https://supremecourt.report/cases/26-204.html</id>
+    <updated>2026-10-19T12:00:00-04:00</updated>
+    <summary>The Court granted review on October 19, 2026.</summary>
+  </entry>
+  <entry>
+    <title>Certiorari granted: Association for Education Fairness v. Montgomery County Board of Education, et al. (No. 26-12)</title>
+    <link href="https://supremecourt.report/cases/26-12.html"/>
+    <id>https://supremecourt.report/cases/26-12.html</id>
+    <updated>2026-10-19T12:00:00-04:00</updated>
+    <summary>The Court granted review on October 19, 2026.</summary>
+  </entry>
   <entry>
     <title>Docket for October 17, 2026</title>
     <link href="https://supremecourt.report/dashboards/dash_2026-10-17.html"/>
@@ -333,27 +354,6 @@
     <id>https://supremecourt.report/orders/2026-07-20.html</id>
     <updated>2026-07-20T12:00:00-04:00</updated>
     <summary>1 granted; 22 other orders. Granted: Kenneth J. Jouppi v. Alaska.</summary>
-  </entry>
-  <entry>
-    <title>Certiorari granted: Kenneth J. Jouppi v. Alaska (No. 25-246)</title>
-    <link href="https://supremecourt.report/cases/25-246.html"/>
-    <id>https://supremecourt.report/cases/25-246.html</id>
-    <updated>2026-07-20T12:00:00-04:00</updated>
-    <summary>Petition GRANTED.</summary>
-  </entry>
-  <entry>
-    <title>Order List, June 30, 2026</title>
-    <link href="https://supremecourt.report/orders/2026-06-30.html"/>
-    <id>https://supremecourt.report/orders/2026-06-30.html</id>
-    <updated>2026-06-30T12:00:00-04:00</updated>
-    <summary>4 granted; 7 granted, vacated and remanded; 12 denied; 4 other orders. Granted: Cutberto Viramontes, et al. v. Cook County, Illinois, et al.; Eddie Grant, Jr., et al. v. Ronnell Higgins, in His Official Capacity as Commissioner of the Connecticut Department of Emergency Services and Public Transportation, et al.; Daniel Grand v. City of University Heights, Ohio, et al.; Apple Inc. v. Epic Games, Inc.</summary>
-  </entry>
-  <entry>
-    <title>Certiorari granted: Daniel Grand v. City of University Heights, Ohio (No. 25-965)</title>
-    <link href="https://supremecourt.report/cases/25-965.html"/>
-    <id>https://supremecourt.report/cases/25-965.html</id>
-    <updated>2026-06-30T12:00:00-04:00</updated>
-    <summary>Petition GRANTED.</summary>
   </entry>
 </feed>
 
