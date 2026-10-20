@@ -35,6 +35,57 @@ report a **probability and a lift over the base rate** rather than a yes/no,
 evaluate with AUC / average precision / Brier / calibration slope, and calibrate
 the scores so the numbers mean what they say. IFP petitions are not scored.
 
+## The case page's headline (v47, 2026-10-20)
+
+The big number on a pending petition's case page is the best estimate the site
+has on the day the page was rendered, not the at-filing figure kept for the
+petition's whole life:
+
+| docket state | headline | label |
+|---|---|---|
+| not yet distributed | petition-stage (baseline) P(grant), with its 95% interval | "at filing, petition-stage" |
+| distributed (now or before) | conference-stage P(granted ever) (`models$enhanced`), scored as of the next conference ahead, else the last one | "as of the <date> conference" |
+| SG has answered a CVSG | the rate for the recommendation (`cert_model_sg.rds`) | "given the Solicitor General's recommendation" |
+
+The at-filing figure stays beneath as "At filing: x%". Decided pages show the last
+forecast **logged** before the decision (`cases/forecasts.json`, its `final` block
+where there is one), then the "At-filing estimate". It used to read "Pre-decision
+estimate", but it never was.
+
+**Why this and not a new model.** A day-indexed model was designed and tested
+first: one row per petition per pending day, with stage and age clock features.
+On rolling origin OT2020–24 (pending days, petition-weighted) the log loss was:
+
+| headline | log loss |
+|---|---|
+| the at-filing figure kept throughout | 0.1246 |
+| this hybrid | 0.1222 |
+| the day model | 0.1177 |
+
+An adversarial review then found three things:
+- **The day model's edge depended on a recalibration the hybrid had not been
+  given.** With the same per-stage recalibration the edge shrinks to −0.0025,
+  and the Brier score ties.
+- **It showed no significant gain before distribution.**
+- **It over-forecast relisted petitions and moved without docket news.**
+
+The hybrid needs no new model. Its headline matches the conference report's
+Forecast column to rounding: 40 of 40 petitions on the 6 November report, a
+maximum difference of 0.41pp. The day model is to run in shadow before it is
+reconsidered. Before it ships, it needs:
+- a weighted Firth fit;
+- per-stage calibration;
+- a stage definition in which a response request or a reschedule is not "after
+  a conference";
+- a prospective win over the recalibrated hybrid.
+
+**Known limits.**
+- The headline is scored as of a conference date, so docket news after the last
+  conference (a CVSG on 26-49, three days after its 16 October conference) waits
+  for the next distribution. The label says which conference.
+- The conference-stage model is somewhat over-confident on relisted petitions
+  (issue #9).
+
 ## The two questions a conference report has to answer separately
 
 This is the central design point. A petition sitting at a conference has two

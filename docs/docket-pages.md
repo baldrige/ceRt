@@ -247,6 +247,26 @@ in the archives (v29):
 Wording only: the bucket, the model and the counsel-stats fingerprint are
 untouched.
 
+## The forecast box (v47, 2026-10-20)
+
+A pending paid petition's headline is:
+- the petition-stage figure ("at filing") until the petition is distributed;
+- the conference-stage P(granted ever) after that, the number the conference
+  report prints, labelled with its conference;
+- or the SG-recommendation rate once the SG has answered a CVSG.
+
+A decided page leads its footnotes with the last forecast logged before the
+decision. Model and evidence: [cert_model.md](cert_model.md), "The case page's
+headline".
+
+The manifest key gains two inputs, each appended only where it applies, so other
+pages keep their keys:
+- **The next conference still ahead of the render.** When a conference passes,
+  the page re-renders even if the docket has not moved. Before v47 a held
+  petition kept "At the Oct 9 conference" for weeks after October 9.
+- **The docket's forecast-ledger entries, for decided dockets only.** A pending
+  entry's `final` block is rewritten nightly and is not displayed.
+
 ## Application dispositions (`NNA###`)
 
 > **Since v46 (2026-10-20)** `classify_application_events()` is a wrapper over

@@ -376,7 +376,19 @@ write_docket_css <- function(out_dir) {
 # wrong before (refiled and live again, deferred to argument, treated as a
 # petition; docs/applications.md). Also carries the masthead's tenth link,
 # "Interim", to the case pages, which hold the masthead inline.
-PAGE_TEMPLATE_VERSION <- "v46"
+# v47: the headline forecast is the best estimate the site has, not the
+# at-filing number for the petition's whole life. Before distribution it is the
+# petition-stage figure, now labelled "at filing"; once distributed, the
+# conference-stage P(granted ever) the conference report prints, labelled with
+# its conference (or the SG-recommendation rate once the SG has answered), with
+# the at-filing figure beneath. A decided page states the last forecast LOGGED
+# before the decision (cases/forecasts.json) where there is one, and calls the
+# petition-stage figure "At-filing estimate" rather than "Pre-decision
+# estimate", which it never was. The manifest key gains the next conference
+# still ahead, so a page re-renders when one passes. Chosen over a new
+# day-indexed model after an adversarial review: the hybrid keeps most of the
+# measured gain and one number per petition across the site.
+PAGE_TEMPLATE_VERSION <- "v47"
 
 # ---- small helpers ------------------------------------------------------------
 # A probability at significant figures, as the conference report prints it
@@ -888,7 +900,8 @@ summary_disposition_word <- function(ev, outcome_date) {
 
 docket_disposition <- function(outcome, outcome_date, arg, p_base, conf, sig, is_app = FALSE, why = "", why_retro = "",
                                p_lo = NA_real_, p_hi = NA_real_, p_ever = NA_real_,
-                               word_override = NULL, sgv = NULL, sg_layer = FALSE) {
+                               word_override = NULL, sgv = NULL, sg_layer = FALSE,
+                               ever_date = as.Date(NA), ever_why = "", logged = NULL) {
   # `word_override`: the box's word decided elsewhere, for a docket whose
   # lifecycle is neither a petition's nor an application's (an original action,
   # R/original_dockets.R). Used for the pending and the resolved forms alike.
@@ -925,11 +938,21 @@ docket_disposition <- function(outcome, outcome_date, arg, p_base, conf, sig, is
             tense, dplyr::coalesce(unname(SG_REC_WORDS[sgv$rec]), "another disposition"),
             brief, when)
   }
-  est_note <- if (!is.na(p_base))
-    sprintf("<div class='disp-sub'>Pre-decision estimate: %s cert probability%s</div>",
-            pct(p_base),
-            if (!is.na(p_lo) && !is.na(p_hi) && p_base >= 0.05)
-              sprintf(" (95%% interval %s&ndash;%s)", pct(p_lo), pct(p_hi)) else "") else ""
+  # The headline figure: below 1% it reads "<1%", not a bare "0%".
+  head_pct <- function(p) if (p < 0.01) "&lt;1%" else pct(p)
+  ival <- function() if (!is.na(p_lo) && !is.na(p_hi) && !is.na(p_base) && p_base >= 0.05)
+    sprintf(" (95%% interval %s&ndash;%s)", pct(p_lo), pct(p_hi)) else ""
+  fmt_d <- function(d) sprintf("%s %d", format(d, "%b"), as.integer(format(d, "%d")))
+  # Decided: the last forecast the site LOGGED before the decision, where the
+  # ledger has one, then the at-filing estimate. Until v47 this read "Pre-decision
+  # estimate" over the petition-stage number, which is the docketing-day figure,
+  # not the last thing said before the Court acted.
+  logged_note <- if (!is.null(logged))
+    sprintf("<div class='disp-sub'>Last forecast logged before the decision: %s to be granted (%s conference)%s</div>",
+            .pct_sig(logged$p_ever), fmt_d(logged$conf),
+            if (isTRUE(logged$caveat)) "; scored without the petition&rsquo;s Rule 10 cues" else "") else ""
+  est_note <- paste0(logged_note, if (!is.na(p_base))
+    sprintf("<div class='disp-sub'>At-filing estimate: %s cert probability%s</div>", pct(p_base), ival()) else "")
 
   if (is.na(outcome) || outcome %in% c("pending", "relisted")) {
     if (!is.na(p_base)) {
@@ -960,18 +983,33 @@ docket_disposition <- function(outcome, outcome_date, arg, p_base, conf, sig, is
           "<div class='disp-conf'><b>At the %s conference:</b> %s</div>",
           sprintf("%s %d", format(conf$date, "%b"), as.integer(format(conf$date, "%d"))),
           paste(names(parts), vapply(parts, .pct_sig, ""), collapse = " &middot; ")) else ""
-        ever <- if (!is.na(p_ever))
-          sprintf("<div class='disp-sub'>Granted ever, %s: %s</div>",
-                  if (sg_layer) "given the SG's recommendation" else "conference-stage estimate",
-                  .pct_sig(p_ever)) else ""
-        paste0(here, ever)
-      } else if (sg_layer && !is.na(p_ever))
-        sprintf("<div class='disp-sub'>Granted ever, given the SG's recommendation: %s</div>", pct(p_ever))
-      else if (!is.na(p_ever) && !is.na(p_base) && abs(p_ever - p_base) >= 0.02)
-        sprintf("<div class='disp-sub'>Conference-stage estimate: %s</div>", pct(p_ever)) else ""
+        here
+      } else ""
       conf_html <- paste0(sg_line("recommends"), conf_html)
-      box <- sprintf("<div class='disp'><div class='disp-num'>%s</div><div class='disp-lab'><div>estimated cert probability<br><span>(petition-stage, structural)</span></div>%s%s%s</div></div>", pct(p_base), ci_note, sg, conf_html)
-      why_html <- if (nzchar(why %||% "")) sprintf("<p class='forecast-why'>%s</p>", why) else ""
+      # v47. The headline is the best estimate the site has for the petition.
+      # Before it is distributed that is the petition-stage model scored at
+      # filing; once it is distributed, the conference-stage P(granted ever) --
+      # the number the conference report and the Relist Tracker print for it,
+      # which out of time beats keeping the at-filing figure (pending-day log loss
+      # 0.1246 -> 0.1222, rolling origin OT2020-24; docs/cert_model.md) -- and
+      # agrees with the report to rounding -- or, once the SG has answered a CVSG, the rate for
+      # the recommendation. The at-filing number stays, labelled as such. Until
+      # v47 the headline stayed at filing for the petition's whole life, and the
+      # better number sat in a sub-line (or nowhere, within 2pp).
+      staged <- !is.na(p_ever) && !is.na(ever_date)
+      if (staged) {
+        lab <- if (sg_layer) "(given the Solicitor General&rsquo;s recommendation)"
+               else sprintf("(as of the %s conference)", fmt_d(ever_date))
+        filing <- if (!is.na(p_base)) sprintf("<div class='disp-sub'>At filing: %s%s</div>", pct(p_base), ival()) else ""
+        box <- sprintf("<div class='disp'><div class='disp-num'>%s</div><div class='disp-lab'><div>estimated chance of a grant<br><span>%s</span></div>%s%s%s</div></div>",
+                       head_pct(p_ever), lab, conf_html, sg, filing)
+        why_txt <- ever_why
+      } else {
+        box <- sprintf("<div class='disp'><div class='disp-num'>%s</div><div class='disp-lab'><div>estimated cert probability<br><span>(at filing, petition-stage)</span></div>%s%s%s</div></div>",
+                       head_pct(p_base), ci_note, sg, conf_html)
+        why_txt <- why
+      }
+      why_html <- if (nzchar(why_txt %||% "")) sprintf("<p class='forecast-why'>%s</p>", why_txt) else ""
       return(paste0(box, why_html))
     }
     return(sprintf("<div class='disp'><div class='disp-word'>%s</div></div>",
@@ -1026,7 +1064,8 @@ docket_disposition <- function(outcome, outcome_date, arg, p_base, conf, sig, is
 docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
                         signals = NULL, qp = NA_character_, rendered = Sys.Date(),
                         available = character(), orders = NULL, subject = NA_character_,
-                        reader = NA_character_) {
+                        reader = NA_character_, ledger = NULL) {
+  # `ledger`: this docket's forecast-log entries (cases/forecasts.json), if any.
   dkt <- cx$dkt; ev <- cx$events[[1]]; par <- cx$parties[[1]]; rel <- cx$related %||% ""
   # The linked application/petition docket. NA-safe on purpose: %||% catches a
   # snapshot rendered before build_case() carried the column, but a present-and-NA
@@ -1107,7 +1146,7 @@ docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
   # Forecast (paid only; pure, from in-memory models).
   p_base <- NA_real_; conf <- NULL; fc_why <- ""; fc_why_retro <- ""
   p_lo <- NA_real_; p_hi <- NA_real_; p_ever <- NA_real_
-  sgv <- NULL; sg_layer <- FALSE
+  sgv <- NULL; sg_layer <- FALSE; ever_date <- as.Date(NA); ever_why <- ""
   if (!is.null(models) && !is.null(models$baseline) && identical(cx$type %||% "", "paid") &&
       exists("score_case")) {
     sc_base <- tryCatch(score_case(models$baseline, cx$caption, cx$lower, par, cx$date,
@@ -1142,6 +1181,13 @@ docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
       if (!is.null(s)) {
         p_ever <- s$p_grant_ever
         sgv <- s[["sg_view"]]; sg_layer <- isTRUE(s[["sg_layer"]])
+        # v47: once distributed, this is the page's headline -- the same number
+        # the conference report and the Relist Tracker print for the petition --
+        # so it is explained in its own terms. Under the SG layer the number is
+        # the rate for the recommendation, which the SG line already explains.
+        ever_date <- as_of_conf
+        if (!sg_layer && !is.null(s[["score_ever"]]) && exists("describe_forecast"))
+          ever_why <- tryCatch(describe_forecast(s[["score_ever"]]), error = function(e) "")
         # The per-conference hazards are published only for a conference still
         # ahead of the render; see docket_disposition().
         conf <- list(date = if (as_of_conf >= rendered) as_of_conf else NULL,
@@ -1160,10 +1206,30 @@ docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
     sgv <- tryCatch(sg_view_for(ev, models$sg_views, as.Date(outcome_date)),
                     error = function(e) NULL)
 
+  # A decided petition's last LOGGED forecast (cases/forecasts.json, R/forecast_log.R):
+  # what the site actually said before the Court acted, rather than a number
+  # re-scored now by a model that has seen the outcome. The latest conference on
+  # or before the decision, its `final` block where it has one.
+  logged <- NULL
+  if (!is_app && length(ledger) && !is.na(outcome) && !outcome %in% c("pending", "relisted")) {
+    od <- as.Date(outcome_date)
+    es <- Filter(function(e) !is.null(e$conf_date) && is.null(e$void) &&
+                   !is.na(od) && as.Date(e$conf_date) <= od, ledger)
+    if (length(es)) {
+      e <- es[[which.max(as.Date(vapply(es, function(z) z$conf_date, "")))]]
+      f <- e$final %||% e
+      if (!is.null(f$p_grant_ever) && !is.na(f$p_grant_ever))
+        logged <- list(conf = as.Date(e$conf_date), p_ever = f$p_grant_ever,
+                       on = as.Date(f$scored_on %||% e$scored_on),
+                       caveat = !is.null(f$caveat %||% e$caveat))
+    }
+  }
+
   disp <- docket_disposition(outcome, outcome_date, arg, p_base, conf, signals,
                              is_app = is_app, why = fc_why, why_retro = fc_why_retro,
                              p_lo = p_lo, p_hi = p_hi, p_ever = p_ever,
-                             word_override = orig_word, sgv = sgv, sg_layer = sg_layer)
+                             word_override = orig_word, sgv = sgv, sg_layer = sg_layer,
+                             ever_date = ever_date, ever_why = ever_why, logged = logged)
   # Conference history: the number of distinct conferences, and the number of
   # DISTRIBUTED entries when that is more. They differ when a petition is sent
   # to the same conference twice -- 25-1349 was distributed for September 28,
@@ -1514,6 +1580,13 @@ render_docket_pages <- function(cases, out_dir, models = NULL, qp_map = NULL,
   available <- resolvable_dockets(cases, out_dir)
   # Which dockets have an argument page (arguments/readers.json, written by the
   # weekly arguments run before it renders these): {dkt: href}.
+  # The forecast ledger (R/forecast_log.R), grouped by docket: a decided page
+  # states the last forecast logged before the decision.
+  lp <- file.path(out_dir, "forecasts.json")
+  ledger_all <- if (file.exists(lp)) tryCatch(jsonlite::fromJSON(lp, simplifyVector = FALSE),
+                                              error = function(e) list()) else list()
+  ledger_by <- if (length(ledger_all))
+    split(unname(ledger_all), vapply(ledger_all, function(e) e$docket %||% "", "")) else list()
   rp <- file.path(dirname(out_dir), "arguments", "readers.json")
   readers <- if (file.exists(rp)) tryCatch(jsonlite::fromJSON(rp, simplifyVector = FALSE), error = function(e) list()) else list()
 
@@ -1535,10 +1608,24 @@ render_docket_pages <- function(cases, out_dir, models = NULL, qp_map = NULL,
     # one. Appended only when present, so every other page keeps its key.
     sgk <- if (!is.null(models$sg) && exists("sg_view_for"))
       tryCatch(sg_view_for(cx$events[[1]], models$sg_views), error = function(e) NULL) else NULL
+    # v47. The next conference still ahead of the render: the headline is scored
+    # as of it and the "At the <date> conference" line names it, so a page must
+    # re-render when one passes even if the docket has not moved. Before v47 the
+    # key could not see that, and a held petition kept "At the Oct 9 conference"
+    # for weeks after October 9.
+    cds_k <- if (exists("conference_dates_from_events")) conference_dates_from_events(cx$events[[1]]) else as.Date(character())
+    nxt <- if (length(cds_k)) { a <- cds_k[cds_k >= rendered]; if (length(a)) min(a) else as.Date(NA) } else NULL
+    # Only a decided page shows its ledger line, and a pending petition's entry
+    # is rewritten nightly (its `final` block), so it is hashed for decided
+    # dockets only -- otherwise every logged pending page would re-render nightly.
+    led <- ledger_by[[dkt]]
+    if (is.null(clr) || clr$outcome[[1]] %in% c("pending", "relisted") ||
+        is.na(clr$outcome[[1]])) led <- NULL
     key <- digest::digest(c(list(PAGE_TEMPLATE_VERSION, model_id, cx$caption, cx$events,
              cx$parties, cx$lower, cx$lower_dkt, cx$lower_date, cx$date, cx$type,
              qp, sig, cx$related, cx$linked, link_targets(cx, available), ords, subj,
-             readers[[dkt]]), if (!is.null(sgk)) list(sgk, models$sg$rates)))
+             readers[[dkt]]), if (!is.null(sgk)) list(sgk, models$sg$rates),
+             if (!is.null(nxt)) list(nxt), if (length(led)) list(led)))
     if (incremental && identical(manifest[[dkt]] %||% "", key) &&
         file.exists(file.path(out_dir, paste0(dkt, ".html")))) {
       new_manifest[[dkt]] <- key; next
@@ -1546,7 +1633,7 @@ render_docket_pages <- function(cases, out_dir, models = NULL, qp_map = NULL,
     tryCatch({ docket_page(cx, out_dir, models = models, cls_row = clr, signals = sig,
                            qp = qp, rendered = rendered, available = available,
                            orders = ords, subject = subj,
-                           reader = readers[[dkt]] %||% NA_character_)
+                           reader = readers[[dkt]] %||% NA_character_, ledger = led)
                n_written <- n_written + 1L }, error = function(e)
       message("docket_page failed for ", dkt, ": ", conditionMessage(e)))
     new_manifest[[dkt]] <- key

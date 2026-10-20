@@ -1884,7 +1884,10 @@ score_conference <- function(models, caption, lower, parties, date, lower_date,
            { d <- f; for (v in intersect(names(models$enhanced$xlevels), names(d)))
                d[[v]] <- factor(as.character(d[[v]]), levels = models$enhanced$xlevels[[v]]); d }),
            error = function(e) NULL)
-    if (!is.null(g)) { out$p_grant_ever <- g$prob; out$cues <- g$cues; out$lift <- g$lift }
+    # The whole score too, so a case page that leads with this number can explain
+    # it with describe_forecast() rather than explaining a different one.
+    if (!is.null(g)) { out$p_grant_ever <- g$prob; out$cues <- g$cues; out$lift <- g$lift
+                       out$score_ever <- g }
   }
   # Once the Solicitor General has answered a CVSG, P(granted ever) is the
   # historical rate for what the SG recommended, not the model's number: on those
@@ -1902,7 +1905,7 @@ score_conference <- function(models, caption, lower, parties, date, lower_date,
       out$sg_view <- v
       if (!is.na(v$group) && v$group %in% names(models$sg$rates)) {
         out$p_grant_ever <- unname(models$sg$rates[[v$group]])
-        out$cues <- NULL; out$lift <- NULL
+        out$cues <- NULL; out$lift <- NULL; out$score_ever <- NULL
         out$sg_layer <- TRUE
       }
     }
