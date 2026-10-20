@@ -18,7 +18,7 @@ and served by GitHub Pages.
 | Cert-grant forecast model + methods | `methods.html` | `R/cert_model.R` — see **[docs/cert_model.md](docs/cert_model.md)** |
 | Forecast Scorecard (the ledger's forecasts held to the order lists) | `scorecard/` | `R/scorecard.R`, from `conferences.yml` and `daily.yml` — see **[docs/scorecard.md](docs/scorecard.md)**. Score from `cases/forecasts.json`, never the conference pages |
 | Conference forecast (competing risks) | `conferences/` | `R/cert_model.R` — two published columns, see **[docs/cert_model.md](docs/cert_model.md)** |
-| Emergency applications ("Interim" in the nav: pending, decided, by Term) | `applications/` | `conferences.yml` → `render_conferences.R` → `R/applications.R` — see **[docs/applications.md](docs/applications.md)**. Its outcome grammar is not yet the case pages' |
+| Emergency applications ("Interim" in the nav: pending, decided, by Term) | `applications/` | `conferences.yml` → `render_conferences.R` → `R/applications.R` — see **[docs/applications.md](docs/applications.md)**. The case pages' application outcomes use the same grammar (`application_profile()`) |
 | The Court's order lists | `orders/` | `daily.yml` → `R/orders_list.R` — see **[docs/order-lists.md](docs/order-lists.md)** |
 | The Justices (opinions by kind, agreement, splits, per Term) | `justices/` | `conferences.yml` / `render-justices.yml` → `render_justices.R` → `R/justices.R` — see **[docs/justices.md](docs/justices.md)** |
 | Argument pages (recording + transcript + the bench's post-argument lean) | `arguments/<yyyy>/<docket>.html` | `conferences.yml` → `render_arguments.R` → `R/argument_reader.R`; line times by `align-arguments.yml` — see **[docs/argument-transcripts.md](docs/argument-transcripts.md)** |

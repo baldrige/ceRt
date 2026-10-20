@@ -95,17 +95,55 @@ application_kind <- function(open_txt) {
   str_replace_all(s, "\u00a7", ".")
 }
 
+# Relief granted in the same breath as a ruling, on a request that is not the
+# application: "The application for leave to file the application under seal
+# granted. The application (18A655) for a stay ... denied by Justice Kagan."
+# docket_page.R's APP_COLLATERAL, less "excess of the word limit", which is a
+# request that does get its own docket and is always numbered when ruled on.
+.APP_COLLATERAL_RX <- regex("leave to file|under seal|supplemental appendix|redacted cop",
+                            ignore_case = TRUE)
+
+# The sentence of an entry that names THIS docket ("Application (26A40) denied
+# by Justice Kagan." after "The motion to file the supplemental appendix under
+# seal is granted."), or NA. A sentence that numbers its own docket is
+# authoritative wherever it sits in the entry -- docket_page.R's tier 1. Briefs,
+# motions, responses and letters are skipped: "Response to application (24A884)
+# requested" numbers the docket and rules on nothing.
+.app_numbered_sentence <- function(txt, dkt) {
+  out <- rep(NA_character_, length(txt))
+  if (is.na(dkt) || !nzchar(dkt)) return(out)
+  skip <- str_detect(txt, regex(
+    "^(Brief|Motion|Response|Reply|Amicus|Letter|Supplemental|Record|DISTRIBUTED)",
+    ignore_case = TRUE))
+  rx <- regex(paste0("\\b", dkt, "\\b"))
+  for (i in which(!skip & str_detect(txt, rx))) {
+    p <- str_replace_all(txt[i], "\\b(No|v|U\\. ?S|Inc|Co|Corp|Jr|St)\\.", "\\1\u00a7")
+    parts <- str_replace_all(str_split(p, "\\.\\s+(?=[A-Z(\\[])")[[1]], "\u00a7", ".")
+    # Numbered AND opened by the application, so the docket is the subject:
+    # 21A85's "Justice Sotomayor would grant the application to vacate stay in
+    # No. 21A85 and dissents from the dismissal ... as improvidently granted"
+    # numbers the docket inside a dissent, on an application the Court DENIED.
+    hit <- parts[str_detect(parts, rx) & str_detect(parts, regex(
+      "^(The |Consideration of the )?applications?\\b", ignore_case = TRUE))]
+    if (length(hit)) out[i] <- hit[1]
+  }
+  out
+}
+
 # One disposition, or NA, from an entry. Only entries that begin "Application"
-# (or "The application") are read: a "Motion ... granted" on the same docket is
-# not the application's outcome.
-.app_disposition <- function(txt) {
+# (or "The application"), or that number this docket in a sentence, are read: a
+# "Motion ... granted" on the same docket is not the application's outcome.
+.app_disposition <- function(txt, dkt = NA_character_) {
   # The archive keeps the Court's hard line breaks inside an entry ("pending\r\n
   # review"), and `.` in a pattern does not cross them.
   txt <- str_squish(txt)
   out <- rep(NA_character_, length(txt))
-  is_app <- str_detect(txt, regex("^(The )?Applications?\\b", ignore_case = TRUE))
-  s <- .first_sentence(txt)
-  hit <- function(p) is_app & is.na(out) & str_detect(s, regex(p, ignore_case = TRUE))
+  ns <- .app_numbered_sentence(txt, dkt)
+  is_app <- !is.na(ns) | str_detect(txt, regex("^(The )?Applications?\\b", ignore_case = TRUE))
+  s <- coalesce(ns, .first_sentence(txt))
+  # An unnumbered collateral sentence rules on some other request.
+  collateral <- is.na(ns) & str_detect(s, .APP_COLLATERAL_RX)
+  hit <- function(p) is_app & !collateral & is.na(out) & str_detect(s, regex(p, ignore_case = TRUE))
   # Order matters: "refiled" and "treated as a petition" are tested before the
   # words "granted"/"denied" can appear in them.
   out[hit("refiled and submitted")] <- "refiled"
@@ -137,7 +175,7 @@ application_kind <- function(open_txt) {
   # it is the subject of the verb. Anywhere else it can be an object: 17A745
   # (Rucho v. Common Cause) has "The motion of appellees to construe the
   # application for a stay as a jurisdictional statement ... is denied" on a
-  # stay the Court GRANTED -- the trap docket_page.R's classifier documents.
+  # stay the Court GRANTED -- the trap docket_page.R's old classifier documented.
   # "Justice X would grant the application" is unread for the same reason.
   is_order <- !str_detect(txt, regex(
     "^(Brief|Motion|Response|Reply|Amicus|Letter|Supplemental|Record|DISTRIBUTED|Consideration)",
@@ -150,7 +188,13 @@ application_kind <- function(open_txt) {
     "(?:^|[.:)\\]]\\s+|,\\s+|\\bthat\\s+)the (?:\\w+ )?applications?\\b[^.;]{0,250}?\\b(?:is|are)\\b,?",
     "(?: hereby| in all respects,?| therefore| accordingly)*\\s+",
     "(granted in part|granted|denied|dismissed)\\b"), ignore_case = TRUE))
-  v <- vapply(m, function(z) if (nrow(z)) str_to_lower(z[nrow(z), 2]) else NA_character_, "")
+  # The last ruling sentence that is not collateral: 18A669's "The applications
+  # for leave to file the application for stay ... under seal ... are granted"
+  # follows the denial of the stay and must not overturn it.
+  v <- vapply(m, function(z) {
+    z <- z[!str_detect(z[, 1], .APP_COLLATERAL_RX), , drop = FALSE]
+    if (nrow(z)) str_to_lower(z[nrow(z), 2]) else NA_character_
+  }, "")
   # A per curiam speaks in the first person: "We deny the application, without
   # prejudice ..." (20A150).
   we <- str_match(txt, regex("\\bWe (grant|deny|dismiss)\\b[^.;]{0,40}?\\bapplications?\\b",
@@ -169,8 +213,10 @@ application_kind <- function(open_txt) {
 APP_FINAL <- c("granted", "granted in part", "denied", "dismissed", "withdrawn", "converted",
                "deferred", "closed")
 
-# Everything the tracker needs from one application docket's events.
-application_profile <- function(events) {
+# Everything the tracker needs from one application docket's events. `dkt`
+# enables the numbered-sentence reading (.app_numbered_sentence()); without it
+# only an entry's first sentence and the order fallback are read.
+application_profile <- function(events, dkt = NA_character_) {
   none <- list(kind = "other", filed = as.Date(NA), submitted_to = NA_character_,
                referred = FALSE, referred_date = as.Date(NA), refiled = 0L,
                refiled_to = NA_character_, admin_stay = as.Date(NA),
@@ -187,7 +233,8 @@ application_profile <- function(events) {
   # A docket whose opening entry names no Justice ("Application (17A275) for a
   # stay of mandate.") still states its request in the first Application entry.
   if (is.na(open)) open <- which(str_detect(txt, regex("^Applications?\\b", ignore_case = TRUE)))[1]
-  disp <- .app_disposition(txt)
+  disp <- .app_disposition(txt, dkt)
+  kind <- application_kind(if (!is.na(open)) txt[open] else NA_character_)
 
   fin <- which(disp %in% APP_FINAL)
   ref <- which(disp %in% "refiled")
@@ -205,6 +252,16 @@ application_profile <- function(events) {
     ruled_by_to <- !is.na(to) && str_detect(txt[last_fin], fixed(str_remove(to, "^The "), ignore_case = TRUE))
     live <- if (same_day) !ruled_by_to else r > last_fin
   }
+  # A granted extension outranks a later refusal: "Application (22A209) granted
+  # by Justice Thomas extending the time to file until October 12, 2022", then a
+  # request to extend further and "Application (22A209) denied." The time that
+  # was given stays given, and "granted" is what the case pages have always
+  # said for these 67 dockets (docket_page.R's old classifier had the same rule).
+  if (!live && identical(disp[last_fin], "denied")) {
+    g <- fin[disp[fin] %in% c("granted", "granted in part") &
+               str_detect(txt[fin], regex("extend", ignore_case = TRUE))]
+    if (length(g)) last_fin <- max(g)
+  }
 
   # Referred: a referral entry, or a ruling that names one, or a ruling "by the
   # Court" -- the full Court rules only on a referred application.
@@ -221,7 +278,7 @@ application_profile <- function(events) {
 
   fin_txt <- if (!is.na(last_fin)) txt[last_fin] else ""
   list(
-    kind = application_kind(if (!is.na(open)) txt[open] else NA_character_),
+    kind = kind,
     filed = if (!is.na(open)) ed[open] else suppressWarnings(min(ed, na.rm = TRUE)),
     submitted_to = if (!is.na(open)) .app_justice(txt[open]) else NA_character_,
     referred = any(ref_any),
@@ -301,8 +358,8 @@ classify_applications <- function(cases, full = c(APP_INTERIM_KINDS, "coa", "oth
     if (is.na(i)) NA_character_ else t[i]
   }
   kinds <- map_chr(a$events, ~ application_kind(open_of(.x)))
-  cl <- map2(a$events, kinds, function(e, k) {
-    if (k %in% full) return(application_profile(e))
+  cl <- pmap(list(a$events, kinds, a$dkt), function(e, k, d) {
+    if (k %in% full) return(application_profile(e, d))
     list(kind = k, filed = suppressWarnings(min(lubridate::mdy(e$Date), na.rm = TRUE)),
          submitted_to = NA_character_, referred = NA, referred_date = as.Date(NA),
          refiled = NA_integer_, refiled_to = NA_character_, admin_stay = as.Date(NA),

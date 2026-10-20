@@ -249,6 +249,13 @@ untouched.
 
 ## Application dispositions (`NNA###`)
 
+> **Since v46 (2026-10-20)** `classify_application_events()` is a wrapper over
+> `application_profile()` in `R/applications.R`, the grammar the Interim tracker
+> reads, so a case page and `/applications/` cannot disagree. The design below
+> is the history it grew from; every docket it names is still read the same
+> way, and the 25 pages the switch changed (refilings, deferrals, conversions,
+> per curiam rulings) are tabled in **[applications.md](applications.md)**.
+
 Applications are excluded from `classify_petitions()`, so `classify_application_events()`
 in `docket_page.R` is the **only** classifier an application docket gets and nothing
 downstream cross-checks it. Until v23 the rule was two lines —

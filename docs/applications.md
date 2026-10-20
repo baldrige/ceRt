@@ -43,9 +43,14 @@ granted / denied / dismissed / withdrawn. A denial by one Justice can be
 **refiled** with another (Rule 22.4), which reopens it. So the outcome is the
 **last** ruling, and a refiling after it means the application is live again.
 
-A ruling is read from the **first sentence** of an entry beginning
+A ruling is read from the sentence that **numbers this docket and opens with
+the application** ("Application (26A40) denied by Justice Kagan.", wherever it
+sits in the entry), else from the **first sentence** of an entry beginning
 "Application". "Application (25A123) denied by the Court. Justice X would grant
-the application." is a denial. Beyond that, `.app_disposition()` handles:
+the application." is a denial. An unnumbered **collateral** sentence (leave to
+file, under seal, supplemental appendix, redacted copies) rules on nothing, and
+a **granted extension** outranks a later refusal to extend further (22A209).
+Beyond that, `.app_disposition()` handles:
 
 | form | example |
 | --- | --- |
@@ -69,6 +74,14 @@ Three traps, each one a real docket:
   to Justice Alito", on the same day. Entries within a day are not in
   chronological order. On a same-day tie, a ruling that names the Justice it
   was refiled to came after the refiling.
+- **21A85.** "Justice Sotomayor would grant the application to vacate stay *in
+  No. 21A85* and dissents from the dismissal ... as improvidently granted"
+  numbers the docket inside a dissent, on an application the Court denied. A
+  numbered sentence counts only when the application opens it.
+- **Collateral relief (18A1238, *Dunn v. Price*; 18A655; 18A669).** The order
+  that denies a stay also grants leave to file under seal. Unnumbered, that
+  sentence is ignored; this is the bug that published a capital stay as granted
+  until v23.
 - **`\r\n` inside entries.** The archive keeps the Court's hard line breaks, and
   `.` in a pattern does not cross them (24A587 read as pending until entries were
   whitespace-normalised).
@@ -76,14 +89,17 @@ Three traps, each one a real docket:
 **Coverage:** of the 984 interim applications in OT2017–OT2023, **6 read as
 pending** (0.6%); each is a docket with no ruling on it at all.
 
-### Two classifiers, and which one is right
+### One classifier, for the tracker and the case pages
 
-`docket_page.R` has its own `classify_application_events()`, which puts the
-outcome on every application's case page and on Recent decisions. Over the
-1,520 interim applications the two agree on **1,495**. All 25 disagreements were
-read by hand, and the case-page classifier is wrong on each:
+Since `PAGE_TEMPLATE_VERSION` v46, `docket_page.R`'s
+`classify_application_events()` (the case pages, Recent decisions, the
+decisions watch list) is a wrapper over `application_profile()`. Before that it
+had its own grammar. Measured over **all 10,205** application dockets, the two
+first disagreed on 95: 67 extensions and 3 collateral orders where the old
+grammar was right, which were ported (numbered sentences, collateral, extension
+precedence), and 25 where it was wrong, all read by hand:
 
-| | n | case page says |
+| | n | case page said |
 | --- | --- | --- |
 | refiled after a denial, live again | 7 | Denied |
 | deferred to argument | 6 | Granted / pending — the *petition* was granted |
@@ -94,10 +110,14 @@ read by hand, and the case-page classifier is wrong on each:
 | granted in part (25A810) | 1 | Denied |
 | ruled on in prose (20A150, 25A515) | 2 | pending |
 
-**Not fixed in this change.** Making the case pages agree is a
-`PAGE_TEMPLATE_VERSION` bump and a back-catalog re-render, so it is its own
-change. Until then the two can disagree on these ~25 pages, and the tracker is
-the correct one.
+After the port the two agree on 10,180 and differ on exactly those 25. The
+case page has two new box words for them: *Application deferred to argument*
+and *Application treated as a petition*. A deferred application stays on the
+decisions watch list, since its ruling comes with the argued case.
+
+The daily re-renders only the current Term's pages on a template bump; the
+back-catalog's 25 changed pages (and the new masthead link on every page) need
+`rerender-dockets.yml`.
 
 ## Stale archives, and the pending cache
 
@@ -153,7 +173,6 @@ party.
 
 ## Open questions
 
-- **Case-page outcomes** — see above.
 - **Counsel Table's State/US split** — see above.
 - **Per-Justice view.** "Submitted to" is filterable; a small table of rulings
   alone vs. referrals per Justice is an easy follow-on.
