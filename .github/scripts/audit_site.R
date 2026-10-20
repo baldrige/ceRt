@@ -316,6 +316,7 @@ ph_files <- Filter(file.exists, c(
                     "conferences/index.html", "arguments/index.html",
                     "dashboards/index.html", "cases/index.html",
                     "relists/index.html", "counsel/index.html", "scorecard/index.html",
+                    "applications/index.html",
                     # The leaves' theme now lives here, not in each page, so a
                     # leaked placeholder would be in this file and nowhere the
                     # sampled leaves below could show it.
@@ -562,7 +563,7 @@ if (n_feeds) {
   idx <- Filter(file.exists, file.path(site, c(
     "index.html", "about.html", "cases/index.html", "dashboards/index.html",
     "conferences/index.html", "arguments/index.html", "funnel/index.html",
-    "relists/index.html", "counsel/index.html")))
+    "relists/index.html", "counsel/index.html", "applications/index.html")))
   lvs <- Filter(file.exists, c(
     leaf("conferences", "^conf_\\d{4}-\\d{2}-\\d{2}\\.html$"),
     leaf("dashboards", "^dash_\\d{4}-\\d{2}-\\d{2}\\.html$"),
@@ -627,7 +628,7 @@ leaf_pages <- c(
   list.files(file.path(site, "conferences"), pattern = "^conf_\\d{4}-\\d{2}-\\d{2}\\.html$", full.names = TRUE),
   list.files(file.path(site, "dashboards"), pattern = "^dash_\\d{4}-\\d{2}-\\d{2}\\.html$", full.names = TRUE),
   list.files(file.path(site, "arguments"), pattern = "^arg_\\d{4}\\.html$", full.names = TRUE),
-  Filter(file.exists, file.path(site, "relists", "index.html")))
+  Filter(file.exists, file.path(site, c("relists", "applications"), "index.html")))
 if (length(leaf_pages)) {
   # The <head> ends well inside 32 KB on a shared page (the social block and the
   # seven asset tags), and an inlined page's first base64 script begins before

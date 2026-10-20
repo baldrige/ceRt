@@ -40,6 +40,10 @@ SITE_SECTIONS <- list(
   list(href = "/dashboards/",  label = "Docket",      long = "Daily petitions &amp; applications"),
   list(href = "/conferences/", label = "Conferences", long = "Conference reports"),
   list(href = "/relists/",     label = "Relists",     long = "Relist Tracker"),
+  # Tenth link. "Interim", not "Applications" or "Emergency": the Court's own
+  # word for the docket since 2025, and the shortest of the three -- the 60rem
+  # masthead had ~115px for one more label (docs/navigation.md).
+  list(href = "/applications/", label = "Interim",    long = "Emergency applications (the interim docket)"),
   list(href = "/arguments/",   label = "Arguments",   long = "Oral arguments"),
   # Ninth link, and the one that did not fit: measured on the live page at
   # 1440px, nine labels needed 833px and the 54rem masthead offered 816px, so
