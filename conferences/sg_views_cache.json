@@ -1,0 +1,119 @@
+{
+  "23-1197": {
+    "cvsg": "2024-10-07",
+    "filed": "2025-05-07",
+    "url": "https://www.supremecourt.gov/DocketPDF/23/23-1197/358297/20250507161234942_23-1197_cvsg_Landor_file.pdf",
+    "rec": "grant",
+    "quote": "The petition for a writ of certiorari should be granted.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "23-1209": {
+    "cvsg": "2024-10-07",
+    "filed": "2025-05-27",
+    "url": "https://www.supremecourt.gov/DocketPDF/23/23-1209/359724/20250527170250097_23-1209_MKEmpSols_CVSG_Br.pdf",
+    "rec": "grant",
+    "quote": "The petition for a writ of certiorari should be granted.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "24-1016": {
+    "cvsg": "2025-10-06",
+    "filed": "2026-05-20",
+    "url": "https://www.supremecourt.gov/DocketPDF/24/24-1016/409398/20260520181120660_RiseandShine_CVSG%20v2.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "24-1030": {
+    "cvsg": "2025-06-30",
+    "filed": "2025-12-09",
+    "url": "https://www.supremecourt.gov/DocketPDF/24/24-1030/386884/20251209162554866_24-1030%20--%20Parker-Hannifin%20Corp%20v.%20Johnson.pdf",
+    "rec": "grant",
+    "quote": "The petition for a writ of certiorari should be granted.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "24-1068": {
+    "cvsg": "2025-06-30",
+    "filed": "2025-12-01",
+    "url": "https://www.supremecourt.gov/DocketPDF/24/24-1068/386073/20251201170732560_24-1068%20--%20Monsanto%20v.%20Durnell.pdf",
+    "rec": "grant",
+    "quote": "The petition for a writ of certiorari should be granted.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "24-699": {
+    "cvsg": "2025-05-05",
+    "filed": "2025-08-27",
+    "url": "https://www.supremecourt.gov/DocketPDF/24/24-699/370948/20250827161345705_24-699%20Exxon%20Final.pdf",
+    "rec": "grant",
+    "quote": "The petition for a writ of certiorari should be granted.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "24-856": {
+    "cvsg": "2025-05-27",
+    "filed": "2025-12-09",
+    "url": "https://www.supremecourt.gov/DocketPDF/24/24-856/386875/20251209154334578_24-856_Cisco-CVSG.pdf",
+    "rec": "grant_limited",
+    "quote": "The petition for a writ of certiorari should be granted, limited to Questions 1 and 3 of the petition.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "24-889": {
+    "cvsg": "2025-06-23",
+    "filed": "2025-12-05",
+    "url": "https://www.supremecourt.gov/DocketPDF/24/24-889/386573/20251205145014514_24-889%20--%20Hikma%20Pharmaceuticals%20v.%20Amarin%20Pharma.pdf",
+    "rec": "grant",
+    "quote": "The petition for a writ of certiorari should be granted.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "24-983": {
+    "cvsg": "2025-06-30",
+    "filed": "2025-08-27",
+    "url": "https://www.supremecourt.gov/DocketPDF/24/24-983/370934/20250827152318382_24-983%20_Havana_Docks_CVSG.pdf",
+    "rec": "grant",
+    "quote": "The petition for a writ of certiorari should be granted.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "25-442": {
+    "cvsg": "2026-06-30",
+    "filed": "2026-09-25",
+    "url": "https://www.supremecourt.gov/DocketPDF/25/25-442/425659/20260925142253981_25-442_Roybal_CVSG.pdf",
+    "rec": "gvr",
+    "quote": "The petition for a writ of certiorari should be granted, the court of appeals’ judgment vacated, and the case remanded for further consideration in light of B.P.J. and Skrmetti.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "25-590": {
+    "cvsg": "2026-04-06",
+    "filed": "2026-08-31",
+    "url": "https://www.supremecourt.gov/DocketPDF/25/25-590/422539/20260831142837907_25-590_Aldridge_Final.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "25-828": {
+    "cvsg": "2026-05-18",
+    "filed": "2026-09-15",
+    "url": "https://www.supremecourt.gov/DocketPDF/25/25-828/424228/20260915105245693_25-828cvsg_GEO_Nwauzor_final.pdf",
+    "rec": "grant",
+    "quote": "The petition for a writ of certiorari should be granted.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "25-944": {
+    "cvsg": "2026-06-01",
+    "filed": "2026-10-07",
+    "url": "https://www.supremecourt.gov/DocketPDF/25/25-944/428786/20261007154234084_25-944_Robinhood_CVSG_final.pdf",
+    "rec": "grant",
+    "quote": "The petition for a writ of certiorari should be granted with respect to the first question presented, as reformulated at pp.",
+    "source": "regex",
+    "sg_v": 1
+  }
+}
