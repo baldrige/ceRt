@@ -5,14 +5,21 @@
   <link rel="self" href="https://supremecourt.report/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://supremecourt.report/"/>
   <id>https://supremecourt.report/feed.xml</id>
-  <updated>2026-10-19T12:00:00-04:00</updated>
+  <updated>2026-10-20T12:00:00-04:00</updated>
   <author><name>Supreme Court Report</name></author>
+  <entry>
+    <title>Docket for October 20, 2026</title>
+    <link href="https://supremecourt.report/dashboards/dash_2026-10-20.html"/>
+    <id>https://supremecourt.report/dashboards/dash_2026-10-20.html</id>
+    <updated>2026-10-20T12:00:00-04:00</updated>
+    <summary>Petitions and applications docketed on October 20, 2026.</summary>
+  </entry>
   <entry>
     <title>Order List, October 19, 2026</title>
     <link href="https://supremecourt.report/orders/2026-10-19.html"/>
     <id>https://supremecourt.report/orders/2026-10-19.html</id>
     <updated>2026-10-19T12:00:00-04:00</updated>
-    <summary>2 granted; 74 denied; 6 other orders. Granted: Association for Education Fairness v. Montgomery County Board of Education, et al.; Department of Justice, et al. v. Scott McNutt, et al.</summary>
+    <summary>2 granted; 1 granted, vacated and remanded; 74 denied; 5 other orders. Granted: Association for Education Fairness v. Montgomery County Board of Education, et al.; Department of Justice, et al. v. Scott McNutt, et al.</summary>
   </entry>
   <entry>
     <title>Docket for October 19, 2026</title>
@@ -22,18 +29,18 @@
     <summary>Petitions and applications docketed on October 19, 2026.</summary>
   </entry>
   <entry>
-    <title>Certiorari granted: Department of Justice, et al. v. Scott McNutt, et al. (No. 26-204)</title>
+    <title>Certiorari granted: Department of Justice v. Scott McNutt (No. 26-204)</title>
     <link href="https://supremecourt.report/cases/26-204.html"/>
     <id>https://supremecourt.report/cases/26-204.html</id>
     <updated>2026-10-19T12:00:00-04:00</updated>
-    <summary>The Court granted review on October 19, 2026.</summary>
+    <summary>Petition GRANTED.</summary>
   </entry>
   <entry>
-    <title>Certiorari granted: Association for Education Fairness v. Montgomery County Board of Education, et al. (No. 26-12)</title>
+    <title>Certiorari granted: Association for Education Fairness v. Montgomery County Board of Education (No. 26-12)</title>
     <link href="https://supremecourt.report/cases/26-12.html"/>
     <id>https://supremecourt.report/cases/26-12.html</id>
     <updated>2026-10-19T12:00:00-04:00</updated>
-    <summary>The Court granted review on October 19, 2026.</summary>
+    <summary>Petition GRANTED limited to the following question: Whether a plaintiff challenging a facially neutral admissions policy as racially discriminatory must establish that the targeted racial group suffered an aggregate disparate impact relative to its share of the applicant pool.</summary>
   </entry>
   <entry>
     <title>Docket for October 17, 2026</title>
@@ -292,13 +299,6 @@
     <id>https://supremecourt.report/dashboards/dash_2026-09-24.html</id>
     <updated>2026-09-24T12:00:00-04:00</updated>
     <summary>Petitions and applications docketed on September 24, 2026.</summary>
-  </entry>
-  <entry>
-    <title>Docket for September 23, 2026</title>
-    <link href="https://supremecourt.report/dashboards/dash_2026-09-23.html"/>
-    <id>https://supremecourt.report/dashboards/dash_2026-09-23.html</id>
-    <updated>2026-09-23T12:00:00-04:00</updated>
-    <summary>Petitions and applications docketed on September 23, 2026.</summary>
   </entry>
   <entry>
     <title>Application decided: United States Postal Service v. California (No. 26A305) (Denied)</title>
