@@ -341,7 +341,9 @@ cat("Grants cache: +", update_grants_cache(site_dir, combined), " new grant(s)\n
 # the conference reports are the product.
 tryCatch({
   source("R/forecast_log.R")
-  fl <- append_forecasts(site_dir, dist, cert_models)
+  # The same cues the reports and case pages are scored with, so the log
+  # records what the site said (it was scored without them until 2026-10-20).
+  fl <- append_forecasts(site_dir, dist, cert_models, signals_map = signals_map)
   cat(sprintf("Forecast log: +%d of %d live row(s), %d final(s) refreshed, across %s | %d past conf row(s) skipped | %d total\n",
               fl$added, fl$considered, fl$finals %||% 0L,
               if (length(fl$conferences)) paste(fl$conferences, collapse = ", ") else "no future conference",

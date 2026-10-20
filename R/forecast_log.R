@@ -74,16 +74,29 @@ FORECAST_VOID_WINDOWS <- list(
   # every federal, agency and most State petitioners scored as private
   # individuals. 31 entries, all for the 9 October 2026 conference.
   list(from = as.Date("2026-09-16"), to = as.Date("2026-09-22"),
-       reason = "petitioner mistyped as an individual (shadowed caption_sides, #192)")
+       reason = "petitioner mistyped as an individual (shadowed caption_sides, #192)"),
+  # append_forecasts() never passed the petition's Rule 10 cues and word count,
+  # so from the day the at-risk model started reading them (#144) every entry
+  # scored the petition as if its PDF had none -- not the number the conference
+  # report or the case page showed (26-49 at 16 October: 9.3% logged, 17.5%
+  # published). `void_past = FALSE`: unlike a mistyped petitioner these were
+  # coherent, prospective forecasts, only from less information, so an entry
+  # whose conference has passed keeps its place in the Scorecard and carries
+  # the reason as a `caveat` instead of being voided. Entries still ahead are
+  # re-scored, as for any window. Overlapping days fall under the earlier
+  # window, whose entries were already superseded.
+  list(from = as.Date("2026-09-11"), to = as.Date("2026-10-20"), void_past = FALSE,
+       reason = "scored without the petition's Rule 10 cues and word count, which the published pages used")
 )
 
-# The void-window reason an entry falls under, or NULL.
-.flog_void_reason <- function(e) {
+# The void window an entry falls under (the first that matches), or NULL.
+.flog_void_window <- function(e) {
   sd <- tryCatch(as.Date(e$scored_on), error = function(err) as.Date(NA))
   if (is.na(sd)) return(NULL)
-  for (w in FORECAST_VOID_WINDOWS) if (sd >= w$from && sd <= w$to) return(w$reason)
+  for (w in FORECAST_VOID_WINDOWS) if (sd >= w$from && sd <= w$to) return(w)
   NULL
 }
+.flog_void_reason <- function(e) .flog_void_window(e)$reason
 
 .flog_path <- function(site_dir) file.path(site_dir, FORECAST_LOG)
 
@@ -113,7 +126,14 @@ read_forecast_log <- function(site_dir) {
 #
 # `dist` is a conference_distributions() tibble; `models` a load_cert_models()
 # list. Returns a small summary (invisibly) for the run log.
-append_forecasts <- function(site_dir, dist, models, as_of = Sys.Date(), now = Sys.time()) {
+# `signals_map`: the petition cues keyed by docket, the same map the conference
+# reports and case pages are scored with. Without it every entry is scored as if
+# the petition PDF had no cues, and the log stops recording what the site said.
+append_forecasts <- function(site_dir, dist, models, as_of = Sys.Date(), now = Sys.time(),
+                             signals_map = NULL) {
+  if (is.null(signals_map))
+    warning("append_forecasts(): no signals_map -- entries will be scored without the ",
+            "petition cues the published pages use.", call. = FALSE)
   as_of <- as.Date(as_of)
   empty <- list(added = 0L, considered = 0L, conferences = character(),
                 skipped_past = 0L, total = 0L)
@@ -166,7 +186,7 @@ append_forecasts <- function(site_dir, dist, models, as_of = Sys.Date(), now = S
       if (has_parties) live$parties[[i]] else NULL,
       dt[i], ld[i], rel[i], events = live$events[[i]],
       as_of = live$conf_date[i], conf_idx = live$distribution_no[i],
-      granted_dockets = gd), error = function(e) NULL)
+      granted_dockets = gd, signals = signals_map[[live$dkt[i]]]), error = function(e) NULL)
     if (is.null(s) || is.na(s$p_grant_now)) next
     nums <- list(
       p_grant_now = round(s$p_grant_now, 5),
@@ -201,19 +221,28 @@ append_forecasts <- function(site_dir, dist, models, as_of = Sys.Date(), now = S
 
   # An entry from a void window whose conference has passed cannot be re-scored.
   # Mark it so the scorecard skips it; the numbers stay, as what was said.
-  voided <- 0L
+  # A window marked void_past = FALSE caveats such an entry rather than voiding it.
+  # The `final` block is judged on its own scored_on: a first forecast written in
+  # August can carry a final written inside a later window (the 28 September
+  # conference's finals were scored the week before it, without the cues).
+  voided <- 0L; caveated <- 0L
   for (key in names(idx)) {
     e <- idx[[key]]
-    if (!is.null(e$superseded) || !is.null(e$void)) next
-    r <- .flog_void_reason(e)
     cd <- tryCatch(as.Date(e$conf_date), error = function(err) as.Date(NA))
-    if (!is.null(r) && !is.na(cd) && cd <= as_of) { idx[[key]]$void <- r; voided <- voided + 1L }
+    if (is.na(cd) || cd > as_of || !is.null(e$void)) next
+    fw <- if (!is.null(e$final) && is.null(e$final$caveat)) .flog_void_window(e$final) else NULL
+    if (isFALSE(fw$void_past)) { idx[[key]]$final$caveat <- fw$reason; caveated <- caveated + 1L }
+    if (!is.null(e$superseded) || !is.null(e$caveat)) next
+    w <- .flog_void_window(e)
+    if (is.null(w)) next
+    if (isFALSE(w$void_past)) { idx[[key]]$caveat <- w$reason; caveated <- caveated + 1L }
+    else { idx[[key]]$void <- w$reason; voided <- voided + 1L }
   }
-  if (superseded + voided > 0L)
-    message(sprintf("append_forecasts(): %d entr(y/ies) from a void window re-scored, %d voided (conference passed)",
-                    superseded, voided))
+  if (superseded + voided + caveated > 0L)
+    message(sprintf("append_forecasts(): %d entr(y/ies) from a void window re-scored, %d voided, %d caveated (conference passed)",
+                    superseded, voided, caveated))
 
-  if (added + superseded + voided + finals > 0L) {
+  if (added + superseded + voided + caveated + finals > 0L) {
     dir.create(dirname(.flog_path(site_dir)), recursive = TRUE, showWarnings = FALSE)
     jsonlite::write_json(idx, .flog_path(site_dir), auto_unbox = TRUE)
   }
