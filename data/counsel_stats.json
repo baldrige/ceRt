@@ -1712,15 +1712,15 @@
     },
     {
       "side": "state",
-      "cases": 203,
-      "granted": 29,
-      "rate": 0.142857142857143
+      "cases": 208,
+      "granted": 31,
+      "rate": 0.149038461538462
     },
     {
       "side": "us",
-      "cases": 167,
-      "granted": 85,
-      "rate": 0.508982035928144
+      "cases": 162,
+      "granted": 83,
+      "rate": 0.512345679012346
     }
   ],
   "arguments": [
@@ -2458,6 +2458,6 @@
     "arg_to": "2026-01-12",
     "as_of": "2025-06-18"
   },
-  "fingerprint": "ff3139e8c6605d3d37984896d5e304ec",
-  "generated": "2026-10-08"
+  "fingerprint": "e420b71d4258ef22273638365292b88d",
+  "generated": "2026-10-20"
 }

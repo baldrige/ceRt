@@ -21,8 +21,8 @@
 # WHY THE GRANT TABLE IS SPLIT, AND WHERE THE SPLIT IS MADE.
 #
 # Pooled, the top of a grant-rate table is entirely government: measured over
-# OT2017-OT2024, cases filed for the United States are granted at 48.6%, for a
-# State at 14.5%, and for a private party at 4.6%. Publishing one ranking would
+# OT2017-OT2024, cases filed for the United States are granted at 51.2%, for a
+# State at 14.9%, and for a private party at 4.6%. Publishing one ranking would
 # put the Solicitor General's office on top and read as a finding about advocacy
 # when it is a finding about who the client is.
 #
@@ -150,6 +150,18 @@ STATE_PARTY_RX <- regex(paste0(
     "Department of Corrections)\\b.{0,60}", .state_rx),
   ignore_case = TRUE)
 
+# A State officer whose title is also a federal one, with the State named FIRST:
+# "Dave Yost, Ohio Attorney General", "Wes Allen, Alabama Secretary of State".
+# FED_PARTY_RX's guard looks only AFTER the title ("Attorney General of
+# Mississippi"), and "Secretary of State" had no guard at all, so all six such
+# petitioners in OT2017-OT2024 read as the United States -- among them Merrill v.
+# Milligan (21-1086/1087), a grant. Bounded at 40 characters so a State named
+# elsewhere in a long party string cannot claim a federal officer.
+STATE_OFFICER_FIRST_RX <- regex(paste0(
+  .state_rx, "[^,;]{0,40}\\b(Attorney General|Att'y Gen|Solicitor General|",
+  "Secretary of State)\\b"),
+  ignore_case = TRUE)
+
 # "us" / "state" / "private" for a petitioner party name. Vectorised.
 #
 # Reads the PARTY, never the caption. See the header note: the caption names both
@@ -157,7 +169,8 @@ STATE_PARTY_RX <- regex(paste0(
 # government filing it is the opposite of.
 petitioner_gov_side <- function(party) {
   p <- coalesce(as.character(party), "")
-  ifelse(str_detect(p, FED_PARTY_RX), "us",
+  fed <- str_detect(p, FED_PARTY_RX) & !str_detect(p, STATE_OFFICER_FIRST_RX)
+  ifelse(fed, "us",
   ifelse(str_detect(p, STATE_PARTY_RX), "state", "private"))
 }
 
@@ -750,7 +763,7 @@ counsel_stats_from <- function(pet, terms, fingerprint, app = NULL,
   }
 
   # Case-level base rates, which are the reason the grant board is split at all.
-  # Published on the page: 4.6% reads as "low" only once the 48.6% is beside it.
+  # Published on the page: 4.6% reads as "low" only once the 51.2% is beside it.
   by_side <- cases |> filter(outcome != "pending") |> group_by(side) |>
     summarise(cases = n(), granted = sum(outcome == "granted"),
               rate = mean(outcome == "granted"), .groups = "drop")
@@ -864,7 +877,8 @@ counsel_stats_fingerprint <- function(paths, refresh = COUNSEL_ARG_REFRESH) {
     # name and not the value -- so raising the cap from 15 to 20 would have
     # published four more rows per side against a fingerprint that still matched.
     grammar = list(COUNSEL_SUFFIXES, as.character(FED_PARTY_RX),
-                   as.character(STATE_PARTY_RX), COUNSEL_STATES,
+                   as.character(STATE_PARTY_RX), as.character(STATE_OFFICER_FIRST_RX),
+                   COUNSEL_STATES,
                    COUNSEL_MIN_CASES, COUNSEL_TOP_N, COUNSEL_GOV_MAX_PRIVATE,
                    COUNSEL_MIN_RATE_CASES, COUNSEL_ARG_MIN, COUNSEL_ARG_BOARD_N,
                    COUNSEL_ARG_REFRESH,
