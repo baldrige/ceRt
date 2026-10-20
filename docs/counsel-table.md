@@ -59,9 +59,19 @@ Grant rates by petitioner, OT2017–2024, case-level:
 
 | petitioner | cases | granted | rate |
 | --- | --- | --- | --- |
-| The United States | 167 | 84 | **50.3%** |
-| A State | 203 | 29 | **14.3%** |
-| A private party | 8,230 | 379 | **4.6%** |
+| The United States | 162 | 83 | **51.2%** |
+| A State | 208 | 31 | **14.9%** |
+| A private party | 8,232 | 379 | **4.6%** |
+
+**A State officer is a State, whichever side of the title the State is on.**
+Until 2026-10-20 six State petitioners read as the United States: "Dave Yost,
+*Ohio* Attorney General" and "Wes Allen, *Alabama* Secretary of State" carry a
+title that is also federal, and `FED_PARTY_RX` guarded only against a State named
+*after* it ("Attorney General of Mississippi"), with no guard on "Secretary of
+State" at all. One of the six was *Merrill v. Milligan* (21-1086/1087), a grant
+credited to the federal column. `STATE_OFFICER_FIRST_RX` now catches the State
+named first; it matches exactly those six petitions and nothing else in
+OT2017–2024. No board row moved, only the two rates above.
 
 A pooled ranking is therefore the Solicitor General's office at the top, which
 measures who the client is rather than how the petition was written.
