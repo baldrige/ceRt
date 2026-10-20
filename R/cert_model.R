@@ -1103,17 +1103,21 @@ model_frame <- function(corpus, features) {
 #
 # Score equation: U_j = sum_i [y_i - p_i + h_i(1/2 - p_i)] x_ij, where h is the
 # diagonal of the weighted hat matrix. Validated against logistf to ~2e-8.
-firth_fit <- function(X, y, maxit = 100L, tol = 1e-10) {
+firth_fit <- function(X, y, maxit = 100L, tol = 1e-10, weights = NULL) {
+  # Prior weights (the day model, R/cert_daily.R: each petition weighs 1 across
+  # its pending-day rows) enter the information matrix and the score alike, as
+  # in logistf. NULL is the unweighted fit, unchanged.
+  pw <- if (is.null(weights)) rep(1, length(y)) else weights
   b <- rep(0, ncol(X))
   for (it in seq_len(maxit)) {
     eta <- as.vector(X %*% b)
     p <- plogis(eta)
-    w <- pmax(p * (1 - p), .Machine$double.eps)
+    w <- pmax(pw * p * (1 - p), .Machine$double.eps)
     R <- tryCatch(chol(crossprod(X * w, X)), error = function(e) NULL)
     if (is.null(R)) stop("firth_fit: information matrix is not positive definite")
     Q <- backsolve(R, t(X * sqrt(w)), transpose = TRUE)
     h <- colSums(Q^2)                                  # hat diagonal
-    U <- crossprod(X, y - p + h * (0.5 - p))
+    U <- crossprod(X, pw * (y - p) + h * (0.5 - p))
     step <- as.vector(backsolve(R, backsolve(R, U, transpose = TRUE)))
     # Step-halve if the update overshoots -- separated cells can take huge first
     # steps before the penalty bites.
@@ -1124,13 +1128,15 @@ firth_fit <- function(X, y, maxit = 100L, tol = 1e-10) {
   list(coefficients = b, vcov = chol2inv(R), iter = it)
 }
 
-fit_logit <- function(train, features, firth = TRUE) {
+# `weights` names a column of `train` holding prior weights; NULL fits unweighted.
+fit_logit <- function(train, features, firth = TRUE, weights = NULL) {
   form <- reformulate(features, response = "label")
-  m <- suppressWarnings(glm(form, data = train, family = binomial()))
+  train$.pw <- if (is.null(weights)) 1 else train[[weights]]
+  m <- suppressWarnings(glm(form, data = train, family = binomial(), weights = .pw))
   if (!firth) return(m)
   keep <- !is.na(coef(m))        # aliased columns: fit_cert_model errors on these
   X <- model.matrix(m)[, keep, drop = FALSE]
-  ff <- firth_fit(X, m$y)
+  ff <- firth_fit(X, m$y, weights = if (is.null(weights)) NULL else m$prior.weights)
   cf <- coef(m); cf[keep] <- ff$coefficients
   m$coefficients <- cf
   # Keep the Firth information matrix: it is the right basis for a published

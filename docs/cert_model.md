@@ -72,7 +72,7 @@ An adversarial review then found three things:
 The hybrid needs no new model. Its headline matches the conference report's
 Forecast column to rounding: 40 of 40 petitions on the 6 November report, a
 maximum difference of 0.41pp. The day model is to run in shadow before it is
-reconsidered. Before it ships, it needs:
+reconsidered (see "The day model, in shadow" below). Before it ships, it needs:
 - a weighted Firth fit;
 - per-stage calibration;
 - a stage definition in which a response request or a reschedule is not "after
@@ -85,6 +85,82 @@ reconsidered. Before it ships, it needs:
   for the next distribution. The label says which conference.
 - The conference-stage model is somewhat over-confident on relisted petitions
   (issue #9).
+
+## The day model, in shadow (2026-10-20)
+
+The day-indexed model runs every night beside the published headline, and no
+page reads it. It lives in `R/cert_daily.R`, is trained by
+`.github/scripts/train_daily_model.R` and is saved to `data/cert_model_daily.rds`.
+`load_cert_models()` does not load it. Every case page's manifest key hashes
+that list, so loading it there would re-render the back-catalog for a number
+no page shows.
+
+**What changed from the prototype the review measured.**
+- **A weighted Firth fit.** Each petition weighs 1 in total across its
+  pending-day rows. The weights are new in `fit_logit()`/`firth_fit()`;
+  without them the fit is unchanged, and the shipped baseline refits
+  bit-identical.
+- **A corrected `stage`.** It is read from entries strictly before the day:
+  - `pre_dist`: never distributed, or sent back to briefing (a response
+    requested, the SG invited) since the last distribution;
+  - `dist`: distributed for a conference not yet held, or rescheduled;
+  - `post_conf`: the conference it was last distributed for has been held,
+    and nothing has sent it back.
+  The prototype's `post_conf` was 58% response requests.
+- **Long-form dates read.** DISTRIBUTED entries with a long-form date (124 in
+  OT2017) are now parsed.
+- **No `resp_ext`.**
+- **Per-stage Platt maps fitted on leave-one-Term-out predictions.** The
+  hybrid gets the same recipe, one map per component (petition-stage or
+  at-risk) and stage, so the comparison is like-for-like.
+
+**The backtest.** The deployable fit was scored leave-one-Term-out over
+OT2017–24 on 84,718 petition-days of 11,790 petitions, petition-weighted:
+
+| | log loss | Brier |
+|---|---|---|
+| hybrid, recalibrated per stage | 0.1213 | 0.0331 |
+| day model | 0.1190 | 0.0328 |
+| difference (95% CI, petition-clustered) | −0.0022 [−0.0035, −0.0009] | −0.0003 [−0.0006, 0.0000] |
+
+- **Every Term:** the day model is ahead in all eight (−0.0004 to −0.0055).
+- **By stage:** the gain is at every stage, and largest on distributed
+  petitions (0.0801 → 0.0770).
+- **The relist tail is not fixed.** On `post_conf` rows forecast at 20% or
+  more, the day model says 37.3% against 31.4% observed (139 petitions), and
+  the hybrid 37.6% against 30.6% (126).
+- **What this backtest is not.** Leave-one-Term-out lets later Terms train an
+  earlier one's model, which a deployed model never has. That is why the
+  prospective log is what decides.
+
+**The log.** `cases/headline_shadow.json` gets one entry per pending paid
+petition every 14 days (the training grid), keyed `<docket>@<date>`:
+- the headline the page shows (`head`, with `src` = base / ever / sg);
+- that headline recalibrated by the hybrid's per-stage map (`hyb`);
+- the day model's number (`day`, and `day_raw`);
+- the stage and age bucket.
+
+It is written by conferences.yml with the same cues the pages are scored
+with. It is append-only, never backfilled, union-merged on publish and
+checked by `audit_site.R`. Each night the run prints a running score, which
+is not the verdict.
+
+**The rule, set before any outcome is in.** The day model replaces the
+headline only if, on the entries logged from 2026-10-20 to 2027-06-30, once
+at least 98.5% of those petitions are decided, all of the following hold:
+1. Its petition-weighted log loss beats `hyb`, with the 95% petition-clustered
+   bootstrap interval of the difference below zero
+   (`score_headline_shadow()`). SG-layer entries are excluded, because both
+   numbers there are the SG rate.
+2. Its Brier score is no worse than `hyb`'s (the interval's upper end ≤ 0.0005).
+3. On `post_conf` entries forecast at 20% or more, the mean forecast is within
+   5 points of the observed rate. If it isn't, the tail is capped or banded
+   before it ships.
+
+If `hyb` itself beats `head`, recalibrating the hybrid is a cheaper change to
+make first. If the shipped baseline or at-risk model is retrained, the
+hybrid's maps no longer apply to its raw scale. The log then leaves `hyb`
+empty and warns, until `train_daily_model.R` is rerun.
 
 ## The two questions a conference report has to answer separately
 
