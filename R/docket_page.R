@@ -888,7 +888,7 @@ summary_disposition_word <- function(ev, outcome_date) {
 
 docket_disposition <- function(outcome, outcome_date, arg, p_base, conf, sig, is_app = FALSE, why = "", why_retro = "",
                                p_lo = NA_real_, p_hi = NA_real_, p_ever = NA_real_,
-                               word_override = NULL) {
+                               word_override = NULL, sgv = NULL, sg_layer = FALSE) {
   # `word_override`: the box's word decided elsewhere, for a docket whose
   # lifecycle is neither a petition's nor an application's (an original action,
   # R/original_dockets.R). Used for the pending and the resolved forms alike.
@@ -912,6 +912,19 @@ docket_disposition <- function(outcome, outcome_date, arg, p_base, conf, sig, is
               if (isTRUE(sig$split_argued2)) "circuit split argued")
     if (length(bits)) paste0("Rule 10: ", paste(bits, collapse = ", ")) else NULL
   } else NULL
+  # The SG's answer to a CVSG (R/sg_views.R): what was recommended, linked to the
+  # brief. A brief on file but not yet read says only that it was filed.
+  sg_line <- function(tense) {
+    if (is.null(sgv)) return("")
+    when <- if (!is.na(sgv$filed)) .fmtdate(sgv$filed) else ""
+    brief <- if (!is.na(sgv$url %||% NA))
+      sprintf("<a href='%s' target='_blank' rel='noopener'>brief</a>", .esc(sgv$url)) else "brief"
+    if (is.na(sgv$rec %||% NA))
+      return(sprintf("<div class='disp-sub'>The Solicitor General's %s was filed %s</div>", brief, when))
+    sprintf("<div class='disp-sub'>The Solicitor General %s %s (%s filed %s)</div>",
+            tense, dplyr::coalesce(unname(SG_REC_WORDS[sgv$rec]), "another disposition"),
+            brief, when)
+  }
   est_note <- if (!is.na(p_base))
     sprintf("<div class='disp-sub'>Pre-decision estimate: %s cert probability%s</div>",
             pct(p_base),
@@ -948,10 +961,15 @@ docket_disposition <- function(outcome, outcome_date, arg, p_base, conf, sig, is
           sprintf("%s %d", format(conf$date, "%b"), as.integer(format(conf$date, "%d"))),
           paste(names(parts), vapply(parts, .pct_sig, ""), collapse = " &middot; ")) else ""
         ever <- if (!is.na(p_ever))
-          sprintf("<div class='disp-sub'>Granted ever, conference-stage estimate: %s</div>", .pct_sig(p_ever)) else ""
+          sprintf("<div class='disp-sub'>Granted ever, %s: %s</div>",
+                  if (sg_layer) "given the SG's recommendation" else "conference-stage estimate",
+                  .pct_sig(p_ever)) else ""
         paste0(here, ever)
-      } else if (!is.na(p_ever) && !is.na(p_base) && abs(p_ever - p_base) >= 0.02)
+      } else if (sg_layer && !is.na(p_ever))
+        sprintf("<div class='disp-sub'>Granted ever, given the SG's recommendation: %s</div>", pct(p_ever))
+      else if (!is.na(p_ever) && !is.na(p_base) && abs(p_ever - p_base) >= 0.02)
         sprintf("<div class='disp-sub'>Conference-stage estimate: %s</div>", pct(p_ever)) else ""
+      conf_html <- paste0(sg_line("recommends"), conf_html)
       box <- sprintf("<div class='disp'><div class='disp-num'>%s</div><div class='disp-lab'><div>estimated cert probability<br><span>(petition-stage, structural)</span></div>%s%s%s</div></div>", pct(p_base), ci_note, sg, conf_html)
       why_html <- if (nzchar(why %||% "")) sprintf("<p class='forecast-why'>%s</p>", why) else ""
       return(paste0(box, why_html))
@@ -993,7 +1011,8 @@ docket_disposition <- function(outcome, outcome_date, arg, p_base, conf, sig, is
              if (identical(arg$status, "Dismissed")) as.Date(arg$dismissed_date %||% NA) else as.Date(NA),
              arg$argued_date, arg$scheduled_date, as.Date(outcome_date)) else as.Date(outcome_date)
   when <- if (length(dt) && !is.na(dt)) paste0(" &middot; ", .fmtdate(dt)) else ""
-  box <- sprintf("<div class='disp'><div class='disp-word'>%s%s</div>%s</div>", word, when, est_note)
+  box <- sprintf("<div class='disp'><div class='disp-word'>%s%s</div>%s%s</div>", word, when, est_note,
+                 if (!is_app) sg_line("had recommended") else "")
   # Retrospective forecast note for decided paid petitions: what the model
   # predicted before the ruling, and why. Same layout as the pending note.
   why_html <- if (nzchar(why_retro %||% "")) sprintf("<p class='forecast-why'>%s</p>", why_retro) else ""
@@ -1088,6 +1107,7 @@ docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
   # Forecast (paid only; pure, from in-memory models).
   p_base <- NA_real_; conf <- NULL; fc_why <- ""; fc_why_retro <- ""
   p_lo <- NA_real_; p_hi <- NA_real_; p_ever <- NA_real_
+  sgv <- NULL; sg_layer <- FALSE
   if (!is.null(models) && !is.null(models$baseline) && identical(cx$type %||% "", "paid") &&
       exists("score_case")) {
     sc_base <- tryCatch(score_case(models$baseline, cx$caption, cx$lower, par, cx$date,
@@ -1121,6 +1141,7 @@ docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
              error = function(e) NULL)
       if (!is.null(s)) {
         p_ever <- s$p_grant_ever
+        sgv <- s[["sg_view"]]; sg_layer <- isTRUE(s[["sg_layer"]])
         # The per-conference hazards are published only for a conference still
         # ahead of the render; see docket_disposition().
         conf <- list(date = if (as_of_conf >= rendered) as_of_conf else NULL,
@@ -1130,10 +1151,19 @@ docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
     }
   }
 
+  # A decided petition the SG had answered states what the SG recommended, beside
+  # the pre-decision estimate. Read as of the decision, so a merits-stage brief
+  # never stands in for the CVSG brief.
+  if (is.null(sgv) && !is_app && !is.null(models) && length(models$sg_views) &&
+      identical(cx$type %||% "", "paid") && !is.na(outcome) &&
+      !outcome %in% c("pending", "relisted") && exists("sg_view_for"))
+    sgv <- tryCatch(sg_view_for(ev, models$sg_views, as.Date(outcome_date)),
+                    error = function(e) NULL)
+
   disp <- docket_disposition(outcome, outcome_date, arg, p_base, conf, signals,
                              is_app = is_app, why = fc_why, why_retro = fc_why_retro,
                              p_lo = p_lo, p_hi = p_hi, p_ever = p_ever,
-                             word_override = orig_word)
+                             word_override = orig_word, sgv = sgv, sg_layer = sg_layer)
   # Conference history: the number of distinct conferences, and the number of
   # DISTRIBUTED entries when that is more. They differ when a petition is sent
   # to the same conference twice -- 25-1349 was distributed for September 28,
@@ -1473,7 +1503,12 @@ render_docket_pages <- function(cases, out_dir, models = NULL, qp_map = NULL,
   cls <- tryCatch(classify_petitions(cases), error = function(e) NULL)
   cls_by <- if (!is.null(cls)) split(cls, cls$dkt) else list()
   # Stable model id so retraining invalidates pending-case (forecast) pages.
-  model_id <- if (!is.null(models)) digest::digest(models) else ""
+  # The SG layer and its labels are left out of it: they bear on the ~1% of
+  # pages whose docket carries an SG brief, and are hashed into those pages' keys
+  # below -- folding them in here would re-render every page in the back-catalog
+  # each time the conferences run reads a new brief.
+  model_id <- if (!is.null(models))
+    digest::digest(models[setdiff(names(models), c("sg", "sg_views"))]) else ""
   # Linkable dockets, fixed before the loop so no page's markup depends on the
   # order pages happen to be written in. See resolvable_dockets().
   available <- resolvable_dockets(cases, out_dir)
@@ -1496,10 +1531,14 @@ render_docket_pages <- function(cases, out_dir, models = NULL, qp_map = NULL,
     # link_targets() is in here because WHICH of this page's references resolve
     # is page-determining too: without it, a page that rendered a reference as
     # plain text would never re-render once that target's page appeared.
-    key <- digest::digest(list(PAGE_TEMPLATE_VERSION, model_id, cx$caption, cx$events,
+    # The SG's brief and its label, and the layer's rates, for a docket that has
+    # one. Appended only when present, so every other page keeps its key.
+    sgk <- if (!is.null(models$sg) && exists("sg_view_for"))
+      tryCatch(sg_view_for(cx$events[[1]], models$sg_views), error = function(e) NULL) else NULL
+    key <- digest::digest(c(list(PAGE_TEMPLATE_VERSION, model_id, cx$caption, cx$events,
              cx$parties, cx$lower, cx$lower_dkt, cx$lower_date, cx$date, cx$type,
              qp, sig, cx$related, cx$linked, link_targets(cx, available), ords, subj,
-             readers[[dkt]]))
+             readers[[dkt]]), if (!is.null(sgk)) list(sgk, models$sg$rates)))
     if (incremental && identical(manifest[[dkt]] %||% "", key) &&
         file.exists(file.path(out_dir, paste0(dkt, ".html")))) {
       new_manifest[[dkt]] <- key; next
@@ -1525,7 +1564,7 @@ render_docket_pages <- function(cases, out_dir, models = NULL, qp_map = NULL,
 render_dockets_for <- function(cases, site_dir, model_dir = "data") {
   if (is.null(cases) || nrow(cases) == 0) return(invisible(0L))
   tryCatch({
-    models <- if (exists("load_cert_models")) load_cert_models(model_dir) else NULL
+    models <- if (exists("load_cert_models")) load_cert_models(model_dir, site_dir) else NULL
     read_qpc <- function(p) if (file.exists(p))
       tryCatch(jsonlite::fromJSON(p, simplifyVector = FALSE), error = function(e) list()) else list()
     # Merge the QP caches. Conferences/arguments cover distributed/granted cases;

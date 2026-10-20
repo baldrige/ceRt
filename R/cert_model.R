@@ -29,6 +29,14 @@ suppressPackageStartupMessages({
   library(tidyverse)
 })
 
+# The SG-recommendation layer (score_conference(), load_cert_models()). Sourced
+# here rather than assumed: every entry point that relied on transitive sourcing
+# in this repo has eventually lost a feature to it silently.
+if (!exists("find_sg_brief")) local({
+  f <- if (file.exists("R/sg_views.R")) "R/sg_views.R" else "sg_views.R"
+  if (file.exists(f)) sys.source(f, envir = globalenv())
+})
+
 # ---- A. party / entity typing -------------------------------------------------
 
 # The petitioner and respondent captions carry most of the entity signal. We
@@ -1878,6 +1886,27 @@ score_conference <- function(models, caption, lower, parties, date, lower_date,
            error = function(e) NULL)
     if (!is.null(g)) { out$p_grant_ever <- g$prob; out$cues <- g$cues; out$lift <- g$lift }
   }
+  # Once the Solicitor General has answered a CVSG, P(granted ever) is the
+  # historical rate for what the SG recommended, not the model's number: on those
+  # petitions the model ranks below chance (AUC 0.41 out of time) and adds nothing
+  # beside the recommendation (docs/sg-recommendation-spec.md). Only a brief filed
+  # before `as_of` counts, and only a labelled one -- a brief not yet read keeps
+  # the model's number. The per-conference hazards are not touched; how the
+  # recommendation re-times the Court's action is not measured yet.
+  # Read the view back with [["sg_view"]], never $sg: `$` partial-matches, and on
+  # a petition with no brief `s$sg` silently returned sg_layer (FALSE).
+  out$sg_layer <- FALSE
+  if (!is.null(models$sg) && length(models$sg_views) && exists("sg_view_for")) {
+    v <- tryCatch(sg_view_for(events, models$sg_views, as_of), error = function(e) NULL)
+    if (!is.null(v)) {
+      out$sg_view <- v
+      if (!is.na(v$group) && v$group %in% names(models$sg$rates)) {
+        out$p_grant_ever <- unname(models$sg$rates[[v$group]])
+        out$cues <- NULL; out$lift <- NULL
+        out$sg_layer <- TRUE
+      }
+    }
+  }
   # P(granted at this conference) <= P(granted at some conference) is an identity,
   # not a preference -- but the two numbers come from two independently fitted
   # models, so they can cross. Measured on a real long-conference render: 3 of
@@ -1895,7 +1924,7 @@ score_conference <- function(models, caption, lower, parties, date, lower_date,
 # Load the trained models from `dir`; returns a named list with whichever exist
 # (baseline / enhanced / gvr). Never errors -- a render pipeline can call this and
 # simply omit the forecast column when the artifacts are absent or unreadable.
-load_cert_models <- function(dir = "data") {
+load_cert_models <- function(dir = "data", site_dir = NULL) {
   want <- c(baseline   = "cert_model_baseline.rds",
             enhanced   = "cert_model_enhanced.rds",
             gvr        = "cert_model_gvr.rds",
@@ -1959,6 +1988,20 @@ load_cert_models <- function(dir = "data") {
               "advocate as first-time.", call. = FALSE)
       out[[nm]] <- NULL
     }
+  }
+
+  # The SG-recommendation layer and the labels it reads. Optional: without it a
+  # petition the SG has answered keeps the model's number, which is what it showed
+  # before the layer existed. `site_dir` adds the conferences run's cache of
+  # briefs read since the committed file was last updated.
+  sgf <- file.path(dir, "cert_model_sg.rds")
+  if (file.exists(sgf)) {
+    sg <- tryCatch(readRDS(sgf), error = function(e) NULL)
+    if (inherits(sg, "sg_layer") && all(c("grant", "deny") %in% names(sg$rates))) {
+      out$sg <- sg
+      out$sg_views <- if (exists("load_sg_views")) load_sg_views(site_dir) else list()
+    } else warning("load_cert_models(): ", sgf, " is not an sg_layer; dropping it.",
+                   call. = FALSE)
   }
   out
 }

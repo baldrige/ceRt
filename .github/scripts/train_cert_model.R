@@ -103,12 +103,21 @@ enhanced <- fit_cert_model(panel,  ATRISK_FEATURES, target = "grant", complete =
 gvr      <- fit_cert_model(set_target(panel, "gvr"), GVR_FEATURES,
                            target = "gvr", complete = complete)
 conference <- fit_conference_model(panel)
+# P(granted ever) once the Solicitor General has answered a CVSG: the rate by
+# recommendation, which replaces the at-risk number (R/sg_views.R,
+# docs/sg-recommendation-spec.md). Re-estimated from the committed labels each
+# retrain.
+sg_layer <- fit_sg_layer(load_sg_views(), corpus)
+cat("\nSG layer (granted / resolved, smoothed rate):\n")
+for (g in names(sg_layer$rates))
+  cat(sprintf("  %-6s %3d / %3d  %.1f%%\n", g, sg_layer$k[[g]], sg_layer$n[[g]], 100 * sg_layer$rates[[g]]))
 
 slim <- function(m) { m$loto <- NULL; m }
 files <- list(cert_model_baseline.rds   = slim(baseline),
               cert_model_enhanced.rds   = slim(enhanced),
               cert_model_gvr.rds        = slim(gvr),
-              cert_model_conference.rds = conference)
+              cert_model_conference.rds = conference,
+              cert_model_sg.rds         = sg_layer)
 for (nm in names(files)) saveRDS(files[[nm]], file.path(out_dir, nm))
 
 # ---- report ------------------------------------------------------------------
@@ -150,7 +159,7 @@ for (nm in c(names(files), "counsel_index.rds"))
 # Final gate: the models must survive the same validation the renderers apply, or
 # CI has produced artifacts the site will refuse to load.
 loaded <- load_cert_models(out_dir)
-missing <- setdiff(c("baseline", "enhanced", "gvr", "conference", "counsel_index"),
+missing <- setdiff(c("baseline", "enhanced", "gvr", "conference", "counsel_index", "sg"),
                    names(loaded))
 if (length(missing))
   stop("load_cert_models() rejected: ", paste(missing, collapse = ", "))

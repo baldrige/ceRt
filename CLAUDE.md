@@ -96,6 +96,15 @@ by accident:
   without it, and a missing index would rate every advocate first-time rather
   than error. `load_cert_models()` drops the model instead.
 
+A fifth artifact, `cert_model_sg.rds`, is not a model of the petition at all:
+once the Solicitor General has answered a CVSG, P(granted ever) is the grant
+rate for what the SG recommended, replacing the at-risk number, which carries
+no information on those petitions. The labels are hand-checked in
+`data-raw/sg_recommendations.json`, and the live ones are in
+`conferences/sg_views_cache.json`. Read the view as `s[["sg_view"]]`: `s$sg`
+partial-matches `sg_layer`. See
+**[docs/sg-recommendation-spec.md](docs/sg-recommendation-spec.md)**.
+
 A feature that is constant in training aliases to an `NA` coefficient and then
 contributes exactly zero at serve time, silently — this shipped undetected for
 months. `fit_cert_model()` now fails on any aliased coefficient; do not relax it.
