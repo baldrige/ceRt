@@ -40,6 +40,11 @@ local({
   if (!exists("orders_docket_index")) sys.source(find("orders_list.R"), envir = globalenv())
   # load_subjects() / refresh_subjects(): the Case panel's "Subject area" row.
   sys.source(find("subject_area.R"), envir = globalenv())
+  # application_profile(): every NNA### docket's disposition (see
+  # classify_application_events()). Named here, not left to the caller: a
+  # back-catalog render that lacked it would publish every application as
+  # pending rather than fail.
+  if (!exists("application_profile")) sys.source(find("applications.R"), envir = globalenv())
 })
 
 # A procedural entry is marked with a TICK across the timeline rule, not a dot.
@@ -366,7 +371,12 @@ write_docket_css <- function(out_dir) {
 # v1. On the conference cache v1 claimed a dissent below on 437 petitions and v2
 # on 124 -- the rest were citations to this Court's dissents -- and the v2 split
 # cue now ignores a split the petition denies (PETITION_SIGNALS_VERSION 4).
-PAGE_TEMPLATE_VERSION <- "v45"
+# v46: application dispositions come from application_profile() (R/applications.R),
+# the Interim tracker's grammar, which changes 25 application pages -- each one
+# wrong before (refiled and live again, deferred to argument, treated as a
+# petition; docs/applications.md). Also carries the masthead's tenth link,
+# "Interim", to the case pages, which hold the masthead inline.
+PAGE_TEMPLATE_VERSION <- "v46"
 
 # ---- small helpers ------------------------------------------------------------
 # A probability at significant figures, as the conference report prints it
@@ -792,183 +802,47 @@ docket_timeline <- function(ev, granted_on = as.Date(NA), resp_brief_on = as.Dat
 
 # ---- application dispositions -------------------------------------------------
 # Applications are excluded from classify_petitions(), so this is the ONLY
-# classifier an NNA### docket gets and nothing downstream cross-checks it. Two
-# properties of how the Court writes these orders defeat the obvious rule, and
-# both were live on the published site until v23.
+# classifier an NNA### docket gets. Since v46 it is application_profile() in
+# R/applications.R -- the grammar the Interim tracker (/applications/) reads --
+# so a case page and the tracker can no longer disagree about the same docket.
 #
-#  1. A COLLATERAL MOTION IS GRANTED IN THE ORDER THAT DENIES THE APPLICATION.
-#     18A1238 reads "Application (18A1238) denied by the Court. ... The
-#     applications for leave to file the application for stay and the response
-#     under seal ... are granted." The old rule was "^Application.*grant" -- an
-#     unanchored ".*" that walks straight across the sentence boundary into that
-#     second clause -- and a grant hit outranked a deny hit unconditionally. Dunn
-#     v. Price, a stay of execution DENIED over a four-Justice dissent, published
-#     as "Application granted". Nine pages asserted a grant the Court had
-#     refused; two of them were capital stays.
+# Until v46 this file carried its own grammar. It is gone, but the dockets that
+# shaped it are all still read correctly, and each is named in applications.R:
 #
-#     So the span below is [^.], which cannot leave the sentence, and it is
-#     tempered against the collateral vocabulary besides. Tempering works because
-#     the qualifier always sits BETWEEN the noun and its verb -- it postmodifies
-#     the subject ("the applications FOR LEAVE TO FILE ... are granted").
+#  - 18A1238 (Dunn v. Price): a COLLATERAL motion granted in the order that
+#    DENIES the application ("... The applications for leave to file ... under
+#    seal ... are granted"). A stay of execution published as "Application
+#    granted" until v23. Now: a sentence that numbers its own docket is
+#    authoritative, and an unnumbered collateral sentence rules on nothing.
+#  - 21A244 (NFIB v. OSHA): the per curiam's "The application(s) ..." voice,
+#    which a "^Application" anchor never saw. 45 pages sat at "pending".
+#  - 18A653: a word-limit request is collateral vocabulary AND an application
+#    of its own, ruled on in a numbered sentence -- so it still reads granted.
+#  - The extension precedence (22A209, 67 dockets): a granted extension
+#    outranks a later refusal to extend further.
 #
-#  2. "^Application" ONLY MATCHES THE CLERK. When a Justice refers an application
-#     to the full Court, the disposition is a per curiam order in the Court's own
-#     voice beginning "The application(s) ...", which that anchor never saw. 45
-#     pages sat at "Application pending" with the order sitting in their own
-#     timeline -- 21A244 (NFIB v. OSHA) among them, argued and decided January
-#     13, 2022. Withdrawals (29 pages), completions and closures had no rule at
-#     all.
+# What the shared grammar adds, measured over all 10,205 OT2017-OT2026
+# application dockets against the classifier it replaced: 25 pages change, and
+# each was wrong (docs/applications.md has the table) -- 7 refiled after a
+# denial and live again ("denied"), 6 deferred to argument and 5 treated as cert
+# petitions ("granted": the PETITION was granted), Trump v. United States's stay
+# dismissed as moot ("granted"), a quorum closure, a withdrawn refiling, a
+# partial grant, and two per curiam rulings the old one missed.
 #
-# LAST terminal entry wins, not the first: an application's final docketed
-# disposition is the operative one (an administrative stay granted early and the
-# application denied weeks later resolves to the denial), and it reproduces the
-# date the previous rule already published on the ~8.5k pages it got right.
-# Sorted by date first -- ev arrives in raw docket order, which is why
-# docket_timeline() sorts it too rather than trusting it.
-
-# Postmodifiers marking the subject as a collateral motion rather than the
-# application itself. Routine relief, granted in the same breath as a refusal.
-#
-# These words are only a signal in the Court's UNNUMBERED prose. They cannot be
-# used on their own, because plenty of applications ARE a request for exactly
-# this relief and get their own NNA### docket for it: "Application (18A653) to
-# file a consolidated brief on the merits in excess of the word limit granted by
-# The Chief Justice." Blanket tempering read 11 such pages as undisposed. Hence
-# the two-tier rule below.
-APP_COLLATERAL <- paste0(
-  "leave to file|under seal|supplemental appendix|",
-  "excess of the word limit|redacted cop")
-
-# One sentence's worth of characters. A period ends the sentence UNLESS it is the
-# abbreviation in "Application No. 22A489 DENIED AS MOOT" -- the clerk's bare
-# docket reference -- so a period followed by a number stays inside the span. A
-# real boundary is followed by a capital, never a digit.
-APP_SPAN <- "(?:[^.]|\\.(?=\\s*\\d))"
-
-# Tier 1, authoritative: the entry ties THIS docket's own number to the verb, so
-# whatever the clause says about it is the disposition of this application and no
-# tempering applies -- the number has already identified the subject.
-app_self_rx <- function(dkt, verb) regex(
-  paste0("\\bapplications?\\b", APP_SPAN, "{0,120}?\\b", dkt, "\\b",
-         APP_SPAN, "{0,200}?\\b", verb),
-  ignore_case = TRUE)
-
-# Tier 2, for the Court's per curiam prose, which names no docket number ("The
-# application for a stay is, in all respects, denied."). Here a collateral clause
-# in the same order really is another motion, so the span is tempered against it.
-#
-# Read from the start of a sentence, because without the docket number the only
-# thing identifying the application as the subject is its position -- and the run
-# up to it must not pass a "motion". 17A745 (Rucho v. Common Cause) is the case
-# that proves it: the Court GRANTED that stay, and the docket also carries "The
-# motion of appellees to construe the application for a stay as a jurisdictional
-# statement ... is denied." Read without that guard, the object becomes the
-# subject and the page publishes a denial of an application that was granted --
-# the same false-outcome failure as the bug this all started with, in reverse.
-#
-# Requiring the noun to sit FLUSH at the sentence start is too strict, though:
-# 25A172 is "Order entered by Justice Thomas: Upon consideration of the
-# application for stay ... it is ordered that the application for stay is DENIED",
-# and 25A608 opens "[See Detached Opinion for full order language.]  The
-# application for stay ... is granted." Hence the bounded, motion-free run-up, and
-# a sentence break that tolerates a bracket closing behind the period.
-app_generic_rx <- function(verb) regex(
-  paste0("(?:^|\\.[\\])\"']*\\s+)",
-         "(?:(?!motion)", APP_SPAN, "){0,160}?\\bapplications?\\b",
-         "(?:(?!", APP_COLLATERAL, ")", APP_SPAN, "){0,240}?\\b", verb),
-  ignore_case = TRUE)
-
-APP_GRANT_V   <- "grant(ed|s)?\\b"
-APP_DENY_V    <- "(deni(ed|es)|refused)\\b"
-APP_DISMISS_V <- "dismiss(ed|es)\\b"
-
-# A withdrawal is the applicant's own act and is written verb-first ("Letter ...
-# withdrawing the application"), so the tempered subject->verb form above does
-# not apply.
-#
-# No collateral guard here, deliberately. The tempting reading of 18A1271's
-# "Letter withdrawing application to to file a reply in excess of the word limit
-# received" is that it withdraws some collateral motion -- but that docket IS the
-# word-limit application ("Application (18A1271) to file reply in excess of word
-# limits, submitted to Justice Alito"), so the letter ends it. On an application
-# docket the withdrawal on file is the withdrawal of that application.
-APP_WITHDRAW_RX <- regex(
-  paste0("\\bapplications?\\b[^.]{0,60}withdrawn",
-         "|withdraw(ing|al of)\\b[^.]{0,40}\\bapplications?\\b"),
-  ignore_case = TRUE)
-# The clerk's housekeeping close. Terminal, but it is not a ruling: say so
-# rather than inventing a grant or a denial the docket never recorded.
-APP_CLOSED_RX <- regex("^applications?\\b[^.]{0,60}(completed|closed)\\b",
-                       ignore_case = TRUE)
-
-# Disposition of one application docket from its proceedings text.
-# Returns list(outcome, date); outcome NA means genuinely undisposed.
+# Returns list(outcome, date); outcome NA means undisposed. The vocabulary is
+# this page's: "granted in part" is "partial", and "deferred" / "converted"
+# are new in v46.
 classify_application_events <- function(et, ed, dkt = NA_character_) {
   none <- list(outcome = NA_character_, date = as.Date(NA))
   if (!length(et)) return(none)
-  et[is.na(et)] <- ""
-  ord <- order(ed); et <- et[ord]; ed <- ed[ord]
-
-  # Tier 1 where the entry names this docket, tier 2 otherwise -- decided per
-  # entry, so an order that numbers its own disposition is never second-guessed
-  # by the tempered rule, and prose orders still resolve.
-  self <- function(v) if (is.na(dkt) || !nzchar(dkt)) rep(FALSE, length(et))
-                      else str_detect(et, app_self_rx(dkt, v))
-  sg <- self(APP_GRANT_V); sd <- self(APP_DENY_V); sdis <- self(APP_DISMISS_V)
-  numbered <- sg | sd | sdis
-
-  g   <- ifelse(numbered, sg,   str_detect(et, app_generic_rx(APP_GRANT_V)))
-  d   <- ifelse(numbered, sd,   str_detect(et, app_generic_rx(APP_DENY_V)))
-  dis <- ifelse(numbered, sdis, str_detect(et, app_generic_rx(APP_DISMISS_V)))
-
-  w    <- str_detect(et, APP_WITHDRAW_RX)
-  cl   <- str_detect(et, APP_CLOSED_RX)
-
-  kind <- case_when(
-    w   ~ "withdrawn",
-    dis & !g ~ "dismissed",
-    # Deny outranks grant within an entry: never publish a grant on an order
-    # that also refuses the application.
-    d   ~ "denied",
-    g   ~ "granted",
-    cl  ~ "closed",
-    TRUE ~ NA_character_
-  )
-  hit <- which(!is.na(kind))
-  if (!length(hit)) return(none)
-  last <- hit[length(hit)]
-  out <- kind[last]
-
-  # A grant of the application outranks a LATER denial, because the two-step
-  # extension docket is the common shape of that pairing and the second refusal
-  # does not take back the time already given: "Application (22A209) granted by
-  # Justice Thomas extending the time to file until October 12, 2022", then a
-  # request "to extend further" and "Application (22A209) denied." 69 dockets run
-  # exactly that way, and calling them denied would be as one-sided as calling
-  # them granted -- but "granted" is the relief that actually issued, and it is
-  # what the site has always published for them.
-  #
-  # This precedence is only safe now that detection is sentence-scoped and
-  # subject-anchored. Applied to contaminated matches it is precisely the rule
-  # that published Dunn v. Price -- a stay of execution denied -- as a grant.
-  # A withdrawal, dismissal or closure still wins on recency; only a denial defers.
-  #
-  # And only to an EXTENSION grant. Widened to any grant it swallows the case
-  # where the Court acts and the application is then mooted: 22A489 reads
-  # "Application No. 22A489 DENIED AS MOOT" after the stay was treated as a cert
-  # petition and granted, and 25A952/25A999 are "Application for stay denied as
-  # moot". The denial is the last word on those, and it is the honest one.
-  if (identical(out, "denied")) {
-    gi <- hit[kind[hit] %in% c("granted", "partial") &
-              str_detect(et[hit], regex("extend", ignore_case = TRUE))]
-    if (length(gi)) { last <- gi[length(gi)]; out <- kind[last] }
-  }
-  # "granted in part and denied in part" -- and the bare "granted in part" -- is
-  # neither a grant nor a refusal, and calling it either overstates the order.
-  if (out %in% c("granted", "denied") &&
-      str_detect(et[last], regex("granted in part", ignore_case = TRUE)))
-    out <- "partial"
-  list(outcome = out, date = ed[last])
+  if (!exists("application_profile", mode = "function"))
+    stop("classify_application_events(): R/applications.R is not loaded", call. = FALSE)
+  ev <- data.frame(Date = format(as.Date(ed), "%b %d %Y"),
+                   `Proceedings and Orders` = coalesce(as.character(et), ""),
+                   check.names = FALSE, stringsAsFactors = FALSE)
+  p <- application_profile(ev, dkt)
+  out <- switch(p$outcome, pending = NA_character_, "granted in part" = "partial", p$outcome)
+  list(outcome = out, date = if (is.na(out)) as.Date(NA) else p$outcome_date)
 }
 
 # Status-adaptive disposition box. Pending paid petitions get the forecast
@@ -1094,6 +968,12 @@ docket_disposition <- function(outcome, outcome_date, arg, p_base, conf, sig, is
                               partial = "Application granted in part",
                               withdrawn = "Application withdrawn",
                               closed = "Application closed",
+                              # v46. Neither is a ruling on the application: a
+                              # deferred one is decided with the argued case (Trump
+                              # v. CASA), and a converted one became the petition
+                              # its "Granted as petition" row links to.
+                              deferred = "Application deferred to argument",
+                              converted = "Application treated as a petition",
                               "Application acted on")
     else switch(outcome,
       # Dismissed sits between Decided and Argued, as in classify_argument():

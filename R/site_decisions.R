@@ -867,7 +867,11 @@ decisions_watch <- function(cases, as_of = Sys.Date()) {
       argued <- any(str_detect(txt, regex("^Argued\\.", ignore_case = TRUE)))
       if (!argued && live_date < as_of - WATCH_APP_MAX_DAYS) return(NULL)
       r <- tryCatch(classify_application_events(.strip_tags(txt), d, dkt), error = function(e) NULL)
-      disposed <- !is.null(r) && !is.na(r$outcome) && !is.na(r$date) && r$date >= live_date
+      # A deferral is not a disposition: the ruling comes with the argued case
+      # (Trump v. CASA, deferred April 17 and decided June 27, 2025), so the
+      # application stays on the watch list until it lands.
+      disposed <- !is.null(r) && !is.na(r$outcome) && !r$outcome %in% "deferred" &&
+        !is.na(r$date) && r$date >= live_date
       if (disposed) return(NULL)
       return(data.frame(dkt = dkt, kind = "application", since = format(live_date),
                         stringsAsFactors = FALSE))

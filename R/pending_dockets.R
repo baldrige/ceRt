@@ -122,7 +122,7 @@ update_pending <- function(site_dir, cases, classify = NULL, as_of = Sys.Date())
       # on the idle clock below without a single request.
       if (funnel_case_type(dkt) == "app" && exists("application_profile", mode = "function")) {
         seen <- c(seen, dkt)
-        ap <- tryCatch(application_profile(cases$events[[i]]), error = function(e) NULL)
+        ap <- tryCatch(application_profile(cases$events[[i]], dkt), error = function(e) NULL)
         if (is.null(ap) || !ap$kind %in% APP_INTERIM_KINDS ||
             !ap$outcome %in% c("pending", "deferred")) next
         last <- .last_event_date(cases$events[[i]])
