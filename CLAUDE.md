@@ -105,6 +105,13 @@ no information on those petitions. The labels are hand-checked in
 partial-matches `sg_layer`. See
 **[docs/sg-recommendation-spec.md](docs/sg-recommendation-spec.md)**.
 
+`cert_model_daily.rds` is the day-indexed model running **in shadow**
+(`R/cert_daily.R`, trained by `train_daily_model.R`). It is logged nightly to
+`cases/headline_shadow.json` and is shown nowhere. Keep it out of
+`load_cert_models()`: every case page's manifest key hashes that list, so
+loading it there re-renders the whole back-catalog. The rule it must meet
+before it replaces the headline is in docs/cert_model.md.
+
 A feature that is constant in training aliases to an `NA` coefficient and then
 contributes exactly zero at serve time, silently — this shipped undetected for
 months. `fit_cert_model()` now fails on any aliased coefficient; do not relax it.

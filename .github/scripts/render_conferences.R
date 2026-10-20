@@ -350,6 +350,25 @@ tryCatch({
               fl$skipped_past, fl$total))
 }, error = function(e) message("Forecast log skipped: ", conditionMessage(e)))
 
+# The day model in shadow (R/cert_daily.R): every DAILY_GRID_DAYS, each pending
+# paid petition's published headline, the hybrid recalibrated per stage and the
+# day model, logged before the Court acts. No page reads it; docs/cert_model.md
+# says what it must show before it replaces the headline. Same rule as the log:
+# never allowed to break the refresh.
+tryCatch({
+  source("R/cert_daily.R")
+  dm <- load_daily_model()
+  if (is.null(dm)) message("Headline shadow skipped: no ", DAILY_MODEL_PATH) else {
+    hs <- append_headline_shadow(site_dir, combined, cert_models, dm, signals_map = signals_map)
+    cat(sprintf("Headline shadow: +%d of %d pending paid petition(s) | %d total\n",
+                hs$added, hs$considered, hs$total))
+    sc_hs <- score_headline_shadow(read_headline_shadow(site_dir), classify_petitions(combined))
+    if (length(sc_hs$overall))
+      cat(sprintf("Headline shadow so far (%d decided petitions, NOT the verdict): log loss head %.4f | hyb %.4f | day %.4f\n",
+                  sc_hs$n_petitions, sc_hs$overall$ll_head, sc_hs$overall$ll_hyb, sc_hs$overall$ll_day))
+  }
+}, error = function(e) message("Headline shadow skipped: ", conditionMessage(e)))
+
 # The Forecast Scorecard (R/scorecard.R): the log above held to the order lists.
 # Run here, right after the log, so a conference that just entered the ledger is
 # on the page's On deck panel tonight; and with `dist`, which is the only source

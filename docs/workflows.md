@@ -273,6 +273,7 @@ rebase cleanly.
 | `cases/original.json` (the original-jurisdiction docket manifest; the daily reads it) | `conferences.yml` only |
 | `orders/` (order-list pages, `orders.json`, `data/`) | `daily.yml` only — see **[order-lists.md](order-lists.md)** |
 | `cases/forecasts.json` (prospective forecast log) | `conferences.yml` only |
+| `cases/headline_shadow.json` (the day model in shadow beside the published headline, every 14 days per pending paid petition; not linked from any page, union-merged on conflict — see [cert_model.md](cert_model.md)) | `conferences.yml` only |
 | `scorecard/` (the Forecast Scorecard: `scorecard.json`, `index.html`, `scorecard.js`; this run's copy kept on conflict) | `conferences.yml` (new ledger rows, case details) · `daily.yml` (outcomes, the day an order list is parsed) — see **[scorecard.md](scorecard.md)** |
 | `cases/subjects.json` (subject-area labels; union-merged on conflict) | `daily.yml` (new QPs, when the `TYPESAFE_API_KEY` secret is set) · `subject-areas.yml` (bulk) |
 

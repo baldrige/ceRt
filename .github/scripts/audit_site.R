@@ -806,6 +806,28 @@ if (file.exists(flog)) {
   }
 }
 
+# The day model's shadow log (R/cert_daily.R): keyed "<docket>@<as_of>", every
+# probability in [0, 1], and no entry dated after the audit. Its worth is that
+# it was written before the outcomes; a key that disagrees with its own fields
+# or a future date would mean that has slipped.
+hlog <- file.path(site, "cases/headline_shadow.json")
+if (file.exists(hlog)) {
+  cat("\nHeadline shadow log\n")
+  hj <- tryCatch(fromJSON(hlog, simplifyVector = FALSE), error = function(e) NULL)
+  if (is.null(hj)) {
+    fail("headline shadow log parses", "cases/headline_shadow.json is unreadable")
+  } else {
+    hk <- vapply(hj, function(e) paste0(e$dkt %||% "", "@", e$as_of %||% ""), character(1))
+    hp <- unlist(lapply(hj, function(e) c(e$head, e$hyb, e$day, e$day_raw)))
+    hd <- as.Date(vapply(hj, function(e) e$as_of %||% NA_character_, character(1)))
+    bad <- sum(hk != names(hj)) + sum(is.na(hp) | hp < 0 | hp > 1) + sum(is.na(hd) | hd > Sys.Date())
+    if (bad) fail("headline shadow entries well-formed",
+                  sprintf("%d bad key(s), probabilit(y/ies) or date(s)", bad))
+    else ok("headline shadow entries well-formed",
+            sprintf("%d entries across %d petitions", length(hj), length(unique(sub("@.*", "", hk)))))
+  }
+}
+
 # ---- 11. the Forecast Scorecard -----------------------------------------------
 # scorecard/scorecard.json is the ledger above joined to the order lists. The
 # page computes every score from it in the browser, so its rows are what a
