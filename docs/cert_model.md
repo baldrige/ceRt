@@ -249,6 +249,15 @@ Notes on specification, all of them learned the hard way:
   response. Counting it gave all 124 CVSG'd petitions ≥1 relist and forced the
   CVSG coefficient to −1.10, publishing the cue backwards; correcting the grammar
   flipped it to +0.42 with no interaction term needed.
+- **Once the SG has answered, the recommendation replaces the model.** On
+  petitions with an SG brief, the at-risk model ranks below chance out of time
+  (AUC 0.41), and its logit takes a slope of −0.16 ± 0.24 beside the
+  recommendation. So `score_conference()` publishes P(granted ever) as the
+  smoothed grant rate for what the SG recommended (`cert_model_sg.rds`, fitted
+  by `fit_sg_layer()` at each retrain): grant 78%, deny 8%, other 25% on
+  OT2017–24. Only a labelled brief filed before the conference counts. The
+  per-conference hazards are untouched, because the re-timing is not measured.
+  Labels, method and evaluation: **[sg-recommendation-spec.md](sg-recommendation-spec.md)**.
 - **Separation is handled by the estimator, not by hiding cells.** `fit_logit()`
   applies a Firth penalty. `court_below == "OTHER"` (0 grants in 312 — "In re"
   original writs) used to be folded into `STATE`, the *reference* level, so those

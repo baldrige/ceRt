@@ -1,0 +1,1305 @@
+{
+  "17-1060": {
+    "cvsg": "2018-03-05",
+    "filed": "2018-05-22",
+    "url": "http://www.supremecourt.gov/DocketPDF/17/17-1060/47747/20180522151419511_17-1060%20Carter.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "17-1165": {
+    "cvsg": "2018-06-25",
+    "filed": "2018-12-04",
+    "url": "http://www.supremecourt.gov/DocketPDF/17/17-1165/74114/20181204152445106_17-1165%20De%20Csepel.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "17-1175": {
+    "cvsg": "2018-10-01",
+    "filed": "2019-05-21",
+    "url": "http://www.supremecourt.gov/DocketPDF/17/17-1175/100527/20190521150434599_17-1175%20Poarch%20Band%20of%20Creek%20Indians.pdf",
+    "rec": "gvr",
+    "quote": "If the proposed amendment to the Tribal Code is enacted, the petition for a writ of certiorari should be granted, the judgment of the Alabama Supreme Court should be vacated, and this case should be remanded for further proceedings in light of that change in law.",
+    "source": "hand",
+    "sg_v": 1,
+    "note": "Conditional: GVR if the proposed Tribal Code amendment is enacted."
+  },
+  "17-1183": {
+    "cvsg": "2018-06-04",
+    "filed": "2019-05-21",
+    "url": "http://www.supremecourt.gov/DocketPDF/17/17-1183/100476/20190521123058933_17-1183%20ASPA%20-%20invitation.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "17-1236": {
+    "cvsg": "2018-06-11",
+    "filed": "2019-05-21",
+    "url": "http://www.supremecourt.gov/DocketPDF/17/17-1236/100568/20190521175141807_17-1236%20Owens.pdf",
+    "rec": "deny",
+    "quote": "For the foregoing reasons, the petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "17-1237": {
+    "cvsg": "2018-05-14",
+    "filed": "2018-12-04",
+    "url": "http://www.supremecourt.gov/DocketPDF/17/17-1237/74102/20181204150140415_17-1237%20Osage%20Wind%20AC%20Pet.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "17-1268": {
+    "cvsg": "2018-06-11",
+    "filed": "2019-05-21",
+    "url": "http://www.supremecourt.gov/DocketPDF/17/17-1268/100570/20190521175425666_17-1268%20Opati.pdf",
+    "rec": "grant_limited",
+    "quote": "For the foregoing reasons, the petition for a writ of certiorari should be granted, limited to the second question presented.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "17-1285": {
+    "cvsg": "2018-06-18",
+    "filed": "2018-12-04",
+    "url": "http://www.supremecourt.gov/DocketPDF/17/17-1285/74157/20181204222633023_17-1285%20-%20Association%20des%20Eleveurs.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "17-1301": {
+    "cvsg": "2018-06-25",
+    "filed": "2018-12-04",
+    "url": "http://www.supremecourt.gov/DocketPDF/17/17-1301/74120/20181204152740059_17-1301%20Harvey.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "17-1406": {
+    "cvsg": "2018-06-11",
+    "filed": "2019-05-21",
+    "url": "http://www.supremecourt.gov/DocketPDF/17/17-1406/100562/20190521172228928_17-1406%20Republic%20of%20Sudan.pdf",
+    "rec": "deny",
+    "quote": "For the foregoing reasons, the petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "17-1498": {
+    "cvsg": "2018-10-01",
+    "filed": "2019-04-30",
+    "url": "http://www.supremecourt.gov/DocketPDF/17/17-1498/98069/20190430173559232_17-1498%20ARCO.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "17-1529": {
+    "cvsg": "2018-10-01",
+    "filed": "2019-12-09",
+    "url": "http://www.supremecourt.gov/DocketPDF/17/17-1529/124921/20191209151207396_17-1529%20%20%20Clearstream.pdf",
+    "rec": "deny",
+    "quote": "The petitions for writs of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "17-1530": {
+    "cvsg": "2018-10-01",
+    "filed": "2019-12-09",
+    "url": "http://www.supremecourt.gov/DocketPDF/17/17-1530/124931/20191209151819366_17-1530%20%20Banca%20UBAE.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "17-1534": {
+    "cvsg": "2018-10-01",
+    "filed": "2019-12-09",
+    "url": "http://www.supremecourt.gov/DocketPDF/17/17-1534/124925/20191209151407506_17-1529%20%20%20Clearstream.pdf",
+    "rec": "deny",
+    "quote": "The petitions for writs of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "17-1678": {
+    "cvsg": "2018-10-01",
+    "filed": "2019-04-11",
+    "url": "http://www.supremecourt.gov/DocketPDF/17/17-1678/96178/20190411155151650_17-1678%20and%2018-309%20Hernandez%20v.%20Mesa%20-%20Invitation.pdf",
+    "rec": "grant_limited",
+    "quote": "The petition for a writ of certiorari in Hernández, No. 17-1678, should be granted, limited to the first question presented in the petition.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "17-1686": {
+    "cvsg": "2018-10-01",
+    "filed": "2019-05-09",
+    "url": "http://www.supremecourt.gov/DocketPDF/17/17-1686/99117/20190509141047742_17-1686%20RPX%20v.%20ChanBond.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "17-1712": {
+    "cvsg": "2018-10-01",
+    "filed": "2019-05-21",
+    "url": "http://www.supremecourt.gov/DocketPDF/17/17-1712/100485/20190521125109603_17-1712%20Thole.pdf",
+    "rec": "grant",
+    "quote": "The petition for a writ of certiorari should be granted.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "17-204": {
+    "cvsg": "2017-10-10",
+    "filed": "2018-05-08",
+    "url": "http://www.supremecourt.gov/DocketPDF/17/17-204/46060/20180508135603183_17-204%20Apple%20v.%20Pepper%20%20-%20AC%20Pet.pdf",
+    "rec": "grant",
+    "quote": "The petition for a writ of certiorari should be granted.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "17-290": {
+    "cvsg": "2017-12-04",
+    "filed": "2018-05-22",
+    "url": "http://www.supremecourt.gov/DocketPDF/17/17-290/48645/20180530133707477_00000001.pdf",
+    "rec": "grant",
+    "quote": "The petition for a writ of certiorari should be granted.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "17-419": {
+    "cvsg": "2018-01-08",
+    "filed": "2018-05-15",
+    "url": "http://www.supremecourt.gov/DocketPDF/17/17-419/46889/20180515143010206_17-419%20Dawson.pdf",
+    "rec": "grant",
+    "quote": "The petition for a writ of certiorari should be granted.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "17-423": {
+    "cvsg": "2018-01-22",
+    "filed": "2018-05-17",
+    "url": "http://www.supremecourt.gov/DocketPDF/17/17-423/47241/20180517141645673_17-423%20Sterba%20-%20AC%20Pet.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "17-528": {
+    "cvsg": "2018-01-22",
+    "filed": "2018-05-22",
+    "url": "http://www.supremecourt.gov/DocketPDF/17/17-528/47750/20180522151648418_17-528%20Strang%20-%20AC%20Pet.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "17-532": {
+    "cvsg": "2018-01-08",
+    "filed": "2018-05-22",
+    "url": "http://www.supremecourt.gov/DocketPDF/17/17-532/47755/20180522153509400_17-532%20Herrera.pdf",
+    "rec": "grant",
+    "quote": "The petition for a writ of certiorari should be granted.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "17-571": {
+    "cvsg": "2018-01-08",
+    "filed": "2018-05-16",
+    "url": "http://www.supremecourt.gov/DocketPDF/17/17-571/47063/20180516140452208_17-571%20Fourth%20Estate%20Pub.%20Ben.%20Corp..pdf",
+    "rec": "grant",
+    "quote": "The petition for a writ of certiorari should be granted.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "17-834": {
+    "cvsg": "2018-04-16",
+    "filed": "2018-12-04",
+    "url": "http://www.supremecourt.gov/DocketPDF/17/17-834/74105/20181204150548103_17-834%20Kansas.pdf",
+    "rec": "grant_limited",
+    "quote": "The petition for a writ of certiorari should be granted, limited to the first question presented.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "17-936": {
+    "cvsg": "2018-04-16",
+    "filed": "2018-11-30",
+    "url": "http://www.supremecourt.gov/DocketPDF/17/17-936/73707/20181130111638483_17-936%20Gilead%20Sciences%20AC%20Pet.10.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "17-938": {
+    "cvsg": "2018-05-21",
+    "filed": "2018-12-04",
+    "url": "http://www.supremecourt.gov/DocketPDF/17/17-938/74111/20181204152055730_17-938%20Cibolo.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "18-109": {
+    "cvsg": "2018-10-29",
+    "filed": "2019-05-21",
+    "url": "http://www.supremecourt.gov/DocketPDF/18/18-109/100530/20190521150718908_18-109%20Ariosa%20Diagnostics%20Inc..pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "18-1140": {
+    "cvsg": "2019-06-24",
+    "filed": "2019-12-09",
+    "url": "http://www.supremecourt.gov/DocketPDF/18/18-1140/125005/20191209200710537_18-1140%20Avco%20v.%20Sikkellee%20CVSG.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "18-1401": {
+    "cvsg": "2019-10-15",
+    "filed": "2020-03-20",
+    "url": "http://www.supremecourt.gov/DocketPDF/18/18-1401/138781/20200320155211393_18-1401%20Peterson.pdf",
+    "rec": "grant",
+    "quote": "The petition for a writ of certiorari should be granted.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "18-1447": {
+    "cvsg": "2020-01-21",
+    "filed": "2020-05-26",
+    "url": "http://www.supremecourt.gov/DocketPDF/18/18-1447/144247/20200526201807308_18-1447%20Republic%20of%20Hungary.pdf",
+    "rec": "hold",
+    "quote": "Philipp, No. 19- 351, it should hold the petition in this case pending disposition of Philipp.",
+    "source": "hand",
+    "sg_v": 1,
+    "note": "Conditional: hold if the Court grants in Philipp (19-351)."
+  },
+  "18-164": {
+    "cvsg": "2018-10-09",
+    "filed": "2019-05-15",
+    "url": "http://www.supremecourt.gov/DocketPDF/18/18-164/99854/20190515150818947_18-164%20First%20Solar.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "18-260": {
+    "cvsg": "2018-12-03",
+    "filed": "2019-01-03",
+    "url": "http://www.supremecourt.gov/DocketPDF/18/18-260/78169/20190103142520040_18-260%20%2018-268%20Cnty%20of%20Maui.pdf",
+    "rec": "grant_limited",
+    "quote": "The petition for a writ of certiorari in No. 18-260 should be granted, limited to the first question presented",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "18-268": {
+    "cvsg": "2018-12-03",
+    "filed": "2019-01-03",
+    "url": "http://www.supremecourt.gov/DocketPDF/18/18-268/78173/20190103142729338_18-260%20%2018-268%20Cnty%20of%20Maui.pdf",
+    "rec": "hold",
+    "quote": "the petition for a writ of certiorari in 18-268 should be held pending the Court’s disposition of the petition in No. 18-260.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "18-309": {
+    "cvsg": "2018-10-29",
+    "filed": "2019-04-11",
+    "url": "http://www.supremecourt.gov/DocketPDF/18/18-309/96180/20190411155414832_17-1678%20and%2018-309%20Hernandez%20v.%20Mesa%20-%20Invitation.pdf",
+    "rec": "hold",
+    "quote": "The petition for a writ of certiorari in Swartz, No. 18-309, should be held pending the disposition of Hernández.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "18-349": {
+    "cvsg": "2019-03-18",
+    "filed": "2019-12-09",
+    "url": "http://www.supremecourt.gov/DocketPDF/18/18-349/124996/20191209173801792_Patterson%20cvsg%2018-349.pdf",
+    "rec": "grant_limited",
+    "quote": "The petition for a writ of certiorari should be granted, limited to the third question presented.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "18-415": {
+    "cvsg": "2019-01-07",
+    "filed": "2019-12-06",
+    "url": "http://www.supremecourt.gov/DocketPDF/18/18-415/124825/20191206211755583_18-415%20-%20HP%20v.%20Berkheimer.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "18-447": {
+    "cvsg": "2019-01-14",
+    "filed": "2019-05-21",
+    "url": "http://www.supremecourt.gov/DocketPDF/18/18-447/100479/20190521123312308_18-447%2018-612%20Alabama%20Dept%20of%20Revenue%20invitation.pdf",
+    "rec": "deny",
+    "quote": "The petition and the conditional cross-petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "18-486": {
+    "cvsg": "2019-01-14",
+    "filed": "2019-05-20",
+    "url": "http://www.supremecourt.gov/DocketPDF/18/18-486/100292/20190520110922872_18-486%20Toshiba%20Corp.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "18-540": {
+    "cvsg": "2019-04-15",
+    "filed": "2019-12-04",
+    "url": "http://www.supremecourt.gov/DocketPDF/18/18-540/124444/20191204153422611_18-540%20Rutledge.pdf",
+    "rec": "grant",
+    "quote": "The petition for a writ of certiorari should be granted.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "18-575": {
+    "cvsg": "2019-01-07",
+    "filed": "2019-05-21",
+    "url": "http://www.supremecourt.gov/DocketPDF/18/18-575/100487/20190521125430010_18-575%20%2018-581%20YPF%20SA.pdf",
+    "rec": "deny",
+    "quote": "The petitions for writs of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "18-581": {
+    "cvsg": "2019-01-07",
+    "filed": "2019-05-21",
+    "url": "http://www.supremecourt.gov/DocketPDF/18/18-581/100489/20190521125749021_18-575%20%2018-581%20YPF%20SA.pdf",
+    "rec": "deny",
+    "quote": "The petitions for writs of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "18-600": {
+    "cvsg": "2019-01-07",
+    "filed": "2019-05-21",
+    "url": "http://www.supremecourt.gov/DocketPDF/18/18-600/100519/20190521142730558_18-600%20Texas%20Advanced%20Optoelectronic%20Solns.%20Inc.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "18-612": {
+    "cvsg": "2019-01-14",
+    "filed": "2019-05-21",
+    "url": "http://www.supremecourt.gov/DocketPDF/18/18-612/100481/20190521123452842_18-447%2018-612%20Alabama%20Dept%20of%20Revenue%20invitation.pdf",
+    "rec": "deny",
+    "quote": "The petition and the conditional cross-petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "18-817": {
+    "cvsg": "2019-03-18",
+    "filed": "2019-12-06",
+    "url": "http://www.supremecourt.gov/DocketPDF/18/18-817/124768/20191206151701002_18-817%20-%20Hikma%20-%20CVSG%20-%20v28.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "18-921": {
+    "cvsg": "2019-06-24",
+    "filed": "2019-12-09",
+    "url": "http://www.supremecourt.gov/DocketPDF/18/18-921/124944/20191209154151666_18-921%20Feliciano.pdf",
+    "rec": "gvr",
+    "quote": "This Court should grant the petition, vacate the judgment of the Puerto Rico Supreme Court, and remand the case for further consideration—including for consideration of the jurisdiction of the Court of First Instance to enter the order at issue; for articulation of the neutral grounds, if any, su...",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "18-926": {
+    "cvsg": "2019-04-22",
+    "filed": "2019-11-27",
+    "url": "http://www.supremecourt.gov/DocketPDF/18/18-926/123904/20191127133744511_18-926%20Putnam.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "18-956": {
+    "cvsg": "2019-04-29",
+    "filed": "2019-09-27",
+    "url": "http://www.supremecourt.gov/DocketPDF/18/18-956/117359/20190927165110897_18-956%20Google.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "19-1039": {
+    "cvsg": "2020-06-29",
+    "filed": "2020-12-09",
+    "url": "http://www.supremecourt.gov/DocketPDF/19/19-1039/163266/20201209183256265_19-1039%20PennEast.pdf",
+    "rec": "grant",
+    "quote": "For the foregoing reasons, the petition for a writ of certiorari should be granted.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "19-1143": {
+    "cvsg": "2020-06-29",
+    "filed": "2020-12-09",
+    "url": "http://www.supremecourt.gov/DocketPDF/19/19-1143/163277/20201209232355159_19-1143%20FMC%20Corp.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "19-1401": {
+    "cvsg": "2020-10-05",
+    "filed": "2021-05-25",
+    "url": "http://www.supremecourt.gov/DocketPDF/19/19-1401/180105/20210525160954238_19-1401%20Hughes%20-%20US%20invitation%20brief%20final.pdf",
+    "rec": "grant",
+    "quote": "The petition for a writ of certiorari should be granted.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "19-185": {
+    "cvsg": "2020-01-21",
+    "filed": "2020-05-26",
+    "url": "http://www.supremecourt.gov/DocketPDF/19/19-185/144241/20200526184535442_19-185%20Mutond%20CVSG_FINAL.pdf",
+    "rec": "grant",
+    "quote": "The petition for a writ of certiorari should be granted.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "19-251": {
+    "cvsg": "2020-02-24",
+    "filed": "2020-11-24",
+    "url": "http://www.supremecourt.gov/DocketPDF/19/19-251/161669/20201124121326693_19-251acUnitedStates_page%20proofs.pdf",
+    "rec": "grant",
+    "quote": "The petitions for writs of certiorari should be granted.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "19-255": {
+    "cvsg": "2020-02-24",
+    "filed": "2020-11-24",
+    "url": "http://www.supremecourt.gov/DocketPDF/19/19-255/161676/20201124122456446_19-251acUnitedStates_page%20proofs.pdf",
+    "rec": "grant",
+    "quote": "The petitions for writs of certiorari should be granted.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "19-277": {
+    "cvsg": "2019-12-09",
+    "filed": "2020-04-10",
+    "url": "http://www.supremecourt.gov/DocketPDF/19/19-277/141410/20200410170718627_19-277%20HSBC%20Holdings%20CVSG.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "19-351": {
+    "cvsg": "2020-01-21",
+    "filed": "2020-05-26",
+    "url": "http://www.supremecourt.gov/DocketPDF/19/19-351/144249/20200526202844311_19-351%20and%2019-520%20Republic%20of%20Germany.pdf",
+    "rec": "grant",
+    "quote": "The petition for a writ of certiorari should be granted.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "19-416": {
+    "cvsg": "2020-01-13",
+    "filed": "2020-05-26",
+    "url": "http://www.supremecourt.gov/DocketPDF/19/19-416/144192/20200526124654669_Nestle.Cargill%20final.pdf",
+    "rec": "hold",
+    "quote": "The petition for a writ of certiorari in No. 19-416 should be held pending the Court’s disposition of the petition in No. 19-453.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "19-453": {
+    "cvsg": "2020-01-13",
+    "filed": "2020-05-26",
+    "url": "http://www.supremecourt.gov/DocketPDF/19/19-453/144200/20200526124902074_Nestle.Cargill%20final.pdf",
+    "rec": "grant",
+    "quote": "The petition for a writ of certiorari in No. 19-453 should be granted, and the Court should add a question presented on aiding and abetting.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "19-520": {
+    "cvsg": "2020-01-21",
+    "filed": "2020-05-26",
+    "url": "http://www.supremecourt.gov/DocketPDF/19/19-520/144251/20200526203042123_19-351%20and%2019-520%20Republic%20of%20Germany.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be granted.",
+    "source": "hand",
+    "sg_v": 1,
+    "note": "The conditional cross-petition (Philipp v. Germany): the brief grants 19-351 and denies the cross-petition."
+  },
+  "19-638": {
+    "cvsg": "2020-01-13",
+    "filed": "2020-05-21",
+    "url": "http://www.supremecourt.gov/DocketPDF/19/19-638/143995/20200521142343583_19-638%20NBD.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "19-648": {
+    "cvsg": "2020-01-27",
+    "filed": "2020-08-26",
+    "url": "http://www.supremecourt.gov/DocketPDF/19/19-648/151310/20200826130104385_CACI%20v%20Al-Shimari.pdf",
+    "rec": "hold",
+    "quote": "The petition for a writ of certiorari should be held pending the Court’s disposition of Nestlé and Cargill, and granted if those cases do not effectively foreclose respondents’ underlying claims.",
+    "source": "hand",
+    "sg_v": 1,
+    "note": "Hold for Nestle/Cargill, then grant unless those cases foreclose the claims."
+  },
+  "20-1034": {
+    "cvsg": "2021-04-05",
+    "filed": "2021-10-27",
+    "url": "http://www.supremecourt.gov/DocketPDF/20/20-1034/197913/20211027195748877_20-1034%20Golan.pdf",
+    "rec": "grant",
+    "quote": "The petition for a writ of certiorari should be granted.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "20-1046": {
+    "cvsg": "2021-06-21",
+    "filed": "2021-11-09",
+    "url": "http://www.supremecourt.gov/DocketPDF/20/20-1046/199472/20211109155651195_20-1046%20Marin%20Housing%20CVSG%20vf.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "20-1199": {
+    "cvsg": "2021-06-14",
+    "filed": "2021-12-08",
+    "url": "http://www.supremecourt.gov/DocketPDF/20/20-1199/204668/20211209161118061_20-1199%20-%20SFFA%20v%20Harvard%20CVSG%20-%20Corrected.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "20-1229": {
+    "cvsg": "2021-10-04",
+    "filed": "2022-04-11",
+    "url": "http://www.supremecourt.gov/DocketPDF/20/20-1229/220687/20220411120007621_20-1229%20Robertson%20US%20CVSG%20Br.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "20-1394": {
+    "cvsg": "2021-10-04",
+    "filed": "2022-04-08",
+    "url": "http://www.supremecourt.gov/DocketPDF/20/20-1394/220622/20220408144608169_20-1394%20PersonalWeb%20-%20CVSG%20-%20final.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "20-1425": {
+    "cvsg": "2021-10-04",
+    "filed": "2022-05-24",
+    "url": "http://www.supremecourt.gov/DocketPDF/20/20-1425/226161/20220524152825488_20-1425%20CH%20Robinson--US%20Invitation%20Br.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "20-1426": {
+    "cvsg": "2021-10-12",
+    "filed": "2022-02-15",
+    "url": "http://www.supremecourt.gov/DocketPDF/20/20-1426/214177/20220215131939896_20-1426%20Epic%20CVSG%20Brief.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "20-219": {
+    "cvsg": "2020-11-02",
+    "filed": "2021-05-25",
+    "url": "http://www.supremecourt.gov/DocketPDF/20/20-219/180110/20210525164611783_20-219%20Cummings%20vf.pdf",
+    "rec": "grant",
+    "quote": "The petition for a writ of certiorari should be granted.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "20-28": {
+    "cvsg": "2020-10-19",
+    "filed": "2021-05-25",
+    "url": "http://www.supremecourt.gov/DocketPDF/20/20-28/180121/20210525165644727_20-28%20Laurent%20CVSG.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "20-319": {
+    "cvsg": "2020-12-07",
+    "filed": "2021-05-25",
+    "url": "http://www.supremecourt.gov/DocketPDF/20/20-319/180118/20210525164958844_20-319%20Comcast%20CVSG.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "20-402": {
+    "cvsg": "2021-01-11",
+    "filed": "2021-05-25",
+    "url": "http://www.supremecourt.gov/DocketPDF/20/20-402/180124/20210525165923908_Richardson%20v%20Omaha%2020-402.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "20-493": {
+    "cvsg": "2021-02-22",
+    "filed": "2021-08-25",
+    "url": "http://www.supremecourt.gov/DocketPDF/20/20-493/188569/20210825181036895_20-493%20Ysleta--US%20Invitation%20Br.pdf",
+    "rec": "grant",
+    "quote": "The petition for a writ of certiorari should be granted.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "20-603": {
+    "cvsg": "2021-03-01",
+    "filed": "2021-11-09",
+    "url": "http://www.supremecourt.gov/DocketPDF/20/20-603/199465/20211109154921152_20-603%20--%20Torres.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "20-609": {
+    "cvsg": "2021-04-19",
+    "filed": "2021-11-09",
+    "url": "http://www.supremecourt.gov/DocketPDF/20/20-609/199492/20211109162601772_20-609%20Gannett%20CVSG.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "20-772": {
+    "cvsg": "2021-04-05",
+    "filed": "2021-10-19",
+    "url": "http://www.supremecourt.gov/DocketPDF/20/20-772/196860/20211019162009633_20-772%20Waterfront%20Commission.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "20-8": {
+    "cvsg": "2020-10-05",
+    "filed": "2021-03-12",
+    "url": "http://www.supremecourt.gov/DocketPDF/20/20-8/171849/20210312182244408_20-8%20DeutscheBank.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "20-807": {
+    "cvsg": "2021-05-17",
+    "filed": "2021-11-09",
+    "url": "http://www.supremecourt.gov/DocketPDF/20/20-807/199477/20211109160435087_LeDure%2020-807.pdf",
+    "rec": "grant_limited",
+    "quote": "The petition for a writ of certiorari should be granted limited to the first question presented.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "20-891": {
+    "cvsg": "2021-05-03",
+    "filed": "2022-05-24",
+    "url": "http://www.supremecourt.gov/DocketPDF/20/20-891/226156/20220524150114156_20-891%20-%20American%20Axle%20CVSG.pdf",
+    "rec": "grant_limited",
+    "quote": "With respect to question 1 as framed in this brief, the petition for a writ of certiorari should be granted.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "20-905": {
+    "cvsg": "2021-05-03",
+    "filed": "2021-08-23",
+    "url": "http://www.supremecourt.gov/DocketPDF/20/20-905/188322/20210823152904531_20-905%20Independent%20School%20Dist.%20No.%20283.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "20-994": {
+    "cvsg": "2021-04-26",
+    "filed": "2021-09-27",
+    "url": "http://www.supremecourt.gov/DocketPDF/20/20-994/193776/20210927125130395_20-994%20VW%20v.%20Hillsborough%20County.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "21-1013": {
+    "cvsg": "2022-04-18",
+    "filed": "2022-09-28",
+    "url": "http://www.supremecourt.gov/DocketPDF/21/21-1013/240991/20220928153131461_Usoyan.CVSG.09.27.22.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "21-1019": {
+    "cvsg": "2022-05-31",
+    "filed": "2022-10-19",
+    "url": "http://www.supremecourt.gov/DocketPDF/21/21-1019/243476/20221019152350113_21-1019%20-%20ERISA%20Industry%20Committee%20CVSG%20Response%20-%20final.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "21-1043": {
+    "cvsg": "2022-05-02",
+    "filed": "2022-09-23",
+    "url": "http://www.supremecourt.gov/DocketPDF/21/21-1043/238609/20220923093846428_21-1043%20Abitron.pdf",
+    "rec": "grant",
+    "quote": "I, 22, supra, the petition for a writ of certiorari should be granted.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "21-1281": {
+    "cvsg": "2022-10-03",
+    "filed": "2023-04-05",
+    "url": "http://www.supremecourt.gov/DocketPDF/21/21-1281/262869/20230405140402650_21-1281%2022-22%20CVSG%20-%20Interactive.Tropp.pdf",
+    "rec": "grant",
+    "quote": "The petitions for writs of certiorari should be granted on the question presented as framed in this brief.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "21-1326": {
+    "cvsg": "2022-08-22",
+    "filed": "2022-12-06",
+    "url": "http://www.supremecourt.gov/DocketPDF/21/21-1326/249248/20221206191513530_21-1326%20Schutte%20v.%20SuperValu.pdf",
+    "rec": "grant",
+    "quote": "The petition for a writ of certiorari should be granted.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "21-1338": {
+    "cvsg": "2022-06-06",
+    "filed": "2022-11-21",
+    "url": "http://www.supremecourt.gov/DocketPDF/21/21-1338/247116/20221121154250394_NSO%20v.%20WhatsAppp%20CVSG.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "21-1448": {
+    "cvsg": "2022-10-11",
+    "filed": "2023-03-29",
+    "url": "http://www.supremecourt.gov/DocketPDF/21/21-1448/260140/20230329113500929_21-1448%20Wells%20v.%20McCallister.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "21-1550": {
+    "cvsg": "2022-10-03",
+    "filed": "2023-03-16",
+    "url": "http://www.supremecourt.gov/DocketPDF/21/21-1550/259222/20230316134530410_21-1550%20Suncor.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "21-194": {
+    "cvsg": "2021-11-15",
+    "filed": "2022-05-24",
+    "url": "http://www.supremecourt.gov/DocketPDF/21/21-194/226127/20220524134125535_21-194%20California%20Trucking%20CVSG.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "21-241": {
+    "cvsg": "2021-12-13",
+    "filed": "2022-05-10",
+    "url": "http://www.supremecourt.gov/DocketPDF/21/21-241/222984/20220510154200610_Monsanto.CVSG%205.9.22%20v.2.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "21-260": {
+    "cvsg": "2021-11-15",
+    "filed": "2022-05-24",
+    "url": "http://www.supremecourt.gov/DocketPDF/21/21-260/226150/20220524144310481_21-260%20Virgin%20America%20CVSG%20Final.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "hand",
+    "sg_v": 1,
+    "note": "Deny; GVR offered only in the alternative."
+  },
+  "21-381": {
+    "cvsg": "2021-12-13",
+    "filed": "2022-05-24",
+    "url": "http://www.supremecourt.gov/DocketPDF/21/21-381/226187/20220524162240586_21-381%20Weiss%20%2021-382%20Strauss.pdf",
+    "rec": "deny",
+    "quote": "The petitions for writs of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "21-382": {
+    "cvsg": "2022-01-10",
+    "filed": "2022-05-24",
+    "url": "http://www.supremecourt.gov/DocketPDF/21/21-382/226190/20220524162406317_21-381%20Weiss%20%2021-382%20Strauss.pdf",
+    "rec": "deny",
+    "quote": "The petitions for writs of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "21-438": {
+    "cvsg": "2022-01-10",
+    "filed": "2022-05-11",
+    "url": "http://www.supremecourt.gov/DocketPDF/21/21-438/223091/20220511132603012_21-438%20Olaf%20Soot.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "21-462": {
+    "cvsg": "2022-01-18",
+    "filed": "2022-05-24",
+    "url": "http://www.supremecourt.gov/DocketPDF/21/21-462/226201/20220524193203503_No.%2021-462%20Johnson%20v.%20Bethany%20Hospice%20U.S.%20CVSG%20Brief%20Final.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "21-471": {
+    "cvsg": "2021-12-13",
+    "filed": "2022-05-24",
+    "url": "http://www.supremecourt.gov/DocketPDF/21/21-471/226205/20220524194035744_21-471%20Express%20Scripts--US%20Invitation%20Br.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "21-599": {
+    "cvsg": "2022-03-07",
+    "filed": "2022-08-30",
+    "url": "http://www.supremecourt.gov/DocketPDF/21/21-599/236690/20220830140521475_21-599%20Kinney%20v.f.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "21-676": {
+    "cvsg": "2022-02-22",
+    "filed": "2022-05-16",
+    "url": "http://www.supremecourt.gov/DocketPDF/21/21-676/225493/20220516152424323_21-676%20Musta%20and%2021-998%20Bierbach.pdf",
+    "rec": "deny",
+    "quote": "The petitions for writs of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "21-746": {
+    "cvsg": "2022-02-22",
+    "filed": "2022-05-24",
+    "url": "http://www.supremecourt.gov/DocketPDF/21/21-746/226169/20220524160947634_21-746%20-%20Apple%20v%20Qualcomm%20U.S.%20Invitation%20Brief.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "21-757": {
+    "cvsg": "2022-04-18",
+    "filed": "2022-09-21",
+    "url": "http://www.supremecourt.gov/DocketPDF/21/21-757/238447/20220921145309411_21-757%20Amgen%20v.%20Sanofi.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "21-867": {
+    "cvsg": "2022-05-02",
+    "filed": "2023-04-17",
+    "url": "http://www.supremecourt.gov/DocketPDF/21/21-867/263775/20230417182803631_21-867%20Midwest%20Air%20Traffic%20Ctrl.%20Serv.%20v.%20Badilla%20et%20al.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "21-887": {
+    "cvsg": "2022-06-21",
+    "filed": "2022-08-24",
+    "url": "http://www.supremecourt.gov/DocketPDF/21/21-887/234412/20220824163230846_21-887%20Perez%20US%20Invitation%20Br.pdf",
+    "rec": "grant",
+    "quote": "The petition for a writ of certiorari should be granted.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "21-936": {
+    "cvsg": "2022-05-16",
+    "filed": "2022-09-09",
+    "url": "http://www.supremecourt.gov/DocketPDF/21/21-936/237580/20220909191857586_21-936%20Owsley%20v.%20Fazzi%20Associates%20FINAL.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "21-968": {
+    "cvsg": "2022-05-16",
+    "filed": "2022-09-27",
+    "url": "http://www.supremecourt.gov/DocketPDF/21/21-968/240871/20220927151356587_21-968%20Fairfax%20County.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "21-998": {
+    "cvsg": "2022-02-22",
+    "filed": "2022-05-16",
+    "url": "http://www.supremecourt.gov/DocketPDF/21/21-998/225495/20220516152530987_21-676%20Musta%20and%2021-998%20Bierbach.pdf",
+    "rec": "deny",
+    "quote": "The petitions for writs of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "22-115": {
+    "cvsg": "2022-12-12",
+    "filed": "2023-05-23",
+    "url": "http://www.supremecourt.gov/DocketPDF/22/22-115/267523/20230523141940833_21-115%20Buckner%20et%20al.%20v.%20U.S.%20Pipe%20et%20al.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "22-121": {
+    "cvsg": "2022-12-12",
+    "filed": "2023-05-23",
+    "url": "http://www.supremecourt.gov/DocketPDF/22/22-121/267556/20230523161142292_22-121%20ML%20Genius%20v.%20Google%20vf.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "22-18": {
+    "cvsg": "2022-10-03",
+    "filed": "2023-02-17",
+    "url": "http://www.supremecourt.gov/DocketPDF/22/22-18/255031/20230217100011593_22-18cvsg%20Cuker%20-%20final.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "22-193": {
+    "cvsg": "2023-01-09",
+    "filed": "2023-05-18",
+    "url": "http://www.supremecourt.gov/DocketPDF/22/22-193/267196/20230518151910097_22-193%20Muldrow%20v.%20City%20of%20St.%20Louis%20CVSG.pdf",
+    "rec": "grant",
+    "quote": "The petition for a writ of certiorari should be granted.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "22-203": {
+    "cvsg": "2023-01-17",
+    "filed": "2023-05-23",
+    "url": "http://www.supremecourt.gov/DocketPDF/22/22-203/267527/20230523143157264_22-203%20Apple%20v.%20CalTech.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "22-22": {
+    "cvsg": "2022-10-17",
+    "filed": "2023-04-05",
+    "url": "http://www.supremecourt.gov/DocketPDF/22/22-22/262871/20230405140714045_21-1281%2022-22%20CVSG%20-%20Interactive.Tropp.pdf",
+    "rec": "grant",
+    "quote": "The petitions for writs of certiorari should be granted on the question presented as framed in this brief.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "22-231": {
+    "cvsg": "2023-01-09",
+    "filed": "2023-05-18",
+    "url": "http://www.supremecourt.gov/DocketPDF/22/22-231/267200/20230518152205827_22-231%20Davis%20v.%20Legal%20Servs.%20Alabama.pdf",
+    "rec": "grant_limited",
+    "quote": "The petition for a writ of certiorari should be granted as to petitioner’s Title VII claim.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "22-238": {
+    "cvsg": "2023-01-09",
+    "filed": "2023-05-22",
+    "url": "http://www.supremecourt.gov/DocketPDF/22/22-238/267405/20230522154832551_Charter%20Day%20School%20CVSG%20No.%2022-238.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "22-277": {
+    "cvsg": "2023-01-23",
+    "filed": "2023-08-14",
+    "url": "http://www.supremecourt.gov/DocketPDF/22/22-277/275249/20230814145135723_NetChoice%20Invitation%20Brief%208.9%20--%20For%20Final.pdf",
+    "rec": "grant_limited",
+    "quote": "The petitions for a writ of certiorari in No. 22-277 and No. 22-555 should be granted, limited to the first and second questions presented on page i of this brief.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "22-349": {
+    "cvsg": "2023-03-27",
+    "filed": "2023-08-30",
+    "url": "http://www.supremecourt.gov/DocketPDF/22/22-349/278566/20230830162742334_22-349%20%2022-529%20Flagstar%20Bank%20v.%20Kivett_Cantero%20v.%20Bank%20of%20America.pdf",
+    "rec": "deny",
+    "quote": "The petitions for writs of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "22-37": {
+    "cvsg": "2022-10-03",
+    "filed": "2023-03-29",
+    "url": "http://www.supremecourt.gov/DocketPDF/22/22-37/260207/20230329144852194_22-37%20Teva%20CVSG%20-%20final.pdf",
+    "rec": "grant",
+    "quote": "The petition for a writ of certiorari should be granted.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "22-393": {
+    "cvsg": "2023-01-23",
+    "filed": "2023-08-14",
+    "url": "http://www.supremecourt.gov/DocketPDF/22/22-393/275250/20230814145801534_NetChoice%20Invitation%20Brief%208.9%20--%20For%20Final.pdf",
+    "rec": "deny",
+    "quote": "The conditional cross-petition for a writ of certiorari in No. 22-393 should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "22-459": {
+    "cvsg": "2023-03-20",
+    "filed": "2023-11-21",
+    "url": "http://www.supremecourt.gov/DocketPDF/22/22-459/290315/20231121140521279_22-459%20Ohio%20v.%20CSX.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "22-465": {
+    "cvsg": "2023-03-06",
+    "filed": "2023-08-23",
+    "url": "http://www.supremecourt.gov/DocketPDF/22/22-465/276031/20230823145851003_22-465%20Georgia-Pacific%20%20CVSG%20final.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "22-529": {
+    "cvsg": "2023-03-27",
+    "filed": "2023-08-30",
+    "url": "http://www.supremecourt.gov/DocketPDF/22/22-529/278569/20230830163453839_22-349%20%2022-529%20Flagstar%20Bank%20v.%20Kivett_Cantero%20v.%20Bank%20of%20America.pdf",
+    "rec": "deny",
+    "quote": "The petitions for writs of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "22-555": {
+    "cvsg": "2023-01-23",
+    "filed": "2023-08-14",
+    "url": "http://www.supremecourt.gov/DocketPDF/22/22-555/275252/20230814150103525_NetChoice%20Invitation%20Brief%208.9%20--%20For%20Final.pdf",
+    "rec": "grant_limited",
+    "quote": "The petitions for a writ of certiorari in No. 22-277 and No. 22-555 should be granted, limited to the first and second questions presented on page i of this brief.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "22-601": {
+    "cvsg": "2023-03-06",
+    "filed": "2023-10-23",
+    "url": "http://www.supremecourt.gov/DocketPDF/22/22-601/285808/20231023133822414_22-601%20CVSG%20Response%20-%20Lake%20v.%20NextEra.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "22-631": {
+    "cvsg": "2023-05-15",
+    "filed": "2023-10-19",
+    "url": "http://www.supremecourt.gov/DocketPDF/22/22-631/285584/20231019172359327_22-631%20and%2022-669%20U.S.%20Br.pdf",
+    "rec": "hold",
+    "quote": "This Court should hold the petitions for writs of certiorari in this case pending disposition of Harrington v.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "22-669": {
+    "cvsg": "2023-05-15",
+    "filed": "2023-10-19",
+    "url": "http://www.supremecourt.gov/DocketPDF/22/22-669/285590/20231019173524075_22-631%20and%2022-669%20U.S.%20Br.pdf",
+    "rec": "hold",
+    "quote": "This Court should hold the petitions for writs of certiorari in this case pending disposition of Harrington v.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "22-886": {
+    "cvsg": "2023-10-02",
+    "filed": "2024-05-14",
+    "url": "http://www.supremecourt.gov/DocketPDF/22/22-886/309788/20240514171255082_Blenheim%2022-886.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "22-957": {
+    "cvsg": "2023-10-02",
+    "filed": "2024-05-09",
+    "url": "http://www.supremecourt.gov/DocketPDF/22/22-957/309436/20240509130358560_22-957%20Dermody%20CVSG%20FINAL.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "23-120": {
+    "cvsg": "2023-11-13",
+    "filed": "2024-03-14",
+    "url": "http://www.supremecourt.gov/DocketPDF/23/23-120/303094/20240314131728294_23-120%20%20CVSG%20-%20Relevent.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "23-217": {
+    "cvsg": "2023-12-11",
+    "filed": "2024-05-07",
+    "url": "http://www.supremecourt.gov/DocketPDF/23/23-217/309172/20240507124434122_23-217%20EMD%20Sales.pdf",
+    "rec": "grant",
+    "quote": "The Court should grant the petition for a writ of certiorari, summarily reverse the judgment below, and remand for further proceedings consistent with its decision.",
+    "source": "hand",
+    "sg_v": 1,
+    "note": "Grant and summarily reverse."
+  },
+  "23-9": {
+    "cvsg": "2023-10-02",
+    "filed": "2024-05-21",
+    "url": "http://www.supremecourt.gov/DocketPDF/23/23-9/310318/20240521145908974_23-9%20AstraZeneca.pdf",
+    "rec": "gvr",
+    "quote": "The petition for a writ of certiorari should be granted, the court of appeals’ judgment vacated, and the case remanded for further consideration in light of Taamneh.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "23-914": {
+    "cvsg": "2024-06-10",
+    "filed": "2024-12-09",
+    "url": "http://www.supremecourt.gov/DocketPDF/23/23-914/334672/20241209170335275_23-914_Zilka--US_Invitation_brief.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "23-947": {
+    "cvsg": "2024-06-10",
+    "filed": "2024-12-10",
+    "url": "http://www.supremecourt.gov/DocketPDF/23/23-947/334791/20241210173557425_23-947_and_23-952_Sunoco_FINAL.pdf",
+    "rec": "deny",
+    "quote": "The petitions for writs of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "23-952": {
+    "cvsg": "2024-06-10",
+    "filed": "2024-12-10",
+    "url": "http://www.supremecourt.gov/DocketPDF/23/23-952/334794/20241210174103319_23-947_and_23-952_Sunoco_FINAL.pdf",
+    "rec": "deny",
+    "quote": "The petitions for writs of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "23-969": {
+    "cvsg": "2024-06-10",
+    "filed": "2024-12-10",
+    "url": "http://www.supremecourt.gov/DocketPDF/23/23-969/334783/20241210164026591_23-969%20Walen%20v.%20Burgum.pdf",
+    "rec": "other",
+    "quote": "The appeal should be dismissed with respect to Subdistrict 9A, and the judgment below should be summarily affirmed with respect to Subdistrict 4A.",
+    "source": "hand",
+    "sg_v": 1,
+    "note": "An appeal, not a petition: dismiss as to Subdistrict 9A, summarily affirm as to 4A."
+  },
+  "24-171": {
+    "cvsg": "2024-11-25",
+    "filed": "2025-05-27",
+    "url": "http://www.supremecourt.gov/DocketPDF/24/24-171/359730/20250527172556075_Cox-Sony.CVSG.pdf",
+    "rec": "grant",
+    "quote": "The petition for a writ of certiorari in No. 24-171 should be granted.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "24-181": {
+    "cvsg": "2024-11-25",
+    "filed": "2025-05-27",
+    "url": "http://www.supremecourt.gov/DocketPDF/24/24-181/359732/20250527172838692_Cox-Sony.CVSG.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari in No. 24-181 should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "24-277": {
+    "cvsg": "2025-01-13",
+    "filed": "2025-05-27",
+    "url": "http://www.supremecourt.gov/DocketPDF/24/24-277/359647/20250527121413280_24-277_Borochov_CVSG.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "24-345": {
+    "cvsg": "2025-01-13",
+    "filed": "2025-05-22",
+    "url": "http://www.supremecourt.gov/DocketPDF/24/24-345/359454/20250522141630237_24-345FSCreditCVSGfinal.pdf",
+    "rec": "grant",
+    "quote": "The petition for a writ of certiorari should be granted.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "24-350": {
+    "cvsg": "2025-01-13",
+    "filed": "2025-05-27",
+    "url": "http://www.supremecourt.gov/DocketPDF/24/24-350/359744/20250527202211954_24-350%20Port_of_Tacoma.pdf",
+    "rec": "grant",
+    "quote": "The petition for a writ of certiorari should be granted.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "25-113": {
+    "cvsg": "2025-10-14",
+    "filed": "2026-05-26",
+    "url": "https://www.supremecourt.gov/DocketPDF/25/25-113/409896/20260526191106693_Renteria%205.26.26%20post%20proofs.pdf",
+    "rec": "hold",
+    "quote": "The petition for a writ of certiorari should be held pending this Court’s disposition of St.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "25-119": {
+    "cvsg": "2025-10-14",
+    "filed": "2026-05-22",
+    "url": "https://www.supremecourt.gov/DocketPDF/25/25-119/409676/20260522153845814_25-119_Highland_Capital_CVSG.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "25-159": {
+    "cvsg": "2025-12-08",
+    "filed": "2026-05-22",
+    "url": "https://www.supremecourt.gov/DocketPDF/25/25-159/409699/20260522181308374_Hoffmann-5.22-final.pdf",
+    "rec": "grant",
+    "quote": "The petition for a writ of certiorari should be granted.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "25-183": {
+    "cvsg": "2025-12-08",
+    "filed": "2026-04-09",
+    "url": "https://www.supremecourt.gov/DocketPDF/25/25-183/404072/20260409172353690_25-183_Crowther_CVSG.pdf",
+    "rec": "grant",
+    "quote": "The petition for a writ of certiorari should be granted.",
+    "source": "regex",
+    "sg_v": 1
+  },
+  "25-257": {
+    "cvsg": "2026-01-12",
+    "filed": "2026-05-21",
+    "url": "https://www.supremecourt.gov/DocketPDF/25/25-257/409534/20260521153416665_Wells%20Pharma%20CVSG%20brief.pdf",
+    "rec": "deny",
+    "quote": "The petition for a writ of certiorari should be denied.",
+    "source": "regex",
+    "sg_v": 1
+  }
+}

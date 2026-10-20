@@ -140,7 +140,10 @@ site already updated is the right shape for that.
   the log's "Petition signals: resolved for N of M" line is the serve-time
   coverage the at-risk model depends on), and the certified word counts from each
   petition's Rule 33.1(h) certificate into `conferences/word_counts_cache.json`
-  (cap `WORD_COUNT_MAX_NEW`, default 600; `R/word_count.R`). **No retrain.**
+  (cap `WORD_COUNT_MAX_NEW`, default 600; `R/word_count.R`), and the Solicitor
+  General's recommendation from each newly filed CVSG brief into
+  `conferences/sg_views_cache.json` (cap 25; `R/sg_views.R`, log line
+  "SG recommendations:"). **No retrain.**
 - **Public pages:** `conferences/` (per-conference reports + rebuilt index),
   **`relists/index.html`**, **`applications/index.html`**, **`funnel/index.html`**,
   **`counsel/index.html`**,

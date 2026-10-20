@@ -31,7 +31,7 @@ source("R/petition_signals.R")  # resolve_petition_signals (Rule 10 cues for the
 source("R/word_count.R")        # resolve_word_counts / attach_word_counts (the certified length)
 source("R/argument_nav.R")  # classify_argument (docket-page lifecycle)
 source("R/docket_page.R")   # render_dockets_for
-cert_models <- load_cert_models("data")
+cert_models <- load_cert_models("data", site_dir)
 cat("Cert models loaded:", paste(names(cert_models), collapse = ", "),
     if (length(cert_models) == 0) "(none — forecast column omitted)" else "", "\n")
 
@@ -244,6 +244,19 @@ has_cue <- vapply(paid_dkts, function(d) !is.null(signals_map[[d]]$pet_chars), l
 has_wc  <- vapply(paid_dkts, function(d) !is.null(signals_map[[d]]$words), logical(1))
 cat("Petition signals: resolved for", sum(has_cue), "of", length(paid_dkts),
     "paid docket(s) in the QP set; word counts for", sum(has_wc), "\n")
+
+# The Solicitor General's answers to CVSGs (R/sg_views.R). Read here, once a
+# week at most a handful of new briefs, into conferences/sg_views_cache.json;
+# then the labels are reloaded so the conference reports, the relist tracker,
+# the ledger and the case pages all score an answered petition from what the SG
+# recommended. Never fatal: without a label the model's number stands.
+if (!is.null(cert_models$sg)) {
+  n_sg <- tryCatch(resolve_sg_views(combined, site_dir), error = function(e) {
+    message("SG briefs skipped: ", conditionMessage(e)); 0L })
+  cert_models$sg_views <- load_sg_views(site_dir)
+  cat("SG recommendations: ", length(cert_models$sg_views), " labelled brief(s) (",
+      n_sg, " read this run)\n", sep = "")
+}
 
 # Subject areas (R/subject_area.R) for the table's Subject column. Classified
 # here, after the QP step, because this run is where a distributed IFP petition

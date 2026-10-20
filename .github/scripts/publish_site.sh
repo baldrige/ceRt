@@ -74,7 +74,10 @@ PATHS=("$@")
 #   dashboards/qp_cache.json             the daily
 #   dashboards/petition_signals_cache.json  Rule 10 signals, the daily
 #   arguments/qp_cache.json              render_arguments.R
-#   cases/subjects.json                  docket -> subject-area label; the daily
+#   conferences/sg_views_cache.json      the SG's recommendation per answered
+#                                        CVSG (R/sg_views.R); an entry is a pure
+#                                        function of its brief, so union is right
+#   cases/subjects.json                 docket -> subject-area label; the daily
 #                                        and subject-areas.yml. Each entry is a
 #                                        pure function of its own input hash, so
 #                                        the union (this run's entry winning) is
@@ -82,6 +85,7 @@ PATHS=("$@")
 DERIVED='cases/.manifest.json cases/search.json cases/grants.json cases/forecasts.json
          conferences/qp_cache.json dashboards/qp_cache.json
          dashboards/petition_signals_cache.json arguments/qp_cache.json
+         conferences/sg_views_cache.json
          cases/subjects.json arguments/transcripts.json arguments/readers.json arguments/recent.json'
 
 git config user.name  "github-actions[bot]"
