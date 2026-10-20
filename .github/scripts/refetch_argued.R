@@ -10,9 +10,8 @@ suppressPackageStartupMessages({
   library(gt); library(gtExtras); library(tidyverse)
   library(httr2); library(jsonlite); library(pdftools); library(htmltools)
 })
-# Load scotus_dash_new.R's fetch functions without its bottom render() call.
-src <- readLines("R/scotus_dash_new.R"); src <- src[-grep("^scotus_dash\\(", src)]
-eval(parse(text = paste(src, collapse = "\n")))
+# scotus_dash_new.R's fetch functions.
+source("R/scotus_dash_new.R")
 source("R/cert_funnel.R")   # classify_petitions
 
 hist <- list.files("data-raw", "^ot_20(1[7-9]|2[0-4])\\.rds$", full.names = TRUE) |>

@@ -50,8 +50,7 @@ site <- Sys.getenv("SITE_DIR", unset = "site")
 max_fetch <- as.integer(Sys.getenv("MAX_FETCH", unset = "1200"))
 dry <- tolower(Sys.getenv("DRY_RUN", "")) %in% c("1", "true", "yes")
 
-src <- readLines("R/scotus_dash_new.R"); src <- src[-grep("^scotus_dash\\(", src)]
-eval(parse(text = paste(src, collapse = "\n")))
+source("R/scotus_dash_new.R")
 source("R/cert_funnel.R")
 source("R/pending_dockets.R")
 

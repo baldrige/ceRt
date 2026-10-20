@@ -13,9 +13,7 @@ term <- Sys.getenv("TERM_YEAR")
 if (term == "") stop("TERM_YEAR not set")
 out <- Sys.getenv("OUT_FILE", unset = paste0("cases-", term, ".rds"))
 
-src <- readLines("R/scotus_dash_new.R")
-src <- src[-grep("^scotus_dash\\(", src)]
-eval(parse(text = paste(src, collapse = "\n")))
+source("R/scotus_dash_new.R")
 
 cat("Full-fetching OT", term, "term...\n")
 ot <- get_scotus_term(term)

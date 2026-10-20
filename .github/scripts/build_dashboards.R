@@ -45,10 +45,8 @@ source("R/feeds.R")
 write_robots(site_dir)
 
 
-# Load the dashboard functions without triggering the script's bottom call.
-src <- readLines("R/scotus_dash_new.R")
-src <- src[-grep("^scotus_dash\\(", src)]
-eval(parse(text = paste(src, collapse = "\n")))
+# The dashboard and fetch functions. A library: sourcing it runs nothing.
+source("R/scotus_dash_new.R")
 
 # Baseline (structural + Rule 10) cert-grant model for the per-petition forecast.
 # Absent artifact -> NULL -> scotus_dash() simply omits the column.
