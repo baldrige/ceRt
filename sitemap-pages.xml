@@ -19,6 +19,9 @@
     <loc>https://supremecourt.report/relists/</loc>
   </url>
   <url>
+    <loc>https://supremecourt.report/applications/</loc>
+  </url>
+  <url>
     <loc>https://supremecourt.report/arguments/</loc>
   </url>
   <url>
@@ -5491,6 +5494,10 @@
   <url>
     <loc>https://supremecourt.report/orders/2026-10-19.html</loc>
     <lastmod>2026-10-19</lastmod>
+  </url>
+  <url>
+    <loc>https://supremecourt.report/orders/2026-10-20-misc.html</loc>
+    <lastmod>2026-10-20</lastmod>
   </url>
   <url>
     <loc>https://supremecourt.report/arguments/arg_2017.html</loc>
