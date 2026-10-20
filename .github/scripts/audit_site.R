@@ -316,7 +316,7 @@ ph_files <- Filter(file.exists, c(
                     "conferences/index.html", "arguments/index.html",
                     "dashboards/index.html", "cases/index.html",
                     "relists/index.html", "counsel/index.html", "scorecard/index.html",
-                    "applications/index.html",
+                    "applications/index.html", "justices/opinion-watch.html",
                     # The leaves' theme now lives here, not in each page, so a
                     # leaked placeholder would be in this file and nowhere the
                     # sampled leaves below could show it.
@@ -563,7 +563,8 @@ if (n_feeds) {
   idx <- Filter(file.exists, file.path(site, c(
     "index.html", "about.html", "cases/index.html", "dashboards/index.html",
     "conferences/index.html", "arguments/index.html", "funnel/index.html",
-    "relists/index.html", "counsel/index.html", "applications/index.html")))
+    "relists/index.html", "counsel/index.html", "applications/index.html",
+    "justices/opinion-watch.html")))
   lvs <- Filter(file.exists, c(
     leaf("conferences", "^conf_\\d{4}-\\d{2}-\\d{2}\\.html$"),
     leaf("dashboards", "^dash_\\d{4}-\\d{2}-\\d{2}\\.html$"),
