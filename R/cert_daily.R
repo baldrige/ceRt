@@ -421,10 +421,13 @@ append_headline_shadow <- function(site_dir, cases, models, dm, signals_map = NU
       hyb <- .platt_ab(dm$hybrid_maps[[key]] %||% dm$hybrid_fallback,
                        .platt_inverse(comp$calibrator, h$p))
     }
-    log[[paste0(cx$dkt, "@", as_of)]] <- list(
-      dkt = cx$dkt, as_of = format(as_of), stage = d$stage, age_b = d$age_b,
-      head = round(h$p, 5), src = h$src, hyb = if (is.na(hyb)) NULL else round(hyb, 5),
-      day = round(d$prob, 5), day_raw = round(d$raw, 5), dm = dm$fitted_on)
+    # No `hyb` field when there is none: a NULL in the list would be written
+    # as {} and read back as an empty list, not a missing number.
+    log[[paste0(cx$dkt, "@", as_of)]] <- c(
+      list(dkt = cx$dkt, as_of = format(as_of), stage = d$stage, age_b = d$age_b,
+           head = round(h$p, 5), src = h$src),
+      if (!is.na(hyb)) list(hyb = round(hyb, 5)),
+      list(day = round(d$prob, 5), day_raw = round(d$raw, 5), dm = dm$fitted_on))
     added <- added + 1L
   }
   dir.create(dirname(file.path(site_dir, HEADLINE_SHADOW_LOG)), showWarnings = FALSE, recursive = TRUE)
@@ -443,7 +446,7 @@ score_headline_shadow <- function(log, outcomes) {
   if (!length(log)) return(NULL)
   d <- bind_rows(lapply(log, function(e) tibble(
     dkt = e$dkt, as_of = as.Date(e$as_of), stage = e$stage, src = e$src,
-    head = e$head, hyb = e$hyb %||% NA_real_, day = e$day)))
+    head = e$head, hyb = if (is.numeric(e$hyb)) e$hyb else NA_real_, day = e$day)))
   d <- d |> inner_join(outcomes |> select(dkt, outcome), by = "dkt") |>
     filter(!outcome %in% c("pending", "relisted"), src != "sg", !is.na(hyb)) |>
     mutate(y = as.integer(outcome == "granted")) |>
