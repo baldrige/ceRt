@@ -35,6 +35,24 @@ one. The page scores the first forecast by default. `#final` (the switch under
 the heading) scores the final one, over the conferences that have finals. The
 switch appears once a decided conference has them.
 
+**Entries written by broken code** (`FORECAST_VOID_WINDOWS` in
+`R/forecast_log.R`):
+- An entry whose conference is still ahead is re-scored under the same key, and
+  the numbers it replaced move into a `superseded` block.
+- An entry whose conference has passed is either **voided**, so the Scorecard
+  leaves it out, or, for a window marked `void_past = FALSE`, **caveated**: kept
+  and scored, with the reason in a `caveat` field. A `final` block is judged on
+  its own `scored_on`.
+
+The two windows so far:
+- 2026-09-16 – 09-22: the petitioner was mistyped (#192). Voided.
+- 2026-09-11 – 10-20: the ledger was scored without the petition's Rule 10
+  cues and word count, which the conference reports and case pages used. 26-49
+  was logged at 9.3% against 17.5% published. These were coherent prospective
+  forecasts made from less information, so they are caveated, not voided: 117
+  first forecasts (the 9 and 16 October conferences) and the 56 finals for 16
+  October. The 73 entries for 6 November are re-scored.
+
 **Outcomes: the parsed order lists** (`orders/`, `R/orders_list.R`), so the
 daily can rebuild the scorecard the day a list is released. A conference's
 outcome is the first grant, GVR or denial in the orders from its date up to the
