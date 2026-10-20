@@ -15,9 +15,7 @@ suppressPackageStartupMessages({
   library(tidyverse); library(httr2); library(jsonlite); library(pdftools)
   library(gt); library(gtExtras); library(htmltools)
 })
-src <- readLines("R/scotus_dash_new.R")
-src <- src[-grep("^scotus_dash\\(", src)]
-eval(parse(text = paste(src, collapse = "\n")))
+source("R/scotus_dash_new.R")
 source("R/argument_transcript.R")
 source("R/argument_lean.R")
 source("R/justices.R")

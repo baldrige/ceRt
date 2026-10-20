@@ -26,8 +26,7 @@ site <- Sys.getenv("SITE_DIR", unset = "site")
 out <- Sys.getenv("OUT_FILE", unset = "cases-pending.rds")
 window <- Sys.getenv("WINDOW_TERMS", unset = "")
 
-src <- readLines("R/scotus_dash_new.R"); src <- src[-grep("^scotus_dash\\(", src)]
-eval(parse(text = paste(src, collapse = "\n")))
+source("R/scotus_dash_new.R")
 source("R/pending_dockets.R")
 
 wt <- trimws(unlist(strsplit(window, "[,[:space:]]+")))

@@ -57,16 +57,15 @@ cat("Combined cases:", nrow(combined), "\n")
 # caption. The transcript index (R/argument_transcript.R) lists every argument
 # since OT2017, so what it names and `combined` lacks is fetched by name --
 # about fifty dockets, every run, through the paced fetcher in its own
-# environment (scotus_dash_new.R runs a dashboard build when sourced plainly).
+# environment, so its helpers do not shadow this script's.
 source("R/argument_transcript.R")
 tx_idx <- read_transcript_index(site_dir)
 argued_missing <- setdiff(unique(unlist(lapply(tx_idx, function(e) c(e$dkt, unlist(e$dkts))))), combined$dkt)
 if (length(argued_missing)) {
   cap <- as.integer(Sys.getenv("ARGUED_FETCH_MAX", unset = "150"))
   fx <- new.env()
-  src <- readLines("R/scotus_dash_new.R"); src <- src[-grep("^scotus_dash\\(", src)]
   got <- tryCatch({
-    eval(parse(text = paste(src, collapse = "\n")), envir = fx)
+    sys.source("R/scotus_dash_new.R", envir = fx)
     fx$fetch_cases(head(argued_missing, cap))
   }, error = function(e) { cat("Argued-docket fetch skipped:", conditionMessage(e), "\n"); NULL })
   if (!is.null(got) && nrow(got)) {

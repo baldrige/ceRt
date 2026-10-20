@@ -27,8 +27,7 @@ suppressPackageStartupMessages({
 
 site <- Sys.getenv("SITE_DIR", unset = "site")
 
-src <- readLines("R/scotus_dash_new.R"); src <- src[-grep("^scotus_dash\\(", src)]
-eval(parse(text = paste(src, collapse = "\n")))
+source("R/scotus_dash_new.R")
 
 # Save whatever resolved -- a partial fill is fine (the render is incremental and
 # the workflow is re-dispatchable, so remaining stragglers converge on a re-run).

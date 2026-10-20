@@ -23,8 +23,7 @@ suppressPackageStartupMessages({
 site <- Sys.getenv("SITE_DIR", unset = "site")
 out <- Sys.getenv("OUT_FILE", unset = "cases-original.rds")
 
-src <- readLines("R/scotus_dash_new.R"); src <- src[-grep("^scotus_dash\\(", src)]
-eval(parse(text = paste(src, collapse = "\n")))
+source("R/scotus_dash_new.R")
 source("R/original_dockets.R")
 
 dkts <- tryCatch(originals_to_fetch(site, live_only = FALSE), error = function(e) {

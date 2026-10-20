@@ -3,11 +3,8 @@ suppressPackageStartupMessages({
   library(httr2); library(jsonlite); library(pdftools)
 })
 
-# Load the JSON-based dashboard functions without triggering the bottom call.
-src <- readLines("R/scotus_dash_new.R")
-last_call <- grep("^scotus_dash\\(", src)
-if (length(last_call) > 0) src <- src[-last_call]
-eval(parse(text = paste(src, collapse = "\n")))
+# The JSON-based dashboard functions.
+source("R/scotus_dash_new.R")
 
 # Fetch the full recent OT2026 docket once, then render every docketed date.
 cat("Fetching OT 2026 docket via JSON API...\n")

@@ -691,5 +691,10 @@ dashboard_index <- function(out_dir = path.expand("~/public_html/dashboards")) {
   invisible(file.path(out_dir, "index.html"))
 }
 
-
-scotus_dash(range = today(), year = "26")
+# No call at the bottom. This file is a library: it used to end with
+# scotus_dash(range = today(), year = "26"), so a plain source() fetched the
+# current Term's trailing window -- 153 requests to supremecourt.gov -- and
+# rendered a dashboard as a side effect. Every entry point worked around it by
+# reading the file, grepping that line out and eval()ing the rest, and anything
+# that forgot paid the requests silently. To build a day's dashboard by hand:
+#   source("R/scotus_dash_new.R"); scotus_dash(range = Sys.Date(), year = "26")

@@ -17,11 +17,9 @@ suppressPackageStartupMessages({
 site_dir <- Sys.getenv("SITE_DIR", unset = "site")
 rds_dir  <- Sys.getenv("RDS_DIR",  unset = ".")
 
-# Same setup as build_dashboards.R: load the dashboard functions without tripping
-# the script's bottom scotus_dash() call, then the model + page modules.
-src <- readLines("R/scotus_dash_new.R")
-src <- src[-grep("^scotus_dash\\(", src)]
-eval(parse(text = paste(src, collapse = "\n")))
+# Same setup as build_dashboards.R: the dashboard functions, then the model +
+# page modules.
+source("R/scotus_dash_new.R")
 source("R/cert_model.R")
 source("R/petition_signals.R")   # resolve_petition_signals (unused here, sourced for deps)
 source("R/argument_nav.R")       # classify_argument (docket-page lifecycle)
