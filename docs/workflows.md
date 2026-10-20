@@ -262,7 +262,7 @@ rebase cleanly.
 | `dashboards/decided.json` (the daily's own decisions manifest, from the watch-list fetch) | `daily.yml` |
 | `relists/` | `conferences.yml` |
 | `applications/` (the emergency-applications tracker; see **[applications.md](applications.md)**) | `conferences.yml` |
-| `justices/` (+ `lineups.json` — the parsed syllabus lineups, cap `LINEUP_MAX_NEW`; `network.js` and `portraits/`, the agreement network's script and the twelve official portraits with their face geometry, re-asserted from the repo on every render; see **[justices.md](justices.md)**) | `conferences.yml` · `render-justices.yml` |
+| `justices/` (+ `lineups.json` — the parsed syllabus lineups, cap `LINEUP_MAX_NEW`; `network.js` and `portraits/`, the agreement network's script and the twelve official portraits with their face geometry, re-asserted from the repo on every render; and `opinion-watch.html`, the current Term's undecided cases and likely authors; see **[justices.md](justices.md)**) | `conferences.yml` · `render-justices.yml` |
 | `funnel/` | `conferences.yml` · `render-funnel.yml` |
 | `counsel/` | `conferences.yml` · `render-counsel.yml` |
 | `cases/` (+ `.manifest.json`, `search.json`, `style.css`) | `daily.yml` (current term) · `conferences.yml` (touched cases) · `rerender-dockets.yml` / `fill-throttled-dockets.yml` (back-catalog) |

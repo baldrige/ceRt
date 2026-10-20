@@ -269,3 +269,52 @@ rewrites the masthead. Order after merge:
 Each argument navigator page (`arguments/arg_YYYY.html`, OT16 on) links its
 Term's Justices page from the footer, and the landing page lists the section
 after the Oral Argument Navigator.
+
+## Opinion Watch (`justices/opinion-watch.html`, 2026-10-20)
+
+The current Term's argued cases still awaiting decision: how long each has
+waited, and which Justices are likely writing them. It is `R/opinion_watch.R`,
+called from `render_justices()` after the Term pages, and it leads the section
+index. It uses one source, the Granted & Noted List: `argued`, `decided` and
+`author` for every argued case, OT2016 on. It needs no network and no cache of
+its own.
+
+- **The Term** is the newest one with an argument on or before today. From
+  the last June opinion to the first October argument, that is the finished
+  Term, and the page says every argued case has been decided.
+- **A decision** is a Granted & Noted block. Consolidated cases decided by one
+  opinion count once, and a reargued case counts from its last argument.
+- **A sitting** is a run of argument days with no gap over ten days
+  (`OW_SITTING_GAP`). It is named by its median day: "Oct 30 – Nov 8" is the
+  November sitting, and the February sitting runs into March. Special one-day
+  settings (Trump v. Anderson, Trump v. CASA) form sittings of their own.
+- **The clock.** For each undecided case it shows days since argument, the
+  median wait for cases from the same-named sitting in every earlier Term
+  (the tick, and "typical by"), and the share of those decided within as many
+  days ("out by now").
+- **Likely author.** Within each sitting, the candidates are the sitting
+  Justices with the fewest signed majority opinions from it so far; per
+  curiams are not counted. Every Justice is a candidate until someone has
+  written. The cell reads "Any but …" when the list is long.
+- **Measured** on OT2016–OT2025, 567 signed majority opinions:
+  - the author was a candidate 93% of the time, against 63% for a random
+    pick among the same Justices;
+  - with one case left in the sitting, 83% against 30%, from 2.7
+    candidates.
+
+  Misses are recusals, reassignments after a lost majority, and sittings of
+  ten or more cases.
+
+  Replayed as of May 15, 2026, the eventual author of 31 of OT2025's 32
+  outstanding signed opinions was among the page's candidates.
+
+Two gaps in the list are handled:
+- **A Rule 46 dismissal.** The list keeps the argument date and never marks
+  the dismissal (Genalo v. Black, 25-886). The page drops a case whose own case
+  page reads "Dismissed" (`ow_dismissed()`); the conferences run renders those
+  pages from fresh docket JSON.
+- **An author with no decision date** (OT2025's 24-813) counts as decided, so
+  it never sits in the clock.
+
+**Not handled:** a recusal in a pending case. The list names who took no part
+only once the case is decided, so a recused Justice stays a candidate.

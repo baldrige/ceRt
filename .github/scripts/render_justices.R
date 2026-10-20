@@ -34,6 +34,7 @@ source("R/granted_noted.R")   # read_granted_noted(), gn_others()
 source("R/site_decisions.R")  # fetch_opinion_listing()
 source("R/justices.R")
 source("R/opinion_text.R")    # resolve_opinion_text(), term_text_stats()
+source("R/opinion_watch.R")   # write_opinion_watch(): the undecided argued cases, likely authors
 
 # Refresh the Granted & Noted manifest the same way the weekly does: the
 # current, next and prior Terms, any Term the manifest lacks, and any Term

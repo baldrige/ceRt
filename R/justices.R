@@ -1319,11 +1319,20 @@ render_justices <- function(site_dir, gn, lineups, captions = NULL, texts = NULL
     list(href = paste0("ot", y, ".html"), label = paste0("October Term ", y),
          meta = sprintf("%d decisions · lineups for %d", st$n_dec, st$n_lineup))
   })
+  # Opinion Watch (R/opinion_watch.R) leads the list: the current Term's cases
+  # still awaiting decision and who is likely writing them. After the Term pages,
+  # so its link to the Term's own page is only drawn when that page exists.
+  ow <- if (exists("write_opinion_watch")) tryCatch(write_opinion_watch(site_dir, gn),
+          error = function(e) { message("Opinion Watch skipped: ", conditionMessage(e)); NULL }) else NULL
+  if (!is.null(ow)) items <- c(list(list(
+    href = OW_FILE, label = sprintf("Opinion Watch: October Term %d", 2000L + as.integer(ow$term)),
+    meta = if (nrow(ow$out)) sprintf("%d awaiting decision · likely authors by sitting", nrow(ow$out))
+           else "every argued case decided")), items)
   styled_index_page(
     file.path(site_dir, JUSTICES_DIR, "index.html"),
     title = "The Justices — Supreme Court Report", heading = "The Justices",
     kicker = "Supreme Court of the United States",
-    dek = "Each Term's opinions by author and kind, who joined whom, and how often the Court split. From the Court's Granted & Noted List and the syllabus of every slip opinion.",
+    dek = "Each Term's opinions by author and kind, who joined whom, and how often the Court split; and, while a Term runs, the argued cases still awaiting decision. From the Court's Granted & Noted List and the syllabus of every slip opinion.",
     items = items, new_tab = FALSE, active = paste0("/", JUSTICES_DIR, "/"),
     crumb = list(label = "Justices"), path = paste0("/", JUSTICES_DIR, "/"))
   invisible(terms)
