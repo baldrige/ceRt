@@ -58,7 +58,9 @@ ORDERS_TEMPLATE_VERSION <- "o3"   # o2: captions through strip_caption_roles()
 # ORDERS_MAX_NEW budget, so a bump spreads over a few runs).
 #   p2: a prose line beginning with a docket number is text, not a new docket
 #   p3: "164, ORIG." is a docket (22O164); "ORDER IN PENDING CASE" is a heading
-ORDERS_PARSER_VERSION <- "p3"
+#   p4: a list with one GVR heads it "CERTIORARI -- SUMMARY DISPOSITION", and
+#       one rehearing "REHEARING DENIED" (25-1269, Oct 19 2026, read as `other`)
+ORDERS_PARSER_VERSION <- "p4"
 # Landing-page panel: documents from the last N days, at most M of them.
 ORDERS_PANEL_DAYS <- 21L
 ORDERS_PANEL_MAX  <- 4L
@@ -71,12 +73,14 @@ ORDERS_SECTIONS <- c(
   "ORDER IN PENDING CASES"             = "pending",
   "ORDERS IN PENDING CASE"             = "pending",
   "CERTIORARI -- SUMMARY DISPOSITIONS" = "gvr",
+  "CERTIORARI -- SUMMARY DISPOSITION"  = "gvr",
   "CERTIORARI GRANTED"                 = "granted",
   "CERTIORARI DENIED"                  = "denied",
   "HABEAS CORPUS DENIED"               = "habeas",
   "MANDAMUS DENIED"                    = "mandamus",
   "PROHIBITION DENIED"                 = "prohibition",
   "REHEARINGS DENIED"                  = "rehearing",
+  "REHEARING DENIED"                   = "rehearing",
   "ATTORNEY DISCIPLINE"                = "discipline")
 ORDERS_SECTION_LABELS <- c(
   pending = "Orders in pending cases", gvr = "Summary dispositions",
@@ -202,7 +206,7 @@ parse_order_document <- function(pages) {
     # A section heading: centred caps, no digits, and not a docket line.
     if (str_detect(t, .ORD_HEADING_RX) && !str_detect(ln, .ORD_DOCKET_RX) &&
         (t %in% names(ORDERS_SECTIONS) ||
-         str_detect(t, "(GRANTED|DENIED|DISPOSITIONS|PENDING CASES?|DISCIPLINE|DISMISSED)$"))) {
+         str_detect(t, "(GRANTED|DENIED|DISPOSITIONS?|PENDING CASES?|DISCIPLINE|DISMISSED)$"))) {
       section <- unname(ORDERS_SECTIONS[t]); if (is.na(section)) section <- "other"
       label <- if (section == "other") str_to_sentence(t) else unname(ORDERS_SECTION_LABELS[section])
       open <- integer(); last_kind <- "other"
