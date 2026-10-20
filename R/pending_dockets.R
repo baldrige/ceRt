@@ -111,6 +111,26 @@ update_pending <- function(site_dir, cases, classify = NULL, as_of = Sys.Date())
       # Original actions (22O###) likewise: a motion for leave to file a bill of
       # complaint is not a petition, and the original docket has its own by-name
       # fetch list (cases/original.json, R/original_dockets.R).
+      #
+      # EXCEPT an application for interim relief that application_profile()
+      # (R/applications.R) reads as undecided. That grammar resolves 99.4% of
+      # the OT2017-OT2023 interim applications, so the list is a dozen dockets,
+      # not 496 -- and it is needed: the archive froze ot_2024.rds on 2025-06-18,
+      # before Trump v. CASA, D.V.D. and McMahon were decided, so the tracker's
+      # OT2024 row read the government 10 of 22 granted. Named here, they are
+      # fetched once, resolve, and drop out; a genuinely abandoned one ages out
+      # on the idle clock below without a single request.
+      if (funnel_case_type(dkt) == "app" && exists("application_profile", mode = "function")) {
+        seen <- c(seen, dkt)
+        ap <- tryCatch(application_profile(cases$events[[i]]), error = function(e) NULL)
+        if (is.null(ap) || !ap$kind %in% APP_INTERIM_KINDS ||
+            !ap$outcome %in% c("pending", "deferred")) next
+        last <- .last_event_date(cases$events[[i]])
+        new[[dkt]] <- list(
+          last_event = if (is.na(last)) NA_character_ else format(last),
+          n_relists = 0L, first_dist = NA_character_)
+        next
+      }
       if (!funnel_case_type(dkt) %in% c("paid", "ifp")) next
       seen <- c(seen, dkt)
       cl <- tryCatch(classify(cases$events[[i]]), error = function(e) NULL)

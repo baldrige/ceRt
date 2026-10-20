@@ -283,6 +283,13 @@ if (file.exists(file.path(site_dir, "relists", "index.html"))) {
   items <- c(items, list(list(href = "relists/", label = "Relist Tracker",
                               meta = "still under consideration")))
 }
+# The other half of the Court's docket: stays, injunctions and the rest of the
+# interim ("emergency") docket. Written by the nightly conferences run, so
+# guarded on the file like the Relist Tracker.
+if (file.exists(file.path(site_dir, "applications", "index.html"))) {
+  items <- c(items, list(list(href = "applications/", label = "Emergency Applications",
+                              meta = "stays and injunctions, pending and decided")))
+}
 if (dir.exists(file.path(site_dir, "arguments"))) {
   items <- c(items, list(list(href = "arguments/", label = "Oral Argument Navigator",
                               meta = "granted cases, by sitting",

@@ -113,6 +113,11 @@ inventory.
   | seven (2026-08) | 654px | 54rem → 816px | 162px |
   | nine, "The Funnel" | 833px | 54rem → 816px | −17px, wraps |
   | nine, "Funnel" | ~798px | 60rem → 912px | ~115px |
+  | ten, + "Interim" (2026-10-20) | 885px | 60rem → 912px | **~27px** |
+
+  The tenth link spent most of what was left. Measured in headless Chrome at
+  1440/1280/1024: one row at each. The next section needs a label that
+  replaces one, or a wider masthead — there is no room for an eleventh.
 
   Docket pages carry the masthead inline and pick the new label up on their next
   template bump; the width reaches them at once through `cases/style.css`.

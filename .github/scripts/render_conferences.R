@@ -274,6 +274,22 @@ tryCatch({
       else paste(nrow(relist_watch_table(dist_all)), "live relisted petition(s)"), "\n")
 }, error = function(e) message("Relist Tracker skipped: ", conditionMessage(e)))
 
+# Emergency applications (R/applications.R). `combined` is the only place the
+# whole application bucket is loaded -- the daily sees its trailing ~50 dockets,
+# about two weeks of filings, and an application can sit for months -- so the
+# tracker is built here. The archives (data-raw/ot_*.rds, in the main checkout)
+# supply the by-Term history. Like the Tracker, never allowed to break the run.
+app_h <- NULL
+tryCatch({
+  source("R/counsel_table.R")   # petitioner_gov_side(): the applicant's side
+  source("R/applications.R")
+  app_h <- application_history(classify_applications(combined))
+  ap <- application_tracker(app_h, file.path(site_dir, "applications"))
+  cat("Emergency applications:", if (is.null(ap)) "nothing in the window -- not written"
+      else paste(sum(app_h$live & app_h$interim & app_h$outcome %in% "pending"),
+                 "pending;", nrow(app_h), "applications in the history"), "\n")
+}, error = function(e) message("Emergency applications skipped: ", conditionMessage(e)))
+
 # Docket pages for the fetched OT-sitting cases (incremental). Keeps /cases/
 # current for the conference Case links.
 render_dockets_for(combined, site_dir)
@@ -336,7 +352,16 @@ tryCatch({
 # wholesale rather than merged -- a docket disposed of since last week has to stop
 # being listed, or the fetch list only ever grows.
 source("R/pending_dockets.R")
-ps <- update_pending(site_dir, combined)
+# Plus the archive's undecided interim applications (application_history()'s
+# non-live rows), so the next run fetches them by name: an archive is frozen when
+# it is written, and its undecided rows are the stale ones. See update_pending().
+.app_stale <- NULL
+if (!is.null(app_h) && nrow(app_h))
+  .app_stale <- filter(app_h, !live, interim, outcome %in% c("pending", "deferred")) |>
+    select(dkt, events)
+if (!is.null(.app_stale) && nrow(.app_stale))
+  cat("Archived interim applications offered to the pending cache:", nrow(.app_stale), "\n")
+ps <- update_pending(site_dir, bind_rows(combined, .app_stale))
 cat(sprintf("Pending cache: %d live docket(s) [resolved since last run: %d | aged out: %d | carried unseen: %d]\n",
             ps$kept, ps$dropped_resolved, ps$dropped_idle, ps$carried))
 # The out-of-window slice is the actual fetch list for next time. Printed because

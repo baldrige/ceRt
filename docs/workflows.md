@@ -51,7 +51,7 @@ whole site, partitioned so they never fight over the same paths; the third only 
 | workflow | schedule (cron is **UTC**) | data | public pages |
 | --- | --- | --- | --- |
 | **`daily.yml`** | 3×/day: `33 0`, `33 16`, `33 20` (00:33 / 16:33 / 20:33 UTC — the ET-anchored two ≈ 12:33pm & 4:33pm ET) | **Yes** — incremental fetch | **Yes** — dashboards, recent cases, landing |
-| **`conferences.yml`** | Nightly `0 6 * * *` (**06:00 UTC**), year-round (weekly on Mondays until 2026-10-06) | **Yes** — full-term fetch | **Yes** — conferences, relists, arguments, funnel, counsel |
+| **`conferences.yml`** | Nightly `0 6 * * *` (**06:00 UTC**), year-round (weekly on Mondays until 2026-10-06) | **Yes** — full-term fetch | **Yes** — conferences, relists, applications, arguments, funnel, counsel |
 | **`align-arguments.yml`** | Every 6 h, `17 */6 * * *` (GitHub cron; lateness costs nothing here) | **Yes** — line times in `arguments/<yyyy>/*.json` | **Indirectly** — the argument pages' players read them. An empty queue ends the run after the plan job (~1 min). See **[argument-transcripts.md](argument-transcripts.md)** |
 | **`deploy-watcher.yml`** | Push to `main` touching `aws/watcher/**`; manual | **No** | **No** — tests `aws/watcher/watcher.py` and builds `watcher-lambda.zip` (a 90-day artifact) to upload in the Lambda console. Deploys it too only if `AWS_DEPLOY_ROLE_ARN` is set -- not possible in this account, whose AWS Organization denies GitHub's OIDC provider |
 | **`watch-court.yml`** — *disabled; replaced by the AWS watcher above* | A self-dispatching **chain**: each run polls for ~5h45m, then starts the next; the cron (`7,22,37,52 * * * *`) is only the restart floor | **No** — reads a 1 KB feed | **Indirectly** — dispatches `daily.yml` when the Court's Hermes transfer feed changes |
@@ -142,7 +142,8 @@ site already updated is the right shape for that.
   petition's Rule 33.1(h) certificate into `conferences/word_counts_cache.json`
   (cap `WORD_COUNT_MAX_NEW`, default 600; `R/word_count.R`). **No retrain.**
 - **Public pages:** `conferences/` (per-conference reports + rebuilt index),
-  **`relists/index.html`**, **`funnel/index.html`**, **`counsel/index.html`**,
+  **`relists/index.html`**, **`applications/index.html`**, **`funnel/index.html`**,
+  **`counsel/index.html`**,
   `arguments/` (navigator index + per-term `arg_*.html`, and one page per
   argument at `arguments/<yyyy>/<docket>.html` with its parsed transcript
   beside it -- `TRANSCRIPTS_MAX_NEW` new transcripts a run, default 150, and
@@ -257,6 +258,7 @@ rebase cleanly.
 | `arguments/decided.json`, `arguments/watch.json` (landing-page "Recent decisions" manifest and the daily's named-fetch watch list) | `conferences.yml` |
 | `dashboards/decided.json` (the daily's own decisions manifest, from the watch-list fetch) | `daily.yml` |
 | `relists/` | `conferences.yml` |
+| `applications/` (the emergency-applications tracker; see **[applications.md](applications.md)**) | `conferences.yml` |
 | `justices/` (+ `lineups.json` — the parsed syllabus lineups, cap `LINEUP_MAX_NEW`; `network.js` and `portraits/`, the agreement network's script and the twelve official portraits with their face geometry, re-asserted from the repo on every render; see **[justices.md](justices.md)**) | `conferences.yml` · `render-justices.yml` |
 | `funnel/` | `conferences.yml` · `render-funnel.yml` |
 | `counsel/` | `conferences.yml` · `render-counsel.yml` |
@@ -300,7 +302,10 @@ undisposed *and* older than the window has a **median size of 8, measured maximu
 13**. So the `fetch-pending` job names them instead:
 
 - `cases/pending.json` — docket → `{last_event, n_relists, first_dist}`, written
-  by `render_conferences.R` from everything that run classified.
+  by `render_conferences.R` from everything that run classified. Since 2026-10 it
+  also holds undecided interim **applications**, including the archive's stale
+  ones, so a frozen `data-raw/ot_*.rds` heals itself (see
+  **[applications.md](applications.md)**).
 - `.github/scripts/fetch_pending.R` — reads the cache, keeps the dockets from
   Terms this run will *not* range-fetch, and fetches exactly those into
   `cases-pending.rds`.

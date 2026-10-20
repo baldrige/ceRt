@@ -266,6 +266,9 @@ scr_write_page <- function(gt_tbl, out_path, kicker, title, dek, n_rows,
                            left_cols = integer(0), footer = "", back = NULL,
                            active = NULL, crumb = NULL, pnav = "",
                            leaf_max = 92,
+                           # HTML placed after the table and before the footer
+                           # (the footer is a <p>, which cannot hold a table).
+                           extra = "",
                            # `dek` already says what the page is in one line, so
                            # it is the card description unless a caller overrides.
                            # `path` is the site-absolute URL for the canonical.
@@ -355,6 +358,7 @@ scr_write_page <- function(gt_tbl, out_path, kicker, title, dek, n_rows,
     "<p class='kicker'>", kicker, "</p><h1>", title, "</h1>",
     "<p class='dek'>", dek, "</p><hr class='brule'>",
     body_inner,
+    extra,
     if (nzchar(footer)) paste0("<p class='foot'>", footer, "</p>") else "",
     # Slot filled by patch_prev_next() once the whole sequence is on disk. Emitted
     # even when empty: the post-pass splices between these two sentinels.

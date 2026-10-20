@@ -18,6 +18,7 @@ and served by GitHub Pages.
 | Cert-grant forecast model + methods | `methods.html` | `R/cert_model.R` — see **[docs/cert_model.md](docs/cert_model.md)** |
 | Forecast Scorecard (the ledger's forecasts held to the order lists) | `scorecard/` | `R/scorecard.R`, from `conferences.yml` and `daily.yml` — see **[docs/scorecard.md](docs/scorecard.md)**. Score from `cases/forecasts.json`, never the conference pages |
 | Conference forecast (competing risks) | `conferences/` | `R/cert_model.R` — two published columns, see **[docs/cert_model.md](docs/cert_model.md)** |
+| Emergency applications ("Interim" in the nav: pending, decided, by Term) | `applications/` | `conferences.yml` → `render_conferences.R` → `R/applications.R` — see **[docs/applications.md](docs/applications.md)**. Its outcome grammar is not yet the case pages' |
 | The Court's order lists | `orders/` | `daily.yml` → `R/orders_list.R` — see **[docs/order-lists.md](docs/order-lists.md)** |
 | The Justices (opinions by kind, agreement, splits, per Term) | `justices/` | `conferences.yml` / `render-justices.yml` → `render_justices.R` → `R/justices.R` — see **[docs/justices.md](docs/justices.md)** |
 | Argument pages (recording + transcript + the bench's post-argument lean) | `arguments/<yyyy>/<docket>.html` | `conferences.yml` → `render_arguments.R` → `R/argument_reader.R`; line times by `align-arguments.yml` — see **[docs/argument-transcripts.md](docs/argument-transcripts.md)** |
@@ -114,7 +115,8 @@ block, every `gt` palette and every `var(--token, #fallback)` derives from it:
   measured, the nav needs 654px and a 40rem masthead offers 592px, so every index
   page wrapped. It broke again at nine (the Justices link, 2026-09-14): 833px
   needed against 816px inside a 54rem masthead. Now 60rem, and "Funnel" rather
-  than "The Funnel", leaving ~115px — one more short label, not two. The
+  than "The Funnel", which left ~115px; the tenth link ("Interim", 2026-10-20)
+  spent most of it — 885px of 912px, **no room for an eleventh**. The
   masthead is deliberately wider than the 40rem index, 44rem funnel and 54rem
   case columns (see **[docs/navigation.md](docs/navigation.md)**).
 - `fill_palette()` substitutes `@token@` (hex) and `@token:rgb@` (a bare `r,g,b`
