@@ -203,7 +203,16 @@ sg_view_for <- function(events, views, as_of = NULL) {
 # on its logit, AUC 0.41 out of time -- so the rate by recommendation REPLACES it
 # rather than adjusting it. Smoothed (k + 1) / (n + 2), on resolved petitions
 # only; a Rule 46 dismissal is not a ruling and is left out.
-fit_sg_layer <- function(views, corpus) {
+#
+# With `panel` (the at-risk panel, one row per petition x conference), also the
+# per-conference split -- what the Court does at a given conference -- by
+# recommendation and by whether it is the first conference after the brief or a
+# later one. The conference model's hazards are no better than the at-risk
+# score on these petitions: 25-828 (SG: grant) read 78% denied at its first
+# conference after the brief, where 8% of such petitions were denied and 67%
+# relisted -- the Court relists an SG-recommended grant once before granting it.
+# See sg_hazard().
+fit_sg_layer <- function(views, corpus, panel = NULL) {
   d <- tibble(dkt = names(views),
               group = sg_rec_group(vapply(views, function(e) e$rec %||% NA_character_, ""))) |>
     dplyr::inner_join(dplyr::select(corpus, dkt, outcome), by = "dkt") |>
@@ -212,9 +221,58 @@ fit_sg_layer <- function(views, corpus) {
     dplyr::summarise(n = dplyr::n(), k = sum(outcome == "granted"), .groups = "drop")
   if (!all(c("grant", "deny") %in% r$group))
     stop("fit_sg_layer(): need resolved petitions under both grant and deny recommendations.")
-  structure(list(rates = setNames((r$k + 1) / (r$n + 2), r$group),
-                 n = setNames(r$n, r$group), k = setNames(r$k, r$group)),
-            class = "sg_layer")
+  out <- list(rates = setNames((r$k + 1) / (r$n + 2), r$group),
+              n = setNames(r$n, r$group), k = setNames(r$k, r$group))
+  if (!is.null(panel)) out <- c(out, .fit_sg_hazard(views, panel))
+  structure(out, class = "sg_layer")
+}
+
+SG_HAZARD_OUTCOMES <- c("granted", "gvr", "denied", "relisted")
+SG_HAZARD_PRIOR <- 4   # pseudo-counts each level borrows from the one above it
+
+# The per-conference split on SG-answered petitions, as a table keyed
+# "<group>.<phase>" (phase "first" or "later") of shares over
+# SG_HAZARD_OUTCOMES, with the row counts behind each. Each cell is shrunk
+# toward its group's split over both phases, and each group toward all SG rows,
+# by SG_HAZARD_PRIOR pseudo-counts: the "other" recommendation has a dozen rows.
+# A conference that dismissed the petition (Rule 46) is not a ruling and is
+# left out, as in the rates.
+.fit_sg_hazard <- function(views, panel) {
+  v <- tibble(dkt = names(views),
+              filed = as.Date(vapply(views, function(e) e$filed %||% NA_character_, "")),
+              group = sg_rec_group(vapply(views, function(e) e$rec %||% NA_character_, "")))
+  d <- panel |> dplyr::select(dkt, conf_date, conf_outcome) |>
+    dplyr::inner_join(v, by = "dkt") |>
+    dplyr::filter(!is.na(group), !is.na(filed), as.Date(conf_date) > filed) |>
+    dplyr::arrange(dkt, conf_date) |> dplyr::group_by(dkt) |>
+    dplyr::mutate(phase = if_else(dplyr::row_number() == 1L, "first", "later")) |>
+    dplyr::ungroup() |> dplyr::filter(conf_outcome %in% SG_HAZARD_OUTCOMES)
+  cnt <- function(x) vapply(SG_HAZARD_OUTCOMES, function(o) sum(x == o), numeric(1))
+  shrink <- function(k, prior) (k + SG_HAZARD_PRIOR * prior) / (sum(k) + SG_HAZARD_PRIOR)
+  all_sg <- cnt(d$conf_outcome) / nrow(d)
+  hazard <- list(); hazard_n <- c()
+  for (g in unique(d$group)) {
+    q_g <- shrink(cnt(d$conf_outcome[d$group == g]), all_sg)
+    for (ph in c("first", "later")) {
+      x <- d$conf_outcome[d$group == g & d$phase == ph]
+      key <- paste(g, ph, sep = ".")
+      hazard[[key]] <- shrink(cnt(x), q_g)
+      hazard_n[[key]] <- length(x)
+    }
+  }
+  list(hazard = hazard, hazard_n = unlist(hazard_n))
+}
+
+# The per-conference split for a petition the SG has answered, scored for the
+# conference held on `as_of`: "first" when no conference fell between the brief
+# and it. NULL when the layer has no split for the recommendation (an artifact
+# from before the split was fitted, or an unlabelled brief).
+sg_hazard <- function(layer, view, events, as_of) {
+  key_g <- view$group
+  if (is.null(layer$hazard) || is.na(key_g)) return(NULL)
+  cds <- tryCatch(conference_dates_from_events(events), error = function(e) as.Date(character()))
+  between <- sum(cds > view$filed & cds < as.Date(as_of))
+  layer$hazard[[paste(key_g, if (between == 0) "first" else "later", sep = ".")]]
 }
 
 # Label the SG briefs filed since the last run: any CVSG'd paid docket in `cases`

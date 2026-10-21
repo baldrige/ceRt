@@ -1604,7 +1604,7 @@ render_docket_pages <- function(cases, out_dir, models = NULL, qp_map = NULL,
     # link_targets() is in here because WHICH of this page's references resolve
     # is page-determining too: without it, a page that rendered a reference as
     # plain text would never re-render once that target's page appeared.
-    # The SG's brief and its label, and the layer's rates, for a docket that has
+    # The SG's brief and its label, and the layer's rates and split, for a docket that has
     # one. Appended only when present, so every other page keeps its key.
     sgk <- if (!is.null(models$sg) && exists("sg_view_for"))
       tryCatch(sg_view_for(cx$events[[1]], models$sg_views), error = function(e) NULL) else NULL
@@ -1624,7 +1624,7 @@ render_docket_pages <- function(cases, out_dir, models = NULL, qp_map = NULL,
     key <- digest::digest(c(list(PAGE_TEMPLATE_VERSION, model_id, cx$caption, cx$events,
              cx$parties, cx$lower, cx$lower_dkt, cx$lower_date, cx$date, cx$type,
              qp, sig, cx$related, cx$linked, link_targets(cx, available), ords, subj,
-             readers[[dkt]]), if (!is.null(sgk)) list(sgk, models$sg$rates),
+             readers[[dkt]]), if (!is.null(sgk)) list(sgk, models$sg[c("rates", "hazard")]),
              if (!is.null(nxt)) list(nxt), if (length(led)) list(led)))
     if (incremental && identical(manifest[[dkt]] %||% "", key) &&
         file.exists(file.path(out_dir, paste0(dkt, ".html")))) {
