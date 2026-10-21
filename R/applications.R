@@ -527,7 +527,13 @@ application_tracker <- function(h, out_dir, as_of = Sys.Date()) {
     Days = d$days,
     Signals = signal_cell,
     Court = ifelse(is.na(d$lower) | d$lower == "", "—", d$lower),
-    Documents = map_chr(d$events, function(e) case_documents(e, c("Application", "Reply"))))
+    # A row carried over from the nightly's snapshot has no events, only the
+    # cell rendered from them then (app_snapshot_write()).
+    Documents = map_chr(seq_len(nrow(d)), function(i) {
+      e <- if ("events" %in% names(d)) d$events[[i]] else NULL
+      if (is.data.frame(e)) case_documents(e, c("Application", "Reply"))
+      else coalesce(if ("documents" %in% names(d)) d$documents[i] else NA_character_, "—")
+    }))
   if (all(tbl$Signals == "—")) tbl <- select(tbl, -Signals)
   if (all(tbl$Documents == "—")) tbl <- select(tbl, -Documents)
   left_cols <- match(intersect(c("Case", "Justice", "Signals", "Court", "Documents"), names(tbl)),
@@ -628,4 +634,85 @@ application_tracker <- function(h, out_dir, as_of = Sys.Date()) {
       extra = extra, leaf_max = 92, active = "/applications/",
       back = list(href = "/dashboards/", label = "&larr; Daily petitions &amp; applications"))
   invisible(file.path(out_dir, "index.html"))
+}
+
+# ---- the daily's refresh --------------------------------------------------------
+#
+# The page is built from the nightly's full-Term fetch, the only place every
+# NNA### docket is loaded. The daily sees its trailing ~50 dockets, the watch
+# list and the dockets in recent orders -- not an application sitting with one
+# Justice for a month. So the nightly leaves a snapshot of its classified live
+# applications on the site, and each daily run re-reads, by name, the ones still
+# undecided, overlays whatever applications it already fetched, and rebuilds the
+# page. A ruling reaches the page within hours, not at the next 06:00 UTC run.
+
+APP_SNAPSHOT <- "applications/applications.json"
+.APP_SNAP_DATES <- c("filed", "referred_date", "admin_stay", "response_requested", "outcome_date")
+
+# Keyed by docket so publish_site.sh can union two runs' copies. An interim row
+# keeps every column the page reads, with its Documents cell rendered now (the
+# events are not kept); any other row only what the by-Term count needs.
+app_snapshot_write <- function(site_dir, live) {
+  if (is.null(live) || !nrow(live)) return(invisible(0L))
+  docs <- map_chr(seq_len(nrow(live)), function(i) {
+    e <- if ("events" %in% names(live)) live$events[[i]] else NULL
+    if (isTRUE(live$interim[i]) && is.data.frame(e)) case_documents(e, c("Application", "Reply"))
+    else if ("documents" %in% names(live)) live$documents[i] %||% NA_character_ else NA_character_
+  })
+  rows <- live |> select(-any_of(c("events", "live"))) |> mutate(documents = docs) |>
+    mutate(across(any_of(.APP_SNAP_DATES), ~ ifelse(is.na(.x), NA_character_, format(.x))))
+  out <- lapply(seq_len(nrow(rows)), function(i) {
+    r <- as.list(rows[i, ])
+    if (!isTRUE(r$interim)) r <- r[c("dkt", "kind", "term", "interim")]
+    r[!vapply(r, function(x) length(x) == 1 && is.na(x), logical(1))]
+  })
+  names(out) <- rows$dkt
+  p <- file.path(site_dir, APP_SNAPSHOT)
+  dir.create(dirname(p), recursive = TRUE, showWarnings = FALSE)
+  jsonlite::write_json(out, p, auto_unbox = TRUE, digits = NA)
+  invisible(length(out))
+}
+
+app_snapshot_read <- function(site_dir) {
+  p <- file.path(site_dir, APP_SNAPSHOT)
+  if (!file.exists(p)) return(NULL)
+  j <- tryCatch(jsonlite::fromJSON(p, simplifyVector = FALSE), error = function(e) NULL)
+  if (!length(j)) return(NULL)
+  d <- bind_rows(lapply(j, function(r) as_tibble(lapply(r, function(x) x %||% NA))))
+  for (c in setdiff(c(.APP_SNAP_DATES, "submitted_to", "refiled_to", "response_due", "outcome", "decided_by",
+                      "opinion_url", "caption", "lower", "applicant", "side", "documents",
+                      "referred", "noted_dissent", "opinion", "refiled"), names(d)))
+    d[[c]] <- NA
+  d |> mutate(across(all_of(.APP_SNAP_DATES), ~ as.Date(as.character(.x))),
+              across(c(referred, noted_dissent, opinion, interim), as.logical),
+              refiled = as.integer(refiled), term = as.integer(term),
+              across(c(submitted_to, refiled_to, response_due, outcome, decided_by, opinion_url,
+                       caption, lower, applicant, side, documents, kind), as.character))
+}
+
+# The daily's rebuild. `fetched` is every docket the run already holds (its
+# trailing window, watch list and order dockets); `fetch` reads more by name.
+# Returns NULL, leaving the nightly's page alone, when there is no snapshot yet.
+applications_daily <- function(site_dir, fetched, fetch = fetch_cases) {
+  snap <- app_snapshot_read(site_dir)
+  if (is.null(snap)) {
+    message("applications_daily(): no ", APP_SNAPSHOT, " yet -- the nightly writes it; page left alone.")
+    return(invisible(NULL))
+  }
+  have <- if (!is.null(fetched) && nrow(fetched))
+    fetched |> filter(str_detect(dkt, "^\\d+A\\d+$")) |>
+      select(any_of(c("dkt", "caption", "lower", "events"))) |> distinct(dkt, .keep_all = TRUE)
+    else tibble(dkt = character())
+  need <- setdiff(snap$dkt[snap$interim %in% TRUE & snap$outcome %in% c("pending", "deferred")],
+                  have$dkt)
+  got <- if (length(need)) tryCatch(fetch(need), error = function(e) {
+    message("applications_daily(): fetch failed: ", conditionMessage(e)); NULL }) else NULL
+  if (!is.null(got) && nrow(got)) have <- bind_rows(have, select(got, any_of(c("dkt", "caption", "lower", "events"))))
+  fresh <- if (nrow(have)) classify_applications(have) else tibble()
+  live <- bind_rows(fresh, if (nrow(fresh)) filter(snap, !dkt %in% fresh$dkt) else snap)
+  app_snapshot_write(site_dir, live)
+  h <- application_history(live)
+  application_tracker(h, file.path(site_dir, "applications"))
+  invisible(list(refetched = length(need), got = if (is.null(got)) 0L else nrow(got), cases = got,
+                 fresh = nrow(fresh), pending = sum(h$live & h$interim & h$outcome %in% "pending")))
 }

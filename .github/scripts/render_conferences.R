@@ -296,8 +296,12 @@ app_h <- NULL
 tryCatch({
   source("R/counsel_table.R")   # petitioner_gov_side(): the applicant's side
   source("R/applications.R")
-  app_h <- application_history(classify_applications(combined))
+  app_live <- classify_applications(combined)
+  app_h <- application_history(app_live)
   ap <- application_tracker(app_h, file.path(site_dir, "applications"))
+  # The snapshot the daily rebuilds the page from between nightlies
+  # (applications_daily()).
+  app_snapshot_write(site_dir, app_live)
   cat("Emergency applications:", if (is.null(ap)) "nothing in the window -- not written"
       else paste(sum(app_h$live & app_h$interim & app_h$outcome %in% "pending"),
                  "pending;", nrow(app_h), "applications in the history"), "\n")

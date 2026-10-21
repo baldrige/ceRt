@@ -81,6 +81,11 @@ PATHS=("$@")
 #                                        shadow beside the published headline
 #                                        (R/cert_daily.R). Append-only per key,
 #                                        like forecasts.json, so union is right.
+#   applications/applications.json      docket -> the nightly's classified
+#                                        application, re-read for the undecided
+#                                        ones by the daily (applications_daily()).
+#                                        This run's row wins per key; a key the
+#                                        other side dropped is still a valid row.
 #   cases/subjects.json                 docket -> subject-area label; the daily
 #                                        and subject-areas.yml. Each entry is a
 #                                        pure function of its own input hash, so
@@ -90,7 +95,7 @@ DERIVED='cases/.manifest.json cases/search.json cases/grants.json cases/forecast
          cases/headline_shadow.json
          conferences/qp_cache.json dashboards/qp_cache.json
          dashboards/petition_signals_cache.json arguments/qp_cache.json
-         conferences/sg_views_cache.json
+         conferences/sg_views_cache.json applications/applications.json
          cases/subjects.json arguments/transcripts.json arguments/readers.json arguments/recent.json'
 
 git config user.name  "github-actions[bot]"
@@ -160,8 +165,13 @@ resolve_derived() {
   # above or never conflict, so either side is a correct scorecard and the next
   # run of either workflow rebuilds it from the merged inputs. Keep the copy
   # being replayed, as for leaf.css.
+  #
+  # The Interim page, likewise: rewritten by the nightly and by the daily
+  # (applications_daily()) from the snapshot merged above, so either side is a
+  # correct page and the next run of either rebuilds it.
   local sc
-  for sc in scorecard/scorecard.json scorecard/index.html scorecard/scorecard.js; do
+  for sc in scorecard/scorecard.json scorecard/index.html scorecard/scorecard.js \
+            applications/index.html; do
     if git ls-files -u -- "$sc" | grep -q .; then
       git show ":3:$sc" > "$sc" && git add "$sc" &&
         echo "  resolved $sc by keeping this run's render" || ok=0

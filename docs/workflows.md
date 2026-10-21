@@ -50,7 +50,7 @@ whole site, partitioned so they never fight over the same paths; the third only 
 
 | workflow | schedule (cron is **UTC**) | data | public pages |
 | --- | --- | --- | --- |
-| **`daily.yml`** | 3×/day: `33 0`, `33 16`, `33 20` (00:33 / 16:33 / 20:33 UTC — the ET-anchored two ≈ 12:33pm & 4:33pm ET) | **Yes** — incremental fetch | **Yes** — dashboards, recent cases, landing |
+| **`daily.yml`** | 3×/day: `33 0`, `33 16`, `33 20` (00:33 / 16:33 / 20:33 UTC — the ET-anchored two ≈ 12:33pm & 4:33pm ET) | **Yes** — incremental fetch | **Yes** — dashboards, recent cases, landing, applications (rebuilt from the nightly's snapshot) |
 | **`conferences.yml`** | Nightly `0 6 * * *` (**06:00 UTC**), year-round (weekly on Mondays until 2026-10-06) | **Yes** — full-term fetch | **Yes** — conferences, relists, applications, arguments, funnel, counsel |
 | **`align-arguments.yml`** | Every 6 h, `17 */6 * * *` (GitHub cron; lateness costs nothing here) | **Yes** — line times in `arguments/<yyyy>/*.json` | **Indirectly** — the argument pages' players read them. An empty queue ends the run after the plan job (~1 min). See **[argument-transcripts.md](argument-transcripts.md)** |
 | **`deploy-watcher.yml`** | Push to `main` touching `aws/watcher/**`; manual | **No** | **No** — tests `aws/watcher/watcher.py` and builds `watcher-lambda.zip` (a 90-day artifact) to upload in the Lambda console. Deploys it too only if `AWS_DEPLOY_ROLE_ARN` is set -- not possible in this account, whose AWS Organization denies GitHub's OIDC provider |
@@ -261,7 +261,7 @@ rebase cleanly.
 | `arguments/decided.json`, `arguments/watch.json` (landing-page "Recent decisions" manifest and the daily's named-fetch watch list) | `conferences.yml` |
 | `dashboards/decided.json` (the daily's own decisions manifest, from the watch-list fetch) | `daily.yml` |
 | `relists/` | `conferences.yml` |
-| `applications/` (the emergency-applications tracker; see **[applications.md](applications.md)**) | `conferences.yml` |
+| `applications/` (the emergency-applications tracker, and `applications.json`, the snapshot the daily rebuilds it from; see **[applications.md](applications.md)**) | `conferences.yml` · `daily.yml` |
 | `justices/` (+ `lineups.json` — the parsed syllabus lineups, cap `LINEUP_MAX_NEW`; `network.js` and `portraits/`, the agreement network's script and the twelve official portraits with their face geometry, re-asserted from the repo on every render; and `opinion-watch.html`, the current Term's undecided cases and likely authors; see **[justices.md](justices.md)**) | `conferences.yml` · `render-justices.yml` |
 | `funnel/` | `conferences.yml` · `render-funnel.yml` |
 | `counsel/` | `conferences.yml` · `render-counsel.yml` |
