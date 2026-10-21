@@ -3,7 +3,7 @@
     "model": "typesafe:jev-1.13.0",
     "defs": "ef2b5d8a6205",
     "pending": 0,
-    "updated": "2026-10-21T20:14:02Z"
+    "updated": "2026-10-21T20:40:37Z"
   },
   "15-1204": {
     "area": "Civil Rights",
@@ -111402,7 +111402,7 @@
     "area": "Criminal Procedure",
     "confidence": 1.0,
     "second": "Civil Rights",
-    "hash": "94201519eee1e7ff",
+    "hash": "d2bb15572c867918",
     "by": "typesafe:jev-1.13.0|ef2b5d8a6205"
   },
   "26-5290": {
@@ -111470,9 +111470,9 @@
   },
   "26-530": {
     "area": "Civil Rights",
-    "confidence": 0.67,
+    "confidence": 0.7,
     "second": "First Amendment",
-    "hash": "5323e5c553419f4f",
+    "hash": "35223106edb279b0",
     "by": "typesafe:jev-1.13.0|ef2b5d8a6205"
   },
   "26-5300": {
