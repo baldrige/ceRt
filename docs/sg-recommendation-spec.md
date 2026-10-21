@@ -248,8 +248,8 @@ Caveats:
 - 85 out-of-time rows.
 - The 2019 fold of (c) was trained on LOTO scores for 2017–18. This does not
   affect (a) or (b).
-- The per-conference hazard (when the Court acts after the brief) is not yet
-  measured.
+- The per-conference hazard (when the Court acts after the brief) was not
+  measured at first. It is now; see "The per-conference split" below.
 
 ## Serving, as built
 
@@ -267,8 +267,8 @@ and the case page takes no template bump.
   scheme is ignored, since archives hold http and fresh fetches https. If the
   brief predates `as_of` and is labelled, `p_grant_ever` becomes the group rate
   and `sg_layer` is TRUE. The view is returned as `s[["sg_view"]]` — read it
-  with `[[`, since `s$sg` partial-matches `sg_layer`. The hazards are
-  unchanged. Every consumer of `score_conference()` follows: the conference
+  with `[[`, since `s$sg` partial-matches `sg_layer`. The per-conference
+  hazards are replaced too (below). Every consumer of `score_conference()` follows: the conference
   reports' Ever column, the relist tracker, the forecast ledger and the case
   pages.
 - **Live labels.** `render_conferences.R` calls `resolve_sg_views()` (at most
@@ -286,6 +286,55 @@ and the case page takes no template bump.
     `rerender-dockets.yml` dispatch, which is incremental.
 - **Publish.** `conferences/sg_views_cache.json` is in `publish_site.sh`'s
   DERIVED union list.
+
+## The per-conference split (2026-10-21)
+
+The layer first replaced only `p_grant_ever` and left the conference model's
+hazards in place. On SG-answered petitions those hazards are no better than the
+at-risk score, and the two lines could contradict each other outright. 25-828
+(the SG recommends a grant) read "78% estimated chance of a grant" above "At
+the Nov 6 conference: granted 10% · GVR 1.3% · relisted 10% · denied 78%". A
+denial is final, so 78% denied on Friday caps the chance of ever being granted
+at 22%.
+
+What the Court has done at the conferences after an SG brief, from the labelled
+briefs and the at-risk panel (`conf_outcome`; Rule 46 dismissals left out):
+
+| SG recommends | conference after the brief | n | granted | GVR | denied | relisted |
+|---|---|---|---|---|---|---|
+| grant | first | 35 | 23% | 0% | 9% | 69% |
+| grant | later | 33 | 61% | 0% | 12% | 27% |
+| deny | first | 86 | 1% | 3% | 78% | 17% |
+| deny | later | 22 | 23% | 5% | 41% | 32% |
+| other | first | 10 | 0% | 10% | 10% | 80% |
+| other | later | 14 | 14% | 21% | 21% | 43% |
+
+(Raw shares; "later" pools the second conference onward.) The Court relists an
+SG-recommended grant once before granting it: at the first conference two
+in three are relisted, and the grant follows at the next.
+
+**Serving.** `fit_sg_layer(views, corpus, panel)` also stores `hazard`, keyed
+`<group>.<first|later>`, with `hazard_n`. Each cell is shrunk toward its
+group's split over both phases, and each group toward all SG rows, by
+`SG_HAZARD_PRIOR` = 4 pseudo-counts. `score_conference()` takes the split from
+`sg_hazard()` whenever `sg_layer` is TRUE. A conference is "first" when no
+conference date on the docket falls between the brief and it. The rates
+themselves are unchanged. The page's manifest key appends `hazard` beside
+`rates`, so only the SG pages re-render.
+
+**A known incoherence, left to the clamp.** When the SG recommended denial and
+the Court relisted the petition anyway, the later conference granted 20%
+(smoothed). That is more than the 8% rate, which is measured from the brief
+and not conditioned on surviving a conference. `score_conference()` already
+clamps `p_grant_now` to `p_grant_ever`, so the page shows 8% there. The honest
+fix is a rate conditioned on the phase, a change to the validated headline
+that needs its own out-of-time check: 15 petitions so far. On 2026-10-21 no
+pending petition was in that cell.
+
+**Ledger.** A first forecast already logged is never rewritten, so 25-828's
+first entry for 6 November keeps the conference model's 10% (scored 20
+October). Its `final` block, rewritten until conference morning, carries the
+split.
 
 ## Plan
 

@@ -106,11 +106,16 @@ conference <- fit_conference_model(panel)
 # P(granted ever) once the Solicitor General has answered a CVSG: the rate by
 # recommendation, which replaces the at-risk number (R/sg_views.R,
 # docs/sg-recommendation-spec.md). Re-estimated from the committed labels each
-# retrain.
-sg_layer <- fit_sg_layer(load_sg_views(), corpus)
+# retrain. And the per-conference split after the brief, which replaces the
+# conference model's hazards on those petitions.
+sg_layer <- fit_sg_layer(load_sg_views(), corpus, panel)
 cat("\nSG layer (granted / resolved, smoothed rate):\n")
 for (g in names(sg_layer$rates))
   cat(sprintf("  %-6s %3d / %3d  %.1f%%\n", g, sg_layer$k[[g]], sg_layer$n[[g]], 100 * sg_layer$rates[[g]]))
+cat("SG layer per-conference split (granted / gvr / denied / relisted, smoothed):\n")
+for (k in names(sg_layer$hazard))
+  cat(sprintf("  %-12s n=%3d  %s\n", k, sg_layer$hazard_n[[k]],
+              paste(sprintf("%.0f%%", 100 * sg_layer$hazard[[k]]), collapse = " / ")))
 
 slim <- function(m) { m$loto <- NULL; m }
 files <- list(cert_model_baseline.rds   = slim(baseline),

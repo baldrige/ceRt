@@ -1900,8 +1900,10 @@ score_conference <- function(models, caption, lower, parties, date, lower_date,
   # petitions the model ranks below chance (AUC 0.41 out of time) and adds nothing
   # beside the recommendation (docs/sg-recommendation-spec.md). Only a brief filed
   # before `as_of` counts, and only a labelled one -- a brief not yet read keeps
-  # the model's number. The per-conference hazards are not touched; how the
-  # recommendation re-times the Court's action is not measured yet.
+  # the model's number. The per-conference split is replaced too, by what the
+  # Court has done at the first and at later conferences after such a brief
+  # (sg_hazard()): the conference model's hazards had 25-828, SG recommending a
+  # grant, at 78% denied on Friday while the layer said 78% granted ever.
   # Read the view back with [["sg_view"]], never $sg: `$` partial-matches, and on
   # a petition with no brief `s$sg` silently returned sg_layer (FALSE).
   out$sg_layer <- FALSE
@@ -1913,6 +1915,12 @@ score_conference <- function(models, caption, lower, parties, date, lower_date,
         out$p_grant_ever <- unname(models$sg$rates[[v$group]])
         out$cues <- NULL; out$lift <- NULL; out$score_ever <- NULL
         out$sg_layer <- TRUE
+        hz <- if (exists("sg_hazard")) tryCatch(sg_hazard(models$sg, v, events, as_of),
+                                                error = function(e) NULL) else NULL
+        if (!is.null(hz)) {
+          out$p_grant_now  <- unname(hz[["granted"]]); out$p_gvr_now    <- unname(hz[["gvr"]])
+          out$p_denied_now <- unname(hz[["denied"]]);  out$p_relist_now <- unname(hz[["relisted"]])
+        }
       }
     }
   }

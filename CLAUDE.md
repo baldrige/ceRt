@@ -99,7 +99,9 @@ by accident:
 A fifth artifact, `cert_model_sg.rds`, is not a model of the petition at all:
 once the Solicitor General has answered a CVSG, P(granted ever) is the grant
 rate for what the SG recommended, replacing the at-risk number, which carries
-no information on those petitions. The labels are hand-checked in
+no information on those petitions. The per-conference split (granted / GVR /
+denied / relisted at the next conference) is replaced the same way, by what the
+Court did at the first and at later conferences after such a brief. The labels are hand-checked in
 `data-raw/sg_recommendations.json`, and the live ones are in
 `conferences/sg_views_cache.json`. Read the view as `s[["sg_view"]]`: `s$sg`
 partial-matches `sg_layer`. See
