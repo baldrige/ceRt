@@ -189,9 +189,12 @@ party.
 - **Term** is the docket number's (25A### is OT2025), not SCOTUSblog's
   October-to-October window, so its counts will not match theirs exactly.
 - **All applications** is withheld for a closed Term with under half the median
-  count: the OT2020 archive holds 178 applications against ~1,200 in its
-  neighbours. Its *interim* applications are complete (147, in line with every
-  other Term), so only the total is withheld.
+  count, unless `APP_TERM_NOTES` explains it: such a Term is a fetch that lost
+  dockets. OT2020 is the one explained exception. Its 178 is the whole Term
+  (20A1–20A178, no gaps): the COVID order of March 19, 2020 gave every petition
+  150 days to file, so extensions of time fell from 911 (OT2019) to 2, returning
+  only after the order was rescinded on July 19, 2021. The page shows 178 with a
+  note. (Until 2026-10-21 it was withheld as a supposed archive gap.)
 - **Granted** counts grants in part, as a share of applications ruled on
   (withdrawn and closed excluded).
 
