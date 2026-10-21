@@ -3,7 +3,7 @@
 `/applications/` — every application for interim relief that is pending or was
 ruled on in the last twelve months, and a by-Term table back to OT2017.
 `R/applications.R`; built nightly by `render_conferences.R` (`conferences.yml`)
-right after the Relist Tracker. In the masthead as **Interim** (the Court's own
+right after the Relist Tracker, and rebuilt by each daily run (below). In the masthead as **Interim** (the Court's own
 word for this docket since 2025; the tenth link, ~27px of slack left — see
 [navigation.md](navigation.md)), and on the landing page.
 
@@ -14,6 +14,30 @@ applications — and a stay can sit for months. Only the nightly's full-Term
 `combined` holds the whole `NNA###` bucket, so the page is built there. The
 by-Term history comes from the committed archives (`data-raw/ot_*.rds`), read
 in the same run.
+
+**Between nightlies (2026-10-21).** Built only there, a ruling issued during the
+day waited for the 06:00 UTC run. Now the nightly also writes
+`applications/applications.json` (`app_snapshot_write()`): its classified live
+applications, keyed by docket. An interim row keeps the page's columns and its
+Documents cell, rendered then; any other row keeps only what the by-Term count
+needs (~300 KB for OT2025–26). Each daily run (`applications_daily()`, from
+`build_dashboards.R`):
+
+1. reads the snapshot (none yet → the page is left alone);
+2. re-reads by name every interim application it lists as pending or deferred
+   and not already in the run's fetch (13 on the test, ~6 s at 2 req/s);
+3. classifies those and every application the run already holds (trailing
+   window, watch list, order dockets), and lays them over the snapshot;
+4. writes the snapshot back and rebuilds the page from `application_history()`,
+   plus the re-read dockets' case pages.
+
+Rebuilt from an untouched snapshot, the page is byte-identical to the nightly's
+(gt's element ids aside). The archive classification makes it ~50 s a run. The
+snapshot is in `publish_site.sh`'s union list, and a conflict on
+`applications/index.html` keeps the run's own render, as for the scorecard.
+A new application filed with one Justice reaches the page through the trailing
+window; one older than the window and not yet in a snapshot waits for the
+nightly, as before.
 
 ## Most applications are not the emergency docket
 

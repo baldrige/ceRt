@@ -242,6 +242,22 @@ daily_dec <- recent_decisions(seen, gn = read_granted_noted(site_dir))
 write_decided(daily_dec, file.path(dash_dir, DECIDED_FILE))
 cat("Decisions seen by the daily:", nrow(daily_dec), "\n")
 
+# The Interim page (R/applications.R): rebuilt from the nightly's snapshot,
+# with every application it lists as undecided re-read by name -- a few dozen
+# requests -- and the applications this run already holds laid over it. Their
+# case pages too, so a ruling reaches both the same day. Never fatal: the
+# nightly's page stands.
+tryCatch({
+  source("R/counsel_table.R")   # petitioner_gov_side(): the applicant's side
+  source("R/applications.R")
+  ad <- applications_daily(site_dir, bind_rows(ot, watch_cases, if (exists("ord_cases")) ord_cases))
+  if (!is.null(ad)) {
+    cat(sprintf("Interim applications: %d undecided re-read (%d fetched) | %d fresh row(s) | %d pending\n",
+                ad$refetched, ad$got, ad$fresh, ad$pending))
+    if (!is.null(ad$cases) && nrow(ad$cases)) render_dockets_for(ad$cases, site_dir)
+  }
+}, error = function(e) cat("Interim applications skipped:", conditionMessage(e), "\n"))
+
 # The /cases/ browse index. Must exist before any page links to it: the case
 # breadcrumb's middle crumb points at /cases/, which returned a 404 until now.
 write_cases_index(file.path(site_dir, "cases"))
