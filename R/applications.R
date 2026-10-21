@@ -437,17 +437,25 @@ application_status <- function(outcome, referred, response_requested) {
 
 APP_SIDE_LABELS <- c(us = "United States", state = "A State", private = "Private party")
 
-# One row per Term (the docket's two digits: 25A### is OT2025). A Term whose
-# application count is under half the median is flagged rather than shown: the
-# OT2020 archive holds 178 applications against ~1,200 in its neighbours, almost
-# all of the gap extensions of time. Its interim applications are complete
-# (~150, in line with every other Term), so only the all-applications count is
-# withheld.
+# Terms whose all-applications count is low for a known reason, and the note the
+# by-Term table carries for it. OT2020's 178 is the whole Term (20A1..20A178, no
+# gaps), not a lost fetch: the COVID order of March 19, 2020 gave every petition
+# 150 days to file, so extensions of time -- ~900 in OT2019 -- fell to 2, and
+# came back only after the order was rescinded on July 19, 2021.
+APP_TERM_NOTES <- c(
+  "2020" = paste0("Few extension requests: the Court&rsquo;s COVID order of March 19, 2020 ",
+                  "gave every petition 150 days to file, until it was rescinded on July 19, 2021."))
+
+# One row per Term (the docket's two digits: 25A### is OT2025). A closed Term
+# whose application count is under half the median, and not explained in
+# APP_TERM_NOTES, is withheld rather than shown: that is a fetch that lost
+# dockets, not a quiet Term.
 application_term_table <- function(h) {
   tot <- count(h, term, name = "all")
   # Closed Terms only: the current Term's count is partial by definition.
   closed <- tot$term < max(tot$term)
-  thin <- tot$term[closed & tot$all < 0.5 * stats::median(tot$all[closed])]
+  thin <- tot$term[closed & tot$all < 0.5 * stats::median(tot$all[closed]) &
+                     !as.character(tot$term) %in% names(APP_TERM_NOTES)]
   h |>
     filter(interim) |>
     group_by(term) |>
@@ -581,9 +589,14 @@ application_tracker <- function(h, out_dir, as_of = Sys.Date()) {
   # ---- by Term ----
   tt <- application_term_table(h)
   num <- function(x) ifelse(is.na(x), "—", format(x, big.mark = ","))
+  noted <- as.character(tt$term) %in% names(APP_TERM_NOTES)
+  term_notes <- if (any(noted)) paste0(
+    "<p class='apt-n'>", paste0("<sup>*</sup>OT", tt$term[noted], ": ",
+                                APP_TERM_NOTES[as.character(tt$term[noted])], collapse = " "),
+    "</p>") else ""
   term_rows <- paste0(
     "<tr><th scope='row'>OT", tt$term, "</th>",
-    "<td>", num(tt$all), "</td>",
+    "<td>", num(tt$all), ifelse(noted, "<sup>*</sup>", ""), "</td>",
     "<td>", num(tt$interim), "</td>",
     "<td>", num(tt$granted), " <span class='apt-r'>", pct(tt$granted, tt$decided), "</span></td>",
     "<td>", num(tt$capital), " <span class='apt-r'>", num(tt$capital_granted), " granted</span></td>",
@@ -597,13 +610,14 @@ application_tracker <- function(h, out_dir, as_of = Sys.Date()) {
     "border-bottom:1px solid var(--rule);text-align:right;white-space:nowrap}",
     ".apt thead th{font-weight:600;vertical-align:bottom;white-space:normal}",
     ".apt th[scope=row]{text-align:left}.apt-r{color:var(--faint)}",
-    ".apt-wrap{overflow-x:auto}</style>",
+    ".apt-wrap{overflow-x:auto}.apt-n{font-size:.8rem;color:var(--faint);margin:.25rem 0 0}</style>",
     "<h2>By Term</h2><div class='apt-wrap'><table class='apt'><thead><tr>",
     "<th scope='col'>Term</th><th scope='col'>All applications</th>",
     "<th scope='col'>Interim relief</th><th scope='col'>Granted</th>",
     "<th scope='col'>Stays of execution</th><th scope='col'>By the United States</th>",
     "<th scope='col'>Referred to the Court</th><th scope='col'>Median days to ruling</th>",
-    "<th scope='col'>Undecided</th></tr></thead><tbody>", term_rows, "</tbody></table></div>")
+    "<th scope='col'>Undecided</th></tr></thead><tbody>", term_rows, "</tbody></table></div>",
+    term_notes)
 
   footer <- paste0(
     "An <em>application</em> asks a single Justice &mdash; normally the Circuit Justice ",
