@@ -145,25 +145,58 @@ types, court below, filing speed, the dissent/split cues read from the petition,
 and its length. `.github/scripts/make_counsel_expected.R` fits it on the training
 corpus (`data-raw/cert_corpus.rds`, OT2017–2024) and scores every resolved paid
 petition **out of term** — `loto_predict()` then `loto_platt()` — so an advocate's
-own grants never set the expectation for their own cases. The probabilities are
-committed in `data/counsel_expected.json` (~200 KB, dkt → p) because producing them
+own grants never set the expectation for their own cases. The petitions the corpus
+cannot label — OT2025 (`snapshot_25.rds`) and the OT2024 petitions decided after
+`ot_2024.rds` was taken (`snapshot_refresh.rds`) — are scored by the model fitted
+on all eight Terms, calibrated on all the out-of-term predictions; they are
+outside the fit, so they are out of sample too. Their petition-text cues come from
+the same enrichment layer, extended to those archives (`enrich-petitions.yml`
+terms `2025` and `refresh`; `enrich-word-counts.yml` with `terms_glob`
+`data-raw/snapshot_25.rds,data-raw/snapshot_refresh.rds`). The script refuses to
+run if their signal coverage falls more than two points below the corpus's: a
+petition the enricher missed reads as "no dissent, no split" and would be
+expected to lose.
+
+**Each Term is recentred on its own grant count.** After scoring, every
+petition's log-odds in a Term is shifted by one constant so the Term's expected
+total equals its actual grants. Without it the model expected 63.5 OT2025 grants
+against 37: the Court granted 3.1% of OT2025's resolved paid petitions (3.8–5.0%
+in every earlier Term) while those petitions reported dissents, splits and
+dissent citations *more* often than any earlier Term's. That deficit would have
+landed on whoever filed most that Term. The shifts, in log-odds:
+
+| OT2017 | OT2018 | OT2019 | OT2020 | OT2021 | OT2022 | OT2023 | OT2024 | OT2025 |
+|---|---|---|---|---|---|---|---|---|
+| +0.18 | +0.16 | −0.02 | −0.26 | −0.09 | +0.17 | −0.06 | −0.02 | −0.66 |
+
+The question the board answers is therefore "better than other petitions *that
+Term*." It reads outcomes only as a Term total, and an advocate's own grants are
+a handful of a Term's ~60, so the shift they induce on their own expectation is
+small and runs against them. The probabilities are
+committed in `data/counsel_expected.json` (~260 KB, dkt → p) because producing them
 needs the untracked corpus and eight fits; the render only reads them.
 
-Measured 2026-10-22, over 11,814 petitions:
+Measured 2026-10-22 on the 11,814 corpus petitions, out of term and before the
+per-Term recentring below:
 
 | | AUC | Granted | Expected |
 |---|---|---|---|
 | with counsel (the deployed baseline) | 0.876 | | |
 | counsel-blind | 0.867 | 498 | 498.1 |
 
+Plus 1,520 snapshot petitions (1,195 OT2025, 303 late OT2024, 22 late OT2023),
+98.2% of them carrying petition signals at the current version against 90.3% of
+the corpus.
+
 **The board.** Private-side cases only, companions collapsed (granted if any was;
 expectation = their mean), the `COUNSEL_GOV_MAX_PRIVATE` guard applied, at least
 `COUNSEL_MIN_RATE_CASES` (8) scored cases and `COUNSEL_EXPECTED_MIN` (1) expected
-grant: 35 advocates. The ratio shown is granted ÷ expected; the board is ordered by
+grant: 49 advocates. The ratio shown is granted ÷ expected; the board is ordered by
 `(granted + 2) / (expected + 2)` (`COUNSEL_EXPECTED_PRIOR`), the muted figure, so 2
-grants against 0.2 cannot outrank 13 against 3.3. At k = 2 the top six are exactly
-the six whose excess is ≥ 3.8 standard errors (Blatt, Shanmugam, Pincus, Fisher,
-Dvoretzky, Clement). The z-scores of the 35 have a standard deviation of 1.96;
+grants against 0.2 cannot outrank 13 against 3.3. At k = 2 the top seven are
+exactly the seven whose excess is ≥ 3.3 standard errors (Blatt, Shanmugam,
+Dvoretzky, Pincus, Fisher, Geyser, Clement). The z-scores of the 49 have a
+standard deviation of 1.80;
 pure chance would give 1.0, so the differences are real — what they are is the
 next point.
 
@@ -181,10 +214,10 @@ next point.
   third of the `us_fed` petitions were filed by private counsel. Against that
   baseline the SG's office (83 vs 59.5) and the States (31 vs 18.5) look like they
   outperform when the model has mistyped the client.
-- **Scored petitions only, on both sides.** OT2025 has no petition signals, and
-  the ~300 OT2024 petitions still pending when `ot_2024.rds` was taken have none
-  either; they contribute neither a grant nor an expectation. The board therefore
-  spans OT2017–2024 while the rest of the page spans OT2017–2025.
+- **Scored petitions only, on both sides.** A petition the enricher never
+  reached, or whose lower court the corpus never saw, contributes neither a grant
+  nor an expectation. Until 2026-10-22 that was all of OT2025 and the late OT2024
+  petitions, and the board stopped at OT2024.
 
 **Refreshing.** After a retrain-relevant change (features, the corpus, the
 signals file):
