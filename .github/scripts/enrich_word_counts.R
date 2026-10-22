@@ -3,7 +3,8 @@
 # certificate, fetched once into data-raw/word_counts.json. Resumable -- the
 # cache is written every 100 fetches -- so re-run until the count stops growing.
 #
-# Env: TERMS_GLOB (default "data-raw/ot_*.rds"), OUT (default
+# Env: TERMS_GLOB (default "data-raw/ot_*.rds"; comma-separated globs allowed,
+# e.g. "data-raw/snapshot_25.rds,data-raw/snapshot_refresh.rds"), OUT (default
 # data-raw/word_counts.json), MAX_NEW (default 20000), PACE (seconds between
 # fetches, default 0.75 -- at 0.25 the per-IP limit returned empty files for
 # nine fetches in ten).
@@ -15,7 +16,8 @@ out     <- Sys.getenv("OUT", "data-raw/word_counts.json")
 max_new <- as.integer(Sys.getenv("MAX_NEW", "20000"))
 pace    <- as.numeric(Sys.getenv("PACE", "0.75"))
 
-sel <- map_dfr(Sys.glob(Sys.getenv("TERMS_GLOB", "data-raw/ot_*.rds")), function(f) {
+globs <- trimws(strsplit(Sys.getenv("TERMS_GLOB", "data-raw/ot_*.rds"), ",")[[1]])
+sel <- map_dfr(unique(Sys.glob(globs[nzchar(globs)])), function(f) {
   cases <- readRDS(f)
   cls <- classify_petitions(cases) |> select(dkt, outcome)
   cases |> left_join(cls, by = "dkt") |>
@@ -24,7 +26,10 @@ sel <- map_dfr(Sys.glob(Sys.getenv("TERMS_GLOB", "data-raw/ot_*.rds")), function
            !is.na(url), nzchar(url)) |>
     distinct(dkt, .keep_all = TRUE) |>
     transmute(term = basename(f), dkt, url)
-})
+}) |>
+  # A docket can sit in two archives (snapshot_refresh holds re-fetches of
+  # ot_* dockets); fetch its certificate once.
+  distinct(dkt, .keep_all = TRUE)
 cat("paid resolved petitions with a word-count certificate:", nrow(sel), "\n")
 print(table(sel$term))
 # retry_unparsed: a cached entry with no count is a failed download or a
