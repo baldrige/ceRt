@@ -51,10 +51,20 @@ if (nrow(st$arg_rates)) {
     mutate(rate = sprintf("%.1f%%", 100 * rate))), row.names = FALSE)
 }
 
+if (nrow(st$grants_expected)) {
+  cat(sprintf("\nagainst expectation (%d qualifying; %d granted vs %.1f expected; spread %.2f):\n",
+              st$totals$exp_qualifying, st$totals$exp_granted, st$totals$exp_expected,
+              st$totals$exp_spread))
+  print(as.data.frame(head(st$grants_expected, 15) |>
+    transmute(name, cases = exp_n, granted = exp_granted,
+              expected = round(exp_expected, 1), ratio = round(exp_ratio, 2),
+              shrunk = round(exp_shrunk, 2), z = round(exp_z, 1))), row.names = FALSE)
+} else cat("\n(no", COUNSEL_EXPECTED_PATH, "-- the against-expectation board is omitted)\n")
+
 # What actually moved at the top of each board -- the part a reader would notice.
 if (length(old$filings)) {
   cat("\n=== leaders: committed -> recomputed ===\n")
-  for (b in c("filings", "relists", "grants_private", "grants_government",
+  for (b in c("filings", "relists", "grants_private", "grants_government", "grants_expected",
               "arguments", "arg_petitioner", "arg_respondent")) {
     o <- if (length(old[[b]])) old[[b]][[1]]$name else "(none)"
     n <- if (nrow(st[[b]])) st[[b]]$name[[1]] else "(none)"
