@@ -938,8 +938,8 @@ counsel_stats_from <- function(pet, terms, fingerprint, app = NULL, expected = N
       exp_spread = if (is.null(eb)) NA_real_ else eb$spread,
       exp_auc = expected$auc %||% NA_real_,
       exp_auc_counsel = expected$auc_with_counsel %||% NA_real_,
-      exp_terms = if (is.null(expected)) NA_character_ else
-        sprintf("OT%d–OT%d", min(unlist(expected$terms)), max(unlist(expected$terms))),
+      exp_term_from = if (is.null(expected)) NA_integer_ else min(unlist(expected$terms)),
+      exp_term_to = if (is.null(expected)) NA_integer_ else max(unlist(expected$terms)),
       exp_prior = COUNSEL_EXPECTED_PRIOR,
       exp_min = COUNSEL_EXPECTED_MIN,
       min_cases = min_cases,
@@ -1035,8 +1035,11 @@ counsel_stats_fingerprint <- function(paths, refresh = COUNSEL_ARG_REFRESH) {
     archives = unname(tools::md5sum(sort(c(paths,
       if (file.exists(refresh)) refresh)))),
     # Also an input: make_counsel_expected.R rewrites it, and the board moves.
+    # Digested by LINE, not by md5sum(): it is text, so a Windows checkout ends
+    # it in CRLF and the bytes differ from CI's for the same content -- which made
+    # the first committed copy read as stale on the runner (2026-10-22).
     expected = if (file.exists(COUNSEL_EXPECTED_PATH))
-      unname(tools::md5sum(COUNSEL_EXPECTED_PATH)) else NA_character_))
+      digest::digest(readLines(COUNSEL_EXPECTED_PATH, warn = FALSE)) else NA_character_))
 }
 
 # ---- rendering -----------------------------------------------------------------
@@ -1360,7 +1363,8 @@ render_counsel_page <- function(stats, out_dir) {
           "once it is told nothing about counsel: who the parties are, the court ",
           "below, how fast the petition was filed, whether it reports a dissent or ",
           "a split, and how long it is. Each Term is scored by a model fitted on the ",
-          "others. Over ", .cn(tot$exp_cases), " private cases from ", tot$exp_terms,
+          "others. Over ", .cn(tot$exp_cases), " private cases from OT",
+          tot$exp_term_from, "–OT", tot$exp_term_to,
           " it expected ", formatC(tot$exp_expected, format = "f", digits = 0),
           " grants and there were ", .cn(tot$exp_granted), "; dropping counsel ",
           "costs it little (AUC ", formatC(tot$exp_auc_counsel, format = "f", digits = 3),
