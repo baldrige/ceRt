@@ -19,9 +19,9 @@ source("R/counsel_table.R")
 out <- Sys.getenv("COUNSEL_STATS", unset = "data/counsel_stats.json")
 check_only <- nzchar(Sys.getenv("CHECK_ONLY", ""))
 
-arch <- sort(Sys.glob("data-raw/ot_*.rds"))
-if (!length(arch)) stop("no archives matched data-raw/ot_*.rds")
-cat("archives:", paste(str_extract(basename(arch), "\\d{4}"), collapse = ", "), "\n")
+arch <- counsel_archive_paths()
+if (!length(arch)) stop("no archives matched counsel_archive_paths()")
+cat("inputs:", paste(basename(arch), collapse = ", "), "->", counsel_terms(arch), "\n")
 
 old <- if (file.exists(out)) fromJSON(out, simplifyVector = FALSE) else list()
 want <- counsel_stats_fingerprint(arch)

@@ -202,7 +202,10 @@ counsel_petitions <- function(paths) {
     cls <- classify_petitions(x)
     cls |> left_join(x[, intersect(c("dkt", "parties", "lower"), names(x))], by = "dkt")
   })
+  # A docket in the refresh layer is also in its Term's archive, frozen at
+  # "pending": keep the first copy, which counsel_archive_paths() puts first.
   rows |>
+    distinct(dkt, .keep_all = TRUE) |>
     filter(type == "paid") |>
     mutate(
       # counsel_key() and petitioner_*() take ONE parties frame, not a column.
@@ -282,6 +285,40 @@ counsel_cases <- function(pet) {
 # unambiguously a State's.
 
 COUNSEL_ARG_REFRESH <- "data-raw/arg_refresh.rds"
+
+# The petition-side inputs, MOST CURRENT FIRST, because both counsel_petitions()
+# and counsel_arguments() keep the first copy of a docket they meet.
+#
+#   snapshot_refresh.rds  every petition the archives froze at "pending",
+#                         re-fetched (2026-08). 692 of its 729 are OT2024, and it
+#                         holds 26 of the 64 dockets argued in OT2025 -- the 24-
+#                         numbers granted after ot_2024.rds was taken.
+#   ot_2017..ot_2024.rds  the Term archives.
+#   snapshot_25.rds       OT2025, a full-Term fetch taken after it closed.
+#
+# OT2025 is a snapshot_* rather than an ot_2025.rds because the Cert Funnel and
+# the cert model's training corpus glob ot_*.rds too (docs/pro-se-grants.md);
+# naming it here adds it to this page alone. snapshot_26 is the Term under way
+# and stays out.
+COUNSEL_SNAPSHOTS <- c(refresh = "data-raw/snapshot_refresh.rds",
+                       ot2025 = "data-raw/snapshot_25.rds")
+
+counsel_archive_paths <- function(dir = "data-raw") {
+  snap <- file.path(dir, basename(COUNSEL_SNAPSHOTS))
+  names(snap) <- names(COUNSEL_SNAPSHOTS)
+  c(snap[["refresh"]][file.exists(snap[["refresh"]])],
+    sort(Sys.glob(file.path(dir, "ot_*.rds"))),
+    snap[["ot2025"]][file.exists(snap[["ot2025"]])])
+}
+
+# The Terms an input set spans, as the page states them: "OT2017–2025". The
+# refresh layer re-fetches older Terms and names none of its own.
+counsel_terms <- function(paths) {
+  b <- basename(paths)
+  yrs <- c(as.integer(str_match(b, "^ot_(\\d{4})\\.rds$")[, 2]),
+           2000L + as.integer(str_match(b, "^snapshot_(\\d{2})\\.rds$")[, 2]))
+  paste0("OT", paste(range(yrs, na.rm = TRUE), collapse = "–"))
+}
 
 # Arguments are two orders of magnitude rarer than petitions -- 461 of them
 # against 8,875 cases -- so the rate floor that suits the cert boards would leave
@@ -437,8 +474,9 @@ APPLICATION_RX <- regex(paste0(
   str_detect(title, regex("Solicitor General|Attorney General", ignore_case = TRUE)) ~ "state",
   TRUE ~ "private")
 
-# One row per (argument, advocate). `paths` is the ot_*.rds set; `refresh` is the
-# argued-grant re-fetch, which wins on any docket both hold.
+# One row per (argument, advocate). `paths` is counsel_archive_paths(), most
+# current first; `refresh` is the argued-grant re-fetch, which wins on any docket
+# both hold.
 counsel_arguments <- function(paths, refresh = COUNSEL_ARG_REFRESH) {
   files <- c(if (file.exists(refresh)) refresh, paths)
   combined <- files |> map(readRDS) |> bind_rows() |> distinct(dkt, .keep_all = TRUE)
@@ -838,10 +876,9 @@ compute_counsel_stats <- function(paths, min_cases = COUNSEL_MIN_CASES,
                                   min_rate_cases = COUNSEL_MIN_RATE_CASES,
                                   min_args = COUNSEL_ARG_MIN,
                                   top_n = COUNSEL_TOP_N) {
-  yrs <- as.integer(str_extract(basename(paths), "\\d{4}"))
   counsel_stats_from(
     counsel_petitions(paths),
-    terms = paste0("OT", paste(range(yrs), collapse = "–")),
+    terms = counsel_terms(paths),
     fingerprint = counsel_stats_fingerprint(paths),
     app = counsel_arguments(paths),
     min_cases = min_cases, min_rate_cases = min_rate_cases,

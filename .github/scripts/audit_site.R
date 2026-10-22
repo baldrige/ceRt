@@ -684,7 +684,9 @@ cpage <- file.path(site, "counsel/index.html")
 if (!file.exists(cstats) && !file.exists(cpage)) {
   cat("  (no counsel table published yet -- skipped)\n")
 } else {
-  arch <- sort(Sys.glob("data-raw/ot_*.rds"))
+  # The input list is counsel_table.R's own (counsel_archive_paths()), read once
+  # the module loads below; a glob here would drift from it.
+  arch <- character()
   # Loaded HERE and defensively, not at the top with palette.R. Computing the
   # fingerprint means deparsing the classifier, so the whole module chain
   # (cert_funnel, cert_model, page_style) has to load -- a much larger surface
@@ -694,6 +696,7 @@ if (!file.exists(cstats) && !file.exists(cpage)) {
   cenv <- tryCatch({ e <- new.env(parent = globalenv())
                      sys.source("R/counsel_table.R", envir = e); e },
                    error = function(err) NULL)
+  if (!is.null(cenv)) arch <- cenv$counsel_archive_paths()
   if (file.exists(cstats) && length(arch) && !is.null(cenv)) {
     have <- tryCatch(jsonlite::fromJSON(cstats)$fingerprint, error = function(e) NA)
     want <- tryCatch(cenv$counsel_stats_fingerprint(arch),
