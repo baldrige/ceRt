@@ -12,7 +12,7 @@ source("R/counsel_table.R")
 site_dir <- Sys.getenv("SITE_DIR", unset = "site")
 stats_path <- Sys.getenv("COUNSEL_STATS", unset = "data/counsel_stats.json")
 
-arch <- sort(Sys.glob("data-raw/ot_*.rds"))
+arch <- counsel_archive_paths()
 stats <- if (file.exists(stats_path)) fromJSON(stats_path) else NULL
 
 # Is the committed file still what this code would produce?

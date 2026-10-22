@@ -2,8 +2,28 @@
 
 Seven leaderboards, from two different records: four over **petitioner's counsel
 of record**, three over **who argued**. **No fetch, ever** — the inputs are
-`data-raw/ot_*.rds` and `data-raw/arg_refresh.rds`, both committed, so the page
+`counsel_archive_paths()` and `data-raw/arg_refresh.rds`, all committed, so the page
 changes when the archives or the classifier change and at no other time.
+
+## The inputs: OT2017–2025 (since 2026-10-21)
+
+`counsel_archive_paths()` is the one list, read by `make_counsel_stats.R`,
+`render_counsel.R` and the audit's freshness check, **most current first**,
+because `counsel_petitions()` and `counsel_arguments()` both keep the first copy
+of a docket:
+
+1. `data-raw/snapshot_refresh.rds` — every petition the archives froze at
+   `pending`, re-fetched in August 2026 (692 of its 729 are OT2024). Without it
+   an OT2024 petition granted after `ot_2024.rds` was taken stays pending here,
+   and 26 of the 64 dockets argued in OT2025 have no argument entry at all.
+2. `data-raw/ot_2017.rds` … `ot_2024.rds` — the Term archives.
+3. `data-raw/snapshot_25.rds` — OT2025, a full-Term fetch taken after it closed.
+
+OT2025 is a `snapshot_*`, not an `ot_2025.rds`, because the Cert Funnel and the
+cert model also glob `ot_*.rds` (see docs/pro-se-grants.md); naming it in
+`COUNSEL_SNAPSHOTS` adds it to this page alone. `snapshot_26` is the Term under
+way and stays out. The page's span ("OT2017–2025") is `counsel_terms()` of the
+same list. The measurements below that name OT2017–2024 predate this change.
 
 | piece | where |
 | --- | --- |
@@ -158,7 +178,7 @@ and commit the result.
 
 A different population, a different source, and a different span.
 
-The petition boards read `data-raw/ot_*.rds`. That is the wrong file for
+The petition boards read `counsel_archive_paths()`. That is the wrong file for
 arguments: **a Term's snapshot is taken before its own granted cases are argued
 and decided**, so the argument and judgment entries are simply not in it.
 `data-raw/arg_refresh.rds` is a re-fetch of the argued grants and is the only
