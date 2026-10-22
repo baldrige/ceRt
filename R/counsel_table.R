@@ -132,8 +132,8 @@ COUNSEL_BLIND_FEATURES <- setdiff(BASELINE_FEATURES, COUNSEL_FEATURES)
 # 1 with the weight of k expected grants. Unshrunk, 2 grants against 0.2 expected
 # (10x) tops 13 against 3.3 (3.9x) on a tenth of the evidence -- the same
 # small-sample artefact the Wilson bound handles on the rate boards. At k = 2
-# the top six (2026-10-22) are exactly the six whose excess is 3.8 or more
-# standard errors.
+# the top seven (2026-10-22, through OT2025) are exactly the seven whose excess
+# is 3.3 or more standard errors.
 COUNSEL_EXPECTED_PRIOR <- 2
 # And an advocate needs at least one expected grant to be ranked at all: below
 # that, a single grant is a ratio of 5x or more and the ranking is noise.
@@ -705,8 +705,8 @@ load_counsel_expected <- function(path = COUNSEL_EXPECTED_PATH) {
 # since they are one dispute and the Court disposes of them together.
 #
 # Only scored dockets count on BOTH sides of the comparison. A petition the model
-# could not score (OT2025, or an OT2024 petition still pending when its archive
-# was taken) contributes neither a grant nor an expectation.
+# could not score -- the enricher never reached its PDF, or its lower court is one
+# the corpus never saw -- contributes neither a grant nor an expectation.
 counsel_expected_board <- function(pet, expected, agg,
                                    min_cases = COUNSEL_MIN_RATE_CASES,
                                    min_expected = COUNSEL_EXPECTED_MIN,
@@ -1363,7 +1363,9 @@ render_counsel_page <- function(stats, out_dir) {
           "once it is told nothing about counsel: who the parties are, the court ",
           "below, how fast the petition was filed, whether it reports a dissent or ",
           "a split, and how long it is. Each Term is scored by a model fitted on the ",
-          "others. Over ", .cn(tot$exp_cases), " private cases from OT",
+          "others, then shifted as a whole so its expected grants match the number ",
+          "the Court actually made that Term — how many cases the Court takes is ",
+          "no advocate&rsquo;s doing. Over ", .cn(tot$exp_cases), " private cases from OT",
           tot$exp_term_from, "–OT", tot$exp_term_to,
           " it expected ", formatC(tot$exp_expected, format = "f", digits = 0),
           " grants and there were ", .cn(tot$exp_granted), "; dropping counsel ",
