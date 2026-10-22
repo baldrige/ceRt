@@ -3096,7 +3096,8 @@
     "exp_spread": 1.95714052776128,
     "exp_auc": 0.8672,
     "exp_auc_counsel": 0.8761,
-    "exp_terms": "OT2017–OT2024",
+    "exp_term_from": 2017,
+    "exp_term_to": 2024,
     "exp_prior": 2,
     "exp_min": 1,
     "min_cases": 5,
@@ -3120,6 +3121,6 @@
     "arg_to": "2026-04-29",
     "as_of": "2026-06-30"
   },
-  "fingerprint": "00e0512d1190f0445bdb69b55aa807e5",
+  "fingerprint": "a1200c4554efd38906e6b292bd0a9f95",
   "generated": "2026-10-22"
 }
