@@ -102,6 +102,43 @@ COUNSEL_TOP_N <- 25L
 # is a published claim that is false.
 COUNSEL_GOV_MAX_PRIVATE <- 0.25
 
+# ---- against expectation -------------------------------------------------------
+#
+# A grant rate cannot say whether an advocate wins because of the cases they take
+# or what they do with them. So the private board has a companion that holds each
+# advocate's grants against what a model that never sees counsel expected of the
+# same petitions: the petition-stage baseline with the counsel track record
+# removed, and nothing else changed. Its out-of-term probabilities are committed
+# in COUNSEL_EXPECTED_PATH by .github/scripts/make_counsel_expected.R, because
+# producing them needs the assembled training corpus and eight fits.
+#
+# Two things it is easy to read too much into, both said on the page:
+#   * The model sees the petition itself -- its length, and whether it reports a
+#     dissent or a split below. Whatever counsel contributed THROUGH those is
+#     credited to the case, so the excess is if anything understated.
+#   * It cannot separate advocacy from case selection. A leading advocate is often
+#     retained once a case already looks cert-worthy in ways the docket does not
+#     record. "Above expectation" means the cases did better than the visible
+#     facts predicted, for whatever reason.
+#
+# Private clients only. The government pools are typed by the model's own
+# pet_type, which reads a warden or a named official as an individual (141 of the
+# 208 State-filed cases, measured 2026-10-22); against that baseline a State's
+# office looks like it outperforms when the model has simply mistyped its client.
+COUNSEL_EXPECTED_PATH <- "data/counsel_expected.json"
+COUNSEL_BLIND_FEATURES <- setdiff(BASELINE_FEATURES, COUNSEL_FEATURES)
+
+# The board is ordered by (granted + k) / (expected + k): the ratio pulled toward
+# 1 with the weight of k expected grants. Unshrunk, 2 grants against 0.2 expected
+# (10x) tops 13 against 3.3 (3.9x) on a tenth of the evidence -- the same
+# small-sample artefact the Wilson bound handles on the rate boards. At k = 2
+# the top six (2026-10-22) are exactly the six whose excess is 3.8 or more
+# standard errors.
+COUNSEL_EXPECTED_PRIOR <- 2
+# And an advocate needs at least one expected grant to be ranked at all: below
+# that, a single grant is a ratio of 5x or more and the ranking is noise.
+COUNSEL_EXPECTED_MIN <- 1
+
 # ---- who the petitioner is -----------------------------------------------------
 
 COUNSEL_STATES <- c(state.name, "District of Columbia", "Puerto Rico", "Guam",
@@ -653,6 +690,52 @@ counsel_boards <- function(cases, agg, min_cases = COUNSEL_MIN_RATE_CASES) {
     arrange(pool, desc(pool_lo), desc(pool_rate))
 }
 
+# The committed counsel-blind probabilities, or NULL when the file is absent (the
+# page then simply omits the board). `p` comes back as a dkt -> p_exp frame.
+load_counsel_expected <- function(path = COUNSEL_EXPECTED_PATH) {
+  if (!file.exists(path)) return(NULL)
+  j <- jsonlite::fromJSON(path, simplifyVector = FALSE)
+  j$p <- tibble(dkt = names(j$p), p_exp = as.numeric(unlist(j$p, use.names = FALSE)))
+  j
+}
+
+# One row per private-bar advocate: grants against the counsel-blind expectation,
+# over the cases the model scored. Companions collapse as in counsel_cases() --
+# granted if any companion was, and the expectation is the companions' mean,
+# since they are one dispute and the Court disposes of them together.
+#
+# Only scored dockets count on BOTH sides of the comparison. A petition the model
+# could not score (OT2025, or an OT2024 petition still pending when its archive
+# was taken) contributes neither a grant nor an expectation.
+counsel_expected_board <- function(pet, expected, agg,
+                                   min_cases = COUNSEL_MIN_RATE_CASES,
+                                   min_expected = COUNSEL_EXPECTED_MIN,
+                                   prior = COUNSEL_EXPECTED_PRIOR) {
+  scored <- pet |>
+    inner_join(expected$p, by = "dkt") |>
+    filter(outcome != "pending", side == "private") |>
+    mutate(caption = str_squish(coalesce(caption, ""))) |>
+    group_by(counsel_key, caption) |>
+    summarise(won = any(outcome == "granted"), p_exp = mean(p_exp), .groups = "drop")
+  adv <- scored |>
+    group_by(counsel_key) |>
+    summarise(exp_n = n(), exp_granted = sum(won), exp_expected = sum(p_exp),
+              exp_var = sum(p_exp * (1 - p_exp)), .groups = "drop") |>
+    mutate(exp_ratio = exp_granted / exp_expected,
+           exp_shrunk = (exp_granted + prior) / (exp_expected + prior),
+           exp_z = (exp_granted - exp_expected) / sqrt(exp_var)) |>
+    left_join(agg, by = "counsel_key") |>
+    filter(gov_share < COUNSEL_GOV_MAX_PRIVATE)
+  board <- adv |>
+    filter(exp_n >= min_cases, exp_expected >= min_expected) |>
+    arrange(desc(exp_shrunk), desc(exp_granted))
+  list(board = board, cases = scored,
+       # How far apart the qualifying advocates really are. Were the only
+       # difference between them chance, these z-scores would have a standard
+       # deviation of 1.
+       spread = if (nrow(board) > 2) sd(board$exp_z) else NA_real_)
+}
+
 # Per-advocate argument totals, and per-side win records.
 #
 # The win boards are split by side for the same reason the grant boards are split
@@ -748,7 +831,7 @@ counsel_argument_boards <- function(app, min_args = COUNSEL_ARG_MIN) {
 # Split from counsel_petitions() so the four-minute classify pass can be done once
 # and the assembly exercised against its output repeatedly -- the tables here are
 # ranked, and a ranking is not something to eyeball for the first time in CI.
-counsel_stats_from <- function(pet, terms, fingerprint, app = NULL,
+counsel_stats_from <- function(pet, terms, fingerprint, app = NULL, expected = NULL,
                                min_cases = COUNSEL_MIN_CASES,
                                min_rate_cases = COUNSEL_MIN_RATE_CASES,
                                min_args = COUNSEL_ARG_MIN,
@@ -758,6 +841,8 @@ counsel_stats_from <- function(pet, terms, fingerprint, app = NULL,
   q <- agg |> filter(cases >= min_cases)
   qr <- agg |> filter(cases >= min_rate_cases)
   boards <- counsel_boards(cases, agg, min_cases = min_rate_cases)
+  eb <- if (is.null(expected)) NULL else
+    counsel_expected_board(pet, expected, agg, min_cases = min_rate_cases)
 
   # ONE display name per person, across both halves of the page.
   #
@@ -824,6 +909,12 @@ counsel_stats_from <- function(pet, terms, fingerprint, app = NULL,
     relists = take(qr |> arrange(desc(relist_lo), desc(cases), desc(relist_share))),
     grants_private = take_board("private"),
     grants_government = take_board("government"),
+    # Absent (an empty list) when there is no expectation file to read.
+    grants_expected = if (is.null(eb)) tibble() else {
+      d <- head(eb$board, top_n)
+      bind_cols(cols(d), select(d, exp_n, exp_granted, exp_expected, exp_ratio,
+                                exp_shrunk, exp_z))
+    },
     by_side = by_side,
     arguments = arg_cols(head(ab$volume, top_n)),
     arg_petitioner = arg_cols(ab$sides |> filter(side == "petitioner") |>
@@ -840,6 +931,17 @@ counsel_stats_from <- function(pet, terms, fingerprint, app = NULL,
       one_off = sum(agg$cases == 1),
       board_private = sum(boards$pool == "private"),
       board_government = sum(boards$pool == "government"),
+      exp_qualifying = if (is.null(eb)) 0L else nrow(eb$board),
+      exp_cases = if (is.null(eb)) 0L else nrow(eb$cases),
+      exp_granted = if (is.null(eb)) 0L else sum(eb$cases$won),
+      exp_expected = if (is.null(eb)) NA_real_ else sum(eb$cases$p_exp),
+      exp_spread = if (is.null(eb)) NA_real_ else eb$spread,
+      exp_auc = expected$auc %||% NA_real_,
+      exp_auc_counsel = expected$auc_with_counsel %||% NA_real_,
+      exp_terms = if (is.null(expected)) NA_character_ else
+        sprintf("OT%d–OT%d", min(unlist(expected$terms)), max(unlist(expected$terms))),
+      exp_prior = COUNSEL_EXPECTED_PRIOR,
+      exp_min = COUNSEL_EXPECTED_MIN,
       min_cases = min_cases,
       min_rate_cases = min_rate_cases,
       min_args = min_args,
@@ -881,6 +983,7 @@ compute_counsel_stats <- function(paths, min_cases = COUNSEL_MIN_CASES,
     terms = counsel_terms(paths),
     fingerprint = counsel_stats_fingerprint(paths),
     app = counsel_arguments(paths),
+    expected = load_counsel_expected(),
     min_cases = min_cases, min_rate_cases = min_rate_cases,
     min_args = min_args, top_n = top_n)
 }
@@ -901,6 +1004,7 @@ counsel_stats_fingerprint <- function(paths, refresh = COUNSEL_ARG_REFRESH) {
                      "counsel_petitions", "counsel_cases", "counsel_aggregate",
                      "counsel_stats_from",
                      "counsel_boards", "wilson_lower",
+                     "load_counsel_expected", "counsel_expected_board",
                      ".display_name",
                      # The argument half. `.parse_argued` and the two classifiers
                      # are the whole of what the argument boards are a function
@@ -919,6 +1023,7 @@ counsel_stats_fingerprint <- function(paths, refresh = COUNSEL_ARG_REFRESH) {
                    COUNSEL_MIN_CASES, COUNSEL_TOP_N, COUNSEL_GOV_MAX_PRIVATE,
                    COUNSEL_MIN_RATE_CASES, COUNSEL_ARG_MIN, COUNSEL_ARG_BOARD_N,
                    COUNSEL_ARG_REFRESH,
+                   COUNSEL_EXPECTED_PATH, COUNSEL_EXPECTED_PRIOR, COUNSEL_EXPECTED_MIN,
                    as.character(ARGUED_RX), as.character(JUDGMENT_RX),
                    as.character(.STANDS_RX), as.character(.UPSET_RX),
                    as.character(.DIG_RX),
@@ -928,7 +1033,10 @@ counsel_stats_fingerprint <- function(paths, refresh = COUNSEL_ARG_REFRESH) {
     # arg_refresh.rds is an INPUT, not a cache: refetch-argued.yml rewrites it
     # when new merits judgments land, and every argument board moves with it.
     archives = unname(tools::md5sum(sort(c(paths,
-      if (file.exists(refresh)) refresh))))))
+      if (file.exists(refresh)) refresh)))),
+    # Also an input: make_counsel_expected.R rewrites it, and the board moves.
+    expected = if (file.exists(COUNSEL_EXPECTED_PATH))
+      unname(tools::md5sum(COUNSEL_EXPECTED_PATH)) else NA_character_))
 }
 
 # ---- rendering -----------------------------------------------------------------
@@ -1065,13 +1173,15 @@ COUNSEL_CSS <- "
 }
 
 # A proportional bar plus its number. `lo` prints a muted second figure (the
-# Wilson floor) after the rate it ranks on.
-.bar_cell <- function(value, max_value, digits = 0, lo = NULL) {
+# Wilson floor) after the rate it ranks on. `fmt` formats both; a percentage
+# unless the caller says otherwise.
+.bar_cell <- function(value, max_value, digits = 0, lo = NULL,
+                      fmt = function(x) .cpct(x, digits)) {
   w <- if (is.na(value) || is.na(max_value) || max_value <= 0) 0 else
     round(100 * value / max_value)
   paste0("<span class='bar'><span class='tr'><i style='width:", max(w, 1),
-         "%'></i></span><b>", .cpct(value, digits), "</b>",
-         if (!is.null(lo)) paste0("<span class='lo'>", .cpct(lo, digits), "</span>") else "",
+         "%'></i></span><b>", fmt(value), "</b>",
+         if (!is.null(lo)) paste0("<span class='lo'>", fmt(lo), "</span>") else "",
          "</span>")
 }
 
@@ -1082,6 +1192,7 @@ render_counsel_page <- function(stats, out_dir) {
   as_tib <- function(x) if (is.null(x) || !length(x)) tibble() else as_tibble(x)
   filings <- as_tib(stats$filings); relists <- as_tib(stats$relists)
   priv <- as_tib(stats$grants_private); govt <- as_tib(stats$grants_government)
+  expd <- as_tib(stats$grants_expected)
   side <- as_tib(stats$by_side)
   args <- as_tib(stats$arguments)
   arg_pet <- as_tib(stats$arg_petitioner); arg_res <- as_tib(stats$arg_respondent)
@@ -1120,6 +1231,21 @@ render_counsel_page <- function(stats, out_dir) {
       list(label = "Granted", cell = function(i) .cn(d$pool_granted[i])),
       list(label = "Rate", cell = function(i)
         .bar_cell(d$pool_rate[i], gmax, 1, lo = d$pool_lo[i]))))
+  }
+
+  # ---- grants against the counsel-blind expectation
+  .times <- function(x) if (is.na(x)) "&mdash;" else
+    paste0(formatC(x, format = "f", digits = 1), "&times;")
+  t_expected <- if (!nrow(expd)) NULL else {
+    xmax <- max(expd$exp_ratio, na.rm = TRUE)
+    .counsel_table(expd, list(
+      list(label = "Advocate", align = "l", cell = function(i) .name_cell(expd, i, chip = FALSE)),
+      list(label = "Cases", cell = function(i) .cn(expd$exp_n[i])),
+      list(label = "Granted", cell = function(i) .cn(expd$exp_granted[i])),
+      list(label = "Expected", cell = function(i)
+        formatC(expd$exp_expected[i], format = "f", digits = 1)),
+      list(label = "Ratio", cell = function(i)
+        .bar_cell(expd$exp_ratio[i], xmax, lo = expd$exp_shrunk[i], fmt = .times))))
   }
 
   # ---- tables 5-7: oral argument
@@ -1223,6 +1349,40 @@ render_counsel_page <- function(stats, out_dir) {
         "Federal and state governments together — ", tot$board_government,
         " advocates clear the minimum on government cases alone.")))),
       grant_tbl(govt),
+
+      if (!is.null(t_expected)) tagList(
+        tags$p(class = "over", "Against expectation"),
+        tags$h2("Grants the case alone did not predict"),
+        tags$p(class = "cnote2", HTML(smarten(paste0(
+          "A grant rate cannot tell an advocate who wins from one who is handed ",
+          "winnable cases. So each private-bar advocate&rsquo;s grants are set ",
+          "against what the site&rsquo;s cert model expects of the same petitions ",
+          "once it is told nothing about counsel: who the parties are, the court ",
+          "below, how fast the petition was filed, whether it reports a dissent or ",
+          "a split, and how long it is. Each Term is scored by a model fitted on the ",
+          "others. Over ", .cn(tot$exp_cases), " private cases from ", tot$exp_terms,
+          " it expected ", formatC(tot$exp_expected, format = "f", digits = 0),
+          " grants and there were ", .cn(tot$exp_granted), "; dropping counsel ",
+          "costs it little (AUC ", formatC(tot$exp_auc_counsel, format = "f", digits = 3),
+          " with counsel, ", formatC(tot$exp_auc, format = "f", digits = 3),
+          " without).")))),
+        t_expected,
+        tags$p(class = "cnote2", HTML(smarten(paste0(
+          "The ratio is grants divided by the expectation. The board is ordered ",
+          "by the muted figure, the same ratio with ", tot$exp_prior, " expected ",
+          "grants&rsquo; worth of &ldquo;as expected&rdquo; mixed in, so that 2 ",
+          "grants against 0.2 does not outrank 13 against 3.3. ",
+          .cn(tot$exp_qualifying), " advocates have ", tot$min_rate_cases,
+          " or more scored cases and at least ", tot$exp_min, " expected grant. ",
+          "Measured in standard errors, their results spread ",
+          formatC(tot$exp_spread, format = "f", digits = 1), " wide; chance ",
+          "alone would give 1.0. ",
+          "<strong>Above expectation is not the same as skill.</strong> Leading ",
+          "advocates are often retained once a case already looks worth granting, ",
+          "for reasons the docket does not record, and the model credits the case ",
+          "with anything counsel put into the petition it reads.")))),
+        NULL
+      ) else NULL,
 
       # ---- oral argument
       if (nrow(args)) tagList(

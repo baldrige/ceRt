@@ -131,6 +131,69 @@ petitioner *suing* the government has the government in their caption: 50 of Rae
 Gonzalez's 51 immigration petitions read as federal filings. **The party field
 names the petitioner; the caption names both sides.**
 
+## Against expectation (since 2026-10-22)
+
+The private grant board ranks a rate, and a rate cannot say whether an advocate
+wins because of what they do or because of which cases they are handed. The
+"Against expectation" board holds each private-bar advocate's grants against what
+the cert model expects of the same petitions **once it is told nothing about
+counsel**.
+
+**The model.** `COUNSEL_BLIND_FEATURES` = `BASELINE_FEATURES` minus
+`COUNSEL_FEATURES` (the `counsel_tier` track record), nothing else changed: party
+types, court below, filing speed, the dissent/split cues read from the petition,
+and its length. `.github/scripts/make_counsel_expected.R` fits it on the training
+corpus (`data-raw/cert_corpus.rds`, OT2017–2024) and scores every resolved paid
+petition **out of term** — `loto_predict()` then `loto_platt()` — so an advocate's
+own grants never set the expectation for their own cases. The probabilities are
+committed in `data/counsel_expected.json` (~200 KB, dkt → p) because producing them
+needs the untracked corpus and eight fits; the render only reads them.
+
+Measured 2026-10-22, over 11,814 petitions:
+
+| | AUC | Granted | Expected |
+|---|---|---|---|
+| with counsel (the deployed baseline) | 0.876 | | |
+| counsel-blind | 0.867 | 498 | 498.1 |
+
+**The board.** Private-side cases only, companions collapsed (granted if any was;
+expectation = their mean), the `COUNSEL_GOV_MAX_PRIVATE` guard applied, at least
+`COUNSEL_MIN_RATE_CASES` (8) scored cases and `COUNSEL_EXPECTED_MIN` (1) expected
+grant: 35 advocates. The ratio shown is granted ÷ expected; the board is ordered by
+`(granted + 2) / (expected + 2)` (`COUNSEL_EXPECTED_PRIOR`), the muted figure, so 2
+grants against 0.2 cannot outrank 13 against 3.3. At k = 2 the top six are exactly
+the six whose excess is ≥ 3.8 standard errors (Blatt, Shanmugam, Pincus, Fisher,
+Dvoretzky, Clement). The z-scores of the 35 have a standard deviation of 1.96;
+pure chance would give 1.0, so the differences are real — what they are is the
+next point.
+
+**What it cannot claim.**
+
+- **Advocacy and case selection are confounded.** Leading advocates are often
+  retained once a case already looks cert-worthy for reasons the docket does not
+  record. "Above expectation" means the cases did better than the visible facts
+  predicted.
+- **The model reads the petition.** Whatever counsel put into its length or its
+  account of a split is credited to the case, so the excess is if anything
+  understated.
+- **Private clients only.** The model's `pet_type` reads a warden or a named
+  official as an individual — 141 of the 208 State-filed scored cases — and a
+  third of the `us_fed` petitions were filed by private counsel. Against that
+  baseline the SG's office (83 vs 59.5) and the States (31 vs 18.5) look like they
+  outperform when the model has mistyped the client.
+- **Scored petitions only, on both sides.** OT2025 has no petition signals, and
+  the ~300 OT2024 petitions still pending when `ot_2024.rds` was taken have none
+  either; they contribute neither a grant nor an expectation. The board therefore
+  spans OT2017–2024 while the rest of the page spans OT2017–2025.
+
+**Refreshing.** After a retrain-relevant change (features, the corpus, the
+signals file):
+
+```
+Rscript .github/scripts/make_counsel_expected.R   # needs data-raw/cert_corpus.rds (built if absent)
+Rscript .github/scripts/make_counsel_stats.R      # the fingerprint digests the expectation file
+```
+
 ## Staleness
 
 `data/counsel_stats.json` is a committed summary of a classifier's output — the
