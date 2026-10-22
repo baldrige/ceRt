@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
     inputs:
       terms:
-        description: "Comma-separated terms (e.g. 2024 or 2017,2018). Blank = all 2017-2024."
+        description: "Comma-separated terms (e.g. 2024 or 2017,2018). Blank = all 2017-2024. Also: 2025 (snapshot_25.rds) and refresh (snapshot_refresh.rds)."
         required: false
         default: ""
       max_new:
@@ -36,7 +36,7 @@ jobs:
         run: |
           terms="${{ inputs.terms }}"
           if [ -z "$terms" ]; then terms="2017,2018,2019,2020,2021,2022,2023,2024"; fi
-          json=$(echo "$terms" | tr ',' '\n' | sed 's/[^0-9]//g;/^$/d;s/^/"/;s/$/"/' | paste -sd, -)
+          json=$(echo "$terms" | tr ',' '\n' | sed 's/[^0-9a-z]//g;/^$/d;s/^/"/;s/$/"/' | paste -sd, -)
           echo "matrix=[$json]" >> "$GITHUB_OUTPUT"
           echo "terms: [$json]"
 
@@ -68,11 +68,19 @@ jobs:
             any::jsonlite
             any::pdftools
             any::htmltools
+      # The conference run's on-site cache already holds the signals for every
+      # petition it scored live; seeding from it spares those PDF fetches.
+      - name: Seed from the on-site signal cache (gh-pages)
+        run: |
+          git fetch --depth=1 origin gh-pages
+          git show FETCH_HEAD:conferences/petition_signals_cache.json > seed_conferences.json \
+            || rm -f seed_conferences.json
       - name: Enrich OT ${{ matrix.term }}
         env:
           TERM_YEAR: ${{ matrix.term }}
           OUT: petition_signals_${{ matrix.term }}.json
           MAX_NEW: ${{ inputs.max_new || '6000' }}
+          SEED_FILES: seed_conferences.json
         run: Rscript .github/scripts/enrich_petition_signals.R
       - uses: actions/upload-artifact@v4
         with:
