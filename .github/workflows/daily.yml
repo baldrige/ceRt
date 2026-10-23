@@ -114,13 +114,50 @@ jobs:
         # success measured that day. 30 is ~4x it, and still a fraction of the
         # hours this used to hang for before it was bounded at all.
         #
-        # setup-r-dependencies deliberately stays at 15: it has never come close,
-        # and loosening a cap that is not failing only makes the next hang longer.
+        # setup-r-dependencies stays at 15 and gets a second attempt instead
+        # (below): loosening a cap only makes the next hang longer.
         timeout-minutes: 30
         with:
           use-public-rspm: true
 
+      # Two attempts, not one. setup-r-dependencies runs its own apt-get for the
+      # packages' system libraries (pandoc, libnode, the X11 headers), outside
+      # the bounded apt in system-deps. Normally 40s; on 2026-10-22/23 the
+      # Azure Ubuntu mirror slowed to a crawl -- not stalled, so no apt timeout
+      # fires -- and six runs (daily, audit, conferences x2, word counts x2)
+      # died on this 15-minute cap still downloading. A second attempt
+      # resumes from the .debs the first one left in /var/cache/apt, so it
+      # only fetches what is left. Raising the cap instead would make every
+      # bad-day run longer and still give it one chance.
+      #
+      # The step timeout kills the action; an apt-get it started can outlive
+      # it and hold the dpkg lock, so the settle step waits for any apt or
+      # dpkg to exit (bounded) and repairs a half-finished dpkg before the
+      # retry.
       - name: Install R packages (cached)
+        id: rdeps
+        uses: r-lib/actions/setup-r-dependencies@v2
+        continue-on-error: true
+        timeout-minutes: 15
+        with:
+          packages: |
+            any::gt
+            any::gtExtras
+            any::tidyverse
+            any::httr2
+            any::jsonlite
+            any::pdftools
+            any::htmltools
+            any::openssl
+            any::jose
+      - name: Let the first attempt's apt finish
+        if: steps.rdeps.outcome == 'failure'
+        timeout-minutes: 15
+        run: |
+          while pgrep -x 'apt-get|apt|dpkg' >/dev/null; do sleep 10; done
+          sudo dpkg --configure -a
+      - name: Install R packages (second attempt)
+        if: steps.rdeps.outcome == 'failure'
         uses: r-lib/actions/setup-r-dependencies@v2
         timeout-minutes: 15
         with:

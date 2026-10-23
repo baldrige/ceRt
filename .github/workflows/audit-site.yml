@@ -27,12 +27,13 @@ concurrency:
 jobs:
   audit:
     runs-on: ubuntu-latest
-    # Must exceed the sum of this job's step caps (currently 45: setup-r 30 +
-    # setup-r-dependencies 15), or the job dies first and the step caps never
-    # fire -- which is strictly worse, because a job-level cancel does not say
-    # WHICH step hung, while a step timeout names it. 60 = 45 + a 15 min work
-    # allowance, ~5x the measured maximum for any of these light jobs.
-    timeout-minutes: 60
+    # Must exceed the sum of this job's step caps (currently 75: setup-r 30 +
+    # setup-r-dependencies 15, twice, with a 15-minute settle between), or the
+    # job dies first and the step caps never fire -- which is strictly worse,
+    # because a job-level cancel does not say WHICH step hung, while a step
+    # timeout names it. 90 = 75 + a 15 min work allowance, ~5x the measured
+    # maximum for any of these light jobs.
+    timeout-minutes: 90
     steps:
       - name: Checkout source (main)
         uses: actions/checkout@v5
@@ -55,7 +56,38 @@ jobs:
 
       # jsonlite only. The audit is dependency-light on purpose: one that fails
       # because tidyverse would not install tells you nothing about the site.
+      # Two attempts: a slow Ubuntu mirror (not a stalled one) outlasts the
+      # 15-minute cap. See daily.yml.
       - name: Install R packages (cached)
+        id: rdeps
+        uses: r-lib/actions/setup-r-dependencies@v2
+        continue-on-error: true
+        timeout-minutes: 15
+        with:
+      # Everything past jsonlite is for ONE check: the counsel-stats
+      # freshness fingerprint has to deparse the classifier, so the whole
+      # module chain must load -- including gt/gtExtras, which nothing here
+      # calls but R/cert_funnel.R declares at the top.
+      #
+      # audit_site.R degrades that check to a WARN if the source() fails, so
+      # this list can shrink again without breaking the audit. It is worth
+      # the setup time because the failure it catches is invisible by
+      # construction: a stale summary looks exactly like a fresh one.
+          packages: |
+            any::jsonlite
+            any::tidyverse
+            any::htmltools
+            any::digest
+            any::gt
+            any::gtExtras
+      - name: Let the first attempt's apt finish
+        if: steps.rdeps.outcome == 'failure'
+        timeout-minutes: 15
+        run: |
+          while pgrep -x 'apt-get|apt|dpkg' >/dev/null; do sleep 10; done
+          sudo dpkg --configure -a
+      - name: Install R packages (second attempt)
+        if: steps.rdeps.outcome == 'failure'
         uses: r-lib/actions/setup-r-dependencies@v2
         timeout-minutes: 15
         with:

@@ -51,9 +51,10 @@ concurrency:
 jobs:
   render:
     runs-on: ubuntu-latest
-    # setup-r 30 + setup-r-dependencies 15 + up to ~15 min of paced fetching
-    # (800 x 0.75 s plus download time) with headroom.
-    timeout-minutes: 90
+    # setup-r 30 + setup-r-dependencies 15 (twice, with a 15-minute settle
+    # between) + up to ~15 min of paced fetching (800 x 0.75 s plus download
+    # time) with headroom.
+    timeout-minutes: 120
     steps:
       - name: Checkout source (main)
         uses: actions/checkout@v5
@@ -67,7 +68,30 @@ jobs:
         timeout-minutes: 30
         with:
           use-public-rspm: true
-      - uses: r-lib/actions/setup-r-dependencies@v2
+      # Two attempts: a slow Ubuntu mirror (not a stalled one) outlasts the
+      # 15-minute cap. See daily.yml.
+      - name: Install R packages (cached)
+        id: rdeps
+        uses: r-lib/actions/setup-r-dependencies@v2
+        continue-on-error: true
+        timeout-minutes: 15
+        with:
+          packages: |
+            any::tidyverse
+            any::htmltools
+            any::jsonlite
+            any::httr2
+            any::pdftools
+            any::lubridate
+      - name: Let the first attempt's apt finish
+        if: steps.rdeps.outcome == 'failure'
+        timeout-minutes: 15
+        run: |
+          while pgrep -x 'apt-get|apt|dpkg' >/dev/null; do sleep 10; done
+          sudo dpkg --configure -a
+      - name: Install R packages (second attempt)
+        if: steps.rdeps.outcome == 'failure'
+        uses: r-lib/actions/setup-r-dependencies@v2
         timeout-minutes: 15
         with:
           packages: |

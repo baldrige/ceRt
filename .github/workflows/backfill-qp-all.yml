@@ -48,7 +48,7 @@ jobs:
   fetch:
     needs: plan
     runs-on: ubuntu-latest
-    timeout-minutes: 180
+    timeout-minutes: 210
     strategy:
       fail-fast: false
       matrix:
@@ -68,7 +68,31 @@ jobs:
         timeout-minutes: 30
         with:
           use-public-rspm: true
-      - uses: r-lib/actions/setup-r-dependencies@v2
+      # Two attempts: a slow Ubuntu mirror (not a stalled one) outlasts the
+      # 15-minute cap. See daily.yml.
+      - name: Install R packages (cached)
+        id: rdeps
+        uses: r-lib/actions/setup-r-dependencies@v2
+        continue-on-error: true
+        timeout-minutes: 15
+        with:
+          packages: |
+            any::gt
+            any::gtExtras
+            any::tidyverse
+            any::httr2
+            any::jsonlite
+            any::pdftools
+            any::htmltools
+      - name: Let the first attempt's apt finish
+        if: steps.rdeps.outcome == 'failure'
+        timeout-minutes: 15
+        run: |
+          while pgrep -x 'apt-get|apt|dpkg' >/dev/null; do sleep 10; done
+          sudo dpkg --configure -a
+      - name: Install R packages (second attempt)
+        if: steps.rdeps.outcome == 'failure'
+        uses: r-lib/actions/setup-r-dependencies@v2
         timeout-minutes: 15
         with:
           packages: |
@@ -107,12 +131,13 @@ jobs:
     # Merge whatever terms produced, including a term stopped by its time limit.
     if: always()
     runs-on: ubuntu-latest
-    # Must exceed the sum of this job's step caps (currently 45: setup-r 30 +
-    # setup-r-dependencies 15), or the job dies first and the step caps never
-    # fire -- which is strictly worse, because a job-level cancel does not say
-    # WHICH step hung, while a step timeout names it. 60 = 45 + a 15 min work
-    # allowance, ~5x the measured maximum for any of these light jobs.
-    timeout-minutes: 60
+    # Must exceed the sum of this job's step caps (currently 75: setup-r 30 +
+    # setup-r-dependencies 15, twice, with a 15-minute settle between), or the
+    # job dies first and the step caps never fire -- which is strictly worse,
+    # because a job-level cancel does not say WHICH step hung, while a step
+    # timeout names it. 90 = 75 + a 15 min work allowance, ~5x the measured
+    # maximum for any of these light jobs.
+    timeout-minutes: 90
     steps:
       - name: Checkout source (main)
         uses: actions/checkout@v5
@@ -126,7 +151,22 @@ jobs:
         timeout-minutes: 30
         with:
           use-public-rspm: true
-      - uses: r-lib/actions/setup-r-dependencies@v2
+      - name: Install R packages (cached)
+        id: rdeps
+        uses: r-lib/actions/setup-r-dependencies@v2
+        continue-on-error: true
+        timeout-minutes: 15
+        with:
+          packages: any::jsonlite
+      - name: Let the first attempt's apt finish
+        if: steps.rdeps.outcome == 'failure'
+        timeout-minutes: 15
+        run: |
+          while pgrep -x 'apt-get|apt|dpkg' >/dev/null; do sleep 10; done
+          sudo dpkg --configure -a
+      - name: Install R packages (second attempt)
+        if: steps.rdeps.outcome == 'failure'
+        uses: r-lib/actions/setup-r-dependencies@v2
         timeout-minutes: 15
         with:
           packages: any::jsonlite

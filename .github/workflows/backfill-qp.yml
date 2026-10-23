@@ -39,7 +39,27 @@ jobs:
         timeout-minutes: 30
         with:
           use-public-rspm: true
-      - uses: r-lib/actions/setup-r-dependencies@v2
+      # Two attempts: a slow Ubuntu mirror (not a stalled one) outlasts the
+      # 15-minute cap. See daily.yml.
+      - name: Install R packages (cached)
+        id: rdeps
+        uses: r-lib/actions/setup-r-dependencies@v2
+        continue-on-error: true
+        timeout-minutes: 15
+        with:
+          packages: |
+            any::tidyverse
+            any::pdftools
+            any::jsonlite
+      - name: Let the first attempt's apt finish
+        if: steps.rdeps.outcome == 'failure'
+        timeout-minutes: 15
+        run: |
+          while pgrep -x 'apt-get|apt|dpkg' >/dev/null; do sleep 10; done
+          sudo dpkg --configure -a
+      - name: Install R packages (second attempt)
+        if: steps.rdeps.outcome == 'failure'
+        uses: r-lib/actions/setup-r-dependencies@v2
         timeout-minutes: 15
         with:
           packages: |

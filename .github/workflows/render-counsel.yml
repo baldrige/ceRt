@@ -29,12 +29,13 @@ concurrency:
 jobs:
   render:
     runs-on: ubuntu-latest
-    # Must exceed the sum of this job's step caps (currently 45: setup-r 30 +
-    # setup-r-dependencies 15), or the job dies first and the step caps never
-    # fire -- which is strictly worse, because a job-level cancel does not say
-    # WHICH step hung, while a step timeout names it. 60 = 45 + a 15 min work
-    # allowance, ~5x the measured maximum for any of these light jobs.
-    timeout-minutes: 60
+    # Must exceed the sum of this job's step caps (currently 75: setup-r 30 +
+    # setup-r-dependencies 15, twice, with a 15-minute settle between), or the
+    # job dies first and the step caps never fire -- which is strictly worse,
+    # because a job-level cancel does not say WHICH step hung, while a step
+    # timeout names it. 90 = 75 + a 15 min work allowance, ~5x the measured
+    # maximum for any of these light jobs.
+    timeout-minutes: 90
     steps:
       - name: Checkout source (main)
         uses: actions/checkout@v5
@@ -48,7 +49,34 @@ jobs:
         timeout-minutes: 30
         with:
           use-public-rspm: true
-      - uses: r-lib/actions/setup-r-dependencies@v2
+      # Two attempts: a slow Ubuntu mirror (not a stalled one) outlasts the
+      # 15-minute cap. See daily.yml.
+      - name: Install R packages (cached)
+        id: rdeps
+        uses: r-lib/actions/setup-r-dependencies@v2
+        continue-on-error: true
+        timeout-minutes: 15
+        with:
+      # No pdftools -- this page resolves none. gt/gtExtras are not used by
+      # the renderer (the tables are hand-built HTML) but R/cert_funnel.R
+      # declares them at the top and counsel_table.R needs its classifier, so
+      # they must be installed for the source() to succeed at all.
+          packages: |
+            any::tidyverse
+            any::htmltools
+            any::jsonlite
+            any::digest
+            any::gt
+            any::gtExtras
+      - name: Let the first attempt's apt finish
+        if: steps.rdeps.outcome == 'failure'
+        timeout-minutes: 15
+        run: |
+          while pgrep -x 'apt-get|apt|dpkg' >/dev/null; do sleep 10; done
+          sudo dpkg --configure -a
+      - name: Install R packages (second attempt)
+        if: steps.rdeps.outcome == 'failure'
+        uses: r-lib/actions/setup-r-dependencies@v2
         timeout-minutes: 15
         with:
           # No pdftools -- this page resolves none. gt/gtExtras are not used by
