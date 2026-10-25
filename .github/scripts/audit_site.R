@@ -462,7 +462,9 @@ if (length(feeds)) {
   # 2026-09-03 for 26 days while the daily kept publishing dashboards: the feed
   # step threw, a tryCatch turned it into one log line, and nothing here looked.
   # So: the newest dated page (a dashboard, or a conference already held) must
-  # not be newer than the feed's own <updated>.
+  # not be newer than the feed's own <updated>. A conference page is published
+  # ahead of its date, and today's conference has not been held until the
+  # refresh after it -- counting it made a 04:00 UTC audit fail on 2026-10-09.
   if ("feed.xml" %in% feeds) {
     today_et <- as.Date(format(Sys.time(), tz = "America/New_York"))
     page_dates <- function(dir, rx, through) {
