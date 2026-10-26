@@ -5,8 +5,15 @@
   <link rel="self" href="https://supremecourt.report/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://supremecourt.report/"/>
   <id>https://supremecourt.report/feed.xml</id>
-  <updated>2026-10-24T12:00:00-04:00</updated>
+  <updated>2026-10-26T12:00:00-04:00</updated>
   <author><name>Supreme Court Report</name></author>
+  <entry>
+    <title>Docket for October 26, 2026</title>
+    <link href="https://supremecourt.report/dashboards/dash_2026-10-26.html"/>
+    <id>https://supremecourt.report/dashboards/dash_2026-10-26.html</id>
+    <updated>2026-10-26T12:00:00-04:00</updated>
+    <summary>Petitions and applications docketed on October 26, 2026.</summary>
+  </entry>
   <entry>
     <title>Docket for October 24, 2026</title>
     <link href="https://supremecourt.report/dashboards/dash_2026-10-24.html"/>
@@ -257,13 +264,6 @@
     <id>https://supremecourt.report/cases/25-1131.html</id>
     <updated>2026-10-01T12:00:00-04:00</updated>
     <summary>Petition GRANTED limited to Question 1 presented by the petition.</summary>
-  </entry>
-  <entry>
-    <title>Docket for September 30, 2026</title>
-    <link href="https://supremecourt.report/dashboards/dash_2026-09-30.html"/>
-    <id>https://supremecourt.report/dashboards/dash_2026-09-30.html</id>
-    <updated>2026-09-30T12:00:00-04:00</updated>
-    <summary>Petitions and applications docketed on September 30, 2026.</summary>
   </entry>
   <entry>
     <title>Application decided: Kenneth Nelsen, Warden v. Christa Gail Pike (No. 26A428) (Granted)</title>
