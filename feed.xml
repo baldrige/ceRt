@@ -5,8 +5,15 @@
   <link rel="self" href="https://supremecourt.report/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://supremecourt.report/"/>
   <id>https://supremecourt.report/feed.xml</id>
-  <updated>2026-10-26T12:00:00-04:00</updated>
+  <updated>2026-10-27T12:00:00-04:00</updated>
   <author><name>Supreme Court Report</name></author>
+  <entry>
+    <title>Docket for October 27, 2026</title>
+    <link href="https://supremecourt.report/dashboards/dash_2026-10-27.html"/>
+    <id>https://supremecourt.report/dashboards/dash_2026-10-27.html</id>
+    <updated>2026-10-27T12:00:00-04:00</updated>
+    <summary>Petitions and applications docketed on October 27, 2026.</summary>
+  </entry>
   <entry>
     <title>Docket for October 26, 2026</title>
     <link href="https://supremecourt.report/dashboards/dash_2026-10-26.html"/>
@@ -236,13 +243,6 @@
     <id>https://supremecourt.report/orders/2026-10-01-misc.html</id>
     <updated>2026-10-01T12:00:00-04:00</updated>
     <summary>3 granted; 1 other order. Granted: Missionaries of Saint John the Baptist, Inc. v. Joel Frederic, et ux.; Roxane M. Marschner v. Richard A. Marschner; Philip L. Rhoney, Acting Director of the Buffalo Field Office of U.S. Immigration and Customs Enforcement v. Ricardo Aparecido Barbosa da Cunha.</summary>
-  </entry>
-  <entry>
-    <title>Docket for October 1, 2026</title>
-    <link href="https://supremecourt.report/dashboards/dash_2026-10-01.html"/>
-    <id>https://supremecourt.report/dashboards/dash_2026-10-01.html</id>
-    <updated>2026-10-01T12:00:00-04:00</updated>
-    <summary>Petitions and applications docketed on October 1, 2026.</summary>
   </entry>
   <entry>
     <title>Certiorari granted: Philip L. Rhoney, Acting Director of the Buffalo Field Office of U.S. Immigration and Customs Enforcement v. Ricardo Aparecido Barbosa da Cunha (No. 26-104)</title>
