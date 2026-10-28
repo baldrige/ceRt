@@ -5,8 +5,15 @@
   <link rel="self" href="https://supremecourt.report/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://supremecourt.report/"/>
   <id>https://supremecourt.report/feed.xml</id>
-  <updated>2026-10-27T12:00:00-04:00</updated>
+  <updated>2026-10-28T12:00:00-04:00</updated>
   <author><name>Supreme Court Report</name></author>
+  <entry>
+    <title>Docket for October 28, 2026</title>
+    <link href="https://supremecourt.report/dashboards/dash_2026-10-28.html"/>
+    <id>https://supremecourt.report/dashboards/dash_2026-10-28.html</id>
+    <updated>2026-10-28T12:00:00-04:00</updated>
+    <summary>Petitions and applications docketed on October 28, 2026.</summary>
+  </entry>
   <entry>
     <title>Docket for October 27, 2026</title>
     <link href="https://supremecourt.report/dashboards/dash_2026-10-27.html"/>
@@ -229,13 +236,6 @@
     <id>https://supremecourt.report/dashboards/dash_2026-10-05.html</id>
     <updated>2026-10-05T12:00:00-04:00</updated>
     <summary>Petitions and applications docketed on October 5, 2026.</summary>
-  </entry>
-  <entry>
-    <title>Docket for October 2, 2026</title>
-    <link href="https://supremecourt.report/dashboards/dash_2026-10-02.html"/>
-    <id>https://supremecourt.report/dashboards/dash_2026-10-02.html</id>
-    <updated>2026-10-02T12:00:00-04:00</updated>
-    <summary>Petitions and applications docketed on October 2, 2026.</summary>
   </entry>
   <entry>
     <title>Miscellaneous Order, October 1, 2026</title>
