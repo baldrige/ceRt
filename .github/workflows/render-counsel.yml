@@ -1,6 +1,6 @@
 name: Render the Counsel Table
 
-# Re-render counsel/index.html on demand.
+# Re-render counsel/index.html and counsel/amicus.html on demand.
 #
 # Unlike render-funnel.yml this needs nothing from a prior run and nothing from
 # the network: every number on the page comes from the committed term archives
@@ -12,7 +12,8 @@ name: Render the Counsel Table
 # log. Refresh the committed copy with:
 #   Rscript .github/scripts/make_counsel_stats.R
 #
-# Publishes ONLY counsel/index.html.
+# Publishes ONLY counsel/index.html and counsel/amicus.html. The amicus page
+# follows the same contract (data/amicus_stats.json, make_amicus_stats.R).
 
 on:
   workflow_dispatch:
@@ -34,8 +35,9 @@ jobs:
     # job dies first and the step caps never fire -- which is strictly worse,
     # because a job-level cancel does not say WHICH step hung, while a step
     # timeout names it. 90 = 75 + a 15 min work allowance, ~5x the measured
-    # maximum for any of these light jobs.
-    timeout-minutes: 90
+    # maximum for any of these light jobs -- plus 15 for the amicus page, whose
+    # stale-stats recompute measured 13 minutes locally (2026-10-29).
+    timeout-minutes: 105
     steps:
       - name: Checkout source (main)
         uses: actions/checkout@v5
@@ -96,6 +98,11 @@ jobs:
           SITE_DIR: site
         run: Rscript .github/scripts/render_counsel.R
 
+      - name: Render the amicus page
+        env:
+          SITE_DIR: site
+        run: Rscript .github/scripts/render_amicus.R
+
       - name: Publish
         working-directory: site
-        run: ../.github/scripts/publish_site.sh "Counsel table re-render $(date -u +%F)" counsel/index.html
+        run: ../.github/scripts/publish_site.sh "Counsel table re-render $(date -u +%F)" counsel/index.html counsel/amicus.html

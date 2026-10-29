@@ -51,7 +51,7 @@ whole site, partitioned so they never fight over the same paths; the third only 
 | workflow | schedule (cron is **UTC**) | data | public pages |
 | --- | --- | --- | --- |
 | **`daily.yml`** | 3×/day: `33 0`, `33 16`, `33 20` (00:33 / 16:33 / 20:33 UTC — the ET-anchored two ≈ 12:33pm & 4:33pm ET) | **Yes** — incremental fetch | **Yes** — dashboards, recent cases, landing, applications (rebuilt from the nightly's snapshot) |
-| **`conferences.yml`** | Nightly `0 6 * * *` (**06:00 UTC**), year-round (weekly on Mondays until 2026-10-06) | **Yes** — full-term fetch | **Yes** — conferences, relists, applications, arguments, funnel, counsel |
+| **`conferences.yml`** | Nightly `0 6 * * *` (**06:00 UTC**), year-round (weekly on Mondays until 2026-10-06) | **Yes** — full-term fetch | **Yes** — conferences, relists, applications, arguments, funnel, counsel (+ amicus) |
 | **`align-arguments.yml`** | Every 6 h, `17 */6 * * *` (GitHub cron; lateness costs nothing here) | **Yes** — line times in `arguments/<yyyy>/*.json` | **Indirectly** — the argument pages' players read them. An empty queue ends the run after the plan job (~1 min). See **[argument-transcripts.md](argument-transcripts.md)** |
 | **`deploy-watcher.yml`** | Push to `main` touching `aws/watcher/**`; manual | **No** | **No** — tests `aws/watcher/watcher.py` and builds `watcher-lambda.zip` (a 90-day artifact) to upload in the Lambda console. Deploys it too only if `AWS_DEPLOY_ROLE_ARN` is set -- not possible in this account, whose AWS Organization denies GitHub's OIDC provider |
 | **`watch-court.yml`** — *disabled; replaced by the AWS watcher above* | A self-dispatching **chain**: each run polls for ~5h45m, then starts the next; the cron (`7,22,37,52 * * * *`) is only the restart floor | **No** — reads a 1 KB feed | **Indirectly** — dispatches `daily.yml` when the Court's Hermes transfer feed changes |
@@ -120,7 +120,7 @@ watcher already in progress exits at once. See **[data-sources.md](data-sources.
 
 ### `conferences.yml`
 
-Its four post-render steps (funnel, counsel, argument navigator, Justices) are
+Its five post-render steps (funnel, counsel, amicus, argument navigator, Justices) are
 `continue-on-error`, so none can block the conference publish — and a final
 **Report silent render failures** step fails the run *after* the publish if
 any of them failed. It exists because from 2026-09-07 to 09-14 the navigator
@@ -146,7 +146,7 @@ site already updated is the right shape for that.
   "SG recommendations:"). **No retrain.**
 - **Public pages:** `conferences/` (per-conference reports + rebuilt index),
   **`relists/index.html`**, **`applications/index.html`**, **`funnel/index.html`**,
-  **`counsel/index.html`**,
+  **`counsel/index.html`**, **`counsel/amicus.html`**,
   `arguments/` (navigator index + per-term `arg_*.html`, and one page per
   argument at `arguments/<yyyy>/<docket>.html` with its parsed transcript
   beside it -- `TRANSCRIPTS_MAX_NEW` new transcripts a run, default 150, and
@@ -183,7 +183,8 @@ None of these fire on a schedule. Trigger with `gh workflow run <file> --ref mai
 | **`refetch-argued.yml`** | Re-fetch ~500 granted OT17–24 dockets → commits `data-raw/arg_refresh.rds` to **`main`** | **No** — but it is the input to the Counsel Table's argument boards, so refresh it before re-rendering those |
 | **`probe-scotus.yml`** | **No** — read-only WAF/throttle diagnostic; logs HTTP status codes | **No** |
 | **`render-funnel.yml`** | **No fetch** — reuses `cases-*.rds` from a prior `conferences.yml` run (artifacts expire after 3 days) | **Yes → `funnel/index.html` only** |
-| **`render-counsel.yml`** | **No fetch, no artifacts** — reads the committed archives (incl. `arg_refresh.rds`) via `data/counsel_stats.json` | **Yes → `counsel/index.html` only** |
+| **`refetch-amici.yml`** | Re-fetch every archived docket carrying an amicus brief (~3,100) → commits `data-raw/amici_refresh.rds` to **`main`**; refuses a >10% degraded fetch, keeps the previous copy of any docket it misses, `limit` input for a trial run | **No** — but it is the amicus page's counsel boards and current merits stage, so refresh `data/amicus_stats.json` after it (see **[amicus.md](amicus.md)**) |
+| **`render-counsel.yml`** | **No fetch, no artifacts** — reads the committed archives (incl. `arg_refresh.rds`, `amici_refresh.rds`) via `data/counsel_stats.json` and `data/amicus_stats.json` | **Yes → `counsel/index.html` and `counsel/amicus.html` only** |
 | **`patch-leaf-chrome.yml`** | **No** — post-pass over published leaves | **Yes** — feed autodiscovery on already-rendered leaf pages |
 | **`seed-pending.yml`** | Seeds `cases/pending.json` on `gh-pages` | **No HTML** |
 
@@ -490,4 +491,5 @@ bursty clients).
 | `backfill-qp.yml` | argued-grant petition PDFs | — (cache → gh-pages) | `backfill_qp.R` |
 | `backfill-qp-all.yml` | all paid petition PDFs | — (cache → gh-pages) | `enrich_qp.R`, `combine_qp.R` |
 | `refetch-argued.yml` | ~500 granted OT17–24 dockets | — (data → `main`) | `refetch_argued.R` |
+| `refetch-amici.yml` | ~3,100 archived dockets carrying an amicus brief | — (data → `main`) | `refetch_amici.R` |
 | `probe-scotus.yml` | read-only probe | — (nothing) | inline bash/curl |

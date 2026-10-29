@@ -1,0 +1,104 @@
+name: Refetch amicus dockets
+
+# One-off / occasional: re-fetch every archived docket that carries an amicus
+# brief (~3,100, about half an hour at the paced 2 req/s) from a fresh runner
+# IP, and commit the refresh layer (data-raw/amici_refresh.rds) to main. It
+# carries what the archives cannot: the docket JSON's "Other" block -- each
+# amicus party's counsel of record and firm -- and the merits briefs filed after
+# a Term's archive was taken. R/amicus.R prefers it over the archives; refresh
+# the committed stats afterwards with .github/scripts/make_amicus_stats.R (the
+# render recomputes on a stale fingerprint either way).
+#
+# Resumable: a failed docket keeps its previous copy, and a fetch that loses
+# more than 10% of dockets is refused rather than saved. `limit` caps a trial run.
+
+on:
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: "Fetch only the first N dockets (blank = all)"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refetch-amici
+  cancel-in-progress: false
+
+jobs:
+  refetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v5
+      - name: System dependencies (poppler + tesseract for pdftools/OCR)
+        uses: ./.github/actions/system-deps
+      - uses: ./.github/actions/apt-sources
+      - uses: r-lib/actions/setup-r@v2
+        timeout-minutes: 30
+        with:
+          use-public-rspm: true
+      # Two attempts: a slow Ubuntu mirror (not a stalled one) outlasts the
+      # 15-minute cap. See daily.yml.
+      - name: Install R packages (cached)
+        id: rdeps
+        uses: r-lib/actions/setup-r-dependencies@v2
+        continue-on-error: true
+        timeout-minutes: 15
+        with:
+          packages: |
+            any::gt
+            any::gtExtras
+            any::tidyverse
+            any::httr2
+            any::jsonlite
+            any::pdftools
+            any::htmltools
+            any::nnet
+            any::digest
+            any::commonmark
+      - name: Let the first attempt's apt finish
+        if: steps.rdeps.outcome == 'failure'
+        timeout-minutes: 15
+        run: |
+          while pgrep -x 'apt-get|apt|dpkg' >/dev/null; do sleep 10; done
+          sudo dpkg --configure -a
+      - name: Install R packages (second attempt)
+        if: steps.rdeps.outcome == 'failure'
+        uses: r-lib/actions/setup-r-dependencies@v2
+        timeout-minutes: 15
+        with:
+          packages: |
+            any::gt
+            any::gtExtras
+            any::tidyverse
+            any::httr2
+            any::jsonlite
+            any::pdftools
+            any::htmltools
+            any::nnet
+            any::digest
+            any::commonmark
+      - name: Refetch every archived docket carrying an amicus brief
+        env:
+          AMICI_LIMIT: ${{ inputs.limit }}
+        run: Rscript .github/scripts/refetch_amici.R
+      - name: Commit refresh layer to main
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data-raw/amici_refresh.rds
+          if git diff --cached --quiet; then
+            echo "No change to amici_refresh.rds."
+          else
+            git commit -m "Refresh amicus dockets $(date -u +%F)"
+            for i in 1 2 3 4 5; do
+              if git push origin HEAD:main; then exit 0; fi
+              echo "push rejected; rebasing (attempt $i)"
+              git pull --rebase origin main
+              sleep $((RANDOM % 5 + 3))
+            done
+            echo "could not push after retries" >&2; exit 1
+          fi

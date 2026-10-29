@@ -389,6 +389,15 @@ jobs:
         env:
           SITE_DIR: site
         run: Rscript .github/scripts/render_counsel.R
+      - name: Render the amicus page
+        # counsel/amicus.html, the Counsel section's second page. Same contract
+        # as the counsel table: committed archives + data/amicus_stats.json, no
+        # fetch, self-healing on a stale fingerprint. Never blocks the publish.
+        id: amicus
+        continue-on-error: true
+        env:
+          SITE_DIR: site
+        run: Rscript .github/scripts/render_amicus.R
       - name: Render argument navigator
         # Never let an argument-nav failure block conference publishing --
         # but SAY SO at the end of the run (the "Report silent render failures"
@@ -422,12 +431,12 @@ jobs:
         run: |
           ../.github/scripts/publish_site.sh "Conference refresh $(date -u +%F)"
       - name: Report silent render failures
-        # The four render steps above are continue-on-error so that none of
+        # The five render steps above are continue-on-error so that none of
         # them can block the conference publish. This step runs AFTER the
         # publish and fails the run if any of them failed, so the run reads
         # red in the Actions list instead of green with a dead section inside
         # it. The publish has already happened; nothing here is lost.
-        if: ${{ always() && (steps.funnel.outcome == 'failure' || steps.counsel.outcome == 'failure' || steps.argnav.outcome == 'failure' || steps.justices.outcome == 'failure') }}
+        if: ${{ always() && (steps.funnel.outcome == 'failure' || steps.counsel.outcome == 'failure' || steps.amicus.outcome == 'failure' || steps.argnav.outcome == 'failure' || steps.justices.outcome == 'failure') }}
         run: |
-          echo "::error::A render step failed after the publish went out -- funnel=${{ steps.funnel.outcome }} counsel=${{ steps.counsel.outcome }} argnav=${{ steps.argnav.outcome }} justices=${{ steps.justices.outcome }}. Read that step's log."
+          echo "::error::A render step failed after the publish went out -- funnel=${{ steps.funnel.outcome }} counsel=${{ steps.counsel.outcome }} amicus=${{ steps.amicus.outcome }} argnav=${{ steps.argnav.outcome }} justices=${{ steps.justices.outcome }}. Read that step's log."
           exit 1

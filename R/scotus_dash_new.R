@@ -235,6 +235,28 @@ build_parties <- function(j) {
   )
 }
 
+# The docket's third attorney block, headed "Other": in practice the amici, one
+# row per attorney with the party they appear for. 25-332 carries 55 of them,
+# with counsel of record and firm ("Washington Legal Foundation" / Cory L.
+# Andrews). Read by the amicus page (R/amicus.R) and nothing else.
+#
+# A column of its own, NOT more rows in `parties`. `parties` is a cert-model
+# input -- petition_features() reads counsel and pro se status from it -- and
+# docket_pages() hashes it into every page's manifest key, so appending the
+# amici there would move live scores and re-render the back-catalog. Before this
+# the block was dropped on the floor; the HTML-era archives (OT2017-2024) kept
+# it as `party == "Other"` rows without a firm.
+build_amici <- function(j) {
+  df <- j$Other
+  if (is.null(df) || !is.data.frame(df) || nrow(df) == 0) return(tibble())
+  tibble(
+    party = coalesce(df_col(df, "PartyName"), ""),
+    attys = coalesce(df_col(df, "Attorney"), ""),
+    firm = df_col(df, "Title"),
+    counsel_of_record = coalesce(as.logical(df_col(df, "IsCounselofRecord")), FALSE)
+  )
+}
+
 # Proceedings as a tibble with Date, `Proceedings and Orders`, and paired
 # docs_N / links_N columns (document description + URL), matching the shape the
 # render pipeline expects.
@@ -337,6 +359,7 @@ build_case <- function(j, dkt) {
     linked = j$Links %|||% NA_character_,
     petition_url = .json_petition_url(j$ProceedingsandOrder),
     parties = list(build_parties(j)),
+    amici = list(build_amici(j)),
     events = list(build_events(j$ProceedingsandOrder))
   )
 }
