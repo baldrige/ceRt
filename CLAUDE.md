@@ -15,6 +15,7 @@ and served by GitHub Pages.
 | Oral Argument Navigator | `arguments/` | `conferences.yml` → `render_arguments.R` |
 | The Cert Funnel (explainer) | `funnel/` | `render_funnel.R` |
 | The Counsel Table | `counsel/` | `R/counsel_table.R` — see **[docs/counsel-table.md](docs/counsel-table.md)** |
+| Friends of the Court (amicus filers, sides, coalitions, States, amicus counsel) | `counsel/amicus.html` | `R/amicus.R`, from `conferences.yml` / `render-counsel.yml`; counsel and current merits via `refetch-amici.yml` — see **[docs/amicus.md](docs/amicus.md)**. Classifies briefs with the case pages' own `brief_cover()`; the docket JSON's amici live in an `amici` column, never in `parties` |
 | Cert-grant forecast model + methods | `methods.html` | `R/cert_model.R` — see **[docs/cert_model.md](docs/cert_model.md)** |
 | Forecast Scorecard (the ledger's forecasts held to the order lists) | `scorecard/` | `R/scorecard.R`, from `conferences.yml` and `daily.yml` — see **[docs/scorecard.md](docs/scorecard.md)**. Score from `cases/forecasts.json`, never the conference pages |
 | Conference forecast (competing risks) | `conferences/` | `R/cert_model.R` — two published columns, see **[docs/cert_model.md](docs/cert_model.md)** |

@@ -707,6 +707,26 @@ resp_merits_brief_on <- function(ev, granted_on = as.Date(NA), sides = NULL) {
   resp_brief_on
 }
 
+# Cert-grant date -- the stage line for brief-cover coloring. Detected straight
+# from the docket ("Petition GRANTED" / "certiorari ... granted"); NA if never
+# granted, so an ungranted case keeps the safe cert-stage covers throughout.
+# Shared with the amicus page (R/amicus.R), which must split cert-stage from
+# merits briefs exactly where the case pages do.
+docket_granted_on <- function(ev) {
+  granted_on <- as.Date(NA)
+  if (!is.data.frame(ev)) return(granted_on)
+  po <- ev[["Proceedings and Orders"]] %||% ""
+  # A real cert grant ("Petition GRANTED"); exclude stay/conditional orders whose
+  # boilerplate ("in the event the petition ... is granted") otherwise reads as a
+  # grant and back-dates the merits stage.
+  gi <- which(str_detect(po, regex("(petition|certiorari)\\b.*grant", ignore_case = TRUE)) &
+              !str_detect(po, regex("for a stay|in the event|should the petition|pending (the )?disposition|if such writ",
+                                    ignore_case = TRUE)))
+  if (length(gi)) granted_on <- suppressWarnings(min(lubridate::mdy(ev$Date[gi]), na.rm = TRUE))
+  if (is.infinite(granted_on)) granted_on <- as.Date(NA)
+  granted_on
+}
+
 amicus_counts <- function(ev, granted_on = as.Date(NA), resp_brief_on = as.Date(NA), sides = NULL) {
   out <- list(cert = 0L, merits = 0L, mpet = 0L, mresp = 0L)
   if (!is.data.frame(ev) || nrow(ev) == 0) return(out)
@@ -1089,21 +1109,7 @@ docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
          dismissed_date = as.Date(NA), status = "Granted",
          argued_text = NA, opinion_author = NA, opinion_url = NA)
 
-  # Cert-grant date -- the stage line for brief-cover coloring. Detected straight
-  # from the docket ("Petition GRANTED" / "certiorari ... granted"); NA if never
-  # granted, so an ungranted case keeps the safe cert-stage covers throughout.
-  granted_on <- as.Date(NA)
-  if (is.data.frame(ev)) {
-    po <- ev[["Proceedings and Orders"]] %||% ""
-    # A real cert grant ("Petition GRANTED"); exclude stay/conditional orders whose
-    # boilerplate ("in the event the petition ... is granted") otherwise reads as a
-    # grant and back-dates the merits stage.
-    gi <- which(str_detect(po, regex("(petition|certiorari)\\b.*grant", ignore_case = TRUE)) &
-                !str_detect(po, regex("for a stay|in the event|should the petition|pending (the )?disposition|if such writ",
-                                      ignore_case = TRUE)))
-    if (length(gi)) granted_on <- suppressWarnings(min(lubridate::mdy(ev$Date[gi]), na.rm = TRUE))
-    if (is.infinite(granted_on)) granted_on <- as.Date(NA)
-  }
+  granted_on <- docket_granted_on(ev)
 
   # Respondent's merits-brief date -- the split point for coloring merits amicus
   # (Rule 37: amici for respondent are due after it, amici for petitioner/neither

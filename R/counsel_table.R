@@ -1302,7 +1302,8 @@ render_counsel_page <- function(stats, out_dir) {
           "This counts petitioner's counsel of record and nothing else. An advocate ",
           "who argued a case they did not petition in does not appear, and ",
           "respondents' counsel — which is most of what the Supreme Court bar ",
-          "actually does — is invisible here."))))
+          "actually does — is invisible here. The amici, and the lawyers who write ",
+          "for them, are on <a href='/counsel/amicus.html'>a page of their own</a>."))))
       )),
 
       sec("Volume", "Most cases filed",

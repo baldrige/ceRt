@@ -315,7 +315,8 @@ ph_files <- Filter(file.exists, c(
   file.path(site, c("index.html", "about.html", "funnel/index.html",
                     "conferences/index.html", "arguments/index.html",
                     "dashboards/index.html", "cases/index.html",
-                    "relists/index.html", "counsel/index.html", "scorecard/index.html",
+                    "relists/index.html", "counsel/index.html", "counsel/amicus.html",
+                    "scorecard/index.html",
                     "applications/index.html", "justices/opinion-watch.html",
                     # The leaves' theme now lives here, not in each page, so a
                     # leaked placeholder would be in this file and nowhere the
@@ -563,7 +564,8 @@ if (n_feeds) {
   idx <- Filter(file.exists, file.path(site, c(
     "index.html", "about.html", "cases/index.html", "dashboards/index.html",
     "conferences/index.html", "arguments/index.html", "funnel/index.html",
-    "relists/index.html", "counsel/index.html", "applications/index.html",
+    "relists/index.html", "counsel/index.html", "counsel/amicus.html",
+    "applications/index.html",
     "justices/opinion-watch.html")))
   lvs <- Filter(file.exists, c(
     leaf("conferences", "^conf_\\d{4}-\\d{2}-\\d{2}\\.html$"),
@@ -739,6 +741,60 @@ if (!file.exists(cstats) && !file.exists(cpage)) {
       fail("counsel boards populated", sprintf("%d cell(s) render NA/NaN/Inf", bad))
     } else {
       ok("counsel boards populated",
+         sprintf("%d tables, %d ranked rows, no NA cells", ntab, nrows))
+    }
+  }
+}
+
+# ---- the amicus page ------------------------------------------------------------
+# The counsel table's two checks, for the same two reasons: a committed summary
+# can go stale behind the classifier (here the case pages' brief_cover(), which
+# the fingerprint digests), and a page can render styled and empty.
+cat("\nAmicus page\n")
+astats <- "data/amicus_stats.json"
+apage <- file.path(site, "counsel/amicus.html")
+if (!file.exists(astats) && !file.exists(apage)) {
+  cat("  (no amicus page published yet -- skipped)\n")
+} else {
+  aenv <- tryCatch({ e <- new.env(parent = globalenv())
+                     sys.source("R/amicus.R", envir = e); e },
+                   error = function(err) NULL)
+  if (file.exists(astats) && !is.null(aenv)) {
+    have <- tryCatch(jsonlite::fromJSON(astats)$fingerprint, error = function(e) NA)
+    want <- tryCatch(aenv$amicus_stats_fingerprint(aenv$amicus_input_paths()),
+                     error = function(e) NA_character_)
+    if (is.na(want)) {
+      warn("amicus stats fresh", "could not compute the fingerprint")
+    } else if (identical(as.character(have), want)) {
+      ok("amicus stats fresh",
+         sprintf("committed stats match the classifier (%s)", substr(want, 1, 12)))
+    } else {
+      fail("amicus stats fresh",
+           sprintf(paste("data/amicus_stats.json is STALE (committed %s, code",
+                         "produces %s) -- every render recomputes it. Refresh:",
+                         "Rscript .github/scripts/make_amicus_stats.R"),
+                   if (length(have) && !is.na(have)) substr(have, 1, 12) else "none",
+                   substr(want, 1, 12)))
+    }
+  } else if (file.exists(astats)) {
+    warn("amicus stats fresh", "R/amicus.R would not load here -- freshness unverified")
+  }
+  if (file.exists(apage)) {
+    ah <- slurp(apage)
+    nrows <- length(gregexpr("<tr><td class='rk'>", ah, fixed = TRUE)[[1]])
+    ntab <- length(gregexpr("<table class='ctab'>", ah, fixed = TRUE)[[1]])
+    bad <- length(gregexpr(">(NA|NaN|Inf|-Inf)%?<", ah, perl = TRUE)[[1]][
+      gregexpr(">(NA|NaN|Inf|-Inf)%?<", ah, perl = TRUE)[[1]] > 0])
+    # Seven boards from the archives alone (volume, by year, front door, merits,
+    # allies, opponents, States), nine once data-raw/amici_refresh.rds adds the
+    # two counsel boards. Seven is the floor: the refresh is optional.
+    if (ntab < 7 || nrows < 20) {
+      fail("amicus boards populated",
+           sprintf("%d table(s), %d ranked row(s) -- expected at least 7 tables", ntab, nrows))
+    } else if (bad) {
+      fail("amicus boards populated", sprintf("%d cell(s) render NA/NaN/Inf", bad))
+    } else {
+      ok("amicus boards populated",
          sprintf("%d tables, %d ranked rows, no NA cells", ntab, nrows))
     }
   }

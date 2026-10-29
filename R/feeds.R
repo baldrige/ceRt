@@ -617,6 +617,15 @@ write_sitemaps <- function(site_dir, base = SITE_URL, max_urls = SITEMAP_MAX) {
     page_urls <- c(page_urls, paste0(base, "/cases/", ot))
     page_mod <- c(page_mod, rep(as.Date(NA), length(ot)))
   }
+  # Section pages that are not a section's index: the amicus page sits under
+  # /counsel/ because the masthead has no room for an eleventh link, and the
+  # index walk above sees only counsel/index.html.
+  for (f in c("counsel/amicus.html")) {
+    if (file.exists(rel(f))) {
+      page_urls <- c(page_urls, paste0(base, "/", f))
+      page_mod <- c(page_mod, as.Date(NA))
+    }
+  }
   if (length(page_urls))
     children[["sitemap-pages.xml"]] <- list(urls = page_urls, lastmod = page_mod)
 
