@@ -3,40 +3,40 @@
     "terms": "OT2017–2025",
     "term_from": 2017,
     "term_to": 2025,
-    "briefs": 15221,
+    "briefs": 15481,
     "cases": 2942,
-    "filers": 6610,
-    "one_off": 4985,
-    "cert": 7212,
-    "merits": 8009,
-    "merits_cases": 532,
-    "state_briefs": 766,
-    "us_briefs": 350,
-    "door_with_n": 2403,
-    "door_with_rate": 0.139825218476904,
-    "door_without_n": 10931,
-    "door_without_rate": 0.020583661147196,
-    "door_qualifying": 114,
+    "filers": 6700,
+    "one_off": 5057,
+    "cert": 7218,
+    "merits": 8263,
+    "merits_cases": 535,
+    "state_briefs": 777,
+    "us_briefs": 361,
+    "door_with_n": 2437,
+    "door_with_rate": 0.137874435781699,
+    "door_without_n": 10930,
+    "door_without_rate": 0.0206770356816102,
+    "door_qualifying": 115,
     "case_fell_rate": 0.721627408993576,
     "cases_decided": 467,
     "states_named": 49,
-    "block_briefs": 0,
-    "block_share": 0,
-    "matched": 0,
-    "in_house": 0,
+    "block_briefs": 15481,
+    "block_share": 1,
+    "matched": 15174,
+    "in_house": 3099,
     "top_n": 25,
     "min_rate": 8,
     "pair_filer_min": 10,
     "pair_min": 4,
-    "as_of": "2026-08-26"
+    "as_of": "2026-10-28"
   },
   "by_term": [
     {
       "term": 2017,
       "briefs": 1503,
       "cert": 704,
-      "merits_pet": 468,
-      "merits_resp": 331,
+      "merits_pet": 461,
+      "merits_resp": 338,
       "merits_cases": 69,
       "filers": 948,
       "undecided": 2,
@@ -56,13 +56,13 @@
     {
       "term": 2019,
       "briefs": 1774,
-      "cert": 762,
-      "merits_pet": 524,
-      "merits_resp": 488,
-      "merits_cases": 57,
+      "cert": 763,
+      "merits_pet": 521,
+      "merits_resp": 490,
+      "merits_cases": 56,
       "filers": 1168,
-      "undecided": 7,
-      "per_case": 17.7543859649123
+      "undecided": 6,
+      "per_case": 18.0535714285714
     },
     {
       "term": 2020,
@@ -101,8 +101,8 @@
       "term": 2023,
       "briefs": 1844,
       "cert": 816,
-      "merits_pet": 570,
-      "merits_resp": 458,
+      "merits_pet": 569,
+      "merits_resp": 459,
       "merits_cases": 69,
       "filers": 1155,
       "undecided": 8,
@@ -110,34 +110,34 @@
     },
     {
       "term": 2024,
-      "briefs": 1921,
-      "cert": 886,
-      "merits_pet": 701,
-      "merits_resp": 334,
+      "briefs": 1926,
+      "cert": 885,
+      "merits_pet": 706,
+      "merits_resp": 335,
       "merits_cases": 60,
-      "filers": 1099,
+      "filers": 1101,
       "undecided": 9,
-      "per_case": 17.25
+      "per_case": 17.35
     },
     {
       "term": 2025,
-      "briefs": 1557,
-      "cert": 1053,
-      "merits_pet": 287,
-      "merits_resp": 217,
-      "merits_cases": 34,
-      "filers": 884,
-      "undecided": 19,
-      "per_case": 14.8235294117647
+      "briefs": 1812,
+      "cert": 1059,
+      "merits_pet": 429,
+      "merits_resp": 324,
+      "merits_cases": 38,
+      "filers": 1017,
+      "undecided": 23,
+      "per_case": 19.8157894736842
     }
   ],
   "filers": [
     {
       "key": "cato institute",
-      "briefs": 317,
+      "briefs": 320,
       "cert": 239,
-      "merits_pet": 48,
-      "merits_resp": 30,
+      "merits_pet": 50,
+      "merits_resp": 31,
       "terms": 9,
       "name": "Cato Institute",
       "n_variants": 1,
@@ -145,10 +145,10 @@
     },
     {
       "key": "chamber of commerce of the united states of america",
-      "briefs": 261,
+      "briefs": 263,
       "cert": 142,
-      "merits_pet": 90,
-      "merits_resp": 29,
+      "merits_pet": 91,
+      "merits_resp": 30,
       "terms": 9,
       "name": "Chamber of Commerce of the United States of America",
       "n_variants": 1,
@@ -156,9 +156,9 @@
     },
     {
       "key": "washington legal foundation",
-      "briefs": 171,
+      "briefs": 172,
       "cert": 94,
-      "merits_pet": 54,
+      "merits_pet": 55,
       "merits_resp": 23,
       "terms": 9,
       "name": "Washington Legal Foundation",
@@ -167,10 +167,10 @@
     },
     {
       "key": "national association of criminal defense lawyers",
-      "briefs": 153,
+      "briefs": 155,
       "cert": 78,
-      "merits_pet": 58,
-      "merits_resp": 17,
+      "merits_pet": 59,
+      "merits_resp": 18,
       "terms": 9,
       "name": "National Association of Criminal Defense Lawyers",
       "n_variants": 1,
@@ -178,9 +178,9 @@
     },
     {
       "key": "pacific legal foundation",
-      "briefs": 133,
+      "briefs": 135,
       "cert": 86,
-      "merits_pet": 32,
+      "merits_pet": 34,
       "merits_resp": 15,
       "terms": 9,
       "name": "Pacific Legal Foundation",
@@ -189,10 +189,10 @@
     },
     {
       "key": "constitutional accountability center",
-      "briefs": 120,
+      "briefs": 123,
       "cert": 28,
-      "merits_pet": 50,
-      "merits_resp": 42,
+      "merits_pet": 49,
+      "merits_resp": 46,
       "terms": 9,
       "name": "Constitutional Accountability Center",
       "n_variants": 1,
@@ -200,9 +200,9 @@
     },
     {
       "key": "buckeye institute",
-      "briefs": 84,
+      "briefs": 87,
       "cert": 56,
-      "merits_pet": 22,
+      "merits_pet": 25,
       "merits_resp": 6,
       "terms": 8,
       "name": "The Buckeye Institute",
@@ -211,9 +211,9 @@
     },
     {
       "key": "american center for law and justice",
-      "briefs": 80,
+      "briefs": 83,
       "cert": 41,
-      "merits_pet": 35,
+      "merits_pet": 38,
       "merits_resp": 4,
       "terms": 9,
       "name": "American Center for Law and Justice",
@@ -255,9 +255,9 @@
     },
     {
       "key": "atlantic legal foundation",
-      "briefs": 74,
+      "briefs": 75,
       "cert": 43,
-      "merits_pet": 23,
+      "merits_pet": 24,
       "merits_resp": 8,
       "terms": 9,
       "name": "Atlantic Legal Foundation",
@@ -287,6 +287,17 @@
       "variants": "The Rutherford Institute"
     },
     {
+      "key": "advancing american freedom",
+      "briefs": 67,
+      "cert": 41,
+      "merits_pet": 19,
+      "merits_resp": 7,
+      "terms": 7,
+      "name": "Advancing American Freedom",
+      "n_variants": 3,
+      "variants": "Advancing American Freedom · Advancing American Freedom, Inc. · Advancing American Freedom, Inc"
+    },
+    {
       "key": "public citizen",
       "briefs": 65,
       "cert": 5,
@@ -309,22 +320,11 @@
       "variants": "New Civil Liberties Alliance"
     },
     {
-      "key": "advancing american freedom",
-      "briefs": 63,
-      "cert": 40,
-      "merits_pet": 16,
-      "merits_resp": 7,
-      "terms": 7,
-      "name": "Advancing American Freedom",
-      "n_variants": 3,
-      "variants": "Advancing American Freedom · Advancing American Freedom, Inc. · Advancing American Freedom, Inc"
-    },
-    {
       "key": "institute for justice",
-      "briefs": 61,
+      "briefs": 63,
       "cert": 32,
-      "merits_pet": 19,
-      "merits_resp": 10,
+      "merits_pet": 20,
+      "merits_resp": 11,
       "terms": 9,
       "name": "Institute for Justice",
       "n_variants": 1,
@@ -332,10 +332,10 @@
     },
     {
       "key": "american civil liberties union",
-      "briefs": 54,
+      "briefs": 56,
       "cert": 15,
       "merits_pet": 23,
-      "merits_resp": 16,
+      "merits_resp": 18,
       "terms": 9,
       "name": "American Civil Liberties Union",
       "n_variants": 2,
@@ -343,14 +343,25 @@
     },
     {
       "key": "manhattan institute",
-      "briefs": 53,
+      "briefs": 55,
       "cert": 40,
-      "merits_pet": 8,
+      "merits_pet": 10,
       "merits_resp": 5,
       "terms": 4,
       "name": "Manhattan Institute",
       "n_variants": 1,
       "variants": "Manhattan Institute"
+    },
+    {
+      "key": "americas future",
+      "briefs": 53,
+      "cert": 27,
+      "merits_pet": 23,
+      "merits_resp": 3,
+      "terms": 5,
+      "name": "America's Future",
+      "n_variants": 3,
+      "variants": "America's Future · America's Future, Inc · America’s Future, Inc."
     },
     {
       "key": "law professors",
@@ -364,22 +375,11 @@
       "variants": "Law Professors"
     },
     {
-      "key": "americas future",
-      "briefs": 51,
-      "cert": 27,
-      "merits_pet": 21,
-      "merits_resp": 3,
-      "terms": 5,
-      "name": "America's Future",
-      "n_variants": 3,
-      "variants": "America's Future · America's Future, Inc · America’s Future, Inc."
-    },
-    {
       "key": "international municipal lawyers association",
-      "briefs": 46,
+      "briefs": 47,
       "cert": 40,
       "merits_pet": 3,
-      "merits_resp": 3,
+      "merits_resp": 4,
       "terms": 9,
       "name": "International Municipal Lawyers Association",
       "n_variants": 1,
@@ -397,15 +397,15 @@
       "variants": "Southeastern Legal Foundation"
     },
     {
-      "key": "national association of manufacturers",
+      "key": "american bar association",
       "briefs": 44,
-      "cert": 33,
-      "merits_pet": 9,
-      "merits_resp": 2,
-      "terms": 9,
-      "name": "National Association of Manufacturers",
+      "cert": 10,
+      "merits_pet": 15,
+      "merits_resp": 19,
+      "terms": 8,
+      "name": "American Bar Association",
       "n_variants": 1,
-      "variants": "National Association of Manufacturers"
+      "variants": "American Bar Association"
     }
   ],
   "door": [
@@ -450,11 +450,21 @@
       "variants": "Immigration Reform Law Institute"
     },
     {
+      "key": "american center for law and justice",
+      "n": 39,
+      "granted": 14,
+      "rate": 0.358974358974359,
+      "lo": 0.227418846964911,
+      "name": "American Center for Law and Justice",
+      "n_variants": 2,
+      "variants": "American Center for Law and Justice · American Center for Law & Justice"
+    },
+    {
       "key": "chamber of commerce of the united states of america",
-      "n": 139,
+      "n": 140,
       "granted": 40,
-      "rate": 0.287769784172662,
-      "lo": 0.219014427529236,
+      "rate": 0.285714285714286,
+      "lo": 0.217388667493613,
       "name": "Chamber of Commerce of the United States of America",
       "n_variants": 1,
       "variants": "Chamber of Commerce of the United States of America"
@@ -470,34 +480,14 @@
       "variants": "Christian Legal Society"
     },
     {
-      "key": "american center for law and justice",
-      "n": 38,
-      "granted": 13,
-      "rate": 0.342105263157895,
-      "lo": 0.21212220026459,
-      "name": "American Center for Law and Justice",
-      "n_variants": 2,
-      "variants": "American Center for Law and Justice · American Center for Law & Justice"
-    },
-    {
-      "key": "americas future",
-      "n": 22,
-      "granted": 8,
-      "rate": 0.363636363636364,
-      "lo": 0.197329727726079,
-      "name": "America's Future",
-      "n_variants": 3,
-      "variants": "America's Future · America's Future, Inc · America’s Future, Inc."
-    },
-    {
-      "key": "ohio",
-      "n": 9,
+      "key": "american farm bureau federation",
+      "n": 8,
       "granted": 4,
-      "rate": 0.444444444444444,
-      "lo": 0.188775429471914,
-      "name": "Ohio",
+      "rate": 0.5,
+      "lo": 0.215212526824442,
+      "name": "American Farm Bureau Federation",
       "n_variants": 1,
-      "variants": "Ohio"
+      "variants": "American Farm Bureau Federation"
     },
     {
       "key": "national association of manufacturers",
@@ -510,14 +500,24 @@
       "variants": "National Association of Manufacturers"
     },
     {
-      "key": "alabama",
-      "n": 17,
-      "granted": 6,
-      "rate": 0.352941176470588,
-      "lo": 0.173094861439049,
-      "name": "Alabama",
+      "key": "americas future",
+      "n": 25,
+      "granted": 8,
+      "rate": 0.32,
+      "lo": 0.172049875168911,
+      "name": "America's Future",
+      "n_variants": 3,
+      "variants": "America's Future · America's Future, Inc · America’s Future, Inc."
+    },
+    {
+      "key": "ohio",
+      "n": 10,
+      "granted": 4,
+      "rate": 0.4,
+      "lo": 0.16817758120351,
+      "name": "Ohio",
       "n_variants": 1,
-      "variants": "Alabama"
+      "variants": "Ohio"
     },
     {
       "key": "constitutional accountability center",
@@ -528,16 +528,6 @@
       "name": "Constitutional Accountability Center",
       "n_variants": 1,
       "variants": "Constitutional Accountability Center"
-    },
-    {
-      "key": "landmark legal foundation",
-      "n": 19,
-      "granted": 6,
-      "rate": 0.315789473684211,
-      "lo": 0.153641710044286,
-      "name": "Landmark Legal Foundation",
-      "n_variants": 1,
-      "variants": "Landmark Legal Foundation"
     },
     {
       "key": "members of congress",
@@ -560,14 +550,14 @@
       "variants": "National Legal Foundation"
     },
     {
-      "key": "foundation for moral law",
-      "n": 44,
-      "granted": 11,
-      "rate": 0.25,
-      "lo": 0.145740660806857,
-      "name": "Foundation for Moral Law",
+      "key": "landmark legal foundation",
+      "n": 20,
+      "granted": 6,
+      "rate": 0.3,
+      "lo": 0.145475273968994,
+      "name": "Landmark Legal Foundation",
       "n_variants": 1,
-      "variants": "Foundation for Moral Law"
+      "variants": "Landmark Legal Foundation"
     },
     {
       "key": "states of texas",
@@ -580,14 +570,14 @@
       "variants": "States of Texas"
     },
     {
-      "key": "advancing american freedom",
-      "n": 35,
-      "granted": 9,
-      "rate": 0.257142857142857,
-      "lo": 0.141628687265501,
-      "name": "Advancing American Freedom",
-      "n_variants": 3,
-      "variants": "Advancing American Freedom · Advancing American Freedom, Inc. · Advancing American Freedom, Inc"
+      "key": "foundation for moral law",
+      "n": 45,
+      "granted": 11,
+      "rate": 0.244444444444444,
+      "lo": 0.142353350255093,
+      "name": "Foundation for Moral Law",
+      "n_variants": 1,
+      "variants": "Foundation for Moral Law"
     },
     {
       "key": "national association of home builders",
@@ -650,14 +640,24 @@
       "variants": "Public Advocate of the United States"
     },
     {
-      "key": "west virginia",
-      "n": 27,
-      "granted": 7,
-      "rate": 0.259259259259259,
-      "lo": 0.131702084228668,
-      "name": "West Virginia",
+      "key": "alabama",
+      "n": 17,
+      "granted": 5,
+      "rate": 0.294117647058824,
+      "lo": 0.132797938655564,
+      "name": "Alabama",
       "n_variants": 1,
-      "variants": "West Virginia"
+      "variants": "Alabama"
+    },
+    {
+      "key": "advancing american freedom",
+      "n": 40,
+      "granted": 9,
+      "rate": 0.225,
+      "lo": 0.123159532546785,
+      "name": "Advancing American Freedom",
+      "n_variants": 3,
+      "variants": "Advancing American Freedom · Advancing American Freedom, Inc. · Advancing American Freedom, Inc"
     }
   ],
   "record": [
@@ -674,9 +674,9 @@
     },
     {
       "key": "constitutional accountability center",
-      "pet_n": 45,
-      "pet_fell": 30,
-      "resp_n": 39,
+      "pet_n": 44,
+      "pet_fell": 29,
+      "resp_n": 40,
       "resp_stood": 6,
       "n": 84,
       "name": "Constitutional Accountability Center",
@@ -901,7 +901,7 @@
       "n": 25,
       "name": "NAACP Legal Defense & Educational Fund, Inc",
       "n_variants": 7,
-      "variants": "NAACP Legal Defense & Educational Fund, Inc · NAACP Legal Defense and Educational Fund, Inc · NAACP Legal Defense & Educational Fund, Inc. · NAACP Legal Defense & Educational Fund · +3 more"
+      "variants": "NAACP Legal Defense & Educational Fund, Inc · NAACP Legal Defense and Educational Fund, Inc · NAACP Legal Defense & Educational Fund, Inc. · NAACP Legal Defense and Educational Fund, Inc. · +3 more"
     },
     {
       "key": "foundation for moral law",
@@ -938,11 +938,11 @@
     }
   ],
   "us": {
-    "cert": 155,
-    "cert_invited": 143,
-    "merits": 195,
-    "merits_pet": 133,
-    "merits_resp": 62,
+    "cert": 159,
+    "cert_invited": 147,
+    "merits": 202,
+    "merits_pet": 137,
+    "merits_resp": 65,
     "pet_n": 122,
     "pet_fell": 104,
     "resp_n": 55,
@@ -993,10 +993,24 @@
     },
     {
       "state": "Montana",
-      "led": 26,
+      "led": 27,
       "cert": 15,
       "merits_pet": 5,
+      "merits_resp": 7
+    },
+    {
+      "state": "Arizona",
+      "led": 26,
+      "cert": 13,
+      "merits_pet": 7,
       "merits_resp": 6
+    },
+    {
+      "state": "New York",
+      "led": 26,
+      "cert": 6,
+      "merits_pet": 9,
+      "merits_resp": 11
     },
     {
       "state": "Ohio",
@@ -1004,20 +1018,6 @@
       "cert": 14,
       "merits_pet": 8,
       "merits_resp": 4
-    },
-    {
-      "state": "Arizona",
-      "led": 25,
-      "cert": 13,
-      "merits_pet": 7,
-      "merits_resp": 5
-    },
-    {
-      "state": "New York",
-      "led": 25,
-      "cert": 6,
-      "merits_pet": 9,
-      "merits_resp": 10
     },
     {
       "state": "Missouri",
@@ -1034,6 +1034,20 @@
       "merits_resp": 3
     },
     {
+      "state": "Massachusetts",
+      "led": 21,
+      "cert": 1,
+      "merits_pet": 5,
+      "merits_resp": 15
+    },
+    {
+      "state": "Virginia",
+      "led": 20,
+      "cert": 10,
+      "merits_pet": 1,
+      "merits_resp": 9
+    },
+    {
       "state": "California",
       "led": 19,
       "cert": 5,
@@ -1048,13 +1062,6 @@
       "merits_resp": 8
     },
     {
-      "state": "Massachusetts",
-      "led": 19,
-      "cert": 1,
-      "merits_pet": 5,
-      "merits_resp": 13
-    },
-    {
       "state": "Oklahoma",
       "led": 19,
       "cert": 12,
@@ -1062,11 +1069,11 @@
       "merits_resp": 0
     },
     {
-      "state": "Virginia",
-      "led": 19,
-      "cert": 10,
-      "merits_pet": 1,
-      "merits_resp": 8
+      "state": "Kentucky",
+      "led": 18,
+      "cert": 13,
+      "merits_pet": 3,
+      "merits_resp": 2
     },
     {
       "state": "Alaska",
@@ -1090,13 +1097,6 @@
       "merits_resp": 1
     },
     {
-      "state": "Kentucky",
-      "led": 17,
-      "cert": 13,
-      "merits_pet": 2,
-      "merits_resp": 2
-    },
-    {
       "state": "Iowa",
       "led": 16,
       "cert": 9,
@@ -1105,23 +1105,23 @@
     },
     {
       "state": "Kansas",
-      "led": 13,
+      "led": 14,
       "cert": 10,
-      "merits_pet": 2,
+      "merits_pet": 3,
       "merits_resp": 1
     },
     {
-      "state": "Colorado",
-      "led": 12,
-      "cert": 1,
-      "merits_pet": 2,
-      "merits_resp": 9
+      "state": "Florida",
+      "led": 13,
+      "cert": 8,
+      "merits_pet": 3,
+      "merits_resp": 2
     },
     {
       "state": "Tennessee",
-      "led": 12,
+      "led": 13,
       "cert": 1,
-      "merits_pet": 5,
+      "merits_pet": 6,
       "merits_resp": 6
     }
   ],
@@ -1129,7 +1129,7 @@
     {
       "key1": "chamber of commerce of the united states of america",
       "key2": "washington legal foundation",
-      "cases": 50,
+      "cases": 51,
       "name1": "Chamber of Commerce of the United States of America",
       "name2": "Washington Legal Foundation"
     },
@@ -1163,17 +1163,17 @@
     },
     {
       "key1": "cato institute",
+      "key2": "pacific legal foundation",
+      "cases": 18,
+      "name1": "Cato Institute",
+      "name2": "Pacific Legal Foundation"
+    },
+    {
+      "key1": "cato institute",
       "key2": "liberty justice center",
       "cases": 17,
       "name1": "Cato Institute",
       "name2": "Liberty Justice Center"
-    },
-    {
-      "key1": "cato institute",
-      "key2": "pacific legal foundation",
-      "cases": 17,
-      "name1": "Cato Institute",
-      "name2": "Pacific Legal Foundation"
     },
     {
       "key1": "atlantic legal foundation",
@@ -1184,10 +1184,24 @@
     },
     {
       "key1": "buckeye institute",
+      "key2": "cato institute",
+      "cases": 16,
+      "name1": "The Buckeye Institute",
+      "name2": "Cato Institute"
+    },
+    {
+      "key1": "buckeye institute",
       "key2": "chamber of commerce of the united states of america",
       "cases": 16,
       "name1": "The Buckeye Institute",
       "name2": "Chamber of Commerce of the United States of America"
+    },
+    {
+      "key1": "american civil liberties union",
+      "key2": "constitutional accountability center",
+      "cases": 15,
+      "name1": "American Civil Liberties Union",
+      "name2": "Constitutional Accountability Center"
     },
     {
       "key1": "chamber of commerce of the united states of america",
@@ -1218,18 +1232,18 @@
       "name2": "Cato Institute"
     },
     {
-      "key1": "buckeye institute",
-      "key2": "cato institute",
-      "cases": 14,
-      "name1": "The Buckeye Institute",
-      "name2": "Cato Institute"
-    },
-    {
       "key1": "chamber of commerce of the united states of america",
       "key2": "new civil liberties alliance",
       "cases": 14,
       "name1": "Chamber of Commerce of the United States of America",
       "name2": "New Civil Liberties Alliance"
+    },
+    {
+      "key1": "constitutional accountability center",
+      "key2": "naacp legal defense and educational fund",
+      "cases": 14,
+      "name1": "Constitutional Accountability Center",
+      "name2": "NAACP Legal Defense & Educational Fund, Inc"
     },
     {
       "key1": "new civil liberties alliance",
@@ -1240,17 +1254,17 @@
     },
     {
       "key1": "american center for law and justice",
+      "key2": "christian legal society",
+      "cases": 13,
+      "name1": "American Center for Law and Justice",
+      "name2": "Christian Legal Society"
+    },
+    {
+      "key1": "american center for law and justice",
       "key2": "foundation for moral law",
       "cases": 13,
       "name1": "American Center for Law and Justice",
       "name2": "Foundation for Moral Law"
-    },
-    {
-      "key1": "american civil liberties union",
-      "key2": "constitutional accountability center",
-      "cases": 13,
-      "name1": "American Civil Liberties Union",
-      "name2": "Constitutional Accountability Center"
     },
     {
       "key1": "cato institute",
@@ -1261,6 +1275,20 @@
     },
     {
       "key1": "cato institute",
+      "key2": "institute for justice",
+      "cases": 13,
+      "name1": "Cato Institute",
+      "name2": "Institute for Justice"
+    },
+    {
+      "key1": "cato institute",
+      "key2": "national association of criminal defense lawyers",
+      "cases": 13,
+      "name1": "Cato Institute",
+      "name2": "National Association of Criminal Defense Lawyers"
+    },
+    {
+      "key1": "cato institute",
       "key2": "new civil liberties alliance",
       "cases": 13,
       "name1": "Cato Institute",
@@ -1268,38 +1296,10 @@
     },
     {
       "key1": "constitutional accountability center",
-      "key2": "naacp legal defense and educational fund",
+      "key2": "institute for justice",
       "cases": 13,
       "name1": "Constitutional Accountability Center",
-      "name2": "NAACP Legal Defense & Educational Fund, Inc"
-    },
-    {
-      "key1": "american association for justice",
-      "key2": "public citizen",
-      "cases": 12,
-      "name1": "American Association for Justice",
-      "name2": "Public Citizen"
-    },
-    {
-      "key1": "american center for law and justice",
-      "key2": "cato institute",
-      "cases": 12,
-      "name1": "American Center for Law and Justice",
-      "name2": "Cato Institute"
-    },
-    {
-      "key1": "american center for law and justice",
-      "key2": "christian legal society",
-      "cases": 12,
-      "name1": "American Center for Law and Justice",
-      "name2": "Christian Legal Society"
-    },
-    {
-      "key1": "americans for prosperity foundation",
-      "key2": "chamber of commerce of the united states of america",
-      "cases": 12,
-      "name1": "Americans for Prosperity Foundation",
-      "name2": "Chamber of Commerce of the United States of America"
+      "name2": "Institute for Justice"
     }
   ],
   "opponents": [
@@ -1360,11 +1360,25 @@
       "name2": "Freedom From Religion Foundation"
     },
     {
+      "key1": "pacific legal foundation",
+      "key2": "constitutional accountability center",
+      "cases": 8,
+      "name1": "Pacific Legal Foundation",
+      "name2": "Constitutional Accountability Center"
+    },
+    {
       "key1": "american association for justice",
       "key2": "chamber of commerce of the united states of america",
       "cases": 7,
       "name1": "American Association for Justice",
       "name2": "Chamber of Commerce of the United States of America"
+    },
+    {
+      "key1": "americas future",
+      "key2": "constitutional accountability center",
+      "cases": 7,
+      "name1": "America's Future",
+      "name2": "Constitutional Accountability Center"
     },
     {
       "key1": "atlantic legal foundation",
@@ -1395,18 +1409,18 @@
       "name2": "Constitutional Accountability Center"
     },
     {
+      "key1": "claremont institutes center for constitutional jurisprudence",
+      "key2": "constitutional accountability center",
+      "cases": 7,
+      "name1": "Claremont Institute's Center for Constitutional Jurisprudence",
+      "name2": "Constitutional Accountability Center"
+    },
+    {
       "key1": "liberty counsel",
       "key2": "freedom from religion foundation",
       "cases": 7,
       "name1": "Liberty Counsel",
       "name2": "Freedom From Religion Foundation"
-    },
-    {
-      "key1": "pacific legal foundation",
-      "key2": "constitutional accountability center",
-      "cases": 7,
-      "name1": "Pacific Legal Foundation",
-      "name2": "Constitutional Accountability Center"
     },
     {
       "key1": "washington legal foundation",
@@ -1431,17 +1445,17 @@
     },
     {
       "key1": "americans for prosperity foundation",
+      "key2": "constitutional accountability center",
+      "cases": 6,
+      "name1": "Americans for Prosperity Foundation",
+      "name2": "Constitutional Accountability Center"
+    },
+    {
+      "key1": "americans for prosperity foundation",
       "key2": "public citizen",
       "cases": 6,
       "name1": "Americans for Prosperity Foundation",
       "name2": "Public Citizen"
-    },
-    {
-      "key1": "americas future",
-      "key2": "constitutional accountability center",
-      "cases": 6,
-      "name1": "America's Future",
-      "name2": "Constitutional Accountability Center"
     },
     {
       "key1": "americas future",
@@ -1463,24 +1477,337 @@
       "cases": 6,
       "name1": "Cato Institute",
       "name2": "Public Citizen"
-    },
-    {
-      "key1": "claremont institutes center for constitutional jurisprudence",
-      "key2": "constitutional accountability center",
-      "cases": 6,
-      "name1": "Claremont Institute's Center for Constitutional Jurisprudence",
-      "name2": "Constitutional Accountability Center"
-    },
-    {
-      "key1": "constitutional accountability center",
-      "key2": "local government legal center",
-      "cases": 6,
-      "name1": "Constitutional Accountability Center",
-      "name2": "Local Government Legal Center"
     }
   ],
-  "firms": [],
-  "counsel": [],
-  "fingerprint": "a0fc88434495247b4946c0352e116e22",
+  "firms": [
+    {
+      "firm": "Gibson, Dunn & Crutcher LLP",
+      "briefs": 206,
+      "filers": 147,
+      "merits": 119
+    },
+    {
+      "firm": "Schaerr | Jaffe",
+      "briefs": 165,
+      "filers": 86,
+      "merits": 92
+    },
+    {
+      "firm": "Jenner & Block LLP",
+      "briefs": 148,
+      "filers": 95,
+      "merits": 95
+    },
+    {
+      "firm": "Consovoy McCarthy PLLC",
+      "briefs": 146,
+      "filers": 82,
+      "merits": 69
+    },
+    {
+      "firm": "Mayer Brown LLP",
+      "briefs": 128,
+      "filers": 82,
+      "merits": 74
+    },
+    {
+      "firm": "Sidley Austin LLP",
+      "briefs": 119,
+      "filers": 86,
+      "merits": 56
+    },
+    {
+      "firm": "Covington & Burling LLP",
+      "briefs": 116,
+      "filers": 82,
+      "merits": 62
+    },
+    {
+      "firm": "Jones Day",
+      "briefs": 114,
+      "filers": 86,
+      "merits": 61
+    },
+    {
+      "firm": "William J. Olson, P.C.",
+      "briefs": 113,
+      "filers": 23,
+      "merits": 49
+    },
+    {
+      "firm": "Constitutional Counsel Group",
+      "briefs": 102,
+      "filers": 7,
+      "merits": 41
+    },
+    {
+      "firm": "O'Melveny & Myers LLP",
+      "briefs": 100,
+      "filers": 75,
+      "merits": 55
+    },
+    {
+      "firm": "Orrick, Herrington & Sutcliffe LLP",
+      "briefs": 95,
+      "filers": 73,
+      "merits": 44
+    },
+    {
+      "firm": "Wilmer Cutler Pickering Hale and Dorr LLP",
+      "briefs": 92,
+      "filers": 75,
+      "merits": 60
+    },
+    {
+      "firm": "Arnold & Porter Kaye Scholer LLP",
+      "briefs": 89,
+      "filers": 66,
+      "merits": 45
+    },
+    {
+      "firm": "Wiley Rein LLP",
+      "briefs": 85,
+      "filers": 57,
+      "merits": 43
+    },
+    {
+      "firm": "Manhattan Institute",
+      "briefs": 84,
+      "filers": 13,
+      "merits": 22
+    },
+    {
+      "firm": "Munger, Tolles & Olson LLP",
+      "briefs": 82,
+      "filers": 59,
+      "merits": 47
+    },
+    {
+      "firm": "Attorney at Law",
+      "briefs": 77,
+      "filers": 54,
+      "merits": 43
+    },
+    {
+      "firm": "Goodwin Procter LLP",
+      "briefs": 77,
+      "filers": 52,
+      "merits": 37
+    },
+    {
+      "firm": "Hogan Lovells US LLP",
+      "briefs": 72,
+      "filers": 58,
+      "merits": 38
+    },
+    {
+      "firm": "Solicitor General",
+      "briefs": 71,
+      "filers": 29,
+      "merits": 53
+    },
+    {
+      "firm": "Office of the Attorney General",
+      "briefs": 69,
+      "filers": 31,
+      "merits": 31
+    },
+    {
+      "firm": "Lehotsky Keller Cohn LLP",
+      "briefs": 68,
+      "filers": 29,
+      "merits": 30
+    },
+    {
+      "firm": "Latham & Watkins LLP",
+      "briefs": 65,
+      "filers": 40,
+      "merits": 39
+    },
+    {
+      "firm": "Williams & Connolly LLP",
+      "briefs": 63,
+      "filers": 43,
+      "merits": 41
+    }
+  ],
+  "counsel": [
+    {
+      "name": "Brianne Jenna Gorod",
+      "firm": "Constitutional Accountability Center",
+      "briefs": 165,
+      "filers": 32,
+      "merits": 131
+    },
+    {
+      "name": "Ilya Shapiro",
+      "firm": "Manhattan Institute",
+      "briefs": 138,
+      "filers": 18,
+      "merits": 36
+    },
+    {
+      "name": "Jay Alan Sekulow",
+      "firm": "American Center for Law and Justice",
+      "briefs": 94,
+      "filers": 12,
+      "merits": 50
+    },
+    {
+      "name": "Gene Clayton Schaerr",
+      "firm": "Schaerr | Jaffe",
+      "briefs": 89,
+      "filers": 37,
+      "merits": 43
+    },
+    {
+      "name": "Lawrence S. Ebner",
+      "firm": "Atlantic Legal Foundation",
+      "briefs": 82,
+      "filers": 12,
+      "merits": 31
+    },
+    {
+      "name": "William Jeffrey Olson",
+      "firm": "William J. Olson, P.C.",
+      "briefs": 82,
+      "filers": 20,
+      "merits": 39
+    },
+    {
+      "name": "Anthony Thomas Caso",
+      "firm": "Constitutional Counsel Group",
+      "briefs": 73,
+      "filers": 4,
+      "merits": 28
+    },
+    {
+      "name": "John Marc Wheat",
+      "firm": "Advancing American Freedom, Inc.",
+      "briefs": 63,
+      "filers": 1,
+      "merits": 23
+    },
+    {
+      "name": "Andrew John Pincus",
+      "firm": "Mayer Brown LLP",
+      "briefs": 57,
+      "filers": 26,
+      "merits": 32
+    },
+    {
+      "name": "Frederick W. Claybrook Jr.",
+      "firm": "Claybrook, LLC",
+      "briefs": 57,
+      "filers": 21,
+      "merits": 21
+    },
+    {
+      "name": "Christopher E. Mills",
+      "firm": "Spero Law LLC",
+      "briefs": 56,
+      "filers": 30,
+      "merits": 25
+    },
+    {
+      "name": "Clark M. Neily III",
+      "firm": "Cato Institute",
+      "briefs": 54,
+      "filers": 1,
+      "merits": 11
+    },
+    {
+      "name": "John Allen Eidsmoe",
+      "firm": "Foundation for Moral Law",
+      "briefs": 54,
+      "filers": 3,
+      "merits": 17
+    },
+    {
+      "name": "Cory L. Andrews",
+      "firm": "Washington Legal Foundation",
+      "briefs": 52,
+      "filers": 2,
+      "merits": 19
+    },
+    {
+      "name": "Thomas Ryan McCarthy",
+      "firm": "Consovoy McCarthy PLLC",
+      "briefs": 52,
+      "filers": 36,
+      "merits": 25
+    },
+    {
+      "name": "Thomas Arthur Berry",
+      "firm": "Cato Institute",
+      "briefs": 46,
+      "filers": 2,
+      "merits": 14
+    },
+    {
+      "name": "R. Trent McCotter",
+      "firm": "Boyden Gray PLLC",
+      "briefs": 45,
+      "filers": 30,
+      "merits": 28
+    },
+    {
+      "name": "John J. Bursch",
+      "firm": "Alliance Defending Freedom",
+      "briefs": 44,
+      "filers": 28,
+      "merits": 18
+    },
+    {
+      "name": "Thomas M. Fisher",
+      "firm": "EdChoice, Inc.",
+      "briefs": 44,
+      "filers": 13,
+      "merits": 18
+    },
+    {
+      "name": "David Christian Tryon",
+      "firm": "The Buckeye Institute",
+      "briefs": 43,
+      "filers": 9,
+      "merits": 14
+    },
+    {
+      "name": "Deborah Dewart",
+      "firm": "Attorney at Law",
+      "briefs": 42,
+      "filers": 12,
+      "merits": 13
+    },
+    {
+      "name": "Cynthia Fleming Crawford",
+      "firm": "Americans for Prosperity Foundation",
+      "briefs": 41,
+      "filers": 5,
+      "merits": 17
+    },
+    {
+      "name": "Jay Remington Schweikert",
+      "firm": "The Cato Institute",
+      "briefs": 41,
+      "filers": 4,
+      "merits": 4
+    },
+    {
+      "name": "John Mercer Masslon II",
+      "firm": "Washington Legal Foundation",
+      "briefs": 41,
+      "filers": 8,
+      "merits": 22
+    },
+    {
+      "name": "Erik S. Jaffe",
+      "firm": "Schaerr | Jaffe LLP",
+      "briefs": 40,
+      "filers": 28,
+      "merits": 25
+    }
+  ],
+  "fingerprint": "33a9461740e64302610bb56fb2a89ca2",
   "generated": "2026-10-29"
 }
