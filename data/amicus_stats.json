@@ -1583,12 +1583,6 @@
       "merits": 47
     },
     {
-      "firm": "Attorney at Law",
-      "briefs": 77,
-      "filers": 54,
-      "merits": 43
-    },
-    {
       "firm": "Goodwin Procter LLP",
       "briefs": 77,
       "filers": 52,
@@ -1599,18 +1593,6 @@
       "briefs": 72,
       "filers": 58,
       "merits": 38
-    },
-    {
-      "firm": "Solicitor General",
-      "briefs": 71,
-      "filers": 29,
-      "merits": 53
-    },
-    {
-      "firm": "Office of the Attorney General",
-      "briefs": 69,
-      "filers": 31,
-      "merits": 31
     },
     {
       "firm": "Lehotsky Keller Cohn LLP",
@@ -1629,6 +1611,24 @@
       "briefs": 63,
       "filers": 43,
       "merits": 41
+    },
+    {
+      "firm": "Dechert LLP",
+      "briefs": 59,
+      "filers": 44,
+      "merits": 34
+    },
+    {
+      "firm": "Claybrook, LLC",
+      "briefs": 56,
+      "filers": 20,
+      "merits": 21
+    },
+    {
+      "firm": "King & Spalding LLP",
+      "briefs": 56,
+      "filers": 41,
+      "merits": 28
     }
   ],
   "counsel": [
@@ -1808,6 +1808,6 @@
       "merits": 25
     }
   ],
-  "fingerprint": "33a9461740e64302610bb56fb2a89ca2",
+  "fingerprint": "65906efb770a865d2f61000012b0f098",
   "generated": "2026-10-29"
 }

@@ -286,6 +286,19 @@ AMICUS_MIN_RATE <- COUNSEL_MIN_RATE_CASES
 # filers who each appear in thirty cases will meet in one or two by chance.
 AMICUS_PAIR_FILER_MIN <- 10L
 AMICUS_PAIR_MIN <- 4L
+# Firm-field values that name no firm, matched against the keyed firm.
+AMICUS_GENERIC_FIRM_RX <- "^(attorneys? at law|n a|na|none|self|solo practitioner|private practice)$"
+# A government's own law office. Matched on the TITLE, not the client: a State
+# that retains Consovoy McCarthy is a firm's client like any other (keying on
+# the client cost that firm 16 briefs), but "Office of the Attorney General"
+# is the State itself.
+# Keyed text, so apostrophes are gone ("attorney generals office") and the
+# docket's own typos ride along ("attomey general").
+AMICUS_GOV_FIRM_RX <- paste0(
+  "\\b(solicitors? generals?|att[o]?[rm]n?eys? generals?|department of (justice|law)|",
+  "law department|office of (the )?general counsel|",
+  "(county|city|district|parish) attorneys?|corporation counsel)\\b|",
+  "^(state|commonwealth|city|county|district|people) of\\b")
 
 # ---- statistics -----------------------------------------------------------------
 
@@ -444,7 +457,13 @@ amicus_stats_from <- function(briefs, fingerprint, terms,
            # brief -- are the filer, not outside counsel. Same word test as the
            # case pages' party matcher.
            in_house = map2_lgl(fk, key, ~ nzchar(.x) && (.x == .y || party_score(.y, .x) >= 2)))
-  firms <- wr |> filter(nzchar(coalesce(fk, "")), !in_house) |>
+  # Not firms: a solo lawyer's title in the firm field ("Attorney at Law", 80
+  # rows in the first refresh, merged into one row that ranked 18th), and a
+  # State's own lawyers ("Solicitor General", "Office of the Attorney General"),
+  # who are its government, kept off as the United States is.
+  firms <- wr |> filter(nzchar(coalesce(fk, "")), !in_house,
+                        !str_detect(fk, AMICUS_GENERIC_FIRM_RX),
+                        !str_detect(fk, AMICUS_GOV_FIRM_RX)) |>
     group_by(fk) |>
     summarise(firm = names(sort(table(firm), decreasing = TRUE))[1],
               briefs = n(), filers = n_distinct(key),
@@ -516,7 +535,7 @@ amicus_stats_fingerprint <- function(paths = amicus_input_paths()) {
                    as.character(JUDGMENT_ENTRY_RX), JUDGMENT_RULES, PETITION_TYPES,
                    FUNNEL_PATTERNS,
                    AMICUS_TOP_N, AMICUS_MIN_RATE, AMICUS_PAIR_FILER_MIN, AMICUS_PAIR_MIN,
-                   AMICUS_MAX_VARIANTS,
+                   AMICUS_MAX_VARIANTS, AMICUS_GENERIC_FIRM_RX, AMICUS_GOV_FIRM_RX,
                    AMICUS_REFRESH, COUNSEL_SUFFIXES),
     archives = unname(tools::md5sum(sort(paths)))))
 }
@@ -751,7 +770,9 @@ render_amicus_page <- function(stats, out_dir) {
           "to ", .cn(tot$matched), " of ", .cn(tot$block_briefs), " briefs. Lawyers ",
           "who work for the filer itself — an institute&rsquo;s own litigators on ",
           "the institute&rsquo;s brief — are not outside counsel and are left off the ",
-          "firm table (", .cn(tot$in_house), " briefs).")),
+          "firm table (", .cn(tot$in_house), " briefs), as are the States&rsquo; own ",
+          "solicitors general and a solo lawyer&rsquo;s &ldquo;Attorney at ",
+          "Law&rdquo;, which names no firm. The counsel table below keeps everyone.")),
         tags$h3("Firms"), t_firms,
         if (!is.null(t_counsel)) tagList(tags$h3("Counsel of record"), t_counsel) else NULL)
       else note(paste0(
