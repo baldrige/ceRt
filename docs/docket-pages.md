@@ -176,7 +176,14 @@ dockets: (c) a merits "Brief of <respondent's name>" with the role omitted
 counts as (1); and (d) a **Court-appointed amicus** defending the judgment
 (25-5343, Beaird v. United States, where the government filed "Supporting
 Vacatur") files on the respondent's schedule and anchors the split as the
-respondent's brief would. A respondent brief "supporting vacatur / reversal"
+respondent's brief would. (d) is the appointee's own **brief**, matched by
+`COURT_APPOINTED_BRIEF_RX` in its three docket forms ("Brief of …", "Brief
+amicus curiae of …", "Amicus brief of … Court-appointed amicus curiae"). Until
+v48 it was any entry *naming* the appointee, so the latest match was usually
+the `Argued.` line: on Lucia (17-130), Collins v. Yellen (19-422), 23-1270 and
+24-482 the split was dated at the argument and 12 respondent-side amici took
+the petitioner's shade, while 27 `Argued.` lines, orders and motion papers
+rendered as dark-green amicus briefs (2026-10-29). A respondent brief "supporting vacatur / reversal"
 is a side-switch and is excluded from (1) like "in support of petitioner".
 "Not accepted for filing" is excluded everywhere — a rejected tender is no
 filing and took a second cover beside the corrected brief.
