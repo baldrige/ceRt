@@ -5,8 +5,15 @@
   <link rel="self" href="https://supremecourt.report/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://supremecourt.report/"/>
   <id>https://supremecourt.report/feed.xml</id>
-  <updated>2026-10-28T12:00:00-04:00</updated>
+  <updated>2026-10-29T12:00:00-04:00</updated>
   <author><name>Supreme Court Report</name></author>
+  <entry>
+    <title>Docket for October 29, 2026</title>
+    <link href="https://supremecourt.report/dashboards/dash_2026-10-29.html"/>
+    <id>https://supremecourt.report/dashboards/dash_2026-10-29.html</id>
+    <updated>2026-10-29T12:00:00-04:00</updated>
+    <summary>Petitions and applications docketed on October 29, 2026.</summary>
+  </entry>
   <entry>
     <title>Docket for October 28, 2026</title>
     <link href="https://supremecourt.report/dashboards/dash_2026-10-28.html"/>
@@ -231,13 +238,6 @@
     <summary>7 granted, vacated and remanded; 751 denied; 101 other orders.</summary>
   </entry>
   <entry>
-    <title>Docket for October 5, 2026</title>
-    <link href="https://supremecourt.report/dashboards/dash_2026-10-05.html"/>
-    <id>https://supremecourt.report/dashboards/dash_2026-10-05.html</id>
-    <updated>2026-10-05T12:00:00-04:00</updated>
-    <summary>Petitions and applications docketed on October 5, 2026.</summary>
-  </entry>
-  <entry>
     <title>Miscellaneous Order, October 1, 2026</title>
     <link href="https://supremecourt.report/orders/2026-10-01-misc.html"/>
     <id>https://supremecourt.report/orders/2026-10-01-misc.html</id>
@@ -331,21 +331,21 @@
     <link href="https://supremecourt.report/cases/26A203.html"/>
     <id>https://supremecourt.report/cases/26A203.html#decision</id>
     <updated>2026-08-31T12:00:00-04:00</updated>
-    <summary>Per curiam. Because the government has established that it is likely to prevail in showing that the Trust lacks Article III standing to challenge the East Wing project in federal court, that it would likely suffer irreparable harm without a stay, and that the balance of equities tips in its favor, the injunction entered by the District Court is stayed pending the disposition of the government’s forthcoming petition for a writ of certiorari, if such writ is timely sought.</summary>
+    <summary>Per curiam. Because the government has established that it is likely to prevail in showing that the Trust lacks Article III standing to challenge the East Wing project in federal court, that it would likely suffer irreparable harm without a stay, and that the balance of equities tips in its favor, the injunction entered by the District Court is stayed pending the disposition of the government’s forthcoming petition for a writ of certiorari, if such writ is timely sought. (Citation: 609 U.S. 1068)</summary>
   </entry>
   <entry>
     <title>Application decided: Alabama v. California (No. 26A139) (Denied as moot)</title>
     <link href="https://supremecourt.report/cases/26A139.html"/>
     <id>https://supremecourt.report/cases/26A139.html#decision</id>
     <updated>2026-08-24T12:00:00-04:00</updated>
-    <summary>Per curiam. The Government’s application to stay the District Court’s injunction in 26A124—which forbids the Government to implement §§2 and 3 of Executive Order No. 14399—is granted; the application for a stay in 26A139 is denied as moot.</summary>
+    <summary>Per curiam. The Government’s application to stay the District Court’s injunction in 26A124—which forbids the Government to implement §§2 and 3 of Executive Order No. 14399—is granted; the application for a stay in 26A139 is denied as moot. (Citation: 609 U.S. 1032)</summary>
   </entry>
   <entry>
     <title>Application decided: Donald J. Trump, President of the United States v. California (No. 26A124) (Granted)</title>
     <link href="https://supremecourt.report/cases/26A124.html"/>
     <id>https://supremecourt.report/cases/26A124.html#decision</id>
     <updated>2026-08-24T12:00:00-04:00</updated>
-    <summary>Per curiam. The Government’s application to stay the District Court’s injunction in 26A124—which forbids the Government to implement §§2 and 3 of Executive Order No. 14399—is granted; the application for a stay in 26A139 is denied as moot.</summary>
+    <summary>Per curiam. The Government’s application to stay the District Court’s injunction in 26A124—which forbids the Government to implement §§2 and 3 of Executive Order No. 14399—is granted; the application for a stay in 26A139 is denied as moot. (Citation: 609 U.S. 1032)</summary>
   </entry>
   <entry>
     <title>Order List, August 17, 2026</title>
