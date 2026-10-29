@@ -388,7 +388,13 @@ write_docket_css <- function(out_dir) {
 # still ahead, so a page re-renders when one passes. Chosen over a new
 # day-indexed model after an adversarial review: the hybrid keeps most of the
 # measured gain and one number per petition across the site.
-PAGE_TEMPLATE_VERSION <- "v47"
+# v48: the Court-appointed amicus is matched by its own brief, not by any entry
+# that names it (COURT_APPOINTED_BRIEF_RX). The loose match painted "Argued."
+# lines, scheduling orders and motion papers as dark-green amicus briefs (and
+# counted them in the Case panel), took a lower court's appointee for the
+# Court's, and dated the Rule 37 split at the argument where the appointee was
+# the only anchor. Rendering only; 25 dockets carry the appointee.
+PAGE_TEMPLATE_VERSION <- "v48"
 
 # ---- small helpers ------------------------------------------------------------
 # A probability at significant figures, as the conference report prints it
@@ -419,6 +425,14 @@ PAGE_TEMPLATE_VERSION <- "v47"
 # orange opposition) from the merits covers (green amicus / blue-red briefs).
 # Returns list(color, label) for a filed brief, or NULL for a procedural entry
 # (order, application, distribution, waiver, argument) -- which renders hollow.
+# The Court-appointed amicus's own brief, in the three forms the docket uses
+# (measured over every archive, 2026-10-29: 13, 7 and 1 entries) -- and only
+# when the appointee IS the filer, named straight after "of". Lower case: both
+# callers match against a lowered entry.
+COURT_APPOINTED_BRIEF_RX <- paste0(
+  "^(brief (of|for) (the )?|brief amic(us|i) curiae of (the )?|amicus brief of (the )?)",
+  "court-?appointed amic")
+
 brief_cover <- function(text, granted_on = as.Date(NA), entry_date = as.Date(NA),
                         resp_brief_on = as.Date(NA), sides = NULL) {
   t <- text %||% ""
@@ -482,7 +496,16 @@ brief_cover <- function(text, granted_on = as.Date(NA), entry_date = as.Date(NA)
   # argues the respondent's side by construction, so it takes that shade, and
   # it anchors the Rule 37 split the way the respondent's brief would (see
   # resp_merits_brief_on()).
-  if (has("court-?appointed amic")) return(cov("dgreen", "Court-appointed amicus brief (defending the judgment below)"))
+  #
+  # Anchored to the FILING (COURT_APPOINTED_BRIEF_RX). Matched anywhere, the rule
+  # painted 26 entries dark green that are not briefs at all -- the "Argued."
+  # line naming the appointee as an advocate, "The brief of Court-Appointed
+  # amicus ... shall be filed" orders, oppositions and replies about the
+  # appointee's motions -- and one that is an ordinary amicus: "Brief amicus
+  # curiae of Third Circuit Court-Appointed Amicus Curiae supporting neither
+  # party" is a LOWER court's appointee, and takes the general rule below.
+  if (str_detect(low, COURT_APPOINTED_BRIEF_RX) && !has("not accepted for filing"))
+    return(cov("dgreen", "Court-appointed amicus brief (defending the judgment below)"))
   if ((has("brief\\s+amic(us|i)\\s+curiae") || has("^amicus\\s+brief\\b")) &&
       !has("not accepted for filing")) {
     if (merits) {
@@ -687,7 +710,11 @@ resp_merits_brief_on <- function(ev, granted_on = as.Date(NA), sides = NULL) {
   if (is.infinite(resp_brief_on)) resp_brief_on <- as.Date(NA)
   # (d) A Court-appointed amicus defending the judgment files on the
   #     respondent's schedule and IS the opposing brief for Rule 37 purposes.
-  ci <- which(str_detect(low, "court-?appointed amic") & !str_detect(low, "not accepted for filing|^motion") &
+  #     The appointee's BRIEF, not any entry naming the appointee: matched
+  #     loosely, the latest such entry was usually the "Argued." line, so where
+  #     this was the only anchor every respondent-side amicus filed before
+  #     argument took the petitioner's shade.
+  ci <- which(str_detect(low, COURT_APPOINTED_BRIEF_RX) & !str_detect(low, "not accepted for filing") &
               !is.na(ed) & ed >= granted_on)
   if (length(ci)) {
     d_ci <- max(ed[ci])
