@@ -175,18 +175,5 @@ word_count_of <- function(entry) {
 
 # The committed corpus-wide file (data-raw/word_counts.json) is read by
 # load_word_counts() in cert_model.R, which needs no pdftools -- the model is
-# scored from many entry points that never fetch a PDF.
-
-# Merge resolved counts into a petition-signals map (docket -> named list), as
-# `words`, so score_case(signals = ) sees one entry per docket. Dockets not in
-# the map get a fresh entry holding only the count.
-attach_word_counts <- function(signals_map, counts) {
-  counts <- counts[!is.na(counts$words), , drop = FALSE]
-  for (i in seq_len(nrow(counts))) {
-    dk <- counts$dkt[i]
-    e <- signals_map[[dk]]; if (is.null(e)) e <- list()
-    e$words <- counts$words[i]
-    signals_map[[dk]] <- e
-  }
-  signals_map
-}
+# scored from many entry points that never fetch a PDF. attach_word_counts(),
+# which merges counts into a signals map, lives there too, for the same reason.

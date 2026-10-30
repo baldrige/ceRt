@@ -1743,7 +1743,11 @@ render_dockets_for <- function(cases, site_dir, model_dir = "data") {
     }
     # The certified word counts, merged in as `words` (see R/word_count.R):
     # the committed file, then every on-site cache a workflow may have written.
-    if (exists("attach_word_counts")) {
+    # Gated on score_case(), not on attach_word_counts(): the two live in the
+    # same file (cert_model.R), so a run that can score a case always attaches
+    # the counts. Gating on attach_word_counts() itself let the back-catalog
+    # re-render score every page without them (see its definition).
+    if (exists("score_case")) {
       signals_map <- attach_word_counts(signals_map, load_word_counts())
       for (wp in file.path(site_dir, c("dashboards", "conferences"), "word_counts_cache.json")) {
         if (!file.exists(wp)) next

@@ -378,6 +378,17 @@ order, which is why `docket_timeline()` sorts it too rather than trusting it.
 
 ## Rolling a template change to the back-catalog
 
+**Every render entry point must score with the same inputs.** The back-catalog
+script, `render_dockets_backfill.R`, never sourced `R/word_count.R`, and
+`render_dockets_for()` attached the certified word counts only
+`if (exists("attach_word_counts"))`. So every page `rerender-dockets.yml` and
+`fill-throttled-dockets.yml` wrote was scored in the model's "unknown" word
+band, with no error. Found 2026-10-30 after the v49 re-render: 26-568's page
+read 65% against the home page's 21%, and 26-558's read 13% against 10%.
+`attach_word_counts()` now lives beside `score_case()` in `R/cert_model.R`,
+with no guard. The signals, word count included, are in the manifest key, so
+the next incremental re-render rewrites exactly the pages that lacked them.
+
 The daily only rebuilds the current term's ~150 recent pages, so after a
 `PAGE_TEMPLATE_VERSION` bump the rest of the ~55k pages must be re-rendered
 explicitly. Two dispatchable workflows do this:
