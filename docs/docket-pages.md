@@ -118,11 +118,24 @@ Two cases are worth knowing about because they look like bugs and are not:
 
 ### Cert-stage vs merits split — `granted_on`
 
-`granted_on` is the cert-grant date, detected from the docket. Entries before it
-keep the safe cert-stage covers (e.g. amicus = cream); entries on/after it get the
-merits covers (blue/red/green). Detection excludes **stay/conditional orders** —
-their boilerplate ("in the event the petition … is granted", "pending disposition",
-"for a stay") would otherwise read as a grant and back-date the merits stage.
+`granted_on` is the cert-grant date, detected from the docket
+(`docket_granted_on()`). Entries before it keep the safe cert-stage covers (e.g.
+amicus = cream); entries on/after it get the merits covers (blue/red/green).
+
+Since v49 the date is the first entry matching the funnel's **`GRANT_FORMS`**
+(`R/cert_funnel.R`), the same grammar that classifies the petition as granted,
+so a case page and the funnel cannot disagree about whether review was granted.
+Those forms are anchored, so stay boilerplate ("in the event the petition … is
+granted") does not match, and they include an appeal's "probable jurisdiction
+noted" and an application treated as a petition.
+
+Before v49 it was any line naming the petition and then "grant". That matched
+"Motion (18M64) for leave to file a petition … under seal Granted", "Motion to
+delay distribution of the petition … granted", "Petition DENIED. Justice Alito
+would grant …", and "DISMISSED as improvidently granted". Measured 2026-10-30 on
+OT17–OT26: 515 dockets had a false grant date, so a denied petition's amici and
+opposition were coloured as merits briefs. Another 25 were dated months early,
+and 14 appeals had no grant date at all.
 
 ### Two docket phrasings for one thing
 

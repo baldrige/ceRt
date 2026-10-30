@@ -194,7 +194,11 @@ amicus_briefs <- function(paths) {
       granted_on <- docket_granted_on(ev)
       sides <- tryCatch(.brief_caption_sides(x$caption[i]), error = function(e) NULL)
       rbo <- resp_merits_brief_on(ev, granted_on, sides)
-      fell <- if (!is.na(granted_on)) petitioner_won(judgment_of(ev)) else NA_real_
+      jd <- if (!is.na(granted_on)) judgment_of(ev) else NA_character_
+      fell <- petitioner_won(jd)
+      # A DIG, a Rule 46 dismissal or a moot case is decided, with no side
+      # winning: not "undecided" in the by-year table.
+      dismissed <- argument_disposition(jd) %in% "dismissed"
       # The Court called for the Solicitor General's views: the United States'
       # cert-stage brief that follows is the answer, not a volunteer.
       cvsg <- any(str_detect(po, FUNNEL_PATTERNS$cvsg))
@@ -208,7 +212,7 @@ amicus_briefs <- function(paths) {
                side = case_when(col == "lgreen" ~ "pet", col == "dgreen" ~ "resp",
                                 TRUE ~ NA_character_),
                vided = str_detect(po[k], regex("\\bVIDED\\b", ignore_case = TRUE)),
-               filer = amicus_filer(po[k]), fell = fell, cvsg = cvsg)
+               filer = amicus_filer(po[k]), fell = fell, dismissed = dismissed, cvsg = cvsg)
       })
       b <- bind_rows(rows)
       if (!nrow(b)) next
@@ -345,8 +349,8 @@ amicus_stats_from <- function(briefs, fingerprint, terms,
 
   # ---- by docket year
   undecided <- briefs |>
-    filter(stage == "merits") |> distinct(term, dkt, fell) |>
-    group_by(term) |> summarise(undecided = sum(is.na(fell)), .groups = "drop")
+    filter(stage == "merits") |> distinct(term, dkt, fell, dismissed) |>
+    group_by(term) |> summarise(undecided = sum(is.na(fell) & !dismissed), .groups = "drop")
   by_term <- briefs |>
     group_by(term) |>
     summarise(briefs = n(), cert = sum(stage == "cert"),
@@ -532,8 +536,8 @@ amicus_stats_fingerprint <- function(paths = amicus_input_paths()) {
                      "counsel_terms"), body_of),
     grammar = list(as.character(AMICUS_ENTRY_RX), as.character(AMICUS_PREFIX_RX),
                    as.character(AMICUS_SUFFIX_RX), AMICUS_US_KEYS, COUNSEL_STATES,
-                   as.character(JUDGMENT_ENTRY_RX), JUDGMENT_RULES, PETITION_TYPES,
-                   FUNNEL_PATTERNS,
+                   as.character(JUDGMENT_ENTRY_RX), as.character(PARTIAL_DISMISSAL_RX),
+                   JUDGMENT_RULES, PETITION_TYPES, FUNNEL_PATTERNS, GRANT_FORMS,
                    AMICUS_TOP_N, AMICUS_MIN_RATE, AMICUS_PAIR_FILER_MIN, AMICUS_PAIR_MIN,
                    AMICUS_MAX_VARIANTS, AMICUS_GENERIC_FIRM_RX, AMICUS_GOV_FIRM_RX,
                    AMICUS_REFRESH, COUNSEL_SUFFIXES),
