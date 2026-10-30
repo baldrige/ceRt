@@ -341,6 +341,142 @@ AMICUS_MAX_VARIANTS <- 4L
               .groups = "drop")
 }
 
+# ---- the coalition network -------------------------------------------------------
+# The allies table's pairs, all of them rather than the top 25: every frequent
+# filer (AMICUS_PAIR_FILER_MIN merits briefs) joined to every other it met on
+# the same schedule in at least AMICUS_PAIR_MIN cases. Groups are Louvain
+# communities and the picture a force layout, both computed here in base R --
+# igraph is not on the CI runners, and a layout fixed at build time means the
+# page draws the same graph for every reader and with no script at all.
+
+# Louvain's local-moving phase, repeated on the aggregated graph until no node
+# moves. Deterministic: nodes are visited in the order given, ties go to the
+# community they are already in. Returns a membership vector.
+.amicus_louvain <- function(W) {
+  memb <- seq_len(nrow(W)); A <- W
+  repeat {
+    k <- rowSums(A); m2 <- sum(A); comm <- seq_len(nrow(A)); moved_any <- FALSE
+    repeat {
+      moved <- FALSE
+      for (i in seq_len(nrow(A))) {
+        ci <- comm[i]; comm[i] <- 0L
+        lev <- factor(comm, levels = unique(c(comm, ci)))
+        tot <- tapply(k, lev, sum); kin <- tapply(A[i, ], lev, sum)
+        cand <- union(ci, unique(comm[A[i, ] > 0 & comm > 0]))
+        gain <- vapply(cand, function(c) coalesce(kin[[as.character(c)]], 0) -
+                         coalesce(tot[[as.character(c)]], 0) * k[i] / m2, 0)
+        best <- cand[which.max(gain)]
+        if (best != ci) moved <- moved_any <- TRUE
+        comm[i] <- best
+      }
+      if (!moved) break
+    }
+    comm <- match(comm, unique(comm))
+    memb <- comm[memb]
+    if (!moved_any || max(comm) == nrow(A)) break
+    G <- outer(comm, seq_len(max(comm)), "==") * 1
+    A <- t(G) %*% A %*% G
+  }
+  memb
+}
+
+# Fruchterman-Reingold, seeded on a circle in group order so each community
+# starts together, with a weak pull to the centre. Returns an n x 2 matrix
+# scaled into [0, 1] on both axes.
+.amicus_fr <- function(W, group, iters = 700L, spread = 2) {
+  n <- nrow(W)
+  if (n == 1) return(matrix(0.5, 1, 2))
+  ord <- order(group, -rowSums(W))
+  a <- numeric(n); a[ord] <- 2 * pi * (seq_len(n) - 1) / n
+  x <- 0.5 + 0.4 * cos(a); y <- 0.5 + 0.4 * sin(a)
+  k <- spread * sqrt(1 / n); w <- sqrt(W / max(W))
+  for (it in seq_len(iters)) {
+    t <- 0.08 * (1 - it / iters) + 0.002
+    dx <- outer(x, x, "-"); dy <- outer(y, y, "-")
+    d <- sqrt(dx^2 + dy^2) + 1e-4
+    f <- k^2 / d - w * d^2 / k
+    diag(f) <- 0
+    mx <- rowSums(f * dx / d) - 0.4 * (x - 0.5)
+    my <- rowSums(f * dy / d) - 0.4 * (y - 0.5)
+    len <- sqrt(mx^2 + my^2) + 1e-9
+    step <- pmin(len, t)
+    x <- x + mx / len * step; y <- y + my / len * step
+  }
+  rng <- function(v) (v - min(v)) / max(diff(range(v)), 1e-9)
+  cbind(rng(x), rng(y))
+}
+
+# Lay out each connected piece on its own. Laid out together, a piece with no
+# tie to the rest (the IP bar's four associations) is pushed by repulsion alone
+# to the far corner and squeezes everything else into what is left. The
+# largest piece fills the panel's left `main` share; the others stack, largest
+# first, in the column to its right.
+.amicus_layout <- function(W, group, main = 0.82) {
+  n <- nrow(W); comp <- rep(0L, n); cc <- 0L
+  for (s in seq_len(n)) if (!comp[s]) {
+    cc <- cc + 1L; q <- s; comp[s] <- cc
+    while (length(q)) {
+      v <- q[1]; q <- q[-1]
+      nb <- which(W[v, ] > 0 & !comp); comp[nb] <- cc; q <- c(q, nb)
+    }
+  }
+  sizes <- tabulate(comp); ord <- order(-sizes)
+  xy <- matrix(0, n, 2)
+  big <- which(comp == ord[1])
+  p <- .amicus_fr(W[big, big, drop = FALSE], group[big])
+  xy[big, ] <- cbind(p[, 1] * if (length(ord) > 1) main else 1, p[, 2])
+  rest <- ord[-1]
+  if (length(rest)) {
+    # Each small piece gets a band of the right-hand column in proportion to its size.
+    h <- sizes[rest] / sum(sizes[rest]); top <- c(0, cumsum(h))[seq_along(rest)]
+    for (r in seq_along(rest)) {
+      ix <- which(comp == rest[r])
+      p <- .amicus_fr(W[ix, ix, drop = FALSE], group[ix], iters = 300L)
+      span <- min(h[r] * 0.8, 0.22)
+      xy[ix, 1] <- main + 0.06 + p[, 1] * (1 - main - 0.06)
+      xy[ix, 2] <- top[r] + (h[r] - span) / 2 + p[, 2] * span
+    }
+  }
+  xy
+}
+
+# Up to this many groups get a hue of their own; any beyond share --net-other.
+AMICUS_NET_GROUPS <- 4L
+
+amicus_network <- function(m, disp) {
+  j <- inner_join(m, m, by = "case", suffix = c("1", "2"), relationship = "many-to-many") |>
+    filter(side1 == side2, key1 < key2) |> distinct(case, key1, key2) |>
+    count(key1, key2, name = "cases") |> filter(cases >= AMICUS_PAIR_MIN)
+  if (nrow(j) < 2) return(NULL)
+  keys <- sort(unique(c(j$key1, j$key2)))
+  W <- matrix(0, length(keys), length(keys))
+  W[cbind(match(j$key1, keys), match(j$key2, keys))] <- j$cases
+  W <- W + t(W)
+  comm <- .amicus_louvain(W)
+  strength <- rowSums(W)
+  # Groups ranked by their total strength, so the largest takes --net-1.
+  rank <- order(-tapply(strength, comm, sum))
+  group <- match(comm, rank)
+  xy <- .amicus_layout(W, group)
+  briefs <- m |> count(key, name = "briefs")
+  nodes <- tibble(key = keys, strength = strength, group = group,
+                  x = round(xy[, 1], 4), y = round(xy[, 2], 4)) |>
+    left_join(disp |> select(key, name), by = "key") |>
+    left_join(briefs, by = "key") |>
+    mutate(name = coalesce(name, key))
+  groups <- nodes |> group_by(group) |>
+    summarise(n = n(), lead = paste(head(name[order(-strength)], 3), collapse = "; "),
+              .groups = "drop") |> arrange(group)
+  edges <- j |> transmute(i = match(key1, keys) - 1L, j = match(key2, keys) - 1L, cases)
+  list(nodes = nodes, edges = edges, groups = groups,
+       modularity = .amicus_modularity(W, comm))
+}
+
+.amicus_modularity <- function(W, comm) {
+  k <- rowSums(W); m2 <- sum(W)
+  round(sum((W - outer(k, k) / m2) * outer(comm, comm, "==")) / m2, 3)
+}
+
 amicus_stats_from <- function(briefs, fingerprint, terms,
                               top_n = AMICUS_TOP_N, min_rate = AMICUS_MIN_RATE) {
   pet <- attr(briefs, "petitions")
@@ -451,6 +587,7 @@ amicus_stats_from <- function(briefs, fingerprint, terms,
     left_join(disp |> select(key2 = key, name2 = name), by = "key2")
   allies <- label(pairs_of(m, m, TRUE))
   opponents <- label(pairs_of(m, m, FALSE))
+  network <- amicus_network(m, disp)
 
   # ---- who writes them: the "Other" block, where the refresh carried it
   cov <- briefs |> filter(has_block %in% TRUE)
@@ -507,7 +644,7 @@ amicus_stats_from <- function(briefs, fingerprint, terms,
       as_of = as.character(suppressWarnings(max(briefs$date, na.rm = TRUE)))),
     by_term = by_term, filers = filers, door = door, record = record,
     us = us_out, states = states, allies = allies, opponents = opponents,
-    firms = firms, counsel = counsel,
+    network = network, firms = firms, counsel = counsel,
     fingerprint = fingerprint)
 }
 
@@ -526,7 +663,8 @@ amicus_stats_fingerprint <- function(paths = amicus_input_paths()) {
     logic = lapply(c("amicus_input_paths", "amicus_docket_years", "amicus_filer",
                      "amicus_key", "amicus_is_state", "amicus_states_named", "amicus_kind",
                      "amicus_briefs", "amicus_match_counsel", ".amicus_display",
-                     ".amicus_merits_record", "amicus_stats_from",
+                     ".amicus_merits_record", "amicus_stats_from", "amicus_network",
+                     ".amicus_louvain", ".amicus_fr", ".amicus_layout", ".amicus_modularity",
                      # the case pages' grammar, which decides what a brief is
                      "brief_cover", "resp_merits_brief_on", "docket_granted_on",
                      ".brief_caption_sides", "party_score", "party_side",
@@ -539,6 +677,7 @@ amicus_stats_fingerprint <- function(paths = amicus_input_paths()) {
                    as.character(JUDGMENT_ENTRY_RX), as.character(PARTIAL_DISMISSAL_RX),
                    JUDGMENT_RULES, PETITION_TYPES, FUNNEL_PATTERNS, GRANT_FORMS,
                    AMICUS_TOP_N, AMICUS_MIN_RATE, AMICUS_PAIR_FILER_MIN, AMICUS_PAIR_MIN,
+                   AMICUS_NET_GROUPS,
                    AMICUS_MAX_VARIANTS, AMICUS_GENERIC_FIRM_RX, AMICUS_GOV_FIRM_RX,
                    AMICUS_REFRESH, COUNSEL_SUFFIXES),
     archives = unname(tools::md5sum(sort(paths)))))
@@ -553,7 +692,147 @@ AMICUS_CSS <- paste0(COUNSEL_CSS, "
   table.ctab .pair{display:block;line-height:1.3}
   table.ctab .vs{display:block;font-size:.78rem;font-style:italic;
     color:var(--faint,@faint@);margin:.1rem 0}
+  .an-stage{position:relative;background:var(--panel,@panel@);border:1px solid var(--rule,@rule@);margin:.4rem 0 .6rem}
+  .an-stage svg{display:block;width:100%;height:auto}
+  .an-e{stroke:@faint@;stroke-opacity:.16;stroke-linecap:round}
+  .an-e.g1{stroke:@net-1@;stroke-opacity:.3}.an-e.g2{stroke:@net-2@;stroke-opacity:.3}
+  .an-e.g3{stroke:@net-3@;stroke-opacity:.3}.an-e.g4{stroke:@net-4@;stroke-opacity:.3}
+  .an-n circle{stroke:@panel@;stroke-width:1.5}
+  .an-n.g1 circle{fill:@net-1@}.an-n.g2 circle{fill:@net-2@}.an-n.g3 circle{fill:@net-3@}
+  .an-n.g4 circle{fill:@net-4@}.an-n.g0 circle{fill:@net-other@}
+  .an-n{cursor:default;outline:none}
+  .an-l{font-size:11.5px;fill:@ink@;pointer-events:none;paint-order:stroke;
+    stroke:@panel@;stroke-width:3px;stroke-linejoin:round}
+  .an-hot .an-e{stroke-opacity:.04}.an-hot .an-e.on{stroke-opacity:.75}
+  .an-hot .an-n{opacity:.25}.an-hot .an-n.on,.an-hot .an-n.nb{opacity:1}
+  .an-hot .an-l{opacity:.2}.an-hot .an-l.on{opacity:1}
+  .an-n.on circle{stroke:@ink@;stroke-width:2}
+  .an-tip{position:absolute;pointer-events:none;background:@ink@;color:@paper@;font-size:.8rem;
+    line-height:1.35;padding:.35rem .6rem;border-radius:2px;max-width:17rem;opacity:0;
+    transition:opacity .12s}
+  .an-tip.on{opacity:1}.an-tip b{font-weight:600}
+  .an-legend{display:flex;flex-wrap:wrap;gap:.4rem 1.4rem;font-size:.84rem;color:var(--ink-soft,@ink-soft@);
+    margin:.2rem 0 .9rem}
+  .an-legend i{display:inline-block;width:.75rem;height:.75rem;border-radius:50%;margin-right:.4rem;
+    vertical-align:-.05rem}
+  .an-legend .g1 i{background:@net-1@}.an-legend .g2 i{background:@net-2@}
+  .an-legend .g3 i{background:@net-3@}.an-legend .g4 i{background:@net-4@}
+  .an-legend .g0 i{background:@net-other@}
+  @media (prefers-reduced-motion:reduce){.an-tip{transition:none}}
 " |> fill_palette())
+
+# The page's only script: hover or tap a filer to light its partners, with the
+# names and counts in a tip. The graph itself is drawn at build time, so with
+# no script the reader still has the picture, the legend and the table below.
+AMICUS_NETWORK_JS <- "
+(function(){
+  var st=document.getElementById('an-stage'); if(!st) return;
+  var svg=st.querySelector('svg'), tip=document.getElementById('an-tip');
+  var nodes=[].slice.call(svg.querySelectorAll('.an-n')), edges=[].slice.call(svg.querySelectorAll('.an-e'));
+  function esc(s){return String(s).replace(/[&<>\"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;'}[c];});}
+  var byI={}; nodes.forEach(function(n){byI[n.getAttribute('data-i')]=n;});
+  var labs={}; [].slice.call(svg.querySelectorAll('.an-l')).forEach(function(l){labs[l.getAttribute('data-i')]=l;});
+  function lit(i){var l=labs[i]; if(l) l.classList.add('on');}
+  var adj={}; edges.forEach(function(e){var a=e.getAttribute('data-i'),b=e.getAttribute('data-j'),c=+e.getAttribute('data-c');
+    (adj[a]=adj[a]||[]).push([b,c,e]); (adj[b]=adj[b]||[]).push([a,c,e]);});
+  function clear(){svg.classList.remove('an-hot'); nodes.forEach(function(n){n.classList.remove('on','nb');});
+    edges.forEach(function(e){e.classList.remove('on');});
+    for(var k in labs) labs[k].classList.remove('on'); tip.classList.remove('on');}
+  function place(n){var r=st.getBoundingClientRect(), b=n.querySelector('circle').getBoundingClientRect();
+    var x=b.left+b.width/2-r.left, y=b.top-r.top-8; tip.style.left=Math.max(4,Math.min(x-tip.offsetWidth/2,r.width-tip.offsetWidth-4))+'px';
+    tip.style.top=Math.max(4,y-tip.offsetHeight)+'px';}
+  function show(n){clear(); var i=n.getAttribute('data-i'), nb=(adj[i]||[]).slice().sort(function(p,q){return q[1]-p[1];});
+    svg.classList.add('an-hot'); n.classList.add('on'); lit(i);
+    nb.forEach(function(p){p[2].classList.add('on'); byI[p[0]].classList.add('nb'); lit(p[0]);});
+    var h='<b>'+esc(n.getAttribute('data-n'))+'</b><br>'+n.getAttribute('data-b')+' merits briefs; same side as '+nb.length+' frequent filers';
+    nb.slice(0,3).forEach(function(p){h+='<br>'+esc(byI[p[0]].getAttribute('data-n'))+': '+p[1]+' cases';});
+    tip.innerHTML=h; tip.classList.add('on'); place(n);}
+  nodes.forEach(function(n){n.addEventListener('mouseenter',function(){show(n);});
+    n.addEventListener('focus',function(){show(n);});
+    n.addEventListener('click',function(ev){ev.stopPropagation(); if(n.classList.contains('on')) clear(); else show(n);});});
+  svg.addEventListener('mouseleave',clear); document.addEventListener('click',clear);
+  nodes.forEach(function(n){n.addEventListener('blur',clear);});
+})();
+"
+
+# A filer's name for a label: the docket's own words, less a leading "The" and
+# a corporate tail. The tip carries the name in full.
+.amicus_short_name <- function(x) {
+  x |> str_remove("^The\\s+") |> str_remove(",?\\s+(Inc|L\\.?L\\.?C|Corp)\\.?$") |> str_squish()
+}
+
+# The coalition network as inline SVG. Positions come from amicus_network();
+# this sizes the circles and edges, chooses which filers get a printed label
+# (the strongest, where a label fits without covering another label or a
+# circle) and leaves the rest to the tip.
+.amicus_network_svg <- function(net, W = 860, H = 600, labels = 30L) {
+  nodes <- as_tibble(net$nodes); edges <- as_tibble(net$edges)
+  mx <- 70; my <- 34
+  px <- mx + nodes$x * (W - 2 * mx); py <- my + nodes$y * (H - 2 * my)
+  b <- coalesce(as.numeric(nodes$briefs), 0)
+  r <- 3.5 + 9 * sqrt(b / max(b, 1))
+  g <- ifelse(nodes$group <= AMICUS_NET_GROUPS, nodes$group, 0L)
+  cmax <- max(edges$cases); cmin <- min(edges$cases)
+  ew <- 0.5 + 3.5 * sqrt((edges$cases - cmin) / max(cmax - cmin, 1))
+  same <- g[edges$i + 1] == g[edges$j + 1] & g[edges$i + 1] > 0
+  eorder <- order(edges$cases)
+  e_svg <- paste0("<line class='an-e", ifelse(same, paste0(" g", g[edges$i + 1]), ""), "' x1='",
+                  round(px[edges$i + 1], 1), "' y1='", round(py[edges$i + 1], 1), "' x2='",
+                  round(px[edges$j + 1], 1), "' y2='", round(py[edges$j + 1], 1),
+                  "' stroke-width='", round(ew, 2), "' data-i='", edges$i, "' data-j='", edges$j,
+                  "' data-c='", edges$cases, "'/>")[eorder]
+
+  # Labels: strongest first; try below, above, right, left of the circle.
+  short <- .amicus_short_name(nodes$name)
+  lines_of <- function(s) {
+    if (nchar(s) <= 24) return(s)
+    w <- strsplit(s, " ")[[1]]; cut <- which.min(abs(cumsum(nchar(w) + 1) - nchar(s) / 2))
+    c(paste(w[seq_len(cut)], collapse = " "), paste(w[-seq_len(cut)], collapse = " "))
+  }
+  boxes <- list(); lab <- rep("", nrow(nodes))
+  hits <- function(bx) {
+    for (o in boxes) if (!(bx[1] + bx[3] < o[1] || o[1] + o[3] < bx[1] ||
+                           bx[2] + bx[4] < o[2] || o[2] + o[4] < bx[2])) return(TRUE)
+    # A label may cross a small circle (it has a halo and sits above the
+    # nodes), but never one of the large ones, which are the filers it names.
+    cx <- pmax(bx[1], pmin(px, bx[1] + bx[3])); cy <- pmax(bx[2], pmin(py, bx[2] + bx[4]))
+    any((sqrt((cx - px)^2 + (cy - py)^2) < r + 1)[big])
+  }
+  big <- r >= quantile(r, 0.7)
+  # The strongest filers, and each group's strongest, so no community goes unnamed.
+  lead_of <- vapply(split(seq_len(nrow(nodes)), nodes$group),
+                    function(ix) ix[which.max(nodes$strength[ix])], 1L)
+  for (k in unique(c(lead_of, head(order(-nodes$strength), labels)))) {
+    ln <- lines_of(short[k]); w <- max(nchar(ln)) * 6.2; h <- length(ln) * 13
+    cands <- list(c(px[k] - w / 2, py[k] + r[k] + 3, "middle"),
+                  c(px[k] - w / 2, py[k] - r[k] - 3 - h, "middle"),
+                  c(px[k] + r[k] + 4, py[k] - h / 2, "start"),
+                  c(px[k] - r[k] - 4 - w, py[k] - h / 2, "end"))
+    for (cd in cands) {
+      bx <- c(as.numeric(cd[1]), as.numeric(cd[2]), w, h)
+      if (bx[1] < 2 || bx[1] + w > W - 2 || bx[2] < 2 || bx[2] + h > H - 2 || hits(bx)) next
+      boxes[[length(boxes) + 1]] <- bx
+      tx <- switch(cd[3], middle = bx[1] + w / 2, start = bx[1], end = bx[1] + w)
+      lab[k] <- paste0("<text class='an-l' data-i='", k - 1L, "' x='", round(tx, 1),
+                       "' text-anchor='", cd[3], "'>",
+                       paste0("<tspan x='", round(tx, 1), "' y='", round(bx[2] + 10 + 13 * (seq_along(ln) - 1), 1),
+                              "'>", htmlEscape(ln), "</tspan>", collapse = ""), "</text>")
+      break
+    }
+  }
+  n_svg <- paste0("<g class='an-n g", g, "' tabindex='0' data-i='", seq_len(nrow(nodes)) - 1L,
+                  "' data-n='", htmlEscape(nodes$name, attribute = TRUE), "' data-b='", b,
+                  "'><title>", htmlEscape(nodes$name), "</title><circle cx='", round(px, 1),
+                  "' cy='", round(py, 1), "' r='", round(r, 1), "'/></g>")
+  # Larger circles first, so a small one is never hidden beneath them; the
+  # labels go in a layer of their own above every circle.
+  n_svg <- n_svg[order(-r)]
+  paste0("<div class='an-stage' id='an-stage'><svg viewBox='0 0 ", W, " ", H,
+         "' role='img' aria-label='Network of frequent amicus filers that file on the same side'>",
+         paste(e_svg, collapse = ""), paste(n_svg, collapse = ""),
+         "<g class='an-labels'>", paste(lab[nzchar(lab)], collapse = ""), "</g>",
+         "</svg><div class='an-tip' id='an-tip'></div></div>")
+}
 
 .amicus_rec <- function(k, n) if (is.null(n) || is.na(n) || n == 0) "&mdash;" else
   paste0("<span class='rec'>", .cn(k), "<span class='of'> of ", .cn(n), "</span></span>")
@@ -569,6 +848,12 @@ render_amicus_page <- function(stats, out_dir) {
   opponents <- as_tib(stats$opponents); firms <- as_tib(stats$firms)
   counsel <- as_tib(stats$counsel); us <- stats$us
   num <- function(x) if (is.null(x) || !length(x) || is.na(x)) NA_real_ else as.numeric(x)
+  net <- stats$network
+  has_net <- !is.null(net) && length(net$nodes) && NROW(as_tib(net$nodes)) > 1
+  if (has_net) {
+    net$nodes <- as_tib(net$nodes); net$edges <- as_tib(net$edges)
+    net_groups <- as_tib(net$groups)
+  }
 
   sec <- function(over, heading, note, tbl) tagList(
     tags$p(class = "over", over), tags$h2(heading),
@@ -754,6 +1039,24 @@ render_amicus_page <- function(stats, out_dir) {
         "once. A brief on the petitioner&rsquo;s schedule may support neither party, ",
         "so an &ldquo;opponent&rdquo; pairing is a pairing of schedules, not always ",
         "of positions.")),
+      if (has_net) tagList(
+        tags$h3("The network"),
+        note(paste0(
+          "Every pair of those filers that met on the same schedule in ", tot$pair_min,
+          " or more cases, not only the strongest ", nrow(allies), ". ",
+          .cn(nrow(net$nodes)), " filers and ", .cn(nrow(net$edges)), " pairings. ",
+          "A circle&rsquo;s size is the filer&rsquo;s merits briefs and a line&rsquo;s ",
+          "weight the cases the two shared. Colours are communities found in the ",
+          "pairings alone (Louvain; modularity ", formatC(num(net$modularity), format = "f", digits = 2),
+          "), named here by their most connected members: the page infers who files ",
+          "together, not why. Hover or tap a filer for its partners.")),
+        HTML(.amicus_network_svg(net)),
+        HTML(paste0("<div class='an-legend'>", paste0(
+          "<span class='g", ifelse(net_groups$group <= AMICUS_NET_GROUPS, net_groups$group, 0L), "'><i></i>",
+          htmlEscape(map_chr(net_groups$lead, function(s)
+            paste(.amicus_short_name(head(strsplit(s, "; ")[[1]], 2)), collapse = ", "))),
+          " &middot; ", net_groups$n, " filers</span>", collapse = ""), "</div>")),
+        tags$script(HTML(AMICUS_NETWORK_JS))),
       tags$h3("Most often on the same side"),
       pair_tbl(allies, "with"),
       tags$h3("Most often on opposite sides"),

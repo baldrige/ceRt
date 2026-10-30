@@ -99,6 +99,45 @@ that the contrast is selection, not effect, and the filer board (≥8 decided
 petitions, Wilson lower bound) answers only "of the petitions this filer
 supported, how many were taken?".
 
+## The coalition network
+
+Above the two pair tables, the Coalitions section draws every same-side pairing
+the allies table is cut from. Each node is a frequent filer, meaning at least
+`AMICUS_PAIR_FILER_MIN` merits briefs. Each edge is a pair that met on the same
+Rule 37 schedule in at least `AMICUS_PAIR_MIN` cases. On 2026-10-30 that was 76
+filers and 353 pairings.
+`amicus_network()` computes it into `data/amicus_stats.json` (`network`), and
+`.amicus_network_svg()` draws it.
+
+- **Communities:** Louvain (`.amicus_louvain()`), weighted by shared cases and
+  run in a fixed node order, so the same data always gives the same groups. On
+  2026-10-30 it found five groups, with modularity 0.37:
+  - Cato and the Chamber of Commerce with the business and libertarian
+    foundations;
+  - ACLJ, Becket, the Catholic bishops and CLS;
+  - CAC, NACDL, the ACLU, Public Citizen and NAACP LDF;
+  - the IP bar's four associations;
+  - Eagle Forum and the Immigration Reform Law Institute.
+
+  The page names each group by its most connected members, never with a
+  political label, and says the grouping is inferred from co-filing alone.
+  Groups past `AMICUS_NET_GROUPS` (4) share `--net-other`. The hues are
+  `PALETTE_NETWORK` in `R/palette.R`.
+- **Layout:** Fruchterman-Reingold in base R (`.amicus_fr()`); igraph is not on
+  the runners. Each connected piece is laid out on its own
+  (`.amicus_layout()`). The largest piece fills the left 82% of the panel and
+  the rest stack in the right-hand column. Laid out together, the IP bar's
+  four associations, which have no tie to anyone else, were pushed to a corner
+  and squeezed everything else into what was left.
+- **Drawn at build time** as inline SVG, so the picture needs no script. Labels
+  go to the strongest filers plus each group's strongest, wherever a label fits
+  without covering another label or a large circle. The one inline script
+  (`AMICUS_NETWORK_JS`) only lights a filer's partners on hover or tap and shows
+  its top three in a tip. The pair tables beneath are the text equivalent.
+- **"Same side" means the same schedule.** A brief on the petitioner's schedule
+  may support neither party (see *Sides*), so a tie means "filed in the same
+  window", as the allies table does.
+
 ## Counsel for the amici
 
 The docket JSON has a third attorney block, `Other`, with one row per amicus
