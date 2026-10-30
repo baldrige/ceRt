@@ -1,4 +1,6 @@
 # Regenerate data/counsel_stats.json from data-raw/ot_*.rds, and print what moved.
+# Also writes data/counsel_inputs.rds, the petition and argument rows the
+# Term-range pages are computed from.
 #
 # Generated, not hand-maintained, for the reason make_baselines.R carries in full:
 # a committed summary of a classifier's output is indistinguishable from a fresh
@@ -36,9 +38,14 @@ if (check_only) {
   quit(status = 1)
 }
 
-cat("\nRecomputing (~4 min)...\n")
-st <- compute_counsel_stats(arch)
+cat("\nRecomputing (~12 min)...\n")
+inputs <- counsel_inputs(arch)
+st <- compute_counsel_stats(arch, inputs)
 st$generated <- format(Sys.Date())
+# The petition and argument rows every Term-range page is computed from
+# (render_counsel_ranges.R), under the same fingerprint as the stats.
+saveRDS(structure(inputs, fingerprint = want), COUNSEL_INPUTS_PATH, compress = "xz")
+cat("wrote", COUNSEL_INPUTS_PATH, "\n")
 
 cat("\ntotals:\n")
 for (k in names(st$totals)) cat(sprintf("  %-18s %s\n", k, st$totals[[k]]))
@@ -75,4 +82,4 @@ if (length(old$filings)) {
 
 write_json(st, out, auto_unbox = TRUE, digits = NA, pretty = TRUE)
 cat("\nwrote", out, "\n")
-cat("Commit it, or the render will pay ~4 min recomputing the same thing.\n")
+cat("Commit both, or the render will pay ~12 min recomputing the same thing.\n")

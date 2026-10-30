@@ -52,10 +52,11 @@ local({
     if (!is.na(here) && file.exists(file.path(here, f))) file.path(here, f)
     else if (file.exists(file.path("R", f))) file.path("R", f) else f
   }
-  for (f in c("counsel_table.R", "docket_page.R", "argument_lean.R"))
+  for (f in c("counsel_table.R", "docket_page.R", "argument_lean.R", "term_range.R"))
     if (!exists(switch(f, counsel_table.R = "counsel_archive_paths",
                           docket_page.R = "brief_cover",
-                          argument_lean.R = "judgment_of")))
+                          argument_lean.R = "judgment_of",
+                          term_range.R = "term_of_docket")))
       sys.source(find(f), envir = globalenv())
 })
 
@@ -67,6 +68,11 @@ local({
 # archives alone, with no counsel boards and the merits stage of the most recent
 # docket years thin (see .github/scripts/refetch_amici.R).
 AMICUS_REFRESH <- "data-raw/amici_refresh.rds"
+
+# The extracted briefs, committed beside the stats by make_amicus_stats.R under
+# the same fingerprint: the Term-range pages are computed from it, in seconds
+# each, rather than from a 13-minute extraction.
+AMICUS_BRIEFS_PATH <- "data/amicus_briefs.rds"
 
 # MOST CURRENT FIRST: amicus_briefs() keeps the first copy of a docket it meets,
 # exactly as counsel_petitions() does.
@@ -202,12 +208,16 @@ amicus_briefs <- function(paths) {
       # The Court called for the Solicitor General's views: the United States'
       # cert-stage brief that follows is the answer, not a volunteer.
       cvsg <- any(str_detect(po, FUNNEL_PATTERNS$cvsg))
+      argued <- argued_dates_of(ev)
       rows <- map(hit, function(k) {
         cv <- brief_cover(po[k], granted_on, ed[k], rbo, sides)
         if (is.null(cv)) return(NULL)
         col <- str_match(cv$color, "c-([a-z]+)")[, 2]
         if (!col %in% c("cream", "lgreen", "dgreen")) return(NULL)
-        tibble(dkt = x$dkt[i], caption = x$caption[i], date = ed[k],
+        # The Term the brief belongs to (R/term_range.R): the Term docketed at
+        # the petition stage, the Term argued on the merits.
+        tm <- if (col == "cream") term_of_docket(x$dkt[i]) else term_of_merits_brief(ed[k], argued)
+        tibble(dkt = x$dkt[i], caption = x$caption[i], date = ed[k], term = tm,
                stage = if (col == "cream") "cert" else "merits",
                side = case_when(col == "lgreen" ~ "pet", col == "dgreen" ~ "resp",
                                 TRUE ~ NA_character_),
@@ -230,8 +240,8 @@ amicus_briefs <- function(paths) {
   briefs <- bind_rows(out)
   if (!nrow(briefs)) return(structure(briefs, petitions = bind_rows(pets)))
   briefs <- briefs |>
-    filter(nzchar(filer)) |>
-    mutate(term = 2000L + as.integer(str_match(dkt, "^(\\d{2})-")[, 2]),
+    filter(nzchar(filer), !is.na(term)) |>
+    mutate(term_docketed = term_of_docket(dkt),
            key = amicus_key(filer), kind = amicus_kind(key)) |>
     # "Brief amicus curiae of Court-appointed amicus curiae ..." is the lawyer
     # the Court appointed to defend the judgment below, in one of the three
@@ -246,7 +256,24 @@ amicus_briefs <- function(paths) {
   pet <- bind_rows(pets) |> distinct(dkt, .keep_all = TRUE)
   cert_dk <- unique(briefs$dkt[briefs$stage == "cert" & briefs$kind != "us"])
   pet$cert_amicus <- pet$dkt %in% cert_dk
-  structure(briefs, petitions = pet)
+  pet$term <- term_of_docket(pet$dkt)
+  structure(.amicus_writers(briefs), petitions = pet)
+}
+
+# Who wrote each brief, keyed: counsel, firm, and whether the counsel works for
+# the filer (Cato's own lawyers on Cato's brief are the filer, not outside
+# counsel; same word test as the case pages' party matcher). Per brief and the
+# same in every Term range, so worked out once here -- it was over half the
+# time of each amicus_stats_from() call.
+.amicus_firm_key <- function(f) str_squish(str_remove(amicus_key(f), "\\s+(pllc|llp|llc|pc|p c|lp)$"))
+.amicus_writers <- function(b) {
+  has <- !is.na(b$counsel) & nzchar(coalesce(b$counsel, ""))
+  b$ck <- NA_character_; b$fk <- NA_character_; b$in_house <- NA
+  b$ck[has] <- map_chr(b$counsel[has], counsel_key)
+  b$fk[has] <- .amicus_firm_key(b$firm[has])
+  b$in_house[has] <- map2_lgl(b$fk[has], b$key[has],
+                              ~ nzchar(coalesce(.x, "")) && (.x == .y || party_score(.y, .x) >= 2))
+  b
 }
 
 # Counsel of record and firm for each filer, from the docket's "Other" block.
@@ -443,10 +470,10 @@ AMICUS_MAX_VARIANTS <- 4L
 # Up to this many groups get a hue of their own; any beyond share --net-other.
 AMICUS_NET_GROUPS <- 4L
 
-amicus_network <- function(m, disp) {
+amicus_network <- function(m, disp, pair_min = AMICUS_PAIR_MIN) {
   j <- inner_join(m, m, by = "case", suffix = c("1", "2"), relationship = "many-to-many") |>
     filter(side1 == side2, key1 < key2) |> distinct(case, key1, key2) |>
-    count(key1, key2, name = "cases") |> filter(cases >= AMICUS_PAIR_MIN)
+    count(key1, key2, name = "cases") |> filter(cases >= pair_min)
   if (nrow(j) < 2) return(NULL)
   keys <- sort(unique(c(j$key1, j$key2)))
   W <- matrix(0, length(keys), length(keys))
@@ -478,8 +505,11 @@ amicus_network <- function(m, disp) {
 }
 
 amicus_stats_from <- function(briefs, fingerprint, terms,
-                              top_n = AMICUS_TOP_N, min_rate = AMICUS_MIN_RATE) {
+                              top_n = AMICUS_TOP_N, min_rate = AMICUS_MIN_RATE,
+                              pair_filer_min = AMICUS_PAIR_FILER_MIN,
+                              pair_min = AMICUS_PAIR_MIN) {
   pet <- attr(briefs, "petitions")
+  if (!"in_house" %in% names(briefs)) briefs <- .amicus_writers(briefs)
   disp <- .amicus_display(briefs$key, briefs$filer)
   named <- function(d) d |> left_join(disp, by = "key")
 
@@ -571,7 +601,7 @@ amicus_stats_from <- function(briefs, fingerprint, terms,
 
   # ---- allies and opponents, on the merits, between frequent filers
   freq <- nonfed |> filter(stage == "merits") |> count(key) |>
-    filter(n >= AMICUS_PAIR_FILER_MIN) |> pull(key)
+    filter(n >= pair_filer_min) |> pull(key)
   m <- nonfed |> filter(stage == "merits", key %in% freq) |>
     mutate(case = str_squish(tolower(caption))) |>
     distinct(case, side, key)
@@ -580,24 +610,19 @@ amicus_stats_from <- function(briefs, fingerprint, terms,
     j <- if (same) j |> filter(side1 == side2, key1 < key2) else
       j |> filter(side1 == "pet", side2 == "resp")
     j |> distinct(case, key1, key2) |> count(key1, key2, name = "cases") |>
-      filter(cases >= AMICUS_PAIR_MIN) |> arrange(desc(cases), key1, key2) |> head(top_n)
+      filter(cases >= pair_min) |> arrange(desc(cases), key1, key2) |> head(top_n)
   }
   label <- function(d) d |>
     left_join(disp |> select(key1 = key, name1 = name), by = "key1") |>
     left_join(disp |> select(key2 = key, name2 = name), by = "key2")
   allies <- label(pairs_of(m, m, TRUE))
   opponents <- label(pairs_of(m, m, FALSE))
-  network <- amicus_network(m, disp)
+  network <- amicus_network(m, disp, pair_min = pair_min)
 
-  # ---- who writes them: the "Other" block, where the refresh carried it
+  # ---- who writes them: the "Other" block, where the refresh carried it.
+  # Counsel, firm and in-house are per brief (.amicus_writers()).
   cov <- briefs |> filter(has_block %in% TRUE)
-  firm_key <- function(f) str_squish(str_remove(amicus_key(f), "\\s+(pllc|llp|llc|pc|p c|lp)$"))
-  wr <- cov |> filter(!is.na(counsel), nzchar(counsel), kind != "us") |>
-    mutate(ck = map_chr(counsel, counsel_key), fk = firm_key(firm),
-           # Counsel who work FOR the filer -- Cato's own lawyers on Cato's
-           # brief -- are the filer, not outside counsel. Same word test as the
-           # case pages' party matcher.
-           in_house = map2_lgl(fk, key, ~ nzchar(.x) && (.x == .y || party_score(.y, .x) >= 2)))
+  wr <- cov |> filter(!is.na(counsel), nzchar(counsel), kind != "us")
   # Not firms: a solo lawyer's title in the firm field ("Attorney at Law", 80
   # rows in the first refresh, merged into one row that ranked 18th), and a
   # State's own lawyers ("Solicitor General", "Office of the Attorney General"),
@@ -640,7 +665,7 @@ amicus_stats_from <- function(briefs, fingerprint, terms,
       matched = sum(!is.na(cov$counsel) & nzchar(coalesce(cov$counsel, ""))),
       in_house = sum(wr$in_house),
       top_n = top_n, min_rate = min_rate,
-      pair_filer_min = AMICUS_PAIR_FILER_MIN, pair_min = AMICUS_PAIR_MIN,
+      pair_filer_min = pair_filer_min, pair_min = pair_min,
       as_of = as.character(suppressWarnings(max(briefs$date, na.rm = TRUE)))),
     by_term = by_term, filers = filers, door = door, record = record,
     us = us_out, states = states, allies = allies, opponents = opponents,
@@ -648,10 +673,32 @@ amicus_stats_from <- function(briefs, fingerprint, terms,
     fingerprint = fingerprint)
 }
 
-compute_amicus_stats <- function(paths = amicus_input_paths()) {
-  amicus_stats_from(amicus_briefs(paths),
-                    fingerprint = amicus_stats_fingerprint(paths),
-                    terms = counsel_terms(counsel_archive_paths(dirname(paths[1]))))
+compute_amicus_stats <- function(paths = amicus_input_paths(), briefs = amicus_briefs(paths)) {
+  span <- amicus_term_span(briefs)
+  amicus_stats_range(briefs, span[1], span[2], fingerprint = amicus_stats_fingerprint(paths))
+}
+
+# The Terms the briefs cover: the first docketed Term to the latest Term any
+# brief belongs to, which is the Term under way once its cases are briefed.
+amicus_term_span <- function(briefs) range(briefs$term, na.rm = TRUE)
+
+# The page's statistics over Terms `from`..`to` (R/term_range.R): the briefs that
+# belong to those Terms, the petitions docketed in them, and every floor scaled
+# to the range's length. The full span is a range like any other, so the
+# canonical page and a range page cannot be computed two ways.
+amicus_stats_range <- function(briefs, from, to, fingerprint = NA_character_) {
+  pet <- attr(briefs, "petitions")
+  b <- briefs[!is.na(briefs$term) & briefs$term >= from & briefs$term <= to, , drop = FALSE]
+  attr(b, "petitions") <- pet[!is.na(pet$term) & pet$term >= from & pet$term <= to, , drop = FALSE]
+  n <- to - from + 1L
+  st <- amicus_stats_from(b, fingerprint = fingerprint, terms = term_range_label(from, to),
+                          min_rate = scale_floor(AMICUS_MIN_RATE, n, lo = 3L),
+                          pair_filer_min = scale_floor(AMICUS_PAIR_FILER_MIN, n, lo = 3L),
+                          pair_min = scale_floor(AMICUS_PAIR_MIN, n, lo = 2L))
+  st$totals$term_from <- from; st$totals$term_to <- to; st$totals$n_terms <- n
+  span <- amicus_term_span(briefs)
+  st$totals$span_from <- span[1]; st$totals$span_to <- span[2]
+  st
 }
 
 # Everything data/amicus_stats.json is a function of: the archives' bytes and the
@@ -665,6 +712,11 @@ amicus_stats_fingerprint <- function(paths = amicus_input_paths()) {
                      "amicus_briefs", "amicus_match_counsel", ".amicus_display",
                      ".amicus_merits_record", "amicus_stats_from", "amicus_network",
                      ".amicus_louvain", ".amicus_fr", ".amicus_layout", ".amicus_modularity",
+                     ".amicus_writers", ".amicus_firm_key", "amicus_stats_range",
+                     "amicus_term_span", "compute_amicus_stats",
+                     # which Term a brief belongs to, and the scaled floors
+                     "term_of_docket", "term_of_date", "term_of_merits_brief",
+                     "argued_dates_of", "scale_floor", "term_range_label",
                      # the case pages' grammar, which decides what a brief is
                      "brief_cover", "resp_merits_brief_on", "docket_granted_on",
                      ".brief_caption_sides", "party_score", "party_side",
@@ -677,7 +729,7 @@ amicus_stats_fingerprint <- function(paths = amicus_input_paths()) {
                    as.character(JUDGMENT_ENTRY_RX), as.character(PARTIAL_DISMISSAL_RX),
                    JUDGMENT_RULES, PETITION_TYPES, FUNNEL_PATTERNS, GRANT_FORMS,
                    AMICUS_TOP_N, AMICUS_MIN_RATE, AMICUS_PAIR_FILER_MIN, AMICUS_PAIR_MIN,
-                   AMICUS_NET_GROUPS,
+                   AMICUS_NET_GROUPS, as.character(ARGUED_ENTRY_RX), TERM_FLOOR_SPAN,
                    AMICUS_MAX_VARIANTS, AMICUS_GENERIC_FIRM_RX, AMICUS_GOV_FIRM_RX,
                    AMICUS_REFRESH, COUNSEL_SUFFIXES),
     archives = unname(tools::md5sum(sort(paths)))))
@@ -873,7 +925,7 @@ render_amicus_page <- function(stats, out_dir) {
     list(label = "Terms", cell = function(i) .cn(filers$terms[i]))))
 
   t_terms <- if (!nrow(by_term)) NULL else {
-    head_cells <- c("Docketed", "Briefs", "Cert", "Pet./neither", "Resp.", "Cases", "Per case")
+    head_cells <- c("Term", "Briefs", "Cert", "Pet./neither", "Resp.", "Cases", "Per case")
     rows <- vapply(seq_len(nrow(by_term)), function(i) {
       r <- by_term[i, ]
       flag <- if (r$undecided > 0) paste0("<span class='alias'>", .cn(r$undecided),
@@ -938,7 +990,8 @@ render_amicus_page <- function(stats, out_dir) {
     list(label = "Merits", cell = function(i) .cn(counsel$merits[i])),
     list(label = "Clients", cell = function(i) .cn(counsel$filers[i]))))
 
-  span <- paste0("cases docketed OT", tot$term_from, "–OT", tot$term_to)
+  rng <- .term_nav(tot)
+  counsel_href <- .term_href(rng, "index.html", "/counsel/")
   body <- tags$body(
     HTML(site_masthead(active = "/counsel/")),
     tags$main(
@@ -949,7 +1002,8 @@ render_amicus_page <- function(stats, out_dir) {
       tags$hr(class = "brule"),
       tags$p(class = "dek", smarten(paste0(
         "Who files amicus briefs, at which stage, on which side, beside whom — and who ",
-        "writes them — across ", span, "."))),
+        "writes them — across ", tot$terms, "."))),
+      if (!is.null(rng)) HTML(term_picker_html("amicus.html", rng$from, rng$to, rng$span)),
       tags$div(class = "clede", tagList(
         tags$p(HTML(smarten(paste0(
           .cn(tot$briefs), " amicus briefs in ", .cn(tot$cases), " cases, from ",
@@ -957,10 +1011,16 @@ render_amicus_page <- function(stats, out_dir) {
           " came in at the petition stage, asking the Court to take a case; ",
           .cn(tot$merits), " came after a grant, in ", .cn(tot$merits_cases),
           " cases. As at the lectern, the field is long-tailed: ", .cn(tot$one_off),
-          " filers (", .cpct(tot$one_off / tot$filers, 0), ") appear exactly once.")))),
+          " filers (", .cpct(tot$one_off / tot$filers, 0), ") appear exactly once.",
+          if (isTRUE(rng$part)) paste0(
+            " Every floor on the page is scaled to the range. Over all ", rng$span_n,
+            " Terms a filer needs ", AMICUS_MIN_RATE, " decided cases to be rated and ",
+            AMICUS_PAIR_FILER_MIN, " merits briefs to be paired; over ",
+            term_range_label(rng$from, rng$to), " it needs ", tot$min_rate, " and ",
+            tot$pair_filer_min, ".") else "")))),
         tags$p(HTML(smarten(paste0(
           "Every brief here is classified by the same rules that colour the timeline on ",
-          "each case page, so the two always agree. <a href='/counsel/'>The Counsel ",
+          "each case page, so the two always agree. <a href='", counsel_href, "'>The Counsel ",
           "Table</a> covers the parties&rsquo; own lawyers."))))
       )),
 
@@ -973,12 +1033,15 @@ render_amicus_page <- function(stats, out_dir) {
                  "side; see the note on sides at the foot of the page."),
           t_filers),
 
-      sec("By docket year", "The flow, Term by Term",
-          paste0("Cases are dated by the Term they were docketed, not argued: a case ",
-                 "granted in January is usually briefed and argued the following Term. ",
-                 "<em>Per case</em> is merits briefs per case that drew any. The most ",
-                 "recent years are still being briefed, and the undecided count says ",
-                 "how far."),
+      sec("By Term", "The flow, Term by Term",
+          paste0("Each brief belongs to the Term in which it was filed for: a ",
+                 "petition-stage brief to the Term the case was docketed, a merits ",
+                 "brief to the Term the case was argued. A case granted in January is ",
+                 "usually briefed and argued the following Term, so its two kinds of ",
+                 "brief land a row apart. <em>Cases</em> and <em>per case</em> count ",
+                 "the cases that drew merits briefs. The Term under way is still being ",
+                 "briefed, and the undecided count says how far.",
+                 .term_coverage_note(rng, "merits briefs")),
           t_terms),
 
       tags$p(class = "over", "At the front door"),
@@ -1103,27 +1166,31 @@ render_amicus_page <- function(stats, out_dir) {
           "corporate suffix set aside. Two different filers with the same name ",
           "would merge; one filer that changes its name would split.")))),
         tags$p(HTML(smarten(paste0(
-          "Paid and in forma pauperis petitions docketed OT", tot$term_from, "–OT",
-          tot$term_to, ", with briefs through ",
-          str_squish(format(as.Date(tot$as_of), "%B %e, %Y")), ". Briefs on emergency ",
+          "Briefs in paid and in forma pauperis cases belonging to ", tot$terms,
+          " — at the petition stage by the Term the case was docketed, on the merits ",
+          "by the Term it was argued — through ",
+          str_squish(format(as.Date(tot$as_of), "%B %e, %Y")), ". The archive begins ",
+          "with the cases docketed in OT2017. Briefs on emergency ",
           "applications and in original actions are not counted. A brief filed in ",
           "consolidated cases counts once. Rejected filings, motions for leave and the ",
           "Court-appointed amicus defending a judgment below are not amicus briefs here."))))
       )),
-      tags$p(class = "back", HTML("<a href='/counsel/'>&larr; The Counsel Table</a>"))
+      tags$p(class = "back", HTML(paste0("<a href='", counsel_href, "'>&larr; The Counsel Table</a>")))
     ))
 
   html <- paste0(
     "<!DOCTYPE html>\n<html lang=\"en\">\n",
-    page_head("Friends of the Court — Supreme Court Report",
+    page_head(paste0("Friends of the Court", if (isTRUE(rng$part)) paste0(", ", tot$terms) else "",
+                     " — Supreme Court Report"),
               jsonld = site_breadcrumb_jsonld("Amicus filers",
                                               list(href = "/counsel/", label = "Counsel")),
-              extra_css = AMICUS_CSS,
+              extra_css = paste0(AMICUS_CSS, if (!is.null(rng)) TERM_PICKER_CSS else ""),
               description = paste(
                 "Who files amicus briefs at the Supreme Court: the most active filers,",
                 "the petitions they supported, the coalitions they form, the States,",
                 "and the lawyers who write the briefs."),
-              path = "/counsel/amicus.html"), "\n",
+              path = if (isTRUE(rng$part)) NULL else "/counsel/amicus.html",
+              extra_head = if (isTRUE(rng$part)) term_range_head("amicus.html", rng$span) else NULL), "\n",
     as.character(body), "\n</html>\n")
   out <- file.path(out_dir, "amicus.html")
   writeLines(enc2utf8(smarten_html(html)), out, useBytes = TRUE)

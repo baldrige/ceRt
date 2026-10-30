@@ -56,9 +56,10 @@ local({
     if (!is.na(here) && file.exists(file.path(here, f))) file.path(here, f)
     else if (file.exists(file.path("R", f))) file.path("R", f) else f
   }
-  for (f in c("cert_funnel.R", "cert_model.R", "page_style.R"))
+  for (f in c("cert_funnel.R", "cert_model.R", "page_style.R", "term_range.R"))
     if (!exists(switch(f, cert_funnel.R = "classify_petitions",
-                          cert_model.R = "counsel_key", page_style.R = "page_head")))
+                          cert_model.R = "counsel_key", page_style.R = "page_head",
+                          term_range.R = "term_of_docket")))
       sys.source(find(f), envir = globalenv())
 })
 
@@ -322,6 +323,10 @@ counsel_cases <- function(pet) {
 # unambiguously a State's.
 
 COUNSEL_ARG_REFRESH <- "data-raw/arg_refresh.rds"
+
+# counsel_inputs(), committed beside the stats by make_counsel_stats.R under the
+# same fingerprint, so the Term-range pages need not repeat the extraction.
+COUNSEL_INPUTS_PATH <- "data/counsel_inputs.rds"
 
 # The petition-side inputs, MOST CURRENT FIRST, because both counsel_petitions()
 # and counsel_arguments() keep the first copy of a docket they meet.
@@ -835,6 +840,7 @@ counsel_stats_from <- function(pet, terms, fingerprint, app = NULL, expected = N
                                min_cases = COUNSEL_MIN_CASES,
                                min_rate_cases = COUNSEL_MIN_RATE_CASES,
                                min_args = COUNSEL_ARG_MIN,
+                               min_expected = COUNSEL_EXPECTED_MIN,
                                top_n = COUNSEL_TOP_N) {
   cases <- counsel_cases(pet)
   agg <- counsel_aggregate(cases)
@@ -842,7 +848,8 @@ counsel_stats_from <- function(pet, terms, fingerprint, app = NULL, expected = N
   qr <- agg |> filter(cases >= min_rate_cases)
   boards <- counsel_boards(cases, agg, min_cases = min_rate_cases)
   eb <- if (is.null(expected)) NULL else
-    counsel_expected_board(pet, expected, agg, min_cases = min_rate_cases)
+    counsel_expected_board(pet, expected, agg, min_cases = min_rate_cases,
+                           min_expected = min_expected)
 
   # ONE display name per person, across both halves of the page.
   #
@@ -941,7 +948,7 @@ counsel_stats_from <- function(pet, terms, fingerprint, app = NULL, expected = N
       exp_term_from = if (is.null(expected)) NA_integer_ else min(unlist(expected$terms)),
       exp_term_to = if (is.null(expected)) NA_integer_ else max(unlist(expected$terms)),
       exp_prior = COUNSEL_EXPECTED_PRIOR,
-      exp_min = COUNSEL_EXPECTED_MIN,
+      exp_min = min_expected,
       min_cases = min_cases,
       min_rate_cases = min_rate_cases,
       min_args = min_args,
@@ -974,18 +981,51 @@ counsel_stats_from <- function(pet, terms, fingerprint, app = NULL, expected = N
     fingerprint = fingerprint)
 }
 
-compute_counsel_stats <- function(paths, min_cases = COUNSEL_MIN_CASES,
-                                  min_rate_cases = COUNSEL_MIN_RATE_CASES,
-                                  min_args = COUNSEL_ARG_MIN,
-                                  top_n = COUNSEL_TOP_N) {
-  counsel_stats_from(
-    counsel_petitions(paths),
-    terms = counsel_terms(paths),
-    fingerprint = counsel_stats_fingerprint(paths),
-    app = counsel_arguments(paths),
-    expected = load_counsel_expected(),
-    min_cases = min_cases, min_rate_cases = min_rate_cases,
-    min_args = min_args, top_n = top_n)
+compute_counsel_stats <- function(paths, inputs = counsel_inputs(paths)) {
+  span <- counsel_term_span(inputs)
+  counsel_stats_range(inputs, span[1], span[2], expected = load_counsel_expected(),
+                      fingerprint = counsel_stats_fingerprint(paths))
+}
+
+# The two slow extractions (~12 minutes together), with the Term each row
+# belongs to (R/term_range.R): a petition to the Term it was docketed, an
+# argument to the Term it was argued. Everything after this is per range and
+# takes seconds, so this is what the Term-range pages are built from.
+# Only the petition columns the statistics read are kept.
+counsel_inputs <- function(paths) {
+  pet <- counsel_petitions(paths) |>
+    select(dkt, caption, date, n_relists, outcome, lower, counsel, counsel_key, side) |>
+    mutate(term_docketed = term_of_docket(dkt))
+  app <- counsel_arguments(paths)
+  if (nrow(app)) app$term_argued <- term_of_date(app$argued_date)
+  list(pet = pet, app = app)
+}
+
+counsel_term_span <- function(inputs) {
+  range(c(inputs$pet$term_docketed, inputs$app$term_argued), na.rm = TRUE)
+}
+
+# The page over Terms `from`..`to`: petitions docketed and arguments heard in
+# those Terms, with every floor scaled to the range's length. The full span is
+# a range like any other.
+counsel_stats_range <- function(inputs, from, to, expected = load_counsel_expected(),
+                                fingerprint = NA_character_) {
+  pet <- inputs$pet |> filter(term_docketed >= from, term_docketed <= to)
+  app <- inputs$app
+  if (nrow(app)) app <- app |> filter(term_argued >= from, term_argued <= to)
+  n <- to - from + 1L
+  st <- counsel_stats_from(
+    pet, terms = term_range_label(from, to), fingerprint = fingerprint,
+    app = app, expected = expected,
+    min_cases = scale_floor(COUNSEL_MIN_CASES, n, lo = 2L),
+    min_rate_cases = scale_floor(COUNSEL_MIN_RATE_CASES, n, lo = 3L),
+    min_args = scale_floor(COUNSEL_ARG_MIN, n, lo = 2L),
+    # Expected grants scale with the cases behind them, to a quarter of one.
+    min_expected = scale_floor(COUNSEL_EXPECTED_MIN, n, lo = 0.25))
+  span <- counsel_term_span(inputs)
+  st$totals$term_from <- from; st$totals$term_to <- to; st$totals$n_terms <- n
+  st$totals$span_from <- span[1]; st$totals$span_to <- span[2]
+  st
 }
 
 # A digest of everything data/counsel_stats.json is a function of, so a committed
@@ -1011,7 +1051,11 @@ counsel_stats_fingerprint <- function(paths, refresh = COUNSEL_ARG_REFRESH) {
                      # of, and every one of them is a body, not a constant.
                      "counsel_arguments", "counsel_argument_boards",
                      ".parse_argued", ".argued_side", ".argued_office",
-                     ".last_entry"), body_of),
+                     ".last_entry",
+                     # Term ranges: which Term a row belongs to, the scaled floors.
+                     "counsel_inputs", "counsel_term_span", "counsel_stats_range",
+                     "compute_counsel_stats", "term_of_docket", "term_of_date",
+                     "scale_floor", "term_range_label"), body_of),
     # EVERY tunable that changes what gets written, not just the interesting
     # ones. COUNSEL_ARG_BOARD_N was missed on the first pass: it is read inside
     # counsel_stats_from(), whose *body* is digested, but a body references the
@@ -1029,7 +1073,8 @@ counsel_stats_fingerprint <- function(paths, refresh = COUNSEL_ARG_REFRESH) {
                    as.character(.DIG_RX),
                    as.character(APPLICATION_RX), as.character(.APP_GRANTED_RX),
                    as.character(.POS_PET_RX), as.character(.POS_RES_RX),
-                   as.character(.SIDE_PET_RX), as.character(.SIDE_RES_RX)),
+                   as.character(.SIDE_PET_RX), as.character(.SIDE_RES_RX),
+                   TERM_FLOOR_SPAN),
     # arg_refresh.rds is an INPUT, not a cache: refetch-argued.yml rewrites it
     # when new merits judgments land, and every argument board moves with it.
     archives = unname(tools::md5sum(sort(c(paths,
@@ -1192,6 +1237,9 @@ COUNSEL_CSS <- "
 render_counsel_page <- function(stats, out_dir) {
   dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
   tot <- stats$totals
+  # The Term range shown, and the page's full span (R/term_range.R). A stats
+  # file from before ranges carries neither, and the page renders without a picker.
+  rng <- .term_nav(tot)
   as_tib <- function(x) if (is.null(x) || !length(x)) tibble() else as_tibble(x)
   filings <- as_tib(stats$filings); relists <- as_tib(stats$relists)
   priv <- as_tib(stats$grants_private); govt <- as_tib(stats$grants_government)
@@ -1286,9 +1334,11 @@ render_counsel_page <- function(stats, out_dir) {
       tags$p(class = "dek", smarten(paste0(
         "Who files certiorari petitions, whose petitions get a second look, and ",
         "whose get granted — across ", tot$terms, "."))),
+      if (!is.null(rng)) HTML(term_picker_html("index.html", rng$from, rng$to, rng$span)),
       tags$div(class = "clede", tagList(
         tags$p(HTML(smarten(paste0(
-          "Every paid petition in the archive with a named petitioner's counsel of ",
+          "Every paid petition docketed in ", if (isTRUE(rng$part)) "these Terms" else
+            "the archive", " with a named petitioner's counsel of ",
           "record: ", .cn(tot$petitions), " petitions from ", .cn(tot$advocates),
           " advocates, filed in ", .cn(tot$cases), " separate cases. The bar is ",
           "long-tailed — ", .cn(tot$one_off), " advocates (",
@@ -1296,14 +1346,20 @@ render_counsel_page <- function(stats, out_dir) {
           "an advocate needs at least ", tot$min_cases,
           " cases to appear below, and ", .cn(tot$qualifying), " clear that bar. ",
           "The two tables that publish a <em>rate</em> ask for ", tot$min_rate_cases,
-          ", which ", .cn(tot$qualifying_rate), " reach: at five, eleven of the ",
-          "twenty-five relist rows were the same three-of-five advocate.")))),
+          ", which ", .cn(tot$qualifying_rate), " reach",
+          if (isTRUE(rng$part)) paste0(
+            ". Over all ", rng$span_n, " Terms the floors are ", COUNSEL_MIN_CASES,
+            " and ", COUNSEL_MIN_RATE_CASES, "; a shorter range scales every floor ",
+            "on the page down with it, so a board stays a board, and a short ",
+            "range&rsquo;s rates rest on fewer cases.")
+          else ": at five, eleven of the twenty-five relist rows were the same three-of-five advocate.")))),
         tags$p(HTML(smarten(paste0(
           "This counts petitioner's counsel of record and nothing else. An advocate ",
           "who argued a case they did not petition in does not appear, and ",
           "respondents' counsel — which is most of what the Supreme Court bar ",
           "actually does — is invisible here. The amici, and the lawyers who write ",
-          "for them, are on <a href='/counsel/amicus.html'>a page of their own</a>."))))
+          "for them, are on <a href='", .term_href(rng, "amicus.html", "/counsel/amicus.html"),
+          "'>a page of their own</a>."))))
       )),
 
       sec("Volume", "Most cases filed",
@@ -1366,8 +1422,9 @@ render_counsel_page <- function(stats, out_dir) {
           "a split, and how long it is. Each Term is scored by a model fitted on the ",
           "others, then shifted as a whole so its expected grants match the number ",
           "the Court actually made that Term — how many cases the Court takes is ",
-          "no advocate&rsquo;s doing. Over ", .cn(tot$exp_cases), " private cases from OT",
-          tot$exp_term_from, "–OT", tot$exp_term_to,
+          "no advocate&rsquo;s doing. Over ", .cn(tot$exp_cases), " private cases from ",
+          term_range_label(max(tot$term_from %||% tot$exp_term_from, tot$exp_term_from),
+                           min(tot$term_to %||% tot$exp_term_to, tot$exp_term_to)),
           " it expected ", formatC(tot$exp_expected, format = "f", digits = 0),
           " grants and there were ", .cn(tot$exp_granted), "; dropping counsel ",
           "costs it little (AUC ", formatC(tot$exp_auc_counsel, format = "f", digits = 3),
@@ -1380,10 +1437,13 @@ render_counsel_page <- function(stats, out_dir) {
           "grants&rsquo; worth of &ldquo;as expected&rdquo; mixed in, so that 2 ",
           "grants against 0.2 does not outrank 13 against 3.3. ",
           .cn(tot$exp_qualifying), " advocates have ", tot$min_rate_cases,
-          " or more scored cases and at least ", tot$exp_min, " expected grant. ",
-          "Measured in standard errors, their results spread ",
-          formatC(tot$exp_spread, format = "f", digits = 1), " wide; chance ",
-          "alone would give 1.0. ",
+          " or more scored cases and at least ", tot$exp_min, " expected grant",
+          if (num_or_na(tot$exp_min) == 1) "" else "s", ". ",
+          # A board of two or three has no spread worth stating.
+          if (!is.na(num_or_na(tot$exp_spread))) paste0(
+            "Measured in standard errors, their results spread ",
+            formatC(tot$exp_spread, format = "f", digits = 1), " wide; chance ",
+            "alone would give 1.0. ") else "",
           "<strong>Above expectation is not the same as skill.</strong> Leading ",
           "advocates are often retained once a case already looks worth granting, ",
           "for reasons the docket does not record, and the model credits the case ",
@@ -1408,7 +1468,8 @@ render_counsel_page <- function(stats, out_dir) {
           " of them argued ", tot$min_args, " or more times. Companion cases ",
           "argued together count once. An argument made as <em>amicus</em> ",
           "counts here and nowhere below: the judgment ran for or against the ",
-          "parties, and an amicus is neither.")))),
+          "parties, and an amicus is neither.",
+          .term_coverage_note(rng, "arguments"))))),
         t_args,
 
         tags$h3("Winning, against a Court that reverses"),
@@ -1476,13 +1537,16 @@ render_counsel_page <- function(stats, out_dir) {
           "the private board entirely rather than appearing on it with whatever the ",
           "test failed to catch.")))),
         tags$p(HTML(smarten(paste0(
-          "Paid petitions only, from ", tot$terms, ", through ",
+          "Paid petitions docketed ", tot$terms, ", through ",
           format(as.Date(tot$as_of), "%B %e, %Y") |> str_squish(),
           ". Self-represented petitioners are excluded. Pending petitions count ",
           "toward cases filed and relists but not toward a grant rate.")))),
         if (nrow(args)) tags$p(HTML(smarten(paste0(
-          "The argument boards come from a different record and cover a different ",
-          "span: the argument and judgment entries for a Term&rsquo;s granted cases ",
+          "<strong>Each fact belongs to the Term in which it happened.</strong> A ",
+          "petition belongs to the Term it was docketed — 24-1287 is OT2024 — and ",
+          "an argument to the Term it was heard, so a case granted late in one Term ",
+          "is counted at the petition stage in that Term and at the lectern in the ",
+          "next. The argument and judgment entries for a Term&rsquo;s granted cases ",
           "appear after that Term&rsquo;s archive was taken, so they are read from a ",
           "re-fetch of the argued grants. An advocate can therefore appear at the ",
           "lectern without appearing above it — much of the Solicitor ",
@@ -1495,14 +1559,16 @@ render_counsel_page <- function(stats, out_dir) {
 
   html <- paste0(
     "<!DOCTYPE html>\n<html lang=\"en\">\n",
-    page_head("The Counsel Table — Supreme Court Report",
+    page_head(paste0("The Counsel Table", if (isTRUE(rng$part)) paste0(", ", tot$terms) else "",
+                     " — Supreme Court Report"),
               jsonld = site_breadcrumb_jsonld("The Counsel Table"),
-              extra_css = COUNSEL_CSS,
+              extra_css = paste0(COUNSEL_CSS, if (!is.null(rng)) TERM_PICKER_CSS else ""),
               description = paste(
                 "Who files at the Supreme Court and who wins: petition counts,",
                 "grant rates and argument records for the advocates who appear",
                 "most often."),
-              path = "/counsel/"), "\n",
+              path = if (isTRUE(rng$part)) NULL else "/counsel/",
+              extra_head = if (isTRUE(rng$part)) term_range_head("index.html", rng$span) else NULL), "\n",
     as.character(body), "\n</html>\n")
   out <- file.path(out_dir, "index.html")
   writeLines(enc2utf8(smarten_html(html)), out, useBytes = TRUE)

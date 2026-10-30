@@ -12,8 +12,11 @@ name: Render the Counsel Table
 # log. Refresh the committed copy with:
 #   Rscript .github/scripts/make_counsel_stats.R
 #
-# Publishes ONLY counsel/index.html and counsel/amicus.html. The amicus page
-# follows the same contract (data/amicus_stats.json, make_amicus_stats.R).
+# Publishes ONLY counsel/index.html, counsel/amicus.html and counsel/terms/. The
+# amicus page follows the same contract (data/amicus_stats.json,
+# make_amicus_stats.R). counsel/terms/ holds both pages for every shorter range
+# of Terms; conferences.yml re-renders only the two full-span pages nightly, so
+# after a change to either renderer dispatch this to bring the ranges along.
 
 on:
   workflow_dispatch:
@@ -36,8 +39,9 @@ jobs:
     # because a job-level cancel does not say WHICH step hung, while a step
     # timeout names it. 90 = 75 + a 15 min work allowance, ~5x the measured
     # maximum for any of these light jobs -- plus 15 for the amicus page, whose
-    # stale-stats recompute measured 13 minutes locally (2026-10-29).
-    timeout-minutes: 105
+    # stale-stats recompute measured 13 minutes locally (2026-10-29) -- plus 60
+    # for the Term-range pages' own step cap.
+    timeout-minutes: 165
     steps:
       - name: Checkout source (main)
         uses: actions/checkout@v5
@@ -103,6 +107,15 @@ jobs:
           SITE_DIR: site
         run: Rscript .github/scripts/render_amicus.R
 
+      # Both pages again for every shorter range of Terms (R/term_range.R), from
+      # the committed extractions: ~15 minutes, or ~40 if either is stale and
+      # has to be re-extracted in-process.
+      - name: Render the Term-range pages
+        timeout-minutes: 60
+        env:
+          SITE_DIR: site
+        run: Rscript .github/scripts/render_counsel_ranges.R
+
       - name: Publish
         working-directory: site
-        run: ../.github/scripts/publish_site.sh "Counsel table re-render $(date -u +%F)" counsel/index.html counsel/amicus.html
+        run: ../.github/scripts/publish_site.sh "Counsel table re-render $(date -u +%F)" counsel/index.html counsel/amicus.html counsel/terms
