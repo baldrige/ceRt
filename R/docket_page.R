@@ -97,6 +97,7 @@ p{margin:.5rem 0}
 .disp-conf{font-size:.9rem;color:var(--ink-soft);margin-top:.4rem;padding-top:.35rem;border-top:1px solid var(--rule)}
 .disp-word{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.5rem;color:var(--accent);line-height:1.1}
 .forecast-why{margin:.55rem 0 0;font-size:.95rem;line-height:1.5;color:var(--ink-soft);max-width:46rem}
+.disp-filing{margin:.35rem 0 0;font-size:.86rem;color:var(--faint);max-width:46rem}
 .disp-word a{color:inherit;text-decoration:underline;text-decoration-color:rgba(@accent:rgb@,.4);text-underline-offset:4px}
 .qp{font-size:1.05rem;line-height:1.55}.qp ol,.qp ul{padding-left:1.2rem;margin:.3rem 0}.qp li{margin:.35rem 0}.qp p{margin:.4rem 0}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:1.6rem}
@@ -399,7 +400,10 @@ write_docket_css <- function(out_dir) {
 # match took sealing motions, distribution delays and "would grant" dissents
 # for grants, so a denied petition's amici and opposition coloured as merits
 # briefs; appeals had no grant date at all. Rendering only.
-PAGE_TEMPLATE_VERSION <- "v49"
+# v50: a distributed petition's forecast box puts the sentence explaining the
+# headline directly after it, and the at-filing figure after that with its own
+# base rate; each base rate names its population. Rendering only.
+PAGE_TEMPLATE_VERSION <- "v50"
 
 # ---- small helpers ------------------------------------------------------------
 # A probability at significant figures, as the conference report prints it
@@ -958,7 +962,8 @@ summary_disposition_word <- function(ev, outcome_date) {
 docket_disposition <- function(outcome, outcome_date, arg, p_base, conf, sig, is_app = FALSE, why = "", why_retro = "",
                                p_lo = NA_real_, p_hi = NA_real_, p_ever = NA_real_,
                                word_override = NULL, sgv = NULL, sg_layer = FALSE,
-                               ever_date = as.Date(NA), ever_why = "", logged = NULL) {
+                               ever_date = as.Date(NA), ever_why = "", logged = NULL,
+                               base_rate = NA_real_) {
   # `word_override`: the box's word decided elsewhere, for a docket whose
   # lifecycle is neither a petition's nor an application's (an original action,
   # R/original_dockets.R). Used for the pending and the resolved forms alike.
@@ -1057,10 +1062,19 @@ docket_disposition <- function(outcome, outcome_date, arg, p_base, conf, sig, is
       if (staged) {
         lab <- if (sg_layer) "(given the Solicitor General&rsquo;s recommendation)"
                else sprintf("(as of the %s conference)", fmt_d(ever_date))
-        filing <- if (!is.na(p_base)) sprintf("<div class='disp-sub'>At filing: %s%s</div>", pct(p_base), ival()) else ""
-        box <- sprintf("<div class='disp'><div class='disp-num'>%s</div><div class='disp-lab'><div>estimated chance of a grant<br><span>%s</span></div>%s%s%s</div></div>",
-                       head_pct(p_ever), lab, conf_html, sg, filing)
-        why_txt <- ever_why
+        # v50. The sentence explaining the headline follows the box directly,
+        # and the at-filing figure comes after it with its own base rate. Until
+        # v50 "At filing" was the box's last line, so the headline's sentence
+        # ("About 4.9x the 7.8% base rate", the conference model's) read as the
+        # explanation of the at-filing 60% -- which is 15x the petition-stage
+        # model's 4.1%, the base rate the homepage prints (26-210, 2026-10-30).
+        filing <- if (!is.na(p_base)) sprintf("<p class='disp-filing'>At filing: %s%s%s</p>",
+          pct(p_base), ival(),
+          if (!is.na(base_rate)) sprintf(", against the %.1f%% base rate for a petition at filing", 100 * base_rate) else "") else ""
+        box <- sprintf("<div class='disp'><div class='disp-num'>%s</div><div class='disp-lab'><div>estimated chance of a grant<br><span>%s</span></div>%s%s</div></div>",
+                       head_pct(p_ever), lab, conf_html, sg)
+        why_html <- if (nzchar(ever_why %||% "")) sprintf("<p class='forecast-why'>%s</p>", ever_why) else ""
+        return(paste0(box, why_html, filing))
       } else {
         box <- sprintf("<div class='disp'><div class='disp-num'>%s</div><div class='disp-lab'><div>estimated cert probability<br><span>(at filing, petition-stage)</span></div>%s%s%s</div></div>",
                        head_pct(p_base), ci_note, sg, conf_html)
@@ -1187,7 +1201,7 @@ docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
     orig_word <- tryCatch(summary_disposition_word(ev, outcome_date), error = function(e) NULL)
 
   # Forecast (paid only; pure, from in-memory models).
-  p_base <- NA_real_; conf <- NULL; fc_why <- ""; fc_why_retro <- ""
+  p_base <- NA_real_; conf <- NULL; fc_why <- ""; fc_why_retro <- ""; sc_base <- NULL
   p_lo <- NA_real_; p_hi <- NA_real_; p_ever <- NA_real_
   sgv <- NULL; sg_layer <- FALSE; ever_date <- as.Date(NA); ever_why <- ""
   if (!is.null(models) && !is.null(models$baseline) && identical(cx$type %||% "", "paid") &&
@@ -1230,7 +1244,9 @@ docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
         # the rate for the recommendation, which the SG line already explains.
         ever_date <- as_of_conf
         if (!sg_layer && !is.null(s[["score_ever"]]) && exists("describe_forecast"))
-          ever_why <- tryCatch(describe_forecast(s[["score_ever"]]), error = function(e) "")
+          ever_why <- tryCatch(describe_forecast(s[["score_ever"]],
+                                 base_of = "for a petition at conference"),
+                               error = function(e) "")
         # The per-conference hazards are published only for a conference still
         # ahead of the render; see docket_disposition().
         conf <- list(date = if (as_of_conf >= rendered) as_of_conf else NULL,
@@ -1272,7 +1288,8 @@ docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
                              is_app = is_app, why = fc_why, why_retro = fc_why_retro,
                              p_lo = p_lo, p_hi = p_hi, p_ever = p_ever,
                              word_override = orig_word, sgv = sgv, sg_layer = sg_layer,
-                             ever_date = ever_date, ever_why = ever_why, logged = logged)
+                             ever_date = ever_date, ever_why = ever_why, logged = logged,
+                             base_rate = if (!is.null(sc_base)) sc_base$base_rate %||% NA_real_ else NA_real_)
   # Conference history: the number of distinct conferences, and the number of
   # DISTRIBUTED entries when that is more. They differ when a petition is sent
   # to the same conference twice -- 25-1349 was distributed for September 28,

@@ -47,7 +47,14 @@ petition's whole life:
 | distributed (now or before) | conference-stage P(granted ever) (`models$enhanced`), scored as of the next conference ahead, else the last one | "as of the <date> conference" |
 | SG has answered a CVSG | the rate for the recommendation (`cert_model_sg.rds`) | "given the Solicitor General's recommendation" |
 
-The at-filing figure stays beneath as "At filing: x%". Decided pages show the last
+The at-filing figure stays beneath as "At filing: x%". Since v50, on a distributed
+petition the sentence explaining the headline follows the box directly ("about
+4.9× the 7.8% base rate for a petition at conference": the at-risk panel's base
+rate), and the at-filing line comes after it with its own ("against the 4.1% base
+rate for a petition at filing"). Before v50 the at-filing line was the box's last
+line, so the conference model's sentence read as an explanation of the at-filing
+number, whose lift over its own 4.1% is three times larger. `describe_forecast()`
+takes `base_of` to name the population. Decided pages show the last
 forecast **logged** before the decision (`cases/forecasts.json`, its `final` block
 where there is one), then the "At-filing estimate". It used to read "Pre-decision
 estimate", but it never was.

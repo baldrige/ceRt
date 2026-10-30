@@ -1691,8 +1691,13 @@ FORECAST_CUE_PHRASES <- c(
 # correlational weights, not causes); a lean, not a verdict. `include_prob` adds a
 # leading "an N% forecast" for standalone use (off by default, since on the docket
 # page the number is shown right above it).
+#
+# `base_of` names the population the base rate belongs to ("for a petition at
+# conference"). A page that shows two models' numbers must say which base rate
+# it means: the conference-stage headline's 7.8% sat beneath the at-filing 60%
+# on 26-210 and read as that number's 4.9x, against the homepage's 4.1%.
 describe_forecast <- function(score, top = 3L, eps = 0.05, include_prob = FALSE,
-                              retrospective = FALSE) {
+                              retrospective = FALSE, base_of = NULL) {
   if (is.null(score) || is.null(score$cues) || is.na(score$prob %||% NA_real_)) return("")
   pctd <- function(p) sprintf("%.1f%%", 100 * p)        # base rate (1 dp)
   pcti <- function(p) sprintf("%d%%", round(100 * p))   # forecast (integer)
@@ -1709,6 +1714,7 @@ describe_forecast <- function(score, top = 3L, eps = 0.05, include_prob = FALSE,
   pre <- if (retrospective) "before the decision, " else ""
 
   lift <- score$lift; base <- pctd(score$base_rate)
+  of <- if (length(base_of) && nzchar(base_of)) paste0(" ", base_of) else ""
 
   # Below the base rate, DON'T list the drivers. The per-cue log-odds are
   # measured against a very-low-grant reference profile (a private party, a
@@ -1725,8 +1731,8 @@ describe_forecast <- function(score, top = 3L, eps = 0.05, include_prob = FALSE,
   # +1.2 -- true of the sum, false of the cues, and the reader could see the
   # name on the same page (2026-09-21).
   if (!is.na(lift) && lift <= 0.85) {
-    lead <- paste0(pre, "well below the ", base, " base rate")
-    if (include_prob) lead <- paste0(pre, pcti(score$prob), " — well below the ", base, " base rate")
+    lead <- paste0(pre, "well below the ", base, " base rate", of)
+    if (include_prob) lead <- paste0(pre, pcti(score$prob), " — well below the ", base, " base rate", of)
     cu <- score$cues
     cu <- cu[is.finite(cu$log_odds) & !cu$term %in% (score$unstable %||% character()), , drop = FALSE]
     ph1 <- function(term) { v <- unname(FORECAST_CUE_PHRASES[term]); if (length(v) && !is.na(v)) v else NULL }
@@ -1743,9 +1749,9 @@ describe_forecast <- function(score, top = 3L, eps = 0.05, include_prob = FALSE,
 
   # At or above the base rate, name the real drivers (biggest |log-odds| first).
   lift_ph <- if (is.na(lift)) "" else
-    if (lift >= 1.5)       sprintf("about %s× the %s base rate", mult(lift), base)
-    else if (lift >= 1.15) sprintf("modestly above the %s base rate", base)
-    else                   sprintf("roughly the %s base rate", base)   # 0.85 < lift < 1.15
+    if (lift >= 1.5)       sprintf("about %s× the %s base rate%s", mult(lift), base, of)
+    else if (lift >= 1.15) sprintf("modestly above the %s base rate%s", base, of)
+    else                   sprintf("roughly the %s base rate%s", base, of)   # 0.85 < lift < 1.15
   lead <- paste0(pre, if (include_prob && nzchar(lift_ph))
                         paste0(pcti(score$prob), " — ", lift_ph) else lift_ph)
   if (nzchar(lead)) lead <- paste0(cap1(lead), ".")
