@@ -126,9 +126,19 @@ PALETTE_SCORECARD <- list(
   "sc-denied"  = "#a3a3aa", "sc-grid" = "#ece9e4",
   "sc-good"    = "#2f6b3d", "sc-warn" = "#8a5a00")
 
+# The amicus coalition network (R/amicus.R): one hue per community, ranked by
+# size, and a recessive grey for any community past the fourth. Categorical,
+# and deliberately built from hues already validated elsewhere on the site --
+# the opinions chart's Court blue, the scorecard's ochre and green -- plus one
+# purple, so no new hue competes with the accent, which the graph does not
+# use. The groups are named on the page by their members, never by the colour.
+PALETTE_NETWORK <- list(
+  "net-1" = "#3a6db3", "net-2" = "#a8741c", "net-3" = "#2f6b3d",
+  "net-4" = "#7b4f9d", "net-other" = "#a3a3aa")
+
 pal <- function(name) {
   v <- c(PALETTE, PALETTE_FUNNEL, PALETTE_UI, PALETTE_EVENTS, PALETTE_OPINIONS, PALETTE_ARGUMENT,
-         PALETTE_SCORECARD)[[name]]
+         PALETTE_SCORECARD, PALETTE_NETWORK)[[name]]
   if (is.null(v)) stop("pal(): no such colour token: ", name, call. = FALSE)
   v
 }
@@ -214,7 +224,7 @@ pal_rgb <- function(name) paste(as.vector(grDevices::col2rgb(pal(name))), collap
 
 fill_palette <- function(css) {
   for (nm in names(c(PALETTE, PALETTE_FUNNEL, PALETTE_UI, PALETTE_EVENTS, PALETTE_OPINIONS, PALETTE_ARGUMENT,
-                     PALETTE_SCORECARD))) {
+                     PALETTE_SCORECARD, PALETTE_NETWORK))) {
     hex <- pal(nm)
     css <- gsub(paste0("@", nm, ":rgb@"),
                 paste(as.vector(grDevices::col2rgb(hex)), collapse = ","),

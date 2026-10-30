@@ -288,7 +288,7 @@ src <- setdiff(src[file.exists(src)], "R/palette.R")
 
 # The palette in decimal, so an rgb()/rgba() copy is recognisable.
 pal_dec <- vapply(
-  c(PALETTE, PALETTE_FUNNEL, PALETTE_UI, PALETTE_EVENTS, PALETTE_SCORECARD,
+  c(PALETTE, PALETTE_FUNNEL, PALETTE_UI, PALETTE_EVENTS, PALETTE_SCORECARD, PALETTE_NETWORK,
     as.list(c(GRANT_RAMP, TYPE_CHIPS, STATUS_FILL, CHART_SERIES))),
   function(h) paste(as.vector(grDevices::col2rgb(h)), collapse = ","),
   character(1))
