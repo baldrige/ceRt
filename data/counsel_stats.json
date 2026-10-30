@@ -3104,7 +3104,7 @@
     "min_rate_cases": 8,
     "min_args": 5,
     "top_n": 25,
-    "terms": "OT2017–2025",
+    "terms": "OT2017–OT2025",
     "arguments": 1297,
     "argued_cases": 496,
     "argument_sittings": 498,
@@ -3119,8 +3119,13 @@
     "arg_unscored": 18,
     "arg_from": "2018-02-21",
     "arg_to": "2026-04-29",
-    "as_of": "2026-06-30"
+    "as_of": "2026-06-30",
+    "term_from": 2017,
+    "term_to": 2025,
+    "n_terms": 9,
+    "span_from": 2017,
+    "span_to": 2025
   },
-  "fingerprint": "bb94cfb8163d37f5c288ce30e0f33e10",
-  "generated": "2026-10-22"
+  "fingerprint": "735aaed0d468622c3054216c5549db72",
+  "generated": "2026-10-30"
 }

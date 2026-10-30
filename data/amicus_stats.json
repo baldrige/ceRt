@@ -1,8 +1,8 @@
 {
   "totals": {
-    "terms": "OT2017–2025",
+    "terms": "OT2017–OT2026",
     "term_from": 2017,
-    "term_to": 2025,
+    "term_to": 2026,
     "briefs": 15481,
     "cases": 2943,
     "filers": 6700,
@@ -28,107 +28,121 @@
     "min_rate": 8,
     "pair_filer_min": 10,
     "pair_min": 4,
-    "as_of": "2026-10-28"
+    "as_of": "2026-10-28",
+    "n_terms": 10,
+    "span_from": 2017,
+    "span_to": 2026
   },
   "by_term": [
     {
       "term": 2017,
-      "briefs": 1503,
+      "briefs": 946,
       "cert": 689,
-      "merits_pet": 470,
-      "merits_resp": 344,
-      "merits_cases": 70,
-      "filers": 948,
+      "merits_pet": 115,
+      "merits_resp": 142,
+      "merits_cases": 18,
+      "filers": 649,
       "undecided": 0,
-      "per_case": 11.6285714285714
+      "per_case": 14.2777777777778
     },
     {
       "term": 2018,
-      "briefs": 1647,
+      "briefs": 1434,
       "cert": 710,
-      "merits_pet": 519,
-      "merits_resp": 418,
-      "merits_cases": 61,
-      "filers": 1048,
+      "merits_pet": 419,
+      "merits_resp": 305,
+      "merits_cases": 65,
+      "filers": 883,
       "undecided": 1,
-      "per_case": 15.3606557377049
+      "per_case": 11.1384615384615
     },
     {
       "term": 2019,
-      "briefs": 1774,
+      "briefs": 1696,
       "cert": 772,
-      "merits_pet": 512,
-      "merits_resp": 490,
-      "merits_cases": 52,
-      "filers": 1168,
+      "merits_pet": 516,
+      "merits_resp": 408,
+      "merits_cases": 57,
+      "filers": 1127,
       "undecided": 1,
-      "per_case": 19.2692307692308
+      "per_case": 16.2105263157895
     },
     {
       "term": 2020,
-      "briefs": 1623,
+      "briefs": 1723,
       "cert": 737,
-      "merits_pet": 428,
-      "merits_resp": 458,
-      "merits_cases": 61,
-      "filers": 1084,
+      "merits_pet": 488,
+      "merits_resp": 498,
+      "merits_cases": 60,
+      "filers": 1178,
       "undecided": 0,
-      "per_case": 14.5245901639344
+      "per_case": 16.4333333333333
     },
     {
       "term": 2021,
-      "briefs": 1702,
+      "briefs": 1653,
       "cert": 753,
-      "merits_pet": 500,
-      "merits_resp": 449,
-      "merits_cases": 57,
-      "filers": 1104,
+      "merits_pet": 512,
+      "merits_resp": 388,
+      "merits_cases": 62,
+      "filers": 1100,
       "undecided": 0,
-      "per_case": 16.6491228070175
+      "per_case": 14.5161290322581
     },
     {
       "term": 2022,
-      "briefs": 1650,
+      "briefs": 1732,
       "cert": 674,
-      "merits_pet": 547,
-      "merits_resp": 429,
-      "merits_cases": 59,
-      "filers": 1008,
+      "merits_pet": 521,
+      "merits_resp": 537,
+      "merits_cases": 57,
+      "filers": 1184,
       "undecided": 0,
-      "per_case": 16.5423728813559
+      "per_case": 18.5614035087719
     },
     {
       "term": 2023,
-      "briefs": 1843,
+      "briefs": 1999,
       "cert": 824,
-      "merits_pet": 564,
-      "merits_resp": 455,
-      "merits_cases": 65,
-      "filers": 1155,
+      "merits_pet": 659,
+      "merits_resp": 516,
+      "merits_cases": 59,
+      "filers": 1236,
       "undecided": 0,
-      "per_case": 15.6769230769231
+      "per_case": 19.9152542372881
     },
     {
       "term": 2024,
-      "briefs": 1927,
+      "briefs": 1684,
       "cert": 837,
-      "merits_pet": 718,
-      "merits_resp": 372,
-      "merits_cases": 57,
-      "filers": 1101,
-      "undecided": 1,
-      "per_case": 19.1228070175439
+      "merits_pet": 499,
+      "merits_resp": 348,
+      "merits_cases": 60,
+      "filers": 1037,
+      "undecided": 0,
+      "per_case": 14.1166666666667
     },
     {
       "term": 2025,
-      "briefs": 1812,
+      "briefs": 2127,
       "cert": 1061,
-      "merits_pet": 427,
-      "merits_resp": 324,
-      "merits_cases": 36,
-      "filers": 1017,
-      "undecided": 21,
-      "per_case": 20.8611111111111
+      "merits_pet": 670,
+      "merits_resp": 396,
+      "merits_cases": 61,
+      "filers": 1216,
+      "undecided": 3,
+      "per_case": 17.4754098360656
+    },
+    {
+      "term": 2026,
+      "briefs": 487,
+      "cert": 0,
+      "merits_pet": 286,
+      "merits_resp": 201,
+      "merits_cases": 23,
+      "filers": 381,
+      "undecided": 22,
+      "per_case": 21.1739130434783
     }
   ],
   "filers": [
@@ -138,7 +152,7 @@
       "cert": 241,
       "merits_pet": 48,
       "merits_resp": 31,
-      "terms": 9,
+      "terms": 10,
       "name": "Cato Institute",
       "n_variants": 1,
       "variants": "Cato Institute"
@@ -149,7 +163,7 @@
       "cert": 144,
       "merits_pet": 89,
       "merits_resp": 30,
-      "terms": 9,
+      "terms": 10,
       "name": "Chamber of Commerce of the United States of America",
       "n_variants": 1,
       "variants": "Chamber of Commerce of the United States of America"
@@ -160,7 +174,7 @@
       "cert": 95,
       "merits_pet": 54,
       "merits_resp": 23,
-      "terms": 9,
+      "terms": 10,
       "name": "Washington Legal Foundation",
       "n_variants": 1,
       "variants": "Washington Legal Foundation"
@@ -171,7 +185,7 @@
       "cert": 80,
       "merits_pet": 57,
       "merits_resp": 18,
-      "terms": 9,
+      "terms": 10,
       "name": "National Association of Criminal Defense Lawyers",
       "n_variants": 1,
       "variants": "National Association of Criminal Defense Lawyers"
@@ -182,7 +196,7 @@
       "cert": 85,
       "merits_pet": 34,
       "merits_resp": 16,
-      "terms": 9,
+      "terms": 10,
       "name": "Pacific Legal Foundation",
       "n_variants": 1,
       "variants": "Pacific Legal Foundation"
@@ -193,7 +207,7 @@
       "cert": 21,
       "merits_pet": 51,
       "merits_resp": 51,
-      "terms": 9,
+      "terms": 10,
       "name": "Constitutional Accountability Center",
       "n_variants": 1,
       "variants": "Constitutional Accountability Center"
@@ -204,7 +218,7 @@
       "cert": 56,
       "merits_pet": 25,
       "merits_resp": 6,
-      "terms": 8,
+      "terms": 9,
       "name": "The Buckeye Institute",
       "n_variants": 1,
       "variants": "The Buckeye Institute"
@@ -215,7 +229,7 @@
       "cert": 41,
       "merits_pet": 38,
       "merits_resp": 4,
-      "terms": 9,
+      "terms": 10,
       "name": "American Center for Law and Justice",
       "n_variants": 2,
       "variants": "American Center for Law and Justice · American Center for Law & Justice"
@@ -226,7 +240,7 @@
       "cert": 40,
       "merits_pet": 30,
       "merits_resp": 8,
-      "terms": 8,
+      "terms": 7,
       "name": "Americans for Prosperity Foundation",
       "n_variants": 1,
       "variants": "Americans for Prosperity Foundation"
@@ -248,7 +262,7 @@
       "cert": 49,
       "merits_pet": 20,
       "merits_resp": 7,
-      "terms": 8,
+      "terms": 9,
       "name": "Liberty Justice Center",
       "n_variants": 1,
       "variants": "Liberty Justice Center"
@@ -259,7 +273,7 @@
       "cert": 43,
       "merits_pet": 24,
       "merits_resp": 8,
-      "terms": 9,
+      "terms": 10,
       "name": "Atlantic Legal Foundation",
       "n_variants": 1,
       "variants": "Atlantic Legal Foundation"
@@ -292,7 +306,7 @@
       "cert": 43,
       "merits_pet": 17,
       "merits_resp": 7,
-      "terms": 7,
+      "terms": 6,
       "name": "Advancing American Freedom",
       "n_variants": 3,
       "variants": "Advancing American Freedom · Advancing American Freedom, Inc. · Advancing American Freedom, Inc"
@@ -303,7 +317,7 @@
       "cert": 5,
       "merits_pet": 22,
       "merits_resp": 38,
-      "terms": 9,
+      "terms": 10,
       "name": "Public Citizen",
       "n_variants": 3,
       "variants": "Public Citizen · Public Citizen, Inc · Public Citizen, Inc."
@@ -314,7 +328,7 @@
       "cert": 32,
       "merits_pet": 22,
       "merits_resp": 10,
-      "terms": 9,
+      "terms": 10,
       "name": "New Civil Liberties Alliance",
       "n_variants": 1,
       "variants": "New Civil Liberties Alliance"
@@ -325,7 +339,7 @@
       "cert": 32,
       "merits_pet": 20,
       "merits_resp": 11,
-      "terms": 9,
+      "terms": 10,
       "name": "Institute for Justice",
       "n_variants": 1,
       "variants": "Institute for Justice"
@@ -336,7 +350,7 @@
       "cert": 13,
       "merits_pet": 23,
       "merits_resp": 20,
-      "terms": 9,
+      "terms": 10,
       "name": "American Civil Liberties Union",
       "n_variants": 2,
       "variants": "American Civil Liberties Union · American Civil Liberties Union, Inc."
@@ -347,7 +361,7 @@
       "cert": 40,
       "merits_pet": 10,
       "merits_resp": 5,
-      "terms": 4,
+      "terms": 5,
       "name": "Manhattan Institute",
       "n_variants": 1,
       "variants": "Manhattan Institute"
@@ -358,7 +372,7 @@
       "cert": 27,
       "merits_pet": 23,
       "merits_resp": 3,
-      "terms": 5,
+      "terms": 6,
       "name": "America's Future",
       "n_variants": 3,
       "variants": "America's Future · America's Future, Inc · America’s Future, Inc."
@@ -380,7 +394,7 @@
       "cert": 38,
       "merits_pet": 3,
       "merits_resp": 6,
-      "terms": 9,
+      "terms": 10,
       "name": "International Municipal Lawyers Association",
       "n_variants": 1,
       "variants": "International Municipal Lawyers Association"
@@ -391,7 +405,7 @@
       "cert": 31,
       "merits_pet": 12,
       "merits_resp": 3,
-      "terms": 9,
+      "terms": 10,
       "name": "Southeastern Legal Foundation",
       "n_variants": 1,
       "variants": "Southeastern Legal Foundation"
@@ -402,7 +416,7 @@
       "cert": 9,
       "merits_pet": 15,
       "merits_resp": 20,
-      "terms": 8,
+      "terms": 10,
       "name": "American Bar Association",
       "n_variants": 1,
       "variants": "American Bar Association"
@@ -4291,6 +4305,6 @@
       "merits": 24
     }
   ],
-  "fingerprint": "eb7e3d0e536c222aa9c4b4d48e2d1b7f",
+  "fingerprint": "3acc806eaf1afe72978d3b722be827cd",
   "generated": "2026-10-30"
 }

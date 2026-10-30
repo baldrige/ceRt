@@ -1,5 +1,6 @@
 # Regenerate data/amicus_stats.json from the committed archives, and print what
-# moved. Same contract as make_counsel_stats.R: render_amicus.R checks the
+# moved. Also writes data/amicus_briefs.rds, the per-brief table the Term-range
+# pages are computed from. Same contract as make_counsel_stats.R: render_amicus.R checks the
 # fingerprint and recomputes in-process on a mismatch, so a stale file cannot
 # reach the page; this script refreshes the committed copy so the render does
 # not pay for it.
@@ -36,12 +37,17 @@ if (check_only) {
 }
 
 cat("\nRecomputing...\n")
-st <- compute_amicus_stats(paths)
+briefs <- amicus_briefs(paths)
+st <- compute_amicus_stats(paths, briefs)
 st$generated <- format(Sys.Date())
+# The per-brief table every Term-range page is computed from
+# (render_counsel_ranges.R), under the same fingerprint as the stats.
+saveRDS(structure(briefs, fingerprint = want), AMICUS_BRIEFS_PATH, compress = "xz")
+cat("wrote", AMICUS_BRIEFS_PATH, "\n")
 
 cat("\ntotals:\n")
 for (k in names(st$totals)) cat(sprintf("  %-18s %s\n", k, st$totals[[k]]))
-cat("\nby docket year:\n")
+cat("\nby Term:\n")
 print(as.data.frame(st$by_term), row.names = FALSE)
 
 if (length(old$filers)) {
@@ -57,4 +63,4 @@ if (length(old$filers)) {
 
 write_json(st, out, auto_unbox = TRUE, digits = NA, pretty = TRUE)
 cat("\nwrote", out, "\n")
-cat("Commit it, or the render will pay for recomputing the same thing.\n")
+cat("Commit both, or the render will pay for recomputing the same thing.\n")

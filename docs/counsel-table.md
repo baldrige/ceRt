@@ -250,10 +250,73 @@ After any change to the classifier, `counsel_key()`, the party grammar or the
 constants:
 
 ```
-Rscript .github/scripts/make_counsel_stats.R     # ~4 min, prints what moved
+Rscript .github/scripts/make_counsel_stats.R     # ~12 min, prints what moved
 ```
 
-and commit the result.
+and commit **both** files it writes: `data/counsel_stats.json` and
+`data/counsel_inputs.rds` (see *Term ranges*).
+
+## Term ranges (since 2026-10-30)
+
+Both pages of the Counsel section can be read over any contiguous range of
+Terms. A picker under each page's dek moves between ranges. The full span is
+the canonical page (`/counsel/`, `/counsel/amicus.html`); every shorter range
+is pre-rendered at `/counsel/terms/OT2019-OT2023/` (`index.html` and
+`amicus.html`), and a single Term at `/counsel/terms/OT2021/`. The shared
+helpers are in `R/term_range.R`.
+
+**A fact belongs to the Term in which it happened.**
+
+| fact | Term |
+| --- | --- |
+| petition | the Term it was docketed (`24-1287` is OT2024; the Term archives hold exactly their own docket year) |
+| argument | the Term it was heard, from its date; a Term runs from the first Monday in October, so September belongs to the Term before |
+| cert-stage amicus brief | the Term the case was docketed |
+| merits amicus brief, and the judgment read against it | the Term of the first argument on or after the brief; for a case not yet argued, the Term it was briefed for, with the boundary at 1 July |
+
+So a case granted late in one Term counts at the petition stage in that Term
+and at the lectern in the next.
+
+**Coverage.** OT2017's arguments are incomplete. The archives begin with the
+`17-` dockets, so OT2017 holds 18 argued cases against about 60 in a full Term:
+the OT2016 cases argued in OT2017 were never fetched. `TERM_ARGUMENTS_FROM`
+(2018) marks the first complete Term, and any range reaching back past it says
+so in its argument (and merits-brief) section. The Counsel Table spans
+OT2017–OT2025. The amicus page reaches the Term under way, because merits
+briefs and arguments in the `25-` cases belong to OT2026.
+
+**Floors scale with the range.** Every floor on both pages was chosen over
+`TERM_FLOOR_SPAN` = 9 Terms. A range of *n* Terms holds each to
+`round(floor × n / 9)`, never above the full-span floor and never below a
+per-floor minimum (`scale_floor()`):
+
+| floor | full span | minimum |
+| --- | --- | --- |
+| cases to appear (`COUNSEL_MIN_CASES`) | 5 | 2 |
+| cases for a rate (`COUNSEL_MIN_RATE_CASES`) | 8 | 3 |
+| arguments for an argument board (`COUNSEL_ARG_MIN`) | 5 | 2 |
+| expected grants (`COUNSEL_EXPECTED_MIN`) | 1 | 0.25 |
+| amicus: decided cases for a rate (`AMICUS_MIN_RATE`) | 8 | 3 |
+| amicus: merits briefs to be paired (`AMICUS_PAIR_FILER_MIN`) | 10 | 3 |
+| amicus: shared cases for a pair (`AMICUS_PAIR_MIN`) | 4 | 2 |
+
+A range page states its scaled floors in its lede. The stats function takes
+them as arguments: `counsel_stats_range()` and `amicus_stats_range()`, and the
+full span goes through the same function, so the canonical page and a range
+page cannot be computed two ways.
+
+**How they are built.** The slow part is the extraction: about 12 minutes here
+(`counsel_inputs()`) and 13 for the amicus briefs. A range is then a filter and
+a few seconds of statistics. So `make_counsel_stats.R` and
+`make_amicus_stats.R` also commit the extractions, `data/counsel_inputs.rds` and
+`data/amicus_briefs.rds`, under the same fingerprints as the stats.
+`render_counsel_ranges.R` (a step of `render-counsel.yml`) renders every range
+from them, and re-extracts in-process if either is stale. Range pages carry
+`noindex` and a canonical link to the full page, and the sitemap lists only the
+full pages.
+
+The nightly `conferences.yml` re-renders the two full-span pages only. After a
+change to either renderer, dispatch `render-counsel.yml` so the ranges match.
 
 ## What the page refuses to claim
 

@@ -184,7 +184,7 @@ None of these fire on a schedule. Trigger with `gh workflow run <file> --ref mai
 | **`probe-scotus.yml`** | **No** — read-only WAF/throttle diagnostic; logs HTTP status codes | **No** |
 | **`render-funnel.yml`** | **No fetch** — reuses `cases-*.rds` from a prior `conferences.yml` run (artifacts expire after 3 days) | **Yes → `funnel/index.html` only** |
 | **`refetch-amici.yml`** | Re-fetch every archived docket carrying an amicus brief (~3,100) → commits `data-raw/amici_refresh.rds` to **`main`**; refuses a >10% degraded fetch, keeps the previous copy of any docket it misses, `limit` input for a trial run | **No** — but it is the amicus page's counsel boards and current merits stage, so refresh `data/amicus_stats.json` after it (see **[amicus.md](amicus.md)**) |
-| **`render-counsel.yml`** | **No fetch, no artifacts** — reads the committed archives (incl. `arg_refresh.rds`, `amici_refresh.rds`) via `data/counsel_stats.json` and `data/amicus_stats.json` | **Yes → `counsel/index.html` and `counsel/amicus.html` only** |
+| **`render-counsel.yml`** | **No fetch, no artifacts** — reads the committed archives (incl. `arg_refresh.rds`, `amici_refresh.rds`) via `data/counsel_stats.json` and `data/amicus_stats.json`, and the Term-range pages from `data/counsel_inputs.rds` and `data/amicus_briefs.rds` (~15 min) | **Yes → `counsel/index.html`, `counsel/amicus.html` and `counsel/terms/` (both pages for every shorter range of Terms) only**. The nightly re-renders only the two full-span pages, so dispatch this after a renderer change |
 | **`patch-leaf-chrome.yml`** | **No** — post-pass over published leaves | **Yes** — feed autodiscovery on already-rendered leaf pages |
 | **`seed-pending.yml`** | Seeds `cases/pending.json` on `gh-pages` | **No HTML** |
 

@@ -11,7 +11,7 @@ under `/counsel/` and the Counsel Table links to it.
 | The amici in the docket JSON | `build_amici()` in `R/scotus_dash_new.R` → an `amici` column |
 | Regenerate the committed stats | `.github/scripts/make_amicus_stats.R` |
 | CI render | `.github/scripts/render_amicus.R` |
-| Committed summary | `data/amicus_stats.json` |
+| Committed summary | `data/amicus_stats.json`, and the per-brief table the Term-range pages are built from, `data/amicus_briefs.rds` |
 | Counsel + fresh merits input | `data-raw/amici_refresh.rds`, written by `refetch-amici.yml` (`refetch_amici.R`) |
 | Workflows | `conferences.yml` (nightly, self-healing) · `render-counsel.yml` (dispatch) |
 
@@ -77,10 +77,22 @@ spelling is printed under the name, as on the Counsel Table.
 - **Consolidated cases**: a brief docketed on each companion ("VIDED") counts
   once — same filer, date, stage and side.
 
-Cases are dated by **docket year** (the `24-` in `24-1287`), not argument
-Term: every docket of a year is in that year's archive, so each row is
-complete except for briefing still under way, which the page counts as
-"undecided": a merits case with no judgment yet. A dismissal (DIG, Rule 46,
+**Each brief belongs to the Term in which it was filed for** (since
+2026-10-30; until then, to the docket year):
+- a cert-stage brief belongs to the Term the case was docketed (the `24-` in
+  `24-1287`);
+- a merits brief belongs to the Term of the first argument on or after it;
+- a merits brief in a case not yet argued belongs to the Term it was briefed
+  for, with the boundary at 1 July.
+
+The rule, the floors that scale with a range, and the range pages under
+`/counsel/terms/` are in **[counsel-table.md](counsel-table.md#term-ranges-since-2026-10-30)**.
+The span runs from OT2017 to the Term under way.
+
+OT2017's merits row is incomplete: the archives begin with the `17-` dockets,
+so the OT2016 cases argued in OT2017 are missing, and the page says so. The
+Term under way is still being briefed, which the page counts as "undecided": a
+merits case with no judgment yet. A dismissal (DIG, Rule 46,
 moot) is decided, though no side won. Until 2026-10-30 the count ran 2–9 a
 year for long-finished Terms. Most of those were denied petitions that
 `docket_granted_on()` dated a false grant for (v49, docs/docket-pages.md), and
