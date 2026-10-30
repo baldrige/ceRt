@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script async src='/analytics.js'></script><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate icon" href="/favicon.ico" sizes="any"><link rel="alternate" type="application/atom+xml" title="Supreme Court Report" href="/feed.xml"><link rel="alternate" type="application/atom+xml" title="Certiorari grants" href="/grants.xml"><title>Friends of the Court, OT2021 — Supreme Court Report</title><meta name="description" content="Who files amicus briefs at the Supreme Court: the most active filers, the petitions they supported, the coalitions they form, the States, and the lawyers who write the briefs."><meta property="og:site_name" content="Supreme Court Report"><meta property="og:type" content="website"><meta property="og:title" content="Friends of the Court, OT2021 — Supreme Court Report"><meta property="og:description" content="Who files amicus briefs at the Supreme Court: the most active filers, the petitions they supported, the coalitions they form, the States, and the lawyers who write the briefs."><meta property="og:image" content="https://supremecourt.report/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Supreme Court Report - docket analytics for the Supreme Court of the United States"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Friends of the Court, OT2021 — Supreme Court Report"><meta name="twitter:description" content="Who files amicus briefs at the Supreme Court: the most active filers, the petitions they supported, the coalitions they form, the States, and the lawyers who write the briefs."><meta name="twitter:image" content="https://supremecourt.report/og.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap"><style>
+  :root{--paper:#fdfcfa;--panel:#ffffff;--ink:#1a1a1e;--ink-soft:#484850;--faint:#63636b;--accent:#9c0e3a;--link:#9c0e3a;--rule:#dbd8d2;--nav-max:60rem}
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{font-family:'Newsreader',Georgia,serif;font-size:19px;line-height:1.6;
+    color:var(--ink);background:var(--paper);margin:0;font-feature-settings:'onum' 1}
+  body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
+    opacity:.5;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");}
+  .wrap{max-width:40rem;margin:0 auto;padding:3rem 1.4rem 4rem}
+  .kicker{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 1rem}
+  h1{font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:clamp(2.4rem,7vw,3.6rem);line-height:1;letter-spacing:-.015em;
+    margin:0 0 1rem;color:var(--ink)}
+  h1 em{font-style:italic;font-weight:500;color:var(--accent)}
+  .dek{font-size:1.15rem;line-height:1.5;color:var(--ink-soft);font-style:italic;
+    margin:0 0 1.4rem}
+  .brule{border:0;height:0;border-top:2px solid var(--ink);margin:1.4rem 0 .3rem;
+    position:relative}
+  .brule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+    border-top:1px solid var(--rule)}
+  ul.idx{list-style:none;padding:0;margin:1.6rem 0}
+  ul.idx li{border-bottom:1px solid var(--rule)}
+  /* Whole row is one block-level link: a large, reliable tap target on mobile. */
+  ul.idx a.row{display:flex;justify-content:space-between;align-items:baseline;
+    gap:1rem;padding:.9rem .4rem;text-decoration:none;border:0;color:inherit}
+  ul.idx a.row:hover{background:rgba(156,14,58,.05)}
+  ul.idx .d{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.16rem;
+    color:var(--accent);line-height:1.25}
+  ul.idx a.row:hover .d{text-decoration:underline;text-underline-offset:3px}
+  ul.idx .count{color:var(--faint);font-size:.9rem;font-style:italic;white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  /* Compact horizontal strip of the most recent pages beneath a category row. */
+  ul.idx .recent{display:flex;flex-wrap:wrap;align-items:baseline;
+    gap:.3rem .85rem;padding:0 .4rem 1rem;margin-top:-.35rem}
+  ul.idx .recent .rlabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  ul.idx .recent a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--ink-soft);text-decoration:none;font-variant-numeric:tabular-nums;
+    border-bottom:1px solid var(--rule);padding-bottom:1px}
+  ul.idx .recent a:hover{color:var(--accent);border-color:var(--accent)}
+  /* Optional panel beneath the section index (home page: most-read cases). */
+  .panel{margin:2.4rem 0 0}
+  .panel h2{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 .25rem}
+  .panel .pnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:0 0 .5rem}
+  /* "Live now" (live_argument_panel, /live.js): hidden unless the Court is
+     streaming an argument. One red dot, the same --accent as the headings, so
+     the live state is a mark and not a new colour. */
+  .live h2 .ldot{display:inline-block;width:.5rem;height:.5rem;border-radius:50%;
+    background:var(--accent);margin-right:.5rem;vertical-align:.08rem;
+    animation:lpulse 2s ease-in-out infinite}
+  @keyframes lpulse{50%{opacity:.25}}
+  @media (prefers-reduced-motion:reduce){.live h2 .ldot{animation:none}}
+  .lplay{display:flex;flex-wrap:wrap;gap:.6rem .9rem;align-items:center;margin:.8rem 0 .3rem}
+  .lplay button{font:600 .9rem/1 'Newsreader',Georgia,serif;letter-spacing:.04em;
+    color:var(--paper);background:var(--accent);border:0;border-radius:2px;
+    padding:.6rem 1.05rem;cursor:pointer}
+  .lplay button:disabled{opacity:.6;cursor:progress}
+  .lplay button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  /* The player takes a row of its own and may never outgrow the column. A flex
+     item's min-width is auto, which for a replaced element is the browser's own
+     controls' width -- wider than the column on a phone, where mobile Safari
+     and Chrome draw larger controls than the desktop. */
+  .lplay audio{display:block;flex:1 1 100%;width:100%;min-width:0;max-width:100%;
+    box-sizing:border-box;margin:0}
+  .lplay .lstat{font-size:.85rem;color:var(--faint)}
+  /* --- Likeliest grants -----------------------------------------------------
+     Its own rows rather than ol.mostread's: this panel carries a question under
+     the caption, which that list has no room for, and a percentage that has to
+     read as the row's subject rather than as a trailing note.
+     The window toggle is two real radio inputs plus :has() -- no JavaScript.
+     Both windows are rendered at build time and one is hidden, which is the only
+     way a static site can offer the choice: there is no server to ask for the
+     other one. Real radios, not styled buttons, so the control is reachable by
+     keyboard and announced as a choice. */
+  .lead{margin:0 0 1.9rem}
+  .lead h2{margin-bottom:.35rem}
+  .lead .pnote{margin:0 0 .7rem}
+  .wr{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+  .win{display:inline-flex;gap:.25rem;margin:0 0 .55rem;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .win label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .win label:hover{color:var(--ink)}
+  .lead:has(#w7:checked) label[for=w7],
+  .lead:has(#w28:checked) label[for=w28],
+  .lead:has(#wall:checked) label[for=wall]{background:var(--accent);color:var(--paper)}
+  .wr:focus-visible+label{outline:2px solid var(--accent);outline-offset:2px}
+  /* Three windows, one shown: the checked radio hides the other two. */
+  .lead:has(#w7:checked) :is(.g28,.n28,.gall,.nall),
+  .lead:has(#w28:checked) :is(.g7,.n7,.gall,.nall),
+  .lead:has(#wall:checked) :is(.g7,.n7,.g28,.n28){display:none}
+  /* The show/hide controls for a panel's secondary line -- the question under
+     a forecast row, the holding under a decision. Same box as the window
+     toggle, a checkbox instead of radios, and no script: the sibling rule does
+     the work and the lines simply show where :has() is unsupported. The
+     questions are on by default (they are what a forecast row asks); the
+     holdings are off (the caption, kind and disposition already say what
+     happened, and the holding is the more). */
+  .opts{display:inline-flex;gap:.25rem;margin:0 .45rem .55rem 0;vertical-align:top;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .opts label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .opts label:hover{color:var(--ink)}
+  .lead:has(#qon:checked) label[for=qon],
+  .panel:has(#hon:checked) label[for=hon]{background:var(--accent);color:var(--paper)}
+  .lead:has(#qon:not(:checked)) .gq{display:none}
+  .panel:has(#hon:not(:checked)) .chold{display:none}
+  /* --- Upcoming at the Court ------------------------------------------------
+     A date gutter and a two-line body, the same shape as the grant rows above
+     it, so the two panels read as one page rather than two widgets. */
+  .cal{margin:0 0 1.9rem}
+  ol.cal{list-style:none;margin:0;padding:0}
+  ol.cal li{border-top:1px solid var(--rule)}
+  ol.cal li:last-child{border-bottom:1px solid var(--rule)}
+  /* The row is a container, not an anchor: an argument day carries one link per
+     case it hears and anchors cannot nest. Hover lives on the row so it still
+     reads as one unit, and each link colours on its own hover. */
+  ol.cal .crow{display:flex;gap:.95rem;align-items:baseline;padding:.55rem .1rem}
+  ol.cal .crow:hover{background:rgba(156,14,58,.05)}
+  ol.cal a{text-decoration:none;color:inherit}
+  ol.cal a:hover,ol.cal a:focus-visible{color:var(--accent)}
+  ol.cal .cdet a{border-bottom:1px solid rgba(156,14,58,.35)}
+  ol.cal .cdet a:hover{border-bottom-color:var(--accent)}
+  ol.cal .cwhen{flex:none;width:4.6rem;font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.96rem;color:var(--ink);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  ol.cal .cdow{display:block;font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);text-transform:uppercase;letter-spacing:.08em}
+  ol.cal .ctx{flex:1;min-width:0}
+  ol.cal .ckind{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:.98rem;line-height:1.25}
+  ol.cal .cdet{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.12rem}
+  /* Recent decisions reuses the calendar rows and adds exactly two things: the
+     kind word that opens the detail line, and the one outbound link (the slip
+     opinion), which takes the link colour the rest of the row deliberately
+     does not. */
+  ol.cal .dk{font-weight:600;color:var(--ink)}
+  ol.cal .cdet a.pdf{color:var(--link)}
+  /* The holding, from the Court's slip-opinion feed: one sentence, set
+     smaller and in the soft ink so the caption stays the row's headline. */
+  ol.cal .chold{display:block;font-size:.86rem;line-height:1.4;color:var(--ink-soft);
+    font-style:italic;margin-top:.15rem}
+  ol.cal .cdet a.pdf:hover,ol.cal .cdet a.pdf:focus-visible{color:var(--accent);
+    border-bottom-color:var(--accent)}
+  ol.grants{list-style:none;margin:0;padding:0}
+  ol.grants li{border-top:1px solid var(--rule)}
+  ol.grants li:last-child{border-bottom:1px solid var(--rule)}
+  ol.grants a{display:flex;gap:.95rem;align-items:baseline;text-decoration:none;
+    color:inherit;padding:.62rem .1rem}
+  ol.grants a:hover{background:rgba(156,14,58,.05)}
+  ol.grants a:hover .gc{color:var(--accent)}
+  ol.grants .gv{flex:none;width:3.5rem;text-align:right;
+    font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.22rem;
+    line-height:1.1;color:var(--accent);font-variant-numeric:tabular-nums}
+  ol.grants .gx{font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);margin-left:.3rem}
+  ol.grants .gtx{flex:1;min-width:0}
+  /* Subject-area line under the caption, in the section-label idiom (h2.sec):
+     small tracked caps in the faint ink, so it classifies without competing. */
+  ol.grants .gs,ol.mostread .ms{display:block;font-size:.68rem;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--faint);line-height:1.3;margin-top:.12rem}
+  ol.grants .gc{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:1rem;line-height:1.25}
+  ol.grants .gq{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.16rem}
+  ol.grants .gd{flex:none;font-size:.76rem;color:var(--faint);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  .more{margin:.75rem 0 0;font-size:.92rem}
+  .more a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.35)}
+  .more a:hover{border-bottom-color:var(--link)}
+  h2.sec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:.88rem;
+    letter-spacing:.09em;color:var(--faint);text-transform:uppercase;
+    margin:2.1rem 0 .6rem;padding-bottom:.28rem;border-bottom:1px solid var(--rule)}
+  @media(max-width:40rem){
+    ol.grants a{flex-wrap:wrap}
+    ol.grants .gd{width:100%;padding-left:4.45rem;margin-top:-.1rem}
+  }
+  ol.mostread{list-style:none;counter-reset:mr;padding:0;margin:0}
+  ol.mostread li{counter-increment:mr;border-bottom:1px solid var(--rule)}
+  ol.mostread a{display:flex;align-items:baseline;gap:.7rem;padding:.6rem .4rem;
+    text-decoration:none;color:inherit}
+  ol.mostread a:hover{background:rgba(156,14,58,.05)}
+  ol.mostread a::before{content:counter(mr);font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.95rem;color:var(--faint);min-width:1.1rem;
+    font-variant-numeric:tabular-nums}
+  ol.mostread .mc{flex:1;font-size:1rem;line-height:1.3}
+  ol.mostread .mct{display:block}
+  ol.mostread a:hover .mct{color:var(--accent);text-decoration:underline;
+    text-underline-offset:3px}
+  ol.mostread .mdk{color:var(--accent);font-weight:600;font-size:.82rem;
+    font-variant-numeric:tabular-nums;white-space:nowrap}
+  ol.mostread .mv{color:var(--faint);font-size:.85rem;font-style:italic;
+    white-space:nowrap;font-variant-numeric:tabular-nums}
+  /* Forecast percentages carry weight the most-read counts do not: the number is
+     the claim, not a footnote to the ranking. Upright, accent, tabular. */
+  ol.mostread .mv.fc{color:var(--accent);font-style:normal;font-weight:600;
+    font-size:.95rem;min-width:2.6rem;text-align:right}
+  /* Feed follow line. Deliberately quiet -- a footnote under the section list,
+     styled like .recent rather than like a call to action. */
+  .feeds{display:flex;flex-wrap:wrap;align-items:baseline;gap:.3rem .85rem;
+    margin:2.2rem 0 0;padding-top:1.1rem;border-top:1px solid var(--rule)}
+  .feeds .flabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  .feeds a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .feeds a:hover{border-color:var(--link)}
+  .back{margin-top:2rem;font-size:.95rem}
+  .back a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .back a:hover{border-color:var(--link)}
+  /* Home-page case search. */
+  .csearch{position:relative;margin:0 0 1.4rem}
+  #cq{width:100%;font-family:'Newsreader',Georgia,serif;font-size:1.05rem;color:var(--ink);
+    background:var(--panel);border:1px solid var(--rule);border-radius:3px;padding:.7rem .9rem}
+  #cq:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(156,14,58,.1)}
+  #cq::placeholder{color:var(--faint)}
+  #cq.loading{background-image:linear-gradient(90deg,transparent,rgba(156,14,58,.06),transparent);
+    background-size:40% 100%;background-repeat:no-repeat;animation:csl 1s infinite}
+  @keyframes csl{0%{background-position:-40% 0}100%{background-position:140% 0}}
+  .cres{list-style:none;margin:.35rem 0 0;padding:0;max-height:24rem;overflow-y:auto;
+    border:1px solid var(--rule);border-radius:3px;background:var(--panel)}
+  .cres:empty{display:none}
+  .cres li{border-bottom:1px solid var(--rule)}
+  .cres li:last-child{border-bottom:0}
+  .cres a{display:block;padding:.55rem .7rem;text-decoration:none;color:var(--ink);
+    font-size:.98rem;line-height:1.3}
+  .cres a:hover,.cres li.act a{background:rgba(156,14,58,.06)}
+  .cres mark{background:rgba(156,14,58,.14);color:inherit;padding:0 .05em;border-radius:2px}
+  .cres .cd{color:var(--accent);font-variant-numeric:tabular-nums;font-weight:600;
+    margin-right:.5rem;white-space:nowrap}
+  .cnone{padding:.55rem .7rem;color:var(--faint);font-style:italic}
+  /* /cases/ browse index: grouped sections with per-bucket counts. */
+  .csec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+    text-transform:uppercase;letter-spacing:.12em;color:var(--accent);
+    margin:2.2rem 0 .3rem;padding-bottom:.35rem;border-bottom:1px solid var(--rule);
+    display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
+  .csec .cn{font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:.85rem;
+    letter-spacing:0;text-transform:none;color:var(--faint);
+    font-variant-numeric:tabular-nums}
+  .cnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:.5rem 0 0}
+  .cnote a{color:var(--accent)}
+  ul.terms{list-style:none;padding:0;margin:1rem 0 0;display:flex;flex-wrap:wrap;
+    gap:.5rem 1.6rem}
+  ul.terms li{display:inline-flex;align-items:baseline;gap:.4rem}
+  ul.terms a{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.05rem;
+    color:var(--accent);text-decoration:none;border-bottom:1px solid var(--rule)}
+  ul.terms a:hover{border-bottom-color:var(--accent)}
+  ul.terms .cn{color:var(--faint);font-size:.85rem;font-variant-numeric:tabular-nums}
+  /* About page: running prose rather than an index, so it takes a measure and a
+     little more leading than the section rows above it. */
+  .about{margin:1.6rem 0 0;font-size:1.05rem;line-height:1.65;max-width:34rem}
+  .about p{margin:0 0 1rem}
+  .about a{color:var(--accent);text-decoration:none;
+    border-bottom:1px solid var(--rule)}
+  .about a:hover{border-bottom-color:var(--accent)}
+  .about .contact{margin:2rem 0 0;background:var(--panel);border:1px solid var(--rule);
+    border-left:4px solid var(--accent);padding:1.1rem 1.3rem}
+  .about .contact h2{font:600 .78rem/1 'Newsreader',Georgia,serif;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--accent);margin:0 0 .5rem}
+  .about .contact p{margin:0;font-size:1rem}
+
+/* ---- masthead ---- */
+.smast-in{max-width:var(--nav-max,60rem);margin:0 auto;padding:.85rem 1.5rem .5rem;
+  display:flex;align-items:baseline;justify-content:space-between;gap:1.4rem;flex-wrap:wrap}
+.smast-wm{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+  letter-spacing:.005em;color:var(--ink,#1a1a1e);text-decoration:none;white-space:nowrap;flex:none}
+.smast-wm em{font-style:italic;font-weight:500;color:var(--accent,#9c0e3a)}
+.smast-wm:hover{color:var(--accent,#9c0e3a)}
+/* Row gap first, then column. At 1.35rem the six section links measured 596px
+   of max-content -- 4px wider than the 592px row the 40rem index container
+   leaves them -- so ABOUT alone wrapped to a third line under the wordmark, on
+   every page page_style.R writes. 1.05rem brings the row to 572px: 20px of
+   slack at 40rem, and 45px on the 54rem case pages, which were themselves only
+   21px from wrapping. The .4rem row gap is for the day a seventh section
+   overruns it anyway -- a nav that wraps should read as a stack, not an orphan. */
+.snav{display:flex;gap:.4rem 1.05rem;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+.snav a{font:600 .72rem/1 'Newsreader',Georgia,serif;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--ink-soft,var(--soft,#484850));text-decoration:none;display:inline-block;
+  padding:.5rem 0;border-bottom:1.5px solid transparent}
+.snav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--rule,#dbd8d2)}
+.snav a[aria-current='page']{color:var(--accent,#9c0e3a);
+  border-bottom-color:var(--accent,#9c0e3a)}
+.smast-rule-w{max-width:var(--nav-max,60rem);margin:0 auto;padding:0 1.5rem}
+.smast-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0;position:relative}
+.smast-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.skip{position:absolute;left:-9999px;top:0;background:var(--panel,#ffffff);
+  color:var(--accent,#9c0e3a);padding:.6rem 1rem;
+  border:1px solid var(--accent,#9c0e3a);
+  font:600 .8rem/1 'Newsreader',Georgia,serif;letter-spacing:.1em;text-transform:uppercase;z-index:10}
+.skip:focus{left:.5rem;top:.5rem}
+/* ---- breadcrumb ---- */
+.bcrumb{margin:.7rem 0 0}
+.bcrumb ol{list-style:none;display:flex;flex-wrap:wrap;align-items:baseline;
+  gap:.1rem .45rem;margin:0;padding:0}
+.bcrumb li{display:inline-flex;align-items:baseline;gap:.45rem}
+.bcrumb a{font:400 .8rem/1.5 'Newsreader',Georgia,serif;color:var(--ink-soft,var(--soft,#484850));
+  text-decoration:none;border-bottom:1px solid var(--rule,#dbd8d2)}
+.bcrumb a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.bcrumb .sep{color:var(--faint,#63636b);font-size:.8rem;line-height:1.5}
+.bcrumb [aria-current='page']{font:400 .8rem/1.5 'Newsreader',Georgia,serif;
+  color:var(--faint,#63636b);font-variant-numeric:tabular-nums}
+/* ---- case footer ---- */
+.cfoot{margin:2.4rem 0 0}
+.cfoot-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0 0 1rem;position:relative}
+.cfoot-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.cfoot-off{font-size:.95rem;margin:0 0 1.1rem}
+.cfoot-off a{color:var(--link,#9c0e3a);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.4)}
+.cfoot-off a:hover{border-bottom-color:var(--link,#9c0e3a)}
+.cfoot-lab{font:600 .68rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);margin:0 0 .5rem}
+.cfoot-nav{display:flex;flex-wrap:wrap;gap:.35rem 1.1rem;list-style:none;margin:0;padding:0}
+.cfoot-nav a{font-size:.92rem;color:var(--ink-soft,var(--soft,#484850));text-decoration:none;
+  border-bottom:1px solid var(--rule,#dbd8d2);padding-bottom:1px}
+.cfoot-nav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.cfoot-stamp{margin:1.2rem 0 0;font-size:.8rem;color:var(--faint,#63636b);font-style:italic}
+/* ---- prev / next ---- */
+.pnav{margin:2.2rem 0 0;border-top:1px solid var(--rule,#dbd8d2);padding-top:1rem;
+  display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.pnav a,.pnav span.none{text-decoration:none;color:inherit;display:block;padding:.5rem .2rem}
+.pnav a:hover{background:rgba(156,14,58,.05)}
+.pnav .dir{font:600 .66rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);display:block;margin-bottom:.3rem}
+.pnav .lab{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1rem;line-height:1.25;
+  color:var(--accent,#9c0e3a);display:block}
+.pnav a:hover .lab{text-decoration:underline;text-underline-offset:3px}
+.pnav .nx{text-align:right}
+.pnav .none{opacity:.35}
+@media(max-width:640px){
+  .smast-in{padding:.7rem 1.1rem .25rem;gap:.15rem}
+  .smast-wm{font-size:.98rem}
+  .smast-in nav{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+    -webkit-mask-image:linear-gradient(90deg,#000 86%,transparent);
+    mask-image:linear-gradient(90deg,#000 86%,transparent)}
+  .smast-in nav::-webkit-scrollbar{display:none}
+  .snav{flex-wrap:nowrap;gap:1.15rem;padding-right:2.4rem}
+  .snav a{padding:.7rem 0;white-space:nowrap}
+  .smast-rule-w{padding:0 1.1rem}
+  .cfoot-nav{gap:.5rem 1rem}
+  .cfoot-nav a{padding-bottom:.3rem}
+  .pnav{grid-template-columns:1fr;gap:.2rem}
+  .pnav .nx{text-align:left;border-top:1px solid var(--rule,#dbd8d2)}
+}
+
+  /* One column for text and tables alike, at the funnel explainer's 44rem.
+     It was 54rem, to land the masthead rule flush on it -- a reason that went
+     when every masthead became SITE_NAV_MAX (60rem) -- while the lede, the
+     table notes and the method note were capped at 36, 38 and 40rem: three
+     ragged right edges, all well short of tables that ran the full 54. At 44rem
+     the text sets at about 80 characters a line and the widest board still
+     fits without scrolling (measured, 2026-09-29), so nothing below carries a
+     max-width of its own. */
+  .wrap.wide{max-width:44rem}
+  .clede{font-size:1.02rem;line-height:1.62;margin:1.4rem 0 0}
+  .clede p{margin:0 0 1rem}
+  .over{font:600 .74rem/1 'Newsreader',Georgia,serif;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--link,#9c0e3a);margin:3rem 0 .5rem;
+    display:flex;align-items:center;gap:.7rem}
+  .over::after{content:'';flex:1;border-top:1px solid var(--rule,#dbd8d2)}
+  .cnote2{color:var(--faint,#63636b);font-size:.9rem;font-style:italic;
+    margin:.2rem 0 1rem}
+  /* Tables scroll inside their own box; the page body never scrolls sideways. */
+  .ctwrap{overflow-x:auto;margin:0 0 .6rem}
+  table.ctab{border-collapse:collapse;width:100%;min-width:34rem;
+    font-variant-numeric:tabular-nums}
+  table.ctab th{font:600 .68rem/1.3 'Newsreader',Georgia,serif;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--accent,#9c0e3a);text-align:right;
+    padding:.45rem .5rem;border-bottom:2px solid var(--ink,#1a1a1e);white-space:nowrap}
+  table.ctab th.l,table.ctab td.l{text-align:left}
+  table.ctab td{padding:.5rem .5rem;border-bottom:1px solid var(--rule,#dbd8d2);
+    text-align:right;font-size:.98rem;vertical-align:baseline}
+  table.ctab tbody tr:hover{background:rgba(156,14,58,.05)}
+  table.ctab .rk{color:var(--faint,#63636b);font-size:.85rem;width:2.2rem;
+    text-align:right;padding-right:.1rem}
+  table.ctab .nm{font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:1.02rem;line-height:1.2;color:var(--ink,#1a1a1e)}
+  /* The merged spellings, published under every name that merged more than one.
+     This is the page's answer to the same-name problem: show the merge and let
+     the reader judge it. */
+  table.ctab .alias{display:block;font-size:.8rem;font-style:italic;
+    color:var(--faint,#63636b);line-height:1.35;margin-top:.1rem}
+  .chip{display:inline-block;font:600 .6rem/1 'Newsreader',Georgia,serif;
+    letter-spacing:.12em;text-transform:uppercase;padding:.2rem .35rem;
+    border:1px solid var(--rule,#dbd8d2);color:var(--ink-soft,#484850);
+    border-radius:2px;vertical-align:.1em;margin-left:.35rem;white-space:nowrap}
+  /* The bar is the ranking made visible; the number beside it is the claim.
+     The track is a FIXED width so two bars are comparable -- sized off the
+     remaining flex space, they would encode the width of the number beside them
+     as much as the value. */
+  .bar{display:flex;align-items:center;justify-content:flex-end;gap:.45rem}
+  .bar span.tr{display:block;width:3.4rem;flex:none;height:.5rem;
+    background:rgba(156,14,58,.12);border-radius:1px}
+  .bar i{display:block;height:.5rem;background:var(--accent,#9c0e3a);opacity:.55;
+    min-width:1px;border-radius:1px}
+  .bar b{font-weight:600;min-width:3rem;text-align:right}
+  .bar .lo{color:var(--faint,#63636b);font-weight:400;font-size:.85rem;
+    min-width:3rem;text-align:right}
+  /* Base-rate callout: the three numbers that justify splitting the grant board. */
+  .rates{display:flex;flex-wrap:wrap;gap:1.6rem;margin:1.2rem 0 1.4rem;
+    padding:1.1rem 1.3rem;background:var(--panel,#ffffff);
+    border:1px solid var(--rule,#dbd8d2);border-left:4px solid var(--accent,#9c0e3a)}
+  .rates div{flex:1;min-width:7rem}
+  .rates .big{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:2rem;
+    line-height:1;color:var(--accent,#9c0e3a)}
+  .rates .lab{font:600 .66rem/1.3 'Newsreader',Georgia,serif;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--ink-soft,#484850);margin-top:.35rem}
+  .rates .sub{color:var(--faint,#63636b);font-size:.82rem;font-style:italic;
+    margin-top:.15rem}
+  /* h4 subheads under the two side-split argument boards. Quieter than the h3
+     they sit under, so the section reads as one idea split in two rather than
+     as two more sections. */
+  h4{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1rem;
+    margin:1.8rem 0 .3rem;color:var(--ink,#1a1a1e)}
+  /* The 'of 28' in '24 of 28': context, not a second number. nowrap on the whole
+     value -- the column is narrow enough that it otherwise breaks after 'of'. */
+  table.ctab .rec{white-space:nowrap}
+  table.ctab .of{color:var(--faint,#63636b);font-size:.85rem}
+  .method{margin:2.6rem 0 0;font-size:.92rem;line-height:1.6;
+    color:var(--ink-soft,#484850)}
+  .method h2{font:600 .74rem/1 'Newsreader',Georgia,serif;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--accent,#9c0e3a);margin:0 0 .6rem}
+  .method p{margin:0 0 .8rem}
+  @media(max-width:640px){
+    table.ctab .alias{display:none}
+    .rates{gap:1rem;padding:.9rem 1rem}
+    .rates .big{font-size:1.6rem}
+  }
+
+  .bcrumb{margin:.7rem 0 1.2rem}
+  table.ctab .pair{display:block;line-height:1.3}
+  table.ctab .vs{display:block;font-size:.78rem;font-style:italic;
+    color:var(--faint,#63636b);margin:.1rem 0}
+  .an-stage{position:relative;background:var(--panel,#ffffff);border:1px solid var(--rule,#dbd8d2);margin:.4rem 0 .6rem}
+  .an-stage svg{display:block;width:100%;height:auto}
+  .an-e{stroke:#63636b;stroke-opacity:.16;stroke-linecap:round}
+  .an-e.g1{stroke:#3a6db3;stroke-opacity:.3}.an-e.g2{stroke:#a8741c;stroke-opacity:.3}
+  .an-e.g3{stroke:#2f6b3d;stroke-opacity:.3}.an-e.g4{stroke:#7b4f9d;stroke-opacity:.3}
+  .an-n circle{stroke:#ffffff;stroke-width:1.5}
+  .an-n.g1 circle{fill:#3a6db3}.an-n.g2 circle{fill:#a8741c}.an-n.g3 circle{fill:#2f6b3d}
+  .an-n.g4 circle{fill:#7b4f9d}.an-n.g0 circle{fill:#a3a3aa}
+  .an-n{cursor:default;outline:none}
+  .an-l{font-size:11.5px;fill:#1a1a1e;pointer-events:none;paint-order:stroke;
+    stroke:#ffffff;stroke-width:3px;stroke-linejoin:round}
+  .an-hot .an-e{stroke-opacity:.04}.an-hot .an-e.on{stroke-opacity:.75}
+  .an-hot .an-n{opacity:.25}.an-hot .an-n.on,.an-hot .an-n.nb{opacity:1}
+  .an-hot .an-l{opacity:.2}.an-hot .an-l.on{opacity:1}
+  .an-n.on circle{stroke:#1a1a1e;stroke-width:2}
+  .an-tip{position:absolute;pointer-events:none;background:#1a1a1e;color:#fdfcfa;font-size:.8rem;
+    line-height:1.35;padding:.35rem .6rem;border-radius:2px;max-width:17rem;opacity:0;
+    transition:opacity .12s}
+  .an-tip.on{opacity:1}.an-tip b{font-weight:600}
+  .an-legend{display:flex;flex-wrap:wrap;gap:.4rem 1.4rem;font-size:.84rem;color:var(--ink-soft,#484850);
+    margin:.2rem 0 .9rem}
+  .an-legend i{display:inline-block;width:.75rem;height:.75rem;border-radius:50%;margin-right:.4rem;
+    vertical-align:-.05rem}
+  .an-legend .g1 i{background:#3a6db3}.an-legend .g2 i{background:#a8741c}
+  .an-legend .g3 i{background:#2f6b3d}.an-legend .g4 i{background:#7b4f9d}
+  .an-legend .g0 i{background:#a3a3aa}
+  @media (prefers-reduced-motion:reduce){.an-tip{transition:none}}
+
+  .tpick{display:flex;flex-wrap:wrap;align-items:center;gap:.4rem .6rem;font-size:.9rem;
+    color:var(--ink-soft);margin:.2rem 0 1.4rem;padding:.55rem .75rem;
+    border:1px solid var(--rule);background:var(--panel)}
+  .tpick label{display:inline-flex;align-items:center;gap:.35rem}
+  .tpick select{font:inherit;color:var(--ink);background:var(--field);border:1px solid var(--rule);
+    border-radius:2px;padding:.15rem .3rem}
+  .tpick button{font:inherit;color:var(--paper);background:var(--ink);border:0;border-radius:2px;
+    padding:.2rem .7rem;cursor:pointer}
+  .tpick .all{margin-left:auto;color:var(--link)}
+  .tpick .now{color:var(--ink);font-weight:600}
+</style><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://supremecourt.report/"},{"@type":"ListItem","position":2,"name":"Counsel","item":"https://supremecourt.report/counsel/"},{"@type":"ListItem","position":3,"name":"Amicus filers"}]}</script><meta name='robots' content='noindex,follow'><link rel='canonical' href='https://supremecourt.report/counsel/amicus.html'></head>
+<body>
+  <a class='skip' href='#main'>Skip to content</a><header><div class='smast-in'><a class='smast-wm' href='/'>Supreme Court <em>Report</em></a><nav aria-label='Sections'><ul class='snav'><li><a href='/dashboards/'>Docket</a></li><li><a href='/conferences/'>Conferences</a></li><li><a href='/relists/'>Relists</a></li><li><a href='/applications/'>Interim</a></li><li><a href='/arguments/'>Arguments</a></li><li><a href='/justices/'>Justices</a></li><li><a href='/counsel/' aria-current='page'>Counsel</a></li><li><a href='/funnel/'>Funnel</a></li><li><a href='/methods.html'>Model</a></li><li><a href='/about.html'>About</a></li></ul></nav></div><div class='smast-rule-w'><hr class='smast-rule'></div></header>
+  <main id="main" class="wrap wide">
+    <nav class='bcrumb' aria-label='Breadcrumb'><ol><li><a href='/'>Home</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><a href='/counsel/'>Counsel</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><span aria-current='page'>Amicus filers</span></li></ol></nav>
+    <p class="kicker">Supreme Court of the United States · The Counsel Table</p>
+    <h1>Friends of the Court</h1>
+    <hr class="brule"/>
+    <p class="dek">Who files amicus briefs, at which stage, on which side, beside whom — and who writes them — across OT2021.</p>
+    <form class='tpick' id='tpick' data-page='amicus.html' data-span='2017-2026' onsubmit='return false'><span>Terms: <span class='now'>OT2021</span></span><label>from <select id='tp-from' aria-label='First Term'><option value='2017'>OT2017</option><option value='2018'>OT2018</option><option value='2019'>OT2019</option><option value='2020'>OT2020</option><option value='2021' selected>OT2021</option><option value='2022'>OT2022</option><option value='2023'>OT2023</option><option value='2024'>OT2024</option><option value='2025'>OT2025</option><option value='2026'>OT2026</option></select></label><label>to <select id='tp-to' aria-label='Last Term'><option value='2017'>OT2017</option><option value='2018'>OT2018</option><option value='2019'>OT2019</option><option value='2020'>OT2020</option><option value='2021' selected>OT2021</option><option value='2022'>OT2022</option><option value='2023'>OT2023</option><option value='2024'>OT2024</option><option value='2025'>OT2025</option><option value='2026'>OT2026</option></select></label><button type='button' id='tp-go'>Show</button><a class='all' href='/counsel/amicus.html'>All Terms</a></form><script>
+(function(){
+  var f=document.getElementById('tpick'); if(!f) return;
+  var page=f.getAttribute('data-page'), sp=f.getAttribute('data-span').split('-').map(Number);
+  var a=document.getElementById('tp-from'), b=document.getElementById('tp-to');
+  function slug(x,y){return x===y?'OT'+x:'OT'+x+'-OT'+y;}
+  function go(){var x=+a.value,y=+b.value; if(x>y){var t=x;x=y;y=t;}
+    var file=page==='index.html'?'':page;
+    location.href=(x===sp[0]&&y===sp[1])?'/counsel/'+file:'/counsel/terms/'+slug(x,y)+'/'+file;}
+  document.getElementById('tp-go').addEventListener('click',go);
+  [a,b].forEach(function(s){s.addEventListener('keydown',function(e){if(e.key==='Enter') go();});});
+})();
+</script>
+    <div class="clede">
+      <p>1,653 amicus briefs in 382 cases, from 1,099 filers other than the United States. 753 came in at the petition stage, asking the Court to take a case; 900 came after a grant, in 62 cases. As at the lectern, the field is long-tailed: 925 filers (84%) appear exactly once. Every floor on the page is scaled to the range. Over all 10 Terms a filer needs 8 decided cases to be rated and 10 merits briefs to be paired; over OT2021 it needs 3 and 3.</p>
+      <p>Every brief here is classified by the same rules that colour the timeline on each case page, so the two always agree. <a href='/counsel/terms/OT2021/'>The Counsel Table</a> covers the parties&rsquo; own lawyers.</p>
+    </div>
+    <p class="over">Volume</p>
+    <h2>Most briefs filed</h2>
+    <p class="cnote2">Organisations and individuals; the States and the United States have panels of their own below. A filer is credited with the briefs it <em>led</em> — the name the docket gives before &ldquo;et al.&rdquo; — and every spelling that merged into a row is printed beneath it. <em>Pet./neither</em> and <em>Resp.</em> are merits-stage briefs by side; see the note on sides at the foot of the page.</p>
+    <div class='ctwrap'><table class='ctab'><thead><tr><th></th><th class='l'>Filer</th><th class=''>Briefs</th><th class=''>Cert</th><th class=''>Pet./neither</th><th class=''>Resp.</th><th class=''>Terms</th></tr></thead><tbody><tr><td class='rk'>1</td><td class='l'><span class='nm'>Cato Institute</span></td><td class=''>26</td><td class=''>21</td><td class=''>3</td><td class=''>2</td><td class=''>1</td></tr><tr><td class='rk'>2</td><td class='l'><span class='nm'>Chamber of Commerce of the United States of America</span></td><td class=''>25</td><td class=''>14</td><td class=''>6</td><td class=''>5</td><td class=''>1</td></tr><tr><td class='rk'>3</td><td class='l'><span class='nm'>Muscogee (Creek) Nation</span></td><td class=''>24</td><td class=''>24</td><td class=''>0</td><td class=''>0</td><td class=''>1</td></tr><tr><td class='rk'>4</td><td class='l'><span class='nm'>Washington Legal Foundation</span></td><td class=''>19</td><td class=''>14</td><td class=''>2</td><td class=''>3</td><td class=''>1</td></tr><tr><td class='rk'>5</td><td class='l'><span class='nm'>Constitutional Accountability Center</span></td><td class=''>16</td><td class=''>3</td><td class=''>7</td><td class=''>6</td><td class=''>1</td></tr><tr><td class='rk'>6</td><td class='l'><span class='nm'>Americans for Prosperity Foundation</span></td><td class=''>13</td><td class=''>6</td><td class=''>5</td><td class=''>2</td><td class=''>1</td></tr><tr><td class='rk'>7</td><td class='l'><span class='nm'>National Association of Criminal Defense Lawyers</span></td><td class=''>12</td><td class=''>6</td><td class=''>4</td><td class=''>2</td><td class=''>1</td></tr><tr><td class='rk'>8</td><td class='l'><span class='nm'>Cherokee Nation</span></td><td class=''>11</td><td class=''>11</td><td class=''>0</td><td class=''>0</td><td class=''>1</td></tr><tr><td class='rk'>9</td><td class='l'><span class='nm'>Liberty Justice Center</span></td><td class=''>10</td><td class=''>6</td><td class=''>3</td><td class=''>1</td><td class=''>1</td></tr><tr><td class='rk'>10</td><td class='l'><span class='nm'>American Bar Association</span></td><td class=''>9</td><td class=''>2</td><td class=''>2</td><td class=''>5</td><td class=''>1</td></tr><tr><td class='rk'>11</td><td class='l'><span class='nm'>New Civil Liberties Alliance</span></td><td class=''>9</td><td class=''>6</td><td class=''>2</td><td class=''>1</td><td class=''>1</td></tr><tr><td class='rk'>12</td><td class='l'><span class='nm'>American Civil Liberties Union</span></td><td class=''>8</td><td class=''>3</td><td class=''>4</td><td class=''>1</td><td class=''>1</td></tr><tr><td class='rk'>13</td><td class='l'><span class='nm'>Law Professors</span></td><td class=''>8</td><td class=''>3</td><td class=''>2</td><td class=''>3</td><td class=''>1</td></tr><tr><td class='rk'>14</td><td class='l'><span class='nm'>Pacific Legal Foundation</span></td><td class=''>8</td><td class=''>4</td><td class=''>3</td><td class=''>1</td><td class=''>1</td></tr><tr><td class='rk'>15</td><td class='l'><span class='nm'>Protect the First Foundation</span></td><td class=''>8</td><td class=''>2</td><td class=''>4</td><td class=''>2</td><td class=''>1</td></tr><tr><td class='rk'>16</td><td class='l'><span class='nm'>The Rutherford Institute</span></td><td class=''>8</td><td class=''>5</td><td class=''>3</td><td class=''>0</td><td class=''>1</td></tr><tr><td class='rk'>17</td><td class='l'><span class='nm'>America First Legal Foundation</span></td><td class=''>7</td><td class=''>4</td><td class=''>2</td><td class=''>1</td><td class=''>1</td></tr><tr><td class='rk'>18</td><td class='l'><span class='nm'>Atlantic Legal Foundation</span></td><td class=''>7</td><td class=''>7</td><td class=''>0</td><td class=''>0</td><td class=''>1</td></tr><tr><td class='rk'>19</td><td class='l'><span class='nm'>Chickasaw Nation</span></td><td class=''>7</td><td class=''>7</td><td class=''>0</td><td class=''>0</td><td class=''>1</td></tr><tr><td class='rk'>20</td><td class='l'><span class='nm'>Institute for Justice</span></td><td class=''>7</td><td class=''>4</td><td class=''>2</td><td class=''>1</td><td class=''>1</td></tr><tr><td class='rk'>21</td><td class='l'><span class='nm'>American Center for Law and Justice</span></td><td class=''>6</td><td class=''>1</td><td class=''>4</td><td class=''>1</td><td class=''>1</td></tr><tr><td class='rk'>22</td><td class='l'><span class='nm'>The Becket Fund for Religious Liberty</span></td><td class=''>6</td><td class=''>1</td><td class=''>5</td><td class=''>0</td><td class=''>1</td></tr><tr><td class='rk'>23</td><td class='l'><span class='nm'>Buckeye Institute</span></td><td class=''>6</td><td class=''>3</td><td class=''>2</td><td class=''>1</td><td class=''>1</td></tr><tr><td class='rk'>24</td><td class='l'><span class='nm'>Center for Constitutional Jurisprudence</span></td><td class=''>6</td><td class=''>6</td><td class=''>0</td><td class=''>0</td><td class=''>1</td></tr><tr><td class='rk'>25</td><td class='l'><span class='nm'>Choctaw Nation of Oklahoma</span></td><td class=''>6</td><td class=''>6</td><td class=''>0</td><td class=''>0</td><td class=''>1</td></tr></tbody></table></div>
+    <p class="over">By Term</p>
+    <h2>The flow, Term by Term</h2>
+    <p class="cnote2">Each brief belongs to the Term in which it was filed for: a petition-stage brief to the Term the case was docketed, a merits brief to the Term the case was argued. A case granted in January is usually briefed and argued the following Term, so its two kinds of brief land a row apart. <em>Cases</em> and <em>per case</em> count the cases that drew merits briefs. The Term under way is still being briefed, and the undecided count says how far.</p>
+    <div class='ctwrap'><table class='ctab'><thead><tr><th class='l'>Term</th><th class=''>Briefs</th><th class=''>Cert</th><th class=''>Pet./neither</th><th class=''>Resp.</th><th class=''>Cases</th><th class=''>Per case</th></tr></thead><tbody><tr><td class='l'><span class='nm'>OT2021</span></td><td>1,653</td><td>753</td><td>512</td><td>388</td><td>62</td><td>14.5</td></tr></tbody></table></div>
+    <p class="over">At the front door</p>
+    <h2>Amicus support before a grant</h2>
+    <div class="rates">
+      <div>
+        <div class="big">12.1%</div>
+        <div class="lab">Granted, with amicus support</div>
+        <div class="sub">297 decided petitions</div>
+      </div>
+      <div>
+        <div class="big">1.9%</div>
+        <div class="lab">Granted, without</div>
+        <div class="sub">1,311 decided petitions</div>
+      </div>
+    </div>
+    <p class="cnote2">Paid petitions that drew a cert-stage amicus brief from anyone but the United States, against those that drew none. <strong>This is not an effect.</strong> Amici file where review already looks possible, and a petition worth an amicus brief is usually worth a grant for the same reasons; the site&rsquo;s <a href='/methods.html'>cert model</a> counts cert-stage amici as one signal among many. The board below asks a narrower question: of the petitions each filer supported, how many did the Court take?</p>
+    <div class='ctwrap'><table class='ctab'><thead><tr><th></th><th class='l'>Filer</th><th class=''>Petitions</th><th class=''>Granted</th><th class=''>Rate</th></tr></thead><tbody><tr><td class='rk'>1</td><td class='l'><span class='nm'>Arizona</span></td><td class=''>3</td><td class=''>2</td><td class=''><span class='bar'><span class='tr'><i style='width:100%'></i></span><b>67%</b><span class='lo'>21%</span></span></td></tr><tr><td class='rk'>2</td><td class='l'><span class='nm'>Goldwater Institute</span></td><td class=''>4</td><td class=''>2</td><td class=''><span class='bar'><span class='tr'><i style='width:75%'></i></span><b>50%</b><span class='lo'>15%</span></span></td></tr><tr><td class='rk'>3</td><td class='l'><span class='nm'>Institute for Free Speech</span></td><td class=''>4</td><td class=''>2</td><td class=''><span class='bar'><span class='tr'><i style='width:75%'></i></span><b>50%</b><span class='lo'>15%</span></span></td></tr><tr><td class='rk'>4</td><td class='l'><span class='nm'>Military-Veterans Advocacy</span><span class='alias'>Military-Veterans Advocacy · Military-Veterans Advocacy Inc</span></td><td class=''>4</td><td class=''>2</td><td class=''><span class='bar'><span class='tr'><i style='width:75%'></i></span><b>50%</b><span class='lo'>15%</span></span></td></tr><tr><td class='rk'>5</td><td class='l'><span class='nm'>Indiana</span></td><td class=''>5</td><td class=''>2</td><td class=''><span class='bar'><span class='tr'><i style='width:60%'></i></span><b>40%</b><span class='lo'>12%</span></span></td></tr><tr><td class='rk'>6</td><td class='l'><span class='nm'>Americans for Prosperity Foundation</span></td><td class=''>6</td><td class=''>2</td><td class=''><span class='bar'><span class='tr'><i style='width:50%'></i></span><b>33%</b><span class='lo'>10%</span></span></td></tr><tr><td class='rk'>7</td><td class='l'><span class='nm'>Cato Institute</span></td><td class=''>20</td><td class=''>4</td><td class=''><span class='bar'><span class='tr'><i style='width:30%'></i></span><b>20%</b><span class='lo'>8%</span></span></td></tr><tr><td class='rk'>8</td><td class='l'><span class='nm'>Chamber of Commerce of the United States of America</span></td><td class=''>14</td><td class=''>3</td><td class=''><span class='bar'><span class='tr'><i style='width:32%'></i></span><b>21%</b><span class='lo'>8%</span></span></td></tr><tr><td class='rk'>9</td><td class='l'><span class='nm'>Washington Legal Foundation</span></td><td class=''>14</td><td class=''>3</td><td class=''><span class='bar'><span class='tr'><i style='width:32%'></i></span><b>21%</b><span class='lo'>8%</span></span></td></tr><tr><td class='rk'>10</td><td class='l'><span class='nm'>Buckeye Institute</span></td><td class=''>3</td><td class=''>1</td><td class=''><span class='bar'><span class='tr'><i style='width:50%'></i></span><b>33%</b><span class='lo'>6%</span></span></td></tr><tr><td class='rk'>11</td><td class='l'><span class='nm'>Jeremy C. Doerre</span></td><td class=''>3</td><td class=''>1</td><td class=''><span class='bar'><span class='tr'><i style='width:50%'></i></span><b>33%</b><span class='lo'>6%</span></span></td></tr><tr><td class='rk'>12</td><td class='l'><span class='nm'>National Association of Manufacturers</span></td><td class=''>3</td><td class=''>1</td><td class=''><span class='bar'><span class='tr'><i style='width:50%'></i></span><b>33%</b><span class='lo'>6%</span></span></td></tr><tr><td class='rk'>13</td><td class='l'><span class='nm'>New England Legal Foundation</span></td><td class=''>3</td><td class=''>1</td><td class=''><span class='bar'><span class='tr'><i style='width:50%'></i></span><b>33%</b><span class='lo'>6%</span></span></td></tr><tr><td class='rk'>14</td><td class='l'><span class='nm'>Pacific Legal Foundation</span></td><td class=''>3</td><td class=''>1</td><td class=''><span class='bar'><span class='tr'><i style='width:50%'></i></span><b>33%</b><span class='lo'>6%</span></span></td></tr><tr><td class='rk'>15</td><td class='l'><span class='nm'>Chamber of Commerce of the United States</span></td><td class=''>5</td><td class=''>1</td><td class=''><span class='bar'><span class='tr'><i style='width:30%'></i></span><b>20%</b><span class='lo'>4%</span></span></td></tr><tr><td class='rk'>16</td><td class='l'><span class='nm'>Texas</span></td><td class=''>5</td><td class=''>1</td><td class=''><span class='bar'><span class='tr'><i style='width:30%'></i></span><b>20%</b><span class='lo'>4%</span></span></td></tr><tr><td class='rk'>17</td><td class='l'><span class='nm'>Center for Constitutional Jurisprudence</span></td><td class=''>6</td><td class=''>1</td><td class=''><span class='bar'><span class='tr'><i style='width:25%'></i></span><b>17%</b><span class='lo'>3%</span></span></td></tr><tr><td class='rk'>18</td><td class='l'><span class='nm'>Liberty Justice Center</span></td><td class=''>6</td><td class=''>1</td><td class=''><span class='bar'><span class='tr'><i style='width:25%'></i></span><b>17%</b><span class='lo'>3%</span></span></td></tr><tr><td class='rk'>19</td><td class='l'><span class='nm'>Cherokee Nation</span></td><td class=''>11</td><td class=''>1</td><td class=''><span class='bar'><span class='tr'><i style='width:14%'></i></span><b>9%</b><span class='lo'>2%</span></span></td></tr><tr><td class='rk'>20</td><td class='l'><span class='nm'>Muscogee (Creek) Nation</span></td><td class=''>24</td><td class=''>1</td><td class=''><span class='bar'><span class='tr'><i style='width:6%'></i></span><b>4%</b><span class='lo'>1%</span></span></td></tr><tr><td class='rk'>21</td><td class='l'><span class='nm'>Atlantic Legal Foundation</span></td><td class=''>7</td><td class=''>0</td><td class=''><span class='bar'><span class='tr'><i style='width:1%'></i></span><b>0%</b><span class='lo'>0%</span></span></td></tr><tr><td class='rk'>22</td><td class='l'><span class='nm'>Chickasaw Nation</span></td><td class=''>7</td><td class=''>0</td><td class=''><span class='bar'><span class='tr'><i style='width:1%'></i></span><b>0%</b><span class='lo'>0%</span></span></td></tr><tr><td class='rk'>23</td><td class='l'><span class='nm'>Choctaw Nation of Oklahoma</span></td><td class=''>6</td><td class=''>0</td><td class=''><span class='bar'><span class='tr'><i style='width:1%'></i></span><b>0%</b><span class='lo'>0%</span></span></td></tr><tr><td class='rk'>24</td><td class='l'><span class='nm'>America First Legal Foundation</span></td><td class=''>4</td><td class=''>0</td><td class=''><span class='bar'><span class='tr'><i style='width:1%'></i></span><b>0%</b><span class='lo'>0%</span></span></td></tr><tr><td class='rk'>25</td><td class='l'><span class='nm'>Institute for Justice</span></td><td class=''>4</td><td class=''>0</td><td class=''><span class='bar'><span class='tr'><i style='width:1%'></i></span><b>0%</b><span class='lo'>0%</span></span></td></tr></tbody></table></div>
+    <p class="cnote2">Filers with at least 3 cert-stage briefs on paid petitions the Court has acted on — 39 of them. Ordered by the lower bound of a 95% interval (the muted figure), not the rate.</p>
+    <p class="over">On the merits</p>
+    <h2>When the brief came in, how the case came out</h2>
+    <p class="cnote2">Not a win rate. A brief filed on the petitioner&rsquo;s schedule supports the petitioner <em>or neither party</em>, and the docket does not say which, so this table does not score the filer. It reports the case: for briefs on the petitioner&rsquo;s schedule, how often the judgment below fell; on the respondent&rsquo;s, how often it stood. Read it against the Court itself, which reversed or vacated in 81% of the 58 decided cases here that drew merits amici. Filers with 3 or more briefs in decided cases.</p>
+    <div class='ctwrap'><table class='ctab'><thead><tr><th></th><th class='l'>Filer</th><th class=''>Pet./neither: fell</th><th class=''>Resp.: stood</th></tr></thead><tbody><tr><td class='rk'>1</td><td class='l'><span class='nm'>Constitutional Accountability Center</span></td><td class=''><span class='rec'>5<span class='of'> of 6</span></span></td><td class=''><span class='rec'>0<span class='of'> of 5</span></span></td></tr><tr><td class='rk'>2</td><td class='l'><span class='nm'>Chamber of Commerce of the United States of America</span></td><td class=''><span class='rec'>4<span class='of'> of 4</span></span></td><td class=''><span class='rec'>2<span class='of'> of 5</span></span></td></tr><tr><td class='rk'>3</td><td class='l'><span class='nm'>Americans for Prosperity Foundation</span></td><td class=''><span class='rec'>5<span class='of'> of 5</span></span></td><td class=''><span class='rec'>0<span class='of'> of 2</span></span></td></tr><tr><td class='rk'>4</td><td class='l'><span class='nm'>American Bar Association</span></td><td class=''><span class='rec'>1<span class='of'> of 1</span></span></td><td class=''><span class='rec'>0<span class='of'> of 5</span></span></td></tr><tr><td class='rk'>5</td><td class='l'><span class='nm'>National Association of Criminal Defense Lawyers</span></td><td class=''><span class='rec'>3<span class='of'> of 4</span></span></td><td class=''><span class='rec'>0<span class='of'> of 2</span></span></td></tr><tr><td class='rk'>6</td><td class='l'><span class='nm'>Protect the First Foundation</span></td><td class=''><span class='rec'>4<span class='of'> of 4</span></span></td><td class=''><span class='rec'>1<span class='of'> of 2</span></span></td></tr><tr><td class='rk'>7</td><td class='l'><span class='nm'>American Association for Justice</span></td><td class=''><span class='rec'>2<span class='of'> of 3</span></span></td><td class=''><span class='rec'>1<span class='of'> of 2</span></span></td></tr><tr><td class='rk'>8</td><td class='l'><span class='nm'>American Civil Liberties Union</span></td><td class=''><span class='rec'>4<span class='of'> of 4</span></span></td><td class=''><span class='rec'>0<span class='of'> of 1</span></span></td></tr><tr><td class='rk'>9</td><td class='l'><span class='nm'>The Becket Fund for Religious Liberty</span></td><td class=''><span class='rec'>5<span class='of'> of 5</span></span></td><td class=''>&mdash;</td></tr><tr><td class='rk'>10</td><td class='l'><span class='nm'>Cato Institute</span></td><td class=''><span class='rec'>3<span class='of'> of 3</span></span></td><td class=''><span class='rec'>0<span class='of'> of 2</span></span></td></tr><tr><td class='rk'>11</td><td class='l'><span class='nm'>Claremont Institute’s Center for Constitutional Jurisprudence</span></td><td class=''><span class='rec'>4<span class='of'> of 4</span></span></td><td class=''><span class='rec'>0<span class='of'> of 1</span></span></td></tr><tr><td class='rk'>12</td><td class='l'><span class='nm'>Law Professors</span></td><td class=''><span class='rec'>1<span class='of'> of 2</span></span></td><td class=''><span class='rec'>1<span class='of'> of 3</span></span></td></tr><tr><td class='rk'>13</td><td class='l'><span class='nm'>Public Citizen</span></td><td class=''><span class='rec'>2<span class='of'> of 3</span></span></td><td class=''><span class='rec'>0<span class='of'> of 2</span></span></td></tr><tr><td class='rk'>14</td><td class='l'><span class='nm'>American Center for Law and Justice</span></td><td class=''><span class='rec'>3<span class='of'> of 3</span></span></td><td class=''><span class='rec'>0<span class='of'> of 1</span></span></td></tr><tr><td class='rk'>15</td><td class='l'><span class='nm'>Criminal Justice Legal Foundation</span></td><td class=''><span class='rec'>3<span class='of'> of 3</span></span></td><td class=''><span class='rec'>0<span class='of'> of 1</span></span></td></tr><tr><td class='rk'>16</td><td class='l'><span class='nm'>Liberty Justice Center</span></td><td class=''><span class='rec'>3<span class='of'> of 3</span></span></td><td class=''><span class='rec'>0<span class='of'> of 1</span></span></td></tr><tr><td class='rk'>17</td><td class='l'><span class='nm'>Pacific Legal Foundation</span></td><td class=''><span class='rec'>3<span class='of'> of 3</span></span></td><td class=''><span class='rec'>0<span class='of'> of 1</span></span></td></tr><tr><td class='rk'>18</td><td class='l'><span class='nm'>Washington Legal Foundation</span></td><td class=''><span class='rec'>0<span class='of'> of 1</span></span></td><td class=''><span class='rec'>1<span class='of'> of 3</span></span></td></tr><tr><td class='rk'>19</td><td class='l'><span class='nm'>Advancing American Freedom</span><span class='alias'>Advancing American Freedom · Advancing American Freedom, Inc.</span></td><td class=''><span class='rec'>2<span class='of'> of 2</span></span></td><td class=''><span class='rec'>0<span class='of'> of 1</span></span></td></tr><tr><td class='rk'>20</td><td class='l'><span class='nm'>Alabama Center for Law and Liberty</span></td><td class=''><span class='rec'>3<span class='of'> of 3</span></span></td><td class=''>&mdash;</td></tr><tr><td class='rk'>21</td><td class='l'><span class='nm'>Buckeye Institute</span></td><td class=''><span class='rec'>2<span class='of'> of 2</span></span></td><td class=''><span class='rec'>0<span class='of'> of 1</span></span></td></tr><tr><td class='rk'>22</td><td class='l'><span class='nm'>Christian Legal Society</span></td><td class=''><span class='rec'>3<span class='of'> of 3</span></span></td><td class=''>&mdash;</td></tr><tr><td class='rk'>23</td><td class='l'><span class='nm'>Federal Courts Scholars</span></td><td class=''><span class='rec'>1<span class='of'> of 1</span></span></td><td class=''><span class='rec'>0<span class='of'> of 2</span></span></td></tr><tr><td class='rk'>24</td><td class='l'><span class='nm'>Foundation for Individual Rights in Education</span></td><td class=''><span class='rec'>3<span class='of'> of 3</span></span></td><td class=''>&mdash;</td></tr><tr><td class='rk'>25</td><td class='l'><span class='nm'>Foundation for Moral Law</span></td><td class=''><span class='rec'>3<span class='of'> of 3</span></span></td><td class=''>&mdash;</td></tr></tbody></table></div>
+    <p class="over">The United States</p>
+    <h2>The Solicitor General as amicus</h2>
+    <div class="rates">
+      <div>
+        <div class="big">23</div>
+        <div class="lab">At the petition stage</div>
+        <div class="sub">23 after the Court called for its views</div>
+      </div>
+      <div>
+        <div class="big"><span class='rec'>17<span class='of'> of 20</span></span></div>
+        <div class="lab">Pet./neither: judgment fell</div>
+        <div class="sub">decided cases</div>
+      </div>
+      <div>
+        <div class="big"><span class='rec'>0<span class='of'> of 4</span></span></div>
+        <div class="lab">Resp.: judgment stood</div>
+        <div class="sub">decided cases</div>
+      </div>
+    </div>
+    <p class="cnote2">Kept off every board above. At the petition stage its brief is the answer to a call for the views of the Solicitor General — the Court asked for it — and on the merits it is the office that also chooses which cases the government joins at all. 25 merits briefs: 20 on the petitioner&rsquo;s schedule, 5 on the respondent&rsquo;s.</p>
+    <p class="over">Coalitions</p>
+    <h2>Allies and opponents</h2>
+    <p class="cnote2">Pairs of frequent filers — 3 or more merits briefs each — that met in at least 2 cases. Companion cases count once. A brief on the petitioner&rsquo;s schedule may support neither party, so an &ldquo;opponent&rdquo; pairing is a pairing of schedules, not always of positions.</p>
+    <h3>The network</h3>
+    <p class="cnote2">Every pair of those filers that met on the same schedule in 2 or more cases, not only the strongest 25. 34 filers and 78 pairings. A circle&rsquo;s size is the filer&rsquo;s merits briefs and a line&rsquo;s weight the cases the two shared. Colours are communities found in the pairings alone (Louvain; modularity 0.40), named here by their most connected members: the page infers who files together, not why. Hover or tap a filer for its partners.</p>
+    <div class='an-stage' id='an-stage'><svg viewBox='0 0 860 600' role='img' aria-label='Network of frequent amicus filers that file on the same side'><line class='an-e g1' x1='289.4' y1='566' x2='319.6' y2='512' stroke-width='0.5' data-i='0' data-j='8' data-c='2'/><line class='an-e g1' x1='289.4' y1='566' x2='301.5' y2='418.7' stroke-width='0.5' data-i='0' data-j='13' data-c='2'/><line class='an-e g1' x1='210.8' y1='421.4' x2='278.2' y2='332.9' stroke-width='0.5' data-i='1' data-j='5' data-c='2'/><line class='an-e g1' x1='210.8' y1='421.4' x2='250.5' y2='422.6' stroke-width='0.5' data-i='1' data-j='31' data-c='2'/><line class='an-e g1' x1='210.8' y1='421.4' x2='257.8' y2='483.9' stroke-width='0.5' data-i='1' data-j='32' data-c='2'/><line class='an-e g4' x1='790' y1='64.2' x2='703.6' y2='64.2' stroke-width='0.5' data-i='2' data-j='17' data-c='2'/><line class='an-e' x1='790' y1='241.5' x2='703.6' y2='241.5' stroke-width='0.5' data-i='3' data-j='20' data-c='2'/><line class='an-e g2' x1='259' y1='107.8' x2='183.2' y2='158.9' stroke-width='0.5' data-i='4' data-j='14' data-c='2'/><line class='an-e g2' x1='259' y1='107.8' x2='248.8' y2='198' stroke-width='0.5' data-i='4' data-j='23' data-c='2'/><line class='an-e g1' x1='278.2' y1='332.9' x2='359.8' y2='378.2' stroke-width='0.5' data-i='5' data-j='7' data-c='2'/><line class='an-e g1' x1='278.2' y1='332.9' x2='336.3' y2='319.3' stroke-width='0.5' data-i='5' data-j='9' data-c='2'/><line class='an-e g1' x1='278.2' y1='332.9' x2='375.7' y2='348.6' stroke-width='0.5' data-i='5' data-j='10' data-c='2'/><line class='an-e g1' x1='278.2' y1='332.9' x2='351.2' y2='453' stroke-width='0.5' data-i='5' data-j='12' data-c='2'/><line class='an-e' x1='278.2' y1='332.9' x2='183.2' y2='158.9' stroke-width='0.5' data-i='5' data-j='14' data-c='2'/><line class='an-e g1' x1='278.2' y1='332.9' x2='306.6' y2='449.5' stroke-width='0.5' data-i='5' data-j='16' data-c='2'/><line class='an-e' x1='278.2' y1='332.9' x2='229.9' y2='237.1' stroke-width='0.5' data-i='5' data-j='21' data-c='2'/><line class='an-e g1' x1='278.2' y1='332.9' x2='371.5' y2='410.3' stroke-width='0.5' data-i='5' data-j='22' data-c='2'/><line class='an-e' x1='278.2' y1='332.9' x2='248.8' y2='198' stroke-width='0.5' data-i='5' data-j='23' data-c='2'/><line class='an-e' x1='278.2' y1='332.9' x2='194.7' y2='250' stroke-width='0.5' data-i='5' data-j='24' data-c='2'/><line class='an-e g1' x1='278.2' y1='332.9' x2='337.9' y2='417.7' stroke-width='0.5' data-i='5' data-j='30' data-c='2'/><line class='an-e g1' x1='278.2' y1='332.9' x2='250.5' y2='422.6' stroke-width='0.5' data-i='5' data-j='31' data-c='2'/><line class='an-e g2' x1='110' y1='103.8' x2='70' y2='119.9' stroke-width='0.5' data-i='6' data-j='18' data-c='2'/><line class='an-e g2' x1='110' y1='103.8' x2='91.6' y2='162.4' stroke-width='0.5' data-i='6' data-j='28' data-c='2'/><line class='an-e g1' x1='359.8' y1='378.2' x2='336.3' y2='319.3' stroke-width='0.5' data-i='7' data-j='9' data-c='2'/><line class='an-e g1' x1='359.8' y1='378.2' x2='351.2' y2='453' stroke-width='0.5' data-i='7' data-j='12' data-c='2'/><line class='an-e g1' x1='359.8' y1='378.2' x2='306.6' y2='449.5' stroke-width='0.5' data-i='7' data-j='16' data-c='2'/><line class='an-e' x1='359.8' y1='378.2' x2='457.1' y2='359.9' stroke-width='0.5' data-i='7' data-j='29' data-c='2'/><line class='an-e g1' x1='319.6' y1='512' x2='351.2' y2='453' stroke-width='0.5' data-i='8' data-j='12' data-c='2'/><line class='an-e g1' x1='319.6' y1='512' x2='301.5' y2='418.7' stroke-width='0.5' data-i='8' data-j='13' data-c='2'/><line class='an-e g1' x1='319.6' y1='512' x2='306.6' y2='449.5' stroke-width='0.5' data-i='8' data-j='16' data-c='2'/><line class='an-e g1' x1='319.6' y1='512' x2='257.8' y2='483.9' stroke-width='0.5' data-i='8' data-j='32' data-c='2'/><line class='an-e g1' x1='375.7' y1='348.6' x2='371.5' y2='410.3' stroke-width='0.5' data-i='10' data-j='22' data-c='2'/><line class='an-e' x1='375.7' y1='348.6' x2='457.1' y2='359.9' stroke-width='0.5' data-i='10' data-j='29' data-c='2'/><line class='an-e g1' x1='375.7' y1='348.6' x2='337.9' y2='417.7' stroke-width='0.5' data-i='10' data-j='30' data-c='2'/><line class='an-e g3' x1='579.8' y1='311.1' x2='660.4' y2='332.4' stroke-width='0.5' data-i='11' data-j='27' data-c='2'/><line class='an-e g3' x1='579.8' y1='311.1' x2='457.1' y2='359.9' stroke-width='0.5' data-i='11' data-j='29' data-c='2'/><line class='an-e g1' x1='351.2' y1='453' x2='301.5' y2='418.7' stroke-width='0.5' data-i='12' data-j='13' data-c='2'/><line class='an-e g1' x1='351.2' y1='453' x2='306.6' y2='449.5' stroke-width='0.5' data-i='12' data-j='16' data-c='2'/><line class='an-e g1' x1='351.2' y1='453' x2='371.5' y2='410.3' stroke-width='0.5' data-i='12' data-j='22' data-c='2'/><line class='an-e g1' x1='301.5' y1='418.7' x2='306.6' y2='449.5' stroke-width='0.5' data-i='13' data-j='16' data-c='2'/><line class='an-e g1' x1='301.5' y1='418.7' x2='371.5' y2='410.3' stroke-width='0.5' data-i='13' data-j='22' data-c='2'/><line class='an-e g1' x1='301.5' y1='418.7' x2='337.9' y2='417.7' stroke-width='0.5' data-i='13' data-j='30' data-c='2'/><line class='an-e g1' x1='301.5' y1='418.7' x2='250.5' y2='422.6' stroke-width='0.5' data-i='13' data-j='31' data-c='2'/><line class='an-e g1' x1='301.5' y1='418.7' x2='257.8' y2='483.9' stroke-width='0.5' data-i='13' data-j='32' data-c='2'/><line class='an-e g2' x1='183.2' y1='158.9' x2='70' y2='119.9' stroke-width='0.5' data-i='14' data-j='18' data-c='2'/><line class='an-e g2' x1='183.2' y1='158.9' x2='229.9' y2='237.1' stroke-width='0.5' data-i='14' data-j='21' data-c='2'/><line class='an-e g2' x1='183.2' y1='158.9' x2='194.7' y2='250' stroke-width='0.5' data-i='14' data-j='24' data-c='2'/><line class='an-e g2' x1='183.2' y1='158.9' x2='219.8' y2='34' stroke-width='0.5' data-i='14' data-j='26' data-c='2'/><line class='an-e' x1='790' y1='418.8' x2='703.6' y2='418.8' stroke-width='0.5' data-i='15' data-j='19' data-c='2'/><line class='an-e g1' x1='306.6' y1='449.5' x2='371.5' y2='410.3' stroke-width='0.5' data-i='16' data-j='22' data-c='2'/><line class='an-e g1' x1='306.6' y1='449.5' x2='250.5' y2='422.6' stroke-width='0.5' data-i='16' data-j='31' data-c='2'/><line class='an-e g1' x1='306.6' y1='449.5' x2='257.8' y2='483.9' stroke-width='0.5' data-i='16' data-j='32' data-c='2'/><line class='an-e g2' x1='70' y1='119.9' x2='91.6' y2='162.4' stroke-width='0.5' data-i='18' data-j='28' data-c='2'/><line class='an-e g2' x1='229.9' y1='237.1' x2='248.8' y2='198' stroke-width='0.5' data-i='21' data-j='23' data-c='2'/><line class='an-e g2' x1='229.9' y1='237.1' x2='194.7' y2='250' stroke-width='0.5' data-i='21' data-j='24' data-c='2'/><line class='an-e g2' x1='248.8' y1='198' x2='194.7' y2='250' stroke-width='0.5' data-i='23' data-j='24' data-c='2'/><line class='an-e' x1='457.1' y1='359.9' x2='337.9' y2='417.7' stroke-width='0.5' data-i='29' data-j='30' data-c='2'/><line class='an-e g1' x1='337.9' y1='417.7' x2='250.5' y2='422.6' stroke-width='0.5' data-i='30' data-j='31' data-c='2'/><line class='an-e g1' x1='337.9' y1='417.7' x2='257.8' y2='483.9' stroke-width='0.5' data-i='30' data-j='32' data-c='2'/><line class='an-e g1' x1='250.5' y1='422.6' x2='257.8' y2='483.9' stroke-width='0.5' data-i='31' data-j='32' data-c='2'/><line class='an-e g1' x1='210.8' y1='421.4' x2='301.5' y2='418.7' stroke-width='4' data-i='1' data-j='13' data-c='3'/><line class='an-e g1' x1='278.2' y1='332.9' x2='301.5' y2='418.7' stroke-width='4' data-i='5' data-j='13' data-c='3'/><line class='an-e g2' x1='110' y1='103.8' x2='183.2' y2='158.9' stroke-width='4' data-i='6' data-j='14' data-c='3'/><line class='an-e g1' x1='359.8' y1='378.2' x2='375.7' y2='348.6' stroke-width='4' data-i='7' data-j='10' data-c='3'/><line class='an-e g1' x1='359.8' y1='378.2' x2='301.5' y2='418.7' stroke-width='4' data-i='7' data-j='13' data-c='3'/><line class='an-e g1' x1='359.8' y1='378.2' x2='371.5' y2='410.3' stroke-width='4' data-i='7' data-j='22' data-c='3'/><line class='an-e g1' x1='359.8' y1='378.2' x2='337.9' y2='417.7' stroke-width='4' data-i='7' data-j='30' data-c='3'/><line class='an-e g1' x1='319.6' y1='512' x2='337.9' y2='417.7' stroke-width='4' data-i='8' data-j='30' data-c='3'/><line class='an-e g1' x1='336.3' y1='319.3' x2='375.7' y2='348.6' stroke-width='4' data-i='9' data-j='10' data-c='3'/><line class='an-e g1' x1='336.3' y1='319.3' x2='301.5' y2='418.7' stroke-width='4' data-i='9' data-j='13' data-c='3'/><line class='an-e g1' x1='375.7' y1='348.6' x2='301.5' y2='418.7' stroke-width='4' data-i='10' data-j='13' data-c='3'/><line class='an-e g3' x1='579.8' y1='311.1' x2='628.5' y2='240.3' stroke-width='4' data-i='11' data-j='33' data-c='3'/><line class='an-e g1' x1='351.2' y1='453' x2='337.9' y2='417.7' stroke-width='4' data-i='12' data-j='30' data-c='3'/><line class='an-e g2' x1='183.2' y1='158.9' x2='248.8' y2='198' stroke-width='4' data-i='14' data-j='23' data-c='3'/><line class='an-e g2' x1='183.2' y1='158.9' x2='157.8' y2='49.1' stroke-width='4' data-i='14' data-j='25' data-c='3'/><line class='an-e g2' x1='183.2' y1='158.9' x2='91.6' y2='162.4' stroke-width='4' data-i='14' data-j='28' data-c='3'/><line class='an-e g1' x1='306.6' y1='449.5' x2='337.9' y2='417.7' stroke-width='4' data-i='16' data-j='30' data-c='3'/><line class='an-e g1' x1='371.5' y1='410.3' x2='337.9' y2='417.7' stroke-width='4' data-i='22' data-j='30' data-c='3'/><g class='an-n g2' tabindex='0' data-i='14' data-n='Constitutional Accountability Center' data-b='13'><title>Constitutional Accountability Center</title><circle cx='183.2' cy='158.9' r='12.5'/></g><g class='an-n g3' tabindex='0' data-i='11' data-n='Chamber of Commerce of the United States of America' data-b='11'><title>Chamber of Commerce of the United States of America</title><circle cx='579.8' cy='311.1' r='11.8'/></g><g class='an-n g2' tabindex='0' data-i='4' data-n='American Bar Association' data-b='7'><title>American Bar Association</title><circle cx='259' cy='107.8' r='10.1'/></g><g class='an-n g1' tabindex='0' data-i='7' data-n='Americans for Prosperity Foundation' data-b='7'><title>Americans for Prosperity Foundation</title><circle cx='359.8' cy='378.2' r='10.1'/></g><g class='an-n g2' tabindex='0' data-i='26' data-n='National Association of Criminal Defense Lawyers' data-b='6'><title>National Association of Criminal Defense Lawyers</title><circle cx='219.8' cy='34' r='9.6'/></g><g class='an-n g1' tabindex='0' data-i='30' data-n='Protect the First Foundation' data-b='6'><title>Protect the First Foundation</title><circle cx='337.9' cy='417.7' r='9.6'/></g><g class='an-n g0' tabindex='0' data-i='3' data-n='American Association for Justice' data-b='5'><title>American Association for Justice</title><circle cx='790' cy='241.5' r='9.1'/></g><g class='an-n g1' tabindex='0' data-i='5' data-n='American Center for Law and Justice' data-b='5'><title>American Center for Law and Justice</title><circle cx='278.2' cy='332.9' r='9.1'/></g><g class='an-n g2' tabindex='0' data-i='6' data-n='American Civil Liberties Union' data-b='5'><title>American Civil Liberties Union</title><circle cx='110' cy='103.8' r='9.1'/></g><g class='an-n g1' tabindex='0' data-i='8' data-n='The Becket Fund for Religious Liberty' data-b='5'><title>The Becket Fund for Religious Liberty</title><circle cx='319.6' cy='512' r='9.1'/></g><g class='an-n g1' tabindex='0' data-i='10' data-n='Cato Institute' data-b='5'><title>Cato Institute</title><circle cx='375.7' cy='348.6' r='9.1'/></g><g class='an-n g1' tabindex='0' data-i='13' data-n='Claremont Institute&#39;s Center for Constitutional Jurisprudence' data-b='5'><title>Claremont Institute’s Center for Constitutional Jurisprudence</title><circle cx='301.5' cy='418.7' r='9.1'/></g><g class='an-n g0' tabindex='0' data-i='20' data-n='Law Professors' data-b='5'><title>Law Professors</title><circle cx='703.6' cy='241.5' r='9.1'/></g><g class='an-n g3' tabindex='0' data-i='33' data-n='Washington Legal Foundation' data-b='5'><title>Washington Legal Foundation</title><circle cx='628.5' cy='240.3' r='9.1'/></g><g class='an-n g0' tabindex='0' data-i='15' data-n='Criminal Justice Legal Foundation' data-b='4'><title>Criminal Justice Legal Foundation</title><circle cx='790' cy='418.8' r='8.5'/></g><g class='an-n g4' tabindex='0' data-i='17' data-n='Immigration Reform Law Institute' data-b='4'><title>Immigration Reform Law Institute</title><circle cx='703.6' cy='64.2' r='8.5'/></g><g class='an-n g1' tabindex='0' data-i='22' data-n='Liberty Justice Center' data-b='4'><title>Liberty Justice Center</title><circle cx='371.5' cy='410.3' r='8.5'/></g><g class='an-n g2' tabindex='0' data-i='25' data-n='NAACP Legal Defense and Educational Fund, Inc' data-b='4'><title>NAACP Legal Defense and Educational Fund, Inc</title><circle cx='157.8' cy='49.1' r='8.5'/></g><g class='an-n g3' tabindex='0' data-i='29' data-n='Pacific Legal Foundation' data-b='4'><title>Pacific Legal Foundation</title><circle cx='457.1' cy='359.9' r='8.5'/></g><g class='an-n g1' tabindex='0' data-i='0' data-n='Advancing American Freedom' data-b='3'><title>Advancing American Freedom</title><circle cx='289.4' cy='566' r='7.8'/></g><g class='an-n g1' tabindex='0' data-i='1' data-n='Alabama Center for Law and Liberty' data-b='3'><title>Alabama Center for Law and Liberty</title><circle cx='210.8' cy='421.4' r='7.8'/></g><g class='an-n g4' tabindex='0' data-i='2' data-n='America First Legal Foundation' data-b='3'><title>America First Legal Foundation</title><circle cx='790' cy='64.2' r='7.8'/></g><g class='an-n g1' tabindex='0' data-i='9' data-n='Buckeye Institute' data-b='3'><title>Buckeye Institute</title><circle cx='336.3' cy='319.3' r='7.8'/></g><g class='an-n g1' tabindex='0' data-i='12' data-n='Christian Legal Society' data-b='3'><title>Christian Legal Society</title><circle cx='351.2' cy='453' r='7.8'/></g><g class='an-n g1' tabindex='0' data-i='16' data-n='Foundation for Moral Law' data-b='3'><title>Foundation for Moral Law</title><circle cx='306.6' cy='449.5' r='7.8'/></g><g class='an-n g2' tabindex='0' data-i='18' data-n='Institute for Justice' data-b='3'><title>Institute for Justice</title><circle cx='70' cy='119.9' r='7.8'/></g><g class='an-n g0' tabindex='0' data-i='19' data-n='Jonathan F. Mitchell and Adam K. Mortara' data-b='3'><title>Jonathan F. Mitchell and Adam K. Mortara</title><circle cx='703.6' cy='418.8' r='7.8'/></g><g class='an-n g2' tabindex='0' data-i='21' data-n='Legal Scholars' data-b='3'><title>Legal Scholars</title><circle cx='229.9' cy='237.1' r='7.8'/></g><g class='an-n g2' tabindex='0' data-i='23' data-n='Local Governments' data-b='3'><title>Local Governments</title><circle cx='248.8' cy='198' r='7.8'/></g><g class='an-n g2' tabindex='0' data-i='24' data-n='Massachusetts' data-b='3'><title>Massachusetts</title><circle cx='194.7' cy='250' r='7.8'/></g><g class='an-n g3' tabindex='0' data-i='27' data-n='National Conference of State Legislatures' data-b='3'><title>National Conference of State Legislatures</title><circle cx='660.4' cy='332.4' r='7.8'/></g><g class='an-n g2' tabindex='0' data-i='28' data-n='National Police Accountability Project' data-b='3'><title>National Police Accountability Project</title><circle cx='91.6' cy='162.4' r='7.8'/></g><g class='an-n g1' tabindex='0' data-i='31' data-n='The Rutherford Institute' data-b='3'><title>The Rutherford Institute</title><circle cx='250.5' cy='422.6' r='7.8'/></g><g class='an-n g1' tabindex='0' data-i='32' data-n='Thomas More Society' data-b='3'><title>Thomas More Society</title><circle cx='257.8' cy='483.9' r='7.8'/></g><g class='an-labels'><text class='an-l' data-i='0' x='301.2' text-anchor='start'><tspan x='301.2' y='563'>Advancing</tspan><tspan x='301.2' y='576'>American Freedom</tspan></text><text class='an-l' data-i='1' x='210.8' text-anchor='middle'><tspan x='210.8' y='394.6'>Alabama Center</tspan><tspan x='210.8' y='407.6'>for Law and Liberty</tspan></text><text class='an-l' data-i='2' x='790' text-anchor='middle'><tspan x='790' y='85'>America First</tspan><tspan x='790' y='98'>Legal Foundation</tspan></text><text class='an-l' data-i='3' x='790' text-anchor='middle'><tspan x='790' y='263.6'>American Association</tspan><tspan x='790' y='276.6'>for Justice</tspan></text><text class='an-l' data-i='4' x='259' text-anchor='middle'><tspan x='259' y='130.9'>American Bar Association</tspan></text><text class='an-l' data-i='5' x='278.2' text-anchor='middle'><tspan x='278.2' y='355'>American Center</tspan><tspan x='278.2' y='368'>for Law and Justice</tspan></text><text class='an-l' data-i='6' x='110' text-anchor='middle'><tspan x='110' y='125.9'>American Civil</tspan><tspan x='110' y='138.9'>Liberties Union</tspan></text><text class='an-l' data-i='8' x='319.6' text-anchor='middle'><tspan x='319.6' y='534.1'>Becket Fund for</tspan><tspan x='319.6' y='547.1'>Religious Liberty</tspan></text><text class='an-l' data-i='9' x='336.3' text-anchor='middle'><tspan x='336.3' y='305.5'>Buckeye Institute</tspan></text><text class='an-l' data-i='10' x='375.7' text-anchor='middle'><tspan x='375.7' y='333.5'>Cato Institute</tspan></text><text class='an-l' data-i='11' x='579.8' text-anchor='middle'><tspan x='579.8' y='335.9'>Chamber of Commerce of the</tspan><tspan x='579.8' y='348.9'>United States of America</tspan></text><text class='an-l' data-i='13' x='301.5' text-anchor='middle'><tspan x='301.5' y='440.8'>Claremont Institute’s Center</tspan><tspan x='301.5' y='453.8'>for Constitutional Jurisprudence</tspan></text><text class='an-l' data-i='14' x='183.2' text-anchor='middle'><tspan x='183.2' y='184.4'>Constitutional</tspan><tspan x='183.2' y='197.4'>Accountability Center</tspan></text><text class='an-l' data-i='15' x='790' text-anchor='middle'><tspan x='790' y='440.3'>Criminal Justice</tspan><tspan x='790' y='453.3'>Legal Foundation</tspan></text><text class='an-l' data-i='16' x='306.6' text-anchor='middle'><tspan x='306.6' y='470.3'>Foundation for Moral Law</tspan></text><text class='an-l' data-i='17' x='703.6' text-anchor='middle'><tspan x='703.6' y='36.7'>Immigration Reform</tspan><tspan x='703.6' y='49.7'>Law Institute</tspan></text><text class='an-l' data-i='21' x='229.9' text-anchor='middle'><tspan x='229.9' y='257.9'>Legal Scholars</tspan></text><text class='an-l' data-i='23' x='248.8' text-anchor='middle'><tspan x='248.8' y='218.8'>Local Governments</tspan></text><text class='an-l' data-i='24' x='194.7' text-anchor='middle'><tspan x='194.7' y='236.2'>Massachusetts</tspan></text><text class='an-l' data-i='25' x='157.8' text-anchor='middle'><tspan x='157.8' y='70.5'>NAACP Legal Defense</tspan><tspan x='157.8' y='83.5'>and Educational Fund</tspan></text><text class='an-l' data-i='29' x='457.1' text-anchor='middle'><tspan x='457.1' y='381.3'>Pacific Legal Foundation</tspan></text><text class='an-l' data-i='30' x='351.5' text-anchor='start'><tspan x='351.5' y='414.7'>Protect the</tspan><tspan x='351.5' y='427.7'>First Foundation</tspan></text><text class='an-l' data-i='31' x='238.7' text-anchor='end'><tspan x='238.7' y='426.1'>Rutherford Institute</tspan></text><text class='an-l' data-i='32' x='269.6' text-anchor='start'><tspan x='269.6' y='487.4'>Thomas More Society</tspan></text><text class='an-l' data-i='33' x='628.5' text-anchor='middle'><tspan x='628.5' y='262.3'>Washington</tspan><tspan x='628.5' y='275.3'>Legal Foundation</tspan></text></g></svg><div class='an-tip' id='an-tip'></div></div>
+    <div class='an-legend'><span class='g1'><i></i>Claremont Institute’s Center for Constitutional Jurisprudence, American Center for Law and Justice &middot; 14 filers</span><span class='g2'><i></i>Constitutional Accountability Center, Local Governments &middot; 10 filers</span><span class='g3'><i></i>Pacific Legal Foundation, Chamber of Commerce of the United States of America &middot; 4 filers</span><span class='g4'><i></i>America First Legal Foundation, Immigration Reform Law Institute &middot; 2 filers</span><span class='g0'><i></i>American Association for Justice, Law Professors &middot; 2 filers</span><span class='g0'><i></i>Criminal Justice Legal Foundation, Jonathan F. Mitchell and Adam K. Mortara &middot; 2 filers</span></div>
+    <script>
+(function(){
+  var st=document.getElementById('an-stage'); if(!st) return;
+  var svg=st.querySelector('svg'), tip=document.getElementById('an-tip');
+  var nodes=[].slice.call(svg.querySelectorAll('.an-n')), edges=[].slice.call(svg.querySelectorAll('.an-e'));
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  var byI={}; nodes.forEach(function(n){byI[n.getAttribute('data-i')]=n;});
+  var labs={}; [].slice.call(svg.querySelectorAll('.an-l')).forEach(function(l){labs[l.getAttribute('data-i')]=l;});
+  function lit(i){var l=labs[i]; if(l) l.classList.add('on');}
+  var adj={}; edges.forEach(function(e){var a=e.getAttribute('data-i'),b=e.getAttribute('data-j'),c=+e.getAttribute('data-c');
+    (adj[a]=adj[a]||[]).push([b,c,e]); (adj[b]=adj[b]||[]).push([a,c,e]);});
+  function clear(){svg.classList.remove('an-hot'); nodes.forEach(function(n){n.classList.remove('on','nb');});
+    edges.forEach(function(e){e.classList.remove('on');});
+    for(var k in labs) labs[k].classList.remove('on'); tip.classList.remove('on');}
+  function place(n){var r=st.getBoundingClientRect(), b=n.querySelector('circle').getBoundingClientRect();
+    var x=b.left+b.width/2-r.left, y=b.top-r.top-8; tip.style.left=Math.max(4,Math.min(x-tip.offsetWidth/2,r.width-tip.offsetWidth-4))+'px';
+    tip.style.top=Math.max(4,y-tip.offsetHeight)+'px';}
+  function show(n){clear(); var i=n.getAttribute('data-i'), nb=(adj[i]||[]).slice().sort(function(p,q){return q[1]-p[1];});
+    svg.classList.add('an-hot'); n.classList.add('on'); lit(i);
+    nb.forEach(function(p){p[2].classList.add('on'); byI[p[0]].classList.add('nb'); lit(p[0]);});
+    var h='<b>'+esc(n.getAttribute('data-n'))+'</b><br>'+n.getAttribute('data-b')+' merits briefs; same side as '+nb.length+' frequent filers';
+    nb.slice(0,3).forEach(function(p){h+='<br>'+esc(byI[p[0]].getAttribute('data-n'))+': '+p[1]+' cases';});
+    tip.innerHTML=h; tip.classList.add('on'); place(n);}
+  nodes.forEach(function(n){n.addEventListener('mouseenter',function(){show(n);});
+    n.addEventListener('focus',function(){show(n);});
+    n.addEventListener('click',function(ev){ev.stopPropagation(); if(n.classList.contains('on')) clear(); else show(n);});});
+  svg.addEventListener('mouseleave',clear); document.addEventListener('click',clear);
+  nodes.forEach(function(n){n.addEventListener('blur',clear);});
+})();
+</script>
+    <h3>Most often on the same side</h3>
+    <div class='ctwrap'><table class='ctab'><thead><tr><th></th><th class='l'>Filers</th><th class=''>Cases</th></tr></thead><tbody><tr><td class='rk'>1</td><td class='l'><span class='pair'><span class='nm'>Alabama Center for Law and Liberty</span><span class='vs'>with</span><span class='nm'>Claremont Institute’s Center for Constitutional Jurisprudence</span></span></td><td class=''>3</td></tr><tr><td class='rk'>2</td><td class='l'><span class='pair'><span class='nm'>American Center for Law and Justice</span><span class='vs'>with</span><span class='nm'>Claremont Institute’s Center for Constitutional Jurisprudence</span></span></td><td class=''>3</td></tr><tr><td class='rk'>3</td><td class='l'><span class='pair'><span class='nm'>American Civil Liberties Union</span><span class='vs'>with</span><span class='nm'>Constitutional Accountability Center</span></span></td><td class=''>3</td></tr><tr><td class='rk'>4</td><td class='l'><span class='pair'><span class='nm'>Americans for Prosperity Foundation</span><span class='vs'>with</span><span class='nm'>Cato Institute</span></span></td><td class=''>3</td></tr><tr><td class='rk'>5</td><td class='l'><span class='pair'><span class='nm'>Americans for Prosperity Foundation</span><span class='vs'>with</span><span class='nm'>Claremont Institute’s Center for Constitutional Jurisprudence</span></span></td><td class=''>3</td></tr><tr><td class='rk'>6</td><td class='l'><span class='pair'><span class='nm'>Americans for Prosperity Foundation</span><span class='vs'>with</span><span class='nm'>Liberty Justice Center</span></span></td><td class=''>3</td></tr><tr><td class='rk'>7</td><td class='l'><span class='pair'><span class='nm'>Americans for Prosperity Foundation</span><span class='vs'>with</span><span class='nm'>Protect the First Foundation</span></span></td><td class=''>3</td></tr><tr><td class='rk'>8</td><td class='l'><span class='pair'><span class='nm'>The Becket Fund for Religious Liberty</span><span class='vs'>with</span><span class='nm'>Protect the First Foundation</span></span></td><td class=''>3</td></tr><tr><td class='rk'>9</td><td class='l'><span class='pair'><span class='nm'>Buckeye Institute</span><span class='vs'>with</span><span class='nm'>Cato Institute</span></span></td><td class=''>3</td></tr><tr><td class='rk'>10</td><td class='l'><span class='pair'><span class='nm'>Buckeye Institute</span><span class='vs'>with</span><span class='nm'>Claremont Institute’s Center for Constitutional Jurisprudence</span></span></td><td class=''>3</td></tr><tr><td class='rk'>11</td><td class='l'><span class='pair'><span class='nm'>Cato Institute</span><span class='vs'>with</span><span class='nm'>Claremont Institute’s Center for Constitutional Jurisprudence</span></span></td><td class=''>3</td></tr><tr><td class='rk'>12</td><td class='l'><span class='pair'><span class='nm'>Chamber of Commerce of the United States of America</span><span class='vs'>with</span><span class='nm'>Washington Legal Foundation</span></span></td><td class=''>3</td></tr><tr><td class='rk'>13</td><td class='l'><span class='pair'><span class='nm'>Christian Legal Society</span><span class='vs'>with</span><span class='nm'>Protect the First Foundation</span></span></td><td class=''>3</td></tr><tr><td class='rk'>14</td><td class='l'><span class='pair'><span class='nm'>Constitutional Accountability Center</span><span class='vs'>with</span><span class='nm'>Local Governments</span></span></td><td class=''>3</td></tr><tr><td class='rk'>15</td><td class='l'><span class='pair'><span class='nm'>Constitutional Accountability Center</span><span class='vs'>with</span><span class='nm'>NAACP Legal Defense and Educational Fund, Inc</span></span></td><td class=''>3</td></tr><tr><td class='rk'>16</td><td class='l'><span class='pair'><span class='nm'>Constitutional Accountability Center</span><span class='vs'>with</span><span class='nm'>National Police Accountability Project</span></span></td><td class=''>3</td></tr><tr><td class='rk'>17</td><td class='l'><span class='pair'><span class='nm'>Foundation for Moral Law</span><span class='vs'>with</span><span class='nm'>Protect the First Foundation</span></span></td><td class=''>3</td></tr><tr><td class='rk'>18</td><td class='l'><span class='pair'><span class='nm'>Liberty Justice Center</span><span class='vs'>with</span><span class='nm'>Protect the First Foundation</span></span></td><td class=''>3</td></tr><tr><td class='rk'>19</td><td class='l'><span class='pair'><span class='nm'>Advancing American Freedom</span><span class='vs'>with</span><span class='nm'>The Becket Fund for Religious Liberty</span></span></td><td class=''>2</td></tr><tr><td class='rk'>20</td><td class='l'><span class='pair'><span class='nm'>Advancing American Freedom</span><span class='vs'>with</span><span class='nm'>Claremont Institute’s Center for Constitutional Jurisprudence</span></span></td><td class=''>2</td></tr><tr><td class='rk'>21</td><td class='l'><span class='pair'><span class='nm'>Alabama Center for Law and Liberty</span><span class='vs'>with</span><span class='nm'>American Center for Law and Justice</span></span></td><td class=''>2</td></tr><tr><td class='rk'>22</td><td class='l'><span class='pair'><span class='nm'>Alabama Center for Law and Liberty</span><span class='vs'>with</span><span class='nm'>The Rutherford Institute</span></span></td><td class=''>2</td></tr><tr><td class='rk'>23</td><td class='l'><span class='pair'><span class='nm'>Alabama Center for Law and Liberty</span><span class='vs'>with</span><span class='nm'>Thomas More Society</span></span></td><td class=''>2</td></tr><tr><td class='rk'>24</td><td class='l'><span class='pair'><span class='nm'>America First Legal Foundation</span><span class='vs'>with</span><span class='nm'>Immigration Reform Law Institute</span></span></td><td class=''>2</td></tr><tr><td class='rk'>25</td><td class='l'><span class='pair'><span class='nm'>American Association for Justice</span><span class='vs'>with</span><span class='nm'>Law Professors</span></span></td><td class=''>2</td></tr></tbody></table></div>
+    <h3>Most often on opposite sides</h3>
+    <div class='ctwrap'><table class='ctab'><thead><tr><th></th><th class='l'>Filers</th><th class=''>Cases</th></tr></thead><tbody><tr><td class='rk'>1</td><td class='l'><span class='pair'><span class='nm'>American Association for Justice</span><span class='vs'>petitioner&rsquo;s schedule &middot; respondent&rsquo;s schedule</span><span class='nm'>Chamber of Commerce of the United States of America</span></span></td><td class=''>3</td></tr><tr><td class='rk'>2</td><td class='l'><span class='pair'><span class='nm'>Alabama Center for Law and Liberty</span><span class='vs'>petitioner&rsquo;s schedule &middot; respondent&rsquo;s schedule</span><span class='nm'>American Bar Association</span></span></td><td class=''>2</td></tr><tr><td class='rk'>3</td><td class='l'><span class='pair'><span class='nm'>American Association for Justice</span><span class='vs'>petitioner&rsquo;s schedule &middot; respondent&rsquo;s schedule</span><span class='nm'>Washington Legal Foundation</span></span></td><td class=''>2</td></tr><tr><td class='rk'>4</td><td class='l'><span class='pair'><span class='nm'>Arizona</span><span class='vs'>petitioner&rsquo;s schedule &middot; respondent&rsquo;s schedule</span><span class='nm'>Federal Courts Scholars</span></span></td><td class=''>2</td></tr><tr><td class='rk'>5</td><td class='l'><span class='pair'><span class='nm'>The Becket Fund for Religious Liberty</span><span class='vs'>petitioner&rsquo;s schedule &middot; respondent&rsquo;s schedule</span><span class='nm'>Constitutional Accountability Center</span></span></td><td class=''>2</td></tr><tr><td class='rk'>6</td><td class='l'><span class='pair'><span class='nm'>The Becket Fund for Religious Liberty</span><span class='vs'>petitioner&rsquo;s schedule &middot; respondent&rsquo;s schedule</span><span class='nm'>Local Governments</span></span></td><td class=''>2</td></tr><tr><td class='rk'>7</td><td class='l'><span class='pair'><span class='nm'>The Becket Fund for Religious Liberty</span><span class='vs'>petitioner&rsquo;s schedule &middot; respondent&rsquo;s schedule</span><span class='nm'>Massachusetts</span></span></td><td class=''>2</td></tr><tr><td class='rk'>8</td><td class='l'><span class='pair'><span class='nm'>Claremont Institute’s Center for Constitutional Jurisprudence</span><span class='vs'>petitioner&rsquo;s schedule &middot; respondent&rsquo;s schedule</span><span class='nm'>American Bar Association</span></span></td><td class=''>2</td></tr><tr><td class='rk'>9</td><td class='l'><span class='pair'><span class='nm'>Law Professors</span><span class='vs'>petitioner&rsquo;s schedule &middot; respondent&rsquo;s schedule</span><span class='nm'>Chamber of Commerce of the United States of America</span></span></td><td class=''>2</td></tr><tr><td class='rk'>10</td><td class='l'><span class='pair'><span class='nm'>Law Professors</span><span class='vs'>petitioner&rsquo;s schedule &middot; respondent&rsquo;s schedule</span><span class='nm'>Washington Legal Foundation</span></span></td><td class=''>2</td></tr><tr><td class='rk'>11</td><td class='l'><span class='pair'><span class='nm'>The States of Texas</span><span class='vs'>petitioner&rsquo;s schedule &middot; respondent&rsquo;s schedule</span><span class='nm'>American Bar Association</span></span></td><td class=''>2</td></tr></tbody></table></div>
+    <p class="over">The States</p>
+    <h2>Briefs the States led</h2>
+    <p class="cnote2">78 briefs were filed by States, nearly always together. Each is credited to the State the docket names first — the co-signers of &ldquo;West Virginia, et al.&rdquo; are on the brief&rsquo;s cover, not the docket.</p>
+    <div class='ctwrap'><table class='ctab'><thead><tr><th></th><th class='l'>State</th><th class=''>Led</th><th class=''>Cert</th><th class=''>Pet./neither</th><th class=''>Resp.</th></tr></thead><tbody><tr><td class='rk'>1</td><td class='l'><span class='nm'>Texas</span></td><td class=''>12</td><td class=''>5</td><td class=''>5</td><td class=''>2</td></tr><tr><td class='rk'>2</td><td class='l'><span class='nm'>Arizona</span></td><td class=''>8</td><td class=''>3</td><td class=''>4</td><td class=''>1</td></tr><tr><td class='rk'>3</td><td class='l'><span class='nm'>Indiana</span></td><td class=''>8</td><td class=''>5</td><td class=''>2</td><td class=''>1</td></tr><tr><td class='rk'>4</td><td class='l'><span class='nm'>California</span></td><td class=''>5</td><td class=''>2</td><td class=''>0</td><td class=''>3</td></tr><tr><td class='rk'>5</td><td class='l'><span class='nm'>West Virginia</span></td><td class=''>5</td><td class=''>5</td><td class=''>0</td><td class=''>0</td></tr><tr><td class='rk'>6</td><td class='l'><span class='nm'>Kentucky</span></td><td class=''>4</td><td class=''>2</td><td class=''>1</td><td class=''>1</td></tr><tr><td class='rk'>7</td><td class='l'><span class='nm'>Montana</span></td><td class=''>4</td><td class=''>3</td><td class=''>0</td><td class=''>1</td></tr><tr><td class='rk'>8</td><td class='l'><span class='nm'>Utah</span></td><td class=''>4</td><td class=''>2</td><td class=''>1</td><td class=''>1</td></tr><tr><td class='rk'>9</td><td class='l'><span class='nm'>Massachusetts</span></td><td class=''>3</td><td class=''>0</td><td class=''>1</td><td class=''>2</td></tr><tr><td class='rk'>10</td><td class='l'><span class='nm'>Arkansas</span></td><td class=''>2</td><td class=''>0</td><td class=''>2</td><td class=''>0</td></tr><tr><td class='rk'>11</td><td class='l'><span class='nm'>District of Columbia</span></td><td class=''>2</td><td class=''>0</td><td class=''>2</td><td class=''>0</td></tr><tr><td class='rk'>12</td><td class='l'><span class='nm'>Illinois</span></td><td class=''>2</td><td class=''>0</td><td class=''>1</td><td class=''>1</td></tr><tr><td class='rk'>13</td><td class='l'><span class='nm'>Louisiana</span></td><td class=''>2</td><td class=''>1</td><td class=''>1</td><td class=''>0</td></tr><tr><td class='rk'>14</td><td class='l'><span class='nm'>Minnesota</span></td><td class=''>2</td><td class=''>0</td><td class=''>1</td><td class=''>1</td></tr><tr><td class='rk'>15</td><td class='l'><span class='nm'>Mississippi</span></td><td class=''>2</td><td class=''>2</td><td class=''>0</td><td class=''>0</td></tr><tr><td class='rk'>16</td><td class='l'><span class='nm'>Ohio</span></td><td class=''>2</td><td class=''>1</td><td class=''>1</td><td class=''>0</td></tr><tr><td class='rk'>17</td><td class='l'><span class='nm'>Alabama</span></td><td class=''>1</td><td class=''>1</td><td class=''>0</td><td class=''>0</td></tr><tr><td class='rk'>18</td><td class='l'><span class='nm'>Colorado</span></td><td class=''>1</td><td class=''>0</td><td class=''>0</td><td class=''>1</td></tr><tr><td class='rk'>19</td><td class='l'><span class='nm'>Florida</span></td><td class=''>1</td><td class=''>0</td><td class=''>1</td><td class=''>0</td></tr><tr><td class='rk'>20</td><td class='l'><span class='nm'>Georgia</span></td><td class=''>1</td><td class=''>1</td><td class=''>0</td><td class=''>0</td></tr><tr><td class='rk'>21</td><td class='l'><span class='nm'>Michigan</span></td><td class=''>1</td><td class=''>1</td><td class=''>0</td><td class=''>0</td></tr><tr><td class='rk'>22</td><td class='l'><span class='nm'>Nebraska</span></td><td class=''>1</td><td class=''>1</td><td class=''>0</td><td class=''>0</td></tr><tr><td class='rk'>23</td><td class='l'><span class='nm'>New York</span></td><td class=''>1</td><td class=''>0</td><td class=''>0</td><td class=''>1</td></tr><tr><td class='rk'>24</td><td class='l'><span class='nm'>Oklahoma</span></td><td class=''>1</td><td class=''>1</td><td class=''>0</td><td class=''>0</td></tr><tr><td class='rk'>25</td><td class='l'><span class='nm'>Puerto Rico</span></td><td class=''>1</td><td class=''>0</td><td class=''>0</td><td class=''>1</td></tr></tbody></table></div>
+    <p class="over">Who writes them</p>
+    <h2>Counsel for the amici</h2>
+    <p class="cnote2">From the counsel of record the Court lists for each amicus party, matched to 1,623 of 1,653 briefs. Lawyers who work for the filer itself — an institute&rsquo;s own litigators on the institute&rsquo;s brief — are not outside counsel and are left off the firm table (344 briefs), as are the States&rsquo; own solicitors general and a solo lawyer&rsquo;s &ldquo;Attorney at Law&rdquo;, which names no firm. The counsel table below keeps everyone.</p>
+    <h3>Firms</h3>
+    <div class='ctwrap'><table class='ctab'><thead><tr><th></th><th class='l'>Firm</th><th class=''>Briefs</th><th class=''>Merits</th><th class=''>Clients</th></tr></thead><tbody><tr><td class='rk'>1</td><td class='l'><span class='nm'>Gibson, Dunn &amp; Crutcher LLP</span></td><td class=''>25</td><td class=''>16</td><td class=''>25</td></tr><tr><td class='rk'>2</td><td class='l'><span class='nm'>Kanji &amp; Kantzen, PLLC</span></td><td class=''>24</td><td class=''>0</td><td class=''>1</td></tr><tr><td class='rk'>3</td><td class='l'><span class='nm'>Schaerr | Jaffe LLP</span></td><td class=''>23</td><td class=''>16</td><td class=''>15</td></tr><tr><td class='rk'>4</td><td class='l'><span class='nm'>Mayer Brown LLP</span></td><td class=''>15</td><td class=''>8</td><td class=''>13</td></tr><tr><td class='rk'>5</td><td class='l'><span class='nm'>O’Melveny &amp; Myers LLP</span></td><td class=''>15</td><td class=''>12</td><td class=''>14</td></tr><tr><td class='rk'>6</td><td class='l'><span class='nm'>Sidley Austin LLP</span></td><td class=''>15</td><td class=''>8</td><td class=''>14</td></tr><tr><td class='rk'>7</td><td class='l'><span class='nm'>Jenner &amp; Block LLP</span></td><td class=''>14</td><td class=''>4</td><td class=''>13</td></tr><tr><td class='rk'>8</td><td class='l'><span class='nm'>Orrick, Herrington &amp; Sutcliffe LLP</span></td><td class=''>14</td><td class=''>5</td><td class=''>12</td></tr><tr><td class='rk'>9</td><td class='l'><span class='nm'>Sonosky, Chambers, Sachse, Endreson &amp; Perry, LLP</span></td><td class=''>14</td><td class=''>0</td><td class=''>3</td></tr><tr><td class='rk'>10</td><td class='l'><span class='nm'>Constitutional Counsel Group</span></td><td class=''>12</td><td class=''>5</td><td class=''>2</td></tr><tr><td class='rk'>11</td><td class='l'><span class='nm'>Wiley Rein LLP</span></td><td class=''>12</td><td class=''>6</td><td class=''>12</td></tr><tr><td class='rk'>12</td><td class='l'><span class='nm'>Consovoy McCarthy PLLC</span></td><td class=''>11</td><td class=''>7</td><td class=''>10</td></tr><tr><td class='rk'>13</td><td class='l'><span class='nm'>Hogan Lovells US LLP</span></td><td class=''>11</td><td class=''>7</td><td class=''>11</td></tr><tr><td class='rk'>14</td><td class='l'><span class='nm'>Jones Day</span></td><td class=''>11</td><td class=''>8</td><td class=''>10</td></tr><tr><td class='rk'>15</td><td class='l'><span class='nm'>Arnold &amp; Porter Kaye Scholer LLP</span></td><td class=''>10</td><td class=''>5</td><td class=''>9</td></tr><tr><td class='rk'>16</td><td class='l'><span class='nm'>Cooley LLP</span></td><td class=''>10</td><td class=''>8</td><td class=''>9</td></tr><tr><td class='rk'>17</td><td class='l'><span class='nm'>King &amp; Spalding LLP</span></td><td class=''>10</td><td class=''>2</td><td class=''>10</td></tr><tr><td class='rk'>18</td><td class='l'><span class='nm'>Munger, Tolles &amp; Olson LLP</span></td><td class=''>10</td><td class=''>5</td><td class=''>10</td></tr><tr><td class='rk'>19</td><td class='l'><span class='nm'>William J. Olson, P.C.</span></td><td class=''>10</td><td class=''>3</td><td class=''>6</td></tr><tr><td class='rk'>20</td><td class='l'><span class='nm'>Claybrook, LLC</span></td><td class=''>9</td><td class=''>6</td><td class=''>7</td></tr><tr><td class='rk'>21</td><td class='l'><span class='nm'>Holwell Shuster &amp; Goldberg, LLP</span></td><td class=''>9</td><td class=''>5</td><td class=''>8</td></tr><tr><td class='rk'>22</td><td class='l'><span class='nm'>Latham &amp; Watkins LLP</span></td><td class=''>9</td><td class=''>4</td><td class=''>7</td></tr><tr><td class='rk'>23</td><td class='l'><span class='nm'>Williams &amp; Connolly LLP</span></td><td class=''>9</td><td class=''>7</td><td class=''>9</td></tr><tr><td class='rk'>24</td><td class='l'><span class='nm'>Kaplan Hecker &amp; Fink LLP</span></td><td class=''>8</td><td class=''>4</td><td class=''>5</td></tr><tr><td class='rk'>25</td><td class='l'><span class='nm'>McGuireWoods LLP</span></td><td class=''>8</td><td class=''>2</td><td class=''>8</td></tr></tbody></table></div>
+    <h3>Counsel of record</h3>
+    <div class='ctwrap'><table class='ctab'><thead><tr><th></th><th class='l'>Counsel of record</th><th class=''>Briefs</th><th class=''>Merits</th><th class=''>Clients</th></tr></thead><tbody><tr><td class='rk'>1</td><td class='l'><span class='nm'>Riyaz Amir Kanji</span><span class='alias'>Kanji &amp; Kantzen, PLLC</span></td><td class=''>24</td><td class=''>0</td><td class=''>1</td></tr><tr><td class='rk'>2</td><td class='l'><span class='nm'>Brianne Jenna Gorod</span><span class='alias'>Constitutional Accountability Center</span></td><td class=''>19</td><td class=''>16</td><td class=''>4</td></tr><tr><td class='rk'>3</td><td class='l'><span class='nm'>John Mercer Masslon II</span><span class='alias'>Washington Legal Foundation</span></td><td class=''>15</td><td class=''>5</td><td class=''>5</td></tr><tr><td class='rk'>4</td><td class='l'><span class='nm'>Frank Sharp Holleman IV</span><span class='alias'>Sonosky, Chambers, Sachse, Endreson &amp; Perry, LLP</span></td><td class=''>14</td><td class=''>0</td><td class=''>3</td></tr><tr><td class='rk'>5</td><td class='l'><span class='nm'>Anthony Thomas Caso</span><span class='alias'>Constitutional Counsel Group</span></td><td class=''>11</td><td class=''>4</td><td class=''>2</td></tr><tr><td class='rk'>6</td><td class='l'><span class='nm'>Chrissi Ross Nimmo</span><span class='alias'>Cherokee Nation</span></td><td class=''>11</td><td class=''>0</td><td class=''>1</td></tr><tr><td class='rk'>7</td><td class='l'><span class='nm'>Ilya Shapiro</span><span class='alias'>Cato Institute</span></td><td class=''>11</td><td class=''>3</td><td class=''>2</td></tr><tr><td class='rk'>8</td><td class='l'><span class='nm'>Judd Edward Stone II</span><span class='alias'>Texas Attorney General’s Office</span></td><td class=''>10</td><td class=''>5</td><td class=''>2</td></tr><tr><td class='rk'>9</td><td class='l'><span class='nm'>Lawrence S. Ebner</span><span class='alias'>Atlantic Legal Foundation</span></td><td class=''>10</td><td class=''>0</td><td class=''>4</td></tr><tr><td class='rk'>10</td><td class='l'><span class='nm'>Daniel Robert Suhr</span><span class='alias'>Liberty Justice Center</span></td><td class=''>9</td><td class=''>3</td><td class=''>1</td></tr><tr><td class='rk'>11</td><td class='l'><span class='nm'>Frederick W. Claybrook Jr.</span><span class='alias'>Claybrook, LLC</span></td><td class=''>9</td><td class=''>6</td><td class=''>7</td></tr><tr><td class='rk'>12</td><td class='l'><span class='nm'>Gene Clayton Schaerr</span><span class='alias'>Schaerr | Jaffe</span></td><td class=''>9</td><td class=''>7</td><td class=''>3</td></tr><tr><td class='rk'>13</td><td class='l'><span class='nm'>Michael David Pepson</span><span class='alias'>Americans for Prosperity Foundation</span></td><td class=''>9</td><td class=''>4</td><td class=''>2</td></tr><tr><td class='rk'>14</td><td class='l'><span class='nm'>Erik S. Jaffe</span><span class='alias'>Schaerr | Jaffe LLP</span></td><td class=''>8</td><td class=''>4</td><td class=''>7</td></tr><tr><td class='rk'>15</td><td class='l'><span class='nm'>Jay Remington Schweikert</span><span class='alias'>The Cato Institute</span></td><td class=''>8</td><td class=''>0</td><td class=''>1</td></tr><tr><td class='rk'>16</td><td class='l'><span class='nm'>Jay Alan Sekulow</span><span class='alias'>American Center for Law and Justice</span></td><td class=''>8</td><td class=''>7</td><td class=''>3</td></tr><tr><td class='rk'>17</td><td class='l'><span class='nm'>Reginald M. Turner Jr.</span><span class='alias'>American Bar Association</span></td><td class=''>8</td><td class=''>6</td><td class=''>1</td></tr><tr><td class='rk'>18</td><td class='l'><span class='nm'>William Jeffrey Olson</span><span class='alias'>William J. Olson, P.C.</span></td><td class=''>8</td><td class=''>3</td><td class=''>5</td></tr><tr><td class='rk'>19</td><td class='l'><span class='nm'>Andrew John Pincus</span><span class='alias'>Mayer Brown LLP</span></td><td class=''>7</td><td class=''>3</td><td class=''>5</td></tr><tr><td class='rk'>20</td><td class='l'><span class='nm'>Joshua Adam Matz</span><span class='alias'>Kaplan Hecker &amp; Fink LLP</span></td><td class=''>7</td><td class=''>3</td><td class=''>4</td></tr><tr><td class='rk'>21</td><td class='l'><span class='nm'>Richard A. Samp</span><span class='alias'>New Civil Liberties Alliance</span></td><td class=''>7</td><td class=''>2</td><td class=''>2</td></tr><tr><td class='rk'>22</td><td class='l'><span class='nm'>Thomas M. Fisher</span><span class='alias'>Office of the Indiana Attorney General</span></td><td class=''>7</td><td class=''>2</td><td class=''>2</td></tr><tr><td class='rk'>23</td><td class='l'><span class='nm'>Kathleen Roberta Hartnett</span><span class='alias'>Cooley LLP</span></td><td class=''>6</td><td class=''>4</td><td class=''>6</td></tr><tr><td class='rk'>24</td><td class='l'><span class='nm'>Lawrence J. Joseph</span><span class='alias'>Law Office of Lawrence J. Joseph</span></td><td class=''>6</td><td class=''>5</td><td class=''>3</td></tr><tr><td class='rk'>25</td><td class='l'><span class='nm'>Melanie Lynn Bostwick</span><span class='alias'>Orrick, Herrington &amp; Sutcliffe LLP</span></td><td class=''>6</td><td class=''>2</td><td class=''>4</td></tr></tbody></table></div>
+    <section class="method">
+      <h2>How to read this</h2>
+      <p><strong>Sides come from the calendar.</strong> The docket rarely says which side an amicus supports. Rule 37 does, by deadline: briefs supporting the petitioner or neither party are due a week after the petitioner&rsquo;s merits brief, briefs supporting the respondent a week after the respondent&rsquo;s. Where a brief&rsquo;s file name happens to state its side, the deadline agrees on 97% of respondent-side briefs; about one in six on the petitioner&rsquo;s schedule turns out to support neither party.</p>
+      <p><strong>A filer is a name.</strong> Rows are keyed on the docket&rsquo;s spelling with case, punctuation, a leading &ldquo;The&rdquo; and a corporate suffix set aside. Two different filers with the same name would merge; one filer that changes its name would split.</p>
+      <p>Briefs in paid and in forma pauperis cases belonging to OT2021 — at the petition stage by the Term the case was docketed, on the merits by the Term it was argued — through April 17, 2023. The archive begins with the cases docketed in OT2017. Briefs on emergency applications and in original actions are not counted. A brief filed in consolidated cases counts once. Rejected filings, motions for leave and the Court-appointed amicus defending a judgment below are not amicus briefs here.</p>
+    </section>
+    <p class="back"><a href='/counsel/terms/OT2021/'>&larr; The Counsel Table</a></p>
+  </main>
+</body>
+</html>
+
