@@ -46,6 +46,13 @@ JUDGMENT_ENTRY_RX <- regex(paste0(
   "|Writs? of certiorari[^.]{0,40}DISMISSED",
   "|(The )?(petition|writ|appeal|case)s?\\b[^.]{0,80}\\bdismissed)"),
   ignore_case = TRUE)
+# A dismissal as to some parties only is not the case's judgment: 23-191's
+# "Writ of certiorari dismissed under Rule 46 as to petitioner Cynthia Hawkins
+# only." came months before "Judgment REVERSED", and 24-813's "... dismissed
+# under Rule 46 only as to petitioner Burlington ..." before "Judgment
+# VACATED"; the first read left both cases without a judgment.
+PARTIAL_DISMISSAL_RX <- regex("dismissed\\b[^.]{0,120}?(\\bonly as to\\b|\\bas to\\b[^.]{0,80}\\bonly\\b)",
+                              ignore_case = TRUE)
 # An argued application's disposition. Only on an application's own docket: a
 # petition docket can carry an earlier stay ruling in these words (19-715's
 # "Application (19A545) granted by the Court"), which is not its judgment.
@@ -58,7 +65,7 @@ APPLICATION_JUDGMENT_RX <- regex(paste0(
   "|referred to the Court (is|are) (granted|denied))"), ignore_case = TRUE)
 # Bump when the rules above change: the reader index caches each argument's
 # judgment, and a cached line read under older rules is read again.
-JUDGMENT_RULES <- "j2"
+JUDGMENT_RULES <- "j3"
 
 judgment_of <- function(events, application = FALSE) {
   if (!is.data.frame(events) || !"Proceedings and Orders" %in% names(events)) return(NA_character_)
@@ -67,7 +74,7 @@ judgment_of <- function(events, application = FALSE) {
     app <- txt[str_detect(txt, APPLICATION_JUDGMENT_RX)]
     if (length(app)) return(app[length(app)])   # the last: the one after argument
   }
-  hit <- txt[str_detect(txt, JUDGMENT_ENTRY_RX)]
+  hit <- txt[str_detect(txt, JUDGMENT_ENTRY_RX) & !str_detect(txt, PARTIAL_DISMISSAL_RX)]
   if (length(hit)) hit[1] else NA_character_
 }
 

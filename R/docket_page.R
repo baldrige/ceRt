@@ -394,7 +394,12 @@ write_docket_css <- function(out_dir) {
 # counted them in the Case panel), took a lower court's appointee for the
 # Court's, and dated the Rule 37 split at the argument where the appointee was
 # the only anchor. Rendering only; 25 dockets carry the appointee.
-PAGE_TEMPLATE_VERSION <- "v48"
+# v49: the grant date that splits cert-stage from merits briefs is read with the
+# funnel's GRANT_FORMS (docket_granted_on()). The loose "petition ... grant"
+# match took sealing motions, distribution delays and "would grant" dissents
+# for grants, so a denied petition's amici and opposition coloured as merits
+# briefs; appeals had no grant date at all. Rendering only.
+PAGE_TEMPLATE_VERSION <- "v49"
 
 # ---- small helpers ------------------------------------------------------------
 # A probability at significant figures, as the conference report prints it
@@ -742,13 +747,18 @@ resp_merits_brief_on <- function(ev, granted_on = as.Date(NA), sides = NULL) {
 docket_granted_on <- function(ev) {
   granted_on <- as.Date(NA)
   if (!is.data.frame(ev)) return(granted_on)
-  po <- ev[["Proceedings and Orders"]] %||% ""
-  # A real cert grant ("Petition GRANTED"); exclude stay/conditional orders whose
-  # boilerplate ("in the event the petition ... is granted") otherwise reads as a
-  # grant and back-dates the merits stage.
-  gi <- which(str_detect(po, regex("(petition|certiorari)\\b.*grant", ignore_case = TRUE)) &
-              !str_detect(po, regex("for a stay|in the event|should the petition|pending (the )?disposition|if such writ",
-                                    ignore_case = TRUE)))
+  po <- str_squish(coalesce(ev[["Proceedings and Orders"]] %||% "", ""))
+  # A real grant of review, read with the funnel's own grammar (GRANT_FORMS),
+  # which also knows an appeal's "probable jurisdiction noted" and an
+  # application treated as a petition. This used to be any line naming the
+  # petition and then "grant": "Motion (18M64) for leave to file a petition ...
+  # under seal Granted", "Motion to delay distribution of the petition ...
+  # granted", "Petition DENIED. Justice Alito would grant the petition" and
+  # "DISMISSED as improvidently granted" all dated a grant. Measured
+  # 2026-10-30 on OT17-OT26: 515 dockets carried a false grant (128 with
+  # amici, whose cert-stage briefs then coloured as merits briefs), 25 a grant
+  # months early, and 14 appeals none at all.
+  gi <- which(rx_any(po, GRANT_FORMS))
   if (length(gi)) granted_on <- suppressWarnings(min(lubridate::mdy(ev$Date[gi]), na.rm = TRUE))
   if (is.infinite(granted_on)) granted_on <- as.Date(NA)
   granted_on

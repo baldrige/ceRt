@@ -27,10 +27,8 @@ those function bodies, so a change to the case pages' grammar marks the
 committed stats stale.
 
 Only entries that *open* "Brief amicus/amici curiae …" or "Amicus brief of …"
-are candidates. That excludes, by construction, the non-brief entries
-`brief_cover()` on `main` paints dark green because they mention a
-Court-appointed amicus — `Argued.` lines, scheduling orders, motion papers
-(30 of them, measured 2026-10-29; see *Open* below). The appointee's own brief
+are candidates. That excludes, by construction, `Argued.` lines, scheduling
+orders and motion papers that mention an amicus. The appointee's own brief
 does match the pattern in one of its forms ("Brief amicus curiae of
 Court-appointed amicus curiae …") and is dropped by its key.
 
@@ -82,7 +80,14 @@ spelling is printed under the name, as on the Counsel Table.
 Cases are dated by **docket year** (the `24-` in `24-1287`), not argument
 Term: every docket of a year is in that year's archive, so each row is
 complete except for briefing still under way, which the page counts as
-"undecided".
+"undecided": a merits case with no judgment yet. A dismissal (DIG, Rule 46,
+moot) is decided, though no side won. Until 2026-10-30 the count ran 2–9 a
+year for long-finished Terms. Most of those were denied petitions that
+`docket_granted_on()` dated a false grant for (v49, docs/docket-pages.md), and
+the rest were dismissals. Three stragglers remain: 18-557 ("The case is
+remanded … with instructions to vacate", no judgment wording), 19-373
+(dismissed on the petitioner's death, mid-sentence), and 24-1016, which is
+genuinely undecided.
 
 ## The front door
 
@@ -112,7 +117,21 @@ Measured on six large dockets (22-451, 19-1392, 20-843, 23-719, 24-154,
 entries the block lists as two parties.
 
 Counsel whose firm *is* the filer (Cato's litigators on Cato's brief) are
-in-house and kept off the firm board.
+in-house and kept off the firm board. So are two kinds of `Title` that name no
+firm, matched on the keyed title:
+
+- **placeholders** (`AMICUS_GENERIC_FIRM_RX`): "Attorney at Law", "N/A",
+  "Self" … — solo lawyers' filler, which had merged 80 unrelated lawyers into
+  one "firm" ranked 18th;
+- **government law offices** (`AMICUS_GOV_FIRM_RX`): Solicitors General,
+  Attorneys General (including the OCR'd "Attomey"), departments of justice or
+  law, general counsel's offices, county/city attorneys, corporation counsel,
+  "State of …". Matched on the title, not on the filer being a State: a State
+  that hires Consovoy McCarthy keeps that brief on Consovoy's line (an earlier
+  cut by filer kind took it from 146 to 130). All 180 matched titles were
+  checked by hand on 2026-10-29; none is a private firm.
+
+The counsel-of-record board lists everyone.
 
 ### The refresh
 
@@ -135,15 +154,12 @@ and commit `data/amicus_stats.json`. Until then each render recomputes in-proces
 
 ## Open
 
-- **`brief_cover()`'s Court-appointed rule is unanchored** on `main`: it paints
-  `Argued.` lines, orders and motion papers dark green on the case pages, and
-  `resp_merits_brief_on()` dates the Rule 37 split at the argument where the
-  appointee is the only anchor. Fixed separately on `fix-court-appointed-cover`
-  (`COURT_APPOINTED_BRIEF_RX`, v48; 43 dots on 23 dockets, 12 of them amici
-  that move to the respondent's side). This page excludes the non-briefs
-  already, by its anchored entry pattern, but the 12 side moves reach it only
-  through `brief_cover()` -- and the fingerprint digests that body, so merging
-  the fix marks `data/amicus_stats.json` stale until it is regenerated.
+- **Motion papers on the case pages.** Since v48 (#281, `COURT_APPOINTED_BRIEF_RX`)
+  `brief_cover()` no longer paints non-briefs that mention a Court-appointed
+  amicus dark green, but "Response to motion …", "Reply in support of motion …"
+  and "Opposition to motion to dismiss or affirm" still take a brief's colour
+  (24-621 shows them tan/yellow). A motion-papers rule is a separate change;
+  this page is unaffected, since its entry pattern never admits them.
 - **Exact side and full co-signer lists** are on the PDF cover. Reading the
   first page of ~8,000 merits briefs would replace the timing heuristic and
   name every State on a multistate brief.
