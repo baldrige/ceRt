@@ -201,8 +201,10 @@ pending_signals_map <- function(site_dir) {
     fresh <- tryCatch(jsonlite::fromJSON(cache_p, simplifyVector = FALSE), error = function(e) NULL)
     if (!is.null(fresh) && length(fresh)) m[names(fresh)] <- fresh
   }
-  if (!exists("attach_word_counts")) return(m)
-  if (exists("load_word_counts")) m <- attach_word_counts(m, load_word_counts())
+  # attach_word_counts() and load_word_counts() live beside score_case() in
+  # cert_model.R; no exists() guard, which is how the back-catalog re-render
+  # once scored without them (see attach_word_counts()).
+  m <- attach_word_counts(m, load_word_counts())
   for (wp in file.path(site_dir, c("dashboards", "conferences"), "word_counts_cache.json")) {
     if (!file.exists(wp)) next
     w <- tryCatch(jsonlite::fromJSON(wp, simplifyVector = FALSE), error = function(e) NULL)

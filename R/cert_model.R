@@ -725,6 +725,29 @@ load_word_counts <- function(path = WORD_COUNTS_PATH) {
            integer(1), USE.NAMES = FALSE))
 }
 
+# Merge resolved counts into a petition-signals map (docket -> named list), as
+# `words`, so score_case(signals = ) sees one entry per docket. Dockets not in
+# the map get a fresh entry holding only the count.
+#
+# Here, beside score_case(), rather than in word_count.R where it began. Every
+# caller guarded it with exists(), and render_dockets_backfill.R -- the script
+# behind rerender-dockets.yml and fill-throttled-dockets.yml -- never sourced
+# word_count.R. So every page those workflows wrote was scored in the "unknown"
+# word band, silently: on 2026-10-30, after the v49 back-catalog re-render,
+# 26-568's case page read 65% while the home page and the dashboard read 21%
+# (2,577 words), and 26-558's 13% against 10%. Anything that can score a case
+# has this file loaded, so the guard is gone.
+attach_word_counts <- function(signals_map, counts) {
+  counts <- counts[!is.na(counts$words), , drop = FALSE]
+  for (i in seq_len(nrow(counts))) {
+    dk <- counts$dkt[i]
+    e <- signals_map[[dk]]; if (is.null(e)) e <- list()
+    e$words <- counts$words[i]
+    signals_map[[dk]] <- e
+  }
+  signals_map
+}
+
 # Assemble the full labeled corpus across term files. Adds the binary label,
 # term-year, and the petition-derived Rule 10 signals (missing/unresolved ->
 # FALSE, so no rows drop at fit time). Keeps every decided-or-pending row; model
