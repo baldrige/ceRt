@@ -1,0 +1,44 @@
+name: Settle apt after a timed-out attempt
+description: >
+  Run between a setup-r-dependencies attempt that hit its step timeout and the
+  retry. The timeout kills the action but not the apt-get it started, which
+  goes on holding the dpkg lock. This used to WAIT for that apt-get to exit,
+  which on a slow mirror -- the only reason the first attempt timed out -- is
+  as long as the download itself: on 2026-11-05 the daily's settle step sat
+  the full 15 minutes behind an apt-get still trickling pandoc down at
+  ~40 KB/s, and the retry never ran. So it now STOPS the download. That
+  loses nothing: finished .debs stay in /var/cache/apt/archives and a
+  half-fetched one resumes from archives/partial, so the retry only fetches
+  what is left. dpkg itself is given time to finish an unpack (it is local
+  and fast) and is killed only as a last resort, which `dpkg --configure -a`
+  then repairs.
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      run: |
+        set -uo pipefail
+        busy() { pgrep -x 'apt-get|apt|dpkg' >/dev/null; }
+        # Wait up to N seconds for apt/dpkg to exit; true if they did.
+        settle() { local t=0; while busy && [ "$t" -lt "$1" ]; do sleep 5; t=$((t + 5)); done; ! busy; }
+
+        # A moment for anything already finishing on its own.
+        settle 15 && { echo "no apt running"; sudo dpkg --configure -a; exit 0; }
+
+        echo "stopping the first attempt's apt download:"
+        pgrep -a -x 'apt-get|apt|dpkg' || true
+        sudo pkill -TERM -x apt-get || true
+        sudo pkill -TERM -x apt || true
+        # Bracketed so the pattern cannot match this sudo's own command line.
+        sudo pkill -TERM -f '/usr/lib/apt/method[s]/' || true
+
+        # dpkg, if it was mid-unpack, is left to finish; downloads stop at once.
+        if ! settle 180; then
+          echo "::warning::apt/dpkg still running after 3 min; killing"
+          pgrep -a -x 'apt-get|apt|dpkg' || true
+          sudo pkill -KILL -x apt-get || true
+          sudo pkill -KILL -x apt || true
+          sudo pkill -KILL -x dpkg || true
+          settle 30 || { echo "::error::could not stop apt/dpkg"; exit 1; }
+        fi
+        sudo dpkg --configure -a

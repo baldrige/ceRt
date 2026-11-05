@@ -131,9 +131,10 @@ jobs:
       # bad-day run longer and still give it one chance.
       #
       # The step timeout kills the action; an apt-get it started can outlive
-      # it and hold the dpkg lock, so the settle step waits for any apt or
-      # dpkg to exit (bounded) and repairs a half-finished dpkg before the
-      # retry.
+      # it and hold the dpkg lock, so the settle step (.github/actions/
+      # apt-settle) stops that apt-get -- waiting for it, on a slow mirror,
+      # cost the whole retry on 2026-11-05 -- and repairs a half-finished
+      # dpkg before the retry.
       - name: Install R packages (cached)
         id: rdeps
         uses: r-lib/actions/setup-r-dependencies@v2
@@ -150,12 +151,10 @@ jobs:
             any::htmltools
             any::openssl
             any::jose
-      - name: Let the first attempt's apt finish
+      - name: Stop the first attempt's apt
         if: steps.rdeps.outcome == 'failure'
         timeout-minutes: 15
-        run: |
-          while pgrep -x 'apt-get|apt|dpkg' >/dev/null; do sleep 10; done
-          sudo dpkg --configure -a
+        uses: ./.github/actions/apt-settle
       - name: Install R packages (second attempt)
         if: steps.rdeps.outcome == 'failure'
         uses: r-lib/actions/setup-r-dependencies@v2
