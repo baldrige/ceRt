@@ -83,12 +83,10 @@ jobs:
             any::httr2
             any::pdftools
             any::lubridate
-      - name: Let the first attempt's apt finish
+      - name: Stop the first attempt's apt
         if: steps.rdeps.outcome == 'failure'
         timeout-minutes: 15
-        run: |
-          while pgrep -x 'apt-get|apt|dpkg' >/dev/null; do sleep 10; done
-          sudo dpkg --configure -a
+        uses: ./.github/actions/apt-settle
       - name: Install R packages (second attempt)
         if: steps.rdeps.outcome == 'failure'
         uses: r-lib/actions/setup-r-dependencies@v2
