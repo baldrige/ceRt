@@ -5,8 +5,15 @@
   <link rel="self" href="https://supremecourt.report/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://supremecourt.report/"/>
   <id>https://supremecourt.report/feed.xml</id>
-  <updated>2026-11-04T12:00:00-05:00</updated>
+  <updated>2026-11-05T12:00:00-05:00</updated>
   <author><name>Supreme Court Report</name></author>
+  <entry>
+    <title>Docket for November 5, 2026</title>
+    <link href="https://supremecourt.report/dashboards/dash_2026-11-05.html"/>
+    <id>https://supremecourt.report/dashboards/dash_2026-11-05.html</id>
+    <updated>2026-11-05T12:00:00-05:00</updated>
+    <summary>Petitions and applications docketed on November 5, 2026.</summary>
+  </entry>
   <entry>
     <title>Docket for November 4, 2026</title>
     <link href="https://supremecourt.report/dashboards/dash_2026-11-04.html"/>
@@ -194,13 +201,6 @@
     <id>https://supremecourt.report/orders/2026-10-13.html</id>
     <updated>2026-10-13T12:00:00-04:00</updated>
     <summary>3 granted; 4 granted, vacated and remanded; 166 denied; 22 other orders. Granted: U.S. DOGE Service, et al. v. United States District Court for the District of Columbia, et al.; Todd Blanche, Attorney General v. Izuchukwu Ozurumba; Corey Duran Berry v. United States.</summary>
-  </entry>
-  <entry>
-    <title>Docket for October 13, 2026</title>
-    <link href="https://supremecourt.report/dashboards/dash_2026-10-13.html"/>
-    <id>https://supremecourt.report/dashboards/dash_2026-10-13.html</id>
-    <updated>2026-10-13T12:00:00-04:00</updated>
-    <summary>Petitions and applications docketed on October 13, 2026.</summary>
   </entry>
   <entry>
     <title>Certiorari granted: Corey Duran Berry v. United States (No. 25-7026)</title>
