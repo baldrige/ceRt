@@ -5,8 +5,15 @@
   <link rel="self" href="https://supremecourt.report/grants.xml"/>
   <link rel="alternate" type="text/html" href="https://supremecourt.report/"/>
   <id>https://supremecourt.report/grants.xml</id>
-  <updated>2026-10-19T12:00:00-04:00</updated>
+  <updated>2026-11-06T12:00:00-05:00</updated>
   <author><name>Supreme Court Report</name></author>
+  <entry>
+    <title>Certiorari granted: Goldman Sachs Bank USA, dba Marcus by Goldman Sachs v. Rhea Ann Brown, et al. (No. 25-1408)</title>
+    <link href="https://supremecourt.report/cases/25-1408.html"/>
+    <id>https://supremecourt.report/cases/25-1408.html</id>
+    <updated>2026-11-06T12:00:00-05:00</updated>
+    <summary>The Court granted review on November 6, 2026.</summary>
+  </entry>
   <entry>
     <title>Certiorari granted: Department of Justice v. Scott McNutt (No. 26-204)</title>
     <link href="https://supremecourt.report/cases/26-204.html"/>
@@ -349,13 +356,6 @@
     <id>https://supremecourt.report/cases/25-365.html</id>
     <updated>2025-12-05T12:00:00-05:00</updated>
     <summary>Petition for a writ of certiorari before judgment GRANTED.</summary>
-  </entry>
-  <entry>
-    <title>Certiorari granted: T. M. v. University of Maryland Medical System Corporation (No. 25-197)</title>
-    <link href="https://supremecourt.report/cases/25-197.html"/>
-    <id>https://supremecourt.report/cases/25-197.html</id>
-    <updated>2025-12-05T12:00:00-05:00</updated>
-    <summary>Petition GRANTED.</summary>
   </entry>
 </feed>
 
