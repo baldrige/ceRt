@@ -7,11 +7,11 @@ description: >
   as long as the download itself: on 2026-11-05 the daily's settle step sat
   the full 15 minutes behind an apt-get still trickling pandoc down at
   ~40 KB/s, and the retry never ran. So it now STOPS the download. That
-  loses nothing: finished .debs stay in apt's archive dir (~/apt-debs, see
-  apt-cache) and a half-fetched one resumes from its partial/, so the retry
-  only fetches what is left. dpkg itself is given time to finish an unpack (it is local
-  and fast) and is killed only as a last resort, which `dpkg --configure -a`
-  then repairs.
+  loses nothing: finished .debs stay in apt's archive dir
+  (/var/cache/ceRt-apt-debs, see apt-cache) and a half-fetched one resumes
+  from its partial/, so the retry only fetches what is left. dpkg itself is
+  given time to finish an unpack (it is local and fast) and is killed only
+  as a last resort, which `dpkg --configure -a` then repairs.
 runs:
   using: composite
   steps:

@@ -10,8 +10,8 @@ description: >
   timeout and retry built around it. Two 15-minute attempts on 2026-11-06
   fetched all of it and were killed a second into the unpack.
 
-  It does this by pointing apt's archive directory at ~/apt-debs (one
-  apt.conf.d line), not by copying .debs around: every apt-get after this
+  It does this by pointing apt's archive directory at
+  /var/cache/ceRt-apt-debs (one apt.conf.d line), not by copying .debs around: every apt-get after this
   step -- including the ones setup-r and pak run on their own -- downloads
   into the cached directory, and actions/cache's post step saves it at the
   end of a successful job. Nothing has to run "after the last apt".
@@ -40,12 +40,19 @@ runs:
         echo "prefix=${prefix}" >> "$GITHUB_OUTPUT"
         echo "key=${prefix}${ImageVersion:-unknown}-${who}" >> "$GITHUB_OUTPUT"
 
+        # Outside $HOME on purpose: /home/runner is 0750, so apt's _apt
+        # sandbox user cannot reach a directory under it and apt falls back
+        # to downloading unsandboxed as root (a warning per install, seen on
+        # the first test run). Runner-owned so the cache restore, which runs
+        # as the runner user, can extract into it before any apt runs.
+        sudo install -d -o "$(id -u)" -g "$(id -g)" -m 0755 /var/cache/ceRt-apt-debs
+
     - uses: actions/cache@v4
       with:
-        # *.deb only: archives/partial is owned by apt's _apt sandbox user
-        # (mode 700), so tar could not read it, and a half-fetched file is
-        # not worth keeping anyway. The lock file is excluded the same way.
-        path: ~/apt-debs/*.deb
+        # *.deb only: partial/ is owned by apt's _apt sandbox user (mode
+        # 700), so tar could not read it, and a half-fetched file is not
+        # worth keeping anyway. The lock file is excluded the same way.
+        path: /var/cache/ceRt-apt-debs/*.deb
         key: ${{ steps.key.outputs.key }}
         restore-keys: |
           ${{ steps.key.outputs.prefix }}
@@ -53,8 +60,7 @@ runs:
     - shell: bash
       run: |
         set -euo pipefail
-        dir="$HOME/apt-debs"
-        mkdir -p "$dir"
+        dir=/var/cache/ceRt-apt-debs
         # apt refuses to run if partial/ is missing; give it to _apt as apt
         # itself would. The restored .debs stay runner-owned and 0644, which
         # root's apt reads without complaint.
@@ -64,5 +70,7 @@ runs:
         # case an image ever turns that off, since the cache would then be
         # empty on every save.
         echo 'APT::Keep-Downloaded-Packages "true";' | sudo tee -a /etc/apt/apt.conf.d/99-ceRt-deb-cache >/dev/null
+        # Counted over *.deb, not du of the dir: du cannot read partial/.
         n=$(find "$dir" -maxdepth 1 -name '*.deb' | wc -l)
-        echo "apt archive dir: $dir ($n cached .debs, $(du -sh "$dir" | cut -f1))"
+        mb=$(find "$dir" -maxdepth 1 -name '*.deb' -printf '%s\n' | awk '{s+=$1} END {printf "%.0f", s/1048576}')
+        echo "apt archive dir: $dir ($n cached .debs, ${mb} MB)"

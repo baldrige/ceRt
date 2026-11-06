@@ -6,6 +6,7 @@ on:
 jobs:
   cold:
     runs-on: ubuntu-latest
+    timeout-minutes: 75
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/system-deps
@@ -25,10 +26,11 @@ jobs:
             any::htmltools
             any::openssl
             any::jose
-      - run: ls ~/apt-debs/*.deb | wc -l; du -sh ~/apt-debs
+      - run: find /var/cache/ceRt-apt-debs -maxdepth 1 -name "*.deb" | wc -l
   warm:
     needs: cold
     runs-on: ubuntu-latest
+    timeout-minutes: 75
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/system-deps
@@ -48,4 +50,4 @@ jobs:
             any::htmltools
             any::openssl
             any::jose
-      - run: ls ~/apt-debs/*.deb | wc -l; du -sh ~/apt-debs
+      - run: find /var/cache/ceRt-apt-debs -maxdepth 1 -name "*.deb" | wc -l
