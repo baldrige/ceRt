@@ -14,6 +14,9 @@ runs:
   using: composite
   steps:
     - uses: ./.github/actions/apt-sources
+    # Before any apt-get: every install from here on reads and fills the
+    # cached archive directory, setup-r's and pak's included.
+    - uses: ./.github/actions/apt-cache
     - shell: bash
       env:
         PACKAGES: ${{ inputs.packages }}
@@ -74,8 +77,16 @@ runs:
         # .sources files a name-based rm missed), and an incomplete update is a
         # warning: apt still refreshes the lists it could fetch, and the
         # install below is the step whose failure actually means something.
-        apt_run 180 update \
-          || echo "::warning::apt-get update did not fully succeed; installing from the lists it could refresh"
+        if apt_run 180 update; then
+          # Drop cached .debs (.github/actions/apt-cache) the archive no longer
+          # carries -- superseded versions -- so the cache stays the size of
+          # one install instead of accumulating every image's worth. Only
+          # after a full update: against partial lists, autoclean would
+          # delete current .debs it merely could not see.
+          sudo apt-get autoclean -y "${APT_OPTS[@]}" || true
+        else
+          echo "::warning::apt-get update did not fully succeed; installing from the lists it could refresh"
+        fi
         # PACKAGES is deliberately unquoted: it word-splits into one argument
         # per package.
         # shellcheck disable=SC2086

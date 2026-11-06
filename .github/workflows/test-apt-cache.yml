@@ -1,0 +1,51 @@
+name: TEST apt deb cache (temporary, remove before merge)
+on:
+  push:
+    branches: [ci/apt-deb-cache]
+    paths: [.github/workflows/test-apt-cache.yml, .github/actions/**]
+jobs:
+  cold:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/system-deps
+      - uses: r-lib/actions/setup-r@v2
+        timeout-minutes: 30
+        with: { use-public-rspm: true }
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        timeout-minutes: 30
+        with:
+          packages: |
+            any::gt
+            any::gtExtras
+            any::tidyverse
+            any::httr2
+            any::jsonlite
+            any::pdftools
+            any::htmltools
+            any::openssl
+            any::jose
+      - run: ls ~/apt-debs/*.deb | wc -l; du -sh ~/apt-debs
+  warm:
+    needs: cold
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/system-deps
+      - uses: r-lib/actions/setup-r@v2
+        timeout-minutes: 30
+        with: { use-public-rspm: true }
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        timeout-minutes: 30
+        with:
+          packages: |
+            any::gt
+            any::gtExtras
+            any::tidyverse
+            any::httr2
+            any::jsonlite
+            any::pdftools
+            any::htmltools
+            any::openssl
+            any::jose
+      - run: ls ~/apt-debs/*.deb | wc -l; du -sh ~/apt-debs
