@@ -1,0 +1,76 @@
+name: Cache apt's downloaded packages
+description: >
+  Keep the .debs apt downloads in the Actions cache, so a run installs its
+  system libraries from local files instead of the Ubuntu mirror. The mirror
+  (azure.archive.ubuntu.com) is the one dependency these jobs kept dying on
+  without a stall to time out: on 2026-10-22/23, 2026-11-05 and 2026-11-06 it
+  served at 20-40 kB/s, and the ~85 MB a job needs -- poppler and tesseract
+  here, R's own runtime libraries in setup-r, then pandoc, libnode, cmake and
+  the X11/harfbuzz headers in setup-r-dependencies -- took longer than every
+  timeout and retry built around it. Two 15-minute attempts on 2026-11-06
+  fetched all of it and were killed a second into the unpack.
+
+  It does this by pointing apt's archive directory at
+  /var/cache/ceRt-apt-debs (one apt.conf.d line), not by copying .debs around: every apt-get after this
+  step -- including the ones setup-r and pak run on their own -- downloads
+  into the cached directory, and actions/cache's post step saves it at the
+  end of a successful job. Nothing has to run "after the last apt".
+
+  The key is per image version and per workflow job, restored by prefix from
+  the newest entry of any of them, so a job saves only when it is the first
+  of its kind on a new runner image (about weekly), not every run. A deb
+  from an older image is harmless: apt uses a cached file only when its
+  version matches the one it wants, and system-deps runs `apt-get autoclean`
+  after its update, which drops the ones no longer in the archive, so the
+  cache does not grow without bound. On a miss this is exactly the old
+  behaviour, plus a save.
+runs:
+  using: composite
+  steps:
+    - id: key
+      shell: bash
+      run: |
+        set -euo pipefail
+        # ImageOS / ImageVersion are set on GitHub-hosted runners (e.g.
+        # ubuntu24 / 20261102.1). Fall back rather than fail on any other.
+        os="${ImageOS:-$(. /etc/os-release && echo "${ID}${VERSION_ID}")}"
+        prefix="apt-debs-v1-${os}-${RUNNER_ARCH}-"
+        # The workflow name has spaces; keep the key to [A-Za-z0-9._-].
+        who=$(printf '%s-%s' "$GITHUB_WORKFLOW" "$GITHUB_JOB" | tr -c 'A-Za-z0-9._-' '-')
+        echo "prefix=${prefix}" >> "$GITHUB_OUTPUT"
+        echo "key=${prefix}${ImageVersion:-unknown}-${who}" >> "$GITHUB_OUTPUT"
+
+        # Outside $HOME on purpose: /home/runner is 0750, so apt's _apt
+        # sandbox user cannot reach a directory under it and apt falls back
+        # to downloading unsandboxed as root (a warning per install, seen on
+        # the first test run). Runner-owned so the cache restore, which runs
+        # as the runner user, can extract into it before any apt runs.
+        sudo install -d -o "$(id -u)" -g "$(id -g)" -m 0755 /var/cache/ceRt-apt-debs
+
+    - uses: actions/cache@v4
+      with:
+        # *.deb only: partial/ is owned by apt's _apt sandbox user (mode
+        # 700), so tar could not read it, and a half-fetched file is not
+        # worth keeping anyway. The lock file is excluded the same way.
+        path: /var/cache/ceRt-apt-debs/*.deb
+        key: ${{ steps.key.outputs.key }}
+        restore-keys: |
+          ${{ steps.key.outputs.prefix }}
+
+    - shell: bash
+      run: |
+        set -euo pipefail
+        dir=/var/cache/ceRt-apt-debs
+        # apt refuses to run if partial/ is missing; give it to _apt as apt
+        # itself would. The restored .debs stay runner-owned and 0644, which
+        # root's apt reads without complaint.
+        sudo install -d -o _apt -g root -m 0700 "$dir/partial"
+        echo "Dir::Cache::Archives \"$dir/\";" | sudo tee /etc/apt/apt.conf.d/99-ceRt-deb-cache >/dev/null
+        # apt-get keeps what it downloads by default; say so explicitly in
+        # case an image ever turns that off, since the cache would then be
+        # empty on every save.
+        echo 'APT::Keep-Downloaded-Packages "true";' | sudo tee -a /etc/apt/apt.conf.d/99-ceRt-deb-cache >/dev/null
+        # Counted over *.deb, not du of the dir: du cannot read partial/.
+        n=$(find "$dir" -maxdepth 1 -name '*.deb' | wc -l)
+        mb=$(find "$dir" -maxdepth 1 -name '*.deb' -printf '%s\n' | awk '{s+=$1} END {printf "%.0f", s/1048576}')
+        echo "apt archive dir: $dir ($n cached .debs, ${mb} MB)"
