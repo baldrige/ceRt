@@ -229,16 +229,39 @@ QP_CITE_ABBR <- c(
   "Inst", "Liab", "Mach", "Med", "Mktg", "Mun", "Org", "Pac", "Prop", "Ret", "Sch", "Tech",
   "Util", "Op", "Att'y", "Atty", "Sup", "Ct", "Cts", "App", "Div", "Reg", "Admin", "Agric",
   "Bhd", "Comp", "Cong", "Corr", "Ent", "Exch", "Hon", "Lab", "Mem'l", "Mfrs", "Nw", "Pers",
-  "Pres", "Prot", "Ref", "Rev", "Sav", "Sci", "Se", "Sw", "Tp", "Twp", "Vill", "Wash", "Ry")
+  "Pres", "Prot", "Ref", "Rev", "Sav", "Sci", "Se", "Sw", "Tp", "Twp", "Vill", "Wash", "Ry",
+  # Honorifics: "Did the immigration court lack authority to remove Mr." was a
+  # whole line once the "question presented is" pointer reached such texts.
+  "Mr", "Mrs", "Ms", "Dr")
 .qp_sentence <- function(cand) {
   mask <- "\uE000"
   rx <- paste0("\\b(", paste(QP_CITE_ABBR, collapse = "|"), "|[A-Z])\\.")
   masked <- str_replace_all(cand, rx, paste0("\\1", mask))
+  # An ellipsis inside a quotation ("power \u201C[t]o define and punish . . .
+  # Offences\u201D") is not the end of the sentence either.
+  masked <- str_replace_all(masked, "\\.(?=\\s?\\.)|(?<=\\.\\s?)\\.|(?<=\uE000\\s?)\\.", mask)
   # A sentence ends at a terminator followed by a capital -- or by the next
   # numbered question ("... alternative congressional map? 2. Did the ...").
   s <- str_extract(masked, "^.*?[.?](?=\\s+[A-Z\u201c\"(]|\\s+\\(?\\d{1,2}[.)]\\s|$)")
   if (is.na(s)) return(NA_character_)
   str_replace_all(s, mask, ".")
+}
+
+# The clause after the petition's "The question(s) presented (here) is/are:",
+# capitalised, or NA. Only the FIRST marker counts, and only when what follows
+# it (past an optional "1." / "(a)" enumerator and an opening quote) starts
+# with a question word -- so "the question presented here is of exceptional
+# importance" is not mistaken for a pointer.
+qp_after_marker <- function(x) {
+  m <- str_locate(x, regex(paste0(
+    "\\bquestions?\\s+presented\\s+(?:here\\s+|in\\s+this\\s+(?:case|petition)\\s+|for\\s+review\\s+)?",
+    "(?:is|are)\\s*[:.,]?\\s*"), ignore_case = TRUE))
+  if (is.na(m[1, "end"])) return(NA_character_)
+  rest <- str_sub(x, m[1, "end"] + 1L)
+  rest <- str_remove(rest, "^(\\(?[0-9IVXivxA-Da-d]{1,3}[.)]\\s+)+")
+  rest <- str_remove(rest, "^[\u201C\"]")
+  if (!str_detect(rest, regex(QP_OPENERS, ignore_case = TRUE))) return(NA_character_)
+  paste0(toupper(substr(rest, 1L, 1L)), substr(rest, 2L, nchar(rest)))
 }
 
 qp_line <- function(txt, max_chars = 360L) {
@@ -254,10 +277,20 @@ qp_line <- function(txt, max_chars = 360L) {
   # cached text opens "are: 1. Did the district court err ...".
   x <- str_remove(x, regex("^(is|are)\\s*[:.]\\s*", ignore_case = TRUE))
   x <- str_remove(x, "^(\\(?[0-9IVXivxA-Da-d]{1,3}[.)]\\s+)+")
-  # The operative clause wherever it starts: "Whether", else "WHETHER", else a
-  # lowercase "whether" that follows "question presented is" or opens a clause
-  # after a colon -- not the "regardless of whether" of a background paragraph.
-  w <- str_extract(x, "Whether\\b.*")
+  # The petition's own pointer first: "The question presented is: When a
+  # defendant ...?" names the operative clause outright, after however much
+  # background. 26-593 opens with a paragraph quoting the False Claims Act --
+  # an "established duty, whether or not fixed" -- and with no capital
+  # "Whether" anywhere, the lowercase search below took the statute's
+  # "whether or not fixed" for the question. Only when what follows the marker
+  # reads as a question: an in-body "the question presented here is
+  # important" is prose, not a pointer.
+  w <- qp_after_marker(x)
+  # Then the operative clause wherever it starts: "Whether", else "WHETHER",
+  # else a lowercase "whether" that follows "question presented is" or opens a
+  # clause after a colon -- not the "regardless of whether" of a background
+  # paragraph.
+  if (is.na(w)) w <- str_extract(x, "Whether\\b.*")
   if (is.na(w)) w <- str_extract(x, "WHETHER\\b.*")
   if (is.na(w)) {
     # The first lowercase "whether" anywhere -- "The question presented is
@@ -265,9 +298,22 @@ qp_line <- function(txt, max_chars = 360L) {
     # asks whether ..." -- except the "regardless of whether" of a background
     # sentence, which is cut out before looking. A clause that begins "whether"
     # reads as the question wherever the petition put it.
+    # Nor the concessive ", whether or not" of a quoted statute (26-593: "an
+    # established duty, whether or not fixed") -- the comma is the tell.
+    # "Whether or not" alone can open a real question ("raises a matter of
+    # exceptional importance -- whether or not a qui tam claim ..."), so only
+    # the comma form is skipped. Measured on the 16,924 cached texts
+    # (2026-11-07), it drops six lines: four fragments like 26-593's and two
+    # real questions a pro se petition set off with a comma, which now show
+    # the caption alone -- the quiet failure, as above.
+    # Both are masked rather than deleted, so a genuine "whether" after them
+    # is still found, and restored in whatever is kept.
     x2 <- str_replace_all(x, regex("\\b(regardless|irrespective) of whether\\b", ignore_case = TRUE), "\\1 of if")
+    x2 <- str_replace_all(x2, ",(\\s?)whether or not\\b", ",\\1if or not")
     m <- str_match(x2, "\\b(whether\\b.{40,})")[1, 2]
-    if (!is.na(m)) w <- str_replace_all(paste0("W", substr(m, 2L, nchar(m))), "(?<=(regardless|irrespective)) of if\\b", " of whether")
+    if (!is.na(m)) w <- paste0("W", substr(m, 2L, nchar(m))) |>
+      str_replace_all("(?<=(regardless|irrespective)) of if\\b", " of whether") |>
+      str_replace_all(",(\\s?)if or not\\b", ",\\1whether or not")
   }
   cand <- if (!is.na(w)) w else x
   s <- .qp_sentence(cand)
