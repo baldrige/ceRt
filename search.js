@@ -267,7 +267,13 @@
   }
   function render(hits, qt) {
     active = -1; last = hits;
-    if (!hits.length) { r.innerHTML = "<li class='cnone'>No matching cases.</li>"; return; }
+    // No caption matches: the reader may have typed an issue, not a party.
+    // The questions-presented search (/qp.js, /questions/) takes the same words.
+    if (!hits.length) {
+      r.innerHTML = "<li class='cnone'>No matching cases. <a href='/questions/?q=" +
+        encodeURIComponent(q.value.trim()) + "'>Search the questions presented for these words</a></li>";
+      return;
+    }
     r.innerHTML = hits.map(function (h, i) {
       var e = h.e, term = e.term >= 0 ? ' ' + MIDDOT + ' OT' + e.term : '';
       return "<li id='cres-" + i + "' role='option'><a href='" + cfg.prefix + e.d + ".html'>" +

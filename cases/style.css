@@ -24,6 +24,10 @@ p{margin:.5rem 0}
 .disp-filing{margin:.35rem 0 0;font-size:.86rem;color:var(--faint);max-width:46rem}
 .disp-word a{color:inherit;text-decoration:underline;text-decoration-color:rgba(156,14,58,.4);text-underline-offset:4px}
 .qp{font-size:1.05rem;line-height:1.55}.qp ol,.qp ul{padding-left:1.2rem;margin:.3rem 0}.qp li{margin:.35rem 0}.qp p{margin:.4rem 0}
+.qpsim ul{list-style:none;margin:.2rem 0 0;padding:0}.qpsim li{padding:.4rem 0;border-bottom:1px solid var(--rule);line-height:1.35}
+.qpsim li a{color:var(--ink);text-decoration:none;font-weight:600}.qpsim li a:hover{color:var(--accent)}
+.qpsim .qm{display:block;font-size:.84rem;color:var(--faint);font-variant-numeric:tabular-nums}.qpsim .qg{color:var(--accent);font-weight:600}
+.qpsim-note,.qpsim-more{font-size:.86rem;color:var(--faint);margin:.5rem 0 0}.qpsim-more a{color:var(--link);border-bottom:1px solid rgba(156,14,58,.4);text-decoration:none}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:1.6rem}
 .panel{background:var(--panel);border:1px solid var(--rule);padding:1rem 1.2rem}
 .panel.wide{grid-column:1/-1}

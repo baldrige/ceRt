@@ -251,6 +251,9 @@
   .cres .cd{color:var(--accent);font-variant-numeric:tabular-nums;font-weight:600;
     margin-right:.5rem;white-space:nowrap}
   .cnone{padding:.55rem .7rem;color:var(--faint);font-style:italic}
+  .cnone a,.cqp a{color:var(--link);font-style:normal;text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .cqp{margin:.45rem 0 0;font-size:.88rem;color:var(--faint)}
   /* /cases/ browse index: grouped sections with per-bucket counts. */
   .csec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
     text-transform:uppercase;letter-spacing:.12em;color:var(--accent);
@@ -372,7 +375,7 @@
     <h1>Supreme Court Report</h1>
     <hr class="brule"/>
     <p class="dek">Every case the Supreme Court is asked to hear, what it asks, and the odds it is granted — rebuilt three times a day from the Court’s own docket.</p>
-    <div class='csearch'><input type='search' id='cq' autocomplete='off' spellcheck='false' placeholder='Search all cases by name or docket number…' aria-label='Search cases'><ul id='cres' class='cres' role='listbox'></ul></div>
+    <div class='csearch'><input type='search' id='cq' autocomplete='off' spellcheck='false' placeholder='Search all cases by name or docket number…' aria-label='Search cases'><ul id='cres' class='cres' role='listbox'></ul><p class='cqp'>Looking for an issue rather than a case? <a href='/questions/'>Search the questions presented</a>.</p></div>
     <section id="live-arg" class="panel cal live" hidden aria-live="polite">
       <h2>
         <span class="ldot" aria-hidden="true"></span>
