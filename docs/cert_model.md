@@ -318,8 +318,25 @@ from 26.8% to 20.5%. They do not face a cert petition's outcome set. The honest
 fix is to take them out of this model and give them their own rates, not to
 tune the penalty around them. Open.
 
-Two consequences elsewhere:
+**The here ≤ ever clamp fires more often, on smaller gaps.** `score_conference()`
+clamps P(granted here) to P(granted ever) when the two models cross. On
+rolling origin that was 2.2% of rows with the unpenalised hazards and is 8.1%
+now, because the penalty lifts hazards that used to be almost exactly zero a
+hair above an "ever" forecast that is almost zero too: the median excess is
+0.08 points (it was 5.2), about two thirds of the crossings are on rows where
+P(ever) is under 1%, and crossings of more than one point are no more common
+(206 against 222). The clamped hazard, which is what the page prints, is not
+hurt by it: rolling-origin AUC 0.919, AP 0.278, calibration slope 1.05.
+Measured from the paper harness's saved predictions, not by the trainer.
 
+Three consequences elsewhere:
+
+- With penalised hazards the forward recursion (`conference_cumulative()`) is
+  no longer clearly worse at the "ever" targets. On rolling origin it nearly
+  ties the at-risk binary for granted-ever (AUC 0.867 against 0.869, AP 0.374
+  against 0.388) and beats the GVR binary for GVR-ever (0.845 against 0.825,
+  AP 0.224 against 0.172, though with a calibration slope of 0.77). Production
+  still uses the binaries; the GVR column is worth a second look.
 - `fit$deviance` and `fit$AIC` on a penalised `multinom` are of the penalised
   criterion. The artifact stores `deviance` as −2 log-likelihood at the fitted
   weights, and the reference page no longer prints an AIC.
