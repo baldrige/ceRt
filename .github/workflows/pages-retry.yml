@@ -32,8 +32,6 @@ on:
   schedule:
     - cron: "*/10 * * * *"
   workflow_dispatch:
-  push:                                      # TEMP: branch test, remove before merge
-    branches: [ci/pages-deploy-retry]
 
 permissions:
   pages: write      # POST /repos/{repo}/pages/builds
@@ -47,7 +45,7 @@ concurrency:
 jobs:
   retry:
     runs-on: ubuntu-latest
-    timeout-minutes: 8
+    timeout-minutes: 5
     steps:
       - name: Rebuild if the gh-pages tip's deploy failed
         timeout-minutes: 3
@@ -89,10 +87,3 @@ jobs:
 
           gh api -X POST "repos/$repo/pages/builds" --jq '"requested a Pages rebuild: " + .status'
           echo "::notice::Pages deploy of ${tip:0:10} was $last; requested rebuild (attempt $((n + 1)))"
-      - name: "TEMP: prove GITHUB_TOKEN may request a Pages build"
-        if: github.event_name == 'push'
-        timeout-minutes: 2
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          gh api -X POST "repos/$GITHUB_REPOSITORY/pages/builds" --jq '"requested: " + .status + " " + .url'
