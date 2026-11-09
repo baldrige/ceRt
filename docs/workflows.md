@@ -54,7 +54,19 @@ whole site, partitioned so they never fight over the same paths; the third only 
 | **`conferences.yml`** | Nightly `0 6 * * *` (**06:00 UTC**), year-round (weekly on Mondays until 2026-10-06) | **Yes** — full-term fetch | **Yes** — conferences, relists, applications, arguments, funnel, counsel (+ amicus) |
 | **`align-arguments.yml`** | Every 6 h, `17 */6 * * *` (GitHub cron; lateness costs nothing here) | **Yes** — line times in `arguments/<yyyy>/*.json` | **Indirectly** — the argument pages' players read them. An empty queue ends the run after the plan job (~1 min). See **[argument-transcripts.md](argument-transcripts.md)** |
 | **`deploy-watcher.yml`** | Push to `main` touching `aws/watcher/**`; manual | **No** | **No** — tests `aws/watcher/watcher.py` and builds `watcher-lambda.zip` (a 90-day artifact) to upload in the Lambda console. Deploys it too only if `AWS_DEPLOY_ROLE_ARN` is set -- not possible in this account, whose AWS Organization denies GitHub's OIDC provider |
+| **`pages-retry.yml`** | On each completion of GitHub's own `pages-build-deployment`, plus every 10 min (`*/10 * * * *`) as a backstop | **No** | **Indirectly** — if the newest deploy of the gh-pages tip failed and none is in flight, requests a Pages rebuild (`POST /pages/builds`); gives up loudly after 3 failed deploys of one commit. See below |
 | **`watch-court.yml`** — *disabled; replaced by the AWS watcher above* | A self-dispatching **chain**: each run polls for ~5h45m, then starts the next; the cron (`7,22,37,52 * * * *`) is only the restart floor | **No** — reads a 1 KB feed | **Indirectly** — dispatches `daily.yml` when the Court's Hermes transfer feed changes |
+
+**A pushed commit is not a published page.** GitHub serves gh-pages through
+its own `pages-build-deployment` run, and that run's deploy job sometimes
+times out on GitHub's side ("Timeout reached, aborting!"), leaving the commit
+unserved until something else pushes -- three times between 6 and 9 Nov 2026,
+one of which held the 9 Nov order list off the site for ~35 minutes after the
+watcher and the daily had both done their part (the watcher counts an event
+done when a daily succeeds; it cannot see the deploy). `pages-retry.yml`
+watches the deploys for every publisher at once and re-requests the build;
+the request works with the workflow's own `GITHUB_TOKEN` (`pages: write`) and
+shows up as a new `pages-build-deployment` run on the same commit.
 
 The daily also has a fourth cron, Mondays at 14:03 UTC, after the 9:30 ET
 order list. `watch-court.yml` (`.github/scripts/court_watch.py`) fingerprints

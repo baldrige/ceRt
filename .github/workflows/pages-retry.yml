@@ -1,0 +1,89 @@
+name: Retry a failed Pages deploy
+
+# GitHub's own "pages build and deployment" run sometimes fails on GitHub's
+# side ("Timeout reached, aborting!" after ten minutes in its deploy job), and
+# when it does, the commit a workflow just pushed to gh-pages is NOT served:
+# the site stays on the previous deploy until something else happens to push.
+# Three times in four days (2026-11-06 15:30, 11-07 00:18, 11-09 14:41). The
+# last one held the 9 Nov order list off the site for ~35 minutes although
+# the court watcher had caught it in a minute and the daily had published it:
+# the watcher counts an event done when a daily SUCCEEDS, and a daily cannot
+# see the deploy that follows its push.
+#
+# So this checks the deploy itself, for every publisher at once (15 workflows
+# push to gh-pages): if the newest deploy of the gh-pages tip failed and
+# nothing is in flight, it asks Pages to build again (POST /pages/builds, the
+# legacy-build rebuild of the branch tip). At most MAX_FAILS deploys of one
+# commit are attempted; past that it fails loudly instead of looping.
+#
+# Stateless on purpose -- it reads the deploy history every time -- so it can
+# run from both triggers without coordinating:
+#   * workflow_run on the Pages workflow's completion: the fast path.
+#   * a 10-minute schedule: the backstop, in case workflow_run does not fire
+#     for GitHub's dynamic Pages workflow, and for a failure that lands while
+#     a run of this one is already going.
+# A newer commit supersedes an older failure: only the tip matters, because
+# deploying the tip deploys everything before it.
+
+on:
+  workflow_run:
+    workflows: ["pages-build-deployment"]
+    types: [completed]
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+
+permissions:
+  pages: write      # POST /repos/{repo}/pages/builds
+  actions: read     # the Pages workflow's run history
+  contents: read
+
+concurrency:
+  group: pages-retry
+  cancel-in-progress: false
+
+jobs:
+  retry:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Rebuild if the gh-pages tip's deploy failed
+        timeout-minutes: 3
+        env:
+          GH_TOKEN: ${{ github.token }}
+          MAX_FAILS: "3"          # the original deploy + two retries
+          LOUD_WINDOW_MIN: "30"   # error (and so notify) only for a fresh give-up
+        run: |
+          set -euo pipefail
+          repo="$GITHUB_REPOSITORY"
+          tip=$(gh api "repos/$repo/branches/gh-pages" --jq .commit.sha)
+          runs=$(gh run list -R "$repo" --workflow pages-build-deployment --limit 40 \
+                   --json databaseId,headSha,status,conclusion,createdAt,updatedAt)
+
+          inflight=$(jq '[.[] | select(.status != "completed")] | length' <<<"$runs")
+          if [ "$inflight" -gt 0 ]; then
+            echo "a Pages deploy is in flight; nothing to do"; exit 0
+          fi
+
+          mine=$(jq --arg t "$tip" '[.[] | select(.headSha == $t)] | sort_by(.createdAt)' <<<"$runs")
+          n=$(jq length <<<"$mine")
+          if [ "$n" -eq 0 ]; then
+            echo "no deploy of gh-pages tip ${tip:0:10} yet; Pages has not picked it up"; exit 0
+          fi
+          last=$(jq -r '.[-1].conclusion' <<<"$mine")
+          if [ "$last" = "success" ]; then
+            echo "gh-pages tip ${tip:0:10} is deployed"; exit 0
+          fi
+
+          fails=$(jq '[.[] | select(.conclusion != "success")] | length' <<<"$mine")
+          echo "gh-pages tip ${tip:0:10}: latest deploy $last, $fails of $n attempt(s) unsuccessful"
+          if [ "$fails" -ge "$MAX_FAILS" ]; then
+            ended=$(jq -r '.[-1].updatedAt' <<<"$mine")
+            age=$(( ( $(date -u +%s) - $(date -u -d "$ended" +%s) ) / 60 ))
+            msg="Pages deploy of gh-pages ${tip:0:10} failed $fails times; giving up until the next push. Rebuild by hand: gh api -X POST repos/$repo/pages/builds"
+            if [ "$age" -le "$LOUD_WINDOW_MIN" ]; then echo "::error::$msg"; exit 1; fi
+            echo "::warning::$msg (last failure ${age} min ago)"; exit 0
+          fi
+
+          gh api -X POST "repos/$repo/pages/builds" --jq '"requested a Pages rebuild: " + .status'
+          echo "::notice::Pages deploy of ${tip:0:10} was $last; requested rebuild (attempt $((n + 1)))"
