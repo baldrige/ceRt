@@ -311,6 +311,11 @@ tryCatch({
 # current for the conference Case links.
 render_dockets_for(combined, site_dir)
 
+# Question Presented search and "Similar questions" (R/qp_index.R): this run
+# has just added to conferences/qp_cache.json, the largest of its three inputs.
+source("R/qp_index.R")
+write_qp_index(site_dir)
+
 # The landing page's "All pending" forecast window: every pending paid-docket
 # case in `combined`, scored with the baseline model, the top rows written as a
 # manifest the daily reads and re-checks. See R/site_forecast.R.

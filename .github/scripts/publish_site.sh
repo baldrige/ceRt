@@ -178,6 +178,23 @@ resolve_derived() {
     fi
   done
 
+  # ---- the questions index (R/qp_index.R) -------------------------------------
+  #
+  # /questions/ and /qp.js are rebuilt whole by the daily and by conferences,
+  # each from the QP caches merged above. Either side's files are a correct
+  # index of the caches that side saw, and the next run of either rebuilds from
+  # the union, so keep the copy being replayed -- as for the scorecard. A file
+  # this run deleted (a bucket that lost its last neighbour) stays deleted.
+  local qf
+  for qf in $(git ls-files -u -- questions qp.js 2>/dev/null | sed 's/.*\t//' | sort -u); do
+    if git cat-file -e ":3:$qf" 2>/dev/null; then
+      git show ":3:$qf" > "$qf" && git add "$qf" || ok=0
+    else
+      git rm -q --cached "$qf" 2>/dev/null; rm -f "$qf"
+    fi
+    echo "  resolved $qf by keeping this run's build"
+  done
+
   # ---- docket pages -----------------------------------------------------------
   #
   # On 2026-08-10 a conferences run and the 18:57 daily overlapped. Both had just

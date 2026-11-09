@@ -262,6 +262,13 @@ tryCatch({
 # breadcrumb's middle crumb points at /cases/, which returned a 404 until now.
 write_cases_index(file.path(site_dir, "cases"))
 
+# Question Presented search and the case pages' "Similar questions"
+# (R/qp_index.R, docs/qp-search.md): /questions/ and /qp.js. After the docket
+# pages, since a question is indexed only if its case page exists; a no-op when
+# no cache, caption or subject label changed since the last build.
+source("R/qp_index.R")
+write_qp_index(site_dir)
+
 # Refresh the site landing page (links the sections that exist). Each category
 # also shows its three most recent pages in a compact strip beneath the link.
 # Date-keyed sections (daily, conferences) sort by their YYYY-MM-DD; the

@@ -86,6 +86,13 @@ reversed parties, the prefixes, every typo, `US`, `Dept`, and the diacritic;
 and the one-word queries took 30–90 ms because the typo pass scanned every
 caption.
 
+## Searching by issue
+
+This box finds a case by party or number. The questions presented have their
+own search at `/questions/` ([qp-search.md](qp-search.md)): a line under the
+box links to it, and a query that matches no caption offers to run the same
+words there.
+
 ## Placement
 
 `styled_index_page(search_top = TRUE)` puts the box directly under the dek,

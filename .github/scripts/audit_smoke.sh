@@ -63,6 +63,15 @@ X
 printf 'User-agent: *\nAllow: /\n\nSitemap: https://supremecourt.report/sitemap.xml\n' > "$S/robots.txt"
 echo '{"25-1@2026-09-28":{"docket":"25-1","conf_date":"2026-09-28","scored_on":"2026-08-10","model_id":"abc123","p_grant_now":0.03}}' > "$S/cases/forecasts.json"
 
+# The questions index (R/qp_index.R): two questions, each the other's neighbour.
+mkdir -p "$S/questions"/{text,like,near}
+echo '{"hash":"x","n":2,"bucket":100,"terms":[{"t":25,"ot":"OT2025","n":2,"paid":[2,2],"ifp":[0,0]}],"subjects":[]}' > "$S/questions/meta.json"
+echo '[["25-1","A v B","",0,"Whether a."],["25-2","C v D","",1,"Whether a?"]]' > "$S/questions/text/25.json"
+echo '{"25-1":[["25-2",90]],"25-2":[["25-1",90]]}' > "$S/questions/like/25.json"
+echo '{"25-1":{"n":1,"same":1,"top":[["25-2","C v D",90,3]]},"25-2":{"n":1,"same":1,"top":[["25-1","A v B",90,2]]}}' > "$S/questions/near/25-0.json"
+echo "<html><head>$FEEDS</head><body>$MAST<script src='/qp.js' defer></script></body></html>" > "$S/questions/index.html"
+cp qp.js "$S/qp.js"
+
 echo "=== running the real audit_site.R ==="
 SITE_DIR="$S" Rscript .github/scripts/audit_site.R > "$S/out.txt" 2>&1
 rc=$?

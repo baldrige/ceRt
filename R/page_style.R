@@ -288,6 +288,9 @@ INDEX_CSS <- paste0("\n  ", palette_root(), "
   .cres .cd{color:var(--accent);font-variant-numeric:tabular-nums;font-weight:600;
     margin-right:.5rem;white-space:nowrap}
   .cnone{padding:.55rem .7rem;color:var(--faint);font-style:italic}
+  .cnone a,.cqp a{color:var(--link);font-style:normal;text-decoration:none;
+    border-bottom:1px solid rgba(@link:rgb@,.4)}
+  .cqp{margin:.45rem 0 0;font-size:.88rem;color:var(--faint)}
   /* /cases/ browse index: grouped sections with per-bucket counts. */
   .csec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
     text-transform:uppercase;letter-spacing:.12em;color:var(--accent);
@@ -323,7 +326,11 @@ INDEX_CSS <- paste0("\n  ", palette_root(), "
 SEARCH_HTML <- paste0(
   "<div class='csearch'><input type='search' id='cq' autocomplete='off' spellcheck='false' ",
   "placeholder='Search all cases by name or docket number…' aria-label='Search cases'>",
-  "<ul id='cres' class='cres' role='listbox'></ul></div>")
+  "<ul id='cres' class='cres' role='listbox'></ul>",
+  # Root-absolute: this block is written into the landing page, /cases/ and
+  # the 404, which GitHub Pages serves at whatever path was asked for.
+  "<p class='cqp'>Looking for an issue rather than a case? ",
+  "<a href='/questions/'>Search the questions presented</a>.</p></div>")
 
 # `json` and `href_prefix` are relative to the PAGE being written: the landing
 # page reaches the index at cases/search.json, the /cases/ index at search.json.
