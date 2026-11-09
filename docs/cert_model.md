@@ -27,6 +27,44 @@ treated as an experiment and leaves the documents alone, and `SKIP_MODEL_DOCS=1`
 turns the step off. To rebuild the documents without retraining, run either
 builder directly; both take `MODEL_DIR` (default `data`).
 
+### The figures in their prose
+
+Regenerating the documents fixed the tables and left the sentences. The
+coefficient tables were read from the artifacts, but "one relist: about 20%",
+"roughly 43% of the Solicitor General's petitions" and "`gap_na` carries roughly
++0.98" were typed into the generators, and they stayed there through retrains
+that moved the rates to 42.6%, 38.9% and +0.85.
+
+So the trainer also writes **`data/model_facts.json`** (`R/model_facts.R`): every
+figure either document quotes in a sentence, stamped with the md5s of the four
+artifacts it describes. The generators take prose figures only through
+`fact_span()`, which errors on an unknown key and marks the figure
+`<span data-fact="key">`; a number printed straight off an artifact inside a loop
+goes through `gen_span()`. `audit_site.R` then fails when
+
+- the facts were computed for other artifacts than the committed ones;
+- a document was generated from other facts, or a figure in it disagrees with
+  its fact;
+- a sentence holds a percentage, a decimal or a thousands-grouped number that
+  came from neither. The few that are not about the models (the "17%" worked
+  example, Rule 33.1) are listed in `PROSE_ALLOW`.
+
+Three things it does not do:
+
+- **It cannot check words.** "Eight Terms" is derived, but "the rate falls with
+  each further relist" is a sentence. The methods-note generator asserts the
+  orderings its sentences depend on and stops if a retrain reverses one.
+- **Hand-run measurements stay hand-run.** The rolling-origin gap comes from an
+  evaluation no artifact carries. It lives in `MEASURED_FACTS` with the date it
+  was measured, and the audit warns when that date is older than the models.
+- **It covers the two generated documents only.** The figures in this file
+  outside the `metrics:begin` block, and the backtest sentence in
+  `R/scorecard.R`, are still typed.
+
+`.github/scripts/make_model_facts.R` rebuilds the file for the deployed
+artifacts without retraining. It needs the corpus cache the models were fitted
+on and refuses one whose counts disagree with the baseline artifact.
+
 ## Why this is a calibration problem, not a classification problem
 
 Paid petitions are granted ~4% of the time; IFP petitions ~0.1%. A model that

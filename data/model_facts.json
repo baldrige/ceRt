@@ -1,0 +1,71 @@
+{
+  "trained_on": "2026-10-15",
+  "fingerprint": {
+    "cert_model_baseline.rds": "d2e2a4465c4dcda69359b8a3dc347e5c",
+    "cert_model_enhanced.rds": "e4bd61ef050a43d8306162a9addaecc2",
+    "cert_model_gvr.rds": "79a985e4407ae343c3f8794bf3706c19",
+    "cert_model_conference.rds": "8786d6515bfef9902664847484712a95"
+  },
+  "facts": {
+    "baseline.base_rate": 0.0413720316622691,
+    "baseline.brier_ref": 0.0396603866584053,
+    "baseline.n": 11814,
+    "baseline.n_pos": 498,
+    "baseline.auc": 0.876064881654579,
+    "baseline.ap": 0.292152988952914,
+    "baseline.brier": 0.0343110648566428,
+    "baseline.top_decile.pred": 0.231407279877493,
+    "baseline.top_decile.obs": 0.231810490693739,
+    "enhanced.base_rate": 0.0780524914416128,
+    "enhanced.brier_ref": 0.0719603000213697,
+    "enhanced.n": 16338,
+    "enhanced.n_pos": 1287,
+    "enhanced.auc": 0.881091210371657,
+    "enhanced.ap": 0.370551252229932,
+    "enhanced.brier": 0.0589078691532536,
+    "enhanced.top_decile.pred": 0.390113198796379,
+    "enhanced.top_decile.obs": 0.369033047735618,
+    "gvr.base_rate": 0.0545454545454545,
+    "gvr.brier_ref": 0.0515702479338843,
+    "gvr.n": 16338,
+    "gvr.n_pos": 861,
+    "gvr.auc": 0.836580593120195,
+    "gvr.ap": 0.204097388387215,
+    "gvr.brier": 0.0460364533227971,
+    "gvr.top_decile.pred": 0.238025019344625,
+    "gvr.top_decile.obs": 0.227801592161666,
+    "baseline.ap_lift": 7.06160604675729,
+    "baseline.deny_all_accuracy": 0.958627968337731,
+    "baseline.gap_na.beta": 0.850766343613078,
+    "enhanced.gap_na.beta": 0.942494087936204,
+    "terms.n": 8,
+    "terms.first": 2017,
+    "terms.last": 2024,
+    "us_pet.n": 244,
+    "us_pet.rate": 0.389344262295082,
+    "other_pet.rate": 0.0348314606741573,
+    "relist.0.rate": 0.0127659574468085,
+    "relist.1.rate": 0.426470588235294,
+    "relist.2.rate": 0.303571428571429,
+    "relist.3-4.rate": 0.266666666666667,
+    "relist.5+.rate": 0.153846153846154,
+    "words.lt3k.rate": 0.00591715976331361,
+    "cites.11plus.rate": 0.204166666666667,
+    "signals.unread.share": 0.0971728457761977,
+    "ifp.n": 27963,
+    "ifp.granted": 36,
+    "ifp.rate": 0.00128741551335694
+  },
+  "measured": {
+    "ro.auc_gap.min": {
+      "value": 0.006,
+      "as_of": "2026-10-13",
+      "source": "rolling origin vs leave-one-term-out on the same OT2019-24 rows; docs/cert_model_review_2026-07.md"
+    },
+    "ro.auc_gap.max": {
+      "value": 0.025,
+      "as_of": "2026-10-13",
+      "source": "rolling origin vs leave-one-term-out on the same OT2019-24 rows; docs/cert_model_review_2026-07.md"
+    }
+  }
+}

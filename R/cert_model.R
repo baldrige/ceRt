@@ -5,11 +5,11 @@
 # it out-of-time, calibrates it, and explains each prediction as a set of cues.
 #
 # Design decisions (see the feature-notes README for the rationale):
-#   * Target      : outcome == "granted" (plenary merits grant). GVRs, Rule 46
-#                   dismissals, and still-pending petitions are EXCLUDED from
-#                   training -- the model contrasts clean grants against clean
-#                   denials, which is what "likelihood of cert" means to a
-#                   reader. At inference it scores any petition.
+#   * Target      : outcome == "granted" (plenary merits grant). Every other
+#                   resolved petition -- denied, GVR'd, dismissed under Rule
+#                   46 -- is a negative; only a still-pending petition is left
+#                   out (see set_target() for why excluding GVRs and dismissals
+#                   was wrong). At inference it scores any petition.
 #   * Segment     : PAID petitions only. IFP grant rates are ~0.1%, a different
 #                   regime; pooling lets the easy IFP negatives wash out the
 #                   paid signal. IFP is modeled separately (or not surfaced).
@@ -772,8 +772,8 @@ assemble_corpus <- function(paths) {
 
 # Set the binary `label` for a modeling target, leaving all other rows NA so
 # model fitting drops them:
-#   "grant" -> granted (1) vs denied (0)               [the cert model]
-#   "gvr"   -> GVR (1) vs granted|denied (0)           [the companion GVR-risk model]
+#   "grant" -> granted (1) vs denied|gvr|dismissed (0)     [the cert model]
+#   "gvr"   -> GVR (1) vs granted|denied|dismissed (0)     [the companion GVR-risk model]
 set_target <- function(corpus, target = c("grant", "gvr")) {
   target <- match.arg(target)
   # Every resolved petition is a valid negative. Dropping GVRs and Rule 46
@@ -1025,7 +1025,7 @@ word_band <- function(words) {
   out
 }
 
-# Training frame: paid, decided as grant or deny, complete predictors. Residual
+# Training frame: paid, resolved (any outcome but pending), complete predictors. Residual
 # levels that would separate the likelihood (the "OTHER" court bucket has zero
 # grants; the empty-caption entity "other" is a handful of cases) are lumped
 # into a neighboring low-rate level so glm coefficients stay finite. The raw

@@ -125,6 +125,13 @@ files <- list(cert_model_baseline.rds   = slim(baseline),
               cert_model_sg.rds         = sg_layer)
 for (nm in names(files)) saveRDS(files[[nm]], file.path(out_dir, nm))
 
+# The figures the methods note and the reference quote in prose, written beside
+# the artifacts they describe and stamped with their md5s (R/model_facts.R).
+# Both documents refuse facts that do not match the artifacts next to them.
+source("R/model_facts.R")
+write_model_facts(compute_model_facts(corpus, out_dir), out_dir)
+cat("Wrote ", file.path(out_dir, MODEL_FACTS_FILE), "\n", sep = "")
+
 # ---- report ------------------------------------------------------------------
 # Generated, not hand-maintained: the published table drifted out of sync with
 # the shipped artifacts and stayed wrong for months. Then it was printed for
