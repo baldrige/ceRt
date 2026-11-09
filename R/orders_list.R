@@ -593,7 +593,10 @@ render_orders <- function(site_dir) {
     cl <- counts_line(unlist(m$counts))
     list(href = m$page,
          label = paste0(.ord_kind_word(m), " · ", .ord_date(m$date, "%A, %B %e, %Y")),
-         meta = if (nzchar(cl)) cl else if (identical(m$kind, "rules")) "" else paste(m$n, "order(s)"))
+         meta = if (nzchar(cl)) cl else if (identical(m$kind, "rules")) "" else paste(m$n, "order(s)"),
+         # A full order list's tally runs to eight or more kinds; let it wrap
+         # beside the title rather than squeeze it (page_style.R, .count.wrap).
+         meta_wrap = TRUE)
   })
   styled_index_page(
     .orders_path(site_dir, "index.html"),
