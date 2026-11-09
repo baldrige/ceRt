@@ -100,6 +100,10 @@ p{margin:.5rem 0}
 .disp-filing{margin:.35rem 0 0;font-size:.86rem;color:var(--faint);max-width:46rem}
 .disp-word a{color:inherit;text-decoration:underline;text-decoration-color:rgba(@accent:rgb@,.4);text-underline-offset:4px}
 .qp{font-size:1.05rem;line-height:1.55}.qp ol,.qp ul{padding-left:1.2rem;margin:.3rem 0}.qp li{margin:.35rem 0}.qp p{margin:.4rem 0}
+.qpsim ul{list-style:none;margin:.2rem 0 0;padding:0}.qpsim li{padding:.4rem 0;border-bottom:1px solid var(--rule);line-height:1.35}
+.qpsim li a{color:var(--ink);text-decoration:none;font-weight:600}.qpsim li a:hover{color:var(--accent)}
+.qpsim .qm{display:block;font-size:.84rem;color:var(--faint);font-variant-numeric:tabular-nums}.qpsim .qg{color:var(--accent);font-weight:600}
+.qpsim-note,.qpsim-more{font-size:.86rem;color:var(--faint);margin:.5rem 0 0}.qpsim-more a{color:var(--link);border-bottom:1px solid rgba(@link:rgb@,.4);text-decoration:none}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:1.6rem}
 .panel{background:var(--panel);border:1px solid var(--rule);padding:1rem 1.2rem}
 .panel.wide{grid-column:1/-1}
@@ -403,7 +407,12 @@ write_docket_css <- function(out_dir) {
 # v50: a distributed petition's forecast box puts the sentence explaining the
 # headline directly after it, and the at-filing figure after that with its own
 # base rate; each base rate names its population. Rendering only.
-PAGE_TEMPLATE_VERSION <- "v50"
+# v51: a petition with a Question Presented carries an empty, hidden "Similar
+# questions" section and loads /qp.js, which fills it at read time from
+# /questions/near/ (R/qp_index.R). The neighbours are deliberately NOT a page
+# input: baked in, a list would go stale the day a newer petition asked the same
+# question, since the daily re-renders only what it fetched. Markup only.
+PAGE_TEMPLATE_VERSION <- "v51"
 
 # ---- small helpers ------------------------------------------------------------
 # A probability at significant figures, as the conference report prints it
@@ -1488,6 +1497,15 @@ docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
     # text, a question glued mid-line to the end of the one before it (26-336)
     # was invisible, and the heading disagreed with the list beneath it.
     if (nzchar(qp_html)) paste0("<section><h2>Question", if (str_count(qp_html, fixed("<li>")) >= 2) "s" else "", " presented</h2><div class='qp'>", qp_html, "</div></section>") else "",
+    # Filled by /qp.js, or left hidden: only a petition whose own question
+    # passed the index's gate has neighbours (R/qp_index.R). Keyed on the
+    # PETITION's question, so a page showing a Court-directed question from an
+    # application still gets none.
+    if (!is_app && nzchar(.mdq(qp))) paste0(
+      "<section id='qpsim' class='qpsim' data-d='", dkt, "' hidden><h2>Similar questions</h2>",
+      "<p class='qpsim-note'>Other petitions whose question is worded like this one.</p>",
+      "<ul></ul><p class='qpsim-more'></p></section>",
+      "<script src='/qp.js' defer></script>") else "",
     "<div class='grid'>", counsel_panel, case_panel, "</div>",
     argsec,
     "<section><h2>Proceedings</h2>", tl_legend, tl_body, "</section>",

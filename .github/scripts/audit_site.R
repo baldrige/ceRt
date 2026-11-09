@@ -1038,6 +1038,81 @@ local({
   }
 })
 
+# ---- questions presented: the search index and "similar questions" -----------
+# R/qp_index.R writes /questions/ and /qp.js; docs/qp-search.md. Every result
+# and every neighbour is a link to a case page, so the invariant is the one the
+# case index already has -- nothing listed may be a 404 -- plus the pieces
+# agreeing with each other, since a reader loads them separately.
+cat("\nQuestions presented\n")
+local({
+  qd <- file.path(site, "questions")
+  page <- file.path(qd, "index.html"); mp <- file.path(qd, "meta.json")
+  if (!file.exists(page) && !file.exists(mp)) {
+    # Before the first daily after the feature merged, and on a partial site.
+    warn("questions index", "questions/ not built -- no Question Presented search on this site")
+    return(invisible())
+  }
+  meta <- tryCatch(fromJSON(mp, simplifyVector = FALSE), error = function(e) NULL)
+  if (is.null(meta) || !length(meta$terms)) {
+    fail("questions index", "questions/meta.json missing or unreadable -- the search page cannot load a single Term")
+    return(invisible())
+  }
+  if (!file.exists(page)) fail("questions page", "questions/index.html missing")
+  else if (!grepl("/qp.js", slurp(page), fixed = TRUE)) fail("questions page", "does not load /qp.js")
+  else ok("questions page", "present and loads /qp.js")
+  if (!file.exists(file.path(site, "qp.js")))
+    fail("qp.js", "missing at the site root -- the search and every case page's Similar questions are dead")
+
+  rd <- function(...) tryCatch(fromJSON(file.path(qd, ...), simplifyVector = FALSE), error = function(e) NULL)
+  first <- function(rows) vapply(rows, function(r) as.character(r[[1]]), character(1))
+  indexed <- character(); bad <- character()
+  for (t in meta$terms) {
+    tt <- sprintf("%02d", as.integer(t$t))
+    rows <- rd("text", paste0(tt, ".json"))
+    if (is.null(rows)) { bad <- c(bad, paste0("text/", tt, ".json unreadable")); next }
+    if (length(rows) != as.integer(t$n))
+      bad <- c(bad, sprintf("text/%s.json holds %d, meta says %d", tt, length(rows), as.integer(t$n)))
+    indexed <- c(indexed, first(rows))
+  }
+  if (length(bad)) fail("questions shards", paste(utils::head(bad, 3), collapse = "; "))
+  else ok("questions shards", sprintf("%s questions in %d Term file(s), as meta.json counts them",
+                                      format(length(indexed), big.mark = ","), length(meta$terms)))
+  ghost <- setdiff(indexed, sub("\\.html$", "", docket_files))
+  if (length(ghost))
+    fail("questions resolve", sprintf("%d indexed question(s) have no case page -- a result would 404, e.g. %s",
+                                      length(ghost), paste(utils::head(ghost, 5), collapse = ", ")))
+  else ok("questions resolve", "every indexed question has a case page")
+
+  # Neighbours: each one must itself be indexed (so it has a page and a row to
+  # show), and a near/ file must sit where a case page will look for it.
+  stray <- character(); n_like <- 0L
+  for (t in meta$terms) {
+    l <- rd("like", sprintf("%02d.json", as.integer(t$t)))
+    if (is.null(l)) { stray <- c(stray, sprintf("like/%02d.json unreadable", as.integer(t$t))); next }
+    n_like <- n_like + length(l)
+    nb <- unique(unlist(lapply(l, first)))
+    stray <- c(stray, setdiff(c(names(l), nb), indexed))
+  }
+  bucket <- if (is.null(meta$bucket)) 100L else as.integer(meta$bucket)
+  near_files <- list.files(file.path(qd, "near"), pattern = "\\.json$")
+  n_near <- 0L
+  for (f in near_files) {
+    j <- rd("near", f)
+    if (is.null(j)) { stray <- c(stray, paste0("near/", f, " unreadable")); next }
+    n_near <- n_near + length(j)
+    want <- paste0(substr(names(j), 1, 2), "-", as.integer(sub("^\\d{2}-", "", names(j))) %/% bucket, ".json")
+    if (any(want != f)) stray <- c(stray, paste0("near/", f, " holds a docket from another bucket"))
+    stray <- c(stray, setdiff(c(names(j), unlist(lapply(j, function(e) first(e$top)))), indexed))
+  }
+  if (length(stray))
+    fail("similar questions", sprintf("%d problem(s), e.g. %s", length(stray),
+                                      paste(utils::head(unique(stray), 4), collapse = "; ")))
+  else if (n_like != n_near)
+    fail("similar questions", sprintf("like/ lists %d petitions with neighbours, near/ %d -- a case page and the search page would disagree", n_like, n_near))
+  else ok("similar questions", sprintf("%s petitions have neighbours; every neighbour is indexed; %d near/ file(s) in place",
+                                       format(n_near, big.mark = ","), length(near_files)))
+})
+
 # ---- verdict -----------------------------------------------------------------
 lv <- vapply(results, function(r) r$level, character(1))
 cat(sprintf("\n%d checks: %d ok, %d WARN, %d FAIL\n",

@@ -34,10 +34,10 @@ petitions. Most of Tier 1 below is a renderer over values that exist today.
 
 | # | Feature | Where the data already is | What's missing |
 | --- | --- | --- | --- |
-| 9 | **QP full-text search** — search every petition's Question Presented, granted *and* denied | The QP caches (`conferences/qp_cache.json`, ~16 MB) | `search.json` is docket→caption only (`R/docket_page.R:904`). A QP index is much bigger and needs a client-side strategy that isn't "ship 16 MB" |
+| 9 | ~~**QP full-text search**~~ — search every petition's Question Presented, granted *and* denied | The QP caches (`conferences/qp_cache.json`, ~16 MB) | **Shipped** — `/questions/`, per-Term text loaded newest first; see [qp-search.md](qp-search.md). Not every petition: IFP coverage starts at OT2025 |
 | 10 | **Bulk data download** — the parsed corpus as CSV/Parquet under `/data/` | Everything; the term snapshots already exist as artifacts | One workflow step and a licence statement |
 | 11 | **Per-case JSON** — `/cases/25-170.json` beside the HTML | `render_dockets_for()` holds the whole record at render time | ~55k extra files on gh-pages; needs a size check first |
-| 12 | **Similar petitions** — link a case to petitions raising the same question | QP text | An embedding or TF-IDF index, and a way to keep it cheap |
+| 12 | ~~**Similar petitions**~~ — link a case to petitions raising the same question | QP text | **Shipped** — TF-IDF neighbours, loaded by the case page at read time; see [qp-search.md](qp-search.md) |
 
 ## Tier 4 — credibility and reach
 
