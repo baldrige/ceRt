@@ -47,7 +47,7 @@ concurrency:
 jobs:
   retry:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 8
     steps:
       - name: Rebuild if the gh-pages tip's deploy failed
         timeout-minutes: 3
@@ -94,4 +94,5 @@ jobs:
         timeout-minutes: 2
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh api -X POST "repos/$GITHUB_REPOSITORY/pages/builds" --jq '"requested: " + .status + " " + .url'
+        run: |
+          gh api -X POST "repos/$GITHUB_REPOSITORY/pages/builds" --jq '"requested: " + .status + " " + .url'
