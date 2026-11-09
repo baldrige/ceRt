@@ -119,6 +119,13 @@ A feature that is constant in training aliases to an `NA` coefficient and then
 contributes exactly zero at serve time, silently — this shipped undetected for
 months. `fit_cert_model()` now fails on any aliased coefficient; do not relax it.
 
+The conference model is fitted with a ridge penalty, `CONF_DECAY`, through
+`fit_conference_multinom()` — the only place it is fitted, so an out-of-sample
+evaluation cannot be of a different estimator than the one serving. The penalty
+is what calibrates the "Granted here" column (rolling-origin slope 0.87 → 0.99);
+a calibration map on top was measured and adds nothing. `load_cert_models()`
+drops a conference artifact fitted at another value.
+
 **A figure about the models is written down in one place: `data/model_facts.json`**,
 which the trainer writes beside the artifacts (`R/model_facts.R`). The methods
 note and the coefficient reference take every prose figure from it through

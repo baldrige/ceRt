@@ -35,23 +35,40 @@
 # conferences run passes it; otherwise from the previous scorecard.json, then
 # cases/search.json for the caption alone. Subject areas from cases/subjects.json.
 #
-# THE YARDSTICK. SCORECARD_REFERENCE is the conference model's granted-here
-# backtest: rolling origin, trained on Terms before t and scored on t for
-# OT2019-OT2024 (verified 2026-10-13; see docs/cert_model.md). One run for every
-# figure on the page, so the AUC, Brier, calibration slope and top-10% recall
-# agree with each other, and docs/cert_model.md's competing-risks table quotes
-# the same run (both verified 2026-10-13).
+# THE YARDSTICK. scorecard_reference() is the conference model's granted-here
+# backtest: rolling origin, trained on Terms before t and scored on t. One run
+# for every figure on the page, so the AUC, Brier, calibration slope and
+# top-10% recall agree with each other.
+#
+# It is read from data/model_facts.json, which the trainer writes beside the
+# artifact (conference_oos_eval(), R/cert_model.R). It used to be a list of
+# constants copied from a hand-run table, and a retrain would have left the
+# page holding the new model to the old model's record -- including a sentence
+# saying the forecasts "ran slightly over-dispersed (calibration slope 0.87)"
+# about a model whose slope is 0.99.
 
 suppressPackageStartupMessages(library(jsonlite))
 
 SCORECARD_DIR  <- "scorecard"
 SCORECARD_JSON <- "scorecard.json"
 
-SCORECARD_REFERENCE <- list(
-  scheme = "Rolling origin, OT2019–OT2024", rows = 11716L, events = 346L,
-  base = 0.0295, auc = 0.914, auc_ci = c(0.901, 0.926), ap = 0.267,
-  brier = 0.0247, brier_skill = 0.138, logloss = 0.0923,
-  cal_slope = 0.870, cal_intercept = 0.054, top10_recall = 0.639)
+scorecard_reference <- function(facts_dir = "data") {
+  path <- file.path(facts_dir, "model_facts.json")
+  if (!file.exists(path)) stop("scorecard_reference(): ", path, " does not exist; the trainer writes it")
+  mf <- fromJSON(path, simplifyVector = FALSE)
+  g <- function(k, d = NULL) {
+    v <- mf$facts[[paste0("conference.granted.ro.", k)]]
+    if (is.null(v)) stop("scorecard_reference(): no fact conference.granted.ro.", k, " in ", path)
+    if (is.null(d)) v else round(v, d)
+  }
+  list(scheme = sprintf("Rolling origin, OT%d–OT%d", mf$facts[["conference.ro.first"]], mf$facts[["conference.ro.last"]]),
+       trained_on = mf$trained_on,
+       rows = as.integer(g("n")), events = as.integer(g("n_pos")),
+       base = g("base_rate", 4), auc = g("auc", 3), auc_ci = c(g("auc_lo", 3), g("auc_hi", 3)),
+       ap = g("ap", 3), brier = g("brier", 4), brier_skill = g("brier_skill", 3),
+       logloss = g("logloss", 4), cal_slope = g("slope", 3), cal_intercept = g("intercept", 3),
+       top10_recall = g("top10_recall", 3))
+}
 
 # A conference belongs to the Term it opens or continues: the long conference in
 # late September is the new Term's, a June conference the old one's.
@@ -190,7 +207,7 @@ build_scorecard <- function(site_dir, dist = NULL, as_of = Sys.Date()) {
   list(generated = format(Sys.time(), "%Y-%m-%dT%H:%MZ", tz = "UTC"),
        term = paste0("OT", max(if (length(scored_terms)) scored_terms else terms)),
        term_year = max(if (length(scored_terms)) scored_terms else terms),
-       reference = SCORECARD_REFERENCE,
+       reference = scorecard_reference(),
        conferences = conf_rows, cases = case_rows)
 }
 
@@ -391,7 +408,7 @@ SCORECARD_BODY <- "
     <h3>The outcome</h3>
     <p>Read from the orders released between the conference and the next one. <b>Granted</b> and <b>GVR'd</b> are as ordered. <b>Carried over</b> means the order lists named no disposition: relisted, held, rescheduled, a call for the Solicitor General's views, or only the IFP motion decided. Carried over and GVR'd both count as not granted at this conference. The granted-ever view uses everything ordered since the conference. Habeas, mandamus, prohibition and rehearing entries are left out.</p>
     <h3>The yardstick</h3>
-    <p>The backtest figures are the conference model's rolling-origin results: trained on earlier Terms and scored on OT2019–OT2024, 11,716 petition-conferences with 346 grants. See <a href='/methods.html'>the methods note</a>. A Term's live record will be noisy for months: the Court grants a few dozen petitions a Term, and AUC and calibration from a handful of grants carry wide intervals.</p>
+    <p>The backtest figures are the conference model's rolling-origin results, each Term scored by a model trained on earlier Terms only. <span id='refnote'></span> See <a href='/methods.html'>the methods note</a>. A Term's live record will be noisy for months: the Court grants a few dozen petitions a Term, and AUC and calibration from a handful of grants carry wide intervals.</p>
   </section>
   <p class='foot'>Forecasts from the site's forecast ledger (<a href='/cases/forecasts.json'>cases/forecasts.json</a>); outcomes from the Court's order lists as parsed for <a href='/orders/'>the order list pages</a>. The data behind this page: <a href='scorecard.json'>scorecard.json</a>.</p>
 </main>
@@ -774,7 +791,8 @@ function drawCalib() {
     placeTip($("tip3"), wrap, e);
   });
   svg.addEventListener("pointerleave", () => $("tip3").hidden = true);
-  $("calibnote").textContent = `Horizontal axis on a square-root scale so the low groups are readable. In the backtest the conference forecasts ran slightly over-dispersed (calibration slope ${REF.cal_slope}): the highest forecasts a little too high, the lowest a little too low.`;
+  $("calibnote").textContent = `Horizontal axis on a square-root scale so the low groups are readable. ${REF.cal_slope < 0.95 ? `In the backtest the conference forecasts ran over-dispersed (calibration slope ${REF.cal_slope}): the highest forecasts a little too high, the lowest a little too low.` : REF.cal_slope > 1.05 ? `In the backtest the conference forecasts ran under-dispersed (calibration slope ${REF.cal_slope}): the highest forecasts a little too low, the lowest a little too high.` : `In the backtest the conference forecasts were calibrated across their range (calibration slope ${REF.cal_slope}, where 1 is exact).`}`;
+  if ($("refnote")) $("refnote").textContent = `${REF.scheme}: ${REF.rows.toLocaleString()} petition-conferences with ${REF.events} grants, for the model trained ${REF.trained_on}. Forecasts logged before that model was deployed came from its predecessor.`;
 }
 
 // ---------- ledger table ----------

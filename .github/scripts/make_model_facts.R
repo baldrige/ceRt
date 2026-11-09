@@ -49,7 +49,9 @@ for (k in list(list("baseline", corpus, BASELINE_FEATURES),
   message(format(Sys.time(), "%H:%M:%S"), "  rolling origin: ", k[[1]])
   ro[[k[[1]]]] <- rolling_origin_eval(model_frame(k[[2]], k[[3]]), k[[3]])
 }
-mf <- compute_model_facts(corpus, model_dir, ro, trained_on)
+message(format(Sys.time(), "%H:%M:%S"), "  rolling origin: conference")
+conf_oos <- conference_oos_eval(conf_model_frame(panel))
+mf <- compute_model_facts(corpus, model_dir, ro, conf_oos, trained_on)
 write_model_facts(mf, model_dir)
 cat("wrote ", path, ": ", length(mf$facts), " computed + ", length(mf$measured),
     " measured facts for models trained ", mf$trained_on, "\n", sep = "")

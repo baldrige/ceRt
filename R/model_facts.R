@@ -64,8 +64,9 @@ fingerprint_id <- function(fp)
 # over the same rows the baseline's model frame starts from -- paid and
 # resolved -- so a figure in the prose and a count in the metrics table are
 # about the same petitions.
-# `ro` is list(baseline =, enhanced =, gvr =), each a rolling_origin_eval().
-compute_model_facts <- function(corpus, model_dir, ro, trained_on = Sys.Date()) {
+# `ro` is list(baseline =, enhanced =, gvr =), each a rolling_origin_eval();
+# `conf` is a conference_oos_eval().
+compute_model_facts <- function(corpus, model_dir, ro, conf, trained_on = Sys.Date()) {
   art <- lapply(stats::setNames(MODEL_FACT_ARTIFACTS, c("baseline", "enhanced", "gvr", "conference")),
                 function(f) readRDS(file.path(model_dir, f)))
   f <- list()
@@ -111,6 +112,22 @@ compute_model_facts <- function(corpus, model_dir, ro, trained_on = Sys.Date()) 
   gaps <- vapply(names(ro), function(k) f[[paste0("ro.", k, ".auc_gap")]], numeric(1))
   f[["ro.auc_gap.min"]] <- min(gaps); f[["ro.auc_gap.max"]] <- max(gaps)
   f[["ro.first"]] <- min(ro$baseline$origins); f[["ro.last"]] <- max(ro$baseline$origins)
+
+  # The conference hazards out of sample, granted-here and GVR-here. The
+  # evaluation refits with fit_conference_multinom() at CONF_DECAY, so it is of
+  # this artifact only if the artifact was fitted the same way on the same rows.
+  cm <- art$conference
+  if (!isTRUE(all.equal(cm$decay, CONF_DECAY)) || !identical(as.integer(cm$n), as.integer(conf$n_frame)))
+    stop(sprintf("compute_model_facts(): the conference artifact (decay %s, %s rows) is not the model the evaluation refitted (decay %s, %s rows).",
+                 format(cm$decay %||% NA), format(cm$n), format(CONF_DECAY), format(conf$n_frame)), call. = FALSE)
+  f[["conference.decay"]] <- cm$decay; f[["conference.n"]] <- cm$n
+  f[["conference.ro.first"]] <- min(conf$origins); f[["conference.ro.last"]] <- max(conf$origins)
+  for (lv in c("granted", "gvr")) for (sch in c("ro", "loto")) {
+    r <- conf[[lv]][[sch]]
+    for (k in c("n", "n_pos", "base_rate", "mean", "auc", "ap", "brier", "brier_skill",
+                "logloss", "slope", "intercept", "top10_recall", if (sch == "ro") c("auc_lo", "auc_hi")))
+      f[[paste("conference", lv, sch, k, sep = ".")]] <- r[[k]]
+  }
 
   paid <- corpus[corpus$type == "paid" & !is.na(corpus$label), ]
   ifp  <- corpus[corpus$type == "ifp"  & !is.na(corpus$label), ]

@@ -238,7 +238,15 @@ dismissals excluded.
 | granted eventually | AUC 0.860 · AP 0.354 · Brier 0.0614 | **AUC 0.870 · AP 0.390 · Brier 0.0581** |
 | GVR at this conference | **AUC 0.892 · AP 0.140 · Brier 0.0178** | GVR binary: AUC 0.834 · AP 0.078 · Brier 0.0209 |
 
-Computed on the deployed artifacts (trained 2026-09-22). Verified 2026-10-13 by
+**This table is the comparison that chose the design, and it is of the
+unpenalised conference model.** The model has since gained a ridge penalty
+(next section), which widens its lead on its own targets: granted here AUC
+0.919 · AP 0.272 · Brier 0.0245, GVR here 0.901 · 0.161 · 0.0166, on the same
+rows. Those current figures are the `conference.*` facts in
+`data/model_facts.json`, recomputed at every retrain. The "granted eventually"
+cell for competing risks, and the binaries' columns, have not been re-run.
+
+Computed on the artifacts trained 2026-09-22. Verified 2026-10-13 by
 a full re-run of the evaluation and by recomputing every cell from its
 out-of-sample predictions with independent metric code. This
 table previously read 0.920 / 0.259 / 0.0248 for the first cell, from an
@@ -259,6 +267,66 @@ exceeded 1 on 140 of 16,333 panel rows (max 1.43), implying a negative P(denied)
 Note the conditioning: `dismissed` is **not** one of the four risks (84 rows,
 0.5%), so these are probabilities conditional on the petition not being dismissed
 under Rule 46.
+
+### The conference model is penalised (2026-11-09)
+
+Until then it was the one forecast surface with neither a penalty nor a
+calibration step, and it showed. On rolling origin its hazards were
+over-dispersed (calibration slope 0.87 for granted here, 0.72 for GVR here:
+the high forecasts too high, the low ones too low), and six of its cells were
+separated, sitting at coefficients of |9| to |17| that were wherever the
+optimiser stopped. The logits get Firth for exactly this.
+
+`CONF_DECAY = 0.5` is a ridge penalty on the multinomial's weights (`nnet`'s
+`decay`). Measured on rolling origin, OT2019–24, the same 11,716 rows, against
+the shipped fit, with a paired petition-clustered bootstrap of the four-way log
+loss:
+
+| decay | log loss vs shipped | slope, granted / GVR here | GVR-here AP |
+|---|---|---|---|
+| 0 (shipped) | — | 0.87 / 0.72 | 0.140 |
+| 0.1 | −0.0091 [−0.0140, −0.0049] | 0.93 / 0.83 | 0.147 |
+| **0.5** | **−0.0106 [−0.0166, −0.0056]** | **0.99 / 1.00** | 0.161 |
+| 1 | −0.0091 [−0.0157, −0.0037] | 1.04 / 1.11 | 0.167 |
+| 2 | −0.0048 [−0.0120, +0.0012] | 1.10 / 1.24 | 0.169 |
+| 5 | +0.0076 [−0.0006, +0.0144] | 1.21 / 1.46 | 0.166 |
+
+The over-dispersion was the overfit, and the penalty is the whole fix. The
+value is not finely tuned and does not need to be: anything from 0.1 to 1 is
+significantly better than no penalty, and leave-one-term-out picks 0.5 too.
+
+**A calibration map was measured and rejected.** Temperature scaling,
+temperature plus per-outcome offsets, and a per-outcome slope-and-offset map,
+each fitted on inner leave-one-term-out predictions within the training Terms:
+at decay 0.5 every one lands within 0.001 log loss of no map. On the
+unpenalised model the best of them (temperature) gains −0.0024 [−0.0054,
++0.0001] — a quarter of the penalty's gain, with an interval that reaches
+zero — and leaves GVR here at a slope of 0.85. A map rescales the forecasts;
+it does not fix the cells that were wrong.
+
+What it changes on the pages: the median granted-here forecast moves 0.06
+points; 9% of panel rows move by more than one point and 0.6% by more than
+five. Where the unpenalised model said 20% or more, the mean falls from 37.9%
+to 35.8% against 35.1% observed. A pro se petition's granted-here is now small
+(0.07% on average) rather than exactly zero.
+
+**The cost.** A § 1253 direct appeal is never "denied" — it is noted, summarily
+affirmed, dismissed or carried over — and the unpenalised fit knew that
+exactly. The penalty treats it as an estimate: those 41 panel rows now carry
+about 14% P(denied here) against 0 observed, and their mean granted-here falls
+from 26.8% to 20.5%. They do not face a cert petition's outcome set. The honest
+fix is to take them out of this model and give them their own rates, not to
+tune the penalty around them. Open.
+
+Two consequences elsewhere:
+
+- `fit$deviance` and `fit$AIC` on a penalised `multinom` are of the penalised
+  criterion. The artifact stores `deviance` as −2 log-likelihood at the fitted
+  weights, and the reference page no longer prints an AIC.
+- The Forecast Scorecard's backtest yardstick is this model's rolling-origin
+  record, read from the facts (`scorecard_reference()`). The ledger is not
+  re-scored, so OT2026's live record mixes forecasts from the unpenalised
+  model (before 2026-11-09) with the penalised one.
 
 ## The leakage rules
 
@@ -512,8 +580,9 @@ the 2026-10-15 models; the current figures are the `ro.*` facts in
 `data/model_facts.json`, which the trainer recomputes at every retrain with
 `rolling_origin_eval()` (the Platt map is refitted inside each origin, on
 leave-one-term-out predictions within the earlier Terms). The conference
-hazard is not part of that run: its gap was 0.006 AUC when last measured by
-hand (2026-10-13, before that retrain). This section used to say
+hazard has its own run (`conference_oos_eval()`, the `conference.*` facts): on
+the same rows, granted here trails by 0.005 AUC and 0.022 AP, GVR here by 0.011
+and 0.046. This section used to say
 the two agreed "to within 0.003 AUC". No harness in the repository reproduced
 that, and the measured gap is larger. Part of the gap is mechanical: the
 OT2019 origin trains on only two Terms, and no rolling-origin fit sees as much
@@ -542,12 +611,14 @@ bare integers for scannability. A rendered `39%` means roughly 28–49%.
   observed at k=5, ≈17% against ≈13% at k≥6). This is where `hold_signal()`
   lives and it needs its own investigation rather than another feature.
 - **`gap_na` has no legal story** ([#8](https://github.com/baldrige/ceRt/issues/8)). A missing lower-court date raises the forecast
-  (+0.98 log-odds) and the underlying rate agrees (6.1% vs 4.4%), but this is
+  (+0.85 log-odds in the baseline, +0.94 at risk; `*.gap_na.beta` in the facts) and the underlying rate agrees (6.1% vs 4.4%), but this is
   more likely a data-quality proxy than a signal. Treat with suspicion.
 - **`USDC_APPEAL` rests on 31 rows** ([#7](https://github.com/baldrige/ceRt/issues/7)) and is the
   one level this pass made *less* conservative (8.4% → 25.0%). It was `USDC` until
   2026-07-30, when it was found to be pooling two populations that behave nothing
   alike — see below.
+- **§ 1253 appeals in the conference model.** The ridge penalty gives them a
+  chance of denial they do not have (see "The conference model is penalised").
 - **Entity typing is heuristic** (caption regexes). A mislabelled party
   mislabels its cues; ~14.5% of respondents were mistyped before 2026-07 and the
   remainder is unmeasured.

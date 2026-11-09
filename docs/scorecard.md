@@ -79,10 +79,17 @@ conference", over the latest Term with a decided conference:
 - calibration by forecast group, with Wilson intervals;
 - the gains curve: grants found reading down the list in forecast order.
 
-The yardstick is `SCORECARD_REFERENCE`: the conference model's granted-here
-rolling-origin backtest (OT2019–OT2024, 11,716 rows, 346 grants), all from one
-harness so the figures agree with each other. `docs/cert_model.md` quotes the
-same run.
+The yardstick is `scorecard_reference()`: the conference model's granted-here
+rolling-origin backtest, all from one run so the figures agree with each other.
+It is read from `data/model_facts.json`, where the trainer writes it
+(`conference_oos_eval()` in `R/cert_model.R`), so a retrain moves the yardstick
+with the model. Until 2026-11 it was a list of constants copied from a hand-run
+table.
+
+The ledger is not re-scored when the model changes. A Term's live record can
+therefore mix forecasts from two models, held to the backtest of the newer one;
+each ledger entry carries its `model_id`, and the page says when the current
+model was trained.
 
 ## When it runs
 
