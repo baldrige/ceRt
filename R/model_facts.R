@@ -34,17 +34,18 @@ MODEL_FACTS_FILE <- "model_facts.json"
 MODEL_FACT_ARTIFACTS <- c("cert_model_baseline.rds", "cert_model_enhanced.rds",
                           "cert_model_gvr.rds", "cert_model_conference.rds")
 
-# Figures that are true of the models but cannot be read off the artifacts or
-# the corpus: they come from an evaluation that is run by hand. Each carries the
-# date it was measured, and audit_site.R WARNs when that date is older than the
-# models -- a retrain does not re-run a hand-run evaluation, which is how the
-# "within 0.003 AUC" rolling-origin claim outlived the measurement behind it.
-# Re-measure, then change the value AND the date here.
-MEASURED_FACTS <- list(
-  ro.auc_gap.min = list(value = 0.006, as_of = "2026-10-13",
-    source = "rolling origin vs leave-one-term-out on the same OT2019-24 rows; docs/cert_model_review_2026-07.md"),
-  ro.auc_gap.max = list(value = 0.025, as_of = "2026-10-13",
-    source = "rolling origin vs leave-one-term-out on the same OT2019-24 rows; docs/cert_model_review_2026-07.md"))
+# Figures that are true of the models but cannot be computed by the trainer:
+# they come from an evaluation that is run by hand. Each entry is
+#   key = list(value =, as_of = "YYYY-MM-DD", source = "...")
+# and audit_site.R WARNs when as_of is older than the models -- a retrain does
+# not re-run a hand-run evaluation.
+#
+# Empty, and better so. The rolling-origin gap was the one entry: quoted as
+# "within 0.003 AUC" for months with no harness behind it, then as a figure
+# measured two days before a retrain. The trainer runs rolling_origin_eval()
+# now and the gap is computed like everything else. Before adding an entry
+# here, ask whether the trainer could run the measurement instead.
+MEASURED_FACTS <- list()
 
 model_fingerprint <- function(dir) {
   p <- file.path(dir, MODEL_FACT_ARTIFACTS)
@@ -63,7 +64,8 @@ fingerprint_id <- function(fp)
 # over the same rows the baseline's model frame starts from -- paid and
 # resolved -- so a figure in the prose and a count in the metrics table are
 # about the same petitions.
-compute_model_facts <- function(corpus, model_dir, trained_on = Sys.Date()) {
+# `ro` is list(baseline =, enhanced =, gvr =), each a rolling_origin_eval().
+compute_model_facts <- function(corpus, model_dir, ro, trained_on = Sys.Date()) {
   art <- lapply(stats::setNames(MODEL_FACT_ARTIFACTS, c("baseline", "enhanced", "gvr", "conference")),
                 function(f) readRDS(file.path(model_dir, f)))
   f <- list()
@@ -86,6 +88,29 @@ compute_model_facts <- function(corpus, model_dir, trained_on = Sys.Date()) {
     if (!"gap_naTRUE" %in% names(b)) stop("compute_model_facts(): no gap_na term in ", k)
     f[[paste0(k, ".gap_na.beta")]] <- unname(b[["gap_naTRUE"]])
   }
+
+  # Rolling origin against leave-one-term-out, on the rows both can score.
+  # The evaluation must be of THESE models: its leave-one-term-out AUC over
+  # every row is the figure the artifact stores, or the frames have moved.
+  stopifnot(setequal(names(ro), c("baseline", "enhanced", "gvr")))
+  for (k in names(ro)) {
+    r <- ro[[k]]
+    if (abs(r$loto_all$auc - f[[paste0(k, ".auc")]]) > 1e-9)
+      stop(sprintf("compute_model_facts(): the rolling-origin evaluation of '%s' reproduces a leave-one-term-out AUC of %.6f, but the artifact stores %.6f. The frame it ran on is not the one the model was fitted on.",
+                   k, r$loto_all$auc, f[[paste0(k, ".auc")]]), call. = FALSE)
+    f[[paste0("ro.", k, ".n")]]        <- r$ro$n
+    f[[paste0("ro.", k, ".n_pos")]]    <- r$ro$n_pos
+    f[[paste0("ro.", k, ".auc")]]      <- r$ro$auc
+    f[[paste0("ro.", k, ".ap")]]       <- r$ro$ap
+    f[[paste0("ro.", k, ".brier")]]    <- r$ro$brier
+    f[[paste0("ro.", k, ".auc_loto")]] <- r$loto$auc      # LOTO on the same rows
+    f[[paste0("ro.", k, ".ap_loto")]]  <- r$loto$ap
+    f[[paste0("ro.", k, ".auc_gap")]]  <- r$loto$auc - r$ro$auc
+    f[[paste0("ro.", k, ".ap_gap")]]   <- r$loto$ap - r$ro$ap
+  }
+  gaps <- vapply(names(ro), function(k) f[[paste0("ro.", k, ".auc_gap")]], numeric(1))
+  f[["ro.auc_gap.min"]] <- min(gaps); f[["ro.auc_gap.max"]] <- max(gaps)
+  f[["ro.first"]] <- min(ro$baseline$origins); f[["ro.last"]] <- max(ro$baseline$origins)
 
   paid <- corpus[corpus$type == "paid" & !is.na(corpus$label), ]
   ifp  <- corpus[corpus$type == "ifp"  & !is.na(corpus$label), ]

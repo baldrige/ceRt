@@ -38,6 +38,37 @@
     "baseline.deny_all_accuracy": 0.958627968337731,
     "baseline.gap_na.beta": 0.850766343613078,
     "enhanced.gap_na.beta": 0.942494087936204,
+    "ro.baseline.n": 8504,
+    "ro.baseline.n_pos": 364,
+    "ro.baseline.auc": 0.88414879039879,
+    "ro.baseline.ap": 0.309499893925865,
+    "ro.baseline.brier": 0.0343208676109082,
+    "ro.baseline.auc_loto": 0.891455335205335,
+    "ro.baseline.ap_loto": 0.321202920434033,
+    "ro.baseline.auc_gap": 0.0073065448065448,
+    "ro.baseline.ap_gap": 0.0117030265081682,
+    "ro.enhanced.n": 11767,
+    "ro.enhanced.n_pos": 917,
+    "ro.enhanced.auc": 0.86863756288036,
+    "ro.enhanced.ap": 0.387237311837535,
+    "ro.enhanced.brier": 0.0579921898713166,
+    "ro.enhanced.auc_loto": 0.886645995507289,
+    "ro.enhanced.ap_loto": 0.423089315691702,
+    "ro.enhanced.auc_gap": 0.0180084326269292,
+    "ro.enhanced.ap_gap": 0.0358520038541675,
+    "ro.gvr.n": 11767,
+    "ro.gvr.n_pos": 583,
+    "ro.gvr.auc": 0.824042616627036,
+    "ro.gvr.ap": 0.170606972685652,
+    "ro.gvr.brier": 0.0444895292256409,
+    "ro.gvr.auc_loto": 0.848753395563866,
+    "ro.gvr.ap_loto": 0.206399353222929,
+    "ro.gvr.auc_gap": 0.0247107789368297,
+    "ro.gvr.ap_gap": 0.0357923805372765,
+    "ro.auc_gap.min": 0.0073065448065448,
+    "ro.auc_gap.max": 0.0247107789368297,
+    "ro.first": 2019,
+    "ro.last": 2024,
     "terms.n": 8,
     "terms.first": 2017,
     "terms.last": 2024,
@@ -56,16 +87,5 @@
     "ifp.granted": 36,
     "ifp.rate": 0.00128741551335694
   },
-  "measured": {
-    "ro.auc_gap.min": {
-      "value": 0.006,
-      "as_of": "2026-10-13",
-      "source": "rolling origin vs leave-one-term-out on the same OT2019-24 rows; docs/cert_model_review_2026-07.md"
-    },
-    "ro.auc_gap.max": {
-      "value": 0.025,
-      "as_of": "2026-10-13",
-      "source": "rolling origin vs leave-one-term-out on the same OT2019-24 rows; docs/cert_model_review_2026-07.md"
-    }
-  }
+  "measured": []
 }

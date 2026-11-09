@@ -54,9 +54,13 @@ Three things it does not do:
 - **It cannot check words.** "Eight Terms" is derived, but "the rate falls with
   each further relist" is a sentence. The methods-note generator asserts the
   orderings its sentences depend on and stops if a retrain reverses one.
-- **Hand-run measurements stay hand-run.** The rolling-origin gap comes from an
-  evaluation no artifact carries. It lives in `MEASURED_FACTS` with the date it
-  was measured, and the audit warns when that date is older than the models.
+- **It cannot run an evaluation nobody wired in.** The rolling-origin gap used
+  to be one: measured by hand, quoted with a date, and stale after the next
+  retrain. The trainer now runs `rolling_origin_eval()` on the frames it just
+  fitted and the gap is a computed fact. `MEASURED_FACTS` remains for a figure
+  that truly cannot be computed there. It is empty, each entry would carry the
+  date it was measured, and the audit warns when that date is older than the
+  models.
 - **It covers the two generated documents only.** The figures in this file
   outside the `metrics:begin` block, and the backtest sentence in
   `R/scorecard.R`, are still typed.
@@ -502,9 +506,14 @@ slope went from **0.578 to ~0.99**.
 
 LOTO is out-of-*fold*, not out-of-time, and the LOTO figures above are mildly
 optimistic. Rolling origin (train on Terms < t, score t) on the identical
-OT2019–2024 rows trails LOTO by **0.006 AUC** for the baseline and the
-conference hazard, **0.016** for the at-risk model and **0.025** for GVR, and
-by 0.013–0.036 in AP (verified 2026-10-13). This section used to say
+OT2019–2024 rows trails LOTO by **0.007 AUC** for the baseline, **0.018** for
+the at-risk model and **0.025** for GVR, and by 0.012–0.036 in AP. Those are
+the 2026-10-15 models; the current figures are the `ro.*` facts in
+`data/model_facts.json`, which the trainer recomputes at every retrain with
+`rolling_origin_eval()` (the Platt map is refitted inside each origin, on
+leave-one-term-out predictions within the earlier Terms). The conference
+hazard is not part of that run: its gap was 0.006 AUC when last measured by
+hand (2026-10-13, before that retrain). This section used to say
 the two agreed "to within 0.003 AUC". No harness in the repository reproduced
 that, and the measured gap is larger. Part of the gap is mechanical: the
 OT2019 origin trains on only two Terms, and no rolling-origin fit sees as much
