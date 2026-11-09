@@ -119,6 +119,16 @@ A feature that is constant in training aliases to an `NA` coefficient and then
 contributes exactly zero at serve time, silently — this shipped undetected for
 months. `fit_cert_model()` now fails on any aliased coefficient; do not relax it.
 
+**A figure about the models is written down in one place: `data/model_facts.json`**,
+which the trainer writes beside the artifacts (`R/model_facts.R`). The methods
+note and the coefficient reference take every prose figure from it through
+`fact_span()`, and `audit_site.R` FAILS on a percentage or decimal in their
+prose that came from nowhere, on a figure that disagrees with its fact, and on
+facts computed for other artifacts than the committed ones. Do not type a rate
+into a sentence in `docs/make_methods_note.R` or `docs/make_model_reference.R`:
+add a fact. See "The figures in their prose" in
+**[docs/cert_model.md](docs/cert_model.md)**.
+
 Findings, measured-and-rejected proposals, and open questions:
 **[docs/cert_model_review_2026-07.md](docs/cert_model_review_2026-07.md)**.
 

@@ -395,6 +395,74 @@ if (!length(stray)) {
                length(stray), paste(utils::head(stray, 8), collapse = ", ")))
 }
 
+# ---- one source for model figures --------------------------------------------
+# The same rule as the colours, for the same reason. The methods note said one
+# relist means "about 20%" for three months after the rate became 42%, said GVRs
+# are left out of training after they became negatives, and the reference quoted
+# gap_na at +0.98 through two retrains: each a number typed into a sentence, and
+# a retrain does not re-type sentences. Now every prose figure is a fact in
+# data/model_facts.json, written by the trainer beside the artifacts
+# (R/model_facts.R), and four things can go wrong:
+#
+#   * the facts were computed for other artifacts than the ones committed;
+#   * a document was generated from other facts than the ones committed;
+#   * a figure in a document disagrees with its fact (hand-edited output);
+#   * a sentence carries a figure that came from no fact at all.
+#
+# Source files, like the colour check: the documents are committed under docs/
+# and copied to the site, so the place to stop a stale one is the commit.
+cat("\nModel figures\n")
+local({
+  source("R/model_facts.R", local = TRUE)
+  mf <- tryCatch(read_model_facts("data", verify = FALSE), error = function(e) e)
+  if (inherits(mf, "error")) return(fail("model facts", conditionMessage(mf)))
+
+  now <- tryCatch(model_fingerprint("data"), error = function(e) e)
+  if (inherits(now, "error")) {
+    fail("model facts: artifacts", conditionMessage(now))
+  } else if (!identical(unlist(mf$fingerprint[MODEL_FACT_ARTIFACTS]), unlist(now))) {
+    fail("model facts: artifacts",
+         "data/model_facts.json was computed for different artifacts than data/cert_model_*.rds -- rerun the trainer or make_model_facts.R, then both document generators")
+  } else {
+    ok("model facts: artifacts", sprintf("%d facts, computed for the committed artifacts (trained %s)",
+                                         length(mf$facts) + length(mf$measured), mf$trained_on))
+  }
+
+  id <- fingerprint_id(mf$fingerprint)
+  for (doc in c("docs/cert_model_methods.html", "docs/cert_model_reference.html")) {
+    name <- paste("model figures:", sub("^cert_model_", "", sub("\\.html$", "", basename(doc))))
+    if (!file.exists(doc)) { fail(name, paste(doc, "is missing")); next }
+    r <- check_model_prose(doc, mf)
+    bad <- c(
+      if (!identical(r$meta, id)) "generated from other facts than data/model_facts.json (regenerate it)",
+      if (length(r$wrong)) paste("disagrees with its fact:", paste(utils::head(r$wrong, 4), collapse = "; ")),
+      if (length(r$stray)) paste("figure(s) in the prose from no fact:", paste(utils::head(r$stray, 8), collapse = ", ")),
+      if (!r$n) "no data-fact spans at all")
+    if (length(bad)) fail(name, paste(bad, collapse = " | "))
+    else ok(name, sprintf("%d figures, each equal to its fact; none unsourced", r$n))
+  }
+
+  # A hand-run measurement older than the models it is quoted for. WARN: it is
+  # probably still close, and only a person can re-run it.
+  old <- Filter(function(k) as.Date(mf$measured[[k]]$as_of) < as.Date(mf$trained_on), names(mf$measured))
+  if (length(old)) {
+    warn("model facts: measured", sprintf("%d hand-measured figure(s) predate the %s models: %s",
+                                          length(old), mf$trained_on, paste(old, collapse = ", ")))
+  } else if (length(mf$measured)) {
+    ok("model facts: measured", sprintf("%d hand-measured figure(s), none older than the models", length(mf$measured)))
+  }
+
+  # The published copy. WARN, not FAIL: the daily copies docs/ to the site, so a
+  # retrain merged this afternoon is legitimately not there until tonight.
+  pub <- file.path(site, "methods.html")
+  if (file.exists(pub)) {
+    pid <- read_model_facts_meta(paste(readLines(pub, warn = FALSE, encoding = "UTF-8"), collapse = "\n"))
+    if (identical(pid, id)) ok("model figures: published", "methods.html describes the committed artifacts")
+    else warn("model figures: published",
+              "methods.html on the site was generated for other artifacts than the committed ones (the next daily copies it)")
+  }
+})
+
 # ---- 9. feeds and sitemaps ---------------------------------------------------
 # Base R, like the rest of this file -- no xml2. These are not a schema check;
 # they are the three ways THIS pipeline can break these files.

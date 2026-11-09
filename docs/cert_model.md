@@ -27,6 +27,48 @@ treated as an experiment and leaves the documents alone, and `SKIP_MODEL_DOCS=1`
 turns the step off. To rebuild the documents without retraining, run either
 builder directly; both take `MODEL_DIR` (default `data`).
 
+### The figures in their prose
+
+Regenerating the documents fixed the tables and left the sentences. The
+coefficient tables were read from the artifacts, but "one relist: about 20%",
+"roughly 43% of the Solicitor General's petitions" and "`gap_na` carries roughly
++0.98" were typed into the generators, and they stayed there through retrains
+that moved the rates to 42.6%, 38.9% and +0.85.
+
+So the trainer also writes **`data/model_facts.json`** (`R/model_facts.R`): every
+figure either document quotes in a sentence, stamped with the md5s of the four
+artifacts it describes. The generators take prose figures only through
+`fact_span()`, which errors on an unknown key and marks the figure
+`<span data-fact="key">`; a number printed straight off an artifact inside a loop
+goes through `gen_span()`. `audit_site.R` then fails when
+
+- the facts were computed for other artifacts than the committed ones;
+- a document was generated from other facts, or a figure in it disagrees with
+  its fact;
+- a sentence holds a percentage, a decimal or a thousands-grouped number that
+  came from neither. The few that are not about the models (the "17%" worked
+  example, Rule 33.1) are listed in `PROSE_ALLOW`.
+
+Three things it does not do:
+
+- **It cannot check words.** "Eight Terms" is derived, but "the rate falls with
+  each further relist" is a sentence. The methods-note generator asserts the
+  orderings its sentences depend on and stops if a retrain reverses one.
+- **It cannot run an evaluation nobody wired in.** The rolling-origin gap used
+  to be one: measured by hand, quoted with a date, and stale after the next
+  retrain. The trainer now runs `rolling_origin_eval()` on the frames it just
+  fitted and the gap is a computed fact. `MEASURED_FACTS` remains for a figure
+  that truly cannot be computed there. It is empty, each entry would carry the
+  date it was measured, and the audit warns when that date is older than the
+  models.
+- **It covers the two generated documents only.** The figures in this file
+  outside the `metrics:begin` block, and the backtest sentence in
+  `R/scorecard.R`, are still typed.
+
+`.github/scripts/make_model_facts.R` rebuilds the file for the deployed
+artifacts without retraining. It needs the corpus cache the models were fitted
+on and refuses one whose counts disagree with the baseline artifact.
+
 ## Why this is a calibration problem, not a classification problem
 
 Paid petitions are granted ~4% of the time; IFP petitions ~0.1%. A model that
@@ -464,9 +506,14 @@ slope went from **0.578 to ~0.99**.
 
 LOTO is out-of-*fold*, not out-of-time, and the LOTO figures above are mildly
 optimistic. Rolling origin (train on Terms < t, score t) on the identical
-OT2019–2024 rows trails LOTO by **0.006 AUC** for the baseline and the
-conference hazard, **0.016** for the at-risk model and **0.025** for GVR, and
-by 0.013–0.036 in AP (verified 2026-10-13). This section used to say
+OT2019–2024 rows trails LOTO by **0.007 AUC** for the baseline, **0.018** for
+the at-risk model and **0.025** for GVR, and by 0.012–0.036 in AP. Those are
+the 2026-10-15 models; the current figures are the `ro.*` facts in
+`data/model_facts.json`, which the trainer recomputes at every retrain with
+`rolling_origin_eval()` (the Platt map is refitted inside each origin, on
+leave-one-term-out predictions within the earlier Terms). The conference
+hazard is not part of that run: its gap was 0.006 AUC when last measured by
+hand (2026-10-13, before that retrain). This section used to say
 the two agreed "to within 0.003 AUC". No harness in the repository reproduced
 that, and the measured gap is larger. Part of the gap is mechanical: the
 OT2019 origin trains on only two Terms, and no rolling-origin fit sees as much

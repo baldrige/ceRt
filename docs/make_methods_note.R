@@ -20,6 +20,32 @@ cm <- art_("cert_model_conference.rds")
 # beta / SE / z / p / odds ratio, shared with the standalone reference so the
 # two documents cannot drift apart on the same numbers.
 source("docs/model_coef_table.R")
+# Every figure in the prose comes from data/model_facts.json, written by the
+# trainer beside the artifacts (R/model_facts.R). read_model_facts() refuses a
+# file computed for other artifacts, and audit_site.R fails on a percentage or
+# decimal in the prose that did not come through one of these.
+source("R/model_facts.R")
+MF <- read_model_facts(model_dir)
+Fp <- function(key, d = 1) fact_span(MF, key, "pct", d)   # a proportion, as a %
+Fn <- function(key, d = 3) fact_span(MF, key, "num", d)   # a number, as is
+Fi <- function(key) fact_span(MF, key, "int")             # a count
+# "eight Terms", "the other seven", "October 2017": the corpus, not a literal.
+n_terms   <- fact(MF, "terms.n")
+terms_w   <- number_word(n_terms)
+Terms_w   <- paste0(toupper(substr(terms_w, 1, 1)), substring(terms_w, 2))
+others_w  <- number_word(n_terms - 1)
+# Sentences below say things the figures must bear out. A retrain that reverses
+# one should stop here, not publish a paragraph that contradicts its own numbers
+# -- the note said "two relists is stronger still" for months after it was not.
+rl <- vapply(c("1", "2", "3-4", "5+"), function(k) fact(MF, paste0("relist.", k, ".rate")), numeric(1))
+if (is.unsorted(rev(rl)) || fact(MF, "relist.0.rate") >= min(rl))
+  stop("The relist paragraph says one relist is the strongest sign and the rate ",
+       "falls with each further relist; the rates no longer do that. Rewrite it.")
+if (fact(MF, "us_pet.rate") <= fact(MF, "other_pet.rate"))
+  stop("The drivers paragraph says the United States is granted more often than everyone else.")
+for (k in c("baseline", "enhanced", "gvr"))
+  if (fact(MF, paste0(k, ".brier")) >= fact(MF, paste0(k, ".brier_ref")))
+    stop("The note says all three models beat the base-rate Brier; ", k, " does not.")
 pct  <- function(x, d = 1) sprintf(paste0("%.", d, "f%%"), 100 * x)
 mc   <- function(m) m$metrics_calibrated
 # Brier of the no-skill forecast that always predicts the base rate: p(1-p).
@@ -151,7 +177,7 @@ coef_section <- paste0(
   'the estimate, <b>z</b> is the estimate divided by that uncertainty, and <b>p</b> is ',
   'the chance of seeing an effect at least this large if the true effect were zero. ',
   'A <span class="sig">&bull;</span> marks p&nbsp;below&nbsp;0.05. It is a reading aid, ',
-  'not a finding: this is eight Terms of observational data, the ',
+  'not a finding: this is ', terms_w, ' Terms of observational data, the ',
   # The logit terms only. The conference tier reports no p-values at all, so its
   # 49 terms are not comparisons and counting them here would overstate the
   # correction that is missing.
@@ -279,6 +305,7 @@ style_css <- "<style>
 head_html <- '<!DOCTYPE html><html lang="en"><head><script async src="/analytics.js"></script><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Predicting Certiorari &mdash; Methods Note</title>
+@FACTS@
 @SOCIAL@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&display=swap">
@@ -290,10 +317,10 @@ head_html <- '<!DOCTYPE html><html lang="en"><head><script async src="/analytics
 
 sec_meaning <- sprintf('
   <h2>What the number means</h2>
-  <p>Every paid petition on this site carries a percentage: the estimated chance that the Court will grant it and hear the case. It works like a rain forecast. A &ldquo;17%%&rdquo; does not say the petition scores 17 out of 100, and it does not say the petition will be granted. It says that, of a hundred petitions that look like this one on the docket, about seventeen have been granted in the past. Most petitions are long shots: across the eight Terms the models learned from, <b>%s</b> of paid petitions were granted, so a petition rated near that figure is simply average.</p>
-', pct(b$base_rate, 1))
+  <p>Every paid petition on this site carries a percentage: the estimated chance that the Court will grant it and hear the case. It works like a rain forecast. A &ldquo;17%%&rdquo; does not say the petition scores 17 out of 100, and it does not say the petition will be granted. It says that, of a hundred petitions that look like this one on the docket, about seventeen have been granted in the past. Most petitions are long shots: across the %s Terms the models learned from, <b>%s</b> of paid petitions were granted, so a petition rated near that figure is simply average.</p>
+', terms_w, Fp("baseline.base_rate"))
 
-sec_models <- '
+sec_models <- sprintf('
   <h2>Three estimates for three moments</h2>
   <p>A petition&rsquo;s prospects change as its docket develops, so the site carries three related estimates rather than one.</p>
   <ul>
@@ -301,21 +328,22 @@ sec_models <- '
     <li><b>At conference.</b> The <b>enhanced</b> estimate keeps the dissent and split cues and adds what happened next: whether the other side filed a response or waived it, whether the Court asked for one, whether outside groups filed briefs in support, and whether the Justices have already considered the petition once and carried it over to another conference (a &ldquo;relist&rdquo;). This is the number on the conference reports.</li>
     <li><b>The other way to win.</b> Some petitions are neither granted nor denied. When the Court has just decided a related case, it often sends similar petitions back to the lower court to reconsider, without briefing or argument. Lawyers call this a GVR, for granted, vacated and remanded. The <b>GVR</b> estimate is the chance of that outcome. It sits beside the grant estimate because a petition being held for a related case can look, on the docket, very much like one about to be granted.</li>
   </ul>
-  <p>Petitions filed without the fee, by people who cannot afford it, are not scored. About one in a thousand of them is granted, and a model built for paid petitions would be wrong about them in both directions.</p>
-'
+  <p>Petitions filed without the fee, by people who cannot afford it, are not scored. Only %s of them are granted, and a model built for paid petitions would be wrong about them in both directions.</p>
+', Fp("ifp.rate", 2))
 
 sec_data <- sprintf('
   <h2>What the models learned from</h2>
-  <p>Eight Terms of the Court&rsquo;s own docket records, from the Term that began in October 2017 through the one that began in October 2024: <b>%s paid petitions</b>, of which <b>%s were granted</b> and heard. A petition counts as a success only if the Court took the case in full. Petitions sent back with a GVR, dismissed, or still waiting are left out of the lesson, because they are neither a yes nor a no to the question the model is asking.</p>
+  <p>%s Terms of the Court&rsquo;s own docket records, from the Term that began in October %d through the one that began in October %d: <b>%s paid petitions</b>, of which <b>%s were granted</b> and heard. A petition counts as a success only if the Court took the case in full. One that was denied, dismissed, or sent back with a GVR counts as a no. Only a petition the Court had not yet acted on is left out, because it is neither a yes nor a no.</p>
   <p>One rule matters more than any other: the models may see only what was on the docket <i>before</i> the Court acted. A response filed the week after a grant says nothing useful about predicting that grant, and letting it in would make the model look far better than it is. Every docket signal is measured strictly before the decision date.</p>
-', comma(mc(b)$n), comma(mc(b)$n_pos))
+', Terms_w, fact(MF, "terms.first"), fact(MF, "terms.last"),
+   Fi("baseline.n"), Fi("baseline.n_pos"))
 
-sec_method <- '
+sec_method <- sprintf('
   <h2>How the estimate is made</h2>
-  <p>The method is the plainest one that works: a scoring formula. Each fact about a petition adds or subtracts points (the United States as petitioner adds a great many; a petitioner with no lawyer subtracts a great many), the points are totalled, and the total is converted into a probability. Statisticians call this logistic regression. Nobody writes the points by hand: the formula is fitted to the eight Terms of outcomes so that each fact carries the weight it actually had.</p>
-  <p>The conversion from points to a percentage is then checked and, where needed, adjusted, a step called calibration, so that when the model says 17%, about 17 in 100 such petitions really were granted.</p>
-  <p>The checking is done honestly. Fitting a model and then grading it on the same petitions would be like letting a student mark their own homework with the answers open. Instead, each Term is hidden in turn: the model is fitted on the other seven Terms, asked to predict the hidden one, and graded against what actually happened. Every figure in the next section comes from those hidden-Term predictions, never from petitions the model had already seen. A stricter version of the check fits only on Terms <i>earlier</i> than the one being predicted, as a forecaster working in real time would have to. It scores slightly lower, by 0.006 to 0.025 on the AUC scale explained below depending on the estimate. That is the honest cost of predicting forward in time, and the figures below are a little more generous than it.</p>
-'
+  <p>The method is the plainest one that works: a scoring formula. Each fact about a petition adds or subtracts points (the United States as petitioner adds a great many; a petitioner with no lawyer subtracts a great many), the points are totalled, and the total is converted into a probability. Statisticians call this logistic regression. Nobody writes the points by hand: the formula is fitted to the %s Terms of outcomes so that each fact carries the weight it actually had.</p>
+  <p>The conversion from points to a percentage is then checked and, where needed, adjusted, a step called calibration, so that when the model says 17%%, about 17 in 100 such petitions really were granted.</p>
+  <p>The checking is done honestly. Fitting a model and then grading it on the same petitions would be like letting a student mark their own homework with the answers open. Instead, each Term is hidden in turn: the model is fitted on the other %s Terms, asked to predict the hidden one, and graded against what actually happened. Every figure in the next section comes from those hidden-Term predictions, never from petitions the model had already seen. A stricter version of the check fits only on Terms <i>earlier</i> than the one being predicted, as a forecaster working in real time would have to. It scores slightly lower, by %s to %s on the AUC scale explained below depending on the estimate. That is the honest cost of predicting forward in time, and the figures below are a little more generous than it.</p>
+', terms_w, others_w, Fn("ro.auc_gap.min"), Fn("ro.auc_gap.max"))
 
 sec_valid <- sprintf('
   <h2>How well it works</h2>
@@ -323,8 +351,8 @@ sec_valid <- sprintf('
     %s%s%s
   </tbody></table>
   <p><b>Base rate</b> is how often the outcome happened at all: the share of petitions in each model&rsquo;s data that were granted, or for the GVR model sent back. It is the number a model has to beat.</p>
-  <p><b>AUC</b> answers a simple question. Pick one granted petition and one denied petition at random; how often does the model rate the granted one higher? A coin flip scores 0.5 and a perfect model scores 1. The baseline scores %.3f, so it puts the granted petition first about %s of the time.</p>
-  <p><b>Average precision</b> asks how concentrated the grants are near the top of the model&rsquo;s ranking. A random ranking scores the base rate itself, %s. The baseline scores %.3f, about %.1f times better than chance.</p>
+  <p><b>AUC</b> answers a simple question. Pick one granted petition and one denied petition at random; how often does the model rate the granted one higher? A coin flip scores 0.5 and a perfect model scores 1. The baseline scores %s, so it puts the granted petition first about %s of the time.</p>
+  <p><b>Average precision</b> asks how concentrated the grants are near the top of the model&rsquo;s ranking. A random ranking scores the base rate itself, %s. The baseline scores %s, about %s times better than chance.</p>
   <p><b>Brier score</b> is the average error of the percentages themselves, so lower is better. The comparison is with the laziest possible forecast, which gives every petition the base rate. That forecast scores %s for the baseline, %s for the enhanced model and %s for the GVR model, and all three models beat it.</p>
   <p class="note">Plain accuracy is not reported because it would mislead. A model that said &ldquo;denied&rdquo; to every petition would be right %s of the time and would be worthless.</p>
   <p class="note">These figures test the model on past Terms. Its live record, scored on forecasts written down before each conference, is on the <a href="/scorecard/">Forecast Scorecard</a>; see &ldquo;Keeping score&rdquo; below.</p>
@@ -333,32 +361,34 @@ sec_valid <- sprintf('
   <figcaption>Petitions sorted into ten groups by the model&rsquo;s estimate. Across: what the model predicted for each group. Up: the share actually granted. Points on the dashed line are perfectly calibrated; larger points are groups with more petitions.</figcaption></figure>
 ',
   row("Baseline (at filing)", b), row("Enhanced (at conference)", e), row("GVR (at conference)", g),
-  mc(b)$auc, pct(mc(b)$auc, 0),
-  pct(b$base_rate, 2), mc(b)$ap, mc(b)$ap / b$base_rate,
+  Fn("baseline.auc"), Fp("baseline.auc", 0),
+  Fp("baseline.base_rate", 2), Fn("baseline.ap"), Fn("baseline.ap_lift", 1),
   # The three tiers train on different frames and so carry different base
-  # rates (4.1% / 7.8% / 5.4%); a constant forecast at rate p scores p(1-p).
-  brier_ref(b), brier_ref(e), brier_ref(g),
-  pct(1 - b$base_rate, 1),
+  # rates; a constant forecast at rate p scores p(1-p).
+  Fn("baseline.brier_ref", 4), Fn("enhanced.brier_ref", 4), Fn("gvr.brier_ref", 4),
+  Fp("baseline.deny_all_accuracy"),
   img)
 
-sec_drivers <- '
+sec_drivers <- sprintf('
   <h2>What moves the estimate</h2>
   <ul>
-    <li><b>The United States as petitioner.</b> When the Solicitor General asks, the Court usually listens: roughly 43% of those petitions are granted, against about 3.7% of everyone else&rsquo;s. Nothing else on the docket comes close.</li>
-    <li><b>Relists.</b> When the Justices take up a petition at conference and, instead of deciding it, carry it over to the next conference, that is a relist. One relist is a strong sign: about 20% of those petitions are granted, against roughly 1% of petitions never relisted. Two is stronger still, about 44%. But five or more usually means the petition is being held for another case, and the grant rate falls back to about 19%. Because the pattern rises and then falls, the model treats each count separately instead of assuming that more is always better.</li>
+    <li><b>The United States as petitioner.</b> When the Solicitor General asks, the Court usually listens: %s of those petitions are granted, against %s of everyone else&rsquo;s. Nothing else on the docket comes close.</li>
+    <li><b>Relists.</b> When the Justices take up a petition at conference and, instead of deciding it, carry it over to the next conference, that is a relist. One relist is the strongest sign: %s of those petitions are granted, against %s of petitions never relisted. After that the rate falls with each further relist, to %s at two and %s at three or four. Five or more usually means the petition is being held for another case, and only %s are granted. Because more is not always better, the model treats each count separately.</li>
     <li><b>A dissent below, or a split among the lower courts.</b> Read from the petition itself. The Court&rsquo;s Rule 10 names disagreement among the lower courts as the main reason it takes cases, and petitions that report one are granted more often.</li>
-    <li><b>The heft of the petition.</b> How long it is, taken from the word count every booklet petition must certify under Rule 33.1(h) (a separate certificate for most filers, a line in the proof of service for the Solicitor General), read against the 9,000-word limit; and how many dissents it cites, read from the PDF. Neither is a reason to grant, but both track how much work went into the petition. A petition under 3,000 words is granted well under 1% of the time; one that cites more than ten dissents, about 16%. Both are taken in bands rather than as a straight line, and both sit beside counsel&rsquo;s record, which they partly repeat.</li>
+    <li><b>The heft of the petition.</b> How long it is, taken from the word count every booklet petition must certify under Rule 33.1(h) (a separate certificate for most filers, a line in the proof of service for the Solicitor General), read against the 9,000-word limit; and how many dissents it cites, read from the PDF. Neither is a reason to grant, but both track how much work went into the petition. A petition under 3,000 words is granted %s of the time; one that cites more than ten dissents, %s. Both are taken in bands rather than as a straight line, and both sit beside counsel&rsquo;s record, which they partly repeat.</li>
     <li><b>Counsel&rsquo;s track record.</b> How many petitions the lawyers had filed before this one and how many were granted, counted only up to the day this petition was docketed so that later successes cannot leak in.</li>
     <li><b>The court below.</b> Petitions from the federal courts of appeals are granted far more often than petitions from state courts.</li>
   </ul>
-'
+', Fp("us_pet.rate"), Fp("other_pet.rate"),
+   Fp("relist.1.rate"), Fp("relist.0.rate"), Fp("relist.2.rate"), Fp("relist.3-4.rate"), Fp("relist.5+.rate"),
+   Fp("words.lt3k.rate"), Fp("cites.11plus.rate"))
 
 sec_calib <- sprintf('
   <h2>Does 17%% really mean 17%%?</h2>
   <p>Within the limits of the data, yes. Sort the petitions into ten groups by the model&rsquo;s estimate and compare each group&rsquo;s average estimate with the share actually granted. In the riskiest tenth, the enhanced model predicted <b>%s</b> and <b>%s</b> were in fact granted; the baseline predicted <b>%s</b> and <b>%s</b> were granted. The lower groups track just as closely, as the chart above shows.</p>
 ',
-  pct(tail(e$calibration$pred,1)), pct(tail(e$calibration$obs,1)),
-  pct(tail(b$calibration$pred,1)), pct(tail(b$calibration$obs,1)))
+  Fp("enhanced.top_decile.pred"), Fp("enhanced.top_decile.obs"),
+  Fp("baseline.top_decile.pred"), Fp("baseline.top_decile.obs"))
 
 # The prospective record (R/forecast_log.R) and the page that scores it
 # (R/scorecard.R). No figures here: this document is regenerated only when the
@@ -374,18 +404,18 @@ sec_score <- '
 sec_limits <- sprintf('
   <h2>What it cannot do</h2>
   <ul>
-    <li><b>Grants are rare</b>: only %s in eight Terms. Rare events are hard to learn from, and the estimate for an unusual petition is less certain than the estimate for a typical one.</li>
+    <li><b>Grants are rare</b>: only %s in %s Terms. Rare events are hard to learn from, and the estimate for an unusual petition is less certain than the estimate for a typical one.</li>
     <li><b>The last Term was unfinished.</b> The most recent Term in the data was still in progress when the data was taken, so petitions filed late in it had not been decided. That makes it look like a harder Term than it was.</li>
-    <li><b>Some petitions cannot be read.</b> About 9%% have no readable PDF. For those the model assumes no dissent below, no split and no dissents cited, which if anything understates their chances. A petition whose word count could not be read from the docket is scored as one of unknown length.</li>
+    <li><b>Some petitions cannot be read.</b> About %s have no readable PDF. For those the model assumes no dissent below, no split and no dissents cited, which if anything understates their chances. A petition whose word count could not be read from the docket is scored as one of unknown length.</li>
     <li><b>Names are matched by pattern.</b> Deciding what kind of party is asking (a business, a state, the federal government) and recognising the same lawyer across petitions is done by matching names. It is good, not perfect.</li>
     <li><b>The model knows nothing about the law.</b> It has never read the question presented. It sees only the shape of the docket, which is why a strong petition on a subject the Court has been avoiding can score low, and an ordinary one from the Solicitor General can score high.</li>
   </ul>
-', comma(mc(b)$n_pos))
+', Fi("baseline.n_pos"), terms_w, Fp("signals.unread.share", 0))
 
 foot_html <- sprintf('
 @COEFS@
-<footer>Generated %s from the models in use on this site &middot; Technical detail: <b>docs/cert_model.md</b> in the repository &middot; These are statistical estimates drawn from past dockets &mdash; <b>not legal advice, and not a prediction about any particular case</b>.</footer>
-</main></body></html>', format(Sys.Date(), "%B %Y"))
+<footer>Describes the models trained %s and in use on this site &middot; Technical detail: <b>docs/cert_model.md</b> in the repository &middot; These are statistical estimates drawn from past dockets &mdash; <b>not legal advice, and not a prediction about any particular case</b>.</footer>
+</main></body></html>', format(as.Date(MF$trained_on), "%B %Y"))
 
 html <- paste0(head_html, sec_meaning, sec_models, sec_data, sec_method, sec_valid,
                sec_drivers, sec_calib, sec_score, sec_limits, foot_html)
@@ -406,6 +436,7 @@ html <- sub("@SOCIAL@", social_meta(
         "explained for non-specialists: the data, how the estimates are checked,",
         "what moves them, and every coefficient for readers who want the arithmetic."),
   "/methods.html", "article"), html, fixed = TRUE)
+html <- sub("@FACTS@", model_facts_meta(MF), html, fixed = TRUE)
 html <- sub("@COEFS@", coef_section, html, fixed = TRUE)
 html <- sub("@STYLE@", style_css, html, fixed = TRUE)
 html <- sub("@ROOT@", palette_root(), html, fixed = TRUE)

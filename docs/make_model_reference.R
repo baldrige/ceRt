@@ -44,7 +44,12 @@ art <- lapply(names(MODELS), function(k)
 names(art) <- names(MODELS)
 coefs <- do.call(rbind, Map(logit_tbl, art, names(art)))
 cm <- readRDS(file.path(model_dir, "cert_model_conference.rds"))
-built <- as.character(file.info(file.path(model_dir, "cert_model_baseline.rds"))$mtime)
+# The prose figures, and the date the models were trained (R/model_facts.R).
+# The stamp used to be the baseline file's mtime, which on a fresh checkout is
+# the time of the checkout.
+source("R/model_facts.R")
+MF <- read_model_facts(model_dir)
+built <- MF$trained_on
 
 # ---- pieces ------------------------------------------------------------------
 bar <- function(est, scale) {
@@ -131,10 +136,11 @@ for (k in names(MODELS)) {
   sections <- paste0(sections, sprintf('
 <section class="model" id="%s"><div class="modelhead"><div>
   <p class="eyebrow">%s</p><h2>%s</h2><p class="frame">%s</p>
-  <p class="frame"><strong>Target:</strong> <code>%s</code> &nbsp;&middot;&nbsp; %d coefficients &nbsp;&middot;&nbsp; Platt: a&nbsp;=&nbsp;%.4f, b&nbsp;=&nbsp;%.4f</p>
+  <p class="frame"><strong>Target:</strong> <code>%s</code> &nbsp;&middot;&nbsp; %d coefficients &nbsp;&middot;&nbsp; Platt: a&nbsp;=&nbsp;%s, b&nbsp;=&nbsp;%s</p>
 </div>%s</div>%s%s</section>',
   k, esc(d$sub), esc(d$title), d$frame, esc(m$target), length(coef(m$glm)),
-  coef(m$calibrator)[1], coef(m$calibrator)[2], calib_svg(m),
+  gen_span(sprintf("%.4f", coef(m$calibrator)[1])),
+  gen_span(sprintf("%.4f", coef(m$calibrator)[2])), calib_svg(m),
   ref_block(m$xlevels), coef_table(k)))
 }
 
@@ -171,9 +177,10 @@ conf_section <- sprintf('
   <th scope="col">Term</th><th scope="col" class="num">relisted</th>
   <th scope="col" class="num">granted</th><th scope="col" class="num">gvr</th></tr></thead>
   <tbody>%s</tbody></table></div></section>',
-  comma(cm$n), cm$model$edf, fnum(cm$model$deviance, 1), fnum(cm$model$AIC, 1),
-  paste(sprintf('<li><span>%s</span><b class="num">%.2f%%</b></li>',
-                names(cm$rates), 100 * unlist(cm$rates)), collapse = ""),
+  gen_span(comma(cm$n)), cm$model$edf, gen_span(fnum(cm$model$deviance, 1)),
+  gen_span(fnum(cm$model$AIC, 1)),
+  paste(sprintf('<li><span>%s</span><b class="num">%s</b></li>',
+                names(cm$rates), gen_span(sprintf("%.2f%%", 100 * unlist(cm$rates)))), collapse = ""),
   ref_block(cm$xlevels), crows)
 
 # ---- styles ------------------------------------------------------------------
@@ -328,7 +335,7 @@ body <- sprintf('
   <p class="eyebrow">Supreme Court Report &mdash; model reference</p>
   <h1>Certiorari models: variables and regression output</h1>
   <p class="dek">Every coefficient in the four deployed models, with the standard errors, significance and odds ratios behind them. Generated directly from the fitted artifacts in <code>data/</code>.</p>
-  <p class="stamp">Artifacts built %s &nbsp;&middot;&nbsp; %d coefficients across four models</p>
+  <p class="stamp">Models trained %s &nbsp;&middot;&nbsp; %d coefficients across four models</p>
 </header>
 <section class="intro"><div class="cards">%s
   <article class="card conf-card"><header><h3>Conference</h3>
@@ -343,25 +350,26 @@ body <- sprintf('
 </div>
 <div class="readnote"><h2>Reading these tables</h2><ul>
   <li><b>&beta;</b> is on the log-odds scale. The <b>odds ratio</b> is e<sup>&beta;</sup>: how the odds multiply when the term is true, holding everything else fixed.</li>
-  <li>Fitted with a <b>Firth (Jeffreys-prior) penalty</b>, so standard errors come from the penalised covariance rather than the ordinary one. The penalty is what keeps near-separated cells &mdash; rare court-below buckets, pro&nbsp;se petitions &mdash; from running to infinity.</li>
-  <li>Every model is fitted on <b>all terms</b>; AUC, average precision and Brier are <b>leave-one-term-out</b>, with the Platt calibration itself refitted out-of-fold. They are held-out numbers, not in-sample ones.</li>
+  <li>The three logit models are fitted with a <b>Firth (Jeffreys-prior) penalty</b>, so their standard errors come from the penalised covariance rather than the ordinary one. The penalty is what keeps near-separated cells &mdash; rare court-below buckets, pro&nbsp;se petitions &mdash; from running to infinity. The <b>conference model has no penalty</b>: it is an ordinary multinomial logit, and where one of its cells is separated the coefficient is simply where the optimiser stopped, so a very large value there is not an estimate.</li>
+  <li>Every model is fitted on <b>all terms</b>; for the three logit models AUC, average precision and Brier are <b>leave-one-term-out</b>, with the Platt calibration itself refitted out-of-fold. They are held-out numbers, not in-sample ones.</li>
   <li>A dot (&bull;) marks p&nbsp;&lt;&nbsp;0.05; non-significant rows are set in a lighter tone. %d of %d coefficients clear the threshold.</li>
   <li>Factor coefficients are differences from the reference level named above each table, never absolute effects.</li>
 </ul></div></section>
 %s%s
 <footer class="colophon">
   <p>Generated %s by <code>docs/make_model_reference.R</code> from <code>data/cert_model_{baseline,enhanced,gvr,conference}.rds</code>, fitted by <code>.github/scripts/train_cert_model.R</code>. Feature sets and fitting code live in <code>R/cert_model.R</code>; the modelling rationale is in <code>docs/cert_model.md</code>.</p>
-  <p>Two known gaps ride along with these numbers: <code>gap_na</code> carries roughly +0.98 log-odds with no legal story behind it (likely a data-quality proxy), and the 5+ relist tail over-predicts in every specification fitted. Both are tracked as open issues.</p>
+  <p>Two known gaps ride along with these numbers: <code>gap_na</code> carries +%s log-odds in the baseline and +%s in the at-risk model with no legal story behind it (likely a data-quality proxy), and the 5+ relist tail over-predicts in every specification fitted. Both are tracked as open issues.</p>
   <p>These are descriptive statistical estimates &mdash; <b>not legal advice, and not a prediction about any particular case</b>.</p>
 </footer>', built, nrow(coefs) + 3 * nrow(cf), cards, nrow(cf), comma(cm$n),
    cm$model$edf, sum(coefs$p < 0.05), nrow(coefs), sections, conf_section,
-   format(Sys.Date(), "%B %Y"))
+   format(Sys.Date(), "%B %Y"),
+   fact_span(MF, "baseline.gap_na.beta", "num", 2), fact_span(MF, "enhanced.gap_na.beta", "num", 2))
 
 title <- "Certiorari models &mdash; variables and regression output"
 html <- if (standalone) {
   paste0('<!DOCTYPE html><html lang="en"><head><script async src="/analytics.js"></script>',
          '<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n',
-         '<title>', title, '</title>\n', fonts$link, '\n<style>', css, '</style>\n</head><body>\n',
+         '<title>', title, '</title>\n', model_facts_meta(MF), '\n', fonts$link, '\n<style>', css, '</style>\n</head><body>\n',
          body, '\n</body></html>\n')
 } else {
   paste0('<title>', title, '</title>\n<style>', css, '</style>\n', body, '\n')

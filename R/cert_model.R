@@ -5,11 +5,11 @@
 # it out-of-time, calibrates it, and explains each prediction as a set of cues.
 #
 # Design decisions (see the feature-notes README for the rationale):
-#   * Target      : outcome == "granted" (plenary merits grant). GVRs, Rule 46
-#                   dismissals, and still-pending petitions are EXCLUDED from
-#                   training -- the model contrasts clean grants against clean
-#                   denials, which is what "likelihood of cert" means to a
-#                   reader. At inference it scores any petition.
+#   * Target      : outcome == "granted" (plenary merits grant). Every other
+#                   resolved petition -- denied, GVR'd, dismissed under Rule
+#                   46 -- is a negative; only a still-pending petition is left
+#                   out (see set_target() for why excluding GVRs and dismissals
+#                   was wrong). At inference it scores any petition.
 #   * Segment     : PAID petitions only. IFP grant rates are ~0.1%, a different
 #                   regime; pooling lets the easy IFP negatives wash out the
 #                   paid signal. IFP is modeled separately (or not surfaced).
@@ -772,8 +772,8 @@ assemble_corpus <- function(paths) {
 
 # Set the binary `label` for a modeling target, leaving all other rows NA so
 # model fitting drops them:
-#   "grant" -> granted (1) vs denied (0)               [the cert model]
-#   "gvr"   -> GVR (1) vs granted|denied (0)           [the companion GVR-risk model]
+#   "grant" -> granted (1) vs denied|gvr|dismissed (0)     [the cert model]
+#   "gvr"   -> GVR (1) vs granted|denied|dismissed (0)     [the companion GVR-risk model]
 set_target <- function(corpus, target = c("grant", "gvr")) {
   target <- match.arg(target)
   # Every resolved petition is a valid negative. Dropping GVRs and Rule 46
@@ -1025,7 +1025,7 @@ word_band <- function(words) {
   out
 }
 
-# Training frame: paid, decided as grant or deny, complete predictors. Residual
+# Training frame: paid, resolved (any outcome but pending), complete predictors. Residual
 # levels that would separate the likelihood (the "OTHER" court bucket has zero
 # grants; the empty-caption entity "other" is a handful of cases) are lumped
 # into a neighboring low-rate level so glm coefficients stay finite. The raw
@@ -1382,6 +1382,54 @@ forward_eval <- function(corpus, features = BASELINE_FEATURES) {
   m <- fit_logit(tr, features)
   p <- predict(m, newdata = te, type = "response")
   c(list(test_term = last), binary_metrics(te$label, p))
+}
+
+# Rolling origin: score Term t with a model that saw only Terms before t, for
+# every t with at least `min_train` Terms behind it. LOTO is out-of-FOLD -- it
+# lets later Terms inform earlier predictions -- and this is the out-of-TIME
+# check it is measured against.
+#
+# The deployment recipe is replayed inside each origin: the logit is fitted on
+# the earlier Terms, the Platt map on leave-one-term-out predictions WITHIN
+# those Terms, and Term t is scored through both. Calibrating on anything that
+# had seen Term t would not be rolling origin.
+#
+# Both schemes are reported on the SAME rows (the Terms rolling origin can
+# score), because the first Terms have no out-of-time prediction and a gap
+# between two different row sets measures the rows.
+#
+# This lived only in a hand-run script until 2026-11, and the doc quoted its
+# result: "within 0.003 AUC" for months with no harness behind it, then a
+# figure measured two days before a retrain. The trainer runs it now and the
+# gap is a fact in data/model_facts.json. It is NOT stored in the model
+# artifacts: every case page's manifest key hashes those.
+#
+# `mf` is a model_frame(); `loto` its calibrated leave-one-term-out predictions
+# if the caller already has them (fit_cert_model()'s $loto$pred), else they are
+# recomputed. Costs about as much again as the LOTO it is compared with.
+rolling_origin_eval <- function(mf, features, loto = NULL, min_train = 2L) {
+  terms <- sort(unique(mf$term_year))
+  if (length(terms) <= min_train)
+    stop("rolling_origin_eval(): ", length(terms), " Term(s) is not enough to hold any out")
+  origins <- terms[-seq_len(min_train)]
+  if (is.null(loto))
+    loto <- loto_platt(mf$label, loto_predict(mf, features), mf$term_year)
+  stopifnot(length(loto) == nrow(mf))
+  ro <- rep(NA_real_, nrow(mf))
+  for (t in origins) {
+    tr <- mf[mf$term_year < t, ]; te <- which(mf$term_year == t)
+    # Early origins train on two or three Terms, where a rare level can be
+    # empty: the warnings are about those fits, not the deployed one.
+    m  <- suppressWarnings(fit_logit(tr, features))
+    pl <- fit_platt(tr$label, suppressWarnings(loto_predict(tr, features)))
+    ro[te] <- apply_platt(pl, suppressWarnings(predict(m, newdata = mf[te, ], type = "response")))
+  }
+  on <- mf$term_year %in% origins
+  stopifnot(!anyNA(ro[on]))
+  list(origins = origins,
+       loto_all = binary_metrics(mf$label, loto),        # every row: what the artifact stores
+       loto = binary_metrics(mf$label[on], loto[on]),    # the rows both schemes score
+       ro   = binary_metrics(mf$label[on], ro[on]))
 }
 
 # ---- G2. discrete-time competing risks (the conference model) ------------------

@@ -125,6 +125,28 @@ files <- list(cert_model_baseline.rds   = slim(baseline),
               cert_model_sg.rds         = sg_layer)
 for (nm in names(files)) saveRDS(files[[nm]], file.path(out_dir, nm))
 
+# The figures the methods note and the reference quote in prose, written beside
+# the artifacts they describe and stamped with their md5s (R/model_facts.R).
+# Both documents refuse facts that do not match the artifacts next to them.
+#
+# Rolling origin is run here, on the frames just fitted, so the out-of-time gap
+# the methods note quotes is a fact about THESE models and not a figure someone
+# measured before the last retrain. It reuses the leave-one-term-out predictions
+# fit_cert_model() already made. Kept out of the artifacts on purpose: every
+# case page's manifest key hashes them.
+source("R/model_facts.R")
+cat("\n=== rolling origin (out-of-time) vs leave-one-term-out, same rows ===\n")
+ro <- list(
+  baseline = rolling_origin_eval(model_frame(corpus, BASELINE_FEATURES), BASELINE_FEATURES, baseline$loto$pred),
+  enhanced = rolling_origin_eval(model_frame(panel, ATRISK_FEATURES), ATRISK_FEATURES, enhanced$loto$pred),
+  gvr      = rolling_origin_eval(model_frame(set_target(panel, "gvr"), GVR_FEATURES), GVR_FEATURES, gvr$loto$pred))
+for (k in names(ro))
+  cat(sprintf("  %-9s %6d rows  AUC %.4f -> %.4f (%+.4f)  AP %.4f -> %.4f (%+.4f)\n", k, ro[[k]]$ro$n,
+              ro[[k]]$loto$auc, ro[[k]]$ro$auc, ro[[k]]$ro$auc - ro[[k]]$loto$auc,
+              ro[[k]]$loto$ap, ro[[k]]$ro$ap, ro[[k]]$ro$ap - ro[[k]]$loto$ap))
+write_model_facts(compute_model_facts(corpus, out_dir, ro), out_dir)
+cat("Wrote ", file.path(out_dir, MODEL_FACTS_FILE), "\n", sep = "")
+
 # ---- report ------------------------------------------------------------------
 # Generated, not hand-maintained: the published table drifted out of sync with
 # the shipped artifacts and stayed wrong for months. Then it was printed for
