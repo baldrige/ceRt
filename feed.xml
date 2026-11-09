@@ -5,8 +5,15 @@
   <link rel="self" href="https://supremecourt.report/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://supremecourt.report/"/>
   <id>https://supremecourt.report/feed.xml</id>
-  <updated>2026-11-06T12:00:00-05:00</updated>
+  <updated>2026-11-09T12:00:00-05:00</updated>
   <author><name>Supreme Court Report</name></author>
+  <entry>
+    <title>Order List, November 9, 2026</title>
+    <link href="https://supremecourt.report/orders/2026-11-09.html"/>
+    <id>https://supremecourt.report/orders/2026-11-09.html</id>
+    <updated>2026-11-09T12:00:00-05:00</updated>
+    <summary>3 granted, vacated and remanded; 230 denied; 48 other orders.</summary>
+  </entry>
   <entry>
     <title>Miscellaneous Order, November 6, 2026</title>
     <link href="https://supremecourt.report/orders/2026-11-06-misc.html"/>
@@ -346,13 +353,6 @@
     <id>https://supremecourt.report/cases/26A274.html#decision</id>
     <updated>2026-09-04T12:00:00-04:00</updated>
     <summary>Per curiam. Because the Fourth Circuit likely lacked jurisdiction to review the Federal Communications Commission’s lowest-unit-charge requirements while the candidates’ application for review remained pending before the Commission and the party committees would otherwise suffer irreparable First Amendment harm, the party committees’ application for a stay is granted. (Citation: 609 U.S. 1082)</summary>
-  </entry>
-  <entry>
-    <title>Application decided: National Park Service v. National Trust for Historic Preservation in the United States (No. 26A203) (Granted)</title>
-    <link href="https://supremecourt.report/cases/26A203.html"/>
-    <id>https://supremecourt.report/cases/26A203.html#decision</id>
-    <updated>2026-08-31T12:00:00-04:00</updated>
-    <summary>Per curiam. Because the government has established that it is likely to prevail in showing that the Trust lacks Article III standing to challenge the East Wing project in federal court, that it would likely suffer irreparable harm without a stay, and that the balance of equities tips in its favor, the injunction entered by the District Court is stayed pending the disposition of the government’s forthcoming petition for a writ of certiorari, if such writ is timely sought. (Citation: 609 U.S. 1068)</summary>
   </entry>
 </feed>
 
