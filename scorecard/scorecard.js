@@ -375,7 +375,8 @@ function drawCalib() {
     placeTip($("tip3"), wrap, e);
   });
   svg.addEventListener("pointerleave", () => $("tip3").hidden = true);
-  $("calibnote").textContent = `Horizontal axis on a square-root scale so the low groups are readable. In the backtest the conference forecasts ran slightly over-dispersed (calibration slope ${REF.cal_slope}): the highest forecasts a little too high, the lowest a little too low.`;
+  $("calibnote").textContent = `Horizontal axis on a square-root scale so the low groups are readable. ${REF.cal_slope < 0.95 ? `In the backtest the conference forecasts ran over-dispersed (calibration slope ${REF.cal_slope}): the highest forecasts a little too high, the lowest a little too low.` : REF.cal_slope > 1.05 ? `In the backtest the conference forecasts ran under-dispersed (calibration slope ${REF.cal_slope}): the highest forecasts a little too low, the lowest a little too high.` : `In the backtest the conference forecasts were calibrated across their range (calibration slope ${REF.cal_slope}, where 1 is exact).`}`;
+  if ($("refnote")) $("refnote").textContent = `${REF.scheme}: ${REF.rows.toLocaleString()} petition-conferences with ${REF.events} grants, for the model trained ${REF.trained_on}. Forecasts logged before that model was deployed came from its predecessor.`;
 }
 
 // ---------- ledger table ----------
