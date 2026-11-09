@@ -169,16 +169,21 @@ conf_section <- sprintf('
 <section class="model" id="conference"><div class="modelhead"><div>
   <p class="eyebrow">Competing risks &mdash; multinomial logit</p><h2>Conference</h2>
   <p class="frame">At-risk panel &mdash; one row per petition &times; conference. Models what happens <em>at</em> a given conference, four outcomes at once.</p>
-  <p class="frame"><strong>Baseline outcome:</strong> <code>denied</code>. Each column is the log-odds of that outcome <em>versus denial</em> at the same conference. &nbsp;&middot;&nbsp; n&nbsp;=&nbsp;%s rows &nbsp;&middot;&nbsp; %d effective parameters &nbsp;&middot;&nbsp; residual deviance %s &nbsp;&middot;&nbsp; AIC %s</p>
+  <p class="frame"><strong>Baseline outcome:</strong> <code>denied</code>. Each column is the log-odds of that outcome <em>versus denial</em> at the same conference. &nbsp;&middot;&nbsp; n&nbsp;=&nbsp;%s rows &nbsp;&middot;&nbsp; %d parameters, shrunk by a ridge penalty of %s &nbsp;&middot;&nbsp; &minus;2&nbsp;log-likelihood %s</p>
+  <p class="frame"><strong>Out of time</strong> (rolling origin, each Term from OT%d scored by a model fitted on earlier Terms): granted here AUC %s, average precision %s, calibration slope %s &nbsp;&middot;&nbsp; GVR here AUC %s, average precision %s, calibration slope %s. A slope of 1 is calibrated; below 1 the high forecasts run too high.</p>
 </div></div>
 <div class="ratebar"><p class="refhead">Observed outcome mix per conference</p><ul>%s</ul></div>
-<div class="warn"><p><strong>No standard errors.</strong> <code>strip_multinom()</code> drops the Hessian before the model is saved, keeping the deployed artifact at 3&nbsp;KB. Standard errors, z and p cannot be recovered from the stored object &mdash; refit from the at-risk panel if you need them. The coefficients below are point estimates only.</p></div>
+<div class="warn"><p><strong>Penalised, and no standard errors.</strong> The model is fitted with a ridge penalty on its weights (<code>CONF_DECAY</code>), which is what keeps its forecasts calibrated out of time and its separated cells finite. Every coefficient below is therefore shrunk toward zero: read them as the weights the forecast uses, not as unbiased effect estimates. <code>strip_multinom()</code> also drops the Hessian before the model is saved, so standard errors, z and p cannot be recovered from the stored object.</p></div>
 %s<div class="tablewrap"><table class="coef conf"><thead><tr>
   <th scope="col">Term</th><th scope="col" class="num">relisted</th>
   <th scope="col" class="num">granted</th><th scope="col" class="num">gvr</th></tr></thead>
   <tbody>%s</tbody></table></div></section>',
-  gen_span(comma(cm$n)), cm$model$edf, gen_span(fnum(cm$model$deviance, 1)),
-  gen_span(fnum(cm$model$AIC, 1)),
+  gen_span(comma(cm$n)), length(coef(cm$model)), fact_span(MF, "conference.decay", "num", 1),
+  gen_span(fnum(cm$deviance, 1)), fact(MF, "conference.ro.first"),
+  fact_span(MF, "conference.granted.ro.auc", "num", 3), fact_span(MF, "conference.granted.ro.ap", "num", 3),
+  fact_span(MF, "conference.granted.ro.slope", "num", 2),
+  fact_span(MF, "conference.gvr.ro.auc", "num", 3), fact_span(MF, "conference.gvr.ro.ap", "num", 3),
+  fact_span(MF, "conference.gvr.ro.slope", "num", 2),
   paste(sprintf('<li><span>%s</span><b class="num">%s</b></li>',
                 names(cm$rates), gen_span(sprintf("%.2f%%", 100 * unlist(cm$rates)))), collapse = ""),
   ref_block(cm$xlevels), crows)
@@ -350,7 +355,7 @@ body <- sprintf('
 </div>
 <div class="readnote"><h2>Reading these tables</h2><ul>
   <li><b>&beta;</b> is on the log-odds scale. The <b>odds ratio</b> is e<sup>&beta;</sup>: how the odds multiply when the term is true, holding everything else fixed.</li>
-  <li>The three logit models are fitted with a <b>Firth (Jeffreys-prior) penalty</b>, so their standard errors come from the penalised covariance rather than the ordinary one. The penalty is what keeps near-separated cells &mdash; rare court-below buckets, pro&nbsp;se petitions &mdash; from running to infinity. The <b>conference model has no penalty</b>: it is an ordinary multinomial logit, and where one of its cells is separated the coefficient is simply where the optimiser stopped, so a very large value there is not an estimate.</li>
+  <li>The three logit models are fitted with a <b>Firth (Jeffreys-prior) penalty</b>, so their standard errors come from the penalised covariance rather than the ordinary one. The penalty is what keeps near-separated cells &mdash; rare court-below buckets, pro&nbsp;se petitions &mdash; from running to infinity. The <b>conference model carries a ridge penalty instead</b>, set where its forecasts are calibrated out of time. It keeps separated cells finite too, but it shrinks every coefficient, so those are not unbiased estimates.</li>
   <li>Every model is fitted on <b>all terms</b>; for the three logit models AUC, average precision and Brier are <b>leave-one-term-out</b>, with the Platt calibration itself refitted out-of-fold. They are held-out numbers, not in-sample ones.</li>
   <li>A dot (&bull;) marks p&nbsp;&lt;&nbsp;0.05; non-significant rows are set in a lighter tone. %d of %d coefficients clear the threshold.</li>
   <li>Factor coefficients are differences from the reference level named above each table, never absolute effects.</li>
@@ -361,7 +366,7 @@ body <- sprintf('
   <p>Two known gaps ride along with these numbers: <code>gap_na</code> carries +%s log-odds in the baseline and +%s in the at-risk model with no legal story behind it (likely a data-quality proxy), and the 5+ relist tail over-predicts in every specification fitted. Both are tracked as open issues.</p>
   <p>These are descriptive statistical estimates &mdash; <b>not legal advice, and not a prediction about any particular case</b>.</p>
 </footer>', built, nrow(coefs) + 3 * nrow(cf), cards, nrow(cf), comma(cm$n),
-   cm$model$edf, sum(coefs$p < 0.05), nrow(coefs), sections, conf_section,
+   length(coef(cm$model)), sum(coefs$p < 0.05), nrow(coefs), sections, conf_section,
    format(Sys.Date(), "%B %Y"),
    fact_span(MF, "baseline.gap_na.beta", "num", 2), fact_span(MF, "enhanced.gap_na.beta", "num", 2))
 

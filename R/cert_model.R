@@ -1515,14 +1515,133 @@ strip_multinom <- function(m) {
   m
 }
 
+# The ridge penalty on the conference model's weights (nnet's `decay`).
+#
+# Until 2026-11 the model was unpenalised, and it was the one forecast surface
+# with no calibration step. Out of time its hazards were over-dispersed --
+# calibration slope 0.87 for granted-here and 0.72 for GVR-here on rolling
+# origin, OT2019-24 -- and six of its cells were separated, sitting at
+# coefficients of |9| to |17| that were wherever the optimiser stopped (pro se x
+# granted -16.5; all three USDC_APPEAL contrasts). The logits get Firth for
+# exactly this; the multinomial got nothing.
+#
+# Measured on rolling origin over the same 11,716 rows, against the shipped fit
+# (paired petition-clustered bootstrap of the four-way log loss):
+#
+#   decay   log loss vs shipped          slope granted / GVR   GVR-here AP
+#   0       --                            0.87 / 0.72           0.140
+#   0.1     -0.0091 [-0.0140, -0.0049]    0.93 / 0.83           0.147
+#   0.5     -0.0106 [-0.0166, -0.0056]    0.99 / 1.00           0.161
+#   1       -0.0091 [-0.0157, -0.0037]    1.04 / 1.11           0.167
+#   2       -0.0048 [-0.0120, +0.0012]    1.10 / 1.24           0.169
+#   5       +0.0076 [-0.0006, +0.0144]    1.21 / 1.46           0.166
+#
+# So the over-dispersion WAS the overfit, and the penalty is the whole fix. A
+# calibration map on top was measured and rejected: temperature, temperature
+# plus offsets and a per-outcome map, each fitted on inner leave-one-term-out
+# predictions, all land within 0.001 log loss of no map at decay 0.5 -- and on
+# the unpenalised model the best of them (temperature, -0.0024 [-0.0054,
+# +0.0001]) does a quarter of what the penalty does and leaves GVR at 0.85.
+#
+# The cost, and it is real: a section 1253 appeal is never "denied", which the
+# unpenalised fit knew exactly and the penalty treats as an estimate. Those 41
+# panel rows now carry ~14% P(denied here) against 0 observed, and their mean
+# granted-here falls from 26.8% to 20.5%. They do not face a cert petition's
+# outcome set; the honest fix is to take them out of this model, not to tune
+# the penalty around them.
+#
+# Every model term is a 0/1 dummy, so one decay shrinks them on one scale. It
+# shrinks the intercepts too, harmlessly at this size: mean granted-here 2.90%
+# against 2.95% observed out of time.
+CONF_DECAY <- 0.5
+
+# The one place the conference multinomial is fitted: the deployed model and
+# every out-of-sample refit go through it, so an evaluation cannot be of a
+# different estimator than the one serving. Fails on non-convergence -- a
+# stopped optimiser is how the separated cells got their old values.
+fit_conference_multinom <- function(mf, decay = CONF_DECAY) {
+  fit <- nnet::multinom(reformulate(CONF_FEATURES, response = "y"), data = mf,
+                        trace = FALSE, maxit = 1000, decay = decay)
+  if (!identical(fit$convergence, 0L))
+    stop("fit_conference_multinom(): the optimiser did not converge in 1000 iterations")
+  fit
+}
+
 fit_conference_model <- function(panel) {
   mf <- conf_model_frame(panel)
-  form <- reformulate(CONF_FEATURES, response = "y")
-  fit <- nnet::multinom(form, data = mf, trace = FALSE, maxit = 300)
+  fit <- fit_conference_multinom(mf)
+  # -2 log likelihood at the fitted weights. NOT fit$deviance: under decay that
+  # is twice the PENALISED criterion, and fit$AIC adds 2 x the parameter count
+  # to it as though none were shrunk. Neither describes this model.
+  p <- fit$fitted.values
+  dev <- -2 * sum(log(p[cbind(seq_len(nrow(mf)), as.integer(mf$y))]))
   structure(list(model = strip_multinom(fit), features = CONF_FEATURES,
-                 levels = CONF_LEVELS, xlevels = fit$xlevels,
-                 n = nrow(mf), rates = prop.table(table(mf$y))),
+                 levels = CONF_LEVELS, xlevels = fit$xlevels, decay = CONF_DECAY,
+                 n = nrow(mf), deviance = dev, rates = prop.table(table(mf$y))),
             class = "conf_model")
+}
+
+# Slope of a logistic recalibration of the forecast's logit (1 is calibrated;
+# below 1 the high forecasts are too high and the low ones too low), and the
+# calibration-in-the-large intercept with the slope held at 1.
+calibration_slope <- function(y, p) {
+  z <- qlogis(pmin(pmax(p, 1e-6), 1 - 1e-6))
+  c(slope = unname(coef(suppressWarnings(glm(y ~ z, family = binomial())))[2]),
+    intercept = unname(coef(suppressWarnings(glm(y ~ 1 + offset(z), family = binomial())))[1]))
+}
+
+# Out-of-sample record of the conference hazards, granted-here and GVR-here:
+# rolling origin (train on Terms < t, score t) and leave-one-term-out on the
+# same rows. The trainer runs it and the results are facts in
+# data/model_facts.json -- the scorecard's backtest yardstick reads them, so it
+# cannot go on quoting the previous model's slope. `mf` is a conf_model_frame().
+#
+# The AUC interval is a petition-clustered bootstrap over the fixed predictions
+# (a petition's conferences are resampled together), seeded so a rebuild of the
+# facts for the same model is byte-identical.
+conference_oos_eval <- function(mf, min_train = 2L, B = 500L, seed = 20261109L) {
+  terms <- sort(unique(mf$term_year))
+  if (length(terms) <= min_train)
+    stop("conference_oos_eval(): ", length(terms), " Term(s) is not enough to hold any out")
+  origins <- terms[-seq_len(min_train)]
+  pred <- function(fit, te) {
+    p <- predict(fit, newdata = te, type = "probs")
+    if (is.null(dim(p))) p <- matrix(p, nrow = 1)
+    stopifnot(identical(fit$lev, CONF_LEVELS)); colnames(p) <- CONF_LEVELS
+    p
+  }
+  on <- which(mf$term_year %in% origins)
+  ro <- lo <- matrix(NA_real_, nrow(mf), length(CONF_LEVELS), dimnames = list(NULL, CONF_LEVELS))
+  for (t in origins) {
+    te <- which(mf$term_year == t)
+    # Early origins train on two or three Terms, where a rare level can be
+    # empty: the warnings are about those fits, not the deployed one.
+    ro[te, ] <- suppressWarnings(pred(fit_conference_multinom(mf[mf$term_year < t, ]), mf[te, ]))
+    lo[te, ] <- suppressWarnings(pred(fit_conference_multinom(mf[mf$term_year != t, ]), mf[te, ]))
+  }
+  stopifnot(!anyNA(ro[on, ]), !anyNA(lo[on, ]))
+  d <- mf[on, ]; pet <- split(seq_along(on), d$dkt)
+  one <- function(level, P) {
+    y <- as.integer(d$y == level); p <- P[on, level]
+    m <- binary_metrics(y, p); cs <- calibration_slope(y, p)
+    top <- order(p, decreasing = TRUE)[seq_len(max(1L, round(0.10 * length(p))))]
+    pc <- pmin(pmax(p, 1e-6), 1 - 1e-6)
+    c(m, list(mean = mean(p), slope = cs[["slope"]], intercept = cs[["intercept"]],
+              brier_skill = 1 - m$brier / (m$base_rate * (1 - m$base_rate)),
+              logloss = -mean(y * log(pc) + (1 - y) * log(1 - pc)),
+              top10_recall = sum(y[top]) / sum(y)))
+  }
+  out <- list(origins = origins, n_frame = nrow(mf))
+  set.seed(seed)
+  draws <- replicate(B, unlist(pet[sample.int(length(pet), length(pet), replace = TRUE)], use.names = FALSE),
+                     simplify = FALSE)
+  for (level in c("granted", "gvr")) {
+    r <- one(level, ro); y <- as.integer(d$y == level); p <- ro[on, level]
+    ci <- stats::quantile(vapply(draws, function(i) auc_roc(y[i], p[i]), numeric(1)), c(0.025, 0.975), na.rm = TRUE)
+    r$auc_lo <- ci[[1]]; r$auc_hi <- ci[[2]]
+    out[[level]] <- list(ro = r, loto = one(level, lo))
+  }
+  out
 }
 
 # Per-conference hazards for a frame of conference rows: an n-by-4 matrix.
@@ -1920,7 +2039,10 @@ score_disposition <- function(grant_model, gvr_model, caption, lower, parties,
 #
 #   p_grant_now   -- "what happens to this petition on Friday". Competing-risks
 #                    hazard: AUC 0.914 / AP 0.267 / Brier 0.0247, mean 2.84%
-#                    against 2.95% observed. The binary reads 8.06% here, i.e.
+#                    against 2.95% observed, when the comparison was run on the
+#                    unpenalised model; with CONF_DECAY it is 0.919 / 0.272 /
+#                    0.0245 (the conference.* facts in data/model_facts.json are
+#                    the current figures). The binary reads 8.06% here, i.e.
 #                    2.7x too high, because it is not a per-conference quantity.
 #   p_grant_ever  -- "will this petition ever be granted". At-risk binary:
 #                    AUC 0.870 / AP 0.390 / Brier 0.0581, mean 8.06% against
@@ -2055,6 +2177,16 @@ load_cert_models <- function(dir = "data", site_dir = NULL) {
               call. = FALSE)
       out[[nm]] <- NULL
     }
+  }
+
+  # An unpenalised conference artifact from before CONF_DECAY, or one fitted at
+  # another value, scores without complaint -- with the over-dispersed hazards
+  # the penalty was added to fix, under documents that describe the new model.
+  if (!is.null(out$conference) && !isTRUE(all.equal(out$conference$decay, CONF_DECAY))) {
+    warning("load_cert_models(): dropping ", want[["conference"]], " -- fitted with decay ",
+            out$conference$decay %||% "none", ", but CONF_DECAY is ", CONF_DECAY,
+            ". Retrain with train_cert_model.R.", call. = FALSE)
+    out$conference <- NULL
   }
 
   # The conference model is unusable without nnet's S3 methods. Drop it loudly

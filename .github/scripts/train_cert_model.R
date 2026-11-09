@@ -144,7 +144,15 @@ for (k in names(ro))
   cat(sprintf("  %-9s %6d rows  AUC %.4f -> %.4f (%+.4f)  AP %.4f -> %.4f (%+.4f)\n", k, ro[[k]]$ro$n,
               ro[[k]]$loto$auc, ro[[k]]$ro$auc, ro[[k]]$ro$auc - ro[[k]]$loto$auc,
               ro[[k]]$loto$ap, ro[[k]]$ro$ap, ro[[k]]$ro$ap - ro[[k]]$loto$ap))
-write_model_facts(compute_model_facts(corpus, out_dir, ro), out_dir)
+# The conference hazards the same way. This one also feeds the Forecast
+# Scorecard's backtest yardstick (R/scorecard.R), which used to be a list of
+# constants copied from a hand-run table.
+conf_oos <- conference_oos_eval(conf_model_frame(panel))
+for (lv in c("granted", "gvr"))
+  cat(sprintf("  conference %-7s here: %d rows  AUC %.4f -> %.4f  AP %.4f -> %.4f  calibration slope %.3f -> %.3f\n",
+              lv, conf_oos[[lv]]$ro$n, conf_oos[[lv]]$loto$auc, conf_oos[[lv]]$ro$auc,
+              conf_oos[[lv]]$loto$ap, conf_oos[[lv]]$ro$ap, conf_oos[[lv]]$loto$slope, conf_oos[[lv]]$ro$slope))
+write_model_facts(compute_model_facts(corpus, out_dir, ro, conf_oos), out_dir)
 cat("Wrote ", file.path(out_dir, MODEL_FACTS_FILE), "\n", sep = "")
 
 # ---- report ------------------------------------------------------------------
