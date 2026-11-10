@@ -1016,11 +1016,10 @@ main.wrap{max-width:54rem}
 # with the face geometry OpenCV found (data/portraits/crops.json), copied to
 # justices/portraits/ by render_justices(). Official Court photographs, U.S.
 # government works in the public domain. A Justice with no portrait on file
-# gets an empty circle, never an error.
-PORTRAITS_SRC <- "data/portraits"
+# gets an empty circle, never an error. (PORTRAITS_SRC, portrait_crops() and
+# portrait_crop_style() are in page_style.R: the opinion pages use them too.)
 .jx_portraits <- function(court) {
-  cj <- file.path(PORTRAITS_SRC, "crops.json")
-  crops <- if (file.exists(cj)) fromJSON(cj, simplifyVector = FALSE) else list()
+  crops <- portrait_crops()
   out <- list()
   for (nm in court$name) {
     c <- crops[[nm]]
@@ -1058,12 +1057,7 @@ render_justices_term <- function(st, site_dir, terms_all) {
   pts <- .jx_portraits(court); PT <- 44   # thumbnail size in CSS px
   thumb <- function(nm) {
     p <- pts[[nm]]; if (is.null(p)) return("<span class='pt none'></span>")
-    side <- min(max(p$fw * 2.1, 70), p$iw, p$ih)
-    x0 <- min(max(p$nx - side / 2, 0), p$iw - side)
-    y0 <- min(max(p$ny - side * 0.5, 0), p$ih - side)
-    k <- PT / side
-    sprintf("<span class='pt' style='background-image:url(%s);background-size:%.1fpx %.1fpx;background-position:%.1fpx %.1fpx'></span>",
-            p$url, p$iw * k, p$ih * k, -x0 * k, -y0 * k)
+    sprintf("<span class='pt' style='%s'></span>", portrait_crop_style(p, PT, p$url))
   }
   court_html <- paste0("<div class='jx'><h3>The Court, in order of seniority</h3><ul class='jx-court'>",
                        paste(sprintf("<li>%s<span class='nm'>%s</span><span class='since'>%s</span></li>",
@@ -1131,7 +1125,7 @@ render_justices_term <- function(st, site_dir, terms_all) {
       "<div class='jx-stage' id='jx-stage'><svg id='jx-svg' viewBox='0 0 860 560' role='img' aria-label='Agreement network of the Justices'></svg><div class='jx-tip' id='jx-tip'></div>",
       "<noscript><p class='pend' style='padding:1rem'>The network is drawn by script; the matrix below carries the same numbers.</p></noscript></div>",
       "<p class='jx-legend'><span><i style='width:2.2rem;height:2px'></i>weaker</span><span><i style='width:2.2rem;height:7px'></i>stronger agreement</span><span><span class='n'></span>circle size: share of decisions in the majority</span></p>",
-      if (length(net$portraits)) "<p class='pend'>Portraits: the Justices&rsquo; official photographs, Collection of the Supreme Court of the United States, public domain as works of the U.S. government, via Wikimedia Commons.</p>" else "",
+      if (length(net$portraits)) paste0("<p class='pend'>", PORTRAIT_CREDIT, "</p>") else "",
       .jx_matrix_table(st$agree_j, st$n_pair, court, "judg",
         "Share of decisions both took part in where both were on the same side of the judgment. A Justice who concurred in part and dissented in part is on neither side for that decision."),
       .jx_matrix_table(st$agree_f, st$n_pair, court, "full",
