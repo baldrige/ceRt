@@ -1743,6 +1743,11 @@ render_dockets_for <- function(cases, site_dir, model_dir = "data") {
                 file.path(site_dir, "dashboards", "qp_cache.json"))) {
       qc <- read_qpc(p); for (d in names(qc)) if (!is.null(qc[[d]]$qp)) qp_map[[d]] <- qc[[d]]$qp
     }
+    # A cached text that is a counsel block, a table of contents or the OCR of
+    # handwriting is not printed as the question (usable_qp_map(), R/qp_extract.R).
+    # Never fatal: a gate that errors leaves the map as it was.
+    qp_map <- tryCatch(usable_qp_map(qp_map), error = function(e) {
+      message("QP gate skipped: ", conditionMessage(e)); qp_map })
     # The cache is a JSON object keyed by docket -> {dissent_below, split_argued,
     # ...}, so load it as a named list (NOT a data frame); score_case reads
     # signals[[feature]].

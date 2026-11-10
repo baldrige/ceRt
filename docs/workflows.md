@@ -190,7 +190,7 @@ None of these fire on a schedule. Trigger with `gh workflow run <file> --ref mai
 | **`enrich-petitions.yml`** | Petition-PDF Rule 10 signals → commits `data-raw/petition_signals.json` to **`main`** | **No** |
 | **`enrich-word-counts.yml`** | Rule 33.1(h) word-count certificates → commits `data-raw/word_counts.json` to **`main`** (one runner; the files are ~1 KB) | **No** |
 | **`backfill-qp.yml`** | QP PDFs (argued grants) → commits `conferences/qp_cache.json` **cache** to `gh-pages` | **No HTML** |
-| **`backfill-qp-all.yml`** | QP PDFs (paid petitions, or IFP with `types: ifp`) → same `conferences/qp_cache.json` cache | **No HTML** |
+| **`backfill-qp-all.yml`** | QP PDFs (paid petitions, or IFP with `types: ifp`) → same `conferences/qp_cache.json` cache, plus `conferences/qp_tried.json`, the ledger of petitions with no question to find | **No HTML** |
 | **`subject-areas.yml`** | **No fetch** — classifies every QP on the site that lacks a current subject-area label (Jev; needs the `TYPESAFE_API_KEY` secret) → `cases/subjects.json` | **No HTML** — pages pick the labels up on their next render |
 | **`refetch-argued.yml`** | Re-fetch ~500 granted OT17–24 dockets → commits `data-raw/arg_refresh.rds` to **`main`** | **No** — but it is the input to the Counsel Table's argument boards, so refresh it before re-rendering those |
 | **`probe-scotus.yml`** | **No** — read-only WAF/throttle diagnostic; logs HTTP status codes | **No** |

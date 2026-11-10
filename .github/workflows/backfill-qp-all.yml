@@ -1,11 +1,16 @@
 name: Backfill Question Presented (paid or IFP petitions)
 
-# Incremental: extract the Question Presented from every paid petition's PDF, one
-# term per runner (fresh IPs spread supremecourt.gov's PDF rate limit; the
-# resolve_qps cache is resumable), then fold all terms into the shared conference
-# QP cache on gh-pages -- which render_dockets_for() reads, so docket pages then
-# show a QP for the historical denied cases too. A later docket re-render embeds
-# them into the pages. Re-dispatch until the caches stop growing.
+# Incremental: extract the Question Presented from every petition's PDF, one
+# term per runner (fresh IPs spread supremecourt.gov's PDF rate limit), then
+# fold all terms into the shared conference QP cache on gh-pages -- which
+# render_dockets_for() and the questions index (R/qp_index.R) read, so docket
+# pages and /questions/ then cover the historical denied cases too. A later
+# docket re-render embeds them into the pages.
+#
+# Resumable: a petition that yielded a question is in the cache, one that
+# yielded none is in the ledger beside it (conferences/qp_tried.json), and a
+# run reads neither again. Re-dispatch until every Term's summary line says
+# "0 still to read". See enrich_qp.R for why the ledger exists.
 
 on:
   workflow_dispatch:
@@ -19,7 +24,7 @@ on:
         required: false
         default: "3000"
       types:
-        description: "Petition types: paid, ifp, or paid,ifp. IFP petitions are mostly scans (OCR), so use a smaller max_new -- ~1000 fits a run."
+        description: "Petition types: paid, ifp, or paid,ifp. A run stops itself at 100 minutes whatever max_new says, and the next dispatch resumes."
         required: false
         default: "paid"
 
@@ -101,10 +106,12 @@ jobs:
             any::jsonlite
             any::pdftools
             any::htmltools
-      # A step limit inside the job's, so a run of slow OCR (IFP petitions are
-      # mostly scans) is stopped with time left to upload what it extracted:
-      # resolve_qps() checkpoints the cache every 100 petitions, and the upload
-      # and the combine job below run whether or not this step finished.
+      # The script stops itself at BUDGET_MIN and writes what it has. Most
+      # historical IFP petitions carry the Court's own text layer (~1 s each,
+      # paced); the ~1 in 20 that is a bare scan is OCRed at ~20 s. The step
+      # limit is the backstop: the cache and the ledger are checkpointed every
+      # 100 petitions, and the upload and the combine job below run whether or
+      # not this step finished.
       - name: Extract QP for OT ${{ matrix.term }}
         # 120: with setup-r (30) and its dependencies (15) that is 165, inside the
         # job's 180 -- lint_workflows.py enforces the margin -- and it leaves the
@@ -116,12 +123,17 @@ jobs:
           MAX_NEW: ${{ inputs.max_new || '3000' }}
           CASE_TYPES: ${{ inputs.types || 'paid' }}
           SEED: site/conferences/qp_cache.json
+          TRIED_OUT: qp_tried_${{ matrix.term }}.json
+          TRIED_SEED: site/conferences/qp_tried.json
+          BUDGET_MIN: "100"
         run: Rscript .github/scripts/enrich_qp.R
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: qp-${{ matrix.term }}
-          path: qp_${{ matrix.term }}.json
+          path: |
+            qp_${{ matrix.term }}.json
+            qp_tried_${{ matrix.term }}.json
           retention-days: 5
 
   combine:
@@ -176,9 +188,10 @@ jobs:
         env:
           IN_DIR: caches
           OUT: site/conferences/qp_cache.json
+          TRIED_OUT: site/conferences/qp_tried.json
         run: Rscript .github/scripts/combine_qp.R
       - name: Commit updated cache to gh-pages
         working-directory: site
         run: |
           ../.github/scripts/publish_site.sh "Backfill QP for ${{ inputs.types || 'paid' }} petitions $(date -u +%F)" \
-            conferences/qp_cache.json
+            conferences/qp_cache.json conferences/qp_tried.json

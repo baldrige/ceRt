@@ -56,10 +56,24 @@ the whole corpus, which is why the gate is vectorised.
 across lines, and cuts a table of contents that the extractor caught *after* a
 real question (dot leaders), keeping the question.
 
-**The case page is not gated.** It still prints whatever the cache holds, so
-about 1,200 case pages show a counsel block or OCR noise under "Question
-presented". That predates this feature; `qp_usable()` is the list of them, and
-`qp_looks_stale()` in `R/qp_extract.R` already re-fetches some.
+**The case page applies the same gate.** `render_dockets_for()` passes its
+merged docket → QP map through `usable_qp_map()`, so a page prints a "Question
+presented" section exactly when this index lists the question; before that,
+about 1,200 pages printed a counsel block or OCR noise under the heading. The
+gate, `qp_plain()` and their three parameters therefore live in
+`R/qp_extract.R`, which every page render already sources, not in
+`R/qp_index.R`. Two consequences:
+
+- The verdict is an *input* to the page (the manifest key hashes the QP), so a
+  text the gate starts or stops rejecting re-renders that one page. No
+  `PAGE_TEMPLATE_VERSION` bump is involved.
+- The gate is relative to the corpus — a word counts as vocabulary when five
+  petitions use it — so a text near the 0.88 line can change sides as the
+  caches grow. That is a handful of pages, each a cheap re-render.
+
+`usable_qp_map()` is memoised on the map's content, because the gate costs
+about a millisecond a text and the daily calls `render_dockets_for()` half a
+dozen times in one session.
 
 ## Coverage
 
@@ -81,9 +95,24 @@ and for *in forma pauperis* petitions only from OT2025:
 
 OT2015 and OT2016 contribute the 48 argued cases the argument navigator holds.
 The page prints this table itself, from `meta.json`, so it cannot go stale.
-Closing the IFP gap is about 28,000 petition PDFs through
-`backfill-qp-all.yml` (`types: ifp`); the index picks up whatever the caches
-gain on the next build.
+The IFP gap is closed by `backfill-qp-all.yml` (`types: ifp`), about 28,000
+petition PDFs; the index picks up whatever the caches gain on the next build,
+and a `rerender-dockets.yml` run puts the questions on the case pages.
+
+What that backfill can and cannot get, measured on 40 OT2022 IFP petitions
+before running it: 38 carried a text layer (the Court's own OCR of the paper
+filing), so extraction is the fast path, about a second a petition with
+pacing; 36 yielded a text; and about 8 of those 36 were the OCR of
+handwriting, which the gate rejects. Roughly seven IFP petitions in ten end up
+with a searchable question. The rest are handwritten, or forms with no
+"Question presented" heading at all.
+
+`enrich_qp.R` keeps a **ledger** of the petitions that yielded nothing
+(`conferences/qp_tried.json`, docket → the URL read) and does not read them
+again; a failed *download* is never written to it, and ten in a row stop the
+run as throttled. Without the ledger the misses sit at the head of every
+later dispatch — at three in ten of 4,000 petitions a Term, the third run
+would do little but re-read them.
 
 **"Review granted"** is the union of `cases/grants.json` (complete from
 OT2025) and the argued cases in `arguments/qp_cache.json`. A grant that was
@@ -232,7 +261,6 @@ that is every checkout before the first build.
 
 ## Not done
 
-- **IFP petitions before OT2025** — a fetch job, not a code change.
 - **A granted/denied outcome on every result.** The site has no docket →
   disposition map on gh-pages; the funnel classifies outcomes at build time
   from term archives. Publishing one would let the search filter on "denied".
