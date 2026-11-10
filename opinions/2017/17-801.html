@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script async src='/analytics.js'></script><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate icon" href="/favicon.ico" sizes="any"><link rel="alternate" type="application/atom+xml" title="Supreme Court Report" href="/feed.xml"><link rel="alternate" type="application/atom+xml" title="Certiorari grants" href="/grants.xml"><title>In re United States — Opinion — Supreme Court Report</title><meta name="description" content="The opinion in In re United States (No. 17-801), decided December 8, 2017: the full text with its footnotes, as a page, a Markdown file and an EPUB."><link rel="canonical" href="https://supremecourt.report/opinions/2017/17-801.html"><meta property="og:site_name" content="Supreme Court Report"><meta property="og:type" content="article"><meta property="og:title" content="In re United States — Opinion — Supreme Court Report"><meta property="og:description" content="The opinion in In re United States (No. 17-801), decided December 8, 2017: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta property="og:url" content="https://supremecourt.report/opinions/2017/17-801.html"><meta property="og:image" content="https://supremecourt.report/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Supreme Court Report - docket analytics for the Supreme Court of the United States"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="In re United States — Opinion — Supreme Court Report"><meta name="twitter:description" content="The opinion in In re United States (No. 17-801), decided December 8, 2017: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta name="twitter:image" content="https://supremecourt.report/og.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap"><style>
+  :root{--paper:#fdfcfa;--panel:#ffffff;--ink:#1a1a1e;--ink-soft:#484850;--faint:#63636b;--accent:#9c0e3a;--link:#9c0e3a;--rule:#dbd8d2;--nav-max:60rem}
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{font-family:'Newsreader',Georgia,serif;font-size:19px;line-height:1.6;
+    color:var(--ink);background:var(--paper);margin:0;font-feature-settings:'onum' 1}
+  body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
+    opacity:.5;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");}
+  .wrap{max-width:40rem;margin:0 auto;padding:3rem 1.4rem 4rem}
+  .kicker{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 1rem}
+  h1{font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:clamp(2.4rem,7vw,3.6rem);line-height:1;letter-spacing:-.015em;
+    margin:0 0 1rem;color:var(--ink)}
+  h1 em{font-style:italic;font-weight:500;color:var(--accent)}
+  .dek{font-size:1.15rem;line-height:1.5;color:var(--ink-soft);font-style:italic;
+    margin:0 0 1.4rem}
+  .brule{border:0;height:0;border-top:2px solid var(--ink);margin:1.4rem 0 .3rem;
+    position:relative}
+  .brule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+    border-top:1px solid var(--rule)}
+  ul.idx{list-style:none;padding:0;margin:1.6rem 0}
+  ul.idx li{border-bottom:1px solid var(--rule)}
+  /* Whole row is one block-level link: a large, reliable tap target on mobile. */
+  ul.idx a.row{display:flex;justify-content:space-between;align-items:baseline;
+    gap:1rem;padding:.9rem .4rem;text-decoration:none;border:0;color:inherit}
+  ul.idx a.row:hover{background:rgba(156,14,58,.05)}
+  ul.idx .d{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.16rem;
+    color:var(--accent);line-height:1.25}
+  ul.idx a.row:hover .d{text-decoration:underline;text-underline-offset:3px}
+  ul.idx .count{color:var(--faint);font-size:.9rem;font-style:italic;white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  /* A long note (an order list's "3 GVRs / 230 denied / 4 habeas denied /
+     ...", items separated by middots) cannot sit on one line: nowrap made it
+     claim the row and
+     squeezed the title into a column three words wide, and on a phone it ran off
+     the screen. Such a row opts in (meta_wrap): the note wraps, only between its
+     items, and takes at most ~45% of the row, so the title always has the
+     larger share. Under 34rem it drops beneath the title at full width. */
+  /* ("long", not "wrap": .wrap is the page container and its padding.) */
+  ul.idx .count.long{white-space:normal;text-align:right;max-width:45%;line-height:1.45}
+  ul.idx .count.long .seg{white-space:nowrap}
+  @media(max-width:34rem){
+    ul.idx a.row.longmeta{flex-wrap:wrap;row-gap:.2rem}
+    ul.idx .count.long{max-width:none;flex-basis:100%;text-align:left}
+  }
+  /* Compact horizontal strip of the most recent pages beneath a category row. */
+  ul.idx .recent{display:flex;flex-wrap:wrap;align-items:baseline;
+    gap:.3rem .85rem;padding:0 .4rem 1rem;margin-top:-.35rem}
+  ul.idx .recent .rlabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  ul.idx .recent a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--ink-soft);text-decoration:none;font-variant-numeric:tabular-nums;
+    border-bottom:1px solid var(--rule);padding-bottom:1px}
+  ul.idx .recent a:hover{color:var(--accent);border-color:var(--accent)}
+  /* Optional panel beneath the section index (home page: most-read cases). */
+  .panel{margin:2.4rem 0 0}
+  .panel h2{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 .25rem}
+  .panel .pnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:0 0 .5rem}
+  /* "Live now" (live_argument_panel, /live.js): hidden unless the Court is
+     streaming an argument. One red dot, the same --accent as the headings, so
+     the live state is a mark and not a new colour. */
+  .live h2 .ldot{display:inline-block;width:.5rem;height:.5rem;border-radius:50%;
+    background:var(--accent);margin-right:.5rem;vertical-align:.08rem;
+    animation:lpulse 2s ease-in-out infinite}
+  @keyframes lpulse{50%{opacity:.25}}
+  @media (prefers-reduced-motion:reduce){.live h2 .ldot{animation:none}}
+  .lplay{display:flex;flex-wrap:wrap;gap:.6rem .9rem;align-items:center;margin:.8rem 0 .3rem}
+  .lplay button{font:600 .9rem/1 'Newsreader',Georgia,serif;letter-spacing:.04em;
+    color:var(--paper);background:var(--accent);border:0;border-radius:2px;
+    padding:.6rem 1.05rem;cursor:pointer}
+  .lplay button:disabled{opacity:.6;cursor:progress}
+  .lplay button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  /* The player takes a row of its own and may never outgrow the column. A flex
+     item's min-width is auto, which for a replaced element is the browser's own
+     controls' width -- wider than the column on a phone, where mobile Safari
+     and Chrome draw larger controls than the desktop. */
+  .lplay audio{display:block;flex:1 1 100%;width:100%;min-width:0;max-width:100%;
+    box-sizing:border-box;margin:0}
+  .lplay .lstat{font-size:.85rem;color:var(--faint)}
+  /* --- Likeliest grants -----------------------------------------------------
+     Its own rows rather than ol.mostread's: this panel carries a question under
+     the caption, which that list has no room for, and a percentage that has to
+     read as the row's subject rather than as a trailing note.
+     The window toggle is two real radio inputs plus :has() -- no JavaScript.
+     Both windows are rendered at build time and one is hidden, which is the only
+     way a static site can offer the choice: there is no server to ask for the
+     other one. Real radios, not styled buttons, so the control is reachable by
+     keyboard and announced as a choice. */
+  .lead{margin:0 0 1.9rem}
+  .lead h2{margin-bottom:.35rem}
+  .lead .pnote{margin:0 0 .7rem}
+  .wr{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+  .win{display:inline-flex;gap:.25rem;margin:0 0 .55rem;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .win label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .win label:hover{color:var(--ink)}
+  .lead:has(#w7:checked) label[for=w7],
+  .lead:has(#w28:checked) label[for=w28],
+  .lead:has(#wall:checked) label[for=wall]{background:var(--accent);color:var(--paper)}
+  .wr:focus-visible+label{outline:2px solid var(--accent);outline-offset:2px}
+  /* Three windows, one shown: the checked radio hides the other two. */
+  .lead:has(#w7:checked) :is(.g28,.n28,.gall,.nall),
+  .lead:has(#w28:checked) :is(.g7,.n7,.gall,.nall),
+  .lead:has(#wall:checked) :is(.g7,.n7,.g28,.n28){display:none}
+  /* The show/hide controls for a panel's secondary line -- the question under
+     a forecast row, the holding under a decision. Same box as the window
+     toggle, a checkbox instead of radios, and no script: the sibling rule does
+     the work and the lines simply show where :has() is unsupported. The
+     questions are on by default (they are what a forecast row asks); the
+     holdings are off (the caption, kind and disposition already say what
+     happened, and the holding is the more). */
+  .opts{display:inline-flex;gap:.25rem;margin:0 .45rem .55rem 0;vertical-align:top;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .opts label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .opts label:hover{color:var(--ink)}
+  .lead:has(#qon:checked) label[for=qon],
+  .panel:has(#hon:checked) label[for=hon]{background:var(--accent);color:var(--paper)}
+  .lead:has(#qon:not(:checked)) .gq{display:none}
+  .panel:has(#hon:not(:checked)) .chold{display:none}
+  /* --- Upcoming at the Court ------------------------------------------------
+     A date gutter and a two-line body, the same shape as the grant rows above
+     it, so the two panels read as one page rather than two widgets. */
+  .cal{margin:0 0 1.9rem}
+  ol.cal{list-style:none;margin:0;padding:0}
+  ol.cal li{border-top:1px solid var(--rule)}
+  ol.cal li:last-child{border-bottom:1px solid var(--rule)}
+  /* The row is a container, not an anchor: an argument day carries one link per
+     case it hears and anchors cannot nest. Hover lives on the row so it still
+     reads as one unit, and each link colours on its own hover. */
+  ol.cal .crow{display:flex;gap:.95rem;align-items:baseline;padding:.55rem .1rem}
+  ol.cal .crow:hover{background:rgba(156,14,58,.05)}
+  ol.cal a{text-decoration:none;color:inherit}
+  ol.cal a:hover,ol.cal a:focus-visible{color:var(--accent)}
+  ol.cal .cdet a{border-bottom:1px solid rgba(156,14,58,.35)}
+  ol.cal .cdet a:hover{border-bottom-color:var(--accent)}
+  ol.cal .cwhen{flex:none;width:4.6rem;font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.96rem;color:var(--ink);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  ol.cal .cdow{display:block;font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);text-transform:uppercase;letter-spacing:.08em}
+  ol.cal .ctx{flex:1;min-width:0}
+  ol.cal .ckind{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:.98rem;line-height:1.25}
+  ol.cal .cdet{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.12rem}
+  /* Recent decisions reuses the calendar rows and adds exactly two things: the
+     kind word that opens the detail line, and the one outbound link (the slip
+     opinion), which takes the link colour the rest of the row deliberately
+     does not. */
+  ol.cal .dk{font-weight:600;color:var(--ink)}
+  ol.cal .cdet a.pdf{color:var(--link)}
+  /* The holding, from the Court's slip-opinion feed: one sentence, set
+     smaller and in the soft ink so the caption stays the row's headline. */
+  ol.cal .chold{display:block;font-size:.86rem;line-height:1.4;color:var(--ink-soft);
+    font-style:italic;margin-top:.15rem}
+  ol.cal .cdet a.pdf:hover,ol.cal .cdet a.pdf:focus-visible{color:var(--accent);
+    border-bottom-color:var(--accent)}
+  ol.grants{list-style:none;margin:0;padding:0}
+  ol.grants li{border-top:1px solid var(--rule)}
+  ol.grants li:last-child{border-bottom:1px solid var(--rule)}
+  ol.grants a{display:flex;gap:.95rem;align-items:baseline;text-decoration:none;
+    color:inherit;padding:.62rem .1rem}
+  ol.grants a:hover{background:rgba(156,14,58,.05)}
+  ol.grants a:hover .gc{color:var(--accent)}
+  ol.grants .gv{flex:none;width:3.5rem;text-align:right;
+    font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.22rem;
+    line-height:1.1;color:var(--accent);font-variant-numeric:tabular-nums}
+  ol.grants .gx{font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);margin-left:.3rem}
+  ol.grants .gtx{flex:1;min-width:0}
+  /* Subject-area line under the caption, in the section-label idiom (h2.sec):
+     small tracked caps in the faint ink, so it classifies without competing. */
+  ol.grants .gs,ol.mostread .ms{display:block;font-size:.68rem;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--faint);line-height:1.3;margin-top:.12rem}
+  ol.grants .gc{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:1rem;line-height:1.25}
+  ol.grants .gq{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.16rem}
+  ol.grants .gd{flex:none;font-size:.76rem;color:var(--faint);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  .more{margin:.75rem 0 0;font-size:.92rem}
+  .more a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.35)}
+  .more a:hover{border-bottom-color:var(--link)}
+  h2.sec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:.88rem;
+    letter-spacing:.09em;color:var(--faint);text-transform:uppercase;
+    margin:2.1rem 0 .6rem;padding-bottom:.28rem;border-bottom:1px solid var(--rule)}
+  @media(max-width:40rem){
+    ol.grants a{flex-wrap:wrap}
+    ol.grants .gd{width:100%;padding-left:4.45rem;margin-top:-.1rem}
+  }
+  ol.mostread{list-style:none;counter-reset:mr;padding:0;margin:0}
+  ol.mostread li{counter-increment:mr;border-bottom:1px solid var(--rule)}
+  ol.mostread a{display:flex;align-items:baseline;gap:.7rem;padding:.6rem .4rem;
+    text-decoration:none;color:inherit}
+  ol.mostread a:hover{background:rgba(156,14,58,.05)}
+  ol.mostread a::before{content:counter(mr);font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.95rem;color:var(--faint);min-width:1.1rem;
+    font-variant-numeric:tabular-nums}
+  ol.mostread .mc{flex:1;font-size:1rem;line-height:1.3}
+  ol.mostread .mct{display:block}
+  ol.mostread a:hover .mct{color:var(--accent);text-decoration:underline;
+    text-underline-offset:3px}
+  ol.mostread .mdk{color:var(--accent);font-weight:600;font-size:.82rem;
+    font-variant-numeric:tabular-nums;white-space:nowrap}
+  ol.mostread .mv{color:var(--faint);font-size:.85rem;font-style:italic;
+    white-space:nowrap;font-variant-numeric:tabular-nums}
+  /* Forecast percentages carry weight the most-read counts do not: the number is
+     the claim, not a footnote to the ranking. Upright, accent, tabular. */
+  ol.mostread .mv.fc{color:var(--accent);font-style:normal;font-weight:600;
+    font-size:.95rem;min-width:2.6rem;text-align:right}
+  /* Feed follow line. Deliberately quiet -- a footnote under the section list,
+     styled like .recent rather than like a call to action. */
+  .feeds{display:flex;flex-wrap:wrap;align-items:baseline;gap:.3rem .85rem;
+    margin:2.2rem 0 0;padding-top:1.1rem;border-top:1px solid var(--rule)}
+  .feeds .flabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  .feeds a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .feeds a:hover{border-color:var(--link)}
+  .back{margin-top:2rem;font-size:.95rem}
+  .back a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .back a:hover{border-color:var(--link)}
+  /* Home-page case search. */
+  .csearch{position:relative;margin:0 0 1.4rem}
+  #cq{width:100%;font-family:'Newsreader',Georgia,serif;font-size:1.05rem;color:var(--ink);
+    background:var(--panel);border:1px solid var(--rule);border-radius:3px;padding:.7rem .9rem}
+  #cq:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(156,14,58,.1)}
+  #cq::placeholder{color:var(--faint)}
+  #cq.loading{background-image:linear-gradient(90deg,transparent,rgba(156,14,58,.06),transparent);
+    background-size:40% 100%;background-repeat:no-repeat;animation:csl 1s infinite}
+  @keyframes csl{0%{background-position:-40% 0}100%{background-position:140% 0}}
+  .cres{list-style:none;margin:.35rem 0 0;padding:0;max-height:24rem;overflow-y:auto;
+    border:1px solid var(--rule);border-radius:3px;background:var(--panel)}
+  .cres:empty{display:none}
+  .cres li{border-bottom:1px solid var(--rule)}
+  .cres li:last-child{border-bottom:0}
+  .cres a{display:block;padding:.55rem .7rem;text-decoration:none;color:var(--ink);
+    font-size:.98rem;line-height:1.3}
+  .cres a:hover,.cres li.act a{background:rgba(156,14,58,.06)}
+  .cres mark{background:rgba(156,14,58,.14);color:inherit;padding:0 .05em;border-radius:2px}
+  .cres .cd{color:var(--accent);font-variant-numeric:tabular-nums;font-weight:600;
+    margin-right:.5rem;white-space:nowrap}
+  .cnone{padding:.55rem .7rem;color:var(--faint);font-style:italic}
+  .cnone a,.cqp a{color:var(--link);font-style:normal;text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .cqp{margin:.45rem 0 0;font-size:.88rem;color:var(--faint)}
+  /* /cases/ browse index: grouped sections with per-bucket counts. */
+  .csec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+    text-transform:uppercase;letter-spacing:.12em;color:var(--accent);
+    margin:2.2rem 0 .3rem;padding-bottom:.35rem;border-bottom:1px solid var(--rule);
+    display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
+  .csec .cn{font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:.85rem;
+    letter-spacing:0;text-transform:none;color:var(--faint);
+    font-variant-numeric:tabular-nums}
+  .cnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:.5rem 0 0}
+  .cnote a{color:var(--accent)}
+  ul.terms{list-style:none;padding:0;margin:1rem 0 0;display:flex;flex-wrap:wrap;
+    gap:.5rem 1.6rem}
+  ul.terms li{display:inline-flex;align-items:baseline;gap:.4rem}
+  ul.terms a{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.05rem;
+    color:var(--accent);text-decoration:none;border-bottom:1px solid var(--rule)}
+  ul.terms a:hover{border-bottom-color:var(--accent)}
+  ul.terms .cn{color:var(--faint);font-size:.85rem;font-variant-numeric:tabular-nums}
+  /* About page: running prose rather than an index, so it takes a measure and a
+     little more leading than the section rows above it. */
+  .about{margin:1.6rem 0 0;font-size:1.05rem;line-height:1.65;max-width:34rem}
+  .about p{margin:0 0 1rem}
+  .about a{color:var(--accent);text-decoration:none;
+    border-bottom:1px solid var(--rule)}
+  .about a:hover{border-bottom-color:var(--accent)}
+  .about .contact{margin:2rem 0 0;background:var(--panel);border:1px solid var(--rule);
+    border-left:4px solid var(--accent);padding:1.1rem 1.3rem}
+  .about .contact h2{font:600 .78rem/1 'Newsreader',Georgia,serif;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--accent);margin:0 0 .5rem}
+  .about .contact p{margin:0;font-size:1rem}
+
+/* ---- masthead ---- */
+.smast-in{max-width:var(--nav-max,60rem);margin:0 auto;padding:.85rem 1.5rem .5rem;
+  display:flex;align-items:baseline;justify-content:space-between;gap:1.4rem;flex-wrap:wrap}
+.smast-wm{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+  letter-spacing:.005em;color:var(--ink,#1a1a1e);text-decoration:none;white-space:nowrap;flex:none}
+.smast-wm em{font-style:italic;font-weight:500;color:var(--accent,#9c0e3a)}
+.smast-wm:hover{color:var(--accent,#9c0e3a)}
+/* Row gap first, then column. At 1.35rem the six section links measured 596px
+   of max-content -- 4px wider than the 592px row the 40rem index container
+   leaves them -- so ABOUT alone wrapped to a third line under the wordmark, on
+   every page page_style.R writes. 1.05rem brings the row to 572px: 20px of
+   slack at 40rem, and 45px on the 54rem case pages, which were themselves only
+   21px from wrapping. The .4rem row gap is for the day a seventh section
+   overruns it anyway -- a nav that wraps should read as a stack, not an orphan. */
+.snav{display:flex;gap:.4rem 1.05rem;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+.snav a{font:600 .72rem/1 'Newsreader',Georgia,serif;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--ink-soft,var(--soft,#484850));text-decoration:none;display:inline-block;
+  padding:.5rem 0;border-bottom:1.5px solid transparent}
+.snav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--rule,#dbd8d2)}
+.snav a[aria-current='page']{color:var(--accent,#9c0e3a);
+  border-bottom-color:var(--accent,#9c0e3a)}
+.smast-rule-w{max-width:var(--nav-max,60rem);margin:0 auto;padding:0 1.5rem}
+.smast-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0;position:relative}
+.smast-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.skip{position:absolute;left:-9999px;top:0;background:var(--panel,#ffffff);
+  color:var(--accent,#9c0e3a);padding:.6rem 1rem;
+  border:1px solid var(--accent,#9c0e3a);
+  font:600 .8rem/1 'Newsreader',Georgia,serif;letter-spacing:.1em;text-transform:uppercase;z-index:10}
+.skip:focus{left:.5rem;top:.5rem}
+/* ---- breadcrumb ---- */
+.bcrumb{margin:.7rem 0 0}
+.bcrumb ol{list-style:none;display:flex;flex-wrap:wrap;align-items:baseline;
+  gap:.1rem .45rem;margin:0;padding:0}
+.bcrumb li{display:inline-flex;align-items:baseline;gap:.45rem}
+.bcrumb a{font:400 .8rem/1.5 'Newsreader',Georgia,serif;color:var(--ink-soft,var(--soft,#484850));
+  text-decoration:none;border-bottom:1px solid var(--rule,#dbd8d2)}
+.bcrumb a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.bcrumb .sep{color:var(--faint,#63636b);font-size:.8rem;line-height:1.5}
+.bcrumb [aria-current='page']{font:400 .8rem/1.5 'Newsreader',Georgia,serif;
+  color:var(--faint,#63636b);font-variant-numeric:tabular-nums}
+/* ---- case footer ---- */
+.cfoot{margin:2.4rem 0 0}
+.cfoot-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0 0 1rem;position:relative}
+.cfoot-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.cfoot-off{font-size:.95rem;margin:0 0 1.1rem}
+.cfoot-off a{color:var(--link,#9c0e3a);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.4)}
+.cfoot-off a:hover{border-bottom-color:var(--link,#9c0e3a)}
+.cfoot-lab{font:600 .68rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);margin:0 0 .5rem}
+.cfoot-nav{display:flex;flex-wrap:wrap;gap:.35rem 1.1rem;list-style:none;margin:0;padding:0}
+.cfoot-nav a{font-size:.92rem;color:var(--ink-soft,var(--soft,#484850));text-decoration:none;
+  border-bottom:1px solid var(--rule,#dbd8d2);padding-bottom:1px}
+.cfoot-nav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.cfoot-stamp{margin:1.2rem 0 0;font-size:.8rem;color:var(--faint,#63636b);font-style:italic}
+/* ---- prev / next ---- */
+.pnav{margin:2.2rem 0 0;border-top:1px solid var(--rule,#dbd8d2);padding-top:1rem;
+  display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.pnav a,.pnav span.none{text-decoration:none;color:inherit;display:block;padding:.5rem .2rem}
+.pnav a:hover{background:rgba(156,14,58,.05)}
+.pnav .dir{font:600 .66rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);display:block;margin-bottom:.3rem}
+.pnav .lab{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1rem;line-height:1.25;
+  color:var(--accent,#9c0e3a);display:block}
+.pnav a:hover .lab{text-decoration:underline;text-underline-offset:3px}
+.pnav .nx{text-align:right}
+.pnav .none{opacity:.35}
+@media(max-width:640px){
+  .smast-in{padding:.7rem 1.1rem .25rem;gap:.15rem}
+  .smast-wm{font-size:.98rem}
+  .smast-in nav{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+    -webkit-mask-image:linear-gradient(90deg,#000 86%,transparent);
+    mask-image:linear-gradient(90deg,#000 86%,transparent)}
+  .smast-in nav::-webkit-scrollbar{display:none}
+  .snav{flex-wrap:nowrap;gap:1.15rem;padding-right:2.4rem}
+  .snav a{padding:.7rem 0;white-space:nowrap}
+  .smast-rule-w{padding:0 1.1rem}
+  .cfoot-nav{gap:.5rem 1rem}
+  .cfoot-nav a{padding-bottom:.3rem}
+  .pnav{grid-template-columns:1fr;gap:.2rem}
+  .pnav .nx{text-align:left;border-top:1px solid var(--rule,#dbd8d2)}
+}
+
+  .wrap.opn{max-width:42rem}
+  .opn .ometa{font-size:.92rem;color:var(--ink-soft);margin:.3rem 0 0}
+  .opn .oget{display:flex;flex-wrap:wrap;gap:.4rem .6rem;margin:1.1rem 0 0;padding:0;list-style:none;font-size:.9rem}
+  .opn .oget a{display:inline-block;padding:.32rem .7rem;border:1px solid var(--rule);border-radius:4px;color:var(--ink);text-decoration:none;background:var(--panel)}
+  .opn .oget a:hover{border-color:var(--accent);color:var(--accent)}
+  .opn .osrc{font-size:.84rem;color:var(--faint);margin:.9rem 0 0;line-height:1.45}
+  .opn .osrc a{color:var(--link)}
+  .opn .otoc{margin:1.6rem 0 0;padding:.8rem 1rem;border:1px solid var(--rule);border-radius:4px;background:var(--panel);font-size:.95rem}
+  .opn .otoc ol{margin:0;padding:0;list-style:none}
+  .opn .otoc li{margin:.25rem 0}
+  .opn .otoc a{color:var(--ink);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.35)}
+  .opn .otoc a:hover{color:var(--accent)}
+  .opn section.op{margin-top:3rem;border-top:2px solid var(--ink);padding-top:1.1rem}
+  .opn section.op h2{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.5rem;line-height:1.2;margin:0 0 1rem;color:var(--ink)}
+  .opn section.op p{margin:0 0 .95rem;line-height:1.62;hyphens:auto;overflow-wrap:break-word}
+  .opn section.op p.byline{color:var(--ink-soft);font-style:italic}
+  .opn section.op p.sep{text-align:center;letter-spacing:.3em;color:var(--faint);margin:1.6rem 0}
+  .opn section.op h3.oh{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.12rem;text-align:center;margin:2rem 0 1rem;color:var(--ink)}
+  .opn section.op blockquote{margin:0 0 .95rem;padding:0 0 0 1.1rem;border-left:2px solid var(--rule);color:var(--ink-soft)}
+  .opn section.op blockquote p{margin-bottom:.6rem;font-size:.96em}
+  .opn .sc{font-variant-caps:small-caps;letter-spacing:.02em}
+  .opn .pg{font-size:.66em;color:var(--faint);vertical-align:.3em;margin:0 .3em 0 .1em;font-variant-numeric:tabular-nums;user-select:none;white-space:nowrap}
+  .opn .pg::before{content:'*'}
+  .opn sup.fnr{font-size:.68em;line-height:0;margin-left:.05em}
+  .opn sup.fnr a{color:var(--link);text-decoration:none;padding:0 .1em}
+  .opn aside.notes{margin-top:2rem;border-top:1px solid var(--rule);padding-top:.8rem;font-size:.88rem;color:var(--ink-soft)}
+  .opn aside.notes h3{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1rem;margin:0 0 .6rem;color:var(--ink)}
+  .opn aside.notes ol{margin:0;padding-left:1.7rem}
+  .opn aside.notes li{margin:0 0 .55rem}
+  .opn aside.notes li.sym{list-style:none;margin-left:-1.7rem}
+  .opn aside.notes li.sym .mk{margin-right:.3rem}
+  .opn aside.notes li.sym p{display:inline}
+  .opn aside.notes p{margin:0 0 .4rem;line-height:1.5}
+  .opn aside.notes a.back{color:var(--link);text-decoration:none;margin-left:.2rem}
+  .opn aside.notes li:target,.opn sup.fnr a:target,.opn .pg:target{background:rgba(156,14,58,.12);outline:.2rem solid rgba(156,14,58,.12)}
+  .opn section.op,.opn aside.notes li,.opn sup.fnr a{scroll-margin-top:1rem}
+  .opn section.op-syllabus p,.opn section.op-counsel p{font-size:.95em}
+  .opn section.op-counsel summary{cursor:pointer;font-family:'Fraunces',Georgia,serif;font-size:1.05rem;color:var(--ink-soft)}
+  .opn .osyl{font-size:.84rem;color:var(--faint);font-style:italic;margin:-.5rem 0 1rem}
+  .opn p.back{margin-top:3rem;font-size:.92rem}
+  @media print{.smast,.bcrumb,.opn .oget,.opn .otoc,.opn p.back{display:none}.opn section.op{break-before:page}}
+</style><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://supremecourt.report/"},{"@type":"ListItem","position":2,"name":"Opinions","item":"https://supremecourt.report/opinions/"},{"@type":"ListItem","position":3,"name":"In re United States"}]}</script><meta name='otv' content='p3'><link rel='alternate' type='text/markdown' href='/opinions/2017/17-801.md'><link rel='alternate' type='application/epub+zip' href='/opinions/2017/17-801.epub'></head><body><a class='skip' href='#main'>Skip to content</a><header><div class='smast-in'><a class='smast-wm' href='/'>Supreme Court <em>Report</em></a><nav aria-label='Sections'><ul class='snav'><li><a href='/dashboards/'>Docket</a></li><li><a href='/conferences/'>Conferences</a></li><li><a href='/relists/'>Relists</a></li><li><a href='/applications/'>Interim</a></li><li><a href='/arguments/'>Arguments</a></li><li><a href='/justices/' aria-current='page'>Justices</a></li><li><a href='/counsel/'>Counsel</a></li><li><a href='/funnel/'>Funnel</a></li><li><a href='/methods.html'>Model</a></li><li><a href='/about.html'>About</a></li></ul></nav></div><div class='smast-rule-w'><hr class='smast-rule'></div></header><main class='wrap opn' id='main' data-dkt='17-801'><nav class='bcrumb' aria-label='Breadcrumb'><ol><li><a href='/'>Home</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><a href='/opinions/'>Opinions</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><span aria-current='page'>In re United States</span></li></ol></nav><p class='kicker'>No. 17-801 · decided December 8, 2017 · 583 U. S. ___</p><h1 style='font-size:clamp(1.7rem,4.6vw,2.4rem);line-height:1.12'>In re United States</h1><p class='ometa'>In Re United States, et al.. 1 separate writing.</p><ul class='oget'><li><a href='/opinions/2017/17-801.epub' download>EPUB</a></li><li><a href='/opinions/2017/17-801.md' download>Markdown</a></li><li><a href='https://www.supremecourt.gov/opinions/17pdf/17-801_new_i325.pdf' rel='noopener'>The Court’s PDF</a></li><li><a href='/cases/17-801.html'>The docket</a></li></ul><p class='osrc'>Set from the PDF the Court published, which is the authoritative text. The small starred numbers are that PDF’s page numbers. A conversion can introduce errors; check a quotation against the <a href='https://www.supremecourt.gov/opinions/17pdf/17-801_new_i325.pdf' rel='noopener'>original</a>.</p><nav class="otoc" aria-label="Contents"><ol>
+<li><a href="#s1">Justice Breyer, dissenting from grant of stay</a></li>
+</ol></nav>
+<section id="s1" class="op op-dissenting"><h2>Justice Breyer, dissenting from grant of stay</h2>
+<p class="byline">Justice Breyer, with whom Justice Ginsburg, Justice Sotomayor, and J ustice Kagan join, dissenting from grant of stay.</p>
+<p>On September 5, 2017, the Government announced its decision to terminate the Deferred Action for Childhood Arrivals (DACA) program, effective March 5, 2018. The Department of Homeland Security (DHS) had adopted DACA in 2012. Since that time, DACA has provided that immigrants brought to the United States illegally as children who meet certain other requirements could obtain work authorization, a social security number, and permission to travel overseas and lawfully return to the United States. Nearly 800,000 people have benefited from the program.</p>
+<p><span class="pg" id="s1-p2" title="page 2 of the original">2</span>After the Government announced its decision to terminate DACA, respondents filed suit in the U. S. District Court for the Northern District of California to challenge the Government’s termination of the program under the Administrative Procedure Act (APA) and on other grounds. The merits of that challenge have not yet been addressed by the District Court, and they are not before us. But the Government has filed a petition for a writ of mandamus in this Court to challenge the District Court’s order that it provide additional documents to complete the administrative record concerning the Government’s decision to terminate DACA. The U. S. Court of Appeals for the Ninth Circuit previously denied the Government most of the relief the Government seeks here. See <em>In re United States</em>, ___ F. 3d ___ (2017). I would do the same.</p>
+<p>A writ of mandamus is “a ‘drastic and extraordinary’ remedy ‘reserved for really extraordinary causes.’” <em>Cheney</em> v. <em>United States Dist. Court for D. C.</em> , 542 U. S. 367, 380 (2004) (quoting <em>Ex parte Fahey</em>, 332 U. S. 258, 259–260 (1947)). In my view, the Government’s arguments do not come close to carrying the heavy burden that the Government bears in seeking such extraordinary relief. With respect, I therefore dissent from the Court’s decision to grant a stay pending further consideration of the Government’s petition for a writ of mandamus.</p>
+<h3 class="oh">I</h3>
+<p>The Government’s primary argument is that “the district court plainly erred by . . . ordering the government to ‘complete’ the administrative record with materials beyond those presented by the agency to the court,” because a reviewing court’s sole task under the APA is to “determine whether the agency’s action may be upheld on the basis of the reasons the agency provides and ‘the record the agency presents to the reviewing court.’” Pet. for Mandamus 19, 24 (quoting ___ F. 3d, at ___ (Watford, J., <span class="pg" id="s1-p3" title="page 3 of the original">3</span>dissenting) (slip op., at 1)). The Government thus contends that review of its decision terminating DACA must be based exclusively on the documents that the Government itself unilaterally selected for submission to the District Court. I am not aware of any precedent supporting the Government’s position.</p>
+<p>The APA is clear that a court reviewing agency action must review “the whole record” to determine whether that action is lawful. 5 U. S. C. §706. The basic question here is what constitutes “the whole record” that the court must review. We held in <em>Citizens to Preserve Overton Park, Inc.</em> v. <em>Volpe</em>, 401 U. S. 402, 420 (1971), that the “whole record” means “the full administrative record that was before the Secretary at the time he made his decision.” <em>Ibid.</em> Neither this Court nor the lower courts has ever read <em>Overton Park</em> to limit the “full administrative record” to those materials that the agency unilaterally decides should be considered by the reviewing court.</p>
+<p>Indeed, judicial review cannot function if the agency is permitted to decide unilaterally what documents it submits to the reviewing court as the administrative record. Effective review depends upon the administrative record containing all relevant materials presented to the agency, including not only materials supportive of the government’s decision but also materials contrary to the government’s decision. See <em>Motor Vehicle Mfrs. Assn. of United States, Inc.</em> v. <em>State Farm Mut. Automobile Ins. Co.</em>, 463 U. S. 29, 43–44 (1983). Otherwise, the reviewing court cannot engage in the “thorough, probing, in-depth review” that the APA requires. <em>Overton Park</em>, 401 U. S., at 415–416. A court deprived of a full administrative record could not consider, for example, whether the decision was based on the consideration of irrelevant factors, <em>id.,</em> at 411–412; whether it considered the relevant factors, <em>id.,</em> at 416; whether the decision was “arbitrary, capricious, an abuse of discretion, or otherwise not in accordance with the law,” <span class="pg" id="s1-p4" title="page 4 of the original">4</span>§706(2)(A); or whether the decision was unlawful for some other reason.</p>
+<p>Perhaps for this reason, the lower courts seem to have unanimously rejected the Government’s position that the agency may unilaterally determine the contents of the administrative record that a court may review. In <em>Thompson</em> v. <em>Department of Labor</em>, 885 F. 2d 551 (CA9 1989), for example, the Ninth Circuit explained:</p>
+<blockquote>
+<p>“The whole administrative record . . . is not necessarily those documents that the <em>agency</em> has compiled and submitted as ‘the’ administrative record. The ‘whole’ administrative record, therefore, consists of all documents and materials directly or <em>indirectly</em> considered by agency decision-makers and includes evidence contrary to the agency’s position.” <em>Id.,</em> at 555 (citation and some internal quotation marks omitted).</p>
+</blockquote>
+<p class="cont">See also, <em>e.g., Bar MK Ranches</em> v. <em>Yuetter</em>, 994 F. 2d 735, 739 (CA10 1993) (“An agency may not unilaterally determine what constitutes the Administrative Record”).</p>
+<p>To be sure, we also said in <em>Overton Park</em> (referring to the famous case of <em>United States</em> v. <em>Morgan</em>, 313 U. S. 409, 422 (1941)), that “inquiry into the mental processes of administrative decisionmakers is usually to be avoided” absent a showing of bad faith or improper conduct. 401 U. S., at 420<em>.</em> But we said that in the context of explaining the circumstances under which officials “who participated in the decision” could be required “<em>to give testimony</em> explaining their action.” <em>Ibid.</em> (emphasis added); see also <em>Morgan</em>, <em>supra,</em> at 422 (discussing the testimony of the Secretary of Agriculture).</p>
+<p>Probing a decisionmaker’s subjective mental reasoning—what was at issue in <em>Morgan</em> and <em>Overton Park</em>—is distinct from the ordinary judicial task of evaluating whether the decision itself was objectively valid, considering all of the materials before the decisionmaker at the <span class="pg" id="s1-p5" title="page 5 of the original">5</span>time he made the decision. <em>Overton Park</em>, <em>supra,</em> at 420. And the testimony of the decisionmaker, at issue in <em>Morgan</em> and <em>Overton Park</em> , cannot be deemed properly part of the administrative record in any event, because it did not exist until after the agency decision had been made. See <em>Florida Power &amp; Light Co.</em> v. <em>Lorion</em>, 470 U. S. 729, 743 (1985) (“‘[T]he focal point for judicial review should be the administrative record already in existence, not some new record made initially in the reviewing court’” (quoting <em>Camp</em> v. <em>Pitts</em>, 411 U. S. 138, 142 (1973) (<em>per curiam</em>)).</p>
+<p>The documents that the District Court ordered the Government to provide are documents that were considered by the decisionmaker or those advising her and that were “already in existence” at the time of the relevant agency decision. At least facially, these documents do not seem to involve “inquiry into the mental processes” of the decisionmaker at all. They thus do not implicate the bad faith or improper conduct standard from <em>Overton Park</em>.</p>
+<p>In taking the position that the agency unilaterally decides which documents make up the administrative record, the Government relies heavily on the D. C. Circuit’s decision in <em>San Luis Obispo Mothers for Peace</em> v. <em>NRC</em>, 789 F. 2d 26, 44–45 (CADC 1986) (en banc). <em>San Luis Obispo</em> expanded <em>Morgan</em> and <em>Overton Park</em>’s bad faith or improper conduct standard to apply to one narrow category of pre-existing, documentary materials: records of the closed deliberations of the members of a multimember agency. See<em> San Luis Obispo</em>, 789 F. 2d<em>,</em> at 44–45. Such records, the D. C. Circuit has explained, are functionally equivalent to deposing an agency head to explain her decision—they represent the “collective mental processes of the agency.” <em>Id.,</em> at 44. This Court has never passed on this extension of <em>Morgan</em> and <em>Overton Park</em>. But in any event, it does not help the Government here because DHS, which made the decision to terminate DACA, is not a multimember agency, and so the records the District <span class="pg" id="s1-p6" title="page 6 of the original">6</span>Court ordered produced are not protected by <em>San Luis Obispo</em> either.</p>
+<p>The Government also relies on our decision in <em>Cheney</em>, 542 U. S. 367. But <em>Cheney</em> concerned only requests for documents from the White House itself. Such documents seem to form at most only a small portion of the documents that the District Court ordered the Government to add to the administrative record, so <em>Cheney</em> cannot justify the broad relief from any obligation to complete the administrative record that the Government seeks. And, moreover, the Government has failed to argue with any specificity about the burden that the requirement to include White House documents in particular in the administrative record will impose, so it is impossible for this Court to perform the sort of balancing analysis that we said was necessary in <em>Cheney</em>. <em>Id.,</em> at 385.</p>
+<p>Finally, the Government relies on dictum from <em>Florida Power &amp; Light</em>, 470 U. S., at 742–744, that judicial review is to be conducted “based on the record the agency presents to the reviewing court.” But the Government takes that language out of context. The quoted language comes as part of the Court’s explanation for why there is often no need for independent district court factfinding as part of APA review: namely, because that review will be based on “‘the administrative record already in existence, not some new record made initially in the reviewing court.’” <em>Id.,</em> at 743 (quoting <em>Camp</em>, <em>supra,</em> at 142). Thus, what we meant by the phrase the Government quotes was that review is to be “based on the record the agency <em>proceedings</em> present to the reviewing court,” 470 U. S., at 744—just what we said in <em>Overton Park.</em> No more was at issue in <em>Florida Power &amp; Light</em>. That case did not hold that the Government gets to define unilaterally the scope of the documents it submits to the reviewing court as the administrative record.</p>
+<p>In sum, the cases, both in this Court and in lower <span class="pg" id="s1-p7" title="page 7 of the original">7</span>courts, hold or are consistent with the proposition that a reviewing court has the power to order the Government to supplement documents already provided with other documents where necessary to give the court “the full administrative record.” <em>Overton Park</em>, 401 U. S., at 420.</p>
+<h3 class="oh">II</h3>
+<p>The Government also raises various other concerns, but they similarly fail to show the Government’s entitlement to extraordinary mandamus relief.</p>
+<p>The Government asserts that some of the documents the District Court ordered be included in the administrative record are protected by various privileges. But the Government has not developed a specific claim of privilege as to any particular document to us here or to any court below. See Application for Stay 24; see also ___ F. 3d, at ___, n. 8 (noting that the Government “provided little in the way of argument regarding the specific documents ordered disclosed by the district court”). The closest the Government comes is with repeated references to a single document out of the 35 that the District Court found not privileged and ordered it to produce. The Government describes it as a memorandum from the White House Counsel’s office to the President. But even as to this one document, the Government offers no legal or factual support for its claim of privilege aside from its bare description. The District Court reviewed that document, and the other 34, and concluded that they were not privileged. We have not seen these documents, and we consequently have no basis to question the District Court’s conclusion.</p>
+<p>As for any additional documents that the Government may believe are privileged, the District Court’s order leaves the Government free to withhold privileged documents from the administrative record. The Government simply has to explain the basis for its privilege claim and provide the documents <em>in camera</em> for the District Court to <span class="pg" id="s1-p8" title="page 8 of the original">8</span>review. Given that the District Court concluded that of the first 84 privileged documents the Government attempted to withhold from the administrative record, 35 were not in fact privileged, the District Court’s requirement that the Government justify its future privilege claims and file the documents for review <em>in camera</em> seems to be a reasonable exercise of the District Court’s considerable discretion in this area.</p>
+<p>The Government also complains about the burden imposed by the District Court’s order, but that argument is also beside the point. The Government complains that it must review 21,000 documents as potentially part of the administrative record. But the underlying agency action here is important, and that is by no means an unusually large number of documents; administrative records often contain hundreds of thousands of documents. See, <em>e.g., Georgia ex. rel. Olens</em> v<em>. McCarthy,</em> 833 F. 3d 1317, 1320 (CA11 2016) (noting that the administrative record “is more than a million pages long”). Moreover, the Government’s argument about burden is based almost entirely on how quickly it must comply with the District Court’s order. See Application for Stay 28–31. But the current December 22 deadline was set by the District Court on November 20, 2017—three days <em>after</em> the Court of Appeals’ decision. The Government is free to request an additional extension of time from the District Court or to seek mandamus relief from the deadline in the Court of Appeals. The Government has done neither. And so the Government’s challenge to that deadline, and thus to what it says is the unreasonable burden to review thousands of documents in such a short period of time, seems to be barred by this Court’s Rule 23.3, because it fails to explain “with particularity why the relief sought is not available in any other court.”</p>
+<p>The same is true of the Government’s objections to the District Court’s order that discovery of documents and <span class="pg" id="s1-p9" title="page 9 of the original">9</span>information outside the administrative record will begin on December 22. The Government has not challenged any particular discovery order as overbroad in the District Court, much less in the Court of Appeals. The Government’s objections are thus premature. Concerning depositions, for example, the most the Government can say is that “the district court <em>will likely allow</em>” depositions of “numerous witnesses.” Reply in Support of Application for Stay 13–14 (emphasis added). Perhaps the District Court will allow those depositions and perhaps it will not. But I do not see how we can restrain by mandamus an order that the Government merely fears that the District Court might enter in the future.</p>
+<h3 class="oh">III</h3>
+<p>The Government also argues that a stay of the District Court’s orders is appropriate because judicial review of the agency decision at issue is precluded by the APA as “committed to agency discretion by law,” 5 U. S. C. §701(a)(2), and by the Immigration and Nationality Act, 8 U. S. C. §1252(g). But that argument goes to the merits of the respondents’ underlying lawsuit, which have not yet been addressed by the District Court and are not now before this Court, rather than to the proper contents of the administrative record assuming that the agency decision is subject to review. The District Court on September 21 offered the Government the opportunity to file an early motion to dismiss and thus obtain a decision on its threshold objections before the preparation of the administrative record. The Government rejected that offer, preferring instead to defer the issue to summary judgment motions. I see no reason to grant a writ of mandamus to relieve the Government of the consequences of that decision.</p>
+<h3 class="oh">IV</h3>
+<p>Except in the most extraordinary circumstances, this <span class="pg" id="s1-p10" title="page 10 of the original">10</span>Court’s long-settled practice has been to leave these sorts of burden and discovery-related procedural disputes to the district courts, with occasional court of appeals intervention. We follow this practice for good reason. To understand whether a particular discovery order is overly burdensome typically requires a deep understanding of the overall factual context and procedural history of an individual case. This Court is thus poorly positioned to second-guess district courts’ determinations in this area.</p>
+<p>The Court today abandons its practice of nonintervention in this kind of discovery-related dispute. In addition to disrupting the progress of this litigation, I fear that the Court’s decision to intervene here means we will be asked to address run-of-the-mill discovery disputes in many other matters, certainly when the Government is involved and potentially when it is not involved. In my view, the Court should maintain its usual policy of abstaining from disputes like this one.</p>
+<p>For these reasons, with respect, I dissent from the Court’s grant of the Government’s application for a stay pending further consideration of its petition for a writ of mandamus.</p></section><p class='back'><a href='/opinions/'>&larr; All opinions</a> · <a href='/justices/ot2017.html'>The Justices, October Term 2017 &rarr;</a></p></main></body>
+</html>
+
