@@ -27,7 +27,8 @@ suppressPackageStartupMessages({ library(stringr); library(jsonlite) })
 
 # p2: companion dockets (a consolidated case's page is its lead's), and the
 #     opinions relating to orders.
-OPINION_PAGE_VERSION <- "p2"
+# p3: captions cased properly where the docket's caption cannot say how.
+OPINION_PAGE_VERSION <- "p3"
 OPINION_DIR <- "opinions"
 
 opinion_href <- function(term, dkt, ext = "html") sprintf("/%s/%s/%s.%s", OPINION_DIR, term, dkt, ext)
@@ -91,12 +92,34 @@ opinion_worklist <- function(site_dir) {
 # The caption the opinion's own running head carries ("WOLFORD v. LOPEZ"), in
 # the case of the docket's caption where a word of it appears there ("Wolford",
 # "FCC"), and title case otherwise. NULL when the head gave none.
+# One word of a running head ("O'DONNELL", "OF", "LLC") in the case a caption
+# gives it, for when the docket's caption does not contain the word (or there
+# is no docket caption: the OT2016 cases are not in cases/search.json). Title
+# case alone wrote "O'donnell v. City Of Chicago" and "Tc Heartland Llc".
+.OP_SMALL <- c("of", "and", "the", "for", "in", "on", "to", "by", "a", "an", "at", "ex", "rel.", "et", "al.", "de", "la", "del", "ex")
+.OP_UPPER <- c("USA", "U.S.", "U.S.A.", "II", "III", "IV", "VI", "EPA", "SEC", "FBI", "IRS", "INS", "ICE", "CIA", "DOJ", "FERC",
+               "NLRB", "FCC", "FTC", "FDA", "HHS", "CFPB", "OSHA", "FEC", "LLC", "LLP", "L.P.", "L.L.C.", "N.A.", "PLC", "AG", "SA", "S.A.", "NV", "N.V.")
+.op_title_word <- function(x, first = FALSE) {
+  bare <- toupper(sub("[,;]+$", "", x)); tail <- sub("^.*?([,;]*)$", "\\1", x)
+  if (bare %in% .OP_UPPER) return(paste0(bare, tail))
+  if (!first && tolower(bare) %in% .OP_SMALL) return(paste0(tolower(bare), tail))
+  # Initials with no vowel in them stay capitals: "TC", "NRG", "BNSF".
+  if (grepl("^[A-Z]{2,5}$", bare) && !grepl("[AEIOUY]", bare)) return(paste0(bare, tail))
+  t <- str_to_title(x)
+  # The capital after O' and D' ("O'Donnell", "D'Amico") and after Mc; each
+  # half of a hyphenated name ("O'Connor-Ratcliff") is already capitalised.
+  t <- gsub("\\b([OD])(['’])([a-z])", "\\1\\2\\U\\3", t, perl = TRUE)
+  gsub("\\bMc([a-z])", "Mc\\U\\1", t, perl = TRUE)
+}
+
 opinion_short_caption <- function(short, long) {
   if (is.null(short) || !nzchar(short)) return(NULL)
   w <- strsplit(str_squish(short), " ")[[1]]
   lw <- str_extract_all(long %||% "", "[A-Za-z0-9.'’&-]+")[[1]]
-  key <- function(x) tolower(gsub("[.,]", "", x))
-  out <- vapply(w, function(x) {
+  # The head sets a typographic apostrophe where the docket types a straight one.
+  key <- function(x) tolower(gsub("[.,]", "", gsub("’", "'", x, fixed = TRUE)))
+  out <- vapply(seq_along(w), function(i) {
+    x <- w[i]
     if (tolower(x) == "v.") return("v.")
     hit <- lw[key(lw) == key(x)]
     # An agency's initials ("FCC" where the docket says "Federal Communications
@@ -106,7 +129,7 @@ opinion_short_caption <- function(short, long) {
     initials <- paste(substr(lw[grepl("^[A-Z]", lw)], 1, 1), collapse = "")
     core <- if (length(hit)) sub(",$", "", hit[1])
             else if (nchar(bare) >= 2 && nchar(bare) <= 6 && bare == toupper(bare) && grepl(bare, initials, fixed = TRUE)) sub(",$", "", x)
-            else str_to_title(x)
+            else .op_title_word(x, first = i == 1L || identical(tolower(w[i - 1L]), "v."))
     paste0(core, if (grepl(",$", x) && !grepl(",$", core)) "," else "")
   }, character(1))
   s <- paste(out, collapse = " ")
