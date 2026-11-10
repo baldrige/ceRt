@@ -15,7 +15,6 @@
 
 suppressPackageStartupMessages({ library(tidyverse); library(httr2); library(jsonlite); library(htmltools) })
 source("R/palette.R"); source("R/site_nav.R"); source("R/site_meta.R"); source("R/page_style.R")
-source("R/site_decisions.R")      # .parse_opinion_listing(), for the orders listing
 source("R/opinion_page.R")
 
 site_dir <- Sys.getenv("SITE_DIR", unset = "site")
