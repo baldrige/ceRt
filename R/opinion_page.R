@@ -217,6 +217,33 @@ render_opinion_page <- function(site_dir, o, body, doc) {
   invisible(out)
 }
 
+# ---- files the index no longer names ---------------------------------------------
+# A page is published under its lead docket. When two dockets of one decision
+# each had a page (the listing named the same opinion twice, as a slip under
+# one number and as its U.S. Reports excerpt under the other) and one became
+# the other's companion, its four files stayed: unlinked, but still served,
+# and a second copy of the opinion for a search engine to find. So does the
+# JSON of an orders opinion later found short. Anything in a Term's folder
+# that is not a lead's file goes.
+#
+# Refuses to act on an index that names nothing, or when it would remove more
+# than a tenth of what is there: that is a broken index, not orphans.
+prune_opinion_files <- function(site_dir, idx) {
+  lead <- idx[vapply(idx, function(e) isTRUE(e$lead), logical(1))]
+  root <- file.path(site_dir, OPINION_DIR)
+  files <- list.files(root, pattern = "[.](html|md|epub|json)$", recursive = TRUE)
+  files <- files[grepl("^[0-9]{4}/[^/]+$", files)]
+  if (!length(lead) || !length(files)) return(invisible(character()))
+  keep <- sub("^/[^/]+/", "", sub("[.]html$", "", vapply(lead, function(e) e$href, character(1))))
+  orphan <- files[!sub("[.](body[.]html|html|md|epub|json)$", "", files) %in% keep]
+  if (length(orphan) > 0.1 * length(files)) {
+    message("opinions: ", length(orphan), " of ", length(files), " files are not in the index -- too many to be orphans; none removed")
+    return(invisible(character()))
+  }
+  unlink(file.path(root, orphan))
+  invisible(orphan)
+}
+
 # ---- the index page -------------------------------------------------------------
 write_opinion_index_page <- function(site_dir, idx) {
   ent <- idx[vapply(idx, function(e) isTRUE(e$lead), logical(1))]

@@ -226,6 +226,24 @@ it. `qa.hyphens_kept` lists every hyphen kept at a break.
 The EPUB's XML is checked for well-formedness in development; it has **not**
 been run through `epubcheck`.
 
+## Fixes that came from the published set
+
+Faults found by `notes_unmatched` once all 600 were built (`EXTRACT_VERSION`
+x3):
+
+- **The body's size is the largest that carries a tenth of the text**, not
+  the commonest. A short per curiam under a long list of counsel and amici
+  (No. 21-1333) is mostly small type; read at that size, its notes were body
+  and each page's "Per Curiam" head a heading.
+- **Several notes cited at one point** are one superscript in the PDF
+  ("Texas.10,11,12", No. 22-277): a reference each.
+- **A superscript number far from any note the section has** is not a
+  reference: "[123I]ioflupane" (No. 22-6389). It stays a superscript.
+
+`prune_opinion_files()` removes, at each build, any file in a Term's folder
+that no index entry names: the second copy left when two dockets of one
+decision each had a page and one became the other's companion.
+
 ## Known faults
 
 - A URL broken across lines keeps the break's space or hyphen.

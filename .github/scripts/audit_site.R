@@ -1142,6 +1142,15 @@ local({
   else ok("opinion files", sprintf("%d opinions, each with its page, Markdown, EPUB and JSON", length(lead)))
   if (length(thin)) fail("opinion text", sprintf("%d page(s) with no text -- the PDF was not read, e.g. %s", length(thin), paste(utils::head(thin, 5), collapse = ", ")))
   else ok("opinion text", "every opinion has text")
+  # A file in a Term's folder that no index entry names: a second, unlinked
+  # copy of an opinion (prune_opinion_files() removes them at each build).
+  have <- list.files(od, pattern = "[.](html|md|epub|json)$", recursive = TRUE)
+  have <- have[grepl("^[0-9]{4}/[^/]+$", have)]
+  named <- sub("^/[^/]+/", "", sub("[.]html$", "", vapply(lead, function(e) e$href, character(1))))
+  stray <- have[!sub("[.](html|md|epub|json)$", "", have) %in% named]
+  if (length(stray)) warn("opinion orphans", sprintf("%d file(s) under opinions/ that the index does not name, e.g. %s",
+                                                    length(stray), paste(utils::head(stray, 4), collapse = ", ")))
+  else ok("opinion orphans", "every file under a Term belongs to an indexed opinion")
   loose <- names(lead)[vapply(lead, function(e) isTRUE(e$unmatched > 0), logical(1))]
   if (length(loose)) warn("opinion footnotes", sprintf("%d opinion(s) have a note reference without its note, or the reverse: %s",
                                                       length(loose), paste(utils::head(loose, 8), collapse = ", ")))

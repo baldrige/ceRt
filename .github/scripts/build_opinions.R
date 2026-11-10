@@ -205,6 +205,8 @@ for (v in unique(work$volume[vol_rows])) {
 }
 write_opinion_index(site_dir, idx)
 .op_write_json(skipped, opinion_skipped_path(site_dir))
+gone <- prune_opinion_files(site_dir, idx)
+if (length(gone)) cat("opinions: removed", length(gone), "file(s) the index no longer names, e.g.", paste(utils::head(gone, 4), collapse = ", "), "\n")
 n <- write_opinion_index_page(site_dir, idx)
 n_opds <- write_opinion_opds(site_dir, idx)
 cat("opinions: OPDS catalogue of", n_opds %||% 0, "EPUB(s)\n")
