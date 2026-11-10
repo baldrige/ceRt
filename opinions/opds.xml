@@ -3,43 +3,50 @@
 <id>https://supremecourt.report/opinions/opds.xml</id>
 <title>Supreme Court Report: Opinions</title>
 <subtitle>The Supreme Court's merits opinions as EPUBs, set from the PDFs the Court publishes</subtitle>
-<updated>2026-06-30T00:00:00Z</updated>
+<updated>2026-11-09T00:00:00Z</updated>
 <author><name>Supreme Court Report</name><uri>https://supremecourt.report/</uri></author>
 <link rel="self" href="https://supremecourt.report/opinions/opds.xml" type="application/atom+xml;profile=opds-catalog;kind=navigation"/>
 <link rel="start" href="https://supremecourt.report/opinions/opds.xml" type="application/atom+xml;profile=opds-catalog;kind=navigation"/>
 <entry>
 <id>https://supremecourt.report/opinions/opds/new.xml</id>
 <title>Newest opinions</title>
-<updated>2026-06-30T00:00:00Z</updated>
+<updated>2026-11-09T00:00:00Z</updated>
 <content type="text">The 50 most recent</content>
 <link rel="http://opds-spec.org/sort/new" href="https://supremecourt.report/opinions/opds/new.xml" type="application/atom+xml;profile=opds-catalog;kind=acquisition"/>
 </entry>
 <entry>
+<id>https://supremecourt.report/opinions/opds/2026.xml</id>
+<title>October Term 2026</title>
+<updated>2026-11-09T00:00:00Z</updated>
+<content type="text">3 opinions</content>
+<link rel="subsection" href="https://supremecourt.report/opinions/opds/2026.xml" type="application/atom+xml;profile=opds-catalog;kind=acquisition"/>
+</entry>
+<entry>
 <id>https://supremecourt.report/opinions/opds/2025.xml</id>
 <title>October Term 2025</title>
-<updated>2026-06-30T00:00:00Z</updated>
-<content type="text">57 opinions</content>
+<updated>2026-09-25T00:00:00Z</updated>
+<content type="text">92 opinions</content>
 <link rel="subsection" href="https://supremecourt.report/opinions/opds/2025.xml" type="application/atom+xml;profile=opds-catalog;kind=acquisition"/>
 </entry>
 <entry>
 <id>https://supremecourt.report/opinions/opds/2024.xml</id>
 <title>October Term 2024</title>
-<updated>2025-06-27T00:00:00Z</updated>
-<content type="text">61 opinions</content>
+<updated>2025-09-26T00:00:00Z</updated>
+<content type="text">65 opinions</content>
 <link rel="subsection" href="https://supremecourt.report/opinions/opds/2024.xml" type="application/atom+xml;profile=opds-catalog;kind=acquisition"/>
 </entry>
 <entry>
 <id>https://supremecourt.report/opinions/opds/2023.xml</id>
 <title>October Term 2023</title>
 <updated>2024-07-01T00:00:00Z</updated>
-<content type="text">59 opinions</content>
+<content type="text">58 opinions</content>
 <link rel="subsection" href="https://supremecourt.report/opinions/opds/2023.xml" type="application/atom+xml;profile=opds-catalog;kind=acquisition"/>
 </entry>
 <entry>
 <id>https://supremecourt.report/opinions/opds/2022.xml</id>
 <title>October Term 2022</title>
 <updated>2023-06-30T00:00:00Z</updated>
-<content type="text">57 opinions</content>
+<content type="text">55 opinions</content>
 <link rel="subsection" href="https://supremecourt.report/opinions/opds/2022.xml" type="application/atom+xml;profile=opds-catalog;kind=acquisition"/>
 </entry>
 <entry>
@@ -53,28 +60,28 @@
 <id>https://supremecourt.report/opinions/opds/2020.xml</id>
 <title>October Term 2020</title>
 <updated>2021-07-01T00:00:00Z</updated>
-<content type="text">55 opinions</content>
+<content type="text">56 opinions</content>
 <link rel="subsection" href="https://supremecourt.report/opinions/opds/2020.xml" type="application/atom+xml;profile=opds-catalog;kind=acquisition"/>
 </entry>
 <entry>
 <id>https://supremecourt.report/opinions/opds/2019.xml</id>
 <title>October Term 2019</title>
 <updated>2020-07-09T00:00:00Z</updated>
-<content type="text">55 opinions</content>
+<content type="text">57 opinions</content>
 <link rel="subsection" href="https://supremecourt.report/opinions/opds/2019.xml" type="application/atom+xml;profile=opds-catalog;kind=acquisition"/>
 </entry>
 <entry>
 <id>https://supremecourt.report/opinions/opds/2018.xml</id>
 <title>October Term 2018</title>
 <updated>2019-06-27T00:00:00Z</updated>
-<content type="text">69 opinions</content>
+<content type="text">68 opinions</content>
 <link rel="subsection" href="https://supremecourt.report/opinions/opds/2018.xml" type="application/atom+xml;profile=opds-catalog;kind=acquisition"/>
 </entry>
 <entry>
 <id>https://supremecourt.report/opinions/opds/2017.xml</id>
 <title>October Term 2017</title>
-<updated>2018-06-27T00:00:00Z</updated>
-<content type="text">61 opinions</content>
+<updated>2018-06-28T00:00:00Z</updated>
+<content type="text">66 opinions</content>
 <link rel="subsection" href="https://supremecourt.report/opinions/opds/2017.xml" type="application/atom+xml;profile=opds-catalog;kind=acquisition"/>
 </entry>
 <entry>

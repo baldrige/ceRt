@@ -36,6 +36,20 @@
 <link rel="alternate" href="https://supremecourt.report/opinions/2019/19-635.html" type="text/html"/>
 </entry>
 <entry>
+<id>urn:supremecourt-report:opinion:2019:17-1107</id>
+<title>Tommy Sharp, Interim Warden v. Patrick Dwayne Murphy</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2020-07-09T00:00:00Z</updated>
+<published>2020-07-09T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2020-07-09</dc:issued>
+<category term="ot2019" label="October Term 2019"/>
+<summary type="text">No. 17-1107 · decided July 9, 2020 · 276 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2019/17-1107.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2019/17-1107.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2019/17-1107.html" type="text/html"/>
+</entry>
+<entry>
 <id>urn:supremecourt-report:opinion:2019:19-431</id>
 <title>and Paul Home v. Pennsylvania</title>
 <author><name>Supreme Court of the United States</name></author>
@@ -76,6 +90,20 @@
 <link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2019/19-631.epub" type="application/epub+zip"/>
 <link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2019/19-631.md" type="text/markdown"/>
 <link rel="alternate" href="https://supremecourt.report/opinions/2019/19-631.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2019:19-518</id>
+<title>Colorado Department of State v. Micheal Baca, et al.</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2020-07-06T00:00:00Z</updated>
+<published>2020-07-06T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2020-07-06</dc:issued>
+<category term="ot2019" label="October Term 2019"/>
+<summary type="text">No. 19-518 · decided July 6, 2020 · 380 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2019/19-518.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2019/19-518.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2019/19-518.html" type="text/html"/>
 </entry>
 <entry>
 <id>urn:supremecourt-report:opinion:2019:19-465</id>
@@ -177,7 +205,7 @@
 </entry>
 <entry>
 <id>urn:supremecourt-report:opinion:2019:18-1501</id>
-<title>Liu v. Sec</title>
+<title>Liu v. SEC</title>
 <author><name>Supreme Court of the United States</name></author>
 <updated>2020-06-22T00:00:00Z</updated>
 <published>2020-06-22T00:00:00Z</published>
@@ -681,7 +709,7 @@
 </entry>
 <entry>
 <id>urn:supremecourt-report:opinion:2019:18-1269</id>
-<title>Rodriguez v. Fdic</title>
+<title>Rodriguez v. FDIC</title>
 <author><name>Supreme Court of the United States</name></author>
 <updated>2020-02-25T00:00:00Z</updated>
 <published>2020-02-25T00:00:00Z</published>

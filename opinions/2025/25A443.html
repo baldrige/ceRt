@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script async src='/analytics.js'></script><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate icon" href="/favicon.ico" sizes="any"><link rel="alternate" type="application/atom+xml" title="Supreme Court Report" href="/feed.xml"><link rel="alternate" type="application/atom+xml" title="Certiorari grants" href="/grants.xml"><title>Trump v. Illinois — Opinion — Supreme Court Report</title><meta name="description" content="The opinion in Trump v. Illinois (No. 25A443), decided December 23, 2025: the full text with its footnotes, as a page, a Markdown file and an EPUB."><link rel="canonical" href="https://supremecourt.report/opinions/2025/25A443.html"><meta property="og:site_name" content="Supreme Court Report"><meta property="og:type" content="article"><meta property="og:title" content="Trump v. Illinois — Opinion — Supreme Court Report"><meta property="og:description" content="The opinion in Trump v. Illinois (No. 25A443), decided December 23, 2025: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta property="og:url" content="https://supremecourt.report/opinions/2025/25A443.html"><meta property="og:image" content="https://supremecourt.report/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Supreme Court Report - docket analytics for the Supreme Court of the United States"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Trump v. Illinois — Opinion — Supreme Court Report"><meta name="twitter:description" content="The opinion in Trump v. Illinois (No. 25A443), decided December 23, 2025: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta name="twitter:image" content="https://supremecourt.report/og.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap"><style>
+  :root{--paper:#fdfcfa;--panel:#ffffff;--ink:#1a1a1e;--ink-soft:#484850;--faint:#63636b;--accent:#9c0e3a;--link:#9c0e3a;--rule:#dbd8d2;--nav-max:60rem}
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{font-family:'Newsreader',Georgia,serif;font-size:19px;line-height:1.6;
+    color:var(--ink);background:var(--paper);margin:0;font-feature-settings:'onum' 1}
+  body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
+    opacity:.5;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");}
+  .wrap{max-width:40rem;margin:0 auto;padding:3rem 1.4rem 4rem}
+  .kicker{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 1rem}
+  h1{font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:clamp(2.4rem,7vw,3.6rem);line-height:1;letter-spacing:-.015em;
+    margin:0 0 1rem;color:var(--ink)}
+  h1 em{font-style:italic;font-weight:500;color:var(--accent)}
+  .dek{font-size:1.15rem;line-height:1.5;color:var(--ink-soft);font-style:italic;
+    margin:0 0 1.4rem}
+  .brule{border:0;height:0;border-top:2px solid var(--ink);margin:1.4rem 0 .3rem;
+    position:relative}
+  .brule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+    border-top:1px solid var(--rule)}
+  ul.idx{list-style:none;padding:0;margin:1.6rem 0}
+  ul.idx li{border-bottom:1px solid var(--rule)}
+  /* Whole row is one block-level link: a large, reliable tap target on mobile. */
+  ul.idx a.row{display:flex;justify-content:space-between;align-items:baseline;
+    gap:1rem;padding:.9rem .4rem;text-decoration:none;border:0;color:inherit}
+  ul.idx a.row:hover{background:rgba(156,14,58,.05)}
+  ul.idx .d{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.16rem;
+    color:var(--accent);line-height:1.25}
+  ul.idx a.row:hover .d{text-decoration:underline;text-underline-offset:3px}
+  ul.idx .count{color:var(--faint);font-size:.9rem;font-style:italic;white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  /* A long note (an order list's "3 GVRs / 230 denied / 4 habeas denied /
+     ...", items separated by middots) cannot sit on one line: nowrap made it
+     claim the row and
+     squeezed the title into a column three words wide, and on a phone it ran off
+     the screen. Such a row opts in (meta_wrap): the note wraps, only between its
+     items, and takes at most ~45% of the row, so the title always has the
+     larger share. Under 34rem it drops beneath the title at full width. */
+  /* ("long", not "wrap": .wrap is the page container and its padding.) */
+  ul.idx .count.long{white-space:normal;text-align:right;max-width:45%;line-height:1.45}
+  ul.idx .count.long .seg{white-space:nowrap}
+  @media(max-width:34rem){
+    ul.idx a.row.longmeta{flex-wrap:wrap;row-gap:.2rem}
+    ul.idx .count.long{max-width:none;flex-basis:100%;text-align:left}
+  }
+  /* Compact horizontal strip of the most recent pages beneath a category row. */
+  ul.idx .recent{display:flex;flex-wrap:wrap;align-items:baseline;
+    gap:.3rem .85rem;padding:0 .4rem 1rem;margin-top:-.35rem}
+  ul.idx .recent .rlabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  ul.idx .recent a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--ink-soft);text-decoration:none;font-variant-numeric:tabular-nums;
+    border-bottom:1px solid var(--rule);padding-bottom:1px}
+  ul.idx .recent a:hover{color:var(--accent);border-color:var(--accent)}
+  /* Optional panel beneath the section index (home page: most-read cases). */
+  .panel{margin:2.4rem 0 0}
+  .panel h2{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 .25rem}
+  .panel .pnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:0 0 .5rem}
+  /* "Live now" (live_argument_panel, /live.js): hidden unless the Court is
+     streaming an argument. One red dot, the same --accent as the headings, so
+     the live state is a mark and not a new colour. */
+  .live h2 .ldot{display:inline-block;width:.5rem;height:.5rem;border-radius:50%;
+    background:var(--accent);margin-right:.5rem;vertical-align:.08rem;
+    animation:lpulse 2s ease-in-out infinite}
+  @keyframes lpulse{50%{opacity:.25}}
+  @media (prefers-reduced-motion:reduce){.live h2 .ldot{animation:none}}
+  .lplay{display:flex;flex-wrap:wrap;gap:.6rem .9rem;align-items:center;margin:.8rem 0 .3rem}
+  .lplay button{font:600 .9rem/1 'Newsreader',Georgia,serif;letter-spacing:.04em;
+    color:var(--paper);background:var(--accent);border:0;border-radius:2px;
+    padding:.6rem 1.05rem;cursor:pointer}
+  .lplay button:disabled{opacity:.6;cursor:progress}
+  .lplay button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  /* The player takes a row of its own and may never outgrow the column. A flex
+     item's min-width is auto, which for a replaced element is the browser's own
+     controls' width -- wider than the column on a phone, where mobile Safari
+     and Chrome draw larger controls than the desktop. */
+  .lplay audio{display:block;flex:1 1 100%;width:100%;min-width:0;max-width:100%;
+    box-sizing:border-box;margin:0}
+  .lplay .lstat{font-size:.85rem;color:var(--faint)}
+  /* --- Likeliest grants -----------------------------------------------------
+     Its own rows rather than ol.mostread's: this panel carries a question under
+     the caption, which that list has no room for, and a percentage that has to
+     read as the row's subject rather than as a trailing note.
+     The window toggle is two real radio inputs plus :has() -- no JavaScript.
+     Both windows are rendered at build time and one is hidden, which is the only
+     way a static site can offer the choice: there is no server to ask for the
+     other one. Real radios, not styled buttons, so the control is reachable by
+     keyboard and announced as a choice. */
+  .lead{margin:0 0 1.9rem}
+  .lead h2{margin-bottom:.35rem}
+  .lead .pnote{margin:0 0 .7rem}
+  .wr{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+  .win{display:inline-flex;gap:.25rem;margin:0 0 .55rem;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .win label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .win label:hover{color:var(--ink)}
+  .lead:has(#w7:checked) label[for=w7],
+  .lead:has(#w28:checked) label[for=w28],
+  .lead:has(#wall:checked) label[for=wall]{background:var(--accent);color:var(--paper)}
+  .wr:focus-visible+label{outline:2px solid var(--accent);outline-offset:2px}
+  /* Three windows, one shown: the checked radio hides the other two. */
+  .lead:has(#w7:checked) :is(.g28,.n28,.gall,.nall),
+  .lead:has(#w28:checked) :is(.g7,.n7,.gall,.nall),
+  .lead:has(#wall:checked) :is(.g7,.n7,.g28,.n28){display:none}
+  /* The show/hide controls for a panel's secondary line -- the question under
+     a forecast row, the holding under a decision. Same box as the window
+     toggle, a checkbox instead of radios, and no script: the sibling rule does
+     the work and the lines simply show where :has() is unsupported. The
+     questions are on by default (they are what a forecast row asks); the
+     holdings are off (the caption, kind and disposition already say what
+     happened, and the holding is the more). */
+  .opts{display:inline-flex;gap:.25rem;margin:0 .45rem .55rem 0;vertical-align:top;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .opts label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .opts label:hover{color:var(--ink)}
+  .lead:has(#qon:checked) label[for=qon],
+  .panel:has(#hon:checked) label[for=hon]{background:var(--accent);color:var(--paper)}
+  .lead:has(#qon:not(:checked)) .gq{display:none}
+  .panel:has(#hon:not(:checked)) .chold{display:none}
+  /* --- Upcoming at the Court ------------------------------------------------
+     A date gutter and a two-line body, the same shape as the grant rows above
+     it, so the two panels read as one page rather than two widgets. */
+  .cal{margin:0 0 1.9rem}
+  ol.cal{list-style:none;margin:0;padding:0}
+  ol.cal li{border-top:1px solid var(--rule)}
+  ol.cal li:last-child{border-bottom:1px solid var(--rule)}
+  /* The row is a container, not an anchor: an argument day carries one link per
+     case it hears and anchors cannot nest. Hover lives on the row so it still
+     reads as one unit, and each link colours on its own hover. */
+  ol.cal .crow{display:flex;gap:.95rem;align-items:baseline;padding:.55rem .1rem}
+  ol.cal .crow:hover{background:rgba(156,14,58,.05)}
+  ol.cal a{text-decoration:none;color:inherit}
+  ol.cal a:hover,ol.cal a:focus-visible{color:var(--accent)}
+  ol.cal .cdet a{border-bottom:1px solid rgba(156,14,58,.35)}
+  ol.cal .cdet a:hover{border-bottom-color:var(--accent)}
+  ol.cal .cwhen{flex:none;width:4.6rem;font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.96rem;color:var(--ink);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  ol.cal .cdow{display:block;font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);text-transform:uppercase;letter-spacing:.08em}
+  ol.cal .ctx{flex:1;min-width:0}
+  ol.cal .ckind{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:.98rem;line-height:1.25}
+  ol.cal .cdet{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.12rem}
+  /* Recent decisions reuses the calendar rows and adds exactly two things: the
+     kind word that opens the detail line, and the one outbound link (the slip
+     opinion), which takes the link colour the rest of the row deliberately
+     does not. */
+  ol.cal .dk{font-weight:600;color:var(--ink)}
+  ol.cal .cdet a.pdf{color:var(--link)}
+  /* The holding, from the Court's slip-opinion feed: one sentence, set
+     smaller and in the soft ink so the caption stays the row's headline. */
+  ol.cal .chold{display:block;font-size:.86rem;line-height:1.4;color:var(--ink-soft);
+    font-style:italic;margin-top:.15rem}
+  ol.cal .cdet a.pdf:hover,ol.cal .cdet a.pdf:focus-visible{color:var(--accent);
+    border-bottom-color:var(--accent)}
+  ol.grants{list-style:none;margin:0;padding:0}
+  ol.grants li{border-top:1px solid var(--rule)}
+  ol.grants li:last-child{border-bottom:1px solid var(--rule)}
+  ol.grants a{display:flex;gap:.95rem;align-items:baseline;text-decoration:none;
+    color:inherit;padding:.62rem .1rem}
+  ol.grants a:hover{background:rgba(156,14,58,.05)}
+  ol.grants a:hover .gc{color:var(--accent)}
+  ol.grants .gv{flex:none;width:3.5rem;text-align:right;
+    font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.22rem;
+    line-height:1.1;color:var(--accent);font-variant-numeric:tabular-nums}
+  ol.grants .gx{font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);margin-left:.3rem}
+  ol.grants .gtx{flex:1;min-width:0}
+  /* Subject-area line under the caption, in the section-label idiom (h2.sec):
+     small tracked caps in the faint ink, so it classifies without competing. */
+  ol.grants .gs,ol.mostread .ms{display:block;font-size:.68rem;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--faint);line-height:1.3;margin-top:.12rem}
+  ol.grants .gc{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:1rem;line-height:1.25}
+  ol.grants .gq{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.16rem}
+  ol.grants .gd{flex:none;font-size:.76rem;color:var(--faint);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  .more{margin:.75rem 0 0;font-size:.92rem}
+  .more a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.35)}
+  .more a:hover{border-bottom-color:var(--link)}
+  h2.sec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:.88rem;
+    letter-spacing:.09em;color:var(--faint);text-transform:uppercase;
+    margin:2.1rem 0 .6rem;padding-bottom:.28rem;border-bottom:1px solid var(--rule)}
+  @media(max-width:40rem){
+    ol.grants a{flex-wrap:wrap}
+    ol.grants .gd{width:100%;padding-left:4.45rem;margin-top:-.1rem}
+  }
+  ol.mostread{list-style:none;counter-reset:mr;padding:0;margin:0}
+  ol.mostread li{counter-increment:mr;border-bottom:1px solid var(--rule)}
+  ol.mostread a{display:flex;align-items:baseline;gap:.7rem;padding:.6rem .4rem;
+    text-decoration:none;color:inherit}
+  ol.mostread a:hover{background:rgba(156,14,58,.05)}
+  ol.mostread a::before{content:counter(mr);font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.95rem;color:var(--faint);min-width:1.1rem;
+    font-variant-numeric:tabular-nums}
+  ol.mostread .mc{flex:1;font-size:1rem;line-height:1.3}
+  ol.mostread .mct{display:block}
+  ol.mostread a:hover .mct{color:var(--accent);text-decoration:underline;
+    text-underline-offset:3px}
+  ol.mostread .mdk{color:var(--accent);font-weight:600;font-size:.82rem;
+    font-variant-numeric:tabular-nums;white-space:nowrap}
+  ol.mostread .mv{color:var(--faint);font-size:.85rem;font-style:italic;
+    white-space:nowrap;font-variant-numeric:tabular-nums}
+  /* Forecast percentages carry weight the most-read counts do not: the number is
+     the claim, not a footnote to the ranking. Upright, accent, tabular. */
+  ol.mostread .mv.fc{color:var(--accent);font-style:normal;font-weight:600;
+    font-size:.95rem;min-width:2.6rem;text-align:right}
+  /* Feed follow line. Deliberately quiet -- a footnote under the section list,
+     styled like .recent rather than like a call to action. */
+  .feeds{display:flex;flex-wrap:wrap;align-items:baseline;gap:.3rem .85rem;
+    margin:2.2rem 0 0;padding-top:1.1rem;border-top:1px solid var(--rule)}
+  .feeds .flabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  .feeds a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .feeds a:hover{border-color:var(--link)}
+  .back{margin-top:2rem;font-size:.95rem}
+  .back a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .back a:hover{border-color:var(--link)}
+  /* Home-page case search. */
+  .csearch{position:relative;margin:0 0 1.4rem}
+  #cq{width:100%;font-family:'Newsreader',Georgia,serif;font-size:1.05rem;color:var(--ink);
+    background:var(--panel);border:1px solid var(--rule);border-radius:3px;padding:.7rem .9rem}
+  #cq:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(156,14,58,.1)}
+  #cq::placeholder{color:var(--faint)}
+  #cq.loading{background-image:linear-gradient(90deg,transparent,rgba(156,14,58,.06),transparent);
+    background-size:40% 100%;background-repeat:no-repeat;animation:csl 1s infinite}
+  @keyframes csl{0%{background-position:-40% 0}100%{background-position:140% 0}}
+  .cres{list-style:none;margin:.35rem 0 0;padding:0;max-height:24rem;overflow-y:auto;
+    border:1px solid var(--rule);border-radius:3px;background:var(--panel)}
+  .cres:empty{display:none}
+  .cres li{border-bottom:1px solid var(--rule)}
+  .cres li:last-child{border-bottom:0}
+  .cres a{display:block;padding:.55rem .7rem;text-decoration:none;color:var(--ink);
+    font-size:.98rem;line-height:1.3}
+  .cres a:hover,.cres li.act a{background:rgba(156,14,58,.06)}
+  .cres mark{background:rgba(156,14,58,.14);color:inherit;padding:0 .05em;border-radius:2px}
+  .cres .cd{color:var(--accent);font-variant-numeric:tabular-nums;font-weight:600;
+    margin-right:.5rem;white-space:nowrap}
+  .cnone{padding:.55rem .7rem;color:var(--faint);font-style:italic}
+  .cnone a,.cqp a{color:var(--link);font-style:normal;text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .cqp{margin:.45rem 0 0;font-size:.88rem;color:var(--faint)}
+  /* /cases/ browse index: grouped sections with per-bucket counts. */
+  .csec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+    text-transform:uppercase;letter-spacing:.12em;color:var(--accent);
+    margin:2.2rem 0 .3rem;padding-bottom:.35rem;border-bottom:1px solid var(--rule);
+    display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
+  .csec .cn{font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:.85rem;
+    letter-spacing:0;text-transform:none;color:var(--faint);
+    font-variant-numeric:tabular-nums}
+  .cnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:.5rem 0 0}
+  .cnote a{color:var(--accent)}
+  ul.terms{list-style:none;padding:0;margin:1rem 0 0;display:flex;flex-wrap:wrap;
+    gap:.5rem 1.6rem}
+  ul.terms li{display:inline-flex;align-items:baseline;gap:.4rem}
+  ul.terms a{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.05rem;
+    color:var(--accent);text-decoration:none;border-bottom:1px solid var(--rule)}
+  ul.terms a:hover{border-bottom-color:var(--accent)}
+  ul.terms .cn{color:var(--faint);font-size:.85rem;font-variant-numeric:tabular-nums}
+  /* About page: running prose rather than an index, so it takes a measure and a
+     little more leading than the section rows above it. */
+  .about{margin:1.6rem 0 0;font-size:1.05rem;line-height:1.65;max-width:34rem}
+  .about p{margin:0 0 1rem}
+  .about a{color:var(--accent);text-decoration:none;
+    border-bottom:1px solid var(--rule)}
+  .about a:hover{border-bottom-color:var(--accent)}
+  .about .contact{margin:2rem 0 0;background:var(--panel);border:1px solid var(--rule);
+    border-left:4px solid var(--accent);padding:1.1rem 1.3rem}
+  .about .contact h2{font:600 .78rem/1 'Newsreader',Georgia,serif;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--accent);margin:0 0 .5rem}
+  .about .contact p{margin:0;font-size:1rem}
+
+/* ---- masthead ---- */
+.smast-in{max-width:var(--nav-max,60rem);margin:0 auto;padding:.85rem 1.5rem .5rem;
+  display:flex;align-items:baseline;justify-content:space-between;gap:1.4rem;flex-wrap:wrap}
+.smast-wm{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+  letter-spacing:.005em;color:var(--ink,#1a1a1e);text-decoration:none;white-space:nowrap;flex:none}
+.smast-wm em{font-style:italic;font-weight:500;color:var(--accent,#9c0e3a)}
+.smast-wm:hover{color:var(--accent,#9c0e3a)}
+/* Row gap first, then column. At 1.35rem the six section links measured 596px
+   of max-content -- 4px wider than the 592px row the 40rem index container
+   leaves them -- so ABOUT alone wrapped to a third line under the wordmark, on
+   every page page_style.R writes. 1.05rem brings the row to 572px: 20px of
+   slack at 40rem, and 45px on the 54rem case pages, which were themselves only
+   21px from wrapping. The .4rem row gap is for the day a seventh section
+   overruns it anyway -- a nav that wraps should read as a stack, not an orphan. */
+.snav{display:flex;gap:.4rem 1.05rem;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+.snav a{font:600 .72rem/1 'Newsreader',Georgia,serif;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--ink-soft,var(--soft,#484850));text-decoration:none;display:inline-block;
+  padding:.5rem 0;border-bottom:1.5px solid transparent}
+.snav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--rule,#dbd8d2)}
+.snav a[aria-current='page']{color:var(--accent,#9c0e3a);
+  border-bottom-color:var(--accent,#9c0e3a)}
+.smast-rule-w{max-width:var(--nav-max,60rem);margin:0 auto;padding:0 1.5rem}
+.smast-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0;position:relative}
+.smast-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.skip{position:absolute;left:-9999px;top:0;background:var(--panel,#ffffff);
+  color:var(--accent,#9c0e3a);padding:.6rem 1rem;
+  border:1px solid var(--accent,#9c0e3a);
+  font:600 .8rem/1 'Newsreader',Georgia,serif;letter-spacing:.1em;text-transform:uppercase;z-index:10}
+.skip:focus{left:.5rem;top:.5rem}
+/* ---- breadcrumb ---- */
+.bcrumb{margin:.7rem 0 0}
+.bcrumb ol{list-style:none;display:flex;flex-wrap:wrap;align-items:baseline;
+  gap:.1rem .45rem;margin:0;padding:0}
+.bcrumb li{display:inline-flex;align-items:baseline;gap:.45rem}
+.bcrumb a{font:400 .8rem/1.5 'Newsreader',Georgia,serif;color:var(--ink-soft,var(--soft,#484850));
+  text-decoration:none;border-bottom:1px solid var(--rule,#dbd8d2)}
+.bcrumb a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.bcrumb .sep{color:var(--faint,#63636b);font-size:.8rem;line-height:1.5}
+.bcrumb [aria-current='page']{font:400 .8rem/1.5 'Newsreader',Georgia,serif;
+  color:var(--faint,#63636b);font-variant-numeric:tabular-nums}
+/* ---- case footer ---- */
+.cfoot{margin:2.4rem 0 0}
+.cfoot-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0 0 1rem;position:relative}
+.cfoot-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.cfoot-off{font-size:.95rem;margin:0 0 1.1rem}
+.cfoot-off a{color:var(--link,#9c0e3a);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.4)}
+.cfoot-off a:hover{border-bottom-color:var(--link,#9c0e3a)}
+.cfoot-lab{font:600 .68rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);margin:0 0 .5rem}
+.cfoot-nav{display:flex;flex-wrap:wrap;gap:.35rem 1.1rem;list-style:none;margin:0;padding:0}
+.cfoot-nav a{font-size:.92rem;color:var(--ink-soft,var(--soft,#484850));text-decoration:none;
+  border-bottom:1px solid var(--rule,#dbd8d2);padding-bottom:1px}
+.cfoot-nav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.cfoot-stamp{margin:1.2rem 0 0;font-size:.8rem;color:var(--faint,#63636b);font-style:italic}
+/* ---- prev / next ---- */
+.pnav{margin:2.2rem 0 0;border-top:1px solid var(--rule,#dbd8d2);padding-top:1rem;
+  display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.pnav a,.pnav span.none{text-decoration:none;color:inherit;display:block;padding:.5rem .2rem}
+.pnav a:hover{background:rgba(156,14,58,.05)}
+.pnav .dir{font:600 .66rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);display:block;margin-bottom:.3rem}
+.pnav .lab{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1rem;line-height:1.25;
+  color:var(--accent,#9c0e3a);display:block}
+.pnav a:hover .lab{text-decoration:underline;text-underline-offset:3px}
+.pnav .nx{text-align:right}
+.pnav .none{opacity:.35}
+@media(max-width:640px){
+  .smast-in{padding:.7rem 1.1rem .25rem;gap:.15rem}
+  .smast-wm{font-size:.98rem}
+  .smast-in nav{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+    -webkit-mask-image:linear-gradient(90deg,#000 86%,transparent);
+    mask-image:linear-gradient(90deg,#000 86%,transparent)}
+  .smast-in nav::-webkit-scrollbar{display:none}
+  .snav{flex-wrap:nowrap;gap:1.15rem;padding-right:2.4rem}
+  .snav a{padding:.7rem 0;white-space:nowrap}
+  .smast-rule-w{padding:0 1.1rem}
+  .cfoot-nav{gap:.5rem 1rem}
+  .cfoot-nav a{padding-bottom:.3rem}
+  .pnav{grid-template-columns:1fr;gap:.2rem}
+  .pnav .nx{text-align:left;border-top:1px solid var(--rule,#dbd8d2)}
+}
+
+  .wrap.opn{max-width:42rem}
+  .opn .ometa{font-size:.92rem;color:var(--ink-soft);margin:.3rem 0 0}
+  .opn .oget{display:flex;flex-wrap:wrap;gap:.4rem .6rem;margin:1.1rem 0 0;padding:0;list-style:none;font-size:.9rem}
+  .opn .oget a{display:inline-block;padding:.32rem .7rem;border:1px solid var(--rule);border-radius:4px;color:var(--ink);text-decoration:none;background:var(--panel)}
+  .opn .oget a:hover{border-color:var(--accent);color:var(--accent)}
+  .opn .osrc{font-size:.84rem;color:var(--faint);margin:.9rem 0 0;line-height:1.45}
+  .opn .osrc a{color:var(--link)}
+  .opn .otoc{margin:1.6rem 0 0;padding:.8rem 1rem;border:1px solid var(--rule);border-radius:4px;background:var(--panel);font-size:.95rem}
+  .opn .otoc ol{margin:0;padding:0;list-style:none}
+  .opn .otoc li{margin:.25rem 0}
+  .opn .otoc a{color:var(--ink);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.35)}
+  .opn .otoc a:hover{color:var(--accent)}
+  .opn section.op{margin-top:3rem;border-top:2px solid var(--ink);padding-top:1.1rem}
+  .opn section.op h2{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.5rem;line-height:1.2;margin:0 0 1rem;color:var(--ink)}
+  .opn section.op p{margin:0 0 .95rem;line-height:1.62;hyphens:auto;overflow-wrap:break-word}
+  .opn section.op p.byline{color:var(--ink-soft);font-style:italic}
+  .opn section.op p.sep{text-align:center;letter-spacing:.3em;color:var(--faint);margin:1.6rem 0}
+  .opn section.op h3.oh{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.12rem;text-align:center;margin:2rem 0 1rem;color:var(--ink)}
+  .opn section.op blockquote{margin:0 0 .95rem;padding:0 0 0 1.1rem;border-left:2px solid var(--rule);color:var(--ink-soft)}
+  .opn section.op blockquote p{margin-bottom:.6rem;font-size:.96em}
+  .opn .sc{font-variant-caps:small-caps;letter-spacing:.02em}
+  .opn .pg{font-size:.66em;color:var(--faint);vertical-align:.3em;margin:0 .3em 0 .1em;font-variant-numeric:tabular-nums;user-select:none;white-space:nowrap}
+  .opn .pg::before{content:'*'}
+  .opn sup.fnr{font-size:.68em;line-height:0;margin-left:.05em}
+  .opn sup.fnr a{color:var(--link);text-decoration:none;padding:0 .1em}
+  .opn aside.notes{margin-top:2rem;border-top:1px solid var(--rule);padding-top:.8rem;font-size:.88rem;color:var(--ink-soft)}
+  .opn aside.notes h3{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1rem;margin:0 0 .6rem;color:var(--ink)}
+  .opn aside.notes ol{margin:0;padding-left:1.7rem}
+  .opn aside.notes li{margin:0 0 .55rem}
+  .opn aside.notes li.sym{list-style:none;margin-left:-1.7rem}
+  .opn aside.notes li.sym .mk{margin-right:.3rem}
+  .opn aside.notes li.sym p{display:inline}
+  .opn aside.notes p{margin:0 0 .4rem;line-height:1.5}
+  .opn aside.notes a.back{color:var(--link);text-decoration:none;margin-left:.2rem}
+  .opn aside.notes li:target,.opn sup.fnr a:target,.opn .pg:target{background:rgba(156,14,58,.12);outline:.2rem solid rgba(156,14,58,.12)}
+  .opn section.op,.opn aside.notes li,.opn sup.fnr a{scroll-margin-top:1rem}
+  .opn section.op-syllabus p,.opn section.op-counsel p{font-size:.95em}
+  .opn section.op-counsel summary{cursor:pointer;font-family:'Fraunces',Georgia,serif;font-size:1.05rem;color:var(--ink-soft)}
+  .opn .osyl{font-size:.84rem;color:var(--faint);font-style:italic;margin:-.5rem 0 1rem}
+  .opn p.back{margin-top:3rem;font-size:.92rem}
+  @media print{.smast,.bcrumb,.opn .oget,.opn .otoc,.opn p.back{display:none}.opn section.op{break-before:page}}
+</style><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://supremecourt.report/"},{"@type":"ListItem","position":2,"name":"Opinions","item":"https://supremecourt.report/opinions/"},{"@type":"ListItem","position":3,"name":"Trump v. Illinois"}]}</script><meta name='otv' content='p2'><link rel='alternate' type='text/markdown' href='/opinions/2025/25A443.md'><link rel='alternate' type='application/epub+zip' href='/opinions/2025/25A443.epub'></head><body><a class='skip' href='#main'>Skip to content</a><header><div class='smast-in'><a class='smast-wm' href='/'>Supreme Court <em>Report</em></a><nav aria-label='Sections'><ul class='snav'><li><a href='/dashboards/'>Docket</a></li><li><a href='/conferences/'>Conferences</a></li><li><a href='/relists/'>Relists</a></li><li><a href='/applications/'>Interim</a></li><li><a href='/arguments/'>Arguments</a></li><li><a href='/justices/' aria-current='page'>Justices</a></li><li><a href='/counsel/'>Counsel</a></li><li><a href='/funnel/'>Funnel</a></li><li><a href='/methods.html'>Model</a></li><li><a href='/about.html'>About</a></li></ul></nav></div><div class='smast-rule-w'><hr class='smast-rule'></div></header><main class='wrap opn' id='main' data-dkt='25A443'><nav class='bcrumb' aria-label='Breadcrumb'><ol><li><a href='/'>Home</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><a href='/opinions/'>Opinions</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><span aria-current='page'>Trump v. Illinois</span></li></ol></nav><p class='kicker'>No. 25A443 · decided December 23, 2025 · 607 U. S. ___</p><h1 style='font-size:clamp(1.7rem,4.6vw,2.4rem);line-height:1.12'>Trump v. Illinois</h1><p class='ometa'>Donald J. Trump, President of the United States, et al., Applicants v. Illinois, et al.. 3 separate writings.</p><ul class='oget'><li><a href='/opinions/2025/25A443.epub' download>EPUB</a></li><li><a href='/opinions/2025/25A443.md' download>Markdown</a></li><li><a href='https://www.supremecourt.gov/opinions/25pdf/25a443_new_kkg1.pdf' rel='noopener'>The Court’s PDF</a></li><li><a href='/cases/25A443.html'>The docket</a></li></ul><p class='osrc'>Set from the PDF the Court published, which is the authoritative text. The small starred numbers are that PDF’s page numbers. A conversion can introduce errors; check a quotation against the <a href='https://www.supremecourt.gov/opinions/25pdf/25a443_new_kkg1.pdf' rel='noopener'>original</a>.</p><nav class="otoc" aria-label="Contents"><ol>
+<li><a href="#s1">Justice Kavanaugh, concurring in the judgment</a></li>
+<li><a href="#s2">Justice Alito, dissenting</a></li>
+<li><a href="#s3">Justice Gorsuch, dissenting</a></li>
+</ol></nav>
+<section id="s1" class="op op-judgment"><h2>Justice Kavanaugh, concurring in the judgment</h2>
+<p class="byline">Justice Kavanaugh, concurring in the judgment.</p>
+<p>To protect federal personnel and property in Illinois, the President federalized about 300 National Guard members. The State of Illinois sued, and as relevant here, the District Court barred the President from deploying the Guard. After the Seventh Circuit declined to stay the District Court’s order, the Government applied to this Court for a stay. I agree with the Court’s decision to deny the Government’s application for a stay, but I would do so on narrower grounds.</p>
+<p>To federalize the National Guard, the President first must determine that he is “unable with the regular forces to execute the laws of the United States.” 10 U. S. C. <span class="pg" id="s1-p4" title="page 4 of the original">4</span>§12406(3). In my view, the statutory term “regular forces” likely refers to the U. S. military, not to federal civilian law enforcement officers. On the current record, however, it does not appear that the President has yet made the statutorily required determination that he is “unable” with the U. S. military, as distinct from federal civilian law enforcement officers, to ensure the execution of federal law in Illinois. (The President of course would have great discretion to make that determination, as the State itself acknowledges. See Supp. Letter Reply Brief for Respondents 7; <em>Department of Navy</em> v. <em>Egan</em>, 484 U. S. 518, 529–530 (1988).)</p>
+<p>On that narrow ground, I would deny the Government’s application for a stay. We need not decide more, so I would not decide more.</p>
+<p>The Court goes further. The Court starts by concluding that “regular forces” means the U. S. military. (As noted above, I agree with that initial point.) From there, however, the Court conducts a complicated and debatable statutory analysis. The Court says that under the Government’s argument, “it is hard to see how performing those functions”—that is, protecting federal personnel and property—“could constitute ‘execut[ing] the laws’ under §12406(3).” <em>Ante</em>, at 3. On that premise, the Court further states that “at least in this posture, the Government has not carried its burden to show that §12406(3) permits the President to federalize the Guard in the exercise of inherent authority to protect federal personnel and property in Illinois,” <em>ante</em>, at 3—even if the President finds that he is “unable” with the U. S. military to protect federal personnel and property from harm.<sup class="fnr"><a id="s1-r1" href="#s1-n1">1</a></sup></p>
+<p><span class="pg" id="s1-p5" title="page 5 of the original">5</span>The Court’s legal interpretation, as I understand it, could lead to potentially significant implications for future crises that we cannot now foresee. Consider a hypothetical example. Suppose a mob rapidly gathers outside the U. S. Courthouse in Philadelphia in response to an unpopular decision (or to influence the outcome of a pending matter). Suppose also that the mob is threatening to storm the courthouse and attack the federal judges, prosecutors, and other personnel inside, and to damage or burn down the building, thereby preventing the execution of federal law. Suppose further that U. S. military forces cannot readily mobilize to deploy to the site in time, that the local police and federal court security officers are outnumbered, and that the President wants to federalize National Guard units to protect the courthouse and the judges, prosecutors, and other personnel. Under the Court’s order today, even in those circumstances the President presumably could not federalize the National Guard under §12406(3).<sup class="fnr"><a id="s1-r2" href="#s1-n2">2</a></sup></p>
+<p>Of course, that kind of hypothetical scenario does not often arise, and we can hope that it will not arise in the future. But the potential consequences, combined with the <span class="pg" id="s1-p6" title="page 6 of the original">6</span>novelty and difficulty of the statutory issues addressed by the Court, underscore why I would not opine more broadly than necessary to resolve this application.<sup class="fnr"><a id="s1-r3" href="#s1-n3">3</a></sup></p>
+<p>Before addressing those challenging and far-reaching statutory questions at this stage of the case, I would have at least invited further briefing and possibly also held oral argument, either on the application itself or by granting certiorari before judgment, akin to what the Court has done on several recent occasions. See <em>Trump</em> v. <em>CASA, Inc.</em>, 606 U. S. 831 (2025); <em>Ohio</em> v. <em>EPA</em>, 603 U. S. 279 (2024); <em>National Federation of Independent Business</em> v. <em>OSHA</em>, 595 U. S. 109 (2022). As I have stated with respect to previous interim applications of substantial import and difficulty, the Court can help guard against mistakes or misjudgments by employing additional process when sufficient time is available—recognizing, of course, that time will not always be available. See <em>Trump</em> v. <em>Boyle</em>, 606 U. S. ___ (2025) (K<span class="sc">avanaugh</span>, J., concurring); <em>Trump</em> v. <em>CASA, Inc.</em>, 606 U. S., at 876 (K<span class="sc">avanaugh</span>, J., concurring); <em>A.A.R.P.</em> v. <em>Trump</em>, 605 U. S. 91, 100 (2025) (K<span class="sc">avanaugh</span>, J., concurring); <em>Labrador</em> v. <em>Poe</em>, 601 U. S. 1110, 1127–1129 (2024) (K<span class="sc">avanaugh</span>, J., concurring). <sup class="fnr"><a id="s1-r4" href="#s1-n4">4</a></sup></p>
+<p><span class="pg" id="s1-p7" title="page 7 of the original">7</span>In sum, I vote to deny the application but would do so on narrow grounds and, at this time, would not reach the broader statutory issues addressed by the Court.</p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li id="s1-n1" value="1"><p>The statute also separately authorizes the President to federalize the National Guard if there is an “invasion” or “rebellion.” 10 U. S. C. §§12406(1)–(2). <a class="back" href="#s1-r1" aria-label="Back to the text">↩</a></p></li>
+<li id="s1-n2" value="2"><p>As I read it, the Court’s opinion does not address the President’s authority under the Insurrection Act. See 10 U. S. C. §§252, 253. Moreover, the Court’s opinion does not address or purport to disturb the President’s long-asserted Article II authority to use the U. S. military (as distinct from the National Guard) to protect federal personnel and property and thereby ensure the execution of federal law. See 1 Supp. Op. OLC 343 (1971) (W. Rehnquist). As Professor Goldsmith has succinctly explained: “The protective power is the president’s inherent or independent Article II power to protect federal personnel, property, and functions. The key point is that the president can assert the protective power <em>without reliance on Section 12406</em>. He can deploy <em>regular armed forces</em> without any need to federalize the Guard. Presidents often have.” J. Goldsmith, President Trump Holds the Legal Cards on the Use of the Military in the Domestic Sphere, Executive Functions (Oct. 8, 2025). One apparent ramification of the Court’s opinion is that it could cause the President to use the U. S. military more than the National Guard to protect federal personnel and property in the United States. <a class="back" href="#s1-r2" aria-label="Back to the text">↩</a></p></li>
+<li id="s1-n3" value="3"><p>The Court’s decision reflects only likely legal conclusions and comes at a “preliminary stage.” <em>Ante</em>, at 2. <em></em> That said, the decision will presumably be a form of precedent throughout the Federal Judiciary that requires a temporary injunction (either a preliminary injunction or an injunction pending appeal or certiorari) in like circumstances, unless and until this Court reaches a contrary conclusion. See <em>Trump</em> v. <em>Boyle</em>, 606 U. S. ___ (2025); <em>Trump</em> v. <em>CASA, Inc.</em>, 606 U. S. 831, 873 (2025) (K<span class="sc">avanaugh</span>, J., concurring). The Court also emphasizes that the Government has failed to carry its “burden.” <em>Ante</em>, at 3. In this context, that statement seems to convey the truisms that, in future litigation, the Court could reconsider its view of the law or the Government might seek to advance new or different arguments. <a class="back" href="#s1-r3" aria-label="Back to the text">↩</a></p></li>
+<li id="s1-n4" value="4"><p>The State’s opposition to deployment of the National Guard appears to stem in part from the State’s underlying objections to the activities of federal immigration officers when they make immigration stops and arrests in Illinois. The State and the Government disagree about whether the immigration officers have violated the Constitution in making certain immigration stops and arrests. The basic constitutional rules governing that dispute are longstanding and clear: The Fourth Amendment requires that immigration stops must be based on reasonable suspicion of illegal presence, stops must be brief, arrests must be based on probable cause, and officers must not employ excessive force. Moreover, the officers must not make interior immigration stops or arrests based on race or ethnicity. Cf. <em>Whren</em> v. <em>United States</em>, 517 U. S. 806, 813 (1996) (“[T]he Constitution prohibits selective enforcement of the law based on considerations such as race”). This application does not require us to delve into the parties’ underlying dispute and to determine whether any particular immigration encounter or series of encounters in Illinois has violated those basic constitutional principles. <a class="back" href="#s1-r4" aria-label="Back to the text">↩</a></p></li>
+</ol></aside></section>
+<section id="s2" class="op op-dissenting"><h2>Justice Alito, dissenting</h2>
+<p class="byline">Justice Alito, with whom Justice Thomas joins, dissenting.</p>
+<p>“ ‘In our adversarial system of adjudication, we follow the principle of party presentation.’ ” <em>Clark</em> v. <em>Sweeney</em>, 607 U. S. ___, ___ (2025) (<em>per curiam</em>) (slip op., at 2) (quoting <em>United States</em> v. <em>Sineneng-Smith</em>, 590 U. S. 371, 375 (2020)). If a party passes up what seems to us a promising argument, we do not assume the role of advocate. Instead, we normally decide the questions that the parties choose to present.</p>
+<p>In this case, the Court has unnecessarily and unwisely departed from standard practice. It raised an argument that respondents waived below, and it now rules in respondents’ favor on that ground. To make matters worse, the Court reaches out and expresses tentative views on other highly important issues on which there is no relevant judicial precedent and on which we have received scant briefing and no oral argument.</p>
+<p>First, the Court suggests that the principal statutory provision involved in the case, 10 U. S. C. §12406(3), contains a restriction that has no grounding in the statutory text, namely, that “unable with the regular forces to execute the laws of the United States” actually means “unable with the regular forces to execute the laws of the United States <em>for reasons other than the lack of lawful authority to do</em> <span class="pg" id="s2-p2" title="page 2 of the original">2</span><em>so</em>.” The Court in effect adds new language to the text Congress enacted.</p>
+<p>Second, the Court implicitly suggests that §12406(3) does not constitute an “Act of Congress” within the meaning of that phrase in the Posse Comitatus Act. §1385. That is a surprising conclusion, to say the least.</p>
+<p>Third, the Court expresses the tentative view that the phrase “execute the laws of the United States” in §12406(3) does not include “protective functions” so that even if the National Guard is properly deployed under that provision, it may not be given the task of preventing potentially lethal attacks on civilian federal law enforcement officers or the takeover or destruction of Government facilities. According to the Court’s apparent reasoning, National Guard members may enforce the immigration laws by, for example, arresting and processing aliens, but they may not perform the protective functions for which they are better suited. That, too, is surprising.</p>
+<p>On top of all this, the Court fails to explain why the President’s inherent constitutional authority to protect federal officers and property is not sufficient to justify the use of National Guard members in the relevant area for precisely that purpose.</p>
+<p>I am not prepared at this point to express a definite view on these questions, but I have serious doubts about the correctness of the Court’s views. And I strongly disagree with the manner in which the Court has disposed of this application.</p>
+<h3 class="oh">I</h3>
+<h3 class="oh">A</h3>
+<p>The key statutory provision in this case, 10 U. S. C. §12406(3), provides in relevant part that “[w]henever . . . the President is unable with the regular forces to execute the laws of the United States,” he “may call into Federal service members and units of the National Guard of any <span class="pg" id="s2-p3" title="page 3 of the original">3</span>State in such numbers as he considers necessary to . . . execute those laws.”</p>
+<p>In the lower courts, the parties agreed that the phrase “regular forces” means civilian federal law enforcement officers, not military service members. Respondents explicitly adopted this position in the District Court. That court disagreed, but when the Government challenged this holding in the Seventh Circuit, respondents declined to defend the lower court’s interpretation, and the Seventh Circuit did not reach the issue. The Government’s stay application in this Court asserted that any defense of the District Court’s interpretation had been waived, and respondents did not dispute either that assertion or the correctness of the Government’s contention that “regular forces” means federal civilian officers. Thus, the argument that “regular forces” means the military was either waived or forfeited three times over.</p>
+<p>Ignoring this history, the Court ordered the parties to file supplemental briefs on the meaning of “regular forces.” Respondents “[u]nderstandably . . . rode with an argument suggested by” the Court and argued, for the first time and contrary to their position below, that the “regular forces” means the military. <em>Sineneng-Smith</em>, 590 U. S., at 379. The majority now accepts this eleventh-hour argument. “Nevermind that [respondents] had presented a contrary theory of the case in the District Court.” <em>Id.</em>, at 380. For the Court, respondents’ “own arguments, differently directed, fell by the wayside, for they did not mesh with” the Court’s own “theory of the case.” <em>Id.</em>, at 379.</p>
+<p>We should decide this application based on the “party-presented controversy.” <em>Id.</em>, at 380. That controversy centered on the District Court’s holding that, contrary to the President’s determination, civilian federal law enforcement officers were in fact able to execute federal laws in the Chicago area. If the Court has doubts about the parties’ interpretation of the phrase “regular forces,” it could assume for <span class="pg" id="s2-p4" title="page 4 of the original">4</span>the sake of argument that the parties’ interpretation was correct and proceed on that basis. The Court has done that on many occasions. <em>E.g.</em>, <em>Warner Chappell Music, Inc.</em> v. <em>Nealy</em>, 601 U. S. 366, 371 (2024) (assuming there is a discovery rule for copyright claims); <em>Financial Oversight and Management Bd. for P. R.</em> v. <em>Centro de Periodismo Investigativo, Inc.</em>, 598 U. S. 339, 345, 346 (2023) (“assum[ing] without deciding that Puerto Rico is immune from suit in federal district court and that [a financial oversight board] partakes of that immunity” because respondent “never argued” otherwise in the courts below); <em>Wisconsin Legislature</em> v. <em>Wisconsin Elections Comm’n</em>, 595 U. S. 398, 401 (2022) (<em>per curiam</em>) (assuming without deciding that complying with the Voting Rights Act is a compelling interest); <em>McDonough</em> v.<em> Smith</em>, 588 U. S. 109, 115 (2019) (assuming without deciding that a due process fabricated-evidence claim may be asserted under Rev. Stat. §1979, 42 U. S. C. §1983).</p>
+<p>In this case, the Court has no good reason to stray beyond the issues that the parties chose to present, and based on those arguments, the Court should grant the application. There is no basis for rejecting the President’s determination that he was unable to execute the federal immigration laws using the civilian law enforcement resources at his command. In concluding otherwise, the District Court likely committed both legal and factual error.</p>
+<h3 class="oh">B</h3>
+<h3 class="oh">1</h3>
+<p>I will begin with the District Court’s understanding of the applicable law. The District Court held that a President is “unable” to execute federal law within the meaning of 10 U. S. C. §12406 only if he is literally “incapable” of executing the law with the regular forces. App. to Application 23a. That interpretation is implausible. If the term “regular forces” means federal civilian law enforcement officers, that <span class="pg" id="s2-p5" title="page 5 of the original">5</span>interpretation would mean that the President would have to conclude that the immigration laws could not be enforced in Illinois even if all other federal law enforcement activities were put on hold and every federal law enforcement officer in the country—including every FBI, DEA, Secret Service, and ATF agent, every postal inspector and deputy marshal, and all the law enforcement officers employed by other agencies—were transferred to that area and assigned that task.</p>
+<p>The District Court’s interpretation would lead to even more outlandish results if “regular forces” means the military. In that case, a President could not call up the National Guard to execute the laws in one locale unless all the Nation’s military forces, if transferred to the area in question, would be incapable of executing the laws.</p>
+<p>A less extreme interpretation of “unable” is much more reasonable and consistent with the way the term is commonly used. In everyday speech, a person may say that he or she is “unable” to perform an act simply because the adverse consequences of performing that act would be unacceptable. For example, an attorney might tell a trial court judge that he or she is “unable” to start a trial on a particular day because the attorney is scheduled to argue a case in this Court on that date and no other attorney could prepare for the argument in time. That attorney would be <em>capable</em> of<em></em> showing up for the trial on the day in question, but the attorney’s use of the term “unable” would be entirely natural.</p>
+<p>The District Court’s interpretation of “unable” was implausible for an additional reason: It seems to prohibit deployment of the National Guard unless the President could not execute the laws to even the slightest extent. The District Court took what it termed “a binary approach: ability or not, capability or not.” <em>Id.</em>, at 68a. As the Ninth Circuit has explained, however, “Section §12406(3) cannot plausibly be read to mean that so long as some amount of <span class="pg" id="s2-p6" title="page 6 of the original">6</span>execution of the laws remains possible, the statute cannot be invoked, regardless of how much execution of the laws remains thwarted or how much personal danger federal personnel face during operations.” <em>Newsom</em> v.<em> Trump</em>, 141 F. 4th 1032, 1051 (2025). It is more reasonable to interpret §12406(3) to mean that a President is “unable” to execute the laws when he is substantially impaired from doing so.</p>
+<h3 class="oh">2</h3>
+<p>The District Court also erred in refusing to afford any deference to the President’s determination that calling up the National Guard was needed to execute federal law. The most directly relevant Supreme Court precedent suggests that such a determination must be accepted by the courts. In <em>Martin</em> v. <em>Mott</em>, 12 Wheat. 19, 28 (1827), a militia member argued, among other things, that the standard for calling up the militia under the law in force at the time had not been met. See Act of Feb. 28, 1795, 1 Stat. 424. Section 1 of that law governed use of the militia when the country is invaded or threatened with invasion, and §2, much like §12406(3), authorized use of the militia when “the execution” of federal law is obstructed. Addressing the §1 standard, Justice Story’s opinion for the unanimous Court held that “the authority to decide whether the exigency has arisen . . . belongs exclusively to the President.” 12 Wheat., at 30. “[H]is decision,” the Court held, “is conclusive,” and therefore, application of the statute depends only on “his own judgment of the facts.” <em>Id</em>., at 30, 33; see also<em> Luther</em> v.<em> Borden</em>, 7 How. 1, 43–45 (1849) (reaffirming the holding in <em>Martin</em> and the unreviewability of the President’s decision to call up the militia).</p>
+<p>The District Court gave no weight to this precedent. It saw <em>Martin</em> as a relic, viewed its express holding as limited to the particular facts of the case, and thought it had been superseded by more recent political-question decisions. Such treatment of a Supreme Court precedent that has <span class="pg" id="s2-p7" title="page 7 of the original">7</span>never been overruled, narrowed, or questioned by this Court was inappropriate. See <em>Mallory</em> v.<em> Norfolk Southern R. Co</em>., 600 U. S. 122, 136 (2023).</p>
+<p>Even if <em>Martin</em> does not dictate judicial acceptance of a President’s decision to call up the National Guard, both that precedent and a humble appreciation of the role of a single federal judge surely demanded that such a Presidential determination be given a modicum of deference. The District Court afforded none.</p>
+<p>For these reasons, the District Court appears to have misunderstood what the law requires, and those legal errors alone justify a stay.</p>
+<h3 class="oh">C</h3>
+<p>Once the proper legal framework is recognized, the President’s determination must almost certainly be sustained. The Government’s declarations show that U. S. Immigration and Customs Enforcement (ICE) operations in and around Chicago have been the target of unprecedented sabotage and violence since June of this year. Hundreds of rioters have converged at the Department of Homeland Security facility in Broadview, Illinois, the only intake and processing center for ICE operations in the Chicago area. These rioters have been organized, gathering offsite and arriving in vans, then getting picked up several hours later by vans returning with new rioters. They have arrived armed with shields, gas masks, protective padding, and other tools for physical combat. And they have blocked entry and exit at the ICE facility, physically assaulted personnel attempting to enter or leave work, significantly damaged the building, and vandalized both Government and personally owned vehicles.</p>
+<p>The resulting violence has endangered the lives of federal personnel. Multiple rioters have been found with loaded guns, some of them semi-automatic. Rioters have hit, punched, and shoved officers; thrown bottles, rocks, and <span class="pg" id="s2-p8" title="page 8 of the original">8</span>tear gas canisters at officers; attempted to grab officers’ firearms and munitions; pulled gas masks and tear gas canisters off the officers’ uniforms; targeted officers with bullhorns and whistles that can cause permanent hearing loss; aimed strobe lights and lasers at officers’ faces; and shot fireworks at officers. On more than a dozen occasions, one rioter jumped on the hood of an incoming Government vehicle, and another took up a position immediately behind the vehicle. When the vehicle stopped, other rioters ran up and slashed the vehicle’s tires. As of early October, more than 30 federal officers had suffered injuries, and multiple officers had been hospitalized.</p>
+<p>In a widely publicized event on October 4, a federal vehicle carrying Border Patrol agents was boxed in on a public road by 10 civilian vehicles, and 2 of those vehicles rammed the Government vehicle. As the agents exited their vehicle, one of the civilian vehicles was driven directly at an agent, forcing the agent to fire in self-defense. Hundreds of rioters then converged near the scene, throwing glass bottles and other dangerous objects at the agents. A federal vehicle sent to assist the besieged agents was itself rammed. Later in the day, a federal van was surrounded by rioters who slashed its tires, but no emergency assistance was available because of damage done to other Government vehicles earlier that day.</p>
+<p>Even when not on duty, federal officers have been targeted. They have been followed to their homes and “doxed.” Officers and their families have been threatened, and their homes and vehicles have been vandalized. Criminal enterprises have offered bounties for kidnapping or murdering immigration officers. More than 20 officers have had their home addresses posted on social media, and posts have called for officials to be shot and killed on sight.</p>
+<p>Local police departments have provided insufficient assistance. When the October 4 ramming incident was reported to the Chicago Police Department, an internal <span class="pg" id="s2-p9" title="page 9 of the original">9</span>dispatch stated that “NO UNITS WILL RESPOND TO THIS.” On September 13, when rioters threw rocks, slashed tires, and poured flour into a federal vehicle’s gas tank, ICE officers called the Broadview Police Department three times to ask for assistance. The Broadview Police never responded.</p>
+<p>In sum, injuries, threats, vandalism, and harassment have significantly impaired efforts to execute the laws. The agencies have had to reallocate resources from enforcing the immigration laws to the provision of security for officers, the Broadview facility, and other Government property. Even if the President’s assessment of the situation is given no deference, these facts adequately show that federal civilian offers were “unable to” execute the immigration laws under what appears to be the correct understanding of that standard.</p>
+<h3 class="oh">D</h3>
+<p>The District Court disagreed but gave no good reason for doing so. Respondents, as the parties seeking interim relief, bore the burden of proof. See <em>Winter</em> v.<em> Natural Resources Defense Council, Inc.</em>, 555 U. S. 7, 22 (2008). But instead of evaluating whether respondents had borne their burden, the District Court brushed aside the facts set out in the Government’s declarations (many of which were undisputed) based on two perceived weaknesses in those declarations.</p>
+<p>Neither of the District Court’s criticisms justified the wholesale dismissal of the Government’s declarations. The court’s first criticism concerned the failure of two declarants to acknowledge that grand juries had declined to indict three of the individuals whose arrests were mentioned in the declarations. The court saw the declarants’ failure to mention the grand juries’ actions as evidence of mendacity. But the court did not take into account the dates on which the declarations were filed and the dates on which the <span class="pg" id="s2-p10" title="page 10 of the original">10</span>grand juries declined to indict, and it did not find that the declarants were aware of the grand juries’ actions. Unless the declarants had such knowledge, however, there was no ground for impugning their candor.</p>
+<p>Second, the court suggested that the same declarants’ descriptions of the relevant events were exaggerated because they had submitted similar declarations in another case in which a different judge found that ICE officers had likely violated protestors’ First Amendment rights. But again, more would have to be known before accepting this criticism. What we do know is that the cited order in the First Amendment case did not make any credibility findings and did not discuss the Government’s declarations at all, much less find them false. See <em>Chicago Headline Club</em> v. <em>Noem</em>, No. 1:25–cv–12173, (ND Ill., Oct. 9, 2025), ECF Doc. 43.</p>
+<p>For these reasons, the validity of the District Court’s two criticisms is questionable, but even if they are taken at face value, they cannot justify the court’s wholesale refusal to credit the declarations’ uncontested description of serious and continuous violence.</p>
+<p>Nor can the District Court’s decision be justified by conclusory statements in respondents’ declarations about the capability of state and local law enforcement to provide protection. <em>E.g.</em>, App. to Application 43a; Decl. of Major D. Orseno, No. 1:25–cv–12174, (ND Ill., Oct. 6, 2025), ECF Doc. 13–15. Such statements provided no reason to doubt the occurrence of the incidents of violence described in the Government’s declarations. And there is an obvious difference between the capabilities of state and local police and their willingness to assist. Thus, even if we assume that a Presidential determination under §12406(3) is reviewable and not entitled to any special deference, the District Court erred in refusing to credit the unrefuted facts offered by the Government. And those facts provide more than enough support for the President’s determination that he was <span class="pg" id="s2-p11" title="page 11 of the original">11</span>unable to enforce federal law in the Chicago area using federal civilian law enforcement officers.</p>
+<h3 class="oh">II</h3>
+<p>Instead of abiding by the standard rule on party presentation, the Court took it upon itself to raise the question whether the parties’ understanding of “regular forces” was correct. And taking a cue from this Court, respondents abandoned their position below and switched to the argument that the phrase “regular forces” refers to the military, not civilian federal law enforcement. The Court tentatively agrees with respondents’ new argument, but even if that is correct, it does not follow that the President exceeded his lawful authority when he called the National Guard into federal service to assist in executing federal law in Illinois.</p>
+<h3 class="oh">A</h3>
+<p>Regardless of how the term “regular forces” is defined, the President appears to have complied with the requirements of §12406(3). The provision asks whether the “President is unable with the regular forces to execute the laws of the United States.” And the President said unequivocally that he had “determined that the regular forces of the United States are not sufficient to ensure the laws of the United States are faithfully executed . . . in Chicago.” Memorandum for Secretary of War et al., No. 1:25–cv–12174 (ND Ill.), ECF Doc. 62–1, pp. 16–17 (Presidential Memo). Not only is this statement sufficient on its face, but under the presumption of regularity, the Court must presume that the President properly arrived at his determination. See <em>Martin</em>, 12 Wheat., at 32–33 (“When the President exercises an authority confided to him by law, the presumption is, that it is exercised in pursuance of law”).</p>
+<p>The majority does not explain why the President’s declaration falls short. Instead, it breezily concludes that a President’s inability to execute the law cannot be established <span class="pg" id="s2-p12" title="page 12 of the original">12</span>unless “the military could <em>legally</em> execute the laws.” <em>Ante</em>, at 2 (emphasis added). In effect, the Court adds new language to the statute so that it now requires that a President be “unable with the regular forces to execute the laws of the United States <em>for reasons other than the lack of lawful authority to do so.</em>” We have no authority to add this new language to the text Congress enacted.</p>
+<p>The sole requirement set out in the text of §12406(3) is that the President must be “unable with the regular forces to execute the laws of the United States.” That text says nothing about the cause of the President’s inability to execute the laws, and in ordinary usage, it is common to say that a person is “unable to” perform an act when the obstacle is a rule of law. For example, it would be natural to say that a person who is fully capable of operating a motor vehicle is nevertheless “unable to” drive to work because his or her license has been suspended. Or, to take one more example, it would be natural to say that a federal district court is “unable to” adjudicate a case in which the plaintiff sues a citizen of the same State under state law. See 28 U. S. C. §1332. This use of the term “unable” would be entirely appropriate even if the judge, as will almost certainly be the case, is fully capable of handling such a case.</p>
+<p>By the same token, if we apply the ordinary meaning of “unable to” in a case involving §12406(3), a President may be “unable to” use the military to execute the laws due to either practical <em>or</em> legal constraints.</p>
+<h3 class="oh">B</h3>
+<p>Even if §12406(3) contained the extra requirement that the Court adds, there would be reasonable grounds for concluding that the President had authority to take the actions at issue. Indeed, the Court seems to acknowledge as much. It notes that the President invokes his “inherent constitutional authority . . . to use the military to protect federal personnel and property,” <em>ante,</em>  at 3, and it cites with <span class="pg" id="s2-p13" title="page 13 of the original">13</span>apparent approval a body of Office of Legal Counsel opinions sanctioning this understanding of inherent Presidential power. Authority To Use Troops To Prevent Interference With Federal Employees by Mayday Demonstrations and Consequent Impairment of Government Functions, 1 Supp. Op. OLC 343, 343–344 (1971) (citing earlier opinions); see also <em>In re Neagle</em>, 135 U. S. 1, 58–59, 67 (1890) (recognizing an inherent authority to protect federal judges); <em>In re Debs</em>, 158 U. S. 564, 582 (1895) (recognizing an inherent authority to protect highways for the passage of interstate commerce and mail).</p>
+<p>That is what happened here: The President authorized the National Guard to “perform those protective activities that the Secretary of War determines are reasonably necessary to ensure the execution of Federal law in Illinois, and to protect Federal property in Illinois.” Presidential Memo. 17. Although the Court recognizes this inherent Presidential power, it does not explain why it is not sufficient to satisfy the new element that the Court has added to §12406(3).<sup class="fnr"><a id="s2-r1" href="#s2-n1">1</a></sup></p>
+<p>The Court seems to suggest that the Posse Comitatus Act, 18 U. S. C. §1385, stands in the way of what the President did here, but that is puzzling. Does the Court mean to suggest that the Posse Comitatus Act somehow limited a President’s inherent <em>constitutional</em> authority? That is certainly not Congress’s view. See 6 U. S. C. §466(a)(4) (“[B]y <span class="pg" id="s2-p14" title="page 14 of the original">14</span>its express terms, the Posse Comitatus Act is not a complete barrier to the use of the Armed Forces for a range of domestic purposes, including law enforcement functions, when the use of the Armed Forces is authorized by Act of Congress or the President determines that the use of the Armed Forces is required to fulfill the President’s obligations under the Constitution to respond promptly in time of war, insurrection, or other serious emergency”). And in any event, the Posse Comitatus Act expressly permits the use of the military to execute the laws when permitted by an Act of Congress,<sup class="fnr"><a id="s2-r2" href="#s2-n2">2</a></sup> and §12406(3) is of course part of such an Act.<sup class="fnr"><a id="s2-r3" href="#s2-n3">3</a></sup></p>
+<p>The Court finds the Posse Comitatus Act relevant largely because the same phrase—“to execute the laws”—also appears in §12406(3). The Court’s reasoning appears to go as follows. Under a position long taken by the Government, the Posse Comitatus Act does not forbid the use of the military for “protective functions.” This must mean that the performance of such functions does not constitute the <span class="pg" id="s2-p15" title="page 15 of the original">15</span>execution of the laws. Section 12406(3) allows the use of federalized National Guard members “to execute the laws.” Therefore, it follows that the National Guard may not be used for protective functions.</p>
+<p>The Court’s reasoning rests on the <em>presumption</em> that a phrase has the same meaning when it is used in closely related statutory provisions, but that presumption is not conclusive, and there are reasons to question its application here. OLC’s interpretation of the Posse Comitatus Act is based heavily on the history and purpose of that Act, not the ordinary meaning of the phrase “execute the laws,” which easily encompasses protective functions. See 1 Supp. Op. OLC, at 344 (examining the “history,” “purpose,” and “desig[n]” of the Posse Comitatus Act). Moreover, one of OLC’s reasons for narrowly interpreting the Posse Comitatus Act’s reach was to avoid intrusion on the President’s inherent Article II powers and duties. See <em>ibid.</em> (noting the “President’s constitutional duty to protect [federal] functioning” and “inherent authority to use troops, if necessary, to carry out this duty”). Interpreting the phrase “execute the laws” in §12406 in accordance with the ordinary meaning of its terms would not pose any similar problem.</p>
+<p>On the contrary, that interpretation would be consistent with the way the phrase is used elsewhere. Under Article II, §3 of the Constitution, the President must “take Care that the Laws be faithfully executed,” and laws protecting federal officers and property are not excepted. Nor do we read the Insurrection Act, which authorizes the use of militia and armed forces to “enforce the laws,” as preventing the President from ordering troops to serve protective functions. 10 U. S. C. §252. It is therefore entirely possible that the phrase has different meanings in §12406 and the Posse Comitatus Act, especially since what §12406 authorizes is not the use of the regular military but the National Guard.</p>
+<p>We should not hastily dismiss that possibility because interpreting §12406(3) in the way the Court suggests would <span class="pg" id="s2-p16" title="page 16 of the original">16</span>have very strange consequences that Congress is unlikely to have intended. Under the Court’s interpretation, National Guard members could arrest and process aliens who are subject to deportation, but they would lack statutory authorization to perform purely protective functions.</p>
+<p>Our country has traditionally been wary of using soldiers as domestic police, but it has been comfortable with their use for purely protective purposes. The Court’s interpretation of §12406(3) assumes that Congress meant for that provision to turn this approach on its head.</p>
+<p class="sep">* * *</p>
+<p>In conclusion, the Court should have decided this application based on the arguments the parties chose to present, and on that basis should have granted a stay. Injecting another issue into the matter was unwise, and suggesting views on a host of important questions without adequate briefing, consideration, or explanation is imprudent.</p>
+<p>Whatever one may think about the current administration’s enforcement of the immigration laws or the way ICE has conducted its operations, the protection of federal officers from potentially lethal attacks should not be thwarted.</p>
+<p>I therefore respectfully dissent.</p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li id="s2-n1" value="1"><p>If §12406(3) is triggered only when a President determines that he is unable to execute the law by using the military, it is not easy to see how a court could assess and reject such a determination. As discussed, inability under §12406 should likely be interpreted to require no more than serious detrimental consequences, and therefore the statutory predicate should likely be regarded as satisfied whenever the deployment of military units for the purpose of executing the laws at home would have such consequences. Assessing the impact of such a deployment would require a survey and analysis of all the Nation’s military needs, and only a President and those under his command are equipped to make such an assessment. <a class="back" href="#s2-r1" aria-label="Back to the text">↩</a></p></li>
+<li id="s2-n2" value="2"><p>The Act states: “Whoever, <em>except in cases and under circumstances expressly authorized by</em> the Constitution or <em>Act of Congress</em>, willfully uses any part of the Army, the Navy, the Marine Corps, the Air Force, or the Space Force as a posse comitatus or otherwise to execute the laws shall be fined under this title or imprisoned not more than two years, or both.” 18 U. S. C. §1385 (emphasis added). <a class="back" href="#s2-r2" aria-label="Back to the text">↩</a></p></li>
+<li id="s2-n3" value="3"><p>I would not take for granted that the Posse Comitatus Act applies to federalized National Guard units, another question that this Court has never addressed. Indeed, the Act’s enumeration of other military components—“the Army, the Navy, the Marine Corps, the Air Force, [and] the Space Force”—makes the omission of the National Guard quite notable. If, as the Court states, the term “regular forces” in §12406 likely means the military, Congress clearly views the military and federalized National Guard units as distinct entities. Otherwise, §12406 would nonsensically say that the President may call up the National Guard when the National Guard is unable to execute the laws. It is therefore not obvious that the Posse Comitatus Act would ever apply to federalized National Guard units, as opposed to the regular military. As §12405 makes clear, some of the laws and regulations governing “members of the Regular Army or Regular Air Force” are not applicable to the National Guard “when called into Federal service.” 10 U. S. C. §12405. <a class="back" href="#s2-r3" aria-label="Back to the text">↩</a></p></li>
+</ol></aside></section>
+<section id="s3" class="op op-dissenting"><h2>Justice Gorsuch, dissenting</h2>
+<p class="byline">Justice Gorsuch, dissenting.</p>
+<p>This case touches on sensitive and gravely consequential questions concerning what roles the National Guard and U. S. military may play in domestic law enforcement. To be sure, as the parties observe, Congress has supplied us with some relevant statutory guidance in 10 U. S. C. §12406(3). But, as my colleagues’ writings attest, that statute raises as many questions as it answers.</p>
+<p>Take just some examples. Before calling up the National Guard under §12406(3), must the President be unable to execute the laws merely with federal civilian law enforcement personnel—or must he be unable to do so even with military troops? Is a Presidential declaration that he is unable with the regular forces to execute the law judicially reviewable—and, if so, to what extent and under what standard? Does §12406(3) provide standalone authority permitting the President to deploy the Guard, and how does it interact with other statutes in the field, such as the Posse Comitatus Act, 18 U. S. C. §1385, and the Insurrection Act, 10 U. S. C. §§251–255? What, if any, inherent Article II power does the President have to deploy the Guard to protect federal personnel or property, and how might that inform the interpretation of §12406(3)? And if, as all parties seem to assume, today’s Guard is the successor to the militia of the founding era, how far can this inherent Presidential authority extend before it intrudes on Congress’s <span class="pg" id="s3-p2" title="page 2 of the original">2</span>prerogative to decide when the militia may be used to execute the laws? See Art. I, §8, cl. 15. If all those questions were not fraught enough, an even graver one lurks here too: When, if ever, may the federal government deploy the professional military for domestic law enforcement purposes consistent with the Constitution? See, <em>e</em>.<em>g</em>., Art. IV, §4; Amdt. 14, §5.</p>
+<p>In the present posture of this case, I am not comfortable venturing an answer to any of those questions. This Court has never decided a case about the meaning of §12406(3), let alone explored its interaction with other statutes in the field or the Constitution. Nor do we have much help on many of these matters from the parties’ briefs before us, understandably given that this case comes to us in an interlocutory posture on a highly compressed schedule.</p>
+<p>Under these circumstances, caution seems to me key, and I would decide this application narrowly, based only on those few arguments the parties preserved and the evidentiary record as it stands. See <em>United States</em> v. <em>Sineneng-Smith</em>, 590 U. S. 371, 375 (2020). In their initial briefing before this Court, the parties proceeded on the premise that §12406(3) statutorily permits the President to call up and deploy the National Guard when he is unable to execute federal law with civilian federal law enforcement officials. Proceeding on that same premise, I believe the declarations federal law enforcement officials submitted below support the grant of a stay for substantially the reasons given in Parts I–A, B–1, C, and D of J<span class="sc">ustice</span> A<span class="sc">lito</span>’s opinion. See <em>ante,</em> at 2–11. But I would hazard no opinion beyond that, leaving instead all the weighty questions outlined above for another case where they are properly preserved and can receive the full airing they so clearly deserve.</p></section><p class='back'><a href='/opinions/'>&larr; All opinions</a> · <a href='/justices/ot2025.html'>The Justices, October Term 2025 &rarr;</a></p></main></body>
+</html>
+

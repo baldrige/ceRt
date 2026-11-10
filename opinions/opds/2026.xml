@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/terms/" xmlns:opds="http://opds-spec.org/2010/catalog">
+<id>https://supremecourt.report/opinions/opds/2026.xml</id>
+<title>Opinions, October Term 2026</title>
+<updated>2026-11-09T00:00:00Z</updated>
+<author><name>Supreme Court Report</name><uri>https://supremecourt.report/</uri></author>
+<link rel="self" href="https://supremecourt.report/opinions/opds/2026.xml" type="application/atom+xml;profile=opds-catalog;kind=acquisition"/>
+<link rel="start" href="https://supremecourt.report/opinions/opds.xml" type="application/atom+xml;profile=opds-catalog;kind=navigation"/>
+<link rel="up" href="https://supremecourt.report/opinions/opds.xml" type="application/atom+xml;profile=opds-catalog;kind=navigation"/>
+<entry>
+<id>urn:supremecourt-report:opinion:2026:26A560</id>
+<title>Mullin v. Friends of the Ruidosa Church</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2026-11-09T00:00:00Z</updated>
+<published>2026-11-09T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2026-11-09</dc:issued>
+<category term="ot2026" label="October Term 2026"/>
+<summary type="text">No. 26A560 · decided November 9, 2026 · 610 U. S. ___ · 1,085 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2026/26A560.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2026/26A560.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2026/26A560.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2026:25-1098</id>
+<title>O’donnell v. City of Chicago</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2026-10-19T00:00:00Z</updated>
+<published>2026-10-19T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2026-10-19</dc:issued>
+<category term="ot2026" label="October Term 2026"/>
+<summary type="text">No. 25-1098 · decided October 19, 2026 · 610 U. S. ___ · 1,228 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2026/25-1098.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2026/25-1098.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2026/25-1098.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2026:26A476</id>
+<title>FCC v. Brown</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2026-10-14T00:00:00Z</updated>
+<published>2026-10-14T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2026-10-14</dc:issued>
+<category term="ot2026" label="October Term 2026"/>
+<summary type="text">No. 26A476 · decided October 14, 2026 · 610 U. S. ___ · 1,205 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2026/26A476.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2026/26A476.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2026/26A476.html" type="text/html"/>
+</entry>
+</feed>
+

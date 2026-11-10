@@ -2,11 +2,25 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/terms/" xmlns:opds="http://opds-spec.org/2010/catalog">
 <id>https://supremecourt.report/opinions/opds/2017.xml</id>
 <title>Opinions, October Term 2017</title>
-<updated>2018-06-27T00:00:00Z</updated>
+<updated>2018-06-28T00:00:00Z</updated>
 <author><name>Supreme Court Report</name><uri>https://supremecourt.report/</uri></author>
 <link rel="self" href="https://supremecourt.report/opinions/opds/2017.xml" type="application/atom+xml;profile=opds-catalog;kind=acquisition"/>
 <link rel="start" href="https://supremecourt.report/opinions/opds.xml" type="application/atom+xml;profile=opds-catalog;kind=navigation"/>
 <link rel="up" href="https://supremecourt.report/opinions/opds.xml" type="application/atom+xml;profile=opds-catalog;kind=navigation"/>
+<entry>
+<id>urn:supremecourt-report:opinion:2017:17-565</id>
+<title>Rowan County v. Lund</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2018-06-28T00:00:00Z</updated>
+<published>2018-06-28T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2018-06-28</dc:issued>
+<category term="ot2017" label="October Term 2017"/>
+<summary type="text">No. 17-565 · decided June 28, 2018 · 585 U. S. ___ · 1,282 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2017/17-565.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2017/17-565.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2017/17-565.html" type="text/html"/>
+</entry>
 <entry>
 <id>urn:supremecourt-report:opinion:2017:16-1466</id>
 <title>Janus v. State, County, and Municipal</title>
@@ -177,7 +191,7 @@
 </entry>
 <entry>
 <id>urn:supremecourt-report:opinion:2017:17-130</id>
-<title>Lucia v. Sec</title>
+<title>Lucia v. SEC</title>
 <author><name>Supreme Court of the United States</name></author>
 <updated>2018-06-21T00:00:00Z</updated>
 <published>2018-06-21T00:00:00Z</published>
@@ -342,6 +356,20 @@
 <link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2017/16-1432.epub" type="application/epub+zip"/>
 <link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2017/16-1432.md" type="text/markdown"/>
 <link rel="alternate" href="https://supremecourt.report/opinions/2017/16-1432.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2017:17-6883</id>
+<title>Trevino v. Davis</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2018-06-04T00:00:00Z</updated>
+<published>2018-06-04T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2018-06-04</dc:issued>
+<category term="ot2017" label="October Term 2017"/>
+<summary type="text">No. 17-6883 · decided June 4, 2018 · 584 U. S. ___ · 3,429 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2017/17-6883.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2017/17-6883.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2017/17-6883.html" type="text/html"/>
 </entry>
 <entry>
 <id>urn:supremecourt-report:opinion:2017:17-5716</id>
@@ -694,6 +722,20 @@
 <link rel="alternate" href="https://supremecourt.report/opinions/2017/15-1439.html" type="text/html"/>
 </entry>
 <entry>
+<id>urn:supremecourt-report:opinion:2017:17-6232</id>
+<title>Campbell v. Ohio</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2018-03-19T00:00:00Z</updated>
+<published>2018-03-19T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2018-03-19</dc:issued>
+<category term="ot2017" label="October Term 2017"/>
+<summary type="text">No. 17-6232 · decided March 19, 2018 · 583 U. S. ___ · 940 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2017/17-6232.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2017/17-6232.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2017/17-6232.html" type="text/html"/>
+</entry>
+<entry>
 <id>urn:supremecourt-report:opinion:2017:15-1509</id>
 <title>U. S. Bank N. A. v. Village at Lakeridge, LLC</title>
 <author><name>Supreme Court of the United States</name></author>
@@ -846,6 +888,34 @@
 <link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2017/15-1485.epub" type="application/epub+zip"/>
 <link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2017/15-1485.md" type="text/markdown"/>
 <link rel="alternate" href="https://supremecourt.report/opinions/2017/15-1485.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2017:16-1320</id>
+<title>No. 16-1320</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2017-11-27T00:00:00Z</updated>
+<published>2017-11-27T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2017-11-27</dc:issued>
+<category term="ot2017" label="October Term 2017"/>
+<summary type="text">No. 16-1320 · decided November 27, 2017 · 583 U. S. ___ · 1,053 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2017/16-1320.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2017/16-1320.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2017/16-1320.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2017:16-9282</id>
+<title>Reeves v. Alabama</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2017-11-13T00:00:00Z</updated>
+<published>2017-11-13T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2017-11-13</dc:issued>
+<category term="ot2017" label="October Term 2017"/>
+<summary type="text">No. 16-9282 · decided November 13, 2017 · 583 U. S. ___ · 4,016 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2017/16-9282.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2017/16-9282.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2017/16-9282.html" type="text/html"/>
 </entry>
 <entry>
 <id>urn:supremecourt-report:opinion:2017:16-658</id>
