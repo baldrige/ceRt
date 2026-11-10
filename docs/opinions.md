@@ -83,18 +83,39 @@ that 404s.
 
 ## What is built, and what is not
 
-The merits decisions the Justices section tracks, where the Court's site
-serves the opinion as **a file of its own**: 343 decisions on 2026-11-10,
-almost all of OT2021–OT2025.
+The merits decisions the Justices section tracks (`justices/lineups.json`),
+OT2016 on: about 600. The Court's site serves them two ways, and both are
+built:
 
-Not built: decisions the Court now serves only as a page range inside a whole
-volume (`preliminaryprint/588US2PP_final.pdf#page=502`, `boundvolumes/…`) —
-most of OT2016–OT2020. The extractor reads that layout (it is the same as
-the excerpts'), and `--pages A-B` exists for it, but cutting one case out of a
-1,200-page file needs the case's page range, which `R/justices.R` computes
-(`.fetch_pdf_pages()`) and this build does not yet use. Also not built:
-opinions relating to orders, in-chambers opinions, emergency-docket per
-curiams.
+- **A file of its own** — a slip opinion, or the U.S. Reports excerpt that
+  replaces it. 343 decisions on 2026-11-10, almost all of OT2021–OT2025.
+- **A page range of a whole volume** —
+  `boundvolumes/580BV.pdf#page=324`, `preliminaryprint/588US2PP_final.pdf#page=502`:
+  one PDF of a thousand pages and more, 22 of them holding about 257
+  decisions, most of OT2016–OT2020.
+
+Not built: opinions relating to orders, in-chambers opinions, emergency-docket
+per curiams.
+
+### A case inside a volume
+
+The volume is downloaded once per run, however many of its cases are wanted,
+and `extract_opinion.py --batch` reads each case out of it. The listing's
+`#page=` is only a hint: the listing can name a preliminary print the Court
+no longer serves, and the bound volume that replaced it (the build falls back
+to `boundvolumes/<vol>BV.pdf`, as `R/justices.R` does) paginates differently.
+So a case is **found by the line its first page prints** — `No. 15-8049.
+Argued … Decided …` — or, where that line wraps between the number and
+"Argued", by the first page of a case that prints the number at all. It ends
+at the next case's first page, or at the volume's back matter.
+
+The page links "the Court's PDF" to the file actually read, at the page the
+case was found on (`pdf` in `index.json`); `url` stays the listing's, which is
+what decides whether to re-read.
+
+Measured on three whole volumes (580BV, 587BV, 588US2PP; 56 decisions): all
+56 found; every one has exactly one opinion of the Court, every one but a
+one-page per curiam a syllabus, and every footnote reference its note.
 
 ## Reading the PDF
 
@@ -115,9 +136,13 @@ What decides each thing:
   and, usually, its section; the section is used only for the syllabus.
 - **Sections** — a new one at each byline (`Justice Alito delivered the
   opinion of the Court.`, `Justice Jackson, with whom … joins, dissenting.`,
-  `Per Curiam.`). This is what makes a print's mid-page start work.
+  `Per Curiam.`). This is what makes a print's mid-page start work. A byline
+  in the syllabus's small type is not one: the syllabus of a fractured
+  decision summarises each part in the byline's words.
 - **Footnotes** — below the rule, or the trailing run of lines set smaller
-  than the body. A note belongs to the section that cites its number on that
+  than the body. A note's number is a superscript by flag, by rise, or by
+  being much smaller than its line (the bound volumes give neither of the
+  first two). A note belongs to the section that cites its number on that
   page; a note with no number continues the one before it. Several short
   notes can share a line.
 - **Paragraphs** — a first line indented one em. A line indented two or more

@@ -42,65 +42,134 @@ cat("opinions: extractor", ver$x, "| page", ver$o, "\n")
 work <- opinion_worklist(site_dir)
 if (length(only)) work <- work[work$dkt %in% only | vapply(work$dkts, function(d) any(d %in% only), logical(1)), , drop = FALSE]
 idx <- read_opinion_index(site_dir)
-cat("opinions:", nrow(work), "decision(s) with a file of their own;", sum(vapply(idx, function(e) isTRUE(e$lead), logical(1))), "built so far\n")
+cat("opinions:", nrow(work), "decision(s):", sum(is.na(work$volume)), "with a file of their own,", sum(!is.na(work$volume)),
+    "inside", length(unique(stats::na.omit(work$volume))), "volume(s);",
+    sum(vapply(idx, function(e) isTRUE(e$lead), logical(1))), "built so far\n")
 
 fetched <- 0L; down_run <- 0L; built <- 0L; failed <- character(); stopped <- ""
-for (i in seq_len(nrow(work))) {
-  o <- work[i, ]; o$dkts <- work$dkts[i]
-  dkt <- o$dkt; term <- o$term
-  have <- idx[[dkt]]
-  stem <- file.path(site_dir, OPINION_DIR, term, dkt)
-  json <- paste0(stem, ".json")
-  need_x <- is.null(have) || !identical(have$url, o$url) || !identical(have$xv, ver$x) || !file.exists(json)
-  need_o <- need_x || !identical(have$ov, ver$o) || !file.exists(paste0(stem, ".html"))
-  if (!need_o) next
-  dir.create(dirname(stem), recursive = TRUE, showWarnings = FALSE)
-  if (need_x) {
-    if (fetched >= max_new || nzchar(stopped)) next
-    if (fetched > 0) Sys.sleep(pace * stats::runif(1, 0.75, 1.25))
-    tf <- tempfile(fileext = ".pdf")
-    got <- tryCatch({
-      request(sub("#.*$", "", o$url)) |> req_user_agent("ceRt SCOTUS docketing dashboard (httr2)") |>
-        req_retry(max_tries = 3) |> req_timeout(180) |> req_error(is_error = \(r) FALSE) |> req_perform(path = tf)
-      file.exists(tf) && file.size(tf) > 1000 && identical(readBin(tf, "raw", 4L), charToRaw("%PDF"))
-    }, error = function(e) FALSE)
-    fetched <- fetched + 1L
-    if (!got) {
-      down_run <- down_run + 1L; unlink(tf)
-      if (down_run >= 6L) stopped <- "6 downloads in a row failed -- throttled"
-      next
-    }
-    down_run <- 0L
-    r <- py("extract_opinion.py", c(tf, "-o", json))
-    unlink(tf)
-    if (!r$ok || !file.exists(json)) { failed <- c(failed, dkt); message("  ", dkt, ": extraction failed: ", paste(tail(r$out, 2), collapse = " ")); next }
+
+# A PDF to a temp file, or NULL. Counts toward the run's cap and its
+# throttling stop whichever kind of file it is.
+download <- function(url, timeout = 180) {
+  if (fetched > 0) Sys.sleep(pace * stats::runif(1, 0.75, 1.25))
+  tf <- tempfile(fileext = ".pdf")
+  got <- tryCatch({
+    request(sub("#.*$", "", url)) |> req_user_agent("ceRt SCOTUS docketing dashboard (httr2)") |>
+      req_retry(max_tries = 3) |> req_timeout(timeout) |> req_error(is_error = \(r) FALSE) |> req_perform(path = tf)
+    file.exists(tf) && file.size(tf) > 1000 && identical(readBin(tf, "raw", 4L), charToRaw("%PDF"))
+  }, error = function(e) FALSE)
+  fetched <<- fetched + 1L
+  if (!got) {
+    unlink(tf); down_run <<- down_run + 1L
+    if (down_run >= 6L) stopped <<- "6 downloads in a row failed -- throttled"
+    return(NULL)
   }
+  down_run <<- 0L
+  tf
+}
+
+stem_of <- function(o) file.path(site_dir, OPINION_DIR, o$term, o$dkt)
+# What a decision still needs: "x" (read its PDF), "o" (render what is read), or "".
+needs <- function(o) {
+  have <- idx[[o$dkt]]; stem <- stem_of(o)
+  if (is.null(have) || !identical(have$url, o$url) || !identical(have$xv, ver$x) || !file.exists(paste0(stem, ".json"))) return("x")
+  if (!identical(have$ov, ver$o) || !file.exists(paste0(stem, ".html"))) return("o")
+  ""
+}
+
+# From the extracted JSON to the published page and its index entry.
+# `pdf_url` is the link the page offers: for a case in a volume, the file that
+# was actually read, at the page the case was found on.
+finish <- function(o, pdf_url = o$url) {
+  dkt <- o$dkt; term <- o$term; stem <- stem_of(o); json <- paste0(stem, ".json")
   doc <- tryCatch(fromJSON(json, simplifyVector = FALSE), error = function(e) NULL)
   # No opinion found in the file is a failure to read it, not an empty opinion.
   kinds <- if (is.null(doc)) character() else vapply(doc$sections, function(s) s$kind, character(1))
   if (!any(kinds %in% c("court", "percuriam", "plurality"))) {
-    failed <- c(failed, dkt); message("  ", dkt, ": no opinion of the Court found in the PDF; not published")
-    unlink(json); next
+    failed <<- c(failed, dkt); message("  ", dkt, ": no opinion of the Court found in the PDF; not published")
+    unlink(json); return(invisible(FALSE))
   }
   # The opinion's own short caption where its running head gave one.
   o$long <- o$caption
   o$caption <- opinion_short_caption(doc$short, o$long) %||% o$long
+  o$url <- pdf_url
   meta <- list(docket = paste(unlist(o$dkts), collapse = ", "), docket_id = dkt, term = as.character(term),
                caption = o$caption, decided = o$decided, decided_long = .op_long_date(o$decided),
-               cite = doc$cite, pdf_url = o$url)
+               cite = doc$cite, pdf_url = pdf_url)
   mf <- tempfile(fileext = ".json"); write_json(meta, mf, auto_unbox = TRUE, null = "null")
   r <- py("render_opinion.py", c(json, mf, stem)); unlink(mf)
   bodyf <- paste0(stem, ".body.html")
-  if (!r$ok || !file.exists(bodyf)) { failed <- c(failed, dkt); message("  ", dkt, ": render failed: ", paste(tail(r$out, 2), collapse = " ")); next }
+  if (!r$ok || !file.exists(bodyf)) {
+    failed <<- c(failed, dkt); message("  ", dkt, ": render failed: ", paste(tail(r$out, 2), collapse = " "))
+    return(invisible(FALSE))
+  }
   body <- paste(readLines(bodyf, warn = FALSE, encoding = "UTF-8"), collapse = "\n"); unlink(bodyf)
   render_opinion_page(site_dir, o, body, doc)
-  entry <- list(href = opinion_href(term, dkt), url = o$url, decided = o$decided, term = term, caption = o$caption,
+  entry <- list(href = opinion_href(term, dkt), url = o$listed, pdf = pdf_url, decided = o$decided, term = term, caption = o$caption,
                 xv = ver$x, ov = ver$o, cite = doc$cite, layout = doc$layout, words = doc$qa$words, notes = doc$qa$notes,
                 unmatched = length(doc$qa$notes_unmatched), lead = TRUE)
-  idx[[dkt]] <- entry
-  for (d in setdiff(unlist(o$dkts), dkt)) idx[[d]] <- list(href = entry$href, lead = FALSE, of = dkt)
-  built <- built + 1L
+  idx[[dkt]] <<- entry
+  for (d in setdiff(unlist(o$dkts), dkt)) idx[[d]] <<- list(href = entry$href, lead = FALSE, of = dkt)
+  built <<- built + 1L
   if (built %% 20 == 0) { write_opinion_index(site_dir, idx); cat("  ", built, "built\n") }
+  invisible(TRUE)
+}
+row_of <- function(i) { o <- work[i, ]; o$dkts <- work$dkts[i]; o$listed <- o$url; o }
+
+# ---- decisions with a file of their own ---------------------------------------------
+for (i in which(is.na(work$volume))) {
+  o <- row_of(i); what <- needs(o)
+  if (!nzchar(what)) next
+  dir.create(dirname(stem_of(o)), recursive = TRUE, showWarnings = FALSE)
+  if (what == "x") {
+    if (fetched >= max_new || nzchar(stopped)) next
+    tf <- download(o$url)
+    if (is.null(tf)) next
+    r <- py("extract_opinion.py", c(tf, "-o", paste0(stem_of(o), ".json")))
+    unlink(tf)
+    if (!r$ok || !file.exists(paste0(stem_of(o), ".json"))) {
+      failed <- c(failed, o$dkt); message("  ", o$dkt, ": extraction failed: ", paste(tail(r$out, 2), collapse = " ")); next
+    }
+  }
+  finish(o, idx[[o$dkt]]$pdf %||% o$url)
+}
+
+# ---- decisions inside a volume --------------------------------------------------------
+# One download per volume, however many of its cases are wanted; each case is
+# found in it by its docket number (extract_opinion.py --batch). A preliminary
+# print the Court no longer serves falls back to the bound volume of the same
+# number, as R/justices.R does for the lineups.
+vol_rows <- which(!is.na(work$volume))
+for (v in unique(work$volume[vol_rows])) {
+  rows <- vol_rows[work$volume[vol_rows] == v]
+  what <- vapply(rows, function(i) needs(row_of(i)), character(1))
+  for (i in rows[what == "o"]) { o <- row_of(i); finish(o, idx[[o$dkt]]$pdf %||% o$url) }
+  rows <- rows[what == "x"]
+  if (!length(rows) || fetched >= max_new || nzchar(stopped)) next
+  vol_no <- str_match(v, "preliminaryprint/(\\d{3})US")[1, 2]
+  cands <- c(v, if (!is.na(vol_no)) sprintf("https://www.supremecourt.gov/opinions/boundvolumes/%sBV.pdf", vol_no))
+  tf <- NULL; used <- NA_character_
+  for (u in cands) { tf <- download(u, timeout = 600); if (!is.null(tf)) { used <- u; break } }
+  if (is.null(tf)) { message("  volume ", basename(v), ": not served"); failed <- c(failed, work$dkt[rows]); next }
+  jobs <- lapply(rows, function(i) {
+    o <- row_of(i); dir.create(dirname(stem_of(o)), recursive = TRUE, showWarnings = FALSE)
+    list(dockets = as.list(unlist(o$dkts)), hint = if (identical(used, v)) o$anchor else NULL, out = paste0(stem_of(o), ".json"))
+  })
+  jf <- tempfile(fileext = ".json"); write_json(jobs, jf, auto_unbox = TRUE, null = "null")
+  r <- py("extract_opinion.py", c(tf, "--batch", jf)); unlink(c(tf, jf))
+  res <- lapply(grep("^\\{", r$out, value = TRUE), function(l) tryCatch(fromJSON(l, simplifyVector = FALSE), error = function(e) NULL))
+  ok_at <- list()
+  for (x in res) if (!is.null(x) && isTRUE(x$ok)) ok_at[[x$out]] <- x$pages[[1]]
+  cat(sprintf("  volume %s: %d of %d case(s) read\n", basename(used), length(ok_at), length(rows)))
+  for (i in rows) {
+    o <- row_of(i); json <- paste0(stem_of(o), ".json")
+    if (is.null(ok_at[[json]])) {
+      why <- Filter(function(x) !is.null(x) && identical(x$out, json), res)
+      failed <- c(failed, o$dkt); message("  ", o$dkt, ": not read from ", basename(used), ": ", if (length(why)) why[[1]]$why %||% "" else "no result")
+      next
+    }
+    finish(o, paste0(used, "#page=", ok_at[[json]]))
+  }
 }
 write_opinion_index(site_dir, idx)
 n <- write_opinion_index_page(site_dir, idx)

@@ -21,7 +21,7 @@ on:
   workflow_dispatch:
     inputs:
       max_new:
-        description: "Opinion PDFs to download this run (0 = re-render from the published JSON only)"
+        description: "PDFs to download this run; a whole volume counts as one (0 = re-render from the published JSON only)"
         required: false
         default: "120"
       only:

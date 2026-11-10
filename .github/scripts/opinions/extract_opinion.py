@@ -50,7 +50,7 @@ import sys
 
 import pymupdf
 
-EXTRACT_VERSION = "x1"
+EXTRACT_VERSION = "x2"
 
 LIGATURES = {"ﬀ": "ff", "ﬁ": "fi", "ﬂ": "fl", "ﬃ": "ffi", "ﬄ": "ffl"}
 SOFT = "­"
@@ -248,7 +248,11 @@ def line_runs(line, lig):
             continue
         stripped = t.strip()
         small = s["size"] <= size - 1.5
-        sup = small and (s["sup"] or s["y1"] < line["y1"] - 0.18 * size) and bool(re.fullmatch(r"[0-9*†‡]{1,3}", stripped))
+        # A note number: flagged superscript, or raised, or simply much smaller
+        # than its line -- the bound volumes set a note's own number at 5.6 pt
+        # in a 9 pt line with no flag and no rise the text layer reports.
+        sup = small and (s["sup"] or s["y1"] < line["y1"] - 0.18 * size or s["size"] <= 0.78 * size) \
+            and bool(re.fullmatch(r"[0-9*†‡]{1,3}", stripped))
         sc = s["scfont"] or (small and not sup and len(stripped) >= 2 and stripped.upper() == stripped
                              and bool(re.search(r"[A-Z]", stripped)) and size >= 8.5)
         if sc and not s["scfont"]:
@@ -750,7 +754,11 @@ def extract(path, first=None, last=None, words_path=None):
     right = ends[int(0.9 * (len(ends) - 1))] + 1.5 if ends else 457.0
 
     nx = collections.Counter(round(ln["x0"] * 2) / 2 for pg in split for ln in pg["notes"] if len(ln["text"]) > 30)
-    note_left = nx.most_common(1)[0][0] if nx else None
+    # The leftmost edge that a fair share of note lines start at -- not the
+    # commonest: where the notes are a few one-line notes and a long list of
+    # amici in short paragraphs, most lines are first lines, set in.
+    floor = max(2, 0.1 * sum(nx.values()))
+    note_left = min((x for x, n in nx.items() if n >= floor), default=None) if nx else None
 
     def left_for(zone, parity):
         def f(ln):
@@ -824,6 +832,12 @@ def extract(path, first=None, last=None, words_path=None):
         runs = clean_runs(b["runs"])
         text = plain(runs)
         hit = classify_byline(text) if b["type"] == "p" else None
+        # The syllabus of a fractured decision summarises each part in the
+        # byline's own words ("Justice Kagan delivered the opinion of the Court
+        # with respect to Parts I, II-B ..., concluding that"). A real byline
+        # is set in the opinion's type, not the syllabus's.
+        if hit and cur is not None and cur["kind"] == "syllabus" and b.get("size", size) < size - 1.0:
+            hit = None
         if hit and len(hit[2]) < 700:
             kind, who, byline, rest = hit
             start(kind, who, byline, b["page"])
@@ -944,23 +958,96 @@ def extract(path, first=None, last=None, words_path=None):
     }
 
 
+# ---- a case inside a volume ------------------------------------------------------------
+# Once a Term is printed, the Court's listing stops naming a file per case and
+# points into the volume: /opinions/boundvolumes/580BV.pdf#page=324, one PDF
+# of a thousand pages and more. The anchor is only a hint (the listing can
+# name a preliminary print the Court no longer serves, and the bound volume
+# that replaced it paginates differently), so the case is found by the line
+# its first page prints -- "No. 15-8049. Argued ... Decided ..." -- and it
+# ends where the next case's does. R/justices.R finds its lineups the same way.
+
+CASE_HEAD = r"Nos?\.[^\n]{0,90}?\b%s\b[^\n]{0,120}?(?:Argued|Reargued|Decided|Submitted)"
+ANY_CASE = re.compile(CASE_HEAD % r"\d{2}[–-]\d{1,5}")
+# A heading alone on its line: an opinion can cite a "Reporter's Note" mid-sentence.
+VOLUME_END = re.compile(r"^[ \t]*(?:ORDERS(?: FOR .{0,60})?|Reporter.s Notes?|INDEX|OPINIONS? OF INDIVIDUAL JUSTICES(?: IN CHAMBERS)?|AMENDMENTS? TO [A-Z ]{4,60}|RULES OF [A-Z ]{4,60})[ \t]*$", re.M)
+
+
+NEXT_TITLE = re.compile(r"^[ 	]*OCTOBER TERM, \d{4}[ 	]*$", re.M)
+
+
+def volume_texts(path):
+    doc = pymupdf.open(path)
+    return [doc[k].get_text() for k in range(len(doc))]
+
+
+def locate(texts, dockets, hint=None, cap=320):
+    """(first, last), 1-based, of the case with these docket numbers; None if it is not found."""
+    alt = "|".join(re.escape(d).replace(r"\-", "[–-]") for d in dockets)
+    rx = re.compile(CASE_HEAD % ("(?:" + alt + ")"))
+    hits = [k for k, t in enumerate(texts) if rx.search(t)]
+    if not hits:
+        # The line wrapped between the number and "Argued" (a long list of
+        # consolidated cases, or a narrow measure): a case's first page that
+        # prints the number at all.
+        num = re.compile(r"(?<![0-9])(?:" + alt + r")(?![0-9])")
+        hits = [k for k, t in enumerate(texts)
+                if num.search(t) and NEXT_TITLE.search("\n".join(t.split("\n")[:12]))]
+    if not hits:
+        return None
+    start =min(hits, key=lambda k: abs(k + 1 - hint)) if hint else hits[0]
+    end = min(len(texts), start + cap)
+    for k in range(start + 1, end):
+        head = "\n".join(texts[k].split("\n")[:12])
+        # The next case: its "No. ... Argued" line, or -- when that line wraps
+        # past recognition -- the head only a case's first page carries.
+        if ANY_CASE.search(texts[k]) or VOLUME_END.search(head) or NEXT_TITLE.search(head):
+            end = k
+            break
+    return start + 1, end
+
+
+def write_doc(doc, out):
+    data = json.dumps(doc, ensure_ascii=False, separators=(",", ":"))
+    with io.open(out, "w", encoding="utf-8", newline="\n") as f:
+        f.write(data)
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("pdf")
     ap.add_argument("-o", "--out")
     ap.add_argument("--pages", help="A-B, 1-based, for a case inside a volume")
+    ap.add_argument("--batch", help="a JSON list of {dockets, hint, out}: several cases out of one volume, "
+                                    "each found by its docket number; prints one JSON line per case")
     a = ap.parse_args()
+    if a.batch:
+        jobs = json.load(io.open(a.batch, encoding="utf-8"))
+        texts = volume_texts(a.pdf)
+        for job in jobs:
+            res = {"out": job["out"], "ok": False}
+            try:
+                span = locate(texts, job["dockets"], job.get("hint"))
+                if span is None:
+                    res["why"] = "no page prints this docket number with Argued/Decided"
+                else:
+                    doc = extract(a.pdf, span[0], span[1])
+                    doc["volume_pages"] = list(span)
+                    write_doc(doc, job["out"])
+                    res.update(ok=True, pages=list(span), words=doc["qa"]["words"])
+            except Exception as e:                       # one bad case must not lose the volume
+                res["why"] = "%s: %s" % (type(e).__name__, e)
+            print(json.dumps(res, ensure_ascii=False), flush=True)
+        return
     first = last = None
     if a.pages:
         first, last = (int(x) for x in a.pages.split("-"))
     doc = extract(a.pdf, first, last)
-    data = json.dumps(doc, ensure_ascii=False, separators=(",", ":"))
     if a.out:
-        with io.open(a.out, "w", encoding="utf-8", newline="\n") as f:
-            f.write(data)
+        write_doc(doc, a.out)
         print(json.dumps(doc["qa"], ensure_ascii=False))
     else:
-        sys.stdout.buffer.write(data.encode("utf-8"))
+        sys.stdout.buffer.write(json.dumps(doc, ensure_ascii=False, separators=(",", ":")).encode("utf-8"))
 
 
 if __name__ == "__main__":
