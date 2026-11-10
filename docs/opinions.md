@@ -120,6 +120,10 @@ several rows to a PDF.
   for the back-catalogue. Opinions the site already knows about
   (`applications/applications.json`, the Recent decisions manifests) are
   folded in, so a listing that cannot be fetched loses nothing.
+- **Only where the opinion is a file of its own.** Once a Term is printed the
+  listing points these into the volume as well, where they sit among the
+  orders in another layout; those are not read. In practice that leaves the
+  Terms not yet in bound or preliminary-print volumes.
 - A docket with a merits opinion keeps that page.
 - On the index and in the page's Term, these sit under the Term of the date
   decided, like everything else: an application numbered 26A… and decided in

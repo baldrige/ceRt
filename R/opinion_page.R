@@ -301,8 +301,33 @@ opinion_skipped_path <- function(site_dir) file.path(site_dir, OPINION_DIR, "ski
   writeLines(if (length(x)) toJSON(x[order(names(x))], auto_unbox = TRUE, null = "null") else "{}", p, useBytes = TRUE)
 }
 
-# One Term's listing -> tibble(dkt, date, url). Needs .parse_opinion_listing()
-# (R/site_decisions.R). A request that fails returns no rows, never an error.
+# The listing's table -> tibble(dkt, date, url): a row is a docket number, a
+# date and a PDF link ("#page=N" kept; a revision's "_diff_" file passed over).
+# R/site_decisions.R has a fuller parser of the same table, for the Recent
+# decisions panel; it is not used here because sourcing that file pulls in the
+# argument navigator and gt with it, which this build does not otherwise need
+# -- and did not have, the first time it ran (2026-11-10).
+.op_parse_orders_listing <- function(html) {
+  rows <- str_match_all(html, regex("<tr[^>]*>(.*?)</tr>", dotall = TRUE))[[1]][, 2]
+  out <- lapply(rows, function(r) {
+    tds <- str_match_all(r, regex("<td[^>]*>(.*?)</td>", dotall = TRUE))[[1]][, 2]
+    if (length(tds) < 3) return(NULL)
+    txt <- str_squish(gsub("&nbsp;|&#160;", " ", gsub("<[^>]+>", " ", tds)))
+    dk <- txt[grepl("^[0-9]{2}(-[0-9]{1,5}|[AM][0-9]{1,4})$", txt)]
+    hrefs <- str_match_all(r, "href\\s*=\\s*['\"]([^'\"]+[.]pdf(?:#[^'\"]*)?)['\"]")[[1]][, 2]
+    hrefs <- hrefs[!grepl("_diff_", hrefs)]
+    dt <- txt[grepl("^[0-9]{1,2}/[0-9]{1,2}/[0-9]{2,4}$", txt)]
+    if (!length(dk) || !length(hrefs) || !length(dt)) return(NULL)
+    p <- as.integer(strsplit(dt[1], "/")[[1]])
+    yr <- if (p[3] < 100L) 2000L + p[3] else p[3]
+    href <- if (startsWith(hrefs[1], "/")) paste0("https://www.supremecourt.gov", hrefs[1]) else hrefs[1]
+    tibble::tibble(dkt = dk[1], date = sprintf("%04d-%02d-%02d", yr, p[1], p[2]), url = href)
+  })
+  dplyr::bind_rows(out)
+}
+
+# One Term's listing -> tibble(dkt, date, url). A request that fails returns
+# no rows, never an error.
 fetch_order_opinions_listing <- function(term2) {
   url <- sprintf(OPINION_ORDERS_URL, term2)
   html <- tryCatch({
@@ -311,9 +336,9 @@ fetch_order_opinions_listing <- function(term2) {
     if (httr2::resp_status(resp) == 200L) httr2::resp_body_string(resp) else NA_character_
   }, error = function(e) NA_character_)
   if (is.na(html)) { message("  orders listing for OT", term2, ": not fetched"); return(NULL) }
-  x <- .parse_opinion_listing(html)
-  if (is.null(x) || !nrow(x)) return(NULL)
-  tibble::tibble(dkt = x$dkt, date = as.character(x$date), url = x$url)
+  x <- .op_parse_orders_listing(html)
+  if (!nrow(x)) return(NULL)
+  x
 }
 
 # The cache, refreshed for `terms` (two-digit) and topped up from what the site
@@ -323,6 +348,10 @@ refresh_orders_cache <- function(site_dir, terms = character()) {
   cache <- .op_read_json(opinion_orders_path(site_dir))
   add <- function(dkt, date, url) {
     if (is.na(url) || !nzchar(url) || is.na(dkt) || !grepl("\\.pdf", url)) return(invisible())
+    # Once a Term is printed the listing points these into the volume too
+    # (boundvolumes/586BV.pdf#page=826), where they sit among the orders in a
+    # different layout. Not read: only an opinion that is a file of its own.
+    if (grepl("boundvolumes|preliminaryprint", url)) return(invisible())
     base <- sub("#.*$", "", sub("^http:", "https:", url))
     e <- cache[[base]] %||% list(dkts = list(), decided = NULL, url = base)
     e$dkts <- as.list(unique(c(unlist(e$dkts), dkt)))
