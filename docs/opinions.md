@@ -40,7 +40,10 @@ PDF" (`render_docket_pages()` reads the index; the href is part of that
 page's manifest key, appended only where there is one, so building an opinion
 re-renders that case's page and no other). The Justices' writings tables add
 "opinion" beside the docket number. Both pick a new page up the next time
-they render.
+they render. The landing page's **Recent decisions** panel does the same check
+on every daily build (`decisions_panel(opinions = )`): a decision with a page
+gets "Opinion" to the page and "PDF" to the Court's file; one without keeps
+"Opinion" to the PDF. It links only pages that are on disk.
 
 **One reading of the PDF, three renderings.** `extract_opinion.py` is the
 only thing that reads the PDF. A fault in the text is fixed there, once. The

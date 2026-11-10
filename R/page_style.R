@@ -1022,7 +1022,13 @@ live_argument_panel <- function(site_dir, as_of = Sys.Date(), days = 21L, daycal
     tags$script(src = "/live.js", defer = NA))
 }
 
-decisions_panel <- function(rows, heading = "Recent decisions", note = NULL, more = NULL) {
+# `opinions`: docket -> the site's own page for that decision's opinion
+# (opinions/index.json, R/opinion_page.R), as a named list or character vector.
+# Where a row's docket has one, "Opinion" opens it and the Court's PDF sits
+# beside it as "PDF"; where it has none -- a decision of this morning, built
+# overnight; an order's opinion under the length the site sets -- the link is
+# the Court's PDF, as it always was.
+decisions_panel <- function(rows, heading = "Recent decisions", note = NULL, more = NULL, opinions = NULL) {
   if (is.null(rows) || !is.data.frame(rows) || !nrow(rows)) return(NULL)
   if (!("group" %in% names(rows))) rows$group <- rows$dkt
   groups <- unique(rows$group)
@@ -1049,7 +1055,14 @@ decisions_panel <- function(rows, heading = "Recent decisions", note = NULL, mor
     wu <- if ("writing_urls" %in% names(r)) r$writing_urls[1] else NA_character_
     if (!is.na(w) && nzchar(w)) bits <- c(bits, list(.writings_node(w, wu)))
     url <- r$opinion_url[1]
-    if (!is.na(url) && nzchar(url))
+    has_url <- !is.na(url) && nzchar(url)
+    # Any docket of the group: consolidated cases share one opinion page.
+    own <- NULL
+    for (k in r$dkt) { h <- opinions[[k]]; if (!is.null(h) && !is.na(h) && nzchar(h)) { own <- h; break } }
+    if (!is.null(own)) {
+      bits <- c(bits, list(tags$a(class = "pdf", href = own, "Opinion")))
+      if (has_url) bits <- c(bits, list(tags$a(class = "pdf", href = url, target = "_blank", rel = "noopener", "PDF")))
+    } else if (has_url)
       bits <- c(bits, list(tags$a(class = "pdf", href = url, target = "_blank",
                                   rel = "noopener", "Opinion")))
     # The holding, where the slip-opinion feed supplied one: its first sentence,

@@ -536,8 +536,19 @@ decided <- tryCatch(read_decided(c(
   file.path(site_dir, "arguments", DECIDED_FILE))), error = function(e) NULL)
 cat("Recent decisions on the landing page:",
     if (is.null(decided)) 0 else length(unique(decided$group)), "\n")
+# The site's own opinion pages, where built (opinions/index.json): the panel
+# links those and keeps the Court's PDF beside them. Read from the checkout, so
+# a page built by tonight's conferences run is linked by the next daily.
+opinion_pages <- tryCatch({
+  oi <- jsonlite::fromJSON(file.path(site_dir, "opinions", "index.json"), simplifyVector = FALSE)
+  hrefs <- vapply(oi, function(e) e$href %||% NA_character_, character(1))
+  # Only what is on disk: the panel must not link a page that is not there.
+  hrefs[!is.na(hrefs) & file.exists(file.path(site_dir, sub("^/", "", hrefs)))]
+}, error = function(e) character())
+cat("Opinion pages the panel can link:", length(opinion_pages), "\n")
 decisions <- decisions_panel(
   decided,
+  opinions = as.list(opinion_pages),
   note = "The Court's most recent written opinions, argued or not.",
   more = "<a href='arguments/'>All argued cases &rarr;</a>")
 
