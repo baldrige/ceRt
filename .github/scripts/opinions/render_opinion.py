@@ -22,7 +22,7 @@ import re
 import sys
 import zipfile
 
-RENDER_VERSION = "o1"
+RENDER_VERSION = "o2"   # o2: the EPUB's text justified
 SOURCE_NOTE = ("Prepared by Supreme Court Report from the PDF published by the Supreme Court of the United States. "
                "The PDF is the authoritative text; this copy can contain errors of conversion.")
 
@@ -271,9 +271,10 @@ body { font-family: serif; line-height: 1.5; margin: 0 4%; }
 h1 { font-size: 1.5em; line-height: 1.25; text-align: center; margin: 2em 0 0.6em; }
 h2 { font-size: 1.25em; margin: 2em 0 1em; text-align: center; }
 h3 { font-size: 1em; text-align: center; margin: 1.6em 0 0.8em; }
-p { margin: 0; text-indent: 1.3em; }
+p { margin: 0; text-indent: 1.3em; text-align: justify; }
 p.cont, p.byline, p.meta, p.src, h2 + p, h3 + p, blockquote p:first-child, aside p { text-indent: 0; }
-p.byline { margin: 0 0 1em; }
+p.byline { margin: 0 0 1em; text-align: left; }
+aside p { text-align: left; }
 p.meta { text-align: center; margin: 0.3em 0; }
 p.src { font-size: 0.85em; margin: 2em 0 0; }
 p.sep { text-align: center; text-indent: 0; margin: 1.2em 0; }

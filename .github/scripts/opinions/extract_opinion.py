@@ -61,7 +61,13 @@ BYLINE_LEAD = re.compile(
     r"[^.]{0,260}?(?:delivered the opinion of the Court|announced the judgment of the Court)[^.]{0,300}\.)\s*",
     re.I)
 BYLINE_SEP = re.compile(
-    r"^((?:Chief )?Justice [A-Z][A-Za-z'’]+(?:, with whom [^.]{0,300}?)?, "
+    # A joint writing names its authors in a row ("Justice Breyer, Justice
+    # Sotomayor, and Justice Kagan, dissenting": Dobbs, No. 19-1392), and a
+    # print hangs a note on "join" ("... and Justice Jackson join,* dissenting":
+    # Students for Fair Admissions, No. 20-1199). Read without either, the
+    # dissent was run on into the writing before it.
+    r"^((?:Chief )?Justice [A-Z][A-Za-z'’]+(?:(?:, and|,| and) (?:Chief )?Justice [A-Z][A-Za-z'’]+)*"
+    r"(?:, with whom [^.]{0,300}?)?,[*†‡]? "
     r"(?:concurring|dissenting)[^.]{0,160}\.)\s*", re.I)
 BYLINE_OTHER = re.compile(r"^((?:Opinion|Statement) of (?:Chief )?Justice [A-Z][A-Za-z'’]+[^.]{0,200}\.)\s*", re.I)
 PER_CURIAM = re.compile(r"^(Per Curiam\.?)\s*$", re.I)
@@ -276,7 +282,12 @@ def head_section(head_text):
         return "court"
     if re.search(r"\bPer Curiam\b", h, re.I):
         return "percuriam"
-    m = re.search(r"([A-Z][A-Za-z'’]+), (?:C\. ?)?J\., "
+    # A joint writing's head names them all: "Breyer, Sotomayor, and Kagan,
+    # JJ., dissenting". Unread, it was taken for a heading on every page and
+    # cut the paragraph that ran across the break.
+    # (And a slip can set a space before the comma: "Sotomayor , J.,
+    # dissenting", No. 24-826.)
+    m = re.search(r"([A-Z][A-Za-z'’]+) ?(?:(?:, and|,| and) [A-Z][A-Za-z'’]+)*, (?:C\. ?J|JJ?)\., "
                   r"(concurring in the judgment in part and dissenting in part|concurring in part and dissenting in part|"
                   r"concurring in the judgment|concurring in judgment|concurring in part|dissenting in part|concurring|dissenting)", h)
     if m:
@@ -686,7 +697,8 @@ def classify_byline(text):
     if m:
         b = m.group(1)
         who = re.search(r"Justice ([A-Z][A-Za-z'’]+)", b, re.I).group(1).lower()
-        tail = b[b.lower().rfind(", concurring") if ", concurring" in b.lower() else b.lower().rfind(", dissenting"):].lower()
+        low = re.sub(r"[*†‡]", "", b).lower()     # "join,* dissenting"
+        tail = low[low.rfind(", concurring") if ", concurring" in low else low.rfind(", dissenting"):]
         if "dissenting" in tail and "concurring" in tail:
             kind = "mixed"
         elif "dissenting" in tail:
@@ -999,7 +1011,7 @@ def extract(path, first=None, last=None, words_path=None):
         s["id"] = "s%d" % (len(out_sections) + 1)
         s["title"] = section_title(s["kind"], s["who"], s["byline"])
         if s["byline"] and s["kind"] not in ("court", "percuriam", "plurality"):
-            t = re.sub(r", with whom .*?(?=, (?:concurring|dissenting))", "", s["byline"]).rstrip(". ")
+            t = re.sub(r", with whom .*?(?=, (?:concurring|dissenting))", "", re.sub(r",[*†‡] ", ", ", s["byline"])).rstrip(". ")
             if re.match(r"(?:Chief )?Justice ", t, re.I) and len(t) < 110:
                 s["title"] = re.sub(r"^(chief )?justice (\w)", lambda m: ("Chief " if m.group(1) else "") + "Justice " + m.group(2).upper(), t, flags=re.I)
         s["pdf_page"] = first_page

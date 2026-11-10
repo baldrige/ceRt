@@ -28,7 +28,8 @@ suppressPackageStartupMessages({ library(stringr); library(jsonlite) })
 # p2: companion dockets (a consolidated case's page is its lead's), and the
 #     opinions relating to orders.
 # p3: captions cased properly where the docket's caption cannot say how.
-OPINION_PAGE_VERSION <- "p3"
+# p4: the text justified; the author's portrait beside each signed writing.
+OPINION_PAGE_VERSION <- "p4"
 OPINION_DIR <- "opinions"
 
 opinion_href <- function(term, dkt, ext = "html") sprintf("/%s/%s/%s.%s", OPINION_DIR, term, dkt, ext)
@@ -176,9 +177,12 @@ OPINION_CSS <- fill_palette("
   .opn .otoc a{color:var(--ink);text-decoration:none;border-bottom:1px solid rgba(@link:rgb@,.35)}
   .opn .otoc a:hover{color:var(--accent)}
   .opn section.op{margin-top:3rem;border-top:2px solid var(--ink);padding-top:1.1rem}
-  .opn section.op h2{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.5rem;line-height:1.2;margin:0 0 1rem;color:var(--ink)}
-  .opn section.op p{margin:0 0 .95rem;line-height:1.62;hyphens:auto;overflow-wrap:break-word}
-  .opn section.op p.byline{color:var(--ink-soft);font-style:italic}
+  .opn section.op h2{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.5rem;line-height:1.2;margin:0 0 1rem;color:var(--ink);display:flex;flex-wrap:wrap;align-items:center;gap:.5rem .9rem}
+  .opn section.op h2 .opts{display:inline-flex;gap:.35rem;flex:none}
+  .opn section.op h2 .opt{display:block;width:56px;height:56px;border-radius:50%;background-repeat:no-repeat;background-color:var(--stripe);border:1px solid var(--rule)}
+  .opn section.op p{margin:0 0 .95rem;line-height:1.62;hyphens:auto;overflow-wrap:break-word;text-align:justify}
+  .opn section.op p.byline{color:var(--ink-soft);font-style:italic;text-align:left}
+  .opn .ocredit{font-size:.8rem;color:var(--faint);margin:.6rem 0 0;line-height:1.45}
   .opn section.op p.sep{text-align:center;letter-spacing:.3em;color:var(--faint);margin:1.6rem 0}
   .opn section.op h3.oh{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.12rem;text-align:center;margin:2rem 0 1rem;color:var(--ink)}
   .opn section.op blockquote{margin:0 0 .95rem;padding:0 0 0 1.1rem;border-left:2px solid var(--rule);color:var(--ink-soft)}
@@ -195,7 +199,7 @@ OPINION_CSS <- fill_palette("
   .opn aside.notes li.sym{list-style:none;margin-left:-1.7rem}
   .opn aside.notes li.sym .mk{margin-right:.3rem}
   .opn aside.notes li.sym p{display:inline}
-  .opn aside.notes p{margin:0 0 .4rem;line-height:1.5}
+  .opn aside.notes p{margin:0 0 .4rem;line-height:1.5;text-align:left}
   .opn aside.notes a.back{color:var(--link);text-decoration:none;margin-left:.2rem}
   .opn aside.notes li:target,.opn sup.fnr a:target,.opn .pg:target{background:rgba(@accent:rgb@,.12);outline:.2rem solid rgba(@accent:rgb@,.12)}
   .opn section.op,.opn aside.notes li,.opn sup.fnr a{scroll-margin-top:1rem}
@@ -203,8 +207,39 @@ OPINION_CSS <- fill_palette("
   .opn section.op-counsel summary{cursor:pointer;font-family:'Fraunces',Georgia,serif;font-size:1.05rem;color:var(--ink-soft)}
   .opn .osyl{font-size:.84rem;color:var(--faint);font-style:italic;margin:-.5rem 0 1rem}
   .opn p.back{margin-top:3rem;font-size:.92rem}
+  @media (max-width:30rem){.opn section.op p{text-align:left}}
   @media print{.smast,.bcrumb,.opn .oget,.opn .otoc,.opn p.back{display:none}.opn section.op{break-before:page}}
 ")
+
+# ---- the author's portrait --------------------------------------------------------
+# Who signed a writing, from its byline: every "Justice X" before the words
+# that end the list of authors ("delivered", "with whom", ", dissenting" ...).
+# More than one for a joint writing ("Justice Breyer, Justice Sotomayor, and
+# Justice Kagan, dissenting"); none for a per curiam or the syllabus. The
+# extractor's own `who` is the first of them only.
+opinion_authors <- function(byline) {
+  if (is.null(byline) || !nzchar(byline)) return(character())
+  head <- sub("(?i)(,? with whom|,? in which|,? joined by| delivered| announced|,? concurring|,? dissenting|,? respecting| took no part).*$",
+              "", byline, perl = TRUE)
+  m <- str_match_all(head, regex("Justice ([A-Z][A-Za-z'’]+)", ignore_case = TRUE))[[1]][, 2]
+  unique(str_to_title(m))
+}
+
+# The portraits to set in a writing's heading, or "". The crop is written in
+# pixels for a box of this size, so the box is the same size at every width
+# (OPINION_CSS's .opt must agree). A Justice with no portrait on file gets
+# none, never an empty circle.
+OPINION_PORTRAIT_PX <- 56
+.op_portraits <- function(authors, crops) {
+  have <- authors[authors %in% names(crops)]
+  if (!length(have)) return("")
+  paste0("<span class='opts' aria-hidden='true'>",
+         paste(vapply(have, function(a) {
+           c <- crops[[a]]
+           sprintf("<span class='opt' style='%s'></span>",
+                   portrait_crop_style(c, OPINION_PORTRAIT_PX, paste0("/justices/portraits/", c$file)))
+         }, character(1)), collapse = ""), "</span>")
+}
 
 # One opinion's page from the body render_opinion.py wrote. `o` is a worklist
 # row; `doc` the extracted JSON (for the citation and the count of writings).
@@ -224,6 +259,14 @@ render_opinion_page <- function(site_dir, o, body, doc) {
   body <- sub("(<section id=\"s1\" class=\"op op-syllabus\"><h2>Syllabus</h2>)",
               "\\1<p class='osyl'>Prepared by the Reporter of Decisions for the convenience of the reader; it is no part of the opinion of the Court.</p>",
               body, perl = TRUE)
+  # The author's portrait at the head of each signed writing.
+  crops <- portrait_crops(); any_portrait <- FALSE
+  for (s in doc$sections) {
+    pt <- .op_portraits(opinion_authors(s$byline), crops)
+    if (!nzchar(pt)) next
+    sec_open <- sprintf("<section id=\"%s\" class=\"op op-%s\"><h2>", s$id, s$kind)
+    if (grepl(sec_open, body, fixed = TRUE)) { body <- sub(sec_open, paste0(sec_open, pt), body, fixed = TRUE); any_portrait <- TRUE }
+  }
   html <- paste0(
     "<!DOCTYPE html>\n<html lang=\"en\">\n",
     page_head(paste0(o$caption, " — Opinion — Supreme Court Report"), site_breadcrumb_jsonld(o$caption, crumb),
@@ -250,6 +293,7 @@ render_opinion_page <- function(site_dir, o, body, doc) {
     body,
     "<p class='back'><a href='/", OPINION_DIR, "/'>&larr; All opinions</a> · <a href='/justices/ot", term,
     ".html'>The Justices, October Term ", term, " &rarr;</a></p>",
+    if (any_portrait) paste0("<p class='ocredit'>", PORTRAIT_CREDIT, "</p>") else "",
     "</main></body>\n</html>\n")
   out <- file.path(site_dir, OPINION_DIR, term, paste0(dkt, ".html"))
   dir.create(dirname(out), recursive = TRUE, showWarnings = FALSE)

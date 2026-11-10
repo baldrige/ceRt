@@ -1319,3 +1319,30 @@ gtsave_titled <- function(tbl, filename, path, title) {
   writeLines(enc2utf8(txt), fp, useBytes = TRUE)
   invisible(fp)
 }
+
+# ---- the Justices' portraits ---------------------------------------------------
+# data/portraits/<surname>.jpg with the face geometry OpenCV found
+# (data/portraits/crops.json; docs/justices.md), published at
+# /justices/portraits/ by render_justices(). Official Court photographs, U.S.
+# government works in the public domain. Used by the Justices pages and the
+# opinion pages, so the crop is written once.
+PORTRAITS_SRC <- "data/portraits"
+PORTRAIT_CREDIT <- paste0("Portraits: the Justices&rsquo; official photographs, Collection of the Supreme Court of the ",
+                          "United States, public domain as works of the U.S. government, via Wikimedia Commons.")
+portrait_crops <- function() {
+  cj <- file.path(PORTRAITS_SRC, "crops.json")
+  if (file.exists(cj)) jsonlite::fromJSON(cj, simplifyVector = FALSE) else list()
+}
+# The inline style that shows one portrait's face in a square of `px` CSS
+# pixels: a window a little over two face-widths wide, centred a little above
+# the face centre so the hair is in and the collar is not, clamped to the
+# image, and expressed as a CSS background so no image is re-encoded. `p` is
+# one entry of crops.json (iw, ih, fw, nx, ny); `url` where the file is served.
+portrait_crop_style <- function(p, px, url) {
+  side <- min(max(p$fw * 2.1, 70), p$iw, p$ih)
+  x0 <- min(max(p$nx - side / 2, 0), p$iw - side)
+  y0 <- min(max(p$ny - side * 0.5, 0), p$ih - side)
+  k <- px / side
+  sprintf("background-image:url(%s);background-size:%.1fpx %.1fpx;background-position:%.1fpx %.1fpx",
+          url, p$iw * k, p$ih * k, -x0 * k, -y0 * k)
+}

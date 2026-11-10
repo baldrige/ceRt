@@ -249,7 +249,9 @@ prototyped as an artifact for OT25 and then moved into the renderer:
   and the nose point (the box's centre line, 58% down); the script scales the
   portrait so the face spans 85% of the circle and centres the nose. A Justice
   without a portrait gets an empty circle. `render_justices()` copies the
-  directory to `justices/portraits/` on every render.
+  directory to `justices/portraits/` on every render. The opinion pages
+  (docs/opinions.md) show the same files beside each writing's heading; the
+  crop is `portrait_crop_style()` in `R/page_style.R`.
 - **The tables.** Both matrices are rendered server-side as tables, accent-
   washed, and switched by the same radio pair the script listens to, so with
   script off the numbers are all still there and the stage says why it is

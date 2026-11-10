@@ -243,9 +243,42 @@ x3):
 - **A superscript number far from any note the section has** is not a
   reference: "[123I]ioflupane" (No. 22-6389). It stays a superscript.
 
+Found when the authors' portraits went in (2026-11-10), by listing every
+paragraph that reads as a byline but did not start a writing. Seven opinions,
+re-read with `force`; `EXTRACT_VERSION` was not bumped, because nothing else
+changes (five untouched opinions re-read byte for byte the same):
+
+- **A joint writing.** "Justice Breyer, Justice Sotomayor, and Justice Kagan,
+  dissenting" (*Dobbs*, No. 19-1392; also Nos. 21A244, 21-857, 23-719) was
+  not a byline, so the dissent ran on as the end of the writing before it,
+  and its running head ("Breyer, Sotomayor, and Kagan, JJ., dissenting") was
+  a heading on every page, cutting the paragraph across each break.
+- **A note hung on the byline.** "... and Justice Jackson join,* dissenting"
+  (Nos. 20-1199, 22-451): the same, without the stray headings.
+- **A space before the head's comma.** "Sotomayor , J., dissenting"
+  (No. 24-826): a heading on every page.
+
 `prune_opinion_files()` removes, at each build, any file in a Term's folder
 that no index entry names: the second copy left when two dockets of one
 decision each had a page and one became the other's companion.
+
+## The page: justified text, and the author's portrait
+
+The body text is justified, with the browser's hyphenation (`hyphens:auto`);
+below 30rem it is ragged, because a narrow justified column opens rivers.
+Bylines and footnotes stay ragged. The EPUB's stylesheet justifies too,
+though most readers apply their own setting.
+
+Each signed writing has its author's portrait beside its heading: the
+Justices section's files (`data/portraits/`, served from
+`/justices/portraits/`), cropped to the face by `portrait_crop_style()` in
+`R/page_style.R`, which both sections use. `opinion_authors()` reads the
+authors from the byline, so a joint writing shows each of them; a per curiam
+and the syllabus show none. The page wrapper sets them (`render_opinion_page()`),
+not `render_opinion.py`: the Markdown and EPUB carry no pictures.
+`audit_site.R` FAILS if a page names a portrait that is not published. A
+new Justice needs a portrait in `data/portraits/` and an entry in
+`crops.json` (docs/justices.md), or their writings show no picture.
 
 ## Known faults
 

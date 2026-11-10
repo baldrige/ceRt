@@ -1156,6 +1156,18 @@ local({
                                                       length(loose), paste(utils::head(loose, 8), collapse = ", ")))
   else ok("opinion footnotes", "every reference has its note")
   if (!file.exists(file.path(od, "index.html"))) fail("opinions page", "opinions/index.html missing")
+  # The authors' portraits are the Justices section's files: a page that names
+  # one that is not published shows an empty circle.
+  pts <- unique(unlist(lapply(names(lead), function(d) {
+    f <- file.path(site, sub("^/", "", lead[[d]]$href))
+    if (!file.exists(f)) return(character())
+    x <- slurp(f)
+    regmatches(x, gregexpr("/justices/portraits/[a-z]+[.]jpg", x))[[1]]
+  })))
+  gone <- pts[!file.exists(file.path(site, sub("^/", "", pts)))]
+  if (length(gone)) fail("opinion portraits", sprintf("%d portrait(s) the opinion pages show are not published: %s", length(gone), paste(gone, collapse = ", ")))
+  else if (!length(pts)) warn("opinion portraits", "no opinion page shows an author's portrait")
+  else ok("opinion portraits", sprintf("%d portrait(s) in use, each published", length(pts)))
   # The OPDS catalogue (write_opinion_opds()): an e-reader follows these links
   # unattended, so every download it offers must exist and every feed it
   # names must be there.
