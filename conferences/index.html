@@ -33,6 +33,20 @@
   ul.idx a.row:hover .d{text-decoration:underline;text-underline-offset:3px}
   ul.idx .count{color:var(--faint);font-size:.9rem;font-style:italic;white-space:nowrap;
     font-variant-numeric:tabular-nums}
+  /* A long note (an order list's "3 GVRs / 230 denied / 4 habeas denied /
+     ...", items separated by middots) cannot sit on one line: nowrap made it
+     claim the row and
+     squeezed the title into a column three words wide, and on a phone it ran off
+     the screen. Such a row opts in (meta_wrap): the note wraps, only between its
+     items, and takes at most ~45% of the row, so the title always has the
+     larger share. Under 34rem it drops beneath the title at full width. */
+  /* ("long", not "wrap": .wrap is the page container and its padding.) */
+  ul.idx .count.long{white-space:normal;text-align:right;max-width:45%;line-height:1.45}
+  ul.idx .count.long .seg{white-space:nowrap}
+  @media(max-width:34rem){
+    ul.idx a.row.longmeta{flex-wrap:wrap;row-gap:.2rem}
+    ul.idx .count.long{max-width:none;flex-basis:100%;text-align:left}
+  }
   /* Compact horizontal strip of the most recent pages beneath a category row. */
   ul.idx .recent{display:flex;flex-wrap:wrap;align-items:baseline;
     gap:.3rem .85rem;padding:0 .4rem 1rem;margin-top:-.35rem}
@@ -368,7 +382,7 @@
       <li>
         <a class="row" href="conf_2026-11-13.html" target="_blank" rel="noopener">
           <span class="d">November 13, 2026</span>
-          <span class="count">139 cases</span>
+          <span class="count">167 cases</span>
         </a>
       </li>
       <li>
