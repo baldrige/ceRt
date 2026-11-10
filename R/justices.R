@@ -976,7 +976,7 @@ main.wrap{max-width:54rem}
 .jx-chip{display:inline-block;font-size:.72rem;letter-spacing:.05em;text-transform:uppercase;padding:.1rem .45rem;border-radius:2px;color:#fff;white-space:nowrap}
 .jx-chip.court{background:var(--op-court)}.jx-chip.conc{background:var(--op-conc)}.jx-chip.judg{background:var(--op-judg)}.jx-chip.diss{background:var(--op-diss)}
 .jx-chip.part{background-image:repeating-linear-gradient(135deg,transparent 0 3px,rgba(@paper:rgb@,.35) 3px 5px)}
-.jx .cap{font-weight:500}.jx .dk{display:block;color:var(--faint);font-size:.78rem;font-variant-numeric:tabular-nums}
+.jx .dk a.opl{color:var(--link)}.jx .cap{font-weight:500}.jx .dk{display:block;color:var(--faint);font-size:.78rem;font-variant-numeric:tabular-nums}
 .jx details{border-top:1px solid var(--rule);padding:.5rem 0}
 .jx summary{cursor:pointer;font-weight:600;display:flex;gap:.6rem;align-items:baseline}
 .jx summary .cnt{font-weight:400;color:var(--faint);font-size:.86rem;font-variant-numeric:tabular-nums}
@@ -1181,6 +1181,11 @@ render_justices_term <- function(st, site_dir, terms_all) {
 
   # Panel 4.
   wl <- st$writings
+  # The site's own opinion pages (opinions/index.json, R/opinion_page.R), read
+  # here rather than passed in: a case with one gets a link beside its number.
+  op_idx <- tryCatch(jsonlite::fromJSON(file.path(site_dir, "opinions", "index.json"), simplifyVector = FALSE),
+                     error = function(e) list())
+  op_link <- function(d) { h <- op_idx[[d]]$href; if (is.null(h)) "" else sprintf(" &middot; <a class='opl' href='%s'>opinion</a>", h) }
   chip <- function(kind, partial, code) sprintf("<span class='jx-chip %s%s' title='%s'>%s</span>", kind, if (partial) " part" else "", .jx_esc(code),
                                                 c(court = "Court", conc = "Concurring", judg = "Conc. in judgment", diss = "Dissenting")[[kind]])
   lists <- paste(vapply(seq_len(nrow(court)), function(i) {
@@ -1188,8 +1193,8 @@ render_justices_term <- function(st, site_dir, terms_all) {
     n <- if (is.null(rows)) 0L else nrow(rows)
     body <- if (!n) "<p class='pend'>No writings on the list for this Term.</p>" else paste0(
       "<div class='jx-tw'><table><thead><tr><th>Decided</th><th>Writing</th><th>Case</th><th>Opinion of the Court by</th><th>Joined by</th><th>Result</th></tr></thead><tbody>",
-      paste(vapply(seq_len(n), function(r) sprintf("<tr><td>%s</td><td>%s</td><td><a class='cap' href='/cases/%s.html'>%s</a><span class='dk'>No. %s</span></td><td>%s</td><td>%s</td><td>%s</td></tr>",
-        .jx_date(rows$decided[r]), chip(rows$kind[r], rows$partial[r], rows$code[r]), rows$dkt[r], .jx_esc(rows$caption[r]), rows$dkt[r],
+      paste(vapply(seq_len(n), function(r) sprintf("<tr><td>%s</td><td>%s</td><td><a class='cap' href='/cases/%s.html'>%s</a><span class='dk'>No. %s%s</span></td><td>%s</td><td>%s</td><td>%s</td></tr>",
+        .jx_date(rows$decided[r]), chip(rows$kind[r], rows$partial[r], rows$code[r]), rows$dkt[r], .jx_esc(rows$caption[r]), rows$dkt[r], op_link(rows$dkt[r]),
         if (rows$author[r] == nm) "<span class='pc'>this opinion</span>" else .jx_esc(lab_of(rows$author[r]) %||% rows$author[r]),
         if (is.na(rows$joined[r])) "<span class='pend'>lineup not parsed</span>" else .jx_esc(rows$joined[r]),
         .jx_esc(rows$result[r])), character(1)), collapse = ""), "</tbody></table></div>")

@@ -326,6 +326,12 @@ jobs:
           python -m pip install -r .github/scripts/subject_area/requirements.txt
           python -c "import sys, pydantic_ai; print('subject classifier:', sys.executable, pydantic_ai.__version__)"
           echo "SUBJECT_PYTHON=$(python -c 'import sys; print(sys.executable)')" >> "$GITHUB_ENV"
+      # The PDF reader for the opinion pages (build_opinions.R, below). Optional
+      # for the same reason: without it that one step fails and nothing else does.
+      - name: Install the opinion PDF reader (PyMuPDF)
+        continue-on-error: true
+        timeout-minutes: 5
+        run: python -m pip install --quiet -r .github/scripts/opinions/requirements.txt
       - name: Download term snapshots (this run, plus any reuse runs)
         env:
           GH_TOKEN: ${{ github.token }}
@@ -420,6 +426,19 @@ jobs:
           LINEUP_MAX_NEW: "120"
           TEXT_MAX_NEW: "60"
         run: Rscript .github/scripts/render_justices.R
+      - name: Build the opinion pages
+        # After the Justices render, which names each new decision's PDF in
+        # justices/lineups.json. A handful a week in season; the back-catalogue
+        # went through opinions.yml. Never let it block conference publishing.
+        # A page built here is linked from its case page and the Justices page
+        # the next time those render.
+        continue-on-error: true
+        timeout-minutes: 15
+        env:
+          SITE_DIR: site
+          OPINION_MAX_NEW: "25"
+          PYTHON: python
+        run: Rscript .github/scripts/build_opinions.R
       - name: Commit and publish changes
         working-directory: site
         run: |

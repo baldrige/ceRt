@@ -972,7 +972,7 @@ docket_disposition <- function(outcome, outcome_date, arg, p_base, conf, sig, is
                                p_lo = NA_real_, p_hi = NA_real_, p_ever = NA_real_,
                                word_override = NULL, sgv = NULL, sg_layer = FALSE,
                                ever_date = as.Date(NA), ever_why = "", logged = NULL,
-                               base_rate = NA_real_) {
+                               base_rate = NA_real_, opinion = NA_character_) {
   # `word_override`: the box's word decided elsewhere, for a docket whose
   # lifecycle is neither a petition's nor an application's (an original action,
   # R/original_dockets.R). Used for the pending and the resolved forms alike.
@@ -1122,7 +1122,10 @@ docket_disposition <- function(outcome, outcome_date, arg, p_base, conf, sig, is
                 else if (!is.na(arg$scheduled_date)) "Set for argument" else "Certiorari granted",
       denied = "Certiorari denied", dismissed = "Dismissed", gvr = "GVR'd", outcome)
   # Link the "Decided" word to the slip opinion (the primary way to reach it).
-  if (identical(word, "Decided") && !is.na(arg$opinion_url))
+  # The site's own page where there is one; the Court's PDF otherwise.
+  if (identical(word, "Decided") && !is.na(opinion))
+    word <- sprintf("<a href='%s'>Decided</a>", opinion)
+  else if (identical(word, "Decided") && !is.na(arg$opinion_url))
     word <- sprintf("<a href='%s' target='_blank' rel='noopener'>Decided</a>", arg$opinion_url)
   dt <- if (!is_app && identical(outcome, "granted"))
     coalesce(arg$decided_date,
@@ -1144,8 +1147,11 @@ docket_disposition <- function(outcome, outcome_date, arg, p_base, conf, sig, is
 docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
                         signals = NULL, qp = NA_character_, rendered = Sys.Date(),
                         available = character(), orders = NULL, subject = NA_character_,
-                        reader = NA_character_, ledger = NULL) {
+                        reader = NA_character_, ledger = NULL, opinion = NA_character_) {
   # `ledger`: this docket's forecast-log entries (cases/forecasts.json), if any.
+  # `opinion`: the site's own page for this case's opinion (opinions/index.json,
+  # R/opinion_page.R), where one has been built.
+  opinion <- opinion %||% NA_character_
   dkt <- cx$dkt; ev <- cx$events[[1]]; par <- cx$parties[[1]]; rel <- cx$related %||% ""
   # The linked application/petition docket. NA-safe on purpose: %||% catches a
   # snapshot rendered before build_case() carried the column, but a present-and-NA
@@ -1293,7 +1299,7 @@ docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
     }
   }
 
-  disp <- docket_disposition(outcome, outcome_date, arg, p_base, conf, signals,
+  disp <- docket_disposition(opinion = opinion, outcome, outcome_date, arg, p_base, conf, signals,
                              is_app = is_app, why = fc_why, why_retro = fc_why_retro,
                              p_lo = p_lo, p_hi = p_hi, p_ever = p_ever,
                              word_override = orig_word, sgv = sgv, sg_layer = sg_layer,
@@ -1355,10 +1361,16 @@ docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
       .fmtdate(arg$argued_date), if (!is.na(adv)) paste0(" &mdash; ", .esc(adv)) else "",
       argument_term(arg$argued_date), dkt))
   if (!is.na(arg$decided_date)) {
-    dword <- if (!is.na(arg$opinion_url))
+    dword <- if (!is.na(opinion)) sprintf("<a href='%s'>Decided</a>", opinion)
+      else if (!is.na(arg$opinion_url))
       sprintf("<a href='%s' target='_blank' rel='noopener'>Decided</a>", arg$opinion_url) else "Decided"
-    ad <- c(ad, sprintf("<p><b>%s</b> %s.%s</p>", dword, .fmtdate(arg$decided_date),
-      if (!is.na(arg$opinion_author)) paste0(" Opinion by <b>", .esc(arg$opinion_author), "</b>.") else ""))
+    # With a page of our own: read it here, or as an EPUB, with the Court's PDF
+    # still one click away (it is the authoritative text).
+    oread <- if (!is.na(opinion)) paste0(
+      " <a href='", opinion, "'>Read the opinion</a> &middot; <a href='", sub("[.]html$", ".epub", opinion), "'>EPUB</a>",
+      if (!is.na(arg$opinion_url)) sprintf(" &middot; <a href='%s' target='_blank' rel='noopener'>the Court&rsquo;s PDF</a>", arg$opinion_url) else "") else ""
+    ad <- c(ad, sprintf("<p><b>%s</b> %s.%s%s</p>", dword, .fmtdate(arg$decided_date),
+      if (!is.na(arg$opinion_author)) paste0(" Opinion by <b>", .esc(arg$opinion_author), "</b>.") else "", oread))
   }
   # An original action's "dismissed" comes AFTER its argument and opinion (No.
   # 142, Florida v. Georgia), so the block stays for those -- but only where the
@@ -1667,6 +1679,10 @@ render_docket_pages <- function(cases, out_dir, models = NULL, qp_map = NULL,
     split(unname(ledger_all), vapply(ledger_all, function(e) e$docket %||% "", "")) else list()
   rp <- file.path(dirname(out_dir), "arguments", "readers.json")
   readers <- if (file.exists(rp)) tryCatch(jsonlite::fromJSON(rp, simplifyVector = FALSE), error = function(e) list()) else list()
+  # Which dockets have an opinion page (opinions/index.json, R/opinion_page.R):
+  # {dkt: {href, ...}}; a companion case's entry points at its lead's page.
+  op_path <- file.path(dirname(out_dir), "opinions", "index.json")
+  op_idx <- if (file.exists(op_path)) tryCatch(jsonlite::fromJSON(op_path, simplifyVector = FALSE), error = function(e) list()) else list()
 
   n_written <- 0L; new_manifest <- manifest   # preserve entries for cases not in this batch
   for (i in seq_len(nrow(cases))) {
@@ -1703,7 +1719,10 @@ render_docket_pages <- function(cases, out_dir, models = NULL, qp_map = NULL,
              cx$parties, cx$lower, cx$lower_dkt, cx$lower_date, cx$date, cx$type,
              qp, sig, cx$related, cx$linked, link_targets(cx, available), ords, subj,
              readers[[dkt]]), if (!is.null(sgk)) list(sgk, models$sg[c("rates", "hazard")]),
-             if (!is.null(nxt)) list(nxt), if (length(led)) list(led)))
+             if (!is.null(nxt)) list(nxt), if (length(led)) list(led),
+             # Appended only where there is one, like the entries beside it: a
+             # NULL added for every docket would re-key the whole back-catalogue.
+             if (!is.null(op_idx[[dkt]]$href)) list(opinion = op_idx[[dkt]]$href)))
     if (incremental && identical(manifest[[dkt]] %||% "", key) &&
         file.exists(file.path(out_dir, paste0(dkt, ".html")))) {
       new_manifest[[dkt]] <- key; next
@@ -1711,7 +1730,8 @@ render_docket_pages <- function(cases, out_dir, models = NULL, qp_map = NULL,
     tryCatch({ docket_page(cx, out_dir, models = models, cls_row = clr, signals = sig,
                            qp = qp, rendered = rendered, available = available,
                            orders = ords, subject = subj,
-                           reader = readers[[dkt]] %||% NA_character_, ledger = led)
+                           reader = readers[[dkt]] %||% NA_character_, ledger = led,
+                           opinion = op_idx[[dkt]]$href %||% NA_character_)
                n_written <- n_written + 1L }, error = function(e)
       message("docket_page failed for ", dkt, ": ", conditionMessage(e)))
     new_manifest[[dkt]] <- key
