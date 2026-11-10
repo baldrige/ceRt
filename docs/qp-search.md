@@ -23,20 +23,23 @@ Figures below are from the build of 2026-11-09 against the published caches.
 | --- | --- | --- |
 | `questions/index.html` | the search page; its coverage table is rendered here, from `meta.json` | 35 KB |
 | `questions/meta.json` | Terms, counts, coverage, thresholds, the input hash | 1 KB |
-| `questions/text/<tt>.json` | one Term: `[docket, caption, subject, granted, text]` per petition | 12 files, 5.8 MB gzipped in all; the largest (OT2025) 1.2 MB |
-| `questions/like/<tt>.json` | docket → up to 25 `[neighbour, cosine×100]`, for the search page's `?like=` view | 0.14 MB gzipped in all |
-| `questions/near/<tt>-<b>.json` | docket → `{n, k, same, top}` with up to six neighbours **and their captions**, in buckets of 100 docket numbers — what a case page loads | 255 files, median 3 KB gzipped, none over 5 KB |
+| `questions/text/<tt>.json` | one Term: `[docket, caption, subject, granted, text]` per petition | 12 files, 12.3 MB gzipped in all; the largest (OT2018) 1.7 MB |
+| `questions/like/<tt>.json` | docket → up to 25 `[neighbour, cosine×100]`, for the search page's `?like=` view | 0.4 MB gzipped in all |
+| `questions/near/<tt>-<b>.json` | docket → `{n, k, same, top}` with up to six neighbours **and their captions**, in buckets of 100 docket numbers — what a case page loads | 478 files, median 3 KB gzipped, none over 6 KB |
 | `/qp.js` | matcher, snippets, both pages' wiring | 16 KB |
 
 `write_qp_index(site_dir)` does all of it and is called by `build_dashboards.R`
 (the daily) and `render_conferences.R`, after each has rendered its docket
-pages. The build takes about 70 seconds and is **skipped when nothing it reads
+pages. The build takes about three and a half minutes (70 seconds before the IFP
+backfill; the neighbour step is quadratic in the corpus) and is **skipped when nothing it reads
 has changed** — it hashes the usable texts, captions, subject labels, granted
 flags, coverage counts and its own parameters into `meta.json`.
 
 ## The gate: what counts as a question
 
-The caches hold 17,046 petition "QPs". 1,201 of them (7%) are not questions,
+The caches hold 38,482 petition "QPs". 4,320 of them (11%) are not questions
+(1,201 of 17,046 before the IFP backfill, whose petitions are more often
+handwritten),
 and `qp_usable()` keeps them out of both the search and every neighbour list:
 
 | rejected as | about | what it is |
@@ -77,27 +80,34 @@ dozen times in one session.
 
 ## Coverage
 
-15,845 questions. Coverage is close to complete for paid petitions from OT2018
-and for *in forma pauperis* petitions only from OT2025:
+34,162 questions. Coverage is close to complete for paid petitions from OT2018,
+and about seven in ten for *in forma pauperis* petitions, which is what their
+PDFs allow (below). Before the IFP backfill of 2026-11-10 the index held 15,845
+and almost no IFP petition older than OT2025:
 
 | Term | paid | IFP |
 | --- | --- | --- |
-| OT2026 | 582 of 612 | 921 of 1,092 |
-| OT2025 | 1,328 of 1,432 | 2,087 of 2,702 |
-| OT2024 | 1,186 of 1,329 | 252 of 2,529 |
-| OT2023 | 1,227 of 1,375 | 3 of 2,848 |
-| OT2022 | 1,135 of 1,252 | 4 of 2,907 |
-| OT2021 | 1,445 of 1,611 | 3 of 3,288 |
-| OT2020 | 1,611 of 1,829 | 330 of 3,477 |
-| OT2019 | 1,341 of 1,478 | 5 of 3,930 |
-| OT2018 | 1,447 of 1,593 | 8 of 4,847 |
-| OT2017 | 873 of 1,718 | 9 of 4,594 |
+| OT2026 | 584 of 612 | 931 of 1,092 |
+| OT2025 | 1,330 of 1,432 | 2,123 of 2,702 |
+| OT2024 | 1,190 of 1,329 | 1,883 of 2,529 |
+| OT2023 | 1,232 of 1,375 | 2,024 of 2,848 |
+| OT2022 | 1,139 of 1,252 | 2,037 of 2,907 |
+| OT2021 | 1,446 of 1,611 | 2,329 of 3,288 |
+| OT2020 | 1,623 of 1,829 | 2,400 of 3,477 |
+| OT2019 | 1,344 of 1,478 | 2,767 of 3,930 |
+| OT2018 | 1,452 of 1,593 | 3,525 of 4,847 |
+| OT2017 | 875 of 1,718 | 1,880 of 4,594 |
 
 OT2015 and OT2016 contribute the 48 argued cases the argument navigator holds.
 The page prints this table itself, from `meta.json`, so it cannot go stale.
-The IFP gap is closed by `backfill-qp-all.yml` (`types: ifp`), about 28,000
-petition PDFs; the index picks up whatever the caches gain on the next build,
-and a `rerender-dockets.yml` run puts the questions on the case pages.
+OT2017 is low in both columns because electronic filing began partway through
+that Term: 2,488 of its IFP petitions have a PDF at all.
+
+The IFP column was filled by `backfill-qp-all.yml` (`types: ifp`): one run of
+an hour read 25,971 petition PDFs across OT2017-OT2024, extracted a text from
+22,151, found no question in 3,806 and failed to download 7. The index picks up
+whatever the caches gain on the next build, and a `rerender-dockets.yml` run
+puts the questions on the case pages.
 
 What that backfill can and cannot get, measured on 40 OT2022 IFP petitions
 before running it: 38 carried a text layer (the Court's own OCR of the paper
@@ -158,7 +168,7 @@ With "Review granted" ticked it is one of five.
 `node .github/scripts/qp_probe.js site/questions` runs 20 queries and 6
 neighbour pairs against a built index; a miss fails, a query over 80 ms warns.
 `--explore "<query>"` prints the top ten instead. On 2026-11-09 (15,845
-questions, folded in ~370 ms):
+questions, folded in ~370 ms; ~800 ms at 34,162):
 
 | probe | finds | rank | ms |
 | --- | --- | --- | --- |
@@ -197,7 +207,7 @@ Two thresholds, both read off the data:
 | 0.30–0.40 | 0.85–0.89 | same question, independently written |
 | ≥ 0.75 | 0.94–1.00 | the same text with small edits: a public defender's standard petition, a pro se litigant's second filing |
 
-`QP_SIM_FLOOR` is **0.22**: 7,572 petitions (48%) have at least one neighbour
+`QP_SIM_FLOOR` is **0.22**: 16,718 petitions (49%) have at least one neighbour
 above it. `QP_SIM_SAME` is **0.75**, shown as "nearly the same words". Known
 companions land where they should: *Loper Bright*/*Relentless*,
 *SFFA v. Harvard*/*v. UNC*, *Moody v. NetChoice*/*NetChoice v. Paxton* and

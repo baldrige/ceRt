@@ -89,7 +89,9 @@ NEAR.forEach(function (p) {
 });
 // When no question has every word, the search falls back to all-but-one and
 // says so; it must not come back empty-handed or pretend to a full match.
-var fb = Q.search(docs, Q.parse('affirmative action admissions xyzzyqq'), {});
+// Two nonsense words, not one beside a rare phrase: "affirmative action
+// admissions" matched nothing until the IFP backfill, and then matched 23-5564.
+var fb = Q.search(docs, Q.parse('admissions xyzzyqq qqzzyx'), {});
 var fb2 = Q.search(docs, Q.parse('race admissions xyzzyqq'), {});
 var fbOk = fb.total === 0 && fb2.partial === true && fb2.total > 0;
 if (!fbOk) bad++;
