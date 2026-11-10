@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script async src='/analytics.js'></script><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate icon" href="/favicon.ico" sizes="any"><link rel="alternate" type="application/atom+xml" title="Supreme Court Report" href="/feed.xml"><link rel="alternate" type="application/atom+xml" title="Certiorari grants" href="/grants.xml"><title>Thompson v. Clark — Opinion — Supreme Court Report</title><meta name="description" content="The opinion in Thompson v. Clark (No. 20-659), decided April 4, 2022: the full text with its footnotes, as a page, a Markdown file and an EPUB."><link rel="canonical" href="https://supremecourt.report/opinions/2021/20-659.html"><meta property="og:site_name" content="Supreme Court Report"><meta property="og:type" content="article"><meta property="og:title" content="Thompson v. Clark — Opinion — Supreme Court Report"><meta property="og:description" content="The opinion in Thompson v. Clark (No. 20-659), decided April 4, 2022: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta property="og:url" content="https://supremecourt.report/opinions/2021/20-659.html"><meta property="og:image" content="https://supremecourt.report/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Supreme Court Report - docket analytics for the Supreme Court of the United States"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Thompson v. Clark — Opinion — Supreme Court Report"><meta name="twitter:description" content="The opinion in Thompson v. Clark (No. 20-659), decided April 4, 2022: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta name="twitter:image" content="https://supremecourt.report/og.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap"><style>
+  :root{--paper:#fdfcfa;--panel:#ffffff;--ink:#1a1a1e;--ink-soft:#484850;--faint:#63636b;--accent:#9c0e3a;--link:#9c0e3a;--rule:#dbd8d2;--nav-max:60rem}
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{font-family:'Newsreader',Georgia,serif;font-size:19px;line-height:1.6;
+    color:var(--ink);background:var(--paper);margin:0;font-feature-settings:'onum' 1}
+  body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
+    opacity:.5;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");}
+  .wrap{max-width:40rem;margin:0 auto;padding:3rem 1.4rem 4rem}
+  .kicker{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 1rem}
+  h1{font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:clamp(2.4rem,7vw,3.6rem);line-height:1;letter-spacing:-.015em;
+    margin:0 0 1rem;color:var(--ink)}
+  h1 em{font-style:italic;font-weight:500;color:var(--accent)}
+  .dek{font-size:1.15rem;line-height:1.5;color:var(--ink-soft);font-style:italic;
+    margin:0 0 1.4rem}
+  .brule{border:0;height:0;border-top:2px solid var(--ink);margin:1.4rem 0 .3rem;
+    position:relative}
+  .brule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+    border-top:1px solid var(--rule)}
+  ul.idx{list-style:none;padding:0;margin:1.6rem 0}
+  ul.idx li{border-bottom:1px solid var(--rule)}
+  /* Whole row is one block-level link: a large, reliable tap target on mobile. */
+  ul.idx a.row{display:flex;justify-content:space-between;align-items:baseline;
+    gap:1rem;padding:.9rem .4rem;text-decoration:none;border:0;color:inherit}
+  ul.idx a.row:hover{background:rgba(156,14,58,.05)}
+  ul.idx .d{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.16rem;
+    color:var(--accent);line-height:1.25}
+  ul.idx a.row:hover .d{text-decoration:underline;text-underline-offset:3px}
+  ul.idx .count{color:var(--faint);font-size:.9rem;font-style:italic;white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  /* A long note (an order list's "3 GVRs / 230 denied / 4 habeas denied /
+     ...", items separated by middots) cannot sit on one line: nowrap made it
+     claim the row and
+     squeezed the title into a column three words wide, and on a phone it ran off
+     the screen. Such a row opts in (meta_wrap): the note wraps, only between its
+     items, and takes at most ~45% of the row, so the title always has the
+     larger share. Under 34rem it drops beneath the title at full width. */
+  /* ("long", not "wrap": .wrap is the page container and its padding.) */
+  ul.idx .count.long{white-space:normal;text-align:right;max-width:45%;line-height:1.45}
+  ul.idx .count.long .seg{white-space:nowrap}
+  @media(max-width:34rem){
+    ul.idx a.row.longmeta{flex-wrap:wrap;row-gap:.2rem}
+    ul.idx .count.long{max-width:none;flex-basis:100%;text-align:left}
+  }
+  /* Compact horizontal strip of the most recent pages beneath a category row. */
+  ul.idx .recent{display:flex;flex-wrap:wrap;align-items:baseline;
+    gap:.3rem .85rem;padding:0 .4rem 1rem;margin-top:-.35rem}
+  ul.idx .recent .rlabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  ul.idx .recent a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--ink-soft);text-decoration:none;font-variant-numeric:tabular-nums;
+    border-bottom:1px solid var(--rule);padding-bottom:1px}
+  ul.idx .recent a:hover{color:var(--accent);border-color:var(--accent)}
+  /* Optional panel beneath the section index (home page: most-read cases). */
+  .panel{margin:2.4rem 0 0}
+  .panel h2{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 .25rem}
+  .panel .pnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:0 0 .5rem}
+  /* "Live now" (live_argument_panel, /live.js): hidden unless the Court is
+     streaming an argument. One red dot, the same --accent as the headings, so
+     the live state is a mark and not a new colour. */
+  .live h2 .ldot{display:inline-block;width:.5rem;height:.5rem;border-radius:50%;
+    background:var(--accent);margin-right:.5rem;vertical-align:.08rem;
+    animation:lpulse 2s ease-in-out infinite}
+  @keyframes lpulse{50%{opacity:.25}}
+  @media (prefers-reduced-motion:reduce){.live h2 .ldot{animation:none}}
+  .lplay{display:flex;flex-wrap:wrap;gap:.6rem .9rem;align-items:center;margin:.8rem 0 .3rem}
+  .lplay button{font:600 .9rem/1 'Newsreader',Georgia,serif;letter-spacing:.04em;
+    color:var(--paper);background:var(--accent);border:0;border-radius:2px;
+    padding:.6rem 1.05rem;cursor:pointer}
+  .lplay button:disabled{opacity:.6;cursor:progress}
+  .lplay button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  /* The player takes a row of its own and may never outgrow the column. A flex
+     item's min-width is auto, which for a replaced element is the browser's own
+     controls' width -- wider than the column on a phone, where mobile Safari
+     and Chrome draw larger controls than the desktop. */
+  .lplay audio{display:block;flex:1 1 100%;width:100%;min-width:0;max-width:100%;
+    box-sizing:border-box;margin:0}
+  .lplay .lstat{font-size:.85rem;color:var(--faint)}
+  /* --- Likeliest grants -----------------------------------------------------
+     Its own rows rather than ol.mostread's: this panel carries a question under
+     the caption, which that list has no room for, and a percentage that has to
+     read as the row's subject rather than as a trailing note.
+     The window toggle is two real radio inputs plus :has() -- no JavaScript.
+     Both windows are rendered at build time and one is hidden, which is the only
+     way a static site can offer the choice: there is no server to ask for the
+     other one. Real radios, not styled buttons, so the control is reachable by
+     keyboard and announced as a choice. */
+  .lead{margin:0 0 1.9rem}
+  .lead h2{margin-bottom:.35rem}
+  .lead .pnote{margin:0 0 .7rem}
+  .wr{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+  .win{display:inline-flex;gap:.25rem;margin:0 0 .55rem;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .win label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .win label:hover{color:var(--ink)}
+  .lead:has(#w7:checked) label[for=w7],
+  .lead:has(#w28:checked) label[for=w28],
+  .lead:has(#wall:checked) label[for=wall]{background:var(--accent);color:var(--paper)}
+  .wr:focus-visible+label{outline:2px solid var(--accent);outline-offset:2px}
+  /* Three windows, one shown: the checked radio hides the other two. */
+  .lead:has(#w7:checked) :is(.g28,.n28,.gall,.nall),
+  .lead:has(#w28:checked) :is(.g7,.n7,.gall,.nall),
+  .lead:has(#wall:checked) :is(.g7,.n7,.g28,.n28){display:none}
+  /* The show/hide controls for a panel's secondary line -- the question under
+     a forecast row, the holding under a decision. Same box as the window
+     toggle, a checkbox instead of radios, and no script: the sibling rule does
+     the work and the lines simply show where :has() is unsupported. The
+     questions are on by default (they are what a forecast row asks); the
+     holdings are off (the caption, kind and disposition already say what
+     happened, and the holding is the more). */
+  .opts{display:inline-flex;gap:.25rem;margin:0 .45rem .55rem 0;vertical-align:top;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .opts label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .opts label:hover{color:var(--ink)}
+  .lead:has(#qon:checked) label[for=qon],
+  .panel:has(#hon:checked) label[for=hon]{background:var(--accent);color:var(--paper)}
+  .lead:has(#qon:not(:checked)) .gq{display:none}
+  .panel:has(#hon:not(:checked)) .chold{display:none}
+  /* --- Upcoming at the Court ------------------------------------------------
+     A date gutter and a two-line body, the same shape as the grant rows above
+     it, so the two panels read as one page rather than two widgets. */
+  .cal{margin:0 0 1.9rem}
+  ol.cal{list-style:none;margin:0;padding:0}
+  ol.cal li{border-top:1px solid var(--rule)}
+  ol.cal li:last-child{border-bottom:1px solid var(--rule)}
+  /* The row is a container, not an anchor: an argument day carries one link per
+     case it hears and anchors cannot nest. Hover lives on the row so it still
+     reads as one unit, and each link colours on its own hover. */
+  ol.cal .crow{display:flex;gap:.95rem;align-items:baseline;padding:.55rem .1rem}
+  ol.cal .crow:hover{background:rgba(156,14,58,.05)}
+  ol.cal a{text-decoration:none;color:inherit}
+  ol.cal a:hover,ol.cal a:focus-visible{color:var(--accent)}
+  ol.cal .cdet a{border-bottom:1px solid rgba(156,14,58,.35)}
+  ol.cal .cdet a:hover{border-bottom-color:var(--accent)}
+  ol.cal .cwhen{flex:none;width:4.6rem;font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.96rem;color:var(--ink);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  ol.cal .cdow{display:block;font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);text-transform:uppercase;letter-spacing:.08em}
+  ol.cal .ctx{flex:1;min-width:0}
+  ol.cal .ckind{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:.98rem;line-height:1.25}
+  ol.cal .cdet{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.12rem}
+  /* Recent decisions reuses the calendar rows and adds exactly two things: the
+     kind word that opens the detail line, and the one outbound link (the slip
+     opinion), which takes the link colour the rest of the row deliberately
+     does not. */
+  ol.cal .dk{font-weight:600;color:var(--ink)}
+  ol.cal .cdet a.pdf{color:var(--link)}
+  /* The holding, from the Court's slip-opinion feed: one sentence, set
+     smaller and in the soft ink so the caption stays the row's headline. */
+  ol.cal .chold{display:block;font-size:.86rem;line-height:1.4;color:var(--ink-soft);
+    font-style:italic;margin-top:.15rem}
+  ol.cal .cdet a.pdf:hover,ol.cal .cdet a.pdf:focus-visible{color:var(--accent);
+    border-bottom-color:var(--accent)}
+  ol.grants{list-style:none;margin:0;padding:0}
+  ol.grants li{border-top:1px solid var(--rule)}
+  ol.grants li:last-child{border-bottom:1px solid var(--rule)}
+  ol.grants a{display:flex;gap:.95rem;align-items:baseline;text-decoration:none;
+    color:inherit;padding:.62rem .1rem}
+  ol.grants a:hover{background:rgba(156,14,58,.05)}
+  ol.grants a:hover .gc{color:var(--accent)}
+  ol.grants .gv{flex:none;width:3.5rem;text-align:right;
+    font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.22rem;
+    line-height:1.1;color:var(--accent);font-variant-numeric:tabular-nums}
+  ol.grants .gx{font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);margin-left:.3rem}
+  ol.grants .gtx{flex:1;min-width:0}
+  /* Subject-area line under the caption, in the section-label idiom (h2.sec):
+     small tracked caps in the faint ink, so it classifies without competing. */
+  ol.grants .gs,ol.mostread .ms{display:block;font-size:.68rem;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--faint);line-height:1.3;margin-top:.12rem}
+  ol.grants .gc{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:1rem;line-height:1.25}
+  ol.grants .gq{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.16rem}
+  ol.grants .gd{flex:none;font-size:.76rem;color:var(--faint);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  .more{margin:.75rem 0 0;font-size:.92rem}
+  .more a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.35)}
+  .more a:hover{border-bottom-color:var(--link)}
+  h2.sec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:.88rem;
+    letter-spacing:.09em;color:var(--faint);text-transform:uppercase;
+    margin:2.1rem 0 .6rem;padding-bottom:.28rem;border-bottom:1px solid var(--rule)}
+  @media(max-width:40rem){
+    ol.grants a{flex-wrap:wrap}
+    ol.grants .gd{width:100%;padding-left:4.45rem;margin-top:-.1rem}
+  }
+  ol.mostread{list-style:none;counter-reset:mr;padding:0;margin:0}
+  ol.mostread li{counter-increment:mr;border-bottom:1px solid var(--rule)}
+  ol.mostread a{display:flex;align-items:baseline;gap:.7rem;padding:.6rem .4rem;
+    text-decoration:none;color:inherit}
+  ol.mostread a:hover{background:rgba(156,14,58,.05)}
+  ol.mostread a::before{content:counter(mr);font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.95rem;color:var(--faint);min-width:1.1rem;
+    font-variant-numeric:tabular-nums}
+  ol.mostread .mc{flex:1;font-size:1rem;line-height:1.3}
+  ol.mostread .mct{display:block}
+  ol.mostread a:hover .mct{color:var(--accent);text-decoration:underline;
+    text-underline-offset:3px}
+  ol.mostread .mdk{color:var(--accent);font-weight:600;font-size:.82rem;
+    font-variant-numeric:tabular-nums;white-space:nowrap}
+  ol.mostread .mv{color:var(--faint);font-size:.85rem;font-style:italic;
+    white-space:nowrap;font-variant-numeric:tabular-nums}
+  /* Forecast percentages carry weight the most-read counts do not: the number is
+     the claim, not a footnote to the ranking. Upright, accent, tabular. */
+  ol.mostread .mv.fc{color:var(--accent);font-style:normal;font-weight:600;
+    font-size:.95rem;min-width:2.6rem;text-align:right}
+  /* Feed follow line. Deliberately quiet -- a footnote under the section list,
+     styled like .recent rather than like a call to action. */
+  .feeds{display:flex;flex-wrap:wrap;align-items:baseline;gap:.3rem .85rem;
+    margin:2.2rem 0 0;padding-top:1.1rem;border-top:1px solid var(--rule)}
+  .feeds .flabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  .feeds a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .feeds a:hover{border-color:var(--link)}
+  .back{margin-top:2rem;font-size:.95rem}
+  .back a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .back a:hover{border-color:var(--link)}
+  /* Home-page case search. */
+  .csearch{position:relative;margin:0 0 1.4rem}
+  #cq{width:100%;font-family:'Newsreader',Georgia,serif;font-size:1.05rem;color:var(--ink);
+    background:var(--panel);border:1px solid var(--rule);border-radius:3px;padding:.7rem .9rem}
+  #cq:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(156,14,58,.1)}
+  #cq::placeholder{color:var(--faint)}
+  #cq.loading{background-image:linear-gradient(90deg,transparent,rgba(156,14,58,.06),transparent);
+    background-size:40% 100%;background-repeat:no-repeat;animation:csl 1s infinite}
+  @keyframes csl{0%{background-position:-40% 0}100%{background-position:140% 0}}
+  .cres{list-style:none;margin:.35rem 0 0;padding:0;max-height:24rem;overflow-y:auto;
+    border:1px solid var(--rule);border-radius:3px;background:var(--panel)}
+  .cres:empty{display:none}
+  .cres li{border-bottom:1px solid var(--rule)}
+  .cres li:last-child{border-bottom:0}
+  .cres a{display:block;padding:.55rem .7rem;text-decoration:none;color:var(--ink);
+    font-size:.98rem;line-height:1.3}
+  .cres a:hover,.cres li.act a{background:rgba(156,14,58,.06)}
+  .cres mark{background:rgba(156,14,58,.14);color:inherit;padding:0 .05em;border-radius:2px}
+  .cres .cd{color:var(--accent);font-variant-numeric:tabular-nums;font-weight:600;
+    margin-right:.5rem;white-space:nowrap}
+  .cnone{padding:.55rem .7rem;color:var(--faint);font-style:italic}
+  .cnone a,.cqp a{color:var(--link);font-style:normal;text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .cqp{margin:.45rem 0 0;font-size:.88rem;color:var(--faint)}
+  /* /cases/ browse index: grouped sections with per-bucket counts. */
+  .csec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+    text-transform:uppercase;letter-spacing:.12em;color:var(--accent);
+    margin:2.2rem 0 .3rem;padding-bottom:.35rem;border-bottom:1px solid var(--rule);
+    display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
+  .csec .cn{font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:.85rem;
+    letter-spacing:0;text-transform:none;color:var(--faint);
+    font-variant-numeric:tabular-nums}
+  .cnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:.5rem 0 0}
+  .cnote a{color:var(--accent)}
+  ul.terms{list-style:none;padding:0;margin:1rem 0 0;display:flex;flex-wrap:wrap;
+    gap:.5rem 1.6rem}
+  ul.terms li{display:inline-flex;align-items:baseline;gap:.4rem}
+  ul.terms a{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.05rem;
+    color:var(--accent);text-decoration:none;border-bottom:1px solid var(--rule)}
+  ul.terms a:hover{border-bottom-color:var(--accent)}
+  ul.terms .cn{color:var(--faint);font-size:.85rem;font-variant-numeric:tabular-nums}
+  /* About page: running prose rather than an index, so it takes a measure and a
+     little more leading than the section rows above it. */
+  .about{margin:1.6rem 0 0;font-size:1.05rem;line-height:1.65;max-width:34rem}
+  .about p{margin:0 0 1rem}
+  .about a{color:var(--accent);text-decoration:none;
+    border-bottom:1px solid var(--rule)}
+  .about a:hover{border-bottom-color:var(--accent)}
+  .about .contact{margin:2rem 0 0;background:var(--panel);border:1px solid var(--rule);
+    border-left:4px solid var(--accent);padding:1.1rem 1.3rem}
+  .about .contact h2{font:600 .78rem/1 'Newsreader',Georgia,serif;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--accent);margin:0 0 .5rem}
+  .about .contact p{margin:0;font-size:1rem}
+
+/* ---- masthead ---- */
+.smast-in{max-width:var(--nav-max,60rem);margin:0 auto;padding:.85rem 1.5rem .5rem;
+  display:flex;align-items:baseline;justify-content:space-between;gap:1.4rem;flex-wrap:wrap}
+.smast-wm{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+  letter-spacing:.005em;color:var(--ink,#1a1a1e);text-decoration:none;white-space:nowrap;flex:none}
+.smast-wm em{font-style:italic;font-weight:500;color:var(--accent,#9c0e3a)}
+.smast-wm:hover{color:var(--accent,#9c0e3a)}
+/* Row gap first, then column. At 1.35rem the six section links measured 596px
+   of max-content -- 4px wider than the 592px row the 40rem index container
+   leaves them -- so ABOUT alone wrapped to a third line under the wordmark, on
+   every page page_style.R writes. 1.05rem brings the row to 572px: 20px of
+   slack at 40rem, and 45px on the 54rem case pages, which were themselves only
+   21px from wrapping. The .4rem row gap is for the day a seventh section
+   overruns it anyway -- a nav that wraps should read as a stack, not an orphan. */
+.snav{display:flex;gap:.4rem 1.05rem;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+.snav a{font:600 .72rem/1 'Newsreader',Georgia,serif;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--ink-soft,var(--soft,#484850));text-decoration:none;display:inline-block;
+  padding:.5rem 0;border-bottom:1.5px solid transparent}
+.snav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--rule,#dbd8d2)}
+.snav a[aria-current='page']{color:var(--accent,#9c0e3a);
+  border-bottom-color:var(--accent,#9c0e3a)}
+.smast-rule-w{max-width:var(--nav-max,60rem);margin:0 auto;padding:0 1.5rem}
+.smast-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0;position:relative}
+.smast-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.skip{position:absolute;left:-9999px;top:0;background:var(--panel,#ffffff);
+  color:var(--accent,#9c0e3a);padding:.6rem 1rem;
+  border:1px solid var(--accent,#9c0e3a);
+  font:600 .8rem/1 'Newsreader',Georgia,serif;letter-spacing:.1em;text-transform:uppercase;z-index:10}
+.skip:focus{left:.5rem;top:.5rem}
+/* ---- breadcrumb ---- */
+.bcrumb{margin:.7rem 0 0}
+.bcrumb ol{list-style:none;display:flex;flex-wrap:wrap;align-items:baseline;
+  gap:.1rem .45rem;margin:0;padding:0}
+.bcrumb li{display:inline-flex;align-items:baseline;gap:.45rem}
+.bcrumb a{font:400 .8rem/1.5 'Newsreader',Georgia,serif;color:var(--ink-soft,var(--soft,#484850));
+  text-decoration:none;border-bottom:1px solid var(--rule,#dbd8d2)}
+.bcrumb a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.bcrumb .sep{color:var(--faint,#63636b);font-size:.8rem;line-height:1.5}
+.bcrumb [aria-current='page']{font:400 .8rem/1.5 'Newsreader',Georgia,serif;
+  color:var(--faint,#63636b);font-variant-numeric:tabular-nums}
+/* ---- case footer ---- */
+.cfoot{margin:2.4rem 0 0}
+.cfoot-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0 0 1rem;position:relative}
+.cfoot-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.cfoot-off{font-size:.95rem;margin:0 0 1.1rem}
+.cfoot-off a{color:var(--link,#9c0e3a);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.4)}
+.cfoot-off a:hover{border-bottom-color:var(--link,#9c0e3a)}
+.cfoot-lab{font:600 .68rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);margin:0 0 .5rem}
+.cfoot-nav{display:flex;flex-wrap:wrap;gap:.35rem 1.1rem;list-style:none;margin:0;padding:0}
+.cfoot-nav a{font-size:.92rem;color:var(--ink-soft,var(--soft,#484850));text-decoration:none;
+  border-bottom:1px solid var(--rule,#dbd8d2);padding-bottom:1px}
+.cfoot-nav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.cfoot-stamp{margin:1.2rem 0 0;font-size:.8rem;color:var(--faint,#63636b);font-style:italic}
+/* ---- prev / next ---- */
+.pnav{margin:2.2rem 0 0;border-top:1px solid var(--rule,#dbd8d2);padding-top:1rem;
+  display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.pnav a,.pnav span.none{text-decoration:none;color:inherit;display:block;padding:.5rem .2rem}
+.pnav a:hover{background:rgba(156,14,58,.05)}
+.pnav .dir{font:600 .66rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);display:block;margin-bottom:.3rem}
+.pnav .lab{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1rem;line-height:1.25;
+  color:var(--accent,#9c0e3a);display:block}
+.pnav a:hover .lab{text-decoration:underline;text-underline-offset:3px}
+.pnav .nx{text-align:right}
+.pnav .none{opacity:.35}
+@media(max-width:640px){
+  .smast-in{padding:.7rem 1.1rem .25rem;gap:.15rem}
+  .smast-wm{font-size:.98rem}
+  .smast-in nav{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+    -webkit-mask-image:linear-gradient(90deg,#000 86%,transparent);
+    mask-image:linear-gradient(90deg,#000 86%,transparent)}
+  .smast-in nav::-webkit-scrollbar{display:none}
+  .snav{flex-wrap:nowrap;gap:1.15rem;padding-right:2.4rem}
+  .snav a{padding:.7rem 0;white-space:nowrap}
+  .smast-rule-w{padding:0 1.1rem}
+  .cfoot-nav{gap:.5rem 1rem}
+  .cfoot-nav a{padding-bottom:.3rem}
+  .pnav{grid-template-columns:1fr;gap:.2rem}
+  .pnav .nx{text-align:left;border-top:1px solid var(--rule,#dbd8d2)}
+}
+
+  .wrap.opn{max-width:42rem}
+  .opn .ometa{font-size:.92rem;color:var(--ink-soft);margin:.3rem 0 0}
+  .opn .oget{display:flex;flex-wrap:wrap;gap:.4rem .6rem;margin:1.1rem 0 0;padding:0;list-style:none;font-size:.9rem}
+  .opn .oget a{display:inline-block;padding:.32rem .7rem;border:1px solid var(--rule);border-radius:4px;color:var(--ink);text-decoration:none;background:var(--panel)}
+  .opn .oget a:hover{border-color:var(--accent);color:var(--accent)}
+  .opn .osrc{font-size:.84rem;color:var(--faint);margin:.9rem 0 0;line-height:1.45}
+  .opn .osrc a{color:var(--link)}
+  .opn .otoc{margin:1.6rem 0 0;padding:.8rem 1rem;border:1px solid var(--rule);border-radius:4px;background:var(--panel);font-size:.95rem}
+  .opn .otoc ol{margin:0;padding:0;list-style:none}
+  .opn .otoc li{margin:.25rem 0}
+  .opn .otoc a{color:var(--ink);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.35)}
+  .opn .otoc a:hover{color:var(--accent)}
+  .opn section.op{margin-top:3rem;border-top:2px solid var(--ink);padding-top:1.1rem}
+  .opn section.op h2{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.5rem;line-height:1.2;margin:0 0 1rem;color:var(--ink)}
+  .opn section.op p{margin:0 0 .95rem;line-height:1.62;hyphens:auto;overflow-wrap:break-word}
+  .opn section.op p.byline{color:var(--ink-soft);font-style:italic}
+  .opn section.op p.sep{text-align:center;letter-spacing:.3em;color:var(--faint);margin:1.6rem 0}
+  .opn section.op h3.oh{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.12rem;text-align:center;margin:2rem 0 1rem;color:var(--ink)}
+  .opn section.op blockquote{margin:0 0 .95rem;padding:0 0 0 1.1rem;border-left:2px solid var(--rule);color:var(--ink-soft)}
+  .opn section.op blockquote p{margin-bottom:.6rem;font-size:.96em}
+  .opn .sc{font-variant-caps:small-caps;letter-spacing:.02em}
+  .opn .pg{font-size:.66em;color:var(--faint);vertical-align:.3em;margin:0 .3em 0 .1em;font-variant-numeric:tabular-nums;user-select:none;white-space:nowrap}
+  .opn .pg::before{content:'*'}
+  .opn sup.fnr{font-size:.68em;line-height:0;margin-left:.05em}
+  .opn sup.fnr a{color:var(--link);text-decoration:none;padding:0 .1em}
+  .opn aside.notes{margin-top:2rem;border-top:1px solid var(--rule);padding-top:.8rem;font-size:.88rem;color:var(--ink-soft)}
+  .opn aside.notes h3{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1rem;margin:0 0 .6rem;color:var(--ink)}
+  .opn aside.notes ol{margin:0;padding-left:1.7rem}
+  .opn aside.notes li{margin:0 0 .55rem}
+  .opn aside.notes li.sym{list-style:none;margin-left:-1.7rem}
+  .opn aside.notes li.sym .mk{margin-right:.3rem}
+  .opn aside.notes li.sym p{display:inline}
+  .opn aside.notes p{margin:0 0 .4rem;line-height:1.5}
+  .opn aside.notes a.back{color:var(--link);text-decoration:none;margin-left:.2rem}
+  .opn aside.notes li:target,.opn sup.fnr a:target,.opn .pg:target{background:rgba(156,14,58,.12);outline:.2rem solid rgba(156,14,58,.12)}
+  .opn section.op,.opn aside.notes li,.opn sup.fnr a{scroll-margin-top:1rem}
+  .opn section.op-syllabus p,.opn section.op-counsel p{font-size:.95em}
+  .opn section.op-counsel summary{cursor:pointer;font-family:'Fraunces',Georgia,serif;font-size:1.05rem;color:var(--ink-soft)}
+  .opn .osyl{font-size:.84rem;color:var(--faint);font-style:italic;margin:-.5rem 0 1rem}
+  .opn p.back{margin-top:3rem;font-size:.92rem}
+  @media print{.smast,.bcrumb,.opn .oget,.opn .otoc,.opn p.back{display:none}.opn section.op{break-before:page}}
+</style><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://supremecourt.report/"},{"@type":"ListItem","position":2,"name":"Opinions","item":"https://supremecourt.report/opinions/"},{"@type":"ListItem","position":3,"name":"Thompson v. Clark"}]}</script><meta name='otv' content='p1'><link rel='alternate' type='text/markdown' href='/opinions/2021/20-659.md'><link rel='alternate' type='application/epub+zip' href='/opinions/2021/20-659.epub'></head><body><a class='skip' href='#main'>Skip to content</a><header><div class='smast-in'><a class='smast-wm' href='/'>Supreme Court <em>Report</em></a><nav aria-label='Sections'><ul class='snav'><li><a href='/dashboards/'>Docket</a></li><li><a href='/conferences/'>Conferences</a></li><li><a href='/relists/'>Relists</a></li><li><a href='/applications/'>Interim</a></li><li><a href='/arguments/'>Arguments</a></li><li><a href='/justices/' aria-current='page'>Justices</a></li><li><a href='/counsel/'>Counsel</a></li><li><a href='/funnel/'>Funnel</a></li><li><a href='/methods.html'>Model</a></li><li><a href='/about.html'>About</a></li></ul></nav></div><div class='smast-rule-w'><hr class='smast-rule'></div></header><main class='wrap opn' id='main' data-dkt='20-659'><nav class='bcrumb' aria-label='Breadcrumb'><ol><li><a href='/'>Home</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><a href='/opinions/'>Opinions</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><span aria-current='page'>Thompson v. Clark</span></li></ol></nav><p class='kicker'>No. 20-659 · decided April 4, 2022 · 596 U. S. 36</p><h1 style='font-size:clamp(1.7rem,4.6vw,2.4rem);line-height:1.12'>Thompson v. Clark</h1><p class='ometa'>Larry Thompson v. Pagiel Clark, et al.. 1 separate writing.</p><ul class='oget'><li><a href='/opinions/2021/20-659.epub' download>EPUB</a></li><li><a href='/opinions/2021/20-659.md' download>Markdown</a></li><li><a href='https://www.supremecourt.gov/opinions/21pdf/596us1r21_5f57.pdf' rel='noopener'>The Court’s PDF</a></li><li><a href='/cases/20-659.html'>The docket</a></li></ul><p class='osrc'>Set from the PDF the Court published, which is the authoritative text. The small starred numbers are that PDF’s page numbers. A conversion can introduce errors; check a quotation against the <a href='https://www.supremecourt.gov/opinions/21pdf/596us1r21_5f57.pdf' rel='noopener'>original</a>.</p><nav class="otoc" aria-label="Contents"><ol>
+<li><a href="#s1">Syllabus</a></li>
+<li><a href="#s2">Counsel</a></li>
+<li><a href="#s3">Opinion of the Court</a></li>
+<li><a href="#s4">Justice Alito, dissenting</a></li>
+</ol></nav>
+<section id="s1" class="op op-syllabus"><h2>Syllabus</h2><p class='osyl'>Prepared by the Reporter of Decisions for the convenience of the reader; it is no part of the opinion of the Court.</p>
+<p>In January 2014, petitioner Larry Thompson was living with his fiancée (now wife) and their newborn baby in an apartment in Brooklyn, New York. Thompson's sister-in-law, who apparently suffered from a mental illness, called 911 to report that Thompson was sexually abusing the baby. When Emergency Medical Technicians arrived, Thompson denied that anyone had called 911. When the EMTs returned with four police officers, Thompson told them that they could not enter without a warrant. The police nonetheless entered and handcuffed Thompson. EMTs took the baby to the hospital where medical professionals examined her and found no signs of abuse. Meanwhile, Thompson was arrested and charged with obstructing governmental administration and resisting arrest. He was detained for two days before being released. The charges against Thompson were dismissed before trial without any explanation by the prosecutor or judge. After the dismissal, Thompson filed suit under 42 U. S. C. § 1983, alleging several constitutional violations, including a Fourth Amendment claim for malicious prosecution. To maintain that Fourth Amendment claim under § 1983, a plaintiff such as Thompson must demonstrate, among other things, that he obtained a favorable termination of the underlying criminal prosecution. To meet that requirement, Second Circuit precedent required Thompson to show that his criminal prosecution ended not merely without a conviction, but also with some affirmative indication of his innocence. See <em>Lanning</em> v. <em>Glens Falls</em>, 908 F. 3d 19, 22. The District Court, bound by <em>Lanning</em>, held that Thompson's criminal case had not ended in a way that affirmatively indicated his innocence because Thompson could not offer any substantial evidence to explain why his case was dismissed. The Second Circuit affirmed the dismissal of Thompson's claim. This Court granted certiorari to resolve a split among the Courts of Appeals over how to apply the favorable termination requirement of the Fourth Amendment claim under § 1983 for malicious prosecution.</p>
+<p><em>Held</em>: To demonstrate a favorable termination of a criminal prosecution for purposes of the Fourth Amendment claim under § 1983 for malicious prosecution, a plaintiff need not show that the criminal prosecution <span class="pg" id="s1-p37" title="page 37 of the original">37</span>ended with some affirmative indication of innocence. A plaintiff need only show that his prosecution ended without a conviction. Thompson has satisfied that requirement here. Pp. 42–49.</p>
+<p>(a) To determine the elements of a constitutional claim under § 1983, this Court's practice is to first look to the elements of the most analogous tort as of 1871 when § 1983 was enacted, so long as doing so is consistent with “the values and purposes of the constitutional right at issue.” <em>Manuel</em> v. <em>Joliet</em>, 580 U. S. 357, 370. Here, as most of the Courts of Appeals to consider the question have determined, the most analogous tort to this Fourth Amendment claim is malicious prosecution. Pp. 42–44.</p>
+<p>(b) In accord with the elements of the malicious prosecution tort, a Fourth Amendment claim under § 1983 for malicious prosecution requires the plaintiff to show a favorable termination of the underlying criminal case against him. The parties to this case, as well as the lower courts, disagree about what a favorable termination entails, <em>i. e.,</em> is it sufficient to show that Thompson's prosecution ended without a conviction or must he also show that his prosecution ended with some affirmative indication of innocence? To resolve that disagreement, the Court looks to American malicious prosecution tort law as of 1871. At that time, most American courts agreed that the favorable termination element of a malicious prosecution claim was satisfied so long as the prosecution ended without a conviction. A plaintiff could maintain a malicious prosecution claim when, for example, the prosecutor abandoned the criminal case or the court dismissed the case without providing a reason.</p>
+<p>The American tort-law consensus as of 1871 did not require a plaintiff in a malicious prosecution suit to show that his prosecution ended with an affirmative indication of innocence, and this Court similarly construes Thompson's Fourth Amendment claim under § 1983 for malicious prosecution. Doing so is consistent with “the values and purposes” of the Fourth Amendment. <em>Manuel</em>, 580 U. S., at 370. Questions concerning whether a criminal defendant was wrongly charged, or whether an individual may seek redress for a wrongful prosecution, cannot reasonably depend on whether the prosecutor or court happened to explain why charges were dismissed. And requiring a plaintiff to show that his prosecution ended with an affirmative indication of innocence is not necessary to protect officers from unwarranted civil suits, as officers are still protected by the requirement that the plaintiff show the absence of probable cause and by qualified immunity. Pp. 44–49.</p>
+<p>794 Fed. Appx. 140, reversed and remanded.</p>
+<p><span class="pg" id="s1-p38" title="page 38 of the original">38</span>C. J., and <span class="sc">Breyer</span>, <span class="sc">Sotomayor</span>, <span class="sc">Kagan</span>, and <span class="sc">Barrett</span>, JJ., joined. <span class="sc">Alito</span>, J., filed a dissenting opinion, in which <span class="sc">Thomas</span> and <span class="sc">Gorsuch</span>, JJ., joined, <em>post</em>, p. 49.</p></section>
+<section id="s2" class="op op-counsel"><details><summary>Counsel</summary><p><em>Amir H. Ali</em> argued the cause for petitioner. With him on the briefs was <em>Devi M. Rao</em>.</p>
+<p><em>Jonathan Y. Ellis</em> argued the cause for the United States as <em>amicus curiae</em> supporting petitioner. With him on the brief were <em>Acting Solicitor General Prelogar, Acting Assistant Attorney General Boynton, Assistant Attorney General Clarke, Deputy Solicitor General Gannon, Michael R. Huston, Barbara L. Herwig, Erin H. Flynn,</em> and <em>Brant S. Levine.</em></p>
+<p><em>John D. Moore</em> argued the cause for respondents. With him on the brief were <em>Richard Dearing, Devin Slack,</em> and <em>Melanie T. West.</em>*</p>
+<p>*Briefs of <em>amici curiae</em> urging reversal were filed for the American Civil Liberties Union et al. by <em>Marisa C. Maleck, Joshua N. Mitchell, Clark M. Neily III, Jay R. Schweikert, John W. Whitehead, David D. Cole,</em> and <em>Christopher T. Dunn</em>; for APA Watch by <em>Lawrence J. Joseph</em>; for the Boston University Center for Antiracist Research by <em>Angela Onwuachi-Willig</em>; for the Constitutional Accountability Center by <em>Elizabeth B. Wydra, Brianne J. Gorod,</em> and <em>Brian R. Frazelle</em>; for Current and Former Prosecutors et al. by <em>Mary B. McCord, Kelsi Brown Corkran,</em> and <em>Amy L. Marshak</em>; for Federal Courts Scholars by <em>Rakesh N. Kilaru</em>; for the Home School Legal Defense Association by <em>John J. Bursch, Jacob P. Warner,</em> and <em>Michael P. Farris</em>; for the Institute for Justice by <em>Marie Miller</em> and <em>Patrick Jaicomo</em>; for the Law Enforcement Action Partnership by <em>Matthew D. Slater</em>; for the NAACP Legal Defense &amp; Educational Fund, Inc., by <em>Sherrilyn A. Ifill, Janai S. Nelson, Samuel Spital, Ashok Chandran,</em> and <em>Mahogane D. Reed</em>; for the National Police Accountability Project et al. by <em>Charles A. Rothfeld, Andrew J. Pincus, Paul W. Hughes, Michael B. Kimberly, Eugene R. Fidell,</em> and <em>Tricia J. Rojo Bushnell</em>; and for National, State, and Local Criminal Defense, Civil Rights, and Racial Justice Organizations by <em>Jon Loevy</em> and <em>Steve Art</em>.</p>
+<p>Briefs of <em>amici curiae</em> urging affirmance were filed for the City of Chicago, Illinois, et al. by <em>Myriam Zreczny Kasper, Julian N. Henriques, Jr.,</em> and <em>Lisa Soronen</em>; and for the District Attorneys Association of the State of New York by <em>Vincent Stark.</em></p></details></section>
+<section id="s3" class="op op-court"><h2>Opinion of the Court</h2>
+<p class="byline">Justice Kavanaugh delivered the opinion of the Court.</p>
+<p>Larry Thompson was charged and detained in state criminal proceedings, but the charges were dismissed before trial without any explanation by the prosecutor or judge. After the dismissal, Thompson alleged that the police officers who initiated the criminal proceedings had “maliciously prosecuted” him without probable cause. App. 33–34. Thompson sued and sought money damages from those officers in federal court. As relevant here, he advanced a Fourth Amendment claim under 42 U. S. C. § 1983 for malicious prosecution.</p>
+<p>To maintain that Fourth Amendment claim under § 1983, a plaintiff such as Thompson must demonstrate, among other things, that he obtained a <em>favorable termination</em> of the underlying criminal prosecution. Cf. <em>Heck</em> v. <em>Humphrey</em>, 512 U. S. 477, 484, and n. 4 (1994). This case requires us to flesh out what a favorable termination entails. Does it suffice for a plaintiff to show that his criminal prosecution ended without a conviction? Or must the plaintiff also demonstrate that the prosecution ended with some affirmative indication of his innocence, such as an acquittal or a dismissal accompanied by a statement from the judge that the evidence was insufficient?</p>
+<p>We conclude as follows: To demonstrate a favorable termination of a criminal prosecution for purposes of the Fourth Amendment claim under § 1983 for malicious prosecution, a plaintiff need only show that his prosecution ended without a conviction. Thompson satisfied that requirement in this case. We therefore reverse the judgment of the U. S. Court of Appeals for the Second Circuit and remand for further proceedings consistent with this opinion.</p>
+<h3 class="oh">I</h3>
+<p>Larry Thompson lived with his fiancée (now wife) and their newborn baby girl in an apartment in Brooklyn, New York. In January 2014, Thompson's sister-in-law was also <span class="pg" id="s3-p40" title="page 40 of the original">40</span>staying there. The sister-in-law apparently suffered from a mental illness. One day that January, the sister-in-law called 911 and claimed that Thompson was sexually abusing his one-week-old baby daughter. Two Emergency Medical Technicians promptly responded. When the EMTs arrived at the family's apartment, Thompson asked the EMTs why they were there and denied that anyone had called 911. The EMTs left and informed the police of the situation.</p>
+<p>The EMTs and four police officers then returned to the apartment. When they arrived, Thompson told them that they could not come in without a warrant. The police officers nonetheless entered and, after a brief scuffie, handcuffed Thompson. The EMTs followed the officers into the apartment and examined the baby. After finding red marks on the baby's body, the EMTs took the baby to the hospital for evaluation. The marks turned out to be a case of diaper rash. The medical professionals found no signs of abuse.</p>
+<p>Meanwhile, the police officers arrested Thompson for resisting their entry into the apartment. Thompson was taken to a local hospital and then to jail. While Thompson was in custody, one of the police officers prepared and filed a criminal complaint charging Thompson with obstructing governmental administration and resisting arrest. Thompson remained in custody for two days. A judge then released him on his own recognizance.</p>
+<p>Before trial, the prosecution moved to dismiss the charges, and the trial judge in turn dismissed the case. The prosecutor did not explain why she sought to dismiss the charges, nor did the trial judge explain why he dismissed the case.</p>
+<p>After the criminal prosecution ended, Thompson brought suit for damages under 42 U. S. C. § 1983 against the police officers who had arrested and charged him. Thompson alleged several constitutional violations, including a Fourth Amendment claim for “malicious prosecution.” App. 33. Thompson asserted that the officers “maliciously prosecuted” <span class="pg" id="s3-p41" title="page 41 of the original">41</span>him and “subjected him to an unlawful, illegal and excessive detention” in violation of his Fourth Amendment rights. <em>Id</em>., at 34.</p>
+<p>To prevail on that claim under Second Circuit precedent, Thompson had to show that his criminal prosecution ended not merely without a conviction, but also with some affirmative indication of his innocence. See <em>Lanning</em> v. <em>Glens Falls</em>, 908 F. 3d 19, 22 (2018). Thompson could not put forth any substantial evidence that would explain why the prosecutor had moved to dismiss the charges or why the trial court had dismissed the charges. Therefore, the District Court ruled that Thompson's criminal case had not ended in a way that affirmatively indicated his innocence. The District Court granted judgment to the defendant officers on that Fourth Amendment claim. Notably, the District Court also opined that the relevant Second Circuit precedent “can and should be changed” to say that a favorable termination occurs so long as the prosecution ends without a conviction. 364 F. Supp. 3d 178, 181, 196–197 (EDNY 2019). On appeal, however, the U. S. Court of Appeals for the Second Circuit adhered to its precedent in <em>Lanning</em> and affirmed the dismissal of Thompson's Fourth Amendment claim. 794 Fed. Appx. 140 (2020).</p>
+<p>The Courts of Appeals have split over how to apply the favorable termination requirement of the Fourth Amendment claim under § 1983 for malicious prosecution. In addition to the Second Circuit, some other Courts of Appeals have held that a favorable termination requires some affirmative indication of innocence. See, <em>e. g., Kossler</em> v. <em>Crisanti</em>, 564 F. 3d 181, 187 (CA3 2009) (en banc); <em>Cordova</em> v. <em>Albuquerque</em>, 816 F. 3d 645, 649 (CA10 2016). By contrast, the Eleventh Circuit has held that a favorable termination occurs so long as the criminal prosecution ends without a conviction. See <em>Laskar</em> v. <em>Hurd</em>, 972 F. 3d 1278, 1282 (2020). This Court granted certiorari to resolve the split. 592 U. S. ––– (2021).</p>
+<h3 class="oh"><span class="pg" id="s3-p42" title="page 42 of the original">42</span>II</h3>
+<h3 class="oh">A</h3>
+<p>In 1871, Congress passed and President Grant signed the Civil Rights Act of 1871. Section 1 of that Act, now codified at 42 U. S. C. § 1983, created a species of federal tort liability for individuals to sue state and local officers for deprivations of constitutional rights.</p>
+<p>In this case, Thompson sued several police officers under § 1983, alleging that he was “maliciously prosecuted” without probable cause and that he was seized as a result. App. 33–34. He brought a Fourth Amendment claim under § 1983 for malicious prosecution, sometimes referred to as a claim for unreasonable seizure pursuant to legal process. This Court's precedents recognize such a claim. See <em>Manuel</em> v. <em>Joliet</em>, 580 U. S. 357, 363–364, 367–368 (2017); <em>Albright</em> v. <em>Oliver</em>, 510 U. S. 266, 271 (1994) (plurality opinion); see also <em>id.,</em> at 290–291 (Souter, J., concurring in judgment). And following this Court's precedents, the District Courts and Courts of Appeals have decided numerous cases involving Fourth Amendment claims under § 1983 for malicious prosecution. See, <em>e. g., Pitt</em> v. <em>District of Columbia</em>, 491 F. 3d 494, 510–511 (CADC 2007) (“[N]early every other Circuit has held that malicious prosecution is actionable under the Fourth Amendment to the extent that the defendant's actions cause the plaintiff to be `seized' without probable cause”); <em>Kossler</em>, 564 F. 3d, at 186–187; <em>Sykes</em> v. <em>Anderson,</em> 625 F. 3d 294, 308–309 (CA6 2010); <em>Durham</em> v. <em>Horner</em>, 690 F. 3d 183, 188 (CA4 2012); <em>Myers</em> v. <em>Koopman</em>, 738 F. 3d 1190, 1194 (CA10 2013); <em>Winfrey</em> v. <em>Rogers</em>, 901 F. 3d 483, 491–493 (CA5 2018); <em>Lanning</em>, 908 F. 3d, at 28; <em>Jordan</em> v. <em>Waldoboro</em>, 943 F. 3d 532, 545 (CA1 2019); <em>Williams</em> v. <em>Aguirre</em>, 965 F. 3d 1147, 1157 (CA11 2020).<sup class="fnr"><a id="s3-r1" href="#s3-n1">1</a></sup></p>
+<p><span class="pg" id="s3-p43" title="page 43 of the original">43</span>The narrow dispute in this case concerns one element of the Fourth Amendment claim under § 1983 for malicious prosecution. To determine the elements of a constitutional claim under § 1983, this Court's practice is to first look to the elements of the most analogous tort as of 1871 when § 1983 was enacted, so long as doing so is consistent with “the values and purposes of the constitutional right at issue.” <em>Manuel</em>, 580 U. S., at 370; see also <em>Nieves</em> v. <em>Bartlett</em>, 587 U. S. –––, ––– (2019); <em>Heck</em>, 512 U. S., at 483.<sup class="fnr"><a id="s3-r2" href="#s3-n2">2</a></sup></p>
+<p>Here, as most of the Courts of Appeals to consider the question have determined, the most analogous tort to this Fourth Amendment claim is malicious prosecution. See <em>Kossler</em>, 564 F. 3d, at 186; <em>Sykes,</em> 625 F. 3d, at 308–309; <em>Durham</em>, 690 F. 3d, at 188; <em>Myers</em>, 738 F. 3d, at 1194; <em>Lanning</em>, 908 F. 3d, at 28; <em>Jordan</em>, 943 F. 3d, at 545. That is because the gravamen of the Fourth Amendment claim for malicious prosecution, as this Court has recognized it, is the wrongful initiation of charges without probable cause. And the wrongful initiation of charges without probable cause is likewise the gravamen of the tort of malicious prosecution.</p>
+<p>In American courts as of 1871, the malicious prosecution tort generally allowed recovery against an individual who had initiated or caused the initiation of criminal proceedings despite having “no good reason to believe” that criminal charges were “justified by the facts and the law.” T. Cooley, Law of Torts 180 (1880) (Cooley); see also 1 F. Hilliard, The <span class="pg" id="s3-p44" title="page 44 of the original">44</span>Law of Torts or Private Wrongs 412–414 (1866) (Hilliard). The malicious prosecution tort protected against “injury to the person, as connected with false imprisonment” and against “a wrong to character or reputation.” <em>Id</em>., at 412 (emphasis deleted).</p>
+<p>American courts described the elements of the malicious prosecution tort as follows: (i) the suit or proceeding was “instituted without any probable cause”; (ii) the “motive in instituting” the suit “was malicious,” which was often defined in this context as without probable cause and for a purpose other than bringing the defendant to justice; and (iii) the prosecution “terminated in the acquittal or discharge of the accused.” Cooley 181.<sup class="fnr"><a id="s3-r3" href="#s3-n3">3</a></sup></p>
+<p>That third requirement—a favorable termination of the underlying criminal prosecution—is the focus of the parties' dispute in this case.</p>
+<h3 class="oh">B</h3>
+<p>In accord with the elements of the malicious prosecution tort, a Fourth Amendment claim under § 1983 for malicious prosecution requires the plaintiff to show a favorable termination of the underlying criminal case against him. The favorable termination requirement serves multiple purposes: (i) it avoids parallel litigation in civil and criminal proceedings over the issues of probable cause and guilt; (ii) it precludes inconsistent civil and criminal judgments where a claimant could succeed in the tort action after having been convicted in the criminal case; and (iii) it prevents civil suits from being improperly used as collateral attacks on criminal proceedings. Cf. <em>Heck</em>, 512 U. S., at 484–485; see also <em>McDonough</em> v. <em>Smith</em>, 588 U. S. –––, ––– (2019).</p>
+<p>The parties to this case disagree about what a favorable termination entails. In particular, does it suffice for a plaintiff<span class="pg" id="s3-p45" title="page 45 of the original">45</span> to show that his prosecution ended without a conviction? Or must the plaintiff also show that his prosecution ended with some affirmative indication of innocence, such as an acquittal or a dismissal accompanied by a statement from the judge that the evidence was insufficient?</p>
+<p>To resolve that disagreement, we must look to American malicious prosecution tort law as of 1871. See <em>Nieves</em>, 587 U. S., at –––. In most American courts that had considered the question as of 1871, the favorable termination element of a malicious prosecution claim was satisfied so long as the prosecution ended without a conviction. As one influential New York decision explained, when the individual was “<em>convicted</em> in the suit or proceeding complained of,” he could not maintain an action for malicious prosecution. <em>Clark</em> v. <em>Cleveland</em>, 6 Hill 344, 346, n. <em>a</em> (1844). But when the individual was not convicted, the “question is, whether the prosecution instituted by the defendant can be said to have been terminated, disposed of, or, as the books usually say, <em>at an end</em>.” <em>Id</em>., at 346. The “technical prerequisite is only that the particular prosecution be disposed of in such a manner” that it “cannot be revived.” <em>Id</em>., at 347; <em>Bacon</em> v. <em>Waters</em>, 84 Mass. 400, 401–402 (1861); M. Newell, Law of Malicious Prosecution 327–328 (1892) (Newell).</p>
+<p>On that point, American courts as of 1871 were largely in agreement. To take one example, the Supreme Court of Indiana ruled that a dismissal satisfied the favorable termination requirement because it marked “an end to further proceedings against the defendant” on the charges. <em>Chapman</em> v. <em>Woods</em>, 6 Blackf. 504, 505–506 (1843). Similarly, the Supreme Court of Tennessee concluded that a suit was proper when “the prosecution was <em>at an end</em>.” <em>Pharis</em> v. <em>Lambert</em>, 33 Tenn. 228, 232 (1853).</p>
+<p>For that reason, a plaintiff could maintain a malicious prosecution claim when, for example, the prosecutor abandoned the criminal case or the court dismissed the case without providing a reason. See, <em>e. g.</em>, <em>Fay</em> v. <em>O'Neill</em>, 36 N. Y. <span class="pg" id="s3-p46" title="page 46 of the original">46</span>11, 13 (1867); <em>Murray</em> v. <em>Lackey</em>, 6 N. C. 368, 368–369 (1818); <em>Driggs</em> v. <em>Burton</em>, 44 Vt. 124, 143–144 (1871); <em>Brown</em> v. <em>Randall</em>, 36 Conn. 56, 61–63 (1869); <em>Chapman</em>, 6 Blackf., at 505–506; <em>Sayles</em> v. <em>Briggs</em>, 45 Mass. 421, 425–426 (1842); <em>Yocum</em> v. <em>Polly</em>, 40 Ky. 358, 359 (1841); <em>Burhans</em> v. <em>Sanford</em>, 19 Wend. 417, 418 (N. Y. 1838); <em>Cotton</em> v. <em>Wilson</em>, Minor 203 (Ala. 1824).</p>
+<p>Several courts explicitly added, moreover, that a favorable termination did not require an acquittal or a dismissal accompanied by some affirmative indication of innocence. In the words of one court, it “is not to be understood, that an action, for a malicious prosecution, will not lie, unless the party has been acquitted by a jury on trial.” <em>Thomas</em> v. <em>DeGraffenreid</em>, 11 S. C. L. 143, 144–145 (1819). “On the contrary, a person may have his action after a bill rejected by the grand jury, or even where no bill has been preferred, if there is a final end of the prosecution, and the party discharged.” <em>Id</em>., at 145; see also <em>Chapman</em>, 6 Blackf., at 505–506.</p>
+<p>The treatises of that era agreed that a favorable termination occurred so long as the prosecution ended without conviction. Cooley's tort-law treatise stated, for example, that “the reasonable rule seems to be, that the technical prerequisite is only that the particular prosecution be disposed of in such a manner that this cannot be revived, and the prosecutor, if he proceeds further, will be put to a new one.” Cooley 186; see also Newell 343 (expressing approval of the rule); Hilliard 453, and n. 5 (recognizing the rule).</p>
+<p>The parties to this case have identified only one court that required something more, such as an acquittal or a dismissal accompanied by some affirmative indication of innocence. In 1863, the Rhode Island Supreme Court concluded, “with reluctance,” that “ `the termination must be such as to furnish <em>prima facie</em> evidence that the action was without foundation.' ” <em>Rounds</em> v. <em>Humes</em>, 7 R. I. 535, 537 (1863). But Rhode Island stood as an outlier on that question. The other American courts to consider the issue did not require <span class="pg" id="s3-p47" title="page 47 of the original">47</span>some affirmative indication of innocence in order for a malicious prosecution tort claim to proceed. The courts simply required that the prosecution ended in the defendant's favor. As Chief Judge Pryor explained in his comprehensive opinion for the Eleventh Circuit in <em>Laskar</em> v. <em>Hurd</em>, 972 F. 3d, at 1287: “The clear majority of American courts did not limit favorable terminations to those that suggested the accused's innocence.”</p>
+<p>Against that body of precedent and historical practice, respondent Clark contends that American courts as of 1871 had not settled on any particular favorable termination rule. But the cases and treatises that respondent latches onto addressed a separate issue—not whether the prosecution had terminated <em>in the defendant's favor</em>, but whether the prosecution had terminated <em>at all</em>. In particular, courts divided over whether a prosecutor's dismissal without discharge by a judge in fact terminated a prosecution. Some courts concluded that a prosecution ended when the prosecutor dismissed the case, even if the court had not yet taken action. See, <em>e. g., Woodman</em> v. <em>Prescott</em>, 66 N. H. 375, 376–377 (1890); see also 1 F. Hilliard, The Law of Torts or Private Wrongs 475 (1874); Newell 327–328; Cooley 186. Other courts said that a prosecution did not end until a judge discharged, or formally released, the defendant from the case. See, <em>e. g., DeGraffenreid</em>, 11 S. C. L., at 145; <em>Paukett</em> v. <em>Livermore</em>, 5 Iowa 277, 282 (1857).</p>
+<p>But those cases did not purport to alter the basic <em>favorable</em> termination principle—namely, that a malicious prosecution claim could proceed when the prosecution terminated without a conviction.</p>
+<p>Respondent also seizes on a comment in the American Law Institute's 1976 Second Restatement of Torts (as have most of the Courts of Appeals that have sided with respondent's position on this issue). See <em>Jordan</em>, 943 F. 3d, at 545–546; <em>Lanning</em>, 908 F. 3d, at 26; <em>Salley</em> v. <em>Myers</em>, 971 F. 3d 308, 312–313 (CA4 2020); <em>Jones</em> v. <em>Clark Cty</em>., 959 F. 3d 748, 763–765<span class="pg" id="s3-p48" title="page 48 of the original">48</span> (CA6 2020); <em>Cordova</em>, 816 F. 3d, at 651. The comment in the Second Restatement opined that, for purposes of a malicious prosecution claim, a criminal case terminates “in favor of the accused” when the prosecution ends in a way “as to indicate the innocence of the accused.” Restatement (Second) of Torts § 660, and Comment <em>a</em> (1976).</p>
+<p>But respondent's reliance on the 1976 Restatement is flawed because the Restatement did not purport to describe the consensus of American law as of 1871, at least on that question. The status of American law as of 1871 is the relevant inquiry for our purposes. See <em>Manuel</em>, 580 U. S., at 370; <em>Nieves</em>, 587 U. S., at –––; <em>Laskar</em>, 972 F. 3d, at 1286. And in the overwhelming majority of American jurisdictions that had considered the issue as of 1871, a plaintiff alleging malicious prosecution did not need to show that his prosecution had ended with some affirmative indication of innocence.</p>
+<p>Because the American tort-law consensus as of 1871 did not require a plaintiff in a malicious prosecution suit to show that his prosecution ended with an affirmative indication of innocence, we similarly construe the Fourth Amendment claim under § 1983 for malicious prosecution. Doing so is consistent, moreover, with “the values and purposes” of the Fourth Amendment. <em>Manuel</em>, 580 U. S., at 370. The question of whether a criminal defendant was wrongly charged does not logically depend on whether the prosecutor or court explained why the prosecution was dismissed. And the individual's ability to seek redress for a wrongful prosecution cannot reasonably turn on the fortuity of whether the prosecutor or court happened to explain why the charges were dismissed. In addition, requiring the plaintiff to show that his prosecution ended with an affirmative indication of innocence would paradoxically foreclose a § 1983 claim when the government's case was weaker and dismissed without explanation before trial, but allow a claim when the government's evidence was substantial enough to proceed to trial. That would make little sense. Finally, requiring a plaintiff to <span class="pg" id="s3-p49" title="page 49 of the original">49</span>show that his prosecution ended with an affirmative indication of innocence is not necessary to protect officers from unwarranted civil suits—among other things, officers are still protected by the requirement that the plaintiff show the absence of probable cause and by qualified immunity.</p>
+<p class="sep">* * *</p>
+<p>In sum, we hold that a Fourth Amendment claim under § 1983 for malicious prosecution does not require the plaintiff to show that the criminal prosecution ended with some affirmative indication of innocence. A plaintiff need only show that the criminal prosecution ended without a conviction. Thompson has satisfied that requirement here. We express no view, however, on additional questions that may be relevant on remand, including whether Thompson was ever seized as a result of the alleged malicious prosecution, whether he was charged without probable cause, and whether respondent is entitled to qualified immunity. On remand, the Second Circuit or the District Court as appropriate may consider those and other pertinent questions. We reverse the judgment of the U. S. Court of Appeals for the Second Circuit and remand for further proceedings consistent with this opinion.</p>
+<p><em>It is so ordered.</em></p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li id="s3-n1" value="1"><p>Thompson also brought a Fourth Amendment claim for unreasonable seizure (labeled a false arrest claim), based on his initial arrest before charges were filed against him. But the jury ruled against him on the merits of that claim. That claim is not before us, and we therefore do not consider it. <a class="back" href="#s3-r1" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n2" value="2"><p>Because this claim is housed in the Fourth Amendment, the plaintiff also has to prove that the malicious prosecution resulted in a seizure of the plaintiff. See <em>Manuel</em> v. <em>Joliet</em>, 580 U. S. 357, 365–366 (2017). It has been argued that the Due Process Clause could be an appropriate analytical home for a malicious prosecution claim under § 1983. See <em>Albright</em> v. <em>Oliver</em>, 510 U. S. 266, 281, 286 (1994) (Kennedy, J., concurring in judgment). If so, the plaintiff presumably would not have to prove that he was seized as a result of the malicious prosecution. But we have no occasion to consider such an argument here. <a class="back" href="#s3-r2" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n3" value="3"><p>We need not decide whether a plaintiff bringing a Fourth Amendment claim under § 1983 for malicious prosecution must establish malice (or some other <em>mens rea</em>) in addition to the absence of probable cause. <a class="back" href="#s3-r3" aria-label="Back to the text">↩</a></p></li>
+</ol></aside></section>
+<section id="s4" class="op op-dissenting"><h2>Justice Alito, dissenting</h2>
+<p class="byline">Justice Alito, with whom Justice Thomas and Justice Gorsuch join, dissenting.</p>
+<p>Homer described the mythical chimera as a “grim monster” made of “all lion in front, all snake behind, all goat between.” The Iliad p. 201 (R. Fagles trans. 1990). Today, the Court creates a chimera of a constitutional tort by stitching together elements taken from two very different claims: a Fourth Amendment unreasonable seizure claim and a common-law malicious-prosecution claim.</p>
+<p>The Court justifies this creation on the ground that malicious prosecution is the common-law tort that is most analogous<span class="pg" id="s4-p50" title="page 50 of the original">50</span> to an unreasonable seizure claim. And because a common-law malicious-prosecution claim demanded proof of a favorable termination, the Court holds that its new creation includes that element. But this Court has never held that the Fourth Amendment houses a malicious-prosecution claim, and the Court defends its analogy with just two sentences of independent analysis and a reference to a body of lower court cases.</p>
+<p>I cannot agree with that approach. The Court's independent analysis of this important question is far too cursory, and its reliance on lower court cases is particularly ill-advised here because that body of case law appears to have been heavily influenced by a mistaken reading of the plurality opinion in <em>Albright</em> v. <em>Oliver</em>, 510 U. S. 266 (1994).</p>
+<p>What the Court has done is to recognize a novel hybrid claim of uncertain scope that has no basis in the Constitution and is almost certain to lead to confusion.</p>
+<h3 class="oh">I</h3>
+<p>The Court asserts that malicious prosecution is the common-law tort that is most analogous to petitioner's Fourth Amendment claim, <em>ante</em>, at 43, but in fact the Fourth Amendment and malicious prosecution have almost nothing in common.</p>
+<h3 class="oh">A</h3>
+<p>The Fourth Amendment prohibits “unreasonable searches and seizures.” And a Fourth Amendment claim based on an unreasonable seizure has two indispensable elements: (i) there must have been a “seizure,” <em>i. e.</em>, an arrest or some other use of “ `physical force' or a `show of authority' that `in some way restrain[s] the liberty' of [a] person,” <em>Torres</em> v. <em>Madrid</em>, 592 U. S. –––, ––– (2021), and (ii) the seizure must have been “unreasonable,” which means, in the case of a full-blown arrest, that the officers making the arrest must have lacked probable cause. <em>District of Columbia</em> v. <em>Wesby</em>, 583 U. S. 48, 56–57 (2018).</p>
+<p><span class="pg" id="s4-p51" title="page 51 of the original">51</span>Malicious prosecution, on the other hand, requires proof that “(i) the suit or proceeding was `instituted without any probable cause;' (ii) the `motive in instituting' the suit `was malicious . . . ; and (iii) the prosecution `terminated in the acquittal or discharge of the accused.' ” <em>Ante</em>, at 44 (quoting T. Cooley, Law of Torts 180 (1880) (Cooley)); see also <em>Manuel</em> v. <em>Joliet</em>, 580 U. S. 357, 378 (2017) (<span class="sc">Alito</span>, J., dissenting).</p>
+<p>A comparison of the elements of the malicious-prosecution tort with the elements of a Fourth Amendment unreasonable-seizure claim shows that there is no overlap. That is, a plaintiff suing for unreasonable seizure need not prove any of the elements of common-law malicious prosecution, and a plaintiff suing for common-law malicious prosecution need not prove any of the elements required to establish an unreasonable seizure.</p>
+<p>Start with the elements of an unreasonable-seizure claim. Such a claim does not require proof that there was a “prosecution”—<em>i. e.</em>, a criminal proceeding that is initiated by the filing of charges in the form of a criminal complaint, information, or indictment—while a malicious-prosecution claim obviously requires a prosecution. See, <em>e. g</em>., 1 F. Hilliard, The Law of Torts or Private Wrongs § 2, pp. 413–414 (1866) (Hilliard) (“The general principle is laid down, that an action lies for maliciously causing one <em>to be indicted</em>, whereby he is damnified, either in person, reputation, or property” (emphasis added)); Cooley 180 (“[I]t is a duty which every man owes to every other not to <em>institute proceedings</em> maliciously, which he has no good reason to believe are justified by the facts and the law” (emphasis added)); M. Newell, Law of Malicious Prosecution, False Imprisonment, and Abuse of Process § 1, p. 3 (1892) (Newell) (same); see also W. Prosser, Law of Torts 860 (1941) (“The interest in freedom from unjustifiable <em>litigation</em> is protected by an action for malicious prosecution” (boldface deleted and emphasis added)). A person who is arrested without probable cause may have a viable unreasonable-seizure<span class="pg" id="s4-p52" title="page 52 of the original">52</span> claim even if he or she is released before any charges are filed.</p>
+<p>An unreasonable-seizure claim also does not require “malice.” The Court has “almost uniformly rejected invitations to probe subjective intent” in Fourth Amendment cases. <em>Ashcroft</em> v. <em>al-Kidd</em>, 563 U. S. 731, 737 (2011). If a law enforcement officer makes an arrest <em>without</em> probable cause, the arrest is unreasonable and therefore unconstitutional even if the officer harbors no ill will for the arrestee. Likewise, if an officer makes an arrest <em>with</em> probable cause, there is no Fourth Amendment violation regardless of the “actual motivations of the individual officers involved.” <em>Whren</em> v. <em>United States</em>, 517 U. S. 806, 813 (1996); see also <em>Cordova</em> v. <em>Albuquerque</em>, 816 F. 3d 645, 664 (CA10 2016) (Gorsuch, J., concurring in judgment).</p>
+<p>Finally, the validity of an unreasonable-seizure claim is not dependent on the outcome of any prosecution that happens to follow a seizure. A person who is arrested without probable cause but then convicted based on evidence discovered after the arrest is not barred from recovering simply because he or she cannot show a favorable termination to the proceeding. See <em>Wallace</em> v. <em>Kato</em>, 549 U. S. 384, 389–392 (2007); cf. <em>Heck</em> v. <em>Humphrey</em>, 512 U. S. 477, 487, n. 7 (1994) (a person may bring “a suit for damages attributable to an allegedly unreasonable search” even if he or she was convicted). Thus, an unreasonable-seizure claim may be shown without proving any of the elements of a common-law malicious-prosecution claim.</p>
+<p>Turning now to the elements of malicious prosecution, we see that all of those may be established without proving either of the two elements that the constitutional text and our precedents require in order to establish an unreasonable seizure.</p>
+<p>First, the tort of malicious prosecution does not require a seizure within the meaning of the Fourth Amendment. There are cases in which defendants charged with nonviolent<span class="pg" id="s4-p53" title="page 53 of the original">53</span> crimes agree to appear for arraignment and are then released pending trial on their own recognizance. These defendants are prosecuted, and they may bring a common-law suit for malicious prosecution if the other elements of that tort can be shown, but they are not seized. See, <em>e. g.</em>, 1 Hilliard § 1, at 412 (noting that malicious prosecution may involve “injury to the person, as connected with false imprisonment,” but is “primarily . . . a wrong to <em>character</em> or <em>reputation</em>”); 3 D. Dobbs, The Law of Torts § 586, p. 388 (2011) (the “prosecution does not necessarily involve any detention of the plaintiff at all”). The term seizure would have to be given a novel and extravagant interpretation in order to reach a “defendant awaiting trial on his own recognizance” or one who simply receives a “summons to appear at trial.” <em>Cordova</em>, 816 F. 3d, at 663 (opinion of Gorsuch, J.).</p>
+<p>Second, since a malicious-prosecution claim does not require a seizure, it obviously does not require proof that the person bringing suit was seized without probable cause. The claim <em>does</em> demand proof that the person bringing suit was <em>prosecuted</em> without probable cause, but probable cause at the time of arrest is a different question from probable cause at the time at which a prosecution is initiated.</p>
+<p>In light of the differences between these two claims, it is apparent that a Fourth Amendment unreasonable-seizure claim is not analogous to a claim for malicious prosecution. Much more analogous are the common-law torts of false arrest and false imprisonment, which protect against “[e]very confinement of the person,” including one effected by “forcibly detaining [someone] in the public streets.” <em>Wallace</em>, 549 U. S., at 388–389 (internal quotation marks omitted); see also Dobbs, Law of Torts § 41 (describing elements of false imprisonment and false arrest); Restatement (Second) of Torts § 35 (1964) (same).</p>
+<h3 class="oh">B</h3>
+<p>The Court does not make a serious effort to justify its analogy between unreasonable seizure and malicious prosecution.<span class="pg" id="s4-p54" title="page 54 of the original">54</span> Instead, the Court largely relies on the fact that “most of the Courts of Appeals to consider the question” have drawn that analogy, <em>ante</em>, at 43, but the Court ignores contrary lower court authority. See, <em>e. g.</em>, <em>Manuel</em> v. <em>Joliet</em>, 903 F. 3d 667, 670 (CA7 2018); <em>Jones</em> v. <em>Clark County</em>, 959 F. 3d 748, 776–777 (CA6 2020) (Murphy, J., concurring in part); <em>Pagan-Gonzalez</em> v. <em>Moreno</em>, 919 F. 3d 582, 608–617 (CA1 2019) (Barron, J., concurring). But in any event, we should not decide this important question without independent analysis, and the Court's own cursory analysis is erroneous.</p>
+<p>The Court claims that the “gravamen” of petitioner's Fourth Amendment claim is the same as that of a malicious-prosecution claim: the “wrongful initiation of charges without probable cause.” <em>Ante,</em> at 43. But what the Court describes is not a Fourth Amendment violation at all. As explained, that Amendment protects against “unreasonable searches and seizures”—not the unreasonable “initiation of charges.” In fact, “the specific provisions of the Bill of Rights neither impose a standard for the initiation of a prosecution” nor “require a pretrial hearing to weigh evidence according to a given standard.” <em>Albright</em>, 510 U. S., at 282 (Kennedy, J., concurring in judgment); see also 4 W. LaFave, J. Israel, N. King, &amp; O. Kerr, Criminal Procedure § 14.2(a), pp. 329, 331 (4th ed. 2015) (noting that the Constitution does not require “screening” of the decision to prosecute “by some neutral body” to ensure “some minimal evidence supporting the charge,” and “the sole constitutional protection” is “what the Fourth Amendment requires to justify physical restraints”).</p>
+<p>The Court also says that the initiation of charges must be “wrongful,” but it is not clear what that means. If that term simply refers to the lack of probable cause, then the Court has failed to capture the “gravamen” of malicious prosecution because that tort requires not just that the defendant initiated charges “without probable cause” but also—as the name <span class="pg" id="s4-p55" title="page 55 of the original">55</span>of the tort suggests—that this was done with “malice.” See 1 Hilliard § 4, at 416 (“want of probable cause” is not enough “without malice”); 1 Newell § 6, at 7 (“The plaintiff must show that the defendant acted from <em>malicious motives</em> in prosecuting him”). Cf. <em>ante,</em> at 44, n. 3 (claiming to reserve the question whether the claim requires malice).</p>
+<p>If, on the other hand, the Court uses the term “wrongful” to require “malice,” then the claim it has endorsed is even more incompatible with the Fourth Amendment, which almost always imposes a purely objective standard. See <em>supra</em>, at 52.</p>
+<h3 class="oh">II</h3>
+<p>The Court's recognition of a Fourth Amendment malicious-prosecution claim has no basis in our precedents.</p>
+<h3 class="oh">A</h3>
+<p>The Court relies on certain lower court decisions that accepted the strange concept of a Fourth Amendment malicious-prosecution claim, but that line of cases developed in large part because of a misunderstanding of the tersely worded plurality opinion in <em>Albright</em>, 510 U. S. 266. See <em>Hernandez-Cuevas</em> v. <em>Taylor</em>, 723 F. 3d 91, 99 (CA1 2013) (noting that “dicta” in <em>Albright</em> led many jurisdictions to “recogniz[e] a Fourth Amendment malicious prosecution claim”). Instead of simply accepting that misreading, we should explain what <em>Albright</em> actually decided and what the plurality said.</p>
+<p>In that case, Kevin Albright was arrested and bound over for trial without probable cause. The prosecution was dismissed before trial, and Albright then sued under 42 U. S. C. § 1983. The District Court dismissed his suit; the Court of Appeals affirmed the dismissal; and when the case was argued in this Court, the only claim that Albright pressed was that his prosecution without probable cause violated substantive due process. 510 U. S., at 268 (plurality opinion). <span class="pg" id="s4-p56" title="page 56 of the original">56</span>He did not advance either a Fourth Amendment claim or a malicious-prosecution claim.</p>
+<p>This Court affirmed the dismissal of Albright's substantive due process claim, and while no opinion gained majority approval, both the four Justices who joined the plurality opinion and the three justices who concurred in the judgment agreed that substantive due process does not include the right to be free from prosecution without probable cause. <em>Id.</em>, at 268, 275 (plurality opinion); <em>id.</em>, at 282 (opinion of Kennedy, J.); <em>id.</em>, at 286 (Souter, J., concurring in judgment). That is all that <em>Albright</em> actually decided.</p>
+<p>The terse plurality opinion did make comments about the Fourth Amendment and malicious prosecution, and those comments have led to confusion in the lower courts. But a careful reading of the plurality opinion shows that it in no way suggested that the Fourth Amendment protects against malicious prosecution.</p>
+<p>When the plurality commented on the Fourth Amendment, it was addressing Albright's prosecution-without-probable-cause claim, not malicious prosecution. And in connection with the prosecution-without-probable-cause claim, the plurality made the following two points. First, the plurality noted that “[w]here a particular Amendment `provides an explicit textual source of constitutional protection' against a particular sort of government behavior, `that Amendment, not the more generalized notion of “substantive due process,” must be the guide for analyzing [the] claims.' ” <em>Id</em>., at 273. Second, the plurality observed that the Fourth Amendment is the constitutional provision that deals with “pretrial deprivations of liberty.” <em>Id.</em>, at 274.</p>
+<p>What this discussion suggested was that <em>if</em> any provision of the Constitution provided a home for Albright's prosecution-without-probable-cause claim, the Fourth Amendment was a better bet than the Fourteenth Amendment's Due Process Clause. But the plurality did not conclude or even suggest that a prosecution-without-probable-cause claim could be <span class="pg" id="s4-p57" title="page 57 of the original">57</span>brought under the Fourth Amendment. See <em>id</em>., at 274–275 (expressly declining to express a view on the question). Indeed, the plurality expressly reiterated that “the accused is not `entitled to judicial oversight or review of the decision to prosecute,' ” suggesting instead that the harm to Albright— if any—was that he was “not merely charged” but also “submitted himself to arrest.” <em>Id.,</em> at 274 (quoting <em>Gerstein</em> v. <em>Pugh</em>, 420 U. S. 103, 114 (1975)).</p>
+<p>As for malicious prosecution, the plurality did not even hint that such a claim could be brought under the Fourth Amendment. The plurality's only two references to malicious prosecution appeared in the portion of the opinion that set out what had occurred in the lower courts. Footnote 3 recounted that Albright's complaint contained a common-law malicious-prosecution claim but that this claim had been dismissed without prejudice and that this issue was not before the Court. 510 U. S., at 269, n. 3. Footnote 4 then observed that there was an “ `embarrassing diversity of judicial opinion' ” in the lower courts as to whether a malicious-prosecution claim was actionable under § 1983, and the footnote added that substantive due process did not “furnish the constitutional peg on which to hang such a `tort.' ” <em>Id.</em>, at 270–271, n. 4. But the plurality opinion did not suggest that the Fourth Amendment could provide such a “peg,” and neither did any other Justice who concurred in the judgment.*</p>
+<h3 class="oh"><span class="pg" id="s4-p58" title="page 58 of the original">58</span>B</h3>
+<p><em>Manuel</em> v. <em>Joliet</em>, 580 U. S. 357, also provides no support for a Fourth Amendment malicious-prosecution claim. There, petitioner Elijah Manuel brought suit under the Fourth Amendment, alleging that he was arrested without probable cause and then held for seven weeks without probable cause after a judge ordered him detained. <em>Id.,</em> at 359–360. The Court reasoned that the Fourth Amendment prohibits “government officials from detaining a person in the absence of probable cause.” <em>Id.,</em> at 367. A violation of that prohibition, the Court continued, may occur both “before the formal onset of a criminal proceeding” and “when legal process itself goes wrong—when, for example, a judge's probable-cause determination is predicated solely on a police officer's false statements.” <em>Ibid.</em> Accordingly, the Court concluded that the plaintiff in that case could state a Fourth Amendment claim because the “judge's order holding [him] for trial” was not supported by probable cause. <em>Id.,</em> at 368.</p>
+<p>Although the majority asserts that <em>Manuel</em> authorized Fourth Amendment malicious-prosecution claims, see <em>ante</em>, at 4, <em>Manuel</em> did no such thing. That decision expressly declined to determine “whether (and, if so, how) [petitioner's Fourth Amendment claim] should resemble the malicious prosecution tort.” <em>Id.,</em> at 372, n. 10. Indeed, the majority's analysis here is incompatible with the analysis in <em>Manuel</em>, where the gravamen of the wrong was that petitioner was “detain[ed] . . . in the absence of probable cause.” <em>Id.,</em> at 367. <em>Manuel</em> thus provides no support for the Court's suggestion that the Fourth Amendment prohibits the “initiation of charges without probable cause.” <em>Ante</em>, at 43.</p>
+<h3 class="oh">III</h3>
+<p>Instead of clarifying the law regarding § 1983 malicious-prosecution claims, today's decision, I fear, will sow more confusion. The Court endorses a Fourth Amendment claim for malicious prosecution that appears to have the following <span class="pg" id="s4-p59" title="page 59 of the original">59</span>elements: (1) the defendant “initiat[ed]” charges against the plaintiff in a way that was “wrongful” and “without probable cause,” (2) the “malicious prosecution resulted in a seizure of the plaintiff,” and (3) the prosecution must not have ended in conviction. <em>Ante</em>, at 43, and n. 2. This tort has no precedent in Fourth Amendment law. It is markedly different from the common-law tort of malicious prosecution, and its dimensions are uncertain.</p>
+<p>First, it is not clear why this tort requires both a seizure and a prosecution. As noted, the two do not always go together, and if the aim is to permit the victims of malicious prosecution to sue under § 1983, it is not clear why detention should be required. While pretrial detention certainly increases the harm inflicted by a malicious prosecution, such a prosecution can be very damaging even if the victim is never detained. See, <em>e. g.</em>, M. Bigelow, The Law of Torts 204 (1875) (a plaintiff may show damage to “his person by imprisonment, his reputation by the scandal, or . . . his property by the expense”). The majority's only answer to the question why the claim requires a seizure is that it is “housed in the Fourth Amendment,” <em>ante,</em> at 43, n. 2, but that response begs the antecedent question whether the Fourth Amendment houses a malicious-prosecution suit at all.</p>
+<p>Second, where the person bringing suit under § 1983 is arrested and then prosecuted, it is not clear whether both the arrest and the prosecution must have been done without probable cause and without a legitimate law enforcement purpose. An arrest made without probable cause may be followed by a prosecution based on new evidence that clearly establishes probable cause. And by the same token, the evidence that establishes probable cause at the time of arrest may be thoroughly discredited at some point well before the termination of a prosecution.</p>
+<p>Third and most important, it is not clear what the Court means when it says that the “gravamen” of the claim is <em>“wrongful</em> initiation of charges without probable cause<em>.</em>” <span class="pg" id="s4-p60" title="page 60 of the original">60</span><em>Ante,</em> at 43 (emphasis added). Since the Court refers repeatedly to “malicious prosecution,” one might think that this requires a guilty mental state, but in a footnote, the Court raises the possibility that the constitutional tort it recognizes may require nothing more than the absence of probable cause. See <em>ibid.,</em> n. 2.</p>
+<p>If that turns out to be so, it is hard to see even the slightest connection between the Court's new tort and common-law malicious prosecution. Malice is the hallmark of a malicious-prosecution claim. Even if a prosecution is brought and maintained without probable cause, a malicious-prosecution claim cannot succeed without proof of malice. See <em>supra,</em> at 54–55. And if the Court's new tort has nothing to do with malicious prosecution, what possible reason can there be for borrowing that tort's favorable-termination element?</p>
+<h3 class="oh">IV</h3>
+<p>Instead of creating a new hybrid claim, we should simply hold that a malicious-prosecution claim may not be brought under the Fourth Amendment. Such a holding would not leave a person in petitioner's situation without legal protection. Petitioner brought Fourth Amendment claims against respondents for false arrest, excessive force, and unlawful entry, but after trial a jury ruled against him on all those claims. See App. 142–146. Petitioner could have also sought relief under state law. See, <em>e. g., Cordova</em>, 816 F. 3d, at 662 (opinion of Gorsuch, J.). New York law appears to recognize a malicious-prosecution tort with an element very much like the favorable-termination element that the Court adopts today, see <em>Lanning</em> v. <em>Glens Falls</em>, 908 F. 3d 19, 24–25 (CA2 2018), but petitioner chose not to bring such a claim. See Tr. of Oral Arg. 40–41.</p>
+<p>For these reasons, I would affirm the judgment below, and I therefore respectfully dissent.</p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li class="sym" value="0"><span class="mk">*</span><p>Justice Scalia's concurring opinion made no mention of malicious prosecution. Justice Ginsburg mentioned malicious prosecution only when describing Albright's claims, see 510 U. S., at 277, n. 1, and to note that it was “anomalous” that Albright sought to hold a police officer (rather than a prosecutor) liable under a malicious-prosecution theory, <em>id.</em>, at 279, n. 5. Justice Kennedy, joined by <span class="sc">Justice Thomas</span>, filed an opinion concurring in the judgment and argued that “if a State did not provide a tort remedy for malicious prosecution, there would be force to the argument that the malicious initiation of a baseless criminal prosecution infringes an interest protected by the Due Process Clause.” <em>Id.</em>, at 286. But he did not suggest that a malicious-prosecution claim could be brought under the Fourth Amendment.</p></li>
+</ol></aside></section><p class='back'><a href='/opinions/'>&larr; All opinions</a> · <a href='/justices/ot2021.html'>The Justices, October Term 2021 &rarr;</a></p></main></body>
+</html>
+

@@ -1,0 +1,781 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/terms/" xmlns:opds="http://opds-spec.org/2010/catalog">
+<id>https://supremecourt.report/opinions/opds/2020.xml</id>
+<title>Opinions, October Term 2020</title>
+<updated>2021-07-01T00:00:00Z</updated>
+<author><name>Supreme Court Report</name><uri>https://supremecourt.report/</uri></author>
+<link rel="self" href="https://supremecourt.report/opinions/opds/2020.xml" type="application/atom+xml;profile=opds-catalog;kind=acquisition"/>
+<link rel="start" href="https://supremecourt.report/opinions/opds.xml" type="application/atom+xml;profile=opds-catalog;kind=navigation"/>
+<link rel="up" href="https://supremecourt.report/opinions/opds.xml" type="application/atom+xml;profile=opds-catalog;kind=navigation"/>
+<entry>
+<id>urn:supremecourt-report:opinion:2020:19-251</id>
+<title>Americans for Prosperity Foundation v. Bonta</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2021-07-01T00:00:00Z</updated>
+<published>2021-07-01T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2021-07-01</dc:issued>
+<category term="ot2020" label="October Term 2020"/>
+<summary type="text">No. 19-251 · decided July 1, 2021 · 594 U. S. 595 · 14,481 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/19-251.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/19-251.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2020/19-251.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2020:19-1257</id>
+<title>Brnovich v. Democratic National Committee</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2021-07-01T00:00:00Z</updated>
+<published>2021-07-01T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2021-07-01</dc:issued>
+<category term="ot2020" label="October Term 2020"/>
+<summary type="text">No. 19-1257 · decided July 1, 2021 · 594 U. S. 647 · 23,868 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/19-1257.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/19-1257.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2020/19-1257.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2020:20-440</id>
+<title>Minerva Surgical, Inc. v. Hologic, Inc.</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2021-06-29T00:00:00Z</updated>
+<published>2021-06-29T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2021-06-29</dc:issued>
+<category term="ot2020" label="October Term 2020"/>
+<summary type="text">No. 20-440 · decided June 29, 2021 · 594 U. S. 559 · 10,626 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/20-440.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/20-440.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2020/20-440.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2020:19-897</id>
+<title>Johnson v. Guzman Chavez</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2021-06-29T00:00:00Z</updated>
+<published>2021-06-29T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2021-06-29</dc:issued>
+<category term="ot2020" label="October Term 2020"/>
+<summary type="text">No. 19-897 · decided June 29, 2021 · 594 U. S. 523 · 10,585 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/19-897.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/19-897.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2020/19-897.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2020:19-1039</id>
+<title>PennEast Pipeline Co. v. New Jersey</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2021-06-29T00:00:00Z</updated>
+<published>2021-06-29T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2021-06-29</dc:issued>
+<category term="ot2020" label="October Term 2020"/>
+<summary type="text">No. 19-1039 · decided June 29, 2021 · 594 U. S. 482 · 12,636 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/19-1039.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/19-1039.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2020/19-1039.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2020:20-543</id>
+<title>Yellen v. Confederated Tribes of Chehalis</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2021-06-25T00:00:00Z</updated>
+<published>2021-06-25T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2021-06-25</dc:issued>
+<category term="ot2020" label="October Term 2020"/>
+<summary type="text">No. 20-543 · decided June 25, 2021 · 594 U. S. 338 · 12,533 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/20-543.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/20-543.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2020/20-543.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2020:20-472</id>
+<title>HollyFrontier Cheyenne Refining, LLC, et al. v. Renewable Fuels Association, et al.</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2021-06-25T00:00:00Z</updated>
+<published>2021-06-25T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2021-06-25</dc:issued>
+<category term="ot2020" label="October Term 2020"/>
+<summary type="text">No. 20-472 · decided June 25, 2021 · 594 U. S. 382 · 8,928 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/20-472.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/20-472.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2020/20-472.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2020:20-297</id>
+<title>TransUnion LLC v. Ramirez</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2021-06-25T00:00:00Z</updated>
+<published>2021-06-25T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2021-06-25</dc:issued>
+<category term="ot2020" label="October Term 2020"/>
+<summary type="text">No. 20-297 · decided June 25, 2021 · 594 U. S. 413 · 14,953 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/20-297.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/20-297.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2020/20-297.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2020:20-255</id>
+<title>Mahanoy Area School Dist. v. B. L.</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2021-06-23T00:00:00Z</updated>
+<published>2021-06-23T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2021-06-23</dc:issued>
+<category term="ot2020" label="October Term 2020"/>
+<summary type="text">No. 20-255 · decided June 23, 2021 · 594 U. S. 180 · 11,221 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/20-255.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/20-255.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2020/20-255.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2020:20-18</id>
+<title>Lange v. California</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2021-06-23T00:00:00Z</updated>
+<published>2021-06-23T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2021-06-23</dc:issued>
+<category term="ot2020" label="October Term 2020"/>
+<summary type="text">No. 20-18 · decided June 23, 2021 · 594 U. S. 295 · 13,274 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/20-18.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/20-18.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2020/20-18.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2020:20-107</id>
+<title>Cedar Point Nursery v. Hassid</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2021-06-23T00:00:00Z</updated>
+<published>2021-06-23T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2021-06-23</dc:issued>
+<category term="ot2020" label="October Term 2020"/>
+<summary type="text">No. 20-107 · decided June 23, 2021 · 594 U. S. 139 · 12,515 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/20-107.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/20-107.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2020/20-107.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2020:19-422</id>
+<title>Collins v. Yellen</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2021-06-23T00:00:00Z</updated>
+<published>2021-06-23T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2021-06-23</dc:issued>
+<category term="ot2020" label="October Term 2020"/>
+<summary type="text">No. 19-422 · decided June 23, 2021 · 594 U. S. 220 · 21,288 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/19-422.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/19-422.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2020/19-422.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2020:20-512</id>
+<title>National Collegiate Athletic Assn. v. Alston</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2021-06-21T00:00:00Z</updated>
+<published>2021-06-21T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2021-06-21</dc:issued>
+<category term="ot2020" label="October Term 2020"/>
+<summary type="text">No. 20-512 · decided June 21, 2021 · 594 U. S. 69 · 13,558 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/20-512.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/20-512.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2020/20-512.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2020:20-222</id>
+<title>Goldman Sachs Group, Inc. v. Arkansas Teacher</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2021-06-21T00:00:00Z</updated>
+<published>2021-06-21T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2021-06-21</dc:issued>
+<category term="ot2020" label="October Term 2020"/>
+<summary type="text">No. 20-222 · decided June 21, 2021 · 594 U. S. 113 · 7,789 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/20-222.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/20-222.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2020/20-222.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2020:19-1434</id>
+<title>United States v. Arthrex, Inc.</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2021-06-21T00:00:00Z</updated>
+<published>2021-06-21T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2021-06-21</dc:issued>
+<category term="ot2020" label="October Term 2020"/>
+<summary type="text">No. 19-1434 · decided June 21, 2021 · 594 U. S. 1 · 20,505 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/19-1434.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/19-1434.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2020/19-1434.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2020:19-416</id>
+<title>Nestle USA, Inc. v. Doe</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2021-06-17T00:00:00Z</updated>
+<published>2021-06-17T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2021-06-17</dc:issued>
+<category term="ot2020" label="October Term 2020"/>
+<summary type="text">No. 19-416 · decided June 17, 2021 · 593 U. S. 628 · 9,161 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/19-416.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/19-416.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2020/19-416.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2020:19-123</id>
+<title>Fulton v. Philadelphia</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2021-06-17T00:00:00Z</updated>
+<published>2021-06-17T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2021-06-17</dc:issued>
+<category term="ot2020" label="October Term 2020"/>
+<summary type="text">No. 19-123 · decided June 17, 2021 · 593 U. S. 522 · 27,379 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/19-123.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/19-123.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2020/19-123.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2020:19-1019</id>
+<title>California v. Texas</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2021-06-17T00:00:00Z</updated>
+<published>2021-06-17T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2021-06-17</dc:issued>
+<category term="ot2020" label="October Term 2020"/>
+<summary type="text">No. 19-1019 · decided June 17, 2021 · 593 U. S. 659 · 16,939 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/19-1019.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/19-1019.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2020/19-1019.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2020:20-5904</id>
+<title>Terry v. United States</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2021-06-14T00:00:00Z</updated>
+<published>2021-06-14T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2021-06-14</dc:issued>
+<category term="ot2020" label="October Term 2020"/>
+<summary type="text">No. 20-5904 · decided June 14, 2021 · 593 U. S. 486 · 4,520 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/20-5904.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/20-5904.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2020/20-5904.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2020:19-8709</id>
+<title>Greer v. United States</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2021-06-14T00:00:00Z</updated>
+<published>2021-06-14T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2021-06-14</dc:issued>
+<category term="ot2020" label="October Term 2020"/>
+<summary type="text">No. 19-8709 · decided June 14, 2021 · 593 U. S. 503 · 5,908 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/19-8709.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/19-8709.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2020/19-8709.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2020:19-5410</id>
+<title>Borden v. United States</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2021-06-10T00:00:00Z</updated>
+<published>2021-06-10T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2021-06-10</dc:issued>
+<category term="ot2020" label="October Term 2020"/>
+<summary type="text">No. 19-5410 · decided June 10, 2021 · 593 U. S. 420 · 17,986 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/19-5410.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/19-5410.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2020/19-5410.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2020:20-315</id>
+<title>Sanchez v. Mayorkas</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2021-06-07T00:00:00Z</updated>
+<published>2021-06-07T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2021-06-07</dc:issued>
+<category term="ot2020" label="October Term 2020"/>
+<summary type="text">No. 20-315 · decided June 7, 2021 · 593 U. S. 409 · 2,787 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/20-315.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/20-315.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2020/20-315.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2020:19-783</id>
+<title>Van Buren v. United States</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2021-06-03T00:00:00Z</updated>
+<published>2021-06-03T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2021-06-03</dc:issued>
+<category term="ot2020" label="October Term 2020"/>
+<summary type="text">No. 19-783 · decided June 3, 2021 · 593 U. S. 374 · 10,261 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/19-783.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/19-783.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2020/19-783.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2020:19-1414</id>
+<title>United States v. Cooley</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2021-06-01T00:00:00Z</updated>
+<published>2021-06-01T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2021-06-01</dc:issued>
+<category term="ot2020" label="October Term 2020"/>
+<summary type="text">No. 19-1414 · decided June 1, 2021 · 593 U. S. 345 · 3,615 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/19-1414.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/19-1414.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2020/19-1414.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2020:19-1155</id>
+<title>Garland v. Ming Dai</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2021-06-01T00:00:00Z</updated>
+<published>2021-06-01T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2021-06-01</dc:issued>
+<category term="ot2020" label="October Term 2020"/>
+<summary type="text">No. 19-1155 · decided June 1, 2021 · 593 U. S. 357 · 5,405 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/19-1155.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/19-1155.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2020/19-1155.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2020:20-334</id>
+<title>San Antonio v. Hotels.com, L. P.</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2021-05-27T00:00:00Z</updated>
+<published>2021-05-27T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2021-05-27</dc:issued>
+<category term="ot2020" label="October Term 2020"/>
+<summary type="text">No. 20-334 · decided May 27, 2021 · 593 U. S. 330 · 4,808 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/20-334.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/20-334.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2020/20-334.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2020:20-437</id>
+<title>United States v. Palomar-Santiago</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2021-05-24T00:00:00Z</updated>
+<published>2021-05-24T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2021-05-24</dc:issued>
+<category term="ot2020" label="October Term 2020"/>
+<summary type="text">No. 20-437 · decided May 24, 2021 · 593 U. S. 321 · 2,288 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/20-437.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/20-437.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2020/20-437.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2020:20-382</id>
+<title>Guam v. United States</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2021-05-24T00:00:00Z</updated>
+<published>2021-05-24T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2021-05-24</dc:issued>
+<category term="ot2020" label="October Term 2020"/>
+<summary type="text">No. 20-382 · decided May 24, 2021 · 593 U. S. 310 · 3,301 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/20-382.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/20-382.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2020/20-382.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2020:20-157</id>
+<title>Caniglia v. Strom</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2021-05-17T00:00:00Z</updated>
+<published>2021-05-17T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2021-05-17</dc:issued>
+<category term="ot2020" label="October Term 2020"/>
+<summary type="text">No. 20-157 · decided May 17, 2021 · 593 U. S. 194 · 4,410 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/20-157.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/20-157.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2020/20-157.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2020:19-930</id>
+<title>CIC Servs., LLC v. Irs</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2021-05-17T00:00:00Z</updated>
+<published>2021-05-17T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2021-05-17</dc:issued>
+<category term="ot2020" label="October Term 2020"/>
+<summary type="text">No. 19-930 · decided May 17, 2021 · 593 U. S. 209 · 6,326 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/19-930.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/19-930.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2020/19-930.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2020:19-5807</id>
+<title>Edwards v. Vannoy</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2021-05-17T00:00:00Z</updated>
+<published>2021-05-17T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2021-05-17</dc:issued>
+<category term="ot2020" label="October Term 2020"/>
+<summary type="text">No. 19-5807 · decided May 17, 2021 · 593 U. S. 255 · 14,957 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/19-5807.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/19-5807.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2020/19-5807.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2020:19-1189</id>
+<title>BP P. L. C. v. Mayor and City Council of Baltimore</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2021-05-17T00:00:00Z</updated>
+<published>2021-05-17T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2021-05-17</dc:issued>
+<category term="ot2020" label="October Term 2020"/>
+<summary type="text">No. 19-1189 · decided May 17, 2021 · 593 U. S. 230 · 7,879 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/19-1189.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/19-1189.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2020/19-1189.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2020:21-12</id>
+<title>Federal Election Comm'n v. Ted Cruz for Senate</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2021-05-16T00:00:00Z</updated>
+<published>2021-05-16T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2021-05-16</dc:issued>
+<category term="ot2020" label="October Term 2020"/>
+<summary type="text">No. 21-12 · decided May 16, 2021 · 596 U. S. 289 · 12,181 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/21-12.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/21-12.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2020/21-12.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2020:19-863</id>
+<title>Niz-Chavez v. Garland</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2021-04-29T00:00:00Z</updated>
+<published>2021-04-29T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2021-04-29</dc:issued>
+<category term="ot2020" label="October Term 2020"/>
+<summary type="text">No. 19-863 · decided April 29, 2021 · 593 U. S. 155 · 11,801 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/19-863.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/19-863.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2020/19-863.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2020:19-508</id>
+<title>AMG Capital Management, LLC v. Ftc</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2021-04-22T00:00:00Z</updated>
+<published>2021-04-22T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2021-04-22</dc:issued>
+<category term="ot2020" label="October Term 2020"/>
+<summary type="text">No. 19-508 · decided April 22, 2021 · 593 U. S. 67 · 5,547 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/19-508.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/19-508.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2020/19-508.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2020:19-1442</id>
+<title>Carr v. Saul</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2021-04-22T00:00:00Z</updated>
+<published>2021-04-22T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2021-04-22</dc:issued>
+<category term="ot2020" label="October Term 2020"/>
+<summary type="text">No. 19-1442 · decided April 22, 2021 · 593 U. S. 83 · 4,183 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/19-1442.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/19-1442.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2020/19-1442.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2020:18-1259</id>
+<title>Jones v. Mississippi</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2021-04-22T00:00:00Z</updated>
+<published>2021-04-22T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2021-04-22</dc:issued>
+<category term="ot2020" label="October Term 2020"/>
+<summary type="text">No. 18-1259 · decided April 22, 2021 · 593 U. S. 98 · 14,929 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/18-1259.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/18-1259.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2020/18-1259.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2020:18-956</id>
+<title>Google LLC v. Oracle America, Inc.</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2021-04-05T00:00:00Z</updated>
+<published>2021-04-05T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2021-04-05</dc:issued>
+<category term="ot2020" label="October Term 2020"/>
+<summary type="text">No. 18-956 · decided April 5, 2021 · 593 U. S. 1 · 17,680 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/18-956.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/18-956.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2020/18-956.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2020:19-511</id>
+<title>Facebook, Inc. v. Duguid</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2021-04-01T00:00:00Z</updated>
+<published>2021-04-01T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2021-04-01</dc:issued>
+<category term="ot2020" label="October Term 2020"/>
+<summary type="text">No. 19-511 · decided April 1, 2021 · 592 U. S. 395 · 4,858 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/19-511.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/19-511.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2020/19-511.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2020:19-1231</id>
+<title>Fcc v. Prometheus Radio Project</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2021-04-01T00:00:00Z</updated>
+<published>2021-04-01T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2021-04-01</dc:issued>
+<category term="ot2020" label="October Term 2020"/>
+<summary type="text">No. 19-1231 · decided April 1, 2021 · 592 U. S. 414 · 5,136 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/19-1231.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/19-1231.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2020/19-1231.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2020:19-368</id>
+<title>Ford Motor Co. v. Montana Eighth</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2021-03-25T00:00:00Z</updated>
+<published>2021-03-25T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2021-03-25</dc:issued>
+<category term="ot2020" label="October Term 2020"/>
+<summary type="text">No. 19-368 · decided March 25, 2021 · 592 U. S. 351 · 10,158 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/19-368.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/19-368.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2020/19-368.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2020:19-292</id>
+<title>Torres v. Madrid</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2021-03-25T00:00:00Z</updated>
+<published>2021-03-25T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2021-03-25</dc:issued>
+<category term="ot2020" label="October Term 2020"/>
+<summary type="text">No. 19-292 · decided March 25, 2021 · 592 U. S. 306 · 14,299 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/19-292.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/19-292.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2020/19-292.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2020:19-968</id>
+<title>Uzuegbunam v. Preczewski</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2021-03-08T00:00:00Z</updated>
+<published>2021-03-08T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2021-03-08</dc:issued>
+<category term="ot2020" label="October Term 2020"/>
+<summary type="text">No. 19-968 · decided March 8, 2021 · 592 U. S. 279 · 8,273 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/19-968.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/19-968.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2020/19-968.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2020:19-547</id>
+<title>United States Fish and Wildlife Service, et al. v. Sierra Club, Inc.</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2021-03-04T00:00:00Z</updated>
+<published>2021-03-04T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2021-03-04</dc:issued>
+<category term="ot2020" label="October Term 2020"/>
+<summary type="text">No. 19-547 · decided March 4, 2021 · 592 U. S. 261 · 5,396 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/19-547.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/19-547.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2020/19-547.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2020:19-438</id>
+<title>Pereida v. Wilkinson</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2021-03-04T00:00:00Z</updated>
+<published>2021-03-04T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2021-03-04</dc:issued>
+<category term="ot2020" label="October Term 2020"/>
+<summary type="text">No. 19-438 · decided March 4, 2021 · 592 U. S. 224 · 11,228 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/19-438.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/19-438.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2020/19-438.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2020:19-546</id>
+<title>Brownback v. King</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2021-02-25T00:00:00Z</updated>
+<published>2021-02-25T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2021-02-25</dc:issued>
+<category term="ot2020" label="October Term 2020"/>
+<summary type="text">No. 19-546 · decided February 25, 2021 · 592 U. S. 209 · 3,871 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/19-546.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/19-546.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2020/19-546.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2020:19-351</id>
+<title>Federal Republic of Germany v. Philipp</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2021-02-03T00:00:00Z</updated>
+<published>2021-02-03T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2021-02-03</dc:issued>
+<category term="ot2020" label="October Term 2020"/>
+<summary type="text">No. 19-351 · decided February 3, 2021 · 592 U. S. 169 · 6,091 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/19-351.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/19-351.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2020/19-351.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2020:19-199</id>
+<title>Salinas v. Railroad Retirement Bd.</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2021-02-03T00:00:00Z</updated>
+<published>2021-02-03T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2021-02-03</dc:issued>
+<category term="ot2020" label="October Term 2020"/>
+<summary type="text">No. 19-199 · decided February 3, 2021 · 592 U. S. 188 · 5,579 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/19-199.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/19-199.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2020/19-199.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2020:18-1447</id>
+<title>Republic of Hungary, et al. v. Rosalie Simon, et al.</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2021-02-03T00:00:00Z</updated>
+<published>2021-02-03T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2021-02-03</dc:issued>
+<category term="ot2020" label="October Term 2020"/>
+<summary type="text">No. 18-1447 · decided February 3, 2021 · 44 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/18-1447.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/18-1447.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2020/18-1447.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2020:19-357</id>
+<title>Chicago v. Fulton</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2021-01-14T00:00:00Z</updated>
+<published>2021-01-14T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2021-01-14</dc:issued>
+<category term="ot2020" label="October Term 2020"/>
+<summary type="text">No. 19-357 · decided January 14, 2021 · 592 U. S. 154 · 4,023 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/19-357.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/19-357.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2020/19-357.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2020:20-366</id>
+<title>Trump v. New York</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2020-12-18T00:00:00Z</updated>
+<published>2020-12-18T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2020-12-18</dc:issued>
+<category term="ot2020" label="October Term 2020"/>
+<summary type="text">No. 20-366 · decided December 18, 2020 · 592 U. S. 125 · 9,034 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/20-366.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/20-366.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2020/20-366.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2020:19-71</id>
+<title>Tanzin v. Tanvir</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2020-12-10T00:00:00Z</updated>
+<published>2020-12-10T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2020-12-10</dc:issued>
+<category term="ot2020" label="October Term 2020"/>
+<summary type="text">No. 19-71 · decided December 10, 2020 · 592 U. S. 43 · 2,901 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/19-71.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/19-71.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2020/19-71.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2020:19-309</id>
+<title>Carney v. Adams</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2020-12-10T00:00:00Z</updated>
+<published>2020-12-10T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2020-12-10</dc:issued>
+<category term="ot2020" label="October Term 2020"/>
+<summary type="text">No. 19-309 · decided December 10, 2020 · 592 U. S. 53 · 4,834 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/19-309.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/19-309.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2020/19-309.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2020:19-108</id>
+<title>United States v. Briggs</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2020-12-10T00:00:00Z</updated>
+<published>2020-12-10T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2020-12-10</dc:issued>
+<category term="ot2020" label="October Term 2020"/>
+<summary type="text">No. 19-108 · decided December 10, 2020 · 592 U. S. 69 · 3,298 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/19-108.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/19-108.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2020/19-108.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2020:18-540</id>
+<title>Rutledge v. Pharmaceutical Care</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2020-12-10T00:00:00Z</updated>
+<published>2020-12-10T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2020-12-10</dc:issued>
+<category term="ot2020" label="October Term 2020"/>
+<summary type="text">No. 18-540 · decided December 10, 2020 · 592 U. S. 80 · 4,911 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/18-540.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2020/18-540.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2020/18-540.html" type="text/html"/>
+</entry>
+</feed>
+

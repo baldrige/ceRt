@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script async src='/analytics.js'></script><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate icon" href="/favicon.ico" sizes="any"><link rel="alternate" type="application/atom+xml" title="Supreme Court Report" href="/feed.xml"><link rel="alternate" type="application/atom+xml" title="Certiorari grants" href="/grants.xml"><title>Ritzen Group, Inc. v. Jackson Masonry, LLC — Opinion — Supreme Court Report</title><meta name="description" content="The opinion in Ritzen Group, Inc. v. Jackson Masonry, LLC (No. 18-938), decided January 14, 2020: the full text with its footnotes, as a page, a Markdown file and an EPUB."><link rel="canonical" href="https://supremecourt.report/opinions/2019/18-938.html"><meta property="og:site_name" content="Supreme Court Report"><meta property="og:type" content="article"><meta property="og:title" content="Ritzen Group, Inc. v. Jackson Masonry, LLC — Opinion — Supreme Court Report"><meta property="og:description" content="The opinion in Ritzen Group, Inc. v. Jackson Masonry, LLC (No. 18-938), decided January 14, 2020: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta property="og:url" content="https://supremecourt.report/opinions/2019/18-938.html"><meta property="og:image" content="https://supremecourt.report/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Supreme Court Report - docket analytics for the Supreme Court of the United States"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Ritzen Group, Inc. v. Jackson Masonry, LLC — Opinion — Supreme Court Report"><meta name="twitter:description" content="The opinion in Ritzen Group, Inc. v. Jackson Masonry, LLC (No. 18-938), decided January 14, 2020: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta name="twitter:image" content="https://supremecourt.report/og.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap"><style>
+  :root{--paper:#fdfcfa;--panel:#ffffff;--ink:#1a1a1e;--ink-soft:#484850;--faint:#63636b;--accent:#9c0e3a;--link:#9c0e3a;--rule:#dbd8d2;--nav-max:60rem}
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{font-family:'Newsreader',Georgia,serif;font-size:19px;line-height:1.6;
+    color:var(--ink);background:var(--paper);margin:0;font-feature-settings:'onum' 1}
+  body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
+    opacity:.5;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");}
+  .wrap{max-width:40rem;margin:0 auto;padding:3rem 1.4rem 4rem}
+  .kicker{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 1rem}
+  h1{font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:clamp(2.4rem,7vw,3.6rem);line-height:1;letter-spacing:-.015em;
+    margin:0 0 1rem;color:var(--ink)}
+  h1 em{font-style:italic;font-weight:500;color:var(--accent)}
+  .dek{font-size:1.15rem;line-height:1.5;color:var(--ink-soft);font-style:italic;
+    margin:0 0 1.4rem}
+  .brule{border:0;height:0;border-top:2px solid var(--ink);margin:1.4rem 0 .3rem;
+    position:relative}
+  .brule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+    border-top:1px solid var(--rule)}
+  ul.idx{list-style:none;padding:0;margin:1.6rem 0}
+  ul.idx li{border-bottom:1px solid var(--rule)}
+  /* Whole row is one block-level link: a large, reliable tap target on mobile. */
+  ul.idx a.row{display:flex;justify-content:space-between;align-items:baseline;
+    gap:1rem;padding:.9rem .4rem;text-decoration:none;border:0;color:inherit}
+  ul.idx a.row:hover{background:rgba(156,14,58,.05)}
+  ul.idx .d{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.16rem;
+    color:var(--accent);line-height:1.25}
+  ul.idx a.row:hover .d{text-decoration:underline;text-underline-offset:3px}
+  ul.idx .count{color:var(--faint);font-size:.9rem;font-style:italic;white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  /* A long note (an order list's "3 GVRs / 230 denied / 4 habeas denied /
+     ...", items separated by middots) cannot sit on one line: nowrap made it
+     claim the row and
+     squeezed the title into a column three words wide, and on a phone it ran off
+     the screen. Such a row opts in (meta_wrap): the note wraps, only between its
+     items, and takes at most ~45% of the row, so the title always has the
+     larger share. Under 34rem it drops beneath the title at full width. */
+  /* ("long", not "wrap": .wrap is the page container and its padding.) */
+  ul.idx .count.long{white-space:normal;text-align:right;max-width:45%;line-height:1.45}
+  ul.idx .count.long .seg{white-space:nowrap}
+  @media(max-width:34rem){
+    ul.idx a.row.longmeta{flex-wrap:wrap;row-gap:.2rem}
+    ul.idx .count.long{max-width:none;flex-basis:100%;text-align:left}
+  }
+  /* Compact horizontal strip of the most recent pages beneath a category row. */
+  ul.idx .recent{display:flex;flex-wrap:wrap;align-items:baseline;
+    gap:.3rem .85rem;padding:0 .4rem 1rem;margin-top:-.35rem}
+  ul.idx .recent .rlabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  ul.idx .recent a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--ink-soft);text-decoration:none;font-variant-numeric:tabular-nums;
+    border-bottom:1px solid var(--rule);padding-bottom:1px}
+  ul.idx .recent a:hover{color:var(--accent);border-color:var(--accent)}
+  /* Optional panel beneath the section index (home page: most-read cases). */
+  .panel{margin:2.4rem 0 0}
+  .panel h2{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 .25rem}
+  .panel .pnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:0 0 .5rem}
+  /* "Live now" (live_argument_panel, /live.js): hidden unless the Court is
+     streaming an argument. One red dot, the same --accent as the headings, so
+     the live state is a mark and not a new colour. */
+  .live h2 .ldot{display:inline-block;width:.5rem;height:.5rem;border-radius:50%;
+    background:var(--accent);margin-right:.5rem;vertical-align:.08rem;
+    animation:lpulse 2s ease-in-out infinite}
+  @keyframes lpulse{50%{opacity:.25}}
+  @media (prefers-reduced-motion:reduce){.live h2 .ldot{animation:none}}
+  .lplay{display:flex;flex-wrap:wrap;gap:.6rem .9rem;align-items:center;margin:.8rem 0 .3rem}
+  .lplay button{font:600 .9rem/1 'Newsreader',Georgia,serif;letter-spacing:.04em;
+    color:var(--paper);background:var(--accent);border:0;border-radius:2px;
+    padding:.6rem 1.05rem;cursor:pointer}
+  .lplay button:disabled{opacity:.6;cursor:progress}
+  .lplay button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  /* The player takes a row of its own and may never outgrow the column. A flex
+     item's min-width is auto, which for a replaced element is the browser's own
+     controls' width -- wider than the column on a phone, where mobile Safari
+     and Chrome draw larger controls than the desktop. */
+  .lplay audio{display:block;flex:1 1 100%;width:100%;min-width:0;max-width:100%;
+    box-sizing:border-box;margin:0}
+  .lplay .lstat{font-size:.85rem;color:var(--faint)}
+  /* --- Likeliest grants -----------------------------------------------------
+     Its own rows rather than ol.mostread's: this panel carries a question under
+     the caption, which that list has no room for, and a percentage that has to
+     read as the row's subject rather than as a trailing note.
+     The window toggle is two real radio inputs plus :has() -- no JavaScript.
+     Both windows are rendered at build time and one is hidden, which is the only
+     way a static site can offer the choice: there is no server to ask for the
+     other one. Real radios, not styled buttons, so the control is reachable by
+     keyboard and announced as a choice. */
+  .lead{margin:0 0 1.9rem}
+  .lead h2{margin-bottom:.35rem}
+  .lead .pnote{margin:0 0 .7rem}
+  .wr{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+  .win{display:inline-flex;gap:.25rem;margin:0 0 .55rem;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .win label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .win label:hover{color:var(--ink)}
+  .lead:has(#w7:checked) label[for=w7],
+  .lead:has(#w28:checked) label[for=w28],
+  .lead:has(#wall:checked) label[for=wall]{background:var(--accent);color:var(--paper)}
+  .wr:focus-visible+label{outline:2px solid var(--accent);outline-offset:2px}
+  /* Three windows, one shown: the checked radio hides the other two. */
+  .lead:has(#w7:checked) :is(.g28,.n28,.gall,.nall),
+  .lead:has(#w28:checked) :is(.g7,.n7,.gall,.nall),
+  .lead:has(#wall:checked) :is(.g7,.n7,.g28,.n28){display:none}
+  /* The show/hide controls for a panel's secondary line -- the question under
+     a forecast row, the holding under a decision. Same box as the window
+     toggle, a checkbox instead of radios, and no script: the sibling rule does
+     the work and the lines simply show where :has() is unsupported. The
+     questions are on by default (they are what a forecast row asks); the
+     holdings are off (the caption, kind and disposition already say what
+     happened, and the holding is the more). */
+  .opts{display:inline-flex;gap:.25rem;margin:0 .45rem .55rem 0;vertical-align:top;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .opts label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .opts label:hover{color:var(--ink)}
+  .lead:has(#qon:checked) label[for=qon],
+  .panel:has(#hon:checked) label[for=hon]{background:var(--accent);color:var(--paper)}
+  .lead:has(#qon:not(:checked)) .gq{display:none}
+  .panel:has(#hon:not(:checked)) .chold{display:none}
+  /* --- Upcoming at the Court ------------------------------------------------
+     A date gutter and a two-line body, the same shape as the grant rows above
+     it, so the two panels read as one page rather than two widgets. */
+  .cal{margin:0 0 1.9rem}
+  ol.cal{list-style:none;margin:0;padding:0}
+  ol.cal li{border-top:1px solid var(--rule)}
+  ol.cal li:last-child{border-bottom:1px solid var(--rule)}
+  /* The row is a container, not an anchor: an argument day carries one link per
+     case it hears and anchors cannot nest. Hover lives on the row so it still
+     reads as one unit, and each link colours on its own hover. */
+  ol.cal .crow{display:flex;gap:.95rem;align-items:baseline;padding:.55rem .1rem}
+  ol.cal .crow:hover{background:rgba(156,14,58,.05)}
+  ol.cal a{text-decoration:none;color:inherit}
+  ol.cal a:hover,ol.cal a:focus-visible{color:var(--accent)}
+  ol.cal .cdet a{border-bottom:1px solid rgba(156,14,58,.35)}
+  ol.cal .cdet a:hover{border-bottom-color:var(--accent)}
+  ol.cal .cwhen{flex:none;width:4.6rem;font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.96rem;color:var(--ink);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  ol.cal .cdow{display:block;font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);text-transform:uppercase;letter-spacing:.08em}
+  ol.cal .ctx{flex:1;min-width:0}
+  ol.cal .ckind{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:.98rem;line-height:1.25}
+  ol.cal .cdet{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.12rem}
+  /* Recent decisions reuses the calendar rows and adds exactly two things: the
+     kind word that opens the detail line, and the one outbound link (the slip
+     opinion), which takes the link colour the rest of the row deliberately
+     does not. */
+  ol.cal .dk{font-weight:600;color:var(--ink)}
+  ol.cal .cdet a.pdf{color:var(--link)}
+  /* The holding, from the Court's slip-opinion feed: one sentence, set
+     smaller and in the soft ink so the caption stays the row's headline. */
+  ol.cal .chold{display:block;font-size:.86rem;line-height:1.4;color:var(--ink-soft);
+    font-style:italic;margin-top:.15rem}
+  ol.cal .cdet a.pdf:hover,ol.cal .cdet a.pdf:focus-visible{color:var(--accent);
+    border-bottom-color:var(--accent)}
+  ol.grants{list-style:none;margin:0;padding:0}
+  ol.grants li{border-top:1px solid var(--rule)}
+  ol.grants li:last-child{border-bottom:1px solid var(--rule)}
+  ol.grants a{display:flex;gap:.95rem;align-items:baseline;text-decoration:none;
+    color:inherit;padding:.62rem .1rem}
+  ol.grants a:hover{background:rgba(156,14,58,.05)}
+  ol.grants a:hover .gc{color:var(--accent)}
+  ol.grants .gv{flex:none;width:3.5rem;text-align:right;
+    font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.22rem;
+    line-height:1.1;color:var(--accent);font-variant-numeric:tabular-nums}
+  ol.grants .gx{font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);margin-left:.3rem}
+  ol.grants .gtx{flex:1;min-width:0}
+  /* Subject-area line under the caption, in the section-label idiom (h2.sec):
+     small tracked caps in the faint ink, so it classifies without competing. */
+  ol.grants .gs,ol.mostread .ms{display:block;font-size:.68rem;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--faint);line-height:1.3;margin-top:.12rem}
+  ol.grants .gc{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:1rem;line-height:1.25}
+  ol.grants .gq{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.16rem}
+  ol.grants .gd{flex:none;font-size:.76rem;color:var(--faint);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  .more{margin:.75rem 0 0;font-size:.92rem}
+  .more a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.35)}
+  .more a:hover{border-bottom-color:var(--link)}
+  h2.sec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:.88rem;
+    letter-spacing:.09em;color:var(--faint);text-transform:uppercase;
+    margin:2.1rem 0 .6rem;padding-bottom:.28rem;border-bottom:1px solid var(--rule)}
+  @media(max-width:40rem){
+    ol.grants a{flex-wrap:wrap}
+    ol.grants .gd{width:100%;padding-left:4.45rem;margin-top:-.1rem}
+  }
+  ol.mostread{list-style:none;counter-reset:mr;padding:0;margin:0}
+  ol.mostread li{counter-increment:mr;border-bottom:1px solid var(--rule)}
+  ol.mostread a{display:flex;align-items:baseline;gap:.7rem;padding:.6rem .4rem;
+    text-decoration:none;color:inherit}
+  ol.mostread a:hover{background:rgba(156,14,58,.05)}
+  ol.mostread a::before{content:counter(mr);font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.95rem;color:var(--faint);min-width:1.1rem;
+    font-variant-numeric:tabular-nums}
+  ol.mostread .mc{flex:1;font-size:1rem;line-height:1.3}
+  ol.mostread .mct{display:block}
+  ol.mostread a:hover .mct{color:var(--accent);text-decoration:underline;
+    text-underline-offset:3px}
+  ol.mostread .mdk{color:var(--accent);font-weight:600;font-size:.82rem;
+    font-variant-numeric:tabular-nums;white-space:nowrap}
+  ol.mostread .mv{color:var(--faint);font-size:.85rem;font-style:italic;
+    white-space:nowrap;font-variant-numeric:tabular-nums}
+  /* Forecast percentages carry weight the most-read counts do not: the number is
+     the claim, not a footnote to the ranking. Upright, accent, tabular. */
+  ol.mostread .mv.fc{color:var(--accent);font-style:normal;font-weight:600;
+    font-size:.95rem;min-width:2.6rem;text-align:right}
+  /* Feed follow line. Deliberately quiet -- a footnote under the section list,
+     styled like .recent rather than like a call to action. */
+  .feeds{display:flex;flex-wrap:wrap;align-items:baseline;gap:.3rem .85rem;
+    margin:2.2rem 0 0;padding-top:1.1rem;border-top:1px solid var(--rule)}
+  .feeds .flabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  .feeds a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .feeds a:hover{border-color:var(--link)}
+  .back{margin-top:2rem;font-size:.95rem}
+  .back a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .back a:hover{border-color:var(--link)}
+  /* Home-page case search. */
+  .csearch{position:relative;margin:0 0 1.4rem}
+  #cq{width:100%;font-family:'Newsreader',Georgia,serif;font-size:1.05rem;color:var(--ink);
+    background:var(--panel);border:1px solid var(--rule);border-radius:3px;padding:.7rem .9rem}
+  #cq:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(156,14,58,.1)}
+  #cq::placeholder{color:var(--faint)}
+  #cq.loading{background-image:linear-gradient(90deg,transparent,rgba(156,14,58,.06),transparent);
+    background-size:40% 100%;background-repeat:no-repeat;animation:csl 1s infinite}
+  @keyframes csl{0%{background-position:-40% 0}100%{background-position:140% 0}}
+  .cres{list-style:none;margin:.35rem 0 0;padding:0;max-height:24rem;overflow-y:auto;
+    border:1px solid var(--rule);border-radius:3px;background:var(--panel)}
+  .cres:empty{display:none}
+  .cres li{border-bottom:1px solid var(--rule)}
+  .cres li:last-child{border-bottom:0}
+  .cres a{display:block;padding:.55rem .7rem;text-decoration:none;color:var(--ink);
+    font-size:.98rem;line-height:1.3}
+  .cres a:hover,.cres li.act a{background:rgba(156,14,58,.06)}
+  .cres mark{background:rgba(156,14,58,.14);color:inherit;padding:0 .05em;border-radius:2px}
+  .cres .cd{color:var(--accent);font-variant-numeric:tabular-nums;font-weight:600;
+    margin-right:.5rem;white-space:nowrap}
+  .cnone{padding:.55rem .7rem;color:var(--faint);font-style:italic}
+  .cnone a,.cqp a{color:var(--link);font-style:normal;text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .cqp{margin:.45rem 0 0;font-size:.88rem;color:var(--faint)}
+  /* /cases/ browse index: grouped sections with per-bucket counts. */
+  .csec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+    text-transform:uppercase;letter-spacing:.12em;color:var(--accent);
+    margin:2.2rem 0 .3rem;padding-bottom:.35rem;border-bottom:1px solid var(--rule);
+    display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
+  .csec .cn{font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:.85rem;
+    letter-spacing:0;text-transform:none;color:var(--faint);
+    font-variant-numeric:tabular-nums}
+  .cnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:.5rem 0 0}
+  .cnote a{color:var(--accent)}
+  ul.terms{list-style:none;padding:0;margin:1rem 0 0;display:flex;flex-wrap:wrap;
+    gap:.5rem 1.6rem}
+  ul.terms li{display:inline-flex;align-items:baseline;gap:.4rem}
+  ul.terms a{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.05rem;
+    color:var(--accent);text-decoration:none;border-bottom:1px solid var(--rule)}
+  ul.terms a:hover{border-bottom-color:var(--accent)}
+  ul.terms .cn{color:var(--faint);font-size:.85rem;font-variant-numeric:tabular-nums}
+  /* About page: running prose rather than an index, so it takes a measure and a
+     little more leading than the section rows above it. */
+  .about{margin:1.6rem 0 0;font-size:1.05rem;line-height:1.65;max-width:34rem}
+  .about p{margin:0 0 1rem}
+  .about a{color:var(--accent);text-decoration:none;
+    border-bottom:1px solid var(--rule)}
+  .about a:hover{border-bottom-color:var(--accent)}
+  .about .contact{margin:2rem 0 0;background:var(--panel);border:1px solid var(--rule);
+    border-left:4px solid var(--accent);padding:1.1rem 1.3rem}
+  .about .contact h2{font:600 .78rem/1 'Newsreader',Georgia,serif;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--accent);margin:0 0 .5rem}
+  .about .contact p{margin:0;font-size:1rem}
+
+/* ---- masthead ---- */
+.smast-in{max-width:var(--nav-max,60rem);margin:0 auto;padding:.85rem 1.5rem .5rem;
+  display:flex;align-items:baseline;justify-content:space-between;gap:1.4rem;flex-wrap:wrap}
+.smast-wm{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+  letter-spacing:.005em;color:var(--ink,#1a1a1e);text-decoration:none;white-space:nowrap;flex:none}
+.smast-wm em{font-style:italic;font-weight:500;color:var(--accent,#9c0e3a)}
+.smast-wm:hover{color:var(--accent,#9c0e3a)}
+/* Row gap first, then column. At 1.35rem the six section links measured 596px
+   of max-content -- 4px wider than the 592px row the 40rem index container
+   leaves them -- so ABOUT alone wrapped to a third line under the wordmark, on
+   every page page_style.R writes. 1.05rem brings the row to 572px: 20px of
+   slack at 40rem, and 45px on the 54rem case pages, which were themselves only
+   21px from wrapping. The .4rem row gap is for the day a seventh section
+   overruns it anyway -- a nav that wraps should read as a stack, not an orphan. */
+.snav{display:flex;gap:.4rem 1.05rem;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+.snav a{font:600 .72rem/1 'Newsreader',Georgia,serif;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--ink-soft,var(--soft,#484850));text-decoration:none;display:inline-block;
+  padding:.5rem 0;border-bottom:1.5px solid transparent}
+.snav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--rule,#dbd8d2)}
+.snav a[aria-current='page']{color:var(--accent,#9c0e3a);
+  border-bottom-color:var(--accent,#9c0e3a)}
+.smast-rule-w{max-width:var(--nav-max,60rem);margin:0 auto;padding:0 1.5rem}
+.smast-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0;position:relative}
+.smast-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.skip{position:absolute;left:-9999px;top:0;background:var(--panel,#ffffff);
+  color:var(--accent,#9c0e3a);padding:.6rem 1rem;
+  border:1px solid var(--accent,#9c0e3a);
+  font:600 .8rem/1 'Newsreader',Georgia,serif;letter-spacing:.1em;text-transform:uppercase;z-index:10}
+.skip:focus{left:.5rem;top:.5rem}
+/* ---- breadcrumb ---- */
+.bcrumb{margin:.7rem 0 0}
+.bcrumb ol{list-style:none;display:flex;flex-wrap:wrap;align-items:baseline;
+  gap:.1rem .45rem;margin:0;padding:0}
+.bcrumb li{display:inline-flex;align-items:baseline;gap:.45rem}
+.bcrumb a{font:400 .8rem/1.5 'Newsreader',Georgia,serif;color:var(--ink-soft,var(--soft,#484850));
+  text-decoration:none;border-bottom:1px solid var(--rule,#dbd8d2)}
+.bcrumb a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.bcrumb .sep{color:var(--faint,#63636b);font-size:.8rem;line-height:1.5}
+.bcrumb [aria-current='page']{font:400 .8rem/1.5 'Newsreader',Georgia,serif;
+  color:var(--faint,#63636b);font-variant-numeric:tabular-nums}
+/* ---- case footer ---- */
+.cfoot{margin:2.4rem 0 0}
+.cfoot-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0 0 1rem;position:relative}
+.cfoot-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.cfoot-off{font-size:.95rem;margin:0 0 1.1rem}
+.cfoot-off a{color:var(--link,#9c0e3a);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.4)}
+.cfoot-off a:hover{border-bottom-color:var(--link,#9c0e3a)}
+.cfoot-lab{font:600 .68rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);margin:0 0 .5rem}
+.cfoot-nav{display:flex;flex-wrap:wrap;gap:.35rem 1.1rem;list-style:none;margin:0;padding:0}
+.cfoot-nav a{font-size:.92rem;color:var(--ink-soft,var(--soft,#484850));text-decoration:none;
+  border-bottom:1px solid var(--rule,#dbd8d2);padding-bottom:1px}
+.cfoot-nav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.cfoot-stamp{margin:1.2rem 0 0;font-size:.8rem;color:var(--faint,#63636b);font-style:italic}
+/* ---- prev / next ---- */
+.pnav{margin:2.2rem 0 0;border-top:1px solid var(--rule,#dbd8d2);padding-top:1rem;
+  display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.pnav a,.pnav span.none{text-decoration:none;color:inherit;display:block;padding:.5rem .2rem}
+.pnav a:hover{background:rgba(156,14,58,.05)}
+.pnav .dir{font:600 .66rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);display:block;margin-bottom:.3rem}
+.pnav .lab{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1rem;line-height:1.25;
+  color:var(--accent,#9c0e3a);display:block}
+.pnav a:hover .lab{text-decoration:underline;text-underline-offset:3px}
+.pnav .nx{text-align:right}
+.pnav .none{opacity:.35}
+@media(max-width:640px){
+  .smast-in{padding:.7rem 1.1rem .25rem;gap:.15rem}
+  .smast-wm{font-size:.98rem}
+  .smast-in nav{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+    -webkit-mask-image:linear-gradient(90deg,#000 86%,transparent);
+    mask-image:linear-gradient(90deg,#000 86%,transparent)}
+  .smast-in nav::-webkit-scrollbar{display:none}
+  .snav{flex-wrap:nowrap;gap:1.15rem;padding-right:2.4rem}
+  .snav a{padding:.7rem 0;white-space:nowrap}
+  .smast-rule-w{padding:0 1.1rem}
+  .cfoot-nav{gap:.5rem 1rem}
+  .cfoot-nav a{padding-bottom:.3rem}
+  .pnav{grid-template-columns:1fr;gap:.2rem}
+  .pnav .nx{text-align:left;border-top:1px solid var(--rule,#dbd8d2)}
+}
+
+  .wrap.opn{max-width:42rem}
+  .opn .ometa{font-size:.92rem;color:var(--ink-soft);margin:.3rem 0 0}
+  .opn .oget{display:flex;flex-wrap:wrap;gap:.4rem .6rem;margin:1.1rem 0 0;padding:0;list-style:none;font-size:.9rem}
+  .opn .oget a{display:inline-block;padding:.32rem .7rem;border:1px solid var(--rule);border-radius:4px;color:var(--ink);text-decoration:none;background:var(--panel)}
+  .opn .oget a:hover{border-color:var(--accent);color:var(--accent)}
+  .opn .osrc{font-size:.84rem;color:var(--faint);margin:.9rem 0 0;line-height:1.45}
+  .opn .osrc a{color:var(--link)}
+  .opn .otoc{margin:1.6rem 0 0;padding:.8rem 1rem;border:1px solid var(--rule);border-radius:4px;background:var(--panel);font-size:.95rem}
+  .opn .otoc ol{margin:0;padding:0;list-style:none}
+  .opn .otoc li{margin:.25rem 0}
+  .opn .otoc a{color:var(--ink);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.35)}
+  .opn .otoc a:hover{color:var(--accent)}
+  .opn section.op{margin-top:3rem;border-top:2px solid var(--ink);padding-top:1.1rem}
+  .opn section.op h2{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.5rem;line-height:1.2;margin:0 0 1rem;color:var(--ink)}
+  .opn section.op p{margin:0 0 .95rem;line-height:1.62;hyphens:auto;overflow-wrap:break-word}
+  .opn section.op p.byline{color:var(--ink-soft);font-style:italic}
+  .opn section.op p.sep{text-align:center;letter-spacing:.3em;color:var(--faint);margin:1.6rem 0}
+  .opn section.op h3.oh{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.12rem;text-align:center;margin:2rem 0 1rem;color:var(--ink)}
+  .opn section.op blockquote{margin:0 0 .95rem;padding:0 0 0 1.1rem;border-left:2px solid var(--rule);color:var(--ink-soft)}
+  .opn section.op blockquote p{margin-bottom:.6rem;font-size:.96em}
+  .opn .sc{font-variant-caps:small-caps;letter-spacing:.02em}
+  .opn .pg{font-size:.66em;color:var(--faint);vertical-align:.3em;margin:0 .3em 0 .1em;font-variant-numeric:tabular-nums;user-select:none;white-space:nowrap}
+  .opn .pg::before{content:'*'}
+  .opn sup.fnr{font-size:.68em;line-height:0;margin-left:.05em}
+  .opn sup.fnr a{color:var(--link);text-decoration:none;padding:0 .1em}
+  .opn aside.notes{margin-top:2rem;border-top:1px solid var(--rule);padding-top:.8rem;font-size:.88rem;color:var(--ink-soft)}
+  .opn aside.notes h3{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1rem;margin:0 0 .6rem;color:var(--ink)}
+  .opn aside.notes ol{margin:0;padding-left:1.7rem}
+  .opn aside.notes li{margin:0 0 .55rem}
+  .opn aside.notes li.sym{list-style:none;margin-left:-1.7rem}
+  .opn aside.notes li.sym .mk{margin-right:.3rem}
+  .opn aside.notes li.sym p{display:inline}
+  .opn aside.notes p{margin:0 0 .4rem;line-height:1.5}
+  .opn aside.notes a.back{color:var(--link);text-decoration:none;margin-left:.2rem}
+  .opn aside.notes li:target,.opn sup.fnr a:target,.opn .pg:target{background:rgba(156,14,58,.12);outline:.2rem solid rgba(156,14,58,.12)}
+  .opn section.op,.opn aside.notes li,.opn sup.fnr a{scroll-margin-top:1rem}
+  .opn section.op-syllabus p,.opn section.op-counsel p{font-size:.95em}
+  .opn section.op-counsel summary{cursor:pointer;font-family:'Fraunces',Georgia,serif;font-size:1.05rem;color:var(--ink-soft)}
+  .opn .osyl{font-size:.84rem;color:var(--faint);font-style:italic;margin:-.5rem 0 1rem}
+  .opn p.back{margin-top:3rem;font-size:.92rem}
+  @media print{.smast,.bcrumb,.opn .oget,.opn .otoc,.opn p.back{display:none}.opn section.op{break-before:page}}
+</style><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://supremecourt.report/"},{"@type":"ListItem","position":2,"name":"Opinions","item":"https://supremecourt.report/opinions/"},{"@type":"ListItem","position":3,"name":"Ritzen Group, Inc. v. Jackson Masonry, LLC"}]}</script><meta name='otv' content='p1'><link rel='alternate' type='text/markdown' href='/opinions/2019/18-938.md'><link rel='alternate' type='application/epub+zip' href='/opinions/2019/18-938.epub'></head><body><a class='skip' href='#main'>Skip to content</a><header><div class='smast-in'><a class='smast-wm' href='/'>Supreme Court <em>Report</em></a><nav aria-label='Sections'><ul class='snav'><li><a href='/dashboards/'>Docket</a></li><li><a href='/conferences/'>Conferences</a></li><li><a href='/relists/'>Relists</a></li><li><a href='/applications/'>Interim</a></li><li><a href='/arguments/'>Arguments</a></li><li><a href='/justices/' aria-current='page'>Justices</a></li><li><a href='/counsel/'>Counsel</a></li><li><a href='/funnel/'>Funnel</a></li><li><a href='/methods.html'>Model</a></li><li><a href='/about.html'>About</a></li></ul></nav></div><div class='smast-rule-w'><hr class='smast-rule'></div></header><main class='wrap opn' id='main' data-dkt='18-938'><nav class='bcrumb' aria-label='Breadcrumb'><ol><li><a href='/'>Home</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><a href='/opinions/'>Opinions</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><span aria-current='page'>Ritzen Group, Inc. v. Jackson Masonry, LLC</span></li></ol></nav><p class='kicker'>No. 18-938 · decided January 14, 2020 · 589 U. S. 35</p><h1 style='font-size:clamp(1.7rem,4.6vw,2.4rem);line-height:1.12'>Ritzen Group, Inc. v. Jackson Masonry, LLC</h1><p class='ometa'>No separate writings.</p><ul class='oget'><li><a href='/opinions/2019/18-938.epub' download>EPUB</a></li><li><a href='/opinions/2019/18-938.md' download>Markdown</a></li><li><a href='https://www.supremecourt.gov/opinions/preliminaryprint/589US1PP_Web.pdf#page=76' rel='noopener'>The Court’s PDF</a></li><li><a href='/cases/18-938.html'>The docket</a></li></ul><p class='osrc'>Set from the PDF the Court published, which is the authoritative text. The small starred numbers are that PDF’s page numbers. A conversion can introduce errors; check a quotation against the <a href='https://www.supremecourt.gov/opinions/preliminaryprint/589US1PP_Web.pdf#page=76' rel='noopener'>original</a>.</p><nav class="otoc" aria-label="Contents"><ol>
+<li><a href="#s1">Syllabus</a></li>
+<li><a href="#s2">Counsel</a></li>
+<li><a href="#s3">Opinion of the Court</a></li>
+</ol></nav>
+<section id="s1" class="op op-syllabus"><h2>Syllabus</h2><p class='osyl'>Prepared by the Reporter of Decisions for the convenience of the reader; it is no part of the opinion of the Court.</p>
+<p>An appeal of right lies from “final judgments, orders, and decrees” entered</p>
+<p>by bankruptcy courts “in cases and proceedings.” 28 U. S. C. § 158(a). Bankruptcy court orders are considered final and immediately appealable if they “dispose of discrete disputes within the larger [bankruptcy] case.” <em>Bullard</em> v. <em>Blue Hills Bank</em>, 575 U. S. 496, 501.</p>
+<p>Ritzen Group, Inc. (Ritzen) sued Jackson Masonry, LLC (Jackson) in Tennessee state court for breach of a land-sale contract. Jackson filed for bankruptcy under Chapter 11 of the Bankruptcy Code. The state-court litigation was put on hold by operation of 11 U. S. C. § 362(a), which provides that filing a bankruptcy petition automatically “operates as a stay” of creditors' debt-collection efforts outside the umbrella of the bankruptcy case. The Bankruptcy Court denied Ritzen's motion for relief from the automatic stay filed pursuant to § 362(d). Ritzen did not appeal that disposition. Instead, its next step was to file a proof of claim against the bankruptcy estate. The Bankruptcy Court subsequently disallowed Ritzen's claim and confirmed Jackson's plan of reorganization. Ritzen then filed a notice of appeal in the District Court, challenging the Bankruptcy Court's order denying relief from the automatic stay. The District Court rejected Ritzen's appeal as untimely under 28 U. S. C. § 158(c)(2) and Federal Rule of Bankruptcy Procedure 8002(a), which require appeals from a bankruptcy court order to be filed “within 14 days after entry of [that] order.” The Sixth Circuit affirmed, concluding that the order denying Ritzen's motion to lift the stay was final under § 158(a), and that the 14-day appeal clock therefore ran from entry of that order.</p>
+<p><em>Held</em>: A bankruptcy court's order unreservedly denying relief from the automatic stay constitutes a final, immediately appealable order under § 158(a). Pp. 41–48.</p>
+<p>(a) This Court's application of § 158(a)'s finality requirement is guided by the opinion in <em>Bullard</em> v. <em>Blue Hills Bank</em>, 575 U. S. 496. Addressing repayment plan confirmations under Chapter 13, the Court held in <em>Bullard</em> that a bankruptcy court's order rejecting a proposed plan was not final because it did not conclusively resolve the relevant “proceeding.” Rather, the proceeding would continue until approval of a plan. <em>Id.</em>, at 502. Pp. 41–42.</p>
+<p><span class="pg" id="s1-p36" title="page 36 of the original">36</span>(b) In applying <em>Bullard</em>'s analysis here, the key inquiry is “how to define the immediately appealable `proceeding' in the context of [stay-relief motions].” 575 U. S., at 502. Adjudication of a creditor's motion for relief from the stay is properly considered a discrete “proceeding.” A bankruptcy court's order ruling on a stay-relief motion disposes of a procedural unit anterior to, and separate from, claim-resolution proceedings. It occurs before and apart from proceedings on the merits of creditors' claims. And its resolution forms no part of the adversary claims-adjudication process, proceedings typically governed by state substantive law. Relief from bankruptcy's automatic stay thus presents a discrete dispute qualifying as an independent “proceeding” within the meaning of § 158(a). <em>Id.</em>, at 502–505. Pp. 42–44.</p>
+<p>(c) Ritzen incorrectly characterizes denial of stay relief as determining nothing more than the forum for claim adjudication and thus a preliminary step in the claims-adjudication process. Resolution of a stay-relief motion can have large practical consequences, however, including whether a creditor can isolate its claim from those of other creditors and go it alone outside bankruptcy or the manner in which adversary claims will be adjudicated. Moreover, bankruptcy's automatic stay stops even nonjudicial efforts to obtain or control the debtor's assets, matters that often do not concern the forum for, and cannot be considered part of, any subsequent claim adjudication. Ritzen errs in arguing that the order should nonetheless rank as nonfinal where, as here, the bankruptcy court's decision turns on a substantive issue that may be raised later in the litigation. Section 158(a) asks whether the order in question terminates a procedural unit separate from the remaining case, not whether the bankruptcy court has preclusively resolved a substantive issue. Finally, rather than disrupting the efficiency of the bankruptcy process, immediate appeal may permit creditors to establish their rights expeditiously outside the bankruptcy process, affecting the relief sought and awarded later in the bankruptcy case. Pp. 44–47.</p>
+<p>906 F. 3d 494, affirmed.</p>
+<p><span class="sc">Ginsburg, J.,</span> delivered the opinion for a unanimous Court.</p></section>
+<section id="s2" class="op op-counsel"><details><summary>Counsel</summary><p><em>James K. Lehman</em> argued the cause for petitioner. With him on the briefs were <em>Shane G. Ramsey, James A. Haltom, John T. Baxter, A. Mattison Bogan, William C. Wood, Jr.,</em> and <em>G. Eric Brunstad, Jr.</em></p>
+<p><em>Griffin S. Dunham</em> argued the cause for respondent. With him on the brief were <em>Henry E. Hildebrand IV</em> and <em>Jeffrey T. Green.</em></p>
+<p><span class="pg" id="s2-p37" title="page 37 of the original">37</span><em>Vivek Suri</em> argued the cause for the United States as <em>amicus curiae</em> urging affirmance. With him on the brief were <em>Solicitor General Francisco, Assistant Attorney General Hunt, Deputy Solicitor General Stewart,</em> and <em>Mark B. Stern</em>.*</p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li class="sym" value="0"><span class="mk">*</span><p><em>Craig Goldblatt, Danielle Spinelli, Joel Millar, Ari Savitzky, Henry J. Sommer,</em> and <em>Tara Twomey</em> filed a brief for the National Association of Consumer Bankruptcy Attorneys as <em>amicus curiae</em> urging affirmance.</p></li>
+</ol></aside></details></section>
+<section id="s3" class="op op-court"><h2>Opinion of the Court</h2>
+<p class="byline">Justice Ginsburg delivered the opinion of the Court.</p>
+<p>Under the Bankruptcy Code, filing a petition for bankruptcy automatically “operates as a stay” of creditors' debt-collection efforts outside the umbrella of the bankruptcy case. 11 U. S. C. § 362(a). The question this case presents concerns the finality of, and therefore the time allowed for appeal from, a bankruptcy court's order denying a creditor's request for relief from the automatic stay. In civil litigation generally, a court's decision ordinarily becomes “final,” for purposes of appeal, only upon completion of the entire case, <em>i. e.</em>, when the decision “terminate[s the] action” or “ends the litigation on the merits and leaves nothing for the court to do but execute the judgment.” <em>Gelboim</em> v. <em>Bank of America Corp.</em>, 574 U. S. 405, 409 (2015) (internal quotation marks omitted). The regime in bankruptcy is different. A bankruptcy case embraces “an aggregation of individual controversies.” 1 Collier on Bankruptcy ¶5.08[1][b], p. 5–43 (16th ed. 2019). Orders in bankruptcy cases qualify as “final” when they definitively dispose of discrete disputes within the overarching bankruptcy case. <em>Bullard</em> v. <em>Blue Hills Bank</em>, 575 U. S. 496, 501 (2015).</p>
+<p>The precise issue the Court today decides: Does a creditor's motion for relief from the automatic stay initiate a distinct proceeding terminating in a final, appealable order when the bankruptcy court rules dispositively on the motion? In agreement with the courts below, our answer is “yes.” We hold that the adjudication of a motion for relief <span class="pg" id="s3-p38" title="page 38 of the original">38</span>from the automatic stay forms a discrete procedural unit within the embracive bankruptcy case. That unit yields a final, appealable order when the bankruptcy court unreservedly grants or denies relief.</p>
+<h3 class="oh">I</h3>
+<p>In civil litigation generally, 28 U. S. C. § 1291 governs appeals from “final decisions.” Under that provision, a party may appeal to a court of appeals as of right from “final decisions of the district courts.” <em>Ibid.</em> A “final decision” within the meaning of § 1291 is normally limited to an order that resolves the entire case. Accordingly, the appellant must raise all claims of error in a single appeal. See <em>In re Saco Local Development Corp.</em>, 711 F. 2d 441, 443 (CA1 1983) (Breyer, J.) (“Traditionally, every civil action in a federal court has been viewed as a `single judicial unit,' from which only one appeal would lie.”). This understanding of the term “final decision” precludes “piecemeal, prejudgment appeals” that would “undermin[e] efficient judicial administration and encroac[h] upon the prerogatives of district court judges.” <em>Bullard</em>, 575 U. S., at 501 (quoting <em>Mohawk Industries, Inc.</em> v. <em>Carpenter</em>, 558 U. S. 100, 106 (2009); internal quotation marks omitted).</p>
+<p>The ordinary understanding of “final decision” is not attuned to the distinctive character of bankruptcy litigation. A bankruptcy case encompasses numerous “individual controversies, many of which would exist as stand-alone lawsuits but for the bankrupt status of the debtor.” <em>Bullard</em>, 575 U. S., at 501 (internal quotation marks omitted). It is thus common for bankruptcy courts to resolve discrete controversies definitively while the umbrella bankruptcy case remains pending. Delaying appeals from discrete, controversy-resolving decisions in bankruptcy cases would long postpone appellate review of fully adjudicated disputes. Moreover, controversies adjudicated during the life of a bankruptcy case may be linked, one dependent on the outcome<span class="pg" id="s3-p39" title="page 39 of the original">39</span> of another. Delaying appeal until the termination of the entire bankruptcy case, therefore, could have this untoward consequence: Reversal of a decision made early on could require the bankruptcy court to unravel later adjudications rendered in reliance on an earlier decision.</p>
+<p>The provision on appeals to U. S. district courts from decisions of bankruptcy courts is 28 U. S. C. § 158(a). Under that provision, an appeal of right lies from “final judgments, orders, and decrees” entered by bankruptcy courts “in cases and proceedings.” <em>Ibid.</em> By providing for appeals from final decisions in bankruptcy “proceedings,” as distinguished from bankruptcy “cases,” Congress made “orders in bankruptcy cases . . . immediately appeal[able] if they finally dispose of discrete disputes within the larger [bankruptcy] case.” <em>Bullard</em>, 575 U. S., at 501 (quoting <em>Howard Delivery Service, Inc.</em> v. <em>Zurich American Ins. Co.</em>, 547 U. S. 651, 657, n. 3 (2006)); see <em>In re Saco Local Development Corp.</em>, 711 F. 2d, at 444–447. In short, “the usual judicial unit for analyzing finality in ordinary civil litigation is the case, [but] in bankruptcy[,] it is [often] the proceeding.” Brief for United States as <em>Amicus Curiae</em> 10.</p>
+<p>Correct delineation of the dimensions of a bankruptcy “proceeding” is a matter of considerable importance. An erroneous identification of an interlocutory order as a final decision may yield an appeal over which the appellate forum lacks jurisdiction. Conversely, an erroneous identification of a final order as interlocutory may cause a party to miss the appellate deadline.</p>
+<h3 class="oh">II</h3>
+<p>The dispute at hand involves a contract in which Ritzen Group, Inc. (Ritzen) agreed to buy land in Nashville, Tennessee from Jackson Masonry, LLC (Jackson). The land sale was never effected. Blaming Jackson for the deal's unraveling, Ritzen sued for breach of contract in Tennessee state court. After over a year of litigation, just days before trial was to begin, Jackson filed for bankruptcy under Chapter 11 <span class="pg" id="s3-p40" title="page 40 of the original">40</span>of the Bankruptcy Code. By operation of the Bankruptcy Code's automatic stay provision, 11 U. S. C. § 362(a), the state-court litigation was put on hold.</p>
+<p>Ritzen filed a motion in the Federal Bankruptcy Court for relief from the automatic stay, seeking an order allowing the trial to proceed in state court. Ritzen argued that relief would promote judicial economy and that Jackson had filed for bankruptcy in bad faith. After a hearing, the Bankruptcy Court denied the motion. The Bankruptcy Code and Federal Rules of Bankruptcy Procedure require parties to appeal from a final order “within 14 days after entry of the . . . order . . . being appealed.” 28 U. S. C. § 158(c)(2); Fed. Rule Bkrtcy. Proc. 8002(a). Ritzen did not appeal from the order refusing to lift the stay within the prescribed period.</p>
+<p>In pursuit of the breach-of-contract claim initially commenced in state court, Ritzen filed a proof of claim against the bankruptcy estate. Following an adversary proceeding, the Bankruptcy Court found that Ritzen, not Jackson, was the party in breach of the land-sale contract because Ritzen failed to secure financing by the closing date. The court therefore disallowed Ritzen's claim against the bankruptcy estate. Without objection from Ritzen, the court confirmed Jackson's plan of reorganization. The plan permanently enjoined all creditors from the “commencement or continuation of any . . . proceeding against [d]ebtor . . . on account of [c]laims against [d]ebtor.” Debtor's Plan of Reorganization in No. 3:16–bk–02065 (MD Tenn.), p. 15.</p>
+<p>Thereafter, Ritzen filed two separate notices of appeal in the District Court for the Middle District of Tennessee. First, Ritzen challenged the Bankruptcy Court's order denying relief from the automatic stay. Second, Ritzen challenged the court's resolution of its breach-of-contract claim.</p>
+<p>The District Court rejected the first of Ritzen's appeals as untimely, holding that under § 158(c)(2) and Federal Rule of Bankruptcy Procedure 8002(a), time to appeal expired 14 days after the Bankruptcy Court's entry of the order denying<span class="pg" id="s3-p41" title="page 41 of the original">41</span> relief from the automatic stay. Turning to the appeal from the Bankruptcy Court's rejection of Ritzen's breach-ofcontract claim, the District Court ruled against Ritzen on the merits.</p>
+<p>On further appeal, the Court of Appeals for the Sixth Circuit affirmed the District Court's dispositions. As to the timeliness of the first notice of appeal, the Court of Appeals rendered this determination: Adjudication of Ritzen's motion for relief from the automatic stay qualified as a discrete “proceeding,” commencing with the filing of the motion, followed by procedural steps, and culminating in a “[dispositive] decision based on the application of a legal standard.” <em>In re Jackson Masonry</em>, <em>LLC</em>, 906 F. 3d 494, 499–500 (2018).<sup class="fnr"><a id="s3-r1" href="#s3-n1">1</a></sup>The 14-day appeal clock, the Court of Appeals therefore concluded, ran from the order denying the motion to lift the stay, a disposition “(1) entered in a proceeding and (2) final[ly] terminating that proceeding.” <em>Id.,</em> at 499 (alterations omitted).</p>
+<p>We granted certiorari to resolve whether orders denying relief from bankruptcy's automatic stay are final, therefore immediately appealable under § 158(a)(1). 587 U. S. 1014 (2019).</p>
+<h3 class="oh">III</h3>
+<h3 class="oh">A</h3>
+<p>This Court's opinion in <em>Bullard</em> v. <em>Blue Hills Bank</em>, 575 U. S. 496, guides our application of § 158(a)'s finality requirement. Addressing repayment plan confirmations under Chapter 13, we held in <em>Bullard</em> that a bankruptcy court's order rejecting a proposed plan was not “final” under §158(a) because it did not conclusively resolve the relevant “proceeding.”<span class="pg" id="s3-p42" title="page 42 of the original">42</span> <em>Id.,</em> at 499, 502–503. The plan-confirmation process, the <em>Bullard</em> opinion explains, involves back and forth negotiations. See <em>id.,</em> at 502. Plan proposal rejections may be followed by amended or new proposals. Only plan approval, we observed, “alters the status quo and fixes the rights and obligations of the parties.” <em>Ibid</em>. “Denial of confirmation with leave to amend,” by contrast, leaves the “parties' rights and obligations . . . unsettled,” and therefore cannot be typed “final.” <em>Id.</em>, at 503. The appropriate procedural unit for determining finality, we concluded, is not a plan proposal, it is “the process of attempting to arrive at an approved plan.” <em>Id.</em>, at 502.</p>
+<h3 class="oh">B</h3>
+<p>We take up next the application of <em>Bullard</em>'s analysis to a bankruptcy court's order denying relief from the automatic stay. As earlier stated, see <em>supra,</em> at 37, under the Bankruptcy Code, the filing of a bankruptcy petition automatically halts efforts to collect prepetition debts from the bankrupt debtor outside the bankruptcy forum. 11 U. S. C. § 362(a). The stay serves to “maintai[n] the status quo and preven[t] dismemberment of the estate” during the pendency of the bankruptcy case. 1 Collier ¶1.05[1], p. 1–19; 3 <em>id.</em>, ¶362.03, p. 362–23. Among other things, the stay bars commencement or continuation of lawsuits to recover from the debtor, enforcement of liens or judgments against the debtor, and exercise of control over the debtor's property. § 362(a).</p>
+<p>A creditor may seek relief from the stay by filing in the bankruptcy court a motion for an order “terminating, annulling, modifying, or conditioning” the stay, asserting in support of the motion either “cause” or the presence of specified conditions. § 362(d). A majority of circuits and the leading treatises regard orders denying such motions as final, immediately appealable decisions.<sup class="fnr"><a id="s3-r2" href="#s3-n2">2</a></sup>We reach the same conclusion.</p>
+<p><span class="pg" id="s3-p43" title="page 43 of the original">43</span><em>Bullard</em> instructs that we inquire “how to define the immediately appealable `proceeding' in the context of [stay-relief motions].” 575 U. S., at 502. Jackson urges that, as the Court of Appeals held, adjudication of a stay-relief motion is a discrete “proceeding.” Ritzen urges that stay-relief adjudication is properly considered a first step in the process of adjudicating a creditor's claim against the estate.</p>
+<p>We agree with the Court of Appeals and Jackson that the appropriate “proceeding” is the stay-relief adjudication. A bankruptcy court's order ruling on a stay-relief motion disposes of a procedural unit anterior to, and separate from, claim-resolution proceedings. Adjudication of a stay-relief motion, as just observed, occurs before and apart from proceedings on the merits of creditors' claims: The motion initiates a discrete procedural sequence, including notice and a hearing, and the creditor's qualification for relief turns on the statutory standard, <em>i. e.,</em> “cause” or the presence of specified conditions. § 362(d), (e); Fed. Rules Bkrtcy. Proc. 4001(a)(1) and (2), 9014 (describing procedure for adjudicating motions for relief from automatic stay). Resolution of stay-relief motions does not occur as part of the adversary claims-adjudication process, proceedings typically governed by state substantive law. See <em>Butner</em> v. <em>United States</em>, 440 U. S. 48, 54–55 (1979). Under <em>Bullard,</em> a discrete dispute of <span class="pg" id="s3-p44" title="page 44 of the original">44</span>this kind constitutes an independent “proceeding” within the meaning of 28 U. S. C. § 158(a). 575 U. S., at 502–505.</p>
+<p>Our conclusion that the relevant “proceeding” is the stay-relief adjudication is consistent with statutory text. See <em>id.</em>, at 503. A provision neighboring § 158(a), § 157(b)(2)(G), types motions to terminate, annul, or modify the automatic stay as “core proceedings” arising in a bankruptcy case. Section 157(b)(2) lists those motions separately from the “allowance or disallowance of claims against the estate.” § 157(b)(2)(B), (G). Although the discrete “core proceedings” listings “hardly clinc[h] the matter,” as the “provision's purpose is not to explain appealability,” they are a “textual clue” that Congress viewed adjudication of stay-relief motions as “proceedings” distinct from claim adjudication. <em>Bullard</em>, 575 U. S., at 503.</p>
+<h3 class="oh">C</h3>
+<p>In Ritzen's view, the position Jackson advances and we adopt “slic[es] the case too thin.” <em>Id.</em>, at 502. Ritzen asserts that an order denying stay relief simply decides the forum for adjudication of adversary claims—bankruptcy court or state court—and therefore should be treated as merely a preliminary step in the claims-adjudication process. Brief for Petitioner 19–21, 26–28.</p>
+<p>Courts, we agree, should not define “proceeding” to include disputes over minor details about how a bankruptcy case will unfold. As we put it in <em>Bullard</em>, “[t]he concept of finality cannot stretch to cover, for example, an order resolving a disputed request for an extension of time.” 575 U. S., at 505.</p>
+<p>But Ritzen incorrectly characterizes denial of stay relief as determining nothing more than the forum for claim adjudication. Resolution of a motion for stay relief can have large practical consequences. See 3 Collier ¶362.03, pp. 362–23 to 362–24. Disposition of the motion determines whether a creditor can isolate its claim from those of other <span class="pg" id="s3-p45" title="page 45 of the original">45</span>creditors and go it alone outside bankruptcy. It can also affect the manner in which adversary claims will be adjudicated. See 11 U. S. C. § 502 (permitting summary adjudication or estimation of amounts due in bankruptcy claims adjudication). These are not matters of minor detail; they can significantly increase creditors' costs. Leaving the stay in place may, <em>inter alia</em>, delay collection of a debt or cause collateral to decline in value. See Brief for United States as <em>Amicus Curiae</em> 14.</p>
+<p>Ruling on a motion for stay relief, it is true, will determine where the adjudication of an adversary claim will take place—in the bankruptcy forum or state court. But that effect does not render a ruling nonfinal. Orders denying a plaintiff the opportunity to seek relief in its preferred forum often qualify as final and immediately appealable, though they leave the plaintiff free to sue elsewhere. Notably, dismissal for want of personal jurisdiction ranks as a final decision. See <em>Daimler AG</em> v. <em>Bauman</em>, 571 U. S. 117, 124–125 (2014). So too, dismissal for improper venue, or under the doctrine of <em>forum non conveniens</em>. See <em>United States</em> v. <em>Wallace &amp; Tiernan Co.</em>, 336 U. S. 793, 794–795, n. 1 (1949); 15A C. Wright, A. Miller, &amp; E. Cooper, Federal Practice and Procedure §§ 3914.6, 3914.12 (2d ed. 1992 and Supp. 2019) (collecting cases on appealability of dismissal without prejudice to filing in another forum).<sup class="fnr"><a id="s3-r3" href="#s3-n3">3</a></sup></p>
+<p>Ritzen's position encounters a further shoal: Many motions to lift the automatic stay do not involve adversary claims against the debtor that would be pursued in another forum but for bankruptcy. Bankruptcy's embracive automatic stay stops even nonjudicial efforts to obtain or control the debtor's assets. See § 362(a). Motions for stay relief may, for <span class="pg" id="s3-p46" title="page 46 of the original">46</span>example, seek permission to repossess or liquidate collateral, to terminate a lease, or to set off debts. <em>Ibid.</em> These matters do not concern the forum for, and cannot be considered part of, any subsequent claim adjudication. See Brief for National Association of Consumer Bankruptcy Attorneys as <em>Amicus Curiae</em> 23–24. We see no good reason to treat stay adjudication as the relevant “proceeding” in only a subset of cases. As we have held in another context, “the issue of appealability” should “be determined for the entire category to which a claim belongs.” <em>Digital Equipment Corp.</em> v. <em>Desktop Direct, Inc.</em>, 511 U. S. 863, 868 (1994) (addressing collateral order doctrine).</p>
+<p>Ritzen alternatively argues that, even if an order denying stay relief is not part of the claims-adjudication process, the order should nonetheless rank as nonfinal where, as here, the bankruptcy court's decision turns on a substantive issue that may be raised later in the litigation. Brief for Petitioner 45. Specifically, Ritzen stresses that it based its stay-relief motion largely on an argument that Jackson filed for bankruptcy in bad faith, an issue that could have been urged again later in the bankruptcy case. <em>Ibid.</em></p>
+<p>That argument is misaddressed. Section 158(a) asks whether the order in question terminates a procedural unit separate from the remaining case, not whether the bankruptcy court has preclusively resolved a substantive issue. It does not matter whether the court rested its decision on a determination potentially pertinent to other disputes in the bankruptcy case, so long as the order conclusively resolved the movant's entitlement to the requested relief.</p>
+<p>Finally, Ritzen protests that the rule we adopt will encourage piecemeal appeals and unduly disrupt the efficiency of the bankruptcy process. <em>Id.</em>, at 48–52. As we see it, classifying as final all orders conclusively resolving stay-relief motions will avoid, rather than cause, “delays and inefficiencies.” <em>Bullard</em>, 575 U. S., at 504. Immediate appeal, if <span class="pg" id="s3-p47" title="page 47 of the original">47</span>successful, will permit creditors to establish their rights expeditiously outside the bankruptcy process, affecting the relief sought and awarded later in the bankruptcy case. The rule Ritzen urges “would force creditors who lose stay-relief motions to fully litigate their claims in bankruptcy court and then, after the bankruptcy case is over, appeal and seek to redo the litigation all over again in the original court.” 906 F. 3d, at 503.</p>
+<p>This case is illustrative. After the Bankruptcy Court denied Ritzen's motion for relief from the automatic stay, Ritzen filed a claim against Jackson in the Bankruptcy Court. The parties and court expended substantial resources definitively litigating the dueling breach-of-contract allegations, and Ritzen lost. The Bankruptcy Court thereafter considered and confirmed Jackson's reorganization plan. By endeavoring now to appeal the stay-relief order, after forgoing an appeal directly after the denial, Ritzen seeks to return to square one. Its aim, to relitigate the opposing contract claims in state court. Nevermind that the Bankruptcy Court has fully adjudicated the contract claims and has, without objection from Ritzen, approved Jackson's reorganization plan. The second bite Ritzen seeks scarcely advances the finality principle.</p>
+<h3 class="oh">IV</h3>
+<p>Because the appropriate “proceeding” in this case is the adjudication of the motion for relief from the automatic stay, the Bankruptcy Court's order conclusively denying that motion is “final.” The court's order ended the stay-relief adjudication and left nothing more for the Bankruptcy Court to do in that proceeding.<sup class="fnr"><a id="s3-r4" href="#s3-n4">4</a></sup>The Court of Appeals therefore correctly ranked the order as final and immediately appealable, <span class="pg" id="s3-p48" title="page 48 of the original">48</span>and correctly affirmed the District Court's dismissal of Ritzen's appeal as untimely.</p>
+<p class="sep">* * *</p>
+<p>For the reasons stated, the judgment of the Court of Appeals is</p>
+<blockquote>
+<p><em>Affirmed.</em></p>
+</blockquote>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li id="s3-n1" value="1"><p>The “procedural steps” included Ritzen's provision of notice to Jackson and the Bankruptcy Court's conduct of a hearing at which the parties presented witness testimony and other evidence. App. to Pet. for Cert. 48a. The question under the “applicable legal standard”: Did Ritzen establish “cause” to permit the state-court litigation to proceed. See <em>id.,</em> at 52a–67a; 11 U. S. C. § 362(d)(1). <a class="back" href="#s3-r1" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n2" value="2"><p>See, <em>e. g.</em>, <em>Rajala</em> v. <em>Gardner</em>, 709 F. 3d 1031, 1034 (CA10 2013); <em>In re Excel Innovations, Inc.</em>, 502 F. 3d 1086, 1092 (CA9 2007); <em>In re James Wilson Assocs.,</em> 965 F. 2d 160, 166 (CA7 1992); <em>In re Sonnax Industries, Inc.</em>, 907 F. 2d 1280, 1284–1285 (CA2 1990); <em>In re Lieb</em>, 915 F. 2d 180, 185, n. 3 (CA5 1990); <em>Grundy Nat. Bank</em> v. <em>Tandem Mining Corp.</em>, 754 F. 2d 1436, 1439 (CA4 1985), overruled in part on other grounds by <em>United Sav. Assn. of Tex.</em> v. <em>Timbers of Inwood Forest Associates, Ltd.</em>, 484 U. S. 365 (1988); <em>In re American Mariner Industries, Inc.</em>, 734 F. 2d 426, 429 (CA9 1984), overruled in part on other grounds by <em>Timbers of Inwood Forest Associates, Ltd.</em>, 484 U. S. 365; <em>In re Leimer</em>, 724 F. 2d 744, 745 (CA8 1984); 16 C. Wright, A. Miller, &amp; E. Cooper, Federal Practice and Procedure § 3926.2, p. 352, and nn. 39–40 (3d ed. 2012 and Supp. 2019) (“Automatic-stay rulings by a bankruptcy judge or appellate panel should be appealable as final decisions.”). See also 1 Collier on Bankruptcy ¶5.09, pp. 5–55 to 5–57 (16th ed. 2019). <a class="back" href="#s3-r2" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n3" value="3"><p>We note, however, that within the federal court system, when venue is laid in the wrong district, or when the plaintiff chooses an inconvenient forum, transfer rather than dismissal is ordinarily ordered if “in the interest of justice.” 28 U. S. C. §§ 1404(a), 1406(a). <a class="back" href="#s3-r3" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n4" value="4"><p>We do not decide whether finality would attach to an order denying stay relief if the bankruptcy court enters it “without prejudice” because further developments might change the stay calculus. Nothing in the record before us suggests that this is such an order. <a class="back" href="#s3-r4" aria-label="Back to the text">↩</a></p></li>
+</ol></aside></section><p class='back'><a href='/opinions/'>&larr; All opinions</a> · <a href='/justices/ot2019.html'>The Justices, October Term 2019 &rarr;</a></p></main></body>
+</html>
+

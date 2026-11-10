@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script async src='/analytics.js'></script><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate icon" href="/favicon.ico" sizes="any"><link rel="alternate" type="application/atom+xml" title="Supreme Court Report" href="/feed.xml"><link rel="alternate" type="application/atom+xml" title="Certiorari grants" href="/grants.xml"><title>Chiafalo v. Washington — Opinion — Supreme Court Report</title><meta name="description" content="The opinion in Chiafalo v. Washington (No. 19-465), decided July 6, 2020: the full text with its footnotes, as a page, a Markdown file and an EPUB."><link rel="canonical" href="https://supremecourt.report/opinions/2019/19-465.html"><meta property="og:site_name" content="Supreme Court Report"><meta property="og:type" content="article"><meta property="og:title" content="Chiafalo v. Washington — Opinion — Supreme Court Report"><meta property="og:description" content="The opinion in Chiafalo v. Washington (No. 19-465), decided July 6, 2020: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta property="og:url" content="https://supremecourt.report/opinions/2019/19-465.html"><meta property="og:image" content="https://supremecourt.report/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Supreme Court Report - docket analytics for the Supreme Court of the United States"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Chiafalo v. Washington — Opinion — Supreme Court Report"><meta name="twitter:description" content="The opinion in Chiafalo v. Washington (No. 19-465), decided July 6, 2020: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta name="twitter:image" content="https://supremecourt.report/og.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap"><style>
+  :root{--paper:#fdfcfa;--panel:#ffffff;--ink:#1a1a1e;--ink-soft:#484850;--faint:#63636b;--accent:#9c0e3a;--link:#9c0e3a;--rule:#dbd8d2;--nav-max:60rem}
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{font-family:'Newsreader',Georgia,serif;font-size:19px;line-height:1.6;
+    color:var(--ink);background:var(--paper);margin:0;font-feature-settings:'onum' 1}
+  body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
+    opacity:.5;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");}
+  .wrap{max-width:40rem;margin:0 auto;padding:3rem 1.4rem 4rem}
+  .kicker{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 1rem}
+  h1{font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:clamp(2.4rem,7vw,3.6rem);line-height:1;letter-spacing:-.015em;
+    margin:0 0 1rem;color:var(--ink)}
+  h1 em{font-style:italic;font-weight:500;color:var(--accent)}
+  .dek{font-size:1.15rem;line-height:1.5;color:var(--ink-soft);font-style:italic;
+    margin:0 0 1.4rem}
+  .brule{border:0;height:0;border-top:2px solid var(--ink);margin:1.4rem 0 .3rem;
+    position:relative}
+  .brule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+    border-top:1px solid var(--rule)}
+  ul.idx{list-style:none;padding:0;margin:1.6rem 0}
+  ul.idx li{border-bottom:1px solid var(--rule)}
+  /* Whole row is one block-level link: a large, reliable tap target on mobile. */
+  ul.idx a.row{display:flex;justify-content:space-between;align-items:baseline;
+    gap:1rem;padding:.9rem .4rem;text-decoration:none;border:0;color:inherit}
+  ul.idx a.row:hover{background:rgba(156,14,58,.05)}
+  ul.idx .d{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.16rem;
+    color:var(--accent);line-height:1.25}
+  ul.idx a.row:hover .d{text-decoration:underline;text-underline-offset:3px}
+  ul.idx .count{color:var(--faint);font-size:.9rem;font-style:italic;white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  /* A long note (an order list's "3 GVRs / 230 denied / 4 habeas denied /
+     ...", items separated by middots) cannot sit on one line: nowrap made it
+     claim the row and
+     squeezed the title into a column three words wide, and on a phone it ran off
+     the screen. Such a row opts in (meta_wrap): the note wraps, only between its
+     items, and takes at most ~45% of the row, so the title always has the
+     larger share. Under 34rem it drops beneath the title at full width. */
+  /* ("long", not "wrap": .wrap is the page container and its padding.) */
+  ul.idx .count.long{white-space:normal;text-align:right;max-width:45%;line-height:1.45}
+  ul.idx .count.long .seg{white-space:nowrap}
+  @media(max-width:34rem){
+    ul.idx a.row.longmeta{flex-wrap:wrap;row-gap:.2rem}
+    ul.idx .count.long{max-width:none;flex-basis:100%;text-align:left}
+  }
+  /* Compact horizontal strip of the most recent pages beneath a category row. */
+  ul.idx .recent{display:flex;flex-wrap:wrap;align-items:baseline;
+    gap:.3rem .85rem;padding:0 .4rem 1rem;margin-top:-.35rem}
+  ul.idx .recent .rlabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  ul.idx .recent a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--ink-soft);text-decoration:none;font-variant-numeric:tabular-nums;
+    border-bottom:1px solid var(--rule);padding-bottom:1px}
+  ul.idx .recent a:hover{color:var(--accent);border-color:var(--accent)}
+  /* Optional panel beneath the section index (home page: most-read cases). */
+  .panel{margin:2.4rem 0 0}
+  .panel h2{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 .25rem}
+  .panel .pnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:0 0 .5rem}
+  /* "Live now" (live_argument_panel, /live.js): hidden unless the Court is
+     streaming an argument. One red dot, the same --accent as the headings, so
+     the live state is a mark and not a new colour. */
+  .live h2 .ldot{display:inline-block;width:.5rem;height:.5rem;border-radius:50%;
+    background:var(--accent);margin-right:.5rem;vertical-align:.08rem;
+    animation:lpulse 2s ease-in-out infinite}
+  @keyframes lpulse{50%{opacity:.25}}
+  @media (prefers-reduced-motion:reduce){.live h2 .ldot{animation:none}}
+  .lplay{display:flex;flex-wrap:wrap;gap:.6rem .9rem;align-items:center;margin:.8rem 0 .3rem}
+  .lplay button{font:600 .9rem/1 'Newsreader',Georgia,serif;letter-spacing:.04em;
+    color:var(--paper);background:var(--accent);border:0;border-radius:2px;
+    padding:.6rem 1.05rem;cursor:pointer}
+  .lplay button:disabled{opacity:.6;cursor:progress}
+  .lplay button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  /* The player takes a row of its own and may never outgrow the column. A flex
+     item's min-width is auto, which for a replaced element is the browser's own
+     controls' width -- wider than the column on a phone, where mobile Safari
+     and Chrome draw larger controls than the desktop. */
+  .lplay audio{display:block;flex:1 1 100%;width:100%;min-width:0;max-width:100%;
+    box-sizing:border-box;margin:0}
+  .lplay .lstat{font-size:.85rem;color:var(--faint)}
+  /* --- Likeliest grants -----------------------------------------------------
+     Its own rows rather than ol.mostread's: this panel carries a question under
+     the caption, which that list has no room for, and a percentage that has to
+     read as the row's subject rather than as a trailing note.
+     The window toggle is two real radio inputs plus :has() -- no JavaScript.
+     Both windows are rendered at build time and one is hidden, which is the only
+     way a static site can offer the choice: there is no server to ask for the
+     other one. Real radios, not styled buttons, so the control is reachable by
+     keyboard and announced as a choice. */
+  .lead{margin:0 0 1.9rem}
+  .lead h2{margin-bottom:.35rem}
+  .lead .pnote{margin:0 0 .7rem}
+  .wr{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+  .win{display:inline-flex;gap:.25rem;margin:0 0 .55rem;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .win label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .win label:hover{color:var(--ink)}
+  .lead:has(#w7:checked) label[for=w7],
+  .lead:has(#w28:checked) label[for=w28],
+  .lead:has(#wall:checked) label[for=wall]{background:var(--accent);color:var(--paper)}
+  .wr:focus-visible+label{outline:2px solid var(--accent);outline-offset:2px}
+  /* Three windows, one shown: the checked radio hides the other two. */
+  .lead:has(#w7:checked) :is(.g28,.n28,.gall,.nall),
+  .lead:has(#w28:checked) :is(.g7,.n7,.gall,.nall),
+  .lead:has(#wall:checked) :is(.g7,.n7,.g28,.n28){display:none}
+  /* The show/hide controls for a panel's secondary line -- the question under
+     a forecast row, the holding under a decision. Same box as the window
+     toggle, a checkbox instead of radios, and no script: the sibling rule does
+     the work and the lines simply show where :has() is unsupported. The
+     questions are on by default (they are what a forecast row asks); the
+     holdings are off (the caption, kind and disposition already say what
+     happened, and the holding is the more). */
+  .opts{display:inline-flex;gap:.25rem;margin:0 .45rem .55rem 0;vertical-align:top;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .opts label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .opts label:hover{color:var(--ink)}
+  .lead:has(#qon:checked) label[for=qon],
+  .panel:has(#hon:checked) label[for=hon]{background:var(--accent);color:var(--paper)}
+  .lead:has(#qon:not(:checked)) .gq{display:none}
+  .panel:has(#hon:not(:checked)) .chold{display:none}
+  /* --- Upcoming at the Court ------------------------------------------------
+     A date gutter and a two-line body, the same shape as the grant rows above
+     it, so the two panels read as one page rather than two widgets. */
+  .cal{margin:0 0 1.9rem}
+  ol.cal{list-style:none;margin:0;padding:0}
+  ol.cal li{border-top:1px solid var(--rule)}
+  ol.cal li:last-child{border-bottom:1px solid var(--rule)}
+  /* The row is a container, not an anchor: an argument day carries one link per
+     case it hears and anchors cannot nest. Hover lives on the row so it still
+     reads as one unit, and each link colours on its own hover. */
+  ol.cal .crow{display:flex;gap:.95rem;align-items:baseline;padding:.55rem .1rem}
+  ol.cal .crow:hover{background:rgba(156,14,58,.05)}
+  ol.cal a{text-decoration:none;color:inherit}
+  ol.cal a:hover,ol.cal a:focus-visible{color:var(--accent)}
+  ol.cal .cdet a{border-bottom:1px solid rgba(156,14,58,.35)}
+  ol.cal .cdet a:hover{border-bottom-color:var(--accent)}
+  ol.cal .cwhen{flex:none;width:4.6rem;font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.96rem;color:var(--ink);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  ol.cal .cdow{display:block;font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);text-transform:uppercase;letter-spacing:.08em}
+  ol.cal .ctx{flex:1;min-width:0}
+  ol.cal .ckind{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:.98rem;line-height:1.25}
+  ol.cal .cdet{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.12rem}
+  /* Recent decisions reuses the calendar rows and adds exactly two things: the
+     kind word that opens the detail line, and the one outbound link (the slip
+     opinion), which takes the link colour the rest of the row deliberately
+     does not. */
+  ol.cal .dk{font-weight:600;color:var(--ink)}
+  ol.cal .cdet a.pdf{color:var(--link)}
+  /* The holding, from the Court's slip-opinion feed: one sentence, set
+     smaller and in the soft ink so the caption stays the row's headline. */
+  ol.cal .chold{display:block;font-size:.86rem;line-height:1.4;color:var(--ink-soft);
+    font-style:italic;margin-top:.15rem}
+  ol.cal .cdet a.pdf:hover,ol.cal .cdet a.pdf:focus-visible{color:var(--accent);
+    border-bottom-color:var(--accent)}
+  ol.grants{list-style:none;margin:0;padding:0}
+  ol.grants li{border-top:1px solid var(--rule)}
+  ol.grants li:last-child{border-bottom:1px solid var(--rule)}
+  ol.grants a{display:flex;gap:.95rem;align-items:baseline;text-decoration:none;
+    color:inherit;padding:.62rem .1rem}
+  ol.grants a:hover{background:rgba(156,14,58,.05)}
+  ol.grants a:hover .gc{color:var(--accent)}
+  ol.grants .gv{flex:none;width:3.5rem;text-align:right;
+    font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.22rem;
+    line-height:1.1;color:var(--accent);font-variant-numeric:tabular-nums}
+  ol.grants .gx{font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);margin-left:.3rem}
+  ol.grants .gtx{flex:1;min-width:0}
+  /* Subject-area line under the caption, in the section-label idiom (h2.sec):
+     small tracked caps in the faint ink, so it classifies without competing. */
+  ol.grants .gs,ol.mostread .ms{display:block;font-size:.68rem;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--faint);line-height:1.3;margin-top:.12rem}
+  ol.grants .gc{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:1rem;line-height:1.25}
+  ol.grants .gq{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.16rem}
+  ol.grants .gd{flex:none;font-size:.76rem;color:var(--faint);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  .more{margin:.75rem 0 0;font-size:.92rem}
+  .more a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.35)}
+  .more a:hover{border-bottom-color:var(--link)}
+  h2.sec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:.88rem;
+    letter-spacing:.09em;color:var(--faint);text-transform:uppercase;
+    margin:2.1rem 0 .6rem;padding-bottom:.28rem;border-bottom:1px solid var(--rule)}
+  @media(max-width:40rem){
+    ol.grants a{flex-wrap:wrap}
+    ol.grants .gd{width:100%;padding-left:4.45rem;margin-top:-.1rem}
+  }
+  ol.mostread{list-style:none;counter-reset:mr;padding:0;margin:0}
+  ol.mostread li{counter-increment:mr;border-bottom:1px solid var(--rule)}
+  ol.mostread a{display:flex;align-items:baseline;gap:.7rem;padding:.6rem .4rem;
+    text-decoration:none;color:inherit}
+  ol.mostread a:hover{background:rgba(156,14,58,.05)}
+  ol.mostread a::before{content:counter(mr);font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.95rem;color:var(--faint);min-width:1.1rem;
+    font-variant-numeric:tabular-nums}
+  ol.mostread .mc{flex:1;font-size:1rem;line-height:1.3}
+  ol.mostread .mct{display:block}
+  ol.mostread a:hover .mct{color:var(--accent);text-decoration:underline;
+    text-underline-offset:3px}
+  ol.mostread .mdk{color:var(--accent);font-weight:600;font-size:.82rem;
+    font-variant-numeric:tabular-nums;white-space:nowrap}
+  ol.mostread .mv{color:var(--faint);font-size:.85rem;font-style:italic;
+    white-space:nowrap;font-variant-numeric:tabular-nums}
+  /* Forecast percentages carry weight the most-read counts do not: the number is
+     the claim, not a footnote to the ranking. Upright, accent, tabular. */
+  ol.mostread .mv.fc{color:var(--accent);font-style:normal;font-weight:600;
+    font-size:.95rem;min-width:2.6rem;text-align:right}
+  /* Feed follow line. Deliberately quiet -- a footnote under the section list,
+     styled like .recent rather than like a call to action. */
+  .feeds{display:flex;flex-wrap:wrap;align-items:baseline;gap:.3rem .85rem;
+    margin:2.2rem 0 0;padding-top:1.1rem;border-top:1px solid var(--rule)}
+  .feeds .flabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  .feeds a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .feeds a:hover{border-color:var(--link)}
+  .back{margin-top:2rem;font-size:.95rem}
+  .back a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .back a:hover{border-color:var(--link)}
+  /* Home-page case search. */
+  .csearch{position:relative;margin:0 0 1.4rem}
+  #cq{width:100%;font-family:'Newsreader',Georgia,serif;font-size:1.05rem;color:var(--ink);
+    background:var(--panel);border:1px solid var(--rule);border-radius:3px;padding:.7rem .9rem}
+  #cq:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(156,14,58,.1)}
+  #cq::placeholder{color:var(--faint)}
+  #cq.loading{background-image:linear-gradient(90deg,transparent,rgba(156,14,58,.06),transparent);
+    background-size:40% 100%;background-repeat:no-repeat;animation:csl 1s infinite}
+  @keyframes csl{0%{background-position:-40% 0}100%{background-position:140% 0}}
+  .cres{list-style:none;margin:.35rem 0 0;padding:0;max-height:24rem;overflow-y:auto;
+    border:1px solid var(--rule);border-radius:3px;background:var(--panel)}
+  .cres:empty{display:none}
+  .cres li{border-bottom:1px solid var(--rule)}
+  .cres li:last-child{border-bottom:0}
+  .cres a{display:block;padding:.55rem .7rem;text-decoration:none;color:var(--ink);
+    font-size:.98rem;line-height:1.3}
+  .cres a:hover,.cres li.act a{background:rgba(156,14,58,.06)}
+  .cres mark{background:rgba(156,14,58,.14);color:inherit;padding:0 .05em;border-radius:2px}
+  .cres .cd{color:var(--accent);font-variant-numeric:tabular-nums;font-weight:600;
+    margin-right:.5rem;white-space:nowrap}
+  .cnone{padding:.55rem .7rem;color:var(--faint);font-style:italic}
+  .cnone a,.cqp a{color:var(--link);font-style:normal;text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .cqp{margin:.45rem 0 0;font-size:.88rem;color:var(--faint)}
+  /* /cases/ browse index: grouped sections with per-bucket counts. */
+  .csec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+    text-transform:uppercase;letter-spacing:.12em;color:var(--accent);
+    margin:2.2rem 0 .3rem;padding-bottom:.35rem;border-bottom:1px solid var(--rule);
+    display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
+  .csec .cn{font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:.85rem;
+    letter-spacing:0;text-transform:none;color:var(--faint);
+    font-variant-numeric:tabular-nums}
+  .cnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:.5rem 0 0}
+  .cnote a{color:var(--accent)}
+  ul.terms{list-style:none;padding:0;margin:1rem 0 0;display:flex;flex-wrap:wrap;
+    gap:.5rem 1.6rem}
+  ul.terms li{display:inline-flex;align-items:baseline;gap:.4rem}
+  ul.terms a{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.05rem;
+    color:var(--accent);text-decoration:none;border-bottom:1px solid var(--rule)}
+  ul.terms a:hover{border-bottom-color:var(--accent)}
+  ul.terms .cn{color:var(--faint);font-size:.85rem;font-variant-numeric:tabular-nums}
+  /* About page: running prose rather than an index, so it takes a measure and a
+     little more leading than the section rows above it. */
+  .about{margin:1.6rem 0 0;font-size:1.05rem;line-height:1.65;max-width:34rem}
+  .about p{margin:0 0 1rem}
+  .about a{color:var(--accent);text-decoration:none;
+    border-bottom:1px solid var(--rule)}
+  .about a:hover{border-bottom-color:var(--accent)}
+  .about .contact{margin:2rem 0 0;background:var(--panel);border:1px solid var(--rule);
+    border-left:4px solid var(--accent);padding:1.1rem 1.3rem}
+  .about .contact h2{font:600 .78rem/1 'Newsreader',Georgia,serif;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--accent);margin:0 0 .5rem}
+  .about .contact p{margin:0;font-size:1rem}
+
+/* ---- masthead ---- */
+.smast-in{max-width:var(--nav-max,60rem);margin:0 auto;padding:.85rem 1.5rem .5rem;
+  display:flex;align-items:baseline;justify-content:space-between;gap:1.4rem;flex-wrap:wrap}
+.smast-wm{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+  letter-spacing:.005em;color:var(--ink,#1a1a1e);text-decoration:none;white-space:nowrap;flex:none}
+.smast-wm em{font-style:italic;font-weight:500;color:var(--accent,#9c0e3a)}
+.smast-wm:hover{color:var(--accent,#9c0e3a)}
+/* Row gap first, then column. At 1.35rem the six section links measured 596px
+   of max-content -- 4px wider than the 592px row the 40rem index container
+   leaves them -- so ABOUT alone wrapped to a third line under the wordmark, on
+   every page page_style.R writes. 1.05rem brings the row to 572px: 20px of
+   slack at 40rem, and 45px on the 54rem case pages, which were themselves only
+   21px from wrapping. The .4rem row gap is for the day a seventh section
+   overruns it anyway -- a nav that wraps should read as a stack, not an orphan. */
+.snav{display:flex;gap:.4rem 1.05rem;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+.snav a{font:600 .72rem/1 'Newsreader',Georgia,serif;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--ink-soft,var(--soft,#484850));text-decoration:none;display:inline-block;
+  padding:.5rem 0;border-bottom:1.5px solid transparent}
+.snav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--rule,#dbd8d2)}
+.snav a[aria-current='page']{color:var(--accent,#9c0e3a);
+  border-bottom-color:var(--accent,#9c0e3a)}
+.smast-rule-w{max-width:var(--nav-max,60rem);margin:0 auto;padding:0 1.5rem}
+.smast-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0;position:relative}
+.smast-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.skip{position:absolute;left:-9999px;top:0;background:var(--panel,#ffffff);
+  color:var(--accent,#9c0e3a);padding:.6rem 1rem;
+  border:1px solid var(--accent,#9c0e3a);
+  font:600 .8rem/1 'Newsreader',Georgia,serif;letter-spacing:.1em;text-transform:uppercase;z-index:10}
+.skip:focus{left:.5rem;top:.5rem}
+/* ---- breadcrumb ---- */
+.bcrumb{margin:.7rem 0 0}
+.bcrumb ol{list-style:none;display:flex;flex-wrap:wrap;align-items:baseline;
+  gap:.1rem .45rem;margin:0;padding:0}
+.bcrumb li{display:inline-flex;align-items:baseline;gap:.45rem}
+.bcrumb a{font:400 .8rem/1.5 'Newsreader',Georgia,serif;color:var(--ink-soft,var(--soft,#484850));
+  text-decoration:none;border-bottom:1px solid var(--rule,#dbd8d2)}
+.bcrumb a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.bcrumb .sep{color:var(--faint,#63636b);font-size:.8rem;line-height:1.5}
+.bcrumb [aria-current='page']{font:400 .8rem/1.5 'Newsreader',Georgia,serif;
+  color:var(--faint,#63636b);font-variant-numeric:tabular-nums}
+/* ---- case footer ---- */
+.cfoot{margin:2.4rem 0 0}
+.cfoot-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0 0 1rem;position:relative}
+.cfoot-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.cfoot-off{font-size:.95rem;margin:0 0 1.1rem}
+.cfoot-off a{color:var(--link,#9c0e3a);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.4)}
+.cfoot-off a:hover{border-bottom-color:var(--link,#9c0e3a)}
+.cfoot-lab{font:600 .68rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);margin:0 0 .5rem}
+.cfoot-nav{display:flex;flex-wrap:wrap;gap:.35rem 1.1rem;list-style:none;margin:0;padding:0}
+.cfoot-nav a{font-size:.92rem;color:var(--ink-soft,var(--soft,#484850));text-decoration:none;
+  border-bottom:1px solid var(--rule,#dbd8d2);padding-bottom:1px}
+.cfoot-nav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.cfoot-stamp{margin:1.2rem 0 0;font-size:.8rem;color:var(--faint,#63636b);font-style:italic}
+/* ---- prev / next ---- */
+.pnav{margin:2.2rem 0 0;border-top:1px solid var(--rule,#dbd8d2);padding-top:1rem;
+  display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.pnav a,.pnav span.none{text-decoration:none;color:inherit;display:block;padding:.5rem .2rem}
+.pnav a:hover{background:rgba(156,14,58,.05)}
+.pnav .dir{font:600 .66rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);display:block;margin-bottom:.3rem}
+.pnav .lab{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1rem;line-height:1.25;
+  color:var(--accent,#9c0e3a);display:block}
+.pnav a:hover .lab{text-decoration:underline;text-underline-offset:3px}
+.pnav .nx{text-align:right}
+.pnav .none{opacity:.35}
+@media(max-width:640px){
+  .smast-in{padding:.7rem 1.1rem .25rem;gap:.15rem}
+  .smast-wm{font-size:.98rem}
+  .smast-in nav{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+    -webkit-mask-image:linear-gradient(90deg,#000 86%,transparent);
+    mask-image:linear-gradient(90deg,#000 86%,transparent)}
+  .smast-in nav::-webkit-scrollbar{display:none}
+  .snav{flex-wrap:nowrap;gap:1.15rem;padding-right:2.4rem}
+  .snav a{padding:.7rem 0;white-space:nowrap}
+  .smast-rule-w{padding:0 1.1rem}
+  .cfoot-nav{gap:.5rem 1rem}
+  .cfoot-nav a{padding-bottom:.3rem}
+  .pnav{grid-template-columns:1fr;gap:.2rem}
+  .pnav .nx{text-align:left;border-top:1px solid var(--rule,#dbd8d2)}
+}
+
+  .wrap.opn{max-width:42rem}
+  .opn .ometa{font-size:.92rem;color:var(--ink-soft);margin:.3rem 0 0}
+  .opn .oget{display:flex;flex-wrap:wrap;gap:.4rem .6rem;margin:1.1rem 0 0;padding:0;list-style:none;font-size:.9rem}
+  .opn .oget a{display:inline-block;padding:.32rem .7rem;border:1px solid var(--rule);border-radius:4px;color:var(--ink);text-decoration:none;background:var(--panel)}
+  .opn .oget a:hover{border-color:var(--accent);color:var(--accent)}
+  .opn .osrc{font-size:.84rem;color:var(--faint);margin:.9rem 0 0;line-height:1.45}
+  .opn .osrc a{color:var(--link)}
+  .opn .otoc{margin:1.6rem 0 0;padding:.8rem 1rem;border:1px solid var(--rule);border-radius:4px;background:var(--panel);font-size:.95rem}
+  .opn .otoc ol{margin:0;padding:0;list-style:none}
+  .opn .otoc li{margin:.25rem 0}
+  .opn .otoc a{color:var(--ink);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.35)}
+  .opn .otoc a:hover{color:var(--accent)}
+  .opn section.op{margin-top:3rem;border-top:2px solid var(--ink);padding-top:1.1rem}
+  .opn section.op h2{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.5rem;line-height:1.2;margin:0 0 1rem;color:var(--ink)}
+  .opn section.op p{margin:0 0 .95rem;line-height:1.62;hyphens:auto;overflow-wrap:break-word}
+  .opn section.op p.byline{color:var(--ink-soft);font-style:italic}
+  .opn section.op p.sep{text-align:center;letter-spacing:.3em;color:var(--faint);margin:1.6rem 0}
+  .opn section.op h3.oh{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.12rem;text-align:center;margin:2rem 0 1rem;color:var(--ink)}
+  .opn section.op blockquote{margin:0 0 .95rem;padding:0 0 0 1.1rem;border-left:2px solid var(--rule);color:var(--ink-soft)}
+  .opn section.op blockquote p{margin-bottom:.6rem;font-size:.96em}
+  .opn .sc{font-variant-caps:small-caps;letter-spacing:.02em}
+  .opn .pg{font-size:.66em;color:var(--faint);vertical-align:.3em;margin:0 .3em 0 .1em;font-variant-numeric:tabular-nums;user-select:none;white-space:nowrap}
+  .opn .pg::before{content:'*'}
+  .opn sup.fnr{font-size:.68em;line-height:0;margin-left:.05em}
+  .opn sup.fnr a{color:var(--link);text-decoration:none;padding:0 .1em}
+  .opn aside.notes{margin-top:2rem;border-top:1px solid var(--rule);padding-top:.8rem;font-size:.88rem;color:var(--ink-soft)}
+  .opn aside.notes h3{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1rem;margin:0 0 .6rem;color:var(--ink)}
+  .opn aside.notes ol{margin:0;padding-left:1.7rem}
+  .opn aside.notes li{margin:0 0 .55rem}
+  .opn aside.notes li.sym{list-style:none;margin-left:-1.7rem}
+  .opn aside.notes li.sym .mk{margin-right:.3rem}
+  .opn aside.notes li.sym p{display:inline}
+  .opn aside.notes p{margin:0 0 .4rem;line-height:1.5}
+  .opn aside.notes a.back{color:var(--link);text-decoration:none;margin-left:.2rem}
+  .opn aside.notes li:target,.opn sup.fnr a:target,.opn .pg:target{background:rgba(156,14,58,.12);outline:.2rem solid rgba(156,14,58,.12)}
+  .opn section.op,.opn aside.notes li,.opn sup.fnr a{scroll-margin-top:1rem}
+  .opn section.op-syllabus p,.opn section.op-counsel p{font-size:.95em}
+  .opn section.op-counsel summary{cursor:pointer;font-family:'Fraunces',Georgia,serif;font-size:1.05rem;color:var(--ink-soft)}
+  .opn .osyl{font-size:.84rem;color:var(--faint);font-style:italic;margin:-.5rem 0 1rem}
+  .opn p.back{margin-top:3rem;font-size:.92rem}
+  @media print{.smast,.bcrumb,.opn .oget,.opn .otoc,.opn p.back{display:none}.opn section.op{break-before:page}}
+</style><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://supremecourt.report/"},{"@type":"ListItem","position":2,"name":"Opinions","item":"https://supremecourt.report/opinions/"},{"@type":"ListItem","position":3,"name":"Chiafalo v. Washington"}]}</script><meta name='otv' content='p1'><link rel='alternate' type='text/markdown' href='/opinions/2019/19-465.md'><link rel='alternate' type='application/epub+zip' href='/opinions/2019/19-465.epub'></head><body><a class='skip' href='#main'>Skip to content</a><header><div class='smast-in'><a class='smast-wm' href='/'>Supreme Court <em>Report</em></a><nav aria-label='Sections'><ul class='snav'><li><a href='/dashboards/'>Docket</a></li><li><a href='/conferences/'>Conferences</a></li><li><a href='/relists/'>Relists</a></li><li><a href='/applications/'>Interim</a></li><li><a href='/arguments/'>Arguments</a></li><li><a href='/justices/' aria-current='page'>Justices</a></li><li><a href='/counsel/'>Counsel</a></li><li><a href='/funnel/'>Funnel</a></li><li><a href='/methods.html'>Model</a></li><li><a href='/about.html'>About</a></li></ul></nav></div><div class='smast-rule-w'><hr class='smast-rule'></div></header><main class='wrap opn' id='main' data-dkt='19-465'><nav class='bcrumb' aria-label='Breadcrumb'><ol><li><a href='/'>Home</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><a href='/opinions/'>Opinions</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><span aria-current='page'>Chiafalo v. Washington</span></li></ol></nav><p class='kicker'>No. 19-465 · decided July 6, 2020 · 591 U. S. 578</p><h1 style='font-size:clamp(1.7rem,4.6vw,2.4rem);line-height:1.12'>Chiafalo v. Washington</h1><p class='ometa'>Peter B. Chiafalo, Levi Jennet Guerra, and Esther Virginia John v. Washington. 1 separate writing.</p><ul class='oget'><li><a href='/opinions/2019/19-465.epub' download>EPUB</a></li><li><a href='/opinions/2019/19-465.md' download>Markdown</a></li><li><a href='https://www.supremecourt.gov/opinions/preliminaryprint/591US2PP_web.pdf#page=137' rel='noopener'>The Court’s PDF</a></li><li><a href='/cases/19-465.html'>The docket</a></li></ul><p class='osrc'>Set from the PDF the Court published, which is the authoritative text. The small starred numbers are that PDF’s page numbers. A conversion can introduce errors; check a quotation against the <a href='https://www.supremecourt.gov/opinions/preliminaryprint/591US2PP_web.pdf#page=137' rel='noopener'>original</a>.</p><nav class="otoc" aria-label="Contents"><ol>
+<li><a href="#s1">Syllabus</a></li>
+<li><a href="#s2">Counsel</a></li>
+<li><a href="#s3">Opinion of the Court</a></li>
+<li><a href="#s4">Justice Thomas, concurring in the judgment</a></li>
+</ol></nav>
+<section id="s1" class="op op-syllabus"><h2>Syllabus</h2><p class='osyl'>Prepared by the Reporter of Decisions for the convenience of the reader; it is no part of the opinion of the Court.</p>
+<p>When Americans cast ballots for presidential candidates, their votes actually go toward selecting members of the Electoral College, whom each State appoints based on the popular returns. The States have devised mechanisms to ensure that the electors they appoint vote for the presidential candidate their citizens have preferred. With two partial exceptions, every State appoints a slate of electors selected by the political party whose candidate has won the State's popular vote. Most States also compel electors to pledge to support the nominee of that party. Relevant here, 15 States back up their pledge laws with some kind of sanction. Almost all of these States immediately remove a so-called “faithless elector” from his position, substituting an alternate whose vote the State reports instead. A few States impose a monetary fine on any elector who flouts his pledge.</p>
+<p>Three Washington electors, Peter Chiafalo, Levi Guerra, and Esther John (the Electors), violated their pledges to support Hillary Clinton in the 2016 presidential election. In response, the State fined the Electors $1,000 apiece for breaking their pledges to support the same candidate its voters had. The Electors challenged their fines in state court, arguing that the Constitution gives members of the Electoral College the right to vote however they please. The Washington Superior Court rejected that claim, and the State Supreme Court affirmed, relying on <em>Ray</em> v. <em>Blair,</em> 343 U. S. 214. In <em>Ray</em>, this Court upheld a pledge requirement—though one without a penalty to back it up. <em>Ray</em> held that pledges were consistent with the Constitution's text and our Nation's history, <em>id.,</em> at 225–230; but it reserved the question whether a State can enforce that requirement through legal sanctions.</p>
+<p><em>Held</em>: A State may enforce an elector's pledge to support his party's nominee—and the state voters' choice—for President. Pp. 587–597.</p>
+<p>(a) Article II, § 1 gives the States the authority to appoint electors “in such Manner as the Legislature thereof may direct.” This Court has described that clause as “conveying the broadest power of determination” over who becomes an elector. <em>McPherson</em> v. <em>Blacker</em>, 146 U. S. 1, 27. And the power to appoint an elector (in any manner) includes power to condition his appointment, absent some other constitutional constraint. A State can require, for example, that an elector live in the State or qualify as a regular voter during the relevant time period. Or <span class="pg" id="s1-p579" title="page 579 of the original">579</span>more substantively, a State can insist (as <em>Ray</em> allowed) that the elector pledge to cast his Electoral College ballot for his party's presidential nominee, thus tracking the State's popular vote. Or—so long as nothing else in the Constitution poses an obstacle—a State can add an associated condition of appointment: It can demand that the elector actually live up to his pledge, on pain of penalty. Which is to say that the State's appointment power, barring some outside constraint, enables the enforcement of a pledge like Washington's.</p>
+<p>Nothing in the Constitution expressly prohibits States from taking away presidential electors' voting discretion as Washington does. Article II includes only the instruction to each State to appoint electors, and the Twelfth Amendment only sets out the electors' voting procedures. And while two contemporaneous State Constitutions incorporated language calling for the exercise of elector discretion, no language of that kind made it into the Federal Constitution. Contrary to the Electors' argument, Article II's use of the term “electors” and the Twelfth Amendment's requirement that the electors “vote,” and that they do so “by ballot,” do not establish that electors must have discretion. The Electors and their <em>amici</em> object that the Framers using those words expected the Electors' votes to reflect their own judgments. But even assuming that outlook was widely shared, it would not be enough. Whether by choice or accident, the Framers did not reduce their thoughts about electors' discretion to the printed page. Pp. 588–592.</p>
+<p>(b) “Long settled and established practice” may have “great weight in a proper interpretation of constitutional provisions.” <em>The Pocket Veto Case</em>, 279 U. S. 655, 689. The Electors make an appeal to that kind of practice in asserting their right to independence, but “our whole experience as a Nation” points in the opposite direction. <em>NLRB</em> v. <em>Noel Canning</em>, 573 U. S. 513, 557. From the first elections under the Constitution, States sent electors to the College to vote for pre-selected candidates, rather than to use their own judgment. The electors rapidly settled into that non-discretionary role. See <em>Ray</em>, 343 U. S., at 228–229. Ratified at the start of the 19th century, the Twelfth Amendment both acknowledged and facilitated the Electoral College's emergence as a mechanism not for deliberation but for party-line voting. Courts and commentators throughout that century recognized the presidential electors as merely acting on other people's preferences. And state election laws evolved to reinforce that development, ensuring that a State's electors would vote the same way as its citizens. Washington's law is only another in the same vein. It reflects a longstanding tradition in which electors are not free agents; they are to vote for the candidate whom the State's voters have chosen. Pp. 592–597.</p>
+<p><span class="pg" id="s1-p580" title="page 580 of the original">580</span>193 Wash. 2d 380, 441 P. 3d 807, affirmed.</p>
+<p>K<span class="sc">agan, J.,</span> delivered the opinion of the Court, in which R<span class="sc">oberts, C. J.,</span> and <span class="sc">Ginsburg, Breyer, Alito, Sotomayor, Gorsuch,</span> and K<span class="sc">avanaugh, JJ.,</span> joined. <span class="sc">Thomas, J.,</span> filed an opinion concurring in the judgment, in which G<span class="sc">orsuch, J.</span>, joined as to Part II, <em>post</em>, p. 597.</p></section>
+<section id="s2" class="op op-counsel"><details><summary>Counsel</summary><p><em>L. Lawrence Lessig</em> argued the cause for petitioners. With him on the briefs were <em>Jason Harrow, Sumeer Singla, Daniel A. Brown, Hunter M. Abell, Jonah O. Harrison, J. Max Rosen</em>, and <em>Jason B. Wesoky</em>.</p>
+<p><em>Noah G. Purcell</em>, Solicitor General of Washington, argued the cause for respondent. With him on the brief were <em>Robert W. Ferguson</em>, Attorney General of Washington, <em>Tera Heintz</em> and <em>Alan D. Copsey</em>, Deputy Solicitors General, and <em>Cristina Sepe</em>, Assistant Attorney General.*</p>
+<p>*Briefs of <em>amici curiae</em> urging reversal were filed for the Independence Institute by <em>David B. Kopel</em> and <em>Joseph G. S. Greenlee</em>; for Jerry H. Goldfeder by <em>Mr. Goldfeder</em>, <em>pro se</em>; and for Michael L. Rosin et al. by <em>Peter K. Stris</em>, <em>Michael N. Donofrio</em>, and <em>Bridget C. Asay</em>.</p>
+<p>Briefs of <em>amici curiae</em> urging affirmance were filed for the State of South Dakota et al. by <em>Jason R. Ravnsborg,</em> Attorney General of South Dakota, and <em>Paul S. Swedlund,</em> Assistant Attorney General, and by the Attorneys General for their respective jurisdictions as follows: <em>Steve Marshall</em> of Alabama, <em>Kevin G. Clarkson</em> of Alaska, <em>Mark Brnovich</em> of Arizona, <em>Xavier Becerra</em> of California, <em>William Tong</em> of Connecticut, <em>Kathy Jennings</em> of Delaware, <em>Karl A</em>. <em>Racine</em> of the District of Columbia, <em>Ashley Moody</em> of Florida, <em>Christopher M. Carr</em> of Georgia, <em>Clare E</em>. <em>Connors</em> of Hawaii, <em>Lawrence Wasden</em> of Idaho, <em>Kwame Raoul</em> of Illinois, <em>Curtis T</em>. <em>Hill</em>, <em>Jr</em>., of Indiana, <em>Tom Miller</em> of Iowa, <em>Daniel Cameron</em> of Kentucky, <em>Jeff Landry</em> of Louisiana<em>, Aaron M</em>. <em>Frey</em> of Maine, <em>Brian E</em>. <em>Frosh</em> of Maryland, <em>Maura Healey</em> of Massachusetts, <em>Dana Nessel</em> of Michigan, <em>Keith Ellison</em> of Minnesota, <em>Lynn Fitch</em> of Mississippi, <em>Eric S</em>. <em>Schmitt</em> of Missouri, <em>Timothy C. Fox</em> of Montana, <em>Doug J. Peterson</em> of Nebraska, <em>Aaron D. Ford</em> of Nevada, <em>Gordon MacDonald</em> of New Hampshire, <em>Gurbir S</em>. <em>Grewal</em> of New Jersey, <em>Hector Balderas</em> of New Mexico, <em>Letitia James</em> of New York, <em>Josh Stein</em> of North Carolina, <em>Wayne Stenehjem</em> of North Dakota, <em>Dave Yost</em> of Ohio, <em>Mike Hunter</em> of Oklahoma, <em>Ellen Rosenblum</em> of Oregon, <em>Josh D. Shapiro</em> of Pennsylvania<em>, Peter F</em>. <em>Neronha</em> of Rhode Island, <em>Alan Wilson</em> of South Carolina, <em>Herbert H. Slatery III</em> of Tennessee, <em>Sean D. Reyes</em> of Utah, <em>Thomas J</em>. <em>Donovan</em> of Vermont, <em>Mark R. Her</em></p></details></section>
+<section id="s3" class="op op-court"><h2>Opinion of the Court</h2>
+<p class="byline">Justice Kagan delivered the opinion of the Court.</p>
+<p>Every four years, millions of Americans cast a ballot for a presidential candidate. Their votes, though, actually go toward selecting members of the Electoral College, whom each State appoints based on the popular returns. Those few “electors” then choose the President.</p>
+<p>The States have devised mechanisms to ensure that the electors they appoint vote for the presidential candidate their citizens have preferred. With two partial exceptions, every State appoints a slate of electors selected by the political party whose candidate has won the State's popular vote. Most States also compel electors to pledge in advance to support the nominee of that party. This Court upheld such a pledge requirement decades ago, rejecting the argument that the Constitution “demands absolute freedom for the elector to vote his own choice.” <em>Ray</em> v. <em>Blair</em>, 343 U. S. 214, 228 (1952).</p>
+<p>Today, we consider whether a State may also penalize an elector for breaking his pledge and voting for someone other than the presidential candidate who won his State's popular vote. We hold that a State may do so.</p>
+<h3 class="oh">I</h3>
+<p>Our Constitution's method of picking Presidents emerged from an eleventh-hour compromise. The issue, one delegate <span class="pg" id="s3-p582" title="page 582 of the original">582</span>to the Convention remarked, was “the most difficult of all [that] we have had to decide.” 2 Records of the Federal Convention of 1787, p. 501 (M. Farrand rev. 1966) (Farrand). Despite long debate and many votes, the delegates could not reach an agreement. See generally N. Peirce &amp; L. Longley, The People's President 19–22 (rev. 1981). In the dying days of summer, they referred the matter to the so-called Committee of Eleven to devise a solution. The Committee returned with a proposal for the Electoral College. Just two days later, the delegates accepted the recommendation with but a few tweaks. James Madison later wrote to a friend that the “difficulty of finding an unexceptionable [selection] process” was “deeply felt by the Convention.” Letter to G. Hay (Aug. 23, 1823), in 3 Farrand 458. Because “the final arrangement of it took place in the latter stage of the Session,” Madison continued, “it was not exempt from a degree of the hurrying influence produced by fatigue and impatience in all such Bodies: tho' the degree was much less than usually prevails in them.” <em>Ibid.</em> Whether less or not, the delegates soon finished their work and departed for home.</p>
+<p>The provision they approved about presidential electors is fairly slim. Article II, § 1, cl. 2 says:</p>
+<blockquote>
+<p>“Each State shall appoint, in such Manner as the Legislature thereof may direct, a Number of Electors, equal to the whole Number of Senators and Representatives to which the State may be entitled in the Congress: but no Senator or Representative, or Person holding an Offlce of Trust or Profit under the United States, shall be appointed an Elector.”</p>
+</blockquote>
+<p class="cont">The next clause (but don't get attached: it will soon be superseded) set out the procedures the electors were to follow in casting their votes. In brief, each member of the College would cast votes for two candidates in the presidential field. The candidate with the greatest number of votes, assuming he had a majority, would become President. The runner-up <span class="pg" id="s3-p583" title="page 583 of the original">583</span>would become Vice President. If no one had a majority, the House of Representatives would take over and decide the winner.</p>
+<p>That plan failed to anticipate the rise of political parties, and soon proved unworkable. The Nation's first contested presidential election occurred in 1796, after George Washington's retirement. John Adams came in first among the candidates, and Thomas Jefferson second. That meant the leaders of the era's two warring political parties—the Federalists and the Republicans—became President and Vice President respectively. (One might think of this as fodder for a new season of Veep.) Four years later, a different problem arose. Jefferson and Aaron Burr ran that year as a Republican Party ticket, with the former meant to be President and the latter meant to be Vice. For that plan to succeed, Jefferson had to come in first and Burr just behind him. Instead, Jefferson came in first and Burr . . . did too. Every elector who voted for Jefferson also voted for Burr, producing a tie. That threw the election into the House of Representatives, which took no fewer than 36 ballots to elect Jefferson. (Alexander Hamilton secured his place on the Broadway stage—but possibly in the cemetery too—by lobbying Federalists in the House to tip the election to Jefferson, whom he loathed but viewed as less of an existential threat to the Republic.) By then, everyone had had enough of the Electoral College's original voting rules.</p>
+<p>The result was the Twelfth Amendment, whose main part provided that electors would vote separately for President and Vice President. The Amendment, ratified in 1804, says:</p>
+<blockquote>
+<p>“The Electors shall meet in their respective states and vote by ballot for President and Vice-President . . . ; they shall name in their ballots the person voted for as President, and in distinct ballots the person voted for as Vice-President, and they shall make distinct lists of all persons voted for as President, and of all persons voted for as Vice-President, and of the number of votes for each, <span class="pg" id="s3-p584" title="page 584 of the original">584</span>which lists they shall sign and certify, and transmit sealed to [Congress, where] the votes shall then be counted.”</p>
+</blockquote>
+<p class="cont">The Amendment thus brought the Electoral College's voting procedures into line with the Nation's new party system.</p>
+<p>Within a few decades, the party system also became the means of translating popular preferences within each State into Electoral College ballots. In the Nation's earliest elections, state legislatures mostly picked the electors, with the majority party sending a delegation of its choice to the Electoral College. By 1832, though, all States but one had introduced popular presidential elections. See Peirce &amp; Longley, The People's President, at 45. At first, citizens voted for a slate of electors put forward by a political party, expecting that the winning slate would vote for its party's presidential (and vice presidential) nominee in the Electoral College. By the early 20th century, citizens in most States voted for the presidential candidate himself; ballots increasingly did not even list the electors. See Albright, The Presidential Short Ballot, 34 Am. Pol. Sci. Rev. 955, 955–957 (1940). After the popular vote was counted, States appointed the electors chosen by the party whose presidential nominee had won statewide, again expecting that they would vote for that candidate in the Electoral College.<sup class="fnr"><a id="s3-r1" href="#s3-n1">1</a></sup></p>
+<p>In the 20th century, many States enacted statutes meant to guarantee that outcome—that is, to prohibit so-called <span class="pg" id="s3-p585" title="page 585 of the original">585</span>faithless voting. Rather than just assume that party-picked electors would vote for their party's winning nominee, those States insist that they do so. As of now, 32 States and the District of Columbia have such statutes on their books. They are typically called pledge laws because most demand that electors take a formal oath or pledge to cast their ballot for their party's presidential (and vice presidential) candidate. Others merely impose that duty by law. Either way, the statutes work to ensure that the electors vote for the candidate who got the most statewide votes in the presidential election.</p>
+<p>Most relevant here, States began about 60 years ago to back up their pledge laws with some kind of sanction. By now, 15 States have such a system.<sup class="fnr"><a id="s3-r2" href="#s3-n2">2</a></sup>Almost all of them immediately remove a faithless elector from his position, substituting an alternate whose vote the State reports instead. A few States impose a monetary fine on any elector who flouts his pledge.</p>
+<p>Washington is one of the 15 States with a sanctions-backed pledge law designed to keep the State's electors in line with its voting citizens. As all States now do, Washington requires political parties fielding presidential candidates to nominate a slate of electors. See Wash. Rev. Code § 29A.56.320(1). On Election Day, the State gives voters a ballot listing only the candidates themselves. See 29A.56.320(2). When the vote comes in, Washington moves toward appointing the electors chosen by the party whose candidate won the statewide count. See <em>ibid.</em> But <span class="pg" id="s3-p586" title="page 586 of the original">586</span>before the appointment can go into effect, each elector must “execute [a] pledge” agreeing to “mark [her] ballots” for the presidential (and vice presidential) candidate of the party nominating her. § 29A.56.084. And the elector must comply with that pledge, or else face a sanction. At the time relevant here, the punishment was a civil fine of up to $1,000. See § 29A.56.340 (2016).<sup class="fnr"><a id="s3-r3" href="#s3-n3">3</a></sup></p>
+<p>This case involves three Washington electors who violated their pledges in the 2016 presidential election. That year, Washington's voters chose Hillary Clinton over Donald Trump for President. The State thus appointed as its electors the nominees of the Washington State Democratic Party. Among those Democratic electors were petitioners Peter Chiafalo, Levi Guerra, and Esther John (the Electors). All three pledged to support Hillary Clinton in the Electoral College. But as that vote approached, they decided to cast their ballots for someone else. The three hoped they could encourage other electors—particularly those from States Donald Trump had carried—to follow their example. The idea was to deprive him of a majority of electoral votes and throw the election into the House of Representatives. So the three Electors voted for Colin Powell for President. But their effort failed. Only seven electors across the Nation cast faithless votes—the most in a century, but well short of the goal. Candidate Trump became President Trump. And, more to the point here, the State fined the Electors $1,000 apiece for breaking their pledges to support the same candidate its voters had.</p>
+<p>The Electors challenged their fines in state court, arguing that the Constitution gives members of the Electoral College the right to vote however they please. The Washington Superior Court rejected the Electors' claim in an oral decision, and the State's Supreme Court affirmed that judgment. See <span class="pg" id="s3-p587" title="page 587 of the original">587</span><em>In re Guerra</em>, 193 Wash. 2d 380, 441 P. 3d 807 (2019). The court relied heavily on our decision in <em>Ray</em> v. <em>Blair</em> upholding a pledge requirement—though one without a penalty to back it up. See 193 Wash. 2d, at 393–399, 441 P. 3d, at 813–816. In the state court's view, Washington's penalty provision made no difference. Article II of the Constitution, the court noted, grants broad authority to the States to appoint electors, and so to impose conditions on their appointments. See <em>id.,</em> at 393, 395, 441 P. 3d, at 813, 814. And nothing in the document “suggests that electors have discretion to cast their votes without limitation or restriction by the state legislature.” <em>Id.</em>, at 396, 441 P. 3d, at 814.</p>
+<p>A few months later, the United States Court of Appeals for the Tenth Circuit reached the opposite conclusion in a case involving another faithless elector. See <em>Baca</em> v. <em>Colorado Dept. of State</em>, 935 F. 3d 887 (2019). The Circuit Court held that Colorado could not remove the elector, as its pledge law directs, because the Constitution “provide[s] presidential electors the right to cast a vote” for President “with discretion.” <em>Id.,</em> at 955.</p>
+<p>We granted certiorari to resolve the split. 589 U. S. 1165 (2020). We now affirm the Washington Supreme Court's judgment that a State may enforce its pledge law against an elector.</p>
+<h3 class="oh">II</h3>
+<p>As the state court recognized, this Court has considered elector pledge requirements before. Some seventy years ago Edmund Blair tried to become a presidential elector in Alabama. Like all States, Alabama lodged the authority to pick electors in the political parties fielding presidential candidates. And the Alabama Democratic Party required a pledge phrased much like Washington's today. No one could get on the party's slate of electors without agreeing to vote in the Electoral College for the Democratic presidential candidate. Blair challenged the pledge mandate. He argued that the “intention of the Founders was that [presidential] <span class="pg" id="s3-p588" title="page 588 of the original">588</span>electors should exercise their judgment in voting.” <em>Ray</em>, 343 U. S., at 225. The pledge requirement, he claimed, “interfere[d] with the performance of this constitutional duty to select [a president] according to the best judgment of the elector.” <em>Ibid.</em></p>
+<p>Our decision in <em>Ray</em> rejected that challenge. “Neither the language of Art. II, § 1, nor that of the Twelfth Amendment,” we explained, prohibits a State from appointing only electors committed to vote for a party's presidential candidate. <em>Ibid</em>. Nor did the Nation's history suggest such a bar. To the contrary, “[h]istory teaches that the electors were expected to support the party nominees” as far back as the earliest contested presidential elections. <em>Id</em>., at 228. “[L]ongstanding practice” thus “weigh[ed] heavily” against Blair's claim. <em>Id</em>., at 228–230. And current voting procedures did too. The Court noted that by then many States did not even put electors' names on a presidential ballot. See <em>id</em>., at 229. The whole system presupposed that the electors, because of either an “implied” or an “oral pledge,” would vote for the candidate who had won the State's popular election. <em>Ibid</em>.</p>
+<p><em>Ray</em>, however, reserved a question not implicated in the case: Could a State enforce those pledges through legal sanctions? See <em>id</em>., at 230. Or would doing so violate an elector's “constitutional freedom” to “vote as he may choose” in the Electoral College? <em>Ibid</em>. Today, we take up that question. We uphold Washington's penalty-backed pledge law for reasons much like those given in <em>Ray</em>. The Constitution's text and the Nation's history both support allowing a State to enforce an elector's pledge to support his party's nominee—and the state voters' choice—for President.</p>
+<h3 class="oh">A</h3>
+<p>Article II, § 1's appointments power gives the States far-reaching authority over presidential electors, absent some <span class="pg" id="s3-p589" title="page 589 of the original">589</span>other constitutional constraint.<sup class="fnr"><a id="s3-r4" href="#s3-n4">4</a></sup>As noted earlier, each State may appoint electors “in such Manner as the Legislature thereof may direct.” Art. II, § 1, cl. 2; see <em>supra</em>, at 582. This Court has described that clause as “conveying the broadest power of determination” over who becomes an elector. <em>McPherson</em> v. <em>Blacker</em>, 146 U. S. 1, 27 (1892).<sup class="fnr"><a id="s3-r5" href="#s3-n5">5</a></sup>And the power to appoint an elector (in any manner) includes power to condition his appointment—that is, to say what the elector must do for the appointment to take effect. A State can require, for example, that an elector live in the State or qualify as a regular voter during the relevant time period. Or more substantively, a State can insist (as <em>Ray</em> allowed) that the elector pledge to cast his Electoral College ballot for his party's presidential nominee, thus tracking the State's popular vote. See <em>Ray</em>, 343 U. S., at 227 (A pledge requirement “is an exercise of the state's right to appoint electors in such manner” as it chooses). Or—so long as nothing else in the Constitution poses an obstacle—a State can add, as Washington did, an associated condition of appointment: It can demand that the elector actually live up to his pledge, on pain of penalty. Which is to say that the State's appointment power, barring some outside constraint, enables the enforcement of a pledge like Washington's.<sup class="fnr"><a id="s3-r6" href="#s3-n6">6</a></sup></p>
+<p><span class="pg" id="s3-p590" title="page 590 of the original">590</span>And nothing in the Constitution expressly prohibits States from taking away presidential electors' voting discretion as Washington does. The Constitution is barebones about electors. Article II includes only the instruction to each State to appoint, in whatever way it likes, as many electors as it has Senators and Representatives (except that the State may not appoint members of the Federal Government). The Twelfth Amendment then tells electors to meet in their States, to vote for President and Vice President separately, and to transmit lists of all their votes to the President of the United States Senate for counting. Appointments and procedures and . . . that is all. See <em>id.</em>, at 225.</p>
+<p>The Framers could have done it differently; other constitutional drafters of their time did. In the founding era, two States—Maryland and Kentucky—used electoral bodies selected by voters to choose state senators (and in Kentucky's case, the Governor too). The Constitutions of both States, Maryland's drafted just before and Kentucky's just after the U. S. Constitution, incorporated language that would have made this case look quite different. Both State Constitutions required all electors to take an oath “to elect without favour, affection, partiality, or prejudice, such persons for Senators, as they, in their judgment and conscience, believe best qualified for the office.” Md. Declaration of Rights, Art. XVIII (1776); see Ky. Const., Art. I, § 14 (1792) (using identical language except adding “[and] for Governor”). The emphasis on independent “judgment and conscience” called for the exercise of elector discretion. But although <span class="pg" id="s3-p591" title="page 591 of the original">591</span>the Framers knew of Maryland's Constitution, no language of that kind made it into the document they drafted. See 1 Farrand 218, 289 (showing that Madison and Hamilton referred to the Maryland system at the Convention).</p>
+<p>The Electors argue that three simple words stand in for more explicit language about discretion. Article II, § 1 first names the members of the Electoral College: “electors.” The Twelfth Amendment then says that electors shall “vote” and that they shall do so by “ballot.” The “plain meaning” of those terms, the Electors say, requires electors to have “freedom of choice.” Brief for Petitioners 29, 31. If the States could control their votes, “the electors would not be `Electors,' and their `vote by Ballot' would not be a `vote.' ” <em>Id</em>., at 31.</p>
+<p>But those words need not always connote independent choice. Suppose a person always votes in the way his spouse, or pastor, or union tells him to. We might question his judgment, but we would have no problem saying that he “votes” or fills in a “ballot.” In those cases, the choice is in someone else's hands, but the words still apply because they can signify a mechanical act. Or similarly, suppose in a system allowing proxy voting (a common practice in the founding era), the proxy acts on clear instructions from the principal, with no freedom of choice. Still, we might well say that he cast a “ballot” or “voted,” though the preference registered was not his own. For that matter, some elections give the voter no real choice because there is only one name on a ballot (consider an old Soviet election, or even a down-ballot race in this country). Yet if the person in the voting booth goes through the motions, we consider him to have voted. The point of all these examples is to show that although voting and discretion are usually combined, voting is still voting when discretion departs. Maybe most telling, switch from hypotheticals to the members of the Electoral College. For centuries now, as we'll later show, almost all have considered themselves bound to vote for their party's (and the state voters')<span class="pg" id="s3-p592" title="page 592 of the original">592</span> preference. See <em>infra</em> this page and 593–597. Yet there is no better description for what they do in the Electoral College than “vote” by “ballot.” And all these years later, everyone still calls them “electors”—and not wrongly, because even though they vote without discretion, they do indeed elect a President.</p>
+<p>The Electors and their <em>amici</em> object that the Framers using those words expected the Electors' votes to reflect their own judgments. See Brief for Petitioners 18–19; Brief for Independence Institute as <em>Amicus Curiae</em> 11–15. Hamilton praised the Constitution for entrusting the Presidency to “men most capable of analyzing the qualities” needed for the office, who would make their choices “under circumstances favorable to deliberation.” The Federalist No. 68, p. 410 (C. Rossiter ed. 1961). So too, John Jay predicted that the Electoral College would “be composed of the most enlightened and respectable citizens,” whose choices would reflect “discretion and discernment.” <em>Id.</em>, No. 64, at 389.</p>
+<p>But even assuming other Framers shared that outlook, it would not be enough. Whether by choice or accident, the Framers did not reduce their thoughts about electors' discretion to the printed page. All that they put down about the electors was what we have said: that the States would appoint them, and that they would meet and cast ballots to send to the Capitol. Those sparse instructions took no position on how independent from—or how faithful to—party and popular preferences the electors' votes should be. On that score, the Constitution left much to the future. And the future did not take long in coming. Almost immediately, presidential electors became trusty transmitters of other people's decisions.</p>
+<h3 class="oh">B</h3>
+<p>“Long settled and established practice” may have “great weight in a proper interpretation of constitutional provisions.”<span class="pg" id="s3-p593" title="page 593 of the original">593</span> <em>The Pocket Veto Case</em>, 279 U. S. 655, 689 (1929). As James Madison wrote, “a regular course of practice” can “liquidate &amp; settle the meaning of” disputed or indeterminate “terms &amp; phrases.” Letter to S. Roane (Sept. 2, 1819), in 8 Writings of James Madison 450 (G. Hunt ed. 1908); see The Federalist No. 37, at 229. The Electors make an appeal to that kind of practice in asserting their right to independence. But “our whole experience as a Nation” points in the opposite direction. <em>NLRB</em> v. <em>Noel Canning</em>, 573 U. S. 513, 557 (2014) (internal quotation marks omitted). Electors have only rarely exercised discretion in casting their ballots for President. From the first, States sent them to the Electoral College—as today Washington does—to vote for pre-selected candidates, rather than to use their own judgment. And electors (or at any rate, almost all of them) rapidly settled into that non-discretionary role. See <em>Ray</em>, 343 U. S., at 228–229.</p>
+<p>Begin at the beginning—with the Nation's first contested election in 1796. Would-be electors declared themselves for one or the other party's presidential candidate. (Recall that in this election Adams led the Federalists against Jefferson's Republicans. See <em>supra</em>, at 583.) In some States, legislatures chose the electors; in others, ordinary voters did. But in either case, the elector's declaration of support for a candidate—essentially a pledge—was what mattered. Or said differently, the selectors of an elector knew just what they were getting—not someone who would deliberate in good Hamiltonian fashion, but someone who would vote for their party's candidate. “[T]he presidential electors,” one historian writes, “were understood to be instruments for expressing the will of those who selected them, not independent agents authorized to exercise their own judgment.” Whittington, Originalism, Constitutional Construction, and the Problem of Faithless Electors, 59 Ariz. L. Rev. 903, 911 (2017). And when the time came to vote in the Electoral <span class="pg" id="s3-p594" title="page 594 of the original">594</span>College, all but one elector did what everyone expected, faithfully representing their selectors' choice of presidential candidate.<sup class="fnr"><a id="s3-r7" href="#s3-n7">7</a></sup></p>
+<p>The Twelfth Amendment embraced this new reality—both acknowledging and facilitating the Electoral College's emergence as a mechanism not for deliberation but for party-line voting. Remember that the Amendment grew out of a pair of flascos—the election of two then-bitter rivals as President and Vice President, and the tie vote that threw the next election into the House. See <em>supra</em>, at 583. Both had occurred because the Constitution's original voting procedures gave electors two votes for President, rather than one apiece for President and Vice President. Without the capacity to vote a party ticket for the two offices, the electors had foundered, and could do so again. If the predominant party's electors used both their votes on their party's two candidates, they would create a tie (see 1800). If they intentionally cast fewer votes for the intended vice president, they risked the opposite party's presidential candidate sneaking into the second position (see 1796). By allowing the electors to vote separately for the two offices, the Twelfth Amendment made party-line voting safe. The Amendment thus advanced, rather than resisted, the practice that had arisen in the Nation's<span class="pg" id="s3-p595" title="page 595 of the original">595</span> first elections. An elector would promise to legislators or citizens to vote for their party's presidential and vice presidential candidates—and then follow through on that commitment. Or as the Court wrote in <em>Ray</em>, the new procedure allowed an elector to “vote the regular party ticket” and thereby “carry out the desires of the people” who had sent him to the Electoral College. <em>Ray</em>, 343 U. S., at 224, n. 11. No independent electors need apply.</p>
+<p>Courts and commentators throughout the 19th century recognized the electors as merely acting on other people's preferences. Justice Story wrote that “the electors are now chosen wholly with reference to particular candidates,” having either “silently” or “publicly pledge[d]” how they will vote. 3 Commentaries on the Constitution of the United States § 1457, p. 321 (1833). “[N]othing is left to the electors,” he continued, “but to register [their] votes, which are already pledged.” <em>Id.,</em> at 321–322. Indeed, any “exercise of an independent judgment would be treated[ ] as a political usurpation, dishonourable to the individual, and a fraud upon his constituents.” <em>Id.,</em> at 322. Similarly, William Rawle explained how the Electoral College functioned: “[T]he electors do not assemble in their several states for a free exercise of their own judgments, but for the purpose of electing” the nominee of “the predominant political party which has chosen those electors.” A View of the Constitution of the United States of America 57 (2d ed. 1829). Looking back at the close of the century, this Court had no doubt that Story's and Rawle's descriptions were right. The electors, the Court noted, were chosen “simply to register the will of the appointing power in respect of a particular candidate.” <em>McPherson</em>, 146 U. S., at 36.</p>
+<p>State election laws evolved to reinforce that development, ensuring that a State's electors would vote the same way as its citizens. As noted earlier, state legislatures early dropped out of the picture; by the mid-1800s, ordinary voters chose electors. See <em>supra</em>, at 584. Except that increasingly, <span class="pg" id="s3-p596" title="page 596 of the original">596</span>they did not do so directly. States listed only presidential candidates on the ballot, on the understanding that electors would do no more than vote for the winner. Usually, the State could ensure that result by appointing electors chosen by the winner's party. But to remove any doubt, States began in the early 1900s to enact statutes requiring electors to pledge that they would squelch any urge to break ranks with voters. See <em>supra,</em> at 584–585. Washington's law, penalizing a pledge's breach, is only another in the same vein. It reflects a tradition more than two centuries old. In that practice, electors are not free agents; they are to vote for the candidate whom the State's voters have chosen.</p>
+<p>The history going the opposite way is one of anomalies only. The Electors stress that since the founding, electors have cast some 180 faithless votes for either President or Vice President. See Brief for Petitioners 7. But that is 180 out of over 23,000. See Brief for Republican National Committee as <em>Amicus Curiae</em> 19. And more than a third of the faithless votes come from 1872, when the Democratic Party's nominee (Horace Greeley) died just after Election Day.<sup class="fnr"><a id="s3-r8" href="#s3-n8">8</a></sup>Putting those aside, faithless votes represent just one-half of one percent of the total. Still, the Electors counter, Congress has counted all those votes. See Brief for Petitioners 46. But because faithless votes have never come close to affecting an outcome, only one has ever been challenged. True enough, that one was counted. But the Electors cannot rest a claim of historical tradition on one counted vote in <span class="pg" id="s3-p597" title="page 597 of the original">597</span>over 200 years. And anyway, the State appointing that elector had no law requiring a pledge or otherwise barring his use of discretion. Congress's deference to a state decision to tolerate a faithless vote is no ground for rejecting a state decision to penalize one.</p>
+<h3 class="oh">III</h3>
+<p>The Electors' constitutional claim has neither text nor history on its side. Article II and the Twelfth Amendment give States broad power over electors, and give electors themselves no rights. Early in our history, States decided to tie electors to the presidential choices of others, whether legislatures or citizens. Except that legislatures no longer play a role, that practice has continued for more than 200 years. Among the devices States have long used to achieve their object are pledge laws, designed to impress on electors their role as agents of others. A State follows in the same tradition if, like Washington, it chooses to sanction an elector for breaching his promise. Then too, the State instructs its electors that they have no ground for reversing the vote of millions of its citizens. That direction accords with the Constitution—as well as with the trust of a Nation that here, We the People rule.</p>
+<p>The judgment of the Supreme Court of Washington is</p>
+<blockquote>
+<p><em>Affirmed.</em></p>
+</blockquote>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li id="s3-n1" value="1"><p>Maine and Nebraska (which, for simplicity's sake, we will ignore after this footnote) developed a more complicated system in which two electors go to the winner of the statewide vote and one goes to the winner of each congressional district. See Me. Rev. Stat. Ann., Tit. 21–A, § 802 (2006); Neb. Rev. Stat. § 32–710 (2016). So, for example, if the Republican candidate wins the popular vote in Nebraska as a whole but loses to the Democratic candidate in one of the State's three congressional districts, the Republican will get four electors and the Democrat will get one. Here too, though, the States use party slates to pick the electors, in order to reflect the relevant popular preferences (whether in the State or in an individual district). <a class="back" href="#s3-r1" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n2" value="2"><p>Ariz. Rev. Stat. Ann. § 16–212 (2019 Cum. Supp.); Cal. Elec. Code Ann. §§6906, 18002 (West 2019); Colo. Rev. Stat. §1–4–304 (2019); Ind. Code § 3–10–4–9 (2019); Mich. Comp. Laws § 168.47 (2008); Minn. Stat. §§ 208.43, 208.46 (2020 Cum. Supp.); Mont. Code Ann. §§ 13–25–304, 13–25–307 (2019); Neb. Rev. Stat. §§ 32–713, 32–714; Nev. Rev. Stat. §§ 298.045, 298.075 (2017); N. M. Stat. Ann. § 1–15–9 (Supp. 2011); N. C. Gen. Stat. Ann. § 163–212 (2019); Okla. Stat., Tit. 26, §§ 10–102, 10–109 (2019); S. C. Code Ann. §7–19–80 (2018); Utah Code §20A–13–304 (2020); Wash. Rev. Code §§ 29A.56.084, 29A.56.090 (2019). <a class="back" href="#s3-r2" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n3" value="3"><p>Since the events in this case, Washington has repealed the fine. It now enforces pledges only by removing and replacing faithless electors. See Wash. Rev. Code § 29A.56.090(3) (2019). <a class="back" href="#s3-r3" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n4" value="4"><p>Checks on a State's power to appoint electors, or to impose conditions on an appointment, can theoretically come from anywhere in the Constitution. A State, for example, cannot select its electors in a way that violates the Equal Protection Clause. And if a State adopts a condition on its appointments that effectively imposes new requirements on presidential candidates, the condition may conflict with the Presidential Qualifications Clause, see Art. II, § 1, cl. 5. <a class="back" href="#s3-r4" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n5" value="5"><p>See also <em>U. S. Term Limits, Inc.</em> v. <em>Thornton</em>, 514 U. S. 779, 805 (1995) (describing Article II, § 1 as an “express delegation[ ] of power to the States”); but see <em>post</em>, at 597–598 (<span class="sc">Thomas, J.</span>, concurring in judgment) (continuing to press the view, taken in the <em>Thornton</em> dissent, that Article II, § 1 grants the States no power at all). <a class="back" href="#s3-r5" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n6" value="6"><p>The concurring opinion would have us make fine distinctions among state laws punishing faithless voting—treating some as conditions of ap pointment and others not, depending on small semantic differences. See <em>post,</em> at 602–605 (distinguishing, for example, between Oklahoma's law fining an elector for violating his oath (to vote for his party's candidate) and Washington's law fining an elector for not voting for his party's candidate (whom he took an oath to support)). The Electors themselves raised no such argument, and they were right not to do so. No matter the precise phrasing, a law penalizing faithless voting (like a law merely barring that practice) is an exercise of the State's power to impose conditions on the appointment of electors. See <em>Ray</em> v. <em>Blair</em>, 343 U. S. 214, 227 (1952). <a class="back" href="#s3-r6" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n7" value="7"><p>The reaction to even that single elector goes to prove the point that the system was non-discretionary. In the 1796 election, Pennsylvania held a statewide vote for electors under a winner-take-all rule (as all but two States have today). The people voted narrowly for the slate of electors supporting Jefferson. But Federalist chicanery led to the Governor's inclusion of two Federalist electors in the State's delegation to the Electoral College. One of them, Samuel Miles, agreed to cast his vote for Jefferson, in line with the winner-take-all expectation on which the race had been run. If he thought other Federalists would forgive him for acting with honor, he was wrong. An irate voter reacted: “[W]hen I voted for the [Federalist] ticket, I voted for John Adams. . . . What! do I chuse Samuel Miles to determine for me whether John Adams or Thomas Jefferson is the fittest man for President of the United States? No—I chuse him to <em>act</em>, not to <em>think</em>.” See Gazette of the United States, Dec. 15, 1796, p. 3, col. 1 (emphasis in original). <a class="back" href="#s3-r7" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n8" value="8"><p>The Electors contend that elector discretion is needed to deal with the possibility that a future presidential candidate will die between Election Day and the Electoral College vote. See Reply Brief 20–22. We do not dismiss how much turmoil such an event could cause. In recognition of that fact, some States have drafted their pledge laws to give electors voting discretion when their candidate has died. See, <em>e. g.,</em> Cal. Elec. Code Ann. § 6906; Ind. Code § 3–10–4–1.7. And we suspect that in such a case, States without a specific provision would also release electors from their pledge. Still, we note that because the situation is not before us, nothing in this opinion should be taken to permit the States to bind electors to a deceased candidate. <a class="back" href="#s3-r8" aria-label="Back to the text">↩</a></p></li>
+</ol></aside></section>
+<section id="s4" class="op op-judgment"><h2>Justice Thomas, concurring in the judgment</h2>
+<p class="byline">Justice Thomas, with whom Justice Gorsuch joins as to Part II, concurring in the judgment.</p>
+<p>The Court correctly determines that States have the power to require Presidential electors to vote for the candidate chosen by the people of the State. I disagree, however, with its attempt to base that power on Article II. In my view, the Constitution is silent on States' authority to bind electors in voting. I would resolve this case by simply recognizing that “[a]ll powers that the Constitution neither delegates to the Federal Government nor prohibits to the States are controlled by the people of each State.” <em>U. S. Term</em> <span class="pg" id="s4-p598" title="page 598 of the original">598</span><em>Limits</em>, <em>Inc.</em> v. <em>Thornton</em>, 514 U. S. 779, 848 (1995) (<span class="sc">Thomas</span>, J., dissenting).</p>
+<h3 class="oh">I</h3>
+<h3 class="oh">A</h3>
+<p>The Constitution does not address—expressly or by necessary implication—whether States have the power to require that Presidential electors vote for the candidates chosen by the people. Article II, § 1, and the Twelfth Amendment provide for the election of the President through a body of electors. But neither speaks directly to a State's power over elector voting.</p>
+<p>The only provision in the Constitution that arguably addresses a State's power over Presidential electors is Clause 2 of Article II, § 1. That Clause provides, in relevant part, that “[e]ach State shall appoint, in such Manner as the Legislature thereof may direct, a Number of Electors.” As I have previously explained, this language “imposes an affirmative obligation on the States” to establish the manner for appointing electors. <em>U. S. Term Limits</em>, 514 U. S., at 864 (dissenting opinion). By using the term “shall,” “the Clause expressly requires action by the States.” <em>Id.</em>, at 862 (internal quotation marks omitted); see also <em>Maine Community Health Options</em> v. <em>United States</em>, 590 U. S. 296, 310 (2020) (“The first sign that the statute imposed an obligation is its mandatory language: `shall' ”); <em>Lexecon Inc.</em> v. <em>Milberg Weiss Bershad Hynes &amp; Lerach</em>, 523 U. S. 26, 35 (1998) (recognizing that “ `shall' . . . normally creates an obligation”). This obligation to provide the manner of appointing electors does not expressly delegate power to States; it simply imposes an affirmative duty. See <em>U. S. Term Limits</em>, <em>supra</em>, at 862–863 (<span class="sc">Thomas</span>, J., dissenting).</p>
+<h3 class="oh">B</h3>
+<p>In a somewhat cursory analysis, the Court concludes that the States' duty to appoint electors “in such Manner as the Legislature thereof may direct,” Art. II, § 1, cl. 2, provides <span class="pg" id="s4-p599" title="page 599 of the original">599</span>an express grant of “power to appoint an elector.” <em>Ante,</em> at 589. As explained above, this interpretation erroneously conflates the imposition of a duty with the granting of a power. But even setting that issue aside, I cannot agree with the Court's analysis. The Court appears to misinterpret Article II, § 1, by overreading its language as authorizing the broad power to impose and enforce substantive conditions on appointment. The Court then misconstrues the State of Washington's law as enforcing a condition of appointment.</p>
+<h3 class="oh">1</h3>
+<p>The Court's conclusion that the text of Article II, § 1, expressly grants States the power to impose substantive conditions or qualifications on electors is highly questionable. Its interpretation appears to strain the plain meaning of the text, ignore historical evidence, and give the term “Manner” different meanings in parallel provisions of Article I and Article II.</p>
+<p>First, the Court's attempt to root its analysis in Article II, § 1, seems to stretch the plain meaning of the Constitution's text. Article II, § 1, provides that States shall appoint electors “in such Manner as the Legislature thereof may direct.” At the time of the founding, the term “manner” referred to a “[f]orm” or “method.” 1 S. Johnson, A Dictionary of the English Language (6th ed. 1785); see also 1 J. Ash, The New and Complete Dictionary of the English Language (2d ed. 1795). These definitions suggest that Article II requires state legislatures merely to set the approach for selecting Presidential electors, not to impose substantive limitations on whom may become an elector. And determining the “Manner” of appointment certainly does not include the power to impose requirements as to how the electors vote <em>after they are appointed</em>, which is what the Washington law addresses. See <em>infra</em>, at 604–605.</p>
+<p>Historical evidence from the founding also suggests that the “Manner” of appointment refers to the method for selecting<span class="pg" id="s4-p600" title="page 600 of the original">600</span> electors, rather than the substantive limitations placed on the position. At the Convention, the Framers debated whether Presidential electors should be selected by the state legislatures or by other electors chosen by the voters of each State. Oliver Ellsworth and Luther Martin, for example, thought the President should be chosen by electors selected by state legislatures. <em>McPherson</em> v. <em>Blacker</em>, 146 U. S. 1, 28 (1892). Alexander Hamilton, however, preferred a system in which the President would be chosen “by electors chosen by electors chosen by the people.” <em>Ibid.</em> The final language of Article II “seems to have reconciled [the] contrariety of views by leaving it to the state legislatures” to set the manner of elector appointment. <em>Ibid.</em> In context, it is clear that the Framers understood “Manner” in Article II, § 1, to refer to the mode of appointing electors—consistent with the plain meaning of the term.</p>
+<p>This understanding of “Manner” was seemingly shared by those at the ratifying conventions. For instance, at the North Carolina ratifying convention, John Steele stated that “[t]he power over the <em>manner</em> of elections [under Article I, § 4] does not include that of saying who shall vote.” 4 Debates on the Constitution 71 (J. Elliot ed. 1863) (emphasis added). Rather “the power over the <em>manner</em> only enables [States] to determine how these electors shall elect.” <em>Ibid.</em> (emphasis added and deleted). In short, the historical context and contemporaneous use of the term “Manner” seem to indicate that the Framers and the ratifying public both understood the term in accordance with its plain meaning.</p>
+<p>Finally, the Court's interpretation gives the same term— “Manner”—different meanings in two parallel provisions of the Constitution. Article I, § 4, states that “[t]he Times, Places and Manner of holding Elections for Senators and Representatives, shall be prescribed in each State by the Legislature thereof.” In <em>U. S. Term Limits</em>, the Court concluded that the term “Manner” in Article I includes only “a grant of authority to issue procedural regulations,” not “the <span class="pg" id="s4-p601" title="page 601 of the original">601</span>broad power to set qualifications.” 514 U. S., at 832–833 (majority opinion); see also <em>id.,</em> at 861–864 (<span class="sc">Thomas</span>, J., dissenting). Yet, today, the Court appears to take the exact opposite view. The Court interprets the term “Manner” in Article II, § 1, to include the power to impose conditions or qualifications on the appointment of electors. <em>Ante,</em> at 589.</p>
+<p>With respect, I demur. “When seeking to discern the meaning of a word in the Constitution, there is no better dictionary than the rest of the Constitution itself.” <em>Arizona State Legislature</em> v. <em>Arizona Independent Redistricting Comm'n</em>, 576 U. S. 787, 829 (2015) (<span class="sc">Roberts</span>, C. J., dissenting); cf. <em>Scialabba</em> v. <em>Cuellar de Osorio</em>, 573 U. S. 41, 60 (2014) (<span class="sc">Kagan</span>, J., for the Court) (“ `[W]ords repeated in different parts of the same statute generally have the same meaning' ” (quoting <em>Law</em> v. <em>Siegel</em>, 571 U. S. 415, 422 (2014))). While terms may not always have the exact same meaning throughout the Constitution, here we are interpreting the same word (“Manner”) in two provisions that the Court has already stated impose “paralle[l]” duties—setting the “ `Manner of holding Elections' ” and setting the “ `Manner' ” of “ `appoint[ing] a Number of Electors.' ” <em>U. S. Term Limits,</em> 514 U. S., at 804–805 (majority opinion). Nothing in the Constitution's text or history indicates that the Court should take the strongly disfavored step of concluding that the term “Manner” has two different meanings in these closely aligned provisions.</p>
+<p>All the Court can point to in support of its position is a single sentence in <em>Ray</em> v. <em>Blair</em>, 343 U. S. 214 (1952), which suggested that a State's power to impose a requirement that electors pledge to vote for their party's nominee comes from Article II, § 1, <em>id.</em>, at 227. But this statement is simply made in passing in response to one of the parties' arguments. It is curiously bereft of reasoning or analysis of Article II. We generally look to the text to govern our analysis rather than insouciantly follow stray, “incomplete” statements in our prior opinions, see <em>Thryv</em>, <em>Inc.</em> v. <em>Click-To-Call Technologies,</em> <span class="pg" id="s4-p602" title="page 602 of the original">602</span><em>LP</em>, 590 U. S. 45, 59 (2020). In my view, we should be guided by the text here.</p>
+<h3 class="oh">2</h3>
+<p>Even accepting the Court's broad interpretation of Clause 2 of Article II, § 1, I cannot agree with its determination that this Clause expressly authorizes the Washington law at issue here. In an attempt to tie Washington's law to the State's “power to appoint an elector,” see <em>ante</em>, at 589, the Court construes Wash. Rev. Code § 29A.56.340 (2016) as “enforc[ing] a pledge.” See <em>ante,</em> at 589; see also <em>ante</em>, at 581, 587–588, 597. But § 29A.56.340 did not involve the enforcement of a pledge or relate to the appointment process at all.<sup class="fnr"><a id="s4-r1" href="#s4-n1">1</a></sup>It simply regulated electors' votes, unconnected to the appointment process.</p>
+<p>To understand the Court's error, a brief summary of its theory is necessary. According to the Court, Article II, § 1, grants States “the power to appoint” Presidential electors “in such Manner as the Legislature thereof may direct.” <em>Ante</em>, at 589. That “power to appoint an elector,” the Court states, “includes power to condition his appointment.” <em>Ibid.</em> The power to condition appointment in turn allows the State to insist that an “elector pledge to cast his Electoral College ballot for his party's presidential nominee.” <em>Ibid.</em> And finally, “the State's appointment power . . . enables the enforcement of a pledge.” <em>Ibid.</em> The Court's theory is entirely premised on the State exercising a power to <em>appoint</em>.</p>
+<p>Assuming the Court has correctly interpreted Article II, § 1, there are certain circumstances in which this theory could stand. Some States expressly require electors to pledge to vote for a party nominee as a condition of appointment and then impose a penalty if electors violate that <span class="pg" id="s4-p603" title="page 603 of the original">603</span>pledge. For example, under Oklahoma law, “[e]very party nominee for Presidential Elector shall subscribe to an oath, stating that said nominee, if elected, will cast a ballot for the persons nominated for the offices of President and Vice President by the nominee's party.” Okla. Stat., Tit. 26, § 10–102 (2019). Oklahoma then penalizes the violation of that oath: “Any Presidential Elector <em>who violates his oath</em> as a Presidential Elector shall be guilty of a misdemeanor and, upon conviction thereof, shall be punished by a fine of not more than One Thousand Dollars ($1,000.00).” § 10–109 (emphasis added). Other States have similar laws, first requiring a pledge as a condition of appointment and then penalizing the violation of that pledge. See, <em>e. g.</em>, Ind. Code § 3–10–4–1.7(a) (2019) (imposing pledge requirement); § 3–10–4–9(d) (stating that “[a] presidential elector who . . . presents a ballot <em>marked in violation of the presidential elector's pledge executed under section 1.7 . . . of this chapter</em>, vacates the office of presidential elector” (emphasis added)); Minn. Stat. § 208.43 (2020 Cum. Supp.) (imposing pledge requirement); § 208.46(c) (stating that “[a]n elector who . . . presents a ballot <em>marked in violation of the elector's pledge executed under section 208.43</em> . . . vacates the office of elector” (emphasis added)).<sup class="fnr"><a id="s4-r2" href="#s4-n2">2</a></sup></p>
+<p>But not all States attempt to bind electors' votes through the appointment process. Some States simply impose a legal duty that has no connection to elector appointment. See <em>ante</em>, at 585. For example, New Mexico imposes a legal duty on its electors: “All presidential electors shall cast their ballots in the electoral college for the candidates of the political party which nominated them as presidential electors.” N. M. Stat. Ann. § 1–15–9(A) (Supp. 2011). And “[a]ny presidential elector who casts his ballot in violation of [this duty] is guilty of a fourth degree felony.” § 1–15–9(B). California <span class="pg" id="s4-p604" title="page 604 of the original">604</span>has a similar system. It first imposes a legal duty on electors to vote for the nominated candidates of the political party they represent if those candidates are alive. Cal. Elec. Code Ann. § 6906 (West 2019). It then imposes a punishment on “[e]very person charged with the performance of any duty under any law of this state relating to elections, who willfully neglects or refuses to perform it.” § 18002.<sup class="fnr"><a id="s4-r3" href="#s4-n3">3</a></sup>These laws penalize electors for their faithless votes. But they do not attempt to regulate the votes of electors through the appointment process. In fact, these laws have nothing to do with elector appointment.</p>
+<p>The Court recognizes the distinction between these two types of laws, <em>i. e.,</em> laws enforcing appointment conditions and laws that regulate electors outside of the appointment process. See <em>ante</em>, at 585 (recognizing that some States “merely impose [a] duty by law”). But it claims this is merely a “small semantic differenc[e].” <em>Ante,</em> at 590, n. 6. Far from being semantic, the difference between the power to impose a “condition of appointment” and the power to impose restrictions on electors <em>that have nothing to do with appointment</em> is fundamental to the Court's textual argument. The Court's entire analysis is premised on States' purported Article II “power to appoint an elector” and “to condition his appointment.” <em>Ante</em>, at 589. The Court does not, and cannot, claim that the text of Article II provides States power over anything other than the <em>appointment</em> of electors. See <em>ante,</em> at 589–590.</p>
+<p>Here, the challenged Washington law did not enforce any appointment condition. It provided that “[a]ny elector who <span class="pg" id="s4-p605" title="page 605 of the original">605</span>votes for a person or persons not nominated by the party of which he or she is an elector is subject to a civil penalty of up to one thousand dollars.” Wash. Rev. Code § 29A.56.340 (2016). Unlike the laws of Oklahoma, Indiana, Minnesota and the other States discussed above, a violation of § 29A.56.340 was not predicated on violating a pledge or any other condition of appointment. In fact, it did not even mention a pledge, which was set forth in a separate, unreferenced provision. See § 29A.56.320. Thus, § 29A.56.340 had no connection to the appointment process and could be enforced independent of the existence of any pledge requirement. While the Court's description of § 29A.56.340 as a law enforcing a condition of appointment may be helpful for the Court's claim that Washington's law was rooted in Article II, § 1's “power to appoint,” it is simply not accurate. Thus, even accepting the Court's strained reading of Article II, § 1's text, I cannot agree with the Court's effort to reconcile Washington's law with its desired theory.</p>
+<p>In short, the Constitution does not speak to States' power to require Presidential electors to vote for the candidates chosen by the people. The Court's attempt to ground such a power in Article II's text falls short. Rather than contort the language of both Article II and the state statute, I would acknowledge that the Constitution simply says nothing about the States' power in this regard.</p>
+<h3 class="oh">II</h3>
+<p>When the Constitution is silent, authority resides with the States or the people. This allocation of power is both embodied in the structure of our Constitution and expressly required by the Tenth Amendment. The application of this fundamental principle should guide our decision here.</p>
+<h3 class="oh">A</h3>
+<p>“The ultimate source of the Constitution's authority is the consent of the people of each individual State.” <em>U. S. Term</em> <span class="pg" id="s4-p606" title="page 606 of the original">606</span><em>Limits</em>, 514 U. S., at 846 (<span class="sc">Thomas</span>, J., dissenting). When the States ratified the Federal Constitution, the people of each State acquiesced in the transfer of limited power to the Federal Government. They ceded only those powers granted to the Federal Government by the Constitution. “The Federal Government and the States thus face different default rules: Where the Constitution is silent about the exercise of a particular power[,] the Federal Government lacks that power and the States enjoy it.” <em>Id.,</em> at 848; see also <em>United States</em> v. <em>Comstock</em>, 560 U. S. 126, 159 (2010) (<span class="sc">Thomas</span>, J., dissenting).</p>
+<p>This allocation of power is apparent in the structure of our Constitution. The Federal Government “is acknowledged by all to be one of enumerated powers.” <em>McCulloch</em> v. <em>Maryland</em>, 4 Wheat. 316, 405 (1819). “[T]he powers delegated by the . . . Constitution to the federal government are few and defined,” while those that belong to the States “remain . . . numerous and indefinite.” The Federalist No. 45, p. 292 (C. Rossiter ed. 1961) (J. Madison). Article I, for example, enumerates various legislative powers in § 8, but it specifically limits Congress' authority to the “legislative Powers herein granted,” §1. States face no such constraint because the Constitution does not delineate the powers of the States. Article I, § 10, contains a brief list of powers removed from the States, but States are otherwise “free to exercise all powers that the Constitution does not withhold from them.” <em>Comstock</em>, <em>supra</em>, at 159 (<span class="sc">Thomas</span>, J., dissenting).</p>
+<p>This structural principle is explicitly enshrined in the Tenth Amendment. That Amendment states that “[t]he powers not delegated to the United States by the Constitution, nor prohibited by it to the States, are reserved to the States respectively, or to the people.” As Justice Story explained, “[t]his amendment is a mere affirmation of what, upon any just reasoning, is a necessary rule of interpreting <span class="pg" id="s4-p607" title="page 607 of the original">607</span>the constitution. Being an instrument of limited and enumerated powers, it follows irresistibly, that what is not conferred, is withheld, and belongs to the state authorities.” 3 J. Story, Commentaries on the Constitution of the United States § 1900, p. 752 (1833); see also <em>Alden</em> v. <em>Maine</em>, 527 U. S. 706, 714 (1999); <em>New York</em> v. <em>United States</em>, 505 U. S. 144, 156 (1992). In other words, the Tenth Amendment “states but a truism that all is retained which has not been surrendered,” <em>United States</em> v. <em>Darby</em>, 312 U. S. 100, 124 (1941), “mak[ing] clear that powers reside at the state level except where the Constitution removes them from that level,” <em>U. S. Term Limits</em>, <em>supra</em>, at 848 (<span class="sc">Thomas</span>, J., dissenting); see also <em>Garcia</em> v. <em>San Antonio Metropolitan Transit Authority</em>, 469 U. S. 528, 549 (1985).</p>
+<p>Thus, “[w]here the Constitution is silent about the exercise of a particular power[,] that is, where the Constitution does not speak either expressly or by necessary implication,” the power is “either delegated to the state government or retained by the people.” <em>U. S. Term Limits</em>, <em>supra</em>, at 847–848 (<span class="sc">Thomas,</span> J., dissenting); cf. <em>Martin</em> v. <em>Hunter's Lessee</em>, 1 Wheat. 304, 326 (1816) (stating that the Federal Government's powers under the Constitution must be “expressly given, or given by necessary implication”).</p>
+<h3 class="oh">B</h3>
+<p>This fundamental allocation of power applies in the context of the electoral college. Article II, § 1, and the Twelfth Amendment address the election of the President through a body of electors. These sections of the Constitution provide the Federal Government with limited powers concerning the election, set various requirements for the electors, and impose an affirmative obligation on States to appoint electors. Art. II, § 1; Amdt. 12. Each of these directives is consistent with the general structure of the Constitution and the principle of reserved powers. See <em>supra,</em> at 605–607; <em>U. S. Term</em> <span class="pg" id="s4-p608" title="page 608 of the original">608</span><em>Limits</em>, <em>supra</em>, at 863 (<span class="sc">Thomas</span>, J., dissenting). Put simply, nothing in the text or structure of Article II and the Twelfth Amendment contradicts the fundamental distribution of power preserved by the Tenth Amendment.</p>
+<p>Of course, the powers reserved to the States concerning Presidential electors cannot “be exercised in such a way as to violate express constitutional commands.” <em>Williams</em> v. <em>Rhodes</em>, 393 U. S. 23, 29 (1968). That is, powers related to electors reside with States to the extent that the Constitution does not remove or restrict that power. Thus, to invalidate a state law, there must be “something in the Federal Constitution that deprives the [States of] the power to enact such [a] measur[e].” <em>U. S. Term Limits, supra</em>, at 850 (<span class="sc">Thomas</span>, J., dissenting).</p>
+<p>As the Court recognizes, nothing in the Constitution prevents States from requiring Presidential electors to vote for the candidate chosen by the people. Petitioners ask us to infer a constitutional right to elector independence by interpreting the terms “appoint,” “Electors,” “vote,” and “by Ballot” to align with the Framers' <em>expectations</em> of discretion in elector voting. But the Framers' expectations aid our interpretive inquiry only to the extent that they provide evidence of the original public meaning of the Constitution. They cannot be used to change that meaning. As the Court explains, the plain meaning of the terms relied on by petitioners does not appear to “connote independent choice.” <em>Ante</em>, at 591. Thus, “the original expectation[s]” of the Framers as to elector discretion provide “no reason for holding that the power confided to the States by the Constitution has ceased to exist.” <em>McPherson</em>, 146 U. S., at 36; see also <em>ante,</em> at 592.</p>
+<p class="sep">* * *</p>
+<p>“The people of the States, from whom all governmental powers stem, have specified that all powers not prohibited to the States by the Federal Constitution are reserved `to <span class="pg" id="s4-p609" title="page 609 of the original">609</span>the States respectively, or to the people.' ” <em>U. S. Term Limits</em>, 514 U. S., at 852 (<span class="sc">Thomas</span>, J., dissenting). Because I would decide this case based on that fundamental principle, I concur only in the judgment.</p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li id="s4-n1" value="1"><p>In 2019, Washington revised its laws addressing Presidential electors, eliminating the provision imposing a civil penalty on faithless electors. See 2019 Wash. Sess. Laws pp. 755–758. <a class="back" href="#s4-r1" aria-label="Back to the text">↩</a></p></li>
+<li id="s4-n2" value="2"><p>See also Mont. Code Ann. §§ 13–25–304, 13–25–307(4) (2019); Neb. Rev. Stat. §§ 32–713(2), 32–714(4) (2016); Wash. Rev. Code §§29A.56.084, 29A.56.090(3) (2019). <a class="back" href="#s4-r2" aria-label="Back to the text">↩</a></p></li>
+<li id="s4-n3" value="3"><p>Michigan likewise does not regulate electors through the appointment process. Under Michigan law, the failure of an already appointed elector to resign “signifies” that the elector “consent[s] to serve and to cast his vote for the candidates for president and vice-president appearing on the Michigan ballot of the political party which nominated him.” Mich. Comp. Laws § 168.47 (2008). Attempting to cast a vote for another candidate “constitutes a resignation from the office of elector.” <em>Ibid.</em> <a class="back" href="#s4-r3" aria-label="Back to the text">↩</a></p></li>
+</ol></aside></section><p class='back'><a href='/opinions/'>&larr; All opinions</a> · <a href='/justices/ot2019.html'>The Justices, October Term 2019 &rarr;</a></p></main></body>
+</html>
+

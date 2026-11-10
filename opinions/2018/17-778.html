@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script async src='/analytics.js'></script><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate icon" href="/favicon.ico" sizes="any"><link rel="alternate" type="application/atom+xml" title="Supreme Court Report" href="/feed.xml"><link rel="alternate" type="application/atom+xml" title="Certiorari grants" href="/grants.xml"><title>Quarles v. United States — Opinion — Supreme Court Report</title><meta name="description" content="The opinion in Quarles v. United States (No. 17-778), decided June 10, 2019: the full text with its footnotes, as a page, a Markdown file and an EPUB."><link rel="canonical" href="https://supremecourt.report/opinions/2018/17-778.html"><meta property="og:site_name" content="Supreme Court Report"><meta property="og:type" content="article"><meta property="og:title" content="Quarles v. United States — Opinion — Supreme Court Report"><meta property="og:description" content="The opinion in Quarles v. United States (No. 17-778), decided June 10, 2019: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta property="og:url" content="https://supremecourt.report/opinions/2018/17-778.html"><meta property="og:image" content="https://supremecourt.report/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Supreme Court Report - docket analytics for the Supreme Court of the United States"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Quarles v. United States — Opinion — Supreme Court Report"><meta name="twitter:description" content="The opinion in Quarles v. United States (No. 17-778), decided June 10, 2019: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta name="twitter:image" content="https://supremecourt.report/og.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap"><style>
+  :root{--paper:#fdfcfa;--panel:#ffffff;--ink:#1a1a1e;--ink-soft:#484850;--faint:#63636b;--accent:#9c0e3a;--link:#9c0e3a;--rule:#dbd8d2;--nav-max:60rem}
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{font-family:'Newsreader',Georgia,serif;font-size:19px;line-height:1.6;
+    color:var(--ink);background:var(--paper);margin:0;font-feature-settings:'onum' 1}
+  body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
+    opacity:.5;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");}
+  .wrap{max-width:40rem;margin:0 auto;padding:3rem 1.4rem 4rem}
+  .kicker{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 1rem}
+  h1{font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:clamp(2.4rem,7vw,3.6rem);line-height:1;letter-spacing:-.015em;
+    margin:0 0 1rem;color:var(--ink)}
+  h1 em{font-style:italic;font-weight:500;color:var(--accent)}
+  .dek{font-size:1.15rem;line-height:1.5;color:var(--ink-soft);font-style:italic;
+    margin:0 0 1.4rem}
+  .brule{border:0;height:0;border-top:2px solid var(--ink);margin:1.4rem 0 .3rem;
+    position:relative}
+  .brule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+    border-top:1px solid var(--rule)}
+  ul.idx{list-style:none;padding:0;margin:1.6rem 0}
+  ul.idx li{border-bottom:1px solid var(--rule)}
+  /* Whole row is one block-level link: a large, reliable tap target on mobile. */
+  ul.idx a.row{display:flex;justify-content:space-between;align-items:baseline;
+    gap:1rem;padding:.9rem .4rem;text-decoration:none;border:0;color:inherit}
+  ul.idx a.row:hover{background:rgba(156,14,58,.05)}
+  ul.idx .d{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.16rem;
+    color:var(--accent);line-height:1.25}
+  ul.idx a.row:hover .d{text-decoration:underline;text-underline-offset:3px}
+  ul.idx .count{color:var(--faint);font-size:.9rem;font-style:italic;white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  /* A long note (an order list's "3 GVRs / 230 denied / 4 habeas denied /
+     ...", items separated by middots) cannot sit on one line: nowrap made it
+     claim the row and
+     squeezed the title into a column three words wide, and on a phone it ran off
+     the screen. Such a row opts in (meta_wrap): the note wraps, only between its
+     items, and takes at most ~45% of the row, so the title always has the
+     larger share. Under 34rem it drops beneath the title at full width. */
+  /* ("long", not "wrap": .wrap is the page container and its padding.) */
+  ul.idx .count.long{white-space:normal;text-align:right;max-width:45%;line-height:1.45}
+  ul.idx .count.long .seg{white-space:nowrap}
+  @media(max-width:34rem){
+    ul.idx a.row.longmeta{flex-wrap:wrap;row-gap:.2rem}
+    ul.idx .count.long{max-width:none;flex-basis:100%;text-align:left}
+  }
+  /* Compact horizontal strip of the most recent pages beneath a category row. */
+  ul.idx .recent{display:flex;flex-wrap:wrap;align-items:baseline;
+    gap:.3rem .85rem;padding:0 .4rem 1rem;margin-top:-.35rem}
+  ul.idx .recent .rlabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  ul.idx .recent a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--ink-soft);text-decoration:none;font-variant-numeric:tabular-nums;
+    border-bottom:1px solid var(--rule);padding-bottom:1px}
+  ul.idx .recent a:hover{color:var(--accent);border-color:var(--accent)}
+  /* Optional panel beneath the section index (home page: most-read cases). */
+  .panel{margin:2.4rem 0 0}
+  .panel h2{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 .25rem}
+  .panel .pnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:0 0 .5rem}
+  /* "Live now" (live_argument_panel, /live.js): hidden unless the Court is
+     streaming an argument. One red dot, the same --accent as the headings, so
+     the live state is a mark and not a new colour. */
+  .live h2 .ldot{display:inline-block;width:.5rem;height:.5rem;border-radius:50%;
+    background:var(--accent);margin-right:.5rem;vertical-align:.08rem;
+    animation:lpulse 2s ease-in-out infinite}
+  @keyframes lpulse{50%{opacity:.25}}
+  @media (prefers-reduced-motion:reduce){.live h2 .ldot{animation:none}}
+  .lplay{display:flex;flex-wrap:wrap;gap:.6rem .9rem;align-items:center;margin:.8rem 0 .3rem}
+  .lplay button{font:600 .9rem/1 'Newsreader',Georgia,serif;letter-spacing:.04em;
+    color:var(--paper);background:var(--accent);border:0;border-radius:2px;
+    padding:.6rem 1.05rem;cursor:pointer}
+  .lplay button:disabled{opacity:.6;cursor:progress}
+  .lplay button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  /* The player takes a row of its own and may never outgrow the column. A flex
+     item's min-width is auto, which for a replaced element is the browser's own
+     controls' width -- wider than the column on a phone, where mobile Safari
+     and Chrome draw larger controls than the desktop. */
+  .lplay audio{display:block;flex:1 1 100%;width:100%;min-width:0;max-width:100%;
+    box-sizing:border-box;margin:0}
+  .lplay .lstat{font-size:.85rem;color:var(--faint)}
+  /* --- Likeliest grants -----------------------------------------------------
+     Its own rows rather than ol.mostread's: this panel carries a question under
+     the caption, which that list has no room for, and a percentage that has to
+     read as the row's subject rather than as a trailing note.
+     The window toggle is two real radio inputs plus :has() -- no JavaScript.
+     Both windows are rendered at build time and one is hidden, which is the only
+     way a static site can offer the choice: there is no server to ask for the
+     other one. Real radios, not styled buttons, so the control is reachable by
+     keyboard and announced as a choice. */
+  .lead{margin:0 0 1.9rem}
+  .lead h2{margin-bottom:.35rem}
+  .lead .pnote{margin:0 0 .7rem}
+  .wr{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+  .win{display:inline-flex;gap:.25rem;margin:0 0 .55rem;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .win label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .win label:hover{color:var(--ink)}
+  .lead:has(#w7:checked) label[for=w7],
+  .lead:has(#w28:checked) label[for=w28],
+  .lead:has(#wall:checked) label[for=wall]{background:var(--accent);color:var(--paper)}
+  .wr:focus-visible+label{outline:2px solid var(--accent);outline-offset:2px}
+  /* Three windows, one shown: the checked radio hides the other two. */
+  .lead:has(#w7:checked) :is(.g28,.n28,.gall,.nall),
+  .lead:has(#w28:checked) :is(.g7,.n7,.gall,.nall),
+  .lead:has(#wall:checked) :is(.g7,.n7,.g28,.n28){display:none}
+  /* The show/hide controls for a panel's secondary line -- the question under
+     a forecast row, the holding under a decision. Same box as the window
+     toggle, a checkbox instead of radios, and no script: the sibling rule does
+     the work and the lines simply show where :has() is unsupported. The
+     questions are on by default (they are what a forecast row asks); the
+     holdings are off (the caption, kind and disposition already say what
+     happened, and the holding is the more). */
+  .opts{display:inline-flex;gap:.25rem;margin:0 .45rem .55rem 0;vertical-align:top;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .opts label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .opts label:hover{color:var(--ink)}
+  .lead:has(#qon:checked) label[for=qon],
+  .panel:has(#hon:checked) label[for=hon]{background:var(--accent);color:var(--paper)}
+  .lead:has(#qon:not(:checked)) .gq{display:none}
+  .panel:has(#hon:not(:checked)) .chold{display:none}
+  /* --- Upcoming at the Court ------------------------------------------------
+     A date gutter and a two-line body, the same shape as the grant rows above
+     it, so the two panels read as one page rather than two widgets. */
+  .cal{margin:0 0 1.9rem}
+  ol.cal{list-style:none;margin:0;padding:0}
+  ol.cal li{border-top:1px solid var(--rule)}
+  ol.cal li:last-child{border-bottom:1px solid var(--rule)}
+  /* The row is a container, not an anchor: an argument day carries one link per
+     case it hears and anchors cannot nest. Hover lives on the row so it still
+     reads as one unit, and each link colours on its own hover. */
+  ol.cal .crow{display:flex;gap:.95rem;align-items:baseline;padding:.55rem .1rem}
+  ol.cal .crow:hover{background:rgba(156,14,58,.05)}
+  ol.cal a{text-decoration:none;color:inherit}
+  ol.cal a:hover,ol.cal a:focus-visible{color:var(--accent)}
+  ol.cal .cdet a{border-bottom:1px solid rgba(156,14,58,.35)}
+  ol.cal .cdet a:hover{border-bottom-color:var(--accent)}
+  ol.cal .cwhen{flex:none;width:4.6rem;font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.96rem;color:var(--ink);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  ol.cal .cdow{display:block;font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);text-transform:uppercase;letter-spacing:.08em}
+  ol.cal .ctx{flex:1;min-width:0}
+  ol.cal .ckind{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:.98rem;line-height:1.25}
+  ol.cal .cdet{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.12rem}
+  /* Recent decisions reuses the calendar rows and adds exactly two things: the
+     kind word that opens the detail line, and the one outbound link (the slip
+     opinion), which takes the link colour the rest of the row deliberately
+     does not. */
+  ol.cal .dk{font-weight:600;color:var(--ink)}
+  ol.cal .cdet a.pdf{color:var(--link)}
+  /* The holding, from the Court's slip-opinion feed: one sentence, set
+     smaller and in the soft ink so the caption stays the row's headline. */
+  ol.cal .chold{display:block;font-size:.86rem;line-height:1.4;color:var(--ink-soft);
+    font-style:italic;margin-top:.15rem}
+  ol.cal .cdet a.pdf:hover,ol.cal .cdet a.pdf:focus-visible{color:var(--accent);
+    border-bottom-color:var(--accent)}
+  ol.grants{list-style:none;margin:0;padding:0}
+  ol.grants li{border-top:1px solid var(--rule)}
+  ol.grants li:last-child{border-bottom:1px solid var(--rule)}
+  ol.grants a{display:flex;gap:.95rem;align-items:baseline;text-decoration:none;
+    color:inherit;padding:.62rem .1rem}
+  ol.grants a:hover{background:rgba(156,14,58,.05)}
+  ol.grants a:hover .gc{color:var(--accent)}
+  ol.grants .gv{flex:none;width:3.5rem;text-align:right;
+    font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.22rem;
+    line-height:1.1;color:var(--accent);font-variant-numeric:tabular-nums}
+  ol.grants .gx{font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);margin-left:.3rem}
+  ol.grants .gtx{flex:1;min-width:0}
+  /* Subject-area line under the caption, in the section-label idiom (h2.sec):
+     small tracked caps in the faint ink, so it classifies without competing. */
+  ol.grants .gs,ol.mostread .ms{display:block;font-size:.68rem;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--faint);line-height:1.3;margin-top:.12rem}
+  ol.grants .gc{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:1rem;line-height:1.25}
+  ol.grants .gq{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.16rem}
+  ol.grants .gd{flex:none;font-size:.76rem;color:var(--faint);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  .more{margin:.75rem 0 0;font-size:.92rem}
+  .more a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.35)}
+  .more a:hover{border-bottom-color:var(--link)}
+  h2.sec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:.88rem;
+    letter-spacing:.09em;color:var(--faint);text-transform:uppercase;
+    margin:2.1rem 0 .6rem;padding-bottom:.28rem;border-bottom:1px solid var(--rule)}
+  @media(max-width:40rem){
+    ol.grants a{flex-wrap:wrap}
+    ol.grants .gd{width:100%;padding-left:4.45rem;margin-top:-.1rem}
+  }
+  ol.mostread{list-style:none;counter-reset:mr;padding:0;margin:0}
+  ol.mostread li{counter-increment:mr;border-bottom:1px solid var(--rule)}
+  ol.mostread a{display:flex;align-items:baseline;gap:.7rem;padding:.6rem .4rem;
+    text-decoration:none;color:inherit}
+  ol.mostread a:hover{background:rgba(156,14,58,.05)}
+  ol.mostread a::before{content:counter(mr);font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.95rem;color:var(--faint);min-width:1.1rem;
+    font-variant-numeric:tabular-nums}
+  ol.mostread .mc{flex:1;font-size:1rem;line-height:1.3}
+  ol.mostread .mct{display:block}
+  ol.mostread a:hover .mct{color:var(--accent);text-decoration:underline;
+    text-underline-offset:3px}
+  ol.mostread .mdk{color:var(--accent);font-weight:600;font-size:.82rem;
+    font-variant-numeric:tabular-nums;white-space:nowrap}
+  ol.mostread .mv{color:var(--faint);font-size:.85rem;font-style:italic;
+    white-space:nowrap;font-variant-numeric:tabular-nums}
+  /* Forecast percentages carry weight the most-read counts do not: the number is
+     the claim, not a footnote to the ranking. Upright, accent, tabular. */
+  ol.mostread .mv.fc{color:var(--accent);font-style:normal;font-weight:600;
+    font-size:.95rem;min-width:2.6rem;text-align:right}
+  /* Feed follow line. Deliberately quiet -- a footnote under the section list,
+     styled like .recent rather than like a call to action. */
+  .feeds{display:flex;flex-wrap:wrap;align-items:baseline;gap:.3rem .85rem;
+    margin:2.2rem 0 0;padding-top:1.1rem;border-top:1px solid var(--rule)}
+  .feeds .flabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  .feeds a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .feeds a:hover{border-color:var(--link)}
+  .back{margin-top:2rem;font-size:.95rem}
+  .back a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .back a:hover{border-color:var(--link)}
+  /* Home-page case search. */
+  .csearch{position:relative;margin:0 0 1.4rem}
+  #cq{width:100%;font-family:'Newsreader',Georgia,serif;font-size:1.05rem;color:var(--ink);
+    background:var(--panel);border:1px solid var(--rule);border-radius:3px;padding:.7rem .9rem}
+  #cq:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(156,14,58,.1)}
+  #cq::placeholder{color:var(--faint)}
+  #cq.loading{background-image:linear-gradient(90deg,transparent,rgba(156,14,58,.06),transparent);
+    background-size:40% 100%;background-repeat:no-repeat;animation:csl 1s infinite}
+  @keyframes csl{0%{background-position:-40% 0}100%{background-position:140% 0}}
+  .cres{list-style:none;margin:.35rem 0 0;padding:0;max-height:24rem;overflow-y:auto;
+    border:1px solid var(--rule);border-radius:3px;background:var(--panel)}
+  .cres:empty{display:none}
+  .cres li{border-bottom:1px solid var(--rule)}
+  .cres li:last-child{border-bottom:0}
+  .cres a{display:block;padding:.55rem .7rem;text-decoration:none;color:var(--ink);
+    font-size:.98rem;line-height:1.3}
+  .cres a:hover,.cres li.act a{background:rgba(156,14,58,.06)}
+  .cres mark{background:rgba(156,14,58,.14);color:inherit;padding:0 .05em;border-radius:2px}
+  .cres .cd{color:var(--accent);font-variant-numeric:tabular-nums;font-weight:600;
+    margin-right:.5rem;white-space:nowrap}
+  .cnone{padding:.55rem .7rem;color:var(--faint);font-style:italic}
+  .cnone a,.cqp a{color:var(--link);font-style:normal;text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .cqp{margin:.45rem 0 0;font-size:.88rem;color:var(--faint)}
+  /* /cases/ browse index: grouped sections with per-bucket counts. */
+  .csec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+    text-transform:uppercase;letter-spacing:.12em;color:var(--accent);
+    margin:2.2rem 0 .3rem;padding-bottom:.35rem;border-bottom:1px solid var(--rule);
+    display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
+  .csec .cn{font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:.85rem;
+    letter-spacing:0;text-transform:none;color:var(--faint);
+    font-variant-numeric:tabular-nums}
+  .cnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:.5rem 0 0}
+  .cnote a{color:var(--accent)}
+  ul.terms{list-style:none;padding:0;margin:1rem 0 0;display:flex;flex-wrap:wrap;
+    gap:.5rem 1.6rem}
+  ul.terms li{display:inline-flex;align-items:baseline;gap:.4rem}
+  ul.terms a{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.05rem;
+    color:var(--accent);text-decoration:none;border-bottom:1px solid var(--rule)}
+  ul.terms a:hover{border-bottom-color:var(--accent)}
+  ul.terms .cn{color:var(--faint);font-size:.85rem;font-variant-numeric:tabular-nums}
+  /* About page: running prose rather than an index, so it takes a measure and a
+     little more leading than the section rows above it. */
+  .about{margin:1.6rem 0 0;font-size:1.05rem;line-height:1.65;max-width:34rem}
+  .about p{margin:0 0 1rem}
+  .about a{color:var(--accent);text-decoration:none;
+    border-bottom:1px solid var(--rule)}
+  .about a:hover{border-bottom-color:var(--accent)}
+  .about .contact{margin:2rem 0 0;background:var(--panel);border:1px solid var(--rule);
+    border-left:4px solid var(--accent);padding:1.1rem 1.3rem}
+  .about .contact h2{font:600 .78rem/1 'Newsreader',Georgia,serif;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--accent);margin:0 0 .5rem}
+  .about .contact p{margin:0;font-size:1rem}
+
+/* ---- masthead ---- */
+.smast-in{max-width:var(--nav-max,60rem);margin:0 auto;padding:.85rem 1.5rem .5rem;
+  display:flex;align-items:baseline;justify-content:space-between;gap:1.4rem;flex-wrap:wrap}
+.smast-wm{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+  letter-spacing:.005em;color:var(--ink,#1a1a1e);text-decoration:none;white-space:nowrap;flex:none}
+.smast-wm em{font-style:italic;font-weight:500;color:var(--accent,#9c0e3a)}
+.smast-wm:hover{color:var(--accent,#9c0e3a)}
+/* Row gap first, then column. At 1.35rem the six section links measured 596px
+   of max-content -- 4px wider than the 592px row the 40rem index container
+   leaves them -- so ABOUT alone wrapped to a third line under the wordmark, on
+   every page page_style.R writes. 1.05rem brings the row to 572px: 20px of
+   slack at 40rem, and 45px on the 54rem case pages, which were themselves only
+   21px from wrapping. The .4rem row gap is for the day a seventh section
+   overruns it anyway -- a nav that wraps should read as a stack, not an orphan. */
+.snav{display:flex;gap:.4rem 1.05rem;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+.snav a{font:600 .72rem/1 'Newsreader',Georgia,serif;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--ink-soft,var(--soft,#484850));text-decoration:none;display:inline-block;
+  padding:.5rem 0;border-bottom:1.5px solid transparent}
+.snav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--rule,#dbd8d2)}
+.snav a[aria-current='page']{color:var(--accent,#9c0e3a);
+  border-bottom-color:var(--accent,#9c0e3a)}
+.smast-rule-w{max-width:var(--nav-max,60rem);margin:0 auto;padding:0 1.5rem}
+.smast-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0;position:relative}
+.smast-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.skip{position:absolute;left:-9999px;top:0;background:var(--panel,#ffffff);
+  color:var(--accent,#9c0e3a);padding:.6rem 1rem;
+  border:1px solid var(--accent,#9c0e3a);
+  font:600 .8rem/1 'Newsreader',Georgia,serif;letter-spacing:.1em;text-transform:uppercase;z-index:10}
+.skip:focus{left:.5rem;top:.5rem}
+/* ---- breadcrumb ---- */
+.bcrumb{margin:.7rem 0 0}
+.bcrumb ol{list-style:none;display:flex;flex-wrap:wrap;align-items:baseline;
+  gap:.1rem .45rem;margin:0;padding:0}
+.bcrumb li{display:inline-flex;align-items:baseline;gap:.45rem}
+.bcrumb a{font:400 .8rem/1.5 'Newsreader',Georgia,serif;color:var(--ink-soft,var(--soft,#484850));
+  text-decoration:none;border-bottom:1px solid var(--rule,#dbd8d2)}
+.bcrumb a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.bcrumb .sep{color:var(--faint,#63636b);font-size:.8rem;line-height:1.5}
+.bcrumb [aria-current='page']{font:400 .8rem/1.5 'Newsreader',Georgia,serif;
+  color:var(--faint,#63636b);font-variant-numeric:tabular-nums}
+/* ---- case footer ---- */
+.cfoot{margin:2.4rem 0 0}
+.cfoot-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0 0 1rem;position:relative}
+.cfoot-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.cfoot-off{font-size:.95rem;margin:0 0 1.1rem}
+.cfoot-off a{color:var(--link,#9c0e3a);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.4)}
+.cfoot-off a:hover{border-bottom-color:var(--link,#9c0e3a)}
+.cfoot-lab{font:600 .68rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);margin:0 0 .5rem}
+.cfoot-nav{display:flex;flex-wrap:wrap;gap:.35rem 1.1rem;list-style:none;margin:0;padding:0}
+.cfoot-nav a{font-size:.92rem;color:var(--ink-soft,var(--soft,#484850));text-decoration:none;
+  border-bottom:1px solid var(--rule,#dbd8d2);padding-bottom:1px}
+.cfoot-nav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.cfoot-stamp{margin:1.2rem 0 0;font-size:.8rem;color:var(--faint,#63636b);font-style:italic}
+/* ---- prev / next ---- */
+.pnav{margin:2.2rem 0 0;border-top:1px solid var(--rule,#dbd8d2);padding-top:1rem;
+  display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.pnav a,.pnav span.none{text-decoration:none;color:inherit;display:block;padding:.5rem .2rem}
+.pnav a:hover{background:rgba(156,14,58,.05)}
+.pnav .dir{font:600 .66rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);display:block;margin-bottom:.3rem}
+.pnav .lab{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1rem;line-height:1.25;
+  color:var(--accent,#9c0e3a);display:block}
+.pnav a:hover .lab{text-decoration:underline;text-underline-offset:3px}
+.pnav .nx{text-align:right}
+.pnav .none{opacity:.35}
+@media(max-width:640px){
+  .smast-in{padding:.7rem 1.1rem .25rem;gap:.15rem}
+  .smast-wm{font-size:.98rem}
+  .smast-in nav{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+    -webkit-mask-image:linear-gradient(90deg,#000 86%,transparent);
+    mask-image:linear-gradient(90deg,#000 86%,transparent)}
+  .smast-in nav::-webkit-scrollbar{display:none}
+  .snav{flex-wrap:nowrap;gap:1.15rem;padding-right:2.4rem}
+  .snav a{padding:.7rem 0;white-space:nowrap}
+  .smast-rule-w{padding:0 1.1rem}
+  .cfoot-nav{gap:.5rem 1rem}
+  .cfoot-nav a{padding-bottom:.3rem}
+  .pnav{grid-template-columns:1fr;gap:.2rem}
+  .pnav .nx{text-align:left;border-top:1px solid var(--rule,#dbd8d2)}
+}
+
+  .wrap.opn{max-width:42rem}
+  .opn .ometa{font-size:.92rem;color:var(--ink-soft);margin:.3rem 0 0}
+  .opn .oget{display:flex;flex-wrap:wrap;gap:.4rem .6rem;margin:1.1rem 0 0;padding:0;list-style:none;font-size:.9rem}
+  .opn .oget a{display:inline-block;padding:.32rem .7rem;border:1px solid var(--rule);border-radius:4px;color:var(--ink);text-decoration:none;background:var(--panel)}
+  .opn .oget a:hover{border-color:var(--accent);color:var(--accent)}
+  .opn .osrc{font-size:.84rem;color:var(--faint);margin:.9rem 0 0;line-height:1.45}
+  .opn .osrc a{color:var(--link)}
+  .opn .otoc{margin:1.6rem 0 0;padding:.8rem 1rem;border:1px solid var(--rule);border-radius:4px;background:var(--panel);font-size:.95rem}
+  .opn .otoc ol{margin:0;padding:0;list-style:none}
+  .opn .otoc li{margin:.25rem 0}
+  .opn .otoc a{color:var(--ink);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.35)}
+  .opn .otoc a:hover{color:var(--accent)}
+  .opn section.op{margin-top:3rem;border-top:2px solid var(--ink);padding-top:1.1rem}
+  .opn section.op h2{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.5rem;line-height:1.2;margin:0 0 1rem;color:var(--ink)}
+  .opn section.op p{margin:0 0 .95rem;line-height:1.62;hyphens:auto;overflow-wrap:break-word}
+  .opn section.op p.byline{color:var(--ink-soft);font-style:italic}
+  .opn section.op p.sep{text-align:center;letter-spacing:.3em;color:var(--faint);margin:1.6rem 0}
+  .opn section.op h3.oh{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.12rem;text-align:center;margin:2rem 0 1rem;color:var(--ink)}
+  .opn section.op blockquote{margin:0 0 .95rem;padding:0 0 0 1.1rem;border-left:2px solid var(--rule);color:var(--ink-soft)}
+  .opn section.op blockquote p{margin-bottom:.6rem;font-size:.96em}
+  .opn .sc{font-variant-caps:small-caps;letter-spacing:.02em}
+  .opn .pg{font-size:.66em;color:var(--faint);vertical-align:.3em;margin:0 .3em 0 .1em;font-variant-numeric:tabular-nums;user-select:none;white-space:nowrap}
+  .opn .pg::before{content:'*'}
+  .opn sup.fnr{font-size:.68em;line-height:0;margin-left:.05em}
+  .opn sup.fnr a{color:var(--link);text-decoration:none;padding:0 .1em}
+  .opn aside.notes{margin-top:2rem;border-top:1px solid var(--rule);padding-top:.8rem;font-size:.88rem;color:var(--ink-soft)}
+  .opn aside.notes h3{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1rem;margin:0 0 .6rem;color:var(--ink)}
+  .opn aside.notes ol{margin:0;padding-left:1.7rem}
+  .opn aside.notes li{margin:0 0 .55rem}
+  .opn aside.notes li.sym{list-style:none;margin-left:-1.7rem}
+  .opn aside.notes li.sym .mk{margin-right:.3rem}
+  .opn aside.notes li.sym p{display:inline}
+  .opn aside.notes p{margin:0 0 .4rem;line-height:1.5}
+  .opn aside.notes a.back{color:var(--link);text-decoration:none;margin-left:.2rem}
+  .opn aside.notes li:target,.opn sup.fnr a:target,.opn .pg:target{background:rgba(156,14,58,.12);outline:.2rem solid rgba(156,14,58,.12)}
+  .opn section.op,.opn aside.notes li,.opn sup.fnr a{scroll-margin-top:1rem}
+  .opn section.op-syllabus p,.opn section.op-counsel p{font-size:.95em}
+  .opn section.op-counsel summary{cursor:pointer;font-family:'Fraunces',Georgia,serif;font-size:1.05rem;color:var(--ink-soft)}
+  .opn .osyl{font-size:.84rem;color:var(--faint);font-style:italic;margin:-.5rem 0 1rem}
+  .opn p.back{margin-top:3rem;font-size:.92rem}
+  @media print{.smast,.bcrumb,.opn .oget,.opn .otoc,.opn p.back{display:none}.opn section.op{break-before:page}}
+</style><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://supremecourt.report/"},{"@type":"ListItem","position":2,"name":"Opinions","item":"https://supremecourt.report/opinions/"},{"@type":"ListItem","position":3,"name":"Quarles v. United States"}]}</script><meta name='otv' content='p1'><link rel='alternate' type='text/markdown' href='/opinions/2018/17-778.md'><link rel='alternate' type='application/epub+zip' href='/opinions/2018/17-778.epub'></head><body><a class='skip' href='#main'>Skip to content</a><header><div class='smast-in'><a class='smast-wm' href='/'>Supreme Court <em>Report</em></a><nav aria-label='Sections'><ul class='snav'><li><a href='/dashboards/'>Docket</a></li><li><a href='/conferences/'>Conferences</a></li><li><a href='/relists/'>Relists</a></li><li><a href='/applications/'>Interim</a></li><li><a href='/arguments/'>Arguments</a></li><li><a href='/justices/' aria-current='page'>Justices</a></li><li><a href='/counsel/'>Counsel</a></li><li><a href='/funnel/'>Funnel</a></li><li><a href='/methods.html'>Model</a></li><li><a href='/about.html'>About</a></li></ul></nav></div><div class='smast-rule-w'><hr class='smast-rule'></div></header><main class='wrap opn' id='main' data-dkt='17-778'><nav class='bcrumb' aria-label='Breadcrumb'><ol><li><a href='/'>Home</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><a href='/opinions/'>Opinions</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><span aria-current='page'>Quarles v. United States</span></li></ol></nav><p class='kicker'>No. 17-778 · decided June 10, 2019 · 587 U. S. 645</p><h1 style='font-size:clamp(1.7rem,4.6vw,2.4rem);line-height:1.12'>Quarles v. United States</h1><p class='ometa'>Jamar Alonzo Quarles v. United States. 1 separate writing.</p><ul class='oget'><li><a href='/opinions/2018/17-778.epub' download>EPUB</a></li><li><a href='/opinions/2018/17-778.md' download>Markdown</a></li><li><a href='https://www.supremecourt.gov/opinions/boundvolumes/587BV.pdf#page=667' rel='noopener'>The Court’s PDF</a></li><li><a href='/cases/17-778.html'>The docket</a></li></ul><p class='osrc'>Set from the PDF the Court published, which is the authoritative text. The small starred numbers are that PDF’s page numbers. A conversion can introduce errors; check a quotation against the <a href='https://www.supremecourt.gov/opinions/boundvolumes/587BV.pdf#page=667' rel='noopener'>original</a>.</p><nav class="otoc" aria-label="Contents"><ol>
+<li><a href="#s1">Syllabus</a></li>
+<li><a href="#s2">Counsel</a></li>
+<li><a href="#s3">Opinion of the Court</a></li>
+<li><a href="#s4">Justice Thomas, concurring</a></li>
+</ol></nav>
+<section id="s1" class="op op-syllabus"><h2>Syllabus</h2><p class='osyl'>Prepared by the Reporter of Decisions for the convenience of the reader; it is no part of the opinion of the Court.</p>
+<p>When petitioner Jamar Quarles pled guilty to being a felon in possession of a firearm in violation of 18 U. S. C. § 922(g)(1), he also appeared to qualify for enhanced sentencing under the Armed Career Criminal Act because he had at least three prior “violent felony” convictions, § 924(e). He claimed, however, that a 2002 Michigan conviction for third-degree home invasion did not qualify, even though § 924(e) defines “violent felony” to include “burglary,” and the generic statutory term “burglary” means “unlawful or unprivileged entry into, <em>or remaining in</em>, a building or structure, with intent to commit a crime,” <em>Taylor</em> v. <em>United States</em>, 495 U. S. 575, 599 (emphasis added). Quarles argued that Michigan's third-degree home-invasion statute—which applies when a person “breaks and enters a dwelling or enters a dwelling without permission and, <em>at any time</em> while he or she is entering, <em>present in</em>, or exiting the dwelling, commits a misdemeanor,” Mich. Comp. Laws Ann. § 750.110a(4)(a) (emphasis added)—swept too broadly. Specifically, he claimed, it encompassed situations where the defendant forms the intent to commit a crime <em>at any time</em> while unlawfully remaining in a dwelling, while generic remaining-in burglary occurs only when the defendant has the intent to commit a crime <em>at the exact moment</em> when he or she <em>first</em> unlawfully remains in a building or structure. The District Court rejected that argument, and the Sixth Circuit affirmed.</p>
+<p><em>Held</em>:</p>
+<p>1. Generic remaining-in burglary occurs under § 924(e) when the defendant forms the intent to commit a crime at any time while unlawfully remaining in a building or structure. In ordinary usage, “remaining in” refers to a continuous activity, and this Court has followed that ordinary meaning in analogous legal contexts, see, <em>e. g.</em>, <em>United States</em> v. <em>Cores</em>, 356 U. S. 405, 408. Those contexts thus inform the interpretation of “remaining-in” burglary in § 924(e): The common understanding of “remaining in” as a continuous event means that burglary occurs for purposes of § 924(e) if the defendant forms the intent to commit a crime <em>at any time</em> during the continuous event of unlawfully remaining in a building or structure. The intent to commit a crime must be contemporaneous with unlawful entry or remaining, but the defendant's intent <em>is</em> contemporaneous<span class="pg" id="s1-p646" title="page 646 of the original">646</span> with the unlawful remaining so long as the defendant forms the intent at any time while unlawfully remaining. That conclusion is supported by the body of state law as of 1986, when Congress enacted § 924(e). Quarles' narrow interpretation makes little sense in light of Congress' rationale for specifying burglary as a violent felony. Congress “singled out burglary” because of its “inherent potential for harm to persons,” <em>Taylor</em>, 495 U. S., at 588, and the possibility of a violent confrontation does not depend on the exact moment when the burglar forms the intent to commit a crime while unlawfully present in a building or structure. Quarles' interpretation would also thwart the stated goals of the Armed Career Criminal Act by presumably eliminating many States' burglary statutes as predicate offenses under § 924(e). Pp. 649–654.</p>
+<p>2. For the Court's purposes here, the Michigan home-invasion statute substantially corresponds to or is narrower than generic burglary. The conclusion that generic remaining-in burglary occurs when the defendant forms the intent to commit a crime at any time while unlawfully remaining in a building or structure resolves this case. When deciding whether a state law is broader than generic burglary, the state law's “exact definition or label” does not control. <em>Taylor,</em> 495 U. S., at 599. So long as the state law in question “substantially corresponds” to (or is narrower than) generic burglary, the conviction qualifies. <em>Ibid</em>. Pp. 654–655.</p>
+<p>850 F. 3d 836, affirmed.</p>
+<p>K<span class="sc">avanaugh</span>, J., delivered the opinion for a unanimous Court. T<span class="sc">homas</span>, J., filed a concurring opinion, <em>post</em>, p. 655.</p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li class="sym" value="0"><span class="mk">*</span><p>Briefs of <em>amici curiae</em> urging reversal were filed for Federal Public Defenders for the Northern, Western, and Southern Districts of Texas by <em>J</em>. <em>Carl Cecere</em>; and for the National Association of Criminal Defense Lawyers by <em>Thomas M</em>. <em>Bondy</em> and <em>David Oscar Markus</em>.</p></li>
+</ol></aside></section>
+<section id="s2" class="op op-counsel"><details><summary>Counsel</summary><p><em>Jeremy C</em>. <em>Marwell</em> argued the cause for petitioner. With him on the briefs were <em>John P</em>. <em>Elwood</em>, <em>Joshua S</em>. <em>Johnson</em>, <em>Matthew X</em>. <em>Etchemendy</em>, <em>Daniel R</em>. <em>Ortiz</em>, <em>Mark T</em>. <em>Stancil</em>, and <em>Matthew M</em>. <em>Madden</em>.</p>
+<p><em>Zachary D</em>. <em>Tripp</em> argued the cause for the United States. With him on the brief were <em>Solicitor General Francisco</em>, <em>Assistant Attorney General Benczkowski</em>, <em>Eric J</em>. <em>Feigin</em>, and <em>David M</em>. <em>Lieberman</em>.*</p></details></section>
+<section id="s3" class="op op-court"><h2>Opinion of the Court</h2>
+<p class="byline">Justice Kavanaugh delivered the opinion of the Court.</p>
+<p>Section 924(e) of Title 18, also known as the Armed Career Criminal Act, mandates a minimum 15-year prison sentence for a felon who unlawfully possesses a firearm and has three prior convictions for a “serious drug offense” or “violent felony.” Section 924(e) defines “violent felony” to include “burglary.” Under this Court's 1990 decision in <em>Taylor</em> v. <em>United States</em>, 495 U. S. 575, the generic statutory term “burglary” means “unlawful or unprivileged entry into, <em>or remaining in</em>, a building or structure, with intent to commit a crime.” <em>Id</em>., at 599 (emphasis added).</p>
+<p>The exceedingly narrow question in this case concerns remaining-in burglary. The question is whether remaining-in burglary (i) occurs only if a person has the intent to commit a crime <em>at the exact moment</em> when he or she <em>first</em> unlawfully remains in a building or structure, or (ii) more broadly, occurs when a person forms the intent to commit a crime <em>at any time</em> while unlawfully remaining in a building or structure. For purposes of § 924(e), we conclude that remaining-in burglary occurs when the defendant forms the intent to commit a crime <em>at any time</em> while unlawfully remaining in a building or structure. We affirm the judgment of the U. S. Court of Appeals for the Sixth Circuit.</p>
+<h3 class="oh">I</h3>
+<p>On August 24, 2013, police officers in Grand Rapids, Michigan, responded to a 911 call. When the officers arrived at the scene, the caller, Chasity Warren, told the officers that she had just escaped from her boyfriend, Jamar Quarles. Warren said that Quarles had threatened her at gunpoint and also hit her. While the police officers were speaking with Warren, Quarles drove by. The officers then arrested Quarles and later searched his house. Inside they found a semiautomatic pistol.</p>
+<p>Quarles pled guilty to being a felon in possession of a firearm in violation of 18 U. S. C. § 922(g)(1). Quarles had at <span class="pg" id="s3-p648" title="page 648 of the original">648</span>least three prior convictions that appeared to qualify as violent felonies under the Armed Career Criminal Act, 18 U. S. C. § 924(e). Those three convictions were: (1) a 2002 Michigan conviction for third-degree home invasion stemming from an attempt to chase down an ex-girlfriend who had sought refuge in a nearby apartment; (2) a 2004 Michigan conviction for assault with a dangerous weapon based on an incident where Quarles held a gun to the head of another ex-girlfriend and threatened to kill her; and (3) a 2008 Michigan conviction for assault with a dangerous weapon arising from an altercation with another man and that same ex-girlfriend in which Quarles shot at the man.</p>
+<p>In the sentencing proceedings for his federal felon-inpossession offense, Quarles argued that his 2002 Michigan conviction for third-degree home invasion did not qualify as a burglary under § 924(e). Under this Court's precedents, the District Court had to decide whether the Michigan statute under which Quarles was convicted in 2002 was broader than the generic definition of burglary set forth in <em>Taylor</em> (in which case the conviction would not qualify as a prior conviction under § 924(e)) or, instead, whether the Michigan statute “substantially correspond[ed]” to or was narrower than the generic definition of burglary set forth in <em>Taylor.</em> 495 U. S., at 602. To reiterate, <em>Taylor</em> interpreted burglary under § 924(e) to mean “unlawful or unprivileged entry into, <em>or remaining in</em>, a building or structure, with intent to commit a crime.” <em>Id</em>., at 599 (emphasis added).</p>
+<p>Under the Michigan law at issue here, a person commits third-degree home invasion if he or she “breaks and enters a dwelling or enters a dwelling without permission and, <em>at any time</em> while he or she is entering, <em>present in</em>, or exiting the dwelling, commits a misdemeanor.” Mich. Comp. Laws Ann. § 750.110a(4)(a) (West 2004) (emphasis added). Quarles argued to the District Court that the Michigan third-degree home-invasion statute swept too broadly to qualify as burglary under § 924(e) because the Michigan statute encompassed<span class="pg" id="s3-p649" title="page 649 of the original">649</span> situations where the defendant forms the intent to commit a crime <em>at any time</em> while unlawfully remaining in a dwelling, not <em>at the exact moment</em> when the defendant is <em>first</em> unlawfully present in a dwelling. The District Court rejected that argument and sentenced Quarles to 17 years in prison. The Sixth Circuit affirmed. 850 F. 3d 836, 840 (2017). We granted certiorari in light of a Circuit split on the question of how to assess state remaining-in burglary statutes for purposes of § 924(e). 586 U. S. 1112 (2019).</p>
+<h3 class="oh">II</h3>
+<p>Section 924(e) lists “burglary” as a qualifying predicate offense for purposes of the Armed Career Criminal Act. But § 924(e) does not define “burglary.” The question here is how to define “burglary” under § 924(e). We do not write on a clean slate. See <em>Taylor</em>, 495 U. S., at 599.</p>
+<p>At common law, burglary was confined to unlawful breaking and entering a dwelling at night with the intent to commit a felony. See, <em>e. g</em>., 4 W. Blackstone, Commentaries on the Laws of England 224 (1769). But by the time Congress passed and President Reagan signed the current version of § 924(e) in 1986, state burglary statutes had long since departed from the common-law formulation. See <em>Taylor</em>, 495 U. S., at 593–596. In addition to casting off relics like the requirement that there be a breaking, or that the unlawful entry occur at night, a majority of States by 1986 prohibited unlawfully “remaining in” a building or structure with intent to commit a crime. Those remaining-in statutes closed a loophole in some States' laws by extending burglary to cover situations where a person enters a structure lawfully but stays unlawfully—for example, by remaining in a store after closing time without permission to do so.</p>
+<p>In the 1990 <em>Taylor</em> decision, this Court interpreted the term “burglary” in § 924(e) in accord with the more expansive understanding of burglary that had become common by 1986: “We believe that Congress meant by `burglary' the generic<span class="pg" id="s3-p650" title="page 650 of the original">650</span> sense in which the term is now used in the criminal codes of most States.” <em>Id</em>., at 598. The Court concluded that generic burglary under § 924(e) means “unlawful or unprivileged entry into, <em>or remaining in</em>, a building or structure, with intent to commit a crime.” <em>Id</em>., at 599 (emphasis added). A defendant's prior conviction under a state statute qualifies as a predicate burglary under § 924(e) if the state statute—regardless of its “exact definition or label”—“substantially corresponds” to or is narrower than the generic definition of burglary. <em>Id.,</em> at 599, 602.</p>
+<p>In this case, we must determine the scope of generic remaining-in burglary under <em>Taylor</em>—in particular, the timing of the intent requirement. Quarles argues that remaining-in burglary occurs only when the defendant has the intent to commit a crime <em>at the exact moment</em> when he or she <em>first</em> unlawfully remains in a building or structure. The Government argues for a broader definition of remaining-in burglary. According to the Government, remaining-in burglary occurs when the defendant forms the intent to commit a crime <em>at any time</em> while unlawfully present in a building or structure. We agree with the Government.</p>
+<p>As noted, <em>Taylor</em> interpreted generic burglary under § 924(e) to include remaining-in burglary. <em>Id</em>., at 599. In ordinary usage, “remaining in” refers to a continuous activity. See <em>United States</em> v. <em>Cores</em>, 356 U. S. 405, 408 (1958); see also Webster's New International Dictionary 2106 (2d ed. 1949); 8 Oxford English Dictionary 418 (1933). This Court has followed that ordinary meaning in analogous legal contexts. For example, when interpreting a federal criminal statute punishing any “ `alien crewman who willfully remains in the United States in excess of the number of days allowed,' ” the Court stated that “the crucial word `remains' permits no connotation other than continuing presence.” <em>Cores</em>, 356 U. S., at 408. The law of trespass likewise proscribes remaining on the land of another without permission. In that context, the term “remain” refers to “a continuing <span class="pg" id="s3-p651" title="page 651 of the original">651</span>trespass for the entire time during which the actor wrongfully remains.” Restatement (Second) of Torts § 158, Comment <em>m</em>, p. 280 (1964).</p>
+<p>Those interpretations of “remaining in” in analogous areas of the law inform our interpretation of “remaining-in” burglary in § 924(e). In particular, the common understanding of “remaining in” as a continuous event means that burglary occurs for purposes of § 924(e) if the defendant forms the intent to commit a crime <em>at any time</em> during the continuous event of unlawfully remaining in a building or structure. To put it in conventional criminal law terms: Because the <em>actus reus</em> is a continuous event, the <em>mens rea</em> matches the <em>actus reus</em> so long as the burglar forms the intent to commit a crime at any time while unlawfully present in the building or structure.</p>
+<p>Quarles insists, however, that to constitute a burglary under § 924(e), the intent to commit a crime must be contemporaneous with unlawful entry or remaining. That is true. But the defendant's intent <em>is</em> contemporaneous with the unlawful remaining so long as the defendant forms the intent at any time while unlawfully remaining. Put simply, for burglary predicated on unlawful <em>entry</em>, the defendant must have the intent to commit a crime at the time of entry. For burglary predicated on unlawful <em>remaining</em>, the defendant must have the intent to commit a crime at the time of remaining, which is any time during which the defendant unlawfully remains.</p>
+<p>That conclusion is supported by the States' laws as of 1986 when Congress enacted § 924(e). As of 1986, a majority of States proscribed remaining-in burglary. At that time, there was not much case law addressing the precise timing of the intent requirement for remaining-in burglary. That is presumably because in most remaining-in burglaries, the defendant has the intent to commit a crime when he or she first unlawfully remains in a building or structure. The timing issue arises only in the rarer cases where the defendant <span class="pg" id="s3-p652" title="page 652 of the original">652</span>forms the intent to commit a crime only after unlawfully remaining in the building or structure for a while. In any event, for present purposes, the important point is that all of the state appellate courts that had definitively addressed this issue as of 1986 had interpreted remaining-in burglary to occur when the defendant forms the intent to commit a crime at any time while unlawfully present in the building or structure. See <em>Gratton</em> v. <em>State</em>, 456 So. 2d 865, 872 (Ala. Crim. App. 1984); <em>State</em> v. <em>Embree</em>, 130 Ariz. 64, 66, 633 P. 2d 1057, 1059 (App. 1981); <em>Keith</em> v. <em>State</em>, 138 Ga. App. 239, 225 S. E. 2d 719, 720 (1976); <em>State</em> v. <em>Mogenson</em>, 10 Kan. App. 2d 470, 472–476, 701 P. 2d 1339, 1343–1345 (1985); <em>State</em> v. <em>Papineau</em>, 53 Ore. App. 33, 38, 630 P. 2d 904, 906–907 (1981).<sup class="fnr"><a id="s3-r1" href="#s3-n1">1</a></sup></p>
+<p>Especially in light of the body of state law as of 1986, it is not likely that Congress intended generic burglary under § 924(e) to <em>include</em> (i) a burglar who intends to commit a crime at the exact moment when he or she first unlawfully <span class="pg" id="s3-p653" title="page 653 of the original">653</span>remains in a building or structure, but to <em>exclude</em> (ii) a burglar who forms the intent to commit a crime at any time while unlawfully remaining in a building or structure.</p>
+<p>Indeed, excluding that latter category of burglaries from generic burglary under § 924(e) would make little sense in light of Congress' rationale for specifying burglary as a violent felony. As the Court recognized in <em>Taylor</em>, Congress “singled out burglary” because of its “inherent potential for harm to persons.” 495 U. S., at 588. Burglary is dangerous because it “creates the possibility of a violent confrontation between the offender and an occupant, caretaker, or some other person who comes to investigate.” <em>Ibid.</em>; see also <em>United States</em> v. <em>Stitt</em>, 586 U. S. 27, 34 (2018).</p>
+<p>With respect to remaining-in burglary, the possibility of a violent confrontation does not depend on the exact moment when the burglar forms the intent to commit a crime while unlawfully present in a building or structure. Once an intruder is both unlawfully present inside a building or structure and has the requisite intent to commit a crime, all of the reasons that led Congress to include burglary as a § 924(e) predicate fully apply. The dangers of remaining-in burglary are not tied to the esoteric question of precisely when the defendant forms the intent to commit a crime. That point underscores that Congress, when enacting § 924(e) in 1986, would not have understood the meaning of burglary to hinge on exactly when the defendant forms the intent to commit a crime while unlawfully present in a building or structure.</p>
+<p>Moreover, to interpret remaining-in burglary narrowly, as Quarles advocates, would thwart the stated goals of the Armed Career Criminal Act. After all, most burglaries involve unlawful entry, not unlawful remaining in. Yet if we were to narrowly interpret the remaining-in category of generic burglary so as to require that the defendant have the intent to commit a crime at the exact moment he or she first unlawfully remains, then many States' burglary statutes would be broader than generic burglary. As a result, under <span class="pg" id="s3-p654" title="page 654 of the original">654</span>our precedents, many States' burglary statutes would presumably be eliminated as predicate offenses under § 924(e). That result not only would defy common sense, but also would defeat Congress' stated objective of imposing enhanced punishment on armed career criminals who have three prior convictions for burglary or other violent felonies. We should not lightly conclude that Congress enacted a self-defeating statute. See, <em>e. g</em>., <em>Stokeling</em> v. <em>United States</em>, 586 U. S. 73, 81–82 (2019); <em>Taylor</em>, 495 U. S., at 594.</p>
+<p>To sum up: The Armed Career Criminal Act does not define the term “burglary.” In <em>Taylor</em>, the Court explained that “Congress did not wish to specify an exact formulation that an offense must meet in order to count as `burglary' for enhancement purposes.” <em>Id</em>., at 599. And the Court recognized that the definitions of burglary “vary” among the States. <em>Id</em>., at 598. The <em>Taylor</em> Court therefore interpreted the generic term “burglary” in § 924(e) in light of: the ordinary understanding of burglary as of 1986; the States' laws at that time; Congress' recognition of the dangers of burglary; and Congress' stated objective of imposing increased punishment on armed career criminals who had committed prior burglaries. Looking at those sources, the <em>Taylor</em> Court interpreted generic burglary under § 924(e) to encompass remaining-in burglary. Looking at those same sources, we interpret remaining-in burglary under § 924(e) to occur when the defendant forms the intent to commit a crime at any time while unlawfully present in a building or structure.</p>
+<h3 class="oh">III</h3>
+<p>In light of our conclusion that generic remaining-in burglary occurs when the defendant forms the intent to commit a crime at any time while unlawfully remaining in a building or structure, Quarles' case is easily resolved. The question in Quarles' case is whether the Michigan home-invasion statute under which he was convicted in 2002 is broader than generic burglary or, instead, “substantially corresponds” to <span class="pg" id="s3-p655" title="page 655 of the original">655</span>or is narrower than generic burglary. <em>Id</em>., at 602. Regarding that inquiry, the <em>Taylor</em> Court cautioned courts against seizing on modest state-law deviations from the generic definition of burglary. A state law's “exact definition or label” does not control. <em>Id.</em>, at 599. As the Court stated in <em>Taylor</em>, so long as the state law in question “substantially corresponds” to (or is narrower than) generic burglary, the conviction qualifies under § 924(e). <em>Id.,</em> at 602.</p>
+<p>As stated above, generic remaining-in burglary occurs under § 924(e) when the defendant forms the intent to commit a crime at any time while unlawfully remaining in a building or structure. For the Court's purposes here, the Michigan statute substantially corresponds to or is narrower than generic burglary.<sup class="fnr"><a id="s3-r2" href="#s3-n2">2</a></sup></p>
+<p class="sep">* * *</p>
+<p>We affirm the judgment of the U. S. Court of Appeals for the Sixth Circuit.</p>
+<p><em>It is so ordered.</em></p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li id="s3-n1" value="1"><p>The consensus position has not changed. Today, of the States that have addressed the question, at least 18 have adopted the “at any time” interpretation of remaining-in burglary, and only 3 appear to have adopted the narrower interpretation.</p><p>Of those 18 States, some have adopted the broader “at any time” interpretation by statute. See Colo. Rev. Stat. §18–4–201(3) (2018); Del. Code Ann., Tit. 11, § 829(e) (2015); Haw. Rev. Stat. Ann. § 708–812.5 (2014); Mich. Comp. Laws Ann. § 750.110a(4)(a) (West 2004); Minn. Stat. §§ 609.581(4), 609.582(3) (2016); Mont. Code Ann. § 45–6–204(1) (2017); Tenn. Code Ann. § 39–14–402(a)(3) (2018); Tex. Penal Code Ann. § 30.02(a)(3) (West 2019). And in addition to the five pre-1986 state-court decisions identified in the text above, at least five post-1986 state-court decisions have adopted the “at any time” interpretation of “remaining in.” See <em>Braddy</em> v. <em>State</em>, 111 So. 3d 810, 844 (Fla. 2012) (<em>per curiam</em>); <em>State</em> v. <em>Walker</em>, 600 N. W. 2d 606, 609 (Iowa 1999); <em>State</em> v. <em>DeNoyer</em>, 541 N. W. 2d 725, 732 (S. D. 1995); <em>State</em> v. <em>Rudolph</em>, 970 P. 2d 1221, 1228–1229 (Utah 1998); <em>State</em> v. <em>Allen</em>, 127 Wash. App. 125, 135, 110 P. 3d 849, 853–855 (2005).</p><p>By contrast, three state courts appear to have adopted the narrower interpretation. <em>Shetters</em> v. <em>State</em>, 751 P. 2d 31, 36, n. 2 (Alaska App. 1988); <em>People</em> v. <em>Gaines</em>, 74 N. Y. 2d 358, 361–363, 546 N. E. 2d 913, 915–916 (1989); <em>In re J. N. S</em>., 258 Ore. App. 310, 318–319, 308 P. 3d 1112, 1117–1118 (2013). <a class="back" href="#s3-r1" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n2" value="2"><p>In his brief, Quarles alternatively suggests that Michigan's home-invasion statute actually does not require that the defendant have <em>any</em> intent to commit a crime at <em>any</em> time while unlawfully present in a dwelling. Brief for Petitioner 9. Quarles offers no support for his suggestion that there is no <em>mens rea</em> requirement. In any event, Quarles did not preserve that argument, and we do not address it. <a class="back" href="#s3-r2" aria-label="Back to the text">↩</a></p></li>
+</ol></aside></section>
+<section id="s4" class="op op-concurring"><h2>Justice Thomas, concurring</h2>
+<p class="byline">Justice Thomas, concurring.</p>
+<p>I join the opinion of the Court because it correctly applies our precedent requiring a “categorical approach” to the enumerated-offenses clause of the Armed Career Criminal Act (ACCA). I write separately to question this approach altogether.</p>
+<p>This case demonstrates the absurdity of applying the categorical approach to the enumerated-offenses clause. The categorical approach relies on a comparison of the crime of conviction and a judicially created ideal of burglary. But <span class="pg" id="s4-p656" title="page 656 of the original">656</span>this ideal is starkly different from the reality of petitioner's actual crime: Petitioner attempted to climb through an apartment window to attack his ex-girlfriend.</p>
+<p>More importantly, there are strong reasons to suspect that the categorical approach described in <em>Taylor</em> v. <em>United States</em>, 495 U. S. 575 (1990), is not compelled by ACCA's text but was rather a misguided attempt to avoid Sixth Amendment problems. See <em>Sessions</em> v. <em>Dimaya</em>, 584 U. S. 148, 225–226 (2018) (<span class="sc">Thomas, J.,</span> dissenting). Under our precedent, any state burglary statute with a broader definition than the one adopted in <em>Taylor</em> is categorically excluded simply because other conduct might be swept in at the margins. It is far from obvious that this is the best reading of the statute. A jury could readily determine whether a particular conviction satisfied the federal definition of burglary or instead fell outside that definition. See <em>Ovalles</em> v. <em>United States</em>, 905 F. 3d 1231, 1258–1260 (CA11 2018) (W. Pryor, J., concurring). Moreover, allowing a jury to do so would end the unconstitutional judicial factfinding that occurs when applying the categorical approach. See<em>, e. g., Dimaya</em>, 584 U. S., at 225 (opinion of <span class="sc">Thomas, J.)</span>; <em>Mathis</em> v. <em>United States</em>, 579 U. S. 500, 522 (2016) (<span class="sc">Thomas, J.,</span> concurring); <em>Descamps</em> v. <em>United States</em>, 570 U. S. 254, 280 (2013) (<span class="sc">Thomas, J.</span>, concurring in judgment); <em>James</em> v. <em>United States</em>, 550 U. S. 192, 231–232 (2007) (<span class="sc">Thomas, J.,</span> dissenting); <em>Shepard</em> v. <em>United States</em>, 544 U. S. 13, 26–28 (2005) (<span class="sc">Thomas, J.,</span> concurring in part and concurring in judgment).</p>
+<p>Of course, addressing this issue would not help petitioner: He has not preserved a Sixth Amendment challenge. Moreover, any reasonable jury reviewing the record here would have concluded that petitioner was convicted of burglary, so any error was harmless.</p>
+<p class="sep">* * *</p>
+<p>Because the categorical approach employed today is difficult to apply and can yield dramatically different sentences <span class="pg" id="s4-p657" title="page 657 of the original">657</span>depending on where a burglary occurred, the Court should consider whether its approach is actually required in the first place for ACCA's enumerated-offenses clause. With these observations, I join the opinion of the Court.</p></section><p class='back'><a href='/opinions/'>&larr; All opinions</a> · <a href='/justices/ot2018.html'>The Justices, October Term 2018 &rarr;</a></p></main></body>
+</html>
+

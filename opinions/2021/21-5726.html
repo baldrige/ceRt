@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script async src='/analytics.js'></script><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate icon" href="/favicon.ico" sizes="any"><link rel="alternate" type="application/atom+xml" title="Supreme Court Report" href="/feed.xml"><link rel="alternate" type="application/atom+xml" title="Certiorari grants" href="/grants.xml"><title>Kemp v. United States — Opinion — Supreme Court Report</title><meta name="description" content="The opinion in Kemp v. United States (No. 21-5726), decided June 13, 2022: the full text with its footnotes, as a page, a Markdown file and an EPUB."><link rel="canonical" href="https://supremecourt.report/opinions/2021/21-5726.html"><meta property="og:site_name" content="Supreme Court Report"><meta property="og:type" content="article"><meta property="og:title" content="Kemp v. United States — Opinion — Supreme Court Report"><meta property="og:description" content="The opinion in Kemp v. United States (No. 21-5726), decided June 13, 2022: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta property="og:url" content="https://supremecourt.report/opinions/2021/21-5726.html"><meta property="og:image" content="https://supremecourt.report/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Supreme Court Report - docket analytics for the Supreme Court of the United States"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Kemp v. United States — Opinion — Supreme Court Report"><meta name="twitter:description" content="The opinion in Kemp v. United States (No. 21-5726), decided June 13, 2022: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta name="twitter:image" content="https://supremecourt.report/og.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap"><style>
+  :root{--paper:#fdfcfa;--panel:#ffffff;--ink:#1a1a1e;--ink-soft:#484850;--faint:#63636b;--accent:#9c0e3a;--link:#9c0e3a;--rule:#dbd8d2;--nav-max:60rem}
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{font-family:'Newsreader',Georgia,serif;font-size:19px;line-height:1.6;
+    color:var(--ink);background:var(--paper);margin:0;font-feature-settings:'onum' 1}
+  body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
+    opacity:.5;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");}
+  .wrap{max-width:40rem;margin:0 auto;padding:3rem 1.4rem 4rem}
+  .kicker{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 1rem}
+  h1{font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:clamp(2.4rem,7vw,3.6rem);line-height:1;letter-spacing:-.015em;
+    margin:0 0 1rem;color:var(--ink)}
+  h1 em{font-style:italic;font-weight:500;color:var(--accent)}
+  .dek{font-size:1.15rem;line-height:1.5;color:var(--ink-soft);font-style:italic;
+    margin:0 0 1.4rem}
+  .brule{border:0;height:0;border-top:2px solid var(--ink);margin:1.4rem 0 .3rem;
+    position:relative}
+  .brule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+    border-top:1px solid var(--rule)}
+  ul.idx{list-style:none;padding:0;margin:1.6rem 0}
+  ul.idx li{border-bottom:1px solid var(--rule)}
+  /* Whole row is one block-level link: a large, reliable tap target on mobile. */
+  ul.idx a.row{display:flex;justify-content:space-between;align-items:baseline;
+    gap:1rem;padding:.9rem .4rem;text-decoration:none;border:0;color:inherit}
+  ul.idx a.row:hover{background:rgba(156,14,58,.05)}
+  ul.idx .d{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.16rem;
+    color:var(--accent);line-height:1.25}
+  ul.idx a.row:hover .d{text-decoration:underline;text-underline-offset:3px}
+  ul.idx .count{color:var(--faint);font-size:.9rem;font-style:italic;white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  /* A long note (an order list's "3 GVRs / 230 denied / 4 habeas denied /
+     ...", items separated by middots) cannot sit on one line: nowrap made it
+     claim the row and
+     squeezed the title into a column three words wide, and on a phone it ran off
+     the screen. Such a row opts in (meta_wrap): the note wraps, only between its
+     items, and takes at most ~45% of the row, so the title always has the
+     larger share. Under 34rem it drops beneath the title at full width. */
+  /* ("long", not "wrap": .wrap is the page container and its padding.) */
+  ul.idx .count.long{white-space:normal;text-align:right;max-width:45%;line-height:1.45}
+  ul.idx .count.long .seg{white-space:nowrap}
+  @media(max-width:34rem){
+    ul.idx a.row.longmeta{flex-wrap:wrap;row-gap:.2rem}
+    ul.idx .count.long{max-width:none;flex-basis:100%;text-align:left}
+  }
+  /* Compact horizontal strip of the most recent pages beneath a category row. */
+  ul.idx .recent{display:flex;flex-wrap:wrap;align-items:baseline;
+    gap:.3rem .85rem;padding:0 .4rem 1rem;margin-top:-.35rem}
+  ul.idx .recent .rlabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  ul.idx .recent a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--ink-soft);text-decoration:none;font-variant-numeric:tabular-nums;
+    border-bottom:1px solid var(--rule);padding-bottom:1px}
+  ul.idx .recent a:hover{color:var(--accent);border-color:var(--accent)}
+  /* Optional panel beneath the section index (home page: most-read cases). */
+  .panel{margin:2.4rem 0 0}
+  .panel h2{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 .25rem}
+  .panel .pnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:0 0 .5rem}
+  /* "Live now" (live_argument_panel, /live.js): hidden unless the Court is
+     streaming an argument. One red dot, the same --accent as the headings, so
+     the live state is a mark and not a new colour. */
+  .live h2 .ldot{display:inline-block;width:.5rem;height:.5rem;border-radius:50%;
+    background:var(--accent);margin-right:.5rem;vertical-align:.08rem;
+    animation:lpulse 2s ease-in-out infinite}
+  @keyframes lpulse{50%{opacity:.25}}
+  @media (prefers-reduced-motion:reduce){.live h2 .ldot{animation:none}}
+  .lplay{display:flex;flex-wrap:wrap;gap:.6rem .9rem;align-items:center;margin:.8rem 0 .3rem}
+  .lplay button{font:600 .9rem/1 'Newsreader',Georgia,serif;letter-spacing:.04em;
+    color:var(--paper);background:var(--accent);border:0;border-radius:2px;
+    padding:.6rem 1.05rem;cursor:pointer}
+  .lplay button:disabled{opacity:.6;cursor:progress}
+  .lplay button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  /* The player takes a row of its own and may never outgrow the column. A flex
+     item's min-width is auto, which for a replaced element is the browser's own
+     controls' width -- wider than the column on a phone, where mobile Safari
+     and Chrome draw larger controls than the desktop. */
+  .lplay audio{display:block;flex:1 1 100%;width:100%;min-width:0;max-width:100%;
+    box-sizing:border-box;margin:0}
+  .lplay .lstat{font-size:.85rem;color:var(--faint)}
+  /* --- Likeliest grants -----------------------------------------------------
+     Its own rows rather than ol.mostread's: this panel carries a question under
+     the caption, which that list has no room for, and a percentage that has to
+     read as the row's subject rather than as a trailing note.
+     The window toggle is two real radio inputs plus :has() -- no JavaScript.
+     Both windows are rendered at build time and one is hidden, which is the only
+     way a static site can offer the choice: there is no server to ask for the
+     other one. Real radios, not styled buttons, so the control is reachable by
+     keyboard and announced as a choice. */
+  .lead{margin:0 0 1.9rem}
+  .lead h2{margin-bottom:.35rem}
+  .lead .pnote{margin:0 0 .7rem}
+  .wr{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+  .win{display:inline-flex;gap:.25rem;margin:0 0 .55rem;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .win label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .win label:hover{color:var(--ink)}
+  .lead:has(#w7:checked) label[for=w7],
+  .lead:has(#w28:checked) label[for=w28],
+  .lead:has(#wall:checked) label[for=wall]{background:var(--accent);color:var(--paper)}
+  .wr:focus-visible+label{outline:2px solid var(--accent);outline-offset:2px}
+  /* Three windows, one shown: the checked radio hides the other two. */
+  .lead:has(#w7:checked) :is(.g28,.n28,.gall,.nall),
+  .lead:has(#w28:checked) :is(.g7,.n7,.gall,.nall),
+  .lead:has(#wall:checked) :is(.g7,.n7,.g28,.n28){display:none}
+  /* The show/hide controls for a panel's secondary line -- the question under
+     a forecast row, the holding under a decision. Same box as the window
+     toggle, a checkbox instead of radios, and no script: the sibling rule does
+     the work and the lines simply show where :has() is unsupported. The
+     questions are on by default (they are what a forecast row asks); the
+     holdings are off (the caption, kind and disposition already say what
+     happened, and the holding is the more). */
+  .opts{display:inline-flex;gap:.25rem;margin:0 .45rem .55rem 0;vertical-align:top;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .opts label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .opts label:hover{color:var(--ink)}
+  .lead:has(#qon:checked) label[for=qon],
+  .panel:has(#hon:checked) label[for=hon]{background:var(--accent);color:var(--paper)}
+  .lead:has(#qon:not(:checked)) .gq{display:none}
+  .panel:has(#hon:not(:checked)) .chold{display:none}
+  /* --- Upcoming at the Court ------------------------------------------------
+     A date gutter and a two-line body, the same shape as the grant rows above
+     it, so the two panels read as one page rather than two widgets. */
+  .cal{margin:0 0 1.9rem}
+  ol.cal{list-style:none;margin:0;padding:0}
+  ol.cal li{border-top:1px solid var(--rule)}
+  ol.cal li:last-child{border-bottom:1px solid var(--rule)}
+  /* The row is a container, not an anchor: an argument day carries one link per
+     case it hears and anchors cannot nest. Hover lives on the row so it still
+     reads as one unit, and each link colours on its own hover. */
+  ol.cal .crow{display:flex;gap:.95rem;align-items:baseline;padding:.55rem .1rem}
+  ol.cal .crow:hover{background:rgba(156,14,58,.05)}
+  ol.cal a{text-decoration:none;color:inherit}
+  ol.cal a:hover,ol.cal a:focus-visible{color:var(--accent)}
+  ol.cal .cdet a{border-bottom:1px solid rgba(156,14,58,.35)}
+  ol.cal .cdet a:hover{border-bottom-color:var(--accent)}
+  ol.cal .cwhen{flex:none;width:4.6rem;font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.96rem;color:var(--ink);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  ol.cal .cdow{display:block;font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);text-transform:uppercase;letter-spacing:.08em}
+  ol.cal .ctx{flex:1;min-width:0}
+  ol.cal .ckind{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:.98rem;line-height:1.25}
+  ol.cal .cdet{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.12rem}
+  /* Recent decisions reuses the calendar rows and adds exactly two things: the
+     kind word that opens the detail line, and the one outbound link (the slip
+     opinion), which takes the link colour the rest of the row deliberately
+     does not. */
+  ol.cal .dk{font-weight:600;color:var(--ink)}
+  ol.cal .cdet a.pdf{color:var(--link)}
+  /* The holding, from the Court's slip-opinion feed: one sentence, set
+     smaller and in the soft ink so the caption stays the row's headline. */
+  ol.cal .chold{display:block;font-size:.86rem;line-height:1.4;color:var(--ink-soft);
+    font-style:italic;margin-top:.15rem}
+  ol.cal .cdet a.pdf:hover,ol.cal .cdet a.pdf:focus-visible{color:var(--accent);
+    border-bottom-color:var(--accent)}
+  ol.grants{list-style:none;margin:0;padding:0}
+  ol.grants li{border-top:1px solid var(--rule)}
+  ol.grants li:last-child{border-bottom:1px solid var(--rule)}
+  ol.grants a{display:flex;gap:.95rem;align-items:baseline;text-decoration:none;
+    color:inherit;padding:.62rem .1rem}
+  ol.grants a:hover{background:rgba(156,14,58,.05)}
+  ol.grants a:hover .gc{color:var(--accent)}
+  ol.grants .gv{flex:none;width:3.5rem;text-align:right;
+    font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.22rem;
+    line-height:1.1;color:var(--accent);font-variant-numeric:tabular-nums}
+  ol.grants .gx{font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);margin-left:.3rem}
+  ol.grants .gtx{flex:1;min-width:0}
+  /* Subject-area line under the caption, in the section-label idiom (h2.sec):
+     small tracked caps in the faint ink, so it classifies without competing. */
+  ol.grants .gs,ol.mostread .ms{display:block;font-size:.68rem;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--faint);line-height:1.3;margin-top:.12rem}
+  ol.grants .gc{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:1rem;line-height:1.25}
+  ol.grants .gq{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.16rem}
+  ol.grants .gd{flex:none;font-size:.76rem;color:var(--faint);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  .more{margin:.75rem 0 0;font-size:.92rem}
+  .more a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.35)}
+  .more a:hover{border-bottom-color:var(--link)}
+  h2.sec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:.88rem;
+    letter-spacing:.09em;color:var(--faint);text-transform:uppercase;
+    margin:2.1rem 0 .6rem;padding-bottom:.28rem;border-bottom:1px solid var(--rule)}
+  @media(max-width:40rem){
+    ol.grants a{flex-wrap:wrap}
+    ol.grants .gd{width:100%;padding-left:4.45rem;margin-top:-.1rem}
+  }
+  ol.mostread{list-style:none;counter-reset:mr;padding:0;margin:0}
+  ol.mostread li{counter-increment:mr;border-bottom:1px solid var(--rule)}
+  ol.mostread a{display:flex;align-items:baseline;gap:.7rem;padding:.6rem .4rem;
+    text-decoration:none;color:inherit}
+  ol.mostread a:hover{background:rgba(156,14,58,.05)}
+  ol.mostread a::before{content:counter(mr);font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.95rem;color:var(--faint);min-width:1.1rem;
+    font-variant-numeric:tabular-nums}
+  ol.mostread .mc{flex:1;font-size:1rem;line-height:1.3}
+  ol.mostread .mct{display:block}
+  ol.mostread a:hover .mct{color:var(--accent);text-decoration:underline;
+    text-underline-offset:3px}
+  ol.mostread .mdk{color:var(--accent);font-weight:600;font-size:.82rem;
+    font-variant-numeric:tabular-nums;white-space:nowrap}
+  ol.mostread .mv{color:var(--faint);font-size:.85rem;font-style:italic;
+    white-space:nowrap;font-variant-numeric:tabular-nums}
+  /* Forecast percentages carry weight the most-read counts do not: the number is
+     the claim, not a footnote to the ranking. Upright, accent, tabular. */
+  ol.mostread .mv.fc{color:var(--accent);font-style:normal;font-weight:600;
+    font-size:.95rem;min-width:2.6rem;text-align:right}
+  /* Feed follow line. Deliberately quiet -- a footnote under the section list,
+     styled like .recent rather than like a call to action. */
+  .feeds{display:flex;flex-wrap:wrap;align-items:baseline;gap:.3rem .85rem;
+    margin:2.2rem 0 0;padding-top:1.1rem;border-top:1px solid var(--rule)}
+  .feeds .flabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  .feeds a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .feeds a:hover{border-color:var(--link)}
+  .back{margin-top:2rem;font-size:.95rem}
+  .back a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .back a:hover{border-color:var(--link)}
+  /* Home-page case search. */
+  .csearch{position:relative;margin:0 0 1.4rem}
+  #cq{width:100%;font-family:'Newsreader',Georgia,serif;font-size:1.05rem;color:var(--ink);
+    background:var(--panel);border:1px solid var(--rule);border-radius:3px;padding:.7rem .9rem}
+  #cq:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(156,14,58,.1)}
+  #cq::placeholder{color:var(--faint)}
+  #cq.loading{background-image:linear-gradient(90deg,transparent,rgba(156,14,58,.06),transparent);
+    background-size:40% 100%;background-repeat:no-repeat;animation:csl 1s infinite}
+  @keyframes csl{0%{background-position:-40% 0}100%{background-position:140% 0}}
+  .cres{list-style:none;margin:.35rem 0 0;padding:0;max-height:24rem;overflow-y:auto;
+    border:1px solid var(--rule);border-radius:3px;background:var(--panel)}
+  .cres:empty{display:none}
+  .cres li{border-bottom:1px solid var(--rule)}
+  .cres li:last-child{border-bottom:0}
+  .cres a{display:block;padding:.55rem .7rem;text-decoration:none;color:var(--ink);
+    font-size:.98rem;line-height:1.3}
+  .cres a:hover,.cres li.act a{background:rgba(156,14,58,.06)}
+  .cres mark{background:rgba(156,14,58,.14);color:inherit;padding:0 .05em;border-radius:2px}
+  .cres .cd{color:var(--accent);font-variant-numeric:tabular-nums;font-weight:600;
+    margin-right:.5rem;white-space:nowrap}
+  .cnone{padding:.55rem .7rem;color:var(--faint);font-style:italic}
+  .cnone a,.cqp a{color:var(--link);font-style:normal;text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .cqp{margin:.45rem 0 0;font-size:.88rem;color:var(--faint)}
+  /* /cases/ browse index: grouped sections with per-bucket counts. */
+  .csec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+    text-transform:uppercase;letter-spacing:.12em;color:var(--accent);
+    margin:2.2rem 0 .3rem;padding-bottom:.35rem;border-bottom:1px solid var(--rule);
+    display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
+  .csec .cn{font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:.85rem;
+    letter-spacing:0;text-transform:none;color:var(--faint);
+    font-variant-numeric:tabular-nums}
+  .cnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:.5rem 0 0}
+  .cnote a{color:var(--accent)}
+  ul.terms{list-style:none;padding:0;margin:1rem 0 0;display:flex;flex-wrap:wrap;
+    gap:.5rem 1.6rem}
+  ul.terms li{display:inline-flex;align-items:baseline;gap:.4rem}
+  ul.terms a{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.05rem;
+    color:var(--accent);text-decoration:none;border-bottom:1px solid var(--rule)}
+  ul.terms a:hover{border-bottom-color:var(--accent)}
+  ul.terms .cn{color:var(--faint);font-size:.85rem;font-variant-numeric:tabular-nums}
+  /* About page: running prose rather than an index, so it takes a measure and a
+     little more leading than the section rows above it. */
+  .about{margin:1.6rem 0 0;font-size:1.05rem;line-height:1.65;max-width:34rem}
+  .about p{margin:0 0 1rem}
+  .about a{color:var(--accent);text-decoration:none;
+    border-bottom:1px solid var(--rule)}
+  .about a:hover{border-bottom-color:var(--accent)}
+  .about .contact{margin:2rem 0 0;background:var(--panel);border:1px solid var(--rule);
+    border-left:4px solid var(--accent);padding:1.1rem 1.3rem}
+  .about .contact h2{font:600 .78rem/1 'Newsreader',Georgia,serif;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--accent);margin:0 0 .5rem}
+  .about .contact p{margin:0;font-size:1rem}
+
+/* ---- masthead ---- */
+.smast-in{max-width:var(--nav-max,60rem);margin:0 auto;padding:.85rem 1.5rem .5rem;
+  display:flex;align-items:baseline;justify-content:space-between;gap:1.4rem;flex-wrap:wrap}
+.smast-wm{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+  letter-spacing:.005em;color:var(--ink,#1a1a1e);text-decoration:none;white-space:nowrap;flex:none}
+.smast-wm em{font-style:italic;font-weight:500;color:var(--accent,#9c0e3a)}
+.smast-wm:hover{color:var(--accent,#9c0e3a)}
+/* Row gap first, then column. At 1.35rem the six section links measured 596px
+   of max-content -- 4px wider than the 592px row the 40rem index container
+   leaves them -- so ABOUT alone wrapped to a third line under the wordmark, on
+   every page page_style.R writes. 1.05rem brings the row to 572px: 20px of
+   slack at 40rem, and 45px on the 54rem case pages, which were themselves only
+   21px from wrapping. The .4rem row gap is for the day a seventh section
+   overruns it anyway -- a nav that wraps should read as a stack, not an orphan. */
+.snav{display:flex;gap:.4rem 1.05rem;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+.snav a{font:600 .72rem/1 'Newsreader',Georgia,serif;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--ink-soft,var(--soft,#484850));text-decoration:none;display:inline-block;
+  padding:.5rem 0;border-bottom:1.5px solid transparent}
+.snav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--rule,#dbd8d2)}
+.snav a[aria-current='page']{color:var(--accent,#9c0e3a);
+  border-bottom-color:var(--accent,#9c0e3a)}
+.smast-rule-w{max-width:var(--nav-max,60rem);margin:0 auto;padding:0 1.5rem}
+.smast-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0;position:relative}
+.smast-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.skip{position:absolute;left:-9999px;top:0;background:var(--panel,#ffffff);
+  color:var(--accent,#9c0e3a);padding:.6rem 1rem;
+  border:1px solid var(--accent,#9c0e3a);
+  font:600 .8rem/1 'Newsreader',Georgia,serif;letter-spacing:.1em;text-transform:uppercase;z-index:10}
+.skip:focus{left:.5rem;top:.5rem}
+/* ---- breadcrumb ---- */
+.bcrumb{margin:.7rem 0 0}
+.bcrumb ol{list-style:none;display:flex;flex-wrap:wrap;align-items:baseline;
+  gap:.1rem .45rem;margin:0;padding:0}
+.bcrumb li{display:inline-flex;align-items:baseline;gap:.45rem}
+.bcrumb a{font:400 .8rem/1.5 'Newsreader',Georgia,serif;color:var(--ink-soft,var(--soft,#484850));
+  text-decoration:none;border-bottom:1px solid var(--rule,#dbd8d2)}
+.bcrumb a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.bcrumb .sep{color:var(--faint,#63636b);font-size:.8rem;line-height:1.5}
+.bcrumb [aria-current='page']{font:400 .8rem/1.5 'Newsreader',Georgia,serif;
+  color:var(--faint,#63636b);font-variant-numeric:tabular-nums}
+/* ---- case footer ---- */
+.cfoot{margin:2.4rem 0 0}
+.cfoot-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0 0 1rem;position:relative}
+.cfoot-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.cfoot-off{font-size:.95rem;margin:0 0 1.1rem}
+.cfoot-off a{color:var(--link,#9c0e3a);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.4)}
+.cfoot-off a:hover{border-bottom-color:var(--link,#9c0e3a)}
+.cfoot-lab{font:600 .68rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);margin:0 0 .5rem}
+.cfoot-nav{display:flex;flex-wrap:wrap;gap:.35rem 1.1rem;list-style:none;margin:0;padding:0}
+.cfoot-nav a{font-size:.92rem;color:var(--ink-soft,var(--soft,#484850));text-decoration:none;
+  border-bottom:1px solid var(--rule,#dbd8d2);padding-bottom:1px}
+.cfoot-nav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.cfoot-stamp{margin:1.2rem 0 0;font-size:.8rem;color:var(--faint,#63636b);font-style:italic}
+/* ---- prev / next ---- */
+.pnav{margin:2.2rem 0 0;border-top:1px solid var(--rule,#dbd8d2);padding-top:1rem;
+  display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.pnav a,.pnav span.none{text-decoration:none;color:inherit;display:block;padding:.5rem .2rem}
+.pnav a:hover{background:rgba(156,14,58,.05)}
+.pnav .dir{font:600 .66rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);display:block;margin-bottom:.3rem}
+.pnav .lab{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1rem;line-height:1.25;
+  color:var(--accent,#9c0e3a);display:block}
+.pnav a:hover .lab{text-decoration:underline;text-underline-offset:3px}
+.pnav .nx{text-align:right}
+.pnav .none{opacity:.35}
+@media(max-width:640px){
+  .smast-in{padding:.7rem 1.1rem .25rem;gap:.15rem}
+  .smast-wm{font-size:.98rem}
+  .smast-in nav{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+    -webkit-mask-image:linear-gradient(90deg,#000 86%,transparent);
+    mask-image:linear-gradient(90deg,#000 86%,transparent)}
+  .smast-in nav::-webkit-scrollbar{display:none}
+  .snav{flex-wrap:nowrap;gap:1.15rem;padding-right:2.4rem}
+  .snav a{padding:.7rem 0;white-space:nowrap}
+  .smast-rule-w{padding:0 1.1rem}
+  .cfoot-nav{gap:.5rem 1rem}
+  .cfoot-nav a{padding-bottom:.3rem}
+  .pnav{grid-template-columns:1fr;gap:.2rem}
+  .pnav .nx{text-align:left;border-top:1px solid var(--rule,#dbd8d2)}
+}
+
+  .wrap.opn{max-width:42rem}
+  .opn .ometa{font-size:.92rem;color:var(--ink-soft);margin:.3rem 0 0}
+  .opn .oget{display:flex;flex-wrap:wrap;gap:.4rem .6rem;margin:1.1rem 0 0;padding:0;list-style:none;font-size:.9rem}
+  .opn .oget a{display:inline-block;padding:.32rem .7rem;border:1px solid var(--rule);border-radius:4px;color:var(--ink);text-decoration:none;background:var(--panel)}
+  .opn .oget a:hover{border-color:var(--accent);color:var(--accent)}
+  .opn .osrc{font-size:.84rem;color:var(--faint);margin:.9rem 0 0;line-height:1.45}
+  .opn .osrc a{color:var(--link)}
+  .opn .otoc{margin:1.6rem 0 0;padding:.8rem 1rem;border:1px solid var(--rule);border-radius:4px;background:var(--panel);font-size:.95rem}
+  .opn .otoc ol{margin:0;padding:0;list-style:none}
+  .opn .otoc li{margin:.25rem 0}
+  .opn .otoc a{color:var(--ink);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.35)}
+  .opn .otoc a:hover{color:var(--accent)}
+  .opn section.op{margin-top:3rem;border-top:2px solid var(--ink);padding-top:1.1rem}
+  .opn section.op h2{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.5rem;line-height:1.2;margin:0 0 1rem;color:var(--ink)}
+  .opn section.op p{margin:0 0 .95rem;line-height:1.62;hyphens:auto;overflow-wrap:break-word}
+  .opn section.op p.byline{color:var(--ink-soft);font-style:italic}
+  .opn section.op p.sep{text-align:center;letter-spacing:.3em;color:var(--faint);margin:1.6rem 0}
+  .opn section.op h3.oh{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.12rem;text-align:center;margin:2rem 0 1rem;color:var(--ink)}
+  .opn section.op blockquote{margin:0 0 .95rem;padding:0 0 0 1.1rem;border-left:2px solid var(--rule);color:var(--ink-soft)}
+  .opn section.op blockquote p{margin-bottom:.6rem;font-size:.96em}
+  .opn .sc{font-variant-caps:small-caps;letter-spacing:.02em}
+  .opn .pg{font-size:.66em;color:var(--faint);vertical-align:.3em;margin:0 .3em 0 .1em;font-variant-numeric:tabular-nums;user-select:none;white-space:nowrap}
+  .opn .pg::before{content:'*'}
+  .opn sup.fnr{font-size:.68em;line-height:0;margin-left:.05em}
+  .opn sup.fnr a{color:var(--link);text-decoration:none;padding:0 .1em}
+  .opn aside.notes{margin-top:2rem;border-top:1px solid var(--rule);padding-top:.8rem;font-size:.88rem;color:var(--ink-soft)}
+  .opn aside.notes h3{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1rem;margin:0 0 .6rem;color:var(--ink)}
+  .opn aside.notes ol{margin:0;padding-left:1.7rem}
+  .opn aside.notes li{margin:0 0 .55rem}
+  .opn aside.notes li.sym{list-style:none;margin-left:-1.7rem}
+  .opn aside.notes li.sym .mk{margin-right:.3rem}
+  .opn aside.notes li.sym p{display:inline}
+  .opn aside.notes p{margin:0 0 .4rem;line-height:1.5}
+  .opn aside.notes a.back{color:var(--link);text-decoration:none;margin-left:.2rem}
+  .opn aside.notes li:target,.opn sup.fnr a:target,.opn .pg:target{background:rgba(156,14,58,.12);outline:.2rem solid rgba(156,14,58,.12)}
+  .opn section.op,.opn aside.notes li,.opn sup.fnr a{scroll-margin-top:1rem}
+  .opn section.op-syllabus p,.opn section.op-counsel p{font-size:.95em}
+  .opn section.op-counsel summary{cursor:pointer;font-family:'Fraunces',Georgia,serif;font-size:1.05rem;color:var(--ink-soft)}
+  .opn .osyl{font-size:.84rem;color:var(--faint);font-style:italic;margin:-.5rem 0 1rem}
+  .opn p.back{margin-top:3rem;font-size:.92rem}
+  @media print{.smast,.bcrumb,.opn .oget,.opn .otoc,.opn p.back{display:none}.opn section.op{break-before:page}}
+</style><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://supremecourt.report/"},{"@type":"ListItem","position":2,"name":"Opinions","item":"https://supremecourt.report/opinions/"},{"@type":"ListItem","position":3,"name":"Kemp v. United States"}]}</script><meta name='otv' content='p1'><link rel='alternate' type='text/markdown' href='/opinions/2021/21-5726.md'><link rel='alternate' type='application/epub+zip' href='/opinions/2021/21-5726.epub'></head><body><a class='skip' href='#main'>Skip to content</a><header><div class='smast-in'><a class='smast-wm' href='/'>Supreme Court <em>Report</em></a><nav aria-label='Sections'><ul class='snav'><li><a href='/dashboards/'>Docket</a></li><li><a href='/conferences/'>Conferences</a></li><li><a href='/relists/'>Relists</a></li><li><a href='/applications/'>Interim</a></li><li><a href='/arguments/'>Arguments</a></li><li><a href='/justices/' aria-current='page'>Justices</a></li><li><a href='/counsel/'>Counsel</a></li><li><a href='/funnel/'>Funnel</a></li><li><a href='/methods.html'>Model</a></li><li><a href='/about.html'>About</a></li></ul></nav></div><div class='smast-rule-w'><hr class='smast-rule'></div></header><main class='wrap opn' id='main' data-dkt='21-5726'><nav class='bcrumb' aria-label='Breadcrumb'><ol><li><a href='/'>Home</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><a href='/opinions/'>Opinions</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><span aria-current='page'>Kemp v. United States</span></li></ol></nav><p class='kicker'>No. 21-5726 · decided June 13, 2022 · 596 U. S. 528</p><h1 style='font-size:clamp(1.7rem,4.6vw,2.4rem);line-height:1.12'>Kemp v. United States</h1><p class='ometa'>Dexter Earl Kemp v. United States. 2 separate writings.</p><ul class='oget'><li><a href='/opinions/2021/21-5726.epub' download>EPUB</a></li><li><a href='/opinions/2021/21-5726.md' download>Markdown</a></li><li><a href='https://www.supremecourt.gov/opinions/21pdf/596us2r38_e29f.pdf' rel='noopener'>The Court’s PDF</a></li><li><a href='/cases/21-5726.html'>The docket</a></li></ul><p class='osrc'>Set from the PDF the Court published, which is the authoritative text. The small starred numbers are that PDF’s page numbers. A conversion can introduce errors; check a quotation against the <a href='https://www.supremecourt.gov/opinions/21pdf/596us2r38_e29f.pdf' rel='noopener'>original</a>.</p><nav class="otoc" aria-label="Contents"><ol>
+<li><a href="#s1">Syllabus</a></li>
+<li><a href="#s2">Counsel</a></li>
+<li><a href="#s3">Opinion of the Court</a></li>
+<li><a href="#s4">Justice Sotomayor, concurring</a></li>
+<li><a href="#s5">Justice Gorsuch, dissenting</a></li>
+</ol></nav>
+<section id="s1" class="op op-syllabus"><h2>Syllabus</h2><p class='osyl'>Prepared by the Reporter of Decisions for the convenience of the reader; it is no part of the opinion of the Court.</p>
+<p>Petitioner Dexter Kemp and seven codefendants were convicted of various drug and gun crimes. The Eleventh Circuit consolidated their appeals and, in November 2013, affirmed their convictions and sentences. In April 2015, Kemp moved the District Court to vacate his sentence under 28 U. S. C. § 2255. The District Court dismissed Kemp's motion as untimely because it was not filed within one year of “the date on which [his] judgment of conviction [became] final.” §2255(f)(1). Kemp did not appeal. Then, in June 2018, Kemp sought to reopen his § 2255 proceedings under Federal Rule of Civil Procedure 60(b), which authorizes a court to reopen a final judgment under certain enumerated circumstances. As relevant here, a party may seek relief within one year under Rule 60(b)(1) based on “mistake, inadvertence, surprise, or excusable neglect.” A party may also seek relief “within a reasonable time” under Rule 60(b)(6) for “any other reason that justifies relief,” but relief under Rule 60(b)(6) is available only when the other grounds for relief specified in Rules 60(b)(1)–(5) are inapplicable. Kemp's motion to reopen his § 2255 proceedings invoked Rule 60(b)(6), but his motion sought reopening based on a “mistake” covered by Rule 60(b)(1). Specifically, Kemp argued that the 1-year limitations period on his § 2255 motion did not begin to run until his codefendants' rehearing petitions were denied in May 2014, making his April 2015 motion timely. The Eleventh Circuit agreed with Kemp that his § 2255 motion was timely but concluded that because Kemp alleged judicial mistake, his Rule 60(b) motion fell under Rule 60(b)(1), was subject to Rule 60(c)'s 1-year limitations period, and was therefore untimely.</p>
+<p><em>Held</em>: The term “mistake” in Rule 60(b)(1) includes a judge's errors of law. Because Kemp's motion alleged such a legal error, it was cognizable under Rule 60(b)(1) and untimely under Rule 60(c)'s 1-year limitations period. Pp. 533–539.</p>
+<p>(a) As a matter of text, structure, and history, a “mistake” under Rule 60(b)(1) includes a judge's errors of law. When the Rule was adopted in 1938 and revised in 1946, the word “mistake” applied to any “misconception,” “misunderstanding,” or “fault in opinion or judgment.” Webster's New International Dictionary 1383. Likewise, in its legal usage, <span class="pg" id="s1-p529" title="page 529 of the original">529</span>“mistake” included errors “of law or fact.” Black's Law Dictionary 1195. Thus, regardless whether “mistake” in Rule 60(b)(1) carries its ordinary meaning or legal meaning, it includes a judge's mistakes of law. Rule 60(b)(1)'s drafters could have used language to connote a narrower understanding of “mistake,” yet they chose not to qualify that term. Similarly, the Rule's drafters could have excluded mistakes by judges from the Rule's reach. In fact, the Rule used to read that way. When adopted in 1938, Rule 60(b) initially referred to “his”—<em>i. e.,</em> a party's— “mistake,” so judicial errors were not covered. The 1946 revision to the Rule deleted the word “his,” thereby removing any limitation on whose mistakes could qualify. Pp. 534–535.</p>
+<p>(b) Neither the Government nor Kemp offers a reason to depart from this reading of Rule 60(b)(1). Pp. 535–539.</p>
+<p>(1) The Government contends that the term “mistake” encompasses only so-called “obvious” legal errors. This contention—also held by several Courts of Appeals—is unconvincing. None of the dictionaries from the time the Rule was adopted and revised suggests this “obviousness” gloss. Nor does the text or history of Rule 60(b)(1) limit its reach only to flagrant cases that would have historically been corrected by courts sitting in equity. Finally, requiring courts to decide not only whether there was a mistake but also whether that mistake was sufficiently “obvious” raises questions of administrability. Pp. 535–536.</p>
+<p>(2) Kemp's arguments for limiting Rule 60(b)(1) to non-judicial, non-legal errors are also unconvincing. He claims that Rule 60(b)(1)'s other grounds for relief—“inadvertence,” “surprise,” and “excusable neglect”—involve exclusively non-legal, non-judicial errors, and thus “mistake” should be similarly limited. But courts have found that excusable neglect may involve legal error, see, <em>e. g., Lenaghan</em> v. <em>Pepsico, Inc.,</em> 961 F. 2d 1250, 1254–1255, and they have a similar history of granting relief based on “judicial inadvertence,” <em>Larson</em> v. <em>Heritage Square Assocs.</em>, 952 F. 2d 1533, 1536. Kemp argues that Rule 60's structure favors interpreting the term “mistake” narrowly to include only non-legal errors, and the Court's contrary interpretation would create confusing overlap between Rule 60(b)(1) and relief available under other parts of Rule 60 not subject to Rule 60(c)'s 1-year limitations period. But the overlap Kemp suggests would exist even if “mistake” reached only factual errors. Courts of Appeals have well-established tests for distinguishing between these Rules. And should such overlap ever create an irreconcilable conflict, courts may then resort to ordinary interpretive rules to determine which Rule to apply. As for Kemp's worry that the Court's interpretation would allow parties to evade other time limits by, for example, repackaging a tardy motion under Rule 59(e), the risk Kemp <span class="pg" id="s1-p530" title="page 530 of the original">530</span>identifies would exist even under his own interpretation. And, in any event, the alleged specter of litigation gamesmanship and strategic delay is overstated because a Rule 60(b)(1) motion, like all Rule 60(b) motions, must be made “within a reasonable time.” Finally, Kemp protests that this Court's reading is inconsistent with the history of Rule 60(b). But his argument is based on the mistaken notions that Rule 60(b)(1)'s list of grounds for reopening was understood to be a “term of art” when adopted, and that Rule 60(b)(6) alone was intended to afford relief for judicial legal errors that had previously been remedied by bills of review. Pp. 536–539. 857 Fed. Appx. 573, affirmed. <span class="sc">Thomas, J.</span>, delivered the opinion of the Court, in which <span class="sc">Roberts</span>, C. J., and <span class="sc">Breyer</span>, <span class="sc">Alito</span>, <span class="sc">Sotomayor</span>, <span class="sc">Kagan</span>, <span class="sc">Kavanaugh</span>, and <span class="sc">Barrett</span>, JJ., joined. <span class="sc">Sotomayor</span>, J., filed a concurring opinion, <em>post</em>, p. 540. <span class="sc">Gorsuch</span>, J., filed a dissenting opinion, <em>post</em>, p. 540.</p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li class="sym" value="0"><span class="mk">*</span><p><em>Margaret A. Little</em> and <em>Kara M. Rollins</em> filed a brief for the New Civil Liberties Alliance as <em>amicus curiae</em> urging reversal.</p></li>
+</ol></aside></section>
+<section id="s2" class="op op-counsel"><details><summary>Counsel</summary><p><em>Andrew L. Adler</em> argued the cause for petitioner. With him on the briefs were <em>Lisa S. Blatt</em> and <em>Sarah M. Harris.</em></p>
+<p><em>Benjamin W. Snyder</em> argued the cause for the United States. With him on the brief were <em>Solicitor General Prelogar, Assistant Attorney General Polite,</em> and <em>Deputy Solicitor General Feigin.</em>*</p></details></section>
+<section id="s3" class="op op-court"><h2>Opinion of the Court</h2>
+<p class="byline">Justice Thomas delivered the opinion of the Court.</p>
+<p>Federal Rule of Civil Procedure 60(b)(1) allows a party to seek relief from a final judgment based on, among other things, a “mistake.” The question presented is whether the term “mistake” includes a judge's error of law. We conclude, based on the text, structure, and history of Rule 60(b), that a judge's errors of law are indeed “mistake[s]” under Rule 60(b)(1).</p>
+<h3 class="oh">I</h3>
+<p>In 2011, a federal jury convicted Dexter Kemp of various drug and gun crimes, and he was sentenced to 420 months <span class="pg" id="s3-p531" title="page 531 of the original">531</span>in prison. Kemp, along with seven codefendants, appealed. The Eleventh Circuit consolidated their appeals and, in November 2013, affirmed their convictions and sentences. <em>United States</em> v. <em>Gray</em>, 544 Fed. Appx. 870. Kemp did not seek rehearing of the Eleventh Circuit's judgment or petition this Court for certiorari. Two of Kemp's codefendants did seek rehearing, which the Eleventh Circuit denied in May 2014.</p>
+<p>In April 2015, Kemp moved the U. S. District Court for the Southern District of Florida to vacate his sentence under 28 U. S. C. § 2255. The Government objected that Kemp's § 2255 motion was untimely. As relevant here, such motions must be filed within one year of “the date on which the judgment of conviction becomes final.” §2255(f)(1). For someone who, like Kemp, does not petition this Court for certiorari, a judgment becomes final when the time to seekcertiorari expires—ordinarily, 90 days after judgment. See <em>Clay</em> v. <em>United States</em>, 537 U. S. 522, 525 (2003); this Court's Rule 13.1. In this case, the District Court concluded that Kemp's judgment became final in February 2014 (90 days after the Eleventh Circuit's judgment affirming his conviction and sentence), making his April 2015 motion over two months late. The District Court dismissed Kemp's motion in September 2016, and Kemp did not appeal.</p>
+<p>In June 2018—almost two years later—Kemp attempted to reopen his § 2255 proceedings under Federal Rule of Civil Procedure 60(b), which authorizes a court to reopen a final judgment under certain enumerated circumstances. Rule 60(b)(1) permits a district court to reopen a judgment for “mistake, inadvertence, surprise, or excusable neglect,” so long as the motion is filed “within a reasonable time,” and, at most, one year after the entry of the order under review. See Fed. Rules Civ. Proc. 60(b)(1), (c)(1). Meanwhile, Rule 60(b)(6) permits reopening for “any other reason that justifies<span class="pg" id="s3-p532" title="page 532 of the original">532</span> relief,” so long as the motion is filed “within a reasonable time.” Rule 60(c)(1).</p>
+<p>Kemp invoked Rule 60(b)(6), but his motion arguably sought reopening based on a kind of “mistake” covered by Rule 60(b)(1). Specifically, Kemp argued that reopening was warranted because this Court's Rule 13.3 prescribes that the 90-day clock to seek certiorari does not begin to run until <em>all</em> parties' petitions for rehearing are denied, and the Eleventh Circuit denied his codefendants' rehearing petitions in May 2014. Thus, according to Kemp, the 1-year period to file his § 2255 motion began in August 2014, making his April 2015 motion timely.</p>
+<p>The District Court rejected this timeliness argument and, in the alternative, held that Kemp's Rule 60(b) motion was itself untimely. The Eleventh Circuit affirmed. 857 Fed. Appx. 573 (2021) (<em>per curiam</em>). While it agreed with Kemp that his original § 2255 motion “appear[ed] to have been timely,” the Eleventh Circuit nonetheless concluded that he had filed his Rule 60(b) motion too late. <em>Id.,</em> at 575–576. The Eleventh Circuit held that Kemp's reopening motion alleged “precisely the sort of judicial mistak[e] in applying the relevant law that Rule 60(b)(1) encompasses,” and thus was subject to Rule 60(b)(1)'s 1-year limitations period. <em>Id.,</em> at 576.</p>
+<p>Kemp petitioned this Court for review, and we granted certiorari to resolve the Courts of Appeals' longstanding disagreement whether “mistake” in Rule 60(b)(1) includes a judge's errors of law.<sup class="fnr"><a id="s3-r1" href="#s3-n1">1</a></sup>595 U. S. ––– (2022).</p>
+<h3 class="oh"><span class="pg" id="s3-p533" title="page 533 of the original">533</span>II</h3>
+<p>Federal Rule of Civil Procedure 60(b) permits “a party to seek relief from a final judgment, and request reopening of his case, under a limited set of circumstances.” <em>Gonzalez</em> v. <em>Crosby</em>, 545 U. S. 524, 528 (2005). Under Rule 60(b)(1), a party may seek relief based on “mistake, inadvertence, surprise, or excusable neglect.” Rules 60(b)(2) through (b)(5) supply other grounds for reopening a judgment. Finally, Rule 60(b)(6) provides a catchall for “any other reason that justifies relief.” This last option is available only when Rules 60(b)(1) through (b)(5) are inapplicable. See <em>Liljeberg</em> v. <em>Health Services Acquisition Corp.</em>, 486 U. S. 847, 863, n. 11 (1988). Even then, “ `extraordinary circumstances' ” must justify reopening. <em>Ibid.</em></p>
+<p>Rule 60(c) imposes deadlines on Rule 60(b) motions. All must be filed “within a reasonable time.” Rule 60(c)(1). But for some, including motions under Rule 60(b)(1), that “reasonable time” may not exceed one year. Rule 60(c)(1). Motions under Rule 60(b)(6) are not subject to this additional 1-year constraint. Rule 60(c)(1)<em>.</em></p>
+<p>Here, the parties dispute the extent to which a judge's legal errors qualify as “mistake[s]” under Rule 60(b)(1). The Government contends that Rule 60(b)(1) applies any time a party alleges that a judge has made an “obvious” legal error—<em>e. g.,</em> the “failure to apply unambiguous law to record facts.” Brief for United States 11. Kemp's motion, the Government says, alleged an obvious legal error, so the Eleventh Circuit was correct to apply Rule 60(b)(1). According to Kemp, however, Rule 60(b)(1) applies only to factual errors made by someone other than the judge. Brief for Petitioner 3. So, in Kemp's view, his motion challenging the District Court's timeliness ruling was cognizable under Rule 60(b)(6), and the 1-year limit did not apply.</p>
+<p>We ultimately disagree with Kemp and agree with the Government to a point. As a matter of text, structure, and history, the Government is correct that a “mistake” under <span class="pg" id="s3-p534" title="page 534 of the original">534</span>Rule 60(b)(1) includes a judge's errors of law. But we see no reason to limit Rule 60(b)(1) to “obvious” legal mistakes, as the Government proposes. We first explain why Rule 60(b)(1) covers all mistakes of law made by a judge, and then address why the Government's and Kemp's contrary interpretations of “mistake” do not persuade us.</p>
+<h3 class="oh">A</h3>
+<p>The ordinary meaning of the term “mistake” in Rule 60(b)(1) includes a judge's legal errors. When the Rule was adopted in 1938 and revised in 1946, the word “mistake” applied to any “misconception,” “misunderstanding,” or “fault in opinion or judgment.” Webster's New International Dictionary 1383 (1914) (Webster's); see also Funk &amp; Wagnalls New Standard Dictionary of the English Language 1588 (1944) (Funk &amp; Wagnalls) (defining “mistake” as an “error in action, judgment, or perceptions,” including, <em>e. g.,</em> “a <em>mistake</em> in calculation”). In ordinary usage, then, a “mistake” was not limited only to factual “misconception[s]” or “misunderstanding[s],” or to mistakes by non-judicial actors. Webster's 1383<em>.</em> Likewise, in its legal usage, “mistake” included errors “of law or fact.” Black's Law Dictionary 1195 (3d ed. 1933) (Black's). Thus, regardless whether “mistake” in Rule 60(b)(1) carries its ordinary meaning or legal meaning, it includes a judge's mistakes of law.</p>
+<p>Had the drafters of Rule 60(b)(1) intended a narrower meaning, they “easily could have drafted language to that effect.” <em>Mississippi ex rel. Hood</em> v. <em>AU Optronics Corp.</em>, 571 U. S. 161, 169 (2014). The difference between “mistake of fact” and “mistake of law” was well known at the time. Both lay and legal dictionaries identified them as distinct categories. See Funk &amp; Wagnalls 1588; Black's 1195. Thus, Rule 60(b)(1)'s drafters had at their disposal readily available language that could have connoted a narrower understanding of “mistake.” Yet they chose to include “mistake” unqualified.</p>
+<p><span class="pg" id="s3-p535" title="page 535 of the original">535</span>Similarly, Rule 60(b)(1)'s drafters could just as easily have excluded mistakes by judges from the Rule's ambit. In fact, the Rule used to read that way. When adopted in 1938, Rule 60(b) initially referred to “his”—<em>i. e.,</em> a party's—“mistake,” so judicial errors were not covered. Fed. Rule Civ. Proc. 60(b) (1938). In 1946, however, the Rule's amenders deleted the word “his,” thereby removing any limitation on whose mistakes could qualify. See Fed. Rule Civ. Proc. 60(b)(1) (1946). Thus, as currently written, “mistake” in Rule 60(b)(1) includes legal errors made by judges.<sup class="fnr"><a id="s3-r2" href="#s3-n2">2</a></sup></p>
+<h3 class="oh">B</h3>
+<p>Both the Government's and Kemp's interpretations of Rule 60(b) depart from aspects of our reading. Their reasons for doing so are unavailing.</p>
+<h3 class="oh">1</h3>
+<p>The Government contends that the term “mistake” encompasses only so-called “obvious” legal errors. Brief for United States 11. Several Courts of Appeals agree that Rule 60(b)(1) may be used to correct only “ `obvious errors' of law, such as overlooking controlling statutes or case law.” <em>In re Ta Chi Navigation (Panama) Corp. S. A.</em>, 728 F. 2d 699, 703 (CA5 1984). The Government argues that this limitation “has historical roots” because courts of equity traditionally “could grant relief from legal errors, but only `in the most unquestionable and flagrant cases.' ” Brief for United States 18 (quoting <em>Snell</em> v. <em>Insurance Co.</em>, 98 U. S. 85, 91 (1878)).</p>
+<p>We are unconvinced. None of the English language or legal dictionaries noted above, <em>supra,</em> at 534 and this page, suggests this “obviousness” gloss. Nor does the Government<span class="pg" id="s3-p536" title="page 536 of the original">536</span> tie the equity practice it invokes to the text or history of Rule 60(b). Finally, we question the administrability of a rule that requires courts to decide not only whether there was a “mistake” but also whether that mistake was sufficiently “obvious.” The text does not support—let alone require—that judges engage in this sort of complex line-drawing.</p>
+<h3 class="oh">2</h3>
+<p>We are similarly unconvinced by Kemp's arguments for limiting Rule 60(b)(1) to non-judicial, non-legal errors.</p>
+<p>While Kemp does not dispute that “mistake” ordinarily would cover both legal and factual errors, he argues that the other grounds for relief in Rule 60(b)(1)—“inadvertence,” “surprise,” and “excusable neglect”—involve exclusively non-legal, non-judicial errors, and the word “mistake” should therefore be similarly limited. But courts have long found that excusable neglect may involve legal error. See, <em>e. g., Lenaghan</em> v. <em>Pepsico, Inc.</em>, 961 F. 2d 1250, 1254–1255 (CA6 1992) (<em>per curiam</em>) (“understandable, albeit mistaken, reading of” a local rule); <em>A. F. Dormeyer Co.</em> v. <em>M. J. Sales &amp; Distribution Co.</em>, 461 F. 2d 40, 42–43 (CA7 1972) (misunderstanding of summons and relevant legal rules); <em>Provident Security Life Ins. Co.</em> v. <em>Gorsuch</em>, 323 F. 2d 839, 843 (CA9 1963) (erroneous understanding of Federal Rule of Civil Procedure 12). And they have a similar history of granting relief based on “<em>judicial</em> inadvertence.” <em>Larson</em> v. <em>Heritage Square Assocs.</em>, 952 F. 2d 1533, 1536 (CA8 1992) (emphasis added); see also, <em>e. g., O'Tell</em> v. <em>New York, N. H. &amp; H. R. Co.</em>, 236 F. 2d 472, 475 (CA2 1956) (judge's failure to deduct setoff in entering judgment was “inadvertence” under Rule 60(b)). Because the words surrounding “mistake” in Rule 60(b)(1) do not connote exclusively non-legal or non-judicial errors, they do not favor Kemp's narrower reading.</p>
+<p>Kemp also argues that Rule 60's structure favors interpreting the term “mistake” narrowly. Our interpretation,<span class="pg" id="s3-p537" title="page 537 of the original">537</span> he contends, would create confusing overlap between Rule 60(b)(1) and Rule 60(a), which authorizes a court to “correct a clerical mistake or a mistake arising from oversight or omission whenever one is found in a judgment, order, or other part of the record.” We disagree. Because Rule 60(a) covers a subset of “mistake[s]”—<em>e. g.,</em> “clerical” ones—whereas Rule 60(b)(1) covers “mistake[s]” <em>simpliciter</em>, the overlap Kemp alleges would exist even if “mistake” reached only factual errors. And the Courts of Appeals have well-established rules for determining when Rule 60(a), rather than Rule 60(b), should apply. See, <em>e. g., United States</em> v. <em>Griffin</em>, 782 F. 2d 1393, 1397 (CA7 1986).</p>
+<p>Kemp alleges that our interpretation of Rule 60(b)(1) would create a similar problem with respect to Rules 60(b)(4) and (b)(5), which authorize relief from voided judgments and judgments that lack legal effect. Specifically, Kemp contends that a legal “mistake” could warrant relief under both Rule 60(b)(1) and Rule 60(b)(4) or Rule (b)(5), and a conflict could then arise given that the latter Rules are not subject to a 1-year time limit. But, again, that could occur even if only factual errors count as “mistake[s],” since factual errors, too, may justify relief under Rules 60(b)(4) and (b)(5). And, regardless, should this overlap ever create an irreconcilable conflict, courts may then resort to ordinary rules of statutory construction when selecting which provision would govern in a particular case. See, <em>e. g., RadLAX Gateway Hotel, LLC</em> v. <em>Amalgamated Bank</em>, 566 U. S. 639, 645 (2012) (“ `the specific governs the general' ”).</p>
+<p>Kemp also worries that our interpretation would allow parties to evade other time limits set forth in the Federal Rules. For instance, Rule 59(e) motions to alter or amend a judgment must be filed within 28 days, and appeals must generally be filed within 30 days, see Fed. Rule App. Proc. 4(a)(1)(a). Kemp suggests that our interpretation would allow someone to repackage a tardy Rule 59(e) motion as a <span class="pg" id="s3-p538" title="page 538 of the original">538</span>timely Rule 60(b)(1) motion, or to generate a right to an untimely appeal by filing a Rule 60(b)(1) motion and appealing once it is denied. We are unpersuaded because, yet again, the risk Kemp identifies would exist even under his own interpretation. For example, Kemp provides no explanation why, under his interpretation of Rule 60(b), parties could not repackage tardy Rule 59(e) motions based on legal errors as motions under Rule 60(b)(6), or recharacterize tardy motions based on factual errors as motions under Rule 60(b)(1). A denial in either case would then permit the litigant to appeal outside Appellate Rule 4's 30-day time limit.</p>
+<p>In any event, the alleged specter of litigation gamesmanship and strategic delay is overstated. Rule 60(b)(1) motions, like all Rule 60(b) motions, must be made “within a reasonable time.” Fed. Rule Civ. Proc. 60(c)(1). And while we have no cause to define the “reasonable time” standard here, we note that Courts of Appeals have used it to forestall abusive litigation by denying Rule 60(b)(1) motions alleging errors that should have been raised sooner (<em>e. g.,</em> in a timely appeal). See, <em>e. g.</em>, <em>Mendez</em> v. <em>Republic Bank</em>, 725 F. 3d 651, 660 (CA7 2013).</p>
+<p>Nor, contrary to Kemp's protestations, is our interpretation inconsistent with the history of Rule 60(b). Kemp points out that Rule 60(b)(1) drew its text from existing state procedural rules. See, <em>e. g.,</em> Cal. Civ. Proc. Code § 473 (Deering 1937). And he argues that its list of grounds for reopening—“ `mistake, inadvertence, surprise, and excusable neglect' ”—was understood when Rule 60(b) was adopted to be a “term of art” that excluded legal errors. Brief for Petitioner 10. But while some States interpreted their rules this way, see, <em>e. g., Lucas</em> v. <em>North Carolina Mut. Life Ins. Co.</em>, 184 S. C. 119, 120, 191 S. E. 711, 712 (1937) (collecting cases), others, like California, did not, see, <em>e. g., Mitchell</em> v. <em>California &amp; O. C. S. S. Co.</em>, 156 Cal. 576, 578, 105 P. 590, 592 (1909). Moreover, at least one leading treatise from the era <span class="pg" id="s3-p539" title="page 539 of the original">539</span>maintained, consistent with our view, that “mistake” encompassed legal errors. See 3 J. Moore &amp; J. Friedman, Moore's Federal Practice § 60.05, p. 3280 (1938). Although statutory language “obviously transplanted from another legal source” will often “bring the old soil with it,” <em>Taggart</em> v. <em>Lorenzen</em>, 587 U. S. –––, ––– (2019) (internal quotation marks and alterations omitted), that principle applies only when a term's meaning was “well-settled” before the transplantation, <em>Neder</em> v. <em>United States</em>, 527 U. S. 1, 22 (1999). Here, it was not.</p>
+<p>Finally, Kemp invokes Rule 60(b)'s 1946 amendments replacing “bills of review” and other traditional, postjudgment reopening mechanisms with Rules 60(b)(2) through (b)(6). See Fed. Rule Civ. Proc. 60(b) (1946). He argues that Rule 60(b)(6) alone was intended to afford relief for judicial legal errors that had previously been remedied by bills of review, because such errors were not cognizable under Rule 60(b)'s “mistake” provision or its predecessor state rules prior to the 1946 amendments. But, as noted, the pre-amendment Rule 60(b) covered only a party's mistakes, see <em>supra,</em> at 535, and for <em>that</em> reason could not be grounds to correct a judge's legal mistake. By eliminating that party-specific qualifier, the 1946 amendments opened Rule 60(b)(1) to judicial mistakes of law previously remediable only by bills of review.</p>
+<p class="sep">* * *</p>
+<p>In sum, nothing in the text, structure, or history of Rule 60(b) persuades us to narrowly interpret the otherwise broad term “mistake” to exclude judicial errors of law. Because Kemp's Rule 60(b) motion alleged such a legal error, we affirm the Eleventh Circuit's judgment that the motion was cognizable under Rule 60(b)(1), subject to a 1-year limitations period, and, therefore, untimely.</p>
+<p><em>It is so ordered.</em></p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li id="s3-n1" value="1"><p>Compare <em>Spinar</em> v. <em>South Dakota Bd. of Regents</em>, 796 F. 2d 1060, 1063 (CA8 1986) (Rule 60(b)(1) does not cover claims “that the court erred as a matter of law”); <em>Elias</em> v. <em>Ford Motor Co.</em>, 734 F. 2d 463, 467 (CA1 1984) (same), with <em>Mendez</em> v. <em>Republic Bank</em>, 725 F. 3d 651, 659 (CA7 2013) (Rule 60(b)(1) “allows a district court to correct its own [legal] errors”); <em>In re 310 Assocs.</em>, 346 F. 3d 31, 35 (CA2 2003) (<em>per curiam</em>) (same); <em>United States</em> v. <em>Reyes</em>, 307 F. 3d 451, 455 (CA6 2002) (same); <em>Parks</em> v. <em>U. S. Life &amp; Credit Corp.</em>, 677 F. 2d 838, 839–840 (CA11 1982) (<em>per curiam</em>) (same). <a class="back" href="#s3-r1" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n2" value="2"><p>Here, Kemp alleged that the District Court erred by misapplying controlling law to record facts. In deciding that this alleged error is a “mistake,” we do not decide whether a judicial decision rendered erroneous by subsequent legal or factual changes also qualifies as a “mistake” under Rule 60(b)(1). <a class="back" href="#s3-r2" aria-label="Back to the text">↩</a></p></li>
+</ol></aside></section>
+<section id="s4" class="op op-concurring"><h2>Justice Sotomayor, concurring</h2>
+<p class="byline">Justice Sotomayor, concurring.</p>
+<p>I join the Court's opinion holding that the term “mistake” in Federal Rule of Civil Procedure 60(b)(1) encompasses a judge's mistake of law. I write separately to make two points.</p>
+<p>First, I join the Court's opinion with the understanding that nothing in it casts doubt on the availability of Rule 60(b)(6) to reopen a judgment in extraordinary circumstances, including a change in controlling law. See, <em>e. g., Buck</em> v. <em>Davis</em>, 580 U. S. 100, 126, 128 (2017) (concluding that the petitioner was “entitle[d] to relief under Rule 60(b)(6)” because of a change in law and intervening developments of fact); <em>Gonzalez</em> v. <em>Crosby</em>, 545 U. S. 524, 531 (2005) (“[A] motion might contend that a subsequent change in substantive law is a `reason justifying relief,' Fed. Rule Civ. Proc. 60(b)(6), from the previous denial of a claim”); <em>Polites</em> v. <em>United States</em>, 364 U. S. 426, 433 (1960) (leaving open that a “clear and authoritative change” in the law governing judgment in a case may present extraordinary circumstances). Today's decision does not purport to disturb these settled precedents.</p>
+<p>Second, I do not understand the Court's opinion to break any new ground as to Rule 60(c)(1), which requires that all Rule 60(b) motions be “made within a reasonable time.” See 11 C. Wright, A. Miller, &amp; M. Kane, Federal Practice and Procedure § 2866 (3d ed. 2022) (“What constitutes reasonable time necessarily depends on the facts in each individual case”).</p></section>
+<section id="s5" class="op op-dissenting"><h2>Justice Gorsuch, dissenting</h2>
+<p class="byline">Justice Gorsuch, dissenting.</p>
+<p>The Court took this case to determine whether a district court's mistake of law is correctable under Federal Rule of Civil Procedure 60(b)(1) or 60(b)(6).</p>
+<p>From the start, granting review was a questionable use of judicial resources. The answer matters only under rare <span class="pg" id="s5-p541" title="page 541 of the original">541</span>circumstances: A losing party fails to appeal or secure relief under Rule 59(e), opting instead to file a Rule 60(b) motion. That motion comes more than a year after judgment but— piling contingency on contingency—within what the court would otherwise deem a “reasonable time.” Rule 60(c)(1). By petitioner's own (uncontested) count, his is the first petition <em>ever</em> to present today's question for this Court's review. See Pet. for Cert. 24; Brief in Opposition 26. Beyond even that, an alternative route exists to resolve the question posed here. Congress has adopted the Rules Enabling Act. See 28 U. S. C. §§ 2071–2077. Under its terms, a committee composed of judges and practitioners may recommend to this Court any warranted clarifications to the Federal Rules of Civil Procedure. § 2073. Those recommendations generally take effect upon our approval and absent congressional objection. § 2074.</p>
+<p>Undeterred, the Court takes up and resolves this case anyway. It holds that Rule 60(b)(1), not Rule 60(b)(6), applies. In an unexpected twist, the Court adopts a further position neither party saw fit to advance. Going forward, <em>every</em> judicial legal error—not just an inadvertent or obvious “mistake”—is fodder for collateral attack under Rule 60(b)(1). And what is the basis for all this? A mysterious 1946 amendment deleting the word “ `his.' ” See <em>ante</em>, at 535.</p>
+<p>Respectfully, I would have dismissed the writ of certiorari as improvidently granted. Not only does this case fail to meet our usual standards for review. See Supreme Court Rule 10. At bottom, this dispute presents a policy question about the proper balance between finality and error correction. Should a district court be able to clean up a legal error through a collateral proceeding on any reasonable timeline within a year of judgment? Or do Rule 59(e) and the appellate process provide the necessary corrective measures in ordinary cases, with Rule 60(b)(6) as a last, narrow avenue to relief? Questions like these are best resolved not through <span class="pg" id="s5-p542" title="page 542 of the original">542</span>a doubtful interpretive project focused on a pronoun dropped in 1946, but through the rulemaking process. There, policy interests on both sides can be accounted for and weighed in light of the “collective experience of bench and bar.” <em>Mohawk Industries, Inc.</em> v. <em>Carpenter</em>, 558 U. S. 100, 114 (2009).</p></section><p class='back'><a href='/opinions/'>&larr; All opinions</a> · <a href='/justices/ot2021.html'>The Justices, October Term 2021 &rarr;</a></p></main></body>
+</html>
+

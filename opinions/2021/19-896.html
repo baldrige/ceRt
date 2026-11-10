@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script async src='/analytics.js'></script><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate icon" href="/favicon.ico" sizes="any"><link rel="alternate" type="application/atom+xml" title="Supreme Court Report" href="/feed.xml"><link rel="alternate" type="application/atom+xml" title="Certiorari grants" href="/grants.xml"><title>Johnson v. Arteaga-Martinez — Opinion — Supreme Court Report</title><meta name="description" content="The opinion in Johnson v. Arteaga-Martinez (No. 19-896), decided June 13, 2022: the full text with its footnotes, as a page, a Markdown file and an EPUB."><link rel="canonical" href="https://supremecourt.report/opinions/2021/19-896.html"><meta property="og:site_name" content="Supreme Court Report"><meta property="og:type" content="article"><meta property="og:title" content="Johnson v. Arteaga-Martinez — Opinion — Supreme Court Report"><meta property="og:description" content="The opinion in Johnson v. Arteaga-Martinez (No. 19-896), decided June 13, 2022: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta property="og:url" content="https://supremecourt.report/opinions/2021/19-896.html"><meta property="og:image" content="https://supremecourt.report/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Supreme Court Report - docket analytics for the Supreme Court of the United States"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Johnson v. Arteaga-Martinez — Opinion — Supreme Court Report"><meta name="twitter:description" content="The opinion in Johnson v. Arteaga-Martinez (No. 19-896), decided June 13, 2022: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta name="twitter:image" content="https://supremecourt.report/og.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap"><style>
+  :root{--paper:#fdfcfa;--panel:#ffffff;--ink:#1a1a1e;--ink-soft:#484850;--faint:#63636b;--accent:#9c0e3a;--link:#9c0e3a;--rule:#dbd8d2;--nav-max:60rem}
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{font-family:'Newsreader',Georgia,serif;font-size:19px;line-height:1.6;
+    color:var(--ink);background:var(--paper);margin:0;font-feature-settings:'onum' 1}
+  body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
+    opacity:.5;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");}
+  .wrap{max-width:40rem;margin:0 auto;padding:3rem 1.4rem 4rem}
+  .kicker{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 1rem}
+  h1{font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:clamp(2.4rem,7vw,3.6rem);line-height:1;letter-spacing:-.015em;
+    margin:0 0 1rem;color:var(--ink)}
+  h1 em{font-style:italic;font-weight:500;color:var(--accent)}
+  .dek{font-size:1.15rem;line-height:1.5;color:var(--ink-soft);font-style:italic;
+    margin:0 0 1.4rem}
+  .brule{border:0;height:0;border-top:2px solid var(--ink);margin:1.4rem 0 .3rem;
+    position:relative}
+  .brule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+    border-top:1px solid var(--rule)}
+  ul.idx{list-style:none;padding:0;margin:1.6rem 0}
+  ul.idx li{border-bottom:1px solid var(--rule)}
+  /* Whole row is one block-level link: a large, reliable tap target on mobile. */
+  ul.idx a.row{display:flex;justify-content:space-between;align-items:baseline;
+    gap:1rem;padding:.9rem .4rem;text-decoration:none;border:0;color:inherit}
+  ul.idx a.row:hover{background:rgba(156,14,58,.05)}
+  ul.idx .d{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.16rem;
+    color:var(--accent);line-height:1.25}
+  ul.idx a.row:hover .d{text-decoration:underline;text-underline-offset:3px}
+  ul.idx .count{color:var(--faint);font-size:.9rem;font-style:italic;white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  /* A long note (an order list's "3 GVRs / 230 denied / 4 habeas denied /
+     ...", items separated by middots) cannot sit on one line: nowrap made it
+     claim the row and
+     squeezed the title into a column three words wide, and on a phone it ran off
+     the screen. Such a row opts in (meta_wrap): the note wraps, only between its
+     items, and takes at most ~45% of the row, so the title always has the
+     larger share. Under 34rem it drops beneath the title at full width. */
+  /* ("long", not "wrap": .wrap is the page container and its padding.) */
+  ul.idx .count.long{white-space:normal;text-align:right;max-width:45%;line-height:1.45}
+  ul.idx .count.long .seg{white-space:nowrap}
+  @media(max-width:34rem){
+    ul.idx a.row.longmeta{flex-wrap:wrap;row-gap:.2rem}
+    ul.idx .count.long{max-width:none;flex-basis:100%;text-align:left}
+  }
+  /* Compact horizontal strip of the most recent pages beneath a category row. */
+  ul.idx .recent{display:flex;flex-wrap:wrap;align-items:baseline;
+    gap:.3rem .85rem;padding:0 .4rem 1rem;margin-top:-.35rem}
+  ul.idx .recent .rlabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  ul.idx .recent a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--ink-soft);text-decoration:none;font-variant-numeric:tabular-nums;
+    border-bottom:1px solid var(--rule);padding-bottom:1px}
+  ul.idx .recent a:hover{color:var(--accent);border-color:var(--accent)}
+  /* Optional panel beneath the section index (home page: most-read cases). */
+  .panel{margin:2.4rem 0 0}
+  .panel h2{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 .25rem}
+  .panel .pnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:0 0 .5rem}
+  /* "Live now" (live_argument_panel, /live.js): hidden unless the Court is
+     streaming an argument. One red dot, the same --accent as the headings, so
+     the live state is a mark and not a new colour. */
+  .live h2 .ldot{display:inline-block;width:.5rem;height:.5rem;border-radius:50%;
+    background:var(--accent);margin-right:.5rem;vertical-align:.08rem;
+    animation:lpulse 2s ease-in-out infinite}
+  @keyframes lpulse{50%{opacity:.25}}
+  @media (prefers-reduced-motion:reduce){.live h2 .ldot{animation:none}}
+  .lplay{display:flex;flex-wrap:wrap;gap:.6rem .9rem;align-items:center;margin:.8rem 0 .3rem}
+  .lplay button{font:600 .9rem/1 'Newsreader',Georgia,serif;letter-spacing:.04em;
+    color:var(--paper);background:var(--accent);border:0;border-radius:2px;
+    padding:.6rem 1.05rem;cursor:pointer}
+  .lplay button:disabled{opacity:.6;cursor:progress}
+  .lplay button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  /* The player takes a row of its own and may never outgrow the column. A flex
+     item's min-width is auto, which for a replaced element is the browser's own
+     controls' width -- wider than the column on a phone, where mobile Safari
+     and Chrome draw larger controls than the desktop. */
+  .lplay audio{display:block;flex:1 1 100%;width:100%;min-width:0;max-width:100%;
+    box-sizing:border-box;margin:0}
+  .lplay .lstat{font-size:.85rem;color:var(--faint)}
+  /* --- Likeliest grants -----------------------------------------------------
+     Its own rows rather than ol.mostread's: this panel carries a question under
+     the caption, which that list has no room for, and a percentage that has to
+     read as the row's subject rather than as a trailing note.
+     The window toggle is two real radio inputs plus :has() -- no JavaScript.
+     Both windows are rendered at build time and one is hidden, which is the only
+     way a static site can offer the choice: there is no server to ask for the
+     other one. Real radios, not styled buttons, so the control is reachable by
+     keyboard and announced as a choice. */
+  .lead{margin:0 0 1.9rem}
+  .lead h2{margin-bottom:.35rem}
+  .lead .pnote{margin:0 0 .7rem}
+  .wr{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+  .win{display:inline-flex;gap:.25rem;margin:0 0 .55rem;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .win label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .win label:hover{color:var(--ink)}
+  .lead:has(#w7:checked) label[for=w7],
+  .lead:has(#w28:checked) label[for=w28],
+  .lead:has(#wall:checked) label[for=wall]{background:var(--accent);color:var(--paper)}
+  .wr:focus-visible+label{outline:2px solid var(--accent);outline-offset:2px}
+  /* Three windows, one shown: the checked radio hides the other two. */
+  .lead:has(#w7:checked) :is(.g28,.n28,.gall,.nall),
+  .lead:has(#w28:checked) :is(.g7,.n7,.gall,.nall),
+  .lead:has(#wall:checked) :is(.g7,.n7,.g28,.n28){display:none}
+  /* The show/hide controls for a panel's secondary line -- the question under
+     a forecast row, the holding under a decision. Same box as the window
+     toggle, a checkbox instead of radios, and no script: the sibling rule does
+     the work and the lines simply show where :has() is unsupported. The
+     questions are on by default (they are what a forecast row asks); the
+     holdings are off (the caption, kind and disposition already say what
+     happened, and the holding is the more). */
+  .opts{display:inline-flex;gap:.25rem;margin:0 .45rem .55rem 0;vertical-align:top;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .opts label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .opts label:hover{color:var(--ink)}
+  .lead:has(#qon:checked) label[for=qon],
+  .panel:has(#hon:checked) label[for=hon]{background:var(--accent);color:var(--paper)}
+  .lead:has(#qon:not(:checked)) .gq{display:none}
+  .panel:has(#hon:not(:checked)) .chold{display:none}
+  /* --- Upcoming at the Court ------------------------------------------------
+     A date gutter and a two-line body, the same shape as the grant rows above
+     it, so the two panels read as one page rather than two widgets. */
+  .cal{margin:0 0 1.9rem}
+  ol.cal{list-style:none;margin:0;padding:0}
+  ol.cal li{border-top:1px solid var(--rule)}
+  ol.cal li:last-child{border-bottom:1px solid var(--rule)}
+  /* The row is a container, not an anchor: an argument day carries one link per
+     case it hears and anchors cannot nest. Hover lives on the row so it still
+     reads as one unit, and each link colours on its own hover. */
+  ol.cal .crow{display:flex;gap:.95rem;align-items:baseline;padding:.55rem .1rem}
+  ol.cal .crow:hover{background:rgba(156,14,58,.05)}
+  ol.cal a{text-decoration:none;color:inherit}
+  ol.cal a:hover,ol.cal a:focus-visible{color:var(--accent)}
+  ol.cal .cdet a{border-bottom:1px solid rgba(156,14,58,.35)}
+  ol.cal .cdet a:hover{border-bottom-color:var(--accent)}
+  ol.cal .cwhen{flex:none;width:4.6rem;font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.96rem;color:var(--ink);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  ol.cal .cdow{display:block;font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);text-transform:uppercase;letter-spacing:.08em}
+  ol.cal .ctx{flex:1;min-width:0}
+  ol.cal .ckind{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:.98rem;line-height:1.25}
+  ol.cal .cdet{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.12rem}
+  /* Recent decisions reuses the calendar rows and adds exactly two things: the
+     kind word that opens the detail line, and the one outbound link (the slip
+     opinion), which takes the link colour the rest of the row deliberately
+     does not. */
+  ol.cal .dk{font-weight:600;color:var(--ink)}
+  ol.cal .cdet a.pdf{color:var(--link)}
+  /* The holding, from the Court's slip-opinion feed: one sentence, set
+     smaller and in the soft ink so the caption stays the row's headline. */
+  ol.cal .chold{display:block;font-size:.86rem;line-height:1.4;color:var(--ink-soft);
+    font-style:italic;margin-top:.15rem}
+  ol.cal .cdet a.pdf:hover,ol.cal .cdet a.pdf:focus-visible{color:var(--accent);
+    border-bottom-color:var(--accent)}
+  ol.grants{list-style:none;margin:0;padding:0}
+  ol.grants li{border-top:1px solid var(--rule)}
+  ol.grants li:last-child{border-bottom:1px solid var(--rule)}
+  ol.grants a{display:flex;gap:.95rem;align-items:baseline;text-decoration:none;
+    color:inherit;padding:.62rem .1rem}
+  ol.grants a:hover{background:rgba(156,14,58,.05)}
+  ol.grants a:hover .gc{color:var(--accent)}
+  ol.grants .gv{flex:none;width:3.5rem;text-align:right;
+    font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.22rem;
+    line-height:1.1;color:var(--accent);font-variant-numeric:tabular-nums}
+  ol.grants .gx{font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);margin-left:.3rem}
+  ol.grants .gtx{flex:1;min-width:0}
+  /* Subject-area line under the caption, in the section-label idiom (h2.sec):
+     small tracked caps in the faint ink, so it classifies without competing. */
+  ol.grants .gs,ol.mostread .ms{display:block;font-size:.68rem;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--faint);line-height:1.3;margin-top:.12rem}
+  ol.grants .gc{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:1rem;line-height:1.25}
+  ol.grants .gq{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.16rem}
+  ol.grants .gd{flex:none;font-size:.76rem;color:var(--faint);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  .more{margin:.75rem 0 0;font-size:.92rem}
+  .more a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.35)}
+  .more a:hover{border-bottom-color:var(--link)}
+  h2.sec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:.88rem;
+    letter-spacing:.09em;color:var(--faint);text-transform:uppercase;
+    margin:2.1rem 0 .6rem;padding-bottom:.28rem;border-bottom:1px solid var(--rule)}
+  @media(max-width:40rem){
+    ol.grants a{flex-wrap:wrap}
+    ol.grants .gd{width:100%;padding-left:4.45rem;margin-top:-.1rem}
+  }
+  ol.mostread{list-style:none;counter-reset:mr;padding:0;margin:0}
+  ol.mostread li{counter-increment:mr;border-bottom:1px solid var(--rule)}
+  ol.mostread a{display:flex;align-items:baseline;gap:.7rem;padding:.6rem .4rem;
+    text-decoration:none;color:inherit}
+  ol.mostread a:hover{background:rgba(156,14,58,.05)}
+  ol.mostread a::before{content:counter(mr);font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.95rem;color:var(--faint);min-width:1.1rem;
+    font-variant-numeric:tabular-nums}
+  ol.mostread .mc{flex:1;font-size:1rem;line-height:1.3}
+  ol.mostread .mct{display:block}
+  ol.mostread a:hover .mct{color:var(--accent);text-decoration:underline;
+    text-underline-offset:3px}
+  ol.mostread .mdk{color:var(--accent);font-weight:600;font-size:.82rem;
+    font-variant-numeric:tabular-nums;white-space:nowrap}
+  ol.mostread .mv{color:var(--faint);font-size:.85rem;font-style:italic;
+    white-space:nowrap;font-variant-numeric:tabular-nums}
+  /* Forecast percentages carry weight the most-read counts do not: the number is
+     the claim, not a footnote to the ranking. Upright, accent, tabular. */
+  ol.mostread .mv.fc{color:var(--accent);font-style:normal;font-weight:600;
+    font-size:.95rem;min-width:2.6rem;text-align:right}
+  /* Feed follow line. Deliberately quiet -- a footnote under the section list,
+     styled like .recent rather than like a call to action. */
+  .feeds{display:flex;flex-wrap:wrap;align-items:baseline;gap:.3rem .85rem;
+    margin:2.2rem 0 0;padding-top:1.1rem;border-top:1px solid var(--rule)}
+  .feeds .flabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  .feeds a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .feeds a:hover{border-color:var(--link)}
+  .back{margin-top:2rem;font-size:.95rem}
+  .back a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .back a:hover{border-color:var(--link)}
+  /* Home-page case search. */
+  .csearch{position:relative;margin:0 0 1.4rem}
+  #cq{width:100%;font-family:'Newsreader',Georgia,serif;font-size:1.05rem;color:var(--ink);
+    background:var(--panel);border:1px solid var(--rule);border-radius:3px;padding:.7rem .9rem}
+  #cq:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(156,14,58,.1)}
+  #cq::placeholder{color:var(--faint)}
+  #cq.loading{background-image:linear-gradient(90deg,transparent,rgba(156,14,58,.06),transparent);
+    background-size:40% 100%;background-repeat:no-repeat;animation:csl 1s infinite}
+  @keyframes csl{0%{background-position:-40% 0}100%{background-position:140% 0}}
+  .cres{list-style:none;margin:.35rem 0 0;padding:0;max-height:24rem;overflow-y:auto;
+    border:1px solid var(--rule);border-radius:3px;background:var(--panel)}
+  .cres:empty{display:none}
+  .cres li{border-bottom:1px solid var(--rule)}
+  .cres li:last-child{border-bottom:0}
+  .cres a{display:block;padding:.55rem .7rem;text-decoration:none;color:var(--ink);
+    font-size:.98rem;line-height:1.3}
+  .cres a:hover,.cres li.act a{background:rgba(156,14,58,.06)}
+  .cres mark{background:rgba(156,14,58,.14);color:inherit;padding:0 .05em;border-radius:2px}
+  .cres .cd{color:var(--accent);font-variant-numeric:tabular-nums;font-weight:600;
+    margin-right:.5rem;white-space:nowrap}
+  .cnone{padding:.55rem .7rem;color:var(--faint);font-style:italic}
+  .cnone a,.cqp a{color:var(--link);font-style:normal;text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .cqp{margin:.45rem 0 0;font-size:.88rem;color:var(--faint)}
+  /* /cases/ browse index: grouped sections with per-bucket counts. */
+  .csec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+    text-transform:uppercase;letter-spacing:.12em;color:var(--accent);
+    margin:2.2rem 0 .3rem;padding-bottom:.35rem;border-bottom:1px solid var(--rule);
+    display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
+  .csec .cn{font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:.85rem;
+    letter-spacing:0;text-transform:none;color:var(--faint);
+    font-variant-numeric:tabular-nums}
+  .cnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:.5rem 0 0}
+  .cnote a{color:var(--accent)}
+  ul.terms{list-style:none;padding:0;margin:1rem 0 0;display:flex;flex-wrap:wrap;
+    gap:.5rem 1.6rem}
+  ul.terms li{display:inline-flex;align-items:baseline;gap:.4rem}
+  ul.terms a{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.05rem;
+    color:var(--accent);text-decoration:none;border-bottom:1px solid var(--rule)}
+  ul.terms a:hover{border-bottom-color:var(--accent)}
+  ul.terms .cn{color:var(--faint);font-size:.85rem;font-variant-numeric:tabular-nums}
+  /* About page: running prose rather than an index, so it takes a measure and a
+     little more leading than the section rows above it. */
+  .about{margin:1.6rem 0 0;font-size:1.05rem;line-height:1.65;max-width:34rem}
+  .about p{margin:0 0 1rem}
+  .about a{color:var(--accent);text-decoration:none;
+    border-bottom:1px solid var(--rule)}
+  .about a:hover{border-bottom-color:var(--accent)}
+  .about .contact{margin:2rem 0 0;background:var(--panel);border:1px solid var(--rule);
+    border-left:4px solid var(--accent);padding:1.1rem 1.3rem}
+  .about .contact h2{font:600 .78rem/1 'Newsreader',Georgia,serif;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--accent);margin:0 0 .5rem}
+  .about .contact p{margin:0;font-size:1rem}
+
+/* ---- masthead ---- */
+.smast-in{max-width:var(--nav-max,60rem);margin:0 auto;padding:.85rem 1.5rem .5rem;
+  display:flex;align-items:baseline;justify-content:space-between;gap:1.4rem;flex-wrap:wrap}
+.smast-wm{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+  letter-spacing:.005em;color:var(--ink,#1a1a1e);text-decoration:none;white-space:nowrap;flex:none}
+.smast-wm em{font-style:italic;font-weight:500;color:var(--accent,#9c0e3a)}
+.smast-wm:hover{color:var(--accent,#9c0e3a)}
+/* Row gap first, then column. At 1.35rem the six section links measured 596px
+   of max-content -- 4px wider than the 592px row the 40rem index container
+   leaves them -- so ABOUT alone wrapped to a third line under the wordmark, on
+   every page page_style.R writes. 1.05rem brings the row to 572px: 20px of
+   slack at 40rem, and 45px on the 54rem case pages, which were themselves only
+   21px from wrapping. The .4rem row gap is for the day a seventh section
+   overruns it anyway -- a nav that wraps should read as a stack, not an orphan. */
+.snav{display:flex;gap:.4rem 1.05rem;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+.snav a{font:600 .72rem/1 'Newsreader',Georgia,serif;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--ink-soft,var(--soft,#484850));text-decoration:none;display:inline-block;
+  padding:.5rem 0;border-bottom:1.5px solid transparent}
+.snav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--rule,#dbd8d2)}
+.snav a[aria-current='page']{color:var(--accent,#9c0e3a);
+  border-bottom-color:var(--accent,#9c0e3a)}
+.smast-rule-w{max-width:var(--nav-max,60rem);margin:0 auto;padding:0 1.5rem}
+.smast-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0;position:relative}
+.smast-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.skip{position:absolute;left:-9999px;top:0;background:var(--panel,#ffffff);
+  color:var(--accent,#9c0e3a);padding:.6rem 1rem;
+  border:1px solid var(--accent,#9c0e3a);
+  font:600 .8rem/1 'Newsreader',Georgia,serif;letter-spacing:.1em;text-transform:uppercase;z-index:10}
+.skip:focus{left:.5rem;top:.5rem}
+/* ---- breadcrumb ---- */
+.bcrumb{margin:.7rem 0 0}
+.bcrumb ol{list-style:none;display:flex;flex-wrap:wrap;align-items:baseline;
+  gap:.1rem .45rem;margin:0;padding:0}
+.bcrumb li{display:inline-flex;align-items:baseline;gap:.45rem}
+.bcrumb a{font:400 .8rem/1.5 'Newsreader',Georgia,serif;color:var(--ink-soft,var(--soft,#484850));
+  text-decoration:none;border-bottom:1px solid var(--rule,#dbd8d2)}
+.bcrumb a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.bcrumb .sep{color:var(--faint,#63636b);font-size:.8rem;line-height:1.5}
+.bcrumb [aria-current='page']{font:400 .8rem/1.5 'Newsreader',Georgia,serif;
+  color:var(--faint,#63636b);font-variant-numeric:tabular-nums}
+/* ---- case footer ---- */
+.cfoot{margin:2.4rem 0 0}
+.cfoot-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0 0 1rem;position:relative}
+.cfoot-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.cfoot-off{font-size:.95rem;margin:0 0 1.1rem}
+.cfoot-off a{color:var(--link,#9c0e3a);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.4)}
+.cfoot-off a:hover{border-bottom-color:var(--link,#9c0e3a)}
+.cfoot-lab{font:600 .68rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);margin:0 0 .5rem}
+.cfoot-nav{display:flex;flex-wrap:wrap;gap:.35rem 1.1rem;list-style:none;margin:0;padding:0}
+.cfoot-nav a{font-size:.92rem;color:var(--ink-soft,var(--soft,#484850));text-decoration:none;
+  border-bottom:1px solid var(--rule,#dbd8d2);padding-bottom:1px}
+.cfoot-nav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.cfoot-stamp{margin:1.2rem 0 0;font-size:.8rem;color:var(--faint,#63636b);font-style:italic}
+/* ---- prev / next ---- */
+.pnav{margin:2.2rem 0 0;border-top:1px solid var(--rule,#dbd8d2);padding-top:1rem;
+  display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.pnav a,.pnav span.none{text-decoration:none;color:inherit;display:block;padding:.5rem .2rem}
+.pnav a:hover{background:rgba(156,14,58,.05)}
+.pnav .dir{font:600 .66rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);display:block;margin-bottom:.3rem}
+.pnav .lab{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1rem;line-height:1.25;
+  color:var(--accent,#9c0e3a);display:block}
+.pnav a:hover .lab{text-decoration:underline;text-underline-offset:3px}
+.pnav .nx{text-align:right}
+.pnav .none{opacity:.35}
+@media(max-width:640px){
+  .smast-in{padding:.7rem 1.1rem .25rem;gap:.15rem}
+  .smast-wm{font-size:.98rem}
+  .smast-in nav{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+    -webkit-mask-image:linear-gradient(90deg,#000 86%,transparent);
+    mask-image:linear-gradient(90deg,#000 86%,transparent)}
+  .smast-in nav::-webkit-scrollbar{display:none}
+  .snav{flex-wrap:nowrap;gap:1.15rem;padding-right:2.4rem}
+  .snav a{padding:.7rem 0;white-space:nowrap}
+  .smast-rule-w{padding:0 1.1rem}
+  .cfoot-nav{gap:.5rem 1rem}
+  .cfoot-nav a{padding-bottom:.3rem}
+  .pnav{grid-template-columns:1fr;gap:.2rem}
+  .pnav .nx{text-align:left;border-top:1px solid var(--rule,#dbd8d2)}
+}
+
+  .wrap.opn{max-width:42rem}
+  .opn .ometa{font-size:.92rem;color:var(--ink-soft);margin:.3rem 0 0}
+  .opn .oget{display:flex;flex-wrap:wrap;gap:.4rem .6rem;margin:1.1rem 0 0;padding:0;list-style:none;font-size:.9rem}
+  .opn .oget a{display:inline-block;padding:.32rem .7rem;border:1px solid var(--rule);border-radius:4px;color:var(--ink);text-decoration:none;background:var(--panel)}
+  .opn .oget a:hover{border-color:var(--accent);color:var(--accent)}
+  .opn .osrc{font-size:.84rem;color:var(--faint);margin:.9rem 0 0;line-height:1.45}
+  .opn .osrc a{color:var(--link)}
+  .opn .otoc{margin:1.6rem 0 0;padding:.8rem 1rem;border:1px solid var(--rule);border-radius:4px;background:var(--panel);font-size:.95rem}
+  .opn .otoc ol{margin:0;padding:0;list-style:none}
+  .opn .otoc li{margin:.25rem 0}
+  .opn .otoc a{color:var(--ink);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.35)}
+  .opn .otoc a:hover{color:var(--accent)}
+  .opn section.op{margin-top:3rem;border-top:2px solid var(--ink);padding-top:1.1rem}
+  .opn section.op h2{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.5rem;line-height:1.2;margin:0 0 1rem;color:var(--ink)}
+  .opn section.op p{margin:0 0 .95rem;line-height:1.62;hyphens:auto;overflow-wrap:break-word}
+  .opn section.op p.byline{color:var(--ink-soft);font-style:italic}
+  .opn section.op p.sep{text-align:center;letter-spacing:.3em;color:var(--faint);margin:1.6rem 0}
+  .opn section.op h3.oh{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.12rem;text-align:center;margin:2rem 0 1rem;color:var(--ink)}
+  .opn section.op blockquote{margin:0 0 .95rem;padding:0 0 0 1.1rem;border-left:2px solid var(--rule);color:var(--ink-soft)}
+  .opn section.op blockquote p{margin-bottom:.6rem;font-size:.96em}
+  .opn .sc{font-variant-caps:small-caps;letter-spacing:.02em}
+  .opn .pg{font-size:.66em;color:var(--faint);vertical-align:.3em;margin:0 .3em 0 .1em;font-variant-numeric:tabular-nums;user-select:none;white-space:nowrap}
+  .opn .pg::before{content:'*'}
+  .opn sup.fnr{font-size:.68em;line-height:0;margin-left:.05em}
+  .opn sup.fnr a{color:var(--link);text-decoration:none;padding:0 .1em}
+  .opn aside.notes{margin-top:2rem;border-top:1px solid var(--rule);padding-top:.8rem;font-size:.88rem;color:var(--ink-soft)}
+  .opn aside.notes h3{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1rem;margin:0 0 .6rem;color:var(--ink)}
+  .opn aside.notes ol{margin:0;padding-left:1.7rem}
+  .opn aside.notes li{margin:0 0 .55rem}
+  .opn aside.notes li.sym{list-style:none;margin-left:-1.7rem}
+  .opn aside.notes li.sym .mk{margin-right:.3rem}
+  .opn aside.notes li.sym p{display:inline}
+  .opn aside.notes p{margin:0 0 .4rem;line-height:1.5}
+  .opn aside.notes a.back{color:var(--link);text-decoration:none;margin-left:.2rem}
+  .opn aside.notes li:target,.opn sup.fnr a:target,.opn .pg:target{background:rgba(156,14,58,.12);outline:.2rem solid rgba(156,14,58,.12)}
+  .opn section.op,.opn aside.notes li,.opn sup.fnr a{scroll-margin-top:1rem}
+  .opn section.op-syllabus p,.opn section.op-counsel p{font-size:.95em}
+  .opn section.op-counsel summary{cursor:pointer;font-family:'Fraunces',Georgia,serif;font-size:1.05rem;color:var(--ink-soft)}
+  .opn .osyl{font-size:.84rem;color:var(--faint);font-style:italic;margin:-.5rem 0 1rem}
+  .opn p.back{margin-top:3rem;font-size:.92rem}
+  @media print{.smast,.bcrumb,.opn .oget,.opn .otoc,.opn p.back{display:none}.opn section.op{break-before:page}}
+</style><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://supremecourt.report/"},{"@type":"ListItem","position":2,"name":"Opinions","item":"https://supremecourt.report/opinions/"},{"@type":"ListItem","position":3,"name":"Johnson v. Arteaga-Martinez"}]}</script><meta name='otv' content='p1'><link rel='alternate' type='text/markdown' href='/opinions/2021/19-896.md'><link rel='alternate' type='application/epub+zip' href='/opinions/2021/19-896.epub'></head><body><a class='skip' href='#main'>Skip to content</a><header><div class='smast-in'><a class='smast-wm' href='/'>Supreme Court <em>Report</em></a><nav aria-label='Sections'><ul class='snav'><li><a href='/dashboards/'>Docket</a></li><li><a href='/conferences/'>Conferences</a></li><li><a href='/relists/'>Relists</a></li><li><a href='/applications/'>Interim</a></li><li><a href='/arguments/'>Arguments</a></li><li><a href='/justices/' aria-current='page'>Justices</a></li><li><a href='/counsel/'>Counsel</a></li><li><a href='/funnel/'>Funnel</a></li><li><a href='/methods.html'>Model</a></li><li><a href='/about.html'>About</a></li></ul></nav></div><div class='smast-rule-w'><hr class='smast-rule'></div></header><main class='wrap opn' id='main' data-dkt='19-896'><nav class='bcrumb' aria-label='Breadcrumb'><ol><li><a href='/'>Home</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><a href='/opinions/'>Opinions</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><span aria-current='page'>Johnson v. Arteaga-Martinez</span></li></ol></nav><p class='kicker'>No. 19-896 · decided June 13, 2022 · 596 U. S. 573</p><h1 style='font-size:clamp(1.7rem,4.6vw,2.4rem);line-height:1.12'>Johnson v. Arteaga-Martinez</h1><p class='ometa'>Tae D. Johnson, Acting Director of U.S. Immigration and Customs Enforcement, et al. v. Antonio Arteaga-Martinez. 2 separate writings.</p><ul class='oget'><li><a href='/opinions/2021/19-896.epub' download>EPUB</a></li><li><a href='/opinions/2021/19-896.md' download>Markdown</a></li><li><a href='https://www.supremecourt.gov/opinions/21pdf/596us2r40_2d93.pdf' rel='noopener'>The Court’s PDF</a></li><li><a href='/cases/19-896.html'>The docket</a></li></ul><p class='osrc'>Set from the PDF the Court published, which is the authoritative text. The small starred numbers are that PDF’s page numbers. A conversion can introduce errors; check a quotation against the <a href='https://www.supremecourt.gov/opinions/21pdf/596us2r40_2d93.pdf' rel='noopener'>original</a>.</p><nav class="otoc" aria-label="Contents"><ol>
+<li><a href="#s1">Syllabus</a></li>
+<li><a href="#s2">Counsel</a></li>
+<li><a href="#s3">Opinion of the Court</a></li>
+<li><a href="#s4">Justice Thomas, concurring</a></li>
+<li><a href="#s5">Justice Breyer, concurring in part and dissenting in part</a></li>
+</ol></nav>
+<section id="s1" class="op op-syllabus"><h2>Syllabus</h2><p class='osyl'>Prepared by the Reporter of Decisions for the convenience of the reader; it is no part of the opinion of the Court.</p>
+<p>Respondent Antonio Arteaga-Martinez is a citizen of Mexico who was removed in July 2012 and reentered the United States in September 2012. U. S. Immigration and Customs Enforcement (ICE) issued a warrant for Arteaga-Martinez's arrest in 2018. ICE reinstated Arteaga-Martinez's earlier removal order and detained him pursuant to its authority under the Immigration and Nationality Act. See 8 U. S. C. § 1231(a). Arteaga-Martinez applied for withholding of removal under § 1231(b)(3), as well as relief under regulations implementing the Convention Against Torture, based on his fear that he would be persecuted or tortured if he returned to Mexico. An asylum officer determined he had established a reasonable fear of persecution or torture, and the Department of Homeland Security referred him for withholding-only proceedings before an immigration judge.</p>
+<p>After being detained for four months, Arteaga-Martinez filed a petition for a writ of habeas corpus in District Court challenging, on both statutory and constitutional grounds, his continued detention without a bond hearing. The Government conceded that Arteaga-Martinez would be entitled to a bond hearing after six months of detention based on circuit precedent holding that a noncitizen facing prolonged detention under § 1231(a)(6) is entitled by statute to a bond hearing before an immigration judge and must be released unless the Government establishes, by clear and convincing evidence, that the noncitizen poses a risk of flight or a danger to the community. The District Court granted relief on Arteaga-Martinez's statutory claim and ordered the Government to provide Arteaga-Martinez a bond hearing<em>.</em> The Third Circuit summarily affirmed. At the bond hearing, the Immigration Judge considered Arteaga-Martinez's flight risk and dangerousness and ultimately authorized his release pending resolution of his application for withholding of removal.</p>
+<p><em>Held</em>: Section 1231(a)(6) does not require the Government to provide noncitizens detained for six months with bond hearings in which the Government bears the burden of proving, by clear and convincing evidence, <span class="pg" id="s1-p574" title="page 574 of the original">574</span>that a noncitizen poses a flight risk or a danger to the community. Pp. 578–584.</p>
+<p>(a) Section 1231(a)(6) cannot be read to require the hearing procedures imposed below. After the entry of a final order of removal against a noncitizen, the Government generally must secure the noncitizen's removal during a 90-day removal period, during which the Government “shall” detain the noncitizen. 8 U. S. C. §§ 1231(a)(1), (2). Beyond the removal period, § 1231(a)(6) defines four categories of noncitizens who “may be detained . . . and, if released, shall be subject to [certain] terms of supervision.” There is no plausible construction of the text of § 1231(a)(6) that requires the Government to provide bond hearings with the procedures mandated by the Third Circuit. The statute says nothing about bond hearings before immigration judges or burdens of proof, nor does it provide any other indication that such procedures are required. Faithfully applying precedent, the Court cannot discern the bond hearing procedures required below from § 1231(a)(6)'s text. Pp. 578–580.</p>
+<p>(b) Arteaga-Martinez argues that § 1231(a)(6)'s references to flight risk, dangerousness, and terms of supervision, support the relief ordered below. Similarly, respondents in the companion case, see <em>Garland</em> v. <em>Gonzalez</em>, 594 U. S. –––, analogize the text of § 1231(a)(6) to that of 8 U. S. C. § 1226(a), noting that noncitizens detained under § 1226(a) have long received bond hearings at the outset of detention. Assuming without deciding that an express statutory reference to “bond” (as in § 1226(a)) might be read to require an initial bond hearing, § 1231(a)(6) contains no such reference, and § 1231(a)(6)'s oblique reference to terms of supervision does not suffice. The parties agree that the Government possesses discretion to provide bond hearings under § 1231(a)(6) or otherwise, but this Court cannot say the statute requires them.</p>
+<p>Finally, Arteaga-Martinez argues that <em>Zadvydas</em> v. <em>Davis</em>, 533 U. S. 678, which identified ambiguity in § 1231(a)(6)'s permissive language, supports a view that § 1231(a)(6) implicitly incorporates the specific bond hearing requirements and procedures imposed by the Court of Appeals. In <em>Zadvydas</em>, this Court construed § 1231(a)(6) “in light of the Constitution's demands” and determined that § 1231(a)(6) “does not permit indefinite detention” but instead “limits an alien's post-removal-period detention to a period reasonably necessary to bring about that alien's removal from the United States.” 533 U. S., at 689. The bond hearing requirements articulated by the Third Circuit, however, reach substantially beyond the limitation on detention authority <em>Zadvydas</em> recognized. <em>Zadvydas</em> does not require, and <em>Jennings</em> v. <em>Rodriguez</em>, 583 U. S. –––, does not permit, the Third Circuit's application of the canon of constitutional avoidance. Pp. 580–582.</p>
+<p><span class="pg" id="s1-p575" title="page 575 of the original">575</span>(c) Constitutional challenges to prolonged detention under § 1231(a)(6) were not addressed below, in part because those courts read § 1231(a)(6) to require a bond hearing. Arteaga-Martinez's alternative theory that he is presumptively entitled to release under <em>Zadvydas</em> also was not addressed below. The Court leaves these arguments for the lower courts to consider in the first instance. See <em>Cutter</em> v. <em>Wilkinson</em>, 544 U. S. 709, 718, n. 7. Pp. 583–584. Reversed and remanded. <span class="sc">Sotomayor, J.</span>, delivered the opinion of the Court, in which <span class="sc">Roberts</span>, C. J., and <span class="sc">Thomas</span>, <span class="sc">Alito</span>, <span class="sc">Kagan</span>, <span class="sc">Gorsuch</span>, <span class="sc">Kavanaugh</span>, and <span class="sc">Barrett</span>, JJ., joined. <span class="sc">Thomas</span>, J., filed a concurring opinion, in which <span class="sc">Gorsuch</span>, J., joined as to Part I, <em>post</em>, p. 584. <span class="sc">Breyer</span>, J., filed an opinion concurring in part and dissenting in part, <em>post</em>, p. 587.</p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li class="sym" value="0"><span class="mk">*</span><p>Briefs of <em>amici curiae</em> urging affirmance were filed for the Constitutional Accountability Center by <em>Elizabeth B. Wydra, Brianne J. Gorod,</em> and <em>Brian R. Frazelle</em>; and for Former Immigration Judges et al. by <em>Joseph R. Palmore</em> and <em>James J. Beha II.</em></p><p><em>Nancy Morawetz</em> filed a brief for Asian Americans Advancing Justice–Asian Law Caucus et al. as <em>amici curiae.</em></p></li>
+</ol></aside></section>
+<section id="s2" class="op op-counsel"><details><summary>Counsel</summary><p><em>Austin L. Raynor</em> argued the cause for petitioners. With him on the briefs were <em>Acting Solicitor General Fletcher, Solicitor General Prelogar, Acting Assistant Attorney General Boynton, Deputy Solicitor General Gannon, Vivek Suri, Jessica W. D'Arrigo,</em> and <em>John J. W. Inkeles.</em></p>
+<p><em>Pratik A. Shah</em> argued the cause for respondent. With him on the brief were <em>James E. Tysse, Aileen M. McGrath, Marcia Binder Ibrahim,</em> and <em>Brock L. Bevan.</em>*</p></details></section>
+<section id="s3" class="op op-court"><h2>Opinion of the Court</h2>
+<p class="byline">Justice Sotomayor delivered the opinion of the Court.</p>
+<p>Section 241(a) of the Immigration and Nationality Act (INA), codified at 8 U. S. C. § 1231(a), authorizes the detention of noncitizens who have been ordered removed from the United States. See 110 Stat. 3009–598. In particular, § 1231(a)(6) provides that after a 90-day “removal period,” a noncitizen “may be detained” or may be released under terms of supervision. This Court recently held that <span class="pg" id="s3-p576" title="page 576 of the original">576</span>§ 1231(a) applies to individuals who are removed and who then reenter without authorization and apply for withholding of removal based on a fear that they will be persecuted or tortured if returned to their countries of origin. See <em>Johnson</em> v. <em>Guzman Chavez</em>, 594 U. S. –––, ––– (2021). The issue in this case is whether the text of § 1231(a)(6) requires the Government to offer detained noncitizens bond hearings after six months of detention in which the Government bears the burden of proving by clear and convincing evidence that a noncitizen poses a flight risk or a danger to the community. It does not.</p>
+<h3 class="oh">I</h3>
+<p>Respondent Antonio Arteaga-Martinez is a citizen of Mexico. He admits that he has entered the United States without inspection four times. He first entered in March 2001 and was detained at the border and removed; he reentered in April of that year. Ten years later, in 2011, he left the country to care for his sick mother, reentering in July of the following year. The Government again detained him at the border, determined he was inadmissible, and removed him.</p>
+<p>Arteaga-Martinez represents that, after returning to Mexico, he was beaten violently by members of a criminal street gang. Fearing that he would be persecuted or tortured again with the acquiescence of government officials, he reentered the United States in September 2012.</p>
+<p>In May 2018, U. S. Immigration and Customs Enforcement (ICE) issued a warrant for Arteaga-Martinez's arrest. By then, he had been living and working in the United States for nearly six years and was expecting the birth of his first child. He had no criminal record aside from minor traffic violations. ICE detained Arteaga-Martinez without any opportunity for bond and reinstated his earlier removal order.</p>
+<p>Arteaga-Martinez applied for withholding of removal under § 1231(b)(3), as well as relief under regulations implementing the Convention Against Torture and Other Cruel, Inhuman or Degrading Treatment or Punishment, Dec. 10, <span class="pg" id="s3-p577" title="page 577 of the original">577</span>1984, S. Treaty Doc. No. 100–20, 1465 U. N. T. S. 113. The Department of Homeland Security (DHS) referred Arteaga-Martinez to an asylum officer, who found that Arteaga-Martinez's testimony was credible and that he had established a reasonable fear of persecution or torture. As a result, DHS referred Arteaga-Martinez's claims for adjudication by an immigration judge in what we have called “withholding-only proceedings.” <em>Guzman Chavez</em>, 594 U. S., at –––. Pending these proceedings, however, the Government continued to detain Arteaga-Martinez pursuant to § 1231(a)(6).<sup class="fnr"><a id="s3-r1" href="#s3-n1">1</a></sup></p>
+<p>In September 2018, after he had been detained for four months without a hearing, Arteaga-Martinez filed a petition for a writ of habeas corpus in the U. S. District Court for the Middle District of Pennsylvania. His petition challenged his continued detention without a bond hearing on both statutory and constitutional grounds. Shortly thereafter, in a separate case, the Third Circuit held that a noncitizen facing prolonged detention under § 1231(a)(6) is entitled by statute to a bond hearing before an immigration judge and must be released from detention unless the Government establishes, by clear and convincing evidence, that the noncitizen poses a risk of flight or a danger to the community. See <em>Guerrero-Sanchez</em> v. <em>Warden York County Prison</em>, 905 F. 3d 208, 224, and n. 12 (2018).</p>
+<p>The Government conceded that under <em>Guerrero-Sanchez</em>, Arteaga-Martinez would be entitled to a bond hearing pursuant to § 1231(a)(6) as of November 4, 2018, six months after the start of his detention. See App. to Pet. for Cert. 4a. Once Arteaga-Martinez's time in detention had reached nearly six months, a Magistrate Judge recommended that the District Court grant a writ of habeas corpus on Arteaga-Martinez's<span class="pg" id="s3-p578" title="page 578 of the original">578</span> statutory claim and order the Government to provide him an individualized bond hearing before an immigration judge. <em>Id.</em>, at 4a–5a. The District Court adopted the report and recommendation and ordered a bond hearing. <em>Id.</em>, at 3a.</p>
+<p>The Government appealed. The Court of Appeals summarily affirmed, citing its earlier decision in <em>Guerrero-Sanchez</em>. See App. to Pet. for Cert. 1a–2a. Arteaga-Martinez received a bond hearing at which an Immigration Judge, considering Arteaga-Martinez's flight risk and dangerousness, authorized his release on bond. Arteaga-Martinez posted bond and was released pending a final determination on his application for withholding of removal, which, as of today, the Immigration Judge has yet to make. Pet. for Cert. 6; Brief for Respondent 10–11.</p>
+<p>This Court granted certiorari. 594 U. S. ––– (2021).<sup class="fnr"><a id="s3-r2" href="#s3-n2">2</a></sup></p>
+<h3 class="oh">II</h3>
+<h3 class="oh">A</h3>
+<p>The INA establishes procedures for the Government to use when removing certain noncitizens from the United States and, in some cases, detaining them. The section at issue here, 8 U. S. C. § 1231(a), governs the detention, release, and removal of individuals “ordered removed.” This Court has held that § 1231(a) applies to individuals with pending withholding-only proceedings. See <em>Guzman Chavez</em>, 594 U. S., at ––– – –––.</p>
+<p>After the entry of a final order of removal against a noncitizen, the Government generally must secure the noncitizen's removal during a 90-day “ `removal period.' ” § 1231(a) (1)(A). The statute provides that the Government “shall” detain noncitizens during the statutory removal period. § 1231(a)(2). After the removal period expires, the Government<span class="pg" id="s3-p579" title="page 579 of the original">579</span> “may” detain only four categories of people: (1) those who are “inadmissible” on certain specified grounds; (2) those who are “removable” on certain specified grounds; (3) those it determines “to be a risk to the community”; and (4) those it determines to be “unlikely to comply with the order of removal.” § 1231(a)(6). Individuals released after the removal period remain subject to terms of supervision. <em>Ibid.</em></p>
+<p>Section 1231(a)(6) does not expressly specify how long detention past the 90-day removal period may continue for those who fall within the four designated statutory categories. In <em>Zadvydas</em> v. <em>Davis</em>, 533 U. S. 678 (2001), the Court observed that the statute's use of the term “may” introduces some ambiguity and “does not necessarily suggest unlimited discretion.” <em>Id.</em>, at 697. The Court explained that “[a] statute permitting indefinite detention of an alien would raise a serious constitutional problem,” noting that it had upheld noncriminal detention as consistent with the Due Process Clause of the Fifth Amendment only under certain narrow circumstances. <em>Id.</em>, at 690. Accordingly, the Court applied the canon of constitutional avoidance and determined that “read in light of the Constitution's demands,” § 1231(a)(6) “does not permit indefinite detention” but instead “limits an alien's post-removal-period detention to a period reasonably necessary to bring about that alien's removal from the United States.” <em>Id.</em>, at 689.</p>
+<p>Subsequently, in <em>Jennings</em> v. <em>Rodriguez</em>, 583 U. S. ––– (2018), this Court considered the text of other provisions of the INA that authorize detention. One such provision was § 1226(a), which governs the detention of certain noncitizens present in the country who were inadmissible at the time of entry or who have been convicted of certain criminal offenses since they were admitted. <em>Id.</em>, at –––. Section 1226(a) provides that the attorney general “may” detain these noncitizens pending their removal proceedings and “may release” such individuals on “bond . . . or conditional parole.” 8 U. S. C. §§ 1226(a)(1), (2). Noncitizens detained <span class="pg" id="s3-p580" title="page 580 of the original">580</span>under § 1226(a) receive bond hearings after the Government initially detains them. See 8 CFR §§ 236.1(d)(1), 1236.1(d)(1) (2021). Relying on <em>Zadvydas</em>, the Ninth Circuit had interpreted § 1226(a) to require additional, periodic bond hearings every six months, with the burden on the Government to prove by clear and convincing evidence that further detention was justified. <em>Jennings</em>, 583 U. S., at ––– – –––. The Court in <em>Jennings</em> disagreed. It held that “the meaning of the relevant statutory provisio[n] is clear” and that it did not support a periodic bond hearing requirement. <em>Id.</em>, at –––.</p>
+<p>The <em>Jennings</em> Court also rejected the lower court's application of the canon of constitutional avoidance. Earlier in its opinion, the Court explained that “[t]he canon of constitutional avoidance `comes into play only when, after the application of ordinary textual analysis, the statute is found to be susceptible of more than one construction.' ” <em>Id.</em>, at ––– (quoting <em>Clark</em> v. <em>Martinez</em>, 543 U. S. 371, 385 (2005)). “In the absence of more than one plausible construction, the canon simply has no application.” <em>Jennings</em>, 583 U. S., at ––– (internal quotation marks omitted). Applying this reasoning to § 1226(a), the Court concluded that the canon was inapposite because “[n]othing in § 1226(a)'s text . . . even remotely supports the imposition of either of th[e] requirements” the Ninth Circuit had imposed. <em>Id.</em>, at –––.</p>
+<h3 class="oh">B</h3>
+<p>The question presented is whether § 1231(a)(6) requires bond hearings before immigration judges after six months of detention in which the Government bears the burden of proving by clear and convincing evidence that a noncitizen poses a flight risk or a danger to the community. Section 1231(a)(6) provides that certain noncitizens who have been ordered removed “may be detained beyond the removal period and, if released, shall be subject to [certain] terms of supervision.” This text, which does not address or “even <span class="pg" id="s3-p581" title="page 581 of the original">581</span>hin[t]” at the requirements imposed below, directs that we answer this question in the negative. <em>Id.</em>, at –––.</p>
+<p>The <em>Jennings</em> Court emphasized that the canon of constitutional avoidance is only applicable where a statute has “more than one plausible construction.” <em>Id.</em>, at –––. Here, there is no plausible construction of the text of § 1231(a)(6) that requires the Government to provide bond hearings before immigration judges after six months of detention, with the Government bearing the burden of proving by clear and convincing evidence that a detained noncitizen poses a flight risk or a danger to the community. Section 1231(a)(6) provides only that a noncitizen ordered removed “may be detained beyond the removal period” and if released, “shall be subject to [certain] terms of supervision.” On its face, the statute says nothing about bond hearings before immigration judges or burdens of proof, nor does it provide any other indication that such procedures are required. Faithfully applying our precedent, the Court can no more discern such requirements from the text of § 1231(a)(6) than a periodic bond hearing requirement from the text of § 1226(a). See <em>id.</em>, at –––. Section 1231(a)(6) therefore cannot be read to incorporate the procedures imposed by the courts below as a matter of textual command.</p>
+<p>Arteaga-Martinez responds that § 1231(a)(6)'s references to flight risk, dangerousness, and “ `terms of supervision' ” support the relief ordered below. Brief for Respondent 29–30. Similarly, respondents in the companion case analogize the text of § 1231(a)(6) to that of § 1226(a), and they note that noncitizens detained under § 1226(a) have long received bond hearings at the outset of detention. Brief for Respondents in <em>Garland</em> v. <em>Gonzalez</em>, O. T. 2021, No. 20–322, pp. 22–24. However, assuming without deciding that an express statutory reference to “bond” (as in § 1226(a)) might be read to require an initial bond hearing, § 1231(a)(6) contains no such reference. A more oblique reference to terms of supervision does not suffice.</p>
+<p><span class="pg" id="s3-p582" title="page 582 of the original">582</span>Respondents in the companion case also emphasize that regulations offer custody hearings before immigration judges for noncitizens the Government detains under § 1231(a)(6) because it deems them “specially dangerous.” See 8 CFR § 241.14; Brief for Respondents in No. 20–322, at 16, 25–26. They argue that if the statute can allow custody hearings for these individuals, it requires such hearings for those in Arteaga-Martinez's situation as well. Federal agencies, however, “are free to grant additional procedural rights in the exercise of their discretion.” <em>Vermont Yankee Nuclear Power Corp.</em> v. <em>Natural Resources Defense Council</em>, <em>Inc.</em>, 435 U. S. 519, 524 (1978). “[R]eviewing courts,” on the other hand, “are generally not free to impose them if the agencies have not chosen to grant them.” <em>Ibid.</em> The parties do not dispute that the Government possesses discretion to provide bond hearings under § 1231(a)(6), see Brief for Petitioners 15, but this Court cannot say, consistent with <em>Jennings</em>, that the statutory text requires them.</p>
+<p>Finally, Arteaga-Martinez argues that <em>Zadvydas</em>, which identified ambiguity in § 1231(a)(6)'s permissive language, supports a view that § 1231(a)(6) implicitly incorporates the specific bond hearing requirements and procedures enumerated by the Court of Appeals. In <em>Jennings</em>, however, this Court faulted the Ninth Circuit for going significantly further than <em>Zadvydas</em>. 583 U. S., at –––. <em>Jennings</em> did not overrule or abrogate <em>Zadvydas</em>. But the detailed procedural requirements imposed by the Court of Appeals below reach substantially beyond the limitation on detention authority recognized in <em>Zadvydas</em>. <em>Zadvydas</em> does not require, and <em>Jennings</em> does not permit, the Third Circuit's application of the canon of constitutional avoidance.<sup class="fnr"><a id="s3-r3" href="#s3-n3">3</a></sup></p>
+<h3 class="oh"><span class="pg" id="s3-p583" title="page 583 of the original">583</span>C</h3>
+<p>Separately from his statutory claims, Arteaga-Martinez contends that reading § 1231(a)(6) not to require bond hearings when detention becomes prolonged “raises serious due process concerns.” Brief for Respondent 24. He points out that outside of the national-security context, this Court has never “authorized prolonged detention without an individualized hearing, before a neutral adjudicator, at which the detainee has a meaningful opportunity to participate.” <em>Ibid.</em> (collecting cases). He asserts that the Government's interest in denying bond hearings is minimal because such hearings do not require release. <em>Id.</em>, at 26 (citing <em>Zadvydas</em>, 533 U. S., at 696). And he argues that his status as an individual with a reinstated removal order “ `bears no relation to [his] dangerousness,' ” as evidenced by the fact that an Immigration Judge authorized his release on bond. Brief for Respondent 26–27 (quoting <em>Zadvydas</em>, 533 U. S., at 692). The Government responds that regulations directing ICE officials to conduct administrative custody reviews for individuals in ICE detention provide adequate process, “at least as a general matter.” Brief for Petitioners 18–19. The Government contends that these regulations—which generally require a custody review at the end of the 90-day removal period, a second review by a panel at ICE headquarters after six months of detention, and subsequent annual reviews— provide constitutionally sufficient substantive and procedural protections for noncitizens whose detention is prolonged. <em>Id.,</em> at 18. The Government also notes that as-applied constitutional challenges remain available to address “exceptional” cases. <em>Id.,</em> at 21.</p>
+<p>“[W]e are a court of review, not of first view.” <em>Cutter</em> v. <em>Wilkinson</em>, 544 U. S. 709, 718, n. 7 (2005). The courts below did not reach Arteaga-Martinez's constitutional claims because they agreed with him that the statute required a bond hearing. We leave them for the lower courts to consider in the first instance. See <em>Jennings</em>, 583 U. S., at –––.</p>
+<p><span class="pg" id="s3-p584" title="page 584 of the original">584</span>Arteaga-Martinez also advances an alternative theory that he is presumptively entitled to release under <em>Zadvydas</em> because, in view of the length of time that withholding-only proceedings tend to take, his removal is not reasonably foreseeable. See Brief for Respondent 19–22. The Government disagrees on the merits and adds that the issue is not properly before this Court because it would alter the scope of the judgment below, which granted Arteaga-Martinez a bond hearing, not release. See Reply Brief 11–12 (citing <em>Trans World Airlines</em>, <em>Inc.</em> v. <em>Thurston</em>, 469 U. S. 111, 119, n. 14 (1985)). Again, we decline to reach this claim in the first instance. See <em>Cutter</em>, 544 U. S., at 718, n. 7.</p>
+<p class="sep">* * *</p>
+<p>The judgment of the Court of Appeals for the Third Circuit is reversed, and the case is remanded for further proceedings consistent with this opinion.</p>
+<p><em>It is so ordered.</em></p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li id="s3-n1" value="1"><p>Arteaga-Martinez represents, and the Government does not dispute, that the Government conducted an administrative review of his dangerousness and flight risk in August 2018 and denied him release without interviewing him or providing a hearing. See 8 CFR § 241.4(h)(1) (2021). <a class="back" href="#s3-r1" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n2" value="2"><p>The Court also granted certiorari in a companion case presenting the same question. See <em>Garland</em> v. <em>Gonzalez</em>, 594 U. S. ––– (2021). <a class="back" href="#s3-r2" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n3" value="3"><p>Because the text of 8 U. S. C. § 1231(a)(6) does not require the relief ordered below, the Court does not address the parties' disagreements over whether that relief contravened § 1231(h) or impermissibly reallocated executive authority. <a class="back" href="#s3-r3" aria-label="Back to the text">↩</a></p></li>
+</ol></aside></section>
+<section id="s4" class="op op-concurring"><h2>Justice Thomas, concurring</h2>
+<p class="byline">Justice Thomas, with whom Justice Gorsuch joins as to Part I, concurring.</p>
+<p>I join the Court's opinion because it correctly decides that 8 U. S. C. § 1231(a)(6) does not require periodic, 6-month bond hearings. I write separately to make three points.</p>
+<h3 class="oh">I</h3>
+<p>First, we lack jurisdiction to hear this case. Under 8 U. S. C. § 1252(b)(9), a federal court has jurisdiction to review “questions of law and fact . . . arising from any action taken or proceeding brought to remove an alien . . . only” in two circumstances: (1) when the court reviews a “final order” of removal, or (2) when § 1252 otherwise grants jurisdiction. See, <em>e. g., Johnson</em> v. <em>Guzman Chavez</em>, 594 U. S. –––, ––– (2021) (<span class="sc">Thomas, J</span>., concurring in part and concurring in judgment); <em>Jennings</em> v. <em>Rodriguez</em>, 583 U. S. –––, ––– – ––– (2018) (same). This jurisdictional zipper clause “cover[s] all <span class="pg" id="s4-p585" title="page 585 of the original">585</span>claims related to removal proceedings,” including detention-related “withholding-of-removal claims.” <em>Guzman Chavez,</em> 594 U. S., at ––– (internal quotation marks omitted); see also <em>Jennings</em>, 583 U. S., at ––– – –––.</p>
+<p>Because Arteaga-Martinez does not seek review of a final removal order or otherwise invoke § 1252, and because his claim “aris[es] from” his removal proceedings, I would vacate and remand with instructions to dismiss for lack of jurisdiction. Nonetheless, “because the Court has held that we have jurisdiction in cases like these and the Court's opinion is otherwise correct,” I join it in full. <em>Guzman Chavez</em>, 594 U. S., at ––– (internal quotation marks omitted).</p>
+<h3 class="oh">II</h3>
+<p>Second, as I have explained elsewhere, there is considerable historical evidence that the Due Process Clause does not “apply to laws governing the removal of aliens.” <em>Sessions</em> v. <em>Dimaya</em>, 584 U. S. –––, ––– (2018) (dissenting opinion). But even assuming the Due Process Clause extends to some aliens contesting their removability, it does not protect from detention an alien who, like Arteaga-Martinez, does not challenge his final removal order. Illegal aliens deemed removable have no “right of release into this country.” <em>Zadvydas</em> v. <em>Davis</em>, 533 U. S. 678, 703 (2001) (Scalia, J., dissenting). Although the Court properly declines to decide Arteaga-Martinez's due process claim, see <em>ante,</em> at 583, we should revisit whether the Due Process Clause applies at all in this context.</p>
+<h3 class="oh">III</h3>
+<p>Third, this case illustrates why we should overrule <em>Zadvydas</em> at the earliest opportunity. There, the Court held that § 1231(a)(6) “would raise a serious constitutional problem” under the Fifth Amendment if it permitted “indefinite detention of an alien.” 533 U. S., at 690. To avoid that supposed “problem,” the Court deemed “ambiguous” the statutory authorization that a removable alien “may be detained <span class="pg" id="s4-p586" title="page 586 of the original">586</span>beyond the removal period,” and then, clothed in constitutional garb, invoked that manufactured ambiguity to graft a made-up rule onto § 1231(a)(6). <em>Id.,</em> at 697. Namely, the Court decided that immigration authorities can detain an alien only long enough to accomplish the “basic purpose [of] effectuating an alien's removal” and must release him “once removal is no longer reasonably foreseeable.” <em>Id.,</em> at 697, 699. The “presumptively reasonable” detention period, the Court declared, was six months. <em>Id.,</em> at 701. The Court offered no textual support for that (or any) length of time. See <em>ibid.</em></p>
+<p>As we later implied in <em>Jennings</em>, the constitutional-avoidance canon cannot justify adoption of such an implausible construction of § 1231(a)(6). See 583 U. S., at –––. And, until we overrule <em>Zadvydas</em>, it will continue to invite nothing but mischief. An ill-defined, quasi-constitutional command of “reasonableness” inevitably encourages courts to fashion procedural rules with no basis in statutory text. We confronted that mischief in <em>Jennings</em>, see 583 U. S., at ––– (reversing the Ninth Circuit for “all but ignor[ing] the statutory text” and instead “read[ing] <em>Zadvydas</em> . . . as essentially granting a license to graft a time limit onto the text of § 1225(b)”), and we do so again today, compare <em>ante,</em> at 582, with <em>Guerrero-Sanchez</em> v. <em>Warden York County Prison</em>, 905 F. 3d 208, 223 (CA3 2018). We will be forced to engage in this jurisprudential whack-a-mole until we recognize that <em>Zadvydas</em> was wrong the day it was decided and thus does not warrant “<em>stare decisis</em> effect.” <em>Clark</em> v. <em>Martinez</em>, 543 U. S. 371, 401 (2005) (<span class="sc">Thomas, J.,</span> dissenting); see also <em>Gamble</em> v. <em>United States</em>, 587 U. S. –––, ––– (2019) (<span class="sc">Thomas, J.,</span> concurring) (“[W]e should not invoke <em>stare decisis</em> to uphold precedents that are demonstrably erroneous”).</p>
+<p class="sep">* * *</p>
+<p>These three points notwithstanding, the Court's opinion correctly interprets § 1231(a)(6). Accordingly, I concur.</p></section>
+<section id="s5" class="op op-mixed"><h2>Justice Breyer, concurring in part and dissenting in part</h2>
+<p class="byline">Justice Breyer, concurring in part and dissenting in part.</p>
+<p>The Government can normally detain persons unlawfully present in, and ordered removed from, the United States for a 90-day statutory “removal period.” 8 U. S. C. § 1231(a). However, § 1231(a)(6) provides that the Attorney General may sometimes hold such a person in custody for a longer period. It says:</p>
+<blockquote>
+<p>“An alien ordered removed [1] who is inadmissible [2] [or] removable [as a result of violations of status requirements or entry conditions, certain violations of criminal law, or reasons of security or foreign policy] or [3] who has been determined by the Attorney General to be a risk to the community or unlikely to comply with the order of removal, may be detained beyond the removal period . . . .”</p>
+</blockquote>
+<p>In <em>Zadvydas</em> v. <em>Davis</em>, 533 U. S. 678, 689 (2001), “we read an implicit limitation into” this provision. Because a “statute permitting indefinite detention of an alien would raise a serious constitutional problem,” we held that the “statute, read in light of the Constitution's demands, limits an alien's post-removal-period detention to a period reasonably necessary to bring about that alien's removal from the United States. It does not permit indefinite detention.” <em>Id.,</em> at 689–690; see also <em>id.,</em> at 690–696 (explaining potential constitutional concerns presented by indefinite detention under § 1231(a)(6)).</p>
+<p>We also held that the period reasonably necessary to effect removal was presumptively six months. <em>Id.,</em> at 701. “[W]e recognize[d] that period” “for the sake of uniform administration in the federal courts.” <em>Ibid.</em> But “[a]fter this 6month period, once the alien provides good reason to believe that there is no significant likelihood of removal in the reasonably foreseeable future, the Government must respond <span class="pg" id="s5-p588" title="page 588 of the original">588</span>with evidence sufficient to rebut that showing. And for detention to remain reasonable, as the period of prior postremoval confinement grows, what counts as the `reasonably foreseeable future' conversely would have to shrink.” <em>Ibid.</em></p>
+<p>In my view, <em>Zadvydas</em> controls the outcome here. The statutory language is identical, which is not surprising, for this case concerns the same statutory provision. There are two conceivable differences between this case and <em>Zadvydas</em>, but both argue in favor of applying <em>Zadvydas</em>' holding here.</p>
+<p>First, the respondent here, Antonio Arteaga-Martinez, has been ordered removed, and is therefore subject to § 1231(a), for a different reason than the persons whose cases we considered in <em>Zadvydas</em>. Kestutis Zadvydas and Kim Ho Ma were ordered removed because they had been convicted of serious crimes. <em>Id.,</em> at 684–685. Zadvydas had committed drug crimes, attempted robbery, attempted burglary, and theft; Ma was involved in a gang-related shooting and convicted of manslaughter. <em>Ibid.</em> Arteaga-Martinez's only crime (besides minor traffic violations) is entering the United States without inspection. <em>Ante,</em> at 576. The Government seeks to detain him while an immigration judge considers his claim that he will be persecuted or tortured if he is returned to Mexico. <em>Ante,</em> at 576–578. There is less reason, not more, to detain Arteaga-Martinez without bail.</p>
+<p>Second, <em>Zadvydas</em> provided for outright release, 533 U. S., at 699–700; this case involves a bail hearing. Again, the Government has less reason to detain a person when the alternative is a bail hearing (where the Government has an opportunity to show that that person might pose a danger to the community or a flight risk) than when the alternative is simply release.</p>
+<p>The Government argues that a later case, <em>Jennings</em> v. <em>Rodriguez</em>, 583 U. S. ––– (2018), dictates the result here, rather than <em>Zadvydas</em>. Not at all. That later case involved detention under statutes other than the one at issue here and in <em>Zadvydas</em>. <em>Jennings</em>, 583 U. S., at ––– (“The primary issue <span class="pg" id="s5-p589" title="page 589 of the original">589</span>is the proper interpretation of §§ 1225(b), 1226(a), and 1226(c)”). The Court in <em>Jennings</em> did not modify or overrule <em>Zadvydas</em>, but rather explicitly distinguished that case. <em>Jennings</em>, 583 U. S., at –––. It did so on multiple grounds, including the fact that almost all of the statutes at issue in <em>Jennings</em> used words that mandated detention, such as “shall,” rather than words of discretion, such as “may.” <em>Id.,</em> at –––, –––. In <em>Zadvydas</em>, the word “may” created ambiguity that permitted the Court to interpret § 1231(a)(6) (the statute before us) in a manner that avoided the constitutional problem that indefinite detention could have created. 533 U. S., at 697. The majority in <em>Jennings</em> held that the statutory provisions at issue there were not similarly ambiguous, and therefore did not permit the Court to reach a similar interpretation. 583 U. S., at –––, ––– – –––.</p>
+<p>It is true that one of the statutes interpreted in <em>Jennings</em>, § 1226(a), said that the Attorney General “may . . . arres[t] and detai[n an alien] pending a decision on whether the alien is to be removed,” or “may release the alien on . . . bond . . . or . . . conditional parole.” Why did this statute not give the Court the textual leeway needed to permit a bail hearing (given the constitutional problem posed by potentially indefinite detention)? Here is the Court's answer to that question in its entirety:</p>
+<blockquote>
+<p>“The Court of Appeals ordered the Government to provide procedural protections that go well beyond the initial bond hearing established by existing regulations— namely, <em>periodic</em> bond hearings <em>every six months</em> in which the Attorney General must <em>prove by clear and convincing evidence</em> that the alien's continued detention is necessary. Nothing in § 1226(a)'s text—which says only that the Attorney General `may release' the alien `on . . . bond'—even remotely supports the imposition of either of those requirements. Nor does § 1226(a)'s text even hint that the length of detention prior to a bond hearing must specifically be considered in determining <span class="pg" id="s5-p590" title="page 590 of the original">590</span>whether the alien should be released.” <em>Id.</em>, at ––– – ––– (emphasis added).</p>
+</blockquote>
+<p>The court below did not order periodic bond hearings, but it did require the Government to satisfy a “clear and convincing evidence” standard. <em>Ante,</em> at 577. I agree that <em>Jennings</em> forecloses this latter requirement. Otherwise, I would find the lower courts' bail hearing requirements reasonable implementations of the <em>Zadvydas</em> standard, which is applicable here.</p>
+<p>Since the Court remands this case for further proceedings, I would add that, in my view, <em>Zadvydas</em> applies (the Court does not hold to the contrary), and the parties are free to argue about the proper way to implement <em>Zadvydas</em>' standard in this context, and, if necessary, to consider the underlying constitutional question, a matter that this Court has not decided.</p></section><p class='back'><a href='/opinions/'>&larr; All opinions</a> · <a href='/justices/ot2021.html'>The Justices, October Term 2021 &rarr;</a></p></main></body>
+</html>
+

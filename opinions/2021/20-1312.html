@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script async src='/analytics.js'></script><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate icon" href="/favicon.ico" sizes="any"><link rel="alternate" type="application/atom+xml" title="Supreme Court Report" href="/feed.xml"><link rel="alternate" type="application/atom+xml" title="Certiorari grants" href="/grants.xml"><title>Becerra v. Empire Health Foundation, for — Opinion — Supreme Court Report</title><meta name="description" content="The opinion in Becerra v. Empire Health Foundation, for (No. 20-1312), decided June 24, 2022: the full text with its footnotes, as a page, a Markdown file and an EPUB."><link rel="canonical" href="https://supremecourt.report/opinions/2021/20-1312.html"><meta property="og:site_name" content="Supreme Court Report"><meta property="og:type" content="article"><meta property="og:title" content="Becerra v. Empire Health Foundation, for — Opinion — Supreme Court Report"><meta property="og:description" content="The opinion in Becerra v. Empire Health Foundation, for (No. 20-1312), decided June 24, 2022: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta property="og:url" content="https://supremecourt.report/opinions/2021/20-1312.html"><meta property="og:image" content="https://supremecourt.report/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Supreme Court Report - docket analytics for the Supreme Court of the United States"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Becerra v. Empire Health Foundation, for — Opinion — Supreme Court Report"><meta name="twitter:description" content="The opinion in Becerra v. Empire Health Foundation, for (No. 20-1312), decided June 24, 2022: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta name="twitter:image" content="https://supremecourt.report/og.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap"><style>
+  :root{--paper:#fdfcfa;--panel:#ffffff;--ink:#1a1a1e;--ink-soft:#484850;--faint:#63636b;--accent:#9c0e3a;--link:#9c0e3a;--rule:#dbd8d2;--nav-max:60rem}
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{font-family:'Newsreader',Georgia,serif;font-size:19px;line-height:1.6;
+    color:var(--ink);background:var(--paper);margin:0;font-feature-settings:'onum' 1}
+  body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
+    opacity:.5;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");}
+  .wrap{max-width:40rem;margin:0 auto;padding:3rem 1.4rem 4rem}
+  .kicker{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 1rem}
+  h1{font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:clamp(2.4rem,7vw,3.6rem);line-height:1;letter-spacing:-.015em;
+    margin:0 0 1rem;color:var(--ink)}
+  h1 em{font-style:italic;font-weight:500;color:var(--accent)}
+  .dek{font-size:1.15rem;line-height:1.5;color:var(--ink-soft);font-style:italic;
+    margin:0 0 1.4rem}
+  .brule{border:0;height:0;border-top:2px solid var(--ink);margin:1.4rem 0 .3rem;
+    position:relative}
+  .brule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+    border-top:1px solid var(--rule)}
+  ul.idx{list-style:none;padding:0;margin:1.6rem 0}
+  ul.idx li{border-bottom:1px solid var(--rule)}
+  /* Whole row is one block-level link: a large, reliable tap target on mobile. */
+  ul.idx a.row{display:flex;justify-content:space-between;align-items:baseline;
+    gap:1rem;padding:.9rem .4rem;text-decoration:none;border:0;color:inherit}
+  ul.idx a.row:hover{background:rgba(156,14,58,.05)}
+  ul.idx .d{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.16rem;
+    color:var(--accent);line-height:1.25}
+  ul.idx a.row:hover .d{text-decoration:underline;text-underline-offset:3px}
+  ul.idx .count{color:var(--faint);font-size:.9rem;font-style:italic;white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  /* A long note (an order list's "3 GVRs / 230 denied / 4 habeas denied /
+     ...", items separated by middots) cannot sit on one line: nowrap made it
+     claim the row and
+     squeezed the title into a column three words wide, and on a phone it ran off
+     the screen. Such a row opts in (meta_wrap): the note wraps, only between its
+     items, and takes at most ~45% of the row, so the title always has the
+     larger share. Under 34rem it drops beneath the title at full width. */
+  /* ("long", not "wrap": .wrap is the page container and its padding.) */
+  ul.idx .count.long{white-space:normal;text-align:right;max-width:45%;line-height:1.45}
+  ul.idx .count.long .seg{white-space:nowrap}
+  @media(max-width:34rem){
+    ul.idx a.row.longmeta{flex-wrap:wrap;row-gap:.2rem}
+    ul.idx .count.long{max-width:none;flex-basis:100%;text-align:left}
+  }
+  /* Compact horizontal strip of the most recent pages beneath a category row. */
+  ul.idx .recent{display:flex;flex-wrap:wrap;align-items:baseline;
+    gap:.3rem .85rem;padding:0 .4rem 1rem;margin-top:-.35rem}
+  ul.idx .recent .rlabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  ul.idx .recent a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--ink-soft);text-decoration:none;font-variant-numeric:tabular-nums;
+    border-bottom:1px solid var(--rule);padding-bottom:1px}
+  ul.idx .recent a:hover{color:var(--accent);border-color:var(--accent)}
+  /* Optional panel beneath the section index (home page: most-read cases). */
+  .panel{margin:2.4rem 0 0}
+  .panel h2{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 .25rem}
+  .panel .pnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:0 0 .5rem}
+  /* "Live now" (live_argument_panel, /live.js): hidden unless the Court is
+     streaming an argument. One red dot, the same --accent as the headings, so
+     the live state is a mark and not a new colour. */
+  .live h2 .ldot{display:inline-block;width:.5rem;height:.5rem;border-radius:50%;
+    background:var(--accent);margin-right:.5rem;vertical-align:.08rem;
+    animation:lpulse 2s ease-in-out infinite}
+  @keyframes lpulse{50%{opacity:.25}}
+  @media (prefers-reduced-motion:reduce){.live h2 .ldot{animation:none}}
+  .lplay{display:flex;flex-wrap:wrap;gap:.6rem .9rem;align-items:center;margin:.8rem 0 .3rem}
+  .lplay button{font:600 .9rem/1 'Newsreader',Georgia,serif;letter-spacing:.04em;
+    color:var(--paper);background:var(--accent);border:0;border-radius:2px;
+    padding:.6rem 1.05rem;cursor:pointer}
+  .lplay button:disabled{opacity:.6;cursor:progress}
+  .lplay button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  /* The player takes a row of its own and may never outgrow the column. A flex
+     item's min-width is auto, which for a replaced element is the browser's own
+     controls' width -- wider than the column on a phone, where mobile Safari
+     and Chrome draw larger controls than the desktop. */
+  .lplay audio{display:block;flex:1 1 100%;width:100%;min-width:0;max-width:100%;
+    box-sizing:border-box;margin:0}
+  .lplay .lstat{font-size:.85rem;color:var(--faint)}
+  /* --- Likeliest grants -----------------------------------------------------
+     Its own rows rather than ol.mostread's: this panel carries a question under
+     the caption, which that list has no room for, and a percentage that has to
+     read as the row's subject rather than as a trailing note.
+     The window toggle is two real radio inputs plus :has() -- no JavaScript.
+     Both windows are rendered at build time and one is hidden, which is the only
+     way a static site can offer the choice: there is no server to ask for the
+     other one. Real radios, not styled buttons, so the control is reachable by
+     keyboard and announced as a choice. */
+  .lead{margin:0 0 1.9rem}
+  .lead h2{margin-bottom:.35rem}
+  .lead .pnote{margin:0 0 .7rem}
+  .wr{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+  .win{display:inline-flex;gap:.25rem;margin:0 0 .55rem;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .win label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .win label:hover{color:var(--ink)}
+  .lead:has(#w7:checked) label[for=w7],
+  .lead:has(#w28:checked) label[for=w28],
+  .lead:has(#wall:checked) label[for=wall]{background:var(--accent);color:var(--paper)}
+  .wr:focus-visible+label{outline:2px solid var(--accent);outline-offset:2px}
+  /* Three windows, one shown: the checked radio hides the other two. */
+  .lead:has(#w7:checked) :is(.g28,.n28,.gall,.nall),
+  .lead:has(#w28:checked) :is(.g7,.n7,.gall,.nall),
+  .lead:has(#wall:checked) :is(.g7,.n7,.g28,.n28){display:none}
+  /* The show/hide controls for a panel's secondary line -- the question under
+     a forecast row, the holding under a decision. Same box as the window
+     toggle, a checkbox instead of radios, and no script: the sibling rule does
+     the work and the lines simply show where :has() is unsupported. The
+     questions are on by default (they are what a forecast row asks); the
+     holdings are off (the caption, kind and disposition already say what
+     happened, and the holding is the more). */
+  .opts{display:inline-flex;gap:.25rem;margin:0 .45rem .55rem 0;vertical-align:top;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .opts label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .opts label:hover{color:var(--ink)}
+  .lead:has(#qon:checked) label[for=qon],
+  .panel:has(#hon:checked) label[for=hon]{background:var(--accent);color:var(--paper)}
+  .lead:has(#qon:not(:checked)) .gq{display:none}
+  .panel:has(#hon:not(:checked)) .chold{display:none}
+  /* --- Upcoming at the Court ------------------------------------------------
+     A date gutter and a two-line body, the same shape as the grant rows above
+     it, so the two panels read as one page rather than two widgets. */
+  .cal{margin:0 0 1.9rem}
+  ol.cal{list-style:none;margin:0;padding:0}
+  ol.cal li{border-top:1px solid var(--rule)}
+  ol.cal li:last-child{border-bottom:1px solid var(--rule)}
+  /* The row is a container, not an anchor: an argument day carries one link per
+     case it hears and anchors cannot nest. Hover lives on the row so it still
+     reads as one unit, and each link colours on its own hover. */
+  ol.cal .crow{display:flex;gap:.95rem;align-items:baseline;padding:.55rem .1rem}
+  ol.cal .crow:hover{background:rgba(156,14,58,.05)}
+  ol.cal a{text-decoration:none;color:inherit}
+  ol.cal a:hover,ol.cal a:focus-visible{color:var(--accent)}
+  ol.cal .cdet a{border-bottom:1px solid rgba(156,14,58,.35)}
+  ol.cal .cdet a:hover{border-bottom-color:var(--accent)}
+  ol.cal .cwhen{flex:none;width:4.6rem;font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.96rem;color:var(--ink);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  ol.cal .cdow{display:block;font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);text-transform:uppercase;letter-spacing:.08em}
+  ol.cal .ctx{flex:1;min-width:0}
+  ol.cal .ckind{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:.98rem;line-height:1.25}
+  ol.cal .cdet{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.12rem}
+  /* Recent decisions reuses the calendar rows and adds exactly two things: the
+     kind word that opens the detail line, and the one outbound link (the slip
+     opinion), which takes the link colour the rest of the row deliberately
+     does not. */
+  ol.cal .dk{font-weight:600;color:var(--ink)}
+  ol.cal .cdet a.pdf{color:var(--link)}
+  /* The holding, from the Court's slip-opinion feed: one sentence, set
+     smaller and in the soft ink so the caption stays the row's headline. */
+  ol.cal .chold{display:block;font-size:.86rem;line-height:1.4;color:var(--ink-soft);
+    font-style:italic;margin-top:.15rem}
+  ol.cal .cdet a.pdf:hover,ol.cal .cdet a.pdf:focus-visible{color:var(--accent);
+    border-bottom-color:var(--accent)}
+  ol.grants{list-style:none;margin:0;padding:0}
+  ol.grants li{border-top:1px solid var(--rule)}
+  ol.grants li:last-child{border-bottom:1px solid var(--rule)}
+  ol.grants a{display:flex;gap:.95rem;align-items:baseline;text-decoration:none;
+    color:inherit;padding:.62rem .1rem}
+  ol.grants a:hover{background:rgba(156,14,58,.05)}
+  ol.grants a:hover .gc{color:var(--accent)}
+  ol.grants .gv{flex:none;width:3.5rem;text-align:right;
+    font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.22rem;
+    line-height:1.1;color:var(--accent);font-variant-numeric:tabular-nums}
+  ol.grants .gx{font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);margin-left:.3rem}
+  ol.grants .gtx{flex:1;min-width:0}
+  /* Subject-area line under the caption, in the section-label idiom (h2.sec):
+     small tracked caps in the faint ink, so it classifies without competing. */
+  ol.grants .gs,ol.mostread .ms{display:block;font-size:.68rem;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--faint);line-height:1.3;margin-top:.12rem}
+  ol.grants .gc{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:1rem;line-height:1.25}
+  ol.grants .gq{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.16rem}
+  ol.grants .gd{flex:none;font-size:.76rem;color:var(--faint);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  .more{margin:.75rem 0 0;font-size:.92rem}
+  .more a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.35)}
+  .more a:hover{border-bottom-color:var(--link)}
+  h2.sec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:.88rem;
+    letter-spacing:.09em;color:var(--faint);text-transform:uppercase;
+    margin:2.1rem 0 .6rem;padding-bottom:.28rem;border-bottom:1px solid var(--rule)}
+  @media(max-width:40rem){
+    ol.grants a{flex-wrap:wrap}
+    ol.grants .gd{width:100%;padding-left:4.45rem;margin-top:-.1rem}
+  }
+  ol.mostread{list-style:none;counter-reset:mr;padding:0;margin:0}
+  ol.mostread li{counter-increment:mr;border-bottom:1px solid var(--rule)}
+  ol.mostread a{display:flex;align-items:baseline;gap:.7rem;padding:.6rem .4rem;
+    text-decoration:none;color:inherit}
+  ol.mostread a:hover{background:rgba(156,14,58,.05)}
+  ol.mostread a::before{content:counter(mr);font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.95rem;color:var(--faint);min-width:1.1rem;
+    font-variant-numeric:tabular-nums}
+  ol.mostread .mc{flex:1;font-size:1rem;line-height:1.3}
+  ol.mostread .mct{display:block}
+  ol.mostread a:hover .mct{color:var(--accent);text-decoration:underline;
+    text-underline-offset:3px}
+  ol.mostread .mdk{color:var(--accent);font-weight:600;font-size:.82rem;
+    font-variant-numeric:tabular-nums;white-space:nowrap}
+  ol.mostread .mv{color:var(--faint);font-size:.85rem;font-style:italic;
+    white-space:nowrap;font-variant-numeric:tabular-nums}
+  /* Forecast percentages carry weight the most-read counts do not: the number is
+     the claim, not a footnote to the ranking. Upright, accent, tabular. */
+  ol.mostread .mv.fc{color:var(--accent);font-style:normal;font-weight:600;
+    font-size:.95rem;min-width:2.6rem;text-align:right}
+  /* Feed follow line. Deliberately quiet -- a footnote under the section list,
+     styled like .recent rather than like a call to action. */
+  .feeds{display:flex;flex-wrap:wrap;align-items:baseline;gap:.3rem .85rem;
+    margin:2.2rem 0 0;padding-top:1.1rem;border-top:1px solid var(--rule)}
+  .feeds .flabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  .feeds a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .feeds a:hover{border-color:var(--link)}
+  .back{margin-top:2rem;font-size:.95rem}
+  .back a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .back a:hover{border-color:var(--link)}
+  /* Home-page case search. */
+  .csearch{position:relative;margin:0 0 1.4rem}
+  #cq{width:100%;font-family:'Newsreader',Georgia,serif;font-size:1.05rem;color:var(--ink);
+    background:var(--panel);border:1px solid var(--rule);border-radius:3px;padding:.7rem .9rem}
+  #cq:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(156,14,58,.1)}
+  #cq::placeholder{color:var(--faint)}
+  #cq.loading{background-image:linear-gradient(90deg,transparent,rgba(156,14,58,.06),transparent);
+    background-size:40% 100%;background-repeat:no-repeat;animation:csl 1s infinite}
+  @keyframes csl{0%{background-position:-40% 0}100%{background-position:140% 0}}
+  .cres{list-style:none;margin:.35rem 0 0;padding:0;max-height:24rem;overflow-y:auto;
+    border:1px solid var(--rule);border-radius:3px;background:var(--panel)}
+  .cres:empty{display:none}
+  .cres li{border-bottom:1px solid var(--rule)}
+  .cres li:last-child{border-bottom:0}
+  .cres a{display:block;padding:.55rem .7rem;text-decoration:none;color:var(--ink);
+    font-size:.98rem;line-height:1.3}
+  .cres a:hover,.cres li.act a{background:rgba(156,14,58,.06)}
+  .cres mark{background:rgba(156,14,58,.14);color:inherit;padding:0 .05em;border-radius:2px}
+  .cres .cd{color:var(--accent);font-variant-numeric:tabular-nums;font-weight:600;
+    margin-right:.5rem;white-space:nowrap}
+  .cnone{padding:.55rem .7rem;color:var(--faint);font-style:italic}
+  .cnone a,.cqp a{color:var(--link);font-style:normal;text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .cqp{margin:.45rem 0 0;font-size:.88rem;color:var(--faint)}
+  /* /cases/ browse index: grouped sections with per-bucket counts. */
+  .csec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+    text-transform:uppercase;letter-spacing:.12em;color:var(--accent);
+    margin:2.2rem 0 .3rem;padding-bottom:.35rem;border-bottom:1px solid var(--rule);
+    display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
+  .csec .cn{font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:.85rem;
+    letter-spacing:0;text-transform:none;color:var(--faint);
+    font-variant-numeric:tabular-nums}
+  .cnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:.5rem 0 0}
+  .cnote a{color:var(--accent)}
+  ul.terms{list-style:none;padding:0;margin:1rem 0 0;display:flex;flex-wrap:wrap;
+    gap:.5rem 1.6rem}
+  ul.terms li{display:inline-flex;align-items:baseline;gap:.4rem}
+  ul.terms a{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.05rem;
+    color:var(--accent);text-decoration:none;border-bottom:1px solid var(--rule)}
+  ul.terms a:hover{border-bottom-color:var(--accent)}
+  ul.terms .cn{color:var(--faint);font-size:.85rem;font-variant-numeric:tabular-nums}
+  /* About page: running prose rather than an index, so it takes a measure and a
+     little more leading than the section rows above it. */
+  .about{margin:1.6rem 0 0;font-size:1.05rem;line-height:1.65;max-width:34rem}
+  .about p{margin:0 0 1rem}
+  .about a{color:var(--accent);text-decoration:none;
+    border-bottom:1px solid var(--rule)}
+  .about a:hover{border-bottom-color:var(--accent)}
+  .about .contact{margin:2rem 0 0;background:var(--panel);border:1px solid var(--rule);
+    border-left:4px solid var(--accent);padding:1.1rem 1.3rem}
+  .about .contact h2{font:600 .78rem/1 'Newsreader',Georgia,serif;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--accent);margin:0 0 .5rem}
+  .about .contact p{margin:0;font-size:1rem}
+
+/* ---- masthead ---- */
+.smast-in{max-width:var(--nav-max,60rem);margin:0 auto;padding:.85rem 1.5rem .5rem;
+  display:flex;align-items:baseline;justify-content:space-between;gap:1.4rem;flex-wrap:wrap}
+.smast-wm{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+  letter-spacing:.005em;color:var(--ink,#1a1a1e);text-decoration:none;white-space:nowrap;flex:none}
+.smast-wm em{font-style:italic;font-weight:500;color:var(--accent,#9c0e3a)}
+.smast-wm:hover{color:var(--accent,#9c0e3a)}
+/* Row gap first, then column. At 1.35rem the six section links measured 596px
+   of max-content -- 4px wider than the 592px row the 40rem index container
+   leaves them -- so ABOUT alone wrapped to a third line under the wordmark, on
+   every page page_style.R writes. 1.05rem brings the row to 572px: 20px of
+   slack at 40rem, and 45px on the 54rem case pages, which were themselves only
+   21px from wrapping. The .4rem row gap is for the day a seventh section
+   overruns it anyway -- a nav that wraps should read as a stack, not an orphan. */
+.snav{display:flex;gap:.4rem 1.05rem;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+.snav a{font:600 .72rem/1 'Newsreader',Georgia,serif;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--ink-soft,var(--soft,#484850));text-decoration:none;display:inline-block;
+  padding:.5rem 0;border-bottom:1.5px solid transparent}
+.snav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--rule,#dbd8d2)}
+.snav a[aria-current='page']{color:var(--accent,#9c0e3a);
+  border-bottom-color:var(--accent,#9c0e3a)}
+.smast-rule-w{max-width:var(--nav-max,60rem);margin:0 auto;padding:0 1.5rem}
+.smast-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0;position:relative}
+.smast-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.skip{position:absolute;left:-9999px;top:0;background:var(--panel,#ffffff);
+  color:var(--accent,#9c0e3a);padding:.6rem 1rem;
+  border:1px solid var(--accent,#9c0e3a);
+  font:600 .8rem/1 'Newsreader',Georgia,serif;letter-spacing:.1em;text-transform:uppercase;z-index:10}
+.skip:focus{left:.5rem;top:.5rem}
+/* ---- breadcrumb ---- */
+.bcrumb{margin:.7rem 0 0}
+.bcrumb ol{list-style:none;display:flex;flex-wrap:wrap;align-items:baseline;
+  gap:.1rem .45rem;margin:0;padding:0}
+.bcrumb li{display:inline-flex;align-items:baseline;gap:.45rem}
+.bcrumb a{font:400 .8rem/1.5 'Newsreader',Georgia,serif;color:var(--ink-soft,var(--soft,#484850));
+  text-decoration:none;border-bottom:1px solid var(--rule,#dbd8d2)}
+.bcrumb a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.bcrumb .sep{color:var(--faint,#63636b);font-size:.8rem;line-height:1.5}
+.bcrumb [aria-current='page']{font:400 .8rem/1.5 'Newsreader',Georgia,serif;
+  color:var(--faint,#63636b);font-variant-numeric:tabular-nums}
+/* ---- case footer ---- */
+.cfoot{margin:2.4rem 0 0}
+.cfoot-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0 0 1rem;position:relative}
+.cfoot-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.cfoot-off{font-size:.95rem;margin:0 0 1.1rem}
+.cfoot-off a{color:var(--link,#9c0e3a);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.4)}
+.cfoot-off a:hover{border-bottom-color:var(--link,#9c0e3a)}
+.cfoot-lab{font:600 .68rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);margin:0 0 .5rem}
+.cfoot-nav{display:flex;flex-wrap:wrap;gap:.35rem 1.1rem;list-style:none;margin:0;padding:0}
+.cfoot-nav a{font-size:.92rem;color:var(--ink-soft,var(--soft,#484850));text-decoration:none;
+  border-bottom:1px solid var(--rule,#dbd8d2);padding-bottom:1px}
+.cfoot-nav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.cfoot-stamp{margin:1.2rem 0 0;font-size:.8rem;color:var(--faint,#63636b);font-style:italic}
+/* ---- prev / next ---- */
+.pnav{margin:2.2rem 0 0;border-top:1px solid var(--rule,#dbd8d2);padding-top:1rem;
+  display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.pnav a,.pnav span.none{text-decoration:none;color:inherit;display:block;padding:.5rem .2rem}
+.pnav a:hover{background:rgba(156,14,58,.05)}
+.pnav .dir{font:600 .66rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);display:block;margin-bottom:.3rem}
+.pnav .lab{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1rem;line-height:1.25;
+  color:var(--accent,#9c0e3a);display:block}
+.pnav a:hover .lab{text-decoration:underline;text-underline-offset:3px}
+.pnav .nx{text-align:right}
+.pnav .none{opacity:.35}
+@media(max-width:640px){
+  .smast-in{padding:.7rem 1.1rem .25rem;gap:.15rem}
+  .smast-wm{font-size:.98rem}
+  .smast-in nav{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+    -webkit-mask-image:linear-gradient(90deg,#000 86%,transparent);
+    mask-image:linear-gradient(90deg,#000 86%,transparent)}
+  .smast-in nav::-webkit-scrollbar{display:none}
+  .snav{flex-wrap:nowrap;gap:1.15rem;padding-right:2.4rem}
+  .snav a{padding:.7rem 0;white-space:nowrap}
+  .smast-rule-w{padding:0 1.1rem}
+  .cfoot-nav{gap:.5rem 1rem}
+  .cfoot-nav a{padding-bottom:.3rem}
+  .pnav{grid-template-columns:1fr;gap:.2rem}
+  .pnav .nx{text-align:left;border-top:1px solid var(--rule,#dbd8d2)}
+}
+
+  .wrap.opn{max-width:42rem}
+  .opn .ometa{font-size:.92rem;color:var(--ink-soft);margin:.3rem 0 0}
+  .opn .oget{display:flex;flex-wrap:wrap;gap:.4rem .6rem;margin:1.1rem 0 0;padding:0;list-style:none;font-size:.9rem}
+  .opn .oget a{display:inline-block;padding:.32rem .7rem;border:1px solid var(--rule);border-radius:4px;color:var(--ink);text-decoration:none;background:var(--panel)}
+  .opn .oget a:hover{border-color:var(--accent);color:var(--accent)}
+  .opn .osrc{font-size:.84rem;color:var(--faint);margin:.9rem 0 0;line-height:1.45}
+  .opn .osrc a{color:var(--link)}
+  .opn .otoc{margin:1.6rem 0 0;padding:.8rem 1rem;border:1px solid var(--rule);border-radius:4px;background:var(--panel);font-size:.95rem}
+  .opn .otoc ol{margin:0;padding:0;list-style:none}
+  .opn .otoc li{margin:.25rem 0}
+  .opn .otoc a{color:var(--ink);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.35)}
+  .opn .otoc a:hover{color:var(--accent)}
+  .opn section.op{margin-top:3rem;border-top:2px solid var(--ink);padding-top:1.1rem}
+  .opn section.op h2{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.5rem;line-height:1.2;margin:0 0 1rem;color:var(--ink)}
+  .opn section.op p{margin:0 0 .95rem;line-height:1.62;hyphens:auto;overflow-wrap:break-word}
+  .opn section.op p.byline{color:var(--ink-soft);font-style:italic}
+  .opn section.op p.sep{text-align:center;letter-spacing:.3em;color:var(--faint);margin:1.6rem 0}
+  .opn section.op h3.oh{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.12rem;text-align:center;margin:2rem 0 1rem;color:var(--ink)}
+  .opn section.op blockquote{margin:0 0 .95rem;padding:0 0 0 1.1rem;border-left:2px solid var(--rule);color:var(--ink-soft)}
+  .opn section.op blockquote p{margin-bottom:.6rem;font-size:.96em}
+  .opn .sc{font-variant-caps:small-caps;letter-spacing:.02em}
+  .opn .pg{font-size:.66em;color:var(--faint);vertical-align:.3em;margin:0 .3em 0 .1em;font-variant-numeric:tabular-nums;user-select:none;white-space:nowrap}
+  .opn .pg::before{content:'*'}
+  .opn sup.fnr{font-size:.68em;line-height:0;margin-left:.05em}
+  .opn sup.fnr a{color:var(--link);text-decoration:none;padding:0 .1em}
+  .opn aside.notes{margin-top:2rem;border-top:1px solid var(--rule);padding-top:.8rem;font-size:.88rem;color:var(--ink-soft)}
+  .opn aside.notes h3{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1rem;margin:0 0 .6rem;color:var(--ink)}
+  .opn aside.notes ol{margin:0;padding-left:1.7rem}
+  .opn aside.notes li{margin:0 0 .55rem}
+  .opn aside.notes li.sym{list-style:none;margin-left:-1.7rem}
+  .opn aside.notes li.sym .mk{margin-right:.3rem}
+  .opn aside.notes li.sym p{display:inline}
+  .opn aside.notes p{margin:0 0 .4rem;line-height:1.5}
+  .opn aside.notes a.back{color:var(--link);text-decoration:none;margin-left:.2rem}
+  .opn aside.notes li:target,.opn sup.fnr a:target,.opn .pg:target{background:rgba(156,14,58,.12);outline:.2rem solid rgba(156,14,58,.12)}
+  .opn section.op,.opn aside.notes li,.opn sup.fnr a{scroll-margin-top:1rem}
+  .opn section.op-syllabus p,.opn section.op-counsel p{font-size:.95em}
+  .opn section.op-counsel summary{cursor:pointer;font-family:'Fraunces',Georgia,serif;font-size:1.05rem;color:var(--ink-soft)}
+  .opn .osyl{font-size:.84rem;color:var(--faint);font-style:italic;margin:-.5rem 0 1rem}
+  .opn p.back{margin-top:3rem;font-size:.92rem}
+  @media print{.smast,.bcrumb,.opn .oget,.opn .otoc,.opn p.back{display:none}.opn section.op{break-before:page}}
+</style><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://supremecourt.report/"},{"@type":"ListItem","position":2,"name":"Opinions","item":"https://supremecourt.report/opinions/"},{"@type":"ListItem","position":3,"name":"Becerra v. Empire Health Foundation, for"}]}</script><meta name='otv' content='p1'><link rel='alternate' type='text/markdown' href='/opinions/2021/20-1312.md'><link rel='alternate' type='application/epub+zip' href='/opinions/2021/20-1312.epub'></head><body><a class='skip' href='#main'>Skip to content</a><header><div class='smast-in'><a class='smast-wm' href='/'>Supreme Court <em>Report</em></a><nav aria-label='Sections'><ul class='snav'><li><a href='/dashboards/'>Docket</a></li><li><a href='/conferences/'>Conferences</a></li><li><a href='/relists/'>Relists</a></li><li><a href='/applications/'>Interim</a></li><li><a href='/arguments/'>Arguments</a></li><li><a href='/justices/' aria-current='page'>Justices</a></li><li><a href='/counsel/'>Counsel</a></li><li><a href='/funnel/'>Funnel</a></li><li><a href='/methods.html'>Model</a></li><li><a href='/about.html'>About</a></li></ul></nav></div><div class='smast-rule-w'><hr class='smast-rule'></div></header><main class='wrap opn' id='main' data-dkt='20-1312'><nav class='bcrumb' aria-label='Breadcrumb'><ol><li><a href='/'>Home</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><a href='/opinions/'>Opinions</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><span aria-current='page'>Becerra v. Empire Health Foundation, for</span></li></ol></nav><p class='kicker'>No. 20-1312 · decided June 24, 2022 · 597 U. S. 424</p><h1 style='font-size:clamp(1.7rem,4.6vw,2.4rem);line-height:1.12'>Becerra v. Empire Health Foundation, for</h1><p class='ometa'>Xavier Becerra, Secretary of Health and Human Services v. Empire Health Foundation, for Valley Hospital Medical Center. 1 separate writing.</p><ul class='oget'><li><a href='/opinions/2021/20-1312.epub' download>EPUB</a></li><li><a href='/opinions/2021/20-1312.md' download>Markdown</a></li><li><a href='https://www.supremecourt.gov/opinions/21pdf/597us1r59_i4dk.pdf' rel='noopener'>The Court’s PDF</a></li><li><a href='/cases/20-1312.html'>The docket</a></li></ul><p class='osrc'>Set from the PDF the Court published, which is the authoritative text. The small starred numbers are that PDF’s page numbers. A conversion can introduce errors; check a quotation against the <a href='https://www.supremecourt.gov/opinions/21pdf/597us1r59_i4dk.pdf' rel='noopener'>original</a>.</p><nav class="otoc" aria-label="Contents"><ol>
+<li><a href="#s1">Syllabus</a></li>
+<li><a href="#s2">Counsel</a></li>
+<li><a href="#s3">Opinion of the Court</a></li>
+<li><a href="#s4">Justice Kavanaugh, dissenting</a></li>
+</ol></nav>
+<section id="s1" class="op op-syllabus"><h2>Syllabus</h2><p class='osyl'>Prepared by the Reporter of Decisions for the convenience of the reader; it is no part of the opinion of the Court.</p>
+<p>Once a person turns 65 or has received federal disability benefits for 24 months, he becomes “entitled” to benefits under Part A of Medicare. 42 U. S. C. §§ 426(a)–(b). Part A provides coverage for, among other things, inpatient hospital treatment. See § 1395d(a). Medicare pays hospitals a fixed rate for such treatment based on the patient's diagnosis, regardless of the hospital's actual cost and subject to certain adjustments. §§ 1395ww(d)(1)–(5). One such adjustment is the “disproportionate share hospital” (DSH) adjustment, which provides higher-than-usual rates to hospitals that serve a higher-than-usual percentage of low-income patients. To calculate the DSH adjustment, the Department of Health and Human Services (HHS) adds together two statutorily described fractions: the Medicare fraction—which represents the proportion of a hospital's Medicare patients who have low incomes—and the Medicaid fraction—which represents the proportion of a hospital's total patients who are not entitled to Medicare and have low incomes. Together those fractions produce the “disproportionate-patient percentage,” which determines whether a hospital will receive a DSH adjustment, and how large it will be.</p>
+<p>Not all patients who qualify for Medicare Part A have their hospital treatment paid for by the program. Non-payment may occur, for example, if a patient's stay exceeds Medicare's 90-day cap per spell of illness, see § 1395d, or if a patient is covered by a private insurance plan, see § 1395y(b)(2)(A). Such limits on Medicare's coverage prompt the question raised here: whether patients whom Medicare insures but does not pay for on a given day are patients “who (for such days) were entitled to [Medicare Part A] benefits” for purposes of computing a hospital's disproportionate-patient percentage. § 1395ww(d)(5)(F)(vi)(I).</p>
+<p>A 2004 HHS regulation says yes: If the patient meets the basic statutory criteria for Medicare (<em>i. e.</em>, is over 65 or disabled), then the patient counts in the denominator and, if poor, in the numerator of the Medicare fraction. See 69 Fed. Reg. 49098–49099. Respondent Empire Health Foundation challenged that regulation as inconsistent with the statute. The Ninth Circuit agreed. That court focused on the statute's use of <span class="pg" id="s1-p425" title="page 425 of the original">425</span>two different phrases: “entitled to [Medicare Part A] benefits” and “eligible for [Medicaid] assistance.” The Ninth Circuit read the latter phrase to mean that a patient qualifies for Medicaid and the former phrase to mean that a patient has an absolute right to payment from Medicare. The Court granted certiorari to resolve a conflict between the Ninth Circuit and two other Circuit Courts, which had approved of HHS's regulation.</p>
+<p><em>Held</em>: In calculating the Medicare fraction, individuals “entitled to [Medicare Part A] benefits” are all those qualifying for the program, regardless of whether they receive Medicare payments for part or all of a hospital stay. Pp. 434–445.</p>
+<p>HHS's regulation is consistent with the text, context, and structure of the DSH provisions. The agency has interpreted the phrase “entitled to benefits” in those provisions to mean just what it means throughout the Medicare statute: qualifying for benefits. And counting everyone who qualifies for Medicare benefits in the Medicare fraction—and no one who qualifies for those benefits in the Medicaid fraction—accords with the statute's attempt to capture, through two separate measurements, two different segments of a hospital's low-income patient population.</p>
+<p>(a) Empire's textual argument has a two-part structure. Echoing the Ninth Circuit, Empire primarily contends that the words “entitled” and “eligible” have different meanings. According to Empire, to be “eligible” for a benefit is to be “qualified” to seek it; to be “entitled” to a benefit means instead to have an “absolute right” to its payment. But throughout the Medicare statute, “entitled to benefits” is essentially a term of art meaning “qualifying for benefits,” <em>i. e.</em>, being over 65 or disabled. And in the end, Empire basically concedes that point. It must devise a way to give “entitled to benefits” a different meaning in the fraction descriptions than everywhere else in the Medicare statute. So Empire shifts gears, relying now on the parenthetical phrase “(for such days)” to transform the usual statutory meaning of “entitled to benefits” to something different and novel. But those three little words do not accomplish what Empire would like, having the much less radical function of excluding days of a patient's hospital stay before he qualifies for Medicare (<em>e. g.</em>, turns 65). Pp. 434–441.</p>
+<p>(1) The Medicare statute explicitly states that “[e]very individual” who “has attained age 65” and is entitled to ordinary social security payments and “every individual” under age 65 who has been entitled to federal disability benefits for at least 24 months “shall be entitled to” Medicare Part A benefits. §§ 426(a)–(b). This broad meaning of “entitlement” coexists with limitations on payment. The entitlement to benefits,<span class="pg" id="s1-p426" title="page 426 of the original">426</span> the statute repeatedly says, is an entitlement to payment under specified conditions. So a person remains entitled to benefits even if he has run into one of the statute's conditions, such as the 90-day cap on inpatient hospital services. For example, the statute twice refers to patients who are “entitled to benefits under part A but ha[ve] exhausted benefits for inpatient hospital services.” §§ 1395<em>l</em>(a)(8)(B)(i), 1395<em>l</em>(t)(1) (B)(ii). In thus describing the Part A entitlement, the statute reflects the complexity of health insurance: An insured who hits some limit on coverage for, say, eye care is still insured. His policy will pay for more eye care in the next coverage period and meanwhile will pay for his knee replacement.</p>
+<p>If “entitled to benefits” instead bore Empire's meaning, Medicare beneficiaries would lose important rights and protections, such as the ability to enroll in other Medicare programs. See §§ 1395<em>o</em>(a), 1395w-21(a)(3), 1395w–101(a)(3)(A). Empire's interpretation would also make a hash of provisions designed to inform Medicare beneficiaries of their benefits, see § 1395b–2(a), and to protect beneficiaries from misleading marketing materials, see § 1395w–21(a)(3). Congress could not have intended to write a statute whose safeguards would apply or not apply, or fluctuate constantly, based on the happenstance of whether Medicare paid for hospital care on a given day. Pp. 435–439.</p>
+<p>(2) Empire concedes that its interpretation cannot be applied throughout the Medicare statute. To get around this, Empire claims that the parenthetical in “patients who (for such days) were entitled to [Part A] benefits,” § 1395ww(d)(5)(F)(vi)(I), converts the usual statutory meaning of “entitled to benefits” to something different: actually receiving payment. That slight phrase, however, cannot bear so much interpretive weight. Instead, the parenthetical works as HHS says: hand in hand with the ordinary statutory meaning of “entitled to benefits.” It directs HHS to count only those individuals who qualify for Medicare on a particular day. So if a patient turns 65 on the 15th day of a 30day hospital stay, HHS will count only 15 days. Pp. 439–441.</p>
+<p>(b) The structure of the relevant statutory provisions reinforces the conclusion that “entitled to benefits” means qualifying for benefits. The statute recompenses hospitals for serving two different low-income populations: low-income Medicare patients and low-income non-Medicare patients. HHS's reading of “entitled” comports with this structure: a low-income Medicare patient always count in the Medicare fraction. That is so regardless of whether the Medicare program is actually paying for a day of his care—because that fact has no relationship to his financial status. Empire's interpretation, by contrast, fits poorly with the statutory structure. Its who-paid-for-a-day-of-care test has no relationship to a patient's financial status. So on Empire's view, a patient <span class="pg" id="s1-p427" title="page 427 of the original">427</span>could phase in and out of the Medicare fraction regardless of income. Empire responds by asserting that any low-income person excluded from the Medicare fraction (say, because of exhaustion of benefits) would get counted instead in the Medicaid fraction. But even if that is true, Empire's scheme would result in patients ping-ponging back and forth between the two fractions based on the happenstance of actual Medicare payments. In any event, Empire is too quick to claim that those who (on its view) are tossed from the Medicare fraction for non-income-based reasons like exhaustion of benefits would still wind up in the Medicaid fraction. Applying Empire's reading of “for such days,” a low-income patient who has exhausted his coverage would not get counted at all, in either fraction, but he would remain just as low-income and impose just as high costs on the hospital treating him. Empire's only response is to insist that its interpretation must be right because it usually (though not always) leads to higher DSH payments. But the point of the statute is not to pay hospitals the most money possible; it is to compensate them for serving a disproportionate share of low-income patients. Pp. 442–445.</p>
+<p>958 F. 3d 873, reversed and remanded.</p>
+<p><span class="sc">Kagan</span>, J., delivered the opinion of the Court, in which <span class="sc">Thomas</span>, <span class="sc">Breyer</span>, <span class="sc">Sotomayor</span>, and <span class="sc">Barrett</span>, JJ., joined. <span class="sc">Kavanaugh</span>, J., filed a dissenting opinion, in which <span class="sc">Roberts</span>, C. J., and <span class="sc">Alito</span> and <span class="sc">Gorsuch</span>, JJ., joined, <em>post</em>, p. 445.</p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li class="sym" value="0"><span class="mk">*</span><p><em>Michael Pepson</em> and <em>Cynthia Fleming Crawford</em> filed a brief for the Americans for Prosperity Foundation as <em>amicus curiae</em> urging reversal.</p><p>Briefs of <em>amici curiae</em> urging affirmance were filed for Certain Hospitals et al. by <em>David A. Hickerson</em>; and for the Federation of American Hospitals by <em>Kelly A. Carroll.</em></p></li>
+</ol></aside></section>
+<section id="s2" class="op op-counsel"><details><summary>Counsel</summary><p><em>Jonathan C. Bond</em> argued the cause for petitioner. With him on the briefs were <em>Solicitor General Prelogar, Acting Solicitor General Fletcher, Acting Assistant Solicitor General Boynton, Deputy Solicitor General Kneedler, Mark B. Stern</em>, and <em>Stephanie R. Marcus.</em></p>
+<p><em>Daniel J. Hettich</em> argued the cause for respondent. With him on the brief were <em>Ashley C. Parrish, Jeffrey S. Bucholtz, Anne M. Voigts,</em> and <em>Matthew V. H. Noller.*</em></p></details></section>
+<section id="s3" class="op op-court"><h2>Opinion of the Court</h2>
+<p class="byline">Justice Kagan delivered the opinion of the Court.</p>
+<p>The Medicare program reimburses hospitals at higher-than-usual rates when they serve a higher-than-usual percentage of low-income patients. The enhanced rates are calculated by adding together two fractions, called the Medicare fraction and the Medicaid fraction. Roughly speaking, the former measures the hospital's low-income senior-citizen population, and the latter the hospital's low-income non-senior population.</p>
+<p>This case raises a technical but important question about the Medicare fraction. The statutory description of that fraction refers to “the number of [a] hospital's patient days” attributable to low-income patients “who (for such days) were entitled to benefits under part A of [Medicare].” 42 U. S. C. § 1395ww(d)(5)(F)(vi)(I). According to the Department of Health and Human Services (HHS), a person is “entitled to [Part A] benefits” under the statute if he qualifies for the Medicare program—essentially, if he is over 65 or disabled. That remains so even when Medicare is not paying for part or all of his hospital stay—for example, because a private insurer is legally responsible or because he has used up his allotted coverage. Today, we approve HHS's understanding of the Medicare fraction.</p>
+<h3 class="oh">I</h3>
+<p>The Medicare program provides Government-funded health insurance to over 64 million elderly or disabled Americans. (The vast majority of that number are senior citizens.) When a person turns 65 or has received federal disability benefits for 24 months, he automatically (<em>i. e.</em>, without application or other filing) becomes “entitled” to benefits under Medicare Part A. §§ 426(a)–(b)<em>.</em> The most significant Part A benefit is coverage for inpatient hospital treatment; Part A also covers associated physician and skilled nursing services. See § 1395d(a); HHS, CMS Ruling No. CMS–1498–R, p. 10 (Apr. 28, 2010), https://www.cms.gov/ <span class="pg" id="s3-p429" title="page 429 of the original">429</span>regulations-and-guidance/guidance/rulings/downloads/ cms1498r.pdf (CMS–1498–R). In addition, entitlement to Part A generally enables a patient to enroll (if he wishes) in Medicare's other programs: Part B's coverage for outpatient care; Part C's coverage through privately administered Medicare Advantage plans; and Part D's coverage for prescription drugs. See §§ 1395<em>o</em>(a)(1), 1395w–21(a)(3), 1395w–101(a)(3)(A).</p>
+<p>The Medicare program pays a hospital a fixed rate for treating each Medicare patient, based on the patient's diagnosis and regardless of the hospital's actual costs. §§ 1395ww(d)(1)–(4). The rates are designed to reflect the amounts an efficiently run hospital, in the same region, would expend to treat a patient with the same diagnosis. See 42 CFR § 412.2 (2022). If the hospital spends anything more, it suffers a financial loss. The flat-rate payment system thus gives hospitals an incentive to provide efficient levels of medical service.</p>
+<p>But Congress, recognizing complexity in healthcare, provided for various hospital-specific rate adjustments—including the one at issue here for treating low-income patients. The “disproportionate share hospital” (DSH) adjustment gives hospitals serving an “unusually high percentage of low-income patients” enhanced Medicare payments. <em>Sebelius</em> v. <em>Auburn Regional Medical Center</em>, 568 U. S. 145, 150 (2013). The mark-up reflects that low-income individuals are often more expensive to treat than higher income ones, even for the same medical conditions. In compensating for that disparity, the DSH adjustment encourages hospitals to treat low-income patients.</p>
+<p>To calculate a hospital's DSH adjustment, HHS adds together two statutorily described fractions, usually called the Medicare fraction and the Medicaid fraction. Those fractions are designed to capture two different low-income populations that a hospital serves. The <em>Medicare</em> fraction represents the proportion of a hospital's Medicare patients who <span class="pg" id="s3-p430" title="page 430 of the original">430</span>have low incomes, as identified by their entitlement to supplementary security income (SSI) benefits. SSI is a “welfare program” providing benefits to “financially needy individuals” who (like Medicare patients generally) are over 65 or disabled. <em>Bowen</em> v. <em>Galbreath</em>, 485 U. S. 74, 75 (1988); see §§ 1382(a)(1), 1382c(a)(1). The <em>Medicaid</em> fraction represents the proportion of a hospital's patients who are not entitled to Medicare and have low incomes, as identified by their eligibility for Medicaid. The Medicaid program provides health insurance to all low-income individuals, regardless of age or disability. See § 1396d(a). So at a high level of generality, the Medicare fraction is a measure of a hospital's senior (or disabled) low-income population, while the Medicaid fraction is a measure of a hospital's non-senior (except for disabled) low-income population.</p>
+<p>With that under your belt, you might be ready to absorb the relevant statutory language (but don't bet on it). The Medicare fraction is described as:</p>
+<blockquote>
+<p>“[a] fraction (expressed as a percentage), the numerator of which is the number of [a] hospital's patient days for [the fiscal year] which were made up of patients who (for such days) were entitled to benefits under part A of [Medicare] and were entitled to [SSI] benefits[ ], and the denominator of which is the number of such hospital's patient days for such fiscal year which were made up of patients who (for such days) were entitled to benefits under [Medicare] part A.” § 1395ww(d)(5)(F)(vi)(I).</p>
+</blockquote>
+<p class="cont">That is a mouthful (and without the brackets, it's even worse). So again, in general terms: The numerator is the number of patient days attributable to Medicare patients who are poor. The denominator is the number of patient days attributable to all Medicare patients. Divide the former by the latter to get the fraction “expressed as a percentage.” <em>Ibid.</em></p>
+<p><span class="pg" id="s3-p431" title="page 431 of the original">431</span>And similarly for the Medicaid fraction. That fraction is described as:</p>
+<blockquote>
+<p>“[a] fraction (expressed as a percentage), the numerator of which is the number of [a] hospital's patient days for [the fiscal year] which consist of patients who (for such days) were eligible for medical assistance under [Medicaid], but who were not entitled to benefits under part A of [Medicare], and the denominator of which is the total number of the hospital's patient days for such [fiscal year].” § 1395ww(d)(5)(F)(vi)(II).</p>
+</blockquote>
+<p class="cont">That too is a lot to digest. So again, in general terms: The numerator is the number of patient days attributable to non-Medicare patients who are poor. The denominator is the total number of patient days. Divide the former by the latter to get the second percentage the DSH calculation requires.<sup class="fnr"><a id="s3-r1" href="#s3-n1">1</a></sup></p>
+<p>Once both percentages have been calculated, they are added together to produce the “disproportionate-patient percentage.” That percentage determines whether a hospital will receive a DSH adjustment, and if so, how large it will be. The combined percentage must usually equal or exceed 15% for a hospital to get an adjustment. See § 1395ww(d)(5)(F)(v). So, for example, if a hospital's Medicare<span class="pg" id="s3-p432" title="page 432 of the original">432</span> fraction is 10% and its Medicaid fraction is 5%, then the hospital would qualify for increased rates. The higher the disproportionate-patient percentage goes, the greater the rate mark-up that the hospital will receive. §§ 1395ww(d) (5)(F)(vii)–(xiv).</p>
+<p>This case is about how to count patients who qualify for Medicare Part A—because they are over 65 or disabled— at times when the program is not paying for their hospital treatment. Such non-payment may occur for a number of reasons. For one, Medicare usually pays for only the first 90 days of a hospital stay associated with a single “spell of illness.” See § 1395d; 42 CFR § 409.61(a). If a patient's stay for an illness exceeds that limit, his coverage is “exhausted.” § 409.61(a). For another, Medicare pays for hospital treatment only once a patient has used up other medical insurance. See § 1395y(b)(2)(A). So if a patient has a private insurance plan, or is injured by a tortfeasor with insurance, Medicare will not pay unless and until that other policy runs dry. Limits like those prompt the question presented here: Are patients whom Medicare insures but does not pay for on a given day “entitled to [Medicare Part A] benefits,” for purposes of computing a hospital's disproportionate-patient percentage? §§ 1395ww(d)(5)(F)(vi)(I–II).</p>
+<p>An HHS regulation, issued in 2004, says those patients remain so entitled. See 69 Fed. Reg. 48916. Under the regulation, whether Medicare is actually paying for a patient's hospital treatment is irrelevant. So, for example, it does not matter that a patient has exhausted his 90 days of coverage for an illness, or that a private insurer is paying for his hospital stay. As long as the patient meets the basic statutory criteria for Medicare (<em>i. e.</em>, he is over 65 or disabled), then the patient counts in the denominator and, if he is poor, in the numerator of the Medicare fraction (as “entitled to [Medicare Part A] benefits”). See <em>id.</em>, at 49098–49099. And by the same token, he does <em>not</em> count in the numerator of the Medicaid fraction (which includes only <span class="pg" id="s3-p433" title="page 433 of the original">433</span>those “not entitled to [Medicare Part A] benefits”). See <em>ibid</em>. As HHS explained in 2004, the effect of the regulation varies depending on the makeup of a hospital's patient population. See <em>ibid</em>. But for most hospitals, the regulation has worked to decrease DSH payments, because as beneficiaries are added to the Medicare fraction's denominator (even though poor beneficiaries are also added to its numerator), a hospital's Medicare fraction generally (though not always) goes down. See Letter from E. Prelogar, Solicitor General, to S. Harris, Clerk of Court (Nov. 23, 2021).</p>
+<p>Respondent Empire Health Foundation challenged the regulation as inconsistent with the statutory fraction descriptions, and the Court of Appeals for the Ninth Circuit agreed. See <em>Empire Health Foundation</em> v. <em>Azar</em>, 958 F. 3d 873 (2020). The court focused on the statute's use of two different phrases: “entitled to [Medicare Part A] benefits” and (in the Medicaid fraction alone) “eligible for [Medicaid] assistance.” <em>Id.</em>, at 885. Relying on Circuit precedent, the court read the latter, “eligible” phrase to “mean that a patient simply meets the Medicaid statutory criteria”—regardless of whether “Medicaid actually paid” for a given service on a given day. <em>Ibid.</em> That approach, of course, is analogous to the one the HHS regulation adopts for Medicare beneficiaries. But the Ninth Circuit reasoned that the statutory language relating to Medicare is different: It asks whether a person is “entitled to” (not “eligible for”) benefits. And the word “entitled,” the court held (relying on the same precedent), “mean[s] that a patient has an `absolute right . . . to payment.' ” <em>Ibid.</em> (ellipsis in original). So even if a patient is over 65, he is not “entitled to [Medicare Part A] benefits” within the meaning of the statute for any hospital stay, or part thereof, Medicare is not paying for.</p>
+<p>As the Ninth Circuit recognized, two other Courts of Appeals had deferred to HHS's contrary view of the statute and upheld the regulation. See <em>Metropolitan Hospital</em> v. <em>Department of Health and Human Servs.</em>, 712 F. 3d 248 (CA6 <span class="pg" id="s3-p434" title="page 434 of the original">434</span>2013); <em>Catholic Health Initiatives Iowa Corp.</em> v. <em>Sebelius</em>, 718 F. 3d 914 (CADC 2013). We granted certiorari to resolve the conflict. See 594 U. S. ––– (2021).<sup class="fnr"><a id="s3-r2" href="#s3-n2">2</a></sup></p>
+<h3 class="oh">II</h3>
+<p>HHS's regulation correctly construes the statutory language at issue. The ordinary meaning of the fraction descriptions, as is obvious to any ordinary reader, does not exactly leap off the page. See <em>Catholic Health Initiatives</em>, 718 F. 3d, at 916 (The “language is downright byzantine”). The provisions are technical: They call to mind Justice Frankfurter's injunction that when a statute is “addressed to specialists, [it] must be read by judges with the minds of the specialists.” Some Reflections on the Reading of Statutes, 47 Colum. L. Rev. 527, 536 (1947). But when read in that suitable way, the fraction descriptions disclose a surprisingly clear meaning—the one chosen by HHS. The text and context support the agency's reading: HHS has interpreted the words in those provisions to mean just what they mean throughout the Medicare statute. And so too the structure of the DSH provisions supports HHS: Counting everyone who qualifies for Medicare benefits in the Medicare fraction—and no one who qualifies for those benefits in the Medicaid fraction—accords with the statute's attempt to capture, through two separate measurements, two different segments of a hospital's low-income patient population.</p>
+<h3 class="oh">A</h3>
+<p>Speaking of twos, Empire's textual argument also has a bifurcated structure—but neither part can produce its desired result. Empire primarily contends, echoing the Ninth Circuit, that “different words [mean] different things” when <span class="pg" id="s3-p435" title="page 435 of the original">435</span>used in a single statute—and so “entitled” means something different from “eligible.” Brief for Respondent 22. To be “eligible” for a benefit, Empire says, is to be “qualified” to seek it; to be “entitled” to a benefit means instead to have an “absolute right” to its payment. <em>Id.</em>, at 4, 30. But that reading, even if plausible in the abstract, does not work in the Medicare statute. There, “entitled to benefits” is essentially a term of art, used over and over to mean qualifying (or, yes, being eligible) for benefits—<em>i. e.</em>, being over 65 or disabled. And in the end, Empire basically concedes that point. It must devise a way to give “entitled to benefits” a different meaning in the fraction descriptions than the phrase has everywhere else in the Medicare law. See Tr. of Oral Arg. 37–41. So Empire shifts gears, relying now on the parenthetical phrase “(for such days)” to do its work—to transform the usual statutory meaning of “entitled to benefits” to something different and novel. See <em>ibid.</em>; § 1395ww (d)(5)(F)(vi)(I) (“patients who (for such days) were entitled to [Medicare Part A] benefits”). (The dissent, for its part, focuses most of its energies on this latter stage of Empire's argument.) But those three little words do not accomplish what Empire would like, having the much less radical function of excluding days of a patient's hospital stay before he qualifies for Medicare (<em>e. g.</em>, turns 65). So contrary to Empire's claim, being “entitled” to Medicare benefits still means—in the fraction descriptions, as throughout the statute—meeting the basic statutory criteria, not actually receiving payment for a given day's treatment.</p>
+<h3 class="oh">1</h3>
+<p>First and foremost, the Medicare statute explicitly identifies which individuals are “entitled to hospital insurance benefits under part A”—all people who meet the basic statutory criteria. §§ 426(a)–(b). “Every individual,” the law states, who “has attained age 65” and is entitled to ordinary social security payments “shall be entitled to” Medicare Part A <span class="pg" id="s3-p436" title="page 436 of the original">436</span>benefits. § 426(a). So too, “every individual” under age 65 who has been entitled to federal disability benefits for at least 24 months “shall be entitled” to Medicare Part A benefits. § 426(b). The “[e]ntitlement to hospital insurance benefits” (as the section caption reads) is “automatic”: Age or disability makes a person “entitled” to Part A benefits without an application or anything more. § 426; <em>Hall</em> v. <em>Sebelius</em>, 667 F. 3d 1293, 1294–1296 (CADC 2012). Turn 65 or receive disability benefits for 24 months, and you have an entitlement to Part A benefits—because the latter is, according to the statute, simply a legal status arising from the former.<sup class="fnr"><a id="s3-r3" href="#s3-n3">3</a></sup></p>
+<p>That broad meaning of “entitlement” coexists with limitations on payment, as several statutory provisions show. The entitlement to <em>benefits</em>, the statute repeatedly says, is an entitlement to <em>payment under specified conditions</em>. To quote one provision: “entitlement of an individual” to Medicare Part A benefits “consist[s] of entitlement to have payment made under, and subject to the limitations in, part A.” § 426(c)(1); see § 1395d(a) (similarly stating that the entitlement to benefits entails the receipt of “payment[s] . . . subject to the provisions of this part”). Those limits on payment include, as described earlier, the 90-day hospital-stay cap. See <em>supra</em>, at 432. And indeed the statute twice refers to patients who are “entitled to benefits under part A but <span class="pg" id="s3-p437" title="page 437 of the original">437</span>ha[ve] exhausted benefits for inpatient hospital services.” §§ 1395<em>l</em>(a)(8)(B)(i), 1395<em>l</em>(t)(1)(B)(ii). Under Empire's reading, that statement makes no sense: A patient is not, Empire argues, “entitled to benefits” when the statute precludes payment. See <em>supra</em>, at 434–435. But the statute says otherwise. It considers those who have exhausted their coverage (and so cannot receive further payments for a hospital stay) still “entitled to [Part A] benefits.”</p>
+<p>In thus describing the Part A entitlement, the Medicare statute reflects the complexity of health insurance. Consider your own health plan (maybe it <em>is</em> Medicare). You might have hit some limit on coverage as to one medical service—let's say, eye care. But you're still insured: Your policy will pay for more eye care in the next coverage period and meanwhile will pay for your knee replacement. So it is with Medicare Part A. As the 2004 regulation explains, patients “who have exhausted their Medicare Part A inpatient coverage may still be entitled to other Part A benefits.” 69 Fed. Reg. 49098. Medicare Part A also covers, “for example, certain physician services and skilled nursing services” outside the hospital setting. See CMS–1498–R, at 10. And even as to hospital care, another 90 days of coverage will be available for another illness. See <em>supra</em>, at 432. For that reason among others, HHS has noted, the stoppage of payment for any given service cannot be thought to affect the broader statutory entitlement to Part A benefits. See 69 Fed. Reg. 49098. That entitlement arises when a person meets the basic statutory qualifications and (unless a disability diminishes) never goes away.</p>
+<p>If “entitled to [Part A] benefits” instead bore Empire's meaning, Medicare beneficiaries would lose important rights and protections. Perhaps most significantly, a patient could lose his ability to enroll in other Medicare programs whenever he lacked a right to Part A payments for hospital care. As noted earlier, a person's entitlement to Part A benefits is usually the predicate for his enrollment in Part B (covering <span class="pg" id="s3-p438" title="page 438 of the original">438</span>outpatient care), Part C (providing coverage through privately managed plans), or Part D (offering prescription-drug benefits). See §§ 1395<em>o</em>(a), 1395w–21(a)(3), 1395w–101(a)(3) (A); <em>supra</em>, at 429. So if (as Empire urges) a hospitalized patient is not “entitled to [Part A] benefits” on any day he cannot get Part A payments, then he could be locked out of the benefits of Parts B through D at that time. Consider what that might mean in the real world: A Medicare patient in the hospital for longer than 90 days—by definition, a very ill person—could not enroll in Part D's prescription-drug coverage. Congress could not have wanted—and in fact did not provide for—that result.</p>
+<p>Empire's interpretation would also make a hash of provisions designed to inform Medicare beneficiaries of their benefits. The statute requires annual notice to individuals “entitled to benefits under part A” concerning all available program benefits, including any “limitations on payment.” § 1395b–2(a). Under Empire's reading, that notice requirement would phase in and out depending on whether Medicare Part A was currently paying for the individual's hospital treatment. HHS, for example, would have no obligation to inform a patient of benefits when a private insurer was paying for his hospital care, even if that policy would soon run out and Medicare would assume the coverage. Once again, Congress would not have drafted such an on-again, off-again notice requirement.</p>
+<p>So too, Empire's reading of “entitled to [Part A] benefits” would subvert a provision to protect beneficiaries from misleading marketing materials. Under the statute, an insurer offering a Part C (privately managed Medicare) plan may not distribute advertising materials to eligible beneficiaries unless the materials are first cleared by HHS. See § 1395w–21(h)(1). Eligible beneficiaries are individuals “entitled to benefits under Part A” and enrolled in Part B. § 1395w–21(a)(3). If Empire is right about what the “entitled to” phrase means, an insurer could send whatever it wanted to <span class="pg" id="s3-p439" title="page 439 of the original">439</span>a patient who at that time lacked a right to Part A payments. But such a person might well be interested in eventually enrolling in a Part C plan—and he is no less vulnerable to deceptive marketing than anyone else.</p>
+<p>And the problems with Empire's interpretation do not stop there. The Sixth and D. C. Circuits have cataloged several other statutory provisions that Empire's reading would render unworkable or unthinkable or both. See <em>Metropolitan Hospital</em>, 712 F. 3d, at 260; <em>Northeast Hospital Corp.</em> v. <em>Sebelius</em>, 657 F. 3d 1, 6–11 (CADC 2011). We could spell out each one in painful detail, but we think the above should suffice. Applying Empire's reading of “entitled to [Part A] benefits” across the Medicare statute would diminish the beneficiary protections Congress wrote into law. Those safeguards would apply or not apply, or fluctuate constantly between the two, based on the happenstance of whether Medicare paid for hospital care on a given day. Once again, that is not the statute Congress wrote.</p>
+<h3 class="oh">2</h3>
+<p>Faced with these many provisions, Empire swerves. Empire effectively (if reluctantly) concedes that its reading of “entitled to [Part A] benefits”—again, to have an “absolute right” to Part A payments—cannot be applied throughout the Medicare statute. Brief for Respondent 30; see <em>id.</em>, at 41–42; Tr. of Oral Arg. 37–39. There, over and over—and contra the main thrust of Empire's arguments—the concepts of entitlement and eligibility are the same. So Empire must come up with a way of converting the ordinary meaning of “entitled” in the Medicare law to something different in its fraction provisions. The lever Empire proposes to use for that purpose is the parenthetical phrase “(for such days).” See Tr. of Oral Arg. 38–39 (“[T]he key distinction” is “for such days,” which is “language that's not found anywhere else”). Empire argues that when “entitled” is married to “(for such days)”—recall the whole phrase, “patients who (for such days) were entitled to [Part A] benefits”—the idea of <span class="pg" id="s3-p440" title="page 440 of the original">440</span>entitlement morphs. § 1395ww(d)(5)(F)(vi)(I). Now it does not mean meeting Medicare's statutory (age or disability) criteria on the days in question, but instead means actually receiving Medicare payments. (The dissent makes much the same argument.)</p>
+<p>But we cannot understand Congress to have changed the statute's consistent meaning of “entitled to benefits” simply by adding “(for such days).” That slight phrase is incapable of bearing so much interpretive weight. If Congress “does not alter the fundamental[s]” of a statutory scheme “in vague terms or ancillary provisions,” then it ordinarily does not do so in parentheticals either. <em>Whitman</em> v. <em>American Trucking Assns., Inc.</em>, 531 U. S. 457, 468 (2001). To the contrary, a parenthetical is “typically used to convey an aside or afterthought.” <em>Boechler</em> v. <em>Commissioner</em>, 596 U. S. 199, 206 (2022) (internal quotation marks omitted). And nothing about the “(for such days)” parenthetical signals anything different. Empire asks us to read it as transforming the uniform statutory meaning of “entitled to benefits” for the fraction provisions alone. But if Congress had wanted to accomplish that unexpected object, it would simply have said so. Or else, to make only paid-for days count, it would have dropped the language of entitlement altogether. What it would not have done is upend the settled meaning of that language, in this one place, through so subtle, indirect, and opaque a mechanism.</p>
+<p>The “(for such days)” phrase instead works as HHS says: hand in hand with the ordinary statutory meaning of “entitled to [Part A] benefits.” The parenthetical no doubt tells HHS to ask about a patient on a given day. But the query the agency must make is not whether that patient on that day has received Part A payments; the query is, consistent with what “entitled” means all over the statute, whether that patient on that day is qualified to do so. Suppose, for example, that a patient turns 65 halfway through a 30-day hospital stay. HHS will then count only 15 days of his stay <span class="pg" id="s3-p441" title="page 441 of the original">441</span>when computing the Medicare fraction. Or suppose, similarly, that midway through his stay, a patient begins to qualify as disabled—because, under the statutory definition, he has reached his 25th month of federal disability benefits. Then, too, only the second half of the patient's stay would go into the fraction—because only then has he met the criteria for benefits.</p>
+<p>Empire complains that the phrase “(for such days),” viewed in that way, does too “little work.” Brief for Respondent 38; Tr. of Oral Arg. 40–41. But it does more than enough. Some 10,000 people turn 65 in this country every day, thus qualifying for Medicare coverage. See American Assn. of Retired Persons, The Aging Readiness &amp; Competitiveness Report: United States 2, https://arc.aarpinter national.org/ File%20Library/ Full%20Reports/ARC-Report-United-States.pdf. Many other individuals daily attain their 25th month on federal disability benefits. It is natural for Congress to have thought of those facts when devising the fractions. By the way, said Congress (in what truly is an “aside or afterthought”): If someone turns 65 during the year the fraction covers, make sure to exclude his pre-birthday hospital days. <em>Boechler</em>, 596 U. S., at 206 (internal quotation marks omitted). Only count the days after he qualifies for Medicare Part A—when, under the statute's constant meaning, he is “entitled to [Part A] benefits.” <sup class="fnr"><a id="s3-r4" href="#s3-n4">4</a></sup></p>
+<h3 class="oh"><span class="pg" id="s3-p442" title="page 442 of the original">442</span>B</h3>
+<p>The structure of the relevant statutory provisions reinforces our conclusion that “entitled to [Part A] benefits” means qualifying for those benefits, and nothing more. As earlier explained, the statute is designed to recompense hospitals for serving low-income patients, who are comparatively more expensive to treat. See <em>supra</em>, at 429. The statute determines the appropriate payment (if any) by measuring, through two separate fractions, two separate populations: the low-income Medicare population and the low-income non-Medicare population. See <em>supra</em>, at 429–430.<sup class="fnr"><a id="s3-r5" href="#s3-n5">5</a></sup>(Because the vast majority of Medicare patients are over 65, that roughly translates into the low-income senior population and the low-income non-senior population.) Those populations, taken together, account for all the low-income patients a hospital treats.</p>
+<p>HHS's reading of “entitled” comports with the statute's two-population structure. A low-income Medicare patient always counts in the Medicare fraction. That is so regardless of whether the Medicare program is actually paying for a day of his care—because that fact has no relationship to his financial status. The Medicare fraction, as calculated by HHS, thus captures the entire low-income Medicare (<em>i. e.</em>, senior) population. And correlatively, the Medicaid fraction captures the entire low-income non-Medicare (<em>i. e.</em>, non-senior) population. The binary dividing line HHS uses—do <span class="pg" id="s3-p443" title="page 443 of the original">443</span>you qualify for Medicare?—mirrors the statute's binary, population-focused framework. All low-income people fit naturally into one or the other box, with the sum of the two leaving no one out.</p>
+<p>By contrast, Empire's view fits poorly with the bifurcated, population-based statutory structure. Again, its who-paid-for-a-day-of-care test has no relationship to a patient's financial status. So on Empire's view, a patient could phase in and out of the Medicare fraction even though his income remains the same. Empire responds by asserting that any low-income person excluded from the Medicare fraction (say, because of exhaustion of benefits) would get counted instead in the Medicaid fraction. See Brief for Respondent 15–16, 50–51. But even if that is true—we express our doubts below—Empire's scheme would result in patients ping-ponging back and forth between the two fractions based on the happenstance of actual Medicare payments, sometimes during a single hospital stay. That scheme is of course harder to administer than HHS's. And still more, it does not reflect the statute's dichotomy between two discrete low-income populations, each of which counts (but counts differently) toward setting a hospital's DSH rate. See <em>supra</em>, at 431, n. 1, 442, n. 5.</p>
+<p>In any event, Empire is too quick to claim that those who (on its view) are tossed from the Medicare fraction for non-income-based reasons would still wind up in the Medicaid fraction. Recall here the role Empire says the phrase “(for such days)” plays. See <em>supra</em>, at 439–441. According to Empire's ultimate argument, that phrase is what converts the ordinary statutory meaning of “entitled to benefits” (<em>i. e.</em>, qualifying for Medicare) to a special meaning (<em>i. e.</em>, actually receiving payments). So where the phrase “(for such days)” does not appear, the usual meaning of “entitled” should govern. Now look again at the description of the Medicaid fraction. It counts “patients [i] who (for such days) were eligible for [Medicaid], but [ii] who were not entitled to benefits <span class="pg" id="s3-p444" title="page 444 of the original">444</span>under part A [of Medicare].” § 1395ww(d)(5)(F)(vi)(II). In that description, “for such days” does <em>not</em> modify clause [ii]. So the “not entitled” phrase in that clause should mean (consistent with the rest of the statute) not qualifying for Medicare. But those whom Empire's view would oust from the Medicare fraction—say, because of exhaustion—<em>do</em> qualify for Medicare. They thus fall outside clause [ii]—and outside the Medicaid fraction. The upshot is that, under Empire's reading, a low-income patient who, say, has exhausted his coverage will not get counted at all. But that person remains just as low income as he ever was, imposing just as high costs on the hospital treating him. His exclusion demonstrates, if anything more needs to, the error of Empire's reading.</p>
+<p>Empire's only response is to insist that its interpretation has to be right because it usually (though not always) leads to higher DSH payments for hospitals. See Brief for Respondent 33–35; <em>supra</em>, at 432–433. But the point of the DSH provisions is not to pay hospitals the most money possible; it is instead to compensate hospitals for serving a disproportionate share of low-income patients. And Empire's reading excels only by the former measure, not by the latter one. As just shown, Empire's actual-payment test counts fewer, not more, of the low-income patients the DSH provisions care about. The reason that approach still benefits many hospitals is that it deflates the denominator of the Medicare fraction. Consider a wealthy 70-year-old patient who has exhausted Medicare benefits—or, as is often true, has a private insurance policy. HHS's view would exclude him from the Medicare fraction's numerator (because he is wealthy) but keep him in the denominator (because he is over 65). By contrast, Empire's view would exclude him from both the numerator and the denominator—the latter because he is not actually receiving Medicare payments. That move increases payments to hospitals—but only because it fails to <span class="pg" id="s3-p445" title="page 445 of the original">445</span>capture high-income Medicare patients, not because it better captures low-income ones. Or said otherwise, it increases payments because it distorts what the Medicare fraction is designed to measure—the share of low-income Medicare patients relative to the total.</p>
+<h3 class="oh">III</h3>
+<p>Text, context, and structure all support calculating the Medicare fraction HHS's way. In that fraction, individuals “entitled to [Medicare Part A] benefits” are all those qualifying for the program, regardless of whether they are receiving Medicare payments for part or all of a hospital stay. That reading gives the “entitled” phrase the same meaning it has throughout the Medicare statute. And it best implements the statute's bifurcated framework by capturing low-income individuals in each of two distinct populations a hospital serves.</p>
+<p>For those reasons, we reverse the judgment of the Court of Appeals and remand the case for further proceedings consistent with this opinion.</p>
+<p><em>It is so ordered.</em></p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li id="s3-n1" value="1"><p>You may have noticed that the denominator of the Medicare fraction (the number of patient days attributable to Medicare patients) is smaller than the denominator of the Medicaid fraction (the total number of patient days). That means each low-income patient day included in the Medicare fraction will count for more than each low-income patient day included in the Medicaid fraction. So, to use an overly simplified example, a hospital with 100 of the former will get a larger rate adjustment than a hospital with 100 of the latter. Although Congress did not explain that difference, it presumably reflects the Medicare-centric perspective of what is, after all, a Medicare payment scheme. (The Medicaid statute separately requires States to make DSH payments, using a different formula that focuses on a hospital's Medicaid population. See 42 U. S. C. § 1396r–4. But that statutory provision is not at issue here.) <a class="back" href="#s3-r1" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n2" value="2"><p>This case does not raise the question whether HHS has properly interpreted the phrase “entitled to [SSI] benefits” in the Medicare fraction. Accordingly, we express no view on that issue. <a class="back" href="#s3-r2" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n3" value="3"><p>Another way of putting the point is to say that the Medicare statute uses the term “entitled” to benefits in the same way as the Medicaid statute uses the term “eligible” for benefits. Compare 42 U. S. C. § 426 (“entitled” in Medicare context) with, <em>e. g.</em>, §§ 1396, 1396d (“eligible” in Medicaid context). That difference in overall statutory terminology is mirrored in the fraction provisions—“entitled to [Medicare Part A] benefits” and “eligible for [Medicaid] assistance.” §§ 1395ww(d)(5)(F)(vi)(I–II). As the D. C. Circuit put the point: “Congress has, throughout the various Medicare and Medicaid statutory provisions, consistently used the words `eligible' to refer to potential Medicaid beneficiaries and `entitled' to refer to potential Medicare beneficiaries.” <em>Northeast Hospital Corp.</em> v. <em>Sebelius</em>, 657 F. 3d 1, 12 (2011). Congress simply followed suit when referring to the two programs in the fraction provisions. <a class="back" href="#s3-r3" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n4" value="4"><p>The dissent has another complaint: that from 1986 until 2003 HHS read the “for such days” phrase in the Medicare fraction just as Empire does, and that the Department changed its view merely to reduce payments to hospitals. See <em>post</em>, at 446–447 (opinion of <span class="sc">Kavanaugh,</span> J.). But that is an incomplete—leading to an inaccurate—picture. From 1986 to 1997, HHS read <em>both</em> the Medicare <em>and</em> the Medicaid fractions as counting only days actually paid for. The effect on the Medicaid side was to substantially depress payments to hospitals (because many low-income patients were excluded from the numerator, while the denominator remained the same, see <em>supra</em>, at 431, and n. 1). Hospitals sued, and four Circuit Courts found that HHS's understanding of the “for such days” language in the Medicaid fraction was wrong. See Brief for United States 12–13 (collect ing citations). In response, HHS immediately corrected its approach to the Medicaid fraction—which significantly raised payments to hospitals. Some five years later, HHS issued a rule to bring its reading of the same language in the Medicare fraction into line. The history shows, then, that HHS “changed course” not “to save money” but to comply with the law. <em>Post</em>, at 446. <a class="back" href="#s3-r4" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n5" value="5"><p>As noted earlier, see <em>supra</em>, at 431, n. 1, the two populations (because of their fractions' different denominators) are differently weighted in calculating DSH payments. All else equal, a hospital receives greater compensation for low-income individuals in the Medicare population than for low-income individuals in the non-Medicare population. <a class="back" href="#s3-r5" aria-label="Back to the text">↩</a></p></li>
+</ol></aside></section>
+<section id="s4" class="op op-dissenting"><h2>Justice Kavanaugh, dissenting</h2>
+<p class="byline">Justice Kavanaugh, with whom The Chief Justice, Justice Alito, and Justice Gorsuch join, dissenting.</p>
+<p>Under the Medicare statute, HHS pays higher reimbursements to hospitals that serve a significant number of low-income patients. The statutory formula for determining exactly how much HHS will pay to those hospitals is mind-numbingly complex. But embedded within the complicated overall formula are various subsidiary calculations, some of which are relatively straightforward.</p>
+<p>This case concerns one of those straightforward subsidiary calculations. Consistent with traditional insurance and coordination-of-benefits principles, Medicare by statute cannot pay for a patient's hospital care if, for example, the patient<span class="pg" id="s4-p446" title="page 446 of the original">446</span> is covered by private insurance, the patient has exhausted her Medicare benefits, or a third-party tortfeasor is liable for the patient's care. The retrospective reimbursement question raised by the statutory provision in this case is this: Was a patient “entitled to” have payment made by Medicare for a particular day in the hospital if the patient by statute could not (and did not) have payment made by Medicare for that day? In my view, the answer to that narrow question is straightforward and commonsensical: No.</p>
+<p>Importantly, from the time the statute was enacted in 1986 until 2003, HHS interpreted this statutory provision in the exact same way that I do. See 51 Fed. Reg. 31460− 31461 (1986); Brief for Petitioner 32−33. Then in 2004, HHS abruptly changed course. Why? Presumably to save money. HHS was trying hard to find ways to contain Medicare costs in light of increasing Medicare expenditures and the country's fiscal situation. To that end, HHS's new 2004 interpretation of this statutory provision had the downstream effect of significantly reducing HHS's reimbursements to hospitals that serve low-income patients.</p>
+<p>Whatever HHS's precise motivations for the 2004 change, we now must focus on the statutory text and HHS's current interpretation of it. To begin, both parties offer a dog's breakfast of arguments about broad statutory purposes, real-world effects, surplusage, structure, consistent usage, inconsistent usage, agency deference, and the like. But this case is resolved by the most fundamental principle of statutory interpretation: Read the statute.</p>
+<p>The relevant text of this reimbursement provision refers to “the number of . . . patient days . . . which were made up of patients who (for such days) were entitled to benefits under part A.” 42 U. S. C. § 1395ww(d)(5)(F)(vi)(I). Importantly, the statute elsewhere says that “[t]he benefits provided” under Medicare Part A consist of a patient's “entitlement to <em>have payment made</em> on his behalf . . . (subject to the <span class="pg" id="s4-p447" title="page 447 of the original">447</span>provisions of this part).” § 1395d(a) (emphasis added); see also § 426(c) (“entitlement” means “entitlement to <em>have payment made</em> under, and subject to the limitations in, part A” (emphasis added)).</p>
+<p>Zero in on the phrases “entitlement to have payment made” and “for such days.” In my view (and in HHS's view from 1986 to 2003), a patient was entitled to have payment made by Medicare for particular days in the hospital if Medicare was obligated to pay for the patient's care for those days. Stated the other way, a patient was <em>not</em> entitled to have payment made by Medicare for particular days in the hospital if the patient by statute could not (and did not) have payment made by Medicare for those days—for example, because the patient had other insurance, the patient had exhausted his Medicare benefits, or a third-party tortfeasor was paying. Simple enough.</p>
+<p>To be sure, patients who satisfy certain criteria (for example, those who are age 65 or older) are generally “entitled” to Medicare hospitalization benefits. No one disputes that point. But this reimbursement provision looks to whether the patient was entitled to <em>have payment made</em> by Medicare <em>for a particular day</em> in the hospital. And the answer to that question is no if Medicare by statute could not (and did not) pay for that day in the hospital.</p>
+<p>Suppose that a college says that your academic record entitles you to a scholarship for next year if your family's income is under $60,000, unless you have received another scholarship. And suppose that your family's income is under $60,000, but you have received another scholarship. Are you still entitled to the first scholarship? Of course not. So too here.</p>
+<p>The Court concludes otherwise, mainly by (i) saying that “entitled to benefits” is a term of art in the Medicare statute, (ii) diminishing the value of the statutory phrase “(for such days),” in part because the phrase appears in a parenthetical, <span class="pg" id="s4-p448" title="page 448 of the original">448</span>and (iii) invoking a parade of horribles about what could happen to other provisions of the Medicare statute if the Court were to read this provision as I would.</p>
+<p>With respect, none of that adds up. <em>First</em>, although the Medicare statute generally uses “entitled” to refer to those who meet the basic statutory criteria for Medicare benefits, the retrospective reimbursement provision at issue here focuses laser-like on whether the patient was actually entitled to have payment made by Medicare for particular days in the hospital. A patient cannot be simultaneously entitled and disentitled to have payment made by Medicare for a particular day in the hospital.</p>
+<p><em>Second</em>, contrary to the Court's suggestion, we cannot brush aside the statutory phrase “(for such days)” simply because that phrase appears in a parenthetical. See <em>Duncan</em> v. <em>Walker</em>, 533 U. S. 167, 174 (2001). Parentheticals can be important, as the Constitution itself makes clear. See, <em>e. g.</em>, Art. I, § 7 (counting days for bill to become law with “(Sundays excepted)”); Art. IV, § 4 (affording federal protection to States on application by the Executive but only “(when the Legislature cannot be convened)”).</p>
+<p><em>Third</em>, properly interpreting this specific reimbursement provision will not “make a hash” of other provisions or render the Medicare statute “unworkable.” <em>Ante</em>, at 438−439. We need not speculate about that point: For nearly two decades from the time that the statute was enacted in 1986 through 2003, HHS interpreted this reimbursement provision in the same way that I do. And HHS did so without any noted problems for other provisions in the Medicare statute.</p>
+<p>To sum up: A patient was not entitled to have payment made by Medicare “for such days” in the hospital if the patient by statute could not (and thus did not) have payment made by Medicare for those days—for example, because private insurance was already covering the patient's care, or the patient had exhausted his Medicare benefits. Both statutory<span class="pg" id="s4-p449" title="page 449 of the original">449</span> text and common sense point to that conclusion. HHS's contrary interpretation boils down to the proposition that a patient can be simultaneously entitled and disentitled to have payment made by Medicare for a particular day in the hospital. That interpretation does not work. And HHS's misreading of the statute has significant real-world effects: It financially harms hospitals that serve low-income patients, thereby hamstringing those hospitals' ability to provide needed care to low-income communities.</p>
+<p>In my view, HHS's 2004 interpretation is not the best reading of this statutory reimbursement provision. I respectfully dissent.</p></section><p class='back'><a href='/opinions/'>&larr; All opinions</a> · <a href='/justices/ot2021.html'>The Justices, October Term 2021 &rarr;</a></p></main></body>
+</html>
+

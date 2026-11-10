@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script async src='/analytics.js'></script><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate icon" href="/favicon.ico" sizes="any"><link rel="alternate" type="application/atom+xml" title="Supreme Court Report" href="/feed.xml"><link rel="alternate" type="application/atom+xml" title="Certiorari grants" href="/grants.xml"><title>United States v. Sanchez-Gomez — Opinion — Supreme Court Report</title><meta name="description" content="The opinion in United States v. Sanchez-Gomez (No. 17-312), decided May 14, 2018: the full text with its footnotes, as a page, a Markdown file and an EPUB."><link rel="canonical" href="https://supremecourt.report/opinions/2017/17-312.html"><meta property="og:site_name" content="Supreme Court Report"><meta property="og:type" content="article"><meta property="og:title" content="United States v. Sanchez-Gomez — Opinion — Supreme Court Report"><meta property="og:description" content="The opinion in United States v. Sanchez-Gomez (No. 17-312), decided May 14, 2018: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta property="og:url" content="https://supremecourt.report/opinions/2017/17-312.html"><meta property="og:image" content="https://supremecourt.report/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Supreme Court Report - docket analytics for the Supreme Court of the United States"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="United States v. Sanchez-Gomez — Opinion — Supreme Court Report"><meta name="twitter:description" content="The opinion in United States v. Sanchez-Gomez (No. 17-312), decided May 14, 2018: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta name="twitter:image" content="https://supremecourt.report/og.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap"><style>
+  :root{--paper:#fdfcfa;--panel:#ffffff;--ink:#1a1a1e;--ink-soft:#484850;--faint:#63636b;--accent:#9c0e3a;--link:#9c0e3a;--rule:#dbd8d2;--nav-max:60rem}
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{font-family:'Newsreader',Georgia,serif;font-size:19px;line-height:1.6;
+    color:var(--ink);background:var(--paper);margin:0;font-feature-settings:'onum' 1}
+  body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
+    opacity:.5;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");}
+  .wrap{max-width:40rem;margin:0 auto;padding:3rem 1.4rem 4rem}
+  .kicker{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 1rem}
+  h1{font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:clamp(2.4rem,7vw,3.6rem);line-height:1;letter-spacing:-.015em;
+    margin:0 0 1rem;color:var(--ink)}
+  h1 em{font-style:italic;font-weight:500;color:var(--accent)}
+  .dek{font-size:1.15rem;line-height:1.5;color:var(--ink-soft);font-style:italic;
+    margin:0 0 1.4rem}
+  .brule{border:0;height:0;border-top:2px solid var(--ink);margin:1.4rem 0 .3rem;
+    position:relative}
+  .brule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+    border-top:1px solid var(--rule)}
+  ul.idx{list-style:none;padding:0;margin:1.6rem 0}
+  ul.idx li{border-bottom:1px solid var(--rule)}
+  /* Whole row is one block-level link: a large, reliable tap target on mobile. */
+  ul.idx a.row{display:flex;justify-content:space-between;align-items:baseline;
+    gap:1rem;padding:.9rem .4rem;text-decoration:none;border:0;color:inherit}
+  ul.idx a.row:hover{background:rgba(156,14,58,.05)}
+  ul.idx .d{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.16rem;
+    color:var(--accent);line-height:1.25}
+  ul.idx a.row:hover .d{text-decoration:underline;text-underline-offset:3px}
+  ul.idx .count{color:var(--faint);font-size:.9rem;font-style:italic;white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  /* A long note (an order list's "3 GVRs / 230 denied / 4 habeas denied /
+     ...", items separated by middots) cannot sit on one line: nowrap made it
+     claim the row and
+     squeezed the title into a column three words wide, and on a phone it ran off
+     the screen. Such a row opts in (meta_wrap): the note wraps, only between its
+     items, and takes at most ~45% of the row, so the title always has the
+     larger share. Under 34rem it drops beneath the title at full width. */
+  /* ("long", not "wrap": .wrap is the page container and its padding.) */
+  ul.idx .count.long{white-space:normal;text-align:right;max-width:45%;line-height:1.45}
+  ul.idx .count.long .seg{white-space:nowrap}
+  @media(max-width:34rem){
+    ul.idx a.row.longmeta{flex-wrap:wrap;row-gap:.2rem}
+    ul.idx .count.long{max-width:none;flex-basis:100%;text-align:left}
+  }
+  /* Compact horizontal strip of the most recent pages beneath a category row. */
+  ul.idx .recent{display:flex;flex-wrap:wrap;align-items:baseline;
+    gap:.3rem .85rem;padding:0 .4rem 1rem;margin-top:-.35rem}
+  ul.idx .recent .rlabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  ul.idx .recent a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--ink-soft);text-decoration:none;font-variant-numeric:tabular-nums;
+    border-bottom:1px solid var(--rule);padding-bottom:1px}
+  ul.idx .recent a:hover{color:var(--accent);border-color:var(--accent)}
+  /* Optional panel beneath the section index (home page: most-read cases). */
+  .panel{margin:2.4rem 0 0}
+  .panel h2{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 .25rem}
+  .panel .pnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:0 0 .5rem}
+  /* "Live now" (live_argument_panel, /live.js): hidden unless the Court is
+     streaming an argument. One red dot, the same --accent as the headings, so
+     the live state is a mark and not a new colour. */
+  .live h2 .ldot{display:inline-block;width:.5rem;height:.5rem;border-radius:50%;
+    background:var(--accent);margin-right:.5rem;vertical-align:.08rem;
+    animation:lpulse 2s ease-in-out infinite}
+  @keyframes lpulse{50%{opacity:.25}}
+  @media (prefers-reduced-motion:reduce){.live h2 .ldot{animation:none}}
+  .lplay{display:flex;flex-wrap:wrap;gap:.6rem .9rem;align-items:center;margin:.8rem 0 .3rem}
+  .lplay button{font:600 .9rem/1 'Newsreader',Georgia,serif;letter-spacing:.04em;
+    color:var(--paper);background:var(--accent);border:0;border-radius:2px;
+    padding:.6rem 1.05rem;cursor:pointer}
+  .lplay button:disabled{opacity:.6;cursor:progress}
+  .lplay button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  /* The player takes a row of its own and may never outgrow the column. A flex
+     item's min-width is auto, which for a replaced element is the browser's own
+     controls' width -- wider than the column on a phone, where mobile Safari
+     and Chrome draw larger controls than the desktop. */
+  .lplay audio{display:block;flex:1 1 100%;width:100%;min-width:0;max-width:100%;
+    box-sizing:border-box;margin:0}
+  .lplay .lstat{font-size:.85rem;color:var(--faint)}
+  /* --- Likeliest grants -----------------------------------------------------
+     Its own rows rather than ol.mostread's: this panel carries a question under
+     the caption, which that list has no room for, and a percentage that has to
+     read as the row's subject rather than as a trailing note.
+     The window toggle is two real radio inputs plus :has() -- no JavaScript.
+     Both windows are rendered at build time and one is hidden, which is the only
+     way a static site can offer the choice: there is no server to ask for the
+     other one. Real radios, not styled buttons, so the control is reachable by
+     keyboard and announced as a choice. */
+  .lead{margin:0 0 1.9rem}
+  .lead h2{margin-bottom:.35rem}
+  .lead .pnote{margin:0 0 .7rem}
+  .wr{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+  .win{display:inline-flex;gap:.25rem;margin:0 0 .55rem;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .win label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .win label:hover{color:var(--ink)}
+  .lead:has(#w7:checked) label[for=w7],
+  .lead:has(#w28:checked) label[for=w28],
+  .lead:has(#wall:checked) label[for=wall]{background:var(--accent);color:var(--paper)}
+  .wr:focus-visible+label{outline:2px solid var(--accent);outline-offset:2px}
+  /* Three windows, one shown: the checked radio hides the other two. */
+  .lead:has(#w7:checked) :is(.g28,.n28,.gall,.nall),
+  .lead:has(#w28:checked) :is(.g7,.n7,.gall,.nall),
+  .lead:has(#wall:checked) :is(.g7,.n7,.g28,.n28){display:none}
+  /* The show/hide controls for a panel's secondary line -- the question under
+     a forecast row, the holding under a decision. Same box as the window
+     toggle, a checkbox instead of radios, and no script: the sibling rule does
+     the work and the lines simply show where :has() is unsupported. The
+     questions are on by default (they are what a forecast row asks); the
+     holdings are off (the caption, kind and disposition already say what
+     happened, and the holding is the more). */
+  .opts{display:inline-flex;gap:.25rem;margin:0 .45rem .55rem 0;vertical-align:top;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .opts label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .opts label:hover{color:var(--ink)}
+  .lead:has(#qon:checked) label[for=qon],
+  .panel:has(#hon:checked) label[for=hon]{background:var(--accent);color:var(--paper)}
+  .lead:has(#qon:not(:checked)) .gq{display:none}
+  .panel:has(#hon:not(:checked)) .chold{display:none}
+  /* --- Upcoming at the Court ------------------------------------------------
+     A date gutter and a two-line body, the same shape as the grant rows above
+     it, so the two panels read as one page rather than two widgets. */
+  .cal{margin:0 0 1.9rem}
+  ol.cal{list-style:none;margin:0;padding:0}
+  ol.cal li{border-top:1px solid var(--rule)}
+  ol.cal li:last-child{border-bottom:1px solid var(--rule)}
+  /* The row is a container, not an anchor: an argument day carries one link per
+     case it hears and anchors cannot nest. Hover lives on the row so it still
+     reads as one unit, and each link colours on its own hover. */
+  ol.cal .crow{display:flex;gap:.95rem;align-items:baseline;padding:.55rem .1rem}
+  ol.cal .crow:hover{background:rgba(156,14,58,.05)}
+  ol.cal a{text-decoration:none;color:inherit}
+  ol.cal a:hover,ol.cal a:focus-visible{color:var(--accent)}
+  ol.cal .cdet a{border-bottom:1px solid rgba(156,14,58,.35)}
+  ol.cal .cdet a:hover{border-bottom-color:var(--accent)}
+  ol.cal .cwhen{flex:none;width:4.6rem;font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.96rem;color:var(--ink);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  ol.cal .cdow{display:block;font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);text-transform:uppercase;letter-spacing:.08em}
+  ol.cal .ctx{flex:1;min-width:0}
+  ol.cal .ckind{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:.98rem;line-height:1.25}
+  ol.cal .cdet{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.12rem}
+  /* Recent decisions reuses the calendar rows and adds exactly two things: the
+     kind word that opens the detail line, and the one outbound link (the slip
+     opinion), which takes the link colour the rest of the row deliberately
+     does not. */
+  ol.cal .dk{font-weight:600;color:var(--ink)}
+  ol.cal .cdet a.pdf{color:var(--link)}
+  /* The holding, from the Court's slip-opinion feed: one sentence, set
+     smaller and in the soft ink so the caption stays the row's headline. */
+  ol.cal .chold{display:block;font-size:.86rem;line-height:1.4;color:var(--ink-soft);
+    font-style:italic;margin-top:.15rem}
+  ol.cal .cdet a.pdf:hover,ol.cal .cdet a.pdf:focus-visible{color:var(--accent);
+    border-bottom-color:var(--accent)}
+  ol.grants{list-style:none;margin:0;padding:0}
+  ol.grants li{border-top:1px solid var(--rule)}
+  ol.grants li:last-child{border-bottom:1px solid var(--rule)}
+  ol.grants a{display:flex;gap:.95rem;align-items:baseline;text-decoration:none;
+    color:inherit;padding:.62rem .1rem}
+  ol.grants a:hover{background:rgba(156,14,58,.05)}
+  ol.grants a:hover .gc{color:var(--accent)}
+  ol.grants .gv{flex:none;width:3.5rem;text-align:right;
+    font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.22rem;
+    line-height:1.1;color:var(--accent);font-variant-numeric:tabular-nums}
+  ol.grants .gx{font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);margin-left:.3rem}
+  ol.grants .gtx{flex:1;min-width:0}
+  /* Subject-area line under the caption, in the section-label idiom (h2.sec):
+     small tracked caps in the faint ink, so it classifies without competing. */
+  ol.grants .gs,ol.mostread .ms{display:block;font-size:.68rem;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--faint);line-height:1.3;margin-top:.12rem}
+  ol.grants .gc{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:1rem;line-height:1.25}
+  ol.grants .gq{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.16rem}
+  ol.grants .gd{flex:none;font-size:.76rem;color:var(--faint);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  .more{margin:.75rem 0 0;font-size:.92rem}
+  .more a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.35)}
+  .more a:hover{border-bottom-color:var(--link)}
+  h2.sec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:.88rem;
+    letter-spacing:.09em;color:var(--faint);text-transform:uppercase;
+    margin:2.1rem 0 .6rem;padding-bottom:.28rem;border-bottom:1px solid var(--rule)}
+  @media(max-width:40rem){
+    ol.grants a{flex-wrap:wrap}
+    ol.grants .gd{width:100%;padding-left:4.45rem;margin-top:-.1rem}
+  }
+  ol.mostread{list-style:none;counter-reset:mr;padding:0;margin:0}
+  ol.mostread li{counter-increment:mr;border-bottom:1px solid var(--rule)}
+  ol.mostread a{display:flex;align-items:baseline;gap:.7rem;padding:.6rem .4rem;
+    text-decoration:none;color:inherit}
+  ol.mostread a:hover{background:rgba(156,14,58,.05)}
+  ol.mostread a::before{content:counter(mr);font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.95rem;color:var(--faint);min-width:1.1rem;
+    font-variant-numeric:tabular-nums}
+  ol.mostread .mc{flex:1;font-size:1rem;line-height:1.3}
+  ol.mostread .mct{display:block}
+  ol.mostread a:hover .mct{color:var(--accent);text-decoration:underline;
+    text-underline-offset:3px}
+  ol.mostread .mdk{color:var(--accent);font-weight:600;font-size:.82rem;
+    font-variant-numeric:tabular-nums;white-space:nowrap}
+  ol.mostread .mv{color:var(--faint);font-size:.85rem;font-style:italic;
+    white-space:nowrap;font-variant-numeric:tabular-nums}
+  /* Forecast percentages carry weight the most-read counts do not: the number is
+     the claim, not a footnote to the ranking. Upright, accent, tabular. */
+  ol.mostread .mv.fc{color:var(--accent);font-style:normal;font-weight:600;
+    font-size:.95rem;min-width:2.6rem;text-align:right}
+  /* Feed follow line. Deliberately quiet -- a footnote under the section list,
+     styled like .recent rather than like a call to action. */
+  .feeds{display:flex;flex-wrap:wrap;align-items:baseline;gap:.3rem .85rem;
+    margin:2.2rem 0 0;padding-top:1.1rem;border-top:1px solid var(--rule)}
+  .feeds .flabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  .feeds a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .feeds a:hover{border-color:var(--link)}
+  .back{margin-top:2rem;font-size:.95rem}
+  .back a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .back a:hover{border-color:var(--link)}
+  /* Home-page case search. */
+  .csearch{position:relative;margin:0 0 1.4rem}
+  #cq{width:100%;font-family:'Newsreader',Georgia,serif;font-size:1.05rem;color:var(--ink);
+    background:var(--panel);border:1px solid var(--rule);border-radius:3px;padding:.7rem .9rem}
+  #cq:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(156,14,58,.1)}
+  #cq::placeholder{color:var(--faint)}
+  #cq.loading{background-image:linear-gradient(90deg,transparent,rgba(156,14,58,.06),transparent);
+    background-size:40% 100%;background-repeat:no-repeat;animation:csl 1s infinite}
+  @keyframes csl{0%{background-position:-40% 0}100%{background-position:140% 0}}
+  .cres{list-style:none;margin:.35rem 0 0;padding:0;max-height:24rem;overflow-y:auto;
+    border:1px solid var(--rule);border-radius:3px;background:var(--panel)}
+  .cres:empty{display:none}
+  .cres li{border-bottom:1px solid var(--rule)}
+  .cres li:last-child{border-bottom:0}
+  .cres a{display:block;padding:.55rem .7rem;text-decoration:none;color:var(--ink);
+    font-size:.98rem;line-height:1.3}
+  .cres a:hover,.cres li.act a{background:rgba(156,14,58,.06)}
+  .cres mark{background:rgba(156,14,58,.14);color:inherit;padding:0 .05em;border-radius:2px}
+  .cres .cd{color:var(--accent);font-variant-numeric:tabular-nums;font-weight:600;
+    margin-right:.5rem;white-space:nowrap}
+  .cnone{padding:.55rem .7rem;color:var(--faint);font-style:italic}
+  .cnone a,.cqp a{color:var(--link);font-style:normal;text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .cqp{margin:.45rem 0 0;font-size:.88rem;color:var(--faint)}
+  /* /cases/ browse index: grouped sections with per-bucket counts. */
+  .csec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+    text-transform:uppercase;letter-spacing:.12em;color:var(--accent);
+    margin:2.2rem 0 .3rem;padding-bottom:.35rem;border-bottom:1px solid var(--rule);
+    display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
+  .csec .cn{font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:.85rem;
+    letter-spacing:0;text-transform:none;color:var(--faint);
+    font-variant-numeric:tabular-nums}
+  .cnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:.5rem 0 0}
+  .cnote a{color:var(--accent)}
+  ul.terms{list-style:none;padding:0;margin:1rem 0 0;display:flex;flex-wrap:wrap;
+    gap:.5rem 1.6rem}
+  ul.terms li{display:inline-flex;align-items:baseline;gap:.4rem}
+  ul.terms a{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.05rem;
+    color:var(--accent);text-decoration:none;border-bottom:1px solid var(--rule)}
+  ul.terms a:hover{border-bottom-color:var(--accent)}
+  ul.terms .cn{color:var(--faint);font-size:.85rem;font-variant-numeric:tabular-nums}
+  /* About page: running prose rather than an index, so it takes a measure and a
+     little more leading than the section rows above it. */
+  .about{margin:1.6rem 0 0;font-size:1.05rem;line-height:1.65;max-width:34rem}
+  .about p{margin:0 0 1rem}
+  .about a{color:var(--accent);text-decoration:none;
+    border-bottom:1px solid var(--rule)}
+  .about a:hover{border-bottom-color:var(--accent)}
+  .about .contact{margin:2rem 0 0;background:var(--panel);border:1px solid var(--rule);
+    border-left:4px solid var(--accent);padding:1.1rem 1.3rem}
+  .about .contact h2{font:600 .78rem/1 'Newsreader',Georgia,serif;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--accent);margin:0 0 .5rem}
+  .about .contact p{margin:0;font-size:1rem}
+
+/* ---- masthead ---- */
+.smast-in{max-width:var(--nav-max,60rem);margin:0 auto;padding:.85rem 1.5rem .5rem;
+  display:flex;align-items:baseline;justify-content:space-between;gap:1.4rem;flex-wrap:wrap}
+.smast-wm{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+  letter-spacing:.005em;color:var(--ink,#1a1a1e);text-decoration:none;white-space:nowrap;flex:none}
+.smast-wm em{font-style:italic;font-weight:500;color:var(--accent,#9c0e3a)}
+.smast-wm:hover{color:var(--accent,#9c0e3a)}
+/* Row gap first, then column. At 1.35rem the six section links measured 596px
+   of max-content -- 4px wider than the 592px row the 40rem index container
+   leaves them -- so ABOUT alone wrapped to a third line under the wordmark, on
+   every page page_style.R writes. 1.05rem brings the row to 572px: 20px of
+   slack at 40rem, and 45px on the 54rem case pages, which were themselves only
+   21px from wrapping. The .4rem row gap is for the day a seventh section
+   overruns it anyway -- a nav that wraps should read as a stack, not an orphan. */
+.snav{display:flex;gap:.4rem 1.05rem;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+.snav a{font:600 .72rem/1 'Newsreader',Georgia,serif;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--ink-soft,var(--soft,#484850));text-decoration:none;display:inline-block;
+  padding:.5rem 0;border-bottom:1.5px solid transparent}
+.snav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--rule,#dbd8d2)}
+.snav a[aria-current='page']{color:var(--accent,#9c0e3a);
+  border-bottom-color:var(--accent,#9c0e3a)}
+.smast-rule-w{max-width:var(--nav-max,60rem);margin:0 auto;padding:0 1.5rem}
+.smast-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0;position:relative}
+.smast-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.skip{position:absolute;left:-9999px;top:0;background:var(--panel,#ffffff);
+  color:var(--accent,#9c0e3a);padding:.6rem 1rem;
+  border:1px solid var(--accent,#9c0e3a);
+  font:600 .8rem/1 'Newsreader',Georgia,serif;letter-spacing:.1em;text-transform:uppercase;z-index:10}
+.skip:focus{left:.5rem;top:.5rem}
+/* ---- breadcrumb ---- */
+.bcrumb{margin:.7rem 0 0}
+.bcrumb ol{list-style:none;display:flex;flex-wrap:wrap;align-items:baseline;
+  gap:.1rem .45rem;margin:0;padding:0}
+.bcrumb li{display:inline-flex;align-items:baseline;gap:.45rem}
+.bcrumb a{font:400 .8rem/1.5 'Newsreader',Georgia,serif;color:var(--ink-soft,var(--soft,#484850));
+  text-decoration:none;border-bottom:1px solid var(--rule,#dbd8d2)}
+.bcrumb a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.bcrumb .sep{color:var(--faint,#63636b);font-size:.8rem;line-height:1.5}
+.bcrumb [aria-current='page']{font:400 .8rem/1.5 'Newsreader',Georgia,serif;
+  color:var(--faint,#63636b);font-variant-numeric:tabular-nums}
+/* ---- case footer ---- */
+.cfoot{margin:2.4rem 0 0}
+.cfoot-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0 0 1rem;position:relative}
+.cfoot-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.cfoot-off{font-size:.95rem;margin:0 0 1.1rem}
+.cfoot-off a{color:var(--link,#9c0e3a);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.4)}
+.cfoot-off a:hover{border-bottom-color:var(--link,#9c0e3a)}
+.cfoot-lab{font:600 .68rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);margin:0 0 .5rem}
+.cfoot-nav{display:flex;flex-wrap:wrap;gap:.35rem 1.1rem;list-style:none;margin:0;padding:0}
+.cfoot-nav a{font-size:.92rem;color:var(--ink-soft,var(--soft,#484850));text-decoration:none;
+  border-bottom:1px solid var(--rule,#dbd8d2);padding-bottom:1px}
+.cfoot-nav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.cfoot-stamp{margin:1.2rem 0 0;font-size:.8rem;color:var(--faint,#63636b);font-style:italic}
+/* ---- prev / next ---- */
+.pnav{margin:2.2rem 0 0;border-top:1px solid var(--rule,#dbd8d2);padding-top:1rem;
+  display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.pnav a,.pnav span.none{text-decoration:none;color:inherit;display:block;padding:.5rem .2rem}
+.pnav a:hover{background:rgba(156,14,58,.05)}
+.pnav .dir{font:600 .66rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);display:block;margin-bottom:.3rem}
+.pnav .lab{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1rem;line-height:1.25;
+  color:var(--accent,#9c0e3a);display:block}
+.pnav a:hover .lab{text-decoration:underline;text-underline-offset:3px}
+.pnav .nx{text-align:right}
+.pnav .none{opacity:.35}
+@media(max-width:640px){
+  .smast-in{padding:.7rem 1.1rem .25rem;gap:.15rem}
+  .smast-wm{font-size:.98rem}
+  .smast-in nav{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+    -webkit-mask-image:linear-gradient(90deg,#000 86%,transparent);
+    mask-image:linear-gradient(90deg,#000 86%,transparent)}
+  .smast-in nav::-webkit-scrollbar{display:none}
+  .snav{flex-wrap:nowrap;gap:1.15rem;padding-right:2.4rem}
+  .snav a{padding:.7rem 0;white-space:nowrap}
+  .smast-rule-w{padding:0 1.1rem}
+  .cfoot-nav{gap:.5rem 1rem}
+  .cfoot-nav a{padding-bottom:.3rem}
+  .pnav{grid-template-columns:1fr;gap:.2rem}
+  .pnav .nx{text-align:left;border-top:1px solid var(--rule,#dbd8d2)}
+}
+
+  .wrap.opn{max-width:42rem}
+  .opn .ometa{font-size:.92rem;color:var(--ink-soft);margin:.3rem 0 0}
+  .opn .oget{display:flex;flex-wrap:wrap;gap:.4rem .6rem;margin:1.1rem 0 0;padding:0;list-style:none;font-size:.9rem}
+  .opn .oget a{display:inline-block;padding:.32rem .7rem;border:1px solid var(--rule);border-radius:4px;color:var(--ink);text-decoration:none;background:var(--panel)}
+  .opn .oget a:hover{border-color:var(--accent);color:var(--accent)}
+  .opn .osrc{font-size:.84rem;color:var(--faint);margin:.9rem 0 0;line-height:1.45}
+  .opn .osrc a{color:var(--link)}
+  .opn .otoc{margin:1.6rem 0 0;padding:.8rem 1rem;border:1px solid var(--rule);border-radius:4px;background:var(--panel);font-size:.95rem}
+  .opn .otoc ol{margin:0;padding:0;list-style:none}
+  .opn .otoc li{margin:.25rem 0}
+  .opn .otoc a{color:var(--ink);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.35)}
+  .opn .otoc a:hover{color:var(--accent)}
+  .opn section.op{margin-top:3rem;border-top:2px solid var(--ink);padding-top:1.1rem}
+  .opn section.op h2{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.5rem;line-height:1.2;margin:0 0 1rem;color:var(--ink)}
+  .opn section.op p{margin:0 0 .95rem;line-height:1.62;hyphens:auto;overflow-wrap:break-word}
+  .opn section.op p.byline{color:var(--ink-soft);font-style:italic}
+  .opn section.op p.sep{text-align:center;letter-spacing:.3em;color:var(--faint);margin:1.6rem 0}
+  .opn section.op h3.oh{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.12rem;text-align:center;margin:2rem 0 1rem;color:var(--ink)}
+  .opn section.op blockquote{margin:0 0 .95rem;padding:0 0 0 1.1rem;border-left:2px solid var(--rule);color:var(--ink-soft)}
+  .opn section.op blockquote p{margin-bottom:.6rem;font-size:.96em}
+  .opn .sc{font-variant-caps:small-caps;letter-spacing:.02em}
+  .opn .pg{font-size:.66em;color:var(--faint);vertical-align:.3em;margin:0 .3em 0 .1em;font-variant-numeric:tabular-nums;user-select:none;white-space:nowrap}
+  .opn .pg::before{content:'*'}
+  .opn sup.fnr{font-size:.68em;line-height:0;margin-left:.05em}
+  .opn sup.fnr a{color:var(--link);text-decoration:none;padding:0 .1em}
+  .opn aside.notes{margin-top:2rem;border-top:1px solid var(--rule);padding-top:.8rem;font-size:.88rem;color:var(--ink-soft)}
+  .opn aside.notes h3{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1rem;margin:0 0 .6rem;color:var(--ink)}
+  .opn aside.notes ol{margin:0;padding-left:1.7rem}
+  .opn aside.notes li{margin:0 0 .55rem}
+  .opn aside.notes li.sym{list-style:none;margin-left:-1.7rem}
+  .opn aside.notes li.sym .mk{margin-right:.3rem}
+  .opn aside.notes li.sym p{display:inline}
+  .opn aside.notes p{margin:0 0 .4rem;line-height:1.5}
+  .opn aside.notes a.back{color:var(--link);text-decoration:none;margin-left:.2rem}
+  .opn aside.notes li:target,.opn sup.fnr a:target,.opn .pg:target{background:rgba(156,14,58,.12);outline:.2rem solid rgba(156,14,58,.12)}
+  .opn section.op,.opn aside.notes li,.opn sup.fnr a{scroll-margin-top:1rem}
+  .opn section.op-syllabus p,.opn section.op-counsel p{font-size:.95em}
+  .opn section.op-counsel summary{cursor:pointer;font-family:'Fraunces',Georgia,serif;font-size:1.05rem;color:var(--ink-soft)}
+  .opn .osyl{font-size:.84rem;color:var(--faint);font-style:italic;margin:-.5rem 0 1rem}
+  .opn p.back{margin-top:3rem;font-size:.92rem}
+  @media print{.smast,.bcrumb,.opn .oget,.opn .otoc,.opn p.back{display:none}.opn section.op{break-before:page}}
+</style><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://supremecourt.report/"},{"@type":"ListItem","position":2,"name":"Opinions","item":"https://supremecourt.report/opinions/"},{"@type":"ListItem","position":3,"name":"United States v. Sanchez-Gomez"}]}</script><meta name='otv' content='p1'><link rel='alternate' type='text/markdown' href='/opinions/2017/17-312.md'><link rel='alternate' type='application/epub+zip' href='/opinions/2017/17-312.epub'></head><body><a class='skip' href='#main'>Skip to content</a><header><div class='smast-in'><a class='smast-wm' href='/'>Supreme Court <em>Report</em></a><nav aria-label='Sections'><ul class='snav'><li><a href='/dashboards/'>Docket</a></li><li><a href='/conferences/'>Conferences</a></li><li><a href='/relists/'>Relists</a></li><li><a href='/applications/'>Interim</a></li><li><a href='/arguments/'>Arguments</a></li><li><a href='/justices/' aria-current='page'>Justices</a></li><li><a href='/counsel/'>Counsel</a></li><li><a href='/funnel/'>Funnel</a></li><li><a href='/methods.html'>Model</a></li><li><a href='/about.html'>About</a></li></ul></nav></div><div class='smast-rule-w'><hr class='smast-rule'></div></header><main class='wrap opn' id='main' data-dkt='17-312'><nav class='bcrumb' aria-label='Breadcrumb'><ol><li><a href='/'>Home</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><a href='/opinions/'>Opinions</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><span aria-current='page'>United States v. Sanchez-Gomez</span></li></ol></nav><p class='kicker'>No. 17-312 · decided May 14, 2018 · 584 U. S. 381</p><h1 style='font-size:clamp(1.7rem,4.6vw,2.4rem);line-height:1.12'>United States v. Sanchez-Gomez</h1><p class='ometa'>United States v. Rene Sanchez-Gomez, et al.. No separate writings.</p><ul class='oget'><li><a href='/opinions/2017/17-312.epub' download>EPUB</a></li><li><a href='/opinions/2017/17-312.md' download>Markdown</a></li><li><a href='https://www.supremecourt.gov/opinions/boundvolumes/584BV.pdf#page=453' rel='noopener'>The Court’s PDF</a></li><li><a href='/cases/17-312.html'>The docket</a></li></ul><p class='osrc'>Set from the PDF the Court published, which is the authoritative text. The small starred numbers are that PDF’s page numbers. A conversion can introduce errors; check a quotation against the <a href='https://www.supremecourt.gov/opinions/boundvolumes/584BV.pdf#page=453' rel='noopener'>original</a>.</p><nav class="otoc" aria-label="Contents"><ol>
+<li><a href="#s1">Syllabus</a></li>
+<li><a href="#s2">Counsel</a></li>
+<li><a href="#s3">Opinion of the Court</a></li>
+</ol></nav>
+<section id="s1" class="op op-syllabus"><h2>Syllabus</h2><p class='osyl'>Prepared by the Reporter of Decisions for the convenience of the reader; it is no part of the opinion of the Court.</p>
+<p>The judges of the United States District Court for the Southern District of California adopted a districtwide policy permitting the use of full restraints—handcuffs connected to a waist chain, with legs shackled— on most in-custody defendants produced in court for nonjury proceedings by the United States Marshals Service. Respondents Jasmin Morales, Rene Sanchez-Gomez, Moises Patricio-Guzman, and Mark Ring challenged the use of such restraints in their respective cases and the restraint policy as a whole. The District Court denied their challenges, and respondents appealed to the Court of Appeals for the Ninth Circuit. Before that court could issue a decision, respondents' underlying criminal cases ended. The court—viewing the case as a “functional class action” involving “class-like claims” seeking “class-like relief,” 859 F. 3d 649, 655, 657–658—held that this Court's civil class action precedents saved the case from mootness. On the merits, the Court of Appeals held the policy unconstitutional.</p>
+<p><em>Held</em>: This case is moot. Pp. 385–394.</p>
+<p>(a) The Federal Judiciary may adjudicate only “actual and concrete disputes, the resolutions of which have direct consequences on the parties involved.” <em>Genesis HealthCare Corp.</em> v. <em>Symczyk,</em> 569 U. S. 66, 71. Such a dispute “must be extant at all stages of review, not merely at the time the complaint is filed.” <em>Preiser</em> v. <em>Newkirk</em>, 422 U. S. 395, 401. A case that becomes moot at any point during the proceedings is thus outside the jurisdiction of the federal courts. See <em>Already, LLC</em> v. <em>Nike, Inc.,</em> 568 U. S. 85, 91. Pp. 385–386.</p>
+<p>(b) In concluding that this case was not moot, the Court of Appeals relied upon this Court's class action precedents, most prominently <em>Gerstein</em> v. <em>Pugh,</em> 420 U. S. 103. That reliance was misplaced. <em>Gerstein</em> was a class action respecting pretrial detention brought under Federal Rule of Civil Procedure 23. The named class representatives' individual claims had apparently become moot before class certification. This Court held that the case could nonetheless proceed, explaining that due to the inherently temporary nature of pretrial detention, no named representative might be in custody long enough for a class to be certifled. <em>Gerstein</em> does not support a freestanding exception to mootness outside the class action context. It belongs to a line of cases that this <span class="pg" id="s1-p382" title="page 382 of the original">382</span>Court has described as turning on the particular traits of Rule 23 class actions. See, <em>e. g., Sosna</em> v. <em>Iowa</em>, 419 U. S. 393; <em>United States Parole Comm'n</em> v. <em>Geraghty</em>, 445 U. S. 388; <em>Genesis HealthCare</em>, 569 U. S. 66. The Federal Rules of Criminal Procedure establish for criminal cases no vehicle comparable to the civil class action, and this Court has never permitted criminal defendants to band together to seek prospective relief in their individual cases on behalf of a class. Here, the mere presence of allegations that might, if resolved in respondents' favor, benefit other similarly situated individuals cannot save their case from mootness. See <em>id.</em>, at 73. That conclusion is unaffected by the Court of Appeals' decision to recast respondents' appeals as petitions for supervisory mandamus. Pp. 386–390.</p>
+<p>(c) Respondents do not defend the reasoning of the Court of Appeals, and instead argue that the claims of two respondents—Sanchez-Gomez and Patricio-Guzman—fall within the “exception to the mootness doctrine for a controversy that is capable of repetition, yet evading review.” <em>Kingdomware Technologies, Inc.</em> v. <em>United States</em>, 579 U. S. 162, 170 (internal quotation marks omitted). Respondents claim that the exception applies because Sanchez-Gomez and Patricio-Guzman will again violate the law, be apprehended, and be returned to pretrial custody. But this Court has consistently refused to “conclude that the case-orcontroversy requirement is satisfied by” the possibility that a party “will be prosecuted for violating valid criminal laws.” <em>O'Shea</em> v. <em>Littleton,</em> 414 U. S. 488, 497. Respondents argue that this usual refusal to assume future criminal conduct is unwarranted here given the particular circumstances of Sanchez-Gomez's and Patricio-Guzman's offenses. They cite two civil cases—<em>Honig</em> v. <em>Doe,</em> 484 U. S. 305, and <em>Turner</em> v. <em>Rogers,</em> 564 U. S. 431—in which this Court concluded that the expectation that a litigant would repeat the misconduct that gave rise to his claims rendered those claims capable of repetition. But <em>Honig</em> and <em>Turner</em> are inapposite because they concerned litigants unable, for reasons beyond their control, to prevent themselves from transgressing and avoid recurrence of the challenged conduct. Sanchez-Gomez and Patricio-Guzman, in contrast, are “able—and indeed required by law”— to refrain from further criminal conduct. <em>Lane</em> v. <em>Williams</em>, 455 U. S. 624, 633, n. 13. No departure from the settled rule is warranted. Pp. 390–394.</p>
+<p>859 F. 3d 649, vacated and remanded.</p>
+<p><span class="sc">Roberts</span>, C. J., delivered the opinion for a unanimous Court.</p></section>
+<section id="s2" class="op op-counsel"><details><summary>Counsel</summary><p><em>Allon Kedem</em> argued the cause for the United States. With him on the briefs were <em>Solicitor General Francisco</em>, <span class="pg" id="s2-p383" title="page 383 of the original">383</span><em>Acting Assistant Attorney General Cronan</em>, <em>Deputy Solicitor General Kneedler</em>, and <em>Eric J. Feigin.</em></p>
+<p><em>Reuben Camper Cahn</em> argued the cause for respondents. With him on the brief were <em>Shereen J. Charlick, Vincent J. Brunkow, Kara L. Hartzler,</em> and <em>Ellis Murray Johnston III</em>.*</p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li class="sym" value="0"><span class="mk">*</span><p>Briefs of <em>amici curiae</em> urging affirmance were filed for Former Judges et al. by <em>Meir Feder</em>, <em>Judith Resnik</em>, and <em>Stephen I. Vladeck</em>; and for the National Association of Federal Defenders by <em>Daniel L. Kaplan</em>, <em>Donna F. Coltharp</em>, and <em>Sarah S. Gannett.</em></p></li>
+</ol></aside></details></section>
+<section id="s3" class="op op-court"><h2>Opinion of the Court</h2>
+<p class="byline">Chief Justice Roberts delivered the opinion of the Court.</p>
+<p>Four criminal defendants objected to being bound by full restraints during pretrial proceedings in their cases, but the District Court denied relief. On appeal, the Court of Appeals for the Ninth Circuit held that the use of such restraints was unconstitutional, even though each of the four criminal cases had ended prior to its decision. The question presented is whether the appeals were saved from mootness either because the defendants sought “class-like relief” in a “functional class action,” or because the challenged practice was “capable of repetition, yet evading review.”</p>
+<h3 class="oh">I</h3>
+<p>It is the responsibility of the United States Marshals Service to “provide for the security . . . of the United States District Courts.” 28 U. S. C. § 566(a). To fulfill that duty, the United States Marshal for the Southern District of California requested that the judges of that district permit the use of full restraints on all in-custody defendants during nonjury proceedings. When “full restraints” are applied, “a defendant's hands are closely handcuffed together, these handcuffs are connected by chain to another chain running around the defendant's waist, and the defendant's feet are shackled and chained together.” 859 F. 3d 649, 653 (CA9 2017) (en <span class="pg" id="s3-p384" title="page 384 of the original">384</span>banc). In support of his proposal, the Marshal cited safety concerns arising from understaffing, past incidents of violence, and the high volume of in-custody defendants produced in the Southern District. The judges agreed to the Marshal's request, with modifications providing that a district or magistrate judge may require a defendant to be produced without restraints, and that a defendant can request that this be done. See App. 78–79.</p>
+<p>Respondents Jasmin Morales, Rene Sanchez-Gomez, Moises Patricio-Guzman, and Mark Ring were among the defendants produced by the Marshals Service for pretrial proceedings in full restraints. They raised constitutional objections to the use of such restraints in their respective cases, and to the restraint policy as a whole. They noted that the policy had resulted in the imposition of full restraints on, for example, a woman with a fractured wrist, a man with a severe leg injury, a blind man, and a wheelchair-bound woman. The District Court denied their challenges.</p>
+<p>Respondents appealed to the Court of Appeals for the Ninth Circuit, but before the court could issue a decision, their underlying criminal cases came to an end. Morales, Sanchez-Gomez, and Patricio-Guzman each pleaded guilty to the offense for which they were charged: Morales, to felony importation of a controlled substance, in violation of 21 U. S. C. §§ 952 and 960; Sanchez-Gomez, to felony misuse of a passport, in violation of 18 U. S. C. § 1544; and Patricio-Guzman, to misdemeanor illegal entry into the United States, in violation of 8 U. S. C. § 1325. The charges against Ring— for making an interstate threat in violation of 18 U. S. C. § 875(c)—were dismissed pursuant to a deferred-prosecution agreement.</p>
+<p>A panel of the Court of Appeals nonetheless concluded that respondents' claims were not moot, and went on to strike down the restraint policy as violating the Due Process Clause of the Fifth Amendment. 798 F. 3d 1204 (CA9 2015). Those rulings were reaffirmed on rehearing en banc. 859 <span class="pg" id="s3-p385" title="page 385 of the original">385</span>F. 3d 649. The en banc court understood the “main dispute” before it to be a challenge to the policy itself, not just to the application of that policy to respondents. <em>Id.,</em> at 655. The court then construed respondents' notices of appeal as petitions for mandamus, which invoked the court's supervisory authority over the Southern District. <em>Id.,</em> at 657. The case was, in the court's view, a “functional class action” involving “class-like claims” seeking “class-like relief.” <em>Id.,</em> at 655, 657–658. In light of that understanding, the Court of Appeals held that this Court's civil class action precedents kept the case alive, even though respondents were no longer subject to the restraint policy. <em>Id.,</em> at 657–659 (citing <em>Gerstein</em> v. <em>Pugh</em>, 420 U. S. 103, 110–111, n. 11 (1975)). On the merits, the Court of Appeals concluded that the restraint policy violated the Constitution. 859 F. 3d, at 666.</p>
+<p>Judge Ikuta, writing in dissent for herself and four colleagues, rejected the majority's application of class action precedents to the individual criminal cases before the court and would have held the case moot. <em>Id.,</em> at 675. She also disagreed with the majority on the merits, concluding that the restraint policy did not violate the Constitution. <em>Id.,</em> at 683.</p>
+<p>We granted certiorari. 583 U. S. 1036 (2017).</p>
+<h3 class="oh">II</h3>
+<p>To invoke federal jurisdiction, a plaintiff must show a “personal stake” in the outcome of the action. <em>Genesis HealthCare Corp.</em> v. <em>Symczyk</em>, 569 U. S. 66, 71 (2013). “This requirement ensures that the Federal Judiciary confines itself to its constitutionally limited role of adjudicating actual and concrete disputes, the resolutions of which have direct consequences on the parties involved.” <em>Ibid.</em> Such a dispute “must be extant at all stages of review, not merely at the time the complaint is filed.” <em>Preiser</em> v. <em>Newkirk</em>, 422 U. S. 395, 401 (1975). A case that becomes moot at any point during the proceedings is “no longer a `Case' or `Controversy' <span class="pg" id="s3-p386" title="page 386 of the original">386</span>for purposes of Article III,” and is outside the jurisdiction of the federal courts. <em>Already, LLC</em> v. <em>Nike, Inc.</em>, 568 U. S. 85, 91 (2013).</p>
+<h3 class="oh">A</h3>
+<p>In concluding that this case was not moot, the Court of Appeals relied upon our class action precedents, most prominently <em>Gerstein</em> v. <em>Pugh</em>. That reliance was misplaced.*</p>
+<p><em>Gerstein</em>, a class action brought under Federal Rule of Civil Procedure 23, involved a certified class of detainees raising claims concerning their pretrial detention. 420 U. S., at 106–107. By the time this Court heard the case, the named representatives' claims were moot, and the record suggested that their interest might have lapsed even before the District Court certified the class. See <em>id.,</em> at 110–111, n. 11. Normally a class action would be moot if no named class representative with an unexpired claim remained at the time of class certification. See <em>ibid.</em> (citing <em>Sosna</em> v. <em>Iowa</em>, 419 U. S. 393, 402, n. 11 (1975)). The Court nevertheless held that the case remained live. As we explained, pretrial custody was inherently temporary and of uncertain length, such that we could not determine “that any given individual, named as plaintiff, would be in pretrial custody long enough for a district judge to certify the class.” <em>Gerstein</em>, 420 U. S., at 110–111, n. 11. At the same time, it was certain that there would always be some group of detainees subject to the challenged practice. <em>Ibid.</em> Given these circumstances, <span class="pg" id="s3-p387" title="page 387 of the original">387</span>the Court determined that the class action could proceed. <em>Ibid.</em>; see <em>Swisher</em> v. <em>Brady</em>, 438 U. S. 204, 213–214, n. 11 (1978) (employing same analysis in a class action challenging juvenile court procedures).</p>
+<p>The Court of Appeals interpreted <em>Gerstein</em> to cover all “cases sufficiently similar to class actions” in which, “because of the inherently transitory nature of the claims,” the claimant's “interests would expire before litigation could be completed.” 859 F. 3d, at 658. <em>Gerstein</em> was an action brought under Federal Rule of Civil Procedure 23, but the Court of Appeals decided that such “a procedural mechanism to aggregate the claims” was not a “necessary prerequisite” for application of the <em>Gerstein</em> rule. 859 F. 3d, at 659 (alteration omitted). Respondents, the court noted, sought “relief [from the restraint policy] not merely for themselves, but for all in-custody defendants in the district.” <em>Id.,</em> at 655. Those “class-like claims” seeking “class-like relief” were sufficient to trigger the application of <em>Gerstein</em> and save the case from mootness, despite the termination of respondents' criminal cases. 859 F. 3d, at 655.</p>
+<p>We reject the notion that <em>Gerstein</em> supports a freestanding exception to mootness outside the class action context. The class action is a creature of the Federal Rules of Civil Procedure. See generally 7A C. Wright, A. Miller, &amp; M. Kane, Federal Practice and Procedure § 1751 <em>et seq.</em> (3d ed. 2005). It is an “exception to the usual rule that litigation is conducted by and on behalf of the individual named parties only,” and “provides a procedure by which the court may exercise . . . jurisdiction over the various individual claims in a single proceeding.” <em>Califano</em> v. <em>Yamasaki</em>, 442 U. S. 682, 700–701 (1979). “The certification of a suit as a class action has important consequences for the unnamed members of the class.” <em>Sosna</em>, 419 U. S., at 399, n. 8. Those class members may be “bound by the judgment” and are considered parties to the litigation in many important respects. <em>Devlin</em> v. <em>Scardelletti</em>, 536 U. S. 1, 7, 9–10 (2002). A certified <span class="pg" id="s3-p388" title="page 388 of the original">388</span>class thus “acquires a legal status separate from the interest asserted by the named plaintiff.” <em>Genesis HealthCare</em>, 569 U. S., at 74 (quoting <em>Sosna</em>, 419 U. S., at 399; alterations omitted).</p>
+<p><em>Gerstein</em> belongs to a line of cases that we have described as turning on the particular traits of civil class actions. The first case in this line, <em>Sosna</em> v. <em>Iowa</em>, held that when the claim of the named plaintiff becomes moot after class certification, a “live controversy may continue to exist” based on the ongoing interests of the remaining unnamed class members. <em>Genesis HealthCare</em>, 569 U. S., at 74 (citing <em>Sosna</em>, 419 U. S., at 399–402); see <em>Franks</em> v. <em>Bowman Transp. Co.</em>, 424 U. S. 747, 755–756 (1976). The “fact that a putative class acquires an independent legal status once it is certified” was, we later explained, “essential to our decision[ ] in <em>Sosna</em>.” <em>Genesis HealthCare,</em> 569 U. S., at 75; see <em>Kremens</em> v. <em>Bartley</em>, 431 U. S. 119, 131–133 (1977) (explaining that, under <em>Sosna</em>'s rule, “only a `properly certified' class . . . may succeed to the adversary position of a named representative whose claim becomes moot”); <em>Alvarez</em> v. <em>Smith</em>, 558 U. S. 87, 92–93 (2009) (same).</p>
+<p><em>Gerstein</em>, announced one month after <em>Sosna</em>, provides a limited exception to <em>Sosna</em>'s requirement that a named plaintiff with a live claim exist at the time of class certification. The exception applies when the pace of litigation and the inherently transitory nature of the claims at issue conspire to make that requirement difficult to fulfill. See <em>Sosna</em>, 419 U. S., at 402, n. 11 (anticipating the <em>Gerstein</em> rule as an exception); <em>Gerstein</em>, 420 U. S., at 110–111, n. 11 (describing its holding as “a suitable exception” to <em>Sosna</em>). We have repeatedly tied <em>Gerstein</em>'s rule to the class action setting from which it emerged. See, <em>e. g., Genesis HealthCare</em>, 569 U. S., at 71, n. 2 (describing <em>Gerstein</em>'s rule as “developed in the context of class actions under Rule 23 to address the circumstance in which a named plaintiff's claim becomes moot prior to certification of the class”); <em>United States Parole Comm'n</em> <span class="pg" id="s3-p389" title="page 389 of the original">389</span>v. <em>Geraghty</em>, 445 U. S. 388, 397–399 (1980) (highlighting <em>Gerstein</em> as an example of the Court “consider[ing] the application of the `personal stake' requirement in the class-action context”).</p>
+<p>In concluding that <em>Gerstein</em> reaches further, the Court of Appeals looked to our recent decision in <em>Genesis HealthCare Corp.</em> v. <em>Symczyk.</em> But in that case the Court refused to extend <em>Gerstein</em> beyond the class action context, even with respect to a procedural device bearing many features similar to a class action. <em>Genesis HealthCare</em> addressed whether a “collective action” brought under the Fair Labor Standards Act (FLSA) by a plaintiff on behalf of herself “and other `similarly situated' employees” remained “justiciable when the lone plaintiff's individual claim bec[ame] moot.” 569 U. S., at 69. In an effort to continue her case on behalf of others, the plaintiff turned to <em>Sosna</em> and its progeny, including <em>Gerstein</em>. But those cases, we explained, were “inapposite,” not least because “Rule 23 actions are fundamentally different from collective actions under the FLSA.” <em>Genesis HealthCare</em>, 569 U. S., at 74. Such collective actions, we stressed, do not “produce a class with an independent legal status, or join additional parties to the action.” <em>Id.,</em> at 75.</p>
+<p>This case, which does not involve <em>any</em> formal mechanism for aggregating claims, is even further removed from Rule 23 and <em>Gerstein</em>. The Federal Rules of Criminal Procedure establish for criminal cases no vehicle comparable to the FLSA collective action, much less the class action. And we have never permitted criminal defendants to band together to seek prospective relief in their individual criminal cases on behalf of a class. As we said when declining to apply nonparty preclusion outside the formal class action context, courts may not “recognize . . . a common-law kind of class action” or “create <em>de facto</em> class actions at will.” <em>Taylor</em> v. <em>Sturgell</em>, 553 U. S. 880, 901 (2008) (alterations omitted); see <em>Smith</em> v. <em>Bayer Corp.</em>, 564 U. S. 299, 315–316 (2011) (same); <em>Pasadena City Bd. of Ed.</em> v. <em>Spangler</em>, 427 U. S. 424, 430 <span class="pg" id="s3-p390" title="page 390 of the original">390</span>(1976) (rejecting in mootness context the idea that “the failure to obtain the class certification required under Rule 23 is merely the absence of a meaningless `verbal recital' ”).</p>
+<p>The court below designated respondents' case a “functional class action” because respondents were pursuing relief “not merely for themselves, but for all in-custody defendants in the district.” 859 F. 3d, at 655, 657–658. But as explained in <em>Genesis HealthCare</em>, the “mere presence of . . . allegations” that might, if resolved in respondents' favor, benefit other similarly situated individuals cannot “save [respondents'] suit from mootness once the[ir] individual claim[s]” have dissipated. 569 U. S., at 73.</p>
+<p>Our conclusion is unaffected by the decision of the court below to recast respondents' appeals as petitions for “supervisory mandamus.” See 859 F. 3d, at 659 (viewing such a petition, like the civil class action, as a procedural vehicle to which the <em>Gerstein</em> rule applies). Supervisory mandamus refers to the authority of the Courts of Appeals to exercise “supervisory control of the District Courts” through their “discretionary power to issue writs of mandamus.” <em>La Buy</em> v. <em>Howes Leather Co.</em>, 352 U. S. 249, 259–260 (1957). There is no sign in our scant supervisory mandamus precedents that such cases are exempt from the normal mootness rules. See generally <em>Will</em> v. <em>United States</em>, 389 U. S. 90 (1967); <em>Schlagenhauf</em> v. <em>Holder</em>, 379 U. S. 104 (1964); <em>La Buy</em>, 352 U. S. 249. Indeed, as the court below acknowledged, “[s]upervisory mandamus cases require live controversies.” 859 F. 3d, at 657.</p>
+<h3 class="oh">B</h3>
+<p>Respondents do not defend the reasoning of the Court of Appeals. See Brief for Respondents 58 (arguing that this Court need not reach the functional class action issue and should “discard[ ]” that label); Tr. of Oral Arg. 43 (respondents' counsel agreeing that they “have not made any effort to defend” the functional class action approach). In respondents' view, functional class actions and <em>Gerstein</em>'s rule <span class="pg" id="s3-p391" title="page 391 of the original">391</span>are beside the point because two respondents—Sanchez-Gomez and Patricio-Guzman—retain a personal stake in the outcome of their appeals.</p>
+<p>Sanchez-Gomez and Patricio-Guzman are no longer in pretrial custody. Their criminal cases, arising from their illegal entry into the United States, ended in guilty pleas well before the Court of Appeals issued its decision. Respondents contend, however, that the claims brought by Sanchez-Gomez and Patricio-Guzman fall within the “exception to the mootness doctrine for a controversy that is capable of repetition, yet evading review.” <em>Kingdomware Technologies, Inc.</em> v. <em>United States</em>, 579 U. S. 162, 170 (2016) (internal quotation marks omitted). A dispute qualifies for that exception only “if (1) the challenged action is in its duration too short to be fully litigated prior to its cessation or expiration, and (2) there is a reasonable expectation that the same complaining party will be subjected to the same action again.” <em>Turner</em> v. <em>Rogers</em>, 564 U. S. 431, 439–440 (2011) (alterations and internal quotation marks omitted). The parties do not contest that the claims at issue satisfy the first prong of that test, but they sharply disagree as to the second.</p>
+<p>Respondents argue that Sanchez-Gomez and Patricio-Guzman meet the second prong because they will again violate the law, be apprehended, and be returned to pretrial custody. But we have consistently refused to “conclude that the case-or-controversy requirement is satisfied by” the possibility that a party “will be prosecuted for violating valid criminal laws.” <em>O'Shea</em> v. <em>Littleton</em>, 414 U. S. 488, 497 (1974). We have instead “assume[d] that [litigants] will conduct their activities within the law and so avoid prosecution and conviction as well as exposure to the challenged course of conduct.” <em>Ibid.</em>; see, <em>e. g., Spencer</em> v. <em>Kemna</em>, 523 U. S. 1, 15 (1998) (reasoning that a claim regarding a parole revocation order was moot following release from custody because any continuing consequences of the order were “contingent upon [the claimant] violating the law, getting caught, and <span class="pg" id="s3-p392" title="page 392 of the original">392</span>being convicted”); <em>Honig</em> v. <em>Doe</em>, 484 U. S. 305, 320 (1988) (“[W]e generally have been unwilling to assume that the party seeking relief will repeat the type of misconduct that would once again place him or her at risk of that injury.”); <em>Lane</em> v. <em>Williams</em>, 455 U. S. 624, 632–633, n. 13 (1982) (concluding that case was moot where the challenged parole revocation could not “affect a subsequent parole determination unless respondents again violate state law, are returned to prison, and become eligible for parole”).</p>
+<p>Respondents argue that this usual refusal to assume future criminal conduct is unwarranted here given the particular circumstances of Sanchez-Gomez's and Patricio-Guzman's offenses. They cite two civil cases—<em>Honig</em> v. <em>Doe</em> and <em>Turner</em> v. <em>Rogers</em>—in which this Court concluded that the expectation that a litigant would repeat the misconduct that gave rise to his claims rendered those claims capable of repetition. Neither case, however, supports a departure from the settled rule.</p>
+<p><em>Honig</em> involved a disabled student's challenge to his suspension from school for disruptive behavior. We found that given his “inability to conform his conduct to socially acceptable norms” or “govern his aggressive, impulsive behavior,” it was “reasonable to expect that [the student would] again engage in the type of misconduct that precipitated this suit” and “be subjected to the same unilateral school action for which he initially sought relief.” 484 U. S., at 320–321. In <em>Turner</em>, we determined that an indigent person repeatedly held in civil contempt for failing to make child support payments, who was at the time over $13,000 in arrears, and whose next hearing was only five months away, was destined to find himself in civil contempt proceedings again. The challenged denial of appointed counsel at his contempt hearing was thus capable of repetition. See 564 U. S., at 440.</p>
+<p>Respondents contend that Sanchez-Gomez and Patricio-Guzman, like the challengers in <em>Honig</em> and <em>Turner</em>, are likely <span class="pg" id="s3-p393" title="page 393 of the original">393</span>to find themselves right back where they started if we dismiss their case as moot. Respondents cite a Sentencing Commission report finding that in 2013 thirty-eight percent of those convicted and sentenced for an illegal entry or illegal reentry offense “were deported and subsequently illegally reentered at least one time.” United States Sentencing Commission, Illegal Reentry Offenses 15 (2015) (cited by Brief for Respondents 51). Respondents emphasize the economic and familial pressures that often compel individuals such as Sanchez-Gomez and Patricio-Guzman to repeatedly attempt to enter the United States. And respondents note that both men, after their release, actually <em>did</em> cross the border into the United States, were apprehended again, and were charged with new illegal entry offenses. All this, respondents say, adds up to a sufficient showing that Sanchez-Gomez and Patricio-Guzman satisfy the “capable of repetition” requirement. Because the Court of Appeals was not aware that Sanchez-Gomez and Patricio-Guzman had subsequently reentered the United States illegally, respondents invite us to remand this case for further proceedings.</p>
+<p>We decline to do so because <em>Honig</em> and <em>Turner</em> are inapposite. Our decisions in those civil cases rested on the litigants' inability, for reasons beyond their control, to prevent themselves from transgressing and avoid recurrence of the challenged conduct. In <em>Honig</em>, such incapacity was the very reason the school sought to expel the student. And in <em>Turner</em>, the indigent individual's large outstanding debt made him effectively incapable of satisfying his imminent support obligations. Sanchez-Gomez and Patricio-Guzman, in contrast, are “able—and indeed required by law”—to refrain from further criminal conduct. <em>Lane</em>, 455 U. S., at 633, n. 13. Their personal incentives to return to the United States, plus the elevated rate of recidivism associated with illegal entry offenses, do not amount to an inability to obey the law. We have consistently refused to find the case or <span class="pg" id="s3-p394" title="page 394 of the original">394</span>controversy requirement satisfied where, as here, the litigants simply “anticipate violating lawful criminal statutes.” <em>O'Shea</em>, 414 U. S., at 496.</p>
+<h3 class="oh">III</h3>
+<p>None of this is to say that those who wish to challenge the use of full physical restraints in the Southern District lack any avenue for relief. In the course of this litigation the parties have touched upon several possible options. See, <em>e. g.,</em> Tr. of Oral Arg. 12 (indicating circumstances under which detainees could bring a civil suit). Because we hold this case moot, we take no position on the question.</p>
+<p class="sep">* * *</p>
+<p>We vacate the judgment of the Court of Appeals for the Ninth Circuit and remand the case to that court with instructions to dismiss as moot.</p>
+<p><em>It is so ordered.</em></p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li class="sym" value="0"><span class="mk">*</span><p>Shortly after the panel decision in this case, the Southern District altered its policy to eliminate the routine use of full restraints in pretrial proceedings. The Government represents, however, that the Southern District intends to reinstate its policy once it is no longer bound by the decision of the Court of Appeals. Tr. of Oral Arg. 29. We agree with the Court of Appeals that the rescission of the policy does not render this case moot. A party “cannot automatically moot a case simply by ending its unlawful conduct once sued,” else it “could engage in unlawful conduct, stop when sued to have the case declared moot, then pick up where [it] left off, repeating this cycle until [it] achieves all [its] unlawful ends.” <em>Already, LLC</em> v. <em>Nike, Inc.</em>, 568 U. S. 85, 91 (2013).</p></li>
+</ol></aside></section><p class='back'><a href='/opinions/'>&larr; All opinions</a> · <a href='/justices/ot2017.html'>The Justices, October Term 2017 &rarr;</a></p></main></body>
+</html>
+

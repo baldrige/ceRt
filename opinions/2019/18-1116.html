@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script async src='/analytics.js'></script><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate icon" href="/favicon.ico" sizes="any"><link rel="alternate" type="application/atom+xml" title="Supreme Court Report" href="/feed.xml"><link rel="alternate" type="application/atom+xml" title="Certiorari grants" href="/grants.xml"><title>Intel Corp. Investment Policy Comm. v. Sulyma — Opinion — Supreme Court Report</title><meta name="description" content="The opinion in Intel Corp. Investment Policy Comm. v. Sulyma (No. 18-1116), decided February 26, 2020: the full text with its footnotes, as a page, a Markdown file and an EPUB."><link rel="canonical" href="https://supremecourt.report/opinions/2019/18-1116.html"><meta property="og:site_name" content="Supreme Court Report"><meta property="og:type" content="article"><meta property="og:title" content="Intel Corp. Investment Policy Comm. v. Sulyma — Opinion — Supreme Court Report"><meta property="og:description" content="The opinion in Intel Corp. Investment Policy Comm. v. Sulyma (No. 18-1116), decided February 26, 2020: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta property="og:url" content="https://supremecourt.report/opinions/2019/18-1116.html"><meta property="og:image" content="https://supremecourt.report/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Supreme Court Report - docket analytics for the Supreme Court of the United States"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Intel Corp. Investment Policy Comm. v. Sulyma — Opinion — Supreme Court Report"><meta name="twitter:description" content="The opinion in Intel Corp. Investment Policy Comm. v. Sulyma (No. 18-1116), decided February 26, 2020: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta name="twitter:image" content="https://supremecourt.report/og.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap"><style>
+  :root{--paper:#fdfcfa;--panel:#ffffff;--ink:#1a1a1e;--ink-soft:#484850;--faint:#63636b;--accent:#9c0e3a;--link:#9c0e3a;--rule:#dbd8d2;--nav-max:60rem}
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{font-family:'Newsreader',Georgia,serif;font-size:19px;line-height:1.6;
+    color:var(--ink);background:var(--paper);margin:0;font-feature-settings:'onum' 1}
+  body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
+    opacity:.5;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");}
+  .wrap{max-width:40rem;margin:0 auto;padding:3rem 1.4rem 4rem}
+  .kicker{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 1rem}
+  h1{font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:clamp(2.4rem,7vw,3.6rem);line-height:1;letter-spacing:-.015em;
+    margin:0 0 1rem;color:var(--ink)}
+  h1 em{font-style:italic;font-weight:500;color:var(--accent)}
+  .dek{font-size:1.15rem;line-height:1.5;color:var(--ink-soft);font-style:italic;
+    margin:0 0 1.4rem}
+  .brule{border:0;height:0;border-top:2px solid var(--ink);margin:1.4rem 0 .3rem;
+    position:relative}
+  .brule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+    border-top:1px solid var(--rule)}
+  ul.idx{list-style:none;padding:0;margin:1.6rem 0}
+  ul.idx li{border-bottom:1px solid var(--rule)}
+  /* Whole row is one block-level link: a large, reliable tap target on mobile. */
+  ul.idx a.row{display:flex;justify-content:space-between;align-items:baseline;
+    gap:1rem;padding:.9rem .4rem;text-decoration:none;border:0;color:inherit}
+  ul.idx a.row:hover{background:rgba(156,14,58,.05)}
+  ul.idx .d{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.16rem;
+    color:var(--accent);line-height:1.25}
+  ul.idx a.row:hover .d{text-decoration:underline;text-underline-offset:3px}
+  ul.idx .count{color:var(--faint);font-size:.9rem;font-style:italic;white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  /* A long note (an order list's "3 GVRs / 230 denied / 4 habeas denied /
+     ...", items separated by middots) cannot sit on one line: nowrap made it
+     claim the row and
+     squeezed the title into a column three words wide, and on a phone it ran off
+     the screen. Such a row opts in (meta_wrap): the note wraps, only between its
+     items, and takes at most ~45% of the row, so the title always has the
+     larger share. Under 34rem it drops beneath the title at full width. */
+  /* ("long", not "wrap": .wrap is the page container and its padding.) */
+  ul.idx .count.long{white-space:normal;text-align:right;max-width:45%;line-height:1.45}
+  ul.idx .count.long .seg{white-space:nowrap}
+  @media(max-width:34rem){
+    ul.idx a.row.longmeta{flex-wrap:wrap;row-gap:.2rem}
+    ul.idx .count.long{max-width:none;flex-basis:100%;text-align:left}
+  }
+  /* Compact horizontal strip of the most recent pages beneath a category row. */
+  ul.idx .recent{display:flex;flex-wrap:wrap;align-items:baseline;
+    gap:.3rem .85rem;padding:0 .4rem 1rem;margin-top:-.35rem}
+  ul.idx .recent .rlabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  ul.idx .recent a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--ink-soft);text-decoration:none;font-variant-numeric:tabular-nums;
+    border-bottom:1px solid var(--rule);padding-bottom:1px}
+  ul.idx .recent a:hover{color:var(--accent);border-color:var(--accent)}
+  /* Optional panel beneath the section index (home page: most-read cases). */
+  .panel{margin:2.4rem 0 0}
+  .panel h2{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 .25rem}
+  .panel .pnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:0 0 .5rem}
+  /* "Live now" (live_argument_panel, /live.js): hidden unless the Court is
+     streaming an argument. One red dot, the same --accent as the headings, so
+     the live state is a mark and not a new colour. */
+  .live h2 .ldot{display:inline-block;width:.5rem;height:.5rem;border-radius:50%;
+    background:var(--accent);margin-right:.5rem;vertical-align:.08rem;
+    animation:lpulse 2s ease-in-out infinite}
+  @keyframes lpulse{50%{opacity:.25}}
+  @media (prefers-reduced-motion:reduce){.live h2 .ldot{animation:none}}
+  .lplay{display:flex;flex-wrap:wrap;gap:.6rem .9rem;align-items:center;margin:.8rem 0 .3rem}
+  .lplay button{font:600 .9rem/1 'Newsreader',Georgia,serif;letter-spacing:.04em;
+    color:var(--paper);background:var(--accent);border:0;border-radius:2px;
+    padding:.6rem 1.05rem;cursor:pointer}
+  .lplay button:disabled{opacity:.6;cursor:progress}
+  .lplay button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  /* The player takes a row of its own and may never outgrow the column. A flex
+     item's min-width is auto, which for a replaced element is the browser's own
+     controls' width -- wider than the column on a phone, where mobile Safari
+     and Chrome draw larger controls than the desktop. */
+  .lplay audio{display:block;flex:1 1 100%;width:100%;min-width:0;max-width:100%;
+    box-sizing:border-box;margin:0}
+  .lplay .lstat{font-size:.85rem;color:var(--faint)}
+  /* --- Likeliest grants -----------------------------------------------------
+     Its own rows rather than ol.mostread's: this panel carries a question under
+     the caption, which that list has no room for, and a percentage that has to
+     read as the row's subject rather than as a trailing note.
+     The window toggle is two real radio inputs plus :has() -- no JavaScript.
+     Both windows are rendered at build time and one is hidden, which is the only
+     way a static site can offer the choice: there is no server to ask for the
+     other one. Real radios, not styled buttons, so the control is reachable by
+     keyboard and announced as a choice. */
+  .lead{margin:0 0 1.9rem}
+  .lead h2{margin-bottom:.35rem}
+  .lead .pnote{margin:0 0 .7rem}
+  .wr{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+  .win{display:inline-flex;gap:.25rem;margin:0 0 .55rem;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .win label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .win label:hover{color:var(--ink)}
+  .lead:has(#w7:checked) label[for=w7],
+  .lead:has(#w28:checked) label[for=w28],
+  .lead:has(#wall:checked) label[for=wall]{background:var(--accent);color:var(--paper)}
+  .wr:focus-visible+label{outline:2px solid var(--accent);outline-offset:2px}
+  /* Three windows, one shown: the checked radio hides the other two. */
+  .lead:has(#w7:checked) :is(.g28,.n28,.gall,.nall),
+  .lead:has(#w28:checked) :is(.g7,.n7,.gall,.nall),
+  .lead:has(#wall:checked) :is(.g7,.n7,.g28,.n28){display:none}
+  /* The show/hide controls for a panel's secondary line -- the question under
+     a forecast row, the holding under a decision. Same box as the window
+     toggle, a checkbox instead of radios, and no script: the sibling rule does
+     the work and the lines simply show where :has() is unsupported. The
+     questions are on by default (they are what a forecast row asks); the
+     holdings are off (the caption, kind and disposition already say what
+     happened, and the holding is the more). */
+  .opts{display:inline-flex;gap:.25rem;margin:0 .45rem .55rem 0;vertical-align:top;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .opts label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .opts label:hover{color:var(--ink)}
+  .lead:has(#qon:checked) label[for=qon],
+  .panel:has(#hon:checked) label[for=hon]{background:var(--accent);color:var(--paper)}
+  .lead:has(#qon:not(:checked)) .gq{display:none}
+  .panel:has(#hon:not(:checked)) .chold{display:none}
+  /* --- Upcoming at the Court ------------------------------------------------
+     A date gutter and a two-line body, the same shape as the grant rows above
+     it, so the two panels read as one page rather than two widgets. */
+  .cal{margin:0 0 1.9rem}
+  ol.cal{list-style:none;margin:0;padding:0}
+  ol.cal li{border-top:1px solid var(--rule)}
+  ol.cal li:last-child{border-bottom:1px solid var(--rule)}
+  /* The row is a container, not an anchor: an argument day carries one link per
+     case it hears and anchors cannot nest. Hover lives on the row so it still
+     reads as one unit, and each link colours on its own hover. */
+  ol.cal .crow{display:flex;gap:.95rem;align-items:baseline;padding:.55rem .1rem}
+  ol.cal .crow:hover{background:rgba(156,14,58,.05)}
+  ol.cal a{text-decoration:none;color:inherit}
+  ol.cal a:hover,ol.cal a:focus-visible{color:var(--accent)}
+  ol.cal .cdet a{border-bottom:1px solid rgba(156,14,58,.35)}
+  ol.cal .cdet a:hover{border-bottom-color:var(--accent)}
+  ol.cal .cwhen{flex:none;width:4.6rem;font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.96rem;color:var(--ink);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  ol.cal .cdow{display:block;font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);text-transform:uppercase;letter-spacing:.08em}
+  ol.cal .ctx{flex:1;min-width:0}
+  ol.cal .ckind{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:.98rem;line-height:1.25}
+  ol.cal .cdet{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.12rem}
+  /* Recent decisions reuses the calendar rows and adds exactly two things: the
+     kind word that opens the detail line, and the one outbound link (the slip
+     opinion), which takes the link colour the rest of the row deliberately
+     does not. */
+  ol.cal .dk{font-weight:600;color:var(--ink)}
+  ol.cal .cdet a.pdf{color:var(--link)}
+  /* The holding, from the Court's slip-opinion feed: one sentence, set
+     smaller and in the soft ink so the caption stays the row's headline. */
+  ol.cal .chold{display:block;font-size:.86rem;line-height:1.4;color:var(--ink-soft);
+    font-style:italic;margin-top:.15rem}
+  ol.cal .cdet a.pdf:hover,ol.cal .cdet a.pdf:focus-visible{color:var(--accent);
+    border-bottom-color:var(--accent)}
+  ol.grants{list-style:none;margin:0;padding:0}
+  ol.grants li{border-top:1px solid var(--rule)}
+  ol.grants li:last-child{border-bottom:1px solid var(--rule)}
+  ol.grants a{display:flex;gap:.95rem;align-items:baseline;text-decoration:none;
+    color:inherit;padding:.62rem .1rem}
+  ol.grants a:hover{background:rgba(156,14,58,.05)}
+  ol.grants a:hover .gc{color:var(--accent)}
+  ol.grants .gv{flex:none;width:3.5rem;text-align:right;
+    font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.22rem;
+    line-height:1.1;color:var(--accent);font-variant-numeric:tabular-nums}
+  ol.grants .gx{font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);margin-left:.3rem}
+  ol.grants .gtx{flex:1;min-width:0}
+  /* Subject-area line under the caption, in the section-label idiom (h2.sec):
+     small tracked caps in the faint ink, so it classifies without competing. */
+  ol.grants .gs,ol.mostread .ms{display:block;font-size:.68rem;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--faint);line-height:1.3;margin-top:.12rem}
+  ol.grants .gc{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:1rem;line-height:1.25}
+  ol.grants .gq{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.16rem}
+  ol.grants .gd{flex:none;font-size:.76rem;color:var(--faint);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  .more{margin:.75rem 0 0;font-size:.92rem}
+  .more a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.35)}
+  .more a:hover{border-bottom-color:var(--link)}
+  h2.sec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:.88rem;
+    letter-spacing:.09em;color:var(--faint);text-transform:uppercase;
+    margin:2.1rem 0 .6rem;padding-bottom:.28rem;border-bottom:1px solid var(--rule)}
+  @media(max-width:40rem){
+    ol.grants a{flex-wrap:wrap}
+    ol.grants .gd{width:100%;padding-left:4.45rem;margin-top:-.1rem}
+  }
+  ol.mostread{list-style:none;counter-reset:mr;padding:0;margin:0}
+  ol.mostread li{counter-increment:mr;border-bottom:1px solid var(--rule)}
+  ol.mostread a{display:flex;align-items:baseline;gap:.7rem;padding:.6rem .4rem;
+    text-decoration:none;color:inherit}
+  ol.mostread a:hover{background:rgba(156,14,58,.05)}
+  ol.mostread a::before{content:counter(mr);font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.95rem;color:var(--faint);min-width:1.1rem;
+    font-variant-numeric:tabular-nums}
+  ol.mostread .mc{flex:1;font-size:1rem;line-height:1.3}
+  ol.mostread .mct{display:block}
+  ol.mostread a:hover .mct{color:var(--accent);text-decoration:underline;
+    text-underline-offset:3px}
+  ol.mostread .mdk{color:var(--accent);font-weight:600;font-size:.82rem;
+    font-variant-numeric:tabular-nums;white-space:nowrap}
+  ol.mostread .mv{color:var(--faint);font-size:.85rem;font-style:italic;
+    white-space:nowrap;font-variant-numeric:tabular-nums}
+  /* Forecast percentages carry weight the most-read counts do not: the number is
+     the claim, not a footnote to the ranking. Upright, accent, tabular. */
+  ol.mostread .mv.fc{color:var(--accent);font-style:normal;font-weight:600;
+    font-size:.95rem;min-width:2.6rem;text-align:right}
+  /* Feed follow line. Deliberately quiet -- a footnote under the section list,
+     styled like .recent rather than like a call to action. */
+  .feeds{display:flex;flex-wrap:wrap;align-items:baseline;gap:.3rem .85rem;
+    margin:2.2rem 0 0;padding-top:1.1rem;border-top:1px solid var(--rule)}
+  .feeds .flabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  .feeds a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .feeds a:hover{border-color:var(--link)}
+  .back{margin-top:2rem;font-size:.95rem}
+  .back a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .back a:hover{border-color:var(--link)}
+  /* Home-page case search. */
+  .csearch{position:relative;margin:0 0 1.4rem}
+  #cq{width:100%;font-family:'Newsreader',Georgia,serif;font-size:1.05rem;color:var(--ink);
+    background:var(--panel);border:1px solid var(--rule);border-radius:3px;padding:.7rem .9rem}
+  #cq:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(156,14,58,.1)}
+  #cq::placeholder{color:var(--faint)}
+  #cq.loading{background-image:linear-gradient(90deg,transparent,rgba(156,14,58,.06),transparent);
+    background-size:40% 100%;background-repeat:no-repeat;animation:csl 1s infinite}
+  @keyframes csl{0%{background-position:-40% 0}100%{background-position:140% 0}}
+  .cres{list-style:none;margin:.35rem 0 0;padding:0;max-height:24rem;overflow-y:auto;
+    border:1px solid var(--rule);border-radius:3px;background:var(--panel)}
+  .cres:empty{display:none}
+  .cres li{border-bottom:1px solid var(--rule)}
+  .cres li:last-child{border-bottom:0}
+  .cres a{display:block;padding:.55rem .7rem;text-decoration:none;color:var(--ink);
+    font-size:.98rem;line-height:1.3}
+  .cres a:hover,.cres li.act a{background:rgba(156,14,58,.06)}
+  .cres mark{background:rgba(156,14,58,.14);color:inherit;padding:0 .05em;border-radius:2px}
+  .cres .cd{color:var(--accent);font-variant-numeric:tabular-nums;font-weight:600;
+    margin-right:.5rem;white-space:nowrap}
+  .cnone{padding:.55rem .7rem;color:var(--faint);font-style:italic}
+  .cnone a,.cqp a{color:var(--link);font-style:normal;text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .cqp{margin:.45rem 0 0;font-size:.88rem;color:var(--faint)}
+  /* /cases/ browse index: grouped sections with per-bucket counts. */
+  .csec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+    text-transform:uppercase;letter-spacing:.12em;color:var(--accent);
+    margin:2.2rem 0 .3rem;padding-bottom:.35rem;border-bottom:1px solid var(--rule);
+    display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
+  .csec .cn{font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:.85rem;
+    letter-spacing:0;text-transform:none;color:var(--faint);
+    font-variant-numeric:tabular-nums}
+  .cnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:.5rem 0 0}
+  .cnote a{color:var(--accent)}
+  ul.terms{list-style:none;padding:0;margin:1rem 0 0;display:flex;flex-wrap:wrap;
+    gap:.5rem 1.6rem}
+  ul.terms li{display:inline-flex;align-items:baseline;gap:.4rem}
+  ul.terms a{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.05rem;
+    color:var(--accent);text-decoration:none;border-bottom:1px solid var(--rule)}
+  ul.terms a:hover{border-bottom-color:var(--accent)}
+  ul.terms .cn{color:var(--faint);font-size:.85rem;font-variant-numeric:tabular-nums}
+  /* About page: running prose rather than an index, so it takes a measure and a
+     little more leading than the section rows above it. */
+  .about{margin:1.6rem 0 0;font-size:1.05rem;line-height:1.65;max-width:34rem}
+  .about p{margin:0 0 1rem}
+  .about a{color:var(--accent);text-decoration:none;
+    border-bottom:1px solid var(--rule)}
+  .about a:hover{border-bottom-color:var(--accent)}
+  .about .contact{margin:2rem 0 0;background:var(--panel);border:1px solid var(--rule);
+    border-left:4px solid var(--accent);padding:1.1rem 1.3rem}
+  .about .contact h2{font:600 .78rem/1 'Newsreader',Georgia,serif;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--accent);margin:0 0 .5rem}
+  .about .contact p{margin:0;font-size:1rem}
+
+/* ---- masthead ---- */
+.smast-in{max-width:var(--nav-max,60rem);margin:0 auto;padding:.85rem 1.5rem .5rem;
+  display:flex;align-items:baseline;justify-content:space-between;gap:1.4rem;flex-wrap:wrap}
+.smast-wm{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+  letter-spacing:.005em;color:var(--ink,#1a1a1e);text-decoration:none;white-space:nowrap;flex:none}
+.smast-wm em{font-style:italic;font-weight:500;color:var(--accent,#9c0e3a)}
+.smast-wm:hover{color:var(--accent,#9c0e3a)}
+/* Row gap first, then column. At 1.35rem the six section links measured 596px
+   of max-content -- 4px wider than the 592px row the 40rem index container
+   leaves them -- so ABOUT alone wrapped to a third line under the wordmark, on
+   every page page_style.R writes. 1.05rem brings the row to 572px: 20px of
+   slack at 40rem, and 45px on the 54rem case pages, which were themselves only
+   21px from wrapping. The .4rem row gap is for the day a seventh section
+   overruns it anyway -- a nav that wraps should read as a stack, not an orphan. */
+.snav{display:flex;gap:.4rem 1.05rem;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+.snav a{font:600 .72rem/1 'Newsreader',Georgia,serif;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--ink-soft,var(--soft,#484850));text-decoration:none;display:inline-block;
+  padding:.5rem 0;border-bottom:1.5px solid transparent}
+.snav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--rule,#dbd8d2)}
+.snav a[aria-current='page']{color:var(--accent,#9c0e3a);
+  border-bottom-color:var(--accent,#9c0e3a)}
+.smast-rule-w{max-width:var(--nav-max,60rem);margin:0 auto;padding:0 1.5rem}
+.smast-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0;position:relative}
+.smast-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.skip{position:absolute;left:-9999px;top:0;background:var(--panel,#ffffff);
+  color:var(--accent,#9c0e3a);padding:.6rem 1rem;
+  border:1px solid var(--accent,#9c0e3a);
+  font:600 .8rem/1 'Newsreader',Georgia,serif;letter-spacing:.1em;text-transform:uppercase;z-index:10}
+.skip:focus{left:.5rem;top:.5rem}
+/* ---- breadcrumb ---- */
+.bcrumb{margin:.7rem 0 0}
+.bcrumb ol{list-style:none;display:flex;flex-wrap:wrap;align-items:baseline;
+  gap:.1rem .45rem;margin:0;padding:0}
+.bcrumb li{display:inline-flex;align-items:baseline;gap:.45rem}
+.bcrumb a{font:400 .8rem/1.5 'Newsreader',Georgia,serif;color:var(--ink-soft,var(--soft,#484850));
+  text-decoration:none;border-bottom:1px solid var(--rule,#dbd8d2)}
+.bcrumb a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.bcrumb .sep{color:var(--faint,#63636b);font-size:.8rem;line-height:1.5}
+.bcrumb [aria-current='page']{font:400 .8rem/1.5 'Newsreader',Georgia,serif;
+  color:var(--faint,#63636b);font-variant-numeric:tabular-nums}
+/* ---- case footer ---- */
+.cfoot{margin:2.4rem 0 0}
+.cfoot-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0 0 1rem;position:relative}
+.cfoot-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.cfoot-off{font-size:.95rem;margin:0 0 1.1rem}
+.cfoot-off a{color:var(--link,#9c0e3a);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.4)}
+.cfoot-off a:hover{border-bottom-color:var(--link,#9c0e3a)}
+.cfoot-lab{font:600 .68rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);margin:0 0 .5rem}
+.cfoot-nav{display:flex;flex-wrap:wrap;gap:.35rem 1.1rem;list-style:none;margin:0;padding:0}
+.cfoot-nav a{font-size:.92rem;color:var(--ink-soft,var(--soft,#484850));text-decoration:none;
+  border-bottom:1px solid var(--rule,#dbd8d2);padding-bottom:1px}
+.cfoot-nav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.cfoot-stamp{margin:1.2rem 0 0;font-size:.8rem;color:var(--faint,#63636b);font-style:italic}
+/* ---- prev / next ---- */
+.pnav{margin:2.2rem 0 0;border-top:1px solid var(--rule,#dbd8d2);padding-top:1rem;
+  display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.pnav a,.pnav span.none{text-decoration:none;color:inherit;display:block;padding:.5rem .2rem}
+.pnav a:hover{background:rgba(156,14,58,.05)}
+.pnav .dir{font:600 .66rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);display:block;margin-bottom:.3rem}
+.pnav .lab{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1rem;line-height:1.25;
+  color:var(--accent,#9c0e3a);display:block}
+.pnav a:hover .lab{text-decoration:underline;text-underline-offset:3px}
+.pnav .nx{text-align:right}
+.pnav .none{opacity:.35}
+@media(max-width:640px){
+  .smast-in{padding:.7rem 1.1rem .25rem;gap:.15rem}
+  .smast-wm{font-size:.98rem}
+  .smast-in nav{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+    -webkit-mask-image:linear-gradient(90deg,#000 86%,transparent);
+    mask-image:linear-gradient(90deg,#000 86%,transparent)}
+  .smast-in nav::-webkit-scrollbar{display:none}
+  .snav{flex-wrap:nowrap;gap:1.15rem;padding-right:2.4rem}
+  .snav a{padding:.7rem 0;white-space:nowrap}
+  .smast-rule-w{padding:0 1.1rem}
+  .cfoot-nav{gap:.5rem 1rem}
+  .cfoot-nav a{padding-bottom:.3rem}
+  .pnav{grid-template-columns:1fr;gap:.2rem}
+  .pnav .nx{text-align:left;border-top:1px solid var(--rule,#dbd8d2)}
+}
+
+  .wrap.opn{max-width:42rem}
+  .opn .ometa{font-size:.92rem;color:var(--ink-soft);margin:.3rem 0 0}
+  .opn .oget{display:flex;flex-wrap:wrap;gap:.4rem .6rem;margin:1.1rem 0 0;padding:0;list-style:none;font-size:.9rem}
+  .opn .oget a{display:inline-block;padding:.32rem .7rem;border:1px solid var(--rule);border-radius:4px;color:var(--ink);text-decoration:none;background:var(--panel)}
+  .opn .oget a:hover{border-color:var(--accent);color:var(--accent)}
+  .opn .osrc{font-size:.84rem;color:var(--faint);margin:.9rem 0 0;line-height:1.45}
+  .opn .osrc a{color:var(--link)}
+  .opn .otoc{margin:1.6rem 0 0;padding:.8rem 1rem;border:1px solid var(--rule);border-radius:4px;background:var(--panel);font-size:.95rem}
+  .opn .otoc ol{margin:0;padding:0;list-style:none}
+  .opn .otoc li{margin:.25rem 0}
+  .opn .otoc a{color:var(--ink);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.35)}
+  .opn .otoc a:hover{color:var(--accent)}
+  .opn section.op{margin-top:3rem;border-top:2px solid var(--ink);padding-top:1.1rem}
+  .opn section.op h2{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.5rem;line-height:1.2;margin:0 0 1rem;color:var(--ink)}
+  .opn section.op p{margin:0 0 .95rem;line-height:1.62;hyphens:auto;overflow-wrap:break-word}
+  .opn section.op p.byline{color:var(--ink-soft);font-style:italic}
+  .opn section.op p.sep{text-align:center;letter-spacing:.3em;color:var(--faint);margin:1.6rem 0}
+  .opn section.op h3.oh{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.12rem;text-align:center;margin:2rem 0 1rem;color:var(--ink)}
+  .opn section.op blockquote{margin:0 0 .95rem;padding:0 0 0 1.1rem;border-left:2px solid var(--rule);color:var(--ink-soft)}
+  .opn section.op blockquote p{margin-bottom:.6rem;font-size:.96em}
+  .opn .sc{font-variant-caps:small-caps;letter-spacing:.02em}
+  .opn .pg{font-size:.66em;color:var(--faint);vertical-align:.3em;margin:0 .3em 0 .1em;font-variant-numeric:tabular-nums;user-select:none;white-space:nowrap}
+  .opn .pg::before{content:'*'}
+  .opn sup.fnr{font-size:.68em;line-height:0;margin-left:.05em}
+  .opn sup.fnr a{color:var(--link);text-decoration:none;padding:0 .1em}
+  .opn aside.notes{margin-top:2rem;border-top:1px solid var(--rule);padding-top:.8rem;font-size:.88rem;color:var(--ink-soft)}
+  .opn aside.notes h3{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1rem;margin:0 0 .6rem;color:var(--ink)}
+  .opn aside.notes ol{margin:0;padding-left:1.7rem}
+  .opn aside.notes li{margin:0 0 .55rem}
+  .opn aside.notes li.sym{list-style:none;margin-left:-1.7rem}
+  .opn aside.notes li.sym .mk{margin-right:.3rem}
+  .opn aside.notes li.sym p{display:inline}
+  .opn aside.notes p{margin:0 0 .4rem;line-height:1.5}
+  .opn aside.notes a.back{color:var(--link);text-decoration:none;margin-left:.2rem}
+  .opn aside.notes li:target,.opn sup.fnr a:target,.opn .pg:target{background:rgba(156,14,58,.12);outline:.2rem solid rgba(156,14,58,.12)}
+  .opn section.op,.opn aside.notes li,.opn sup.fnr a{scroll-margin-top:1rem}
+  .opn section.op-syllabus p,.opn section.op-counsel p{font-size:.95em}
+  .opn section.op-counsel summary{cursor:pointer;font-family:'Fraunces',Georgia,serif;font-size:1.05rem;color:var(--ink-soft)}
+  .opn .osyl{font-size:.84rem;color:var(--faint);font-style:italic;margin:-.5rem 0 1rem}
+  .opn p.back{margin-top:3rem;font-size:.92rem}
+  @media print{.smast,.bcrumb,.opn .oget,.opn .otoc,.opn p.back{display:none}.opn section.op{break-before:page}}
+</style><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://supremecourt.report/"},{"@type":"ListItem","position":2,"name":"Opinions","item":"https://supremecourt.report/opinions/"},{"@type":"ListItem","position":3,"name":"Intel Corp. Investment Policy Comm. v. Sulyma"}]}</script><meta name='otv' content='p1'><link rel='alternate' type='text/markdown' href='/opinions/2019/18-1116.md'><link rel='alternate' type='application/epub+zip' href='/opinions/2019/18-1116.epub'></head><body><a class='skip' href='#main'>Skip to content</a><header><div class='smast-in'><a class='smast-wm' href='/'>Supreme Court <em>Report</em></a><nav aria-label='Sections'><ul class='snav'><li><a href='/dashboards/'>Docket</a></li><li><a href='/conferences/'>Conferences</a></li><li><a href='/relists/'>Relists</a></li><li><a href='/applications/'>Interim</a></li><li><a href='/arguments/'>Arguments</a></li><li><a href='/justices/' aria-current='page'>Justices</a></li><li><a href='/counsel/'>Counsel</a></li><li><a href='/funnel/'>Funnel</a></li><li><a href='/methods.html'>Model</a></li><li><a href='/about.html'>About</a></li></ul></nav></div><div class='smast-rule-w'><hr class='smast-rule'></div></header><main class='wrap opn' id='main' data-dkt='18-1116'><nav class='bcrumb' aria-label='Breadcrumb'><ol><li><a href='/'>Home</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><a href='/opinions/'>Opinions</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><span aria-current='page'>Intel Corp. Investment Policy Comm. v. Sulyma</span></li></ol></nav><p class='kicker'>No. 18-1116 · decided February 26, 2020 · 589 U. S. 178</p><h1 style='font-size:clamp(1.7rem,4.6vw,2.4rem);line-height:1.12'>Intel Corp. Investment Policy Comm. v. Sulyma</h1><p class='ometa'>Intel Corporation Investment Policy Committee, et al. v. Christopher M. Sulyma. No separate writings.</p><ul class='oget'><li><a href='/opinions/2019/18-1116.epub' download>EPUB</a></li><li><a href='/opinions/2019/18-1116.md' download>Markdown</a></li><li><a href='https://www.supremecourt.gov/opinions/preliminaryprint/589US2PP_final.pdf#page=70' rel='noopener'>The Court’s PDF</a></li><li><a href='/cases/18-1116.html'>The docket</a></li></ul><p class='osrc'>Set from the PDF the Court published, which is the authoritative text. The small starred numbers are that PDF’s page numbers. A conversion can introduce errors; check a quotation against the <a href='https://www.supremecourt.gov/opinions/preliminaryprint/589US2PP_final.pdf#page=70' rel='noopener'>original</a>.</p><nav class="otoc" aria-label="Contents"><ol>
+<li><a href="#s1">Syllabus</a></li>
+<li><a href="#s2">Counsel</a></li>
+<li><a href="#s3">Opinion of the Court</a></li>
+</ol></nav>
+<section id="s1" class="op op-syllabus"><h2>Syllabus</h2><p class='osyl'>Prepared by the Reporter of Decisions for the convenience of the reader; it is no part of the opinion of the Court.</p>
+<p>The Employee Retirement Income Security Act of 1974 (ERISA) requires</p>
+<p>plaintiffs with “actual knowledge” of an alleged fiduciary breach to file suit within three years of gaining that knowledge, 29 U. S. C. § 1113(2), rather than within the 6-year period that would otherwise apply. Respondent Sulyma worked at Intel Corporation from 2010 to 2012 and participated in two Intel retirement plans. In October 2015, he sued petitioners—administrators of those plans—alleging that they had managed the plans imprudently. Petitioners countered that the suit was untimely under § 1113(2) because Sulyma filed it more than three years after they had disclosed their investment decisions to him. Although Sulyma had visited the website that hosted many of these disclosures many times, he testified that he did not remember reviewing the relevant disclosures and that he had been unaware of the allegedly imprudent investments while working at Intel. The District Court granted summary judgment to petitioners under § 1113(2). The Ninth Circuit reversed. That court agreed with petitioners that Sulyma could have known about the investments from the disclosures, but held that his testimony created a dispute as to when he gained “actual knowledge” for purposes of § 1113(2).</p>
+<p><em>Held</em>: A plaintiff does not necessarily have “actual knowledge” under § 1113(2) of the information contained in disclosures that he receives but does not read or cannot recall reading. To meet § 1113(2)'s “actual knowledge” requirement, the plaintiff must in fact have become aware of that information. Pp. 184–190.</p>
+<p>(a) ERISA's “plain and unambiguous statutory language” must be enforced “according to its terms.” <em>Hardt</em> v. <em>Reliance Standard Life Ins. Co.</em>, 560 U. S. 242, 251. Although ERISA does not define the phrase “actual knowledge,” its meaning is plain. Dictionaries confirm that, to have “actual knowledge” of a piece of information, one must in fact be aware of it. Legal dictionaries give “actual knowledge” the same meaning. The law will sometimes impute knowledge—often called “constructive” knowledge—to a person who fails to learn something that a reasonably diligent person would have learned. The addition of “actual” in § 1113(2) signals that the plaintiff's knowledge must be more than hypothetical. Congress has repeatedly drawn the same “linguistic distinction,”<span class="pg" id="s1-p179" title="page 179 of the original">179</span> <em>Merck &amp; Co.</em> v. <em>Reynolds</em>, 559 U. S. 633, 647, elsewhere in ERISA. When Congress has included both actual and constructive knowledge in ERISA limitations provisions, Congress has done so explicitly. But Congress has never added to § 1113(2) the language it has used in those other provisions to encompass both forms of knowledge. Pp. 184–187.</p>
+<p>(b) Petitioners' arguments for a broader reading of § 1113(2) based on text, context, purpose, and statutory history all founder on Congress's choice of the word “actual.” Petitioners may well be correct that heeding the plain meaning of § 1113(2) substantially diminishes the protection that it provides for ERISA fiduciaries. But if policy considerations suggest that the current scheme should be altered, Congress must be the one to do it. Pp. 187–189.</p>
+<p>(c) This opinion does not foreclose any of the “usual ways” to prove actual knowledge at any stage in the litigation. <em>Farmer</em> v. <em>Brennan</em>, 511 U. S. 825, 842. Plaintiffs who recall reading particular disclosures will be bound by oath to say so in their depositions. Actual knowledge can also be proved through “inference from circumstantial evidence.” <em>Ibid</em>. And this opinion does not preclude defendants from contending that evidence of “willful blindness” supports a finding of “actual knowledge.” Cf. <em>Global-Tech Appliances, Inc.</em> v. <em>SEB S. A.</em>, 563 U. S. 754, 769. Pp. 189–190.</p>
+<p>909 F. 3d 1069, affirmed.</p>
+<p>A<span class="sc">lito,</span> J., delivered the opinion for a unanimous Court.</p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li class="sym" value="0"><span class="mk">*</span><p><em>Mark A. Perry, Matthew S. Rozen, Peter C. Tolsdorf, Leland P. Frost, Kevin Carroll,</em> and <em>Daryl Joseffer</em> filed a brief for the National Association of Manufacturers et al. as <em>amici curiae</em> urging reversal.</p><p>Briefs of <em>amici curiae</em> urging affirmance were filed for AARP et al. by <em>Paul Blankenstein, Dara S. Smith,</em> and <em>William Alvarado Rivera</em>; and for the Pension Rights Center by <em>Elizabeth Hopkins</em> and <em>Karen W. Ferguson.</em></p></li>
+</ol></aside></section>
+<section id="s2" class="op op-counsel"><details><summary>Counsel</summary><p><em>Donald B. Verrilli, Jr.,</em> argued the cause for petitioners. With him on the briefs were <em>Ginger D. Anders, Jordan D. Segall, John J. Buckley, Jr., Daniel F. Katz, Vidya Atre Mirmira, David Kurtzer-Ellenbogen, Juli Ann Lund,</em> and <em>Tanya Abrams</em>.</p>
+<p><em>Matthew W. H. Wessler</em> argued the cause for respondent. With him on the brief were <em>Jonathan E. Taylor, Gregory Y. Porter,</em> and <em>Joseph A. Creitz</em>.</p>
+<p><em>Matthew Guarnieri</em> argued the cause for the United States as <em>amicus curiae</em> urging affirmance. With him on the brief were <em>Solicitor General Francisco</em>, <em>Deputy Attorney General Kneedler</em>, and <em>G. William Scott</em>.*</p></details></section>
+<section id="s3" class="op op-court"><h2>Opinion of the Court</h2>
+<p class="byline">Justice Alito delivered the opinion of the Court.</p>
+<p>The Employee Retirement Income Security Act of 1974 (ERISA) requires plaintiffs with “actual knowledge” of an alleged fiduciary breach to file suit within three years of gaining that knowledge rather than within the 6-year period that would otherwise apply. § 413(a)(2)(A), 88 Stat. 889, as amended, 29 U. S. C. § 1113. The question here is whether a plaintiff necessarily has “actual knowledge” of the information contained in disclosures that he receives but does not read or cannot recall reading. We hold that he does not and therefore affirm.</p>
+<h3 class="oh">I</h3>
+<h3 class="oh">A</h3>
+<p>Retirement plans governed by ERISA must have at least one named fiduciary, § 1102(a)(1), who must manage the plan prudently and solely in the interests of participants and their beneficiaries, § 1104(a). Fiduciaries who breach these duties are personally liable to the plan for any resulting losses. § 1109(a). ERISA authorizes participants and their beneficiaries, as well as co-fiduciaries and the Secretary of Labor, to sue for that relief. § 1132(a)(2).</p>
+<p>Such suits must be filed within one of three time periods, each with different triggering events. The first begins when the breach occurs. Specifically, under § 1113(1), suit must be filed within six years of “the date of the last action which constituted a part of the breach or violation” or, in cases of breach by omission, “the latest date on which the fiduciary could have cured the breach or violation.” We have referred to § 1113(1) as a statute of repose, which “effect[s] a legislative judgment that a defendant should be free from liability after the legislatively determined period of time.” <em>California Public Employees' Retirement System</em> v. <span class="pg" id="s3-p181" title="page 181 of the original">181</span><em>ANZ Securities, Inc.</em>, 582 U. S. 497, 505 (2017) (internal quotation marks omitted).</p>
+<p>The second period, which accelerates the filing deadline, begins when the plaintiff gains “actual knowledge” of the breach. Under § 1113(2), suit must be filed within three years of “the earliest date on which the plaintiff had actual knowledge of the breach or violation.” Section 1113(2) is a statute of limitations, which “encourage[s] plaintiffs to pursue diligent prosecution of known claims.” <em>Id.</em>, at 504 (internal quotation marks omitted).</p>
+<p>The third period, which applies “in the case of fraud or concealment,” begins when the plaintiff discovers the alleged breach. § 1113. In such cases, suit must be filed within six years of “the date of discovery.” <em>Ibid.</em></p>
+<h3 class="oh">B</h3>
+<p>Respondent Sulyma worked at Intel Corporation from 2010 to 2012. He participated in two Intel retirement plans, the Intel Retirement Contribution Plan and the Intel 401(k) Savings Plan. Payments into these plans were in turn invested in two funds managed by the Intel Investment Policy Committee.<sup class="fnr"><a id="s3-r1" href="#s3-n1">1</a></sup>These funds mostly comprised stocks and bonds. After the stock market decline in 2008, however, the committee increased the funds' shares of alternative assets, such as hedge funds, private equity, and commodities. These assets carried relatively high fees. And as the stock market rebounded, Sulyma's funds lagged behind others such as index funds.</p>
+<p>Sulyma filed this suit on behalf of a putative class in October 2015, alleging primarily that the committee and other plan administrators (petitioners here) had breached their fiduciary duties by overinvesting in alternative assets. Petitioners countered that the suit was untimely under <span class="pg" id="s3-p182" title="page 182 of the original">182</span>§ 1113(2). Although Sulyma filed it within six years of the alleged breaches, he filed it more than three years after petitioners had disclosed their investment decisions to him.</p>
+<p>ERISA and its implementing regulations mandate various disclosures to plan participants. See generally 29 U. S. C. §§ 1021–1031; see also <em>Gobeille</em> v. <em>Liberty Mut. Ins. Co.</em>, 577 U. S. 312, 321–323 (2016). Sulyma received numerous disclosures while working at Intel, some explaining the extent to which his retirement plans were invested in alternative assets. In November 2011, for example, he received an email informing him that a Qualified Default Investment Alternative (QDIA) notice was available on a website called NetBenefits, where many of his disclosures were hosted. See App. 149–151; see also 29 CFR §§ 2550.404c–5(b) through (d) (2019) (QDIA notices); § 2520.104b–1(c) (regulating electronic disclosure). This notice broke down the percentages at which his 401(k) fund was invested in stocks, bonds, hedge funds, and commodities. See App. 236. In 2012, he received a summary plan description explaining that the funds were invested in stocks and alternative assets, <em>id</em>., at 227, and referring him to other documents—called fund fact sheets—with the percentages in graphical form. See 29 U. S. C. §§ 1022, 1024(b) (summary plan descriptions); see also App. 307 (June 2012 fact sheet for his 401(k) plan fund); <em>id</em>., at 338 (June 2012 fact sheet for his retirement contribution plan fund); <em>id</em>., at 277–340 (other fact sheets provided during his tenure at Intel). Also in 2012, he received e-mails directing him to annual disclosures that petitioners provided for both his plans, which showed the underlying funds' return rates and again directed him to the NetBenefits site for further information. See 29 CFR §2550.404a–5; see also App. 242–243 (retirement contribution plan annual disclosure); <em>id</em>., at 250–251 (401(k) plan annual disclosure).</p>
+<p>Petitioners submitted records showing that Sulyma visited the NetBenefits site repeatedly during his employment. <em>Id</em>., at 258–276. But he testified in his deposition that he <span class="pg" id="s3-p183" title="page 183 of the original">183</span>did not “remember reviewing” the above disclosures during his tenure. <em>Id</em>., at 175; see also <em>id</em>., at 183, 193, 196–197. He also stated in a declaration that he was “unaware” while working at Intel “that the monies that [he] had invested through the Intel retirement plans had been invested in hedge funds or private equity.” <em>Id</em>., at 212. He recalled reviewing only account statements sent to him by mail, which directed him to the NetBenefits site and noted that his plans were invested in “short-term/other” assets but did not specify which. See, <em>e. g.</em>, <em>id</em>., at 375.</p>
+<p>The District Court granted summary judgment to petitioners under § 1113(2), reasoning that “[i]t would be improper to allow Sulyma's claims to survive merely because he did not look further into the disclosures made to him.” 2017 WL 1217185, *9 (ND Cal., Mar. 31, 2017). The Ninth Circuit reversed. As relevant here,<sup class="fnr"><a id="s3-r2" href="#s3-n2">2</a></sup>the court construed “actual knowledge” to mean “what it says: knowledge that is actual, not merely a possible inference from ambiguous circumstances.” 909 F. 3d 1069, 1076 (2018) (internal quotation marks omitted). Although Sulyma “had sufficient information available to him to know about the allegedly imprudent investments” more than three years before filing suit, the court held that his testimony created a dispute as to when he actually gained that knowledge. <em>Id.</em>, at 1077.</p>
+<p>Several Circuits have likewise construed § 1113(2) to require “knowledge that is actual,” <em>id.</em>, at 1076, but one has construed it to require only proof of sufficient disclosure.<sup class="fnr"><a id="s3-r3" href="#s3-n3">3</a></sup><span class="pg" id="s3-p184" title="page 184 of the original">184</span>We granted certiorari, 587 U. S. 1050 (2019), to resolve whether the phrase “actual knowledge” does in fact mean “what it says,” 909 F. 3d, at 1076, and hold that it does.</p>
+<h3 class="oh">II</h3>
+<h3 class="oh">A</h3>
+<p>“We must enforce plain and unambiguous statutory language” in ERISA, as in any statute, “according to its terms.” <em>Hardt</em> v. <em>Reliance Standard Life Ins. Co.</em>, 560 U. S. 242, 251 (2010). Although ERISA does not define the phrase “actual knowledge,” its meaning is plain. Dictionaries are hardly necessary to confirm the point, but they do. When Congress passed ERISA, the word “actual” meant what it means today: “existing in fact or reality.” Webster's Seventh New Collegiate Dictionary 10 (1967); accord, Merriam-Webster's Collegiate Dictionary 13 (11th ed. 2005); see also American Heritage Dictionary 14 (1973) (“In existence; real; factual”); <em>id</em>., at 18 (5th ed. 2011) (“Existing in reality and not potential, possible, simulated, or false”). So did the word “knowledge,” which meant and still means “the fact or condition of being aware of something.” Webster's Seventh New Collegiate Dictionary, at 469; accord, Merriam-Webster's Collegiate Dictionary, at 691; see also American Heritage Dictionary 725 (1973) (“Familiarity, awareness, or understanding gained through experience or study”); <em>id</em>., at 973 (2011) (same). Thus, to have “actual knowledge” of a piece of information, one must in fact be aware of it.</p>
+<p>Legal dictionaries give “actual knowledge” the same meaning: “[r]eal knowledge as distinguished from presumed knowledge or knowledge imputed to one.” Ballentine's Law Dictionary 24 (3d ed. 1969); accord, Black's Law Dictionary 1043 (11th ed. 2019) (defining “actual knowledge” as “[d]irect <span class="pg" id="s3-p185" title="page 185 of the original">185</span>and clear knowledge, as distinguished from constructive knowledge”).<sup class="fnr"><a id="s3-r4" href="#s3-n4">4</a></sup>The qualifier “actual” creates that distinction. In everyday speech, “actual knowledge” might seem redundant; one who claims “knowledge” of a topic likely means to suggest that he actually knows a thing or two about it. But the law will sometimes impute knowledge—often called “constructive” knowledge—to a person who fails to learn something that a reasonably diligent person would have learned. See <em>id</em>., at 1043. Similarly, we held in <em>Merck &amp; Co.</em> v. <em>Reynolds</em>, 559 U. S. 633 (2010), that the word “discovery,” when used in a statute of limitations without qualification, “encompasses not only those facts the plaintiff actually knew, but also those facts a reasonably diligent plaintiff would have known.” <em>Id</em>., at 648. The addition of “actual” in §1113(2) signals that the plaintiff's knowledge must be more than “potential, possible, virtual, conceivable, theoretical, hypothetical, or nominal.” Black's Law Dictionary 53 (4th ed. 1951). Indeed, in <em>Merck</em>, we cited § 1113(2) as evidence of the “linguistic distinction” between “ `<em>actual knowledge</em>' ” and the “hypothetical” knowledge that a reasonably diligent plaintiff would have. 559 U. S., at 646–647 (quoting § 1113(2); emphasis in original).</p>
+<p>Congress has drawn the same distinction elsewhere in ERISA. Multiple provisions contain alternative 6-year and 3-year limitations periods, with the 6-year period beginning at “the date on which the cause of action arose” and the <span class="pg" id="s3-p186" title="page 186 of the original">186</span>3-year period starting at “the earliest date on which the plaintiff acquired <em>or should have acquired</em> actual knowledge of the existence of such cause of action.” §§1303(e)(6), (f)(5) (emphasis added); accord, §§ 1370(f)(1)–(2), 1451(f)(1)–(2). ERISA also requires plaintiffs challenging the suspension of benefits under § 1085 to do so within “one year after the earliest date on which the plaintiff acquired or should have acquired actual knowledge of the existence of such cause of action.” § 1085(e)(9)(I)(iv). Thus, Congress has repeatedly drawn a “linguistic distinction” between what an ERISA plaintiff actually knows and what he should actually know. <em>Merck</em>, 559 U. S., at 647. And when Congress has included both forms of knowledge in a provision limiting ERISA actions, it has done so explicitly. We cannot assume that it meant to do so by implication in § 1113(2). Instead we “generally presum[e] that Congress acts intentionally and purposely when it includes particular language in one section of a statute but omits it in another.” <em>BFP</em> v. <em>Resolution Trust Corporation</em>, 511 U. S. 531, 537 (1994) (internal quotation marks omitted).</p>
+<p>Petitioners dispute the characterization of anything less than actual knowledge as constructive knowledge, arguing that the latter term usually refers to information that a plaintiff must seek out rather than information that is sent to him. But if a plaintiff is not aware of a fact, he does not have “actual knowledge” of that fact however close at hand the fact might be. § 1113(2). And Congress has never added to § 1113(2) the language it has used in other ERISA limitations provisions to encompass both what a plaintiff actually knows and what he reasonably could know.</p>
+<p>As presently written, therefore, § 1113(2) requires more than evidence of disclosure alone. That all relevant information was disclosed to the plaintiff is no doubt <em>relevant</em> in judging whether he gained knowledge of that information. See Part III, <em>infra</em>. To meet § 1113(2)'s “actual knowledge” <span class="pg" id="s3-p187" title="page 187 of the original">187</span>requirement, however, the plaintiff must in fact have become aware of that information.</p>
+<h3 class="oh">B</h3>
+<p>Petitioners offer arguments for a broader reading of § 1113(2) based on text, context, purpose, and statutory history. All founder on Congress's choice of the word “actual.”</p>
+<p>As for text, petitioners do not dispute the normal definitions of “actual,” “knowledge,” or “actual knowledge.” They focus instead on the least conspicuous part of the phrase “had actual knowledge”: the word “had.” § 1113(2). Once a plaintiff receives a disclosure, they argue, he “ha[s]” the knowledge that § 1113(2) requires because he effectively holds it in his hand. <em>Ibid.</em> In other words, he has the requisite knowledge because he could acquire it with reasonable effort. That turns § 1113(2) into what it is plainly not: a constructive-knowledge requirement.</p>
+<p>Petitioners' contextual argument fails for the same reason. As they point out, ERISA's disclosure regime is meant to “ensur[e] that `the individual participant knows exactly where he stands with respect to the plan.' ” <em>Firestone Tire &amp; Rubber Co.</em> v. <em>Bruch</em>, 489 U. S. 101, 118 (1989) (quoting H. R. Rep. No. 93–533, p. 11 (1973)). This is the reason for ERISA's requirements that disclosures be written for a lay audience. See, <em>e. g.</em>, 29 U. S. C. § 1022(a). Once plan administrators satisfy their obligations to impart knowledge, petitioners say, § 1113(2)'s knowledge requirement is satisfled too. But that is simply not what § 1113(2) says. Unlike other ERISA limitations periods—which also form § 1113(2)'s context—§ 1113(2) begins only when a plaintiff actually is aware of the relevant facts, not when he should be. And a given plaintiff will not necessarily be aware of all facts disclosed to him; even a reasonably diligent plaintiff would not know those facts immediately upon receiving the disclosure. Although “the words of a statute must be read in <span class="pg" id="s3-p188" title="page 188 of the original">188</span>their context,” <em>Davis</em> v. <em>Michigan Dept. of Treasury</em>, 489 U. S. 803, 809 (1989), petitioners' argument again gives the word “actual” little meaning at all.</p>
+<p>Petitioners also argue that § 1113(2)'s plain meaning undermines its purpose of protecting plan administrators from suits over bygone investment decisions. If a plan participant can simply deny knowledge, they say, administrators will rarely get the benefit of § 1113(2). But even if this is true, as it may well be, we cannot say that heeding the clear meaning of the word “actual” renders the statute so “ `[in]coherent' ” that it must be disregarded. <em>Kingdomware Technologies, Inc.</em> v. <em>United States</em>, 579 U. S. 162, 171 (2016).</p>
+<p>For one thing, plan participants are not the only potential plaintiffs subject to § 1113. The Secretary of Labor, for example, may also sue imprudent fiduciaries for the benefit of plan participants. See § 1132(a)(2). And the United States represents that the Secretary will have a hard time doing so within § 1113(2)'s timeframe if deemed to have actual knowledge of the facts contained in the many reports that the Department receives from ERISA plans each year. See Brief for United States as <em>Amicus Curiae</em> 27–28. Moreover, the statute's repose period will still protect defendants from suits filed more than six years after the alleged breach. See § 1113(1).</p>
+<p>Petitioners may well be correct that heeding the plain meaning of § 1113(2) substantially diminishes the protection that it provides for ERISA fiduciaries, but by the same token, petitioners' interpretation would greatly reduce § 1113(1)'s value for beneficiaries, given the disclosure regime that petitioners themselves emphasize. Choosing between these alternatives is a task for Congress, and we must assume that the language of § 1113(2) reflects Congress's choice. If policy considerations suggest that the current scheme should be altered, Congress must be the one to do it. See, <em>e. g.</em>, <em>Azar</em> v. <em>Allina Health Services</em>, 587 U. S. 566, 582–583 (2019).</p>
+<p><span class="pg" id="s3-p189" title="page 189 of the original">189</span>Finally, petitioners argue that the plain meaning of “actual knowledge” renders an <em>earlier</em> version of § 1113(2) incoherent. As originally enacted, the § 1113(2) limitations period began either when the plaintiff gained actual knowledge of the alleged breach or when “a report from which [the plaintiff] could reasonably be expected to have obtained knowledge . . . was filed with” the Secretary of Labor. 29 U. S. C. § 1113(2) (1976 ed.). That latter, constructive-knowledge clause was later repealed. See Omnibus Budget Reconciliation Act of 1987, § 9342(b), 101 Stat. 1330–371. According to petitioners, if “actual knowledge” means what it says, then the original version of § 1113(2) charged plan participants with learning what was sent to the Secretary but not what was sent to them.</p>
+<p>The version at issue here, however, is the current one— from which Congress removed any mention of constructive knowledge. “When Congress acts to amend a statute, we presume it intends its amendment to have real and substantial effect.” <em>Intel Corp.</em> v. <em>Advanced Micro Devices, Inc.</em>, 542 U. S. 241, 258–259 (2004) (internal quotation marks omitted). Section 1113(2)'s history thus more readily suggests that the current version does in fact require actual knowledge.</p>
+<h3 class="oh">III</h3>
+<p>Nothing in this opinion forecloses any of the “usual ways” to prove actual knowledge at any stage in the litigation. <em>Farmer</em> v. <em>Brennan</em>, 511 U. S. 825, 842 (1994). Plaintiffs who recall reading particular disclosures will of course be bound by oath to say so in their depositions. On top of that, actual knowledge can be proved through “inference from circumstantial evidence.” <em>Ibid.</em>; see also <em>Staples</em> v. <em>United States</em>, 511 U. S. 600, 615–616, n. 11 (1994) (“[K]nowledge can be inferred from circumstantial evidence”). Evidence of disclosure would no doubt be relevant, as would electronic records showing that a plaintiff viewed the relevant disclosures and evidence suggesting that the plaintiff took action in response <span class="pg" id="s3-p190" title="page 190 of the original">190</span>to the information contained in them. And though, “[a]t the summary judgment stage, facts must be viewed in the light most favorable to the nonmoving party,” that is true “only if there is a `genuine' dispute as to those facts.” <em>Scott</em> v. <em>Harris</em>, 550 U. S. 372, 380 (2007) (quoting Fed. Rule Civ. Proc. 56(c)). If a plaintiff's denial of knowledge is “blatantly contradicted by the record,” “a court should not adopt that version of the facts for purposes of ruling on a motion for summary judgment.” 550 U. S., at 380.</p>
+<p>Today's opinion also does not preclude defendants from contending that evidence of “willful blindness” supports a finding of “actual knowledge.” Cf. <em>Global-Tech Appliances, Inc.</em> v. <em>SEB S. A.</em>, 563 U. S. 754, 769 (2011).</p>
+<p>In the case before us, however, petitioners do not argue that “actual knowledge” is established in any of these ways, only that they need not offer any such proof. And that is incorrect.</p>
+<p class="sep">* * *</p>
+<p>For these reasons, we affirm.</p>
+<p><em>It is so ordered.</em></p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li id="s3-n1" value="1"><p>Specifically the Intel Global Diversified Fund, in which his retirement contribution plan was automatically invested, and the Intel Target Date 2045 Fund, which he chose for his 401(k) plan. <a class="back" href="#s3-r1" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n2" value="2"><p>The court also addressed the separate question of what exactly a plaintiff must actually know about a defendant's conduct and the relevant law in order for § 1113(2) to apply. That question is not before us and we do not address it. <a class="back" href="#s3-r2" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n3" value="3"><p>Compare <em>Caputo</em> v. <em>Pfizer, Inc.</em>, 267 F. 3d 181, 194 (CA2 2001); <em>Reich</em> v. <em>Lancaster</em>, 55 F. 3d 1034, 1056–1057 (CA5 1995); <em>Gluck</em> v. <em>Unisys Corp.</em>, 960 F. 2d 1168, 1176 (CA3 1992); <em>Radiology Center, S. C.,</em> v. <em>Stifel</em>, <em>Nicolaus &amp; Co.</em>, 919 F. 2d 1216, 1222 (CA7 1990); <em>Brock</em> v. <em>Nellis</em>, 809 F. 2d 753, 754–755 (CA11 1987), with <em>Brown</em> v. <em>Owens Corning Investment Review Comm.</em>, 622 F. 3d 564, 571 (CA6 2010) (“Actual knowledge does not require proof that the individual Plaintiffs actually saw or read the documents that disclosed the allegedly harmful investments” (internal quotation marks omitted)). <a class="back" href="#s3-r3" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n4" value="4"><p>Petitioners cite this dictionary's somewhat puzzling second definition of “actual knowledge,” which it dubs “implied actual knowledge”: “[k]nowledge of information that would lead a reasonable person to inquire further.” Black's Law Dictionary, at 1043. Not even this entry, however, appears to equate “implied actual knowledge” with “actual knowledge” as normally understood. It instead proceeds to reference the common-law “discovery rule,” <em>ibid.</em>, under which a limitations period begins when “the plaintiff discovers (or reasonably <em>should have</em> discovered) the injury giving rise to the claim,” <em>id.</em>, at 585 (emphasis added); see also <em>Merck &amp; Co.</em> v. <em>Reynolds</em>, 559 U. S. 633, 646 (2010). As we noted in <em>Merck</em>, that rule is broader than “<em>actual knowledge</em>.” <em>Id.,</em> at 647. <a class="back" href="#s3-r4" aria-label="Back to the text">↩</a></p></li>
+</ol></aside></section><p class='back'><a href='/opinions/'>&larr; All opinions</a> · <a href='/justices/ot2019.html'>The Justices, October Term 2019 &rarr;</a></p></main></body>
+</html>
+

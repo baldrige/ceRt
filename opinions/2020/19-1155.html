@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script async src='/analytics.js'></script><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate icon" href="/favicon.ico" sizes="any"><link rel="alternate" type="application/atom+xml" title="Supreme Court Report" href="/feed.xml"><link rel="alternate" type="application/atom+xml" title="Certiorari grants" href="/grants.xml"><title>Garland v. Ming Dai — Opinion — Supreme Court Report</title><meta name="description" content="The opinion in Garland v. Ming Dai (No. 19-1155), decided June 1, 2021: the full text with its footnotes, as a page, a Markdown file and an EPUB."><link rel="canonical" href="https://supremecourt.report/opinions/2020/19-1155.html"><meta property="og:site_name" content="Supreme Court Report"><meta property="og:type" content="article"><meta property="og:title" content="Garland v. Ming Dai — Opinion — Supreme Court Report"><meta property="og:description" content="The opinion in Garland v. Ming Dai (No. 19-1155), decided June 1, 2021: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta property="og:url" content="https://supremecourt.report/opinions/2020/19-1155.html"><meta property="og:image" content="https://supremecourt.report/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Supreme Court Report - docket analytics for the Supreme Court of the United States"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Garland v. Ming Dai — Opinion — Supreme Court Report"><meta name="twitter:description" content="The opinion in Garland v. Ming Dai (No. 19-1155), decided June 1, 2021: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta name="twitter:image" content="https://supremecourt.report/og.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap"><style>
+  :root{--paper:#fdfcfa;--panel:#ffffff;--ink:#1a1a1e;--ink-soft:#484850;--faint:#63636b;--accent:#9c0e3a;--link:#9c0e3a;--rule:#dbd8d2;--nav-max:60rem}
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{font-family:'Newsreader',Georgia,serif;font-size:19px;line-height:1.6;
+    color:var(--ink);background:var(--paper);margin:0;font-feature-settings:'onum' 1}
+  body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
+    opacity:.5;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");}
+  .wrap{max-width:40rem;margin:0 auto;padding:3rem 1.4rem 4rem}
+  .kicker{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 1rem}
+  h1{font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:clamp(2.4rem,7vw,3.6rem);line-height:1;letter-spacing:-.015em;
+    margin:0 0 1rem;color:var(--ink)}
+  h1 em{font-style:italic;font-weight:500;color:var(--accent)}
+  .dek{font-size:1.15rem;line-height:1.5;color:var(--ink-soft);font-style:italic;
+    margin:0 0 1.4rem}
+  .brule{border:0;height:0;border-top:2px solid var(--ink);margin:1.4rem 0 .3rem;
+    position:relative}
+  .brule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+    border-top:1px solid var(--rule)}
+  ul.idx{list-style:none;padding:0;margin:1.6rem 0}
+  ul.idx li{border-bottom:1px solid var(--rule)}
+  /* Whole row is one block-level link: a large, reliable tap target on mobile. */
+  ul.idx a.row{display:flex;justify-content:space-between;align-items:baseline;
+    gap:1rem;padding:.9rem .4rem;text-decoration:none;border:0;color:inherit}
+  ul.idx a.row:hover{background:rgba(156,14,58,.05)}
+  ul.idx .d{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.16rem;
+    color:var(--accent);line-height:1.25}
+  ul.idx a.row:hover .d{text-decoration:underline;text-underline-offset:3px}
+  ul.idx .count{color:var(--faint);font-size:.9rem;font-style:italic;white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  /* A long note (an order list's "3 GVRs / 230 denied / 4 habeas denied /
+     ...", items separated by middots) cannot sit on one line: nowrap made it
+     claim the row and
+     squeezed the title into a column three words wide, and on a phone it ran off
+     the screen. Such a row opts in (meta_wrap): the note wraps, only between its
+     items, and takes at most ~45% of the row, so the title always has the
+     larger share. Under 34rem it drops beneath the title at full width. */
+  /* ("long", not "wrap": .wrap is the page container and its padding.) */
+  ul.idx .count.long{white-space:normal;text-align:right;max-width:45%;line-height:1.45}
+  ul.idx .count.long .seg{white-space:nowrap}
+  @media(max-width:34rem){
+    ul.idx a.row.longmeta{flex-wrap:wrap;row-gap:.2rem}
+    ul.idx .count.long{max-width:none;flex-basis:100%;text-align:left}
+  }
+  /* Compact horizontal strip of the most recent pages beneath a category row. */
+  ul.idx .recent{display:flex;flex-wrap:wrap;align-items:baseline;
+    gap:.3rem .85rem;padding:0 .4rem 1rem;margin-top:-.35rem}
+  ul.idx .recent .rlabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  ul.idx .recent a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--ink-soft);text-decoration:none;font-variant-numeric:tabular-nums;
+    border-bottom:1px solid var(--rule);padding-bottom:1px}
+  ul.idx .recent a:hover{color:var(--accent);border-color:var(--accent)}
+  /* Optional panel beneath the section index (home page: most-read cases). */
+  .panel{margin:2.4rem 0 0}
+  .panel h2{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 .25rem}
+  .panel .pnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:0 0 .5rem}
+  /* "Live now" (live_argument_panel, /live.js): hidden unless the Court is
+     streaming an argument. One red dot, the same --accent as the headings, so
+     the live state is a mark and not a new colour. */
+  .live h2 .ldot{display:inline-block;width:.5rem;height:.5rem;border-radius:50%;
+    background:var(--accent);margin-right:.5rem;vertical-align:.08rem;
+    animation:lpulse 2s ease-in-out infinite}
+  @keyframes lpulse{50%{opacity:.25}}
+  @media (prefers-reduced-motion:reduce){.live h2 .ldot{animation:none}}
+  .lplay{display:flex;flex-wrap:wrap;gap:.6rem .9rem;align-items:center;margin:.8rem 0 .3rem}
+  .lplay button{font:600 .9rem/1 'Newsreader',Georgia,serif;letter-spacing:.04em;
+    color:var(--paper);background:var(--accent);border:0;border-radius:2px;
+    padding:.6rem 1.05rem;cursor:pointer}
+  .lplay button:disabled{opacity:.6;cursor:progress}
+  .lplay button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  /* The player takes a row of its own and may never outgrow the column. A flex
+     item's min-width is auto, which for a replaced element is the browser's own
+     controls' width -- wider than the column on a phone, where mobile Safari
+     and Chrome draw larger controls than the desktop. */
+  .lplay audio{display:block;flex:1 1 100%;width:100%;min-width:0;max-width:100%;
+    box-sizing:border-box;margin:0}
+  .lplay .lstat{font-size:.85rem;color:var(--faint)}
+  /* --- Likeliest grants -----------------------------------------------------
+     Its own rows rather than ol.mostread's: this panel carries a question under
+     the caption, which that list has no room for, and a percentage that has to
+     read as the row's subject rather than as a trailing note.
+     The window toggle is two real radio inputs plus :has() -- no JavaScript.
+     Both windows are rendered at build time and one is hidden, which is the only
+     way a static site can offer the choice: there is no server to ask for the
+     other one. Real radios, not styled buttons, so the control is reachable by
+     keyboard and announced as a choice. */
+  .lead{margin:0 0 1.9rem}
+  .lead h2{margin-bottom:.35rem}
+  .lead .pnote{margin:0 0 .7rem}
+  .wr{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+  .win{display:inline-flex;gap:.25rem;margin:0 0 .55rem;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .win label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .win label:hover{color:var(--ink)}
+  .lead:has(#w7:checked) label[for=w7],
+  .lead:has(#w28:checked) label[for=w28],
+  .lead:has(#wall:checked) label[for=wall]{background:var(--accent);color:var(--paper)}
+  .wr:focus-visible+label{outline:2px solid var(--accent);outline-offset:2px}
+  /* Three windows, one shown: the checked radio hides the other two. */
+  .lead:has(#w7:checked) :is(.g28,.n28,.gall,.nall),
+  .lead:has(#w28:checked) :is(.g7,.n7,.gall,.nall),
+  .lead:has(#wall:checked) :is(.g7,.n7,.g28,.n28){display:none}
+  /* The show/hide controls for a panel's secondary line -- the question under
+     a forecast row, the holding under a decision. Same box as the window
+     toggle, a checkbox instead of radios, and no script: the sibling rule does
+     the work and the lines simply show where :has() is unsupported. The
+     questions are on by default (they are what a forecast row asks); the
+     holdings are off (the caption, kind and disposition already say what
+     happened, and the holding is the more). */
+  .opts{display:inline-flex;gap:.25rem;margin:0 .45rem .55rem 0;vertical-align:top;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .opts label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .opts label:hover{color:var(--ink)}
+  .lead:has(#qon:checked) label[for=qon],
+  .panel:has(#hon:checked) label[for=hon]{background:var(--accent);color:var(--paper)}
+  .lead:has(#qon:not(:checked)) .gq{display:none}
+  .panel:has(#hon:not(:checked)) .chold{display:none}
+  /* --- Upcoming at the Court ------------------------------------------------
+     A date gutter and a two-line body, the same shape as the grant rows above
+     it, so the two panels read as one page rather than two widgets. */
+  .cal{margin:0 0 1.9rem}
+  ol.cal{list-style:none;margin:0;padding:0}
+  ol.cal li{border-top:1px solid var(--rule)}
+  ol.cal li:last-child{border-bottom:1px solid var(--rule)}
+  /* The row is a container, not an anchor: an argument day carries one link per
+     case it hears and anchors cannot nest. Hover lives on the row so it still
+     reads as one unit, and each link colours on its own hover. */
+  ol.cal .crow{display:flex;gap:.95rem;align-items:baseline;padding:.55rem .1rem}
+  ol.cal .crow:hover{background:rgba(156,14,58,.05)}
+  ol.cal a{text-decoration:none;color:inherit}
+  ol.cal a:hover,ol.cal a:focus-visible{color:var(--accent)}
+  ol.cal .cdet a{border-bottom:1px solid rgba(156,14,58,.35)}
+  ol.cal .cdet a:hover{border-bottom-color:var(--accent)}
+  ol.cal .cwhen{flex:none;width:4.6rem;font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.96rem;color:var(--ink);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  ol.cal .cdow{display:block;font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);text-transform:uppercase;letter-spacing:.08em}
+  ol.cal .ctx{flex:1;min-width:0}
+  ol.cal .ckind{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:.98rem;line-height:1.25}
+  ol.cal .cdet{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.12rem}
+  /* Recent decisions reuses the calendar rows and adds exactly two things: the
+     kind word that opens the detail line, and the one outbound link (the slip
+     opinion), which takes the link colour the rest of the row deliberately
+     does not. */
+  ol.cal .dk{font-weight:600;color:var(--ink)}
+  ol.cal .cdet a.pdf{color:var(--link)}
+  /* The holding, from the Court's slip-opinion feed: one sentence, set
+     smaller and in the soft ink so the caption stays the row's headline. */
+  ol.cal .chold{display:block;font-size:.86rem;line-height:1.4;color:var(--ink-soft);
+    font-style:italic;margin-top:.15rem}
+  ol.cal .cdet a.pdf:hover,ol.cal .cdet a.pdf:focus-visible{color:var(--accent);
+    border-bottom-color:var(--accent)}
+  ol.grants{list-style:none;margin:0;padding:0}
+  ol.grants li{border-top:1px solid var(--rule)}
+  ol.grants li:last-child{border-bottom:1px solid var(--rule)}
+  ol.grants a{display:flex;gap:.95rem;align-items:baseline;text-decoration:none;
+    color:inherit;padding:.62rem .1rem}
+  ol.grants a:hover{background:rgba(156,14,58,.05)}
+  ol.grants a:hover .gc{color:var(--accent)}
+  ol.grants .gv{flex:none;width:3.5rem;text-align:right;
+    font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.22rem;
+    line-height:1.1;color:var(--accent);font-variant-numeric:tabular-nums}
+  ol.grants .gx{font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);margin-left:.3rem}
+  ol.grants .gtx{flex:1;min-width:0}
+  /* Subject-area line under the caption, in the section-label idiom (h2.sec):
+     small tracked caps in the faint ink, so it classifies without competing. */
+  ol.grants .gs,ol.mostread .ms{display:block;font-size:.68rem;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--faint);line-height:1.3;margin-top:.12rem}
+  ol.grants .gc{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:1rem;line-height:1.25}
+  ol.grants .gq{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.16rem}
+  ol.grants .gd{flex:none;font-size:.76rem;color:var(--faint);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  .more{margin:.75rem 0 0;font-size:.92rem}
+  .more a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.35)}
+  .more a:hover{border-bottom-color:var(--link)}
+  h2.sec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:.88rem;
+    letter-spacing:.09em;color:var(--faint);text-transform:uppercase;
+    margin:2.1rem 0 .6rem;padding-bottom:.28rem;border-bottom:1px solid var(--rule)}
+  @media(max-width:40rem){
+    ol.grants a{flex-wrap:wrap}
+    ol.grants .gd{width:100%;padding-left:4.45rem;margin-top:-.1rem}
+  }
+  ol.mostread{list-style:none;counter-reset:mr;padding:0;margin:0}
+  ol.mostread li{counter-increment:mr;border-bottom:1px solid var(--rule)}
+  ol.mostread a{display:flex;align-items:baseline;gap:.7rem;padding:.6rem .4rem;
+    text-decoration:none;color:inherit}
+  ol.mostread a:hover{background:rgba(156,14,58,.05)}
+  ol.mostread a::before{content:counter(mr);font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.95rem;color:var(--faint);min-width:1.1rem;
+    font-variant-numeric:tabular-nums}
+  ol.mostread .mc{flex:1;font-size:1rem;line-height:1.3}
+  ol.mostread .mct{display:block}
+  ol.mostread a:hover .mct{color:var(--accent);text-decoration:underline;
+    text-underline-offset:3px}
+  ol.mostread .mdk{color:var(--accent);font-weight:600;font-size:.82rem;
+    font-variant-numeric:tabular-nums;white-space:nowrap}
+  ol.mostread .mv{color:var(--faint);font-size:.85rem;font-style:italic;
+    white-space:nowrap;font-variant-numeric:tabular-nums}
+  /* Forecast percentages carry weight the most-read counts do not: the number is
+     the claim, not a footnote to the ranking. Upright, accent, tabular. */
+  ol.mostread .mv.fc{color:var(--accent);font-style:normal;font-weight:600;
+    font-size:.95rem;min-width:2.6rem;text-align:right}
+  /* Feed follow line. Deliberately quiet -- a footnote under the section list,
+     styled like .recent rather than like a call to action. */
+  .feeds{display:flex;flex-wrap:wrap;align-items:baseline;gap:.3rem .85rem;
+    margin:2.2rem 0 0;padding-top:1.1rem;border-top:1px solid var(--rule)}
+  .feeds .flabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  .feeds a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .feeds a:hover{border-color:var(--link)}
+  .back{margin-top:2rem;font-size:.95rem}
+  .back a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .back a:hover{border-color:var(--link)}
+  /* Home-page case search. */
+  .csearch{position:relative;margin:0 0 1.4rem}
+  #cq{width:100%;font-family:'Newsreader',Georgia,serif;font-size:1.05rem;color:var(--ink);
+    background:var(--panel);border:1px solid var(--rule);border-radius:3px;padding:.7rem .9rem}
+  #cq:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(156,14,58,.1)}
+  #cq::placeholder{color:var(--faint)}
+  #cq.loading{background-image:linear-gradient(90deg,transparent,rgba(156,14,58,.06),transparent);
+    background-size:40% 100%;background-repeat:no-repeat;animation:csl 1s infinite}
+  @keyframes csl{0%{background-position:-40% 0}100%{background-position:140% 0}}
+  .cres{list-style:none;margin:.35rem 0 0;padding:0;max-height:24rem;overflow-y:auto;
+    border:1px solid var(--rule);border-radius:3px;background:var(--panel)}
+  .cres:empty{display:none}
+  .cres li{border-bottom:1px solid var(--rule)}
+  .cres li:last-child{border-bottom:0}
+  .cres a{display:block;padding:.55rem .7rem;text-decoration:none;color:var(--ink);
+    font-size:.98rem;line-height:1.3}
+  .cres a:hover,.cres li.act a{background:rgba(156,14,58,.06)}
+  .cres mark{background:rgba(156,14,58,.14);color:inherit;padding:0 .05em;border-radius:2px}
+  .cres .cd{color:var(--accent);font-variant-numeric:tabular-nums;font-weight:600;
+    margin-right:.5rem;white-space:nowrap}
+  .cnone{padding:.55rem .7rem;color:var(--faint);font-style:italic}
+  .cnone a,.cqp a{color:var(--link);font-style:normal;text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .cqp{margin:.45rem 0 0;font-size:.88rem;color:var(--faint)}
+  /* /cases/ browse index: grouped sections with per-bucket counts. */
+  .csec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+    text-transform:uppercase;letter-spacing:.12em;color:var(--accent);
+    margin:2.2rem 0 .3rem;padding-bottom:.35rem;border-bottom:1px solid var(--rule);
+    display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
+  .csec .cn{font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:.85rem;
+    letter-spacing:0;text-transform:none;color:var(--faint);
+    font-variant-numeric:tabular-nums}
+  .cnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:.5rem 0 0}
+  .cnote a{color:var(--accent)}
+  ul.terms{list-style:none;padding:0;margin:1rem 0 0;display:flex;flex-wrap:wrap;
+    gap:.5rem 1.6rem}
+  ul.terms li{display:inline-flex;align-items:baseline;gap:.4rem}
+  ul.terms a{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.05rem;
+    color:var(--accent);text-decoration:none;border-bottom:1px solid var(--rule)}
+  ul.terms a:hover{border-bottom-color:var(--accent)}
+  ul.terms .cn{color:var(--faint);font-size:.85rem;font-variant-numeric:tabular-nums}
+  /* About page: running prose rather than an index, so it takes a measure and a
+     little more leading than the section rows above it. */
+  .about{margin:1.6rem 0 0;font-size:1.05rem;line-height:1.65;max-width:34rem}
+  .about p{margin:0 0 1rem}
+  .about a{color:var(--accent);text-decoration:none;
+    border-bottom:1px solid var(--rule)}
+  .about a:hover{border-bottom-color:var(--accent)}
+  .about .contact{margin:2rem 0 0;background:var(--panel);border:1px solid var(--rule);
+    border-left:4px solid var(--accent);padding:1.1rem 1.3rem}
+  .about .contact h2{font:600 .78rem/1 'Newsreader',Georgia,serif;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--accent);margin:0 0 .5rem}
+  .about .contact p{margin:0;font-size:1rem}
+
+/* ---- masthead ---- */
+.smast-in{max-width:var(--nav-max,60rem);margin:0 auto;padding:.85rem 1.5rem .5rem;
+  display:flex;align-items:baseline;justify-content:space-between;gap:1.4rem;flex-wrap:wrap}
+.smast-wm{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+  letter-spacing:.005em;color:var(--ink,#1a1a1e);text-decoration:none;white-space:nowrap;flex:none}
+.smast-wm em{font-style:italic;font-weight:500;color:var(--accent,#9c0e3a)}
+.smast-wm:hover{color:var(--accent,#9c0e3a)}
+/* Row gap first, then column. At 1.35rem the six section links measured 596px
+   of max-content -- 4px wider than the 592px row the 40rem index container
+   leaves them -- so ABOUT alone wrapped to a third line under the wordmark, on
+   every page page_style.R writes. 1.05rem brings the row to 572px: 20px of
+   slack at 40rem, and 45px on the 54rem case pages, which were themselves only
+   21px from wrapping. The .4rem row gap is for the day a seventh section
+   overruns it anyway -- a nav that wraps should read as a stack, not an orphan. */
+.snav{display:flex;gap:.4rem 1.05rem;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+.snav a{font:600 .72rem/1 'Newsreader',Georgia,serif;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--ink-soft,var(--soft,#484850));text-decoration:none;display:inline-block;
+  padding:.5rem 0;border-bottom:1.5px solid transparent}
+.snav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--rule,#dbd8d2)}
+.snav a[aria-current='page']{color:var(--accent,#9c0e3a);
+  border-bottom-color:var(--accent,#9c0e3a)}
+.smast-rule-w{max-width:var(--nav-max,60rem);margin:0 auto;padding:0 1.5rem}
+.smast-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0;position:relative}
+.smast-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.skip{position:absolute;left:-9999px;top:0;background:var(--panel,#ffffff);
+  color:var(--accent,#9c0e3a);padding:.6rem 1rem;
+  border:1px solid var(--accent,#9c0e3a);
+  font:600 .8rem/1 'Newsreader',Georgia,serif;letter-spacing:.1em;text-transform:uppercase;z-index:10}
+.skip:focus{left:.5rem;top:.5rem}
+/* ---- breadcrumb ---- */
+.bcrumb{margin:.7rem 0 0}
+.bcrumb ol{list-style:none;display:flex;flex-wrap:wrap;align-items:baseline;
+  gap:.1rem .45rem;margin:0;padding:0}
+.bcrumb li{display:inline-flex;align-items:baseline;gap:.45rem}
+.bcrumb a{font:400 .8rem/1.5 'Newsreader',Georgia,serif;color:var(--ink-soft,var(--soft,#484850));
+  text-decoration:none;border-bottom:1px solid var(--rule,#dbd8d2)}
+.bcrumb a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.bcrumb .sep{color:var(--faint,#63636b);font-size:.8rem;line-height:1.5}
+.bcrumb [aria-current='page']{font:400 .8rem/1.5 'Newsreader',Georgia,serif;
+  color:var(--faint,#63636b);font-variant-numeric:tabular-nums}
+/* ---- case footer ---- */
+.cfoot{margin:2.4rem 0 0}
+.cfoot-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0 0 1rem;position:relative}
+.cfoot-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.cfoot-off{font-size:.95rem;margin:0 0 1.1rem}
+.cfoot-off a{color:var(--link,#9c0e3a);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.4)}
+.cfoot-off a:hover{border-bottom-color:var(--link,#9c0e3a)}
+.cfoot-lab{font:600 .68rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);margin:0 0 .5rem}
+.cfoot-nav{display:flex;flex-wrap:wrap;gap:.35rem 1.1rem;list-style:none;margin:0;padding:0}
+.cfoot-nav a{font-size:.92rem;color:var(--ink-soft,var(--soft,#484850));text-decoration:none;
+  border-bottom:1px solid var(--rule,#dbd8d2);padding-bottom:1px}
+.cfoot-nav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.cfoot-stamp{margin:1.2rem 0 0;font-size:.8rem;color:var(--faint,#63636b);font-style:italic}
+/* ---- prev / next ---- */
+.pnav{margin:2.2rem 0 0;border-top:1px solid var(--rule,#dbd8d2);padding-top:1rem;
+  display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.pnav a,.pnav span.none{text-decoration:none;color:inherit;display:block;padding:.5rem .2rem}
+.pnav a:hover{background:rgba(156,14,58,.05)}
+.pnav .dir{font:600 .66rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);display:block;margin-bottom:.3rem}
+.pnav .lab{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1rem;line-height:1.25;
+  color:var(--accent,#9c0e3a);display:block}
+.pnav a:hover .lab{text-decoration:underline;text-underline-offset:3px}
+.pnav .nx{text-align:right}
+.pnav .none{opacity:.35}
+@media(max-width:640px){
+  .smast-in{padding:.7rem 1.1rem .25rem;gap:.15rem}
+  .smast-wm{font-size:.98rem}
+  .smast-in nav{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+    -webkit-mask-image:linear-gradient(90deg,#000 86%,transparent);
+    mask-image:linear-gradient(90deg,#000 86%,transparent)}
+  .smast-in nav::-webkit-scrollbar{display:none}
+  .snav{flex-wrap:nowrap;gap:1.15rem;padding-right:2.4rem}
+  .snav a{padding:.7rem 0;white-space:nowrap}
+  .smast-rule-w{padding:0 1.1rem}
+  .cfoot-nav{gap:.5rem 1rem}
+  .cfoot-nav a{padding-bottom:.3rem}
+  .pnav{grid-template-columns:1fr;gap:.2rem}
+  .pnav .nx{text-align:left;border-top:1px solid var(--rule,#dbd8d2)}
+}
+
+  .wrap.opn{max-width:42rem}
+  .opn .ometa{font-size:.92rem;color:var(--ink-soft);margin:.3rem 0 0}
+  .opn .oget{display:flex;flex-wrap:wrap;gap:.4rem .6rem;margin:1.1rem 0 0;padding:0;list-style:none;font-size:.9rem}
+  .opn .oget a{display:inline-block;padding:.32rem .7rem;border:1px solid var(--rule);border-radius:4px;color:var(--ink);text-decoration:none;background:var(--panel)}
+  .opn .oget a:hover{border-color:var(--accent);color:var(--accent)}
+  .opn .osrc{font-size:.84rem;color:var(--faint);margin:.9rem 0 0;line-height:1.45}
+  .opn .osrc a{color:var(--link)}
+  .opn .otoc{margin:1.6rem 0 0;padding:.8rem 1rem;border:1px solid var(--rule);border-radius:4px;background:var(--panel);font-size:.95rem}
+  .opn .otoc ol{margin:0;padding:0;list-style:none}
+  .opn .otoc li{margin:.25rem 0}
+  .opn .otoc a{color:var(--ink);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.35)}
+  .opn .otoc a:hover{color:var(--accent)}
+  .opn section.op{margin-top:3rem;border-top:2px solid var(--ink);padding-top:1.1rem}
+  .opn section.op h2{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.5rem;line-height:1.2;margin:0 0 1rem;color:var(--ink)}
+  .opn section.op p{margin:0 0 .95rem;line-height:1.62;hyphens:auto;overflow-wrap:break-word}
+  .opn section.op p.byline{color:var(--ink-soft);font-style:italic}
+  .opn section.op p.sep{text-align:center;letter-spacing:.3em;color:var(--faint);margin:1.6rem 0}
+  .opn section.op h3.oh{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.12rem;text-align:center;margin:2rem 0 1rem;color:var(--ink)}
+  .opn section.op blockquote{margin:0 0 .95rem;padding:0 0 0 1.1rem;border-left:2px solid var(--rule);color:var(--ink-soft)}
+  .opn section.op blockquote p{margin-bottom:.6rem;font-size:.96em}
+  .opn .sc{font-variant-caps:small-caps;letter-spacing:.02em}
+  .opn .pg{font-size:.66em;color:var(--faint);vertical-align:.3em;margin:0 .3em 0 .1em;font-variant-numeric:tabular-nums;user-select:none;white-space:nowrap}
+  .opn .pg::before{content:'*'}
+  .opn sup.fnr{font-size:.68em;line-height:0;margin-left:.05em}
+  .opn sup.fnr a{color:var(--link);text-decoration:none;padding:0 .1em}
+  .opn aside.notes{margin-top:2rem;border-top:1px solid var(--rule);padding-top:.8rem;font-size:.88rem;color:var(--ink-soft)}
+  .opn aside.notes h3{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1rem;margin:0 0 .6rem;color:var(--ink)}
+  .opn aside.notes ol{margin:0;padding-left:1.7rem}
+  .opn aside.notes li{margin:0 0 .55rem}
+  .opn aside.notes li.sym{list-style:none;margin-left:-1.7rem}
+  .opn aside.notes li.sym .mk{margin-right:.3rem}
+  .opn aside.notes li.sym p{display:inline}
+  .opn aside.notes p{margin:0 0 .4rem;line-height:1.5}
+  .opn aside.notes a.back{color:var(--link);text-decoration:none;margin-left:.2rem}
+  .opn aside.notes li:target,.opn sup.fnr a:target,.opn .pg:target{background:rgba(156,14,58,.12);outline:.2rem solid rgba(156,14,58,.12)}
+  .opn section.op,.opn aside.notes li,.opn sup.fnr a{scroll-margin-top:1rem}
+  .opn section.op-syllabus p,.opn section.op-counsel p{font-size:.95em}
+  .opn section.op-counsel summary{cursor:pointer;font-family:'Fraunces',Georgia,serif;font-size:1.05rem;color:var(--ink-soft)}
+  .opn .osyl{font-size:.84rem;color:var(--faint);font-style:italic;margin:-.5rem 0 1rem}
+  .opn p.back{margin-top:3rem;font-size:.92rem}
+  @media print{.smast,.bcrumb,.opn .oget,.opn .otoc,.opn p.back{display:none}.opn section.op{break-before:page}}
+</style><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://supremecourt.report/"},{"@type":"ListItem","position":2,"name":"Opinions","item":"https://supremecourt.report/opinions/"},{"@type":"ListItem","position":3,"name":"Garland v. Ming Dai"}]}</script><meta name='otv' content='p1'><link rel='alternate' type='text/markdown' href='/opinions/2020/19-1155.md'><link rel='alternate' type='application/epub+zip' href='/opinions/2020/19-1155.epub'></head><body><a class='skip' href='#main'>Skip to content</a><header><div class='smast-in'><a class='smast-wm' href='/'>Supreme Court <em>Report</em></a><nav aria-label='Sections'><ul class='snav'><li><a href='/dashboards/'>Docket</a></li><li><a href='/conferences/'>Conferences</a></li><li><a href='/relists/'>Relists</a></li><li><a href='/applications/'>Interim</a></li><li><a href='/arguments/'>Arguments</a></li><li><a href='/justices/' aria-current='page'>Justices</a></li><li><a href='/counsel/'>Counsel</a></li><li><a href='/funnel/'>Funnel</a></li><li><a href='/methods.html'>Model</a></li><li><a href='/about.html'>About</a></li></ul></nav></div><div class='smast-rule-w'><hr class='smast-rule'></div></header><main class='wrap opn' id='main' data-dkt='19-1155'><nav class='bcrumb' aria-label='Breadcrumb'><ol><li><a href='/'>Home</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><a href='/opinions/'>Opinions</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><span aria-current='page'>Garland v. Ming Dai</span></li></ol></nav><p class='kicker'>No. 19-1155 · decided June 1, 2021 · 593 U. S. 357</p><h1 style='font-size:clamp(1.7rem,4.6vw,2.4rem);line-height:1.12'>Garland v. Ming Dai</h1><p class='ometa'>Merrick B. Garland, Attorney General v. Ming Dai. No separate writings.</p><ul class='oget'><li><a href='/opinions/2020/19-1155.epub' download>EPUB</a></li><li><a href='/opinions/2020/19-1155.md' download>Markdown</a></li><li><a href='https://www.supremecourt.gov/opinions/20pdf/593us2r41_9o6b.pdf' rel='noopener'>The Court’s PDF</a></li><li><a href='/cases/19-1155.html'>The docket</a></li></ul><p class='osrc'>Set from the PDF the Court published, which is the authoritative text. The small starred numbers are that PDF’s page numbers. A conversion can introduce errors; check a quotation against the <a href='https://www.supremecourt.gov/opinions/20pdf/593us2r41_9o6b.pdf' rel='noopener'>original</a>.</p><nav class="otoc" aria-label="Contents"><ol>
+<li><a href="#s1">Syllabus</a></li>
+<li><a href="#s2">Counsel</a></li>
+<li><a href="#s3">Opinion of the Court</a></li>
+</ol></nav>
+<section id="s1" class="op op-syllabus"><h2>Syllabus</h2><p class='osyl'>Prepared by the Reporter of Decisions for the convenience of the reader; it is no part of the opinion of the Court.</p>
+<p>In each of these cases, a foreign national appeared before an immigration judge (IJ) and requested that he not be returned to his country of origin. For Cesar Alcaraz-Enriquez, the IJ first had to determine whether Mr. Alcaraz-Enriquez had committed a disqualifying “particularly serious crime” based on his prior California conviction for “inflicting corporal injury on a spouse or cohabitant.” See 8 U. S. C. §1231(b)(3)(B)(ii). The IJ considered both the probation report issued at the time of the conviction (which detailed a serious domestic violence incident) and Mr. Alcaraz-Enriquez's own testimony at the removal proceeding (which included an admission that he hit his girlfriend but allegedly did so in defense of his daughter). Relying in part on the version of events in the probation report, the IJ held Mr. Alcaraz-Enriquez ineligible for relief. On appeal, the Board of Immigration Appeals (BIA) affirmed. In Ming Dai's case, he testified that he and his family had suffered past persecution by Chinese officials and expected future persecution upon return. But Mr. Dai initially failed to disclose that his wife and daughter had both returned voluntarily to China since accompanying him to the United States. When confronted, Mr. Dai told the “real story” of why he remained in the United States. The IJ found that Mr. Dai's testimony undermined his claims and denied relief. On appeal, the BIA affirmed. Mr. Alcaraz-Enriquez and Mr. Dai each sought judicial review, and in each case, the Ninth Circuit noted that neither the IJ nor the BIA made an explicit “adverse credibility determination” under the Immigration Nationality Act (INA). §§ 1158(b)(1)(B)(iii), 1231(b)(3)(C), 1229a(c)(4)(C). Applying its own judge-made rule that a reviewing court must treat the noncitizen's testimony as credible and true absent an explicit adverse credibility determination, the Ninth Circuit granted relief.</p>
+<p><em>Held</em>: The Ninth Circuit's deemed-true-or-credible rule cannot be reconciled with the INA's terms. Pp. 364–373.</p>
+<p>(a) The Ninth Circuit's rule has no proper place in a reviewing court's analysis. The INA provides that a reviewing court must accept “ad*Together with No. 19–1156, <em>Garland</em> v. <em>Alcaraz-Enriquez</em>, also on cer</p>
+<p>tiorari to the same court.</p>
+<p><span class="pg" id="s1-p358" title="page 358 of the original">358</span>ministrative findings” as “conclusive unless any reasonable adjudicator would be compelled to conclude to the contrary.” § 1252(b)(4)(B). And a reviewing court is “generally not free to impose” additional judge-made procedural requirements on agencies. <em>Vermont Yankee Nuclear Power Corp.</em> v. <em>Natural Resources Defense Council, Inc.,</em> 435 U. S. 519, 524.</p>
+<p>Judicial proceedings in cases like these do not constitute “appeals” in which the “rebuttable presumption of credibility on appeal” applies absent an explicit credibility determination. §§ 1158(b)(1)(B)(iii), 1231(b)(3)(C), 1229a(c)(4)(C). Here, there is only one appeal—from the IJ to the BIA. See §§ 1158(d)(5)(iii)–(iv). Subsequent judicial review takes place not by appeal, but by means of a “petition for review,” which the INA describes as “the sole and exclusive means for judicial review of an order of removal.” § 1252(a)(5). A presumption of credibility may arise in some appeals before the BIA, but no such presumption applies in antecedent proceedings before an IJ or in subsequent collateral review before a federal court. This makes sense because reviewing courts do not make credibility determinations, but instead ask only whether <em>any</em> reasonable adjudicator could have found as the agency did. The Ninth Circuit's rule gets the standard backwards by giving conclusive weight to any testimony that cuts against the agency's finding. Pp. 364–368.</p>
+<p>(b) Mr. Alcaraz-Enriquez and Mr. Dai offer an alternative theory for affirming the Ninth Circuit. Because, they say, they were entitled to a presumption of credibility in their BIA appeals, they are entitled to relief in court because no reasonable adjudicator obliged to presume their credibility could have found against them. Even assuming that there was no explicit adverse credibility determination here, the Ninth Circuit's reasoning is flawed for at least two reasons. Pp. 368–373.</p>
+<p>(1) The presumption of credibility on appeal under the INA is “rebuttable.” And the INA contains no parallel requirement of explicitness when it comes to rebutting the presumption on appeal. Reviewing courts, bound by traditional administrative law principles, must “uphold” even “a decision of less than ideal clarity if the agency's path may reasonably be discerned.” <em>Bowman Transp., Inc.</em> v. <em>Arkansas-Best Freight System, Inc.,</em> 419 U. S. 281, 286. In neither case did the Ninth Circuit consider the possibility that the BIA implicitly found the presumption of credibility rebutted. The BIA expressly adopted the IJ's decision in Mr. Alcaraz-Enriquez's case, which, in turn, noted that Mr. Alcaraz-Enriquez's story changed from the time of the probation report to the time of the hearing—a factor the statute specifically identifies as relevant to credibility, see §§ 1158(b)(1)(B)(iii), 1231(b)(3)(C), 1229a(c)(4)(C). And in Mr. Dai's case, the BIA also adopted the IJ's decision, which discussed specific problems with Mr. Dai's demeanor, <span class="pg" id="s1-p359" title="page 359 of the original">359</span>candor, and internal inconsistency—an analysis that certainly goes to the presumption of credibility even if the agency didn't use particular words. See <em>ibid.</em> In each case, the Ninth Circuit should consider whether the BIA in fact found the presumption of credibility overcome. If so, it seems unlikely that the conclusion in either case is one no reasonable adjudicator could have reached. Pp. 368–371.</p>
+<blockquote>
+<p>(2) The presumption of credibility applies with respect to credi</p>
+</blockquote>
+<p class="cont">bility but the INA expressly requires the noncitizen to satisfy the trier of fact on credibility, persuasiveness, and the burden of proof. §§ 1158(b)(1)(B)(ii), 1231(b)(3)(C), 1229a(a)(4)(B). Even if the BIA treats a noncitizen's testimony as credible, the agency need not find such evidence persuasive or sufficient to meet the burden of proof. Here, the Ninth Circuit erred by treating credibility as dispositive of both persuasiveness and legal sufficiency. Pp 371–373. 884 F. 3d 858 and 727 Fed. Appx. 260, vacated and remanded. G<span class="sc">orsuch, J.,</span> delivered the opinion for a unanimous Court.</p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li class="sym" value="0"><span class="mk">†</span><p>Briefs of <em>amici curiae</em> urging affirmance in both cases were filed for the American Immigration Lawyers Association et al. by <em>Ilana H. Eisenstein, Paul D. Schmitt,</em> and <em>Jean Galbraith</em>; for Refugee Advocacy Organizations by <em>Zachary C. Schauf</em>; and for Thirty-Five Former Immigration Judges et al. by <em>Richard W. Mark</em> and <em>Amer S. Ahmed</em>.</p></li>
+</ol></aside></section>
+<section id="s2" class="op op-counsel"><details><summary>Counsel</summary><p><em>Colleen E. Roh Sinzdak</em> argued the cause for petitioner in both cases. With her on the briefs were <em>Acting Solicitors General Wall</em> and <em>Prelogar, Acting Assistant Attorneys General Clark</em> and <em>Boynton, Deputy Solicitor General Kneedler, Benjamin W. Snyder, Donald E. Keener, John W. Blakeley,</em> and <em>Dawn S. Conrad.</em></p>
+<p><em>Neal Kumar Katyal</em> argued the cause for respondent in No. 19–1156. With him on the brief were <em>Mitchell P. Reich</em> and <em>Robert Jobe. David J. Zimmer</em> argued the cause and filed a brief for respondent in No. 19–1155<em>.</em>†</p></details></section>
+<section id="s3" class="op op-court"><h2>Opinion of the Court</h2>
+<p class="byline">Justice Gorsuch delivered the opinion of the Court.</p>
+<p>The Ninth Circuit has long applied a special rule in immigration disputes. The rule provides that, in the absence of an explicit adverse credibility determination by an immigration judge or the Board of Immigration Appeals, a reviewing <span class="pg" id="s3-p360" title="page 360 of the original">360</span>court must treat a petitioning alien's testimony as credible and true. At least 12 members of the Ninth Circuit have objected to this judge-made rule, and we granted certiorari to decide whether it can be squared with the terms of the Immigration and Nationality Act (INA), 66 Stat. 163, as amended, 8 U. S. C. § 1101 <em>et seq</em>.</p>
+<h3 class="oh">I</h3>
+<h3 class="oh">A</h3>
+<p>The question comes to us in cases involving Cesar Alcaraz-Enriquez and Ming Dai. Mr. Alcaraz-Enriquez is a Mexican national. Authorities detained him when he attempted to enter this country illegally. In proceedings before an immigration judge (IJ), Mr. Alcaraz-Enriquez sought to avoid being returned to Mexico on the ground that his life or freedom would be threatened there. See 8 U. S. C. § 1231(b)(3)(A). But Congress has said this form of relief from removal is unavailable if, among other things, “the Attorney General decides that . . . the alien, having been convicted by a final judgment of a particularly serious crime[,] is a danger to the community of the United States.” § 1231(b)(3)(B)(ii). This proviso posed a problem for Mr. Alcaraz-Enriquez because, during a previous illegal entry, he pleaded <em>nolo contendere</em> to “inflict[ing] corporal injury [on a] spouse [or] cohabitant” under California law and received a 2-year sentence. Cal. Penal Code Ann. § 273.5(A) (West 2014).</p>
+<p>The key question thus became whether Mr. Alcaraz-Enriquez's California conviction amounted to “a particularly serious crime.” The parties appear to agree that the answer to that question turns on which version of events one accepts: The version found in a probation report issued at the time of Mr. Alcaraz-Enriquez's conviction, or the version he testified to years later as part of his removal proceeding. The IJ received and considered both.</p>
+<p>The probation report indicated that Mr. Alcaraz-Enriquez locked his 17-year-old girlfriend in his bedroom one evening, <span class="pg" id="s3-p361" title="page 361 of the original">361</span>caught her trying to escape, dragged her back into the room, threatened to stab her and dump her body in a dumpster, and forced her to have sex with him. The next morning, he beat the young woman, leaving bruises on her back, neck, arms, and legs—stopping only when she begged for her life. Later that evening, when she asked to leave, he dragged her out, threw her against the stairs, and kicked her as she rolled down. Her ordeal lasted nearly 24 hours. Police arrested Mr. Alcaraz-Enriquez days later as he tried to flee his residence. At that time, Mr. Alcaraz-Enriquez admitted to the officers that he chased, grabbed, and punched his girlfriend in the face. He also admitted that he prevented her from leaving the house. But he claimed that he didn't hit her “that hard.” App. to Pet. for Cert. in No. 19–1156, p. 14a.</p>
+<p>Against this evidence, the IJ considered Mr. Alcaraz-Enriquez's testimony during his immigration proceeding. There, he “admitted hitting his girlfriend, but not in the manner as described in the report.” <em>Ibid.</em> Mr. Alcaraz-Enriquez testified that he was upset with his girlfriend because “he believed that [she] was hitting his daughter.” <em>Ibid.</em> In Mr. Alcaraz-Enriquez's view, he was coming to his daughter's defense. Mr. Alcaraz-Enriquez denied dragging or kicking the young woman, or forcing her to have sex with him. He also submitted a letter from his mother, who stated that when she saw the girlfriend immediately after the altercation, “she looked completely fine.” App. 256.</p>
+<p>Ultimately, the IJ held Mr. Alcaraz-Enriquez ineligible for relief, relying in part on the version of events in the probation report. Among other things, the IJ found it significant that there was “no mention” in the contemporaneous probation report of the girlfriend hitting Mr. Alcaraz-Enriquez's daughter. App. to Pet. for Cert. in No. 19–1156, at 14a. On appeal, the Board of Immigration Appeals (BIA) “adopt[ed] and affirm[ed]” the IJ's decision. <em>Id.,</em> at 7a. The BIA held that the IJ had “properly considered all evidence of record,” “weighing and comparing [Mr. Alcaraz-Enriquez's] testimony at the hearing and the probation officer's report.” <em>Id.,</em> <span class="pg" id="s3-p362" title="page 362 of the original">362</span>at 8a. The BIA also stressed its view that the IJ was not required to credit Mr. Alcaraz-Enriquez's “version of events over other plausible alternatives.” <em>Ibid.</em></p>
+<p>The Ninth Circuit saw the matter differently. Applying circuit precedent, it held that “ `[w]here the BIA does not make an explicit adverse credibility finding, [the court] must assume that [the alien's] factual contentions are true.' ” <em>Alcaraz-Enriquez</em> v. <em>Sessions</em>, 727 Fed. Appx. 260, 261 (2018). And because this rule required taking Mr. Alcaraz-Enriquez's testimony as true—even in the face of competing evidence—the Ninth Circuit held that the BIA erred in denying relief and granted the petition for review.<sup class="fnr"><a id="s3-r1" href="#s3-n1">1</a></sup></p>
+<h3 class="oh">B</h3>
+<p>Ming Dai is a Chinese national who came to the United States on a tourist visa. Shortly after arriving, he sought asylum. To win relief, Mr. Dai bore the burden of proving that he was a “refugee”—someone “unable or unwilling” to return to China “because of persecution or a well-founded fear of persecution . . . for failure or refusal to undergo [involuntary sterilization] or for other resistance to a coercive population control program.” 8 U. S. C. §§ 1158(b)(1), 1101(a)(42). As in Mr. Alcaraz-Enriquez's case, the parties have proceeded on the assumption that everything here turns on questions of fact—whether Mr. Dai was persecuted in the past or fears persecution in the future—and we do the same.<sup class="fnr"><a id="s3-r2" href="#s3-n2">2</a></sup></p>
+<p><span class="pg" id="s3-p363" title="page 363 of the original">363</span>Once more, the evidence before the IJ cut both ways. On the one hand, Mr. Dai claimed that, after his wife became pregnant with their second child in 2009, family-planning officials abducted her and forced her to have an abortion. Mr. Dai further testified that, when he tried to stop his wife's abduction, police broke his ribs, dislocated his shoulder, and jailed him for 10 days. According to Mr. Dai, he lost his job, his wife was demoted, and his daughter was denied admission to superior schools. In applying for asylum, Mr. Dai stated, “I eventually found a way to reach the USA,” and asked the government to “[p]lease grant me asylum so that I can bring my wife and daughter to safety in the USA.” App. 155.</p>
+<p>On the other hand, Mr. Dai failed to disclose the fact that his wife and daughter had already traveled to the United States—<em>and</em> voluntarily returned to China. The IJ observed that Mr. Dai “hesitated at some length” when confronted with these facts. App. to Pet. for Cert. in No. 19–1155, p. 170a. After being asked to tell the “real story,” Mr. Dai proceeded to admit that his daughter returned to China to go to school; that his wife chose to return to her job and her elderly father; that Mr. Dai did not have a job in China; and this was “why he stayed” in the United States. <em>Id.,</em> at 171a. Asked directly why he did not return to China with his family, Mr. Dai responded, “[b]ecause at that time, I was in a bad mood and I couldn't get a job, so I want to stay here for a bit longer and another friend of mine is also here.” App. 103.</p>
+<p>The IJ denied relief. In the IJ's view, the “principal area of concern” arose when Mr. Dai was confronted with his wife and daughter's trip to the United States and their voluntary return to China. App. to Pet. for Cert. in No. 19–1155, <span class="pg" id="s3-p364" title="page 364 of the original">364</span>at 169a. The record showed that Mr. Dai failed “to disclose” these facts in his own statements, and that he “paused at length” when confronted with them. <em>Id.,</em> at 163a, 173a. The IJ concluded that “I do not find that [Mr. Dai's] explanations for [his wife's] return to China while he remained here are adequate.” <em>Id.,</em> at 175a. In the IJ's view, Mr. Dai's eventual admissions regarding his wife and daughter's return to China to pursue school and economic opportunities undermined his claims of past and future persecution, particularly given that his wife was “the primary object of the persecution in China.” <em>Ibid.</em> On appeal, the BIA “adopt[ed] and affirm[ed]” the IJ's decision. <em>Id.,</em> at 163a.</p>
+<p>Again, the Ninth Circuit saw things differently. Much as it had in <em>Alcaraz-Enriquez</em>, a divided panel held that “in the absence of an explicit adverse credibility finding by the IJ or the BIA,” Mr. Dai's testimony had to be “deemed” credible and true. <em>Ming Dai</em> v. <em>Sessions</em>, 884 F. 3d 858, 868 (2018). On the strength of that testimony, the court then proceeded to find Mr. Dai eligible for asylum. Later, the court of appeals denied the government's petition for rehearing en banc over the objections of 12 judges.</p>
+<h3 class="oh">II</h3>
+<h3 class="oh">A</h3>
+<p>For many years, and over many dissents, the Ninth Circuit has proceeded on the view that, “[i]n the absence of an explicit adverse credibility finding [by the agency], we must assume that [the alien's] factual contentions are true” or at least credible. <em>E. g.</em>, <em>Kataria</em> v. <em>INS</em>, 232 F. 3d 1107, 1114 (2000); <em>Zhiqiang Hu</em> v. <em>Holder</em>, 652 F. 3d 1011 (2011); 884 F. 3d, at 868; 727 Fed. Appx., at 261. This view appears to be an outlier. The First Circuit, for example, has held that a reviewing court is not bound to accept a witness's statements as fact whenever the agency is less than explicit about credibility. <em>Wan Chien Kho</em> v. <em>Keisler</em>, 505 F. 3d 50, 56 (2007).</p>
+<p><span class="pg" id="s3-p365" title="page 365 of the original">365</span>In both of the cases before us, the Ninth Circuit rested its decisions on its deemed-true-or-credible rule. In <em>Alcaraz-Enriquez</em>, the Ninth Circuit applied the rule to disregard entirely the evidence contained in the probation report and credit only Mr. Alcaraz-Enriquez's version of events. 727 Fed. Appx., at 261. In <em>Dai</em>, the court deemed Mr. Dai's <em>favorable</em> testimony credible and true and prohibited the <em>unfavorable</em> testimony about his “real” reasons for remaining in the country from being “smuggled” into the removal analysis. 884 F. 3d, at 872. As one of the dissents in <em>Dai</em> put it, the Ninth Circuit's rule leads to “the extraordinary position” that a court “must take as true an asylum applicant's testimony that supports a claim for asylum, even in the face of other testimony from the applicant that would undermine an asylum claim.” <em>Ming Dai</em> v. <em>Barr</em>, 940 F. 3d 1143, 1149 (2019) (opinion of Callahan, J.).</p>
+<p>The Ninth Circuit's rule has no proper place in a reviewing court's analysis. Congress has carefully circumscribed judicial review of BIA decisions. When it comes to questions of fact—such as the circumstances surrounding Mr. Alcaraz-Enriquez's prior conviction or Mr. Dai's alleged persecution—the INA provides that a reviewing court must accept “administrative findings” as “conclusive unless any reasonable adjudicator would be compelled to conclude to the contrary.” 8 U. S. C. § 1252(b)(4)(B). This is a “highly deferential” standard. <em>Nasrallah</em> v. <em>Barr</em>, 590 U. S. –––, ––– (2020); cf. <em>INS</em> v. <em>Elias-Zacarias</em>, 502 U. S. 478, 483–484 (1992). Nothing in the INA contemplates anything like the embellishment the Ninth Circuit has adopted. And it is long since settled that a reviewing court is “generally not free to impose” additional judge-made procedural requirements on agencies that Congress has not prescribed and the Constitution does not compel. <em>Vermont Yankee Nuclear Power Corp.</em> v. <em>Natural Resources Defense Council, Inc.</em>, 435 U. S. 519, 524 (1978).</p>
+<p>This does not mean that the BIA may “ `arbitrarily' ” reject an alien's evidence. <em>Director, Office of Workers' Com</em><em>pensation</em><span class="pg" id="s3-p366" title="page 366 of the original">366</span><em> Programs</em> v. <em>Greenwich Collieries</em>, 512 U. S. 267, 279 (1994). But it does mean that, so long as the record contains “ `contrary evidence' ” of a “ `kind and quality' ” that a reasonable factfinder could find sufficient, a reviewing court may not overturn the agency's factual determination. <em>Ibid</em>. In this process, a reviewing court must be mindful too that the agency, like any reasonable factfinder, is free to “credit part of [a] witness' testimony without” necessarily “accepting it all.” <em>Banks</em> v. <em>Chicago Grain Trimmers Assn., Inc.</em>, 390 U. S. 459, 467 (1968). It does not matter whether the agency accepts all, none, or some of the alien's testimony; its reasonable findings may not be disturbed.</p>
+<p>Admittedly, there is a wrinkle. Elsewhere, the INA <em>does</em> discuss a presumption of credibility. The statute provides that absent an “explici[t]” “adverse credibility determination,” “the applicant or witness shall have a rebuttable presumption of credibility on appeal.” §§ 1158(b)(1)(B)(iii), 1231(b)(3)(C), 1229a(c)(4)(C). At the same time, the statute cautions that outside the “appeal” there is “<em>no</em> presumption of credibility.” <em>Ibid.</em> (emphasis added).</p>
+<p>It's easy to see how one might assume judicial proceedings in cases like ours constitute “appeals” subject to this presumption of credibility. But such an assumption would be mistaken. As the Ninth Circuit itself has recognized, in immigration cases like those before us, there is only one “appeal”—from the IJ to the BIA. 884 F. 3d, at 869; see also <em>Kho</em>, 505 F. 3d, at 56; §§ 1158(d)(5)(A)(iii)–(iv); 8 CFR § 1003.38 (2020). Under the INA, subsequent judicial review takes place by means of a “petition for review.” 8 U. S. C. §§ 1252(a)(5), (b); cf. 5 U. S. C. §§ 702–703. It is true that, at one point, the INA refers to dismissing “the appeal” if an alien fails to file a timely brief in support of his petition for review, 8 U. S. C. § 1252(b)(3)(C), but that stray reference does not convert the statutorily described petition for review proceeding into an appeal for purposes of the presumption of credibility.</p>
+<p><span class="pg" id="s3-p367" title="page 367 of the original">367</span>Historical understandings confirm the point. Article III courts do not traditionally hear direct appeals from Article II executive agencies. See, <em>e. g., Ex parte Yerger</em>, 8 Wall. 85 (1869); <em>FCC</em> v. <em>Pottsville Broadcasting Co.</em>, 309 U. S. 134, 144 (1940). Instead, judicial intervention generally comes, if at all, thanks to some collateral review process Congress has prescribed, initiating a new action in the federal courts. See, <em>e. g.,</em> 5 U. S. C. §§ 702–703 (authorizing parties to challenge agency action not by an appeal, but by “[a]n action in a court of the United States” in which the “United States may be named as a defendant”). Of course, Congress may sometimes refer to collateral judicial review of executive action as “an appeal,” see, <em>e. g.,</em> 35 U. S. C. § 141; Fed. Rule App. Proc. 15, but that does not make it an “appeal” akin to that taken from the district court to the court of appeals, or from the IJ to the BIA. In any event, this is an easy case because the INA provides that “a petition for review . . . shall be the sole and exclusive means for judicial review of an order of removal.” 8 U. S. C. § 1252(a)(5).</p>
+<p>That the presumption of credibility applies only “on appeal” to the BIA makes sense as a matter of basic administrative law principles too. Reviewing courts have no need for a presumption of credibility one way or the other because they do not make credibility determinations. Instead, courts deferentially review the <em>agency</em>'<em>s</em> fact determinations. See § 1252(b)(4)(B); see also 5 U. S. C. § 706(2)(E). The IJ— who actually observes the witness—is best positioned to assess the applicant's credibility in the first instance. The credibility presumption encourages the IJ to make specific findings about credibility. And then the BIA—which has experience with the sort of facts that recur in immigration cases and the ability to directly override the IJ's factfindings—is well positioned to apply the credibility presumption if the IJ has not made an explicit finding.</p>
+<p>All of which returns us to where we began. A presumption of credibility may arise in some appeals before the BIA. <span class="pg" id="s3-p368" title="page 368 of the original">368</span>But no such presumption applies in antecedent proceedings before an IJ, or in subsequent collateral review before a federal court. The only question for judges reviewing the BIA's factual determinations is whether <em>any</em> reasonable adjudicator could have found as the agency did. The Ninth Circuit's rule mistakenly flips this standard on its head. Rather than ask whether the agency's finding qualifies as one of potentially many reasonable possibilities, it gives conclusive weight to any piece of testimony that cuts against the agency's finding. That was error.</p>
+<h3 class="oh">B</h3>
+<p>Perhaps recognizing the problems with the Ninth Circuit's rule, Mr. Alcaraz-Enriquez and Mr. Dai ask us to affirm that court's judgments primarily by means of a different, though closely related, chain of reasoning. The argument goes like this: Because neither the IJ nor the BIA made an explicit adverse credibility determination about their testimony, Mr. Alcaraz-Enriquez and Mr. Dai say they were statutorily entitled to a presumption of credibility in their BIA appeals. And given <em>that</em>, they insist they are entitled to relief in court because no reasonable adjudicator obliged to presume their credibility could have found against them. In this version of the argument, Mr. Alcaraz-Enriquez and Mr. Dai acknowledge the proper locus of the presumption of credibility in the agency and the deferential standard of review in collateral judicial proceedings. But, they insist, they are entitled to relief all the same. In places, they also suggest that the Ninth Circuit's decisions below can be read as endorsing their alternative theory.</p>
+<p>Although we leave the full application of the § 1252(b)(4)(B) standard to the Ninth Circuit in the first instance, we reject this alternative argument for affirmance too. In explaining why, we leave for another day the question what the factfinder must say or do to furnish an “explici[t] adverse credibility determination.” Even assuming (without deciding) there was no such determination here, the Ninth Circuit's <span class="pg" id="s3-p369" title="page 369 of the original">369</span>reasoning was flawed. One can think about the reason why in either of two ways.</p>
+<h3 class="oh">1</h3>
+<p>Start with the fact that the INA's “presumption” of credibility on appeal is “rebuttable.” Necessarily, that means the presumption is not conclusive. Notably, too, unlike the requirement that any initial adverse credibility determination must be “explicitly made,” the INA contains no parallel requirement of explicitness when it comes to rebutting the presumption on appeal. 8 U. S. C. §§ 1158(b)(1)(B)(iii), 1231(b)(3)(C), 1229a(c)(4)(C).</p>
+<p>Of course, reviewing courts remain bound by traditional administrative law principles, including the rule that judges generally must assess the lawfulness of an agency's action in light of the explanations the agency offered for it rather than any <em>ex post</em> rationales a court can devise. See, <em>e. g., SEC</em> v. <em>Chenery Corp.</em>, 318 U. S. 80 (1943). But none of that means the BIA must follow a particular formula or incant “magic words” like “incredible” or “rebutted” to overcome the INA's presumption of credibility on appeal. Cf. <em>INS</em> v. <em>Aguirre-Aguirre</em>, 526 U. S. 415, 431–432 (1999). To the contrary, a reviewing court must “uphold” even “a decision of less than ideal clarity if the agency's path may reasonably be discerned.” <em>Bowman Transp., Inc.</em> v. <em>Arkansas-Best Freight System, Inc.</em>, 419 U. S. 281, 286 (1974); see also 5 U. S. C. § 701 <em>et seq.</em> So long as the BIA's reasons for rejecting an alien's credibility are reasonably discernible, the agency must be understood as having rebutted the presumption of credibility. It need not use any particular words to do so. And, once more, a reviewing court must uphold that decision unless a reasonable adjudicator would have been compelled to reach a different conclusion. 8 U. S. C. § 1252(b)(4)(B).</p>
+<p>In the cases before us, the Ninth Circuit did not consider the possibility that the BIA implicitly found the presumption of credibility rebutted. In Mr. Alcaraz-Enriquez's case, the court ignored whether the agency's statements could be fairly understood as rejecting his credibility. Concluding <span class="pg" id="s3-p370" title="page 370 of the original">370</span>that the IJ properly “weigh[ed] and compar[ed]” the probation report and Mr. Alcaraz-Enriquez's hearing testimony, the BIA cited precedent about how an IJ is “not required to adopt” an applicant's denial of culpability. See App. to Pet. for Cert. in No. 19–1156, at 8a; <em>Matter of D–R</em>–, 25 I. &amp; N. Dec. 445, 455 (BIA 2011) (“The [IJ] was not required to credit the respondent's wholesale denial of any knowledge or culpability”). The BIA also expressly adopted the IJ's decision. The IJ decision, in turn, noted that Mr. Alcaraz-Enriquez's story changed from the time of the probation report to the time of the hearing, a factor the statute specifically identifies as relevant to credibility. See §§ 1158(b)(1)(B)(iii), 1231(b)(3)(C), 1229a(c)(4)(C). The IJ further concluded that Mr. Alcaraz-Enriquez's testimony sought to minimize his actions and condone violence against his girlfriend, suggesting the IJ rejected his claim that he intervened only to defend his daughter. On remand, the Ninth Circuit should consider whether the BIA in fact found the presumption of credibility overcome in this case. If so, it seems unlikely that conclusion is one no reasonable adjudicator could have reached.</p>
+<p>The same might be said of Mr. Dai's case. The BIA specifically highlighted Mr. Dai's family “voluntarily returning and his not being truthful about it” as “detrimental to his claim.” App. to Pet. for Cert. in No. 19–1155, at 164a. And here again the BIA adopted the IJ's decision, which discussed specific problems with Mr. Dai's assertions about his past persecution and fear of future persecution—including Mr. Dai's intentional failure to disclose highly probative and damaging facts, his inadequate explanations for contradictions in his presentation, and his ultimate concessions about the “real story.” Such a detailed analysis certainly goes to the presumption of credibility, even if the agency did not utter the words “adverse credibility finding.” The INA provides instructions about the appropriate considerations for making a credibility determination, including the witness's demeanor, candor, and internal inconsistency in his testimony.<span class="pg" id="s3-p371" title="page 371 of the original">371</span> See §§ 1158(b)(1)(B)(iii), 1231(b)(3)(C), 1229a(c)(4)(C). It is thus unsurprising—and in fact quite helpful for later review—that the IJ addressed many of those questions at length. By adopting that analysis as its own, the BIA's decisional path here, too, includes that analysis. Once more, the Ninth Circuit should consider whether the BIA found that Mr. Dai's presumption of credibility had been overcome. And, once more, it is hard to say that decision is one no reasonable adjudicator could have reached.</p>
+<h3 class="oh">2</h3>
+<p>There is, however, another problem with the Ninth Circuit's reasoning in these cases. Not only is the presumption of credibility before the BIA rebuttable, it applies <em>only</em> with respect to credibility. §§ 1158(b)(1)(B)(iii), 1231(b)(3)(C), 1229a(c)(4)(C). This matters because, when it comes to the forms of relief Mr. Alcaraz-Enriquez and Mr. Dai sought, the INA expressly distinguishes between credibility, persuasiveness, and the burden of proof. See §§ 1158(b)(1)(B)(ii), 1231(b)(3)(C), 1229a(c)(4)(B). In order for an alien's testimony to carry the day on its own, the statute requires the alien to satisfy the trier of fact on all three counts—showing his “testimony is credible, is persuasive, and refers to specific facts sufficient to demonstrate that the applicant is a refugee.” <em>Ibid.</em> When determining whether an alien has met his burden of proof, the INA further provides that the agency may weigh “the credible testimony along with other evidence of record.” <em>Ibid.</em> Accordingly, even if the BIA treats an alien's evidence as credible, the agency need not find his evidence persuasive or sufficient to meet the burden of proof. See, <em>e. g.</em>, <em>Doe</em> v. <em>Holder</em>, 651 F. 3d 824, 830 (CA8 2011); <em>Gutierrez-Orcozo</em> v. <em>Lynch</em>, 810 F. 3d 1243, 1246 (CA10 2016).</p>
+<p>Admittedly, credibility and persuasiveness are closely bound concepts, sometimes treated interchangeably, and the line between them doesn't have to be drawn the same way in every legal context. But the distinctions the INA draws <span class="pg" id="s3-p372" title="page 372 of the original">372</span>aren't entirely unfamiliar either. Take an example. Suppose a plaintiff is doing her best to recount a car accident to prove her case for damages. She testifies earnestly that she thought the traffic light was green when she entered an intersection. The plaintiff says she was then broadsided by the defendant who was traveling on a cross street and ran a red light. Later in the proceedings, however, the defendant presents video footage and the testimony of other witnesses, all of which show that it was really the plaintiff who drove through a red light and the defendant who had the right of way. It's easy enough to imagine that a factfinder might not describe the plaintiff as lacking credibility—in the sense that she was lying or not “worthy of belief,” Black's Law Dictionary 448 (10th ed. 2014) (defining “credibility”)—yet find that her testimony on a key fact was outweighed by other evidence and thus unpersuasive or insufficient to prove the defendant's liability. It's not always the case that credibility equals factual accuracy, nor does it guarantee a legal victory.</p>
+<p>The Ninth Circuit erred by treating credibility as dispositive of both persuasiveness and legal sufficiency in these cases. Even setting aside the <em>credibility</em> of Mr. Alcaraz-Enriquez or Mr. Dai, perhaps the BIA did not find their evidence <em>persuasive</em> or sufficient to meet their burden on essential questions. In Mr. Alcaraz-Enriquez's case, the probation report may have outweighed his testimony. Similarly, in Mr. Dai's case, his later admissions about his family's voluntary return and his decision to stay in this country for economic reasons may have outweighed his initial testimony about his past and feared future persecution. Faced with conflicting evidence, it seems likely that a reasonable adjudicator could find the unfavorable account more persuasive than the favorable version in both cases.</p>
+<h3 class="oh">*</h3>
+<p>The Ninth Circuit's deemed-true-or-credible rule cannot be reconciled with the INA's terms. Instead, immigration <span class="pg" id="s3-p373" title="page 373 of the original">373</span>cases like these should proceed as follows. First, the factfinder—here the IJ—makes findings of fact, including determinations as to the credibility of particular witness testimony. The BIA then reviews those findings, applying a presumption of credibility if the IJ did not make an explicit adverse credibility determination. Finally, the court of appeals must accept the agency's findings of fact as “conclusive unless any reasonable adjudicator would be compelled to conclude to the contrary.”</p>
+<p>Nor can we affirm the Ninth Circuit's judgments on alternative grounds. The Ninth Circuit failed to consider that the BIA may have implicitly rebutted the presumption of credibility. The Ninth Circuit also erroneously allowed credibility to operate as a trump card, foreclosing the possibility that even credible testimony may be outweighed by other more persuasive evidence or be insufficient to satisfy the burden of proof. Accordingly, the judgments of the Court of Appeals are vacated, and these cases are remanded for further proceedings consistent with this opinion.</p>
+<p><em>It is so ordered.</em></p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li id="s3-n1" value="1"><p>Separately, the Ninth Circuit held that the BIA erred by failing to give Mr. Alcaraz-Enriquez the opportunity to cross-examine the witnesses whose testimony was embodied in the probation report. In their briefing before us, the parties largely proceed on the assumption that the report was properly received, and so do we. Remaining disputes over the merits and potential forfeiture of this issue can be addressed on remand. <a class="back" href="#s3-r1" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n2" value="2"><p>Mr. Dai also sought withholding of removal, for which he needed to show that his “life or freedom would be threatened” in China “because of [his] race, religion, nationality, membership in a particular social group, or political opinion.” 8 U. S. C. § 1231(b)(3)(A). Both the BIA and the Ninth Circuit treated this standard as a more-demanding version of the showing needed for asylum. See App. to Pet. for Cert. in No. 19–1155, p. 164a; <em>Ming Dai</em> v. <em>Sessions</em>, 884 F. 3d 858, 874 (2018). None of the parties disputes this framing, so we focus on the asylum claim alone. <a class="back" href="#s3-r2" aria-label="Back to the text">↩</a></p></li>
+</ol></aside></section><p class='back'><a href='/opinions/'>&larr; All opinions</a> · <a href='/justices/ot2020.html'>The Justices, October Term 2020 &rarr;</a></p></main></body>
+</html>
+

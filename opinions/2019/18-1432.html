@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script async src='/analytics.js'></script><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate icon" href="/favicon.ico" sizes="any"><link rel="alternate" type="application/atom+xml" title="Supreme Court Report" href="/feed.xml"><link rel="alternate" type="application/atom+xml" title="Certiorari grants" href="/grants.xml"><title>Nasrallah v. Barr — Opinion — Supreme Court Report</title><meta name="description" content="The opinion in Nasrallah v. Barr (No. 18-1432), decided June 1, 2020: the full text with its footnotes, as a page, a Markdown file and an EPUB."><link rel="canonical" href="https://supremecourt.report/opinions/2019/18-1432.html"><meta property="og:site_name" content="Supreme Court Report"><meta property="og:type" content="article"><meta property="og:title" content="Nasrallah v. Barr — Opinion — Supreme Court Report"><meta property="og:description" content="The opinion in Nasrallah v. Barr (No. 18-1432), decided June 1, 2020: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta property="og:url" content="https://supremecourt.report/opinions/2019/18-1432.html"><meta property="og:image" content="https://supremecourt.report/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Supreme Court Report - docket analytics for the Supreme Court of the United States"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Nasrallah v. Barr — Opinion — Supreme Court Report"><meta name="twitter:description" content="The opinion in Nasrallah v. Barr (No. 18-1432), decided June 1, 2020: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta name="twitter:image" content="https://supremecourt.report/og.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap"><style>
+  :root{--paper:#fdfcfa;--panel:#ffffff;--ink:#1a1a1e;--ink-soft:#484850;--faint:#63636b;--accent:#9c0e3a;--link:#9c0e3a;--rule:#dbd8d2;--nav-max:60rem}
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{font-family:'Newsreader',Georgia,serif;font-size:19px;line-height:1.6;
+    color:var(--ink);background:var(--paper);margin:0;font-feature-settings:'onum' 1}
+  body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
+    opacity:.5;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");}
+  .wrap{max-width:40rem;margin:0 auto;padding:3rem 1.4rem 4rem}
+  .kicker{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 1rem}
+  h1{font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:clamp(2.4rem,7vw,3.6rem);line-height:1;letter-spacing:-.015em;
+    margin:0 0 1rem;color:var(--ink)}
+  h1 em{font-style:italic;font-weight:500;color:var(--accent)}
+  .dek{font-size:1.15rem;line-height:1.5;color:var(--ink-soft);font-style:italic;
+    margin:0 0 1.4rem}
+  .brule{border:0;height:0;border-top:2px solid var(--ink);margin:1.4rem 0 .3rem;
+    position:relative}
+  .brule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+    border-top:1px solid var(--rule)}
+  ul.idx{list-style:none;padding:0;margin:1.6rem 0}
+  ul.idx li{border-bottom:1px solid var(--rule)}
+  /* Whole row is one block-level link: a large, reliable tap target on mobile. */
+  ul.idx a.row{display:flex;justify-content:space-between;align-items:baseline;
+    gap:1rem;padding:.9rem .4rem;text-decoration:none;border:0;color:inherit}
+  ul.idx a.row:hover{background:rgba(156,14,58,.05)}
+  ul.idx .d{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.16rem;
+    color:var(--accent);line-height:1.25}
+  ul.idx a.row:hover .d{text-decoration:underline;text-underline-offset:3px}
+  ul.idx .count{color:var(--faint);font-size:.9rem;font-style:italic;white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  /* A long note (an order list's "3 GVRs / 230 denied / 4 habeas denied /
+     ...", items separated by middots) cannot sit on one line: nowrap made it
+     claim the row and
+     squeezed the title into a column three words wide, and on a phone it ran off
+     the screen. Such a row opts in (meta_wrap): the note wraps, only between its
+     items, and takes at most ~45% of the row, so the title always has the
+     larger share. Under 34rem it drops beneath the title at full width. */
+  /* ("long", not "wrap": .wrap is the page container and its padding.) */
+  ul.idx .count.long{white-space:normal;text-align:right;max-width:45%;line-height:1.45}
+  ul.idx .count.long .seg{white-space:nowrap}
+  @media(max-width:34rem){
+    ul.idx a.row.longmeta{flex-wrap:wrap;row-gap:.2rem}
+    ul.idx .count.long{max-width:none;flex-basis:100%;text-align:left}
+  }
+  /* Compact horizontal strip of the most recent pages beneath a category row. */
+  ul.idx .recent{display:flex;flex-wrap:wrap;align-items:baseline;
+    gap:.3rem .85rem;padding:0 .4rem 1rem;margin-top:-.35rem}
+  ul.idx .recent .rlabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  ul.idx .recent a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--ink-soft);text-decoration:none;font-variant-numeric:tabular-nums;
+    border-bottom:1px solid var(--rule);padding-bottom:1px}
+  ul.idx .recent a:hover{color:var(--accent);border-color:var(--accent)}
+  /* Optional panel beneath the section index (home page: most-read cases). */
+  .panel{margin:2.4rem 0 0}
+  .panel h2{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 .25rem}
+  .panel .pnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:0 0 .5rem}
+  /* "Live now" (live_argument_panel, /live.js): hidden unless the Court is
+     streaming an argument. One red dot, the same --accent as the headings, so
+     the live state is a mark and not a new colour. */
+  .live h2 .ldot{display:inline-block;width:.5rem;height:.5rem;border-radius:50%;
+    background:var(--accent);margin-right:.5rem;vertical-align:.08rem;
+    animation:lpulse 2s ease-in-out infinite}
+  @keyframes lpulse{50%{opacity:.25}}
+  @media (prefers-reduced-motion:reduce){.live h2 .ldot{animation:none}}
+  .lplay{display:flex;flex-wrap:wrap;gap:.6rem .9rem;align-items:center;margin:.8rem 0 .3rem}
+  .lplay button{font:600 .9rem/1 'Newsreader',Georgia,serif;letter-spacing:.04em;
+    color:var(--paper);background:var(--accent);border:0;border-radius:2px;
+    padding:.6rem 1.05rem;cursor:pointer}
+  .lplay button:disabled{opacity:.6;cursor:progress}
+  .lplay button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  /* The player takes a row of its own and may never outgrow the column. A flex
+     item's min-width is auto, which for a replaced element is the browser's own
+     controls' width -- wider than the column on a phone, where mobile Safari
+     and Chrome draw larger controls than the desktop. */
+  .lplay audio{display:block;flex:1 1 100%;width:100%;min-width:0;max-width:100%;
+    box-sizing:border-box;margin:0}
+  .lplay .lstat{font-size:.85rem;color:var(--faint)}
+  /* --- Likeliest grants -----------------------------------------------------
+     Its own rows rather than ol.mostread's: this panel carries a question under
+     the caption, which that list has no room for, and a percentage that has to
+     read as the row's subject rather than as a trailing note.
+     The window toggle is two real radio inputs plus :has() -- no JavaScript.
+     Both windows are rendered at build time and one is hidden, which is the only
+     way a static site can offer the choice: there is no server to ask for the
+     other one. Real radios, not styled buttons, so the control is reachable by
+     keyboard and announced as a choice. */
+  .lead{margin:0 0 1.9rem}
+  .lead h2{margin-bottom:.35rem}
+  .lead .pnote{margin:0 0 .7rem}
+  .wr{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+  .win{display:inline-flex;gap:.25rem;margin:0 0 .55rem;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .win label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .win label:hover{color:var(--ink)}
+  .lead:has(#w7:checked) label[for=w7],
+  .lead:has(#w28:checked) label[for=w28],
+  .lead:has(#wall:checked) label[for=wall]{background:var(--accent);color:var(--paper)}
+  .wr:focus-visible+label{outline:2px solid var(--accent);outline-offset:2px}
+  /* Three windows, one shown: the checked radio hides the other two. */
+  .lead:has(#w7:checked) :is(.g28,.n28,.gall,.nall),
+  .lead:has(#w28:checked) :is(.g7,.n7,.gall,.nall),
+  .lead:has(#wall:checked) :is(.g7,.n7,.g28,.n28){display:none}
+  /* The show/hide controls for a panel's secondary line -- the question under
+     a forecast row, the holding under a decision. Same box as the window
+     toggle, a checkbox instead of radios, and no script: the sibling rule does
+     the work and the lines simply show where :has() is unsupported. The
+     questions are on by default (they are what a forecast row asks); the
+     holdings are off (the caption, kind and disposition already say what
+     happened, and the holding is the more). */
+  .opts{display:inline-flex;gap:.25rem;margin:0 .45rem .55rem 0;vertical-align:top;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .opts label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .opts label:hover{color:var(--ink)}
+  .lead:has(#qon:checked) label[for=qon],
+  .panel:has(#hon:checked) label[for=hon]{background:var(--accent);color:var(--paper)}
+  .lead:has(#qon:not(:checked)) .gq{display:none}
+  .panel:has(#hon:not(:checked)) .chold{display:none}
+  /* --- Upcoming at the Court ------------------------------------------------
+     A date gutter and a two-line body, the same shape as the grant rows above
+     it, so the two panels read as one page rather than two widgets. */
+  .cal{margin:0 0 1.9rem}
+  ol.cal{list-style:none;margin:0;padding:0}
+  ol.cal li{border-top:1px solid var(--rule)}
+  ol.cal li:last-child{border-bottom:1px solid var(--rule)}
+  /* The row is a container, not an anchor: an argument day carries one link per
+     case it hears and anchors cannot nest. Hover lives on the row so it still
+     reads as one unit, and each link colours on its own hover. */
+  ol.cal .crow{display:flex;gap:.95rem;align-items:baseline;padding:.55rem .1rem}
+  ol.cal .crow:hover{background:rgba(156,14,58,.05)}
+  ol.cal a{text-decoration:none;color:inherit}
+  ol.cal a:hover,ol.cal a:focus-visible{color:var(--accent)}
+  ol.cal .cdet a{border-bottom:1px solid rgba(156,14,58,.35)}
+  ol.cal .cdet a:hover{border-bottom-color:var(--accent)}
+  ol.cal .cwhen{flex:none;width:4.6rem;font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.96rem;color:var(--ink);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  ol.cal .cdow{display:block;font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);text-transform:uppercase;letter-spacing:.08em}
+  ol.cal .ctx{flex:1;min-width:0}
+  ol.cal .ckind{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:.98rem;line-height:1.25}
+  ol.cal .cdet{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.12rem}
+  /* Recent decisions reuses the calendar rows and adds exactly two things: the
+     kind word that opens the detail line, and the one outbound link (the slip
+     opinion), which takes the link colour the rest of the row deliberately
+     does not. */
+  ol.cal .dk{font-weight:600;color:var(--ink)}
+  ol.cal .cdet a.pdf{color:var(--link)}
+  /* The holding, from the Court's slip-opinion feed: one sentence, set
+     smaller and in the soft ink so the caption stays the row's headline. */
+  ol.cal .chold{display:block;font-size:.86rem;line-height:1.4;color:var(--ink-soft);
+    font-style:italic;margin-top:.15rem}
+  ol.cal .cdet a.pdf:hover,ol.cal .cdet a.pdf:focus-visible{color:var(--accent);
+    border-bottom-color:var(--accent)}
+  ol.grants{list-style:none;margin:0;padding:0}
+  ol.grants li{border-top:1px solid var(--rule)}
+  ol.grants li:last-child{border-bottom:1px solid var(--rule)}
+  ol.grants a{display:flex;gap:.95rem;align-items:baseline;text-decoration:none;
+    color:inherit;padding:.62rem .1rem}
+  ol.grants a:hover{background:rgba(156,14,58,.05)}
+  ol.grants a:hover .gc{color:var(--accent)}
+  ol.grants .gv{flex:none;width:3.5rem;text-align:right;
+    font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.22rem;
+    line-height:1.1;color:var(--accent);font-variant-numeric:tabular-nums}
+  ol.grants .gx{font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);margin-left:.3rem}
+  ol.grants .gtx{flex:1;min-width:0}
+  /* Subject-area line under the caption, in the section-label idiom (h2.sec):
+     small tracked caps in the faint ink, so it classifies without competing. */
+  ol.grants .gs,ol.mostread .ms{display:block;font-size:.68rem;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--faint);line-height:1.3;margin-top:.12rem}
+  ol.grants .gc{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:1rem;line-height:1.25}
+  ol.grants .gq{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.16rem}
+  ol.grants .gd{flex:none;font-size:.76rem;color:var(--faint);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  .more{margin:.75rem 0 0;font-size:.92rem}
+  .more a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.35)}
+  .more a:hover{border-bottom-color:var(--link)}
+  h2.sec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:.88rem;
+    letter-spacing:.09em;color:var(--faint);text-transform:uppercase;
+    margin:2.1rem 0 .6rem;padding-bottom:.28rem;border-bottom:1px solid var(--rule)}
+  @media(max-width:40rem){
+    ol.grants a{flex-wrap:wrap}
+    ol.grants .gd{width:100%;padding-left:4.45rem;margin-top:-.1rem}
+  }
+  ol.mostread{list-style:none;counter-reset:mr;padding:0;margin:0}
+  ol.mostread li{counter-increment:mr;border-bottom:1px solid var(--rule)}
+  ol.mostread a{display:flex;align-items:baseline;gap:.7rem;padding:.6rem .4rem;
+    text-decoration:none;color:inherit}
+  ol.mostread a:hover{background:rgba(156,14,58,.05)}
+  ol.mostread a::before{content:counter(mr);font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.95rem;color:var(--faint);min-width:1.1rem;
+    font-variant-numeric:tabular-nums}
+  ol.mostread .mc{flex:1;font-size:1rem;line-height:1.3}
+  ol.mostread .mct{display:block}
+  ol.mostread a:hover .mct{color:var(--accent);text-decoration:underline;
+    text-underline-offset:3px}
+  ol.mostread .mdk{color:var(--accent);font-weight:600;font-size:.82rem;
+    font-variant-numeric:tabular-nums;white-space:nowrap}
+  ol.mostread .mv{color:var(--faint);font-size:.85rem;font-style:italic;
+    white-space:nowrap;font-variant-numeric:tabular-nums}
+  /* Forecast percentages carry weight the most-read counts do not: the number is
+     the claim, not a footnote to the ranking. Upright, accent, tabular. */
+  ol.mostread .mv.fc{color:var(--accent);font-style:normal;font-weight:600;
+    font-size:.95rem;min-width:2.6rem;text-align:right}
+  /* Feed follow line. Deliberately quiet -- a footnote under the section list,
+     styled like .recent rather than like a call to action. */
+  .feeds{display:flex;flex-wrap:wrap;align-items:baseline;gap:.3rem .85rem;
+    margin:2.2rem 0 0;padding-top:1.1rem;border-top:1px solid var(--rule)}
+  .feeds .flabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  .feeds a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .feeds a:hover{border-color:var(--link)}
+  .back{margin-top:2rem;font-size:.95rem}
+  .back a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .back a:hover{border-color:var(--link)}
+  /* Home-page case search. */
+  .csearch{position:relative;margin:0 0 1.4rem}
+  #cq{width:100%;font-family:'Newsreader',Georgia,serif;font-size:1.05rem;color:var(--ink);
+    background:var(--panel);border:1px solid var(--rule);border-radius:3px;padding:.7rem .9rem}
+  #cq:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(156,14,58,.1)}
+  #cq::placeholder{color:var(--faint)}
+  #cq.loading{background-image:linear-gradient(90deg,transparent,rgba(156,14,58,.06),transparent);
+    background-size:40% 100%;background-repeat:no-repeat;animation:csl 1s infinite}
+  @keyframes csl{0%{background-position:-40% 0}100%{background-position:140% 0}}
+  .cres{list-style:none;margin:.35rem 0 0;padding:0;max-height:24rem;overflow-y:auto;
+    border:1px solid var(--rule);border-radius:3px;background:var(--panel)}
+  .cres:empty{display:none}
+  .cres li{border-bottom:1px solid var(--rule)}
+  .cres li:last-child{border-bottom:0}
+  .cres a{display:block;padding:.55rem .7rem;text-decoration:none;color:var(--ink);
+    font-size:.98rem;line-height:1.3}
+  .cres a:hover,.cres li.act a{background:rgba(156,14,58,.06)}
+  .cres mark{background:rgba(156,14,58,.14);color:inherit;padding:0 .05em;border-radius:2px}
+  .cres .cd{color:var(--accent);font-variant-numeric:tabular-nums;font-weight:600;
+    margin-right:.5rem;white-space:nowrap}
+  .cnone{padding:.55rem .7rem;color:var(--faint);font-style:italic}
+  .cnone a,.cqp a{color:var(--link);font-style:normal;text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .cqp{margin:.45rem 0 0;font-size:.88rem;color:var(--faint)}
+  /* /cases/ browse index: grouped sections with per-bucket counts. */
+  .csec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+    text-transform:uppercase;letter-spacing:.12em;color:var(--accent);
+    margin:2.2rem 0 .3rem;padding-bottom:.35rem;border-bottom:1px solid var(--rule);
+    display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
+  .csec .cn{font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:.85rem;
+    letter-spacing:0;text-transform:none;color:var(--faint);
+    font-variant-numeric:tabular-nums}
+  .cnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:.5rem 0 0}
+  .cnote a{color:var(--accent)}
+  ul.terms{list-style:none;padding:0;margin:1rem 0 0;display:flex;flex-wrap:wrap;
+    gap:.5rem 1.6rem}
+  ul.terms li{display:inline-flex;align-items:baseline;gap:.4rem}
+  ul.terms a{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.05rem;
+    color:var(--accent);text-decoration:none;border-bottom:1px solid var(--rule)}
+  ul.terms a:hover{border-bottom-color:var(--accent)}
+  ul.terms .cn{color:var(--faint);font-size:.85rem;font-variant-numeric:tabular-nums}
+  /* About page: running prose rather than an index, so it takes a measure and a
+     little more leading than the section rows above it. */
+  .about{margin:1.6rem 0 0;font-size:1.05rem;line-height:1.65;max-width:34rem}
+  .about p{margin:0 0 1rem}
+  .about a{color:var(--accent);text-decoration:none;
+    border-bottom:1px solid var(--rule)}
+  .about a:hover{border-bottom-color:var(--accent)}
+  .about .contact{margin:2rem 0 0;background:var(--panel);border:1px solid var(--rule);
+    border-left:4px solid var(--accent);padding:1.1rem 1.3rem}
+  .about .contact h2{font:600 .78rem/1 'Newsreader',Georgia,serif;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--accent);margin:0 0 .5rem}
+  .about .contact p{margin:0;font-size:1rem}
+
+/* ---- masthead ---- */
+.smast-in{max-width:var(--nav-max,60rem);margin:0 auto;padding:.85rem 1.5rem .5rem;
+  display:flex;align-items:baseline;justify-content:space-between;gap:1.4rem;flex-wrap:wrap}
+.smast-wm{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+  letter-spacing:.005em;color:var(--ink,#1a1a1e);text-decoration:none;white-space:nowrap;flex:none}
+.smast-wm em{font-style:italic;font-weight:500;color:var(--accent,#9c0e3a)}
+.smast-wm:hover{color:var(--accent,#9c0e3a)}
+/* Row gap first, then column. At 1.35rem the six section links measured 596px
+   of max-content -- 4px wider than the 592px row the 40rem index container
+   leaves them -- so ABOUT alone wrapped to a third line under the wordmark, on
+   every page page_style.R writes. 1.05rem brings the row to 572px: 20px of
+   slack at 40rem, and 45px on the 54rem case pages, which were themselves only
+   21px from wrapping. The .4rem row gap is for the day a seventh section
+   overruns it anyway -- a nav that wraps should read as a stack, not an orphan. */
+.snav{display:flex;gap:.4rem 1.05rem;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+.snav a{font:600 .72rem/1 'Newsreader',Georgia,serif;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--ink-soft,var(--soft,#484850));text-decoration:none;display:inline-block;
+  padding:.5rem 0;border-bottom:1.5px solid transparent}
+.snav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--rule,#dbd8d2)}
+.snav a[aria-current='page']{color:var(--accent,#9c0e3a);
+  border-bottom-color:var(--accent,#9c0e3a)}
+.smast-rule-w{max-width:var(--nav-max,60rem);margin:0 auto;padding:0 1.5rem}
+.smast-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0;position:relative}
+.smast-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.skip{position:absolute;left:-9999px;top:0;background:var(--panel,#ffffff);
+  color:var(--accent,#9c0e3a);padding:.6rem 1rem;
+  border:1px solid var(--accent,#9c0e3a);
+  font:600 .8rem/1 'Newsreader',Georgia,serif;letter-spacing:.1em;text-transform:uppercase;z-index:10}
+.skip:focus{left:.5rem;top:.5rem}
+/* ---- breadcrumb ---- */
+.bcrumb{margin:.7rem 0 0}
+.bcrumb ol{list-style:none;display:flex;flex-wrap:wrap;align-items:baseline;
+  gap:.1rem .45rem;margin:0;padding:0}
+.bcrumb li{display:inline-flex;align-items:baseline;gap:.45rem}
+.bcrumb a{font:400 .8rem/1.5 'Newsreader',Georgia,serif;color:var(--ink-soft,var(--soft,#484850));
+  text-decoration:none;border-bottom:1px solid var(--rule,#dbd8d2)}
+.bcrumb a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.bcrumb .sep{color:var(--faint,#63636b);font-size:.8rem;line-height:1.5}
+.bcrumb [aria-current='page']{font:400 .8rem/1.5 'Newsreader',Georgia,serif;
+  color:var(--faint,#63636b);font-variant-numeric:tabular-nums}
+/* ---- case footer ---- */
+.cfoot{margin:2.4rem 0 0}
+.cfoot-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0 0 1rem;position:relative}
+.cfoot-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.cfoot-off{font-size:.95rem;margin:0 0 1.1rem}
+.cfoot-off a{color:var(--link,#9c0e3a);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.4)}
+.cfoot-off a:hover{border-bottom-color:var(--link,#9c0e3a)}
+.cfoot-lab{font:600 .68rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);margin:0 0 .5rem}
+.cfoot-nav{display:flex;flex-wrap:wrap;gap:.35rem 1.1rem;list-style:none;margin:0;padding:0}
+.cfoot-nav a{font-size:.92rem;color:var(--ink-soft,var(--soft,#484850));text-decoration:none;
+  border-bottom:1px solid var(--rule,#dbd8d2);padding-bottom:1px}
+.cfoot-nav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.cfoot-stamp{margin:1.2rem 0 0;font-size:.8rem;color:var(--faint,#63636b);font-style:italic}
+/* ---- prev / next ---- */
+.pnav{margin:2.2rem 0 0;border-top:1px solid var(--rule,#dbd8d2);padding-top:1rem;
+  display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.pnav a,.pnav span.none{text-decoration:none;color:inherit;display:block;padding:.5rem .2rem}
+.pnav a:hover{background:rgba(156,14,58,.05)}
+.pnav .dir{font:600 .66rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);display:block;margin-bottom:.3rem}
+.pnav .lab{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1rem;line-height:1.25;
+  color:var(--accent,#9c0e3a);display:block}
+.pnav a:hover .lab{text-decoration:underline;text-underline-offset:3px}
+.pnav .nx{text-align:right}
+.pnav .none{opacity:.35}
+@media(max-width:640px){
+  .smast-in{padding:.7rem 1.1rem .25rem;gap:.15rem}
+  .smast-wm{font-size:.98rem}
+  .smast-in nav{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+    -webkit-mask-image:linear-gradient(90deg,#000 86%,transparent);
+    mask-image:linear-gradient(90deg,#000 86%,transparent)}
+  .smast-in nav::-webkit-scrollbar{display:none}
+  .snav{flex-wrap:nowrap;gap:1.15rem;padding-right:2.4rem}
+  .snav a{padding:.7rem 0;white-space:nowrap}
+  .smast-rule-w{padding:0 1.1rem}
+  .cfoot-nav{gap:.5rem 1rem}
+  .cfoot-nav a{padding-bottom:.3rem}
+  .pnav{grid-template-columns:1fr;gap:.2rem}
+  .pnav .nx{text-align:left;border-top:1px solid var(--rule,#dbd8d2)}
+}
+
+  .wrap.opn{max-width:42rem}
+  .opn .ometa{font-size:.92rem;color:var(--ink-soft);margin:.3rem 0 0}
+  .opn .oget{display:flex;flex-wrap:wrap;gap:.4rem .6rem;margin:1.1rem 0 0;padding:0;list-style:none;font-size:.9rem}
+  .opn .oget a{display:inline-block;padding:.32rem .7rem;border:1px solid var(--rule);border-radius:4px;color:var(--ink);text-decoration:none;background:var(--panel)}
+  .opn .oget a:hover{border-color:var(--accent);color:var(--accent)}
+  .opn .osrc{font-size:.84rem;color:var(--faint);margin:.9rem 0 0;line-height:1.45}
+  .opn .osrc a{color:var(--link)}
+  .opn .otoc{margin:1.6rem 0 0;padding:.8rem 1rem;border:1px solid var(--rule);border-radius:4px;background:var(--panel);font-size:.95rem}
+  .opn .otoc ol{margin:0;padding:0;list-style:none}
+  .opn .otoc li{margin:.25rem 0}
+  .opn .otoc a{color:var(--ink);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.35)}
+  .opn .otoc a:hover{color:var(--accent)}
+  .opn section.op{margin-top:3rem;border-top:2px solid var(--ink);padding-top:1.1rem}
+  .opn section.op h2{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.5rem;line-height:1.2;margin:0 0 1rem;color:var(--ink)}
+  .opn section.op p{margin:0 0 .95rem;line-height:1.62;hyphens:auto;overflow-wrap:break-word}
+  .opn section.op p.byline{color:var(--ink-soft);font-style:italic}
+  .opn section.op p.sep{text-align:center;letter-spacing:.3em;color:var(--faint);margin:1.6rem 0}
+  .opn section.op h3.oh{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.12rem;text-align:center;margin:2rem 0 1rem;color:var(--ink)}
+  .opn section.op blockquote{margin:0 0 .95rem;padding:0 0 0 1.1rem;border-left:2px solid var(--rule);color:var(--ink-soft)}
+  .opn section.op blockquote p{margin-bottom:.6rem;font-size:.96em}
+  .opn .sc{font-variant-caps:small-caps;letter-spacing:.02em}
+  .opn .pg{font-size:.66em;color:var(--faint);vertical-align:.3em;margin:0 .3em 0 .1em;font-variant-numeric:tabular-nums;user-select:none;white-space:nowrap}
+  .opn .pg::before{content:'*'}
+  .opn sup.fnr{font-size:.68em;line-height:0;margin-left:.05em}
+  .opn sup.fnr a{color:var(--link);text-decoration:none;padding:0 .1em}
+  .opn aside.notes{margin-top:2rem;border-top:1px solid var(--rule);padding-top:.8rem;font-size:.88rem;color:var(--ink-soft)}
+  .opn aside.notes h3{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1rem;margin:0 0 .6rem;color:var(--ink)}
+  .opn aside.notes ol{margin:0;padding-left:1.7rem}
+  .opn aside.notes li{margin:0 0 .55rem}
+  .opn aside.notes li.sym{list-style:none;margin-left:-1.7rem}
+  .opn aside.notes li.sym .mk{margin-right:.3rem}
+  .opn aside.notes li.sym p{display:inline}
+  .opn aside.notes p{margin:0 0 .4rem;line-height:1.5}
+  .opn aside.notes a.back{color:var(--link);text-decoration:none;margin-left:.2rem}
+  .opn aside.notes li:target,.opn sup.fnr a:target,.opn .pg:target{background:rgba(156,14,58,.12);outline:.2rem solid rgba(156,14,58,.12)}
+  .opn section.op,.opn aside.notes li,.opn sup.fnr a{scroll-margin-top:1rem}
+  .opn section.op-syllabus p,.opn section.op-counsel p{font-size:.95em}
+  .opn section.op-counsel summary{cursor:pointer;font-family:'Fraunces',Georgia,serif;font-size:1.05rem;color:var(--ink-soft)}
+  .opn .osyl{font-size:.84rem;color:var(--faint);font-style:italic;margin:-.5rem 0 1rem}
+  .opn p.back{margin-top:3rem;font-size:.92rem}
+  @media print{.smast,.bcrumb,.opn .oget,.opn .otoc,.opn p.back{display:none}.opn section.op{break-before:page}}
+</style><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://supremecourt.report/"},{"@type":"ListItem","position":2,"name":"Opinions","item":"https://supremecourt.report/opinions/"},{"@type":"ListItem","position":3,"name":"Nasrallah v. Barr"}]}</script><meta name='otv' content='p1'><link rel='alternate' type='text/markdown' href='/opinions/2019/18-1432.md'><link rel='alternate' type='application/epub+zip' href='/opinions/2019/18-1432.epub'></head><body><a class='skip' href='#main'>Skip to content</a><header><div class='smast-in'><a class='smast-wm' href='/'>Supreme Court <em>Report</em></a><nav aria-label='Sections'><ul class='snav'><li><a href='/dashboards/'>Docket</a></li><li><a href='/conferences/'>Conferences</a></li><li><a href='/relists/'>Relists</a></li><li><a href='/applications/'>Interim</a></li><li><a href='/arguments/'>Arguments</a></li><li><a href='/justices/' aria-current='page'>Justices</a></li><li><a href='/counsel/'>Counsel</a></li><li><a href='/funnel/'>Funnel</a></li><li><a href='/methods.html'>Model</a></li><li><a href='/about.html'>About</a></li></ul></nav></div><div class='smast-rule-w'><hr class='smast-rule'></div></header><main class='wrap opn' id='main' data-dkt='18-1432'><nav class='bcrumb' aria-label='Breadcrumb'><ol><li><a href='/'>Home</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><a href='/opinions/'>Opinions</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><span aria-current='page'>Nasrallah v. Barr</span></li></ol></nav><p class='kicker'>No. 18-1432 · decided June 1, 2020 · 590 U. S. 573</p><h1 style='font-size:clamp(1.7rem,4.6vw,2.4rem);line-height:1.12'>Nasrallah v. Barr</h1><p class='ometa'>Nidal Khalid Nasrallah v. William P. Barr, Attorney General. 1 separate writing.</p><ul class='oget'><li><a href='/opinions/2019/18-1432.epub' download>EPUB</a></li><li><a href='/opinions/2019/18-1432.md' download>Markdown</a></li><li><a href='https://www.supremecourt.gov/opinions/preliminaryprint/590US2PP_web.pdf#page=161' rel='noopener'>The Court’s PDF</a></li><li><a href='/cases/18-1432.html'>The docket</a></li></ul><p class='osrc'>Set from the PDF the Court published, which is the authoritative text. The small starred numbers are that PDF’s page numbers. A conversion can introduce errors; check a quotation against the <a href='https://www.supremecourt.gov/opinions/preliminaryprint/590US2PP_web.pdf#page=161' rel='noopener'>original</a>.</p><nav class="otoc" aria-label="Contents"><ol>
+<li><a href="#s1">Syllabus</a></li>
+<li><a href="#s2">Counsel</a></li>
+<li><a href="#s3">Opinion of the Court</a></li>
+<li><a href="#s4">Justice Thomas, dissenting</a></li>
+</ol></nav>
+<section id="s1" class="op op-syllabus"><h2>Syllabus</h2><p class='osyl'>Prepared by the Reporter of Decisions for the convenience of the reader; it is no part of the opinion of the Court.</p>
+<p>Under federal immigration law, noncitizens who commit certain crimes are removable from the United States. During removal proceedings, a noncitizen who demonstrates a likelihood of torture in the designated country of removal is entitled to relief under the international Convention Against Torture (CAT) and may not be removed to that country. If an immigration judge orders removal and denies CAT relief, the noncitizen may appeal both orders to the Board of Immigration Appeals and then to a federal court of appeals. But if the noncitizen has committed any crime specified in 8 U. S. C. § 1252(a)(2)(C), the scope of judicial review of the removal order is limited to constitutional and legal challenges. See § 1252(a)(2)(D).</p>
+<p>The Government sought to remove petitioner Nidal Khalid Nasrallah after he pled guilty to receiving stolen property. Nasrallah applied for CAT relief to prevent his removal to Lebanon. The Immigration Judge ordered Nasrallah removed and granted CAT relief. On appeal, the Board of Immigration Appeals vacated the CAT relief order and ordered Nasrallah removed to Lebanon. The Eleventh Circuit declined to review Nasrallah's factual challenges to the CAT order because Nasrallah had committed a § 1252(a)(2)(C) crime and Circuit precedent precluded judicial review of factual challenges to both the final order of removal and the CAT order in such cases.</p>
+<p><em>Held</em>: Sections 1252(a)(2)(C) and (D) do not preclude judicial review of a noncitizen's factual challenges to a CAT order. Pp. 579–587.</p>
+<p>(a) Three interlocking statutes establish that CAT orders may be reviewed together with final orders of removal in a court of appeals. The Illegal Immigration Reform and Immigrant Responsibility Act of 1996 authorizes noncitizens to obtain direct “review of a final order of removal” in a court of appeals, § 1252(a)(1), and requires that all challenges arising from the removal proceeding be consolidated for review, § 1252(b)(9). The Foreign Affairs Reform and Restructuring Act of 1998 (FARRA) implements Article 3 of CAT and provides for judicial review of CAT claims “as part of the review of a final order of removal.” § 2242(d). And the REAL ID Act of 2005 clarifies that final orders of removal and CAT orders may be reviewed only in the courts of appeals. §§ 1252(a)(4)–(5). Pp. 579–581.</p>
+<p><span class="pg" id="s1-p574" title="page 574 of the original">574</span>(b) Sections 1252(a)(2)(C) and (D) preclude judicial review of factual challenges only to final orders of removal. A CAT order is not a final “order of removal,” which in this context is defined as an order “concluding that the alien is deportable or ordering deportation,” § 1101(a) (47)(A). Nor does a CAT order merge into a final order of removal, because a CAT order does not affect the validity of a final order of removal. See <em>INS</em> v. <em>Chadha,</em> 462 U. S. 919, 938. FARRA provides that a CAT order is reviewable “as part of the review of a final order of removal,” not that it is the same as, or affects the validity of, a final order of removal. Had Congress wished to preclude judicial review of factual challenges to CAT orders, it could have easily done so. Pp. 581–583.</p>
+<p>(c) The standard of review for factual challenges to CAT orders is substantial evidence—<em>i. e.,</em> the agency's “findings of fact are conclusive unless any reasonable adjudicator would be compelled to conclude to the contrary.” § 1252(b)(4)(B).</p>
+<p>The Government insists that the statute supplies no judicial review of factual challenges to CAT orders, but its arguments are unpersuasive. First, the holding in <em>Foti</em> v. <em>INS,</em> 375 U. S. 217, depends on an outdated interpretation of “final orders of deportation” and so does not control here. Second, the Government argues that § 1252(a)(1) supplies judicial review only of final orders of removal, and if a CAT order is not merged into that final order, then no statute authorizes review of the CAT claim. But both FARRA and the REAL ID Act provide for direct review of CAT orders in the courts of appeals. Third, the Government's assertion that Congress would not bar review of factual challenges to a removal order and allow such challenges to a CAT order ignores the importance of adherence to the statutory text as well as the good reason Congress had for distinguishing the two—the facts that rendered the noncitizen removable are often not in serious dispute, while the issues related to a CAT order will not typically have been litigated prior to the alien's removal proceedings. Fourth, the Government's policy argument—that judicial review of the factual components of a CAT order would unduly delay removal proceedings—has not been borne out in practice in those Circuits that have allowed factual challenges to CAT orders. Fifth, the Government fears that a decision allowing factual review of CAT orders would lead to factual challenges to other orders in the courts of appeals. But orders denying discretionary relief under § 1252(a)(2)(B) are not affected by this decision, and the question whether factual challenges to statutory withholding orders under § 1231(b)(3)(A) are subject to judicial review is not presented here. Pp. 583–587.</p>
+<p>762 Fed. Appx. 638, reversed. <span class="pg" id="s1-p575" title="page 575 of the original">575</span>C. J., and <span class="sc">Ginsburg</span>, <span class="sc">Breyer</span>, <span class="sc">Sotomayor</span>, <span class="sc">Kagan</span>, and <span class="sc">Gorsuch</span>, JJ., joined. <span class="sc">Thomas</span>, J., filed a dissenting opinion, in which <span class="sc">Alito</span>, J., joined, <em>post</em>, p. 587.</p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li class="sym" value="0"><span class="mk">*</span><p>Briefs of <em>amici curiae</em> urging reversal were filed for Former Executive Office of Immigration Review Judges by <em>Richard W. Mark</em> and <em>Amer S. Ahmed</em>; for Law Professors by <em>Holly L. Henderson</em>-<em>Fisher</em> and <em>David E. Carney</em>; and for Legal Service Providers by <em>Charles G. Roth</em>, <em>Aaron Karl Block</em>, and <em>Cassandra Kerkhoff Johnson</em>.</p></li>
+</ol></aside></section>
+<section id="s2" class="op op-counsel"><details><summary>Counsel</summary><p><em>Paul W. Hughes</em> argued the cause for petitioner. With him on the briefs were <em>Michael B. Kimberly, Andrew A. Lyons-Berg, Helen L. Parsonage, Eugene R. Fidell, Andrew J. Pincus, Charles A. Rothfeld,</em> and <em>Brian Wolfman.</em></p>
+<p><em>Matthew Guarnieri</em> argued the cause for respondent. With him on the brief were <em>Solicitor General Francisco</em>, <em>Assistant Attorney General Hunt</em>, <em>Deputy Solicitor General Kneedler</em>, <em>Donald E. Keener</em>, <em>John W. Blakeley</em>, and <em>Andrew C. MacLachlan</em>.*</p></details></section>
+<section id="s3" class="op op-court"><h2>Opinion of the Court</h2>
+<p class="byline">Justice Kavanaugh delivered the opinion of the Court.</p>
+<p>Under federal immigration law, noncitizens who commit certain crimes are removable from the United States. During removal proceedings, a noncitizen may raise claims under the international Convention Against Torture, known as CAT. If the noncitizen demonstrates that he likely would be tortured if removed to the designated country of removal, then he is entitled to CAT relief and may not be removed to that country (although he still may be removed to other countries).</p>
+<p>If the immigration judge orders removal and denies CAT relief, the noncitizen may appeal to the Board of Immigration Appeals. If the Board of Immigration Appeals orders removal and denies CAT relief, the noncitizen may obtain judicial review in a federal court of appeals of both the final order of removal and the CAT order.</p>
+<p><span class="pg" id="s3-p576" title="page 576 of the original">576</span>In the court of appeals, for cases involving noncitizens who have committed any crime specified in 8 U. S. C. § 1252(a)(2)(C), federal law limits the scope of judicial review. Those noncitizens may obtain judicial review of constitutional and legal challenges to the final order of removal, but not of factual challenges to the final order of removal.</p>
+<p>Everyone agrees on all of the above. The dispute here concerns the scope of judicial review of CAT orders for those noncitizens who have committed crimes specified in § 1252(a)(2)(C). The Government argues that judicial review of a CAT order is analogous to judicial review of a final order of removal. The Government contends, in other words, that the court of appeals may review the noncitizen's constitutional and legal challenges to a CAT order, but not the noncitizen's factual challenges to the CAT order. Nasrallah responds that the court of appeals may review the noncitizen's constitutional, legal, <em>and</em> factual challenges to the CAT order, although Nasrallah acknowledges that judicial review of factual challenges to CAT orders must be highly deferential.</p>
+<p>So the narrow question before the Court is whether, in a case involving a noncitizen who committed a crime specified in § 1252(a)(2)(C), the court of appeals should review the noncitizen's factual challenges to the CAT order (i) not at all or (ii) deferentially. Based on the text of the statute, we conclude that the court of appeals should review factual challenges to the CAT order deferentially. We therefore reverse the judgment of the U. S. Court of Appeals for the Eleventh Circuit.</p>
+<h3 class="oh">I</h3>
+<p>Nidal Khalid Nasrallah is a native and citizen of Lebanon. In 2006, when he was 17 years old, Nasrallah came to the United States on a tourist visa. In 2007, he became a lawful permanent resident. In 2013, Nasrallah pled guilty to two counts of receiving stolen property. The U. S. District <span class="pg" id="s3-p577" title="page 577 of the original">577</span>Court for the Western District of North Carolina sentenced Nasrallah to 364 days in prison.</p>
+<p>Based on Nasrallah's conviction, the Government initiated deportation proceedings. See 8 U. S. C. § 1227(a)(2)(A)(i). In those proceedings, Nasrallah applied for CAT relief to prevent his removal to Lebanon. See Convention Against Torture and Other Cruel, Inhuman or Degrading Treatment or Punishment, Art. 3, Dec. 10, 1984, S. Treaty Doc. No. 100–20, p. 20, 1465 U. N. T. S. 114. Nasrallah alleged that he was a member of the Druze religion, and that he had been tortured by Hezbollah before he came to the United States. Nasrallah argued that he would be tortured again if returned to Lebanon.<sup class="fnr"><a id="s3-r1" href="#s3-n1">1</a></sup></p>
+<p>The Immigration Judge determined that Nasrallah was removable. As to the CAT claim, the Immigration Judge found that Nasrallah had previously suffered torture at the hands of Hezbollah. Based on Nasrallah's past experience and the current political conditions in Lebanon, the Immigration Judge concluded that Nasrallah likely would be tortured again if returned to Lebanon. The Immigration Judge ordered Nasrallah removed, but also granted CAT relief and thereby blocked Nasrallah's removal to Lebanon.</p>
+<p>On appeal, the Board of Immigration Appeals disagreed that Nasrallah likely would be tortured in Lebanon. The Board therefore vacated the order granting CAT relief and ordered Nasrallah removed to Lebanon.</p>
+<p>Nasrallah filed a petition for review in the U. S. Court of Appeals for the Eleventh Circuit, claiming (among other things) that the Board of Immigration Appeals erred in finding that he would not likely be tortured in Lebanon. Nasrallah raised factual challenges to the Board's CAT order. Applying Circuit precedent, the Eleventh Circuit declined to <span class="pg" id="s3-p578" title="page 578 of the original">578</span>review Nasrallah's factual challenges. <em>Nasrallah</em> v. <em>United States Attorney General</em>, 762 Fed. Appx. 638 (2019). The court explained that Nasrallah had been convicted of a crime specified in 8 U. S. C. § 1252(a)(2)(C). Noncitizens convicted of § 1252(a)(2)(C) crimes may not obtain judicial review of factual challenges to a “final order of removal.” §§ 1252(a) (2)(C)–(D). Under Eleventh Circuit precedent, that statute also precludes judicial review of factual challenges to the CAT order.<sup class="fnr"><a id="s3-r2" href="#s3-n2">2</a></sup></p>
+<p>Nasrallah contends that the Eleventh Circuit should have reviewed his factual challenges to the CAT order because the statute bars review only of factual challenges to a “final order of removal.” According to Nasrallah, a CAT order is not a “final order of removal” and does not affect the validity of a final order of removal. Therefore, Nasrallah argues, the statute by its terms does not bar judicial review of factual challenges to a CAT order.</p>
+<p>The Courts of Appeals are divided over whether §§ 1252(a)(2)(C) and (D) preclude judicial review of factual challenges to a CAT order. Most Courts of Appeals have sided with the Government; the Seventh and Ninth Circuits have gone the other way. Compare <em>Gourdet</em> v. <em>Holder</em>, 587 F. 3d 1, 5 (CA1 2009); <em>Ortiz-Franco</em> v. <em>Holder</em>, 782 F. 3d 81, 88 (CA2 2015); <em>Pieschacon-Villegas</em> v. <em>Attorney General of U. S.</em>, 671 F. 3d 303, 309–310 (CA3 2011); <em>Oxygene</em> v. <em>Lynch</em>, 813 F. 3d 541, 545 (CA4 2016); <em>Escudero-Arciniega</em> v. <em>Holder</em>, 702 F. 3d 781, 785 (CA5 2012); <em>Tran</em> v. <em>Gonzales</em>, 447 F. 3d 937, 943 (CA6 2006); <em>Lovan</em> v. <em>Holder</em>, 574 F. 3d 990, 998 (CA8 2009); <em>Cole</em> v. <em>United States Attorney General</em>, 712 F. 3d 517, 532 (CA11 2013), with <em>Wanjiru</em> v. <em>Holder</em>, 705 F. 3d 258, 264 (CA7 2013); <em>Vinh Tan Nguyen</em> v. <em>Holder</em>, 763 F. 3d 1022, 1029 (CA9 2014).</p>
+<p><span class="pg" id="s3-p579" title="page 579 of the original">579</span>In light of the Circuit split on this important question of federal law, we granted certiorari. 589 U. S. 1030 (2019).<sup class="fnr"><a id="s3-r3" href="#s3-n3">3</a></sup></p>
+<h3 class="oh">II</h3>
+<p>When a noncitizen is removable because he committed a crime specified in § 1252(a)(2)(C), immigration law bars judicial review of the noncitizen's factual challenges to his final order of removal. In the Government's view, the law also bars judicial review of the noncitizen's factual challenges to a CAT order. Nasrallah disagrees. We conclude that Nasrallah has the better of the statutory argument.</p>
+<h3 class="oh">A</h3>
+<p>We begin by describing the three interlocking statutes that provide for judicial review of final orders of removal and CAT orders.</p>
+<p>The first relevant statute is the Illegal Immigration Reform and Immigrant Responsibility Act of 1996. That Act authorizes noncitizens to obtain direct “review of a final order of removal” in a court of appeals. 110 Stat. 3009–607, 8 U. S. C. § 1252(a)(1). As the parties agree, in the deportation context, a “final order of removal” is a final order “concluding that the alien is deportable or ordering deportation.” § 1101(a)(47)(A); see § 309(d)(2), 110 Stat. 3009–627; <em>Calcano-Martinez</em> v. <em>INS</em>, 533 U. S. 348, 350, n. 1 (2001). The Act also states that judicial review “of all questions of law and <span class="pg" id="s3-p580" title="page 580 of the original">580</span>fact . . . arising from any action taken or proceeding brought to remove an alien from the United States under this subchapter shall be available only in judicial review of a final order under this section.” 8 U. S. C. § 1252(b)(9); see 110 Stat. 3009–610. In other words, a noncitizen's various challenges arising from the removal proceeding must be “consolidated in a petition for review and considered by the courts of appeals.” <em>INS</em> v. <em>St. Cyr</em>, 533 U. S. 289, 313, and n. 37 (2001). By consolidating the issues arising from a final order of removal, eliminating review in the district courts, and supplying direct review in the courts of appeals, the Act expedites judicial review of final orders of removal.</p>
+<p>The second relevant statute is the Foreign Affairs Reform and Restructuring Act of 1998, known as FARRA. FARRA implements Article 3 of the international Convention Against Torture, known as CAT. As relevant here, CAT prohibits removal of a noncitizen to a country where the noncitizen likely would be tortured. Importantly for present purposes, § 2242(d) of FARRA provides for judicial review of CAT claims “as part of the review of a final order of removal pursuant to section 242 of the Immigration and Nationality Act (8 U. S. C. 1252).” 112 Stat. 2681–822, note following 8 U. S. C. § 1231.</p>
+<p>The third relevant statute is the REAL ID Act of 2005. As relevant here, that Act responded to this Court's 2001 decision in <em>St. Cyr</em>. In <em>St. Cyr</em>, this Court ruled that the 1996 Act, although purporting to eliminate district court review of final orders of removal, did not eliminate district court review <em>via habeas corpus</em> of constitutional or legal challenges to final orders of removal. 533 U. S.<em>,</em> at 312–313. The REAL ID Act clarified that final orders of removal may not be reviewed in district courts, even via habeas corpus, and may be reviewed only in the courts of appeals. See 119 Stat. 310, 8 U. S. C. § 1252(a)(5). The REAL ID Act also provided that CAT orders likewise may not be reviewed in district courts, even via habeas corpus, and may be reviewed <span class="pg" id="s3-p581" title="page 581 of the original">581</span>only in the courts of appeals. See 119 Stat. 310, 8 U. S. C. § 1252(a)(4).</p>
+<h3 class="oh">B</h3>
+<p>Those three Acts establish that CAT orders may be reviewed together with final orders of removal in a court of appeals. But judicial review of final orders of removal is somewhat limited in cases (such as Nasrallah's) involving noncitizens convicted of crimes specified in § 1252(a)(2)(C). In those cases, a court of appeals may review constitutional or legal challenges to a final order of removal, but the court of appeals may not review <em>factual</em> challenges to a final order of removal<em>.</em> §§ 1252(a)(2)(C)–(D); see <em>Guerrero-Lasprilla</em> v. <em>Barr</em>, 589 U. S. 221, 234–236 (2020).</p>
+<p>The question in this case is the following: By precluding judicial review of factual challenges to final orders of removal, does the law also preclude judicial review of factual challenges to CAT orders? We conclude that it does not.</p>
+<p>The relevant statutory text precludes judicial review of factual challenges to final orders of removal—and only to final orders of removal. In the deportation context, a final “order of removal” is a final order “concluding that the alien is deportable or ordering deportation.” § 1101(a)(47)(A).<sup class="fnr"><a id="s3-r4" href="#s3-n4">4</a></sup></p>
+<p><span class="pg" id="s3-p582" title="page 582 of the original">582</span>A CAT order is not itself a final order of removal because it is not an order “concluding that the alien is deportable or ordering deportation.” As the Government acknowledges, a CAT order does not disturb the final order of removal. Brief for Respondent 26. An order granting CAT relief means only that, notwithstanding the order of removal, the noncitizen may not be removed to the designated country of removal, at least until conditions change in that country. But the noncitizen still “may be removed at any time to another country where he or she is not likely to be tortured.” 8 CFR §§1208.17(b)(2), 1208.16(f).</p>
+<p>Even though CAT orders are not <em>the same</em> as final orders of removal, a question remains: Do CAT orders merge into final orders of removal in the same way as, say, an immigration judge's evidentiary rulings merge into final orders of removal? The answer is no. For purposes of this statute, final orders of removal encompass only the rulings made by the immigration judge or Board of Immigration Appeals that affect the validity of the final order of removal. As this Court phrased it in <em>INS</em> v. <em>Chadha</em>, review of a final order of removal “includes all matters on which the validity of the final order is contingent.” 462 U. S. 919, 938 (1983) (internal quotation marks omitted). The rulings that affect the validity of the final order of removal merge into the final order of removal for purposes of judicial review. But the immigration judge's or the Board's ruling on a CAT claim does not affect the validity of the final order of removal and therefore does not merge into the final order of removal.</p>
+<p>To be sure, as noted above, FARRA provides that a CAT order is reviewable “as part of the review of a final order of removal” under 8 U. S. C. § 1252. § 2242(d), 112 Stat. 2681–822; see also 8 U. S. C. § 1252(a)(4). Likewise, § 1252(b)(9) provides that “[j]udicial review of all questions of law and <span class="pg" id="s3-p583" title="page 583 of the original">583</span>fact . . . arising from any action taken or proceeding brought to remove an alien from the United States under this subchapter shall be available only in judicial review of a final order under this section.” § 1252(b)(9). But FARRA and § 1252(b)(9) simply establish that a CAT order may be reviewed together with the final order of removal, not that a CAT order is the same as, or affects the validity of, a final order of removal.</p>
+<p>Consider an analogy. Suppose a statute furnishes appellate review of convictions and sentences in a single appellate proceeding. Suppose that the statute also precludes appellate review of certain factual challenges to the sentence. Would that statute bar appellate review of factual challenges to the conviction, just because the conviction and sentence are reviewed together? No. The same is true here. A CAT order may be reviewed together with the final order of removal. But a CAT order is distinct from a final order of removal and does not affect the validity of the final order of removal. The CAT order therefore does not merge into the final order of removal for purposes of §§ 1252(a)(2)(C)–(D)'s limitation on the scope of judicial review. In short, as a matter of straightforward statutory interpretation, Congress's decision to bar judicial review of factual challenges to final orders of removal does not bar judicial review of factual challenges to CAT orders.</p>
+<p>It would be easy enough for Congress to preclude judicial review of factual challenges to CAT orders, just as Congress has precluded judicial review of factual challenges to certain final orders of removal. But Congress has not done so, and it is not the proper role of the courts to rewrite the laws passed by Congress and signed by the President.</p>
+<h3 class="oh">C</h3>
+<p>Although a noncitizen may obtain judicial review of factual challenges to CAT orders, that review is highly deferential, as Nasrallah acknowledges. See Reply Brief 19–20; Tr. of <span class="pg" id="s3-p584" title="page 584 of the original">584</span>Oral Arg. 5. The standard of review is the substantial-evidence standard: The agency's “findings of fact are conclusive unless any reasonable adjudicator would be compelled to conclude to the contrary.” § 1252(b)(4)(B); see <em>Kenyeres</em> v. <em>Ashcroft</em>, 538 U. S. 1301, 1306 (2003) (Kennedy, J., in chambers); <em>INS</em> v. <em>Elias-Zacarias</em>, 502 U. S. 478, 481, n. 1, 483–484 (1992).</p>
+<p>But the Government still insists that the statute supplies no judicial review of factual challenges to CAT orders. The Government advances a slew of arguments, but none persuades us.</p>
+<p><em>First</em>, the Government raises an argument based on precedent. In <em>Foti</em> v. <em>INS</em>, 375 U. S. 217 (1963), this Court interpreted the statutory term “final orders of deportation” in the Immigration and Nationality Act of 1952, as amended in 1961, to encompass “all determinations made during and incident to the administrative proceeding” on removability. <em>Id.,</em> at 229. The Government points out (correctly) that the <em>Foti</em> definition of a final order—if it still applied here—would cover CAT orders and therefore would bar judicial review of factual challenges to CAT orders. But <em>Foti</em>'s interpretation of the INA as it existed as of 1963 no longer applies. Since 1996, the INA has defined final “order of deportation” more narrowly than this Court interpreted the term in <em>Foti.</em> A final order of deportation is now defined as a final order “concluding that the alien is deportable or ordering deportation.” 8 U. S. C. § 1101(a)(47)(A); Antiterrorism and Effective Death Penalty Act of 1996, 110 Stat. 1277; see § 309(d)(2) of the Illegal Immigration Reform and Immigrant Responsibility Act of 1996, 110 Stat. 3009–627. And as we have explained, an order denying CAT relief does not fall within the statutory definition of an “order of deportation” because it is not an order “concluding that the alien is deportable or ordering deportation.” Therefore, <em>Foti</em> does not control here.</p>
+<p><em>Second</em>, the Government puts forward a structural argument. As the Government sees it, if a CAT order is not <span class="pg" id="s3-p585" title="page 585 of the original">585</span>merged into a final order of removal, then no statute would authorize a court of appeals to review a CAT order in the first place. That is because, in the Government's view, the only statute that supplies judicial review of CAT claims is the statute that provides for judicial review of final orders of removal. See § 1252(a)(1). The premise of that argument is incorrect. Section 2242(d) of FARRA, enacted in 1998, expressly provides for judicial review of CAT claims together with the review of final orders of removal. Moreover, as a result of the 2005 REAL ID Act, § 1252(a)(4) now provides for direct review of CAT orders in the courts of appeals. See also 8 U. S. C. § 1252(b)(9). In short, our decision does not affect the authority of the courts of appeals to review CAT orders.</p>
+<p><em>Third</em>, the Government asserts a congressional intent argument: Why would Congress bar review of factual challenges to a removal order, but allow factual challenges to a CAT order? To begin with, we must adhere to the statutory text, which differentiates between the two kinds of orders for those purposes. In any event, Congress had good reason to distinguish the two. For noncitizens who have committed crimes that subject them to removal, the facts that rendered the noncitizen removable are often not in serious dispute. The relevant facts will usually just be the existence of the noncitizen's prior criminal convictions. By barring review of factual challenges to final orders of removal, Congress prevented further relitigation of the underlying factual bases for those criminal convictions—a point that Senator Abraham, a key proponent of the statutory bar to judicial review, stressed back in 1996. See 142 Cong. Rec. 7348–7350 (1996).</p>
+<p>By contrast, the issues related to a CAT order will not typically have been litigated prior to the alien's removal proceedings. Those factual issues may range from the noncitizen's past experiences in the designated country of removal, to the noncitizen's credibility, to the political or other current conditions in that country. Because the factual components <span class="pg" id="s3-p586" title="page 586 of the original">586</span>of CAT orders will not previously have been litigated in court and because those factual issues may be critical to determining whether the noncitizen is likely to be tortured if returned, it makes some sense that Congress would provide an opportunity for judicial review, albeit deferential judicial review, of the factual components of a CAT order.</p>
+<p><em>Fourth</em>, the Government advances a policy argument— that judicial review of the factual components of a CAT order would unduly delay removal proceedings. But today's decision does not affect <em>whether</em> the noncitizen is entitled to judicial review of a CAT order and does not add a new layer of judicial review. All agree that a noncitizen facing removal under these provisions may already seek judicial review in a court of appeals of constitutional and legal claims relating to both the final order of removal and the CAT order. Our holding today means only that, in that same case in the court of appeals, the court may also review the noncitizen's factual challenges to the CAT order under the deferential substantial-evidence standard. For many years, the Seventh and Ninth Circuits have allowed factual challenges to CAT orders, and the Government has not informed this Court of any significant problems stemming from review in those Circuits.</p>
+<p><em>Fifth</em>, what about the slippery slope? If factual challenges to CAT orders may be reviewed, what other orders will now be subject to factual challenges in the courts of appeals? Importantly, another jurisdiction-stripping provision, § 1252(a) (2)(B), states that a noncitizen may not bring a factual challenge to orders denying discretionary relief, including cancellation of removal, voluntary departure, adjustment of status, certain inadmissibility waivers, and other determinations “made discretionary by statute.” <em>Kucana</em> v. <em>Holder</em>, 558 U. S. 233, 248 (2010). Our decision today therefore has no effect on judicial review of those discretionary determinations.<sup class="fnr"><a id="s3-r5" href="#s3-n5">5</a></sup></p>
+<p><span class="pg" id="s3-p587" title="page 587 of the original">587</span>The Government suggests that our decision here might lead to judicial review of factual challenges to statutory withholding orders. A statutory withholding order prevents the removal of a noncitizen to a country where the noncitizen's “life or freedom would be threatened” because of the noncitizen's “race, religion, nationality, membership in a particular social group, or political opinion.” 8 U. S. C. § 1231(b)(3)(A). That question is not presented in this case, and we therefore leave its resolution for another day.</p>
+<p class="sep">* * *</p>
+<p>In cases where a noncitizen has committed a crime specifled in 8 U. S. C. § 1252(a)(2)(C), §§ 1252(a)(2)(C) and (D) preclude judicial review of the noncitizen's factual challenges to a final order of removal. A CAT order is distinct from a final order of removal and does not affect the validity of a final order of removal. Therefore, §§ 1252(a)(2)(C) and (D) do not preclude judicial review of a noncitizen's factual challenges to a CAT order. We reverse the judgment of the U. S. Court of Appeals for the Eleventh Circuit.</p>
+<p><em>It is so ordered.</em></p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li id="s3-n1" value="1"><p>To qualify as torture, actions must be “inflicted by or at the instigation of or with the consent or acquiescence of a public official or other person acting in an official capacity.” 8 CFR § 1208.18(a)(1) (2019). <a class="back" href="#s3-r1" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n2" value="2"><p>This opinion uses the term “noncitizen” as equivalent to the statutory term “alien.” See 8 U. S. C. § 1101(a)(3). <a class="back" href="#s3-r2" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n3" value="3"><p>This case comes to us on the premise that Nasrallah committed a crime specified in § 1252(a)(2)(C). That said, courts are divided on the question whether §§ 1252(a)(2)(C)–(D)'s limitation on judicial review applies when a noncitizen has committed only a single crime of moral turpitude. But that issue is not the question presented in this Court, and we do not address it. Compare <em>Keungne</em> v. <em>United States Attorney General</em>, 561 F. 3d 1281, 1283 (CA11 2009), with <em>Yeremin</em> v. <em>Holder</em>, 738 F. 3d 708, 713 (CA6 2013); <em>Wanjiru</em> v. <em>Holder</em>, 705 F. 3d 258, 262–263 (CA7 2013); <em>Lee</em> v. <em>Gonzales</em>, 410 F. 3d 778, 781–782 (CA5 2005). <a class="back" href="#s3-r3" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n4" value="4"><p>Title 8 U. S. C. § 1252(a)(2)(C) provides:</p><p>“Notwithstanding any other provision of law (statutory or nonstatutory), including section 2241 of title 28, or any other habeas corpus provision, and sections 1361 and 1651 of such title, and except as provided in subparagraph (D), <em>no court shall have jurisdiction to review any final order of removal</em> against an alien who is removable by reason of having committed a criminal offense covered in section 1182(a)(2) or 1227(a)(2) (A)(iii), (B), (C), or (D) of this title, or any offense covered by section 1227(a)(2)(A)(ii) of this title for which both predicate offenses are, without regard to their date of commission, otherwise covered by section 1227(a)(2) (A)(i) of this title.” (Emphasis added.)</p><p>Section 1252(a)(2)(D) provides:</p><p>“Nothing in subparagraph (B) or (C), or in any other provision of this chapter (other than this section) which limits or eliminates judicial review, shall be construed as precluding review of <em>constitutional claims or questions of law</em> raised upon a petition for review filed with an appropriate court of appeals in accordance with this section.” (Emphasis added.) <a class="back" href="#s3-r4" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n5" value="5"><p>In <em>expedited</em> removal proceedings, the immigration laws do not provide for any judicial review of CAT claims. See 8 U. S. C. §§ 1225(b)(1)(B)(iii), 1252(a)(2)(A), and 1252(e). Our ruling today does not affect that law. <a class="back" href="#s3-r5" aria-label="Back to the text">↩</a></p></li>
+</ol></aside></section>
+<section id="s4" class="op op-dissenting"><h2>Justice Thomas, dissenting</h2>
+<p class="byline">Justice Thomas, with whom Justice Alito joins, dissenting.</p>
+<p>The majority holds that the federal courts of appeals have jurisdiction to review factual challenges to orders resolving claims brought under the Convention Against Torture and Other Cruel, Inhuman or Degrading Treatment or Punishment. Because I disagree with this interpretation of the relevant immigration laws, I respectfully dissent.</p>
+<h3 class="oh">I</h3>
+<p>The Convention Against Torture and Other Cruel, Inhuman or Degrading Treatment or Punishment (CAT or Convention) is an international human rights treaty that, as its <span class="pg" id="s4-p588" title="page 588 of the original">588</span>name implies, obligates signatories to work to eradicate torture. The Convention was sent to the Senate for its advice and consent in 1990. Although the Senate ultimately ratifled the treaty, it also determined that the first 16 articles of the Convention were not self-executing. See S. Exec. Rep. No. 101–30, p. 31 (1990). As such, those articles required implementing legislation before their obligations could become effective as domestic law. See <em>Medellín</em> v. <em>Texas</em>, 552 U. S. 491, 505, n. 2 (2008).</p>
+<p>After the treaty was ratified, Congress enacted legislation implementing Article III of the Convention by means of the Foreign Affairs Reform and Restructuring Act of 1998 (FARRA). See § 2242, 112 Stat. 2681–822, note following 8 U. S. C. § 1231. Article III of the Convention prohibits its signatories from “expel[ling], return[ing] or extradit[ing] a person to another State where there are substantial grounds for believing that he would be in danger of being subjected to torture.” S. Treaty Doc. No. 100–20, p. 20, 1465 U. N. T. S. 114. Rather than providing detailed guidance on the United States' Article III obligations, FARRA merely restated the treaty's language and perfunctorily declared that “the heads of the appropriate agencies shall prescribe regulations to implement the obligations of the United States under Article 3.” § 2242(b).<sup class="fnr"><a id="s4-r1" href="#s4-n1">1</a></sup>Congress also provided that no court would have “jurisdiction to consider or review claims raised under the Convention . . . except as part of the review of a final order of removal pursuant to . . . (8 U. S. C. § 1252).” § 2242(d).</p>
+<p><span class="pg" id="s4-p589" title="page 589 of the original">589</span>Section 1252, in turn, grants federal courts of appeals jurisdiction to review final orders of removal. 8 U. S. C. §1252(a)(1). It also specifies that “the sole and exclusive means for judicial review of an order of removal” is through “a petition for review filed . . . in accordance with this section.” § 1252(a)(5). Section 1252 also contains a “zipper clause,” which states that “all questions of law or fact . . . arising from any action taken or proceeding brought to remove an alien” shall be consolidated and “available only in judicial review of a final order under this section.” § 1252(b)(9).</p>
+<p>At the same time, petitions for review are subject to a number of limitations, one of which is in § 1252(a)(2)(C). That provision—often referred to as the “criminal-alien bar”—states that “no court shall have jurisdiction to review any final order of removal against an alien who is removable by reason of having committed” certain criminal offenses.</p>
+<h3 class="oh">II</h3>
+<h3 class="oh">A</h3>
+<p>This case concerns whether CAT claims brought during a criminal alien's removal proceeding are covered by the criminal-alien bar in § 1252(a)(2)(C). The most important provision for determining whether these CAT orders are subject to § 1252(a)(2)(C) is the zipper clause. If orders deeming a criminal alien ineligible for CAT relief fall within that clause, then the bar in § 1252(a)(2)(C) prevents review; if they do not, then the courts have jurisdiction to review factual challenges related to these orders. I would conclude that CAT orders fall within the zipper clause.</p>
+<p>The zipper clause states that “all questions of law and fact . . . <em>arising from</em> any action taken or proceeding brought to remove an alien . . . shall be available <em>only</em> in judicial review of a final order under this section.” § 1252(b)(9) (emphasis added). To “arise” means “to originate from a specified <span class="pg" id="s4-p590" title="page 590 of the original">590</span>source” or “to come into being.” Webster's Third New International Dictionary 117 (1976). And “from” most naturally refers here to the “ground, reason, or basis” for something. <em>Id.</em>, at 913. Thus, § 1252(b)(9) covers all “questions of law and fact” that an immigration judge must decide as a result of the Government's decision to initiate removal proceedings against an alien. See also <em>Reno</em> v. <em>American-Arab Anti-Discrimination Comm.</em>, 525 U. S. 471, 482 (1999) (stating that the zipper clause applies to the “many . . . decisions or actions that may be part of the [removal] process”).<sup class="fnr"><a id="s4-r2" href="#s4-n2">2</a></sup></p>
+<p>The plain text clearly covers CAT claims such as the one petitioner raised. The Government initiated removal proceedings, alleging that petitioner had been convicted of a “crime involving moral turpitude.” See § 1227(a)(2)(A)(i). As a direct result, petitioner applied for CAT relief to prevent his removal. He was denied CAT withholding because the Immigration Judge, during the removal proceeding, determined that petitioner had been convicted of a “particularly serious crime.” § 1158(b)(2)(A)(ii). On appeal, the Board of Immigration Appeals likewise denied CAT deferral in that selfsame removal proceeding. It is beyond dispute that petitioner's eligibility for CAT relief involved “questions of law and fact” that directly “ar[ose] from” the Government's initiation of removal proceedings against him. § 1252(b)(9). The very forms of relief for which petitioner applied—withholding of removal and deferral of removal— confirm that this relief arose directly from the Government-initiated removal proceeding.</p>
+<p>Because the CAT claim falls within the zipper clause, all of § 1252's other limitations and procedural requirements imposed on final orders of removal, including § 1252(a)(2)(C)'s <span class="pg" id="s4-p591" title="page 591 of the original">591</span>criminal-alien bar, also apply. Accordingly, courts have no jurisdiction to review factual challenges to CAT claims brought in the course of a criminal alien's removal proceeding.</p>
+<h3 class="oh">B</h3>
+<p>My analysis would begin and end with the plain meaning of the zipper clause. Rather than focusing on that clause, however, the majority bases its textual analysis almost exclusively on the fact that Congress has defined an “ `order of [removal]' ” as an order “concluding that the alien is deportable or ordering deportation.” § 1101(a)(47)(A). The majority correctly notes that a CAT order does not fall within this definition. See <em>ante</em>, at 582. But it uses that definition to alter the scope of the zipper clause, asserting that the provision only consolidates “[t]he rulings that affect the validity of the final order of removal.” <em>Ibid.</em></p>
+<p>As just explained, this conclusion contradicts the statute's plain text. The zipper clause does not consolidate all questions of law and fact that “affect the validity of the final order of removal.” <em>Ibid.</em> It instead consolidates “all questions of law and fact . . . <em>arising from</em> any action taken or proceeding brought to remove an alien.” § 1252(b)(9) (emphasis added). “Arising from” covers a broader category of claims than those that simply impact the validity of the order, including petitioner's claim. Thus, the majority's overreliance on the definition of final order of removal is misplaced.</p>
+<p>The majority nevertheless contends that its reading is supported by § 1252(a)(4). That provision states that CAT claims may be reviewed through a petition for review. According to the majority, this paragraph “provides for direct review of CAT orders in the courts of appeals.” <em>Ante</em>, at 585. That is, the majority views § 1252(a)(4) as a specific grant of jurisdiction over CAT claims. Working from that interpretation, the majority contends that the zipper clause and FARRA merely confirm that CAT orders “may be reviewed together with the final order of removal.” <em>Ante</em>, at 583.</p>
+<p><span class="pg" id="s4-p592" title="page 592 of the original">592</span>This is incorrect. Jurisdiction over CAT claims comes from FARRA § 2242(d), which states that courts cannot review CAT claims “<em>except</em> as part of the review of a final order of removal pursuant to . . . (8 U. S. C. § 1252).” In other words, a final order of removal is required if a court is to review a CAT order at all. The CAT order then becomes reviewable “as part of” that final order of removal through the zipper clause. And, because FARRA funnels exclusive review of CAT orders through § 1252, all of that section's limitations on final orders of removal apply equally to CAT orders, including § 1252(a)(2)(C).</p>
+<p>Section 1252(a)(4), on the other hand, serves a far simpler function. That provision simply confirms that, because CAT claims can be reviewed only as part of a final order of removal, and final orders of removal can be reviewed only if a petitioner files a petition for review, a CAT claim likewise can be reviewed only if petitioner files a petition for review. See <em>Ortiz-Franco</em> v. <em>Holder</em>, 782 F. 3d 81, 88–89 (CA2 2015); <em>Lovan</em> v. <em>Holder</em>, 574 F. 3d 990, 998 (CA8 2009). My reading of the statute makes sense of § 1252(a)(4), while still giving the zipper clause its ordinary meaning.<sup class="fnr"><a id="s4-r3" href="#s4-n3">3</a></sup></p>
+<h3 class="oh">C</h3>
+<p>The majority's interpretation will bring about a sea change in immigration law. Though today's case involves CAT claims, there is good reason to think that the majority's rule will apply equally to statutory withholding of removal. Statutory withholding, a frequently sought form of relief, is available if “the alien's life or freedom would be threatened . . . because of the alien's race, religion, nationality, membership in a particular social group, or political opinion.” <span class="pg" id="s4-p593" title="page 593 of the original">593</span>§ 1231(b)(3)(A); see also 8 CFR § 208.16(b) (2020). Like CAT withholding, statutory withholding is unavailable to aliens who have committed certain crimes. § 1231(b)(3)(B)(ii). And like CAT relief, statutory withholding seeks to prevent removability and is considered after the alien has been deemed removable. See, <em>e. g.</em>, <em>Kouambo</em> v. <em>Barr</em>, 943 F. 3d 205, 210 (CA4 2019). Thus, statutory withholding claims also do not affect the validity of the underlying removal order and, in the majority's view, would not be subject to § 1252(a)(2)(C).</p>
+<p>The Government persuasively argues that adopting petitioner's rule will disturb the courts of appeals' longstanding practice of subjecting criminal aliens' statutory withholding claims to § 1252(a)(2)(C). See, <em>e. g.</em>, <em>Rendon</em> v. <em>Barr</em>, 952 F. 3d 963, 970 (CA8 2020); <em>Pierre-Paul</em> v. <em>Barr</em>, 930 F. 3d 684, 693–694 (CA5 2019); <em>Gutierrez</em> v. <em>Lynch</em>, 834 F. 3d 800, 804 (CA7 2016); <em>Jeune</em> v. <em>United States Atty. Gen.</em>, 810 F. 3d 792, 806, nn. 3, 12 (CA11 2016); <em>Pechenkov</em> v. <em>Holder</em>, 705 F. 3d 444, 448 (CA9 2012). And at oral argument, petitioner all but conceded that the Government is correct on that score. See Tr. of Oral Arg. 20–21. Whistling past the graveyard, the majority attempts to avoid confronting this result by simply stating that the question is not currently before us. <em>Ante</em>, at 587. But the Court cannot evade the implications of its decision so easily. We have been presented with two competing statutory interpretations—one of which makes sense of all relevant provisions without upending settled practice, and one of which significantly undermines § 1252(a)(2)(C) by removing a vast swath of claims from its reach. If the majority insists on choosing the latter interpretation, it should justify that choice and candidly confront its implications.</p>
+<h3 class="oh">III</h3>
+<p>At bottom, petitioner's argument is largely driven by policy considerations. He contends that the United States has obligated itself not to return any alien, even a criminal alien, <span class="pg" id="s4-p594" title="page 594 of the original">594</span>to a country where he may be tortured or killed. According to petitioner, if CAT claims cannot be reviewed by courts of appeals, then a vital check on erroneous refoulement will be lost. Petitioner's arguments are not without rhetorical and emotional force. But, like so many other questions related to CAT obligations, Congress chose not to address them through the legislation involved here.</p>
+<p>What Congress has done is enact § 1252(a)(2)(C), which strips jurisdiction over certain claims of criminal aliens. That is what is before us, not the broader policy considerations. As has been the case for decades now, the decisions of this Court continue to systematically chip away at this statute and other jurisdictional limitations on immigration claims, thus thwarting Congress' intent. See <em>Guerrero-Lasprilla</em> v. <em>Barr</em>, 589 U. S. 221, 236–237 (2020) (<span class="sc">Thomas</span>, J., dissenting); <em>INS</em> v. <em>St. Cyr</em>, 533 U. S. 289, 328–330 (2001) (Scalia, J., dissenting). Because today's erroneous result further weakens a duly enacted statute, I respectfully dissent.</p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li id="s4-n1" value="1"><p>In spite of the weighty interests in not returning aliens to countries where they would likely be tortured or killed, Congress largely left the relevant issues—most notably, the interaction between CAT and removal orders—to be resolved by agency regulations. See <em>ante</em>, at 582–583. These important questions also include the definition of torture, 8 CFR § 1208.18 (2020); available forms of relief, §§ 1208.16(c), 1208.17; and the standards that immigration judges should use to decide whether an applicant has carried his burden, § 1208.16(c). <a class="back" href="#s4-r1" aria-label="Back to the text">↩</a></p></li>
+<li id="s4-n2" value="2"><p>As I have previously explained, the zipper clause is actually far broader, covering all claims “related to” removal proceedings. <em>Jennings</em> v. <em>Rodriguez</em>, 583 U. S. 281, 316 (2018) (opinion concurring in part and concurring in judgment). <a class="back" href="#s4-r2" aria-label="Back to the text">↩</a></p></li>
+<li id="s4-n3" value="3"><p>Reading § 1252(a)(4) as a grant of jurisdiction would also require reading § 1252(a)(5), which contains very similar language to § 1252(a)(4), as a grant of jurisdiction over “order[s] of removal.” But that interpretation would render § 1252(a)(5) superfluous, since § 1252(a)(1) already grants jurisdiction over such orders. <a class="back" href="#s4-r3" aria-label="Back to the text">↩</a></p></li>
+</ol></aside></section><p class='back'><a href='/opinions/'>&larr; All opinions</a> · <a href='/justices/ot2019.html'>The Justices, October Term 2019 &rarr;</a></p></main></body>
+</html>
+

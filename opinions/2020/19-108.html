@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script async src='/analytics.js'></script><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate icon" href="/favicon.ico" sizes="any"><link rel="alternate" type="application/atom+xml" title="Supreme Court Report" href="/feed.xml"><link rel="alternate" type="application/atom+xml" title="Certiorari grants" href="/grants.xml"><title>United States v. Briggs — Opinion — Supreme Court Report</title><meta name="description" content="The opinion in United States v. Briggs (No. 19-108), decided December 10, 2020: the full text with its footnotes, as a page, a Markdown file and an EPUB."><link rel="canonical" href="https://supremecourt.report/opinions/2020/19-108.html"><meta property="og:site_name" content="Supreme Court Report"><meta property="og:type" content="article"><meta property="og:title" content="United States v. Briggs — Opinion — Supreme Court Report"><meta property="og:description" content="The opinion in United States v. Briggs (No. 19-108), decided December 10, 2020: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta property="og:url" content="https://supremecourt.report/opinions/2020/19-108.html"><meta property="og:image" content="https://supremecourt.report/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Supreme Court Report - docket analytics for the Supreme Court of the United States"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="United States v. Briggs — Opinion — Supreme Court Report"><meta name="twitter:description" content="The opinion in United States v. Briggs (No. 19-108), decided December 10, 2020: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta name="twitter:image" content="https://supremecourt.report/og.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap"><style>
+  :root{--paper:#fdfcfa;--panel:#ffffff;--ink:#1a1a1e;--ink-soft:#484850;--faint:#63636b;--accent:#9c0e3a;--link:#9c0e3a;--rule:#dbd8d2;--nav-max:60rem}
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{font-family:'Newsreader',Georgia,serif;font-size:19px;line-height:1.6;
+    color:var(--ink);background:var(--paper);margin:0;font-feature-settings:'onum' 1}
+  body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
+    opacity:.5;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");}
+  .wrap{max-width:40rem;margin:0 auto;padding:3rem 1.4rem 4rem}
+  .kicker{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 1rem}
+  h1{font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:clamp(2.4rem,7vw,3.6rem);line-height:1;letter-spacing:-.015em;
+    margin:0 0 1rem;color:var(--ink)}
+  h1 em{font-style:italic;font-weight:500;color:var(--accent)}
+  .dek{font-size:1.15rem;line-height:1.5;color:var(--ink-soft);font-style:italic;
+    margin:0 0 1.4rem}
+  .brule{border:0;height:0;border-top:2px solid var(--ink);margin:1.4rem 0 .3rem;
+    position:relative}
+  .brule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+    border-top:1px solid var(--rule)}
+  ul.idx{list-style:none;padding:0;margin:1.6rem 0}
+  ul.idx li{border-bottom:1px solid var(--rule)}
+  /* Whole row is one block-level link: a large, reliable tap target on mobile. */
+  ul.idx a.row{display:flex;justify-content:space-between;align-items:baseline;
+    gap:1rem;padding:.9rem .4rem;text-decoration:none;border:0;color:inherit}
+  ul.idx a.row:hover{background:rgba(156,14,58,.05)}
+  ul.idx .d{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.16rem;
+    color:var(--accent);line-height:1.25}
+  ul.idx a.row:hover .d{text-decoration:underline;text-underline-offset:3px}
+  ul.idx .count{color:var(--faint);font-size:.9rem;font-style:italic;white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  /* A long note (an order list's "3 GVRs / 230 denied / 4 habeas denied /
+     ...", items separated by middots) cannot sit on one line: nowrap made it
+     claim the row and
+     squeezed the title into a column three words wide, and on a phone it ran off
+     the screen. Such a row opts in (meta_wrap): the note wraps, only between its
+     items, and takes at most ~45% of the row, so the title always has the
+     larger share. Under 34rem it drops beneath the title at full width. */
+  /* ("long", not "wrap": .wrap is the page container and its padding.) */
+  ul.idx .count.long{white-space:normal;text-align:right;max-width:45%;line-height:1.45}
+  ul.idx .count.long .seg{white-space:nowrap}
+  @media(max-width:34rem){
+    ul.idx a.row.longmeta{flex-wrap:wrap;row-gap:.2rem}
+    ul.idx .count.long{max-width:none;flex-basis:100%;text-align:left}
+  }
+  /* Compact horizontal strip of the most recent pages beneath a category row. */
+  ul.idx .recent{display:flex;flex-wrap:wrap;align-items:baseline;
+    gap:.3rem .85rem;padding:0 .4rem 1rem;margin-top:-.35rem}
+  ul.idx .recent .rlabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  ul.idx .recent a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--ink-soft);text-decoration:none;font-variant-numeric:tabular-nums;
+    border-bottom:1px solid var(--rule);padding-bottom:1px}
+  ul.idx .recent a:hover{color:var(--accent);border-color:var(--accent)}
+  /* Optional panel beneath the section index (home page: most-read cases). */
+  .panel{margin:2.4rem 0 0}
+  .panel h2{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 .25rem}
+  .panel .pnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:0 0 .5rem}
+  /* "Live now" (live_argument_panel, /live.js): hidden unless the Court is
+     streaming an argument. One red dot, the same --accent as the headings, so
+     the live state is a mark and not a new colour. */
+  .live h2 .ldot{display:inline-block;width:.5rem;height:.5rem;border-radius:50%;
+    background:var(--accent);margin-right:.5rem;vertical-align:.08rem;
+    animation:lpulse 2s ease-in-out infinite}
+  @keyframes lpulse{50%{opacity:.25}}
+  @media (prefers-reduced-motion:reduce){.live h2 .ldot{animation:none}}
+  .lplay{display:flex;flex-wrap:wrap;gap:.6rem .9rem;align-items:center;margin:.8rem 0 .3rem}
+  .lplay button{font:600 .9rem/1 'Newsreader',Georgia,serif;letter-spacing:.04em;
+    color:var(--paper);background:var(--accent);border:0;border-radius:2px;
+    padding:.6rem 1.05rem;cursor:pointer}
+  .lplay button:disabled{opacity:.6;cursor:progress}
+  .lplay button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  /* The player takes a row of its own and may never outgrow the column. A flex
+     item's min-width is auto, which for a replaced element is the browser's own
+     controls' width -- wider than the column on a phone, where mobile Safari
+     and Chrome draw larger controls than the desktop. */
+  .lplay audio{display:block;flex:1 1 100%;width:100%;min-width:0;max-width:100%;
+    box-sizing:border-box;margin:0}
+  .lplay .lstat{font-size:.85rem;color:var(--faint)}
+  /* --- Likeliest grants -----------------------------------------------------
+     Its own rows rather than ol.mostread's: this panel carries a question under
+     the caption, which that list has no room for, and a percentage that has to
+     read as the row's subject rather than as a trailing note.
+     The window toggle is two real radio inputs plus :has() -- no JavaScript.
+     Both windows are rendered at build time and one is hidden, which is the only
+     way a static site can offer the choice: there is no server to ask for the
+     other one. Real radios, not styled buttons, so the control is reachable by
+     keyboard and announced as a choice. */
+  .lead{margin:0 0 1.9rem}
+  .lead h2{margin-bottom:.35rem}
+  .lead .pnote{margin:0 0 .7rem}
+  .wr{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+  .win{display:inline-flex;gap:.25rem;margin:0 0 .55rem;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .win label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .win label:hover{color:var(--ink)}
+  .lead:has(#w7:checked) label[for=w7],
+  .lead:has(#w28:checked) label[for=w28],
+  .lead:has(#wall:checked) label[for=wall]{background:var(--accent);color:var(--paper)}
+  .wr:focus-visible+label{outline:2px solid var(--accent);outline-offset:2px}
+  /* Three windows, one shown: the checked radio hides the other two. */
+  .lead:has(#w7:checked) :is(.g28,.n28,.gall,.nall),
+  .lead:has(#w28:checked) :is(.g7,.n7,.gall,.nall),
+  .lead:has(#wall:checked) :is(.g7,.n7,.g28,.n28){display:none}
+  /* The show/hide controls for a panel's secondary line -- the question under
+     a forecast row, the holding under a decision. Same box as the window
+     toggle, a checkbox instead of radios, and no script: the sibling rule does
+     the work and the lines simply show where :has() is unsupported. The
+     questions are on by default (they are what a forecast row asks); the
+     holdings are off (the caption, kind and disposition already say what
+     happened, and the holding is the more). */
+  .opts{display:inline-flex;gap:.25rem;margin:0 .45rem .55rem 0;vertical-align:top;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .opts label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .opts label:hover{color:var(--ink)}
+  .lead:has(#qon:checked) label[for=qon],
+  .panel:has(#hon:checked) label[for=hon]{background:var(--accent);color:var(--paper)}
+  .lead:has(#qon:not(:checked)) .gq{display:none}
+  .panel:has(#hon:not(:checked)) .chold{display:none}
+  /* --- Upcoming at the Court ------------------------------------------------
+     A date gutter and a two-line body, the same shape as the grant rows above
+     it, so the two panels read as one page rather than two widgets. */
+  .cal{margin:0 0 1.9rem}
+  ol.cal{list-style:none;margin:0;padding:0}
+  ol.cal li{border-top:1px solid var(--rule)}
+  ol.cal li:last-child{border-bottom:1px solid var(--rule)}
+  /* The row is a container, not an anchor: an argument day carries one link per
+     case it hears and anchors cannot nest. Hover lives on the row so it still
+     reads as one unit, and each link colours on its own hover. */
+  ol.cal .crow{display:flex;gap:.95rem;align-items:baseline;padding:.55rem .1rem}
+  ol.cal .crow:hover{background:rgba(156,14,58,.05)}
+  ol.cal a{text-decoration:none;color:inherit}
+  ol.cal a:hover,ol.cal a:focus-visible{color:var(--accent)}
+  ol.cal .cdet a{border-bottom:1px solid rgba(156,14,58,.35)}
+  ol.cal .cdet a:hover{border-bottom-color:var(--accent)}
+  ol.cal .cwhen{flex:none;width:4.6rem;font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.96rem;color:var(--ink);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  ol.cal .cdow{display:block;font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);text-transform:uppercase;letter-spacing:.08em}
+  ol.cal .ctx{flex:1;min-width:0}
+  ol.cal .ckind{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:.98rem;line-height:1.25}
+  ol.cal .cdet{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.12rem}
+  /* Recent decisions reuses the calendar rows and adds exactly two things: the
+     kind word that opens the detail line, and the one outbound link (the slip
+     opinion), which takes the link colour the rest of the row deliberately
+     does not. */
+  ol.cal .dk{font-weight:600;color:var(--ink)}
+  ol.cal .cdet a.pdf{color:var(--link)}
+  /* The holding, from the Court's slip-opinion feed: one sentence, set
+     smaller and in the soft ink so the caption stays the row's headline. */
+  ol.cal .chold{display:block;font-size:.86rem;line-height:1.4;color:var(--ink-soft);
+    font-style:italic;margin-top:.15rem}
+  ol.cal .cdet a.pdf:hover,ol.cal .cdet a.pdf:focus-visible{color:var(--accent);
+    border-bottom-color:var(--accent)}
+  ol.grants{list-style:none;margin:0;padding:0}
+  ol.grants li{border-top:1px solid var(--rule)}
+  ol.grants li:last-child{border-bottom:1px solid var(--rule)}
+  ol.grants a{display:flex;gap:.95rem;align-items:baseline;text-decoration:none;
+    color:inherit;padding:.62rem .1rem}
+  ol.grants a:hover{background:rgba(156,14,58,.05)}
+  ol.grants a:hover .gc{color:var(--accent)}
+  ol.grants .gv{flex:none;width:3.5rem;text-align:right;
+    font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.22rem;
+    line-height:1.1;color:var(--accent);font-variant-numeric:tabular-nums}
+  ol.grants .gx{font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);margin-left:.3rem}
+  ol.grants .gtx{flex:1;min-width:0}
+  /* Subject-area line under the caption, in the section-label idiom (h2.sec):
+     small tracked caps in the faint ink, so it classifies without competing. */
+  ol.grants .gs,ol.mostread .ms{display:block;font-size:.68rem;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--faint);line-height:1.3;margin-top:.12rem}
+  ol.grants .gc{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:1rem;line-height:1.25}
+  ol.grants .gq{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.16rem}
+  ol.grants .gd{flex:none;font-size:.76rem;color:var(--faint);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  .more{margin:.75rem 0 0;font-size:.92rem}
+  .more a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.35)}
+  .more a:hover{border-bottom-color:var(--link)}
+  h2.sec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:.88rem;
+    letter-spacing:.09em;color:var(--faint);text-transform:uppercase;
+    margin:2.1rem 0 .6rem;padding-bottom:.28rem;border-bottom:1px solid var(--rule)}
+  @media(max-width:40rem){
+    ol.grants a{flex-wrap:wrap}
+    ol.grants .gd{width:100%;padding-left:4.45rem;margin-top:-.1rem}
+  }
+  ol.mostread{list-style:none;counter-reset:mr;padding:0;margin:0}
+  ol.mostread li{counter-increment:mr;border-bottom:1px solid var(--rule)}
+  ol.mostread a{display:flex;align-items:baseline;gap:.7rem;padding:.6rem .4rem;
+    text-decoration:none;color:inherit}
+  ol.mostread a:hover{background:rgba(156,14,58,.05)}
+  ol.mostread a::before{content:counter(mr);font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.95rem;color:var(--faint);min-width:1.1rem;
+    font-variant-numeric:tabular-nums}
+  ol.mostread .mc{flex:1;font-size:1rem;line-height:1.3}
+  ol.mostread .mct{display:block}
+  ol.mostread a:hover .mct{color:var(--accent);text-decoration:underline;
+    text-underline-offset:3px}
+  ol.mostread .mdk{color:var(--accent);font-weight:600;font-size:.82rem;
+    font-variant-numeric:tabular-nums;white-space:nowrap}
+  ol.mostread .mv{color:var(--faint);font-size:.85rem;font-style:italic;
+    white-space:nowrap;font-variant-numeric:tabular-nums}
+  /* Forecast percentages carry weight the most-read counts do not: the number is
+     the claim, not a footnote to the ranking. Upright, accent, tabular. */
+  ol.mostread .mv.fc{color:var(--accent);font-style:normal;font-weight:600;
+    font-size:.95rem;min-width:2.6rem;text-align:right}
+  /* Feed follow line. Deliberately quiet -- a footnote under the section list,
+     styled like .recent rather than like a call to action. */
+  .feeds{display:flex;flex-wrap:wrap;align-items:baseline;gap:.3rem .85rem;
+    margin:2.2rem 0 0;padding-top:1.1rem;border-top:1px solid var(--rule)}
+  .feeds .flabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  .feeds a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .feeds a:hover{border-color:var(--link)}
+  .back{margin-top:2rem;font-size:.95rem}
+  .back a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .back a:hover{border-color:var(--link)}
+  /* Home-page case search. */
+  .csearch{position:relative;margin:0 0 1.4rem}
+  #cq{width:100%;font-family:'Newsreader',Georgia,serif;font-size:1.05rem;color:var(--ink);
+    background:var(--panel);border:1px solid var(--rule);border-radius:3px;padding:.7rem .9rem}
+  #cq:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(156,14,58,.1)}
+  #cq::placeholder{color:var(--faint)}
+  #cq.loading{background-image:linear-gradient(90deg,transparent,rgba(156,14,58,.06),transparent);
+    background-size:40% 100%;background-repeat:no-repeat;animation:csl 1s infinite}
+  @keyframes csl{0%{background-position:-40% 0}100%{background-position:140% 0}}
+  .cres{list-style:none;margin:.35rem 0 0;padding:0;max-height:24rem;overflow-y:auto;
+    border:1px solid var(--rule);border-radius:3px;background:var(--panel)}
+  .cres:empty{display:none}
+  .cres li{border-bottom:1px solid var(--rule)}
+  .cres li:last-child{border-bottom:0}
+  .cres a{display:block;padding:.55rem .7rem;text-decoration:none;color:var(--ink);
+    font-size:.98rem;line-height:1.3}
+  .cres a:hover,.cres li.act a{background:rgba(156,14,58,.06)}
+  .cres mark{background:rgba(156,14,58,.14);color:inherit;padding:0 .05em;border-radius:2px}
+  .cres .cd{color:var(--accent);font-variant-numeric:tabular-nums;font-weight:600;
+    margin-right:.5rem;white-space:nowrap}
+  .cnone{padding:.55rem .7rem;color:var(--faint);font-style:italic}
+  .cnone a,.cqp a{color:var(--link);font-style:normal;text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .cqp{margin:.45rem 0 0;font-size:.88rem;color:var(--faint)}
+  /* /cases/ browse index: grouped sections with per-bucket counts. */
+  .csec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+    text-transform:uppercase;letter-spacing:.12em;color:var(--accent);
+    margin:2.2rem 0 .3rem;padding-bottom:.35rem;border-bottom:1px solid var(--rule);
+    display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
+  .csec .cn{font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:.85rem;
+    letter-spacing:0;text-transform:none;color:var(--faint);
+    font-variant-numeric:tabular-nums}
+  .cnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:.5rem 0 0}
+  .cnote a{color:var(--accent)}
+  ul.terms{list-style:none;padding:0;margin:1rem 0 0;display:flex;flex-wrap:wrap;
+    gap:.5rem 1.6rem}
+  ul.terms li{display:inline-flex;align-items:baseline;gap:.4rem}
+  ul.terms a{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.05rem;
+    color:var(--accent);text-decoration:none;border-bottom:1px solid var(--rule)}
+  ul.terms a:hover{border-bottom-color:var(--accent)}
+  ul.terms .cn{color:var(--faint);font-size:.85rem;font-variant-numeric:tabular-nums}
+  /* About page: running prose rather than an index, so it takes a measure and a
+     little more leading than the section rows above it. */
+  .about{margin:1.6rem 0 0;font-size:1.05rem;line-height:1.65;max-width:34rem}
+  .about p{margin:0 0 1rem}
+  .about a{color:var(--accent);text-decoration:none;
+    border-bottom:1px solid var(--rule)}
+  .about a:hover{border-bottom-color:var(--accent)}
+  .about .contact{margin:2rem 0 0;background:var(--panel);border:1px solid var(--rule);
+    border-left:4px solid var(--accent);padding:1.1rem 1.3rem}
+  .about .contact h2{font:600 .78rem/1 'Newsreader',Georgia,serif;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--accent);margin:0 0 .5rem}
+  .about .contact p{margin:0;font-size:1rem}
+
+/* ---- masthead ---- */
+.smast-in{max-width:var(--nav-max,60rem);margin:0 auto;padding:.85rem 1.5rem .5rem;
+  display:flex;align-items:baseline;justify-content:space-between;gap:1.4rem;flex-wrap:wrap}
+.smast-wm{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+  letter-spacing:.005em;color:var(--ink,#1a1a1e);text-decoration:none;white-space:nowrap;flex:none}
+.smast-wm em{font-style:italic;font-weight:500;color:var(--accent,#9c0e3a)}
+.smast-wm:hover{color:var(--accent,#9c0e3a)}
+/* Row gap first, then column. At 1.35rem the six section links measured 596px
+   of max-content -- 4px wider than the 592px row the 40rem index container
+   leaves them -- so ABOUT alone wrapped to a third line under the wordmark, on
+   every page page_style.R writes. 1.05rem brings the row to 572px: 20px of
+   slack at 40rem, and 45px on the 54rem case pages, which were themselves only
+   21px from wrapping. The .4rem row gap is for the day a seventh section
+   overruns it anyway -- a nav that wraps should read as a stack, not an orphan. */
+.snav{display:flex;gap:.4rem 1.05rem;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+.snav a{font:600 .72rem/1 'Newsreader',Georgia,serif;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--ink-soft,var(--soft,#484850));text-decoration:none;display:inline-block;
+  padding:.5rem 0;border-bottom:1.5px solid transparent}
+.snav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--rule,#dbd8d2)}
+.snav a[aria-current='page']{color:var(--accent,#9c0e3a);
+  border-bottom-color:var(--accent,#9c0e3a)}
+.smast-rule-w{max-width:var(--nav-max,60rem);margin:0 auto;padding:0 1.5rem}
+.smast-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0;position:relative}
+.smast-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.skip{position:absolute;left:-9999px;top:0;background:var(--panel,#ffffff);
+  color:var(--accent,#9c0e3a);padding:.6rem 1rem;
+  border:1px solid var(--accent,#9c0e3a);
+  font:600 .8rem/1 'Newsreader',Georgia,serif;letter-spacing:.1em;text-transform:uppercase;z-index:10}
+.skip:focus{left:.5rem;top:.5rem}
+/* ---- breadcrumb ---- */
+.bcrumb{margin:.7rem 0 0}
+.bcrumb ol{list-style:none;display:flex;flex-wrap:wrap;align-items:baseline;
+  gap:.1rem .45rem;margin:0;padding:0}
+.bcrumb li{display:inline-flex;align-items:baseline;gap:.45rem}
+.bcrumb a{font:400 .8rem/1.5 'Newsreader',Georgia,serif;color:var(--ink-soft,var(--soft,#484850));
+  text-decoration:none;border-bottom:1px solid var(--rule,#dbd8d2)}
+.bcrumb a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.bcrumb .sep{color:var(--faint,#63636b);font-size:.8rem;line-height:1.5}
+.bcrumb [aria-current='page']{font:400 .8rem/1.5 'Newsreader',Georgia,serif;
+  color:var(--faint,#63636b);font-variant-numeric:tabular-nums}
+/* ---- case footer ---- */
+.cfoot{margin:2.4rem 0 0}
+.cfoot-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0 0 1rem;position:relative}
+.cfoot-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.cfoot-off{font-size:.95rem;margin:0 0 1.1rem}
+.cfoot-off a{color:var(--link,#9c0e3a);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.4)}
+.cfoot-off a:hover{border-bottom-color:var(--link,#9c0e3a)}
+.cfoot-lab{font:600 .68rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);margin:0 0 .5rem}
+.cfoot-nav{display:flex;flex-wrap:wrap;gap:.35rem 1.1rem;list-style:none;margin:0;padding:0}
+.cfoot-nav a{font-size:.92rem;color:var(--ink-soft,var(--soft,#484850));text-decoration:none;
+  border-bottom:1px solid var(--rule,#dbd8d2);padding-bottom:1px}
+.cfoot-nav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.cfoot-stamp{margin:1.2rem 0 0;font-size:.8rem;color:var(--faint,#63636b);font-style:italic}
+/* ---- prev / next ---- */
+.pnav{margin:2.2rem 0 0;border-top:1px solid var(--rule,#dbd8d2);padding-top:1rem;
+  display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.pnav a,.pnav span.none{text-decoration:none;color:inherit;display:block;padding:.5rem .2rem}
+.pnav a:hover{background:rgba(156,14,58,.05)}
+.pnav .dir{font:600 .66rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);display:block;margin-bottom:.3rem}
+.pnav .lab{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1rem;line-height:1.25;
+  color:var(--accent,#9c0e3a);display:block}
+.pnav a:hover .lab{text-decoration:underline;text-underline-offset:3px}
+.pnav .nx{text-align:right}
+.pnav .none{opacity:.35}
+@media(max-width:640px){
+  .smast-in{padding:.7rem 1.1rem .25rem;gap:.15rem}
+  .smast-wm{font-size:.98rem}
+  .smast-in nav{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+    -webkit-mask-image:linear-gradient(90deg,#000 86%,transparent);
+    mask-image:linear-gradient(90deg,#000 86%,transparent)}
+  .smast-in nav::-webkit-scrollbar{display:none}
+  .snav{flex-wrap:nowrap;gap:1.15rem;padding-right:2.4rem}
+  .snav a{padding:.7rem 0;white-space:nowrap}
+  .smast-rule-w{padding:0 1.1rem}
+  .cfoot-nav{gap:.5rem 1rem}
+  .cfoot-nav a{padding-bottom:.3rem}
+  .pnav{grid-template-columns:1fr;gap:.2rem}
+  .pnav .nx{text-align:left;border-top:1px solid var(--rule,#dbd8d2)}
+}
+
+  .wrap.opn{max-width:42rem}
+  .opn .ometa{font-size:.92rem;color:var(--ink-soft);margin:.3rem 0 0}
+  .opn .oget{display:flex;flex-wrap:wrap;gap:.4rem .6rem;margin:1.1rem 0 0;padding:0;list-style:none;font-size:.9rem}
+  .opn .oget a{display:inline-block;padding:.32rem .7rem;border:1px solid var(--rule);border-radius:4px;color:var(--ink);text-decoration:none;background:var(--panel)}
+  .opn .oget a:hover{border-color:var(--accent);color:var(--accent)}
+  .opn .osrc{font-size:.84rem;color:var(--faint);margin:.9rem 0 0;line-height:1.45}
+  .opn .osrc a{color:var(--link)}
+  .opn .otoc{margin:1.6rem 0 0;padding:.8rem 1rem;border:1px solid var(--rule);border-radius:4px;background:var(--panel);font-size:.95rem}
+  .opn .otoc ol{margin:0;padding:0;list-style:none}
+  .opn .otoc li{margin:.25rem 0}
+  .opn .otoc a{color:var(--ink);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.35)}
+  .opn .otoc a:hover{color:var(--accent)}
+  .opn section.op{margin-top:3rem;border-top:2px solid var(--ink);padding-top:1.1rem}
+  .opn section.op h2{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.5rem;line-height:1.2;margin:0 0 1rem;color:var(--ink)}
+  .opn section.op p{margin:0 0 .95rem;line-height:1.62;hyphens:auto;overflow-wrap:break-word}
+  .opn section.op p.byline{color:var(--ink-soft);font-style:italic}
+  .opn section.op p.sep{text-align:center;letter-spacing:.3em;color:var(--faint);margin:1.6rem 0}
+  .opn section.op h3.oh{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.12rem;text-align:center;margin:2rem 0 1rem;color:var(--ink)}
+  .opn section.op blockquote{margin:0 0 .95rem;padding:0 0 0 1.1rem;border-left:2px solid var(--rule);color:var(--ink-soft)}
+  .opn section.op blockquote p{margin-bottom:.6rem;font-size:.96em}
+  .opn .sc{font-variant-caps:small-caps;letter-spacing:.02em}
+  .opn .pg{font-size:.66em;color:var(--faint);vertical-align:.3em;margin:0 .3em 0 .1em;font-variant-numeric:tabular-nums;user-select:none;white-space:nowrap}
+  .opn .pg::before{content:'*'}
+  .opn sup.fnr{font-size:.68em;line-height:0;margin-left:.05em}
+  .opn sup.fnr a{color:var(--link);text-decoration:none;padding:0 .1em}
+  .opn aside.notes{margin-top:2rem;border-top:1px solid var(--rule);padding-top:.8rem;font-size:.88rem;color:var(--ink-soft)}
+  .opn aside.notes h3{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1rem;margin:0 0 .6rem;color:var(--ink)}
+  .opn aside.notes ol{margin:0;padding-left:1.7rem}
+  .opn aside.notes li{margin:0 0 .55rem}
+  .opn aside.notes li.sym{list-style:none;margin-left:-1.7rem}
+  .opn aside.notes li.sym .mk{margin-right:.3rem}
+  .opn aside.notes li.sym p{display:inline}
+  .opn aside.notes p{margin:0 0 .4rem;line-height:1.5}
+  .opn aside.notes a.back{color:var(--link);text-decoration:none;margin-left:.2rem}
+  .opn aside.notes li:target,.opn sup.fnr a:target,.opn .pg:target{background:rgba(156,14,58,.12);outline:.2rem solid rgba(156,14,58,.12)}
+  .opn section.op,.opn aside.notes li,.opn sup.fnr a{scroll-margin-top:1rem}
+  .opn section.op-syllabus p,.opn section.op-counsel p{font-size:.95em}
+  .opn section.op-counsel summary{cursor:pointer;font-family:'Fraunces',Georgia,serif;font-size:1.05rem;color:var(--ink-soft)}
+  .opn .osyl{font-size:.84rem;color:var(--faint);font-style:italic;margin:-.5rem 0 1rem}
+  .opn p.back{margin-top:3rem;font-size:.92rem}
+  @media print{.smast,.bcrumb,.opn .oget,.opn .otoc,.opn p.back{display:none}.opn section.op{break-before:page}}
+</style><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://supremecourt.report/"},{"@type":"ListItem","position":2,"name":"Opinions","item":"https://supremecourt.report/opinions/"},{"@type":"ListItem","position":3,"name":"United States v. Briggs"}]}</script><meta name='otv' content='p1'><link rel='alternate' type='text/markdown' href='/opinions/2020/19-108.md'><link rel='alternate' type='application/epub+zip' href='/opinions/2020/19-108.epub'></head><body><a class='skip' href='#main'>Skip to content</a><header><div class='smast-in'><a class='smast-wm' href='/'>Supreme Court <em>Report</em></a><nav aria-label='Sections'><ul class='snav'><li><a href='/dashboards/'>Docket</a></li><li><a href='/conferences/'>Conferences</a></li><li><a href='/relists/'>Relists</a></li><li><a href='/applications/'>Interim</a></li><li><a href='/arguments/'>Arguments</a></li><li><a href='/justices/' aria-current='page'>Justices</a></li><li><a href='/counsel/'>Counsel</a></li><li><a href='/funnel/'>Funnel</a></li><li><a href='/methods.html'>Model</a></li><li><a href='/about.html'>About</a></li></ul></nav></div><div class='smast-rule-w'><hr class='smast-rule'></div></header><main class='wrap opn' id='main' data-dkt='19-108'><nav class='bcrumb' aria-label='Breadcrumb'><ol><li><a href='/'>Home</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><a href='/opinions/'>Opinions</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><span aria-current='page'>United States v. Briggs</span></li></ol></nav><p class='kicker'>No. 19-108 · decided December 10, 2020 · 592 U. S. 69</p><h1 style='font-size:clamp(1.7rem,4.6vw,2.4rem);line-height:1.12'>United States v. Briggs</h1><p class='ometa'>United States v. Michael J. D. Briggs. 1 separate writing.</p><ul class='oget'><li><a href='/opinions/2020/19-108.epub' download>EPUB</a></li><li><a href='/opinions/2020/19-108.md' download>Markdown</a></li><li><a href='https://www.supremecourt.gov/opinions/preliminaryprint/592US1PP_web.pdf#page=109' rel='noopener'>The Court’s PDF</a></li><li><a href='/cases/19-108.html'>The docket</a></li></ul><p class='osrc'>Set from the PDF the Court published, which is the authoritative text. The small starred numbers are that PDF’s page numbers. A conversion can introduce errors; check a quotation against the <a href='https://www.supremecourt.gov/opinions/preliminaryprint/592US1PP_web.pdf#page=109' rel='noopener'>original</a>.</p><nav class="otoc" aria-label="Contents"><ol>
+<li><a href="#s1">Syllabus</a></li>
+<li><a href="#s2">Counsel</a></li>
+<li><a href="#s3">Opinion of the Court</a></li>
+<li><a href="#s4">Justice Gorsuch, concurring</a></li>
+</ol></nav>
+<section id="s1" class="op op-syllabus"><h2>Syllabus</h2><p class='osyl'>Prepared by the Reporter of Decisions for the convenience of the reader; it is no part of the opinion of the Court.</p>
+<p>The Uniform Code of Military Justice (UCMJ) has long provided that</p>
+<p>a military offense, “punishable by death, may be tried and punished at any time without limitation.” 10 U. S. C. § 843(a). Other military offenses are subject to a 5-year statute of limitations. § 843(b). Respondents are three military service members, each convicted of rape. When they were charged, the UCMJ provided that rape could be “punished by death.” § 920(a) (1994 ed.). Because this Court held that the Eighth Amendment forbids a death sentence for the rape of an adult woman, <em>Coker</em> v. <em>Georgia,</em> 433 U. S. 584, respondents argue that they could not, in fact, have been sentenced to death, and therefore the UCMJ's 5-year statute of limitations applies and bars their convictions. Agreeing, the Court of Appeals for the Armed Forces set aside their convictions.</p>
+<p><em>Held</em>: Respondents' prosecutions for rape under the UCMJ were timely. Pp. 71–78.</p>
+<p>(a) Respondents contend that the UCMJ phrase “punishable by death” means capable of punishment by death <em>when all applicable law is taken into account</em>. By contrast, the Government sees the phrase as something of a term of art, meaning capable of punishment by death <em>under the penalty provisions of the UCMJ</em>. Pp. 71–72.</p>
+<p>(b) For three reasons, the phrase's context—appearing in a statute of limitations provision for prosecutions under the UCMJ—weighs heavily in favor of the Government's interpretation. Pp. 72–78.</p>
+<p>(1) First, the UCMJ is a uniform code. As such, a natural referent for a statute of limitations provision within the UCMJ is other law in the UCMJ itself. The most natural place to look for Congress's answer to whether rape was “punishable by death” within the meaning of § 843(a) is § 920's directive that rape could be “punished by death.” That is so even if the UCMJ's separate prohibition on “cruel or unusual punishment,” § 855, would have been held to provide an independent defense against the imposition of the death penalty for rape. Pp. 73–74.</p>
+<p>(2) Second, respondents' interpretation of § 843(a) is not the sort of limitations provision that Congress is likely to have chosen. Statutes *Together with No. 19–184, <em>United States</em> v. <em>Collins</em> and <em>United States</em></p>
+<p>v. <em>Daniels</em> (see this Court's Rule 12.4), also on certiorari to the same court. <span class="pg" id="s1-p70" title="page 70 of the original">70</span>of limitations typically provide clarity, see <em>United States</em> v. <em>Lovasco,</em> 431 U. S. 783, 789, and it is reasonable to presume that clarity is an objective when lawmakers enact such provisions. But if “punishable by death” means punishable by death after all applicable law is taken into account, the deadline for filing rape charges would be unclear. That deadline would depend on an unresolved constitutional question about <em>Coker</em>'s application to military prosecutions, on what this Court has described as “ `evolving standards of decency' ” under the Eighth Amendment, <em>Kennedy</em> v. <em>Louisiana</em>, 554 U. S. 407, 419, and on whether § 855 of the UCMJ independently prohibits a death sentence for rape. Pp. 74–77.</p>
+<p>(3) Third, the ends served by statutes of limitations differ sharply from those served by provisions like the Eighth Amendment or UCMJ § 855. Factors legislators may find important in setting a statute of limitations—such as the difficulty of gathering evidence and mounting a prosecution—play no part in the Court's Eighth Amendment analysis. Thus, it is unlikely that lawmakers would want to tie a statute of limitations to judicial interpretations of such provisions. Pp. 77–78.</p>
+<p>No. 19–108, 78 M. J. 289; No. 19–184, 78 M. J. 415 (first judgment) and 79 M. J. 199 (second judgment), reversed and remanded. <span class="sc">Alito</span>, J., delivered the opinion of the Court, in which all other Members</p>
+<p>joined, except <span class="sc">Barrett</span>, J., who took no part in the consideration or decision of the cases. <span class="sc">Gorsuch, J.,</span> filed a concurring opinion, <em>post</em>, p. 79.</p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li class="sym" value="0"><span class="mk">†</span><p><em>Allyson N. Ho, Bradley G. Hubbard,</em> and <em>Paul G. Cassell</em> filed a brief of <em>amici curiae</em> for Members of Congress urging reversal in both cases.</p><p><em>Jeffrey T. Green</em> filed a brief of <em>amicus curiae</em> for the National Association of Criminal Defense Lawyers urging affirmance in both cases.</p><p>Briefs of <em>amici curiae</em> were filed in both cases for the U. S. Army Defense Appellate Division by <em>Elizabeth G. Marotta, Tiffany D. Pond, Jo seph C. Borland, Zachary A. Gray, Jason X. Hamilton, Paul T. Shirk,</em> and <em>Brianna C. Tuohy</em>; and for Harmony Allen et al. by <em>Peter Coote</em> and <em>Jonathan D. Herbst.</em></p></li>
+</ol></aside></section>
+<section id="s2" class="op op-counsel"><details><summary>Counsel</summary><p><em>Acting Solicitor General Wall</em> argued the cause for petitioner in both cases. On the briefs were <em>Solicitor General Francisco, Assistant Attorney General Benczkowski, Deputy Solicitor General Feigin, Christopher G. Michel, Rebecca Taibleson, Paul T. Crane, Mary Ellen Payne,</em> and <em>Brian C. Mason.</em></p>
+<p><em>Stephen I. Vladeck</em> argued the cause for respondents in both cases. With him on the brief were <em>Terri R. Zimmermann, J. Carl Cecere, Mark Schwartz, M. Dedra Campbell, Johnathan D. Legg, David P. Sheldon, Tami L. Mitchell,</em> and <em>William E. Cassara.</em>†</p></details></section>
+<section id="s3" class="op op-court"><h2>Opinion of the Court</h2>
+<p class="byline">Justice Alito delivered the opinion of the Court.</p>
+<p>We must decide in these cases whether, under the Uniform Code of Military Justice (UCMJ), a prosecution for a rape committed during the period from 1986 to 2006 had to be commenced within five years of the commission of the charged offense or whether such a prosecution could be brought at any time, as is the rule at present. The Court of Appeals for the Armed Forces (CAAF), reversing its prior decisions on this question, held that the statute of limitations was five years and that it therefore barred the rape convictions of respondents, three military service members. See 78 M. J. 289 (2019); 78 M. J. 415 (2019); 79 M. J. 199 (2019). We granted certiorari, 589 U. S. 1067 (2019), and now reverse.</p>
+<h3 class="oh">I</h3>
+<p>The question before us is important, and there are reasonable arguments on both sides, but resolving the question does not require lengthy analysis. During the period at issue, Article 120(a) of the UCMJ provided that rape could be “punished by death,” 10 U. S. C. § 920(a) (1982 ed.); § 920(a) (1994 ed.), and Article 43(a), which was amended in 1986, provided that an offense “punishable by death” could be tried and punished “at any time without limitation,” National Defense Authorization Act for Fiscal Year 1987, 100 Stat. 3908; see 10 U. S. C. § 843(a) (1988 ed.). The crux of the question before us is the meaning of the phrase “punishable by death” in the latter provision. Respondents contend—and the CAAF held—that the phrase means capable of punishment by death <em>when all applicable law is taken into account</em>. See <em>United States</em> v. <em>Mangahas</em>, 77 M. J. 220, 224 (2018). Because this Court held in <em>Coker</em> v. <em>Georgia</em>, 433 U. S. 584, 592 (1977), that the Eighth Amendment forbids a death sentence <span class="pg" id="s3-p72" title="page 72 of the original">72</span>for the rape of an adult woman, respondents argue that they could not, in fact, have been sentenced to death, and therefore the statute of limitations for their crimes (committed in 1998, 2000, and 2005) was the 5-year statute that generally governed non-capital offenses. See 10 U. S. C. § 843(b)(1) (1994 ed.); § 843(b)(1) (2000 ed.). By contrast, the Government argues that Article 43(a)'s reference to “punishable by death” means capable of punishment by death <em>under the penalty provisions of the UCMJ</em>, and since Article 120(a) provided (despite <em>Coker</em>) that rape could be punished by death, it follows that there was no time limit for filing rape charges against respondents.</p>
+<p>The interpretation advocated by respondents and adopted by the CAAF finds support at first blush in contemporaneous dictionary definitions of the term “punishable.” See 12 Oxford English Dictionary 845 (2d ed. 1989) (“Liable to punishment; capable of being punished. . . . Of an offence: Entailing punishment”); Webster's Third New International Dictionary 1843 (1986) (“deserving of, or liable to, punishment: capable of being punished by law or right”); Black's Law Dictionary 1110 (5th ed. 1979) (“Deserving of or capable or liable to punishment; capable of being punished by law or right”); Random House Dictionary of the English Language 1165 (1966) (“liable to or deserving punishment”). But upon inspection, definitions shed little light on the dispute because they largely re-raise the question over which the parties divide: capable of being punished under what law? In essence, the Government sees the term “punishable” in Article 43(a) as something of a term of art that is defined by the specification of the punishments set out in the penalty provisions of the UCMJ.</p>
+<h3 class="oh">II</h3>
+<p>On balance, we find the Government's interpretation more persuasive. The meaning of a statement often turns on the context in which it is made, and that is no less true of statutory<span class="pg" id="s3-p73" title="page 73 of the original">73</span> language. See <em>Tyler</em> v. <em>Cain</em>, 533 U. S. 656, 662 (2001); <em>Deal</em> v. <em>United States</em>, 508 U. S. 129, 132 (1993); A. Scalia &amp; B. Garner, Reading Law 167 (2012). And in these cases, context is determinative. The phrase “punishable by death” appears in a statute of limitations provision for prosecutions under the UCMJ, and for at least three reasons, that context weighs heavily in favor of the Government's interpretation.</p>
+<h3 class="oh">A</h3>
+<p>First, a natural referent for a statute of limitations provision within the UCMJ is other law in the UCMJ itself. The UCMJ is, after all, a “uniform code,” one that reformed and modernized the old system of military justice “from top to bottom.” <em>Burns</em> v. <em>Wilson</em>, 346 U. S. 137, 141 (1953) (plurality opinion). No one would read Article 43's references to “offense[s]” to include those under state law, for example. Rather, the UCMJ establishes the jurisdiction of general courts-martial “to try persons subject to this chapter for any offense made punishable by this chapter.” 10 U. S. C. § 818 (1982 ed.). Courts-martial may then “adjudge any punishment not forbidden by this chapter, including the penalty of death when specifically authorized by this chapter.” <em>Ibid.</em> “[T]his chapter” is the UCMJ, §801 <em>et seq.</em>, and during the relevant time period, provisions within that chapter like Article 120 specifically authorized the death penalty for certain serious offenses, see, <em>e. g.,</em> § 894 (mutiny or sedition); § 899 (misbehavior before the enemy); § 900 (subordinate compelling surrender); § 901 (improper use of countersign); § 902 (forcing a safeguard); § 904 (aiding the enemy); § 906 (spies); § 918 (murder). When amending Article 43(a), the 1986 Congress appears simply to have saved itself the trouble of maintaining a long list of such offenses. Cf. § 843(a) (1982 ed.) (listing “aiding the enemy, mutiny, or murder”). In the context of the UCMJ, therefore, Article 120's directive that rape could be “punished by death” is the most natural place to look for Congress's answer to whether rape was “punishable by <span class="pg" id="s3-p74" title="page 74 of the original">74</span>death” within the meaning of Article 43(a). We think that is so even if, as respondents argue, the separate prohibition on “cruel or unusual punishment” in Article 55 of the UCMJ would have been held to provide an independent defense against the imposition of the death penalty for rape. 10 U. S. C. § 855 (1982 ed.).</p>
+<h3 class="oh">B</h3>
+<p>Second, one principal benefit of statutes of limitations is that typically they provide clarity, see <em>United States</em> v. <em>Lovasco</em>, 431 U. S. 783, 789 (1977) (“[S]tatutes of limitations . . . provide predictable, legislatively enacted limits on prosecutorial delay . . . ”); <em>Artis</em> v. <em>District of Columbia</em>, 583 U. S. 71, 91 (2018) (noting that one “primary purpos[e]” of limitations statutes in the civil context is “preventing surprises” to defendants (internal quotation marks omitted)), and it is therefore reasonable to presume that clarity is an objective for which lawmakers strive when enacting such provisions. Other things being equal, certainty in statutes of limitations generally serves the interests of all concerned, and that is certainly true with respect to the statute of limitations for rape. For prosecutors handling such cases, it is obviously helpful to know the deadline by which charges must be filed. For persons who know they may be under investigation, a known statute of limitations provides a date after which they may no longer fear arrest and trial. And for rape victims, who often wrestle with the painful decision whether to identify their attackers and press charges, a clear deadline allows them to know by when they must make that choice.</p>
+<p>If “punishable by death” in Article 43(a) means punishable by death under the penalty provisions of the UCMJ, the rule regarding the latest possible date for commencing a rape prosecution is clear: The prosecution may be brought “at any time without limitation.” By contrast, if “punishable by death” meant punishable by death after all applicable law is taken into account, the deadline for filing rape charges would be unclear. The deadline would depend on the answer to an <span class="pg" id="s3-p75" title="page 75 of the original">75</span>unresolved constitutional question about which the parties in these cases vigorously disagree. Respondents argue that the logic of the decision in <em>Coker</em> applies equally to civilian and military prosecutions, but the Government contends that the military context dictates a different outcome. Among other things, the Government argues that a rape committed by a service member may cause special damage by critically undermining unit cohesion and discipline and that, in some circumstances, the crime may have serious international implications.</p>
+<p>That also appears to have been the view of Congress and the Executive. After <em>Coker</em> was decided in 1977, Congress changed the maximum penalty for rape in civilian cases from death to life imprisonment, see Sexual Abuse Act of 1986, 100 Stat. 3663, but it made no such change in the UCMJ. On the contrary, in 2006 Congress noted that death would remain an available punishment for rape “[u]ntil the President otherwise provide[d].” National Defense Authorization Act for Fiscal Year 2006, 119 Stat. 3263. And Presidents continued until 2016 to provide for death as a permissible punishment for rape under the UCMJ. See Exec. Order No. 13740, 3 CFR 510 (2016).</p>
+<p>If Article 43(a) meant what respondents claim and what the CAAF held, Congress would have adopted a statute of limitations provision without knowing with certainty what it would mean. Indeed, Congress would have adopted a statute of limitations provision the meaning of which would not be settled until this Court decided the disputed question of <em>Coker</em>'s applicability to the military, and there was no reason to think at the time of Article 43(a)'s amendment in 1986 that this Court would resolve that question any time soon. We have never considered a direct Eighth Amendment challenge to a sentence of death for rape under the UCMJ. And it was predictable that we would not reach the statute of limitations question until cases like those now before us came up for review—that is, until we had occasion to consider <span class="pg" id="s3-p76" title="page 76 of the original">76</span>cases in which defendants were convicted after being charged more than five years after the commission of the offense. That state of affairs virtually guaranteed that the statute of limitations for rape under the UCMJ would be up in the air for years.</p>
+<p>And the uncertainty would not end there. This Court has held that the Eighth Amendment incorporates “ `<em>evolving</em> standards of decency.' ” <em>Kennedy</em> v. <em>Louisiana</em>, 554 U. S. 407, 419 (2008) (quoting <em>Trop</em> v. <em>Dulles</em>, 356 U. S. 86, 101 (1958) (plurality opinion); emphasis added). Thus, even if we were to hold that rape could be punished by death in the military context, the evolving-standards test could later lead to a different result and thus a different statute of limitations at some point in the future. Such evolution has been held to have occurred on a number of past occasions. Compare <em>Atkins</em> v. <em>Virginia</em>, 536 U. S. 304, 321 (2002) (Eighth Amendment prohibits death penalty for defendant described as mentally retarded), with <em>Penry</em> v. <em>Lynaugh</em>, 492 U. S. 302, 340 (1989) (Eighth Amendment permits death penalty for such a defendant); compare also <em>Roper</em> v. <em>Simmons</em>, 543 U. S. 551, 574–575 (2005) (Eighth Amendment prohibits death penalty for crime committed by person under 18 years of age), with <em>Stanford</em> v. <em>Kentucky</em>, 492 U. S. 361, 380 (1989) (Eighth Amendment permits death penalty for defendants who are at least 16 years of age).</p>
+<p>Finally, if “punishable by death” under Article 43(a) meant punishable by death when all applicable law is taken into account, the statute of limitations would also turn on whether, as respondents now maintain, Article 55 of the UCMJ independently prohibits a death sentence for rape. Article 55 forbids “cruel or unusual punishment[s],” 10 U. S. C. § 855; § 855 (1982 ed.), and here again respondents and the Government offer different interpretations. Respondents argue that Article 55 of its own force applies <em>Coker</em>'s rule to the military, while the Government maintains that Article 55 cannot reasonably be read to forbid a punishment<span class="pg" id="s3-p77" title="page 77 of the original">77</span> that another provision of the UCMJ specifically authorizes.</p>
+<p>In short, if we accepted the interpretation of Article 43(a) adopted by the CAAF and defended by respondents, we would have to conclude that this provision set out a statute of limitations that no one could have understood with any real confidence until important and novel legal questions were resolved by this Court. That is not the sort of limitations provision that Congress is likely to have chosen.</p>
+<h3 class="oh">C</h3>
+<p>Third, the factors that lawmakers are likely to take into account when fixing the statute of limitations for a crime differ significantly from the considerations that underlie our Eighth Amendment decisions. We therefore should not lightly assume that Congress tied the meaning of the statutes of limitations in Article 43 to the Eighth Amendment. One factor that legislators may find important in setting the statute of limitations for a crime is the difficulty of gathering evidence and mounting a prosecution for that offense. This factor may have been influential in calibrating the statutes of limitations for rape and other sexual offenses in more recent years. The trauma inflicted by such crimes may impede the gathering of the evidence needed to bring charges. Victims may be hesitant for some time after the offense about agreeing to testify. Thus, under current federal law, many such offenses are subject to no statute of limitations. See 18 U. S. C. § 3299 (permitting prosecution at any time for felonies under §§ 2241–2248, 2251–2256, 2258–2260A, and 2421–2429); see also 10 U. S. C. § 843(a) (expressly setting no limitations period under UCMJ for prosecuting rape, sexual assault, and rape or sexual assault of a child).</p>
+<p>This factor—the difficulty of assembling evidence and putting together a prosecution—obviously plays no part in our Eighth Amendment analysis. As noted, in deciding whether the Eighth Amendment permits a death sentence for a <span class="pg" id="s3-p78" title="page 78 of the original">78</span>particular category of offenses or offenders, the Court has looked to evolving societal standards of decency and has also rendered its own independent judgment about whether a death sentence would aptly serve the recognized purposes of criminal punishment in certain categories of cases. See <em>Kennedy</em>, 554 U. S., at 419–421, 441–446; <em>Roper</em>, 543 U. S., at 561, 571–575; <em>Atkins</em>, 536 U. S., at 318–321. Some Justices have eschewed aspects of those approaches and have looked instead to the original understanding of the Eighth Amendment. See, <em>e. g., Graham</em> v. <em>Florida</em>, 560 U. S. 48, 99–102 (2010) (<span class="sc">Thomas</span>, <span class="sc">J</span>., dissenting); <em>Atkins</em>, 536 U. S., at 348–349 (Scalia, J., dissenting); <em>Thompson</em> v. <em>Oklahoma</em>, 487 U. S. 815, 864, 872–873 (1988) (same); cf. <em>Glossip</em> v. <em>Gross</em>, 576 U. S. 863, 894, 898–899 (2015) (Scalia, J., concurring). But under either method, the inquiry is quite different from the one that a lawmaker might make in fixing a statute of limitations. Accordingly, since the ends served by statutes of limitations differ sharply from those served by provisions like the Eighth Amendment or Article 55 of the UCMJ, it is unlikely that lawmakers would want to tie a statute of limitations to judicial interpretations of such provisions.</p>
+<p class="sep">* * *</p>
+<p>Viewing Article 43(a) in context, we are convinced that “punishable by death” is a term of art that is defined by the provisions of the UCMJ specifying the punishments for the offenses it outlaws. And under this interpretation, respondents' prosecutions were timely.</p>
+<p>The judgments of the CAAF are reversed, and the cases are remanded for further proceedings consistent with this opinion.</p>
+<p><em>It is so ordered.</em></p>
+<p><span class="sc">Justice Barrett</span> took no part in the consideration or decision of these cases.</p></section>
+<section id="s4" class="op op-concurring"><h2>Justice Gorsuch, concurring</h2>
+<p class="byline">Justice Gorsuch, concurring.</p>
+<p>I continue to think this Court lacks jurisdiction to hear appeals directly from the CAAF. See <em>Ortiz</em> v. <em>United States</em>, 585 U. S. 427, 463 (2018) (<span class="sc">Alito</span>, J., dissenting). But a majority of the Court believes we have jurisdiction, and I agree with the Court's decision on the merits. I therefore join the Court's opinion.</p></section><p class='back'><a href='/opinions/'>&larr; All opinions</a> · <a href='/justices/ot2020.html'>The Justices, October Term 2020 &rarr;</a></p></main></body>
+</html>
+

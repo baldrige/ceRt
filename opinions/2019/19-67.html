@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script async src='/analytics.js'></script><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate icon" href="/favicon.ico" sizes="any"><link rel="alternate" type="application/atom+xml" title="Supreme Court Report" href="/feed.xml"><link rel="alternate" type="application/atom+xml" title="Certiorari grants" href="/grants.xml"><title>United States v. Sineneng-Smith — Opinion — Supreme Court Report</title><meta name="description" content="The opinion in United States v. Sineneng-Smith (No. 19-67), decided May 7, 2020: the full text with its footnotes, as a page, a Markdown file and an EPUB."><link rel="canonical" href="https://supremecourt.report/opinions/2019/19-67.html"><meta property="og:site_name" content="Supreme Court Report"><meta property="og:type" content="article"><meta property="og:title" content="United States v. Sineneng-Smith — Opinion — Supreme Court Report"><meta property="og:description" content="The opinion in United States v. Sineneng-Smith (No. 19-67), decided May 7, 2020: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta property="og:url" content="https://supremecourt.report/opinions/2019/19-67.html"><meta property="og:image" content="https://supremecourt.report/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Supreme Court Report - docket analytics for the Supreme Court of the United States"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="United States v. Sineneng-Smith — Opinion — Supreme Court Report"><meta name="twitter:description" content="The opinion in United States v. Sineneng-Smith (No. 19-67), decided May 7, 2020: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta name="twitter:image" content="https://supremecourt.report/og.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap"><style>
+  :root{--paper:#fdfcfa;--panel:#ffffff;--ink:#1a1a1e;--ink-soft:#484850;--faint:#63636b;--accent:#9c0e3a;--link:#9c0e3a;--rule:#dbd8d2;--nav-max:60rem}
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{font-family:'Newsreader',Georgia,serif;font-size:19px;line-height:1.6;
+    color:var(--ink);background:var(--paper);margin:0;font-feature-settings:'onum' 1}
+  body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
+    opacity:.5;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");}
+  .wrap{max-width:40rem;margin:0 auto;padding:3rem 1.4rem 4rem}
+  .kicker{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 1rem}
+  h1{font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:clamp(2.4rem,7vw,3.6rem);line-height:1;letter-spacing:-.015em;
+    margin:0 0 1rem;color:var(--ink)}
+  h1 em{font-style:italic;font-weight:500;color:var(--accent)}
+  .dek{font-size:1.15rem;line-height:1.5;color:var(--ink-soft);font-style:italic;
+    margin:0 0 1.4rem}
+  .brule{border:0;height:0;border-top:2px solid var(--ink);margin:1.4rem 0 .3rem;
+    position:relative}
+  .brule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+    border-top:1px solid var(--rule)}
+  ul.idx{list-style:none;padding:0;margin:1.6rem 0}
+  ul.idx li{border-bottom:1px solid var(--rule)}
+  /* Whole row is one block-level link: a large, reliable tap target on mobile. */
+  ul.idx a.row{display:flex;justify-content:space-between;align-items:baseline;
+    gap:1rem;padding:.9rem .4rem;text-decoration:none;border:0;color:inherit}
+  ul.idx a.row:hover{background:rgba(156,14,58,.05)}
+  ul.idx .d{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.16rem;
+    color:var(--accent);line-height:1.25}
+  ul.idx a.row:hover .d{text-decoration:underline;text-underline-offset:3px}
+  ul.idx .count{color:var(--faint);font-size:.9rem;font-style:italic;white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  /* A long note (an order list's "3 GVRs / 230 denied / 4 habeas denied /
+     ...", items separated by middots) cannot sit on one line: nowrap made it
+     claim the row and
+     squeezed the title into a column three words wide, and on a phone it ran off
+     the screen. Such a row opts in (meta_wrap): the note wraps, only between its
+     items, and takes at most ~45% of the row, so the title always has the
+     larger share. Under 34rem it drops beneath the title at full width. */
+  /* ("long", not "wrap": .wrap is the page container and its padding.) */
+  ul.idx .count.long{white-space:normal;text-align:right;max-width:45%;line-height:1.45}
+  ul.idx .count.long .seg{white-space:nowrap}
+  @media(max-width:34rem){
+    ul.idx a.row.longmeta{flex-wrap:wrap;row-gap:.2rem}
+    ul.idx .count.long{max-width:none;flex-basis:100%;text-align:left}
+  }
+  /* Compact horizontal strip of the most recent pages beneath a category row. */
+  ul.idx .recent{display:flex;flex-wrap:wrap;align-items:baseline;
+    gap:.3rem .85rem;padding:0 .4rem 1rem;margin-top:-.35rem}
+  ul.idx .recent .rlabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  ul.idx .recent a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--ink-soft);text-decoration:none;font-variant-numeric:tabular-nums;
+    border-bottom:1px solid var(--rule);padding-bottom:1px}
+  ul.idx .recent a:hover{color:var(--accent);border-color:var(--accent)}
+  /* Optional panel beneath the section index (home page: most-read cases). */
+  .panel{margin:2.4rem 0 0}
+  .panel h2{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 .25rem}
+  .panel .pnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:0 0 .5rem}
+  /* "Live now" (live_argument_panel, /live.js): hidden unless the Court is
+     streaming an argument. One red dot, the same --accent as the headings, so
+     the live state is a mark and not a new colour. */
+  .live h2 .ldot{display:inline-block;width:.5rem;height:.5rem;border-radius:50%;
+    background:var(--accent);margin-right:.5rem;vertical-align:.08rem;
+    animation:lpulse 2s ease-in-out infinite}
+  @keyframes lpulse{50%{opacity:.25}}
+  @media (prefers-reduced-motion:reduce){.live h2 .ldot{animation:none}}
+  .lplay{display:flex;flex-wrap:wrap;gap:.6rem .9rem;align-items:center;margin:.8rem 0 .3rem}
+  .lplay button{font:600 .9rem/1 'Newsreader',Georgia,serif;letter-spacing:.04em;
+    color:var(--paper);background:var(--accent);border:0;border-radius:2px;
+    padding:.6rem 1.05rem;cursor:pointer}
+  .lplay button:disabled{opacity:.6;cursor:progress}
+  .lplay button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  /* The player takes a row of its own and may never outgrow the column. A flex
+     item's min-width is auto, which for a replaced element is the browser's own
+     controls' width -- wider than the column on a phone, where mobile Safari
+     and Chrome draw larger controls than the desktop. */
+  .lplay audio{display:block;flex:1 1 100%;width:100%;min-width:0;max-width:100%;
+    box-sizing:border-box;margin:0}
+  .lplay .lstat{font-size:.85rem;color:var(--faint)}
+  /* --- Likeliest grants -----------------------------------------------------
+     Its own rows rather than ol.mostread's: this panel carries a question under
+     the caption, which that list has no room for, and a percentage that has to
+     read as the row's subject rather than as a trailing note.
+     The window toggle is two real radio inputs plus :has() -- no JavaScript.
+     Both windows are rendered at build time and one is hidden, which is the only
+     way a static site can offer the choice: there is no server to ask for the
+     other one. Real radios, not styled buttons, so the control is reachable by
+     keyboard and announced as a choice. */
+  .lead{margin:0 0 1.9rem}
+  .lead h2{margin-bottom:.35rem}
+  .lead .pnote{margin:0 0 .7rem}
+  .wr{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+  .win{display:inline-flex;gap:.25rem;margin:0 0 .55rem;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .win label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .win label:hover{color:var(--ink)}
+  .lead:has(#w7:checked) label[for=w7],
+  .lead:has(#w28:checked) label[for=w28],
+  .lead:has(#wall:checked) label[for=wall]{background:var(--accent);color:var(--paper)}
+  .wr:focus-visible+label{outline:2px solid var(--accent);outline-offset:2px}
+  /* Three windows, one shown: the checked radio hides the other two. */
+  .lead:has(#w7:checked) :is(.g28,.n28,.gall,.nall),
+  .lead:has(#w28:checked) :is(.g7,.n7,.gall,.nall),
+  .lead:has(#wall:checked) :is(.g7,.n7,.g28,.n28){display:none}
+  /* The show/hide controls for a panel's secondary line -- the question under
+     a forecast row, the holding under a decision. Same box as the window
+     toggle, a checkbox instead of radios, and no script: the sibling rule does
+     the work and the lines simply show where :has() is unsupported. The
+     questions are on by default (they are what a forecast row asks); the
+     holdings are off (the caption, kind and disposition already say what
+     happened, and the holding is the more). */
+  .opts{display:inline-flex;gap:.25rem;margin:0 .45rem .55rem 0;vertical-align:top;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .opts label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .opts label:hover{color:var(--ink)}
+  .lead:has(#qon:checked) label[for=qon],
+  .panel:has(#hon:checked) label[for=hon]{background:var(--accent);color:var(--paper)}
+  .lead:has(#qon:not(:checked)) .gq{display:none}
+  .panel:has(#hon:not(:checked)) .chold{display:none}
+  /* --- Upcoming at the Court ------------------------------------------------
+     A date gutter and a two-line body, the same shape as the grant rows above
+     it, so the two panels read as one page rather than two widgets. */
+  .cal{margin:0 0 1.9rem}
+  ol.cal{list-style:none;margin:0;padding:0}
+  ol.cal li{border-top:1px solid var(--rule)}
+  ol.cal li:last-child{border-bottom:1px solid var(--rule)}
+  /* The row is a container, not an anchor: an argument day carries one link per
+     case it hears and anchors cannot nest. Hover lives on the row so it still
+     reads as one unit, and each link colours on its own hover. */
+  ol.cal .crow{display:flex;gap:.95rem;align-items:baseline;padding:.55rem .1rem}
+  ol.cal .crow:hover{background:rgba(156,14,58,.05)}
+  ol.cal a{text-decoration:none;color:inherit}
+  ol.cal a:hover,ol.cal a:focus-visible{color:var(--accent)}
+  ol.cal .cdet a{border-bottom:1px solid rgba(156,14,58,.35)}
+  ol.cal .cdet a:hover{border-bottom-color:var(--accent)}
+  ol.cal .cwhen{flex:none;width:4.6rem;font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.96rem;color:var(--ink);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  ol.cal .cdow{display:block;font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);text-transform:uppercase;letter-spacing:.08em}
+  ol.cal .ctx{flex:1;min-width:0}
+  ol.cal .ckind{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:.98rem;line-height:1.25}
+  ol.cal .cdet{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.12rem}
+  /* Recent decisions reuses the calendar rows and adds exactly two things: the
+     kind word that opens the detail line, and the one outbound link (the slip
+     opinion), which takes the link colour the rest of the row deliberately
+     does not. */
+  ol.cal .dk{font-weight:600;color:var(--ink)}
+  ol.cal .cdet a.pdf{color:var(--link)}
+  /* The holding, from the Court's slip-opinion feed: one sentence, set
+     smaller and in the soft ink so the caption stays the row's headline. */
+  ol.cal .chold{display:block;font-size:.86rem;line-height:1.4;color:var(--ink-soft);
+    font-style:italic;margin-top:.15rem}
+  ol.cal .cdet a.pdf:hover,ol.cal .cdet a.pdf:focus-visible{color:var(--accent);
+    border-bottom-color:var(--accent)}
+  ol.grants{list-style:none;margin:0;padding:0}
+  ol.grants li{border-top:1px solid var(--rule)}
+  ol.grants li:last-child{border-bottom:1px solid var(--rule)}
+  ol.grants a{display:flex;gap:.95rem;align-items:baseline;text-decoration:none;
+    color:inherit;padding:.62rem .1rem}
+  ol.grants a:hover{background:rgba(156,14,58,.05)}
+  ol.grants a:hover .gc{color:var(--accent)}
+  ol.grants .gv{flex:none;width:3.5rem;text-align:right;
+    font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.22rem;
+    line-height:1.1;color:var(--accent);font-variant-numeric:tabular-nums}
+  ol.grants .gx{font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);margin-left:.3rem}
+  ol.grants .gtx{flex:1;min-width:0}
+  /* Subject-area line under the caption, in the section-label idiom (h2.sec):
+     small tracked caps in the faint ink, so it classifies without competing. */
+  ol.grants .gs,ol.mostread .ms{display:block;font-size:.68rem;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--faint);line-height:1.3;margin-top:.12rem}
+  ol.grants .gc{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:1rem;line-height:1.25}
+  ol.grants .gq{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.16rem}
+  ol.grants .gd{flex:none;font-size:.76rem;color:var(--faint);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  .more{margin:.75rem 0 0;font-size:.92rem}
+  .more a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.35)}
+  .more a:hover{border-bottom-color:var(--link)}
+  h2.sec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:.88rem;
+    letter-spacing:.09em;color:var(--faint);text-transform:uppercase;
+    margin:2.1rem 0 .6rem;padding-bottom:.28rem;border-bottom:1px solid var(--rule)}
+  @media(max-width:40rem){
+    ol.grants a{flex-wrap:wrap}
+    ol.grants .gd{width:100%;padding-left:4.45rem;margin-top:-.1rem}
+  }
+  ol.mostread{list-style:none;counter-reset:mr;padding:0;margin:0}
+  ol.mostread li{counter-increment:mr;border-bottom:1px solid var(--rule)}
+  ol.mostread a{display:flex;align-items:baseline;gap:.7rem;padding:.6rem .4rem;
+    text-decoration:none;color:inherit}
+  ol.mostread a:hover{background:rgba(156,14,58,.05)}
+  ol.mostread a::before{content:counter(mr);font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.95rem;color:var(--faint);min-width:1.1rem;
+    font-variant-numeric:tabular-nums}
+  ol.mostread .mc{flex:1;font-size:1rem;line-height:1.3}
+  ol.mostread .mct{display:block}
+  ol.mostread a:hover .mct{color:var(--accent);text-decoration:underline;
+    text-underline-offset:3px}
+  ol.mostread .mdk{color:var(--accent);font-weight:600;font-size:.82rem;
+    font-variant-numeric:tabular-nums;white-space:nowrap}
+  ol.mostread .mv{color:var(--faint);font-size:.85rem;font-style:italic;
+    white-space:nowrap;font-variant-numeric:tabular-nums}
+  /* Forecast percentages carry weight the most-read counts do not: the number is
+     the claim, not a footnote to the ranking. Upright, accent, tabular. */
+  ol.mostread .mv.fc{color:var(--accent);font-style:normal;font-weight:600;
+    font-size:.95rem;min-width:2.6rem;text-align:right}
+  /* Feed follow line. Deliberately quiet -- a footnote under the section list,
+     styled like .recent rather than like a call to action. */
+  .feeds{display:flex;flex-wrap:wrap;align-items:baseline;gap:.3rem .85rem;
+    margin:2.2rem 0 0;padding-top:1.1rem;border-top:1px solid var(--rule)}
+  .feeds .flabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  .feeds a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .feeds a:hover{border-color:var(--link)}
+  .back{margin-top:2rem;font-size:.95rem}
+  .back a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .back a:hover{border-color:var(--link)}
+  /* Home-page case search. */
+  .csearch{position:relative;margin:0 0 1.4rem}
+  #cq{width:100%;font-family:'Newsreader',Georgia,serif;font-size:1.05rem;color:var(--ink);
+    background:var(--panel);border:1px solid var(--rule);border-radius:3px;padding:.7rem .9rem}
+  #cq:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(156,14,58,.1)}
+  #cq::placeholder{color:var(--faint)}
+  #cq.loading{background-image:linear-gradient(90deg,transparent,rgba(156,14,58,.06),transparent);
+    background-size:40% 100%;background-repeat:no-repeat;animation:csl 1s infinite}
+  @keyframes csl{0%{background-position:-40% 0}100%{background-position:140% 0}}
+  .cres{list-style:none;margin:.35rem 0 0;padding:0;max-height:24rem;overflow-y:auto;
+    border:1px solid var(--rule);border-radius:3px;background:var(--panel)}
+  .cres:empty{display:none}
+  .cres li{border-bottom:1px solid var(--rule)}
+  .cres li:last-child{border-bottom:0}
+  .cres a{display:block;padding:.55rem .7rem;text-decoration:none;color:var(--ink);
+    font-size:.98rem;line-height:1.3}
+  .cres a:hover,.cres li.act a{background:rgba(156,14,58,.06)}
+  .cres mark{background:rgba(156,14,58,.14);color:inherit;padding:0 .05em;border-radius:2px}
+  .cres .cd{color:var(--accent);font-variant-numeric:tabular-nums;font-weight:600;
+    margin-right:.5rem;white-space:nowrap}
+  .cnone{padding:.55rem .7rem;color:var(--faint);font-style:italic}
+  .cnone a,.cqp a{color:var(--link);font-style:normal;text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .cqp{margin:.45rem 0 0;font-size:.88rem;color:var(--faint)}
+  /* /cases/ browse index: grouped sections with per-bucket counts. */
+  .csec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+    text-transform:uppercase;letter-spacing:.12em;color:var(--accent);
+    margin:2.2rem 0 .3rem;padding-bottom:.35rem;border-bottom:1px solid var(--rule);
+    display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
+  .csec .cn{font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:.85rem;
+    letter-spacing:0;text-transform:none;color:var(--faint);
+    font-variant-numeric:tabular-nums}
+  .cnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:.5rem 0 0}
+  .cnote a{color:var(--accent)}
+  ul.terms{list-style:none;padding:0;margin:1rem 0 0;display:flex;flex-wrap:wrap;
+    gap:.5rem 1.6rem}
+  ul.terms li{display:inline-flex;align-items:baseline;gap:.4rem}
+  ul.terms a{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.05rem;
+    color:var(--accent);text-decoration:none;border-bottom:1px solid var(--rule)}
+  ul.terms a:hover{border-bottom-color:var(--accent)}
+  ul.terms .cn{color:var(--faint);font-size:.85rem;font-variant-numeric:tabular-nums}
+  /* About page: running prose rather than an index, so it takes a measure and a
+     little more leading than the section rows above it. */
+  .about{margin:1.6rem 0 0;font-size:1.05rem;line-height:1.65;max-width:34rem}
+  .about p{margin:0 0 1rem}
+  .about a{color:var(--accent);text-decoration:none;
+    border-bottom:1px solid var(--rule)}
+  .about a:hover{border-bottom-color:var(--accent)}
+  .about .contact{margin:2rem 0 0;background:var(--panel);border:1px solid var(--rule);
+    border-left:4px solid var(--accent);padding:1.1rem 1.3rem}
+  .about .contact h2{font:600 .78rem/1 'Newsreader',Georgia,serif;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--accent);margin:0 0 .5rem}
+  .about .contact p{margin:0;font-size:1rem}
+
+/* ---- masthead ---- */
+.smast-in{max-width:var(--nav-max,60rem);margin:0 auto;padding:.85rem 1.5rem .5rem;
+  display:flex;align-items:baseline;justify-content:space-between;gap:1.4rem;flex-wrap:wrap}
+.smast-wm{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+  letter-spacing:.005em;color:var(--ink,#1a1a1e);text-decoration:none;white-space:nowrap;flex:none}
+.smast-wm em{font-style:italic;font-weight:500;color:var(--accent,#9c0e3a)}
+.smast-wm:hover{color:var(--accent,#9c0e3a)}
+/* Row gap first, then column. At 1.35rem the six section links measured 596px
+   of max-content -- 4px wider than the 592px row the 40rem index container
+   leaves them -- so ABOUT alone wrapped to a third line under the wordmark, on
+   every page page_style.R writes. 1.05rem brings the row to 572px: 20px of
+   slack at 40rem, and 45px on the 54rem case pages, which were themselves only
+   21px from wrapping. The .4rem row gap is for the day a seventh section
+   overruns it anyway -- a nav that wraps should read as a stack, not an orphan. */
+.snav{display:flex;gap:.4rem 1.05rem;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+.snav a{font:600 .72rem/1 'Newsreader',Georgia,serif;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--ink-soft,var(--soft,#484850));text-decoration:none;display:inline-block;
+  padding:.5rem 0;border-bottom:1.5px solid transparent}
+.snav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--rule,#dbd8d2)}
+.snav a[aria-current='page']{color:var(--accent,#9c0e3a);
+  border-bottom-color:var(--accent,#9c0e3a)}
+.smast-rule-w{max-width:var(--nav-max,60rem);margin:0 auto;padding:0 1.5rem}
+.smast-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0;position:relative}
+.smast-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.skip{position:absolute;left:-9999px;top:0;background:var(--panel,#ffffff);
+  color:var(--accent,#9c0e3a);padding:.6rem 1rem;
+  border:1px solid var(--accent,#9c0e3a);
+  font:600 .8rem/1 'Newsreader',Georgia,serif;letter-spacing:.1em;text-transform:uppercase;z-index:10}
+.skip:focus{left:.5rem;top:.5rem}
+/* ---- breadcrumb ---- */
+.bcrumb{margin:.7rem 0 0}
+.bcrumb ol{list-style:none;display:flex;flex-wrap:wrap;align-items:baseline;
+  gap:.1rem .45rem;margin:0;padding:0}
+.bcrumb li{display:inline-flex;align-items:baseline;gap:.45rem}
+.bcrumb a{font:400 .8rem/1.5 'Newsreader',Georgia,serif;color:var(--ink-soft,var(--soft,#484850));
+  text-decoration:none;border-bottom:1px solid var(--rule,#dbd8d2)}
+.bcrumb a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.bcrumb .sep{color:var(--faint,#63636b);font-size:.8rem;line-height:1.5}
+.bcrumb [aria-current='page']{font:400 .8rem/1.5 'Newsreader',Georgia,serif;
+  color:var(--faint,#63636b);font-variant-numeric:tabular-nums}
+/* ---- case footer ---- */
+.cfoot{margin:2.4rem 0 0}
+.cfoot-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0 0 1rem;position:relative}
+.cfoot-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.cfoot-off{font-size:.95rem;margin:0 0 1.1rem}
+.cfoot-off a{color:var(--link,#9c0e3a);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.4)}
+.cfoot-off a:hover{border-bottom-color:var(--link,#9c0e3a)}
+.cfoot-lab{font:600 .68rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);margin:0 0 .5rem}
+.cfoot-nav{display:flex;flex-wrap:wrap;gap:.35rem 1.1rem;list-style:none;margin:0;padding:0}
+.cfoot-nav a{font-size:.92rem;color:var(--ink-soft,var(--soft,#484850));text-decoration:none;
+  border-bottom:1px solid var(--rule,#dbd8d2);padding-bottom:1px}
+.cfoot-nav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.cfoot-stamp{margin:1.2rem 0 0;font-size:.8rem;color:var(--faint,#63636b);font-style:italic}
+/* ---- prev / next ---- */
+.pnav{margin:2.2rem 0 0;border-top:1px solid var(--rule,#dbd8d2);padding-top:1rem;
+  display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.pnav a,.pnav span.none{text-decoration:none;color:inherit;display:block;padding:.5rem .2rem}
+.pnav a:hover{background:rgba(156,14,58,.05)}
+.pnav .dir{font:600 .66rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);display:block;margin-bottom:.3rem}
+.pnav .lab{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1rem;line-height:1.25;
+  color:var(--accent,#9c0e3a);display:block}
+.pnav a:hover .lab{text-decoration:underline;text-underline-offset:3px}
+.pnav .nx{text-align:right}
+.pnav .none{opacity:.35}
+@media(max-width:640px){
+  .smast-in{padding:.7rem 1.1rem .25rem;gap:.15rem}
+  .smast-wm{font-size:.98rem}
+  .smast-in nav{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+    -webkit-mask-image:linear-gradient(90deg,#000 86%,transparent);
+    mask-image:linear-gradient(90deg,#000 86%,transparent)}
+  .smast-in nav::-webkit-scrollbar{display:none}
+  .snav{flex-wrap:nowrap;gap:1.15rem;padding-right:2.4rem}
+  .snav a{padding:.7rem 0;white-space:nowrap}
+  .smast-rule-w{padding:0 1.1rem}
+  .cfoot-nav{gap:.5rem 1rem}
+  .cfoot-nav a{padding-bottom:.3rem}
+  .pnav{grid-template-columns:1fr;gap:.2rem}
+  .pnav .nx{text-align:left;border-top:1px solid var(--rule,#dbd8d2)}
+}
+
+  .wrap.opn{max-width:42rem}
+  .opn .ometa{font-size:.92rem;color:var(--ink-soft);margin:.3rem 0 0}
+  .opn .oget{display:flex;flex-wrap:wrap;gap:.4rem .6rem;margin:1.1rem 0 0;padding:0;list-style:none;font-size:.9rem}
+  .opn .oget a{display:inline-block;padding:.32rem .7rem;border:1px solid var(--rule);border-radius:4px;color:var(--ink);text-decoration:none;background:var(--panel)}
+  .opn .oget a:hover{border-color:var(--accent);color:var(--accent)}
+  .opn .osrc{font-size:.84rem;color:var(--faint);margin:.9rem 0 0;line-height:1.45}
+  .opn .osrc a{color:var(--link)}
+  .opn .otoc{margin:1.6rem 0 0;padding:.8rem 1rem;border:1px solid var(--rule);border-radius:4px;background:var(--panel);font-size:.95rem}
+  .opn .otoc ol{margin:0;padding:0;list-style:none}
+  .opn .otoc li{margin:.25rem 0}
+  .opn .otoc a{color:var(--ink);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.35)}
+  .opn .otoc a:hover{color:var(--accent)}
+  .opn section.op{margin-top:3rem;border-top:2px solid var(--ink);padding-top:1.1rem}
+  .opn section.op h2{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.5rem;line-height:1.2;margin:0 0 1rem;color:var(--ink)}
+  .opn section.op p{margin:0 0 .95rem;line-height:1.62;hyphens:auto;overflow-wrap:break-word}
+  .opn section.op p.byline{color:var(--ink-soft);font-style:italic}
+  .opn section.op p.sep{text-align:center;letter-spacing:.3em;color:var(--faint);margin:1.6rem 0}
+  .opn section.op h3.oh{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.12rem;text-align:center;margin:2rem 0 1rem;color:var(--ink)}
+  .opn section.op blockquote{margin:0 0 .95rem;padding:0 0 0 1.1rem;border-left:2px solid var(--rule);color:var(--ink-soft)}
+  .opn section.op blockquote p{margin-bottom:.6rem;font-size:.96em}
+  .opn .sc{font-variant-caps:small-caps;letter-spacing:.02em}
+  .opn .pg{font-size:.66em;color:var(--faint);vertical-align:.3em;margin:0 .3em 0 .1em;font-variant-numeric:tabular-nums;user-select:none;white-space:nowrap}
+  .opn .pg::before{content:'*'}
+  .opn sup.fnr{font-size:.68em;line-height:0;margin-left:.05em}
+  .opn sup.fnr a{color:var(--link);text-decoration:none;padding:0 .1em}
+  .opn aside.notes{margin-top:2rem;border-top:1px solid var(--rule);padding-top:.8rem;font-size:.88rem;color:var(--ink-soft)}
+  .opn aside.notes h3{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1rem;margin:0 0 .6rem;color:var(--ink)}
+  .opn aside.notes ol{margin:0;padding-left:1.7rem}
+  .opn aside.notes li{margin:0 0 .55rem}
+  .opn aside.notes li.sym{list-style:none;margin-left:-1.7rem}
+  .opn aside.notes li.sym .mk{margin-right:.3rem}
+  .opn aside.notes li.sym p{display:inline}
+  .opn aside.notes p{margin:0 0 .4rem;line-height:1.5}
+  .opn aside.notes a.back{color:var(--link);text-decoration:none;margin-left:.2rem}
+  .opn aside.notes li:target,.opn sup.fnr a:target,.opn .pg:target{background:rgba(156,14,58,.12);outline:.2rem solid rgba(156,14,58,.12)}
+  .opn section.op,.opn aside.notes li,.opn sup.fnr a{scroll-margin-top:1rem}
+  .opn section.op-syllabus p,.opn section.op-counsel p{font-size:.95em}
+  .opn section.op-counsel summary{cursor:pointer;font-family:'Fraunces',Georgia,serif;font-size:1.05rem;color:var(--ink-soft)}
+  .opn .osyl{font-size:.84rem;color:var(--faint);font-style:italic;margin:-.5rem 0 1rem}
+  .opn p.back{margin-top:3rem;font-size:.92rem}
+  @media print{.smast,.bcrumb,.opn .oget,.opn .otoc,.opn p.back{display:none}.opn section.op{break-before:page}}
+</style><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://supremecourt.report/"},{"@type":"ListItem","position":2,"name":"Opinions","item":"https://supremecourt.report/opinions/"},{"@type":"ListItem","position":3,"name":"United States v. Sineneng-Smith"}]}</script><meta name='otv' content='p1'><link rel='alternate' type='text/markdown' href='/opinions/2019/19-67.md'><link rel='alternate' type='application/epub+zip' href='/opinions/2019/19-67.epub'></head><body><a class='skip' href='#main'>Skip to content</a><header><div class='smast-in'><a class='smast-wm' href='/'>Supreme Court <em>Report</em></a><nav aria-label='Sections'><ul class='snav'><li><a href='/dashboards/'>Docket</a></li><li><a href='/conferences/'>Conferences</a></li><li><a href='/relists/'>Relists</a></li><li><a href='/applications/'>Interim</a></li><li><a href='/arguments/'>Arguments</a></li><li><a href='/justices/' aria-current='page'>Justices</a></li><li><a href='/counsel/'>Counsel</a></li><li><a href='/funnel/'>Funnel</a></li><li><a href='/methods.html'>Model</a></li><li><a href='/about.html'>About</a></li></ul></nav></div><div class='smast-rule-w'><hr class='smast-rule'></div></header><main class='wrap opn' id='main' data-dkt='19-67'><nav class='bcrumb' aria-label='Breadcrumb'><ol><li><a href='/'>Home</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><a href='/opinions/'>Opinions</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><span aria-current='page'>United States v. Sineneng-Smith</span></li></ol></nav><p class='kicker'>No. 19-67 · decided May 7, 2020 · 590 U. S. 371</p><h1 style='font-size:clamp(1.7rem,4.6vw,2.4rem);line-height:1.12'>United States v. Sineneng-Smith</h1><p class='ometa'>United States v. Evelyn Sineneng-Smith. 1 separate writing.</p><ul class='oget'><li><a href='/opinions/2019/19-67.epub' download>EPUB</a></li><li><a href='/opinions/2019/19-67.md' download>Markdown</a></li><li><a href='https://www.supremecourt.gov/opinions/preliminaryprint/590US1PP_web.pdf#page=387' rel='noopener'>The Court’s PDF</a></li><li><a href='/cases/19-67.html'>The docket</a></li></ul><p class='osrc'>Set from the PDF the Court published, which is the authoritative text. The small starred numbers are that PDF’s page numbers. A conversion can introduce errors; check a quotation against the <a href='https://www.supremecourt.gov/opinions/preliminaryprint/590US1PP_web.pdf#page=387' rel='noopener'>original</a>.</p><nav class="otoc" aria-label="Contents"><ol>
+<li><a href="#s1">Syllabus</a></li>
+<li><a href="#s2">Counsel</a></li>
+<li><a href="#s3">Opinion of the Court</a></li>
+<li><a href="#s4">Justice Thomas, concurring</a></li>
+</ol></nav>
+<section id="s1" class="op op-syllabus"><h2>Syllabus</h2><p class='osyl'>Prepared by the Reporter of Decisions for the convenience of the reader; it is no part of the opinion of the Court.</p>
+<p>Respondent Evelyn Sineneng-Smith operated an immigration consulting firm in San Jose, California. She assisted clients working without authorization in the United States to file applications for a labor-certification program that once provided a path for aliens to adjust to lawful permanent resident status. Sineneng-Smith knew that her clients could not meet the long-passed statutory application-filing deadline, but she nonetheless charged each client over $6,000, netting more than $3.3 million.</p>
+<p>Sineneng-Smith was indicted for multiple violations of 8 U. S. C. § 1324(a)(1)(A)(iv) and (B)(i). Those provisions make it a federal felony to “encourag[e] or induc[e] an alien to come to, enter, or reside in the United States, knowing or in reckless disregard of the fact that such coming to, entry, or residence is or will be in violation of law,” § 1324(a)(1)(A)(iv), and impose an enhanced penalty if the crime is “done for the purpose of commercial advantage or private financial gain,” § 1324(a)(1)(B)(i). In the District Court, she urged that the provisions did not cover her conduct, and if they did, they violated the Petition and Free Speech Clauses of the First Amendment as applied. The District Court rejected her arguments and she was convicted, as relevant here, on two counts under § 1324(a)(1)(A)(iv) and (B)(i).</p>
+<p>Sineneng-Smith essentially repeated the same arguments on appeal to the Ninth Circuit. Again she asserted a right under the First Amendment to file administrative applications on her clients' behalf, and she argued that the statute could not constitutionally be applied to her conduct. Instead of adjudicating the case presented by the parties, however, the court named three <em>amici</em> and invited them to brief and argue issues framed by the panel, including a question never raised by Sineneng-Smith: Whether the statute is overbroad under the First Amendment. In accord with the <em>amici</em>'s arguments, the Ninth Circuit held that § 1324(a)(1)(A)(iv) is unconstitutionally overbroad.</p>
+<p><em>Held</em>: The Ninth Circuit panel's drastic departure from the principle of party presentation constituted an abuse of discretion.</p>
+<p>The Nation's adversarial adjudication system follows the principle of party presentation. <em>Greenlaw</em> v. <em>United States</em>, 554 U. S. 237, 243. “[I]n both civil and criminal cases, . . . we rely on the parties to frame the <span class="pg" id="s1-p372" title="page 372 of the original">372</span>issues for decision and assign to courts the role of neutral arbiter of matters the parties present.” <em>Ibid</em>.</p>
+<p>That principle forecloses the controlling role the Ninth Circuit took on in this case. No extraordinary circumstances justified the panel's takeover of the appeal. Sineneng-Smith, represented by competent counsel, had raised a vagueness argument and First Amendment arguments homing in on her own conduct, not that of others. Electing not to address the party-presented controversy, the panel projected that § 1324(a)(1)(A)(iv) might cover a wide swath of protected speech, including abstract advocacy and legal advice. It did so even though Sineneng-Smith's counsel had presented a contrary theory of the case in her briefs and before the District Court. A court is not hidebound by counsel's precise arguments, but the Ninth Circuit's radical transformation of this case goes well beyond the pale. On remand, the case is to be reconsidered shorn of the overbreadth inquiry interjected by the appellate panel and bearing a fair resemblance to the case shaped by the parties. Pp. 375–380.</p>
+<p>910 F. 3d 461, vacated and remanded.</p>
+<p><span class="sc">Ginsburg, J.,</span> delivered the opinion for a unanimous Court. T<span class="sc">homas,</span> J., filed a concurring opinion, <em>post,</em> p. 382.</p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li class="sym" value="0"><span class="mk">*</span><p><em>Lawrence J. Joseph</em> and <em>Christopher J. Hajec</em> filed a brief for the Immigration Law Reform Institute as <em>amicus curiae</em> urging reversal.</p><p>Briefs of <em>amici curiae</em> urging affirmation were filed for the City and County of San Francisco et al. by <em>Dennis J. Herrera</em>, <em>Aileen M. McGrath</em>, <em>Erin Kuka</em>, and <em>Mark A. Flessner</em>; for Amnesty International by <em>Matthew S. Hellman</em>, <em>David A. Strauss</em>, and <em>Sarah M. Konsky</em>; for Asian Americans Advancing Justice | AAJC et al. by <em>Emily T. Kuwahara</em>, <em>Chiemi D. Suzuki</em>, <em>Harry P. Cohen</em>, and <em>Niyati Shah</em>; for the Cato Institute by <em>Ilya Shapiro</em>; for the Electronic Frontier Foundation et al. by <em>David Greene</em>; for Immigration Representatives et al. by <em>William C. Perdue</em>, <em>Allon Kedem</em>, and <em>Sirine Shebaya</em>; for the National Association of Criminal De fense Lawyers et al. by <em>Elliott Schulder</em> and <em>Stephen R. Sady</em>; for Religious Organizations by <em>Anton Metlitsky</em> and <em>Jeremy Girton</em>; and for The Rutherford Institute et al. by <em>Erin Glenn Busby</em>, <em>Lisa R. Eskow</em>, <em>Michael F. Sturley</em>, <em>John W. Whitehead</em>, <em>David D. Cole</em>, <em>Esha Bhandari</em>, <em>Cecillia D. Wang</em>, and <em>Nicole G. Berner.</em></p><p>A brief of <em>amicus curiae</em> was filed for Eugene Volokh by <em>Mr. Volokh, pro se.</em></p></li>
+</ol></aside></section>
+<section id="s2" class="op op-counsel"><details><summary>Counsel</summary><p><em>Eric J</em>. <em>Feigin</em> argued the cause for the United States. With him on the briefs were <em>Solicitor General Francisco, Assistant Attorney General Benczkowski</em>, <em>Matthew Guarnieri</em>, and <em>Scott A. C. Meisler.</em></p>
+<p><em>Mark C. Fleming</em> argued the cause for respondent. With him on the brief were <em>Eric L. Hawkins</em>, <em>Thomas G. Sprankling</em>, <em>Alan E. Schoenfeld, Emily J. Barnet,</em> and <em>Beth C. Neitzel</em>.*</p></details></section>
+<section id="s3" class="op op-court"><h2>Opinion of the Court</h2>
+<p class="byline">Justice Ginsburg delivered the opinion of the Court.</p>
+<p>This case concerns 8 U. S. C. § 1324, which makes it a federal felony to “encourag[e] or induc[e] an alien to come to, enter, or reside in the United States, knowing or in reckless disregard of the fact that such coming to, entry, or residence is or will be in violation of law.” § 1324(a)(1)(A)(iv). The crime carries an enhanced penalty if “done for the purpose of commercial advantage or private financial gain.” § 1324(a)(1)(B)(i).<sup class="fnr"><a id="s3-r1" href="#s3-n1">1</a></sup></p>
+<p>Respondent Evelyn Sineneng-Smith operated an immigration consulting firm in San Jose, California. She was indicted for multiple violations of § 1324(a)(1)(A)(iv) and (B)(i). Her clients, most of them from the Philippines, worked without authorization in the home health care industry in the United States. Between 2001 and 2008, Sineneng-Smith assisted her clients in applying for a “labor certification” that once allowed certain aliens to adjust their status to that of lawful permanent resident permitted to live and work in the United States. § 1255(i)(1)(B)(ii).</p>
+<p>There was a hindrance to the efficacy of Sineneng-Smith's advice and assistance. To qualify for the labor-certification dispensation she promoted to her clients, an alien had to be in the United States on December 21, 2000, and apply for certification before April 30, 2001. § 1255(i)(1)(C). Sineneng-Smith knew her clients did not meet the application-filing deadline; hence, their applications could not <span class="pg" id="s3-p374" title="page 374 of the original">374</span>put them on a path to lawful residence.<sup class="fnr"><a id="s3-r2" href="#s3-n2">2</a></sup>Nevertheless, she charged each client $5,900 to file an application with the Department of Labor and another $900 to file with the U. S. Citizenship and Immigration Services. For her services in this regard, she collected more than $3.3 million from her unwitting clients.</p>
+<p>In the District Court, Sineneng-Smith urged unsuccessfully, <em>inter alia</em>, that the above-cited provisions, properly construed, did not cover her conduct, and if they did, they violated the Petition and Free Speech Clauses of the First Amendment as applied. See Motion to Dismiss in No. 10–cr–414 (ND Cal.), pp. 7–13, 20–25; Motion for Judgt. of Acquittal in No. 10–cr–414 (ND Cal.), pp. 14–19, 20–25. She was convicted on two counts under § 1324(a)(1)(A)(iv) and (B)(i), and on other counts (filing false tax returns and mail fraud) she does not now contest. Throughout the District Court proceedings and on appeal, she was represented by competent counsel.</p>
+<p>On appeal from the § 1324 convictions to the Ninth Circuit, both on brief and at oral argument, Sineneng-Smith essentially repeated the arguments she earlier presented to the District Court. See Brief for Appellant in No. 15–10614 (CA9), pp. 11–28. The case was then moved by the appeals panel onto a different track. Instead of adjudicating the case presented by the parties, the appeals court named three <em>amici</em> and invited them to brief and argue issues framed by the panel, including a question Sineneng-Smith herself never raised earlier: “Whether the statute of conviction is overbroad . . . under the First Amendment.” App. 122–124. In <span class="pg" id="s3-p375" title="page 375 of the original">375</span>the ensuing do over of the appeal, counsel for the parties were assigned a secondary role. The Ninth Circuit ultimately concluded, in accord with the invited <em>amici</em>'s arguments, that § 1324(a)(1)(A)(iv) is unconstitutionally overbroad. 910 F. 3d 461, 485 (2018). The Government petitioned for our review because the judgment of the Court of Appeals invalidated a federal statute. Pet. for Cert. 24. We granted the petition. 588 U. S. 948 (2019).</p>
+<p>As developed more completely hereinafter, we now hold that the appeals panel departed so drastically from the principle of party presentation as to constitute an abuse of discretion. We therefore vacate the Ninth Circuit's judgment and remand the case for an adjudication of the appeal attuned to the case shaped by the parties rather than the case designed by the appeals panel.</p>
+<h3 class="oh">I</h3>
+<p>In our adversarial system of adjudication, we follow the principle of party presentation. As this Court stated in <em>Greenlaw</em> v. <em>United States</em>, 554 U. S. 237 (2008), “in both civil and criminal cases, in the first instance and on appeal . . . , we rely on the parties to frame the issues for decision and assign to courts the role of neutral arbiter of matters the parties present.” <em>Id</em>., at 243. In criminal cases, departures from the party presentation principle have usually occurred “to protect a <em>pro se</em> litigant's rights.” <em>Id.</em>, at 244; see, <em>e. g.</em>, <em>Castro</em> v. <em>United States</em>, 540 U. S. 375, 381–383 (2003) (affirming courts' authority to recast <em>pro se</em> litigants' motions to “avoid an unnecessary dismissal” or “inappropriately stringent application of formal labeling requirements, or to create a better correspondence between the substance of a <em>pro se</em> motion's claim and its underlying legal basis” (citation omitted)). But as a general rule, our system “is designed around the premise that [parties represented by competent counsel] know what is best for them, and are responsible for advancing<span class="pg" id="s3-p376" title="page 376 of the original">376</span> the facts and argument entitling them to relief.” <em>Id.</em>, at 386 (Scalia, J., concurring in part and concurring in judgment).<sup class="fnr"><a id="s3-r3" href="#s3-n3">3</a></sup></p>
+<p>In short: “[C]ourts are essentially passive instruments of government.” <em>United States</em> v. <em>Samuels</em>, 808 F. 2d 1298, 1301 (CA8 1987) (Arnold, J., concurring in denial of reh'g en banc). They “do not, or should not, sally forth each day looking for wrongs to right. [They] wait for cases to come to [them], and when [cases arise, courts] normally decide only questions presented by the parties.” <em>Ibid.</em></p>
+<p>The party presentation principle is supple, not ironclad. There are no doubt circumstances in which a modest initiating role for a court is appropriate. See, <em>e. g.</em>, <em>Day</em> v. <em>McDonough</em>, 547 U. S. 198, 202 (2006) (federal court had “authority, on its own initiative,” to correct a party's “evident miscalculation of the elapsed time under a statute [of limitations]” absent “intelligent waiver”).<sup class="fnr"><a id="s3-r4" href="#s3-n4">4</a></sup>But this case scarcely fits that bill. To explain why that is so, we turn first to the proceedings in the District Court.</p>
+<p>In July 2010, a grand jury returned a multicount indictment against Sineneng-Smith, including three counts of violating § 1324, three counts of mail fraud in violation of 18 U. S. C. § 1341, and two counts of willfully subscribing to a false tax return in violation of 26 U. S. C. § 7206(1). Sineneng-Smith pleaded guilty to the tax-fraud counts, App. to Pet. for Cert. 78a–79a, and did not pursue on appeal the two mail-fraud counts on which she was ultimately convicted. <span class="pg" id="s3-p377" title="page 377 of the original">377</span>We therefore concentrate this description on her defenses against the § 1324 charges.</p>
+<p>Before trial, Sineneng-Smith moved to dismiss the § 1324 counts. Motion to Dismiss in No. 10–cr–414 (ND Cal.). She asserted first that the conduct with which she was charged—advising and assisting aliens about labor certifications—is not proscribed by § 1324(a)(1)(A)(iv) and (B)(i). Being hired to file lawful applications on behalf of aliens already residing in the United States, she maintained, did not “encourage” or “induce” them to remain in this country. <em>Id.</em>, at 7–13. Next, she urged, alternatively, that clause (iv) is unconstitutionally vague and therefore did not provide fair notice that her conduct was prohibited, <em>id.</em>, at 13–18, or should rank as a content-based restraint on her speech, <em>id.</em>, at 22–24. She further asserted that she has a right safeguarded to her by the Petition and Free Speech Clauses of the First Amendment to file applications on her clients' behalf. <em>Id.,</em> at 20–25. Nowhere did she so much as hint that the statute is infirm, not because her own conduct is protected, but because it trenches on the First Amendment sheltered expression of others.</p>
+<p>The District Court denied the motion to dismiss, holding that Sineneng-Smith could “encourag[e]” noncitizens to remain in the country, within the meaning of § 1324(a)(1)(A)(iv), “[b]y suggesting to [them] that the applications she would make on their behalf, in exchange for their payments, would allow them to eventually obtain legal permanent residency in the United States.” App. to Pet. for Cert. 73a. The court also rejected Sineneng-Smith's constitutional arguments, reasoning that she was prosecuted, not for filing clients' applications, but for falsely representing to noncitizens that her efforts, for which she collected sizable fees, would enable them to gain lawful status. <em>Id.</em>, at 75a.</p>
+<p>After a 12-day trial, the jury found Sineneng-Smith guilty on the three § 1324 counts charged in the indictment, along with the three mail-fraud counts. App. 118–121. Sineneng-Smith<span class="pg" id="s3-p378" title="page 378 of the original">378</span> then moved for a judgment of acquittal. She renewed, “almost verbatim,” the arguments made in her motion to dismiss, App. to Pet. for Cert. 65a, and the District Court rejected those arguments “[f]or the same reasons as the court expressed in its order denying Sineneng-Smith's motion to dismiss,” <em>ibid</em>. She simultaneously urged that the evidence did not support the verdicts. Motion for Judgt. of Acquittal in No. 10–cr–414 (ND Cal.), at 1–14. The District Court found the evidence sufficient as to two of the three § 1324 counts and two of the three mail-fraud counts. App. to Pet. for Cert. 67a.<sup class="fnr"><a id="s3-r5" href="#s3-n5">5</a></sup></p>
+<p>Sineneng-Smith's appeal to the Ninth Circuit from the District Court's § 1324 convictions commenced unremarkably. On brief and at oral argument, she reasserted the self-regarding arguments twice rehearsed, initially in her motion to dismiss, and later in her motion for acquittal. Brief for Appellant in No. 15–10614 (CA9), at 9–27, 35–41; Recording of Oral Arg. (Apr. 18, 2017), at 37:00–39:40; see <em>supra</em>, at 377. With the appeal poised for decision based upon the parties' presentations, the appeals panel intervened. It ordered further briefing, App. 122–124, but not from the parties. Instead, it named three organizations—“the Federal Defender Organizations of the Ninth Circuit (as a group)[,] the Immigrant Defense Project[,] and the National Immigration Project of the National Lawyers Guild”—and invited them to file <em>amicus</em> briefs on three issues:</p>
+<blockquote>
+<p>“1. Whether the statute of conviction is overbroad or likely overbroad under the First Amendment, and if so, whether any permissible limiting construction would cure the First Amendment problem?</p>
+<p>“2. Whether the statute of conviction is void for vagueness or likely void for vagueness, either under the <span class="pg" id="s3-p379" title="page 379 of the original">379</span>First Amendment or the Fifth Amendment, and if so, whether any permissible limiting construction would cure the constitutional vagueness problem?</p>
+<p>“3. Whether the statute of conviction contains an implicit <em>mens rea</em> element which the Court should enunciate. If so: (a) what should that <em>mens rea</em> element be; and (b) would such a <em>mens rea</em> element cure any serious constitutional problems the Court might determine existed?” <em>Ibid.</em></p>
+</blockquote>
+<p>Counsel for the parties were permitted, but “not required,” to file supplemental briefs “<em>limited to responding to any and all amicus/amici briefs</em>.” <em>Id.</em>, at 123 (emphasis added). Invited <em>amici</em> and <em>amici</em> not specifically invited to file were free to “brief such further issues as they, respectively, believe the law and the record calls for.” <em>Ibid.</em> The panel gave invited <em>amici</em> 20 minutes for argument, and allocated only 10 minutes to Sineneng-Smith's counsel. Reargument Order in No. 15–10614 (CA9), Doc. No. 92. Of the three specified areas of inquiry, the panel reached only the first, holding that § 1324(a)(1)(A)(iv) was facially overbroad under the First Amendment, 910 F. 3d, at 483–485, and was not susceptible to a permissible limiting construction, <em>id.,</em> at 472, 479.</p>
+<p>True, in the redone appeal, Sineneng-Smith's counsel adopted without elaboration counsel for <em>amici</em>'s overbreadth arguments. See Supplemental Brief for Appellant in No. 15–10614 (CA9), p. 1. How could she do otherwise? Understandably, she rode with an argument suggested by the panel. In the panel's adjudication, her own arguments, differently directed, fell by the wayside, for they did not mesh with the panel's overbreadth theory of the case.</p>
+<h3 class="oh">II</h3>
+<p>No extraordinary circumstances justified the panel's takeover of the appeal. Sineneng-Smith herself had raised a vagueness argument and First Amendment arguments homing in on her own conduct, not that of others. Electing not <span class="pg" id="s3-p380" title="page 380 of the original">380</span>to address the party-presented controversy, the panel projected that § 1324(a)(1)(A)(iv) might cover a wide swath of protected speech, including political advocacy, legal advice, even a grandmother's plea to her alien grandchild to remain in the United States. 910 F. 3d, at 483–484.<sup class="fnr"><a id="s3-r6" href="#s3-n6">6</a></sup>Nevermind that Sineneng-Smith's counsel had presented a contrary theory of the case in the District Court, and that this Court has repeatedly warned that “[i]nvalidation for [First Amendment] overbreadth is `strong medicine' that is not to be `casually employed.' ” <em>United States</em> v. <em>Williams</em>, 553 U. S. 285, 293 (2008) (quoting <em>Los Angeles Police Dept.</em> v. <em>United Reporting Publishing Corp.</em>, 528 U. S. 32, 39 (1999)).</p>
+<p>As earlier observed, see <em>supra,</em> at 376, a court is not hidebound by the precise arguments of counsel, but the Ninth Circuit's radical transformation of this case goes well beyond the pale.</p>
+<p class="sep">* * *</p>
+<p>For the reasons stated, we vacate the Ninth Circuit's judgment and remand the case for reconsideration shorn of the overbreadth inquiry interjected by the appellate panel and bearing a fair resemblance to the case shaped by the parties.</p>
+<p><em>It is so ordered.</em></p>
+<p class="cont">Addendum of cases, 2015–2020, in which this Court called for</p>
+<h3 class="oh">supplemental briefing or appointed</h3>
+<h3 class="oh"><em>amicus curiae</em></h3>
+<p>This Court has sought supplemental briefing: to determine whether a case presented a controversy suitable for the <span class="pg" id="s3-p381" title="page 381 of the original">381</span>Court's review, <em>Trump</em> v. <em>Mazars USA, LLP</em>, 590 U. S. 921 (ordering briefing on application of political question doctrine and related justiciability principles); <em>Frank</em> v. <em>Gaos</em>, 586 U. S. 995 (2018) (ordering briefing on Article III standing); <em>Wittman</em> v. <em>Personhuballah</em>, 576 U. S. 1093 (2015) (same); Docket Entry in <em>Gloucester County School Bd.</em> v. <em>G. G.</em>, O. T. 2016, No. 16–273 (Feb. 23, 2017) (ordering briefing on intervening Department of Education and Department of Justice guidance document); <em>Kingdomware Technologies, Inc.</em> v. <em>United States</em>, 577 U. S. 970 (2015) (ordering briefing on mootness); to determine whether the case could be resolved on a basis narrower than the question presented, <em>Zubik</em> v. <em>Burwell</em>, 578 U. S. 901 (2016) (ordering briefing on whether the plaintiffs could obtain relief without entirely invalidating challenged federal regulations); and to clarify an issue or argument the parties raised, <em>Google LLC</em> v. <em>Oracle America, Inc.</em>, 590 U. S. 928 (ordering further briefing on the parties' dispute over the standard of review applicable to the question presented); <em>Babb</em> v. <em>Wilkie</em>, 589 U. S. 1164 (2020) (ordering briefing on an assertion counsel made for the first time at oral argument about alternative remedies available to the plaintiff ); <em>Sharp</em> v. <em>Murphy</em>, reported <em>sub nom. Carpenter</em> v. <em>Murphy</em>, 586 U. S. 1046 (2018) (ordering briefing on the implications of the parties' statutory interpretations).</p>
+<p>In rare instances, we have ordered briefing on a constitutional issue implicated, but not directly presented, by the question on which we granted certiorari. See <em>Jennings</em> v. <em>Rodriguez</em>, 580 U. S. 1040 (2016) (in a case about availability of a bond hearing under a statute mandating detention of certain noncitizens, briefing ordered on whether the Constitution requires such a hearing); <em>Johnson</em> v. <em>United States</em>, 574 U. S. 1069 (2015) (in a case involving interpretation of the Armed Career Criminal Act's residual clause, briefing ordered on whether that clause is unconstitutionally vague). But in both cases, the parties had raised the relevant constitutional challenge in lower courts; the question was not interjected<span class="pg" id="s3-p382" title="page 382 of the original">382</span> into the case for the first time by an appellate forum. In <em>Jennings</em>, moreover, the parties' statutory arguments turned expressly on the constitutional issue. <em>Jennings</em> v. <em>Rodriguez</em>, 583 U. S. 281 (2018). And in <em>Johnson</em>, although this Court had interpreted the Act's residual clause four times in the preceding nine years, there still remained “pervasive disagreement” in the lower courts about its application. <em>Johnson</em> v. <em>United States</em>, 576 U. S. 591, 601 (2015).</p>
+<p>We have appointed <em>amicus curiae</em>: to present argument in support of the judgment below when a prevailing party has declined to defend the lower court's decision or an aspect of it, <em>Seila Law LLC</em> v. <em>Consumer Financial Protection Bureau</em>, 589 U. S. 1041 (2019); <em>Holguin-Hernandez</em> v. <em>United States</em>, 588 U. S. 918 (2019); <em>Culbertson</em> v. <em>Berryhill</em>, 584 U. S. 999 (2018); <em>Lucia</em> v. <em>SEC</em>, 583 U. S. 1099 (2018); <em>Beckles</em> v. <em>United States</em>, 579 U. S. 965 (2016); <em>Welch</em> v. <em>United States</em>, 577 U. S. 1098 (2016); <em>McLane Co.</em> v. <em>EEOC</em>, 580 U. S. 985 (2016); <em>Green</em> v. <em>Brennan</em>, 576 U. S. 1087 (2015); <em>Reyes Mata</em> v. <em>Lynch</em>, reported <em>sub nom. Reyes Mata</em> v. <em>Holder</em>, 574 U. S. 1118 (2015); and to address the Court's jurisdiction to decide the question presented, <em>Montgomery</em> v. <em>Louisiana</em>, 575 U. S. 933 (2015).</p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li id="s3-n1" value="1"><p>For violations of 8 U. S. C. § 1324(a)(1)(A)(iv), the prison term is “not more than 5 years,” § 1324(a)(1)(B)(ii); if “the offense was done for . . . private financial gain,” the prison term is “not more than 10 years,” § 1324(a)(1)(B)(i). <a class="back" href="#s3-r1" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n2" value="2"><p>Sineneng-Smith argued that labor-certification applications were often approved despite expiration of the statutory dispensation, and that an approved application, when submitted as part of a petition for adjustment of status, would place her clients in line should Congress reactivate the dispensation. See Motion for Judgt. of Acquittal in No. 10–cr–414 (ND Cal.), p. 16. <a class="back" href="#s3-r2" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n3" value="3"><p>See Kaplan, Civil Procedure—Reflections on the Comparison of Systems, 9 Buffalo L. Rev. 409, 431–432 (1960) (U. S. system “exploits the free-wheeling energies of counsel and places them in adversary confrontation before a detached judge”; “German system puts its trust in a judge of paternalistic bent acting in cooperation with counsel of somewhat muted adversary zeal”). <a class="back" href="#s3-r3" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n4" value="4"><p>In an addendum to this opinion, we list cases in which this Court has called for supplemental briefing or appointed <em>amicus curiae</em> in recent years. None of them bear any resemblance to the redirection ordered by the Ninth Circuit panel in this case. <a class="back" href="#s3-r4" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n5" value="5"><p>The court sentenced Sineneng-Smith to 18 months on each of the remaining counts; three years of supervised release on the § 1324 and mail-fraud counts; and one year of supervised release on the filing of false tax returns count, all to run concurrently. She was also ordered to pay $43,550 in restitution, a $15,000 fine, and a $600 special assessment. <a class="back" href="#s3-r5" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n6" value="6"><p>The Solicitor General maintained that the statute does not reach protected speech. Brief for United States 32. In the Government's view, § 1324(a)(1)(A)(iv) should be construed to prohibit only speech facilitating or soliciting illegal activity, thus falling within the exception to the First Amendment for speech integral to criminal conduct. <em>Id.</em>, at 22–26, 31 (citing <em>United States</em> v. <em>Williams</em>, 553 U. S. 285, 298 (2008)). <a class="back" href="#s3-r6" aria-label="Back to the text">↩</a></p></li>
+</ol></aside></section>
+<section id="s4" class="op op-concurring"><h2>Justice Thomas, concurring</h2>
+<p class="byline">Justice Thomas, concurring.</p>
+<p>I agree with the Court that the Ninth Circuit abused its discretion in reaching out to decide whether 8 U. S. C. § 1324(a)(1)(A)(iv) is unconstitutionally overbroad. In my view, however, the Court of Appeals' decision violates far more than the party presentation rule. The merits of that decision also highlight the troubling nature of this Court's overbreadth doctrine. That doctrine provides that “a law may be invalidated as overbroad if `a substantial number of its applications are unconstitutional, judged in relation to the statute's plainly legitimate sweep.' ” <em>United States</em> v. <em>Stevens</em>, 559 U. S. 460, 473 (2010) (quoting <em>Washington State Grange</em> v. <em>Washington State Republican Party</em>, 552 U. S. 442, <span class="pg" id="s4-p383" title="page 383 of the original">383</span>449, n. 6 (2008)). Although I have previously joined the Court in applying this doctrine, I have since developed doubts about its origins and application. It appears that the overbreadth doctrine lacks any basis in the Constitution's text, violates the usual standard for facial challenges, and contravenes traditional standing principles. I would therefore consider revisiting this doctrine in an appropriate case.</p>
+<h3 class="oh">I</h3>
+<p>This Court's overbreadth jurisprudence is untethered from the text and history of the First Amendment. It first emerged in the mid-20th century. In <em>Thornhill</em> v. <em>Alabama</em>, 310 U. S. 88 (1940), the Court determined that an antipicketing statute was “invalid on its face” due to its “sweeping proscription of freedom of discussion,” <em>id.</em>, at 101–105. The Court rejected the State's argument that the statute was constitutional because it was “limited or restricted in its application” to proscribable “violence and breaches of the peace [that] are the concomitants of picketing.” <em>Id.</em>, at 105. Without considering whether the defendant's actual conduct was entitled to First Amendment protection, the Court concluded that the law was unconstitutional because it “d[id] not aim specifically at evils within the allowable area of state control but, on the contrary, swe[pt] within its ambit other activities that in ordinary circumstances constitute an exercise of freedom of speech or of the press.” <em>Id.</em>, at 97.</p>
+<p>Since then, the Court has invoked this rationale to facially invalidate a wide range of laws, from statutes enacted by Congress, see, <em>e. g., Ashcroft</em> v. <em>Free Speech Coalition</em>, 535 U. S. 234 (2002), to measures passed by city officials, see, <em>e. g., Board of Airport Comm'rs of Los Angeles</em> v. <em>Jews for Jesus, Inc.</em>, 482 U. S. 569 (1987). These laws covered a variety of subjects, from nudity in drive-in movies, <em>Erznoznik</em> v. <em>Jacksonville</em>, 422 U. S. 205 (1975), to charitable solicitations, <em>Schaumburg</em> v. <em>Citizens for Better Environment</em>, 444 U. S. 620 (1980), to depictions of animal cruelty, <em>Stevens</em>, <em>supra</em>, at <span class="pg" id="s4-p384" title="page 384 of the original">384</span>460. And all these laws were considered unconstitutional not because they necessarily violated an individual's First Amendment rights but “because of a judicial prediction or assumption that the statute's very existence <em>may</em> cause [some citizens] to refrain from constitutionally protected [activity].” <em>Broadrick</em> v. <em>Oklahoma</em>, 413 U. S. 601, 612 (1973) (emphasis added); see also <em>Erznoznik</em>, <em>supra</em>, at 216.</p>
+<p>Notably, this Court has not attempted to ground its voidfor-overbreadth rule in the text or history of the First Amendment. It did not do so in <em>Thornhill</em>, and it has not done so since. Rather, the Court has justified this doctrine solely by reference to policy considerations and value judgments. See <em>New York</em> v. <em>Ferber</em>, 458 U. S. 747, 768–769 (1982). It has stated that facially invalidating overbroad statutes is sometimes necessary because “[First Amendment] freedoms are delicate and vulnerable, as well as supremely precious in our society,” and thus “need breathing space to survive.” * <em>NAACP</em> v. <em>Button</em>, 371 U. S. 415, 433 (1963). And, in the context of the freedom of speech, the Court has justified the overbreadth doctrine's departure from traditional principles of adjudication by noting free speech's “transcendent value to all society, and not merely <span class="pg" id="s4-p385" title="page 385 of the original">385</span>to those exercising their rights.” <em>Dombrowski</em> v. <em>Pfister</em>, 380 U. S. 479, 486 (1965).</p>
+<p>In order to protect this “transcendent” right, <em>ibid.</em>, the Court will deem a statute unconstitutional when, in “the judgment of this Court[,] the possible harm to society in permitting some unprotected speech to go unpunished is outweighed by the possibility that protected speech of others may be muted and perceived grievances left to fester because of the possible inhibitory effects of [the] statut[e].” <em>Broadrick</em>, <em>supra</em>, at 612. In other words, the doctrine is driven by a judicial determination of what serves the public good. But there is “no evidence [from the founding] indicat[ing] that the First Amendment empowered judges to determine whether particular restrictions of speech promoted the general welfare.” Campbell, Natural Rights and the First Amendment, 127 Yale L. J. 246, 259 (2017). This makes sense given that the Founders viewed value judgments and policy considerations to be the work of legislatures, not unelected judges. See <em>Obergefell</em> v. <em>Hodges</em>, 576 U. S. 644, 709 (2015) (<span class="sc">Roberts</span>, C. J., dissenting). Nevertheless, such judgments appear to be the very foundation upon which this Court's modern overbreadth doctrine was built.</p>
+<p>Perhaps unsurprisingly, the overbreadth doctrine shares a close relationship with this Court's questionable vagueness doctrine. See <em>Johnson</em> v. <em>United States</em>, 576 U. S. 591, 611–623 (2015) (<span class="sc">Thomas</span>, J., concurring in judgment). In fact, it appears that the Court's void-for-overbreadth rule developed as a result of the vagueness doctrine's application in the First Amendment context. For example, this Court's decision in <em>Thornhill</em>, which is recognized as “the fountainhead of the overbreadth doctrine,” Monaghan, Overbreadth, 1981 S. Ct. Rev. 1, 11, cited a vagueness precedent in support of its overbreadth analysis. 310 U. S., at 96 (citing <em>Stromberg</em> v. <em>California</em>, 283 U. S. 359, 367 (1931)). And the decision expressed concerns regarding the antipicketing statute's “vague” terms with “no ascertainable meaning” and their <span class="pg" id="s4-p386" title="page 386 of the original">386</span>resulting potential for “discriminatory enforcement.” <em>Thornhill</em>, <em>supra</em>, at 97–98, 100–101; cf. <em>Chicago</em> v. <em>Morales</em>, 527 U. S. 41, 56 (1999) (opinion of Stevens, J.). As the overbreadth doctrine has developed, it has “almost wholly merged” with the vagueness doctrine as applied to “statutes covering [F]irst [A]mendment activities.” Sargentich, Note, The First Amendment Overbreadth Doctrine, 83 Harv. L. Rev. 844, 873 (1970). Given the dubious origins of the vagueness doctrine, I find this shared history “unsettling.” <em>Johnson</em>, <em>supra</em>, at 621 (opinion of <span class="sc">Thomas</span>, J.).</p>
+<h3 class="oh">II</h3>
+<p>In addition to its questionable origins, the overbreadth doctrine violates the usual standard for facial challenges. Typically, this Court will deem a statute unconstitutional on its face only if “no set of circumstances exists under which the Act would be valid.” <em>United States</em> v. <em>Salerno</em>, 481 U. S. 739, 745 (1987). But the overbreadth doctrine empowers courts to hold statutes facially unconstitutional even when they can be validly applied in numerous circumstances, including the very case before the court.</p>
+<p>By lowering the bar for facial challenges in the First Amendment context, the overbreadth doctrine exacerbates the many pitfalls of what is already a “disfavored” method of adjudication. <em>Washington State Grange</em>, 552 U. S., at 450. “[U]nder our constitutional system[,] courts are not roving commissions assigned to pass judgment on the validity of the Nation's laws.” <em>Broadrick</em>, 413 U. S., at 610–611. But when a court entertains—or in this case, seeks out—an overbreadth challenge, it casts aside the “judicial restraint” necessary to avoid “ `premature' ” and “ `unnecessary pronouncement[s] on constitutional issues.' ” <em>Washington State Grange</em>, <em>supra</em>, at 450 (quoting <em>United States</em> v. <em>Raines</em>, 362 U. S. 17, 22 (1960)). This principle of restraint has long served as a fundamental limit on the scope of judicial power. See <em>Liverpool, New York &amp; Philadelphia S. S. Co.</em> v. <em>Com</em><em>missioners</em><span class="pg" id="s4-p387" title="page 387 of the original">387</span><em> of Emigration</em>, 113 U. S. 33, 39 (1885). “[T]here is good evidence that courts [in the early Republic] understood judicial review to consist [simply] `of a refusal to give a statute effect as operative law in resolving a case' ” once that statute was determined to be unconstitutional. <em>Johnson</em>, <em>supra</em>, at 615 (opinion of <span class="sc">Thomas</span>, J.) (quoting Walsh, Partial Unconstitutionality, 85 N. Y. U. L. Rev. 738, 756 (2010)). Thus, our “modern practice of strik[ing] down” legislation as facially unconstitutional bears little resemblance to the practices of 18th- and 19th- century courts. <em>Johnson</em>, <em>supra</em>, at 615 (opinion of <span class="sc">Thomas</span>, J.) (internal quotation marks omitted); see also Mitchell, The Writ-of-Erasure Fallacy, 104 Va. L. Rev. 933, 936 (2018) (“[F]ederal courts have no authority to erase a duly enacted law from the statute books”).</p>
+<p>Moreover, by relaxing the standard for facial challenges, the overbreadth doctrine encourages “speculat[ion]” about “ `imaginary' cases,” <em>Washington State Grange</em>, <em>supra</em>, at 450 (quoting <em>Raines</em>, <em>supra</em>, at 22), and “summon[s] forth an endless stream of fanciful hypotheticals,” <em>United States</em> v. <em>Williams</em>, 553 U. S. 285, 301 (2008). And, when a court invalidates a statute based on its theoretical, illicit applications at the expense of its real-world, lawful applications, the court “threaten[s] to short circuit the democratic process by preventing laws embodying the will of the people from being implemented in a manner consistent with the Constitution.” <em>Washington State Grange</em>, <em>supra</em>, at 451.</p>
+<p>Collaterally, this Court has a tendency to lower the bar for facial challenges when preferred rights are at stake. See, <em>e. g., Planned Parenthood of Southeastern Pa.</em> v. <em>Casey</em>, 505 U. S. 833 (1992). This ad hoc approach to constitutional adjudication impermissibly expands the judicial power and “reduc[es] constitutional law to policy-driven value judgments.” <em>Whole Woman's Health</em> v. <em>Hellerstedt</em>, 579 U. S. 582, 643 (2016) (<span class="sc">Thomas</span>, J., dissenting). We ought to “abid[e] by one set of rules to adjudicate constitutional rights,” <em>ibid.</em>, particularly<span class="pg" id="s4-p388" title="page 388 of the original">388</span> when it comes to the disfavored practice of facial challenges.</p>
+<h3 class="oh">III</h3>
+<p>Finally, by allowing individuals to challenge a statute based on a third party's constitutional rights, the overbreadth doctrine is at odds with traditional standing principles. This Court has long adhered to the rule that “a litigant must assert his or her own legal rights and interests, and cannot rest a claim to relief on the legal rights or interests of third parties.” <em>Powers</em> v. <em>Ohio</em>, 499 U. S. 400, 410 (1991); see also <em>Clark</em> v. <em>Kansas City</em>, 176 U. S. 114, 118 (1900); <em>Owings</em> v. <em>Norwood's Lessee</em>, 5 Cranch 344, 348 (1809) (Marshall, C. J.). The Court has created a “limited” exception to this rule, allowing third-party standing in certain cases in which the litigant has “a close relation to the third party” and there is a substantial “hindrance to the third party's ability to protect his or her own interests.” <em>Powers</em>, <em>supra</em>, at 410–411. Litigants raising overbreadth challenges rarely satisfy either requirement, but the Court nevertheless allows third-party standing to “avoi[d] making vindication of freedom of expression await the outcome of protracted litigation.” <em>Dombrowski</em>, 380 U. S., at 487. As I have previously explained, this Court “has no business creating ad hoc exceptions so that others can assert rights that seem especially important to vindicate.” <em>Whole Woman's Health</em>, <em>supra,</em> at 643 (<span class="sc">Thomas</span>, J., dissenting).</p>
+<p>The overbreadth doctrine's disregard for the general rule against third-party standing is especially problematic in light of the rule's apparent roots in Article III's case-orcontroversy requirement. Although the modern Court has characterized the rule as a prudential rather than jurisdictional matter, see <em>Craig</em> v. <em>Boren</em>, 429 U. S. 190, 193 (1976), it has never provided a substantive justification for that assertion. And the Court has admitted that this rule against third-party standing is “not always clearly distinguished from the constitutional limitation[s]” on standing, <em>Barrows</em> v. <span class="pg" id="s4-p389" title="page 389 of the original">389</span><em>Jackson</em>, 346 U. S. 249, 255 (1953); is “closely related to Art[icle] III concerns,” <em>Warth</em> v. <em>Seldin</em>, 422 U. S. 490, 500 (1975); and even is “grounded in Art[icle] III limits on the jurisdiction of federal courts to actual cases and controversies,” <em>Ferber</em>, 458 U. S., at 767, n. 20.</p>
+<p>These statements find support in a historical understanding of Article III. To understand the scope of the Constitution's case-or-controversy requirement, “we must `refer directly to the traditional, fundamental limitations upon the powers of common-law courts.' ” <em>Spokeo, Inc.</em> v. <em>Robins</em>, 578 U. S. 330, 344 (2016) (<span class="sc">Thomas</span>, J., concurring) (quoting <em>Honig</em> v. <em>Doe</em>, 484 U. S. 305, 340 (1988) (Scalia, J., dissenting)). “Common-law courts imposed different limitations on a plaintiff's right to bring suit depending on the type of right the plaintiff sought to vindicate.” <em>Spokeo</em>, 578 U. S., at 344 (<span class="sc">Thomas</span>, J., concurring). “In a suit for the violation of a private right, courts historically presumed that the plaintiff suffered a <em>de facto</em> injury [if] his personal, legal rights [were] invaded.” <em>Ibid.</em> Personal constitutional rights, such as those protected under the First Amendment, are “private rights” in that they “ `belon[g] to individuals, considered as individuals.' ” <em>Ibid.</em> (quoting 3 W. Blackstone, Commentaries on the Laws of England *2); see also <em>Ferber</em>, <em>supra,</em> at 767 (recognizing “the personal nature of constitutional rights” as a “cardinal principl[e] of our constitutional order”); Hessick, Standing, Injury in Fact, and Private Rights, 93 Cornell L. Rev. 275, 287 (2008) (listing “First Amendment rights” as examples of private rights provided by the Constitution). Thus, when a litigant challenges a statute on the grounds that it has violated his First Amendment rights, he has alleged an injury sufficient to establish standing for his claim, regardless of the attendant damages or other real-world harms he may or may not have suffered.</p>
+<p>Overbreadth doctrine turns this traditional common-law rule on its head: It allows a litigant without a legal injury to assert the First Amendment rights of hypothetical third <span class="pg" id="s4-p390" title="page 390 of the original">390</span>parties, so long as he has personally suffered a real-world injury. See <em>Broadrick</em>, 413 U. S., at 612. In other words, the litigant has no private right of his own that is genuinely at stake. See Woolhandler &amp; Nelson, Does History Defeat Standing Doctrine? 102 Mich. L. Rev. 689, 722–723 (2004); see also Hessick, 93 Cornell L. Rev., at 280–281. At common law, this sort of “factual harm without a legal injury was <em>damnum absque injuria</em> and provided no basis for relief.” <em>Ibid</em>. Courts adhered to the “obvious” and “ancient maxim” that one's real-world damages alone cannot “lay the foundation of an action . . . if the act complained of does not violate any of his legal rights.” <em>Parker</em> v. <em>Griswold</em>, 17 Conn. *288, *302–*303 (1846).</p>
+<p>Here, the overbreadth challenge embraced by respondent on appeal relied entirely on the free speech rights of others— immigration lawyers, activists, clergy, and even grandmothers. This is not terribly surprising given that the overbreadth arguments were developed by <em>amici</em> organizations that represent some of these third parties, not by respondent herself. See <em>ante,</em> at 379. Although it appears respondent lacked standing on appeal to assert the rights of individuals not before the court, she did have standing to seek relief for alleged violations of her own constitutional rights, which she raised before the Ninth Circuit commandeered her appeal. On remand, the Court of Appeals will be well within the bounds of its Article III jurisdiction in considering these narrower arguments.</p>
+<p class="sep">* * *</p>
+<p>The overbreadth doctrine appears to be the handiwork of judges, based on the misguided “notion that some constitutional rights demand preferential treatment.” <em>Whole Woman's Health</em>, 579 U. S.<em>,</em> at 641 (<span class="sc">Thomas</span>, J., dissenting). It seemingly lacks any basis in the text or history of the First Amendment, relaxes the traditional standard for facial challenges, and violates Article III principles regarding judicial power and standing. In an appropriate case, we should consider revisiting this doctrine.</p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li class="sym" value="0"><span class="mk">*</span><p>The Court often discusses the doctrine as applying in the context of “First Amendment rights” more generally. <em>Broadrick</em> v. <em>Oklahoma</em>, 413 U. S. 601, 611–613 (1973); see also <em>NAACP</em> v. <em>Button</em>, 371 U. S. 415, 433 (1963) (discussing “the First Amendment freedoms”). Such arguments are typically raised in free speech cases, but the Court has occasionally entertained overbreadth challenges invoking the freedom of the press, see, <em>e. g., Thornhill</em> v. <em>Alabama</em>, 310 U. S. 88 (1940), and the freedom of association, see, <em>e. g., Keyishian</em> v. <em>Board of Regents of Univ. of State of N. Y.</em>, 385 U. S. 589 (1967). Curiously, however, the Court has never applied this doctrine in the context of the First Amendment's Religion Clauses. In fact, the Court currently applies a far less protective standard to free exercise claims, upholding laws that substantially burden religious exercise so long as they are neutral and generally applicable. See <em>Employment Div., Dept. of Human Resources of Ore.</em> v. <em>Smith</em>, 494 U. S. 872 (1990). The Court has never acknowledged, much less explained, this discrepancy.</p></li>
+</ol></aside></section><p class='back'><a href='/opinions/'>&larr; All opinions</a> · <a href='/justices/ot2019.html'>The Justices, October Term 2019 &rarr;</a></p></main></body>
+</html>
+

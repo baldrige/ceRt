@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script async src='/analytics.js'></script><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate icon" href="/favicon.ico" sizes="any"><link rel="alternate" type="application/atom+xml" title="Supreme Court Report" href="/feed.xml"><link rel="alternate" type="application/atom+xml" title="Certiorari grants" href="/grants.xml"><title>Home Depot U. S. A., Inc. v. Jackson — Opinion — Supreme Court Report</title><meta name="description" content="The opinion in Home Depot U. S. A., Inc. v. Jackson (No. 17-1471), decided May 28, 2019: the full text with its footnotes, as a page, a Markdown file and an EPUB."><link rel="canonical" href="https://supremecourt.report/opinions/2018/17-1471.html"><meta property="og:site_name" content="Supreme Court Report"><meta property="og:type" content="article"><meta property="og:title" content="Home Depot U. S. A., Inc. v. Jackson — Opinion — Supreme Court Report"><meta property="og:description" content="The opinion in Home Depot U. S. A., Inc. v. Jackson (No. 17-1471), decided May 28, 2019: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta property="og:url" content="https://supremecourt.report/opinions/2018/17-1471.html"><meta property="og:image" content="https://supremecourt.report/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Supreme Court Report - docket analytics for the Supreme Court of the United States"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Home Depot U. S. A., Inc. v. Jackson — Opinion — Supreme Court Report"><meta name="twitter:description" content="The opinion in Home Depot U. S. A., Inc. v. Jackson (No. 17-1471), decided May 28, 2019: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta name="twitter:image" content="https://supremecourt.report/og.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap"><style>
+  :root{--paper:#fdfcfa;--panel:#ffffff;--ink:#1a1a1e;--ink-soft:#484850;--faint:#63636b;--accent:#9c0e3a;--link:#9c0e3a;--rule:#dbd8d2;--nav-max:60rem}
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{font-family:'Newsreader',Georgia,serif;font-size:19px;line-height:1.6;
+    color:var(--ink);background:var(--paper);margin:0;font-feature-settings:'onum' 1}
+  body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
+    opacity:.5;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");}
+  .wrap{max-width:40rem;margin:0 auto;padding:3rem 1.4rem 4rem}
+  .kicker{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 1rem}
+  h1{font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:clamp(2.4rem,7vw,3.6rem);line-height:1;letter-spacing:-.015em;
+    margin:0 0 1rem;color:var(--ink)}
+  h1 em{font-style:italic;font-weight:500;color:var(--accent)}
+  .dek{font-size:1.15rem;line-height:1.5;color:var(--ink-soft);font-style:italic;
+    margin:0 0 1.4rem}
+  .brule{border:0;height:0;border-top:2px solid var(--ink);margin:1.4rem 0 .3rem;
+    position:relative}
+  .brule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+    border-top:1px solid var(--rule)}
+  ul.idx{list-style:none;padding:0;margin:1.6rem 0}
+  ul.idx li{border-bottom:1px solid var(--rule)}
+  /* Whole row is one block-level link: a large, reliable tap target on mobile. */
+  ul.idx a.row{display:flex;justify-content:space-between;align-items:baseline;
+    gap:1rem;padding:.9rem .4rem;text-decoration:none;border:0;color:inherit}
+  ul.idx a.row:hover{background:rgba(156,14,58,.05)}
+  ul.idx .d{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.16rem;
+    color:var(--accent);line-height:1.25}
+  ul.idx a.row:hover .d{text-decoration:underline;text-underline-offset:3px}
+  ul.idx .count{color:var(--faint);font-size:.9rem;font-style:italic;white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  /* A long note (an order list's "3 GVRs / 230 denied / 4 habeas denied /
+     ...", items separated by middots) cannot sit on one line: nowrap made it
+     claim the row and
+     squeezed the title into a column three words wide, and on a phone it ran off
+     the screen. Such a row opts in (meta_wrap): the note wraps, only between its
+     items, and takes at most ~45% of the row, so the title always has the
+     larger share. Under 34rem it drops beneath the title at full width. */
+  /* ("long", not "wrap": .wrap is the page container and its padding.) */
+  ul.idx .count.long{white-space:normal;text-align:right;max-width:45%;line-height:1.45}
+  ul.idx .count.long .seg{white-space:nowrap}
+  @media(max-width:34rem){
+    ul.idx a.row.longmeta{flex-wrap:wrap;row-gap:.2rem}
+    ul.idx .count.long{max-width:none;flex-basis:100%;text-align:left}
+  }
+  /* Compact horizontal strip of the most recent pages beneath a category row. */
+  ul.idx .recent{display:flex;flex-wrap:wrap;align-items:baseline;
+    gap:.3rem .85rem;padding:0 .4rem 1rem;margin-top:-.35rem}
+  ul.idx .recent .rlabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  ul.idx .recent a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--ink-soft);text-decoration:none;font-variant-numeric:tabular-nums;
+    border-bottom:1px solid var(--rule);padding-bottom:1px}
+  ul.idx .recent a:hover{color:var(--accent);border-color:var(--accent)}
+  /* Optional panel beneath the section index (home page: most-read cases). */
+  .panel{margin:2.4rem 0 0}
+  .panel h2{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 .25rem}
+  .panel .pnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:0 0 .5rem}
+  /* "Live now" (live_argument_panel, /live.js): hidden unless the Court is
+     streaming an argument. One red dot, the same --accent as the headings, so
+     the live state is a mark and not a new colour. */
+  .live h2 .ldot{display:inline-block;width:.5rem;height:.5rem;border-radius:50%;
+    background:var(--accent);margin-right:.5rem;vertical-align:.08rem;
+    animation:lpulse 2s ease-in-out infinite}
+  @keyframes lpulse{50%{opacity:.25}}
+  @media (prefers-reduced-motion:reduce){.live h2 .ldot{animation:none}}
+  .lplay{display:flex;flex-wrap:wrap;gap:.6rem .9rem;align-items:center;margin:.8rem 0 .3rem}
+  .lplay button{font:600 .9rem/1 'Newsreader',Georgia,serif;letter-spacing:.04em;
+    color:var(--paper);background:var(--accent);border:0;border-radius:2px;
+    padding:.6rem 1.05rem;cursor:pointer}
+  .lplay button:disabled{opacity:.6;cursor:progress}
+  .lplay button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  /* The player takes a row of its own and may never outgrow the column. A flex
+     item's min-width is auto, which for a replaced element is the browser's own
+     controls' width -- wider than the column on a phone, where mobile Safari
+     and Chrome draw larger controls than the desktop. */
+  .lplay audio{display:block;flex:1 1 100%;width:100%;min-width:0;max-width:100%;
+    box-sizing:border-box;margin:0}
+  .lplay .lstat{font-size:.85rem;color:var(--faint)}
+  /* --- Likeliest grants -----------------------------------------------------
+     Its own rows rather than ol.mostread's: this panel carries a question under
+     the caption, which that list has no room for, and a percentage that has to
+     read as the row's subject rather than as a trailing note.
+     The window toggle is two real radio inputs plus :has() -- no JavaScript.
+     Both windows are rendered at build time and one is hidden, which is the only
+     way a static site can offer the choice: there is no server to ask for the
+     other one. Real radios, not styled buttons, so the control is reachable by
+     keyboard and announced as a choice. */
+  .lead{margin:0 0 1.9rem}
+  .lead h2{margin-bottom:.35rem}
+  .lead .pnote{margin:0 0 .7rem}
+  .wr{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+  .win{display:inline-flex;gap:.25rem;margin:0 0 .55rem;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .win label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .win label:hover{color:var(--ink)}
+  .lead:has(#w7:checked) label[for=w7],
+  .lead:has(#w28:checked) label[for=w28],
+  .lead:has(#wall:checked) label[for=wall]{background:var(--accent);color:var(--paper)}
+  .wr:focus-visible+label{outline:2px solid var(--accent);outline-offset:2px}
+  /* Three windows, one shown: the checked radio hides the other two. */
+  .lead:has(#w7:checked) :is(.g28,.n28,.gall,.nall),
+  .lead:has(#w28:checked) :is(.g7,.n7,.gall,.nall),
+  .lead:has(#wall:checked) :is(.g7,.n7,.g28,.n28){display:none}
+  /* The show/hide controls for a panel's secondary line -- the question under
+     a forecast row, the holding under a decision. Same box as the window
+     toggle, a checkbox instead of radios, and no script: the sibling rule does
+     the work and the lines simply show where :has() is unsupported. The
+     questions are on by default (they are what a forecast row asks); the
+     holdings are off (the caption, kind and disposition already say what
+     happened, and the holding is the more). */
+  .opts{display:inline-flex;gap:.25rem;margin:0 .45rem .55rem 0;vertical-align:top;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .opts label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .opts label:hover{color:var(--ink)}
+  .lead:has(#qon:checked) label[for=qon],
+  .panel:has(#hon:checked) label[for=hon]{background:var(--accent);color:var(--paper)}
+  .lead:has(#qon:not(:checked)) .gq{display:none}
+  .panel:has(#hon:not(:checked)) .chold{display:none}
+  /* --- Upcoming at the Court ------------------------------------------------
+     A date gutter and a two-line body, the same shape as the grant rows above
+     it, so the two panels read as one page rather than two widgets. */
+  .cal{margin:0 0 1.9rem}
+  ol.cal{list-style:none;margin:0;padding:0}
+  ol.cal li{border-top:1px solid var(--rule)}
+  ol.cal li:last-child{border-bottom:1px solid var(--rule)}
+  /* The row is a container, not an anchor: an argument day carries one link per
+     case it hears and anchors cannot nest. Hover lives on the row so it still
+     reads as one unit, and each link colours on its own hover. */
+  ol.cal .crow{display:flex;gap:.95rem;align-items:baseline;padding:.55rem .1rem}
+  ol.cal .crow:hover{background:rgba(156,14,58,.05)}
+  ol.cal a{text-decoration:none;color:inherit}
+  ol.cal a:hover,ol.cal a:focus-visible{color:var(--accent)}
+  ol.cal .cdet a{border-bottom:1px solid rgba(156,14,58,.35)}
+  ol.cal .cdet a:hover{border-bottom-color:var(--accent)}
+  ol.cal .cwhen{flex:none;width:4.6rem;font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.96rem;color:var(--ink);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  ol.cal .cdow{display:block;font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);text-transform:uppercase;letter-spacing:.08em}
+  ol.cal .ctx{flex:1;min-width:0}
+  ol.cal .ckind{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:.98rem;line-height:1.25}
+  ol.cal .cdet{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.12rem}
+  /* Recent decisions reuses the calendar rows and adds exactly two things: the
+     kind word that opens the detail line, and the one outbound link (the slip
+     opinion), which takes the link colour the rest of the row deliberately
+     does not. */
+  ol.cal .dk{font-weight:600;color:var(--ink)}
+  ol.cal .cdet a.pdf{color:var(--link)}
+  /* The holding, from the Court's slip-opinion feed: one sentence, set
+     smaller and in the soft ink so the caption stays the row's headline. */
+  ol.cal .chold{display:block;font-size:.86rem;line-height:1.4;color:var(--ink-soft);
+    font-style:italic;margin-top:.15rem}
+  ol.cal .cdet a.pdf:hover,ol.cal .cdet a.pdf:focus-visible{color:var(--accent);
+    border-bottom-color:var(--accent)}
+  ol.grants{list-style:none;margin:0;padding:0}
+  ol.grants li{border-top:1px solid var(--rule)}
+  ol.grants li:last-child{border-bottom:1px solid var(--rule)}
+  ol.grants a{display:flex;gap:.95rem;align-items:baseline;text-decoration:none;
+    color:inherit;padding:.62rem .1rem}
+  ol.grants a:hover{background:rgba(156,14,58,.05)}
+  ol.grants a:hover .gc{color:var(--accent)}
+  ol.grants .gv{flex:none;width:3.5rem;text-align:right;
+    font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.22rem;
+    line-height:1.1;color:var(--accent);font-variant-numeric:tabular-nums}
+  ol.grants .gx{font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);margin-left:.3rem}
+  ol.grants .gtx{flex:1;min-width:0}
+  /* Subject-area line under the caption, in the section-label idiom (h2.sec):
+     small tracked caps in the faint ink, so it classifies without competing. */
+  ol.grants .gs,ol.mostread .ms{display:block;font-size:.68rem;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--faint);line-height:1.3;margin-top:.12rem}
+  ol.grants .gc{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:1rem;line-height:1.25}
+  ol.grants .gq{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.16rem}
+  ol.grants .gd{flex:none;font-size:.76rem;color:var(--faint);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  .more{margin:.75rem 0 0;font-size:.92rem}
+  .more a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.35)}
+  .more a:hover{border-bottom-color:var(--link)}
+  h2.sec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:.88rem;
+    letter-spacing:.09em;color:var(--faint);text-transform:uppercase;
+    margin:2.1rem 0 .6rem;padding-bottom:.28rem;border-bottom:1px solid var(--rule)}
+  @media(max-width:40rem){
+    ol.grants a{flex-wrap:wrap}
+    ol.grants .gd{width:100%;padding-left:4.45rem;margin-top:-.1rem}
+  }
+  ol.mostread{list-style:none;counter-reset:mr;padding:0;margin:0}
+  ol.mostread li{counter-increment:mr;border-bottom:1px solid var(--rule)}
+  ol.mostread a{display:flex;align-items:baseline;gap:.7rem;padding:.6rem .4rem;
+    text-decoration:none;color:inherit}
+  ol.mostread a:hover{background:rgba(156,14,58,.05)}
+  ol.mostread a::before{content:counter(mr);font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.95rem;color:var(--faint);min-width:1.1rem;
+    font-variant-numeric:tabular-nums}
+  ol.mostread .mc{flex:1;font-size:1rem;line-height:1.3}
+  ol.mostread .mct{display:block}
+  ol.mostread a:hover .mct{color:var(--accent);text-decoration:underline;
+    text-underline-offset:3px}
+  ol.mostread .mdk{color:var(--accent);font-weight:600;font-size:.82rem;
+    font-variant-numeric:tabular-nums;white-space:nowrap}
+  ol.mostread .mv{color:var(--faint);font-size:.85rem;font-style:italic;
+    white-space:nowrap;font-variant-numeric:tabular-nums}
+  /* Forecast percentages carry weight the most-read counts do not: the number is
+     the claim, not a footnote to the ranking. Upright, accent, tabular. */
+  ol.mostread .mv.fc{color:var(--accent);font-style:normal;font-weight:600;
+    font-size:.95rem;min-width:2.6rem;text-align:right}
+  /* Feed follow line. Deliberately quiet -- a footnote under the section list,
+     styled like .recent rather than like a call to action. */
+  .feeds{display:flex;flex-wrap:wrap;align-items:baseline;gap:.3rem .85rem;
+    margin:2.2rem 0 0;padding-top:1.1rem;border-top:1px solid var(--rule)}
+  .feeds .flabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  .feeds a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .feeds a:hover{border-color:var(--link)}
+  .back{margin-top:2rem;font-size:.95rem}
+  .back a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .back a:hover{border-color:var(--link)}
+  /* Home-page case search. */
+  .csearch{position:relative;margin:0 0 1.4rem}
+  #cq{width:100%;font-family:'Newsreader',Georgia,serif;font-size:1.05rem;color:var(--ink);
+    background:var(--panel);border:1px solid var(--rule);border-radius:3px;padding:.7rem .9rem}
+  #cq:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(156,14,58,.1)}
+  #cq::placeholder{color:var(--faint)}
+  #cq.loading{background-image:linear-gradient(90deg,transparent,rgba(156,14,58,.06),transparent);
+    background-size:40% 100%;background-repeat:no-repeat;animation:csl 1s infinite}
+  @keyframes csl{0%{background-position:-40% 0}100%{background-position:140% 0}}
+  .cres{list-style:none;margin:.35rem 0 0;padding:0;max-height:24rem;overflow-y:auto;
+    border:1px solid var(--rule);border-radius:3px;background:var(--panel)}
+  .cres:empty{display:none}
+  .cres li{border-bottom:1px solid var(--rule)}
+  .cres li:last-child{border-bottom:0}
+  .cres a{display:block;padding:.55rem .7rem;text-decoration:none;color:var(--ink);
+    font-size:.98rem;line-height:1.3}
+  .cres a:hover,.cres li.act a{background:rgba(156,14,58,.06)}
+  .cres mark{background:rgba(156,14,58,.14);color:inherit;padding:0 .05em;border-radius:2px}
+  .cres .cd{color:var(--accent);font-variant-numeric:tabular-nums;font-weight:600;
+    margin-right:.5rem;white-space:nowrap}
+  .cnone{padding:.55rem .7rem;color:var(--faint);font-style:italic}
+  .cnone a,.cqp a{color:var(--link);font-style:normal;text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .cqp{margin:.45rem 0 0;font-size:.88rem;color:var(--faint)}
+  /* /cases/ browse index: grouped sections with per-bucket counts. */
+  .csec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+    text-transform:uppercase;letter-spacing:.12em;color:var(--accent);
+    margin:2.2rem 0 .3rem;padding-bottom:.35rem;border-bottom:1px solid var(--rule);
+    display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
+  .csec .cn{font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:.85rem;
+    letter-spacing:0;text-transform:none;color:var(--faint);
+    font-variant-numeric:tabular-nums}
+  .cnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:.5rem 0 0}
+  .cnote a{color:var(--accent)}
+  ul.terms{list-style:none;padding:0;margin:1rem 0 0;display:flex;flex-wrap:wrap;
+    gap:.5rem 1.6rem}
+  ul.terms li{display:inline-flex;align-items:baseline;gap:.4rem}
+  ul.terms a{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.05rem;
+    color:var(--accent);text-decoration:none;border-bottom:1px solid var(--rule)}
+  ul.terms a:hover{border-bottom-color:var(--accent)}
+  ul.terms .cn{color:var(--faint);font-size:.85rem;font-variant-numeric:tabular-nums}
+  /* About page: running prose rather than an index, so it takes a measure and a
+     little more leading than the section rows above it. */
+  .about{margin:1.6rem 0 0;font-size:1.05rem;line-height:1.65;max-width:34rem}
+  .about p{margin:0 0 1rem}
+  .about a{color:var(--accent);text-decoration:none;
+    border-bottom:1px solid var(--rule)}
+  .about a:hover{border-bottom-color:var(--accent)}
+  .about .contact{margin:2rem 0 0;background:var(--panel);border:1px solid var(--rule);
+    border-left:4px solid var(--accent);padding:1.1rem 1.3rem}
+  .about .contact h2{font:600 .78rem/1 'Newsreader',Georgia,serif;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--accent);margin:0 0 .5rem}
+  .about .contact p{margin:0;font-size:1rem}
+
+/* ---- masthead ---- */
+.smast-in{max-width:var(--nav-max,60rem);margin:0 auto;padding:.85rem 1.5rem .5rem;
+  display:flex;align-items:baseline;justify-content:space-between;gap:1.4rem;flex-wrap:wrap}
+.smast-wm{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+  letter-spacing:.005em;color:var(--ink,#1a1a1e);text-decoration:none;white-space:nowrap;flex:none}
+.smast-wm em{font-style:italic;font-weight:500;color:var(--accent,#9c0e3a)}
+.smast-wm:hover{color:var(--accent,#9c0e3a)}
+/* Row gap first, then column. At 1.35rem the six section links measured 596px
+   of max-content -- 4px wider than the 592px row the 40rem index container
+   leaves them -- so ABOUT alone wrapped to a third line under the wordmark, on
+   every page page_style.R writes. 1.05rem brings the row to 572px: 20px of
+   slack at 40rem, and 45px on the 54rem case pages, which were themselves only
+   21px from wrapping. The .4rem row gap is for the day a seventh section
+   overruns it anyway -- a nav that wraps should read as a stack, not an orphan. */
+.snav{display:flex;gap:.4rem 1.05rem;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+.snav a{font:600 .72rem/1 'Newsreader',Georgia,serif;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--ink-soft,var(--soft,#484850));text-decoration:none;display:inline-block;
+  padding:.5rem 0;border-bottom:1.5px solid transparent}
+.snav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--rule,#dbd8d2)}
+.snav a[aria-current='page']{color:var(--accent,#9c0e3a);
+  border-bottom-color:var(--accent,#9c0e3a)}
+.smast-rule-w{max-width:var(--nav-max,60rem);margin:0 auto;padding:0 1.5rem}
+.smast-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0;position:relative}
+.smast-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.skip{position:absolute;left:-9999px;top:0;background:var(--panel,#ffffff);
+  color:var(--accent,#9c0e3a);padding:.6rem 1rem;
+  border:1px solid var(--accent,#9c0e3a);
+  font:600 .8rem/1 'Newsreader',Georgia,serif;letter-spacing:.1em;text-transform:uppercase;z-index:10}
+.skip:focus{left:.5rem;top:.5rem}
+/* ---- breadcrumb ---- */
+.bcrumb{margin:.7rem 0 0}
+.bcrumb ol{list-style:none;display:flex;flex-wrap:wrap;align-items:baseline;
+  gap:.1rem .45rem;margin:0;padding:0}
+.bcrumb li{display:inline-flex;align-items:baseline;gap:.45rem}
+.bcrumb a{font:400 .8rem/1.5 'Newsreader',Georgia,serif;color:var(--ink-soft,var(--soft,#484850));
+  text-decoration:none;border-bottom:1px solid var(--rule,#dbd8d2)}
+.bcrumb a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.bcrumb .sep{color:var(--faint,#63636b);font-size:.8rem;line-height:1.5}
+.bcrumb [aria-current='page']{font:400 .8rem/1.5 'Newsreader',Georgia,serif;
+  color:var(--faint,#63636b);font-variant-numeric:tabular-nums}
+/* ---- case footer ---- */
+.cfoot{margin:2.4rem 0 0}
+.cfoot-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0 0 1rem;position:relative}
+.cfoot-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.cfoot-off{font-size:.95rem;margin:0 0 1.1rem}
+.cfoot-off a{color:var(--link,#9c0e3a);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.4)}
+.cfoot-off a:hover{border-bottom-color:var(--link,#9c0e3a)}
+.cfoot-lab{font:600 .68rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);margin:0 0 .5rem}
+.cfoot-nav{display:flex;flex-wrap:wrap;gap:.35rem 1.1rem;list-style:none;margin:0;padding:0}
+.cfoot-nav a{font-size:.92rem;color:var(--ink-soft,var(--soft,#484850));text-decoration:none;
+  border-bottom:1px solid var(--rule,#dbd8d2);padding-bottom:1px}
+.cfoot-nav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.cfoot-stamp{margin:1.2rem 0 0;font-size:.8rem;color:var(--faint,#63636b);font-style:italic}
+/* ---- prev / next ---- */
+.pnav{margin:2.2rem 0 0;border-top:1px solid var(--rule,#dbd8d2);padding-top:1rem;
+  display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.pnav a,.pnav span.none{text-decoration:none;color:inherit;display:block;padding:.5rem .2rem}
+.pnav a:hover{background:rgba(156,14,58,.05)}
+.pnav .dir{font:600 .66rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);display:block;margin-bottom:.3rem}
+.pnav .lab{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1rem;line-height:1.25;
+  color:var(--accent,#9c0e3a);display:block}
+.pnav a:hover .lab{text-decoration:underline;text-underline-offset:3px}
+.pnav .nx{text-align:right}
+.pnav .none{opacity:.35}
+@media(max-width:640px){
+  .smast-in{padding:.7rem 1.1rem .25rem;gap:.15rem}
+  .smast-wm{font-size:.98rem}
+  .smast-in nav{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+    -webkit-mask-image:linear-gradient(90deg,#000 86%,transparent);
+    mask-image:linear-gradient(90deg,#000 86%,transparent)}
+  .smast-in nav::-webkit-scrollbar{display:none}
+  .snav{flex-wrap:nowrap;gap:1.15rem;padding-right:2.4rem}
+  .snav a{padding:.7rem 0;white-space:nowrap}
+  .smast-rule-w{padding:0 1.1rem}
+  .cfoot-nav{gap:.5rem 1rem}
+  .cfoot-nav a{padding-bottom:.3rem}
+  .pnav{grid-template-columns:1fr;gap:.2rem}
+  .pnav .nx{text-align:left;border-top:1px solid var(--rule,#dbd8d2)}
+}
+
+  .wrap.opn{max-width:42rem}
+  .opn .ometa{font-size:.92rem;color:var(--ink-soft);margin:.3rem 0 0}
+  .opn .oget{display:flex;flex-wrap:wrap;gap:.4rem .6rem;margin:1.1rem 0 0;padding:0;list-style:none;font-size:.9rem}
+  .opn .oget a{display:inline-block;padding:.32rem .7rem;border:1px solid var(--rule);border-radius:4px;color:var(--ink);text-decoration:none;background:var(--panel)}
+  .opn .oget a:hover{border-color:var(--accent);color:var(--accent)}
+  .opn .osrc{font-size:.84rem;color:var(--faint);margin:.9rem 0 0;line-height:1.45}
+  .opn .osrc a{color:var(--link)}
+  .opn .otoc{margin:1.6rem 0 0;padding:.8rem 1rem;border:1px solid var(--rule);border-radius:4px;background:var(--panel);font-size:.95rem}
+  .opn .otoc ol{margin:0;padding:0;list-style:none}
+  .opn .otoc li{margin:.25rem 0}
+  .opn .otoc a{color:var(--ink);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.35)}
+  .opn .otoc a:hover{color:var(--accent)}
+  .opn section.op{margin-top:3rem;border-top:2px solid var(--ink);padding-top:1.1rem}
+  .opn section.op h2{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.5rem;line-height:1.2;margin:0 0 1rem;color:var(--ink)}
+  .opn section.op p{margin:0 0 .95rem;line-height:1.62;hyphens:auto;overflow-wrap:break-word}
+  .opn section.op p.byline{color:var(--ink-soft);font-style:italic}
+  .opn section.op p.sep{text-align:center;letter-spacing:.3em;color:var(--faint);margin:1.6rem 0}
+  .opn section.op h3.oh{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.12rem;text-align:center;margin:2rem 0 1rem;color:var(--ink)}
+  .opn section.op blockquote{margin:0 0 .95rem;padding:0 0 0 1.1rem;border-left:2px solid var(--rule);color:var(--ink-soft)}
+  .opn section.op blockquote p{margin-bottom:.6rem;font-size:.96em}
+  .opn .sc{font-variant-caps:small-caps;letter-spacing:.02em}
+  .opn .pg{font-size:.66em;color:var(--faint);vertical-align:.3em;margin:0 .3em 0 .1em;font-variant-numeric:tabular-nums;user-select:none;white-space:nowrap}
+  .opn .pg::before{content:'*'}
+  .opn sup.fnr{font-size:.68em;line-height:0;margin-left:.05em}
+  .opn sup.fnr a{color:var(--link);text-decoration:none;padding:0 .1em}
+  .opn aside.notes{margin-top:2rem;border-top:1px solid var(--rule);padding-top:.8rem;font-size:.88rem;color:var(--ink-soft)}
+  .opn aside.notes h3{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1rem;margin:0 0 .6rem;color:var(--ink)}
+  .opn aside.notes ol{margin:0;padding-left:1.7rem}
+  .opn aside.notes li{margin:0 0 .55rem}
+  .opn aside.notes li.sym{list-style:none;margin-left:-1.7rem}
+  .opn aside.notes li.sym .mk{margin-right:.3rem}
+  .opn aside.notes li.sym p{display:inline}
+  .opn aside.notes p{margin:0 0 .4rem;line-height:1.5}
+  .opn aside.notes a.back{color:var(--link);text-decoration:none;margin-left:.2rem}
+  .opn aside.notes li:target,.opn sup.fnr a:target,.opn .pg:target{background:rgba(156,14,58,.12);outline:.2rem solid rgba(156,14,58,.12)}
+  .opn section.op,.opn aside.notes li,.opn sup.fnr a{scroll-margin-top:1rem}
+  .opn section.op-syllabus p,.opn section.op-counsel p{font-size:.95em}
+  .opn section.op-counsel summary{cursor:pointer;font-family:'Fraunces',Georgia,serif;font-size:1.05rem;color:var(--ink-soft)}
+  .opn .osyl{font-size:.84rem;color:var(--faint);font-style:italic;margin:-.5rem 0 1rem}
+  .opn p.back{margin-top:3rem;font-size:.92rem}
+  @media print{.smast,.bcrumb,.opn .oget,.opn .otoc,.opn p.back{display:none}.opn section.op{break-before:page}}
+</style><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://supremecourt.report/"},{"@type":"ListItem","position":2,"name":"Opinions","item":"https://supremecourt.report/opinions/"},{"@type":"ListItem","position":3,"name":"Home Depot U. S. A., Inc. v. Jackson"}]}</script><meta name='otv' content='p1'><link rel='alternate' type='text/markdown' href='/opinions/2018/17-1471.md'><link rel='alternate' type='application/epub+zip' href='/opinions/2018/17-1471.epub'></head><body><a class='skip' href='#main'>Skip to content</a><header><div class='smast-in'><a class='smast-wm' href='/'>Supreme Court <em>Report</em></a><nav aria-label='Sections'><ul class='snav'><li><a href='/dashboards/'>Docket</a></li><li><a href='/conferences/'>Conferences</a></li><li><a href='/relists/'>Relists</a></li><li><a href='/applications/'>Interim</a></li><li><a href='/arguments/'>Arguments</a></li><li><a href='/justices/' aria-current='page'>Justices</a></li><li><a href='/counsel/'>Counsel</a></li><li><a href='/funnel/'>Funnel</a></li><li><a href='/methods.html'>Model</a></li><li><a href='/about.html'>About</a></li></ul></nav></div><div class='smast-rule-w'><hr class='smast-rule'></div></header><main class='wrap opn' id='main' data-dkt='17-1471'><nav class='bcrumb' aria-label='Breadcrumb'><ol><li><a href='/'>Home</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><a href='/opinions/'>Opinions</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><span aria-current='page'>Home Depot U. S. A., Inc. v. Jackson</span></li></ol></nav><p class='kicker'>No. 17-1471 · decided May 28, 2019 · 587 U. S. 435</p><h1 style='font-size:clamp(1.7rem,4.6vw,2.4rem);line-height:1.12'>Home Depot U. S. A., Inc. v. Jackson</h1><p class='ometa'>Home Depot U.S.A., Inc. v. George W. Jackson. 1 separate writing.</p><ul class='oget'><li><a href='/opinions/2018/17-1471.epub' download>EPUB</a></li><li><a href='/opinions/2018/17-1471.md' download>Markdown</a></li><li><a href='https://www.supremecourt.gov/opinions/boundvolumes/587BV.pdf#page=457' rel='noopener'>The Court’s PDF</a></li><li><a href='/cases/17-1471.html'>The docket</a></li></ul><p class='osrc'>Set from the PDF the Court published, which is the authoritative text. The small starred numbers are that PDF’s page numbers. A conversion can introduce errors; check a quotation against the <a href='https://www.supremecourt.gov/opinions/boundvolumes/587BV.pdf#page=457' rel='noopener'>original</a>.</p><nav class="otoc" aria-label="Contents"><ol>
+<li><a href="#s1">Syllabus</a></li>
+<li><a href="#s2">Counsel</a></li>
+<li><a href="#s3">Opinion of the Court</a></li>
+<li><a href="#s4">Justice Alito, dissenting</a></li>
+</ol></nav>
+<section id="s1" class="op op-syllabus"><h2>Syllabus</h2><p class='osyl'>Prepared by the Reporter of Decisions for the convenience of the reader; it is no part of the opinion of the Court.</p>
+<p>Citibank, N. A., filed a debt-collection action in state court, alleging that respondent Jackson was liable for charges incurred on a Home Depot credit card. As relevant here, Jackson responded by filing third-party class-action claims against petitioner Home Depot U. S. A., Inc., and Carolina Water Systems, Inc., alleging that they had engaged in unlawful referral sales and deceptive and unfair trade practices under state law. Home Depot filed a notice to remove the case from state to federal court, but Jackson moved to remand, arguing that controlling precedent barred removal by a third-party counterclaim defendant. The District Court granted Jackson's motion, and the Fourth Circuit affirmed, holding that neither the general removal provision, 28 U. S. C. § 1441(a), nor the removal provision in the Class Action Fairness Act of 2005, § 1453(b), allowed Home Depot to remove the class-action claims filed against it.</p>
+<p><em>Held</em>:</p>
+<p>1. Section 1441(a) does not permit removal by a third-party counterclaim defendant. Home Depot emphasizes that it is a “defendant” to a “claim,” but §1441(a) refers to “civil action[s],” not “claims.” And because the action as defined by the plaintiff 's complaint is the “civil action . . . of which the district cour[t]” must have “original jurisdiction,” “the defendant” to that action is the defendant to the complaint, not a party named in a counterclaim. This conclusion is bolstered by the use of the term “defendant” in related contexts. For one, the Federal Rules of Civil Procedure differentiate between third-party defendants, counterclaim defendants, and defendants. See, <em>e. g.</em>, Rules 14, 12(a)(1)(A)–(B). And in other removal provisions, Congress has clearly extended removal authority to parties other than the original defendant, see, <em>e. g.</em>, §§ 1452(a), 1454(a), (b), but has not done so here. Finally, if, as this Court has held, a counterclaim defendant who was the original plaintiff is not one of “the defendants,” see <em>Shamrock Oil &amp; Gas Corp.</em> v. <em>Sheets</em>, 313 U. S. 100, 106–109, there is no textual reason to reach a different conclusion for a counterclaim defendant who was not part of the initial lawsuit. This reading, Home Depot asserts, runs counter to the history and purposes of removal by preventing a party involuntarily brought into state-court proceedings from removing the claim against it to <span class="pg" id="s1-p436" title="page 436 of the original">436</span>federal court. But the limits Congress has imposed on removal show that it did not intend to allow all defendants an unqualified right to remove, see, <em>e. g.</em>, § 1441(b)(2), and Home Depot's interpretation makes little sense in the context of other removal provisions, see, <em>e. g.</em>, § 1446(b)(2)(A). Pp. 440–444.</p>
+<p>2. Section 1453(b) does not permit removal by a third-party counterclaim defendant. Home Depot contends that even if § 1441(a) does not permit removal here, § 1453(b) does because it permits removal by “<em>any</em> defendant” to a “class action.” But the two clauses in § 1453(b) that employ the term “any defendant” simply clarify that certain limitations on removal that might otherwise apply do not limit removal under that provision. And neither clause—nor anything else in the statute— alters § 1441(a)'s limitation on <em>who</em> can remove, suggesting that Congress intended to leave that limit in place. In addition, §§ 1453(b) and 1441(a) both rely on the procedures for removal in § 1446, which also employs the term “defendant.” Interpreting that term to have different meanings in different sections would render the removal provisions incoherent. Pp. 444–446.</p>
+<p>880 F. 3d 165, affirmed.</p>
+<p><span class="sc">Thomas</span>, J., delivered the opinion of the Court, in which <span class="sc">Ginsburg</span>, <span class="sc">Breyer</span>, <span class="sc">Sotomayor</span>, and <span class="sc">Kagan</span>, JJ., joined. <span class="sc">Alito</span>, J., filed a dissenting opinion, in which <span class="sc">Roberts</span>, C. J., and <span class="sc">Gorsuch</span> and <span class="sc">Kavanaugh</span>, JJ., joined, <em>post</em>, p. 446.</p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li class="sym" value="0"><span class="mk">*</span><p>Briefs of <em>amici curiae</em> urging reversal were filed for DRI–The Voice of the Defense Bar by <em>Lawrence S</em>. <em>Ebner</em>; for the Retail Litigation Center, Inc., et al. by <em>Laura K</em>. <em>McNally</em>, <em>Nina Ruvinsky</em>, <em>Deborah White</em>, and <em>Daryl Joseffer</em>; and for the Washington Legal Foundation et al. by <em>Richard A</em>. <em>Samp</em> and <em>Cory L</em>. <em>Andrews</em>.</p><p>Briefs of <em>amici curiae</em> urging affirmance were filed for the American Association for Justice by <em>Gerson H</em>. <em>Smoger</em>, <em>Elise Sanguinetti</em>, and <em>Jeffrey White</em>; and for the National Consumer Law Center by <em>Jason L</em>. <em>Lichtman</em>.</p></li>
+</ol></aside></section>
+<section id="s2" class="op op-counsel"><details><summary>Counsel</summary><p><em>William P</em>. <em>Barnette</em> argued the cause for petitioner. On the briefs were <em>Sarah E</em>. <em>Harrington</em>, <em>Thomas C</em>. <em>Goldstein</em>, <em>Erica Oleszczuk Evans,</em> and <em>Kacy D. Goebel.</em></p>
+<p><em>F</em>. <em>Paul Bland</em> argued the cause for respondent. With him on the brief were <em>Karla Gilbride</em>, <em>Leah M</em>. <em>Nicholls</em>, <em>Jennifer Bennett</em>, <em>Brian Warwick</em>, <em>Janet Varnell</em>, <em>David Lietz</em>, and <em>Daniel K</em>. <em>Bryson</em>.<em>*</em></p></details></section>
+<section id="s3" class="op op-court"><h2>Opinion of the Court</h2>
+<p class="byline">Justice Thomas delivered the opinion of the Court.</p>
+<p>The general removal statute, 28 U. S. C. § 1441(a), provides that “any civil action” over which a federal court would have original jurisdiction may be removed to federal court by “the defendant or the defendants.” The Class Action Fairness Act of 2005 (CAFA) provides that “[a] class action” may be removed to federal court by “any defendant without the consent of all defendants.” 28 U. S. C. § 1453(b). In this case, we address whether either provision allows a third-party counterclaim defendant—that is, a party brought into a lawsuit through a counterclaim filed by the original defendant— to remove the counterclaim filed against it. Because in the context of these removal provisions the term “defendant” refers only to the party sued by the original plaintiff, we conclude that neither provision allows such a third party to remove.</p>
+<h3 class="oh">I</h3>
+<h3 class="oh">A</h3>
+<p>We have often explained that “[f]ederal courts are courts of limited jurisdiction.” <em>Kokkonen</em> v. <em>Guardian Life Ins. Co. of America</em>, 511 U. S. 375, 377 (1994). Article III, § 2, of the Constitution delineates “[t]he character of the controversies over which federal judicial authority may extend.” <em>Insurance Corp. of Ireland</em> v. <em>Compagnie des Bauxites de Guinee</em>, 456 U. S. 694, 701 (1982). And lower federal-court jurisdiction “is further limited to those subjects encompassed within a statutory grant of jurisdiction.” <em>Ibid.</em> Accordingly, “the district courts may not exercise jurisdiction absent a statutory basis.” <em>Exxon Mobil Corp.</em> v. <em>Allapattah Services</em>, <em>Inc.</em>, 545 U. S. 546, 552 (2005).</p>
+<p>In 28 U. S. C. §§ 1331 and 1332(a), Congress granted federal courts jurisdiction over two general types of cases: cases that “aris[e] under” federal law, § 1331, and cases in which the amount in controversy exceeds $75,000 and there is diversity of citizenship among the parties, § 1332(a). These jurisdictional grants are known as “federal-question jurisdiction”<span class="pg" id="s3-p438" title="page 438 of the original">438</span> and “diversity jurisdiction,” respectively. Each serves a distinct purpose: Federal-question jurisdiction affords parties a federal forum in which “to vindicate federal rights,” whereas diversity jurisdiction provides “a neutral forum” for parties from different States. <em>Exxon Mobil Corp.</em>, <em>supra</em>, at 552.</p>
+<p>Congress has modified these general grants of jurisdiction to provide federal courts with jurisdiction in certain other types of cases. As relevant here, CAFA provides district courts with jurisdiction over “class action[s]” in which the matter in controversy exceeds $5,000,000 and at least one class member is a citizen of a State different from the defendant. § 1332(d)(2)(A). A “class action” is “any civil action filed under Rule 23 of the Federal Rules of Civil Procedure or similar State statute or rule of judicial procedure.” § 1332(d)(1)(B).</p>
+<p>In addition to granting federal courts jurisdiction over certain types of cases, Congress has enacted provisions that permit parties to remove cases originally filed in state court to federal court. Section 1441(a), the general removal statute, permits “the defendant or the defendants” in a state-court action over which the federal courts would have original jurisdiction to remove that action to federal court. To remove under this provision, a party must meet the requirements for removal detailed in other provisions. For one, a defendant cannot remove unilaterally. Instead, “all defendants who have been properly joined and served must join in or consent to the removal of the action.” § 1446(b)(2)(A). Moreover, when federal jurisdiction is based on diversity jurisdiction, the case generally must be removed within “1 year after commencement of the action,” § 1446(c)(1), and the case may not be removed if any defendant is “a citizen of the State in which such action is brought,” § 1441(b)(2).</p>
+<p>CAFA also includes a removal provision specific to class actions. That provision permits the removal of a “class action” from state court to federal court “by any defendant <span class="pg" id="s3-p439" title="page 439 of the original">439</span>without the consent of all defendants” and “without regard to whether any defendant is a citizen of the State in which the action is brought.” § 1453(b).</p>
+<p>At issue here is whether the term “defendant” in either § 1441(a) or § 1453(b) encompasses a party brought into a lawsuit to defend against a counterclaim filed by the original defendant or whether the provisions limit removal authority to the original defendant.</p>
+<h3 class="oh">B</h3>
+<p>In June 2016, Citibank, N. A., filed a debt-collection action against respondent George Jackson in North Carolina state court. Citibank alleged that Jackson was liable for charges he incurred on a Home Depot credit card. In August 2016, Jackson answered and filed his own claims: an individual counterclaim against Citibank and third-party class-action claims against Home Depot U. S. A., Inc., and Carolina Water Systems, Inc.</p>
+<p>Jackson's claims arose out of an alleged scheme between Home Depot and Carolina Water Systems to induce homeowners to buy water treatment systems at inflated prices. The crux of the claims was that Home Depot and Carolina Water Systems engaged in unlawful referral sales and deceptive and unfair trade practices in violation of North Carolina law, Gen. Stat. Ann. §§ 25A–37, 75–1.1 (2013). Jackson also asserted that Citibank was jointly and severally liable for the conduct of Home Depot and Carolina Water Systems and that his obligations under the sale were null and void.</p>
+<p>In September 2016, Citibank dismissed its claims against Jackson. One month later, Home Depot filed a notice of removal, citing 28 U. S. C. §§ 1332, 1441, 1446, and 1453. Jackson moved to remand, arguing that precedent barred removal by a “third-party/additional counter defendant like Home Depot.” App. 51–52. Shortly thereafter, Jackson amended his third-party class-action claims to remove any reference to Citibank.</p>
+<p><span class="pg" id="s3-p440" title="page 440 of the original">440</span>The District Court granted Jackson's motion to remand, and the Court of Appeals for the Fourth Circuit granted Home Depot permission to appeal and affirmed. 880 F. 3d 165, 167 (2018); see 28 U. S. C. § 1453(c)(1). Relying on Circuit precedent, it held that neither the general removal provision, § 1441(a), nor CAFA's removal provision, § 1453(b), allowed Home Depot to remove the class-action claims filed against it. 880 F. 3d, at 167–171.</p>
+<p>We granted Home Depot's petition for a writ of certiorari to determine whether a third party named in a class-action counterclaim brought by the original defendant can remove if the claim otherwise satisfies the jurisdictional requirements of CAFA. 585 U. S. 1058 (2018). We also directed the parties to address whether the holding in <em>Shamrock Oil &amp; Gas Corp.</em> v. <em>Sheets</em>, 313 U. S. 100 (1941)—that an original plaintiff may not remove a counterclaim against it— should extend to third-party counterclaim defendants.<sup class="fnr"><a id="s3-r1" href="#s3-n1">1</a></sup>585 U. S. 1058<em>.</em></p>
+<h3 class="oh">II</h3>
+<h3 class="oh">A</h3>
+<p>We first consider whether 28 U. S. C. § 1441(a) permits a third-party counterclaim defendant to remove a claim filed against it.<sup class="fnr"><a id="s3-r2" href="#s3-n2">2</a></sup>Home Depot contends that because a third-party counterclaim defendant is a “defendant” to the claim against it, it may remove pursuant to § 1441(a). The dissent agrees, emphasizing that “a `defendant' is a `person sued in a civil proceeding.' ” <em>Post</em>, at 454 (opinion of <span class="sc">Alito</span>, J.). This reading of the statute is plausible, but we do not think it is <span class="pg" id="s3-p441" title="page 441 of the original">441</span>the best one. Of course the term “defendant,” standing alone, is broad. But the phrase “the defendant or the defendants” “cannot be construed in a vacuum.” <em>Davis</em> v. <em>Michigan Dept. of Treasury</em>, 489 U. S. 803, 809 (1989). “It is a fundamental canon of statutory construction that the words of a statute must be read in their context and with a view to their place in the overall statutory scheme.” <em>Ibid.</em>; see also A. Scalia &amp; B. Garner, Reading Law 167 (2012) (“The text must be construed as a whole”); accord, <em>Bailey</em> v. <em>United States</em>, 516 U. S. 137, 145–146 (1995). Considering the phrase “the defendant or the defendants” in light of the structure of the statute and our precedent, we conclude that § 1441(a) does not permit removal by any counterclaim defendant, including parties brought into the lawsuit for the first time by the counterclaim.<sup class="fnr"><a id="s3-r3" href="#s3-n3">3</a></sup></p>
+<p>Home Depot emphasizes that it is a “defendant” to a “claim,” but the statute refers to “civil action[s],” not “claims.” This Court has long held that a district court, when determining whether it has original jurisdiction over a civil action, should evaluate whether that action could have been brought originally in federal court. See <em>Mexican Nat. R. Co.</em> v. <em>Davidson</em>, 157 U. S. 201, 208 (1895); <em>Tennessee</em> v. <em>Union &amp; Planters' Bank</em>, 152 U. S. 454, 461 (1894). This requires a district court to evaluate whether the plaintiff could have filed its operative complaint in federal court, either because it raises claims arising under federal law or because it falls within the court's diversity jurisdiction. <em>E. g.</em>, <em>Franchise Tax Bd. of Cal.</em> v. <em>Construction Laborers Vacation Trust for Southern Cal.</em>, 463 U. S. 1, 10 (1983); cf. <em>Holmes Group</em>, <em>Inc.</em> v. <em>Vornado Air Circulation Systems</em>, <em>Inc.</em>, 535 U. S. 826, 831 (2002) (“[A] counterclaim . . . cannot serve as the basis for `arising under' jurisdiction”); <span class="pg" id="s3-p442" title="page 442 of the original">442</span>§ 1446(c)(2) (deeming the “sum demanded in good faith in the initial pleading . . . the amount in controversy”). Section 1441(a) thus does not permit removal based on counterclaims at all, as a counterclaim is irrelevant to whether the district court had “original jurisdiction” over the civil action. And because the “civil action . . . of which the district cour[t]” must have “original jurisdiction” is the action as defined by the plaintiff 's complaint, “the defendant” to that action is the defendant to that complaint, not a party named in a counterclaim. It is this statutory context, not “the policy goals behind the [well-pleaded complaint] rule,” <em>post,</em> at 468, that underlies our interpretation of the phrase “the defendant or the defendants.”</p>
+<p>The use of the term “defendant” in related contexts bolsters our determination that Congress did not intend for the phrase “the defendant or the defendants” in §1441(a) to include third-party counterclaim defendants. For one, the Federal Rules of Civil Procedure differentiate between third-party defendants, counterclaim defendants, and defendants. Rule 14, which governs “Third-Party Practice,” distinguishes between “the plaintiff,” a “defendant” who becomes the “third-party plaintiff,” and “the third-party defendant” sued by the original defendant. Rule 12 likewise distinguishes between defendants and counterclaim defendants by separately specifying when “[a] defendant must serve an answer” and when “[a] party must serve an answer to a counterclaim.” Fed. Rules Civ. Proc. 12(a)(1)(A)–(B).</p>
+<p>Moreover, in other removal provisions, Congress has clearly extended the reach of the statute to include parties other than the original defendant. For instance, § 1452(a) permits “[a] party” in a civil action to “remove any claim or cause of action” over which a federal court would have bankruptcy jurisdiction. And §§ 1454(a) and (b) allow “any party” to remove “[a] civil action in which any party asserts a claim for relief arising under any Act of Congress relating to patents, plant variety protection, or copyrights.” Section <span class="pg" id="s3-p443" title="page 443 of the original">443</span>1441(a), by contrast, limits removal to “the defendant or the defendants” in a “civil action” over which the district courts have original jurisdiction.</p>
+<p>Finally, our decision in <em>Shamrock Oil</em> suggests that third-party counterclaim defendants are not “the defendant or the defendants” who can remove under § 1441(a). <em>Shamrock Oil</em> held that a counterclaim defendant who was also the original plaintiff could not remove under § 1441(a)'s predecessor statute. 313 U. S., at 106–109. We agree with Home Depot that <em>Shamrock Oil</em> does not specifically address whether a party who was not the original plaintiff can remove a counterclaim filed against it. And we acknowledge, as Home Depot points out, that a third-party counterclaim defendant, unlike the original plaintiff, has no role in selecting the forum for the suit. But the text of §1441(a) simply refers to “the defendant or the defendants” in the civil action. If a counterclaim defendant who was the original plaintiff is not one of “the defendants,” we see no textual reason to reach a different conclusion for a counterclaim defendant who was not originally part of the lawsuit. In that regard, <em>Shamrock Oil</em> did not view the counterclaim as a separate action with a new plaintiff and a new defendant. Instead, the Court highlighted that the original plaintiff was still “the plaintiff.” <em>Id.</em>, at 108 (“We can find no basis for saying that Congress, by omitting from the present statute all reference to `plaintiffs,' intended to save a right of removal to some plaintiffs and not to others”). Similarly here, the filing of counterclaims that included class-action allegations against a third party did not create a new “civil action” with a new “plaintiff” and a new “defendant.”</p>
+<p>Home Depot asserts that reading “the defendant” in § 1441(a) to exclude third-party counterclaim defendants runs counter to the history and purposes of removal by preventing a party involuntarily brought into state-court proceedings from removing the claim against it. But the limits Congress has imposed on removal show that it did not intend <span class="pg" id="s3-p444" title="page 444 of the original">444</span>to allow all defendants an unqualified right to remove. <em>E. g.</em>, § 1441(b)(2) (preventing removal based on diversity jurisdiction where any defendant is a citizen of the State in which the action is brought). Moreover, Home Depot's interpretation makes little sense in the context of other removal provisions. For instance, when removal is based on § 1441(a), all defendants must consent to removal. See § 1446(b)(2)(A). Under Home Depot's interpretation, “defendants” in § 1446(b)(2)(A) could be read to require consent from the third-party counterclaim defendant, the original plaintiff (as a counterclaim defendant), <em>and</em> the original defendant asserting claims against them. Further, Home Depot's interpretation would require courts to determine when the original defendant is also a “plaintiff” under other statutory provisions. <em>E. g.</em>, § 1446(c)(1). Instead of venturing down this path, we hold that a third-party counterclaim defendant is not a “defendant” who can remove under § 1441(a).</p>
+<h3 class="oh">B</h3>
+<p>We next consider whether CAFA's removal provision, § 1453(b), permits a third-party counterclaim defendant to remove.<sup class="fnr"><a id="s3-r4" href="#s3-n4">4</a></sup>Home Depot contends that even if it could not remove under § 1441(a), it could remove under § 1453(b) because that statute is worded differently. It argues that although §1441(a) permits removal only by “the defendant or the defendants” in a “civil action,” § 1453(b) permits removal by “<em>any</em> defendant” to a “class action.” (Emphasis added.) Jackson responds that this argument ignores the context of § 1453(b), which he contends makes clear that Congress intended only to alter certain restrictions on removal, <span class="pg" id="s3-p445" title="page 445 of the original">445</span>not expand the class of parties who can remove a class action. Although this is a closer question, we agree with Jackson.</p>
+<p>The two clauses in § 1453(b) that employ the term “any defendant” simply clarify that certain limitations on removal that might otherwise apply do not limit removal under § 1453(b). Section 1453(b) first states that “[a] class action may be removed . . . without regard to whether any defendant is a citizen of the State in which the action is brought.” There is no indication that this language does anything more than alter the general rule that a civil action may not be removed on the basis of diversity jurisdiction “if any of the . . . defendants is a citizen of the State in which such action is brought.” § 1441(b)(2). Section 1453(b) then states that “[a] class action . . . may be removed by any defendant without the consent of all defendants.” This language simply amends the rule that “all defendants who have been properly joined and served must join in or consent to the removal of the action.” § 1446(b)(2)(A). Rather than indicate that a counterclaim defendant can remove, “here the word `any' is being employed in connection with the word `all' later in the sentence—`by <em>any</em> . . . without . . . the consent of <em>all</em>.' ” <em>Westwood Apex</em> v. <em>Contreras</em>, 644 F. 3d 799, 804 (CA9 2011); see <em>Palisades Collections LLC</em> v. <em>Shorts</em>, 552 F. 3d 327, 335–336 (CA4 2008). Neither clause—nor anything else in the statute—alters § 1441(a)'s limitation on <em>who</em> can remove, which suggests that Congress intended to leave that limit in place. See <em>supra</em>, at 441–443.</p>
+<p>Thus, although the term “any” ordinarily carries an “ `expansive meaning,' ” <em>post</em>, at 455, the context here demonstrates that Congress did not expand the types of parties eligible to remove a class action under § 1453(b) beyond § 1441(a)'s limits. If anything, that the language of § 1453(b) mirrors the language in the statutory provisions it is amending suggests that the term “defendant” is being used consistently across all provisions. Cf. <em>Mississippi ex rel. Hood</em> v. <em>AU Optronics Corp.</em>, 571 U. S. 161, 169–170 (2014) (interpreting<span class="pg" id="s3-p446" title="page 446 of the original">446</span> CAFA consistently with Rule 20 where Congress used terms in a like manner in both provisions).</p>
+<p>To the extent Home Depot is arguing that the term “defendant” has a different meaning in § 1453(b) than it does in §1441(a), we reject its interpretation. Because §§1453(b) and 1441(a) both rely on the procedures for removal in § 1446, which also employs the term “defendant,” interpreting “defendant” to have different meanings in different sections would render the removal provisions incoherent. See <em>First Bank</em> v. <em>DJL Properties</em>, <em>LLC</em>, 598 F. 3d 915, 917 (CA7 2010) (Easterbrook, C. J.). Interpreting the removal provisions together, we determine that § 1453(b), like § 1441(a), does not permit a third-party counterclaim defendant to remove.</p>
+<p>Finally, the dissent argues that our interpretation allows defendants to use the statute as a “tactic” to prevent removal, <em>post,</em> at 453, but that result is a consequence of the statute Congress wrote. Of course, if Congress shares the dissent's disapproval of certain litigation “tactics,” it certainly has the authority to amend the statute. But we do not.</p>
+<p class="sep">* * *</p>
+<p>Because neither § 1441(a) nor § 1453(b) permits removal by a third-party counterclaim defendant, Home Depot could not remove the class-action claim filed against it. Accordingly, we affirm the judgment of the Fourth Circuit.</p>
+<p><em>It is so ordered.</em></p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li id="s3-n1" value="1"><p>In this opinion, we use the term “third-party counterclaim defendant” to refer to a party first brought into the case as an additional defendant to a counterclaim asserted against the original plaintiff. <a class="back" href="#s3-r1" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n2" value="2"><p>Section 1441(a) provides that “any civil action brought in a State court of which the district courts of the United States have original jurisdiction, may be removed by the defendant or the defendants, to the district court of the United States for the district and division embracing the place where such action is pending.” <a class="back" href="#s3-r2" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n3" value="3"><p>Even the dissent declines to rely on the dictionary definition of “defendant” alone, as following that approach to its logical conclusion would require overruling <em>Shamrock Oil &amp; Gas Corp.</em> v. <em>Sheets</em>, 313 U. S. 100 (1941). See <em>post</em>, at 455, n. 2. <a class="back" href="#s3-r3" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n4" value="4"><p>Section 1453(b) provides that “[a] class action may be removed to a district court of the United States in accordance with section 1446 (except that the 1-year limitation under section 1446(c)(1) shall not apply), without regard to whether any defendant is a citizen of the State in which the action is brought, except that such action may be removed by any defendant without the consent of all defendants.” <a class="back" href="#s3-r4" aria-label="Back to the text">↩</a></p></li>
+</ol></aside></section>
+<section id="s4" class="op op-dissenting"><h2>Justice Alito, dissenting</h2>
+<p class="byline">Justice Alito, with whom The Chief Justice, Justice Gorsuch, and Justice Kavanaugh join, dissenting.</p>
+<p>The rule of law requires neutral forums for resolving disputes. Courts are designed to provide just that. But our legal system takes seriously the risk that for certain cases, some neutral forums might be more neutral than others. Or it might appear that way, which is almost as deleterious. For example, a party bringing suit in its own State's courts <span class="pg" id="s4-p447" title="page 447 of the original">447</span>might (seem to) enjoy, so to speak, a home court advantage against outsiders. Thus, from 1789 Congress has opened federal courts to certain disputes between citizens of different States. Plaintiffs, of course, can avail themselves of the federal option in such cases by simply choosing to <em>file</em> a case in federal court. But since their defendants cannot, the law has always given defendants the option to <em>remove</em> (transfer) cases to federal court. <em>Shamrock Oil &amp; Gas Corp.</em> v. <em>Sheets</em>, 313 U. S. 100, 105 (1941). The general removal statute, which authorizes removal by “the defendant or the defendants,” thus ensures that defendants get an equal chance to choose a federal forum. 28 U. S. C. § 1441(a).</p>
+<p>But defendants cannot remove a case unless it meets certain conditions. Some of those conditions have long made important (and often costly) consumer class actions virtually impossible to remove. Congress, concerned that state courts were biased against defendants to such actions, passed a law facilitating their removal. The Class Action Fairness Act of 2005 (CAFA) allows removal of certain class actions “by any defendant.” 28 U. S. C. § 1453(b). Our job is not to judge whether Congress's fears about state-court bias in class actions were warranted or indeed whether CAFA should allay them. We are to determine the scope of the term “defendant” under CAFA as well as the general removal provision, § 1441.</p>
+<p>All agree that if one party sues another, the latter—the original defendant—is a “defendant” under both removal laws. But suppose the original defendant then countersues, bringing claims against both the plaintiff and a new party. Is this new defendant—the “third-party defendant”—also a “defendant” under CAFA and § 1441? There are, of course, some differences between original and third-party defendants. One is brought into a case by the first major filing, the other by the second. The one filing is called a complaint, the other a countercomplaint.</p>
+<p><span class="pg" id="s4-p448" title="page 448 of the original">448</span>But both kinds of parties are defendants to legal claims. Neither chose to be in state court. Both might face bias there, and with it the potential for crippling unjust losses. Yet today's Court holds that third-party defendants are not “defendants.” It holds that Congress left them unprotected under CAFA and § 1441. This reads an irrational distinction into both removal laws and flouts their plain meaning, a meaning that context confirms and today's majority simply ignores.</p>
+<h3 class="oh">I</h3>
+<h3 class="oh">A</h3>
+<p>To appreciate what Congress sought to achieve with CAFA, consider what Congress failed to accomplish a decade earlier with the Private Securities Litigation Reform Act of 1995 (Reform Act), 109 Stat. 737 (codified at 15 U. S. C. §§ 77z–1 and 78u–4). The Reform Act was “targeted at perceived abuses of the class-action vehicle in litigation involving nationally traded securities,” including spurious lawsuits, “vexatious discovery requests, and `manipulation by class action lawyers of the clients whom they purportedly represent.' ” <em>Merrill Lynch, Pierce, Fenner &amp; Smith Inc.</em> v. <em>Dabit</em>, 547 U. S. 71, 81 (2006) (quoting H. R. Conf. Rep. No. 104–369, p. 31 (1995)). As a result of these abuses, Congress found, companies were often forced to enter “extortionate settlements” in frivolous cases, just to avoid the litigation costs—a burden with scant benefits to anyone. 547 U. S., at 81. To curb these inefficiencies, the Reform Act “limit[ed] recoverable damages and attorney's fees, . . . impose[d] new restrictions on the selection of (and compensation awarded to) lead plaintiffs, mandate[d] imposition of sanctions for frivolous litigation, and authorize[d] a stay of discovery pending resolution of any motion to dismiss.” <em>Ibid.</em></p>
+<p>But “at least some members of the plaintiffs' bar” found a workaround: They avoided the Reform Act's limits on federal litigation by “avoid[ing] the federal forum altogether” and <span class="pg" id="s4-p449" title="page 449 of the original">449</span>heading to state court. <em>Id.,</em> at 82. Once there, they were able to keep defendants from taking them back to federal court (under the rules then in force) simply by naming an in-state defendant. See § 1441(b)(2). And the change in plaintiffs' strategy was marked: While state-court litigation of such class actions had been “rare” before the Reform Act's passage, <em>id</em>., at 82, within a decade state courts were handling most such cases, see S. Rep. No. 109–14, p. 4 (2005).</p>
+<p>Some in Congress feared that plaintiffs' lawyers were able to “ `game' the procedural rules and keep nationwide or multi-state class actions in state courts whose judges have reputations for readily certifying classes and approving settlements without regard to class member interests.” <em>Ibid.</em> The result, in Congress's judgment, was that “State and local courts” were keeping issues of “national importance” out of federal court, “acting in ways that demonstrate[d] bias against out-of-State defendants” and imposing burdens that hindered “innovation” and drove up “consumer prices.” §§ 2(a)(4), (b)(3), 119 Stat. 5.</p>
+<p>So Congress again took action. But rather than get at the problem by imposing limits on federal litigation that plaintiffs could sidestep by taking defendants to state court, Congress sought to make it easier for defendants to remove to federal court: thus CAFA.</p>
+<h3 class="oh">B</h3>
+<p>To grasp how CAFA changed the procedural landscape for class actions, it helps to review the rules that govern removal in the mine run of cases, and that once limited removal of all class actions as well. Those general rules appear in 28 U. S. C. §§ 1441 and 1446.</p>
+<p>Under § 1441(a), “any civil action brought in a State court . . . may be removed by the defendant or the defendants” as long as federal district courts would have “original jurisdiction” over the case. Such jurisdiction comes in two varieties. Federal courts have “federal question jurisdiction” if the case “aris[es] under” federal law—for instance, if the <span class="pg" id="s4-p450" title="page 450 of the original">450</span>plaintiff alleges violations of a federal statute. § 1331. But even when the plaintiff brings only state-law claims—alleging a breach of a contract, for example—federal courts have “diversity jurisdiction” if the amount in controversy exceeds $75,000 and there is complete diversity of parties, meaning that no plaintiff is a citizen of the same State as any defendant. § 1332(a); <em>Lincoln Property Co.</em> v. <em>Roche</em>, 546 U. S. 81, 89 (2005). While § 1441 normally allows removal of either kind of case, it bars removal in diversity cases brought in the home State of any defendant. § 1441(b)(2).</p>
+<p>Another subsection of § 1441 addresses removal of a subset of claims (not an entire action) when a case involves some claims that would be removable because they arise under federal law and others that would not (because they involve state-law claims falling outside both the original <em>and</em> the supplemental jurisdiction of federal courts<sup class="fnr"><a id="s4-r1" href="#s4-n1">1</a></sup>). In these hybrid cases, § 1441(c)(2) allows the federal claims to be removed while the state-law claims are severed and sent back to state court.</p>
+<p>The procedural rules for removing an action or claim from state to federal court under § 1441 are set forth in § 1446. Section 1446(b)(2)(A) requires the consent of all the defendants before an entire case may be removed under § 1441(a). (If a defendant instead invokes § 1441(c)(2), to remove a subset of claims, consent is required only from defendants to the claims that are removed.) And if diversity jurisdiction arises later in litigation—which may occur if, for instance, dismissal of an original defendant creates complete diversity—§ 1446(c)(1) allows removal only within one year of the start of the action in state court.</p>
+<p>To this general removal regime, CAFA made several changes specific to class actions. Instead of allowing removal<span class="pg" id="s4-p451" title="page 451 of the original">451</span> by “the defendant or the defendants,” see §1441(a), § 5 of CAFA allowed removal by “any defendant” to certain class actions, § 1453(b), even when the other defendants do not consent, the case was filed in a defendant's home forum, or the case has been pending in state court for more than a year. See 119 Stat. 12–13.</p>
+<p>Of course, these changes would be of no use to a class-action defendant hoping to remove if there were no federal jurisdiction over its case. So CAFA also lowered the barriers to diversity jurisdiction. While complete diversity of parties is normally required, CAFA eliminates that rule for class actions involving at least 100 members and more than $5 million in controversy. In such cases, CAFA vests district courts with diversity jurisdiction anytime there is minimal diversity—which occurs when at least one plaintiff and defendant reside in different States. See 28 U. S. C. §§ 1332(d)(2), (d)(5)(B).</p>
+<p>We were asked to decide whether these loosened requirements are best read to allow removal by third-party defendants like Home Depot. The answer is clear when one considers Home Depot's situation against CAFA's language and history.</p>
+<h3 class="oh">C</h3>
+<p>This case began as a garden-variety debt-collection action: Citibank sued respondent George Jackson in state court seeking payment on his purchase from petitioner Home Depot of a product made by Carolina Water Systems (CWS). Jackson came back with a counterclaim class action that roped in Home Depot and CWS as codefendants. (Until then, neither Home Depot nor CWS had been a party.) Citibank then dismissed its claim against Jackson, and Jackson amended his complaint to remove any mention of Citibank. So now all that remains in this case is Jackson's class-action counterclaims against Home Depot and CWS.</p>
+<p>Invoking CAFA, Home Depot filed a notice of removal; it also moved to realign the parties to make Jackson the plaintiff,<span class="pg" id="s4-p452" title="page 452 of the original">452</span> and CWS, Home Depot, and Citibank the defendants ( just before Citibank had dropped out entirely). The District Court denied the motion and remanded the case to state court, holding that Home Depot cannot remove under CAFA because CAFA's “any defendant” excludes defendants to <em>counterclaim</em> class actions. The Court of Appeals affirmed, citing Circuit precedent that hung on this Court's decision in <em>Shamrock Oil &amp; Gas Corp.</em> v. <em>Sheets</em>, 313 U. S. 100 (1941). We granted certiorari to decide whether the lower court's reading of <em>Shamrock Oil</em> is correct and whether CAFA allows third-party defendants like Home Depot to remove an action to federal court.</p>
+<p>All agree that the one dispute that now constitutes this lawsuit—Jackson's class action against Home Depot and CWS—would have been removable under CAFA had it been present from the start of a case. Is it ineligible for removal just because it was not contained in the filing that launched this lawsuit?</p>
+<p>Several lower courts think so. In holding as much, they have created what Judge Niemeyer called a “loophole” that only this Court “can now rectify.” <em>Palisades Collections LLC</em> v. <em>Shorts</em>, 552 F. 3d 327, 345 (CA4 2008) (dissenting from denial of rehearing en banc). The potential for that “loophole” was first spotted by a civil procedure scholar writing shortly after CAFA took effect. See Tidmarsh, Finding Room for State Class Actions in a Post-CAFA World: The Case of the Counterclaim Class Action, 35 W. St. U. L. Rev. 193, 198 (2007). The article outlined a “tactic” for plaintiffs to employ if they wanted to thwart a defendant's attempt to remove a class action to federal court under CAFA: They could raise their class-action claim as a <em>counterclaim</em> and “hope that CAFA does not authorize removal.” <em>Ibid.</em> In a single stroke, the article observed, a defendant's routine attempt to collect a debt from a single consumer could be leveraged into an unremovable attack on the defendant's “credit and lending policies” brought on behalf of a whole <span class="pg" id="s4-p453" title="page 453 of the original">453</span>class of plaintiffs—all in the very state courts that CAFA was designed to help class-action defendants avoid. <em>Id.</em>, at 199.</p>
+<p>The article is right to call this approach a tactic; it subverts CAFA's evident aims. I cannot imagine why a Congress eager to remedy alleged state-court abuses in class actions would have chosen to discriminate between two kinds of defendants, neither of whom had ever chosen the allegedly abusive state forum, all based on whether the claim against them had initiated the lawsuit or arisen just one filing later (in the countercomplaint). Of course, what finally matters is the text, and in reading texts we must remember that “no legislation pursues its purposes at all costs,” <em>Rodriguez</em> v. <em>United States</em>, 480 U. S. 522, 525–526 (1987) (<em>per curiam</em>); Congress must often strike a balance between competing purposes. But a good interpreter also reads a text charitably, not lightly ascribing irrationality to its author; and I can think of no rational purpose for this limit on which defendants may remove. Even respondent does not try to defend its rationality, suggesting instead that it simply reflects a legislative compromise. Yet there is no evidence that anyone thought of this potential loophole before CAFA was enacted, and it is hard to believe that any of CAFA's would-be opponents agreed to vote for it in exchange for this way of keeping some cases in state court. The question is whether the uncharitable reading here is inescapable—whether, unwittingly or despite itself, Congress adopted text that compels this bizarre result.</p>
+<h3 class="oh">II</h3>
+<p>There are different schools of thought about statutory interpretation, but I would have thought this much was common ground: If it is hard to imagine any purpose served by a proposed interpretation of CAFA, if that reading appears nowhere in the statutory or legislative history or our cases on CAFA, if it makes no sense as a policy matter, it had <span class="pg" id="s4-p454" title="page 454 of the original">454</span>better purport to reflect the best reading of the text, or any decision embracing it is groundless. Indeed, far from relegating the text to an afterthought, our shared approach to statutory interpretation, “as we always say, <em>begins</em> with the text.” <em>Ross</em> v. <em>Blake</em>, 578 U. S. 632, 638 (2016) (emphasis added). After all, as we have unanimously declared, a “plain and unambiguous” text “must” be enforced “according to its terms.” <em>Hardt</em> v. <em>Reliance Standard Life Ins. Co.</em>, 560 U. S. 242, 251 (2010). And yet, though the text and key term here is “any defendant,” 28 U. S. C. § 1453(b), the majority has not one jot or tittle of analysis on the plain meaning of “defendant.”</p>
+<p>Any such analysis would have compelled a different result. According to legal as well as standard dictionary definitions available in 2005, a “defendant” is a “person sued in a civil proceeding,” Black's Law Dictionary 450 (8th ed. 2004), and the term is “opposed to” (contrasted with) the word “<em>plaintiff</em>,” Webster's Third New International Dictionary 591 (2002) (Webster). See also 4 Oxford English Dictionary 377 (2d ed. 1989) (OED) (“[a] person sued in a court of law; the party in a suit who defends; opposed to <em>plaintiff”</em>). What we have before us is a civil proceeding in which Home Depot is not a plaintiff and is being sued. So Home Depot is a defendant, as that term is ordinarily understood.</p>
+<p>The fact that Home Depot is considered a “<em>third-party</em> defendant” changes nothing here. See N. C. Rule Civ. Proc. 14(a) (2018). Adjectives like “third-party” “modify nouns— they pick out a subset of a category that possesses a certain quality.” <em>Weyerhaeuser Co.</em> v. <em>United States Fish and Wildlife Serv.</em>, 586 U. S. 9, 19 (2018). They do not “alter the meaning of the word” that they modify. <em>Rimini Street, Inc.</em> v. <em>Oracle USA, Inc.</em>, 586 U. S. 334, 341 (2019). And so, just as a “ `critical habitat' ” is a habitat, <em>Weyerhaeuser Co.</em>, <em>supra</em>, at 19, and “ `full costs' ” are costs, <em>Rimini Street, Inc.</em>, <em>supra</em>, at 341–342, zebra finches are finches and third-party defendants are, well, defendants.</p>
+<p><span class="pg" id="s4-p455" title="page 455 of the original">455</span>If further confirmation were needed, it could be found in CAFA's use of the word “any” to modify “defendant.” Unlike the general removal provision, which allows removal by “the defendant or the defendants,” § 1441(a), CAFA's authorization extends to “<em>any</em> defendant.” § 1453(b) (emphasis added). As we have emphasized repeatedly, “ `the word “any” has an expansive meaning, that is, “one or some indiscriminately of whatever kind.” ' ” <em>Ali</em> v. <em>Federal Bureau of Prisons</em>, 552 U. S. 214, 219 (2008) (quoting <em>United States</em> v. <em>Gonzales</em>, 520 U. S. 1, 5 (1997), in turn quoting Webster's Third New International Dictionary 97 (1976)). In case after case, we have given effect to this expansive sense of “any.” See <em>Small</em> v. <em>United States</em>, 544 U. S. 385, 396 (2005) (T<span class="sc">homas</span>, J., dissenting) (collecting cases). So too here: Contrary to the Court's analysis, Congress's use of “any” covers defendants of “whatever kind,” <em>Ali</em>, <em>supra</em>, at 220, including third-party defendants like petitioner. “In concluding that `any' means not what it says, but rather `a subset of any,' the Court distorts the plain meaning of the statute and departs from established principles of statutory construction.” <em>Small</em>, <em>supra</em>, at 395 (T<span class="sc">homas</span>, J., dissenting).</p>
+<p>For these reasons, unless third-party defendants like Home Depot differ in some way that is relevant to removal (as a matter of text, precedent, or common sense),<sup class="fnr"><a id="s4-r2" href="#s4-n2">2</a></sup>they fall within CAFA's coverage of “any defendant.” § 1453(b).</p>
+<h3 class="oh"><span class="pg" id="s4-p456" title="page 456 of the original">456</span>III</h3>
+<p>Respondent and the majority contend that Congress meant to incorporate into CAFA a specialized sense of “defendant,” derived from its use in the general removal statute, § 1441. And in § 1441, they assert, “defendant” refers only to an <em>original</em> defendant—one named in the plaintiff's complaint. As I will show, they are mistaken about § 1441. See Part IV, <em>infra</em>. But even if that general removal law <em>were</em> best read to leave out third-party defendants, there would be ample grounds to conclude that such defendants are covered by CAFA. And the majority's and respondent's objections to this reading of CAFA, based on comparisons to other federal laws, are unconvincing.</p>
+<h3 class="oh">A</h3>
+<h3 class="oh">1</h3>
+<p>The first basis for reading CAFA to extend more broadly than § 1441 is that CAFA's <em>text</em> is broader. As discussed, see <em>supra</em>, at 455, CAFA sweeps in “<em>any</em> defendant,” § 1453(b) (emphasis added), in contrast to §1441's “the defendant or the defendants.” So even if we read the latter phrase narrowly, we would have to acknowledge that “Congress did not adopt that ready alternative.” <em>Advocate Health Care Network</em> v. <em>Stapleton</em>, 581 U. S. 468, 477 (2017). “Instead, it added language whose most natural reading is to enable” <em>any</em> defendant to remove, and “[t]hat drafting decision indicates that Congress did not in fact want” to replicate in CAFA the (purportedly) narrower reach of § 1441. <em>Ibid.</em></p>
+<p>Respondent scoffs at the idea that the word “any” could make the difference. In his view, “any defendant” in CAFA means “any <em>one of</em> the defendants,” not “any <em>kind of</em> defendant.” Thus, he contends, if § 1441 covers only one kind of defendant—the original kind, the kind named in a complaint—CAFA must do the same. On this account, CAFA refers to “any defendant” only because it was meant <span class="pg" id="s4-p457" title="page 457 of the original">457</span>to eliminate (for class actions) § 1441's requirement that <em>all</em> “the defendants” agree to remove. Respondent is right that the word “any” in CAFA eliminated the defendant-unanimity rule. But the modifier's overall effect on the plain meaning of CAFA's removal provision is what counts in a case interpreting CAFA; and that effect is to guarantee a broad reach for the word “defendant.”</p>
+<p>Nor is it baffling how “any” could be expansive in the way respondent finds so risible. In ordinary language, replacing “the Xs” with “any X” will often make the term “X” go from covering only paradigm instances of X to covering all cases. Compare:</p>
+<blockquote>
+<p>• “Visitors to the prison may not use the phones except at designated times.” • “Visitors to the prison may not use any phone except</p>
+<p>at designated times.”</p>
+</blockquote>
+<p class="cont">On a natural reading, “the phones” refers to telephones provided by the prison, whereas “any phone” includes visitors' cellphones. Likewise, even if the phrase “the defendant” reached only original defendants, the phrase “any defendant” would presumptively encompass all kinds. Again, putting the word “any” into a “phrase . . . suggests a broad meaning.” <em>Ali</em>, 552 U. S., at 218–219.</p>
+<p>In fact, the text makes it indisputable that CAFA's “any defendant” is broader in some ways. CAFA reaches at least two sets of defendants left out by § 1441: in-state (or “forum”) defendants and nondiverse defendants. See §§ 1332(d)(2), 1453(b). So respondent and the majority are reduced to claiming that when CAFA says “any defendant,” it is stretching further than §1441's “the defendant” in some directions but not others—picking up forum defendants and nondiverse defendants while avoiding all contact with third-party defendants. But the shape of “any” is not so contorted. If context shows that “any defendant” covers <em>some</em> additional <span class="pg" id="s4-p458" title="page 458 of the original">458</span>kinds, common sense tells us it presumptively covers the others.</p>
+<h3 class="oh">2</h3>
+<p>Respondent's answer from precedent backfires. Against our many cases reading the word “any” capaciously (which is to say, naturally), see <em>Small</em>, 544 U. S., at 396 (T<span class="sc">homas</span>, J., dissenting) (collecting cases), he cites two cases that assigned the word a narrower scope. But in both, context compelled that departure from plain meaning. In <em>United States</em> v. <em>Palmer</em>, 3 Wheat. 610, 631–632 (1818), we read “any person” to refer exclusively to those over whom the United States had jurisdiction, but only because that was the undisputed scope of other instances of the same phrase in the same Act. Here, by contrast, even the majority agrees that petitioner's reading of “any defendant” in CAFA is “plausible.” <em>Ante</em>, at 440. And in <em>Small</em>, <em>supra</em>, at 388–389, the Court read “any court” to refer only to domestic courts because of the “legal presumption that Congress ordinarily intends its statutes to have domestic, not extraterritorial, application.” No presumption helps respondent here.</p>
+<p>Indeed, our presumptions in this area cut <em>against</em> the majority and respondent's view. That view insists on reading CAFA's “any defendant” narrowly, to match the allegedly narrower scope of “the defendant” in §1441. But our case law teaches precisely that CAFA should <em>not</em> be read as narrowly as § 1441. While removal under § 1441 is presumed narrow in various ways out of respect for States' “ `rightful independence,' ” <em>Shamrock Oil</em>, 313 U. S., at 109, we have expressly limited this “antiremoval” presumption to cases interpreting § 1441. As <span class="sc">Justice Ginsburg</span> recently wrote for the Court:</p>
+<blockquote>
+<p>“<em>[N]o</em> antiremoval presumption attends cases invoking CAFA, which Congress enacted to facilitate adjudication of certain class actions in federal court. See <em>Standard Fire Ins. Co.</em>, 568 U. S., at 595 (`CAFA's primary objective'<span class="pg" id="s4-p459" title="page 459 of the original">459</span> is to `ensur[e] “Federal court consideration of interstate cases of national importance.” ' (quoting § 2(b)(2), 119 Stat. 5)); S. Rep. No. 109–14, p. 43 (2005) (CAFA's `provisions should be read broadly, with a strong preference that interstate class actions should be heard in a federal court if properly removed by any defendant.').” <em>Dart Cherokee Basin Operating Co.</em> v. <em>Owens</em>, 574 U. S. 81, 89 (2014) (emphasis added).</p>
+</blockquote>
+<p class="cont">So the strongest argument for reading § 1441 to exclude third-party defendants is an interpretive canon that we have pointedly <em>refused</em> to apply to CAFA. Our precedent on this point is thus a second basis—apart from the plain meaning of “any defendant”—for holding that CAFA covers third-party defendants even if § 1441 does not.</p>
+<h3 class="oh">B</h3>
+<p>Respondent and the majority object that this reading ignores the backdrop against which CAFA was enacted and the significance of CAFA's contrast with the language of other (subject-matter-specific) removal statutes. And to these objections, respondent adds a third and bolder claim: that CAFA does not empower petitioner to remove because it does not create removal authority at all, but only channels removals already authorized by § 1441 (on which petitioner cannot rely in this case). All three objections fail.</p>
+<h3 class="oh">1</h3>
+<p>In respondent's telling, it has been the uniform view of the lower courts that a third-party defendant is not among “the defendants” empowered to remove under § 1441. Since those courts' decisions studded the legal “backdrop” when Congress enacted CAFA, respondent contends, we should presume CAFA used “defendant” in the same narrow sense. But this story exaggerates both the degree of lower court harmony and the salience of the resulting “backdrop” to Congress's work on CAFA.</p>
+<p><span class="pg" id="s4-p460" title="page 460 of the original">460</span><em>First</em>, though respondent repeatedly declares that the lower courts have reached a “consensus,” see Brief for Respondent i, 1, 14, 19, 32, 35, they have not. “Several cases . . . have permitted removal on the basis of a third party claim where a separate and independent controversy is stated.” <em>Carl Heck Engineers, Inc.</em> v. <em>Lafourche Parish Police Jury</em>, 622 F. 2d 133, 135–136 (CA5 1980) (collecting cases). Before CAFA, at least a half-dozen District Courts took this view.<sup class="fnr"><a id="s4-r3" href="#s4-n3">3</a></sup>And though courts of appeals rarely get to opine on this issue (because § 1447(d) blocks most appeals from district court orders sending a removed case back to state court), two Circuits have actually allowed third-party defendants to remove under § 1441. See <em>Texas ex rel. Bd. of Regents of Univ. of Tex. System</em> v. <em>Walker</em>, 142 F. 3d 813, 816 (CA5 1998); <em>United Benefit Life Ins. Co.</em> v. <em>United States Life Ins. Co.</em>, 36 F. 3d 1063, 1064, n. 1 (CA11 1994). Even a treatise cited by respondent destroys his “consensus” claim, as it admits that courts take “myriad and diverging views on whether third-party defendants may remove an action.” 16 J. Moore, D. Coquillette, G. Joseph, G. Vairo, &amp; C. Varner, Moore's Federal Practice § 107.41[6] (3d ed. 2019).</p>
+<p><em>Second</em>, even if the lower courts all agreed, the “legal backdrop” created by their decisions would matter only insofar as it told us what we can “safely assume” about what Congress “intend[ed].” <em>McFarland</em> v. <em>Scott</em>, 512 U. S. 849, 856 (1994). So the less salient that backdrop would have been to Congress, the less relevant it is to interpreting Congress's actions. And I doubt the backdrop here would have been very salient. For one thing, it consisted mostly of trial court decisions; and the lower the courts, the less visible the backdrop. Indeed, I can find no case where we have read a <span class="pg" id="s4-p461" title="page 461 of the original">461</span>special meaning into a federal statutory term based mainly on trial court interpretations.</p>
+<p>But even if several higher courts had spoken—and spoken with one voice—there would be a problem: We have no evidence Congress was listening. In preparing and passing CAFA, Congress never adverted to third-party defendants' status. By respondent's admission, Congress was “silen[t]” on them in the seven years of hearings, drafts, and debates leading up to CAFA's adoption. Brief for Respondent 45. Yet if Congress was not thinking about a question, neither was it thinking about lower courts' answer to the question. So we cannot presume it adopted that answer.</p>
+<h3 class="oh">2</h3>
+<p>Respondent also thinks we should read CAFA to exclude third-party defendants in light of the contrast between CAFA's “any defendant” and the language of two other removal laws that more clearly encompass third-party defendants. The America Invents Act (AIA), for example, allows “any party” to remove a lawsuit involving patent or copyright claims. 28 U. S. C. §§ 1454(a), (b)(1). The Bankruptcy Code likewise allows “[a] party” to remove in cases related to bankruptcy. § 1452(a). Thus, respondent says, when Congress <em>wanted</em> to include more than original defendants, it knew how. It used terms like “any party” and “a party”— as CAFA did not.</p>
+<p>Note, however, that the cited terms would have covered even original plaintiffs, whom <em>no one</em> thinks CAFA meant to reach (and for good reason, see Part II, <em>supra</em>). So CAFA's terms had to be narrower than (say) the AIA's “any party,” <em>regardless</em> of whether CAFA was going to cover third-party defendants. Its failure to use the AIA's and Bankruptcy Code's broader terms, then, tells us nothing about third-party defendants' status under CAFA. Only the meaning of CAFA's “any defendant” does that. And it favors petitioner. See Parts II, III–A, <em>supra</em>.</p>
+<h3 class="oh"><span class="pg" id="s4-p462" title="page 462 of the original">462</span>3</h3>
+<p>Respondent's final and most radical argument against petitioner's CAFA claim is that CAFA's removal language does not independently authorize removal at all. On this view, all that § 1453(b) does is “make a few surgical changes [in certain class-action cases] to the <em>procedures</em> that ordinarily govern removal,” while the actual power to remove comes from the general removal provision, § 1441(a). Brief for Respondent 49 (emphasis added). And so, the argument goes, removals under CAFA are still subject to § 1441(a)'s restriction to “civil action[s]” over which federal courts have “original jurisdiction.” Since this limitation is often read to mean that federal jurisdiction must have existed from the start of the civil action, see Part IV–C, <em>infra,</em> and that was not the case here, no removal is possible.</p>
+<p>The premise of this objection is as weak as it is audacious. If CAFA does not authorize removal, then neither does § 1441. After all, they use the same operative language, with the one providing that a class action “may be removed,” § 1453(b), and the other providing that a civil action “may be removed,” § 1441(a). So § 1453(b) must, after all, be its own font of removal power and not a conduit for removals sourced by § 1441(a).</p>
+<p>Respondent argues that this reading of CAFA's § 1453(b) would render it unconstitutional. The argument is as follows: Section 1453(b) provides that a “class action” may be removed, but it does not specify that the class action must fall within federal courts' jurisdiction. So if § 1453(b) were a separate source of removal authority, it would authorize removals of class actions over which federal courts lacked jurisdiction, contrary to Article III of the Constitution. By contrast, § 1441(a) limits itself to authorizing removal of cases over which federal courts have “original jurisdiction.” Thus, only if § 1441(a)—including its jurisdictional limit— governs the removals described in CAFA will CAFA's removal language be constitutional.</p>
+<p><span class="pg" id="s4-p463" title="page 463 of the original">463</span>This argument fails. Section 1453 implicitly limits removal to class actions where there is minimal diversity, thus satisfying Article III. After all, § 1453(a) incorporates the definition of “class action” found in the first paragraph of § 1332(d). See § 1332(d)(1). But the very next paragraph, § 1332(d)(2), codifies the part of CAFA that created federal jurisdiction over class actions involving minimal diversity. This proves that the class actions addressed by CAFA's removal language, in § 1453(b), are those involving minimal diversity, as described in § 1332(d). In fact, respondent effectively <em>concedes</em> that § 1453(b) applies only to actions described in § 1332(d), since the latter is also what codifies those CAFA-removal rules that respondent does acknowledge, see Brief for Respondent 52—the requirements of more than $5 million in controversy but only minimal diversity, see § 1332(d)(2). Because CAFA's removal language in § 1453(b) applies only to class actions described in § 1332(d), it raises no constitutional trouble to read § 1453(b) as its own source of removal authority and not a funnel for § 1441(a).</p>
+<h3 class="oh">IV</h3>
+<p>So far I have accepted, <em>arguendo</em>, the majority and respondent's view that third-party defendants are <em>not</em> covered by the general removal provision, § 1441. But I agree with petitioner that this is incorrect. On a proper reading of § 1441, too, third-party defendants are “defendants” entitled to remove. Though a majority of District Courts would disagree, their exclusion of third-party defendants has rested (in virtually every instance) on a misunderstanding of a previous case of ours, and the mere fact that this misreading has spread is no reason for us to go along with it. Nor, contrary to the majority, does a refusal to recognize third-party defendants under § 1441 find support in our precedent embracing the so-called “well-pleaded complaint” rule, which is all about how a plaintiff can make its case unremovable, <span class="pg" id="s4-p464" title="page 464 of the original">464</span>not about which defendants may seek removal in those cases that <em>can</em> be removed.</p>
+<h3 class="oh">A</h3>
+<p>Look at lower court cases excluding third-party defendants from § 1441. Trace their lines of authority—the cases and sources they cite, and those <em>they</em> cite—and the lines will invariably converge on one point: our decision in <em>Shamrock Oil</em>. But nothing in that case justifies the common reading of § 1441 among the lower courts, a reading that treats some defendants who never chose the state forum differently from others.</p>
+<p>As a preliminary matter, <em>Shamrock Oil</em> is too sensible to produce such an arbitrary result. That case involved a close ancestor of today's general removal provision, one that allowed removal of certain state-court actions at the motion of “ `the defendant or defendants therein.' ” 313 U. S., at 104, n. 1. And our holding was simple: If <em>A</em> sues <em>B</em> in state court, and <em>B</em> brings a counterclaim against <em>A</em>, this does not then allow <em>A</em> to remove the case to federal court. As the original plaintiff who chose the forum, <em>A</em> does not get to change its mind now. That is all that <em>Shamrock Oil</em> held. The issue of third-party defendants never arose. And none of the Court's three rationales would support a bar on removal by parties <em>other than</em> original plaintiffs.</p>
+<p><em>Shamrock Oil</em> looked to statutory history, text, and purpose. As to history, it noted that removal laws had evolved to give the power to remove first to “defendants,” then to “ `either party, or any one or more of the plaintiffs or defendants,' ” and finally to “defendants” again. The last revision must have been designed to withdraw removal power from someone, we inferred, and the only candidate was the plaintiff. <em>Id.</em>, at 105–108. Second, we said there was no basis in the text for distinguishing mere plaintiffs from plaintiffs who had been countersued, so we would treat them the same; neither could remove. <em>Id.,</em> at 108. Third, we offered a policy rationale: “[T]he plaintiff, having submitted himself to the <span class="pg" id="s4-p465" title="page 465 of the original">465</span>jurisdiction of the state court, was not entitled to avail himself of a right of removal conferred only on a defendant who has not submitted himself to the jurisdiction.” <em>Id</em>., at 106. In this vein, we quoted a House Report calling it “ `just and proper to require the plaintiff to abide his selection of a forum.' ” <em>Ibid.,</em> n. 2 (quoting H. R. Rep. No. 1078, 49th Cong., 1st Sess., 1 (1886)). So history, language, and logic demanded that original plaintiffs remain unable to remove even if countersued.</p>
+<p>None of these considerations applies to third-party defendants. If anything, all three point the other way. First, the statutory history cited by the Court shows that Congress (and the <em>Shamrock Oil</em> Court itself) took “the plaintiffs or defendants” to be jointly exhaustive categories. By that logic, since third-party defendants are certainly not plaintiffs—in any sense—they must be “defendants” under § 1441. Cf. Webster 591 (defining “defendant” as “opposed to <em>plaintiff”</em>); 4 OED 377 (same). Second, and relatedly, the text of the general removal statute, then and now, does not distinguish original from third-party defendants when it comes to granting removal power—any more than it had distinguished plaintiffs who were and were not countersued when it came to <em>withdrawing</em> the right to remove, as <em>Shamrock Oil</em> emphasized. And finally, <em>Shamrock Oil</em>'s focus on fairness—reflected in its point that plaintiffs may fairly be stuck with the forum they chose—urges the opposite treatment for third-party defendants. Like original defendants, they never chose to submit themselves to the state-court forum.</p>
+<p>Thus, all three grounds for excluding original plaintiffs in <em>Shamrock Oil</em> actually support <em>allowing</em> third-party defendants to remove under § 1441.</p>
+<h3 class="oh">B</h3>
+<p>Respondent leans on his claim that District Courts to address the issue have reached a “consensus” that <em>Shamrock</em> <span class="pg" id="s4-p466" title="page 466 of the original">466</span><em>Oil</em> bars third-party defendants from removing. But as we saw above, rumors of a “consensus” have been greatly exaggerated. See Part III–B–1, <em>supra</em>. And in any case, no interpretive principle requires leaving intact the lower courts' misreading of a case of ours.</p>
+<p>Certainly there is no reason to presume that Congress embraces the lower courts' majority view. For one thing, the cases distorting § 1441 postdate the last revision of the relevant statutory language, so they could not have informed Congress's view of what it was signing onto. And it would be naive to assume that Congress now agrees with those lower court cases just because it has not reacted to them. Congress does not accept the common reading of every law it leaves alone. Because life is short, the U. S. Code is long, and court cases are legion, it normally takes more than a court's misreading of a law to rouse Congress to issue a correction. That is why “ `Congressional inaction lacks persuasive significance' in most circumstances.” <em>Star Athletica, L. L. C.</em> v. <em>Varsity Brands, Inc.</em>, 580 U. S. 405, 424 (2017) (quoting <em>Pension Benefit Guaranty Corporation</em> v. <em>LTV Corp.</em>, 496 U. S. 633, 650 (1990); quotation altered). In particular, “it is inappropriate to give weight to `Congress' unenacted opinion' when construing judge-made doctrines, because doing so allows the Court to create law and then `effectively codif[y]' it `based only on Congress' failure to address it.' ” <em>Halliburton Co.</em> v. <em>Erica P. John Fund, Inc.</em>, 573 U. S. 258, 299 (2014) (T<span class="sc">homas</span>, J., concurring in judgment). Because the decisions misreading <em>Shamrock Oil</em> are not a reliable indicator of Congress's intent regarding § 1441, we owe them no deference.</p>
+<h3 class="oh">C</h3>
+<p>Finally, according to the majority, reading § 1441 to include third-party defendants would run afoul of our precedent establishing the “well-pleaded complaint” rule (WPC rule). Assuming that I have been able to reconstruct the majority's <span class="pg" id="s4-p467" title="page 467 of the original">467</span>argument from this rule accurately, I think it rests on a non sequitur. The WPC rule is all about a plaintiff's ability to choose the forum in which its case is heard, by controlling whether there is federal jurisdiction; the rule has nothing to do with the division of labor or authority among defendants.</p>
+<p>Under the WPC rule, we consider only the plaintiff's claims to see if there is federal-question jurisdiction. Whether the defendant raises federal counterclaims (or even federal defenses) is irrelevant. See, <em>e. g.</em>, <em>Holmes Group, Inc.</em> v. <em>Vornado Air Circulation Systems, Inc.</em>, 535 U. S. 826, 831 (2002). Likewise, in a case involving standard diversity jurisdiction (based on complete diversity under § 1332(a) rather than minimal diversity under CAFA), it is “the sum demanded . . . in the initial pleading” that determines whether the amount in controversy is large enough. § 1446(c)(2). In both kinds of cases, a federal court trying to figure out if it has “original jurisdiction,” as required for removal of cases under § 1441(a), must shut its eyes to the defendant's filings. Only the plaintiff's complaint counts. So says the WPC rule.</p>
+<p>But that is all about <em>jurisdiction</em>. The majority and respondent would take things a step further. Even after assuring itself of jurisdiction, they urge, a court should consult only the plaintiff's complaint to see if a party <em>is a “defendant”</em> empowered to remove under § 1441. Since third-party defendants (by definition) are not named until the countercomplaint, they are not § 1441 “defendants.”</p>
+<p>I cannot fathom why this rule about who is a “defendant” should follow from the WPC rule about when there is federal jurisdiction. And the majority makes no effort to fill the logical gap; it betrays almost no awareness of the gap, drawing the relevant inference in two conclusory sentences. See <em>ante</em>, at 441–442. But since this Court's reasons for the WPC rule have sounded in policy, the argument could only be that the same policy goals would support today's restriction on who <span class="pg" id="s4-p468" title="page 468 of the original">468</span>is a § 1441 “defendant.” <sup class="fnr"><a id="s4-r4" href="#s4-n4">4</a></sup>What <em>are</em> the policy goals behind the WPC rule? We have described them as threefold. See <em>Holmes Group, Inc.</em>, 535 U. S., at 831–832.</p>
+<p>First,</p>
+<blockquote>
+<p>“since the plaintiff is `the master of the complaint,' the well-pleaded-complaint rule enables him, `by eschewing claims based on federal law, . . . to have the cause heard in state court.' <em>Caterpillar Inc</em>., [482 U. S.,] at 398–399. [Allowing a defendant's counterclaims or defenses to create federal-question jurisdiction], in contrast, would leave acceptance or rejection of a state forum to the master of the counterclaim. It would allow a defendant to remove a case brought in state court under state law, thereby defeating a plaintiff's choice of forum, simply by raising a federal counterclaim.” <em>Ibid.</em></p>
+</blockquote>
+<p>But this concern is not implicated here; adopting petitioner's reading of “defendant” would in no way reduce the extent of a plaintiff's control over the forum. Plaintiffs would be able to keep state-law cases in state court no matter what we held about § 1441, and any cases removable by third-party defendants would have been removable by original defendants anyway. In other words, the issue here is <em>who</em> can remove under that provision, not <em>which cases</em> can be removed. However we resolved that “who” question, removability under § 1441(a) would still require cases to fall within federal courts' “original jurisdiction,” § 1441(a), and <em>that</em> would still turn just on the plaintiff's choices—on whether the plaintiff had raised federal claims (or sued diverse parties for enough money). So a case that a plaintiff had brought “in state <span class="pg" id="s4-p469" title="page 469 of the original">469</span>court under state law,” <em>id.,</em> at 832, would remain beyond federal jurisdiction, and thus unremovable under § 1441(a), even if we held that third-party defendants are “defendants” under that provision.</p>
+<p>By the same token, such a holding would not undermine the <em>second</em> policy justification that <em>Holmes</em> gave for the WPC rule: namely, to avoid “radically expand[ing] the class of removable cases, contrary to the `[d]ue regard for the rightful independence of state governments.' ” <em>Id.</em>, at 832. As noted, our decision on the scope of § 1441's “defendants” would not expand the class of removable cases <em>at all</em>, because it would have no impact on whether a case fell within federal courts' jurisdiction. It would only expand the set of people (“the defendants”) who would have to consent to such removal: Now third-party <em>and</em> original defendants would have to agree.</p>
+<p>The majority declares that treating third-party defendants as among “the defendants” under §1441 “makes little sense.” <em>Ante</em>, at 444. Perhaps its concern is that such a ruling would make no meaningful difference since third-party defendants would still be powerless to remove unless they secured the consent of the original defendants, who are their adversaries in litigation. But for one thing, there may be cases in which original defendants do consent. Though original and third-party defendants are rivals as to claims brought by the one against the other, they may well agree that a federal forum would be preferable. After all, neither will have chosen the state forum in which both find themselves prior to removal.<sup class="fnr"><a id="s4-r5" href="#s4-n5">5</a></sup></p>
+<p>More to the point, even if third-party defendants could not secure the agreement needed to remove an entire civil action <span class="pg" id="s4-p470" title="page 470 of the original">470</span>under § 1441(a), counting them as “defendants” under § 1441 would make a difference by allowing them to invoke § 1441(c)(2), which would permit them to remove certain claims (not whole actions) <em>without</em> original defendants' consent. See Part I–B, <em>supra</em>. Being able to remove claims under § 1441(c)(2) has, in fact, been the main benefit to third-party defendants in those jurisdictions that have ruled that they are “defendants” under § 1441. See <em>Carl Heck</em>, 622 F. 2d, at 136. But <em>this</em> effect of such a ruling is immune to the objection that it would “radically expand the class of removable cases” since § 1441(c)(2) does not address the removal of a whole case (a “civil action”) at all, but only of some claims within a case—and only those that could have been brought in federal court from the start, “in a separate suit from that filed by the original plaintiff.” <em>Id.</em>, at 136. Notably, then, any claims that were raised by the original plaintiff would get to remain in state court. Here too, the WPC rule's concern to avoid “radically expand[ing] the class of removable cases” is just not implicated.</p>
+<p>This leaves <em>Holmes</em>'s final rationale for the WPC rule: that it promotes “clarity and ease of administration” in the resolution of procedural disputes. 535 U. S., at 832. But petitioner's and respondent's views on who is a “defendant” are equally workable, so this last factor does not cut one way or the other.</p>
+<p>In sum, the actual WPC rule, which limits the filings courts may consult in determining if they have jurisdiction, is based on policy concerns that do not arise here. There is, therefore, no justification for inventing an ersatz WPC rule to limit which filings may be consulted by courts deciding who is a “defendant” under § 1441.</p>
+<p class="sep">* * *</p>
+<p>All the resources of statutory interpretation confirm that under CAFA and § 1441, third-party defendants are defendants. I respectfully dissent.</p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li id="s4-n1" value="1"><p>Supplemental jurisdiction covers those claims “so related” to federal claims that they are “part of the same case or controversy under Article III,” 28 U. S. C. § 1367(a), in that they “derive from a common nucleus of operative fact.” <em>Mine Workers</em> v. <em>Gibbs</em>, 383 U. S. 715, 725 (1966). <a class="back" href="#s4-r1" aria-label="Back to the text">↩</a></p></li>
+<li id="s4-n2" value="2"><p>That is true only of counterdefendants—original plaintiffs who are countersued by their original defendant. For one thing, it is hard to say that these plaintiffs fall under the plain meaning of “defendant,” when the word “defendant” is defined in opposition to the word “<em>plaintiff</em>.” See Webster 591; 4 OED 377. Moreover, as original plaintiffs, these parties chose the state forum (unlike original or third-party defendants), so it makes less sense to give them a chance to remove the case from that same forum. Finally, our decision in <em>Shamrock Oil &amp; Gas Corp.</em> v. <em>Sheets</em>, 313 U. S. 100 (1941), confirms this reasoning and result. See Part IV–A, <em>infra</em>. <a class="back" href="#s4-r2" aria-label="Back to the text">↩</a></p></li>
+<li id="s4-n3" value="3"><p>See <em>Carl Heck Engineers, Inc.</em> v. <em>Lafourche Parish Police Jury</em>, 622 F. 2d 133, 135 (CA5 1980) (collecting four); <em>Charter Medical Corp.</em> v. <em>Friese</em>, 732 F. Supp. 1160 (ND Ga. 1989); <em>Patient Care, Inc.</em> v. <em>Freeman</em>, 755 F. Supp. 644 (NJ 1991). <a class="back" href="#s4-r3" aria-label="Back to the text">↩</a></p></li>
+<li id="s4-n4" value="4"><p>The Court insists that its position is based on “statutory context,” not the logic behind the well-pleaded complaint rule. <em>Ante</em>, at 442. But the only context to which the Court points is our precedent establishing the well-pleaded complaint rule. <em>Ante,</em> at 441–442. It is that rule—the rule that federal jurisdiction over an action turns entirely on the plaintiff's complaint—that leads the Court to think furthermore that “ `the defendant' to [an] action is the defendant to that complaint.” <em>Ibid.</em> <a class="back" href="#s4-r4" aria-label="Back to the text">↩</a></p></li>
+<li id="s4-n5" value="5"><p>Or perhaps the majority fears that petitioner's position would make it harder for <em>original</em> defendants under § 1441(a), by requiring them to get the consent of the third-party defendants against whom they have just brought suit. But this is an illusory problem. Original defendants hoping to remove under § 1441(a) without having to get their adversaries to agree could simply remove the case <em>before</em> roping in any third-party defendants. <a class="back" href="#s4-r5" aria-label="Back to the text">↩</a></p></li>
+</ol></aside></section><p class='back'><a href='/opinions/'>&larr; All opinions</a> · <a href='/justices/ot2018.html'>The Justices, October Term 2018 &rarr;</a></p></main></body>
+</html>
+

@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script async src='/analytics.js'></script><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate icon" href="/favicon.ico" sizes="any"><link rel="alternate" type="application/atom+xml" title="Supreme Court Report" href="/feed.xml"><link rel="alternate" type="application/atom+xml" title="Certiorari grants" href="/grants.xml"><title>Cassirer v. Thyssen-Bornemisza Collection — Opinion — Supreme Court Report</title><meta name="description" content="The opinion in Cassirer v. Thyssen-Bornemisza Collection (No. 20-1566), decided April 21, 2022: the full text with its footnotes, as a page, a Markdown file and an EPUB."><link rel="canonical" href="https://supremecourt.report/opinions/2021/20-1566.html"><meta property="og:site_name" content="Supreme Court Report"><meta property="og:type" content="article"><meta property="og:title" content="Cassirer v. Thyssen-Bornemisza Collection — Opinion — Supreme Court Report"><meta property="og:description" content="The opinion in Cassirer v. Thyssen-Bornemisza Collection (No. 20-1566), decided April 21, 2022: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta property="og:url" content="https://supremecourt.report/opinions/2021/20-1566.html"><meta property="og:image" content="https://supremecourt.report/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Supreme Court Report - docket analytics for the Supreme Court of the United States"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Cassirer v. Thyssen-Bornemisza Collection — Opinion — Supreme Court Report"><meta name="twitter:description" content="The opinion in Cassirer v. Thyssen-Bornemisza Collection (No. 20-1566), decided April 21, 2022: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta name="twitter:image" content="https://supremecourt.report/og.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap"><style>
+  :root{--paper:#fdfcfa;--panel:#ffffff;--ink:#1a1a1e;--ink-soft:#484850;--faint:#63636b;--accent:#9c0e3a;--link:#9c0e3a;--rule:#dbd8d2;--nav-max:60rem}
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{font-family:'Newsreader',Georgia,serif;font-size:19px;line-height:1.6;
+    color:var(--ink);background:var(--paper);margin:0;font-feature-settings:'onum' 1}
+  body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
+    opacity:.5;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");}
+  .wrap{max-width:40rem;margin:0 auto;padding:3rem 1.4rem 4rem}
+  .kicker{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 1rem}
+  h1{font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:clamp(2.4rem,7vw,3.6rem);line-height:1;letter-spacing:-.015em;
+    margin:0 0 1rem;color:var(--ink)}
+  h1 em{font-style:italic;font-weight:500;color:var(--accent)}
+  .dek{font-size:1.15rem;line-height:1.5;color:var(--ink-soft);font-style:italic;
+    margin:0 0 1.4rem}
+  .brule{border:0;height:0;border-top:2px solid var(--ink);margin:1.4rem 0 .3rem;
+    position:relative}
+  .brule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+    border-top:1px solid var(--rule)}
+  ul.idx{list-style:none;padding:0;margin:1.6rem 0}
+  ul.idx li{border-bottom:1px solid var(--rule)}
+  /* Whole row is one block-level link: a large, reliable tap target on mobile. */
+  ul.idx a.row{display:flex;justify-content:space-between;align-items:baseline;
+    gap:1rem;padding:.9rem .4rem;text-decoration:none;border:0;color:inherit}
+  ul.idx a.row:hover{background:rgba(156,14,58,.05)}
+  ul.idx .d{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.16rem;
+    color:var(--accent);line-height:1.25}
+  ul.idx a.row:hover .d{text-decoration:underline;text-underline-offset:3px}
+  ul.idx .count{color:var(--faint);font-size:.9rem;font-style:italic;white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  /* A long note (an order list's "3 GVRs / 230 denied / 4 habeas denied /
+     ...", items separated by middots) cannot sit on one line: nowrap made it
+     claim the row and
+     squeezed the title into a column three words wide, and on a phone it ran off
+     the screen. Such a row opts in (meta_wrap): the note wraps, only between its
+     items, and takes at most ~45% of the row, so the title always has the
+     larger share. Under 34rem it drops beneath the title at full width. */
+  /* ("long", not "wrap": .wrap is the page container and its padding.) */
+  ul.idx .count.long{white-space:normal;text-align:right;max-width:45%;line-height:1.45}
+  ul.idx .count.long .seg{white-space:nowrap}
+  @media(max-width:34rem){
+    ul.idx a.row.longmeta{flex-wrap:wrap;row-gap:.2rem}
+    ul.idx .count.long{max-width:none;flex-basis:100%;text-align:left}
+  }
+  /* Compact horizontal strip of the most recent pages beneath a category row. */
+  ul.idx .recent{display:flex;flex-wrap:wrap;align-items:baseline;
+    gap:.3rem .85rem;padding:0 .4rem 1rem;margin-top:-.35rem}
+  ul.idx .recent .rlabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  ul.idx .recent a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--ink-soft);text-decoration:none;font-variant-numeric:tabular-nums;
+    border-bottom:1px solid var(--rule);padding-bottom:1px}
+  ul.idx .recent a:hover{color:var(--accent);border-color:var(--accent)}
+  /* Optional panel beneath the section index (home page: most-read cases). */
+  .panel{margin:2.4rem 0 0}
+  .panel h2{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 .25rem}
+  .panel .pnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:0 0 .5rem}
+  /* "Live now" (live_argument_panel, /live.js): hidden unless the Court is
+     streaming an argument. One red dot, the same --accent as the headings, so
+     the live state is a mark and not a new colour. */
+  .live h2 .ldot{display:inline-block;width:.5rem;height:.5rem;border-radius:50%;
+    background:var(--accent);margin-right:.5rem;vertical-align:.08rem;
+    animation:lpulse 2s ease-in-out infinite}
+  @keyframes lpulse{50%{opacity:.25}}
+  @media (prefers-reduced-motion:reduce){.live h2 .ldot{animation:none}}
+  .lplay{display:flex;flex-wrap:wrap;gap:.6rem .9rem;align-items:center;margin:.8rem 0 .3rem}
+  .lplay button{font:600 .9rem/1 'Newsreader',Georgia,serif;letter-spacing:.04em;
+    color:var(--paper);background:var(--accent);border:0;border-radius:2px;
+    padding:.6rem 1.05rem;cursor:pointer}
+  .lplay button:disabled{opacity:.6;cursor:progress}
+  .lplay button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  /* The player takes a row of its own and may never outgrow the column. A flex
+     item's min-width is auto, which for a replaced element is the browser's own
+     controls' width -- wider than the column on a phone, where mobile Safari
+     and Chrome draw larger controls than the desktop. */
+  .lplay audio{display:block;flex:1 1 100%;width:100%;min-width:0;max-width:100%;
+    box-sizing:border-box;margin:0}
+  .lplay .lstat{font-size:.85rem;color:var(--faint)}
+  /* --- Likeliest grants -----------------------------------------------------
+     Its own rows rather than ol.mostread's: this panel carries a question under
+     the caption, which that list has no room for, and a percentage that has to
+     read as the row's subject rather than as a trailing note.
+     The window toggle is two real radio inputs plus :has() -- no JavaScript.
+     Both windows are rendered at build time and one is hidden, which is the only
+     way a static site can offer the choice: there is no server to ask for the
+     other one. Real radios, not styled buttons, so the control is reachable by
+     keyboard and announced as a choice. */
+  .lead{margin:0 0 1.9rem}
+  .lead h2{margin-bottom:.35rem}
+  .lead .pnote{margin:0 0 .7rem}
+  .wr{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+  .win{display:inline-flex;gap:.25rem;margin:0 0 .55rem;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .win label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .win label:hover{color:var(--ink)}
+  .lead:has(#w7:checked) label[for=w7],
+  .lead:has(#w28:checked) label[for=w28],
+  .lead:has(#wall:checked) label[for=wall]{background:var(--accent);color:var(--paper)}
+  .wr:focus-visible+label{outline:2px solid var(--accent);outline-offset:2px}
+  /* Three windows, one shown: the checked radio hides the other two. */
+  .lead:has(#w7:checked) :is(.g28,.n28,.gall,.nall),
+  .lead:has(#w28:checked) :is(.g7,.n7,.gall,.nall),
+  .lead:has(#wall:checked) :is(.g7,.n7,.g28,.n28){display:none}
+  /* The show/hide controls for a panel's secondary line -- the question under
+     a forecast row, the holding under a decision. Same box as the window
+     toggle, a checkbox instead of radios, and no script: the sibling rule does
+     the work and the lines simply show where :has() is unsupported. The
+     questions are on by default (they are what a forecast row asks); the
+     holdings are off (the caption, kind and disposition already say what
+     happened, and the holding is the more). */
+  .opts{display:inline-flex;gap:.25rem;margin:0 .45rem .55rem 0;vertical-align:top;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .opts label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .opts label:hover{color:var(--ink)}
+  .lead:has(#qon:checked) label[for=qon],
+  .panel:has(#hon:checked) label[for=hon]{background:var(--accent);color:var(--paper)}
+  .lead:has(#qon:not(:checked)) .gq{display:none}
+  .panel:has(#hon:not(:checked)) .chold{display:none}
+  /* --- Upcoming at the Court ------------------------------------------------
+     A date gutter and a two-line body, the same shape as the grant rows above
+     it, so the two panels read as one page rather than two widgets. */
+  .cal{margin:0 0 1.9rem}
+  ol.cal{list-style:none;margin:0;padding:0}
+  ol.cal li{border-top:1px solid var(--rule)}
+  ol.cal li:last-child{border-bottom:1px solid var(--rule)}
+  /* The row is a container, not an anchor: an argument day carries one link per
+     case it hears and anchors cannot nest. Hover lives on the row so it still
+     reads as one unit, and each link colours on its own hover. */
+  ol.cal .crow{display:flex;gap:.95rem;align-items:baseline;padding:.55rem .1rem}
+  ol.cal .crow:hover{background:rgba(156,14,58,.05)}
+  ol.cal a{text-decoration:none;color:inherit}
+  ol.cal a:hover,ol.cal a:focus-visible{color:var(--accent)}
+  ol.cal .cdet a{border-bottom:1px solid rgba(156,14,58,.35)}
+  ol.cal .cdet a:hover{border-bottom-color:var(--accent)}
+  ol.cal .cwhen{flex:none;width:4.6rem;font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.96rem;color:var(--ink);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  ol.cal .cdow{display:block;font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);text-transform:uppercase;letter-spacing:.08em}
+  ol.cal .ctx{flex:1;min-width:0}
+  ol.cal .ckind{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:.98rem;line-height:1.25}
+  ol.cal .cdet{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.12rem}
+  /* Recent decisions reuses the calendar rows and adds exactly two things: the
+     kind word that opens the detail line, and the one outbound link (the slip
+     opinion), which takes the link colour the rest of the row deliberately
+     does not. */
+  ol.cal .dk{font-weight:600;color:var(--ink)}
+  ol.cal .cdet a.pdf{color:var(--link)}
+  /* The holding, from the Court's slip-opinion feed: one sentence, set
+     smaller and in the soft ink so the caption stays the row's headline. */
+  ol.cal .chold{display:block;font-size:.86rem;line-height:1.4;color:var(--ink-soft);
+    font-style:italic;margin-top:.15rem}
+  ol.cal .cdet a.pdf:hover,ol.cal .cdet a.pdf:focus-visible{color:var(--accent);
+    border-bottom-color:var(--accent)}
+  ol.grants{list-style:none;margin:0;padding:0}
+  ol.grants li{border-top:1px solid var(--rule)}
+  ol.grants li:last-child{border-bottom:1px solid var(--rule)}
+  ol.grants a{display:flex;gap:.95rem;align-items:baseline;text-decoration:none;
+    color:inherit;padding:.62rem .1rem}
+  ol.grants a:hover{background:rgba(156,14,58,.05)}
+  ol.grants a:hover .gc{color:var(--accent)}
+  ol.grants .gv{flex:none;width:3.5rem;text-align:right;
+    font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.22rem;
+    line-height:1.1;color:var(--accent);font-variant-numeric:tabular-nums}
+  ol.grants .gx{font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);margin-left:.3rem}
+  ol.grants .gtx{flex:1;min-width:0}
+  /* Subject-area line under the caption, in the section-label idiom (h2.sec):
+     small tracked caps in the faint ink, so it classifies without competing. */
+  ol.grants .gs,ol.mostread .ms{display:block;font-size:.68rem;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--faint);line-height:1.3;margin-top:.12rem}
+  ol.grants .gc{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:1rem;line-height:1.25}
+  ol.grants .gq{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.16rem}
+  ol.grants .gd{flex:none;font-size:.76rem;color:var(--faint);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  .more{margin:.75rem 0 0;font-size:.92rem}
+  .more a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.35)}
+  .more a:hover{border-bottom-color:var(--link)}
+  h2.sec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:.88rem;
+    letter-spacing:.09em;color:var(--faint);text-transform:uppercase;
+    margin:2.1rem 0 .6rem;padding-bottom:.28rem;border-bottom:1px solid var(--rule)}
+  @media(max-width:40rem){
+    ol.grants a{flex-wrap:wrap}
+    ol.grants .gd{width:100%;padding-left:4.45rem;margin-top:-.1rem}
+  }
+  ol.mostread{list-style:none;counter-reset:mr;padding:0;margin:0}
+  ol.mostread li{counter-increment:mr;border-bottom:1px solid var(--rule)}
+  ol.mostread a{display:flex;align-items:baseline;gap:.7rem;padding:.6rem .4rem;
+    text-decoration:none;color:inherit}
+  ol.mostread a:hover{background:rgba(156,14,58,.05)}
+  ol.mostread a::before{content:counter(mr);font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.95rem;color:var(--faint);min-width:1.1rem;
+    font-variant-numeric:tabular-nums}
+  ol.mostread .mc{flex:1;font-size:1rem;line-height:1.3}
+  ol.mostread .mct{display:block}
+  ol.mostread a:hover .mct{color:var(--accent);text-decoration:underline;
+    text-underline-offset:3px}
+  ol.mostread .mdk{color:var(--accent);font-weight:600;font-size:.82rem;
+    font-variant-numeric:tabular-nums;white-space:nowrap}
+  ol.mostread .mv{color:var(--faint);font-size:.85rem;font-style:italic;
+    white-space:nowrap;font-variant-numeric:tabular-nums}
+  /* Forecast percentages carry weight the most-read counts do not: the number is
+     the claim, not a footnote to the ranking. Upright, accent, tabular. */
+  ol.mostread .mv.fc{color:var(--accent);font-style:normal;font-weight:600;
+    font-size:.95rem;min-width:2.6rem;text-align:right}
+  /* Feed follow line. Deliberately quiet -- a footnote under the section list,
+     styled like .recent rather than like a call to action. */
+  .feeds{display:flex;flex-wrap:wrap;align-items:baseline;gap:.3rem .85rem;
+    margin:2.2rem 0 0;padding-top:1.1rem;border-top:1px solid var(--rule)}
+  .feeds .flabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  .feeds a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .feeds a:hover{border-color:var(--link)}
+  .back{margin-top:2rem;font-size:.95rem}
+  .back a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .back a:hover{border-color:var(--link)}
+  /* Home-page case search. */
+  .csearch{position:relative;margin:0 0 1.4rem}
+  #cq{width:100%;font-family:'Newsreader',Georgia,serif;font-size:1.05rem;color:var(--ink);
+    background:var(--panel);border:1px solid var(--rule);border-radius:3px;padding:.7rem .9rem}
+  #cq:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(156,14,58,.1)}
+  #cq::placeholder{color:var(--faint)}
+  #cq.loading{background-image:linear-gradient(90deg,transparent,rgba(156,14,58,.06),transparent);
+    background-size:40% 100%;background-repeat:no-repeat;animation:csl 1s infinite}
+  @keyframes csl{0%{background-position:-40% 0}100%{background-position:140% 0}}
+  .cres{list-style:none;margin:.35rem 0 0;padding:0;max-height:24rem;overflow-y:auto;
+    border:1px solid var(--rule);border-radius:3px;background:var(--panel)}
+  .cres:empty{display:none}
+  .cres li{border-bottom:1px solid var(--rule)}
+  .cres li:last-child{border-bottom:0}
+  .cres a{display:block;padding:.55rem .7rem;text-decoration:none;color:var(--ink);
+    font-size:.98rem;line-height:1.3}
+  .cres a:hover,.cres li.act a{background:rgba(156,14,58,.06)}
+  .cres mark{background:rgba(156,14,58,.14);color:inherit;padding:0 .05em;border-radius:2px}
+  .cres .cd{color:var(--accent);font-variant-numeric:tabular-nums;font-weight:600;
+    margin-right:.5rem;white-space:nowrap}
+  .cnone{padding:.55rem .7rem;color:var(--faint);font-style:italic}
+  .cnone a,.cqp a{color:var(--link);font-style:normal;text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .cqp{margin:.45rem 0 0;font-size:.88rem;color:var(--faint)}
+  /* /cases/ browse index: grouped sections with per-bucket counts. */
+  .csec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+    text-transform:uppercase;letter-spacing:.12em;color:var(--accent);
+    margin:2.2rem 0 .3rem;padding-bottom:.35rem;border-bottom:1px solid var(--rule);
+    display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
+  .csec .cn{font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:.85rem;
+    letter-spacing:0;text-transform:none;color:var(--faint);
+    font-variant-numeric:tabular-nums}
+  .cnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:.5rem 0 0}
+  .cnote a{color:var(--accent)}
+  ul.terms{list-style:none;padding:0;margin:1rem 0 0;display:flex;flex-wrap:wrap;
+    gap:.5rem 1.6rem}
+  ul.terms li{display:inline-flex;align-items:baseline;gap:.4rem}
+  ul.terms a{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.05rem;
+    color:var(--accent);text-decoration:none;border-bottom:1px solid var(--rule)}
+  ul.terms a:hover{border-bottom-color:var(--accent)}
+  ul.terms .cn{color:var(--faint);font-size:.85rem;font-variant-numeric:tabular-nums}
+  /* About page: running prose rather than an index, so it takes a measure and a
+     little more leading than the section rows above it. */
+  .about{margin:1.6rem 0 0;font-size:1.05rem;line-height:1.65;max-width:34rem}
+  .about p{margin:0 0 1rem}
+  .about a{color:var(--accent);text-decoration:none;
+    border-bottom:1px solid var(--rule)}
+  .about a:hover{border-bottom-color:var(--accent)}
+  .about .contact{margin:2rem 0 0;background:var(--panel);border:1px solid var(--rule);
+    border-left:4px solid var(--accent);padding:1.1rem 1.3rem}
+  .about .contact h2{font:600 .78rem/1 'Newsreader',Georgia,serif;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--accent);margin:0 0 .5rem}
+  .about .contact p{margin:0;font-size:1rem}
+
+/* ---- masthead ---- */
+.smast-in{max-width:var(--nav-max,60rem);margin:0 auto;padding:.85rem 1.5rem .5rem;
+  display:flex;align-items:baseline;justify-content:space-between;gap:1.4rem;flex-wrap:wrap}
+.smast-wm{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+  letter-spacing:.005em;color:var(--ink,#1a1a1e);text-decoration:none;white-space:nowrap;flex:none}
+.smast-wm em{font-style:italic;font-weight:500;color:var(--accent,#9c0e3a)}
+.smast-wm:hover{color:var(--accent,#9c0e3a)}
+/* Row gap first, then column. At 1.35rem the six section links measured 596px
+   of max-content -- 4px wider than the 592px row the 40rem index container
+   leaves them -- so ABOUT alone wrapped to a third line under the wordmark, on
+   every page page_style.R writes. 1.05rem brings the row to 572px: 20px of
+   slack at 40rem, and 45px on the 54rem case pages, which were themselves only
+   21px from wrapping. The .4rem row gap is for the day a seventh section
+   overruns it anyway -- a nav that wraps should read as a stack, not an orphan. */
+.snav{display:flex;gap:.4rem 1.05rem;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+.snav a{font:600 .72rem/1 'Newsreader',Georgia,serif;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--ink-soft,var(--soft,#484850));text-decoration:none;display:inline-block;
+  padding:.5rem 0;border-bottom:1.5px solid transparent}
+.snav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--rule,#dbd8d2)}
+.snav a[aria-current='page']{color:var(--accent,#9c0e3a);
+  border-bottom-color:var(--accent,#9c0e3a)}
+.smast-rule-w{max-width:var(--nav-max,60rem);margin:0 auto;padding:0 1.5rem}
+.smast-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0;position:relative}
+.smast-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.skip{position:absolute;left:-9999px;top:0;background:var(--panel,#ffffff);
+  color:var(--accent,#9c0e3a);padding:.6rem 1rem;
+  border:1px solid var(--accent,#9c0e3a);
+  font:600 .8rem/1 'Newsreader',Georgia,serif;letter-spacing:.1em;text-transform:uppercase;z-index:10}
+.skip:focus{left:.5rem;top:.5rem}
+/* ---- breadcrumb ---- */
+.bcrumb{margin:.7rem 0 0}
+.bcrumb ol{list-style:none;display:flex;flex-wrap:wrap;align-items:baseline;
+  gap:.1rem .45rem;margin:0;padding:0}
+.bcrumb li{display:inline-flex;align-items:baseline;gap:.45rem}
+.bcrumb a{font:400 .8rem/1.5 'Newsreader',Georgia,serif;color:var(--ink-soft,var(--soft,#484850));
+  text-decoration:none;border-bottom:1px solid var(--rule,#dbd8d2)}
+.bcrumb a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.bcrumb .sep{color:var(--faint,#63636b);font-size:.8rem;line-height:1.5}
+.bcrumb [aria-current='page']{font:400 .8rem/1.5 'Newsreader',Georgia,serif;
+  color:var(--faint,#63636b);font-variant-numeric:tabular-nums}
+/* ---- case footer ---- */
+.cfoot{margin:2.4rem 0 0}
+.cfoot-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0 0 1rem;position:relative}
+.cfoot-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.cfoot-off{font-size:.95rem;margin:0 0 1.1rem}
+.cfoot-off a{color:var(--link,#9c0e3a);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.4)}
+.cfoot-off a:hover{border-bottom-color:var(--link,#9c0e3a)}
+.cfoot-lab{font:600 .68rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);margin:0 0 .5rem}
+.cfoot-nav{display:flex;flex-wrap:wrap;gap:.35rem 1.1rem;list-style:none;margin:0;padding:0}
+.cfoot-nav a{font-size:.92rem;color:var(--ink-soft,var(--soft,#484850));text-decoration:none;
+  border-bottom:1px solid var(--rule,#dbd8d2);padding-bottom:1px}
+.cfoot-nav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.cfoot-stamp{margin:1.2rem 0 0;font-size:.8rem;color:var(--faint,#63636b);font-style:italic}
+/* ---- prev / next ---- */
+.pnav{margin:2.2rem 0 0;border-top:1px solid var(--rule,#dbd8d2);padding-top:1rem;
+  display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.pnav a,.pnav span.none{text-decoration:none;color:inherit;display:block;padding:.5rem .2rem}
+.pnav a:hover{background:rgba(156,14,58,.05)}
+.pnav .dir{font:600 .66rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);display:block;margin-bottom:.3rem}
+.pnav .lab{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1rem;line-height:1.25;
+  color:var(--accent,#9c0e3a);display:block}
+.pnav a:hover .lab{text-decoration:underline;text-underline-offset:3px}
+.pnav .nx{text-align:right}
+.pnav .none{opacity:.35}
+@media(max-width:640px){
+  .smast-in{padding:.7rem 1.1rem .25rem;gap:.15rem}
+  .smast-wm{font-size:.98rem}
+  .smast-in nav{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+    -webkit-mask-image:linear-gradient(90deg,#000 86%,transparent);
+    mask-image:linear-gradient(90deg,#000 86%,transparent)}
+  .smast-in nav::-webkit-scrollbar{display:none}
+  .snav{flex-wrap:nowrap;gap:1.15rem;padding-right:2.4rem}
+  .snav a{padding:.7rem 0;white-space:nowrap}
+  .smast-rule-w{padding:0 1.1rem}
+  .cfoot-nav{gap:.5rem 1rem}
+  .cfoot-nav a{padding-bottom:.3rem}
+  .pnav{grid-template-columns:1fr;gap:.2rem}
+  .pnav .nx{text-align:left;border-top:1px solid var(--rule,#dbd8d2)}
+}
+
+  .wrap.opn{max-width:42rem}
+  .opn .ometa{font-size:.92rem;color:var(--ink-soft);margin:.3rem 0 0}
+  .opn .oget{display:flex;flex-wrap:wrap;gap:.4rem .6rem;margin:1.1rem 0 0;padding:0;list-style:none;font-size:.9rem}
+  .opn .oget a{display:inline-block;padding:.32rem .7rem;border:1px solid var(--rule);border-radius:4px;color:var(--ink);text-decoration:none;background:var(--panel)}
+  .opn .oget a:hover{border-color:var(--accent);color:var(--accent)}
+  .opn .osrc{font-size:.84rem;color:var(--faint);margin:.9rem 0 0;line-height:1.45}
+  .opn .osrc a{color:var(--link)}
+  .opn .otoc{margin:1.6rem 0 0;padding:.8rem 1rem;border:1px solid var(--rule);border-radius:4px;background:var(--panel);font-size:.95rem}
+  .opn .otoc ol{margin:0;padding:0;list-style:none}
+  .opn .otoc li{margin:.25rem 0}
+  .opn .otoc a{color:var(--ink);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.35)}
+  .opn .otoc a:hover{color:var(--accent)}
+  .opn section.op{margin-top:3rem;border-top:2px solid var(--ink);padding-top:1.1rem}
+  .opn section.op h2{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.5rem;line-height:1.2;margin:0 0 1rem;color:var(--ink)}
+  .opn section.op p{margin:0 0 .95rem;line-height:1.62;hyphens:auto;overflow-wrap:break-word}
+  .opn section.op p.byline{color:var(--ink-soft);font-style:italic}
+  .opn section.op p.sep{text-align:center;letter-spacing:.3em;color:var(--faint);margin:1.6rem 0}
+  .opn section.op h3.oh{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.12rem;text-align:center;margin:2rem 0 1rem;color:var(--ink)}
+  .opn section.op blockquote{margin:0 0 .95rem;padding:0 0 0 1.1rem;border-left:2px solid var(--rule);color:var(--ink-soft)}
+  .opn section.op blockquote p{margin-bottom:.6rem;font-size:.96em}
+  .opn .sc{font-variant-caps:small-caps;letter-spacing:.02em}
+  .opn .pg{font-size:.66em;color:var(--faint);vertical-align:.3em;margin:0 .3em 0 .1em;font-variant-numeric:tabular-nums;user-select:none;white-space:nowrap}
+  .opn .pg::before{content:'*'}
+  .opn sup.fnr{font-size:.68em;line-height:0;margin-left:.05em}
+  .opn sup.fnr a{color:var(--link);text-decoration:none;padding:0 .1em}
+  .opn aside.notes{margin-top:2rem;border-top:1px solid var(--rule);padding-top:.8rem;font-size:.88rem;color:var(--ink-soft)}
+  .opn aside.notes h3{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1rem;margin:0 0 .6rem;color:var(--ink)}
+  .opn aside.notes ol{margin:0;padding-left:1.7rem}
+  .opn aside.notes li{margin:0 0 .55rem}
+  .opn aside.notes li.sym{list-style:none;margin-left:-1.7rem}
+  .opn aside.notes li.sym .mk{margin-right:.3rem}
+  .opn aside.notes li.sym p{display:inline}
+  .opn aside.notes p{margin:0 0 .4rem;line-height:1.5}
+  .opn aside.notes a.back{color:var(--link);text-decoration:none;margin-left:.2rem}
+  .opn aside.notes li:target,.opn sup.fnr a:target,.opn .pg:target{background:rgba(156,14,58,.12);outline:.2rem solid rgba(156,14,58,.12)}
+  .opn section.op,.opn aside.notes li,.opn sup.fnr a{scroll-margin-top:1rem}
+  .opn section.op-syllabus p,.opn section.op-counsel p{font-size:.95em}
+  .opn section.op-counsel summary{cursor:pointer;font-family:'Fraunces',Georgia,serif;font-size:1.05rem;color:var(--ink-soft)}
+  .opn .osyl{font-size:.84rem;color:var(--faint);font-style:italic;margin:-.5rem 0 1rem}
+  .opn p.back{margin-top:3rem;font-size:.92rem}
+  @media print{.smast,.bcrumb,.opn .oget,.opn .otoc,.opn p.back{display:none}.opn section.op{break-before:page}}
+</style><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://supremecourt.report/"},{"@type":"ListItem","position":2,"name":"Opinions","item":"https://supremecourt.report/opinions/"},{"@type":"ListItem","position":3,"name":"Cassirer v. Thyssen-Bornemisza Collection"}]}</script><meta name='otv' content='p1'><link rel='alternate' type='text/markdown' href='/opinions/2021/20-1566.md'><link rel='alternate' type='application/epub+zip' href='/opinions/2021/20-1566.epub'></head><body><a class='skip' href='#main'>Skip to content</a><header><div class='smast-in'><a class='smast-wm' href='/'>Supreme Court <em>Report</em></a><nav aria-label='Sections'><ul class='snav'><li><a href='/dashboards/'>Docket</a></li><li><a href='/conferences/'>Conferences</a></li><li><a href='/relists/'>Relists</a></li><li><a href='/applications/'>Interim</a></li><li><a href='/arguments/'>Arguments</a></li><li><a href='/justices/' aria-current='page'>Justices</a></li><li><a href='/counsel/'>Counsel</a></li><li><a href='/funnel/'>Funnel</a></li><li><a href='/methods.html'>Model</a></li><li><a href='/about.html'>About</a></li></ul></nav></div><div class='smast-rule-w'><hr class='smast-rule'></div></header><main class='wrap opn' id='main' data-dkt='20-1566'><nav class='bcrumb' aria-label='Breadcrumb'><ol><li><a href='/'>Home</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><a href='/opinions/'>Opinions</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><span aria-current='page'>Cassirer v. Thyssen-Bornemisza Collection</span></li></ol></nav><p class='kicker'>No. 20-1566 · decided April 21, 2022 · 596 U. S. 107</p><h1 style='font-size:clamp(1.7rem,4.6vw,2.4rem);line-height:1.12'>Cassirer v. Thyssen-Bornemisza Collection</h1><p class='ometa'>David Cassirer, et al. v. Thyssen-Bornemisza Collection Foundation. No separate writings.</p><ul class='oget'><li><a href='/opinions/2021/20-1566.epub' download>EPUB</a></li><li><a href='/opinions/2021/20-1566.md' download>Markdown</a></li><li><a href='https://www.supremecourt.gov/opinions/21pdf/596us1r23_heim.pdf' rel='noopener'>The Court’s PDF</a></li><li><a href='/cases/20-1566.html'>The docket</a></li></ul><p class='osrc'>Set from the PDF the Court published, which is the authoritative text. The small starred numbers are that PDF’s page numbers. A conversion can introduce errors; check a quotation against the <a href='https://www.supremecourt.gov/opinions/21pdf/596us1r23_heim.pdf' rel='noopener'>original</a>.</p><nav class="otoc" aria-label="Contents"><ol>
+<li><a href="#s1">Syllabus</a></li>
+<li><a href="#s2">Counsel</a></li>
+<li><a href="#s3">Opinion of the Court</a></li>
+</ol></nav>
+<section id="s1" class="op op-syllabus"><h2>Syllabus</h2><p class='osyl'>Prepared by the Reporter of Decisions for the convenience of the reader; it is no part of the opinion of the Court.</p>
+<p>The Foreign Sovereign Immunities Act of 1976 (FSIA), 28 U. S. C. § 1602 <em>et seq.</em>, governs whether a foreign state or instrumentality is amenable to suit in an American court. The question in this case is what choice-of-law rule a court should use to determine the applicable substantive law in an FSIA suit raising non-federal claims. That issue arises in a dispute concerning the ownership of an Impressionist painting: Camille Pissarro's <em>Rue Saint-Honoré in the Afternoon, Effect of Rain</em>. Lilly Cassirer inherited the painting, which a family member had purchased from Pissarro's agent in 1900. After the Nazis came to power in Germany, Lilly surrendered <em>Rue Saint-Honoré</em> to them to obtain an exit visa. Lilly and her grandson, Claude, eventually ended up in the United States. The family's post-war search for <em>Rue Saint-Honoré</em> was unsuccessful. In the early 1990s, the painting was purchased by the Thyssen-Bornemisza Collection Foundation, an entity created and controlled by the Kingdom of Spain. Claude learned several years later that <em>Rue Saint-Honoré</em> was listed in a catalogue of the Foundation's museum.</p>
+<p>Claude sued the Foundation, asserting various property-law claims based on the allegation that he owned <em>Rue Saint-Honoré</em> and was entitled to its return. Because the Foundation is an “instrumentality” of the Kingdom of Spain, the complaint invoked the FSIA to establish the court's jurisdiction. See § 1603(b). The FSIA provides foreign states and their instrumentalities with immunity from suit unless the claim falls within a specified exception. See §§ 1605–1607. The courts below held that the Nazi confiscation of <em>Rue Saint-Honoré</em> brought Claude's suit against the Foundation within the FSIA exception for expropriated property. See § 1605(a)(3). That meant the Cassirer family's suit could go forward. To determine what property law governed the dispute, the courts below had to apply a choice-of-law rule. The Cassirer plaintiffs urged the use of California's choice-of-law rule; the Foundation advocated a rule based in federal common law. The courts below picked the federal option. That option, they then held, commanded use of the property law of Spain, not California. Applying Spanish law, the courts determined that the Foundation was the rightful owner. This Court <span class="pg" id="s1-p108" title="page 108 of the original">108</span>granted certiorari to resolve a conflict among the Courts of Appeals as to what choice-of-law rule a court should apply in an FSIA case raising non-federal claims.</p>
+<p><em>Held</em>: In an FSIA suit raising non-federal claims against a foreign state or instrumentality, a court should determine the substantive law by using the same choice-of-law rule applicable in a similar suit against a private party. Here, that means applying the forum State's choice-of-law rule, not a rule deriving from federal common law.</p>
+<p>The FSIA provides a baseline principle of foreign sovereign immunity from civil actions unless a statutory exception applies (including the expropriation exception found to apply here). See §§ 1604–1607. Yet the FSIA was never “intended to affect the substantive law determining the liability of a foreign state or instrumentality” deemed amenable to suit. <em>First Nat. City Bank</em> v. <em>Banco Para el Comercio Exterior de Cuba</em>, 462 U. S. 611, 620. To the contrary, Section 1606 of the statute provides: “As to any claim for relief with respect to which a foreign state is not entitled to immunity under [the FSIA], the foreign state shall be liable in the same manner and to the same extent as a private individual under like circumstances.” When a foreign state is not immune from suit, it is subject to the same rules of liability (the same substantive law) as a private party. See <em>id.</em>, at 622, n. 11.</p>
+<p>Section 1606 dictates the selection of a choice-of-law rule: It must mirror the rule that would apply in a similar suit between private parties. Only the same choice-of-law rule can guarantee use of the same substantive law—and thus guarantee the same liability. Consider two suits seeking recovery of a painting: one suit against a foreign-state-controlled museum (as here), the other against a private museum. If the choice-of-law rules in the two suits differed, so might the substantive law chosen. And if the substantive law differed, so might the suits' outcomes. Contrary to Section 1606, the two museums would not be “liable to the same manner and to the same extent.”</p>
+<p>In this case, Section 1606 requires the use of California's choice-of-law rule—because that is the rule a court would use in comparable private litigation. Consider the just-hypothesized suit against a private museum, brought as this case was in California and asserting non-federal claims. If the private suit were filed in state court, California's choice-of-law rule would govern. And if the private suit were filed in federal court, the same would be true, because a federal court sitting in diversity borrows the forum State's choice-of-law rule. See <em>Klaxon Co</em>. v. <em>Stentor Elec. Mfg. Co</em>., 313 U. S. 487, 496. If California's choice-of-law rule applies in the private-museum suit, it must also apply in the suit <span class="pg" id="s1-p109" title="page 109 of the original">109</span>here, against the Foundation. That is the only way to ensure—as Section 1606 demands—that the Foundation, although a Spanish instrumentality, will be liable in the same way as a private party.</p>
+<p>Even absent the clarity of Section 1606, the Court would likely reach the same result. Scant justification exists for federal common lawmaking in this context. Judicial creation of federal common law to displace state-created rules must be “necessary to protect uniquely federal interests.” <em>Texas Industries</em>, <em>Inc</em>. v. <em>Radcliff Materials, Inc</em>., 451 U. S. 630, 640. While foreign relations is an interest of that kind, here even the Federal Government disclaims any necessity for a federal choice-of-law rule in FSIA suits raising non-federal claims. Pp. 113–117. 824 Fed. Appx. 452, vacated and remanded. <span class="sc">Kagan, J.,</span> delivered the opinion for a unanimous Court.</p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li class="sym" value="0"><span class="mk">*</span><p><em>Charles J. Cooper</em> and <em>P. Davis Cooper</em> filed a brief for Professors of Law as <em>amici curiae</em> urging reversal.</p><p>Briefs of <em>amici curiae</em> were filed for B'nai B'rith International et al. by <em>Edward McGlynn Gaffney</em> and <em>Jennifer A. Kreder</em>; for Comunidad Judía de Madrid et al. by <em>Bernardo M. Cremades Román</em> and <em>Patrick T. Byrne</em>; and for The 1939 Society et al. by <em>Benjamin G. Shatz, Stanley A. Goldman,</em> and <em>Stanley W. Levy.</em></p><p><em>Nicholas M. O'Donnell</em> and <em>Mark B. Feldman</em> filed a brief for <em>Mr. Feldman</em>, <em>pro se</em>, as <em>amicus curiae</em> urging vacatur.</p></li>
+</ol></aside></section>
+<section id="s2" class="op op-counsel"><details><summary>Counsel</summary><p><em>David Boies</em> argued the cause for petitioners. With him on the briefs were <em>David A. Barrett, Stephen N. Zack, Andrew S. Brenner, Scott E. Gant, Samuel J. Dubbin,</em> and <em>Laura W. Brill.</em></p>
+<p><em>Masha G. Hansford</em> argued the cause for the United States as <em>amicus curiae</em> supporting petitioners. With her on the brief were <em>Acting Solicitor General Fletcher, Acting Assistant Attorney General Boynton, Deputy Solicitor General Kneedler, Sharon Swingle,</em> and <em>Lewis S. Yelin.</em></p>
+<p><em>Thaddeus J. Stauber</em> argued the cause for respondent. With him on the brief was <em>Sarah Erickson André</em>.*</p></details></section>
+<section id="s3" class="op op-court"><h2>Opinion of the Court</h2>
+<p class="byline">Justice Kagan delivered the opinion of the Court.</p>
+<p>Under the Foreign Sovereign Immunities Act of 1976 (FSIA), 28 U. S. C. § 1602 <em>et seq.,</em> a foreign state or instrumentality<span class="pg" id="s3-p110" title="page 110 of the original">110</span> is amenable in specified circumstances to suit in an American court. In this case, the plaintiffs brought such a suit to recover expropriated property. The question presented is what choice-of-law rule the court should use to determine the applicable substantive law. The answer is: whatever choice-of-law rule the court would use if the defendant were not a foreign-state actor, but instead a private party. Here, that means applying the forum State's choice-of-law rule, not a rule deriving from federal common law.</p>
+<h3 class="oh">I</h3>
+<p>Although the legal issue before us is prosaic, the case's subject matter and background are anything but. At issue is the ownership of an Impressionist painting depicting a Paris streetscape: Camille Pissarro's <em>Rue Saint-Honoré in the Afternoon</em>, <em>Effect of Rain</em> (shown in this opinion's appendix). Pissarro's agent sold the painting in 1900 to Paul Cassirer, a member of a prominent German Jewish family owning an art gallery and publishing house. Some quarter century later, Lilly Cassirer inherited the painting and displayed it in her Berlin home (as also pictured in the appendix). But in 1933, the Nazis came to power. After years of intensifying persecution of German Jews, Lilly decided in 1939 that she had to do anything necessary to escape the country. To obtain an exit visa to England, where her grandson Claude Cassirer had already relocated, she surrendered the painting to the Nazis. The underlying question in this case—which this opinion will not resolve—is whether the Cassirer family can get the painting back.</p>
+<p>The post-war search for <em>Rue Saint-Honoré</em> was a long one. Lilly and Claude, who both eventually ended up in the United States, had no success tracking down the painting. After being legally declared the rightful owner, Lilly agreed in 1958 to accept compensation from the German Federal Republic—about $250,000 in today's dollars. (The painting is now thought to be worth tens of millions.) In fact, <em>Rue</em> <span class="pg" id="s3-p111" title="page 111 of the original">111</span><em>Saint-Honoré</em> was nearby: Like the Cassirers, the painting had also arrived in the United States after the war, and sat in a private collection in St. Louis from 1952 to 1976. In that year, the Baron Hans Heinrich Thyssen-Bornemisza (descended from the founder of a German steel empire) purchased the painting and brought it back to Europe. <em>Rue Saint-Honoré</em> hung at his residence in Switzerland until the early 1990s. At that time, the Baron sold much of his art collection, including <em>Rue Saint-Honoré</em>, to an entity the Kingdom of Spain created and controlled, called the Thyssen-Bornemisza Collection Foundation. In addition to financing the $300 million-plus purchase, the Spanish Government provided the Foundation with a palace in Madrid to serve as a museum for the collection. The museum, as museums do, published a catalogue of its holdings. An acquaintance of Claude's saw the catalogue and made the connection, telling him in 1999 where <em>Rue Saint-Honoré</em> was now located. (Lilly had by then long since died, with Claude as her sole heir.)</p>
+<p>After informal efforts to recover the painting failed, Claude sued the Foundation in federal court in the Central District of California, near where he then lived. His complaint asserted various property-law claims, all alleging that he owned <em>Rue Saint-Honoré</em> and was entitled to its return. And because the Foundation is an “instrumentality” of the Kingdom of Spain, the complaint invoked the FSIA to establish the court's jurisdiction. See § 1603(b) (describing an instrumentality as a legally separate but state-controlled entity). The FSIA governs whether a foreign state or instrumentality is amenable to suit in an American court. It provides the sovereign actor with immunity unless the claim against it falls within a specified exception. See §§ 1605–1607. The complaint here asserted that the statute's expropriation exception applied. That exception removes immunity for cases involving “rights in property taken in violation of international law.” § 1605(a)(3). At a <span class="pg" id="s3-p112" title="page 112 of the original">112</span>prior stage of this litigation, the courts below held that the Nazi confiscation of <em>Rue Saint-Honoré</em> brought Claude's suit against the Foundation within the expropriation exception. See 461 F. Supp. 2d 1157, 1176–1177 (CD Cal. 2006), aff'd, 616 F. 3d 1019, 1037 (CA9 2010) (en banc), cert. denied, 564 U. S. 1037 (2011). That determination, which is no longer at issue, meant that the suit could go forward. (Claude, though, would not live to see anything further; he passed away in 2010, and his heirs became the plaintiffs.) <sup class="fnr"><a id="s3-r1" href="#s3-n1">1</a></sup></p>
+<p>But go forward pursuant to what law? The courts had to decide whose property law (Spain's? California's?) should govern the suit, and thus determine the painting's rightful owner. Resolving that question required application of a choice-of-law rule—a means of selecting which jurisdiction's law governs the determination of liability. Yet there another issue lurked. For the parties contested which choice-of-law rule should apply—serving up, so to speak, a choice of choice-of-law principles. The Cassirer plaintiffs urged the use of California's choice-of-law rule; the defendant Foundation advocated a rule based in federal common law. The courts below, relying on a minimally reasoned Ninth Circuit precedent, picked the federal option. See 153 F. Supp. 3d 1148, 1154 (CD Cal. 2015), aff'd, 862 F. 3d 951, 961 (CA9 2017), cert. denied, 584 U. S. ––– (2018). That federal choice-of-law rule, they further held, commanded the use of Spanish (not Californian) property law to resolve the ownership issue. See 153 F. Supp. 3d, at 1155, aff'd, 862 F. 3d, at 963. Finally, the courts below determined after a trial that under Spanish law the Foundation was the rightful owner, because it purchased <em>Rue Saint-Honoré</em> without knowing the painting was stolen and had held it long enough to gain title through possession. See No. 05–cv–03459 (CD Cal., Apr. 30, 2019), ECF <span class="pg" id="s3-p113" title="page 113 of the original">113</span>Doc. 621, pp. 26–30, aff'd, 824 Fed. Appx. 452, 454–455 (CA9 2020).</p>
+<p>The Cassirers sought our review, limited to a single issue: whether a court in an FSIA case raising non-federal claims (relating to property, torts, contracts, and so forth) should apply the forum State's choice-of-law rule, or instead use a federal one. We granted certiorari, 594 U. S. ––– (2021), because that question has generated a split in the Courts of Appeals. The Ninth Circuit stands alone in using a federal choice-of-law rule to pick the applicable substantive law. All other Courts of Appeals to have addressed the issue apply the choice-of-law rule of the forum State.<sup class="fnr"><a id="s3-r2" href="#s3-n2">2</a></sup>We agree with that more common approach, and now vacate the judgment below.</p>
+<h3 class="oh">II</h3>
+<p>The FSIA, as indicated above, creates a uniform body of federal law to govern the amenability of foreign states and their instrumentalities to suit in the United States. See <em>supra</em>, at 111. The statute first lays down a baseline principle of foreign sovereign immunity from civil actions. See § 1604. It then lists a series of exceptions from that principle (including the expropriation exception found to apply here). See §§ 1605–1607; <em>supra</em>, at 111. The result is to spell out, as a matter of federal law, the suits against foreign sovereigns that American courts do, and do not, have power to decide.</p>
+<p>Yet the FSIA was never “intended to affect the substantive law determining the liability of a foreign state or instrumentality” deemed amenable to suit. <em>First Nat. City Bank</em> v. <em>Banco Para el Comercio Exterior de Cuba</em>, 462 U. S. 611, <span class="pg" id="s3-p114" title="page 114 of the original">114</span>620 (1983). To the contrary, Section 1606 of the statute provides:</p>
+<blockquote>
+<p>“As to any claim for relief with respect to which a foreign state is not entitled to immunity under [the FSIA], the foreign state shall be liable in the same manner and to the same extent as a private individual under like circumstances.”</p>
+</blockquote>
+<p class="cont">So when a foreign state is not immune from suit, it is subject to the same rules of liability as a private party. Which is just to say that the substantive law applying to the latter also applies to the former. See <em>First Nat. City Bank</em>, 462 U. S., at 622, n. 11. As one court put the point, Section 1606 directs a “pass-through” to the substantive law that would govern a similar suit between private individuals. <em>Oveissi</em> v. <em>Islamic Republic of Iran</em>, 573 F. 3d 835, 841 (CADC 2009). The provision thus ensures that a foreign state, if found ineligible for immunity, must answer for its conduct just as any other actor would.</p>
+<p>And in so doing, Section 1606 also dictates the selection of a choice-of-law rule: It, too, must mirror the rule that would apply in a similar suit between private parties. For only the same choice-of-law rule can guarantee use of the same substantive law—and thus (see above) guarantee the same liability. See <em>Barkanic</em> v. <em>General Admin. of Civ. Aviation of People's Republic of China</em>, 923 F. 2d 957, 959–960 (CA2 1991) (“[T]he same choice of law analysis” is needed to “apply[ ] identical substantive laws,” and so to “ensure identity of liability” between a foreign state and a private individual). Consider two suits seeking recovery of a painting—one suit against a foreign-state-controlled museum (as here), the other against a private museum. If the choice-of-law rules in the two suits differed, so might the substantive law in fact chosen. And if the substantive law differed, so might the suits' outcomes. In one case, say, the plaintiff would recover the art, and in the other not. Contrary to <span class="pg" id="s3-p115" title="page 115 of the original">115</span>Section 1606, the two museums would not be “liable in the same manner and to the same extent.”</p>
+<p>In this case, then, Section 1606 requires the use of California's choice-of-law rule—because that is the rule a court would use in comparable private litigation. Consider the just-hypothesized suit against a private museum for return of a piece of art, brought as this case was in California. The claims asserted (again, as in this case) turn only on state or foreign property law, with no substantive federal component. If the private suit were filed in state court, California's choice-of-law rule would of course govern. And if the private suit were filed in federal court, under diversity-ofcitizenship jurisdiction, the same would be true. According to long-settled precedent, a federal court sitting in diversity borrows the forum State's choice-of-law rule. See <em>Klaxon Co.</em> v. <em>Stentor Elec. Mfg. Co.</em>, 313 U. S. 487, 496 (1941). So the private-museum suit would begin with the application of California's choice-of-law rule, to decide on the governing substantive law. And if that choice-of-law rule applies in the private-museum suit, so too it must apply in the suit here, against the Foundation. That is the only way to ensure—as Section 1606 demands—that the Foundation, although a Spanish instrumentality, will be liable in the same way as a private party.</p>
+<p>In choosing instead to apply a federal choice-of-law rule, the courts below could well have created a mismatch between the Foundation's liability and a private defendant's. As described earlier, those courts found that the federal rule commanded the use of Spanish property law to determine <em>Rue Saint-Honoré</em>'s rightful owner. See <em>supra</em>, at 112. Spanish law (as the courts below understood it) made everything depend on whether, at the time of acquisition, the Foundation knew the painting was stolen: If the Foundation did not know—as the courts in fact found—then it owned the painting by virtue of possession. See ECF Doc. 621, at 26–30, aff'd, 824 Fed. Appx., at 454–455. But now consider the <span class="pg" id="s3-p116" title="page 116 of the original">116</span>possible result if the courts below had instead applied California's choice-of-law rule, as they would have done in a private suit. The Cassirer plaintiffs contend that the California rule would lead to the application of California property law. See Brief for Petitioners 13. And they argue that under California property law, even a good-faith purchaser of stolen property cannot prevail against the rightful pre-theft owner. See <em>ibid.</em> We do not today decide those questions; they remain in the hands of the lower courts. But if the Cassirers are right, the use of a federal choice-of-law rule in the courts below stopped Section 1606 from working: That rule led to the Foundation keeping the painting when a private museum would have had to give it back.</p>
+<p>And even were Section 1606 not so clear, we would likely reach the same result, because we see scant justification for federal common lawmaking in this context. Judicial creation of federal common law to displace state-created rules must be “necessary to protect uniquely federal interests.” <em>Texas Industries, Inc.</em> v. <em>Radcliff Materials, Inc.</em>, 451 U. S. 630, 640 (1981). Foreign relations is of course an interest of that kind. But even the Federal Government, participating here in support of the Cassirers' position, disclaims any necessity for a federal choice-of-law rule in FSIA suits raising non-federal claims. See Brief for United States as <em>Amicus Curiae</em> 9, 20–23. As the Government notes, such FSIA suits arise only when a foreign state has lost its broad immunity and become subject to standard-fare legal claims involving property, contract, or the like. See <em>id.</em>, at 9. No one would think federal law displaces the substantive rule of decision in those suits; and we see no greater warrant for federal law to supplant the otherwise applicable choice-of-law rule. See <em>id.</em>, at 21 (State choice-of-law rules do not “ordinarily pose a greater threat to foreign relations than” state-law principles determining “the rights and liabilities of the parties”). Courts outside the Ninth Circuit have long applied state choice-of-law rules in FSIA suits. See <em>supra,</em> at <span class="pg" id="s3-p117" title="page 117 of the original">117</span>113, and n. 2. Yet the Government says it knows of no case in which that practice has created foreign relations concerns. See Tr. of Oral Arg. 20–21.<sup class="fnr"><a id="s3-r3" href="#s3-n3">3</a></sup>So the Ninth Circuit's use of a federal choice-of-law rule in FSIA cases has been a solution in search of a problem, rejecting without any reason the usual role of state law.</p>
+<p class="sep">* * *</p>
+<p>The path of our decision has been as short as the hunt for <em>Rue Saint-Honoré</em> was long; our ruling is as simple as the conflict over its rightful owner has been vexed. A foreign state or instrumentality in an FSIA suit is liable just as a private party would be. See § 1606. That means the standard choice-of-law rule must apply. In a property-law dispute like this one, that standard rule is the forum State's (here, California's)—not any deriving from federal common law.</p>
+<p>Accordingly, the judgment of the Court of Appeals for the Ninth Circuit is vacated, and the case is remanded for further proceedings consistent with this opinion.</p>
+<p><em>It is so ordered.</em></p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li id="s3-n1" value="1"><p>Claude's children, David and Ava Cassirer, along with the Jewish Federation of San Diego County, succeeded to his claims. Some years later, Ava also died; her estate is now a substitute plaintiff. <a class="back" href="#s3-r1" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n2" value="2"><p>See <em>Barkanic</em> v. <em>General Admin. of Civ. Aviation of People's Republic of China</em>, 923 F. 2d 957, 959–961 (CA2 1991); <em>Northrop Grumman Ship Systems, Inc.</em> v. <em>Ministry of Defense of Republic of Venezuela</em>, 575 F. 3d 491, 498 (CA5 2009)<em>; O'Bryan</em> v. <em>Holy See</em>, 556 F. 3d 361, 381, n. 8 (CA6), cert. denied, 558 U. S. 819 (2009); <em>Oveissi</em> v. <em>Islamic Republic of Iran</em>, 573 F. 3d 835, 841 (CADC 2009). <a class="back" href="#s3-r2" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n3" value="3"><p>Were such an unusual case to occur, the Government states that it would be “best addressed by applying limits on the application of state law derived from the Constitution, applicable treaties or statutes, international comity, the Act of State doctrine, or other sources reflecting distinctly federal interests—rather than displacing state choice-of-law rules across the board.” Brief for United States as <em>Amicus Curiae</em> 21; see Tr. of Oral Arg. 20–23, 25–26. We express no view on whether or when imposing such limits on state law would be proper. <a class="back" href="#s3-r3" aria-label="Back to the text">↩</a></p></li>
+</ol></aside></section><p class='back'><a href='/opinions/'>&larr; All opinions</a> · <a href='/justices/ot2021.html'>The Justices, October Term 2021 &rarr;</a></p></main></body>
+</html>
+

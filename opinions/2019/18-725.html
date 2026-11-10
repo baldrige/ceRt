@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script async src='/analytics.js'></script><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate icon" href="/favicon.ico" sizes="any"><link rel="alternate" type="application/atom+xml" title="Supreme Court Report" href="/feed.xml"><link rel="alternate" type="application/atom+xml" title="Certiorari grants" href="/grants.xml"><title>Barton v. Barr — Opinion — Supreme Court Report</title><meta name="description" content="The opinion in Barton v. Barr (No. 18-725), decided April 23, 2020: the full text with its footnotes, as a page, a Markdown file and an EPUB."><link rel="canonical" href="https://supremecourt.report/opinions/2019/18-725.html"><meta property="og:site_name" content="Supreme Court Report"><meta property="og:type" content="article"><meta property="og:title" content="Barton v. Barr — Opinion — Supreme Court Report"><meta property="og:description" content="The opinion in Barton v. Barr (No. 18-725), decided April 23, 2020: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta property="og:url" content="https://supremecourt.report/opinions/2019/18-725.html"><meta property="og:image" content="https://supremecourt.report/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Supreme Court Report - docket analytics for the Supreme Court of the United States"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Barton v. Barr — Opinion — Supreme Court Report"><meta name="twitter:description" content="The opinion in Barton v. Barr (No. 18-725), decided April 23, 2020: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta name="twitter:image" content="https://supremecourt.report/og.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap"><style>
+  :root{--paper:#fdfcfa;--panel:#ffffff;--ink:#1a1a1e;--ink-soft:#484850;--faint:#63636b;--accent:#9c0e3a;--link:#9c0e3a;--rule:#dbd8d2;--nav-max:60rem}
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{font-family:'Newsreader',Georgia,serif;font-size:19px;line-height:1.6;
+    color:var(--ink);background:var(--paper);margin:0;font-feature-settings:'onum' 1}
+  body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
+    opacity:.5;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");}
+  .wrap{max-width:40rem;margin:0 auto;padding:3rem 1.4rem 4rem}
+  .kicker{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 1rem}
+  h1{font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:clamp(2.4rem,7vw,3.6rem);line-height:1;letter-spacing:-.015em;
+    margin:0 0 1rem;color:var(--ink)}
+  h1 em{font-style:italic;font-weight:500;color:var(--accent)}
+  .dek{font-size:1.15rem;line-height:1.5;color:var(--ink-soft);font-style:italic;
+    margin:0 0 1.4rem}
+  .brule{border:0;height:0;border-top:2px solid var(--ink);margin:1.4rem 0 .3rem;
+    position:relative}
+  .brule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+    border-top:1px solid var(--rule)}
+  ul.idx{list-style:none;padding:0;margin:1.6rem 0}
+  ul.idx li{border-bottom:1px solid var(--rule)}
+  /* Whole row is one block-level link: a large, reliable tap target on mobile. */
+  ul.idx a.row{display:flex;justify-content:space-between;align-items:baseline;
+    gap:1rem;padding:.9rem .4rem;text-decoration:none;border:0;color:inherit}
+  ul.idx a.row:hover{background:rgba(156,14,58,.05)}
+  ul.idx .d{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.16rem;
+    color:var(--accent);line-height:1.25}
+  ul.idx a.row:hover .d{text-decoration:underline;text-underline-offset:3px}
+  ul.idx .count{color:var(--faint);font-size:.9rem;font-style:italic;white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  /* A long note (an order list's "3 GVRs / 230 denied / 4 habeas denied /
+     ...", items separated by middots) cannot sit on one line: nowrap made it
+     claim the row and
+     squeezed the title into a column three words wide, and on a phone it ran off
+     the screen. Such a row opts in (meta_wrap): the note wraps, only between its
+     items, and takes at most ~45% of the row, so the title always has the
+     larger share. Under 34rem it drops beneath the title at full width. */
+  /* ("long", not "wrap": .wrap is the page container and its padding.) */
+  ul.idx .count.long{white-space:normal;text-align:right;max-width:45%;line-height:1.45}
+  ul.idx .count.long .seg{white-space:nowrap}
+  @media(max-width:34rem){
+    ul.idx a.row.longmeta{flex-wrap:wrap;row-gap:.2rem}
+    ul.idx .count.long{max-width:none;flex-basis:100%;text-align:left}
+  }
+  /* Compact horizontal strip of the most recent pages beneath a category row. */
+  ul.idx .recent{display:flex;flex-wrap:wrap;align-items:baseline;
+    gap:.3rem .85rem;padding:0 .4rem 1rem;margin-top:-.35rem}
+  ul.idx .recent .rlabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  ul.idx .recent a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--ink-soft);text-decoration:none;font-variant-numeric:tabular-nums;
+    border-bottom:1px solid var(--rule);padding-bottom:1px}
+  ul.idx .recent a:hover{color:var(--accent);border-color:var(--accent)}
+  /* Optional panel beneath the section index (home page: most-read cases). */
+  .panel{margin:2.4rem 0 0}
+  .panel h2{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 .25rem}
+  .panel .pnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:0 0 .5rem}
+  /* "Live now" (live_argument_panel, /live.js): hidden unless the Court is
+     streaming an argument. One red dot, the same --accent as the headings, so
+     the live state is a mark and not a new colour. */
+  .live h2 .ldot{display:inline-block;width:.5rem;height:.5rem;border-radius:50%;
+    background:var(--accent);margin-right:.5rem;vertical-align:.08rem;
+    animation:lpulse 2s ease-in-out infinite}
+  @keyframes lpulse{50%{opacity:.25}}
+  @media (prefers-reduced-motion:reduce){.live h2 .ldot{animation:none}}
+  .lplay{display:flex;flex-wrap:wrap;gap:.6rem .9rem;align-items:center;margin:.8rem 0 .3rem}
+  .lplay button{font:600 .9rem/1 'Newsreader',Georgia,serif;letter-spacing:.04em;
+    color:var(--paper);background:var(--accent);border:0;border-radius:2px;
+    padding:.6rem 1.05rem;cursor:pointer}
+  .lplay button:disabled{opacity:.6;cursor:progress}
+  .lplay button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  /* The player takes a row of its own and may never outgrow the column. A flex
+     item's min-width is auto, which for a replaced element is the browser's own
+     controls' width -- wider than the column on a phone, where mobile Safari
+     and Chrome draw larger controls than the desktop. */
+  .lplay audio{display:block;flex:1 1 100%;width:100%;min-width:0;max-width:100%;
+    box-sizing:border-box;margin:0}
+  .lplay .lstat{font-size:.85rem;color:var(--faint)}
+  /* --- Likeliest grants -----------------------------------------------------
+     Its own rows rather than ol.mostread's: this panel carries a question under
+     the caption, which that list has no room for, and a percentage that has to
+     read as the row's subject rather than as a trailing note.
+     The window toggle is two real radio inputs plus :has() -- no JavaScript.
+     Both windows are rendered at build time and one is hidden, which is the only
+     way a static site can offer the choice: there is no server to ask for the
+     other one. Real radios, not styled buttons, so the control is reachable by
+     keyboard and announced as a choice. */
+  .lead{margin:0 0 1.9rem}
+  .lead h2{margin-bottom:.35rem}
+  .lead .pnote{margin:0 0 .7rem}
+  .wr{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+  .win{display:inline-flex;gap:.25rem;margin:0 0 .55rem;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .win label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .win label:hover{color:var(--ink)}
+  .lead:has(#w7:checked) label[for=w7],
+  .lead:has(#w28:checked) label[for=w28],
+  .lead:has(#wall:checked) label[for=wall]{background:var(--accent);color:var(--paper)}
+  .wr:focus-visible+label{outline:2px solid var(--accent);outline-offset:2px}
+  /* Three windows, one shown: the checked radio hides the other two. */
+  .lead:has(#w7:checked) :is(.g28,.n28,.gall,.nall),
+  .lead:has(#w28:checked) :is(.g7,.n7,.gall,.nall),
+  .lead:has(#wall:checked) :is(.g7,.n7,.g28,.n28){display:none}
+  /* The show/hide controls for a panel's secondary line -- the question under
+     a forecast row, the holding under a decision. Same box as the window
+     toggle, a checkbox instead of radios, and no script: the sibling rule does
+     the work and the lines simply show where :has() is unsupported. The
+     questions are on by default (they are what a forecast row asks); the
+     holdings are off (the caption, kind and disposition already say what
+     happened, and the holding is the more). */
+  .opts{display:inline-flex;gap:.25rem;margin:0 .45rem .55rem 0;vertical-align:top;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .opts label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .opts label:hover{color:var(--ink)}
+  .lead:has(#qon:checked) label[for=qon],
+  .panel:has(#hon:checked) label[for=hon]{background:var(--accent);color:var(--paper)}
+  .lead:has(#qon:not(:checked)) .gq{display:none}
+  .panel:has(#hon:not(:checked)) .chold{display:none}
+  /* --- Upcoming at the Court ------------------------------------------------
+     A date gutter and a two-line body, the same shape as the grant rows above
+     it, so the two panels read as one page rather than two widgets. */
+  .cal{margin:0 0 1.9rem}
+  ol.cal{list-style:none;margin:0;padding:0}
+  ol.cal li{border-top:1px solid var(--rule)}
+  ol.cal li:last-child{border-bottom:1px solid var(--rule)}
+  /* The row is a container, not an anchor: an argument day carries one link per
+     case it hears and anchors cannot nest. Hover lives on the row so it still
+     reads as one unit, and each link colours on its own hover. */
+  ol.cal .crow{display:flex;gap:.95rem;align-items:baseline;padding:.55rem .1rem}
+  ol.cal .crow:hover{background:rgba(156,14,58,.05)}
+  ol.cal a{text-decoration:none;color:inherit}
+  ol.cal a:hover,ol.cal a:focus-visible{color:var(--accent)}
+  ol.cal .cdet a{border-bottom:1px solid rgba(156,14,58,.35)}
+  ol.cal .cdet a:hover{border-bottom-color:var(--accent)}
+  ol.cal .cwhen{flex:none;width:4.6rem;font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.96rem;color:var(--ink);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  ol.cal .cdow{display:block;font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);text-transform:uppercase;letter-spacing:.08em}
+  ol.cal .ctx{flex:1;min-width:0}
+  ol.cal .ckind{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:.98rem;line-height:1.25}
+  ol.cal .cdet{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.12rem}
+  /* Recent decisions reuses the calendar rows and adds exactly two things: the
+     kind word that opens the detail line, and the one outbound link (the slip
+     opinion), which takes the link colour the rest of the row deliberately
+     does not. */
+  ol.cal .dk{font-weight:600;color:var(--ink)}
+  ol.cal .cdet a.pdf{color:var(--link)}
+  /* The holding, from the Court's slip-opinion feed: one sentence, set
+     smaller and in the soft ink so the caption stays the row's headline. */
+  ol.cal .chold{display:block;font-size:.86rem;line-height:1.4;color:var(--ink-soft);
+    font-style:italic;margin-top:.15rem}
+  ol.cal .cdet a.pdf:hover,ol.cal .cdet a.pdf:focus-visible{color:var(--accent);
+    border-bottom-color:var(--accent)}
+  ol.grants{list-style:none;margin:0;padding:0}
+  ol.grants li{border-top:1px solid var(--rule)}
+  ol.grants li:last-child{border-bottom:1px solid var(--rule)}
+  ol.grants a{display:flex;gap:.95rem;align-items:baseline;text-decoration:none;
+    color:inherit;padding:.62rem .1rem}
+  ol.grants a:hover{background:rgba(156,14,58,.05)}
+  ol.grants a:hover .gc{color:var(--accent)}
+  ol.grants .gv{flex:none;width:3.5rem;text-align:right;
+    font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.22rem;
+    line-height:1.1;color:var(--accent);font-variant-numeric:tabular-nums}
+  ol.grants .gx{font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);margin-left:.3rem}
+  ol.grants .gtx{flex:1;min-width:0}
+  /* Subject-area line under the caption, in the section-label idiom (h2.sec):
+     small tracked caps in the faint ink, so it classifies without competing. */
+  ol.grants .gs,ol.mostread .ms{display:block;font-size:.68rem;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--faint);line-height:1.3;margin-top:.12rem}
+  ol.grants .gc{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:1rem;line-height:1.25}
+  ol.grants .gq{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.16rem}
+  ol.grants .gd{flex:none;font-size:.76rem;color:var(--faint);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  .more{margin:.75rem 0 0;font-size:.92rem}
+  .more a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.35)}
+  .more a:hover{border-bottom-color:var(--link)}
+  h2.sec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:.88rem;
+    letter-spacing:.09em;color:var(--faint);text-transform:uppercase;
+    margin:2.1rem 0 .6rem;padding-bottom:.28rem;border-bottom:1px solid var(--rule)}
+  @media(max-width:40rem){
+    ol.grants a{flex-wrap:wrap}
+    ol.grants .gd{width:100%;padding-left:4.45rem;margin-top:-.1rem}
+  }
+  ol.mostread{list-style:none;counter-reset:mr;padding:0;margin:0}
+  ol.mostread li{counter-increment:mr;border-bottom:1px solid var(--rule)}
+  ol.mostread a{display:flex;align-items:baseline;gap:.7rem;padding:.6rem .4rem;
+    text-decoration:none;color:inherit}
+  ol.mostread a:hover{background:rgba(156,14,58,.05)}
+  ol.mostread a::before{content:counter(mr);font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.95rem;color:var(--faint);min-width:1.1rem;
+    font-variant-numeric:tabular-nums}
+  ol.mostread .mc{flex:1;font-size:1rem;line-height:1.3}
+  ol.mostread .mct{display:block}
+  ol.mostread a:hover .mct{color:var(--accent);text-decoration:underline;
+    text-underline-offset:3px}
+  ol.mostread .mdk{color:var(--accent);font-weight:600;font-size:.82rem;
+    font-variant-numeric:tabular-nums;white-space:nowrap}
+  ol.mostread .mv{color:var(--faint);font-size:.85rem;font-style:italic;
+    white-space:nowrap;font-variant-numeric:tabular-nums}
+  /* Forecast percentages carry weight the most-read counts do not: the number is
+     the claim, not a footnote to the ranking. Upright, accent, tabular. */
+  ol.mostread .mv.fc{color:var(--accent);font-style:normal;font-weight:600;
+    font-size:.95rem;min-width:2.6rem;text-align:right}
+  /* Feed follow line. Deliberately quiet -- a footnote under the section list,
+     styled like .recent rather than like a call to action. */
+  .feeds{display:flex;flex-wrap:wrap;align-items:baseline;gap:.3rem .85rem;
+    margin:2.2rem 0 0;padding-top:1.1rem;border-top:1px solid var(--rule)}
+  .feeds .flabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  .feeds a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .feeds a:hover{border-color:var(--link)}
+  .back{margin-top:2rem;font-size:.95rem}
+  .back a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .back a:hover{border-color:var(--link)}
+  /* Home-page case search. */
+  .csearch{position:relative;margin:0 0 1.4rem}
+  #cq{width:100%;font-family:'Newsreader',Georgia,serif;font-size:1.05rem;color:var(--ink);
+    background:var(--panel);border:1px solid var(--rule);border-radius:3px;padding:.7rem .9rem}
+  #cq:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(156,14,58,.1)}
+  #cq::placeholder{color:var(--faint)}
+  #cq.loading{background-image:linear-gradient(90deg,transparent,rgba(156,14,58,.06),transparent);
+    background-size:40% 100%;background-repeat:no-repeat;animation:csl 1s infinite}
+  @keyframes csl{0%{background-position:-40% 0}100%{background-position:140% 0}}
+  .cres{list-style:none;margin:.35rem 0 0;padding:0;max-height:24rem;overflow-y:auto;
+    border:1px solid var(--rule);border-radius:3px;background:var(--panel)}
+  .cres:empty{display:none}
+  .cres li{border-bottom:1px solid var(--rule)}
+  .cres li:last-child{border-bottom:0}
+  .cres a{display:block;padding:.55rem .7rem;text-decoration:none;color:var(--ink);
+    font-size:.98rem;line-height:1.3}
+  .cres a:hover,.cres li.act a{background:rgba(156,14,58,.06)}
+  .cres mark{background:rgba(156,14,58,.14);color:inherit;padding:0 .05em;border-radius:2px}
+  .cres .cd{color:var(--accent);font-variant-numeric:tabular-nums;font-weight:600;
+    margin-right:.5rem;white-space:nowrap}
+  .cnone{padding:.55rem .7rem;color:var(--faint);font-style:italic}
+  .cnone a,.cqp a{color:var(--link);font-style:normal;text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .cqp{margin:.45rem 0 0;font-size:.88rem;color:var(--faint)}
+  /* /cases/ browse index: grouped sections with per-bucket counts. */
+  .csec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+    text-transform:uppercase;letter-spacing:.12em;color:var(--accent);
+    margin:2.2rem 0 .3rem;padding-bottom:.35rem;border-bottom:1px solid var(--rule);
+    display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
+  .csec .cn{font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:.85rem;
+    letter-spacing:0;text-transform:none;color:var(--faint);
+    font-variant-numeric:tabular-nums}
+  .cnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:.5rem 0 0}
+  .cnote a{color:var(--accent)}
+  ul.terms{list-style:none;padding:0;margin:1rem 0 0;display:flex;flex-wrap:wrap;
+    gap:.5rem 1.6rem}
+  ul.terms li{display:inline-flex;align-items:baseline;gap:.4rem}
+  ul.terms a{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.05rem;
+    color:var(--accent);text-decoration:none;border-bottom:1px solid var(--rule)}
+  ul.terms a:hover{border-bottom-color:var(--accent)}
+  ul.terms .cn{color:var(--faint);font-size:.85rem;font-variant-numeric:tabular-nums}
+  /* About page: running prose rather than an index, so it takes a measure and a
+     little more leading than the section rows above it. */
+  .about{margin:1.6rem 0 0;font-size:1.05rem;line-height:1.65;max-width:34rem}
+  .about p{margin:0 0 1rem}
+  .about a{color:var(--accent);text-decoration:none;
+    border-bottom:1px solid var(--rule)}
+  .about a:hover{border-bottom-color:var(--accent)}
+  .about .contact{margin:2rem 0 0;background:var(--panel);border:1px solid var(--rule);
+    border-left:4px solid var(--accent);padding:1.1rem 1.3rem}
+  .about .contact h2{font:600 .78rem/1 'Newsreader',Georgia,serif;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--accent);margin:0 0 .5rem}
+  .about .contact p{margin:0;font-size:1rem}
+
+/* ---- masthead ---- */
+.smast-in{max-width:var(--nav-max,60rem);margin:0 auto;padding:.85rem 1.5rem .5rem;
+  display:flex;align-items:baseline;justify-content:space-between;gap:1.4rem;flex-wrap:wrap}
+.smast-wm{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+  letter-spacing:.005em;color:var(--ink,#1a1a1e);text-decoration:none;white-space:nowrap;flex:none}
+.smast-wm em{font-style:italic;font-weight:500;color:var(--accent,#9c0e3a)}
+.smast-wm:hover{color:var(--accent,#9c0e3a)}
+/* Row gap first, then column. At 1.35rem the six section links measured 596px
+   of max-content -- 4px wider than the 592px row the 40rem index container
+   leaves them -- so ABOUT alone wrapped to a third line under the wordmark, on
+   every page page_style.R writes. 1.05rem brings the row to 572px: 20px of
+   slack at 40rem, and 45px on the 54rem case pages, which were themselves only
+   21px from wrapping. The .4rem row gap is for the day a seventh section
+   overruns it anyway -- a nav that wraps should read as a stack, not an orphan. */
+.snav{display:flex;gap:.4rem 1.05rem;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+.snav a{font:600 .72rem/1 'Newsreader',Georgia,serif;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--ink-soft,var(--soft,#484850));text-decoration:none;display:inline-block;
+  padding:.5rem 0;border-bottom:1.5px solid transparent}
+.snav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--rule,#dbd8d2)}
+.snav a[aria-current='page']{color:var(--accent,#9c0e3a);
+  border-bottom-color:var(--accent,#9c0e3a)}
+.smast-rule-w{max-width:var(--nav-max,60rem);margin:0 auto;padding:0 1.5rem}
+.smast-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0;position:relative}
+.smast-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.skip{position:absolute;left:-9999px;top:0;background:var(--panel,#ffffff);
+  color:var(--accent,#9c0e3a);padding:.6rem 1rem;
+  border:1px solid var(--accent,#9c0e3a);
+  font:600 .8rem/1 'Newsreader',Georgia,serif;letter-spacing:.1em;text-transform:uppercase;z-index:10}
+.skip:focus{left:.5rem;top:.5rem}
+/* ---- breadcrumb ---- */
+.bcrumb{margin:.7rem 0 0}
+.bcrumb ol{list-style:none;display:flex;flex-wrap:wrap;align-items:baseline;
+  gap:.1rem .45rem;margin:0;padding:0}
+.bcrumb li{display:inline-flex;align-items:baseline;gap:.45rem}
+.bcrumb a{font:400 .8rem/1.5 'Newsreader',Georgia,serif;color:var(--ink-soft,var(--soft,#484850));
+  text-decoration:none;border-bottom:1px solid var(--rule,#dbd8d2)}
+.bcrumb a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.bcrumb .sep{color:var(--faint,#63636b);font-size:.8rem;line-height:1.5}
+.bcrumb [aria-current='page']{font:400 .8rem/1.5 'Newsreader',Georgia,serif;
+  color:var(--faint,#63636b);font-variant-numeric:tabular-nums}
+/* ---- case footer ---- */
+.cfoot{margin:2.4rem 0 0}
+.cfoot-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0 0 1rem;position:relative}
+.cfoot-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.cfoot-off{font-size:.95rem;margin:0 0 1.1rem}
+.cfoot-off a{color:var(--link,#9c0e3a);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.4)}
+.cfoot-off a:hover{border-bottom-color:var(--link,#9c0e3a)}
+.cfoot-lab{font:600 .68rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);margin:0 0 .5rem}
+.cfoot-nav{display:flex;flex-wrap:wrap;gap:.35rem 1.1rem;list-style:none;margin:0;padding:0}
+.cfoot-nav a{font-size:.92rem;color:var(--ink-soft,var(--soft,#484850));text-decoration:none;
+  border-bottom:1px solid var(--rule,#dbd8d2);padding-bottom:1px}
+.cfoot-nav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.cfoot-stamp{margin:1.2rem 0 0;font-size:.8rem;color:var(--faint,#63636b);font-style:italic}
+/* ---- prev / next ---- */
+.pnav{margin:2.2rem 0 0;border-top:1px solid var(--rule,#dbd8d2);padding-top:1rem;
+  display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.pnav a,.pnav span.none{text-decoration:none;color:inherit;display:block;padding:.5rem .2rem}
+.pnav a:hover{background:rgba(156,14,58,.05)}
+.pnav .dir{font:600 .66rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);display:block;margin-bottom:.3rem}
+.pnav .lab{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1rem;line-height:1.25;
+  color:var(--accent,#9c0e3a);display:block}
+.pnav a:hover .lab{text-decoration:underline;text-underline-offset:3px}
+.pnav .nx{text-align:right}
+.pnav .none{opacity:.35}
+@media(max-width:640px){
+  .smast-in{padding:.7rem 1.1rem .25rem;gap:.15rem}
+  .smast-wm{font-size:.98rem}
+  .smast-in nav{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+    -webkit-mask-image:linear-gradient(90deg,#000 86%,transparent);
+    mask-image:linear-gradient(90deg,#000 86%,transparent)}
+  .smast-in nav::-webkit-scrollbar{display:none}
+  .snav{flex-wrap:nowrap;gap:1.15rem;padding-right:2.4rem}
+  .snav a{padding:.7rem 0;white-space:nowrap}
+  .smast-rule-w{padding:0 1.1rem}
+  .cfoot-nav{gap:.5rem 1rem}
+  .cfoot-nav a{padding-bottom:.3rem}
+  .pnav{grid-template-columns:1fr;gap:.2rem}
+  .pnav .nx{text-align:left;border-top:1px solid var(--rule,#dbd8d2)}
+}
+
+  .wrap.opn{max-width:42rem}
+  .opn .ometa{font-size:.92rem;color:var(--ink-soft);margin:.3rem 0 0}
+  .opn .oget{display:flex;flex-wrap:wrap;gap:.4rem .6rem;margin:1.1rem 0 0;padding:0;list-style:none;font-size:.9rem}
+  .opn .oget a{display:inline-block;padding:.32rem .7rem;border:1px solid var(--rule);border-radius:4px;color:var(--ink);text-decoration:none;background:var(--panel)}
+  .opn .oget a:hover{border-color:var(--accent);color:var(--accent)}
+  .opn .osrc{font-size:.84rem;color:var(--faint);margin:.9rem 0 0;line-height:1.45}
+  .opn .osrc a{color:var(--link)}
+  .opn .otoc{margin:1.6rem 0 0;padding:.8rem 1rem;border:1px solid var(--rule);border-radius:4px;background:var(--panel);font-size:.95rem}
+  .opn .otoc ol{margin:0;padding:0;list-style:none}
+  .opn .otoc li{margin:.25rem 0}
+  .opn .otoc a{color:var(--ink);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.35)}
+  .opn .otoc a:hover{color:var(--accent)}
+  .opn section.op{margin-top:3rem;border-top:2px solid var(--ink);padding-top:1.1rem}
+  .opn section.op h2{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.5rem;line-height:1.2;margin:0 0 1rem;color:var(--ink)}
+  .opn section.op p{margin:0 0 .95rem;line-height:1.62;hyphens:auto;overflow-wrap:break-word}
+  .opn section.op p.byline{color:var(--ink-soft);font-style:italic}
+  .opn section.op p.sep{text-align:center;letter-spacing:.3em;color:var(--faint);margin:1.6rem 0}
+  .opn section.op h3.oh{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.12rem;text-align:center;margin:2rem 0 1rem;color:var(--ink)}
+  .opn section.op blockquote{margin:0 0 .95rem;padding:0 0 0 1.1rem;border-left:2px solid var(--rule);color:var(--ink-soft)}
+  .opn section.op blockquote p{margin-bottom:.6rem;font-size:.96em}
+  .opn .sc{font-variant-caps:small-caps;letter-spacing:.02em}
+  .opn .pg{font-size:.66em;color:var(--faint);vertical-align:.3em;margin:0 .3em 0 .1em;font-variant-numeric:tabular-nums;user-select:none;white-space:nowrap}
+  .opn .pg::before{content:'*'}
+  .opn sup.fnr{font-size:.68em;line-height:0;margin-left:.05em}
+  .opn sup.fnr a{color:var(--link);text-decoration:none;padding:0 .1em}
+  .opn aside.notes{margin-top:2rem;border-top:1px solid var(--rule);padding-top:.8rem;font-size:.88rem;color:var(--ink-soft)}
+  .opn aside.notes h3{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1rem;margin:0 0 .6rem;color:var(--ink)}
+  .opn aside.notes ol{margin:0;padding-left:1.7rem}
+  .opn aside.notes li{margin:0 0 .55rem}
+  .opn aside.notes li.sym{list-style:none;margin-left:-1.7rem}
+  .opn aside.notes li.sym .mk{margin-right:.3rem}
+  .opn aside.notes li.sym p{display:inline}
+  .opn aside.notes p{margin:0 0 .4rem;line-height:1.5}
+  .opn aside.notes a.back{color:var(--link);text-decoration:none;margin-left:.2rem}
+  .opn aside.notes li:target,.opn sup.fnr a:target,.opn .pg:target{background:rgba(156,14,58,.12);outline:.2rem solid rgba(156,14,58,.12)}
+  .opn section.op,.opn aside.notes li,.opn sup.fnr a{scroll-margin-top:1rem}
+  .opn section.op-syllabus p,.opn section.op-counsel p{font-size:.95em}
+  .opn section.op-counsel summary{cursor:pointer;font-family:'Fraunces',Georgia,serif;font-size:1.05rem;color:var(--ink-soft)}
+  .opn .osyl{font-size:.84rem;color:var(--faint);font-style:italic;margin:-.5rem 0 1rem}
+  .opn p.back{margin-top:3rem;font-size:.92rem}
+  @media print{.smast,.bcrumb,.opn .oget,.opn .otoc,.opn p.back{display:none}.opn section.op{break-before:page}}
+</style><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://supremecourt.report/"},{"@type":"ListItem","position":2,"name":"Opinions","item":"https://supremecourt.report/opinions/"},{"@type":"ListItem","position":3,"name":"Barton v. Barr"}]}</script><meta name='otv' content='p1'><link rel='alternate' type='text/markdown' href='/opinions/2019/18-725.md'><link rel='alternate' type='application/epub+zip' href='/opinions/2019/18-725.epub'></head><body><a class='skip' href='#main'>Skip to content</a><header><div class='smast-in'><a class='smast-wm' href='/'>Supreme Court <em>Report</em></a><nav aria-label='Sections'><ul class='snav'><li><a href='/dashboards/'>Docket</a></li><li><a href='/conferences/'>Conferences</a></li><li><a href='/relists/'>Relists</a></li><li><a href='/applications/'>Interim</a></li><li><a href='/arguments/'>Arguments</a></li><li><a href='/justices/' aria-current='page'>Justices</a></li><li><a href='/counsel/'>Counsel</a></li><li><a href='/funnel/'>Funnel</a></li><li><a href='/methods.html'>Model</a></li><li><a href='/about.html'>About</a></li></ul></nav></div><div class='smast-rule-w'><hr class='smast-rule'></div></header><main class='wrap opn' id='main' data-dkt='18-725'><nav class='bcrumb' aria-label='Breadcrumb'><ol><li><a href='/'>Home</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><a href='/opinions/'>Opinions</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><span aria-current='page'>Barton v. Barr</span></li></ol></nav><p class='kicker'>No. 18-725 · decided April 23, 2020 · 590 U. S. 222</p><h1 style='font-size:clamp(1.7rem,4.6vw,2.4rem);line-height:1.12'>Barton v. Barr</h1><p class='ometa'>Andre Martello Barton v. William P. Barr, Attorney General. 1 separate writing.</p><ul class='oget'><li><a href='/opinions/2019/18-725.epub' download>EPUB</a></li><li><a href='/opinions/2019/18-725.md' download>Markdown</a></li><li><a href='https://www.supremecourt.gov/opinions/preliminaryprint/590US1PP_web.pdf#page=238' rel='noopener'>The Court’s PDF</a></li><li><a href='/cases/18-725.html'>The docket</a></li></ul><p class='osrc'>Set from the PDF the Court published, which is the authoritative text. The small starred numbers are that PDF’s page numbers. A conversion can introduce errors; check a quotation against the <a href='https://www.supremecourt.gov/opinions/preliminaryprint/590US1PP_web.pdf#page=238' rel='noopener'>original</a>.</p><nav class="otoc" aria-label="Contents"><ol>
+<li><a href="#s1">Syllabus</a></li>
+<li><a href="#s2">Counsel</a></li>
+<li><a href="#s3">Opinion of the Court</a></li>
+<li><a href="#s4">Justice Sotomayor, dissenting</a></li>
+</ol></nav>
+<section id="s1" class="op op-syllabus"><h2>Syllabus</h2><p class='osyl'>Prepared by the Reporter of Decisions for the convenience of the reader; it is no part of the opinion of the Court.</p>
+<p>When a lawful permanent resident commits certain serious crimes, the Government may initiate removal proceedings before an immigration judge. 8 U. S. C. § 1229a. If the lawful permanent resident is found removable, the immigration judge may cancel removal, but only if the lawful permanent resident meets strict statutory eligibility requirements. §§ 1229b(a), 1229b(d)(1)(B).</p>
+<p>Over the span of 12 years, lawful permanent resident Andre Barton was convicted of state crimes, including a firearms offense, drug offenses, and aggravated assault offenses. An Immigration Judge found him removable based on his state firearms and drug offenses. Barton applied for cancellation of removal. Among the eligibility requirements, a lawful permanent resident must have “resided in the United States continuously for 7 years after having been admitted in any status.” § 1229b(a)(2). Another provision, the so-called stop-time rule, provides that a continuous period of residence “shall be deemed to end” when the lawful permanent resident commits “an offense referred to in section 1182(a)(2) . . . that renders the alien inadmissible to the United States under section 1182(a)(2).” §1229b(d)(1)(B). Because Barton's aggravated assault offenses were committed within his first seven years of admission and were covered by § 1182(a)(2), the Immigration Judge concluded that Barton was not eligible for cancellation of removal. The Board of Immigration Appeals and the Eleventh Circuit agreed.</p>
+<p><em>Held</em>: For purposes of cancellation-of-removal eligibility, a § 1182(a)(2) offense committed during the initial seven years of residence does not need to be one of the offenses of removal. Pp. 229–240.</p>
+<p>(a) The cancellation-of-removal statute functions like a traditional recidivist sentencing statute, making a noncitizen's prior crimes relevant to eligibility for cancellation of removal. The statute's text clarifies two points relevant here. First, cancellation of removal is precluded when, during the initial seven years of residence, the noncitizen “committed an offense referred to in section 1182(a)(2),” even if (as in Barton's case) the <em>conviction</em> occurred after the seven years elapsed. Second, the offense must “rende[r] the alien inadmissible” as a result. For crimes involving moral turpitude, the relevant category here, § 1182(a)(2) provides that a noncitizen is rendered “inadmissible” when he is convicted of or admits the offense. § 1182(a)(2)(A)(i).</p>
+<p><span class="pg" id="s1-p223" title="page 223 of the original">223</span>As a matter of statutory text and structure, the analysis here is straightforward. Barton's aggravated assault offenses were crimes involving moral turpitude and therefore “referred to in section 1182(a)(2).” He committed the offenses during his initial seven years of residence and was later convicted of the offenses, thereby rendering him “inadmissible.” Barton was, therefore, ineligible for cancellation of removal. Pp. 229–233.</p>
+<p>(b) Barton's counterarguments are unpersuasive. First, he claims that the statute's structure supports an “offense of removal” approach. But § 1227(a)(2) offenses—not § 1182(a)(2) offenses—are ordinarily the basis for removal of lawful permanent residents. Therefore, Barton's structural argument falls apart. If he were correct, the statute presumably would specify offenses “referred to in section 1182(a)(2) <em>or section 1227(a)(2)</em>.” By contrast, some other immigration law provisions do focus only on the offense of removal, and their statutory text and context support that limitation. See<em>, e. g.,</em> §§ 1226(a), (c)(1)(A), 1252(a)(2)(C).</p>
+<p>Second, seizing on the statutory phrase “committed an offense referred to in section 1182(a)(2) . . . that renders the alien inadmissible to the United States under section 1182(a)(2),” §1229b(d)(1)(B), Barton argues that a noncitizen is rendered “inadmissible” when actually adjudicated as inadmissible and denied admission to the United States, something that usually cannot happen to a lawfully admitted noncitizen. But the statutory text employs the term “inadmissibility” as a status that can result from, <em>e. g.</em>, a noncitizen's (including a lawfully admitted noncitizen's) commission of certain offenses listed in § 1182(a)(2). See, <em>e. g.,</em> §§ 1182(a)(2)(A)(i), (B). And Congress has made that status relevant in several statutory contexts that apply to lawfully admitted noncitizens such as Barton. In those contexts, a noncitizen faces immigration consequences from being convicted of a § 1182(a)(2) offense even though the noncitizen is lawfully admitted and is not necessarily removable solely because of that offense. See, <em>e. g.,</em> §§ 1160(a)(1)(C), (a)(3)(B)(ii). Such examples pose a major hurdle for Barton's textual argument, and Barton has no persuasive answer.</p>
+<p>Third, Barton argues that the Government's interpretation treats as surplusage the phrase “or removable from the United States under section 1227(a)(2) or 1227(a)(4).” But redundancies are common in statutory drafting. The Court has often recognized that sometimes the better overall reading of a statute contains some redundancy. And redundancy in one portion of a statute is not a license to rewrite or eviscerate another portion of the statute contrary to its text.</p>
+<p>Finally, Barton argues alternatively that, even if inadmissibility is a status, and even if the offense that precludes cancellation of removal need not be one of the offenses of removal, a noncitizen must at least <span class="pg" id="s1-p224" title="page 224 of the original">224</span>have been <em>capable of</em> being charged with a § 1182(a)(2) inadmissibility offense as the basis for removal. Because the cancellation-of-removal statute is a recidivist statute, however, whether the offense that precludes cancellation of removal was charged or could have been charged as one of the offenses of removal is irrelevant. Pp. 233–240. 904 F. 3d 1294, affirmed. <span class="sc">Kavanaugh</span>, J., delivered the opinion of the Court, in which <span class="sc">Roberts</span>, C. J., and <span class="sc">Thomas</span>, <span class="sc">Alito</span>, and <span class="sc">Gorsuch</span>, JJ., joined. <span class="sc">Sotomayor</span>, J., filed a dissenting opinion, in which <span class="sc">Ginsburg</span>, <span class="sc">Breyer</span>, and <span class="sc">Kagan</span>, JJ., joined, <em>post</em>, p. 240.</p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li class="sym" value="0"><span class="mk">*</span><p>Briefs of <em>amici curiae</em> urging reversal were filed for the Capital Area Immigrants' Rights Coalition by <em>Susan Baker Manning</em>; for Former United States Immigration Judges by <em>David G. Keyko, Robert L. Sills,</em> and <em>Eric Epstein</em>; for the National Immigrant Justice Center et al. by <em>Jean-Claude André</em> and <em>Charles Roth</em>; and for Momodoulamin Jobe et al. by <em>Ari Holtzblatt</em> and <em>Noah A. Levine.</em></p><p><em>Nancy Morawetz</em> filed a brief for Immigration Law Professors as <em>amici curiae.</em></p></li>
+</ol></aside></section>
+<section id="s2" class="op op-counsel"><details><summary>Counsel</summary><p><em>Adam G. Unikowsky</em> argued the cause for petitioner. With him on the briefs were <em>Lauren J. Hartz</em> and <em>H. Glenn Fogle, Jr.</em></p>
+<p><em>Frederick Liu</em> argued the cause for respondent. With him on the brief were <em>Solicitor General Francisco, Assistant Attorney General Hunt, Deputy Solicitor General Kneedler, Donald E. Keener, John W. Blakeley, Patrick J. Glen,</em> and <em>Timothy G. Hayes</em>.<em>*</em></p></details></section>
+<section id="s3" class="op op-court"><h2>Opinion of the Court</h2>
+<p class="byline">Justice Kavanaugh delivered the opinion of the Court.</p>
+<p>Under the immigration laws, a noncitizen who is authorized to live permanently in the United States is a lawful permanent resident—also commonly known as a green-card holder. But unlike a U. S. citizen, a lawful permanent resident who commits a serious crime may be removed from the United States.</p>
+<p>Andre Barton is a Jamaican national and a longtime lawful permanent resident of the United States. During his time <span class="pg" id="s3-p225" title="page 225 of the original">225</span>in the United States, Barton has been convicted of state crimes on three separate occasions spanning 12 years. The crimes include a firearms offense, drug offenses, and aggravated assault offenses. By law, the firearms offense and the drug offenses each independently rendered Barton eligible for removal from the United States. In September 2016, the U. S. Government sought to remove Barton, and a U. S. Immigration Judge determined that Barton was removable.</p>
+<p>Barton applied for cancellation of removal, a form of relief that allows a noncitizen to remain in the United States despite being found removable. The immigration laws authorize an immigration judge to cancel removal, but Congress has established strict eligibility requirements. See 8 U. S. C. §§ 1229b(a), (d)(1)(B). For a lawful permanent resident such as Barton, the applicant for cancellation of removal (1) must have been a lawful permanent resident for at least five years; (2) must have continuously resided in the United States for at least seven years after lawful admission; (3) must not have been convicted of an aggravated felony as defined in the immigration laws; and (4) during the initial seven years of continuous residence, must not have committed certain other offenses listed in 8 U. S. C. § 1182(a)(2). If a lawful permanent resident meets those eligibility requirements, the immigration judge has discretion to (but is not required to) cancel removal and allow the lawful permanent resident to remain in the United States.</p>
+<p>Under the cancellation-of-removal statute, the immigration judge examines the applicant's prior crimes, as well as the offense that triggered his removal. If a lawful permanent resident has ever been convicted of an aggravated felony, or has committed an offense listed in § 1182(a)(2) during the initial seven years of residence, that criminal record will preclude cancellation of removal.<sup class="fnr"><a id="s3-r1" href="#s3-n1">1</a></sup>In that way, the statute <span class="pg" id="s3-p226" title="page 226 of the original">226</span>operates like traditional criminal recidivist laws, which ordinarily authorize or impose greater sanctions on offenders who have committed prior crimes.</p>
+<p>In this case, after finding Barton removable based on his state firearms and drug offenses, the Immigration Judge and the Board of Immigration Appeals (BIA) concluded that Barton was not eligible for cancellation of removal. Barton had committed offenses listed in § 1182(a)(2) during his initial seven years of residence—namely, his state aggravated assault offenses in 1996. Barton's 1996 aggravated assault offenses were not the offenses that triggered his removal. But according to the BIA, and contrary to Barton's argument, the offense that precludes cancellation of removal need not be one of the offenses of removal. <em>In re Jurado-Delgado</em>, 24 I. &amp; N. Dec. 29, 31 (BIA 2006). The U. S. Court of Appeals for the Eleventh Circuit agreed with the BIA's reading of the statute and concluded that Barton was not eligible for cancellation of removal. The Second, Third, and Fifth Circuits have similarly construed the statute; only the Ninth Circuit has disagreed.</p>
+<p>Barton argues that the BIA and the Eleventh Circuit misinterpreted the statute. He contends that the § 1182(a)(2) offense that precludes cancellation of removal must be one of the offenses of removal. We disagree with Barton, and we affirm the judgment of the U. S. Court of Appeals for the Eleventh Circuit.</p>
+<h3 class="oh">I</h3>
+<p>Federal immigration law governs the admission of noncitizens to the United States and the deportation of noncitizens previously admitted. See 8 U. S. C. §§ 1182(a), 1227(a), 1229a.<sup class="fnr"><a id="s3-r2" href="#s3-n2">2</a></sup>The umbrella statutory term for being inadmissible or deportable is “removable.” § 1229a(e)(2).</p>
+<p><span class="pg" id="s3-p227" title="page 227 of the original">227</span>A noncitizen who is authorized to live permanently in the United States is a lawful permanent resident, often known as a green-card holder. When a lawful permanent resident commits a crime and is determined by an immigration judge to be removable because of that crime, the Attorney General (usually acting through an immigration judge) may cancel removal. § 1229b(a). But the comprehensive immigration law that Congress passed and President Clinton signed in 1996 tightly cabins eligibility for cancellation of removal. See Illegal Immigration Reform and Immigrant Responsibility Act of 1996, 110 Stat. 3009–546, 8 U. S. C. § 1101 note.</p>
+<p>For a lawful permanent resident, the cancellation-ofremoval statute provides that an immigration judge “may cancel removal in the case of an alien who is inadmissible or deportable from the United States if the alien—(1) has been an alien lawfully admitted for permanent residence for not less than 5 years, (2) has resided in the United States continuously for 7 years after having been admitted in any status, and (3) has not been convicted of any aggravated felony.” § 1229b(a).<sup class="fnr"><a id="s3-r3" href="#s3-n3">3</a></sup></p>
+<p>The statute imposes one other requirement known as the “stop-time rule.” As relevant here, the statute provides that a lawful permanent resident, during the initial seven years of residence, also cannot have committed “an offense referred to in section 1182(a)(2) of this title that renders the alien inadmissible to the United States under section 1182(a)(2) of this title or removable from the United States under section 1227(a)(2) or 1227(a)(4) of this title.” § 1229b(d)(1)(B).</p>
+<p>Andre Barton is a Jamaican national and a lawful permanent resident of the United States. In 1996, he was convicted in a Georgia court of a firearms offense stemming from an incident where Barton and a friend shot up the house of Barton's ex-girlfriend. In separate proceedings in 2007 <span class="pg" id="s3-p228" title="page 228 of the original">228</span>and 2008, he was convicted in Georgia courts of state drug offenses. One case involved methamphetamine, and the other involved cocaine and marijuana.</p>
+<p>In 2016, the U. S. Government charged Barton with deportability under 8 U. S. C. § 1227(a)(2) based on the 1996 firearms offense and the 2007 and 2008 drug crimes. See §§ 1227(a)(2)(B)(i), (C). Barton conceded that he was removable based on his criminal convictions for the firearms offense and drug offenses, and an Immigration Judge found him removable.</p>
+<p>Barton applied for cancellation of removal. All agree that Barton meets two of the eligibility requirements for cancellation of removal. He has been a lawful permanent resident for more than five years. And he has not been convicted of an “aggravated felony,” as defined by the immigration laws.</p>
+<p>The Immigration Judge concluded, however, that Barton had committed an offense listed in § 1182(a)(2) during his initial seven years of residence. In 1996, 6½ years after his admission to this country, Barton committed aggravated assault offenses for which he was later convicted in a Georgia court. The Immigration Judge concluded that those aggravated assault offenses were covered by § 1182(a)(2) and that Barton was therefore not eligible for cancellation of removal.</p>
+<p>The Board of Immigration Appeals and the U. S. Court of Appeals for the Eleventh Circuit likewise concluded that Barton was not eligible for cancellation of removal. <em>Barton</em> v. <em>United States Atty. Gen.</em>, 904 F. 3d 1294, 1302 (2018). The key question was whether the offense that precludes cancellation of removal (here, Barton's 1996 aggravated assault offenses) must also be one of the offenses of removal.<sup class="fnr"><a id="s3-r4" href="#s3-n4">4</a></sup>The Board of Immigration Appeals has long interpreted the statute<span class="pg" id="s3-p229" title="page 229 of the original">229</span> to mean that “an alien need not actually be charged and found inadmissible or removable on the applicable ground in order for the criminal conduct in question to terminate continuous residence in this country” and preclude cancellation of removal. <em>Jurado-Delgado</em>, 24 I. &amp; N. Dec., at 31. In this case, the Eleventh Circuit likewise indicated that the § 1182(a)(2) offense that precludes cancellation of removal need not be one of the offenses of removal. 904 F. 3d, at 1299–1300. And the Second, Third, and Fifth Circuits have similarly construed the statute. See <em>Heredia</em> v. <em>Sessions</em>, 865 F. 3d 60, 68 (CA2 2017); <em>Ardon</em> v. <em>Attorney General of United States</em>, 449 Fed. Appx. 116, 118 (CA3 2011); <em>Calix</em> v. <em>Lynch</em>, 784 F. 3d 1000, 1011 (CA5 2015).</p>
+<p>But in 2018, the Ninth Circuit disagreed with those courts and with the BIA. The Ninth Circuit ruled that a lawful permanent resident's commission of an offense listed in § 1182(a)(2) makes the noncitizen ineligible for cancellation of removal only if that offense was one of the offenses of removal. <em>Nguyen</em> v. <em>Sessions</em>, 901 F. 3d 1093, 1097 (2018). Under the Ninth Circuit's approach, Barton would have been eligible for cancellation of removal because his § 1182(a)(2) offenses (his 1996 aggravated assault offenses) were not among the offenses of removal (his 1996 firearms offense and his 2007 and 2008 drug crimes).</p>
+<p>In light of the division in the Courts of Appeals over how to interpret this statute, we granted certiorari. 587 U. S. 960 (2019).</p>
+<h3 class="oh">II</h3>
+<h3 class="oh">A</h3>
+<p>Under the immigration laws, when a noncitizen has committed a serious crime, the U. S. Government may seek to remove that noncitizen by initiating removal proceedings before an immigration judge. If the immigration judge determines that the noncitizen is removable, the immigration judge nonetheless has discretion to cancel removal. But the <span class="pg" id="s3-p230" title="page 230 of the original">230</span>immigration laws impose strict eligibility requirements for cancellation of removal. To reiterate, a lawful permanent resident such as Barton who has been found removable because of criminal activity is eligible for cancellation of removal “if the alien—(1) has been an alien lawfully admitted for permanent residence for not less than 5 years, (2) has resided in the United States continuously for 7 years after having been admitted in any status, and (3) has not been convicted of any aggravated felony.” § 1229b(a).</p>
+<p>To be eligible for cancellation of removal, the lawful permanent resident, during the initial seven years of residence after admission, also must not have committed “an offense referred to in section 1182(a)(2) of this title that renders the alien inadmissible to the United States under section 1182(a)(2) of this title or removable from the United States under section 1227(a)(2) or 1227(a)(4) of this title.” § 1229b(d)(1)(B).</p>
+<p>The law therefore fashions two distinct ways in which a lawful permanent resident's prior crimes may preclude cancellation of removal.</p>
+<p>The law precludes cancellation of removal if the lawful permanent resident has been convicted of an “aggravated felony” <em>at any time</em>. The statutory list of aggravated felonies is long: murder, rape, drug trafficking, firearms trafficking, obstruction of justice, treason, gambling, human trafficking, and tax evasion, among many other crimes. §§ 1101(a)(43)(A)–(U).</p>
+<p>In addition, the law precludes cancellation of removal if the lawful permanent resident committed certain other serious crimes <em>during the initial seven years of residence</em>. The law defines those offenses by cross-referencing § 1182(a)(2), which specifies the offenses that can render a noncitizen “inadmissible” to the United States. Section 1182(a)(2) includes “crime[s] involving moral turpitude,” which is a general category that covers a wide variety of crimes. Section 1182(a)(2) also expressly encompasses various violations of <span class="pg" id="s3-p231" title="page 231 of the original">231</span>drug laws, prostitution, money laundering, and certain DUIs involving personal injury, among other crimes. §§ 1182(a) (2)(A)(i), (C), (D), (E), (I); see § 1101(h).</p>
+<p>In specifying when cancellation of removal would be precluded because of prior criminal activity, Congress struck a balance that considers both the nature of the prior crime and the length of time that the noncitizen has resided in the United States. If a lawful permanent resident has been convicted at any time of certain crimes (what the immigration laws refer to as an “aggravated felony”), then the noncitizen is not eligible for cancellation of removal. If during the initial 7-year period of residence, a lawful permanent resident committed certain other offenses referred to in § 1182(a)(2), then the noncitizen likewise is not eligible for cancellation of removal.</p>
+<p>In providing that a noncitizen's prior crimes (in addition to the offense of removal) can render him ineligible for cancellation of removal, the cancellation-of-removal statute functions like a traditional recidivist sentencing statute. In an ordinary criminal case, a defendant may be convicted of a particular criminal offense. And at sentencing, the defendant's other criminal offenses may be relevant. So too in the immigration removal context. A noncitizen may be found removable based on a certain criminal offense. In applying for cancellation of removal, the noncitizen must detail his entire criminal record on Form EOIR–42A. An immigration judge then must determine whether the noncitizen has been convicted of an aggravated felony at any time or has committed a § 1182(a)(2) offense during the initial seven years of residence. It is entirely ordinary to look beyond the offense of conviction at criminal sentencing, and it is likewise entirely ordinary to look beyond the offense of removal at the cancellation-of-removal stage in immigration cases.<sup class="fnr"><a id="s3-r5" href="#s3-n5">5</a></sup></p>
+<p><span class="pg" id="s3-p232" title="page 232 of the original">232</span>It is not surprising, moreover, that Congress required immigration judges considering cancellation of removal to look in part at whether the noncitizen has committed any offenses listed in § 1182(a)(2). The offenses listed in § 1182(a)(2) help determine whether a noncitizen should be admitted to the United States. Under the cancellation-of-removal statute, immigration judges must look at that same category of offenses to determine whether, after a previously admitted noncitizen has been determined to be deportable, the noncitizen should nonetheless be allowed to remain in the United States. If a crime is serious enough to deny admission to a noncitizen, the crime can also be serious enough to preclude cancellation of removal, at least if committed during the initial seven years of residence.</p>
+<p>Importantly, the text of the cancellation-of-removal statute does not simply say that cancellation of removal is precluded when, during the initial seven years of residence, the noncitizen was <em>convicted</em> of an offense referred to in § 1182(a)(2). Rather, the text says that cancellation of removal is precluded when, during the initial seven years of residence, the noncitizen “committed an offense referred to in section 1182(a)(2) . . . that renders the alien inadmissible.” § 1229b(d)(1)(B). That language clarifies two points of relevance here.</p>
+<p><em>First</em>, cancellation of removal is precluded if a noncitizen <em>committed</em> a § 1182(a)(2) offense during the initial seven years of residence, even if (as in Barton's case) the <em>conviction</em> occurred after the seven years elapsed. In other words, as Congress specified in the statute and as the BIA and the Courts of Appeals have recognized, the date of <em>commission</em> of the offense is the key date for purposes of calculating whether the noncitizen committed a § 1182(a)(2) offense during the initial seven years of residence. See <em>In re Perez</em>, 22 I. &amp; N. Dec. 689, 693–694 (BIA 1999) (date of commission<span class="pg" id="s3-p233" title="page 233 of the original">233</span> is controlling date); see also <em>Heredia</em>, 865 F. 3d, at 70–71 (“the date of the <em>commission</em> of the offense governs the computation of a lawful permanent resident's continuous residency in the United States”); <em>Calix</em>, 784 F. 3d, at 1012 (“Once he was convicted of the offense” referred to in § 1182(a)(2), “he was rendered inadmissible to the United States. His accrual of continuous residence was halted as of the date he committed that offense”).</p>
+<p><em>Second</em>, the text of the law requires that the noncitizen be rendered “inadmissible” as a result of the offense. For crimes involving moral turpitude, which is the relevant category of § 1182(a)(2) offenses here, § 1182(a)(2) provides that a noncitizen is rendered “inadmissible” when he is convicted of or admits the offense. § 1182(a)(2)(A)(i). As the Eleventh Circuit explained, “while only commission is required at step one, conviction (or admission) is required at step two.” 904 F. 3d, at 1301.</p>
+<p>In this case, Barton's 1996 state aggravated assault offenses were crimes involving moral turpitude and therefore “referred to in section 1182(a)(2).” Barton committed those offenses during his initial seven years of residence. He was later convicted of the offenses in a Georgia court and thereby rendered “inadmissible.” Therefore, Barton was ineligible for cancellation of removal.</p>
+<p>As a matter of statutory text and structure, that analysis is straightforward. The Board of Immigration Appeals has long interpreted the statute that way. See <em>Jurado-Delgado</em>, 24 I. &amp; N. Dec., at 31. And except for the Ninth Circuit, all of the Courts of Appeals to consider the question have interpreted the statute that way.</p>
+<h3 class="oh">B</h3>
+<p>Barton pushes back on that straightforward statutory interpretation and the longstanding position of the Board of Immigration Appeals. Barton says that he may not be denied cancellation of removal based on his 1996 aggravated <span class="pg" id="s3-p234" title="page 234 of the original">234</span>assault offenses because those offenses were not among the offenses of removal found by the Immigration Judge in Barton's removal proceeding. Rather, his 1996 firearms offense and his 2007 and 2008 drug offenses were the offenses of removal.</p>
+<p>To succinctly summarize the parties' different positions (with the difference highlighted in italics below): The Government would preclude cancellation of removal under this provision if the lawful permanent resident committed a § 1182(a)(2) offense during the initial seven years of residence. Barton would preclude cancellation of removal under this provision if the lawful permanent resident committed a § 1182(a)(2) offense during the initial seven years of residence <em>and if that § 1182(a)(2) offense was one of the offenses of removal in the noncitizen's removal proceeding</em>.</p>
+<p>To support his “offense of removal” approach, Barton advances three different arguments. A caution to the reader: These arguments are not easy to unpack.</p>
+<p><em>First</em>, according to Barton, the statute's overall structure with respect to removal proceedings demonstrates that a § 1182(a)(2) offense may preclude cancellation of removal only if that § 1182(a)(2) offense was one of the offenses of removal. We disagree. In removal proceedings, a lawful permanent resident (such as Barton) may be found “deportable” based on deportability offenses listed in § 1227(a)(2). A noncitizen who has not previously been admitted may be found “inadmissible” based on inadmissibility offenses listed in § 1182(a)(2). See §§ 1182(a), 1227(a), 1229a(e)(2). Importantly, then, § 1227(a)(2) offenses—not § 1182(a)(2) offenses— are typically the basis for removal of lawful permanent residents.</p>
+<p>Because the offense of removal for lawful permanent residents is ordinarily a § 1227(a)(2) offense, Barton's structural argument falls apart. If Barton were correct that this aspect of the cancellation-of-removal statute focused only on the offense of removal, the statute presumably would specify <span class="pg" id="s3-p235" title="page 235 of the original">235</span>offenses “referred to in section 1182(a)(2) <em>or section 1227(a)(2)</em>.” So why does the statute identify only offenses “referred to in section 1182(a)(2)”? Barton has no good answer. At oral argument, when directly asked that question, Barton's able counsel forthrightly acknowledged: “It's a little hard to explain.” Tr. of Oral Arg. 27.</p>
+<p>This point is the Achilles' heel of Barton's structural argument. As we see it, Barton cannot explain the omission of § 1227(a)(2) offenses in the “referred to” clause for a simple reason: Barton's interpretation of the statute is incorrect. Properly read, this is not simply an “offense of removal” statute that looks only at whether the offense of removal was committed during the initial seven years of residence. Rather, this is a recidivist statute that uses § 1182(a)(2) offenses as a shorthand cross-reference for a category of offenses that will preclude cancellation of removal if committed during the initial seven years of residence.</p>
+<p>By contrast to this cancellation-of-removal provision, some other provisions of the immigration laws do focus only on the offense of removal—for example, provisions governing mandatory detention and jurisdiction. See §§ 1226(a), (c)(1)(A), (B), 1252(a)(2)(C). But the statutory text and context of those provisions support that limitation. Those provisions use the phrase “inadmissible by reason of ” a §1182(a)(2) offense, “deportable by reason of” a §1227(a)(2) offense, or “removable by reason of” a §1182(a)(2) or § 1227(a)(2) offense. And the provisions make contextual sense only if the offense justifying detention or denying jurisdiction is one of the offenses of removal. The cancellation-of-removal statute does not employ similar language.</p>
+<p><em>Second</em>, moving from overall structure to precise text, Barton seizes on the statutory phrase “committed an offense referred to in section 1182(a)(2) . . . <em>that renders the alien inadmissible to the United States under section 1182(a)(2)</em>.” § 1229b(d)(1)(B) (emphasis added). According to Barton, <span class="pg" id="s3-p236" title="page 236 of the original">236</span>conviction of an offense listed in § 1182(a)(2)—for example, conviction in state court of a crime involving moral turpitude—does not itself render the noncitizen “inadmissible.” He argues that a noncitizen is not rendered “inadmissible” unless and until the noncitizen is actually adjudicated as inadmissible and denied admission to the United States. And he further contends that a lawfully admitted noncitizen usually cannot be removed from the United States on the basis of inadmissibility. As Barton puts it (and the dissent echoes the point), how can a lawfully admitted noncitizen be found inadmissible when he has already been lawfully admitted?</p>
+<p>As a matter of common parlance alone, that argument would of course carry some force. But the argument fails because it disregards the statutory text, which employs the term “inadmissibility” as a status that can result from, for example, a noncitizen's (including a lawfully admitted noncitizen's) commission of certain offenses listed in § 1182(a)(2).</p>
+<p>For example, as relevant here, § 1182(a)(2) flatly says that a noncitizen such as Barton who commits a crime involving moral turpitude and is convicted of that offense “is inadmissible.” § 1182(a)(2)(A)(i). Full stop. Similarly, a noncitizen who has two or more convictions, together resulting in aggregate sentences of at least five years, “is inadmissible.” § 1182(a)(2)(B). A noncitizen who a consular officer or the Attorney General knows or has reason to believe is a drug trafficker “is inadmissible.” § 1182(a)(2)(C)(i). A noncitizen who receives the proceeds of prostitution within 10 years of applying for admission “is inadmissible.” § 1182(a)(2)(D)(ii). The list goes on. See, <em>e. g.,</em> §§ 1182(a)(2)(C)(ii)–(E), (G)–(I). Those provisions do not say that a noncitizen will <em>become</em> inadmissible if the noncitizen is found inadmissible in a subsequent immigration removal proceeding. Instead, those provisions say that the noncitizen “<em>is inadmissible</em>.”</p>
+<p>Congress has in turn made that status—inadmissibility because of conviction or other proof of commission of § 1182(a)(2) offenses—relevant in several statutory contexts <span class="pg" id="s3-p237" title="page 237 of the original">237</span>that apply to lawfully admitted noncitizens such as Barton. Those contexts include adjustment to permanent resident status; protection from removal because of temporary protected status; termination of temporary resident status; and here cancellation of removal. See, <em>e. g.,</em> §§ 1160(a)(1)(C), (a)(3)(B)(ii), 1254a(a)(1)(A), (c)(1)(A)(iii), 1255(a), (<em>l</em>)(2). In those contexts, the noncitizen faces immigration consequences from being convicted of a § 1182(a)(2) offense even though the noncitizen is lawfully admitted and is not necessarily removable solely because of that offense.</p>
+<p>Consider how those other proceedings work. A lawfully admitted noncitizen who is convicted of an offense listed in § 1182(a)(2) is typically not removable from the United States on that basis (recall that a lawfully admitted noncitizen is ordinarily removable only for commission of a § 1227(a)(2) offense). But the noncitizen is “inadmissible” because of the § 1182(a)(2) offense and for that reason may not be able to obtain adjustment to permanent resident status. §§ 1255(a), (<em>l</em>)(2). So too, a lawfully admitted noncitizen who is convicted of an offense listed in § 1182(a)(2) is “inadmissible” and for that reason may not be able to obtain temporary protected status. §§ 1254a(a)(1)(A), (c)(1)(A)(iii). A lawfully admitted noncitizen who is a temporary resident and is convicted of a § 1182(a)(2) offense is “inadmissible” and for that reason may lose temporary resident status. §§ 1160(a)(1)(C), (a)(3)(B)(ii).</p>
+<p>Those statutory examples pose a major hurdle for Barton's textual argument. The examples demonstrate that Congress has employed the concept of “inadmissibility” as a status in a variety of statutes similar to the cancellation-ofremoval statute, including for lawfully admitted noncitizens. Barton has no persuasive answer to those examples. Barton tries to say that some of those other statutes involve a noncitizen who, although already admitted to the United States, is nonetheless seeking “constructive admission.” Reply Brief 12; Tr. of Oral Arg. 11. But that ginned-up label <span class="pg" id="s3-p238" title="page 238 of the original">238</span>does not avoid the problem. Put simply, those other statutes show that lawfully admitted noncitizens who are, for example, convicted of § 1182(a)(2) crimes are “inadmissible” and in turn may suffer certain immigration consequences, even though those lawfully admitted noncitizens cannot necessarily be removed solely because of those § 1182(a)(2) offenses.</p>
+<p>The same is true here. A lawfully admitted noncitizen who was convicted of a crime involving moral turpitude during his initial seven years of residence is “inadmissible” and for that reason is ineligible for cancellation of removal.</p>
+<p>In advancing his structural and textual arguments, Barton insists that his interpretation of the statute reflects congressional intent regarding cancellation of removal. But if Congress intended that only the offense of removal would preclude cancellation of removal under the 7-year residence provision, it is unlikely that Congress would have employed such a convoluted way to express that intent. Barton cannot explain why, if his view of Congress' intent is correct, the statute does not simply say something like: “The alien is not eligible for cancellation of removal if the offense of removal was committed during the alien's initial seven years of residence.”</p>
+<p><em>Third</em>, on a different textual tack, Barton argues that the Government's interpretation cannot be correct because the Government would treat as surplusage the phrase “or removable from the United States under section 1227(a)(2) or 1227(a)(4) of this title.” Recall that the statute, as relevant here, provides that a lawful permanent resident is not eligible for cancellation of removal if, during the initial seven years of residence, he committed “an offense referred to in section 1182(a)(2) of this title that renders the alien inadmissible to the United States under section 1182(a)(2) of this title <em>or removable from the United States under section 1227(a)(2) or 1227(a)(4) of this title</em>.” § 1229b(d)(1)(B) (emphasis added).</p>
+<p><span class="pg" id="s3-p239" title="page 239 of the original">239</span>To begin with, all agree that under either side's interpretation, the reference to § 1227(a)(4)—as distinct from § 1227(a)(2)—is redundant surplusage. See § 1229b(c)(4); Brief for Petitioner 32–33, and n. 7. Under the Government's interpretation, it is true that the reference to § 1227(a)(2) also appears to be redundant surplusage. Any offense that is both referred to in § 1182(a)(2) and an offense that would render the noncitizen deportable under § 1227(a)(2) would also render the noncitizen inadmissible under § 1182(a)(2). But redundancies are common in statutory drafting—sometimes in a congressional effort to be doubly sure, sometimes because of congressional inadvertence or lack of foresight, or sometimes simply because of the shortcomings of human communication. The Court has often recognized: “Sometimes the better overall reading of the statute contains some redundancy.” <em>Rimini Street, Inc.</em> v. <em>Oracle USA, Inc.</em>, 586 U. S. 334, 346 (2019); see <em>Wisconsin Central Ltd.</em> v. <em>United States</em>, 585 U. S. 274, 282 (2018); <em>Marx</em> v. <em>General Revenue Corp.</em>, 568 U. S. 371, 385 (2013); <em>Lamie</em> v. <em>United States Trustee</em>, 540 U. S. 526, 536 (2004). So it is here. Most importantly for present purposes, we do not see why the redundant statutory reference to § 1227(a)(2) should cause us to entirely rewrite § 1229b so that a noncitizen's commission of an offense referred to in § 1182(a)(2) would preclude cancellation of removal only if it is also the offense of removal. Redundancy in one portion of a statute is not a license to rewrite or eviscerate another portion of the statute contrary to its text, as Barton would have us do.</p>
+<p>One final point: Barton argues in the alternative that even if inadmissibility is a status, and even if the offense that precludes cancellation of removal need not be one of the offenses of removal, the noncitizen must at least have been <em>capable of</em> being charged with a § 1182(a)(2) inadmissibility offense as the basis for removal. The dissent seizes on this argument as well. But as we have explained, this cancellation-ofremoval statute is a recidivist statute that precludes cancellation<span class="pg" id="s3-p240" title="page 240 of the original">240</span> of removal if the noncitizen has committed an offense listed in § 1182(a)(2) during the initial seven years of residence. Whether the offense that precludes cancellation of removal was charged or could have been charged as one of the offenses of removal is irrelevant to that analysis.</p>
+<p class="sep">* * *</p>
+<p>Removal of a lawful permanent resident from the United States is a wrenching process, especially in light of the consequences for family members. Removal is particularly difficult when it involves someone such as Barton who has spent most of his life in the United States. Congress made a choice, however, to authorize removal of noncitizens—even lawful permanent residents—who have committed certain serious crimes. And Congress also made a choice to categorically preclude cancellation of removal for noncitizens who have substantial criminal records. Congress may of course amend the law at any time. In the meantime, the Court is constrained to apply the law as enacted by Congress. Here, as the BIA explained in its 2006 <em>Jurado-Delgado</em> decision, and as the Second, Third, Fifth, and Eleventh Circuits have indicated, the immigration laws enacted by Congress do not allow cancellation of removal when a lawful permanent resident has amassed a criminal record of this kind.</p>
+<p>We affirm the judgment of the U. S. Court of Appeals for the Eleventh Circuit.</p>
+<p><em>It is so ordered.</em></p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li id="s3-n1" value="1"><p>As the statute makes clear, and as we discuss below, <em>committing</em> a § 1182(a)(2) offense precludes cancellation of removal only if the offense also “renders” the noncitizen inadmissible. See <em>infra</em>, at 233. Section 1182(a)(2) specifies what that means for each of its enumerated offenses. For the offense at issue in this case, the noncitizen must also have been convicted of or admitted the offense. <a class="back" href="#s3-r1" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n2" value="2"><p>This opinion uses the term “noncitizen” as equivalent to the statutory term “alien.” See 8 U. S. C. § 1101(a)(3). <a class="back" href="#s3-r2" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n3" value="3"><p>The immigration laws impose a similar but even stricter set of eligibility requirements for noncitizens who are not lawful permanent residents. § 1229b(b). <a class="back" href="#s3-r3" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n4" value="4"><p>The term “offense of removal” describes the offense that was the ground on which the immigration judge, at the removal proceeding, found the noncitizen removable. <a class="back" href="#s3-r4" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n5" value="5"><p>If the offense of removal itself was an aggravated felony or was an offense listed in § 1182(a)(2) that was committed during the initial seven years of residence, then the offense of removal alone precludes cancellation of removal, regardless of whether the noncitizen has an additional record of prior crimes. <a class="back" href="#s3-r5" aria-label="Back to the text">↩</a></p></li>
+</ol></aside></section>
+<section id="s4" class="op op-dissenting"><h2>Justice Sotomayor, dissenting</h2>
+<p class="byline">Justice Sotomayor, with whom Justice Ginsburg, Justice Breyer, and Justice Kagan join, dissenting.</p>
+<p>The stop-time rule ends a noncitizen's period of continuous residence, making him or her ineligible for certain relief from removal. But to trigger the rule, it takes more than commission of a specified criminal offense: The offense must also render a noncitizen either “inadmissible” or “deportable.” <span class="pg" id="s4-p241" title="page 241 of the original">241</span>In applying these important limitations, the rule directly references the two-track nature of the Immigration and Nationality Act (INA), a statute that has long distinguished between noncitizens seeking admission and those already admitted. Inadmissibility, of course, pertains to noncitizens seeking admission; deportability relates to noncitizens already admitted but removable.</p>
+<p>The majority errs by conflating these two terms. It concludes that the term “inadmissible,” for the purposes of the stop-time rule, refers to a status that a noncitizen could acquire even if he or she is not seeking admission. Under this logic, petitioner Andre Barton is inadmissible yet, at the same time, lawfully admitted. Neither the express language of the statute nor any interpretative canons support this paradox; Barton cannot and should not be considered inadmissible for purposes of the stop-time rule because he has already been admitted to the country. Thus, for the stop-time rule to render Barton ineligible for relief from removal, the Government must show that he committed an offense that made him deportable. Because the Government cannot meet that burden, Barton should prevail.</p>
+<p>I respectfully dissent.</p>
+<h3 class="oh">I</h3>
+<h3 class="oh">A</h3>
+<p>Cancellation of removal is a form of immigration relief available to lawful permanent residents (LPRs) and other noncitizens, including those who have never been lawfully admitted. 8 U. S. C. § 1229b. To obtain this relief, both groups must continuously reside in the United States for a certain amount of time. § 1229b(a)(2) (seven years for LPRs); § 1229b(b)(1)(A) (10 years for non-LPR noncitizens).</p>
+<p>The stop-time rule ends a noncitizen's period of continuous residence (1) when the noncitizen “has committed an offense referred to in section 1182(a)(2) of this title” that either (2) “renders” the noncitizen “inadmissible to the United States <span class="pg" id="s4-p242" title="page 242 of the original">242</span>under section 1182(a)(2) of this title” or (3) renders the noncitizen “removable from the United States under section 1227(a)(2) or 1227(a)(4) of this title.” § 1229b(d)(1). The second clause directly invokes grounds of inadmissibility; the third clause, although using the term “removable,” directly invokes grounds of deportability. See § 1227(a) (specifying “[c]lasses of deportable aliens”).<sup class="fnr"><a id="s4-r1" href="#s4-n1">1</a></sup>Both the second and the third clauses are cabined by the first: In addition to rendering a noncitizen either inadmissible or deportable, the offense must also be one “referred to” in § 1182(a)(2). That provision includes some—but not all—of the grounds of deportability in § 1227.</p>
+<p>This distinction between “inadmissible” and “deportable” matters. Indeed, both are terms of art, so it is critical to understand their histories and their attached meaning over time. See <em>INS</em> v. <em>St. Cyr</em>, 533 U. S. 289, 312, n. 35 (2001) (noting that “ `[w]here Congress borrows terms of art,' ” with settled meaning, it “ `presumably knows and adopts the cluster of ideas that were attached to each borrowed word' ” (quoting <em>Morissette</em> v. <em>United States</em>, 342 U. S. 246, 263 (1952))).</p>
+<p>Until Congress passed the Illegal Immigration Reform and Immigrant Responsibility Act of 1996 (IIRIRA), noncitizens seeking physical entry were placed in “ `exclusion proceeding[s],' ” while those already physically present were placed in “ `deportation proceeding[s].' ” <em>Judulang</em> v. <em>Holder</em>, 565 U. S. 42, 45 (2011). Although the grounds for exclusion and deportation—and the procedures applying to each—evolved over time, the immigration laws retained a two-track system; different procedures and processes applied to noncitizens who were deportable and noncitizens who were excludable. Brief for Immigration Law Professors as <em>Amici Curiae</em> 3–8.</p>
+<p><span class="pg" id="s4-p243" title="page 243 of the original">243</span>IIRIRA changed the proceedings and some of the language. All noncitizens are now channeled into “ `removal proceeding[s],' ” and noncitizens previously labeled “excludable” are now labeled “ `inadmissible.' ” <em>Judulang,</em> 565 U. S., at 46. IIRIRA also altered when a noncitizen faces grounds of inadmissibility, formerly exclusion: Rather than focusing on whether a noncitizen had physically entered the country, the statute now asks whether the noncitizen had been lawfully admitted, in any status, to the country. See §§ 1101(a)(13)(A), 1182(a).</p>
+<p>Still, the immigration laws have retained their two-track structure. Inadmissibility and deportability remain separate concepts, triggered by different grounds. With few exceptions, the grounds for inadmissibility are broader than those for deportability. Compare § 1182(a)(2)(A)(i)(I) with § 1227(a)(2)(A)(i) (reflecting different treatment for crimes involving moral turpitude). Further, while a noncitizen charged with inadmissibility bears the ultimate burden to show that he is admissible, the Government bears the burden of demonstrating that a noncitizen is deportable. §§ 1229a(c)(2), (c)(3).</p>
+<p>Whether a noncitizen is charged with inadmissibility or deportability also affects what the noncitizen or the Government must show to carry their respective burdens. A criminal ground for inadmissibility can be made out by showing either that the noncitizen admitted to conduct meeting the elements of a crime or that she was actually convicted of an offense. See, <em>e. g.</em>, <em>Pazcoguin</em> v. <em>Radcliffe</em>, 292 F. 3d 1209, 1213–1215 (CA9 2002) (noncitizen inadmissible because he admitted to health officer that he smoked marijuana in his youth); see also § 1182(a)(2)(A). By contrast, most criminal grounds for deportability can be established only through convictions. See §§ 1227(a)(2)(A)(i)–(v), (a)(2)(B)(i).</p>
+<p>Finally, the substantive standards for cancellation of removal are also less stringent for a subset of deportable noncitizens: LPRs like Barton. Among other things, while an <span class="pg" id="s4-p244" title="page 244 of the original">244</span>otherwise-eligible LPR must merely demonstrate that he or she deserves the relief as a matter of discretion, see <em>In re C-V-T-</em>, 22 I. &amp; N. Dec. 7, 10–11 (BIA 1998), non-LPRs must demonstrate exceptional and extremely unusual hardship to an LPR or citizen parent, spouse, or child, § 1229b(b)(1)(D).</p>
+<p>These separate categories and procedures—treating deportable noncitizens more generously than inadmissible noncitizens, and treating one group of deportable noncitizens (LPRs) the most generously of all—stem from one animating principle. All noncitizens in this country are entitled to certain rights and protections, but the protections afforded to previously admitted noncitizens and LPRs are particularly strong. See <em>Demore</em> v. <em>Kim</em>, 538 U. S. 510, 543–544 (2003) (Souter, J., concurring in part and dissenting in part). Indeed, “[t]he immigration laws give LPRs the opportunity to establish a life permanently in this country by developing economic, familial, and social ties indistinguishable from those of a citizen.” <em>Id.</em>, at 544. Because those already admitted, like Barton, are often presumed to have greater connections to the country, the immigration laws use separate terms and create separate procedures for noncitizens seeking admission to the country on the one hand, and those who were previously admitted on the other.</p>
+<p>The stop-time rule carries that distinction forward. The rule specifies how a period of continuous residence ends for noncitizens who are seeking admission and thus are inadmissible, as well as noncitizens who are already admitted and thus are deportable. By using separate terms and grounds for two groups of people, the stop-time rule thus reflects the two-track dichotomy for inadmissible or deportable noncitizens that pervades the INA.</p>
+<h3 class="oh">B</h3>
+<p>Barton is a longtime lawfully admitted resident of the United States. He and his mother moved to the United <span class="pg" id="s4-p245" title="page 245 of the original">245</span>States from Jamaica when he was about 10 years old. They both entered legally and, through Barton's stepfather, soon adjusted their status to LPRs. When Barton was placed in removal proceedings, all of his immediate family—his mother, his children, his flancee—were living in the United States. He had not returned to Jamaica in 25 years.</p>
+<p>Barton was first arrested in 1996, when he was 17 or 18, after a friend shot at his ex-girlfriend's house while he was present. Both he and his friend were convicted of, among other things, aggravated assault and possession of a firearm. Barton later testified before an immigration judge that he was unaware that his friend had a gun or was planning to shoot it.</p>
+<p>After attending a boot camp and obtaining his GED, Barton led a law-abiding life for several years. But in the mid2000s, Barton developed a drug problem and was convicted twice on possession charges. After attending two drug rehabilitation programs, Barton was never arrested again. He graduated from college, began running an automobile repair shop, and became a father to four young children.</p>
+<p>Just a few years ago—nearly 10 years after his last arrest—the Government detained Barton and placed him in removal proceedings. Because he had been lawfully admitted to the country, the Government could not charge him with any grounds of inadmissibility. Rather, the Government charged, and Barton conceded, that he was deportable based on prior firearms and drug convictions. (All agree that Barton's aggravated-assault offense did not qualify as a deportable offense under § 1227.) Barton then sought cancellation of removal.</p>
+<p>Perhaps recognizing that Barton had a strong case for cancellation of removal on the merits, see <em>C-V-T-</em>, 22 I. &amp; N. Dec., at 11 (factors such as “family ties within the United States, residence of long duration in this country (particularly when the inception of residence occurred at a young <span class="pg" id="s4-p246" title="page 246 of the original">246</span>age),” and “business ties” all favor a noncitizen seeking cancellation), the Government contended that Barton was categorically ineligible for that relief. It reasoned that Barton's prior offenses triggered the stop-time rule and that Barton therefore could not meet the continuous-residence requirement.</p>
+<p>The problem (for the Government) was finding a prior offense that actually triggered the stop-time rule. None of the offenses that had made Barton deportable—his firearms and drug convictions—satisfied the stop-time rule's first clause because § 1182(a)(2) does not “refe[r] to” those offenses. The Government therefore could not argue that Barton's firearms and drug offenses ended Barton's period of continuous residence under the stop-time rule. As for Barton's aggravated-assault offense, it was not a ground for deportability under § 1227(a) and therefore did not render him deportable under the third clause of the stop-time rule.</p>
+<p>So the Government took a different tack: It argued that, even though Barton had already been admitted (and was not seeking readmission), his aggravated-assault offense “render[ed him] inadmissible” under the second clause of the stop-time rule. That is, although the Government could not charge Barton with inadmissibility, it relied upon a ground of inadmissibility to assert that Barton was not entitled to relief from removal.</p>
+<p>The Immigration Judge agreed with the Government. The judge made clear, however, that she would have granted Barton's cancellation application had he satisfied the continuous-residence requirement. The judge cited, among other things, Barton's strong family ties, including his four young children who were all U. S. citizens. The judge concluded that because “his last arrest was over 10 years ago,” Barton “is clearly rehabilitated.” The judge also concluded that Barton's family “relies on him and would suffer hardship if he were to be deported to Jamaica.” App. to Pet. for Cert. 36a.</p>
+<h3 class="oh"><span class="pg" id="s4-p247" title="page 247 of the original">247</span>II</h3>
+<p>Barton makes two arguments to this Court. The Court focuses on the first—that the stop-time rule will “rende[r]” a noncitizen inadmissible only if the person is actually adjudicated inadmissible based on the given offense. But whether Barton is right on that score is irrelevant because Barton's second argument—which the Court fails to grapple with meaningfully—is surely correct: At the very least, an offense cannot “rende[r]” someone inadmissible unless the Government can legally charge that noncitizen with a ground of inadmissibility. That is, the stop-time rule is consistent with basic immigration law: A noncitizen who has already been admitted, and is not seeking readmission, cannot be charged with any ground of inadmissibility and thus cannot be deemed inadmissible.</p>
+<p>Because the stop-time rule uses the terms “removable” (<em>i. e.</em>, deportable) and “inadmissible” in the disjunctive, the Court must analyze the rule against the INA's historic two-track backdrop. That context confirms that the term “inadmissible” cannot refer to a noncitizen who, like Barton, has already been admitted and is not seeking readmission. Indeed, the terms “inadmissible” and “deportable” are mutually exclusive in removal proceedings: A noncitizen can be deemed either inadmissible or deportable, not both. § 1229a(e) (for the purposes of removal statute and § 1229b— governing cancellation of removal—a noncitizen is “inadmissible under section 1182” if “not admitted to the United States,” and “deportable under section 1227” if “admitted to the United States”). For the purposes of the stop-time rule, a person is not “inadmissible” unless that person actually seeks admission, and thus is subject to charges of inadmissibility.</p>
+<p>After all, if the provision applied to those who could hypothetically be rendered inadmissible, it could have said so. For example, the statute would have said that it applied when “the alien has committed an offense referred to in <span class="pg" id="s4-p248" title="page 248 of the original">248</span>section 1182(a)(2) of this title” that either (2) “<em>could render</em> the alien inadmissible to the United States under section 1182(a)(2) of this title” or (3) <em>could render</em> the noncitizen “removable [<em>i. e.</em>, deportable] from the United States under section 1227(a)(2) or 1227(a)(4) of this title.” <sup class="fnr"><a id="s4-r2" href="#s4-n2">2</a></sup></p>
+<p>The Government's reading—that a noncitizen can be inadmissible under the stop-time rule without seeking admission at all—flouts basic statutory-interpretation principles. Among “the most basic interpretive canons” is “that a statute should be construed so that effect is given to all its provisions, so that no part will be inoperative or superfluous, void or insignificant.” <em>Corley</em> v. <em>United States</em>, 556 U. S. 303, 314 (2009) (internal quotation marks and alteration omitted). Were the stop-time rule agnostic to whether the noncitizen actually seeks admission, then the rule's third clause— regarding deportability—would be meaningless. When a noncitizen is “removable”—<em>i. e.</em>, deportable—under § 1227 for an offense “referred to” in § 1182(a)(2), he or she is also “inadmissible” for an offense “referred to” in § 1182(a)(2). The third clause has meaning only if inadmissibility and deportability apply, as they always have, to separate groups of noncitizens—noncitizens seeking admission on the one hand, and noncitizens already admitted on the other.</p>
+<p>To be sure, there are limited exceptions to the general rule that questions of admissibility apply only to noncitizens <span class="pg" id="s4-p249" title="page 249 of the original">249</span>seeking formal admission. Noncitizens applying for adjustment of status must establish admissibility. §§ 1255(a), (<em>l</em>)(2). But that is because adjustment of status is an express proxy for admission: “Congress created the [process] to enable an alien physically present in the United States to become an LPR without incurring the expense and inconvenience of traveling abroad to obtain an immigrant visa” and then presumably demonstrating admissibility on return. DHS, U. S. Citizenship and Immigration Services Policy Manual, vol. 7, pt. A, ch. 1 (2020), https://www.uscis.gov/ policy-manual. Far from a “ginned-up label,” <em>ante</em>, at 237, the term “constructive admission” expresses precisely how the INA conceives of adjustment of status: an admissions process that occurs inside the United States as opposed to outside of it.</p>
+<p>Alternatively, the Government also relies on two narrow provisions of the INA applicable to “[s]pecial agricultural workers,” 8 U. S. C. § 1160(a)(3)(B)(ii), and “certain entrants before January 1, 1982,” § 1255a(b)(2)(B). These provisions, it argues, demonstrate that throughout the INA, inadmissibility is a status untethered to admission. But these provisions, too, refer to noncitizens seeking adjustment of status. § 1160(a)(1) (setting procedures for adjustment of status of certain noncitizens); § 1255a(a) (same).<sup class="fnr"><a id="s4-r3" href="#s4-n3">3</a></sup>Even if the Government were correct that these statutes deem a noncitizen inadmissible outside of an application for admission, its argument would rise and fall on a few provisions within the expansive INA.<sup class="fnr"><a id="s4-r4" href="#s4-n4">4</a></sup>In any event, neither of these provisions <span class="pg" id="s4-p250" title="page 250 of the original">250</span>is similar in structure and purpose to the stop-time rule. Neither refers to grounds of inadmissibility and grounds of deportability in tandem. What is more, neither appears to confer or deny relief exclusively in removal proceedings— where the dichotomy between inadmissibility and deportability is most important.</p>
+<p>By contrast, the Government concedes that the term “inadmissible” in the mandatory-detention statute—a provision structurally similar to the stop-time rule—applies only to noncitizens capable of being charged with inadmissibility. Brief for Respondent 30. That provision specifies, in relevant part, that the Government “shall take into custody any alien who—(A) is inadmissible by reason of having committed any offense covered in section 1182(a)(2)” or “(C) is deportable under section 1227(a)(2)(A)(i) . . . on the basis of an offense for which the alien has been sentence[d] to a term of imprisonment of at least 1 year.” § 1226(c)(1) (footnote omitted).</p>
+<p>Although the term “inadmissible” in this context does not refer to an actual adjudication of inadmissibility, see <em>Demore</em>, 538 U. S., at 513, 531, the Government accepts that it must at least refer to a possible charge on a noncitizen seeking admission. Brief for Respondent 30. Otherwise, the statute would subject already-admitted noncitizens—even those who are not deportable for any criminal offense—to mandatory detention, simply because they occupy the “status” of inadmissibility. This provision's structure is virtually the same as the stop-time rule: It refers to grounds of inadmissibility and grounds of deportability separately and applies to a noncitizen in removal proceedings.</p>
+<p>Given the similar structure, the stop-time rule should be read the same as the mandatory-detention provision: to refer <span class="pg" id="s4-p251" title="page 251 of the original">251</span>to adjudications that are possible rather than impossible. If a noncitizen seeking admission has committed a crime under § 1182(a)(2) and is convicted of or admits to the offense, that offense “renders” the noncitizen “inadmissible” because the noncitizen can be charged and found inadmissible based on that crime. But such an offense does not render a noncitizen inadmissible if, like Barton, he or she was admitted years earlier and does not seek readmission. For a noncitizen who has already been admitted, Congress carved out a separate category of offenses in both the stop-time rule and the mandatory-detention provision: here, those referred to in § 1182(a)(2) that render a noncitizen deportable under §§ 1227(a)(2) and (a)(4).</p>
+<h3 class="oh">III</h3>
+<p>The Court reaches a different result only by contorting the statutory language and by breezily waving away applicable canons of construction. At various points the Court seems to ignore the rule's second and third clauses entirely— clauses that, as mentioned above, distinguish between grounds of inadmissibility and grounds of deportability. The Court insists that the statute “operates like traditional criminal recidivist laws” because it precludes cancellation of removal for a noncitizen who “has committed an offense listed in § 1182(a)(2) during the initial seven years of residence.” <em>Ante</em>, at 225–226; see also <em>ante</em>, at 230, 231, n. 5, 240.</p>
+<p>Had Congress intended for commission of a crime in § 1182(a)(2) alone to trigger the stop-time rule, it would have said so. In fact, it would have stopped at the rule's first clause, which (without more) states the Court's rule: that the time of continuous residence stops whenever a noncitizen “has committed an offense referred to in section 1182(a)(2) of this title.” § 1229b(d)(1).</p>
+<p>But that reading ignores the rest of what Congress wrote. Congress specified that it is not enough for a noncitizen to commit a crime listed in § 1182(a)(2); that crime must also “rende[r] the alien inadmissible to the United States under <span class="pg" id="s4-p252" title="page 252 of the original">252</span>section 1182(a)(2) of this title” or “removable from the United States under section 1227(a)(2) or 1227(a)(4) of this title.” § 1229b(d)(1). Those words have meaning—invoking the two-track structure of the INA and the distinction between grounds of inadmissibility and grounds of deportability—and the Court cannot simply will them out of existence.</p>
+<p>Even when the Court finally discusses the second clause, “renders the alien inadmissible,” the Court raises more questions than it answers—and answers questions that it need not address at all. First, the Court claims, the clause makes clear that “cancellation of removal is precluded if a noncitizen <em>committed</em> a § 1182(a)(2) offense during the initial seven years of residence, even if (as in Barton's case) the <em>conviction</em> occurred after the seven years elapsed.” <em>Ante</em>, at 232. Despite the emphasis the Court lays on this point, it is irrelevant to this case: Barton does not dispute that the stop-time rule is triggered by the date of commission of a crime rather than a later date of conviction. Brief for Petitioner 9, n. 4. The question in this case is whether certain offenses can possibly render Barton inadmissible when he does not seek admission and has already been admitted—regardless of whether one looks to the date of commission or the date of conviction of those offenses.<sup class="fnr"><a id="s4-r5" href="#s4-n5">5</a></sup></p>
+<p>Even if this question mattered and were properly before us, Congress could have made the same point—that the stop-time rule is triggered by commission of a crime—by omitting the second and third clauses entirely. It again could have written what the Court, at various points, seems to wish it had written: The stop-time rule is triggered whenever a noncitizen “has committed an offense referred to in section <span class="pg" id="s4-p253" title="page 253 of the original">253</span>1182(a)(2) of this title.” The second and third clauses— which refer to later events, when a noncitizen is actually “render[ed]” inadmissible or deportable—make the Court's aside less plausible, not more.</p>
+<p>The Court next insists that the second clause makes clear that the crime must “rende[r]” the noncitizen “inadmissible”—which, in the Court's view, requires only that a noncitizen admit the crime or be convicted of it. <em>Ante,</em> at 233. But given the INA's historic two-track structure, a noncitizen is not “render[ed]” inadmissible when convicted of an offense that cannot serve as a ground of removal at all. The Court also fails to clarify why, if conviction or admission alone renders any noncitizen inadmissible regardless of admission status, Congress chose to add a third clause referring to grounds of deportability.</p>
+<p>Indeed, what does the Court do about the canon against surplusage? The Court does not dispute that its reading makes the entire third clause of the stop-time rule meaningless. It offers only two rejoinders: (1) that the reference to subsection (a)(4) in the third clause is superfluous under either party's reading, and (2) that a bit of surplusage makes no difference in any event. <em>Ante,</em> at 238–239. To be sure, “[s]ometimes the better overall reading of the statute contains some redundancy.” <em>Rimini Street, Inc.</em> v. <em>Oracle USA, Inc.</em>, 586 U. S. 334, 346 (2019). But the Court relies on more than just “some redundancy.” It dismisses out of hand one of only three clauses in the stop-time rule—without regard for the clause's pedigree or the core difference between deportability and inadmissibility.</p>
+<p>It remains this Court's “ `duty “to give effect, if possible, to every clause and word of a statute.” ' ” <em>Duncan</em> v. <em>Walker</em>, 533 U. S. 167, 174 (2001) (quoting <em>United States</em> v. <em>Menasche</em>, 348 U. S. 528, 538–539 (1955)). It must therefore be “ `reluctan[t] to treat statutory terms as surplusage' in any setting,” 533 U. S., at 174 (quoting <em>Babbitt</em> v. <em>Sweet Home Chapter, Communities for Great Ore.</em>, 515 U. S. 687, <span class="pg" id="s4-p254" title="page 254 of the original">254</span>698 (1995))—especially in this context, where each word could dictate categorical ineligibility for relief from removal. It also does not matter that, as the Government points out, § 1227(a)(4) did not initially refer to any crimes cross-referenced in § 1182(a)(2). Brief for Respondent 32–33.<sup class="fnr"><a id="s4-r6" href="#s4-n6">6</a></sup>Congress' decision to make a noncitizen ineligible for cancellation based on a to-be-determined class of crimes is far different from excising and giving no meaning to an entire clause.</p>
+<p class="sep">* * *</p>
+<p>At bottom, the Court's interpretation is at odds with the express words of the statute, with the statute's overall structure, and with pertinent canons of statutory construction. It is also at odds with common sense. With virtually every other provision of the INA, Congress granted preferential treatment to lawfully admitted noncitizens—and most of all to LPRs like Barton. But because of the Court's opinion today, noncitizens who were already admitted to the country are treated, for the purposes of the stop-time rule, identically to those who were not—despite Congress' express references to inadmissibility and deportability. The result is that, under the Court's interpretation, an immigration judge may not even consider whether Barton is entitled to cancellation of removal—because of an offense that Congress deemed too trivial to allow for Barton's removal in the first instance. Because the Court's opinion does no justice to the INA, let alone to longtime LPRs like Barton, I respectfully dissent.</p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li id="s4-n1" value="1"><p>Because the third clause refers to grounds of deportability, the Government appears to agree that the terms “removable” and “deportable” are interchangeable. See Brief for Respondent 21–22. <a class="back" href="#s4-r1" aria-label="Back to the text">↩</a></p></li>
+<li id="s4-n2" value="2"><p>The Court seems to suggest that the stop-time rule's tense simply mirrors § 1182(a)(2). See <em>ante</em>, at 236. It is true that § 1182(a)(2) speaks in the present tense, stating that a noncitizen “is inadmissible” if she has been “convicted of ” or “admits having committed” certain offenses. § 1182(a)(2)(A)(i). But the Court's argument does not follow. Section 1182, by its terms, applies only to “[c]lasses of aliens ineligible for visas or admission.” § 1182(a). Because the provision applies only to noncitizens seeking admission, it is only natural that the clause uses the present tense to describe when such a noncitizen “is inadmissible.” By contrast, the stop-time rule, under the Government's and Court's reading, purports to apply to noncitizens not seeking admission at all—and who therefore could not possibly be adjudicated inadmissible. <a class="back" href="#s4-r2" aria-label="Back to the text">↩</a></p></li>
+<li id="s4-n3" value="3"><p>Indeed, one of the provisions suggests that, outside the context in which a noncitizen seeks adjustment of status (and thus seeks constructive admission), a noncitizen's status can be terminated “only upon a determination . . . that the alien is deportable.” § 1160(a)(3)(A). <a class="back" href="#s4-r3" aria-label="Back to the text">↩</a></p></li>
+<li id="s4-n4" value="4"><p>The Government also notes that a noncitizen would be deportable were she inadmissible at entry (or during adjustment of status) but erroneously admitted (or allowed to adjust status). Brief for Respondent 18–19 (citing § 1227(a)(1)(A)). But this provision directly undermines the Government's reading of the statute. Were inadmissibility a status untethered to admission, a noncitizen inadmissible at the time of entry would always be inadmissible. But because a noncitizen who was already admitted cannot be adjudicated inadmissible, Congress made erroneous admission a ground of deportability, not inadmissibility. <a class="back" href="#s4-r4" aria-label="Back to the text">↩</a></p></li>
+<li id="s4-n5" value="5"><p>Courts have split over what event triggers the stop-time rule—commission of the offense or a second, later point at which the offense “render[s]” the noncitizen inadmissible. Brief for Momodoulamin Jobe et al. as <em>Amici Curiae</em> 12–13. Because this point about the trigger date is neither disputed here nor briefed by either party, the Court's opinion should not be read to resolve a Circuit split that is not before this Court. <a class="back" href="#s4-r5" aria-label="Back to the text">↩</a></p></li>
+<li id="s4-n6" value="6"><p>Barton acknowledges that, even now, the reference to § 1227(a)(4) “does little or no work” for a separate reason: Noncitizens who are deportable under that subsection are ineligible for cancellation of removal. Brief for Petitioner 33, n. 7. But, according to Barton, there are scenarios in which the reference to § 1227(a)(4) nevertheless “ `may . . . not be a redundancy,' ” <em>ibid.</em>, and perhaps for this reason, the Government does not focus on this argument in its brief. <a class="back" href="#s4-r6" aria-label="Back to the text">↩</a></p></li>
+</ol></aside></section><p class='back'><a href='/opinions/'>&larr; All opinions</a> · <a href='/justices/ot2019.html'>The Justices, October Term 2019 &rarr;</a></p></main></body>
+</html>
+

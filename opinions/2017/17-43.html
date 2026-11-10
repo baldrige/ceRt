@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script async src='/analytics.js'></script><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate icon" href="/favicon.ico" sizes="any"><link rel="alternate" type="application/atom+xml" title="Supreme Court Report" href="/feed.xml"><link rel="alternate" type="application/atom+xml" title="Certiorari grants" href="/grants.xml"><title>Dahda v. United States — Opinion — Supreme Court Report</title><meta name="description" content="The opinion in Dahda v. United States (No. 17-43), decided May 14, 2018: the full text with its footnotes, as a page, a Markdown file and an EPUB."><link rel="canonical" href="https://supremecourt.report/opinions/2017/17-43.html"><meta property="og:site_name" content="Supreme Court Report"><meta property="og:type" content="article"><meta property="og:title" content="Dahda v. United States — Opinion — Supreme Court Report"><meta property="og:description" content="The opinion in Dahda v. United States (No. 17-43), decided May 14, 2018: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta property="og:url" content="https://supremecourt.report/opinions/2017/17-43.html"><meta property="og:image" content="https://supremecourt.report/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Supreme Court Report - docket analytics for the Supreme Court of the United States"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Dahda v. United States — Opinion — Supreme Court Report"><meta name="twitter:description" content="The opinion in Dahda v. United States (No. 17-43), decided May 14, 2018: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta name="twitter:image" content="https://supremecourt.report/og.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap"><style>
+  :root{--paper:#fdfcfa;--panel:#ffffff;--ink:#1a1a1e;--ink-soft:#484850;--faint:#63636b;--accent:#9c0e3a;--link:#9c0e3a;--rule:#dbd8d2;--nav-max:60rem}
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{font-family:'Newsreader',Georgia,serif;font-size:19px;line-height:1.6;
+    color:var(--ink);background:var(--paper);margin:0;font-feature-settings:'onum' 1}
+  body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
+    opacity:.5;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");}
+  .wrap{max-width:40rem;margin:0 auto;padding:3rem 1.4rem 4rem}
+  .kicker{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 1rem}
+  h1{font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:clamp(2.4rem,7vw,3.6rem);line-height:1;letter-spacing:-.015em;
+    margin:0 0 1rem;color:var(--ink)}
+  h1 em{font-style:italic;font-weight:500;color:var(--accent)}
+  .dek{font-size:1.15rem;line-height:1.5;color:var(--ink-soft);font-style:italic;
+    margin:0 0 1.4rem}
+  .brule{border:0;height:0;border-top:2px solid var(--ink);margin:1.4rem 0 .3rem;
+    position:relative}
+  .brule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+    border-top:1px solid var(--rule)}
+  ul.idx{list-style:none;padding:0;margin:1.6rem 0}
+  ul.idx li{border-bottom:1px solid var(--rule)}
+  /* Whole row is one block-level link: a large, reliable tap target on mobile. */
+  ul.idx a.row{display:flex;justify-content:space-between;align-items:baseline;
+    gap:1rem;padding:.9rem .4rem;text-decoration:none;border:0;color:inherit}
+  ul.idx a.row:hover{background:rgba(156,14,58,.05)}
+  ul.idx .d{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.16rem;
+    color:var(--accent);line-height:1.25}
+  ul.idx a.row:hover .d{text-decoration:underline;text-underline-offset:3px}
+  ul.idx .count{color:var(--faint);font-size:.9rem;font-style:italic;white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  /* A long note (an order list's "3 GVRs / 230 denied / 4 habeas denied /
+     ...", items separated by middots) cannot sit on one line: nowrap made it
+     claim the row and
+     squeezed the title into a column three words wide, and on a phone it ran off
+     the screen. Such a row opts in (meta_wrap): the note wraps, only between its
+     items, and takes at most ~45% of the row, so the title always has the
+     larger share. Under 34rem it drops beneath the title at full width. */
+  /* ("long", not "wrap": .wrap is the page container and its padding.) */
+  ul.idx .count.long{white-space:normal;text-align:right;max-width:45%;line-height:1.45}
+  ul.idx .count.long .seg{white-space:nowrap}
+  @media(max-width:34rem){
+    ul.idx a.row.longmeta{flex-wrap:wrap;row-gap:.2rem}
+    ul.idx .count.long{max-width:none;flex-basis:100%;text-align:left}
+  }
+  /* Compact horizontal strip of the most recent pages beneath a category row. */
+  ul.idx .recent{display:flex;flex-wrap:wrap;align-items:baseline;
+    gap:.3rem .85rem;padding:0 .4rem 1rem;margin-top:-.35rem}
+  ul.idx .recent .rlabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  ul.idx .recent a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--ink-soft);text-decoration:none;font-variant-numeric:tabular-nums;
+    border-bottom:1px solid var(--rule);padding-bottom:1px}
+  ul.idx .recent a:hover{color:var(--accent);border-color:var(--accent)}
+  /* Optional panel beneath the section index (home page: most-read cases). */
+  .panel{margin:2.4rem 0 0}
+  .panel h2{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 .25rem}
+  .panel .pnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:0 0 .5rem}
+  /* "Live now" (live_argument_panel, /live.js): hidden unless the Court is
+     streaming an argument. One red dot, the same --accent as the headings, so
+     the live state is a mark and not a new colour. */
+  .live h2 .ldot{display:inline-block;width:.5rem;height:.5rem;border-radius:50%;
+    background:var(--accent);margin-right:.5rem;vertical-align:.08rem;
+    animation:lpulse 2s ease-in-out infinite}
+  @keyframes lpulse{50%{opacity:.25}}
+  @media (prefers-reduced-motion:reduce){.live h2 .ldot{animation:none}}
+  .lplay{display:flex;flex-wrap:wrap;gap:.6rem .9rem;align-items:center;margin:.8rem 0 .3rem}
+  .lplay button{font:600 .9rem/1 'Newsreader',Georgia,serif;letter-spacing:.04em;
+    color:var(--paper);background:var(--accent);border:0;border-radius:2px;
+    padding:.6rem 1.05rem;cursor:pointer}
+  .lplay button:disabled{opacity:.6;cursor:progress}
+  .lplay button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  /* The player takes a row of its own and may never outgrow the column. A flex
+     item's min-width is auto, which for a replaced element is the browser's own
+     controls' width -- wider than the column on a phone, where mobile Safari
+     and Chrome draw larger controls than the desktop. */
+  .lplay audio{display:block;flex:1 1 100%;width:100%;min-width:0;max-width:100%;
+    box-sizing:border-box;margin:0}
+  .lplay .lstat{font-size:.85rem;color:var(--faint)}
+  /* --- Likeliest grants -----------------------------------------------------
+     Its own rows rather than ol.mostread's: this panel carries a question under
+     the caption, which that list has no room for, and a percentage that has to
+     read as the row's subject rather than as a trailing note.
+     The window toggle is two real radio inputs plus :has() -- no JavaScript.
+     Both windows are rendered at build time and one is hidden, which is the only
+     way a static site can offer the choice: there is no server to ask for the
+     other one. Real radios, not styled buttons, so the control is reachable by
+     keyboard and announced as a choice. */
+  .lead{margin:0 0 1.9rem}
+  .lead h2{margin-bottom:.35rem}
+  .lead .pnote{margin:0 0 .7rem}
+  .wr{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+  .win{display:inline-flex;gap:.25rem;margin:0 0 .55rem;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .win label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .win label:hover{color:var(--ink)}
+  .lead:has(#w7:checked) label[for=w7],
+  .lead:has(#w28:checked) label[for=w28],
+  .lead:has(#wall:checked) label[for=wall]{background:var(--accent);color:var(--paper)}
+  .wr:focus-visible+label{outline:2px solid var(--accent);outline-offset:2px}
+  /* Three windows, one shown: the checked radio hides the other two. */
+  .lead:has(#w7:checked) :is(.g28,.n28,.gall,.nall),
+  .lead:has(#w28:checked) :is(.g7,.n7,.gall,.nall),
+  .lead:has(#wall:checked) :is(.g7,.n7,.g28,.n28){display:none}
+  /* The show/hide controls for a panel's secondary line -- the question under
+     a forecast row, the holding under a decision. Same box as the window
+     toggle, a checkbox instead of radios, and no script: the sibling rule does
+     the work and the lines simply show where :has() is unsupported. The
+     questions are on by default (they are what a forecast row asks); the
+     holdings are off (the caption, kind and disposition already say what
+     happened, and the holding is the more). */
+  .opts{display:inline-flex;gap:.25rem;margin:0 .45rem .55rem 0;vertical-align:top;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .opts label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .opts label:hover{color:var(--ink)}
+  .lead:has(#qon:checked) label[for=qon],
+  .panel:has(#hon:checked) label[for=hon]{background:var(--accent);color:var(--paper)}
+  .lead:has(#qon:not(:checked)) .gq{display:none}
+  .panel:has(#hon:not(:checked)) .chold{display:none}
+  /* --- Upcoming at the Court ------------------------------------------------
+     A date gutter and a two-line body, the same shape as the grant rows above
+     it, so the two panels read as one page rather than two widgets. */
+  .cal{margin:0 0 1.9rem}
+  ol.cal{list-style:none;margin:0;padding:0}
+  ol.cal li{border-top:1px solid var(--rule)}
+  ol.cal li:last-child{border-bottom:1px solid var(--rule)}
+  /* The row is a container, not an anchor: an argument day carries one link per
+     case it hears and anchors cannot nest. Hover lives on the row so it still
+     reads as one unit, and each link colours on its own hover. */
+  ol.cal .crow{display:flex;gap:.95rem;align-items:baseline;padding:.55rem .1rem}
+  ol.cal .crow:hover{background:rgba(156,14,58,.05)}
+  ol.cal a{text-decoration:none;color:inherit}
+  ol.cal a:hover,ol.cal a:focus-visible{color:var(--accent)}
+  ol.cal .cdet a{border-bottom:1px solid rgba(156,14,58,.35)}
+  ol.cal .cdet a:hover{border-bottom-color:var(--accent)}
+  ol.cal .cwhen{flex:none;width:4.6rem;font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.96rem;color:var(--ink);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  ol.cal .cdow{display:block;font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);text-transform:uppercase;letter-spacing:.08em}
+  ol.cal .ctx{flex:1;min-width:0}
+  ol.cal .ckind{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:.98rem;line-height:1.25}
+  ol.cal .cdet{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.12rem}
+  /* Recent decisions reuses the calendar rows and adds exactly two things: the
+     kind word that opens the detail line, and the one outbound link (the slip
+     opinion), which takes the link colour the rest of the row deliberately
+     does not. */
+  ol.cal .dk{font-weight:600;color:var(--ink)}
+  ol.cal .cdet a.pdf{color:var(--link)}
+  /* The holding, from the Court's slip-opinion feed: one sentence, set
+     smaller and in the soft ink so the caption stays the row's headline. */
+  ol.cal .chold{display:block;font-size:.86rem;line-height:1.4;color:var(--ink-soft);
+    font-style:italic;margin-top:.15rem}
+  ol.cal .cdet a.pdf:hover,ol.cal .cdet a.pdf:focus-visible{color:var(--accent);
+    border-bottom-color:var(--accent)}
+  ol.grants{list-style:none;margin:0;padding:0}
+  ol.grants li{border-top:1px solid var(--rule)}
+  ol.grants li:last-child{border-bottom:1px solid var(--rule)}
+  ol.grants a{display:flex;gap:.95rem;align-items:baseline;text-decoration:none;
+    color:inherit;padding:.62rem .1rem}
+  ol.grants a:hover{background:rgba(156,14,58,.05)}
+  ol.grants a:hover .gc{color:var(--accent)}
+  ol.grants .gv{flex:none;width:3.5rem;text-align:right;
+    font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.22rem;
+    line-height:1.1;color:var(--accent);font-variant-numeric:tabular-nums}
+  ol.grants .gx{font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);margin-left:.3rem}
+  ol.grants .gtx{flex:1;min-width:0}
+  /* Subject-area line under the caption, in the section-label idiom (h2.sec):
+     small tracked caps in the faint ink, so it classifies without competing. */
+  ol.grants .gs,ol.mostread .ms{display:block;font-size:.68rem;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--faint);line-height:1.3;margin-top:.12rem}
+  ol.grants .gc{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:1rem;line-height:1.25}
+  ol.grants .gq{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.16rem}
+  ol.grants .gd{flex:none;font-size:.76rem;color:var(--faint);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  .more{margin:.75rem 0 0;font-size:.92rem}
+  .more a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.35)}
+  .more a:hover{border-bottom-color:var(--link)}
+  h2.sec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:.88rem;
+    letter-spacing:.09em;color:var(--faint);text-transform:uppercase;
+    margin:2.1rem 0 .6rem;padding-bottom:.28rem;border-bottom:1px solid var(--rule)}
+  @media(max-width:40rem){
+    ol.grants a{flex-wrap:wrap}
+    ol.grants .gd{width:100%;padding-left:4.45rem;margin-top:-.1rem}
+  }
+  ol.mostread{list-style:none;counter-reset:mr;padding:0;margin:0}
+  ol.mostread li{counter-increment:mr;border-bottom:1px solid var(--rule)}
+  ol.mostread a{display:flex;align-items:baseline;gap:.7rem;padding:.6rem .4rem;
+    text-decoration:none;color:inherit}
+  ol.mostread a:hover{background:rgba(156,14,58,.05)}
+  ol.mostread a::before{content:counter(mr);font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.95rem;color:var(--faint);min-width:1.1rem;
+    font-variant-numeric:tabular-nums}
+  ol.mostread .mc{flex:1;font-size:1rem;line-height:1.3}
+  ol.mostread .mct{display:block}
+  ol.mostread a:hover .mct{color:var(--accent);text-decoration:underline;
+    text-underline-offset:3px}
+  ol.mostread .mdk{color:var(--accent);font-weight:600;font-size:.82rem;
+    font-variant-numeric:tabular-nums;white-space:nowrap}
+  ol.mostread .mv{color:var(--faint);font-size:.85rem;font-style:italic;
+    white-space:nowrap;font-variant-numeric:tabular-nums}
+  /* Forecast percentages carry weight the most-read counts do not: the number is
+     the claim, not a footnote to the ranking. Upright, accent, tabular. */
+  ol.mostread .mv.fc{color:var(--accent);font-style:normal;font-weight:600;
+    font-size:.95rem;min-width:2.6rem;text-align:right}
+  /* Feed follow line. Deliberately quiet -- a footnote under the section list,
+     styled like .recent rather than like a call to action. */
+  .feeds{display:flex;flex-wrap:wrap;align-items:baseline;gap:.3rem .85rem;
+    margin:2.2rem 0 0;padding-top:1.1rem;border-top:1px solid var(--rule)}
+  .feeds .flabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  .feeds a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .feeds a:hover{border-color:var(--link)}
+  .back{margin-top:2rem;font-size:.95rem}
+  .back a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .back a:hover{border-color:var(--link)}
+  /* Home-page case search. */
+  .csearch{position:relative;margin:0 0 1.4rem}
+  #cq{width:100%;font-family:'Newsreader',Georgia,serif;font-size:1.05rem;color:var(--ink);
+    background:var(--panel);border:1px solid var(--rule);border-radius:3px;padding:.7rem .9rem}
+  #cq:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(156,14,58,.1)}
+  #cq::placeholder{color:var(--faint)}
+  #cq.loading{background-image:linear-gradient(90deg,transparent,rgba(156,14,58,.06),transparent);
+    background-size:40% 100%;background-repeat:no-repeat;animation:csl 1s infinite}
+  @keyframes csl{0%{background-position:-40% 0}100%{background-position:140% 0}}
+  .cres{list-style:none;margin:.35rem 0 0;padding:0;max-height:24rem;overflow-y:auto;
+    border:1px solid var(--rule);border-radius:3px;background:var(--panel)}
+  .cres:empty{display:none}
+  .cres li{border-bottom:1px solid var(--rule)}
+  .cres li:last-child{border-bottom:0}
+  .cres a{display:block;padding:.55rem .7rem;text-decoration:none;color:var(--ink);
+    font-size:.98rem;line-height:1.3}
+  .cres a:hover,.cres li.act a{background:rgba(156,14,58,.06)}
+  .cres mark{background:rgba(156,14,58,.14);color:inherit;padding:0 .05em;border-radius:2px}
+  .cres .cd{color:var(--accent);font-variant-numeric:tabular-nums;font-weight:600;
+    margin-right:.5rem;white-space:nowrap}
+  .cnone{padding:.55rem .7rem;color:var(--faint);font-style:italic}
+  .cnone a,.cqp a{color:var(--link);font-style:normal;text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .cqp{margin:.45rem 0 0;font-size:.88rem;color:var(--faint)}
+  /* /cases/ browse index: grouped sections with per-bucket counts. */
+  .csec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+    text-transform:uppercase;letter-spacing:.12em;color:var(--accent);
+    margin:2.2rem 0 .3rem;padding-bottom:.35rem;border-bottom:1px solid var(--rule);
+    display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
+  .csec .cn{font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:.85rem;
+    letter-spacing:0;text-transform:none;color:var(--faint);
+    font-variant-numeric:tabular-nums}
+  .cnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:.5rem 0 0}
+  .cnote a{color:var(--accent)}
+  ul.terms{list-style:none;padding:0;margin:1rem 0 0;display:flex;flex-wrap:wrap;
+    gap:.5rem 1.6rem}
+  ul.terms li{display:inline-flex;align-items:baseline;gap:.4rem}
+  ul.terms a{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.05rem;
+    color:var(--accent);text-decoration:none;border-bottom:1px solid var(--rule)}
+  ul.terms a:hover{border-bottom-color:var(--accent)}
+  ul.terms .cn{color:var(--faint);font-size:.85rem;font-variant-numeric:tabular-nums}
+  /* About page: running prose rather than an index, so it takes a measure and a
+     little more leading than the section rows above it. */
+  .about{margin:1.6rem 0 0;font-size:1.05rem;line-height:1.65;max-width:34rem}
+  .about p{margin:0 0 1rem}
+  .about a{color:var(--accent);text-decoration:none;
+    border-bottom:1px solid var(--rule)}
+  .about a:hover{border-bottom-color:var(--accent)}
+  .about .contact{margin:2rem 0 0;background:var(--panel);border:1px solid var(--rule);
+    border-left:4px solid var(--accent);padding:1.1rem 1.3rem}
+  .about .contact h2{font:600 .78rem/1 'Newsreader',Georgia,serif;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--accent);margin:0 0 .5rem}
+  .about .contact p{margin:0;font-size:1rem}
+
+/* ---- masthead ---- */
+.smast-in{max-width:var(--nav-max,60rem);margin:0 auto;padding:.85rem 1.5rem .5rem;
+  display:flex;align-items:baseline;justify-content:space-between;gap:1.4rem;flex-wrap:wrap}
+.smast-wm{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+  letter-spacing:.005em;color:var(--ink,#1a1a1e);text-decoration:none;white-space:nowrap;flex:none}
+.smast-wm em{font-style:italic;font-weight:500;color:var(--accent,#9c0e3a)}
+.smast-wm:hover{color:var(--accent,#9c0e3a)}
+/* Row gap first, then column. At 1.35rem the six section links measured 596px
+   of max-content -- 4px wider than the 592px row the 40rem index container
+   leaves them -- so ABOUT alone wrapped to a third line under the wordmark, on
+   every page page_style.R writes. 1.05rem brings the row to 572px: 20px of
+   slack at 40rem, and 45px on the 54rem case pages, which were themselves only
+   21px from wrapping. The .4rem row gap is for the day a seventh section
+   overruns it anyway -- a nav that wraps should read as a stack, not an orphan. */
+.snav{display:flex;gap:.4rem 1.05rem;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+.snav a{font:600 .72rem/1 'Newsreader',Georgia,serif;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--ink-soft,var(--soft,#484850));text-decoration:none;display:inline-block;
+  padding:.5rem 0;border-bottom:1.5px solid transparent}
+.snav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--rule,#dbd8d2)}
+.snav a[aria-current='page']{color:var(--accent,#9c0e3a);
+  border-bottom-color:var(--accent,#9c0e3a)}
+.smast-rule-w{max-width:var(--nav-max,60rem);margin:0 auto;padding:0 1.5rem}
+.smast-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0;position:relative}
+.smast-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.skip{position:absolute;left:-9999px;top:0;background:var(--panel,#ffffff);
+  color:var(--accent,#9c0e3a);padding:.6rem 1rem;
+  border:1px solid var(--accent,#9c0e3a);
+  font:600 .8rem/1 'Newsreader',Georgia,serif;letter-spacing:.1em;text-transform:uppercase;z-index:10}
+.skip:focus{left:.5rem;top:.5rem}
+/* ---- breadcrumb ---- */
+.bcrumb{margin:.7rem 0 0}
+.bcrumb ol{list-style:none;display:flex;flex-wrap:wrap;align-items:baseline;
+  gap:.1rem .45rem;margin:0;padding:0}
+.bcrumb li{display:inline-flex;align-items:baseline;gap:.45rem}
+.bcrumb a{font:400 .8rem/1.5 'Newsreader',Georgia,serif;color:var(--ink-soft,var(--soft,#484850));
+  text-decoration:none;border-bottom:1px solid var(--rule,#dbd8d2)}
+.bcrumb a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.bcrumb .sep{color:var(--faint,#63636b);font-size:.8rem;line-height:1.5}
+.bcrumb [aria-current='page']{font:400 .8rem/1.5 'Newsreader',Georgia,serif;
+  color:var(--faint,#63636b);font-variant-numeric:tabular-nums}
+/* ---- case footer ---- */
+.cfoot{margin:2.4rem 0 0}
+.cfoot-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0 0 1rem;position:relative}
+.cfoot-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.cfoot-off{font-size:.95rem;margin:0 0 1.1rem}
+.cfoot-off a{color:var(--link,#9c0e3a);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.4)}
+.cfoot-off a:hover{border-bottom-color:var(--link,#9c0e3a)}
+.cfoot-lab{font:600 .68rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);margin:0 0 .5rem}
+.cfoot-nav{display:flex;flex-wrap:wrap;gap:.35rem 1.1rem;list-style:none;margin:0;padding:0}
+.cfoot-nav a{font-size:.92rem;color:var(--ink-soft,var(--soft,#484850));text-decoration:none;
+  border-bottom:1px solid var(--rule,#dbd8d2);padding-bottom:1px}
+.cfoot-nav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.cfoot-stamp{margin:1.2rem 0 0;font-size:.8rem;color:var(--faint,#63636b);font-style:italic}
+/* ---- prev / next ---- */
+.pnav{margin:2.2rem 0 0;border-top:1px solid var(--rule,#dbd8d2);padding-top:1rem;
+  display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.pnav a,.pnav span.none{text-decoration:none;color:inherit;display:block;padding:.5rem .2rem}
+.pnav a:hover{background:rgba(156,14,58,.05)}
+.pnav .dir{font:600 .66rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);display:block;margin-bottom:.3rem}
+.pnav .lab{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1rem;line-height:1.25;
+  color:var(--accent,#9c0e3a);display:block}
+.pnav a:hover .lab{text-decoration:underline;text-underline-offset:3px}
+.pnav .nx{text-align:right}
+.pnav .none{opacity:.35}
+@media(max-width:640px){
+  .smast-in{padding:.7rem 1.1rem .25rem;gap:.15rem}
+  .smast-wm{font-size:.98rem}
+  .smast-in nav{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+    -webkit-mask-image:linear-gradient(90deg,#000 86%,transparent);
+    mask-image:linear-gradient(90deg,#000 86%,transparent)}
+  .smast-in nav::-webkit-scrollbar{display:none}
+  .snav{flex-wrap:nowrap;gap:1.15rem;padding-right:2.4rem}
+  .snav a{padding:.7rem 0;white-space:nowrap}
+  .smast-rule-w{padding:0 1.1rem}
+  .cfoot-nav{gap:.5rem 1rem}
+  .cfoot-nav a{padding-bottom:.3rem}
+  .pnav{grid-template-columns:1fr;gap:.2rem}
+  .pnav .nx{text-align:left;border-top:1px solid var(--rule,#dbd8d2)}
+}
+
+  .wrap.opn{max-width:42rem}
+  .opn .ometa{font-size:.92rem;color:var(--ink-soft);margin:.3rem 0 0}
+  .opn .oget{display:flex;flex-wrap:wrap;gap:.4rem .6rem;margin:1.1rem 0 0;padding:0;list-style:none;font-size:.9rem}
+  .opn .oget a{display:inline-block;padding:.32rem .7rem;border:1px solid var(--rule);border-radius:4px;color:var(--ink);text-decoration:none;background:var(--panel)}
+  .opn .oget a:hover{border-color:var(--accent);color:var(--accent)}
+  .opn .osrc{font-size:.84rem;color:var(--faint);margin:.9rem 0 0;line-height:1.45}
+  .opn .osrc a{color:var(--link)}
+  .opn .otoc{margin:1.6rem 0 0;padding:.8rem 1rem;border:1px solid var(--rule);border-radius:4px;background:var(--panel);font-size:.95rem}
+  .opn .otoc ol{margin:0;padding:0;list-style:none}
+  .opn .otoc li{margin:.25rem 0}
+  .opn .otoc a{color:var(--ink);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.35)}
+  .opn .otoc a:hover{color:var(--accent)}
+  .opn section.op{margin-top:3rem;border-top:2px solid var(--ink);padding-top:1.1rem}
+  .opn section.op h2{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.5rem;line-height:1.2;margin:0 0 1rem;color:var(--ink)}
+  .opn section.op p{margin:0 0 .95rem;line-height:1.62;hyphens:auto;overflow-wrap:break-word}
+  .opn section.op p.byline{color:var(--ink-soft);font-style:italic}
+  .opn section.op p.sep{text-align:center;letter-spacing:.3em;color:var(--faint);margin:1.6rem 0}
+  .opn section.op h3.oh{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.12rem;text-align:center;margin:2rem 0 1rem;color:var(--ink)}
+  .opn section.op blockquote{margin:0 0 .95rem;padding:0 0 0 1.1rem;border-left:2px solid var(--rule);color:var(--ink-soft)}
+  .opn section.op blockquote p{margin-bottom:.6rem;font-size:.96em}
+  .opn .sc{font-variant-caps:small-caps;letter-spacing:.02em}
+  .opn .pg{font-size:.66em;color:var(--faint);vertical-align:.3em;margin:0 .3em 0 .1em;font-variant-numeric:tabular-nums;user-select:none;white-space:nowrap}
+  .opn .pg::before{content:'*'}
+  .opn sup.fnr{font-size:.68em;line-height:0;margin-left:.05em}
+  .opn sup.fnr a{color:var(--link);text-decoration:none;padding:0 .1em}
+  .opn aside.notes{margin-top:2rem;border-top:1px solid var(--rule);padding-top:.8rem;font-size:.88rem;color:var(--ink-soft)}
+  .opn aside.notes h3{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1rem;margin:0 0 .6rem;color:var(--ink)}
+  .opn aside.notes ol{margin:0;padding-left:1.7rem}
+  .opn aside.notes li{margin:0 0 .55rem}
+  .opn aside.notes li.sym{list-style:none;margin-left:-1.7rem}
+  .opn aside.notes li.sym .mk{margin-right:.3rem}
+  .opn aside.notes li.sym p{display:inline}
+  .opn aside.notes p{margin:0 0 .4rem;line-height:1.5}
+  .opn aside.notes a.back{color:var(--link);text-decoration:none;margin-left:.2rem}
+  .opn aside.notes li:target,.opn sup.fnr a:target,.opn .pg:target{background:rgba(156,14,58,.12);outline:.2rem solid rgba(156,14,58,.12)}
+  .opn section.op,.opn aside.notes li,.opn sup.fnr a{scroll-margin-top:1rem}
+  .opn section.op-syllabus p,.opn section.op-counsel p{font-size:.95em}
+  .opn section.op-counsel summary{cursor:pointer;font-family:'Fraunces',Georgia,serif;font-size:1.05rem;color:var(--ink-soft)}
+  .opn .osyl{font-size:.84rem;color:var(--faint);font-style:italic;margin:-.5rem 0 1rem}
+  .opn p.back{margin-top:3rem;font-size:.92rem}
+  @media print{.smast,.bcrumb,.opn .oget,.opn .otoc,.opn p.back{display:none}.opn section.op{break-before:page}}
+</style><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://supremecourt.report/"},{"@type":"ListItem","position":2,"name":"Opinions","item":"https://supremecourt.report/opinions/"},{"@type":"ListItem","position":3,"name":"Dahda v. United States"}]}</script><meta name='otv' content='p1'><link rel='alternate' type='text/markdown' href='/opinions/2017/17-43.md'><link rel='alternate' type='application/epub+zip' href='/opinions/2017/17-43.epub'></head><body><a class='skip' href='#main'>Skip to content</a><header><div class='smast-in'><a class='smast-wm' href='/'>Supreme Court <em>Report</em></a><nav aria-label='Sections'><ul class='snav'><li><a href='/dashboards/'>Docket</a></li><li><a href='/conferences/'>Conferences</a></li><li><a href='/relists/'>Relists</a></li><li><a href='/applications/'>Interim</a></li><li><a href='/arguments/'>Arguments</a></li><li><a href='/justices/' aria-current='page'>Justices</a></li><li><a href='/counsel/'>Counsel</a></li><li><a href='/funnel/'>Funnel</a></li><li><a href='/methods.html'>Model</a></li><li><a href='/about.html'>About</a></li></ul></nav></div><div class='smast-rule-w'><hr class='smast-rule'></div></header><main class='wrap opn' id='main' data-dkt='17-43'><nav class='bcrumb' aria-label='Breadcrumb'><ol><li><a href='/'>Home</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><a href='/opinions/'>Opinions</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><span aria-current='page'>Dahda v. United States</span></li></ol></nav><p class='kicker'>No. 17-43 · decided May 14, 2018 · 584 U. S. 440</p><h1 style='font-size:clamp(1.7rem,4.6vw,2.4rem);line-height:1.12'>Dahda v. United States</h1><p class='ometa'>Los Rovell Dahda v. United States. No separate writings.</p><ul class='oget'><li><a href='/opinions/2017/17-43.epub' download>EPUB</a></li><li><a href='/opinions/2017/17-43.md' download>Markdown</a></li><li><a href='https://www.supremecourt.gov/opinions/boundvolumes/584BV.pdf#page=512' rel='noopener'>The Court’s PDF</a></li><li><a href='/cases/17-43.html'>The docket</a></li></ul><p class='osrc'>Set from the PDF the Court published, which is the authoritative text. The small starred numbers are that PDF’s page numbers. A conversion can introduce errors; check a quotation against the <a href='https://www.supremecourt.gov/opinions/boundvolumes/584BV.pdf#page=512' rel='noopener'>original</a>.</p><nav class="otoc" aria-label="Contents"><ol>
+<li><a href="#s1">Syllabus</a></li>
+<li><a href="#s2">Counsel</a></li>
+<li><a href="#s3">Opinion of the Court</a></li>
+</ol></nav>
+<section id="s1" class="op op-syllabus"><h2>Syllabus</h2><p class='osyl'>Prepared by the Reporter of Decisions for the convenience of the reader; it is no part of the opinion of the Court.</p>
+<p>Under federal law, a judge normally may issue a wiretap order permitting the interception of communications only “within the territorial jurisdiction of the court in which the judge is sitting.” 18 U. S. C. § 2518(3). Here, a judge for the District of Kansas authorized nine wiretap Orders as part of a Government investigation of a suspected drug distribution ring in Kansas. For the most part, the Government intercepted communications from a listening post within Kansas. But each Order also contained a sentence purporting to authorize interception outside of Kansas. Based on that authorization, the Government intercepted additional communications from a listening post in Missouri. Following the investigation, petitioners Los and Roosevelt Dahda were indicted for participating in an illegal drug distribution conspiracy. They moved to suppress the evidence derived from all the wiretaps under subparagraph (ii) of the wiretap statute's suppression provision because the language authorizing interception beyond the District Court's territorial jurisdiction rendered each Order “insufficient on its face.” § 2518(10) (a)(ii). The Government agreed not to introduce any evidence arising from its Missouri listening post, and the District Court denied the Dahdas' motion. On appeal, the Tenth Circuit rejected the Dahdas' facial-insufficiency argument on the ground that the challenged language did not implicate Congress' core statutory concerns in enacting the wiretap statute.</p>
+<p><em>Held</em>: Because the Orders were not lacking any information that the statute required them to include and would have been sufficient absent the challenged language authorizing interception outside the court's territorial jurisdiction, the Orders were not facially insufficient. Pp. 446–452.</p>
+<p>(a) The Tenth Circuit applied the “core concerns” test from <em>United States</em> v. <em>Giordano</em>, 416 U. S. 505, and held that subparagraph (ii) applies only where the insufficiency reflects an order's failure to satisfy the “statutory requirements that directly and substantially implement the congressional intention to limit the use of” wiretapping, <em>id.</em>, at 527. *Together with <em>Dahda</em> v. <em>United States</em> (see this Court's Rule 12.4), also</p>
+<p>on certiorari to the same court.</p>
+<p><span class="pg" id="s1-p441" title="page 441 of the original">441</span>The court identified two such core concerns and concluded that neither applies to the statute's territorial limitation. But <em>Giordano</em> involved a different suppression provision—subparagraph (i)—which applies only when a “communication was unlawfully intercepted.” § 2518(10)(a)(i). The underlying point of <em>Giordano</em>'s limitation was to help distinguish subparagraph (i) of § 2518(10)(a) from subparagraphs (ii) and (iii). It makes little sense to extend the “core concerns” test to subparagraph (ii) as well. Subparagraph (ii) therefore does not include a <em>Giordano</em>-like “core concerns” requirement. Pp. 446–449.</p>
+<p>(b) That said, this Court also cannot fully endorse the Dahdas' interpretation of the statute. The Dahdas read subparagraph (ii) as applying to any legal defect that appears within the four corners of an order. Clearly, subparagraph (ii) covers at least an order's failure to include information required by §§ 2518(4)(a)–(e). But that does not mean that every defect that may conceivably appear in an order results in an insufficiency. Here, the sentence authorizing interception outside Kansas is surplus. Its presence is not connected to any other relevant part of the Orders. Absent the challenged language, every wiretap that produced evidence introduced at the Dahdas' trial was properly authorized under the statute. While the Orders do not specifically list the territorial area where they could lawfully take effect, they clearly set forth the authorizing judge's territorial jurisdiction—the District of Kansas. And the statute itself presumptively limits every Order's scope to the issuing court's territorial jurisdiction. This interpretation of the term “insufficient” does not, as the Dahdas contend, produce bizarre results. Rather, it makes sense of the suppression provision as a whole. Pp. 449–452.</p>
+<p>853 F. 3d 1101 (first judgment) and 852 F. 3d 1282 (second judgment), affirmed. <span class="sc">Breyer</span>, J., delivered the opinion of the Court, in which all other Mem</p>
+<p>bers joined, except <span class="sc">Gorsuch</span>, J., who took no part in the consideration or decision of the cases.</p></section>
+<section id="s2" class="op op-counsel"><details><summary>Counsel</summary><p><em>Kannon K</em>. <em>Shanmugam</em> argued the cause for petitioners. With him on the briefs were <em>Amy Mason Saharia</em>, <em>Allison Jones Rushing</em>, <em>Charles L</em>. <em>McCloud</em>, <em>J</em>. <em>Liat Rome,</em> and <em>Rick E</em>. <em>Bailey</em>.</p>
+<p><em>Zachary D</em>. <em>Tripp</em> argued the cause for the United States<em>.</em> With him on the brief were <em>Solicitor General Francisco</em>, <em>Acting Assistant Attorney General Cronan</em>, <em>Deputy Solici</em><em>tor</em><span class="pg" id="s2-p442" title="page 442 of the original">442</span><em> General Dreeben</em>, <em>Eric J</em>. <em>Feigin</em>, and <em>Finnuala K</em>. <em>Tessier</em>.†</p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li class="sym" value="0"><span class="mk">†</span><p>Briefs of <em>amici curiae</em> urging reversal were filed for the Electronic Frontier Foundation et al. by <em>Ilana H</em>. <em>Eisenstein</em>, <em>Jason D</em>. <em>Gerstein, Jeffrey T</em>. <em>Green</em>, <em>Jennifer Lynch</em>, and <em>Andrew Crocker</em>; for the Electronic Privacy Information Center by <em>Marc Rotenberg</em> and <em>Alan Butler</em>; and for The Rutherford Institute by <em>Erin Glenn Busby</em>, <em>Lisa R</em>. <em>Eskow</em>, and <em>John W</em>. <em>Whitehead</em>.</p></li>
+</ol></aside></details></section>
+<section id="s3" class="op op-court"><h2>Opinion of the Court</h2>
+<p class="byline">Justice Breyer delivered the opinion of the Court.</p>
+<p>A federal statute allows judges to issue wiretap orders authorizing the interception of communications to help prevent, detect, or prosecute serious federal crimes. See Omnibus Crime Control and Safe Streets Act of 1968, 18 U. S. C. § 2510 <em>et seq.</em> The statute requires the judge to find “probable cause” supporting issuance of the order, and it sets forth other detailed requirements governing both the application for a wiretap and the judicial order that authorizes it. See § 2518<em>.</em></p>
+<p>The statute provides for the suppression of “the contents of any wire or oral communication” that a wiretap “intercept[s]” along with any “evidence derived therefrom” if</p>
+<blockquote>
+<p>“(i) the communication was unlawfully intercepted; “(ii) the order of . . . approval under which it was intercepted is insufficient on its face; or</p>
+<p>“(iii) the interception was not made in conformity with the order of authorization or approval.” § 2518(10)(a).</p>
+</blockquote>
+<p class="cont">This litigation concerns the second of these provisions—the provision that governs the “insufficien[cy]” of an order “on its face.” § 2518(10)(a)(ii).</p>
+<p>Los and Roosevelt Dahda—defendants in the trial below and petitioners here—sought to suppress evidence derived from nine wiretap Orders used to obtain evidence of their participation in an unlawful drug distribution conspiracy. They argue that each Order is “insufficient on its face” because<span class="pg" id="s3-p443" title="page 443 of the original">443</span> each contains a sentence authorizing interception “<em>outside</em> the territorial jurisdiction” of the authorizing judge, App. 97 (emphasis added), even though the statute normally allows a judge to authorize wiretaps only <em>within</em> his or her “territorial jurisdiction,” § 2518(3).</p>
+<p>In deciding whether each Order was “insufficient on its face,” we assume that the Dahdas are right about the “territorial” requirement. That is to say, we assume the relevant sentence exceeded the judge's statutory authority. But none of the communications unlawfully intercepted outside the judge's territorial jurisdiction were introduced at trial, so the inclusion of the extra sentence had no significant adverse effect upon the Dahdas. Because the remainder of each Order was itself legally sufficient, we conclude that the Orders were not “insufficient” on their “face.”</p>
+<h3 class="oh">I</h3>
+<h3 class="oh">A</h3>
+<p>As we just said, the relevant statute permits a judge to issue an order authorizing the Government to intercept wire communications for an initial (but extendable) period of 30 days. § 2518(5). To obtain that order, the Government must submit an application that describes the particular offense being investigated as well as the type of communications it seeks to intercept; that sets forth the basis for an appropriate finding of “probable cause”; that explains why other less intrusive methods are inadequate, have failed, or are too dangerous to try; and that meets other requirements, showing, for example, authorization by a specified governmental official. § 2518(1). If the judge accepts the application, finds probable cause, and issues an authorizing order, that order must itself contain specified information, including, for example, the identity of the “person” whose “communications are to be intercepted”; the “nature and location of the [relevant] communications facilities”; a “particular description of the type of communication sought to be intercepted”;<span class="pg" id="s3-p444" title="page 444 of the original">444</span> a statement of the “particular offense” to which the intercept “relates”; the “identity of the agency authorized to intercept”; the identity of the “person authorizing the application”; and “the period of time during which” the “interception is authorized.” §§ 2518(4)(a)–(e).</p>
+<p>A judge's authorizing authority normally extends only within statutorily defined bounds. The statute specifies that an order can permit the interception of communications “within the territorial jurisdiction of the court in which the judge is sitting.” § 2518(3). (There is an exception allowing interception beyond the judge's territorial jurisdiction if the judge authorizes a “mobile interception device,” <em>ibid.</em>, but the parties now agree that exception does not apply to these Orders.) The Government here adds (without the Dahdas' disagreement) that an intercept takes place <em>either</em> where the tapped telephone is located <em>or</em> where the Government's “listening post” is located. See § 2510(4) (defining “intercept” as “the aural or other acquisition of the contents of any wire, electronic, or oral communication through the use of any electronic, mechanical, or other device”); see also Brief for Petitioners 11; Brief for United States 6. As so interpreted, the statute generally requires that one or the other or both of these locations must be found within the authorizing judge's “territorial jurisdiction.”</p>
+<h3 class="oh">B</h3>
+<p>In 2011, the Government began investigating a suspected drug distribution ring based in Kansas. It submitted an application asking a federal judge for the District of Kansas to issue nine related wiretap Orders, and the judge issued them. For present purposes we assume, see <em>infra</em>, at 451, that all nine Orders met all statutory requirements with one exception. Each Order contained a sentence that read as follows:</p>
+<blockquote>
+<p>“Pursuant to Title 18, United States Code § 2518(3), it is further Ordered that, in the event TARGET TELEPHONE<span class="pg" id="s3-p445" title="page 445 of the original">445</span> #1, TARGET TELEPHONE #3 and TARGET TELEPHONE #4, are transported <em>outside the territorial jurisdiction of the court</em>, interception may take place in any other jurisdiction within the United States.” App. 105 (under seal) (emphasis added); see also <em>id.,</em> at 97, 114, 123, 132, 140, 149, 158, 166, 174 (Orders containing identical language but targeting different telephones).</p>
+</blockquote>
+<p class="cont">Although they disputed it below, the parties now agree that this sentence could not lawfully allow a wiretap of a phone that was located outside Kansas in instances where the Government's listening post was also located outside of Kansas.</p>
+<p>Pursuant to these Orders, the Government listened from a listening post within Kansas to conversations on mobile phones that were located within Kansas and conversations on mobile phones that were located outside of Kansas. But, in one instance, the Government listened from a listening post <em>outside</em> of Kansas (in Missouri) to conversations on a mobile phone that was also outside of Kansas (in California). That one instance concerned a mobile phone (Target Telephone #7) belonging to Philip Alarcon.</p>
+<p>In 2012, the Government indicted the Dahdas and several others, charging them with conspiracy to buy illegal drugs in California and sell them in Kansas. Prior to trial, the Dahdas moved to suppress all evidence derived from the wiretaps authorized by the nine Orders on the ground that the District Court could not authorize the interception of calls from the Missouri listening post to and from Alarcon's mobile phone in California. In its response, the Government said it would not introduce any evidence arising from its Missouri listening post. A Magistrate Judge and subsequently the District Court denied the Dahdas' suppression motion. App. to Pet. for Cert. 59a–76a.</p>
+<p>The Dahdas appealed. They argued that, even though the Government did not use any wiretap information from the Missouri listening post, the court should have suppressed all <span class="pg" id="s3-p446" title="page 446 of the original">446</span>evidence derived from any of the Orders. That, they said, is because each Order was “insufficient on its face” given the extra sentence authorizing interception outside Kansas. Hence the second subparagraph of the statute's suppression provision required the evidence to be suppressed. § 2518(10)(a)(ii).</p>
+<p>The U. S. Court of Appeals for the Tenth Circuit rejected this argument on the ground that the claimed insufficiency concerned the statute's territorial requirement. 853 F. 3d 1101, 1114–1116 (2017). That requirement, in its view, did not “ `implemen[t]' ” Congress' core statutory concerns in enacting the wiretap statute. <em>Id.,</em> at 1114 (quoting <em>United States</em> v. <em>Giordano</em>, 416 U. S. 505, 527 (1974)). And for that reason a violation of the territorial requirement did not warrant suppression. See also 852 F. 3d 1282, 1290 (2017).</p>
+<p>The Dahdas filed a petition for certiorari, seeking review of the Tenth Circuit's determination. And, in light of different related holdings among the Circuits, we granted that petition. Compare 853 F. 3d, at 1114–1116 (suppression was not required for orders authorizing suppression beyond the District Court's territorial jurisdiction), and <em>Adams</em> v. <em>Lank-ford</em>, 788 F. 2d 1493, 1500 (CA11 1986) (same), with <em>United States</em> v. <em>Glover</em>, 736 F. 3d 509, 515 (CADC 2013) (suppression required for territorial defect).</p>
+<h3 class="oh">II</h3>
+<h3 class="oh">A</h3>
+<p>The question before us concerns the interpretation of the suppression provision's second subparagraph, which requires suppression where a wiretap order is “insufficient on its face.” § 2518(10)(a)(ii). The Dahdas ask us to read subparagraph (ii) as applying to any legal defect that appears within the four corners of the order. The Government replies that the Dahdas' approach would require suppression of evidence of serious criminal behavior due to the most <span class="pg" id="s3-p447" title="page 447 of the original">447</span>minor of technical failures, including those that have little or no relation to any statutory objective.</p>
+<p>The Tenth Circuit, agreeing with the Government, held that subparagraph (ii) applies only where the “insufficiency” constitutes an order's failure to satisfy a “ `statutory require-men[t] that directly and substantially implement[s] the congressional intention to limit the use of intercept procedures to those situations clearly calling for the employment of this extraordinary investigative device.' ” 853 F. 3d, at 1114 (quoting <em>Giordano</em>, <em>supra</em>, at 527; second alteration in original). The court identified two such core concerns—“ `(1) protecting the privacy of wire and oral communications, and (2) delineating on a uniform basis the circumstances and conditions under which the interception of wire and oral communications may be authorized' ”—and concluded that neither applies to the statute's territorial limitation. 853 F. 3d, at 1114 (quoting S. Rep. No. 90–1097, p. 66 (1968)).</p>
+<p>Like the Dahdas, we believe that the Tenth Circuit's interpretation of this provision is too narrow. The Tenth Circuit took the test it applied from this Court's decision in <em>Giordano</em>, <em>supra,</em> at 527. But <em>Giordano</em> involved a different provision. Keep in mind that the statute sets forth three grounds for suppression:</p>
+<blockquote>
+<p>“(i) the communication was unlawfully intercepted; “(ii) the order of . . . approval under which it was intercepted is insufficient on its face; or</p>
+<p>“(iii) the interception was not made in conformity with the order of authorization or approval.” § 2518(10)(a).</p>
+</blockquote>
+<p class="cont"><em>Giordano</em> focused not, as here, on the second subparagraph but on the first subparagraph, which calls for the suppression of “unlawfully intercepted” communications.</p>
+<p>In <em>Giordano</em>, a criminal defendant sought suppression of wiretap-gathered information on the ground that the wiretap application was unlawfully authorized. 416 U. S., at 525. A provision of the wiretap statute that has since been <span class="pg" id="s3-p448" title="page 448 of the original">448</span>amended required an application to be approved by either the Attorney General or a designated Assistant Attorney General. See 18 U. S. C. § 2516(1) (1970 ed.). But, in Giordano's case, an executive assistant to the Assistant Attorney General—not the Assistant Attorney General himself—had approved the application. 416 U. S., at 510.</p>
+<p>The Government argued that this statutory violation did not violate the first subparagraph, <em>i. e.,</em> it did not lead to an “unlawfu[l] intercept[ion],” 18 U. S. C. §2518(10)(a)(i), because that subparagraph covers only violations of the Constitution, not statutes. <em>Giordano</em>, 416 U. S., at 525–526. Otherwise, the Government added, subparagraphs (ii) and (iii)—which clearly cover some statutory violations—would be superfluous. <em>Id.,</em> at 526. But this Court held that the first subparagraph <em>did</em> cover certain statutory violations, namely, violations of those statutory provisions that “implemented” the wiretap-related congressional concerns the Tenth Circuit mentioned in its opinion. <em>Id.,</em> at 527. So construed, the suppression provision left room for the second and third subparagraphs to have separate legal force. The Court went on to hold that a violation of the approval-bythe-Attorney-General provision implicated Congress' core concerns. Subparagraph (i) thus covered that particular statutory provision. And, finding the provision violated, it ordered the wiretap evidence suppressed. <em>Id.,</em> at 527–528.</p>
+<p>Here, by contrast, we focus upon subparagraph (ii), which requires suppression when an order is facially insufficient. And in respect to this subparagraph, we can find no good reason for applying <em>Giordano</em>'s test. The underlying point of <em>Giordano</em>'s limitation was to help give independent meaning to each of § 2518(10)(a)'s subparagraphs. It thus makes little sense to extend the core concerns test to subparagraph (ii) as well. Doing so would “actually treat that paragraph as `surplusage'—precisely what [this] Court tried to avoid in <em>Giordano</em>.” <em>Glover</em>, 736 F. 3d, at 514. We consequently conclude that subparagraph (ii) does not contain a <em>Giordano-</em>like<span class="pg" id="s3-p449" title="page 449 of the original">449</span> “core concerns” requirement. The statute means what it says. That is to say, subparagraph (ii) applies where an order is “insufficient on its face.” § 2518(10)(a)(ii).</p>
+<h3 class="oh">B</h3>
+<p>Although we believe the Tenth Circuit erred in applying <em>Giordano</em>'s core concerns test to subparagraph (ii), we cannot fully endorse the Dahdas' reading of the statute either. In our view, subparagraph (ii) does not cover each and every error that appears in an otherwise sufficient order. It is clear that subparagraph (ii) covers at least an order's failure to include information that § 2518(4) specifically requires the order to contain. See §§ 2518(4)(a)–(e) (requiring an order to specify, <em>e. g.,</em> the “identity of the person, if known, whose communications are to be intercepted,” “a particular description of the type of communication sought to be intercepted, and a statement of the particular offense to which it relates”); Brief for United States 17. An order lacking that information would deviate from the uniform authorizing requirements that Congress explicitly set forth, while also falling literally within the phrase “insufficient on its face.”</p>
+<p>But the Dahdas would have us go further and conclude that any defect that may appear on an order's face would render it insufficient. The lower courts in various contexts have debated just which kinds of defects subparagraph (ii) covers. See, <em>e. g., United States</em> v. <em>Moore</em>, 41 F. 3d 370, 375–376 (CA8 1994) (order missing judge's signature); <em>United States</em> v. <em>Joseph</em>, 519 F. 2d 1068, 1070 (CA5 1975) (order identifying the wrong Government official as authorizing the application); <em>United States</em> v. <em>Vigi</em>, 515 F. 2d 290, 293 (CA6 1975) (same). We need not, however, resolve the questions that these many different cases raise. We need only determine whether the defects in the Orders before us render them “insufficient.” We conclude that they do not.</p>
+<p>We rest that conclusion upon an argument that the Government did not make below but which it did set forth in its <span class="pg" id="s3-p450" title="page 450 of the original">450</span>response to the petition for certiorari and at the beginning of its brief on the merits. That argument is closely related to the arguments the Government did make below. It has been fully briefed by both sides. And as we may “affir[m]” a lower court judgment “on any ground permitted by the law and record,” <em>Murr</em> v. <em>Wisconsin</em>, 582 U. S. 383, 404 (2017), we see little to be gained by remanding this litigation for further consideration.</p>
+<p>The argument is simply this: Subparagraph (ii) refers to an order that is “insufficient on its face.” An order is “insufficient” insofar as it is “deficient” or “lacking in what is necessary or requisite.” 5 Oxford English Dictionary 359 (1933); accord, Webster's New International Dictionary 1288 (2d ed. 1957). And, looking, as the Dahdas urge us to do, at “the four corners of the order itself,” Reply Brief 4, we cannot find any respect in which the Orders are deficient or lacking in anything necessary or requisite.</p>
+<p>The Orders do contain a defect, namely, the sentence authorizing interception outside Kansas, which we set forth above. See <em>supra,</em> at 444–445. But not every defect results in an insufficiency. In that sentence, the District Court “further” ordered that interception may take place “outside the territorial jurisdiction of the court.” App. 97. The sentence is without legal effect because, as the parties agree, the Orders could not legally authorize a wiretap outside the District Court's “territorial jurisdiction.” But, more importantly, the sentence itself is surplus. Its presence is not connected to any other relevant part of the Orders. Were we to remove the sentence from the Orders, they would then properly authorize wiretaps within the authorizing court's territorial jurisdiction. As we discussed above, a listening post within the court's territorial jurisdiction could lawfully intercept communications made to or from telephones located within Kansas or outside Kansas. See <em>supra</em>, at 444. Consequently, every wiretap that produced evidence introduced<span class="pg" id="s3-p451" title="page 451 of the original">451</span> at the Dahdas' trial was properly authorized under the statute.</p>
+<p>The Dahdas argue that, without the offending sentence, the Orders are “insufficient” because they then do not specifically list the territorial area where they could lawfully take effect. Reply Brief 6. The Orders, however, clearly set forth the authorizing judge's territorial jurisdiction: the “District of Kansas.” See App. 100. And the statute itself presumptively limits every Order's scope to the issuing court's territorial jurisdiction. See § 2518(3). We consequently fail to see how the additional language here at issue could render the Orders facially insufficient.</p>
+<p>The Dahdas add that interpreting the term “insufficient” as we have just done will produce “bizarre results.” Reply Brief 5. They claim that, under the Government's logic, an order authorizing interception for 180 days would not be facially insufficient even though the wiretap statute expressly limits the maximum duration of a wiretap order to 30 days. § 2518(5). To be sure, a 180-day order may raise problems that the language at issue here does not. On the one hand, it may be argued that such an order would be facially insufficient because without the 180-day provision the order would not contain any time limit at all. See § 2518(4)(e). On the other hand, one might argue that such an order merely would be overly broad—not facially insufficient— and that suppression would be warranted only for those communications unlawfully intercepted after 30 days. See § 2518(10)(a)(i).</p>
+<p>Regardless, we need not now address the Dahdas' 180-day hypothetical. It is enough to say that the problems that may be associated with such an order are not present in this litigation. Here, the Orders would have been sufficient even if they lacked the language authorizing interception outside Kansas. And the Dahdas cannot seek suppression under subparagraph (i) given that the unlawfully intercepted communications<span class="pg" id="s3-p452" title="page 452 of the original">452</span> from the Missouri listening post were not introduced at trial.</p>
+<p>Our interpretation of subparagraph (ii) makes sense of the suppression provision as a whole. Where the Government's use of a wiretap is unconstitutional or violates a statutory provision that reflects Congress' core concerns, an aggrieved person may suppress improperly acquired evidence under subparagraph (i) (as “unlawfully intercepted,” see <em>Giordano</em>, 416 U. S., at 527). Where an order lacks information that the wiretap statute requires it to include, an aggrieved person may suppress the fruits of the order under subparagraph (ii) (as “insufficient on its face”). And where the Government fails to comply with conditions set forth in the authorizing order, an aggrieved person may suppress its fruits under subparagraph (iii) (as an “interception . . . not made in conformity with the order of authorization or approval”).</p>
+<p>For these reasons, the judgments of the Court of Appeals are affirmed.</p>
+<p><em>It is so ordered.</em></p>
+<p><span class="sc">Justice Gorsuch</span> took no part in the consideration or decision of these cases.</p></section><p class='back'><a href='/opinions/'>&larr; All opinions</a> · <a href='/justices/ot2017.html'>The Justices, October Term 2017 &rarr;</a></p></main></body>
+</html>
+

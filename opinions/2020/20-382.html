@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script async src='/analytics.js'></script><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate icon" href="/favicon.ico" sizes="any"><link rel="alternate" type="application/atom+xml" title="Supreme Court Report" href="/feed.xml"><link rel="alternate" type="application/atom+xml" title="Certiorari grants" href="/grants.xml"><title>Guam v. United States — Opinion — Supreme Court Report</title><meta name="description" content="The opinion in Guam v. United States (No. 20-382), decided May 24, 2021: the full text with its footnotes, as a page, a Markdown file and an EPUB."><link rel="canonical" href="https://supremecourt.report/opinions/2020/20-382.html"><meta property="og:site_name" content="Supreme Court Report"><meta property="og:type" content="article"><meta property="og:title" content="Guam v. United States — Opinion — Supreme Court Report"><meta property="og:description" content="The opinion in Guam v. United States (No. 20-382), decided May 24, 2021: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta property="og:url" content="https://supremecourt.report/opinions/2020/20-382.html"><meta property="og:image" content="https://supremecourt.report/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Supreme Court Report - docket analytics for the Supreme Court of the United States"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Guam v. United States — Opinion — Supreme Court Report"><meta name="twitter:description" content="The opinion in Guam v. United States (No. 20-382), decided May 24, 2021: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta name="twitter:image" content="https://supremecourt.report/og.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap"><style>
+  :root{--paper:#fdfcfa;--panel:#ffffff;--ink:#1a1a1e;--ink-soft:#484850;--faint:#63636b;--accent:#9c0e3a;--link:#9c0e3a;--rule:#dbd8d2;--nav-max:60rem}
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{font-family:'Newsreader',Georgia,serif;font-size:19px;line-height:1.6;
+    color:var(--ink);background:var(--paper);margin:0;font-feature-settings:'onum' 1}
+  body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
+    opacity:.5;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");}
+  .wrap{max-width:40rem;margin:0 auto;padding:3rem 1.4rem 4rem}
+  .kicker{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 1rem}
+  h1{font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:clamp(2.4rem,7vw,3.6rem);line-height:1;letter-spacing:-.015em;
+    margin:0 0 1rem;color:var(--ink)}
+  h1 em{font-style:italic;font-weight:500;color:var(--accent)}
+  .dek{font-size:1.15rem;line-height:1.5;color:var(--ink-soft);font-style:italic;
+    margin:0 0 1.4rem}
+  .brule{border:0;height:0;border-top:2px solid var(--ink);margin:1.4rem 0 .3rem;
+    position:relative}
+  .brule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+    border-top:1px solid var(--rule)}
+  ul.idx{list-style:none;padding:0;margin:1.6rem 0}
+  ul.idx li{border-bottom:1px solid var(--rule)}
+  /* Whole row is one block-level link: a large, reliable tap target on mobile. */
+  ul.idx a.row{display:flex;justify-content:space-between;align-items:baseline;
+    gap:1rem;padding:.9rem .4rem;text-decoration:none;border:0;color:inherit}
+  ul.idx a.row:hover{background:rgba(156,14,58,.05)}
+  ul.idx .d{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.16rem;
+    color:var(--accent);line-height:1.25}
+  ul.idx a.row:hover .d{text-decoration:underline;text-underline-offset:3px}
+  ul.idx .count{color:var(--faint);font-size:.9rem;font-style:italic;white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  /* A long note (an order list's "3 GVRs / 230 denied / 4 habeas denied /
+     ...", items separated by middots) cannot sit on one line: nowrap made it
+     claim the row and
+     squeezed the title into a column three words wide, and on a phone it ran off
+     the screen. Such a row opts in (meta_wrap): the note wraps, only between its
+     items, and takes at most ~45% of the row, so the title always has the
+     larger share. Under 34rem it drops beneath the title at full width. */
+  /* ("long", not "wrap": .wrap is the page container and its padding.) */
+  ul.idx .count.long{white-space:normal;text-align:right;max-width:45%;line-height:1.45}
+  ul.idx .count.long .seg{white-space:nowrap}
+  @media(max-width:34rem){
+    ul.idx a.row.longmeta{flex-wrap:wrap;row-gap:.2rem}
+    ul.idx .count.long{max-width:none;flex-basis:100%;text-align:left}
+  }
+  /* Compact horizontal strip of the most recent pages beneath a category row. */
+  ul.idx .recent{display:flex;flex-wrap:wrap;align-items:baseline;
+    gap:.3rem .85rem;padding:0 .4rem 1rem;margin-top:-.35rem}
+  ul.idx .recent .rlabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  ul.idx .recent a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--ink-soft);text-decoration:none;font-variant-numeric:tabular-nums;
+    border-bottom:1px solid var(--rule);padding-bottom:1px}
+  ul.idx .recent a:hover{color:var(--accent);border-color:var(--accent)}
+  /* Optional panel beneath the section index (home page: most-read cases). */
+  .panel{margin:2.4rem 0 0}
+  .panel h2{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 .25rem}
+  .panel .pnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:0 0 .5rem}
+  /* "Live now" (live_argument_panel, /live.js): hidden unless the Court is
+     streaming an argument. One red dot, the same --accent as the headings, so
+     the live state is a mark and not a new colour. */
+  .live h2 .ldot{display:inline-block;width:.5rem;height:.5rem;border-radius:50%;
+    background:var(--accent);margin-right:.5rem;vertical-align:.08rem;
+    animation:lpulse 2s ease-in-out infinite}
+  @keyframes lpulse{50%{opacity:.25}}
+  @media (prefers-reduced-motion:reduce){.live h2 .ldot{animation:none}}
+  .lplay{display:flex;flex-wrap:wrap;gap:.6rem .9rem;align-items:center;margin:.8rem 0 .3rem}
+  .lplay button{font:600 .9rem/1 'Newsreader',Georgia,serif;letter-spacing:.04em;
+    color:var(--paper);background:var(--accent);border:0;border-radius:2px;
+    padding:.6rem 1.05rem;cursor:pointer}
+  .lplay button:disabled{opacity:.6;cursor:progress}
+  .lplay button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  /* The player takes a row of its own and may never outgrow the column. A flex
+     item's min-width is auto, which for a replaced element is the browser's own
+     controls' width -- wider than the column on a phone, where mobile Safari
+     and Chrome draw larger controls than the desktop. */
+  .lplay audio{display:block;flex:1 1 100%;width:100%;min-width:0;max-width:100%;
+    box-sizing:border-box;margin:0}
+  .lplay .lstat{font-size:.85rem;color:var(--faint)}
+  /* --- Likeliest grants -----------------------------------------------------
+     Its own rows rather than ol.mostread's: this panel carries a question under
+     the caption, which that list has no room for, and a percentage that has to
+     read as the row's subject rather than as a trailing note.
+     The window toggle is two real radio inputs plus :has() -- no JavaScript.
+     Both windows are rendered at build time and one is hidden, which is the only
+     way a static site can offer the choice: there is no server to ask for the
+     other one. Real radios, not styled buttons, so the control is reachable by
+     keyboard and announced as a choice. */
+  .lead{margin:0 0 1.9rem}
+  .lead h2{margin-bottom:.35rem}
+  .lead .pnote{margin:0 0 .7rem}
+  .wr{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+  .win{display:inline-flex;gap:.25rem;margin:0 0 .55rem;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .win label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .win label:hover{color:var(--ink)}
+  .lead:has(#w7:checked) label[for=w7],
+  .lead:has(#w28:checked) label[for=w28],
+  .lead:has(#wall:checked) label[for=wall]{background:var(--accent);color:var(--paper)}
+  .wr:focus-visible+label{outline:2px solid var(--accent);outline-offset:2px}
+  /* Three windows, one shown: the checked radio hides the other two. */
+  .lead:has(#w7:checked) :is(.g28,.n28,.gall,.nall),
+  .lead:has(#w28:checked) :is(.g7,.n7,.gall,.nall),
+  .lead:has(#wall:checked) :is(.g7,.n7,.g28,.n28){display:none}
+  /* The show/hide controls for a panel's secondary line -- the question under
+     a forecast row, the holding under a decision. Same box as the window
+     toggle, a checkbox instead of radios, and no script: the sibling rule does
+     the work and the lines simply show where :has() is unsupported. The
+     questions are on by default (they are what a forecast row asks); the
+     holdings are off (the caption, kind and disposition already say what
+     happened, and the holding is the more). */
+  .opts{display:inline-flex;gap:.25rem;margin:0 .45rem .55rem 0;vertical-align:top;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .opts label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .opts label:hover{color:var(--ink)}
+  .lead:has(#qon:checked) label[for=qon],
+  .panel:has(#hon:checked) label[for=hon]{background:var(--accent);color:var(--paper)}
+  .lead:has(#qon:not(:checked)) .gq{display:none}
+  .panel:has(#hon:not(:checked)) .chold{display:none}
+  /* --- Upcoming at the Court ------------------------------------------------
+     A date gutter and a two-line body, the same shape as the grant rows above
+     it, so the two panels read as one page rather than two widgets. */
+  .cal{margin:0 0 1.9rem}
+  ol.cal{list-style:none;margin:0;padding:0}
+  ol.cal li{border-top:1px solid var(--rule)}
+  ol.cal li:last-child{border-bottom:1px solid var(--rule)}
+  /* The row is a container, not an anchor: an argument day carries one link per
+     case it hears and anchors cannot nest. Hover lives on the row so it still
+     reads as one unit, and each link colours on its own hover. */
+  ol.cal .crow{display:flex;gap:.95rem;align-items:baseline;padding:.55rem .1rem}
+  ol.cal .crow:hover{background:rgba(156,14,58,.05)}
+  ol.cal a{text-decoration:none;color:inherit}
+  ol.cal a:hover,ol.cal a:focus-visible{color:var(--accent)}
+  ol.cal .cdet a{border-bottom:1px solid rgba(156,14,58,.35)}
+  ol.cal .cdet a:hover{border-bottom-color:var(--accent)}
+  ol.cal .cwhen{flex:none;width:4.6rem;font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.96rem;color:var(--ink);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  ol.cal .cdow{display:block;font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);text-transform:uppercase;letter-spacing:.08em}
+  ol.cal .ctx{flex:1;min-width:0}
+  ol.cal .ckind{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:.98rem;line-height:1.25}
+  ol.cal .cdet{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.12rem}
+  /* Recent decisions reuses the calendar rows and adds exactly two things: the
+     kind word that opens the detail line, and the one outbound link (the slip
+     opinion), which takes the link colour the rest of the row deliberately
+     does not. */
+  ol.cal .dk{font-weight:600;color:var(--ink)}
+  ol.cal .cdet a.pdf{color:var(--link)}
+  /* The holding, from the Court's slip-opinion feed: one sentence, set
+     smaller and in the soft ink so the caption stays the row's headline. */
+  ol.cal .chold{display:block;font-size:.86rem;line-height:1.4;color:var(--ink-soft);
+    font-style:italic;margin-top:.15rem}
+  ol.cal .cdet a.pdf:hover,ol.cal .cdet a.pdf:focus-visible{color:var(--accent);
+    border-bottom-color:var(--accent)}
+  ol.grants{list-style:none;margin:0;padding:0}
+  ol.grants li{border-top:1px solid var(--rule)}
+  ol.grants li:last-child{border-bottom:1px solid var(--rule)}
+  ol.grants a{display:flex;gap:.95rem;align-items:baseline;text-decoration:none;
+    color:inherit;padding:.62rem .1rem}
+  ol.grants a:hover{background:rgba(156,14,58,.05)}
+  ol.grants a:hover .gc{color:var(--accent)}
+  ol.grants .gv{flex:none;width:3.5rem;text-align:right;
+    font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.22rem;
+    line-height:1.1;color:var(--accent);font-variant-numeric:tabular-nums}
+  ol.grants .gx{font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);margin-left:.3rem}
+  ol.grants .gtx{flex:1;min-width:0}
+  /* Subject-area line under the caption, in the section-label idiom (h2.sec):
+     small tracked caps in the faint ink, so it classifies without competing. */
+  ol.grants .gs,ol.mostread .ms{display:block;font-size:.68rem;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--faint);line-height:1.3;margin-top:.12rem}
+  ol.grants .gc{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:1rem;line-height:1.25}
+  ol.grants .gq{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.16rem}
+  ol.grants .gd{flex:none;font-size:.76rem;color:var(--faint);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  .more{margin:.75rem 0 0;font-size:.92rem}
+  .more a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.35)}
+  .more a:hover{border-bottom-color:var(--link)}
+  h2.sec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:.88rem;
+    letter-spacing:.09em;color:var(--faint);text-transform:uppercase;
+    margin:2.1rem 0 .6rem;padding-bottom:.28rem;border-bottom:1px solid var(--rule)}
+  @media(max-width:40rem){
+    ol.grants a{flex-wrap:wrap}
+    ol.grants .gd{width:100%;padding-left:4.45rem;margin-top:-.1rem}
+  }
+  ol.mostread{list-style:none;counter-reset:mr;padding:0;margin:0}
+  ol.mostread li{counter-increment:mr;border-bottom:1px solid var(--rule)}
+  ol.mostread a{display:flex;align-items:baseline;gap:.7rem;padding:.6rem .4rem;
+    text-decoration:none;color:inherit}
+  ol.mostread a:hover{background:rgba(156,14,58,.05)}
+  ol.mostread a::before{content:counter(mr);font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.95rem;color:var(--faint);min-width:1.1rem;
+    font-variant-numeric:tabular-nums}
+  ol.mostread .mc{flex:1;font-size:1rem;line-height:1.3}
+  ol.mostread .mct{display:block}
+  ol.mostread a:hover .mct{color:var(--accent);text-decoration:underline;
+    text-underline-offset:3px}
+  ol.mostread .mdk{color:var(--accent);font-weight:600;font-size:.82rem;
+    font-variant-numeric:tabular-nums;white-space:nowrap}
+  ol.mostread .mv{color:var(--faint);font-size:.85rem;font-style:italic;
+    white-space:nowrap;font-variant-numeric:tabular-nums}
+  /* Forecast percentages carry weight the most-read counts do not: the number is
+     the claim, not a footnote to the ranking. Upright, accent, tabular. */
+  ol.mostread .mv.fc{color:var(--accent);font-style:normal;font-weight:600;
+    font-size:.95rem;min-width:2.6rem;text-align:right}
+  /* Feed follow line. Deliberately quiet -- a footnote under the section list,
+     styled like .recent rather than like a call to action. */
+  .feeds{display:flex;flex-wrap:wrap;align-items:baseline;gap:.3rem .85rem;
+    margin:2.2rem 0 0;padding-top:1.1rem;border-top:1px solid var(--rule)}
+  .feeds .flabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  .feeds a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .feeds a:hover{border-color:var(--link)}
+  .back{margin-top:2rem;font-size:.95rem}
+  .back a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .back a:hover{border-color:var(--link)}
+  /* Home-page case search. */
+  .csearch{position:relative;margin:0 0 1.4rem}
+  #cq{width:100%;font-family:'Newsreader',Georgia,serif;font-size:1.05rem;color:var(--ink);
+    background:var(--panel);border:1px solid var(--rule);border-radius:3px;padding:.7rem .9rem}
+  #cq:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(156,14,58,.1)}
+  #cq::placeholder{color:var(--faint)}
+  #cq.loading{background-image:linear-gradient(90deg,transparent,rgba(156,14,58,.06),transparent);
+    background-size:40% 100%;background-repeat:no-repeat;animation:csl 1s infinite}
+  @keyframes csl{0%{background-position:-40% 0}100%{background-position:140% 0}}
+  .cres{list-style:none;margin:.35rem 0 0;padding:0;max-height:24rem;overflow-y:auto;
+    border:1px solid var(--rule);border-radius:3px;background:var(--panel)}
+  .cres:empty{display:none}
+  .cres li{border-bottom:1px solid var(--rule)}
+  .cres li:last-child{border-bottom:0}
+  .cres a{display:block;padding:.55rem .7rem;text-decoration:none;color:var(--ink);
+    font-size:.98rem;line-height:1.3}
+  .cres a:hover,.cres li.act a{background:rgba(156,14,58,.06)}
+  .cres mark{background:rgba(156,14,58,.14);color:inherit;padding:0 .05em;border-radius:2px}
+  .cres .cd{color:var(--accent);font-variant-numeric:tabular-nums;font-weight:600;
+    margin-right:.5rem;white-space:nowrap}
+  .cnone{padding:.55rem .7rem;color:var(--faint);font-style:italic}
+  .cnone a,.cqp a{color:var(--link);font-style:normal;text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .cqp{margin:.45rem 0 0;font-size:.88rem;color:var(--faint)}
+  /* /cases/ browse index: grouped sections with per-bucket counts. */
+  .csec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+    text-transform:uppercase;letter-spacing:.12em;color:var(--accent);
+    margin:2.2rem 0 .3rem;padding-bottom:.35rem;border-bottom:1px solid var(--rule);
+    display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
+  .csec .cn{font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:.85rem;
+    letter-spacing:0;text-transform:none;color:var(--faint);
+    font-variant-numeric:tabular-nums}
+  .cnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:.5rem 0 0}
+  .cnote a{color:var(--accent)}
+  ul.terms{list-style:none;padding:0;margin:1rem 0 0;display:flex;flex-wrap:wrap;
+    gap:.5rem 1.6rem}
+  ul.terms li{display:inline-flex;align-items:baseline;gap:.4rem}
+  ul.terms a{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.05rem;
+    color:var(--accent);text-decoration:none;border-bottom:1px solid var(--rule)}
+  ul.terms a:hover{border-bottom-color:var(--accent)}
+  ul.terms .cn{color:var(--faint);font-size:.85rem;font-variant-numeric:tabular-nums}
+  /* About page: running prose rather than an index, so it takes a measure and a
+     little more leading than the section rows above it. */
+  .about{margin:1.6rem 0 0;font-size:1.05rem;line-height:1.65;max-width:34rem}
+  .about p{margin:0 0 1rem}
+  .about a{color:var(--accent);text-decoration:none;
+    border-bottom:1px solid var(--rule)}
+  .about a:hover{border-bottom-color:var(--accent)}
+  .about .contact{margin:2rem 0 0;background:var(--panel);border:1px solid var(--rule);
+    border-left:4px solid var(--accent);padding:1.1rem 1.3rem}
+  .about .contact h2{font:600 .78rem/1 'Newsreader',Georgia,serif;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--accent);margin:0 0 .5rem}
+  .about .contact p{margin:0;font-size:1rem}
+
+/* ---- masthead ---- */
+.smast-in{max-width:var(--nav-max,60rem);margin:0 auto;padding:.85rem 1.5rem .5rem;
+  display:flex;align-items:baseline;justify-content:space-between;gap:1.4rem;flex-wrap:wrap}
+.smast-wm{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+  letter-spacing:.005em;color:var(--ink,#1a1a1e);text-decoration:none;white-space:nowrap;flex:none}
+.smast-wm em{font-style:italic;font-weight:500;color:var(--accent,#9c0e3a)}
+.smast-wm:hover{color:var(--accent,#9c0e3a)}
+/* Row gap first, then column. At 1.35rem the six section links measured 596px
+   of max-content -- 4px wider than the 592px row the 40rem index container
+   leaves them -- so ABOUT alone wrapped to a third line under the wordmark, on
+   every page page_style.R writes. 1.05rem brings the row to 572px: 20px of
+   slack at 40rem, and 45px on the 54rem case pages, which were themselves only
+   21px from wrapping. The .4rem row gap is for the day a seventh section
+   overruns it anyway -- a nav that wraps should read as a stack, not an orphan. */
+.snav{display:flex;gap:.4rem 1.05rem;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+.snav a{font:600 .72rem/1 'Newsreader',Georgia,serif;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--ink-soft,var(--soft,#484850));text-decoration:none;display:inline-block;
+  padding:.5rem 0;border-bottom:1.5px solid transparent}
+.snav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--rule,#dbd8d2)}
+.snav a[aria-current='page']{color:var(--accent,#9c0e3a);
+  border-bottom-color:var(--accent,#9c0e3a)}
+.smast-rule-w{max-width:var(--nav-max,60rem);margin:0 auto;padding:0 1.5rem}
+.smast-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0;position:relative}
+.smast-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.skip{position:absolute;left:-9999px;top:0;background:var(--panel,#ffffff);
+  color:var(--accent,#9c0e3a);padding:.6rem 1rem;
+  border:1px solid var(--accent,#9c0e3a);
+  font:600 .8rem/1 'Newsreader',Georgia,serif;letter-spacing:.1em;text-transform:uppercase;z-index:10}
+.skip:focus{left:.5rem;top:.5rem}
+/* ---- breadcrumb ---- */
+.bcrumb{margin:.7rem 0 0}
+.bcrumb ol{list-style:none;display:flex;flex-wrap:wrap;align-items:baseline;
+  gap:.1rem .45rem;margin:0;padding:0}
+.bcrumb li{display:inline-flex;align-items:baseline;gap:.45rem}
+.bcrumb a{font:400 .8rem/1.5 'Newsreader',Georgia,serif;color:var(--ink-soft,var(--soft,#484850));
+  text-decoration:none;border-bottom:1px solid var(--rule,#dbd8d2)}
+.bcrumb a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.bcrumb .sep{color:var(--faint,#63636b);font-size:.8rem;line-height:1.5}
+.bcrumb [aria-current='page']{font:400 .8rem/1.5 'Newsreader',Georgia,serif;
+  color:var(--faint,#63636b);font-variant-numeric:tabular-nums}
+/* ---- case footer ---- */
+.cfoot{margin:2.4rem 0 0}
+.cfoot-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0 0 1rem;position:relative}
+.cfoot-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.cfoot-off{font-size:.95rem;margin:0 0 1.1rem}
+.cfoot-off a{color:var(--link,#9c0e3a);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.4)}
+.cfoot-off a:hover{border-bottom-color:var(--link,#9c0e3a)}
+.cfoot-lab{font:600 .68rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);margin:0 0 .5rem}
+.cfoot-nav{display:flex;flex-wrap:wrap;gap:.35rem 1.1rem;list-style:none;margin:0;padding:0}
+.cfoot-nav a{font-size:.92rem;color:var(--ink-soft,var(--soft,#484850));text-decoration:none;
+  border-bottom:1px solid var(--rule,#dbd8d2);padding-bottom:1px}
+.cfoot-nav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.cfoot-stamp{margin:1.2rem 0 0;font-size:.8rem;color:var(--faint,#63636b);font-style:italic}
+/* ---- prev / next ---- */
+.pnav{margin:2.2rem 0 0;border-top:1px solid var(--rule,#dbd8d2);padding-top:1rem;
+  display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.pnav a,.pnav span.none{text-decoration:none;color:inherit;display:block;padding:.5rem .2rem}
+.pnav a:hover{background:rgba(156,14,58,.05)}
+.pnav .dir{font:600 .66rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);display:block;margin-bottom:.3rem}
+.pnav .lab{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1rem;line-height:1.25;
+  color:var(--accent,#9c0e3a);display:block}
+.pnav a:hover .lab{text-decoration:underline;text-underline-offset:3px}
+.pnav .nx{text-align:right}
+.pnav .none{opacity:.35}
+@media(max-width:640px){
+  .smast-in{padding:.7rem 1.1rem .25rem;gap:.15rem}
+  .smast-wm{font-size:.98rem}
+  .smast-in nav{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+    -webkit-mask-image:linear-gradient(90deg,#000 86%,transparent);
+    mask-image:linear-gradient(90deg,#000 86%,transparent)}
+  .smast-in nav::-webkit-scrollbar{display:none}
+  .snav{flex-wrap:nowrap;gap:1.15rem;padding-right:2.4rem}
+  .snav a{padding:.7rem 0;white-space:nowrap}
+  .smast-rule-w{padding:0 1.1rem}
+  .cfoot-nav{gap:.5rem 1rem}
+  .cfoot-nav a{padding-bottom:.3rem}
+  .pnav{grid-template-columns:1fr;gap:.2rem}
+  .pnav .nx{text-align:left;border-top:1px solid var(--rule,#dbd8d2)}
+}
+
+  .wrap.opn{max-width:42rem}
+  .opn .ometa{font-size:.92rem;color:var(--ink-soft);margin:.3rem 0 0}
+  .opn .oget{display:flex;flex-wrap:wrap;gap:.4rem .6rem;margin:1.1rem 0 0;padding:0;list-style:none;font-size:.9rem}
+  .opn .oget a{display:inline-block;padding:.32rem .7rem;border:1px solid var(--rule);border-radius:4px;color:var(--ink);text-decoration:none;background:var(--panel)}
+  .opn .oget a:hover{border-color:var(--accent);color:var(--accent)}
+  .opn .osrc{font-size:.84rem;color:var(--faint);margin:.9rem 0 0;line-height:1.45}
+  .opn .osrc a{color:var(--link)}
+  .opn .otoc{margin:1.6rem 0 0;padding:.8rem 1rem;border:1px solid var(--rule);border-radius:4px;background:var(--panel);font-size:.95rem}
+  .opn .otoc ol{margin:0;padding:0;list-style:none}
+  .opn .otoc li{margin:.25rem 0}
+  .opn .otoc a{color:var(--ink);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.35)}
+  .opn .otoc a:hover{color:var(--accent)}
+  .opn section.op{margin-top:3rem;border-top:2px solid var(--ink);padding-top:1.1rem}
+  .opn section.op h2{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.5rem;line-height:1.2;margin:0 0 1rem;color:var(--ink)}
+  .opn section.op p{margin:0 0 .95rem;line-height:1.62;hyphens:auto;overflow-wrap:break-word}
+  .opn section.op p.byline{color:var(--ink-soft);font-style:italic}
+  .opn section.op p.sep{text-align:center;letter-spacing:.3em;color:var(--faint);margin:1.6rem 0}
+  .opn section.op h3.oh{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.12rem;text-align:center;margin:2rem 0 1rem;color:var(--ink)}
+  .opn section.op blockquote{margin:0 0 .95rem;padding:0 0 0 1.1rem;border-left:2px solid var(--rule);color:var(--ink-soft)}
+  .opn section.op blockquote p{margin-bottom:.6rem;font-size:.96em}
+  .opn .sc{font-variant-caps:small-caps;letter-spacing:.02em}
+  .opn .pg{font-size:.66em;color:var(--faint);vertical-align:.3em;margin:0 .3em 0 .1em;font-variant-numeric:tabular-nums;user-select:none;white-space:nowrap}
+  .opn .pg::before{content:'*'}
+  .opn sup.fnr{font-size:.68em;line-height:0;margin-left:.05em}
+  .opn sup.fnr a{color:var(--link);text-decoration:none;padding:0 .1em}
+  .opn aside.notes{margin-top:2rem;border-top:1px solid var(--rule);padding-top:.8rem;font-size:.88rem;color:var(--ink-soft)}
+  .opn aside.notes h3{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1rem;margin:0 0 .6rem;color:var(--ink)}
+  .opn aside.notes ol{margin:0;padding-left:1.7rem}
+  .opn aside.notes li{margin:0 0 .55rem}
+  .opn aside.notes li.sym{list-style:none;margin-left:-1.7rem}
+  .opn aside.notes li.sym .mk{margin-right:.3rem}
+  .opn aside.notes li.sym p{display:inline}
+  .opn aside.notes p{margin:0 0 .4rem;line-height:1.5}
+  .opn aside.notes a.back{color:var(--link);text-decoration:none;margin-left:.2rem}
+  .opn aside.notes li:target,.opn sup.fnr a:target,.opn .pg:target{background:rgba(156,14,58,.12);outline:.2rem solid rgba(156,14,58,.12)}
+  .opn section.op,.opn aside.notes li,.opn sup.fnr a{scroll-margin-top:1rem}
+  .opn section.op-syllabus p,.opn section.op-counsel p{font-size:.95em}
+  .opn section.op-counsel summary{cursor:pointer;font-family:'Fraunces',Georgia,serif;font-size:1.05rem;color:var(--ink-soft)}
+  .opn .osyl{font-size:.84rem;color:var(--faint);font-style:italic;margin:-.5rem 0 1rem}
+  .opn p.back{margin-top:3rem;font-size:.92rem}
+  @media print{.smast,.bcrumb,.opn .oget,.opn .otoc,.opn p.back{display:none}.opn section.op{break-before:page}}
+</style><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://supremecourt.report/"},{"@type":"ListItem","position":2,"name":"Opinions","item":"https://supremecourt.report/opinions/"},{"@type":"ListItem","position":3,"name":"Guam v. United States"}]}</script><meta name='otv' content='p1'><link rel='alternate' type='text/markdown' href='/opinions/2020/20-382.md'><link rel='alternate' type='application/epub+zip' href='/opinions/2020/20-382.epub'></head><body><a class='skip' href='#main'>Skip to content</a><header><div class='smast-in'><a class='smast-wm' href='/'>Supreme Court <em>Report</em></a><nav aria-label='Sections'><ul class='snav'><li><a href='/dashboards/'>Docket</a></li><li><a href='/conferences/'>Conferences</a></li><li><a href='/relists/'>Relists</a></li><li><a href='/applications/'>Interim</a></li><li><a href='/arguments/'>Arguments</a></li><li><a href='/justices/' aria-current='page'>Justices</a></li><li><a href='/counsel/'>Counsel</a></li><li><a href='/funnel/'>Funnel</a></li><li><a href='/methods.html'>Model</a></li><li><a href='/about.html'>About</a></li></ul></nav></div><div class='smast-rule-w'><hr class='smast-rule'></div></header><main class='wrap opn' id='main' data-dkt='20-382'><nav class='bcrumb' aria-label='Breadcrumb'><ol><li><a href='/'>Home</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><a href='/opinions/'>Opinions</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><span aria-current='page'>Guam v. United States</span></li></ol></nav><p class='kicker'>No. 20-382 · decided May 24, 2021 · 593 U. S. 310</p><h1 style='font-size:clamp(1.7rem,4.6vw,2.4rem);line-height:1.12'>Guam v. United States</h1><p class='ometa'>Territory of Guam v. United States. No separate writings.</p><ul class='oget'><li><a href='/opinions/2020/20-382.epub' download>EPUB</a></li><li><a href='/opinions/2020/20-382.md' download>Markdown</a></li><li><a href='https://www.supremecourt.gov/opinions/20pdf/593us2r37_1an2.pdf' rel='noopener'>The Court’s PDF</a></li><li><a href='/cases/20-382.html'>The docket</a></li></ul><p class='osrc'>Set from the PDF the Court published, which is the authoritative text. The small starred numbers are that PDF’s page numbers. A conversion can introduce errors; check a quotation against the <a href='https://www.supremecourt.gov/opinions/20pdf/593us2r37_1an2.pdf' rel='noopener'>original</a>.</p><nav class="otoc" aria-label="Contents"><ol>
+<li><a href="#s1">Syllabus</a></li>
+<li><a href="#s2">Counsel</a></li>
+<li><a href="#s3">Opinion of the Court</a></li>
+</ol></nav>
+<section id="s1" class="op op-syllabus"><h2>Syllabus</h2><p class='osyl'>Prepared by the Reporter of Decisions for the convenience of the reader; it is no part of the opinion of the Court.</p>
+<p>Guam and the United States dispute liability for environmental hazards at the Ordot Dump, a site constructed on the island by the Navy in the 1940s and into which both parties allegedly have deposited waste over the decades. The Environmental Protection Agency (EPA) and Guam entered into a consent decree in 2004 that resolved litigation filed by the EPA alleging violations of the Clean Water Act. The decree in relevant part required Guam to pay a civil penalty and to take certain actions at the dump, and also stated that Guam's compliance would constitute full settlement and satisfaction of the civil claims of the United States as alleged in the EPA's complaint (<em>i. e.</em>, claims under the Clean Water Act). More than a decade later, Guam sued the United States under the Comprehensive Environmental Response, Compensation, and Liability Act of 1980 (CERCLA), alleging that the United States' use of the dump exposed it to two possible actions under the Act. The first was a “cost-recovery” action under § 107(a), which allows recovery of the costs of a “removal or remedial action” from “any person who at the time of disposal of any hazardous substance owned or operated any facility at which such hazardous substances were disposed of.” The second was a “contribution” action under §113(f), which provides that a party that “has resolved its liability to the United States . . . for some or all of a response action or for some or all of the costs of such action in [a] settlement may seek contribution from any person who is not [already] party to a [qualifying] settlement.” §113(f)(3)(B). The D. C. Circuit rejected Guam's CERCLA claims against the United States. The court determined that although Guam had once possessed a CERCLA contribution claim based on the 2004 consent decree that sufficiently “resolved Guam's liability” for the dump, that claim was time barred. The court further held that a party eligible to pursue a contribution claim under §113(f) cannot assert a cost-recovery claim under §107(a), leaving Guam no CERCLA remedy. As relevant here, Guam now contends that the 2004 consent decree did not give rise to a viable CERCLA contribution claim, leaving Guam free to pursue a cost-recovery action. The case turns on whether CERCLA authorizes a contribution claim only when a party resolves a CERCLA-specific liability or whether settlement of environmental liabilities under other laws will do.</p>
+<p><span class="pg" id="s1-p311" title="page 311 of the original">311</span><em>Held</em>: A settlement of environmental liabilities must resolve a CERCLA-specific liability to give rise to a contribution action under §113(f)(3)(B). The Court interprets §113(f)(3)(B) in light of its text and place within CERCLA's comprehensive statutory scheme. Section 113(f)'s interlocking provisions governing the scope of a contribution claim, taken together and in sequence, anticipate a predicate CERCLA liability. See <em>New Prime Inc.</em> v. <em>Oliveira</em>, 586 U. S. –––, –––. Section 113(f)'s anchor provision—entitled “contribution”—explains the scope of contribution actions with reference to CERCLA's other provisions, allowing contribution “during or following any civil action under [§] 106 of this title or under [§]107” of this title. §113(f)(1). The provision at issue here—recognizing a statutory right to contribution in the specific circumstance where a person “has resolved its liability” via “settlement,” §113(f)(3)(B)—exists within “ `the specific context' ” of §113(f), which outlines the broader workings of CERCLA contribution. <em>Merit Management Group, LP</em> v. <em>FTI Consulting, Inc.</em>, 583 U. S. 366, 378. Section 113(f)(3)(B)'s opening clause further ties itself to the CERCLA regime by permitting contribution after a party “has resolved its liability . . . for some or all of a <em>response action</em> or for some or all of the costs of such action.” (Emphasis added.) The anchor provision also discusses allocation of “response costs,” and the phrase “response action” appears dozens of times throughout the Act. That remedial measures under different environmental statutes might functionally overlap with a CERCLA response action does not justify reinterpreting §113(f)(3)(B)'s phrase “resolved its liability . . . for some or all of a response action” to instead mean “settled an environmental liability that might have been actionable under CERCLA.” Interpreting §113(f)(3)(B) to authorize a contribution right for a host of environmental liabilities arising under other laws would stretch the statute beyond Congress' actual language. And because the word “resolve” conveys certainty and finality, it would be odd to interpret §113(f)(3)(B) as referring to a party that has “resolved its liability” if that party remains vulnerable to a CERCLA suit. The most natural reading of §113(f)(3)(B) is that a party may seek contribution under CERCLA only after settling a CERCLA-specific liability, as opposed to resolving environmental liability under some other law. The Government's contrary arguments fail given §113(f)(3)(B)'s place in CERCLA's comprehensive statutory scheme. Pp. 315–320.</p>
+<p>950 F. 3d 104, reversed and remanded.</p>
+<p><span class="sc">Thomas,</span> J., delivered the opinion for a unanimous Court.</p></section>
+<section id="s2" class="op op-counsel"><details><summary>Counsel</summary><p><em>Gregory G. Garre</em> argued the cause for petitioner. With him on the briefs were <em>Leevin T. Camacho,</em> Attorney General <span class="pg" id="s2-p312" title="page 312 of the original">312</span>of Guam, <em>James L. Canto II,</em> Deputy Attorney General, <em>Roman Martinez, Bezalel Stern, John D. S. Gilmour,</em> and <em>William J. Jackson.</em></p>
+<p><em>Vivek Suri</em> argued the cause for the United States. With him on the brief were <em>Acting Solicitor General Prelogar, Acting Assistant Attorney General Williams, Deputy Solicitor General Stewart, Jennifer Scheller Neumann, Evelyn Ying,</em> and <em>Rachel Heron.</em>*</p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li class="sym" value="0"><span class="mk">*</span><p>Briefs of <em>amici curiae</em> urging reversal were filed for the Commonwealth of the Northern Mariana Islands et al. by <em>Edward E. Manibusan,</em> Attorney General of the Northern Mariana Islands, <em>Lillian A. Tenorio,</em> Deputy Attorney General, <em>J. Robert Glass, Jr.,</em> Chief Solicitor, <em>Alison M. Nelson,</em> Assistant Attorney General, <em>Joseph S. Diedrich, Eric M. McLeod,</em> and <em>David A. Lopez,</em> and by the Attorneys General for their respective jurisdictions as follows: <em>Treg R. Taylor</em> of Alaska, <em>Leslie Rutledge</em> of Arkansas, <em>Kathleen Jennings</em> of Delaware, <em>Karl A. Racine</em> of the District of Columbia, <em>Clare E. Connors</em> of Hawaii, <em>Lawrence G. Wasden</em> of Idaho, <em>Kwame Raoul</em> of Illinois, <em>Theodore E. Rokita</em> of Indiana, <em>Thomas J. Miller</em> of Iowa, <em>Jeff Landry</em> of Louisiana, <em>Maura Healey</em> of Massachusetts, <em>Dana Nessel</em> of Michigan, <em>Douglas J. Peterson</em> of Nebraska, <em>Aaron D. Ford</em> of Nevada, <em>Gurbir S. Grewal</em> of New Jersey, <em>Hector Balderas</em> of New Mexico, <em>Wayne Stenehjem</em> of North Dakota, <em>David A. Yost</em> of Ohio, <em>Ellen F. Rosenblum</em> of Oregon<em>, Peter F. Neronha</em> of Rhode Island<em>, Jason R. Ravnsborg</em> of South Dakota, <em>Sean D. Reyes</em> of Utah<em>, Mark R. Herring</em> of Virginia<em>, Patrick Morrisey</em> of West Virginia<em>,</em> and <em>Bridget Hill</em> of Wyoming; and for ConservAmerica Inc. by <em>John A. Sheehan.</em></p><p><em>Shannon Wells Stevenson, Kenzo S. Kawanabe, Elisabeth S. Theodore,</em> and <em>Stephen K. Wirth</em> filed a brief for Atlantic Richfield Co. as <em>amicus curiae.</em></p></li>
+</ol></aside></details></section>
+<section id="s3" class="op op-court"><h2>Opinion of the Court</h2>
+<p class="byline">Justice Thomas delivered the opinion of the Court.</p>
+<p>The Comprehensive Environmental Response, Compensation, and Liability Act of 1980, commonly known as CERCLA, establishes a complex statutory scheme for responding to certain environmental hazards. 94 Stat. 2767, as amended, 42 U. S. C. § 9601 <em>et seq</em>. Several of its provisions address what is often the crucial question in a remedial action: Who pays?</p>
+<p><span class="pg" id="s3-p313" title="page 313 of the original">313</span>Today's case involves §113(f)(3)(B) of the Act,<sup class="fnr"><a id="s3-r1" href="#s3-n1">1</a></sup>which allows “[a] person who has resolved its liability to the United States or a State” in a settlement to seek “contribution”— that is, money from another responsible individual. The question is whether a party must resolve a CERCLA-specific liability in order to trigger this right, or whether a broader array of settlements involving environmental liability will do. We hold that CERCLA contribution requires resolution of a CERCLA-specific liability.</p>
+<h3 class="oh">I</h3>
+<p>Guam and the United States are engaged in a long-running dispute over the Ordot Dump, a “ `280-foot mountain of trash' ” near the center of the island. 950 F. 3d 104, 109 (CADC 2020). The Navy constructed the dump in the 1940s, and then allegedly deposited toxic military waste there for several decades. The United States later ceded control of the site to Guam, which itself used the dump as a public landfill. But that did not end the Federal Government's involvement. In the late 20th century, the Environmental Protection Agency (EPA) determined that the dump posed an ecological hazard. After Guam allegedly failed to comply with agency directives to remediate the site, the EPA sued under the Clean Water Act, asserting that Guam was “ `discharging pollutants . . . into waters of the United States without obtaining a permit.' ” <em>Ibid.</em></p>
+<p>That litigation ended in 2004, when Guam and the EPA entered into a consent decree. The decree required Guam, among other things, to pay a civil penalty and to close and cover the dump. Guam's compliance would, in turn, be “in full settlement and satisfaction of the civil judicial claims of the United States . . . as alleged in the Complaint”—that is, <span class="pg" id="s3-p314" title="page 314 of the original">314</span>claims under the Clean Water Act. <em>Id.,</em> at 116. But Guam was not completely free. As the agreement explained, “the United States d[id] not waive any rights or remedies available to it for any violation by the Government of Guam of federal and territorial laws and regulations,” “[e]xcept as specifically provided [i]n [the decree].” App. to Pet. for Cert. 166a.</p>
+<p>Thirteen years later, it was Guam's turn to sue—this time under CERCLA. According to Guam's complaint, the United States' earlier use of the dump exposed it to liability on two fronts. The first was a cost-recovery action under § 107(a), which allows a State (or here, a Territory), to recover “all costs of [a] removal or remedial action” from “any person who at the time of disposal of any hazardous substance owned or operated any facility at which such hazardous substances were disposed of.” See also § 101(27). The second was a §113(f) “contribution” action. Under that provision, a “person who has resolved its liability to the United States . . . for some or all of a response action or for some or all of the costs of such action in [a] settlement may seek contribution from any person who is not [already] party to a [qualifying] settlement.” §113(f)(3)(B).</p>
+<p>Rather than increase Guam's odds of recovery, however, the second legal theory led to the dismissal of its complaint. According to the D. C. Circuit, if a party <em>can</em> assert a contribution claim under §113(f), it <em>cannot</em> assert a cost-recovery claim under § 107(a). See 950 F. 3d, at 111. The court then determined that Guam possessed a contribution claim—at least at one point—because the remedial measures and conditional release in the Clean Water Act decree sufficiently “ `resolved Guam's liability' ” for the dump. <em>Id.,</em> at 114–117 (brackets omitted). But because the 2004 decree had triggered the since-expired 3-year statute of limitations for contribution actions, Guam had no remedy at all. <em>Id.,</em> at 107, 117; see also § 113(g)(3). We granted certiorari. 592 U. S. ––– (2021).</p>
+<h3 class="oh"><span class="pg" id="s3-p315" title="page 315 of the original">315</span>II</h3>
+<p>Guam now attacks two links in this chain of reasoning: First, Guam retreats from its complaint and argues that it <em>never</em> had a viable contribution claim under §113(f), leaving it free to pursue a cost-recovery action under § 107(a). The reason, argues Guam, is that a contribution claim arises only if a settlement resolves liability under CERCLA, and not under some other law such as the Clean Water Act. Second, Guam contends that even if resolution of a non-CERCLA liability is enough, the decree did not adequately “resolve” <em>any</em> sort of liability because Guam did not formally admit responsibility and because the agreement left Guam open to future enforcement action.</p>
+<p>We need only address the first point to decide this case.<sup class="fnr"><a id="s3-r2" href="#s3-n2">2</a></sup>A settlement must resolve a CERCLA liability to trigger a contribution action under §113(f)(3)(B).</p>
+<p>Our analysis focuses on the totality of subsection 113(f), which governs the scope of a “contribution” claim under CERCLA. This subsection begins with an anchor provision—entitled “contribution”—that allows “[a]ny person [to] seek contribution from any other person who is liable or potentially liable under section 107(a) of [CERCLA], during or following any civil action under section 106 of [CERCLA] or under section 107(a) of [CERCLA].” §113(f)(1). It next describes how parties can insulate themselves from contribution, explaining that “[a] person who has resolved its liability to the United States or a State in an administrative or judicially approved settlement shall not be liable for claims for contribution regarding matters addressed in the settlement.” §113(f)(2). And finally, it discusses the treatment of “[p]ersons not party to [a] settlement.” §113(f)(3). Most relevant here, “[a] person who has resolved its liability to the United States . . . for some or all <span class="pg" id="s3-p316" title="page 316 of the original">316</span>of a response action or for some or all of the costs of such action in an administrative or judicially approved settlement may seek contribution from any person who is not party to a settlement referred to in [§113(f)(2)].” §113(f)(3)(B).</p>
+<p>That this subsection centers on and is entitled “contribution” is the first clue that it is concerned only with the distribution of CERCLA liability. A contribution suit does not exist in a vacuum, but rather is a tool for apportioning the burdens of a predicate “common liability” among the responsible parties. <em>United States</em> v. <em>Atlantic Research Corp.</em>, 551 U. S. 128, 138–139 (2007); see also <em>Northwest Airlines, Inc.</em> v. <em>Transport Workers</em>, 451 U. S. 77, 86–87 (1981). The most obvious place to look for that threshold liability is CERCLA's reticulated statutory matrix of environmental duties and liabilities. Cf. <em>Burlington N. &amp; S. F. R. Co.</em> v. <em>United States</em>, 556 U. S. 599, 610 (2009) (“[Section 107(a)(3)] liability may not extend beyond the limits of the statute itself”). After all, “[s]tatutes must `be read as a whole,' ” <em>Atlantic Research</em>, 551 U. S., at 135—an especially salient approach in this case given that CERCLA's very title reinforces that it is a “Comprehensive” Act.</p>
+<p>Remaining within the bounds of CERCLA is also consistent with the familiar principle that a federal contribution action is virtually always a creature of a specific statutory regime. See <em>Northwest Airlines</em>, 451 U. S., at 90–91, 95–97 (noting a “narrow exception” for admiralty cases). In fact, there is no “general federal right to contribution” whatsoever. <em>Id.,</em> at 96; cf. <em>Middlesex County Sewerage Authority</em> v. <em>National Sea Clammers Assn.</em>, 453 U. S. 1, 13–15 (1981) (refusing to “assum[e] that Congress intended to authorize by implication additional judicial remedies for private citizens suing under [two environmental statutes]”). That modest understanding is difficult to reconcile with the United States' invitation to treat §113(f)(3)(B) as a free-roving contribution right for a host of environmental liabilities arising under other laws.</p>
+<p><span class="pg" id="s3-p317" title="page 317 of the original">317</span>The interlocking language and structure of the relevant text confirm this understanding. The provision at issue here—§113(f)(3)(B)—recognizes a statutory right to contribution in the specific circumstance where a person “has resolved its liability” via “settlement.” But as explained above, this entitlement to postsettlement contribution does not stand alone. On the contrary, §113(f)(3)(B) exists within “ `the specific context' ” of subsection (f), which outlines the broader workings of CERCLA contribution. <em>Merit Management Group, LP</em> v. <em>FTI Consulting, Inc.</em>, 583 U. S. 366, 378 (2018).</p>
+<p>This §113(f) family of contribution provisions anticipates a predicate CERCLA liability, especially when properly read in “sequenc[e]” as “ `integral parts of a whole.' ” <em>New Prime Inc.</em> v. <em>Oliveira</em>, 586 U. S. –––, ––– (2019); see also <em>Cooper Industries, Inc.</em> v. <em>Aviall Services, Inc.</em>, 543 U. S. 157, 167 (2004) (looking to “the whole of §113”). The §113(f)(1) anchor provision is especially clear on this point, allowing contribution “during or following any civil action under [§] 106 of this title or under [§] 107 of this title.” See also 543 U. S., at 166 (“The natural meaning of [§113(f)(1)] is that contribution may only be sought . . . `during or following' a specified civil action”). And though §§113(f)(2) and 113(f)(3) are not quite as explicit, their phrasing and context still presume that a CERCLA liability is necessary to trigger contribution.</p>
+<p>Section 113(f)(2), for example, explains that a settlement by one party “does not discharge any of the other <em>potentially liable persons</em> unless its terms so provide.” (Emphasis added.) The highlighted phrase is a “natural referent” to the text of the anchor provision, <em>United States</em> v. <em>Briggs</em>, 592 U. S. –––, ––– (2020), which creates a CERCLA-specific contribution right against “any other person who is liable or <em>potentially liable</em> under [§]107 of [CERCLA],” §113(f)(1) (emphasis added).</p>
+<p>Section 113(f)(3)(B)—the provision at issue here—also has language that is best “understood only with reference” to the <span class="pg" id="s3-p318" title="page 318 of the original">318</span>CERCLA regime. <em>Atlantic Research</em>, 551 U. S., at 135; see also <em>Sturgeon</em> v. <em>Frost</em>, 577 U. S. 424, 438 (2016). The provision's final clause explains that contribution is available “from any person who is not party to a settlement referred to in [§113(f)(2)].” As discussed above, §113(f)(2) in turn mirrors the §113(f)(1) anchor provision that requires a predicate CERCLA liability. Section 113(f)(3)(B)'s opening clause separately ties itself to the CERCLA regime by permitting contribution after a party “has resolved its liability . . . for some or all of a <em>response action</em> or for some or all of the costs of <em>such action</em>.” (Emphasis added.) Not only does the anchor provision also discuss allocation of “response costs,” §113(f)(1), but the phrase “response action” is a familiar CERCLA phrase that appears dozens of times throughout the Act. <em>E. g.,</em> § 101 (12 appearances); § 107 (17 appearances).</p>
+<p>To be sure, as the Government points out, remedial measures that a party takes under another environmental statute might resemble steps taken in a formal CERCLA “response action.” But relying on that functional overlap to reinterpret the phrase “resolved its liability . . . for some or all of a response action” to mean “settled an environmental liability that might have been actionable under CERCLA” would stretch the statute beyond Congress' actual language.</p>
+<p>Perhaps more important, the Government's interpretation would place undue stress on the word “resolve.” This term conveys certainty and finality. See Webster's Third New International Dictionary 1933 (1986) (“make clear or certain”); American Heritage Dictionary 1107 (1981) (“remove or dispel (doubts); . . . bring to a conclusion”).<sup class="fnr"><a id="s3-r3" href="#s3-n3">3</a></sup>It would be <span class="pg" id="s3-p319" title="page 319 of the original">319</span>rather odd to say that a party has “resolved its liability” if that party remains vulnerable to a CERCLA suit. All the more so given that it will not always be clear whether the substance of a prior environmental settlement was sufficiently similar to a quasi-CERCLA “response action.” As even the Government admits, “ `response action' is, indeed, a broad term, [but] it is not an unlimited term [that covers] everything under the sun.” Tr. of Oral Arg. 39–40; cf. 950 F. 3d, at 116 (comparing Guam's obligations under the Clean Water Act decree to CERCLA's “definition of a `remedial action' ”). Rather than requiring parties and courts to estimate whether a prior settlement was close enough to CERCLA, the far simpler approach is to ask whether a settlement expressly discharged a CERCLA liability.<sup class="fnr"><a id="s3-r4" href="#s3-n4">4</a></sup></p>
+<p>No more persuasive are the United States' efforts to emphasize the differences among §113(f)'s provisions. The Government observes that § 113(f )(3)(B)—unlike the §113(f)(1) anchor provision—does not expressly demand a predicate CERCLA action. That distinction, so the argument goes, implies that a broader range of environmental liabilities can trigger §113(f)(3)(B). See <em>Russello</em> v. <em>United States</em>, 464 U. S. 16, 23 (1983) (“ `[W]here Congress includes particular language in one section of a statute but omits it in another section of the same Act, it is generally presumed that Congress acts intentionally and purposely in the disparate inclusion or exclusion' ”). But this effort to tear §113(f)(3)(B) away from its companions based on a negative implication falters in light of the other strong textual links among them. See <em>Marx</em> v. <em>General Revenue Corp.</em>, 568 U. S. <span class="pg" id="s3-p320" title="page 320 of the original">320</span>371, 381 (2013); <em>Entergy Corp.</em> v. <em>Riverkeeper, Inc.</em>, 556 U. S. 208, 222 (2009). Section 113(f)(3)(B)'s use of the familiar phrase “response action,” express cross-reference to another CERCLA provision, and placement in the statutory scheme prevent us from so easily severing it from the larger Act.</p>
+<p>Similarly unavailing is the Government's theory that a tightly unified interpretation of these provisions would create surplusage problems. The United States argues, for example, that a reading of §113(f)(3)(B) that does nothing more than allow a party to seek contribution after settling a CERCLA liability would be redundant with §113(f)(1), which already permits contribution “during or following any civil action under [§§ 106 and 107].” But there is legitimate reason for separate provisions, even if both allow contribution only for a CERCLA liability. For example, §113(f) (3)(B) specifies the consequences of a particular type of resolution (<em>i. e.,</em> settlement), explaining that an “administrative or judicially approved settlement” is sufficient and reinforcing that a contribution claim will not extend to parties who have already settled. This sort of belt-and-suspenders approach hardly compels an all-encompassing reading of §113(f)(3)(B). Cf. <em>Rimini Street, Inc.</em> v. <em>Oracle USA, Inc.</em>, 586 U. S. –––, ––– (2019) (“We have recognized that some redundancy is hardly unusual in statutes addressing costs” (internal quotation marks omitted)). Rather than try “to avoid surplusage at all costs,” <em>Atlantic Research</em>, 551 U. S., at 137, we interpret §113(f)(3)(B) in light of its text and place within a comprehensive statutory scheme.</p>
+<p class="sep">* * *</p>
+<p>The most natural reading of §113(f)(3)(B) is that a party may seek contribution under CERCLA only after settling a CERCLA-specific liability. We thus reverse the judgment of the Court of Appeals and remand the case for further proceedings consistent with this opinion.</p>
+<p><em>It is so ordered.</em></p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li id="s3-n1" value="1"><p>For the sake of simplicity, we cite CERCLA's provisions as they appear in the Act itself. The most relevant corresponding sections of Title 42 of the U. S. Code are § 9607 (§ 107 of CERCLA) and § 9613 (§ 113 of CERCLA). <a class="back" href="#s3-r1" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n2" value="2"><p>Guam has not challenged other portions of the lower court's reasoning, so we express no opinion on them. <a class="back" href="#s3-r2" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n3" value="3"><p>See also §113(f)(2) (“A person who has <em>resolved its liability</em> [in a] settlement <em>shall not be liable</em> for claims for contribution regarding matters addressed in the settlement” (emphasis added)); <em>United States</em> v. <em>Atlantic Research Corp.</em>, 551 U. S. 128, 141 (2007) (“[S]ettlement [under §113(f)(2)] carries the inherent benefit of <em>finally resolving liability</em> as to the United States or a State” (emphasis added)). <a class="back" href="#s3-r3" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n4" value="4"><p>This straightforward inquiry has the additional “benefit” of “provid[ing] clarity” for the 3-year statute of limitations. <em>United States</em> v. <em>Briggs</em>, 592 U. S. –––, ––– (2020). If a broad, textually undefined set of environmental settlements could start the clock on a §113(f)(3)(B) contribution action, a party who did not realize that his non-CERCLA settlement overlaps with a hypothetical CERCLA response action might fail to sue in time. <a class="back" href="#s3-r4" aria-label="Back to the text">↩</a></p></li>
+</ol></aside></section><p class='back'><a href='/opinions/'>&larr; All opinions</a> · <a href='/justices/ot2020.html'>The Justices, October Term 2020 &rarr;</a></p></main></body>
+</html>
+
