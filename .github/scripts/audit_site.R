@@ -1147,6 +1147,24 @@ local({
                                                       length(loose), paste(utils::head(loose, 8), collapse = ", ")))
   else ok("opinion footnotes", "every reference has its note")
   if (!file.exists(file.path(od, "index.html"))) fail("opinions page", "opinions/index.html missing")
+  # The OPDS catalogue (write_opinion_opds()): an e-reader follows these links
+  # unattended, so every download it offers must exist and every feed it
+  # names must be there.
+  root <- file.path(od, "opds.xml")
+  if (!file.exists(root)) { fail("opinions OPDS", "opinions/opds.xml missing -- e-reader subscriptions are dead"); return(invisible()) }
+  feeds <- c(root, list.files(file.path(od, "opds"), pattern = "\\.xml$", full.names = TRUE))
+  hrefs <- unlist(lapply(feeds, function(f) {
+    x <- slurp(f)
+    regmatches(x, gregexpr("href=\"https://supremecourt\\.report/[^\"]+\"", x))[[1]]
+  }))
+  paths <- unique(sub("\"$", "", sub("^href=\"https://supremecourt\\.report/", "", hrefs)))
+  paths <- paths[nzchar(paths)]
+  dead <- paths[!file.exists(file.path(site, paths))]
+  n_epub <- sum(grepl("\\.epub$", paths))
+  if (length(dead)) fail("opinions OPDS", sprintf("%d link(s) in the catalogue resolve to nothing, e.g. %s",
+                                                  length(dead), paste(utils::head(dead, 4), collapse = ", ")))
+  else if (n_epub < length(lead)) fail("opinions OPDS", sprintf("the catalogue offers %d EPUB(s) but the index lists %d opinions", n_epub, length(lead)))
+  else ok("opinions OPDS", sprintf("%d feed(s), %d EPUBs, every link resolves", length(feeds), n_epub))
 })
 
 # ---- verdict -----------------------------------------------------------------

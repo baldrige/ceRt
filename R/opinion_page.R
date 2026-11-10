@@ -230,19 +230,149 @@ write_opinion_index_page <- function(site_dir, idx) {
     .oix .oterm li a:hover{color:var(--accent)}
     .oix .od{display:block;font-size:.84rem;color:var(--faint);font-variant-numeric:tabular-nums}
     .oix .dek{color:var(--ink-soft)}
+    .oix .oopds{font-size:.9rem;color:var(--ink-soft);border:1px solid var(--rule);border-radius:4px;background:var(--panel);padding:.6rem .8rem}
+    .oix .oopds a{color:var(--link)}
+    .oix .oopds code{font-size:.92em;overflow-wrap:anywhere}
   ")
   dek <- "The Court’s merits opinions as pages you can read, with a Markdown file and an EPUB of each."
   html <- paste0(
     "<!DOCTYPE html>\n<html lang=\"en\">\n",
     page_head("Opinions — Supreme Court Report", site_breadcrumb_jsonld("Opinions"), extra_css = css,
-              description = dek, path = paste0("/", OPINION_DIR, "/")),
+              description = dek, path = paste0("/", OPINION_DIR, "/"),
+              extra_head = paste0("<link rel='alternate' type='", OPDS_NAV, "' title='Opinions (OPDS catalogue)' href='/",
+                                  OPINION_DIR, "/opds.xml'>")),
     "<body>", site_masthead(active = "/justices/"),
     "<main class='wrap oix' id='main'>", site_breadcrumb("Opinions"),
     "<p class='kicker'>", nrow(df), " opinions · October Terms ", min(terms), "–", max(terms), "</p>",
     "<h1>Opinions</h1>",
     "<p class='dek'>", dek, " Each is set from the PDF the Court published, which remains the authoritative text.</p>",
+    "<p class='oopds'>To have new opinions arrive in an e-reader app, add this OPDS catalogue to it: ",
+    "<a href='/", OPINION_DIR, "/opds.xml'><code>", OPDS_BASE, "/", OPINION_DIR, "/opds.xml</code></a></p>",
     paste(blocks, collapse = ""),
     "</main></body>\n</html>\n")
   writeLines(enc2utf8(smarten_html(html)), file.path(site_dir, OPINION_DIR, "index.html"), useBytes = TRUE)
+  invisible(nrow(df))
+}
+
+# ---- OPDS: the EPUBs as a catalogue an e-reader can subscribe to ----------------
+# OPDS 1.2 is Atom with a few link relations, so a "server" is a set of static
+# files: nothing here needs anything GitHub Pages does not do.
+#
+#   opinions/opds.xml           the root: "Newest", then one entry per Term
+#   opinions/opds/new.xml       the OPDS_NEW most recent opinions
+#   opinions/opds/<yyyy>.xml    a Term's opinions
+#
+# A reader app is given https://supremecourt.report/opinions/opds.xml once; it
+# re-reads the feeds itself and shows what is new. Two things a static host
+# cannot do, both left out rather than faked: search (OpenSearch needs a
+# server to answer the query) and paging (no feed here is long enough to need
+# it -- a Term is ~60 entries).
+#
+# GitHub Pages serves these as application/xml, not OPDS's
+# application/atom+xml;profile=opds-catalog. The apps tested against static
+# catalogues read the feed's own `type` attributes on its links, which is
+# where the profile is declared here; a `.xml` name keeps the bytes being
+# served as XML at all.
+OPDS_NEW <- 50L
+OPDS_BASE <- "https://supremecourt.report"
+OPDS_NAV <- "application/atom+xml;profile=opds-catalog;kind=navigation"
+OPDS_ACQ <- "application/atom+xml;profile=opds-catalog;kind=acquisition"
+
+.opds_x <- function(x) {
+  x <- gsub("&", "&amp;", x %||% "", fixed = TRUE)
+  x <- gsub("<", "&lt;", x, fixed = TRUE); x <- gsub(">", "&gt;", x, fixed = TRUE)
+  gsub("\"", "&quot;", x, fixed = TRUE)
+}
+.opds_url <- function(path) paste0(OPDS_BASE, path)
+.opds_time <- function(d) paste0(format(as.Date(d), "%Y-%m-%d"), "T00:00:00Z")
+
+.opds_feed <- function(id, title, updated, self, self_type, entries, subtitle = NULL) {
+  paste0(
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n",
+    "<feed xmlns=\"http://www.w3.org/2005/Atom\" xmlns:dc=\"http://purl.org/dc/terms/\" xmlns:opds=\"http://opds-spec.org/2010/catalog\">\n",
+    "<id>", id, "</id>\n<title>", .opds_x(title), "</title>\n",
+    if (!is.null(subtitle)) paste0("<subtitle>", .opds_x(subtitle), "</subtitle>\n") else "",
+    "<updated>", updated, "</updated>\n",
+    "<author><name>Supreme Court Report</name><uri>", OPDS_BASE, "/</uri></author>\n",
+    "<link rel=\"self\" href=\"", .opds_url(self), "\" type=\"", self_type, "\"/>\n",
+    "<link rel=\"start\" href=\"", .opds_url(paste0("/", OPINION_DIR, "/opds.xml")), "\" type=\"", OPDS_NAV, "\"/>\n",
+    if (!identical(self, paste0("/", OPINION_DIR, "/opds.xml")))
+      paste0("<link rel=\"up\" href=\"", .opds_url(paste0("/", OPINION_DIR, "/opds.xml")), "\" type=\"", OPDS_NAV, "\"/>\n") else "",
+    paste(entries, collapse = ""), "</feed>\n")
+}
+
+# One opinion as an acquisition entry. `df` rows: dkt, caption, decided, term,
+# href, cite, words.
+.opds_entries <- function(df) {
+  if (!nrow(df)) return(character())
+  stem <- sub("\\.html$", "", df$href)
+  what <- vapply(seq_len(nrow(df)), function(i) paste(c(
+    paste0("No. ", df$dkt[i]), paste("decided", .op_long_date(df$decided[i])),
+    if (!is.na(df$cite[i]) && nzchar(df$cite[i])) df$cite[i],
+    if (!is.na(df$words[i])) paste(format(df$words[i], big.mark = ","), "words")), collapse = " · "), character(1))
+  paste0(
+    "<entry>\n<id>urn:supremecourt-report:opinion:", df$term, ":", df$dkt, "</id>\n",
+    "<title>", .opds_x(df$caption), "</title>\n",
+    "<author><name>Supreme Court of the United States</name></author>\n",
+    "<updated>", vapply(df$decided, .opds_time, character(1)), "</updated>\n",
+    "<published>", vapply(df$decided, .opds_time, character(1)), "</published>\n",
+    "<dc:language>en</dc:language>\n<dc:issued>", df$decided, "</dc:issued>\n",
+    "<category term=\"ot", df$term, "\" label=\"October Term ", df$term, "\"/>\n",
+    "<summary type=\"text\">", .opds_x(what), "</summary>\n",
+    "<link rel=\"http://opds-spec.org/acquisition/open-access\" href=\"", .opds_url(paste0(stem, ".epub")), "\" type=\"application/epub+zip\"/>\n",
+    "<link rel=\"http://opds-spec.org/acquisition/open-access\" href=\"", .opds_url(paste0(stem, ".md")), "\" type=\"text/markdown\"/>\n",
+    "<link rel=\"alternate\" href=\"", .opds_url(df$href), "\" type=\"text/html\"/>\n",
+    "</entry>\n")
+}
+
+write_opinion_opds <- function(site_dir, idx) {
+  ent <- idx[vapply(idx, function(e) isTRUE(e$lead), logical(1))]
+  if (!length(ent)) return(invisible(NULL))
+  df <- tibble::tibble(dkt = names(ent),
+                       caption = vapply(ent, function(e) e$caption %||% "", character(1)),
+                       decided = vapply(ent, function(e) e$decided %||% "", character(1)),
+                       term = vapply(ent, function(e) as.integer(e$term), integer(1)),
+                       href = vapply(ent, function(e) e$href, character(1)),
+                       cite = vapply(ent, function(e) e$cite %||% NA_character_, character(1)),
+                       words = vapply(ent, function(e) as.integer(e$words %||% NA_integer_), integer(1)))
+  # Only what is on disk: a feed must never offer a download that 404s.
+  has <- file.exists(file.path(site_dir, sub("^/", "", sub("\\.html$", ".epub", df$href))))
+  df <- df[has, , drop = FALSE]
+  if (!nrow(df)) return(invisible(NULL))
+  df <- df[order(df$decided, df$dkt, decreasing = TRUE), , drop = FALSE]
+  dir <- file.path(site_dir, OPINION_DIR, "opds")
+  dir.create(dir, recursive = TRUE, showWarnings = FALSE)
+  put <- function(x, path) writeLines(enc2utf8(x), path, useBytes = TRUE)
+  newest <- .opds_time(max(df$decided))
+  root <- paste0("/", OPINION_DIR, "/opds.xml")
+  terms <- sort(unique(df$term), decreasing = TRUE)
+  nav <- function(href, title, text, updated, rel = "subsection") paste0(
+    "<entry>\n<id>", .opds_url(href), "</id>\n<title>", .opds_x(title), "</title>\n<updated>", updated, "</updated>\n",
+    "<content type=\"text\">", .opds_x(text), "</content>\n",
+    "<link rel=\"", rel, "\" href=\"", .opds_url(href), "\" type=\"", OPDS_ACQ, "\"/>\n</entry>\n")
+  new_href <- paste0("/", OPINION_DIR, "/opds/new.xml")
+  entries <- c(
+    nav(new_href, "Newest opinions", sprintf("The %d most recent", min(OPDS_NEW, nrow(df))), newest,
+        rel = "http://opds-spec.org/sort/new"),
+    vapply(terms, function(t) {
+      g <- df[df$term == t, , drop = FALSE]
+      nav(sprintf("/%s/opds/%d.xml", OPINION_DIR, t), paste("October Term", t),
+          sprintf("%d opinion%s", nrow(g), if (nrow(g) == 1) "" else "s"), .opds_time(max(g$decided)))
+    }, character(1)))
+  put(.opds_feed(.opds_url(root), "Supreme Court Report: Opinions", newest, root, OPDS_NAV, entries,
+                 subtitle = "The Supreme Court's merits opinions as EPUBs, set from the PDFs the Court publishes"),
+      file.path(site_dir, OPINION_DIR, "opds.xml"))
+  top <- utils::head(df, OPDS_NEW)
+  put(.opds_feed(.opds_url(new_href), "Newest opinions", newest, new_href, OPDS_ACQ, .opds_entries(top)),
+      file.path(dir, "new.xml"))
+  for (t in terms) {
+    g <- df[df$term == t, , drop = FALSE]
+    href <- sprintf("/%s/opds/%d.xml", OPINION_DIR, t)
+    put(.opds_feed(.opds_url(href), paste("Opinions, October Term", t), .opds_time(max(g$decided)), href, OPDS_ACQ,
+                   .opds_entries(g)), file.path(dir, paste0(t, ".xml")))
+  }
+  # A Term with nothing left in it (never, in practice) must not keep its feed.
+  stale <- setdiff(list.files(dir, pattern = "^\\d{4}\\.xml$"), paste0(terms, ".xml"))
+  unlink(file.path(dir, stale))
   invisible(nrow(df))
 }

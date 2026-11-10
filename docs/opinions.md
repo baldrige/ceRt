@@ -12,6 +12,7 @@ beside it:
 | `opinions/<yyyy>/<docket>.json` | the extracted structure; the cache the other three are rendered from |
 | `opinions/index.json` | docket → `{href, url, xv, ov, caption, cite, words, notes, unmatched, lead}`; a companion docket points at its lead's page |
 | `opinions/index.html` | every opinion, by Term |
+| `opinions/opds.xml`, `opinions/opds/new.xml`, `opinions/opds/<yyyy>.xml` | the OPDS catalogue: the EPUBs as feeds an e-reader app subscribes to |
 
 `<yyyy>` is the October Term (a June 2026 decision is under `2025`). No
 masthead link: there is no room for an eleventh (CLAUDE.md), and the section
@@ -40,6 +41,34 @@ everything without downloading anything (`max_new: 0`).
 opinion is re-extracted when its PDF's URL changes — the Court replaces a
 slip with a U.S. Reports excerpt, and issues `_new_` revisions — or when the
 extractor's version does; re-rendered when either of the other two does.
+
+## The OPDS catalogue
+
+An e-reader app (KOReader, Thorium, Moon+ Reader, Marvin and the like) is
+given `https://supremecourt.report/opinions/opds.xml` once; it re-reads the
+feeds itself and offers what is new. OPDS 1.2 is Atom with a few link
+relations, so the "server" is three kinds of static file written by
+`write_opinion_opds()` at the end of every build:
+
+- `opds.xml` — the root, a navigation feed: "Newest opinions", then one entry
+  per Term.
+- `opds/new.xml` — the 50 most recent opinions.
+- `opds/<yyyy>.xml` — a Term's opinions.
+
+Each opinion is an entry with an open-access link to its EPUB (and one to its
+Markdown, and the page as `alternate`). The entry's `id` is the EPUB's own
+`dc:identifier`, so an app recognises a book it already holds.
+
+What a static host cannot do is left out rather than faked: **no search**
+(OpenSearch needs a server to answer the query) and no paging (a Term is
+about 60 entries). GitHub Pages serves the feeds as `application/xml`, not
+as `application/atom+xml;profile=opds-catalog`; the profile is declared on
+every link's `type` instead. This has **not been tested in a reader app** —
+only for well-formed XML and for every link resolving, which `audit_site.R`
+also FAILS on.
+
+A feed lists only EPUBs that are on disk, so it cannot offer a download
+that 404s.
 
 ## What is built, and what is not
 

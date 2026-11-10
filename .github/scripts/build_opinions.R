@@ -104,6 +104,8 @@ for (i in seq_len(nrow(work))) {
 }
 write_opinion_index(site_dir, idx)
 n <- write_opinion_index_page(site_dir, idx)
+n_opds <- write_opinion_opds(site_dir, idx)
+cat("opinions: OPDS catalogue of", n_opds %||% 0, "EPUB(s)\n")
 left <- sum(!work$dkt %in% names(idx))
 cat("opinions:", built, "built this run (", fetched, "download(s));", length(failed), "failed;", left, "still to build;",
     n %||% 0, "on the index\n")
