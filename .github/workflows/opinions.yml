@@ -11,9 +11,9 @@ name: Build the opinion pages
 # versions, stops by itself if the runner is throttled, and the next dispatch
 # picks up where it left off.
 #
-# Dispatch only for now. Once the back-catalogue is in, the weekly
-# (conferences.yml) can run the same script with a small cap, after the
-# Justices render that names the new PDFs.
+# This is the back-catalogue and the repair tool. The nightly (conferences.yml)
+# runs the same script with a small cap after the Justices render that names
+# each new decision's PDF.
 #
 # Publishes opinions/ only.
 

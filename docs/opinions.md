@@ -16,7 +16,8 @@ beside it:
 
 `<yyyy>` is the October Term (a June 2026 decision is under `2025`). No
 masthead link: there is no room for an eleventh (CLAUDE.md), and the section
-sits under **Justices** in the nav's active state.
+sits under **Justices** in the nav's active state. Readers arrive from a case
+page or a Justices page.
 
 ## The pipeline
 
@@ -28,8 +29,18 @@ justices/lineups.json  ──►  build_opinions.R  ──►  download the PDF 
                                 └─ R/opinion_page.R     body → the site's page; index
 ```
 
-`opinions.yml` runs it on dispatch (`max_new` PDFs a run; resumable). Nothing
-in the daily or the weekly calls it yet.
+`opinions.yml` runs it on dispatch (`max_new` PDFs a run; resumable): the
+back-catalogue, and the repair tool. The nightly `conferences.yml` runs the
+same script with a cap of 25 after the Justices render, which is what names a
+new decision's PDF.
+
+**Links in.** A case page whose docket is in `opinions/index.json` links its
+"Decided" to the opinion page and adds "Read the opinion · EPUB · the Court's
+PDF" (`render_docket_pages()` reads the index; the href is part of that
+page's manifest key, appended only where there is one, so building an opinion
+re-renders that case's page and no other). The Justices' writings tables add
+"opinion" beside the docket number. Both pick a new page up the next time
+they render.
 
 **One reading of the PDF, three renderings.** `extract_opinion.py` is the
 only thing that reads the PDF. A fault in the text is fixed there, once. The
