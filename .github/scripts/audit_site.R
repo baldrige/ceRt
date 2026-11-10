@@ -1113,6 +1113,60 @@ local({
                                        format(n_near, big.mark = ","), length(near_files)))
 })
 
+# ---- opinions: the reader pages and their downloads ----------------------------
+# R/opinion_page.R; docs/opinions.md. Each opinion is four files that link to
+# each other, built in one step, so the check is that the index lists nothing
+# that is missing a piece -- and that no page went out empty. (Not "short": a
+# dismissal as improvidently granted is one sentence.)
+cat("\nOpinions\n")
+local({
+  od <- file.path(site, "opinions")
+  ip <- file.path(od, "index.json")
+  if (!file.exists(ip)) {
+    warn("opinions index", "opinions/ not built -- no opinion pages on this site")
+    return(invisible())
+  }
+  idx <- tryCatch(fromJSON(ip, simplifyVector = FALSE), error = function(e) NULL)
+  if (is.null(idx)) { fail("opinions index", "opinions/index.json unreadable"); return(invisible()) }
+  lead <- idx[vapply(idx, function(e) isTRUE(e$lead), logical(1))]
+  if (!length(lead)) { warn("opinions index", "opinions/index.json lists no opinion"); return(invisible()) }
+  miss <- character(); thin <- character()
+  for (d in names(lead)) {
+    stem <- file.path(site, sub("^/", "", sub("\\.html$", "", lead[[d]]$href)))
+    for (ext in c("html", "md", "epub", "json")) if (!file.exists(paste0(stem, ".", ext))) miss <- c(miss, paste0(d, ".", ext))
+    if (is.null(lead[[d]]$words) || lead[[d]]$words < 5) thin <- c(thin, d)
+  }
+  ghosts <- setdiff(vapply(idx, function(e) e$href, character(1)), vapply(lead, function(e) e$href, character(1)))
+  if (length(miss)) fail("opinion files", sprintf("%d missing, e.g. %s", length(miss), paste(utils::head(miss, 5), collapse = ", ")))
+  else if (length(ghosts)) fail("opinion files", sprintf("%d companion docket(s) point at a page that is not in the index", length(ghosts)))
+  else ok("opinion files", sprintf("%d opinions, each with its page, Markdown, EPUB and JSON", length(lead)))
+  if (length(thin)) fail("opinion text", sprintf("%d page(s) with no text -- the PDF was not read, e.g. %s", length(thin), paste(utils::head(thin, 5), collapse = ", ")))
+  else ok("opinion text", "every opinion has text")
+  loose <- names(lead)[vapply(lead, function(e) isTRUE(e$unmatched > 0), logical(1))]
+  if (length(loose)) warn("opinion footnotes", sprintf("%d opinion(s) have a note reference without its note, or the reverse: %s",
+                                                      length(loose), paste(utils::head(loose, 8), collapse = ", ")))
+  else ok("opinion footnotes", "every reference has its note")
+  if (!file.exists(file.path(od, "index.html"))) fail("opinions page", "opinions/index.html missing")
+  # The OPDS catalogue (write_opinion_opds()): an e-reader follows these links
+  # unattended, so every download it offers must exist and every feed it
+  # names must be there.
+  root <- file.path(od, "opds.xml")
+  if (!file.exists(root)) { fail("opinions OPDS", "opinions/opds.xml missing -- e-reader subscriptions are dead"); return(invisible()) }
+  feeds <- c(root, list.files(file.path(od, "opds"), pattern = "\\.xml$", full.names = TRUE))
+  hrefs <- unlist(lapply(feeds, function(f) {
+    x <- slurp(f)
+    regmatches(x, gregexpr("href=\"https://supremecourt\\.report/[^\"]+\"", x))[[1]]
+  }))
+  paths <- unique(sub("\"$", "", sub("^href=\"https://supremecourt\\.report/", "", hrefs)))
+  paths <- paths[nzchar(paths)]
+  dead <- paths[!file.exists(file.path(site, paths))]
+  n_epub <- sum(grepl("\\.epub$", paths))
+  if (length(dead)) fail("opinions OPDS", sprintf("%d link(s) in the catalogue resolve to nothing, e.g. %s",
+                                                  length(dead), paste(utils::head(dead, 4), collapse = ", ")))
+  else if (n_epub < length(lead)) fail("opinions OPDS", sprintf("the catalogue offers %d EPUB(s) but the index lists %d opinions", n_epub, length(lead)))
+  else ok("opinions OPDS", sprintf("%d feed(s), %d EPUBs, every link resolves", length(feeds), n_epub))
+})
+
 # ---- verdict -----------------------------------------------------------------
 lv <- vapply(results, function(r) r$level, character(1))
 cat(sprintf("\n%d checks: %d ok, %d WARN, %d FAIL\n",

@@ -583,7 +583,7 @@ write_sitemaps <- function(site_dir, base = SITE_URL, max_urls = SITEMAP_MAX) {
       sub("^/(.*)/$", "\\1", Filter(function(h) grepl("/$", h),
                                     vapply(SITE_SECTIONS, `[[`, character(1), "href")))
     else c("dashboards", "conferences", "arguments", "funnel"),
-    "cases", "orders", "questions")
+    "cases", "orders", "questions", "opinions")
   for (s in unique(dir_sections)) {
     if (file.exists(rel(s, "index.html"))) {
       page_urls <- c(page_urls, paste0(base, "/", s, "/"))

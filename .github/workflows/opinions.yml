@@ -1,0 +1,109 @@
+name: Build the opinion pages
+
+# The Court's merits opinions as pages of this site, each with a Markdown file
+# and an EPUB: opinions/<yyyy>/<docket>.{html,md,epub,json}. See
+# R/opinion_page.R and docs/opinions.md.
+#
+# Needs nothing from a prior run's artifacts. Which decisions exist, and where
+# each one's PDF is, come from gh-pages (justices/lineups.json, which the
+# Justices section maintains); what is already built is in opinions/index.json.
+# A run downloads up to `max_new` PDFs it has not built at the current
+# versions, stops by itself if the runner is throttled, and the next dispatch
+# picks up where it left off.
+#
+# Dispatch only for now. Once the back-catalogue is in, the weekly
+# (conferences.yml) can run the same script with a small cap, after the
+# Justices render that names the new PDFs.
+#
+# Publishes opinions/ only.
+
+on:
+  workflow_dispatch:
+    inputs:
+      max_new:
+        description: "Opinion PDFs to download this run (0 = re-render from the published JSON only)"
+        required: false
+        default: "120"
+      only:
+        description: "Comma-separated dockets, to build just those (blank = everything not yet built)"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+# Shares the conferences lane: it reads what the Justices render writes, and
+# both publish through publish_site.sh.
+concurrency:
+  group: conference-reports
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    # setup-r 30 + setup-r-dependencies 15 (twice, with a 15-minute settle
+    # between) + the build's own 45.
+    timeout-minutes: 135
+    steps:
+      - name: Checkout source (main)
+        uses: actions/checkout@v5
+      - name: Checkout published site (gh-pages) into ./site
+        uses: actions/checkout@v5
+        with:
+          ref: gh-pages
+          path: site
+      - uses: ./.github/actions/apt-sources
+      - uses: r-lib/actions/setup-r@v2
+        timeout-minutes: 30
+        with:
+          use-public-rspm: true
+      # Two attempts: a slow Ubuntu mirror (not a stalled one) outlasts the
+      # 15-minute cap. See daily.yml.
+      - name: Install R packages (cached)
+        id: rdeps
+        uses: r-lib/actions/setup-r-dependencies@v2
+        continue-on-error: true
+        timeout-minutes: 15
+        with:
+          packages: |
+            any::tidyverse
+            any::htmltools
+            any::jsonlite
+            any::httr2
+      - name: Stop the first attempt's apt
+        if: steps.rdeps.outcome == 'failure'
+        timeout-minutes: 15
+        uses: ./.github/actions/apt-settle
+      - name: Install R packages (second attempt)
+        if: steps.rdeps.outcome == 'failure'
+        uses: r-lib/actions/setup-r-dependencies@v2
+        timeout-minutes: 15
+        with:
+          packages: |
+            any::tidyverse
+            any::htmltools
+            any::jsonlite
+            any::httr2
+      - uses: actions/setup-python@v5
+        timeout-minutes: 5
+        with:
+          python-version: "3.12"
+      - name: Install the PDF reader (PyMuPDF)
+        timeout-minutes: 5
+        run: python -m pip install --quiet -r .github/scripts/opinions/requirements.txt
+
+      - name: Build the opinions
+        timeout-minutes: 45
+        env:
+          SITE_DIR: site
+          OPINION_MAX_NEW: ${{ inputs.max_new || '120' }}
+          OPINION_ONLY: ${{ inputs.only }}
+          # One second between PDFs: the pace the Justices fetch settled on
+          # after 0.75 s tripped the per-IP limit (render-justices.yml).
+          OPINION_PACE: "1.0"
+          PYTHON: python
+        run: Rscript .github/scripts/build_opinions.R
+
+      - name: Publish
+        working-directory: site
+        run: ../.github/scripts/publish_site.sh "Opinion pages $(date -u +%F)" opinions
