@@ -556,6 +556,14 @@ def clean_runs(runs):
         if not r.get("t"):
             continue
         r["t"] = re.sub(r"[ \t\r\n]+", " ", r["t"].replace(SOFT, ""))
+        # One space at a seam between runs, not one from each side: "JUSTICE " +
+        # " BREYER" read "Justice  Breyer", which no byline pattern expects (the
+        # OT2017 dissents from denial were all lost to it).
+        prev = next((o for o in reversed(out) if "t" in o), None)
+        if prev is not None and prev["t"].endswith(" ") and r["t"].startswith(" "):
+            r["t"] = r["t"].lstrip(" ")
+            if not r["t"]:
+                continue
         if out and "pb" not in out[-1] and all(out[-1].get(k) == r.get(k) for k in ("i", "sc", "sup")):
             out[-1]["t"] += r["t"]
         else:
@@ -772,6 +780,13 @@ def extract(path, first=None, last=None, words_path=None):
     floor = max(2, 0.1 * sum(nx.values()))
     note_left = min((x for x, n in nx.items() if n >= floor), default=None) if nx else None
 
+    def edge(c):
+        # The leftmost edge that a fair share of the lines start at -- not the
+        # commonest. A per curiam of three paragraphs, each a line or two long
+        # (No. 17-1107), has more first lines, set in, than lines at the margin.
+        floor = max(2, 0.1 * sum(c.values()))
+        return min(x for x, n in c.items() if n >= floor) if any(n >= floor for n in c.values()) else c.most_common(1)[0][0]
+
     def left_for(zone, parity):
         def f(ln):
             # ... and then the other zone at this size: an opinion of four lines
@@ -782,7 +797,7 @@ def extract(path, first=None, last=None, words_path=None):
             for key in ((zone, ln["size"], parity), (zone, ln["size"], None), (other, ln["size"], None), ("op", size, None)):
                 c = edges.get(key)
                 if c and sum(c.values()) >= 4:
-                    return c.most_common(1)[0][0]
+                    return edge(c)
             return ln["x0"]
         return f
 
@@ -817,7 +832,7 @@ def extract(path, first=None, last=None, words_path=None):
         flow.page_break(label, pdf_page)
         col = edges.get(("op", size, pdf_page % 2)) or edges.get(("op", size, None))
         flow.add_page(body, left_for("syl" if sec == "syllabus" else "op", pdf_page % 2), right, pdf_page,
-                      syllabus=sec == "syllabus", col_left=col.most_common(1)[0][0] if col else None)
+                      syllabus=sec == "syllabus", col_left=edge(col) if col else None)
         if notes:
             # The notes' left edge is the document's, for the same reason: a
             # page whose notes are all one line long has no flush-left line.
