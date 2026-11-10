@@ -774,7 +774,12 @@ def extract(path, first=None, last=None, words_path=None):
 
     def left_for(zone, parity):
         def f(ln):
-            for key in ((zone, ln["size"], parity), (zone, ln["size"], None), ("op", size, None)):
+            # ... and then the other zone at this size: an opinion of four lines
+            # ("The judgment is affirmed by an equally divided Court.", No.
+            # 24-394) has too few of its own to say where its margin is, and
+            # the counsel paragraphs before it are set to the same one.
+            other = "syl" if zone == "op" else "op"
+            for key in ((zone, ln["size"], parity), (zone, ln["size"], None), (other, ln["size"], None), ("op", size, None)):
                 c = edges.get(key)
                 if c and sum(c.values()) >= 4:
                     return c.most_common(1)[0][0]
