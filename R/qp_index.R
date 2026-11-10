@@ -41,9 +41,6 @@ QP_CACHES <- c("conferences/qp_cache.json", "arguments/qp_cache.json",
                "dashboards/qp_cache.json")
 
 # ---- parameters, each measured (docs/qp-search.md) ---------------------------
-QP_MAX_CHARS   <- 4000L   # 57 of 17,046 run longer; all of those ramble
-QP_MIN_WORDS   <- 8L      # "Whether McGirt v. Oklahoma ... should be overruled." is 9
-QP_MIN_INVOCAB <- 0.88    # share of words the rest of the corpus also uses
 QP_SIM_FLOOR   <- 0.22    # below this a neighbour shares a topic, not a question
 QP_SIM_SAME    <- 0.75    # at or above: the same question in nearly the same words
 QP_SIM_KEEP    <- 25L     # neighbours kept per petition (questions/like)
@@ -70,69 +67,9 @@ qp_corpus <- function(site_dir) {
   x
 }
 
-# One line of prose from a raw QP: the heading gone, a word the PDF broke across
-# two lines rejoined, a trailing table of contents cut off, whitespace squashed.
-qp_plain <- function(x) {
-  vapply(x, function(s) {
-    s <- strip_qp_heading(s)
-    if (is.na(s)) return("")
-    s <- gsub("([A-Za-z])[-­]\\n\\s*([a-z])", "\\1\\2", s, perl = TRUE)
-    s <- gsub("­", "", s, fixed = TRUE)
-    s <- str_squish(s)
-    # Dot leaders are a table of contents. One that FOLLOWS a question is the
-    # next page caught by the extractor: keep what came before it.
-    lead <- regexpr("(\\.[ .]{5,}\\.)|…{3,}", s, perl = TRUE)
-    if (lead > 0) {
-      head <- substr(s, 1L, lead - 1L)
-      cut <- max(unlist(gregexpr("[.?]", head)))
-      s <- if (cut > 0) substr(head, 1L, cut) else ""
-    }
-    # A lone page folio left at the end ("... the Second Amendment? i").
-    s <- sub("\\s+\\(?[ivx]{1,4}\\)?$", "", s, perl = TRUE)
-    if (nchar(s) > QP_MAX_CHARS) {
-      s <- substr(s, 1L, QP_MAX_CHARS)
-      s <- paste0(sub("\\s+\\S*$", "", s), " …")
-    }
-    s
-  }, character(1))
-}
-
-.qp_words <- function(plain) str_extract_all(tolower(plain), "[a-z]+")
-
-# The gate. `plain` is qp_plain()'s output, named by docket; returns a logical
-# vector with a "why" attribute naming the first rule each rejected text failed.
-#
-# The vocabulary test is the one doing the work: OCR of handwriting is made of
-# strings no other petition contains, so the share of a text's words that at
-# least five petitions use separates it from prose almost completely (the
-# median real QP scores 0.99). It needs the corpus, which is why the gate is
-# vectorised rather than a predicate on one string.
-qp_usable <- function(plain) {
-  w <- .qp_words(plain)
-  nw <- lengths(w)
-  df <- table(unlist(lapply(w, unique)))
-  vocab <- names(df)[df >= 5L]
-  inv <- vapply(w, function(v) if (length(v)) mean(v %in% vocab) else 0, numeric(1))
-  marker <- str_detect(plain, regex("\\?|\\bwhether\\b", ignore_case = TRUE))
-  # The cover page's counsel block, or the cover itself.
-  addr <- str_count(plain, regex(paste0(
-    "\\bL\\.?L\\.?P\\b|\\bP\\.?L\\.?L\\.?C\\b|\\bP\\.C\\.|\\bSuite\\b|\\bStreet\\b|\\bAvenue\\b|\\bAve\\.",
-    "|Counsel (?:for|of Record)|Attorneys? for|\\(\\d{3}\\)\\s?\\d{3}|\\S+@\\S+\\.\\w{2,}",
-    "|Telephone|\\bBar No|\\b[A-Z]{2} \\d{5}\\b"), ignore_case = FALSE))
-  counsel <- (addr >= 3L & !marker) | addr >= 8L
-  cover <- str_detect(substr(plain, 1L, 400L), regex(
-    "in the supreme court of the united states|on petition for (?:a )?writ of certiorari|certificate of (?:compliance|service)|table of (?:contents|authorities|citations)",
-    ignore_case = TRUE)) |
-    str_detect(substr(plain, 1L, 60L), regex(
-      "parties to the proceeding|list of (?:all )?parties|corporate disclosure|^per curiam",
-      ignore_case = TRUE))
-  why <-ifelse(nw < QP_MIN_WORDS, "short",
-         ifelse(counsel, "counsel block",
-         ifelse(cover, "cover or contents",
-         ifelse(inv < QP_MIN_INVOCAB, "not prose",
-         ifelse(nw < 15L & !marker, "short, no question", NA_character_)))))
-  structure(is.na(why), why = why, invocab = inv, words = nw)
-}
+# qp_plain() and the gate, qp_usable(), live in R/qp_extract.R with their three
+# parameters: the case pages apply the same gate (usable_qp_map()), so a page
+# prints a question exactly when this index lists it.
 
 # ---- similarity ---------------------------------------------------------------
 QP_STOP <- c(

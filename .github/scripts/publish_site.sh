@@ -71,6 +71,10 @@ PATHS=("$@")
 #   conferences/qp_cache.json            render_conferences.R AND both QP
 #                                        backfills -- 16 MB, the most expensive
 #                                        thing here to lose
+#   conferences/qp_tried.json            docket -> the petition URL a QP
+#                                        backfill read and found no question in
+#                                        (enrich_qp.R). Only backfill-qp-all.yml
+#                                        writes it; the union is right.
 #   dashboards/qp_cache.json             the daily
 #   dashboards/petition_signals_cache.json  Rule 10 signals, the daily
 #   arguments/qp_cache.json              render_arguments.R
@@ -93,7 +97,7 @@ PATHS=("$@")
 #                                        right; "_meta" is one more key.
 DERIVED='cases/.manifest.json cases/search.json cases/grants.json cases/forecasts.json
          cases/headline_shadow.json
-         conferences/qp_cache.json dashboards/qp_cache.json
+         conferences/qp_cache.json conferences/qp_tried.json dashboards/qp_cache.json
          dashboards/petition_signals_cache.json arguments/qp_cache.json
          conferences/sg_views_cache.json applications/applications.json
          cases/subjects.json arguments/transcripts.json arguments/readers.json arguments/recent.json'

@@ -739,3 +739,104 @@ qp_details <- function(qp) {
   # markdown parses it as a list item (glued to </summary> it would not).
   str_c("<details><summary>Question(s) presented</summary>\n\n", qp, "\n\n</details>")
 }
+
+# ---- is a cached text a question at all? --------------------------------------
+# About one cached "QP" in fourteen is not one: the cover's counsel block, a
+# table of contents, or the OCR of a handwritten page. The gate below is what
+# keeps those out of the search at /questions/ (R/qp_index.R, where it was
+# written and measured -- docs/qp-search.md) and, through usable_qp_map(), off
+# the case pages, which used to print them under "Question presented".
+QP_MAX_CHARS   <- 4000L   # 57 of 17,046 run longer; all of those ramble
+QP_MIN_WORDS   <- 8L      # "Whether McGirt v. Oklahoma ... should be overruled." is 9
+QP_MIN_INVOCAB <- 0.88    # share of words the rest of the corpus also uses
+
+# One line of prose from a raw QP: the heading gone, a word the PDF broke across
+# two lines rejoined, a trailing table of contents cut off, whitespace squashed.
+qp_plain <- function(x) {
+  vapply(x, function(s) {
+    s <- strip_qp_heading(s)
+    if (is.na(s)) return("")
+    s <- gsub("([A-Za-z])[-­]\\n\\s*([a-z])", "\\1\\2", s, perl = TRUE)
+    s <- gsub("­", "", s, fixed = TRUE)
+    s <- str_squish(s)
+    # Dot leaders are a table of contents. One that FOLLOWS a question is the
+    # next page caught by the extractor: keep what came before it.
+    lead <- regexpr("(\\.[ .]{5,}\\.)|…{3,}", s, perl = TRUE)
+    if (lead > 0) {
+      head <- substr(s, 1L, lead - 1L)
+      cut <- max(unlist(gregexpr("[.?]", head)))
+      s <- if (cut > 0) substr(head, 1L, cut) else ""
+    }
+    # A lone page folio left at the end ("... the Second Amendment? i").
+    s <- sub("\\s+\\(?[ivx]{1,4}\\)?$", "", s, perl = TRUE)
+    if (nchar(s) > QP_MAX_CHARS) {
+      s <- substr(s, 1L, QP_MAX_CHARS)
+      s <- paste0(sub("\\s+\\S*$", "", s), " …")
+    }
+    s
+  }, character(1))
+}
+
+.qp_words <- function(plain) str_extract_all(tolower(plain), "[a-z]+")
+
+# The gate. `plain` is qp_plain()'s output, named by docket; returns a logical
+# vector with a "why" attribute naming the first rule each rejected text failed.
+#
+# The vocabulary test is the one doing the work: OCR of handwriting is made of
+# strings no other petition contains, so the share of a text's words that at
+# least five petitions use separates it from prose almost completely (the
+# median real QP scores 0.99). It needs the corpus, which is why the gate is
+# vectorised rather than a predicate on one string.
+qp_usable <- function(plain) {
+  w <- .qp_words(plain)
+  nw <- lengths(w)
+  df <- table(unlist(lapply(w, unique)))
+  vocab <- names(df)[df >= 5L]
+  inv <- vapply(w, function(v) if (length(v)) mean(v %in% vocab) else 0, numeric(1))
+  marker <- str_detect(plain, regex("\\?|\\bwhether\\b", ignore_case = TRUE))
+  # The cover page's counsel block, or the cover itself.
+  addr <- str_count(plain, regex(paste0(
+    "\\bL\\.?L\\.?P\\b|\\bP\\.?L\\.?L\\.?C\\b|\\bP\\.C\\.|\\bSuite\\b|\\bStreet\\b|\\bAvenue\\b|\\bAve\\.",
+    "|Counsel (?:for|of Record)|Attorneys? for|\\(\\d{3}\\)\\s?\\d{3}|\\S+@\\S+\\.\\w{2,}",
+    "|Telephone|\\bBar No|\\b[A-Z]{2} \\d{5}\\b"), ignore_case = FALSE))
+  counsel <- (addr >= 3L & !marker) | addr >= 8L
+  cover <- str_detect(substr(plain, 1L, 400L), regex(
+    "in the supreme court of the united states|on petition for (?:a )?writ of certiorari|certificate of (?:compliance|service)|table of (?:contents|authorities|citations)",
+    ignore_case = TRUE)) |
+    str_detect(substr(plain, 1L, 60L), regex(
+      "parties to the proceeding|list of (?:all )?parties|corporate disclosure|^per curiam",
+      ignore_case = TRUE))
+  why <-ifelse(nw < QP_MIN_WORDS, "short",
+         ifelse(counsel, "counsel block",
+         ifelse(cover, "cover or contents",
+         ifelse(inv < QP_MIN_INVOCAB, "not prose",
+         ifelse(nw < 15L & !marker, "short, no question", NA_character_)))))
+  structure(is.na(why), why = why, invocab = inv, words = nw)
+}
+
+# The gate applied to render_dockets_for()'s merged docket -> QP map: the
+# entries that are not questions are dropped, so their pages carry no "Question
+# presented" section (and no "Similar questions" hook, which keys on it). A
+# page with no question is quiet; a page headed "Question presented" over a law
+# firm's address is wrong.
+#
+# Only petition dockets are judged -- the gate's vocabulary is the petition
+# corpus, the same one qp_corpus() builds -- and anything else passes through.
+# Memoised on the map's content: the gate costs ~1 ms a text, and the daily
+# calls render_dockets_for() half a dozen times in one session, a back-catalogue
+# re-render once per Term.
+.qp_gate_memo <- new.env(parent = emptyenv())
+usable_qp_map <- function(qp_map) {
+  if (!length(qp_map)) return(qp_map)
+  txt <- vapply(qp_map, function(q) paste(unlist(q), collapse = "\n"), character(1))
+  judged <- !is.na(txt) & nzchar(txt) & txt != "-" & grepl("^\\d{2}-\\d+$", names(txt))
+  key <- paste(length(txt), sum(nchar(txt[judged])), digest::digest(txt[judged]))
+  if (!identical(.qp_gate_memo$key, key)) {
+    ok <- qp_usable(qp_plain(txt[judged]))
+    .qp_gate_memo$key <- key
+    .qp_gate_memo$drop <- names(txt)[judged][!ok]
+    message("QP gate: ", length(.qp_gate_memo$drop), " of ", sum(judged),
+            " cached text(s) are not questions; their pages omit the section")
+  }
+  qp_map[setdiff(names(qp_map), .qp_gate_memo$drop)]
+}
