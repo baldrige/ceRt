@@ -12,11 +12,10 @@
 # Requires palette.R, site_nav.R, page_style.R (page_head, smarten_html).
 #
 # WHAT IS BUILT. The merits decisions the Justices section already tracks
-# (justices/lineups.json: docket -> the opinion's PDF), where that PDF is one
-# case's file -- a slip opinion, or the excerpt that replaces it. Decisions
-# that the Court's site now serves only as a page range of a whole volume
-# (OT2016-OT2020, mostly) are not built yet; the extractor reads their layout,
-# but cutting one case out of a 1,200-page PDF is a separate job.
+# (justices/lineups.json: docket -> the opinion's PDF). That PDF is either one
+# case's file -- a slip opinion, or the excerpt that replaces it -- or a page
+# range of a whole volume (OT2016-OT2020, mostly), which the build downloads
+# once and reads every wanted case out of.
 #
 # CACHE. opinions/index.json: docket -> {href, url, xv, ov, ...}. An opinion
 # is rebuilt when its PDF's URL changes (the Court replaces a slip with the
@@ -66,12 +65,15 @@ opinion_worklist <- function(site_dir) {
   })
   df <- dplyr::bind_rows(rows)
   if (!nrow(df)) return(df)
-  # One case's own file: not a page range inside a volume.
-  df <- df[!grepl("#page=|preliminaryprint|boundvolumes", df$url), , drop = FALSE]
+  # A case is either its own file or a page range of a whole volume; a row
+  # says which (`volume` is the volume's URL, `anchor` the listing's page hint).
   df <- df[order(df$decided, df$dkt), , drop = FALSE]
   out <- lapply(split(df, df$url), function(g) {
     lead <- g$dkt[1]
+    in_vol <- grepl("#page=|preliminaryprint|boundvolumes", g$url[1])
     tibble::tibble(dkt = lead, dkts = list(g$dkt), url = g$url[1], decided = g$decided[1],
+                   volume = if (in_vol) sub("#.*$", "", g$url[1]) else NA_character_,
+                   anchor = suppressWarnings(as.integer(str_match(g$url[1], "#page=(\\d+)")[1, 2])),
                    term = opinion_term(g$decided[1]),
                    caption = as.character(cap[[lead]] %||% paste("No.", lead)))
   })
