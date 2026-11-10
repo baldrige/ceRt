@@ -50,7 +50,7 @@ import sys
 
 import pymupdf
 
-EXTRACT_VERSION = "x2"
+EXTRACT_VERSION = "x3"
 
 LIGATURES = {"ﬀ": "ff", "ﬁ": "fi", "ﬂ": "fl", "ﬃ": "ffi", "ﬄ": "ffl"}
 SOFT = "­"
@@ -252,7 +252,7 @@ def line_runs(line, lig):
         # than its line -- the bound volumes set a note's own number at 5.6 pt
         # in a 9 pt line with no flag and no rise the text layer reports.
         sup = small and (s["sup"] or s["y1"] < line["y1"] - 0.18 * size or s["size"] <= 0.78 * size) \
-            and bool(re.fullmatch(r"[0-9*†‡]{1,3}", stripped))
+            and bool(re.fullmatch(r"[0-9*†‡]{1,3}|\d{1,3}(?:,\s?\d{1,3}){1,5}", stripped))
         sc = s["scfont"] or (small and not sup and len(stripped) >= 2 and stripped.upper() == stripped
                              and bool(re.search(r"[A-Z]", stripped)) and size >= 8.5)
         if sc and not s["scfont"]:
@@ -632,7 +632,15 @@ def body_size_of(all_lines):
         for ln in lines:
             if len(ln["text"]) > 40:
                 c[ln["size"]] += len(ln["text"])
-    return c.most_common(1)[0][0] if c else 11.0
+    if not c:
+        return 11.0
+    # The LARGEST size that carries a fair share of the text, not the
+    # commonest: a short per curiam under a long list of counsel and amici
+    # (Gonzalez v. Google, No. 21-1333) is mostly small type, and read at the
+    # small size its notes were body and each page's "Per Curiam" head a
+    # heading. Nothing bigger than the body ever carries a tenth of the text.
+    total = sum(c.values())
+    return max(sz for sz, n in c.items() if n >= 0.1 * total)
 
 
 def section_title(kind, who, byline):
@@ -896,12 +904,28 @@ def extract(path, first=None, last=None, words_path=None):
             if b["type"] == "pb":
                 page = b["p"]; page_secs[page].append(s); continue
             page_secs[page].append(s)
+            runs = []
             for r in b.get("runs", []):
                 if "pb" in r:
                     page = r["p"]; page_secs[page].append(s)
                 elif r.get("sup") and re.fullmatch(r"\d{1,3}", r["t"].strip()):
                     r["fn"] = r["t"].strip()
                     s["_refs"].add((page, r["fn"]))
+                elif r.get("sup") and re.fullmatch(r"\d{1,3}(?:,\s?\d{1,3})+", r["t"].strip()):
+                    # Several notes cited at one point, set as one superscript
+                    # ("Texas.10,11,12"): a reference each.
+                    nums = re.findall(r"\d{1,3}", r["t"])
+                    for j, n in enumerate(nums):
+                        if j:
+                            runs.append(dict(r, t=","))
+                        runs.append(dict(r, t=n, fn=n))
+                        s["_refs"].add((page, n))
+                    if r["t"].endswith(" "):
+                        runs.append({"t": " "})
+                    continue
+                runs.append(r)
+            if "runs" in b:
+                b["runs"] = runs
     last_note = None
     for page in sorted(notes_by_page):
         secs = page_secs.get(page) or ([sections[-1]] if sections else [])
@@ -931,6 +955,17 @@ def extract(path, first=None, last=None, words_path=None):
             note = {"n": nb["marker"], "paras": paras}
             target["notes"].append(note)
             last_note = {"note": note, "page": page}
+
+    # A superscript number is not a note reference when the section has no such
+    # note and the number is nowhere near the ones it has: an isotope
+    # ("[123I]ioflupane", No. 22-6389), an exponent. It stays a superscript.
+    for s in sections:
+        have = [int(n["n"]) for n in s["notes"] if n["n"].isdigit()]
+        top = max(have) if have else 0
+        for b in s["blocks"]:
+            for r in b.get("runs", []):
+                if r.get("fn") and int(r["fn"]) not in have and int(r["fn"]) > top + 3:
+                    del r["fn"]
 
     out_sections = []
     for k, s in enumerate(sections):
