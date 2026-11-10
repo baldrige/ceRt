@@ -28,6 +28,10 @@ on:
         description: "Comma-separated dockets, to build just those (blank = everything not yet built)"
         required: false
         default: ""
+      order_terms:
+        description: "Two-digit Terms whose opinions-relating-to-orders listing to read, e.g. 17,18,19 (blank = the two newest)"
+        required: false
+        default: ""
 
 permissions:
   contents: write
@@ -98,6 +102,7 @@ jobs:
           SITE_DIR: site
           OPINION_MAX_NEW: ${{ inputs.max_new || '120' }}
           OPINION_ONLY: ${{ inputs.only }}
+          OPINION_ORDER_TERMS: ${{ inputs.order_terms }}
           # One second between PDFs: the pace the Justices fetch settled on
           # after 0.75 s tripped the per-IP limit (render-justices.yml).
           OPINION_PACE: "1.0"

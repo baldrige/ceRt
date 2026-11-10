@@ -15,12 +15,16 @@
 
 suppressPackageStartupMessages({ library(tidyverse); library(httr2); library(jsonlite); library(htmltools) })
 source("R/palette.R"); source("R/site_nav.R"); source("R/site_meta.R"); source("R/page_style.R")
+source("R/site_decisions.R")      # .parse_opinion_listing(), for the orders listing
 source("R/opinion_page.R")
 
 site_dir <- Sys.getenv("SITE_DIR", unset = "site")
 max_new  <- as.integer(Sys.getenv("OPINION_MAX_NEW", unset = "40"))
 pace     <- as.numeric(Sys.getenv("OPINION_PACE", unset = "1"))
 only     <- setdiff(strsplit(Sys.getenv("OPINION_ONLY", unset = ""), "[, ]+")[[1]], "")
+# OPINION_FORCE: dockets to read again from the PDF whatever the index says --
+# to repair one opinion after an extractor fix without re-reading all of them.
+force    <- setdiff(strsplit(Sys.getenv("OPINION_FORCE", unset = ""), "[, ]+")[[1]], "")
 python   <- Sys.getenv("PYTHON", unset = "python3")
 py_dir   <- ".github/scripts/opinions"
 
@@ -40,13 +44,26 @@ ver <- versions()
 cat("opinions: extractor", ver$x, "| page", ver$o, "\n")
 
 work <- opinion_worklist(site_dir)
+# Opinions relating to orders (R/opinion_page.R): the Court's own listing, the
+# two newest Terms re-read each run; OPINION_ORDER_TERMS (two-digit, comma-
+# separated) reads others, for the back-catalogue.
+now_term <- opinion_term(Sys.Date()) %% 100L
+order_terms <- setdiff(strsplit(Sys.getenv("OPINION_ORDER_TERMS", unset = ""), "[, ]+")[[1]], "")
+if (!length(order_terms)) order_terms <- sprintf("%02d", c(now_term, now_term - 1L))
+orders <- tryCatch(opinion_orders_worklist(site_dir, refresh_orders_cache(site_dir, order_terms)),
+                   error = function(e) { message("orders listing skipped: ", conditionMessage(e)); tibble::tibble() })
+# A docket with a merits opinion keeps that page.
+if (nrow(orders)) work <- dplyr::bind_rows(work, orders[!orders$dkt %in% unlist(work$dkts), , drop = FALSE])
+skipped <- .op_read_json(opinion_skipped_path(site_dir))
 if (length(only)) work <- work[work$dkt %in% only | vapply(work$dkts, function(d) any(d %in% only), logical(1)), , drop = FALSE]
 idx <- read_opinion_index(site_dir)
+cat("opinions:", sum(work$class == "orders"), "relating to orders on the list;", length(skipped), "of those already found short\n")
 cat("opinions:", nrow(work), "decision(s):", sum(is.na(work$volume)), "with a file of their own,", sum(!is.na(work$volume)),
     "inside", length(unique(stats::na.omit(work$volume))), "volume(s);",
     sum(vapply(idx, function(e) isTRUE(e$lead), logical(1))), "built so far\n")
 
-fetched <- 0L; down_run <- 0L; built <- 0L; failed <- character(); stopped <- ""
+forced <- character()
+fetched <- 0L; down_run <- 0L; built <- 0L; failed <- character(); stopped <- ""; n_short <- 0L
 
 # A PDF to a temp file, or NULL. Counts toward the run's cap and its
 # throttling stop whichever kind of file it is.
@@ -72,6 +89,10 @@ stem_of <- function(o) file.path(site_dir, OPINION_DIR, o$term, o$dkt)
 # What a decision still needs: "x" (read its PDF), "o" (render what is read), or "".
 needs <- function(o) {
   have <- idx[[o$dkt]]; stem <- stem_of(o)
+  if (o$dkt %in% force && !o$dkt %in% forced) { forced <<- c(forced, o$dkt); return("x") }
+  # Read once, found short, and nothing about it has changed since.
+  sk <- skipped[[o$dkt]]
+  if (!is.null(sk) && identical(sk$url, o$url) && identical(sk$xv, ver$x) && identical(as.integer(sk$min), OPINION_MIN_WORDS)) return("")
   if (is.null(have) || !identical(have$url, o$url) || !identical(have$xv, ver$x) || !file.exists(paste0(stem, ".json"))) return("x")
   if (!identical(have$ov, ver$o) || !file.exists(paste0(stem, ".html"))) return("o")
   ""
@@ -85,10 +106,22 @@ finish <- function(o, pdf_url = o$url) {
   doc <- tryCatch(fromJSON(json, simplifyVector = FALSE), error = function(e) NULL)
   # No opinion found in the file is a failure to read it, not an empty opinion.
   kinds <- if (is.null(doc)) character() else vapply(doc$sections, function(s) s$kind, character(1))
-  if (!any(kinds %in% c("court", "percuriam", "plurality"))) {
+  if (identical(o$class, "orders")) {
+    # A dissent from a denial has no opinion of the Court; any writing will do.
+    if (!length(kinds)) {
+      failed <<- c(failed, dkt); message("  ", dkt, ": no writing found in the PDF; not published")
+      unlink(json); return(invisible(FALSE))
+    }
+    if ((doc$qa$words %||% 0L) < OPINION_MIN_WORDS) {
+      skipped[[dkt]] <<- list(url = o$listed, xv = ver$x, words = doc$qa$words, min = OPINION_MIN_WORDS)
+      n_short <<- n_short + 1L
+      unlink(json); return(invisible(FALSE))
+    }
+  } else if (!any(kinds %in% c("court", "percuriam", "plurality"))) {
     failed <<- c(failed, dkt); message("  ", dkt, ": no opinion of the Court found in the PDF; not published")
     unlink(json); return(invisible(FALSE))
   }
+  skipped[[dkt]] <<- NULL
   # The opinion's own short caption where its running head gave one.
   o$long <- o$caption
   o$caption <- opinion_short_caption(doc$short, o$long) %||% o$long
@@ -107,7 +140,7 @@ finish <- function(o, pdf_url = o$url) {
   render_opinion_page(site_dir, o, body, doc)
   entry <- list(href = opinion_href(term, dkt), url = o$listed, pdf = pdf_url, decided = o$decided, term = term, caption = o$caption,
                 xv = ver$x, ov = ver$o, cite = doc$cite, layout = doc$layout, words = doc$qa$words, notes = doc$qa$notes,
-                unmatched = length(doc$qa$notes_unmatched), lead = TRUE)
+                unmatched = length(doc$qa$notes_unmatched), lead = TRUE, class = o$class %||% "merits")
   idx[[dkt]] <<- entry
   for (d in setdiff(unlist(o$dkts), dkt)) idx[[d]] <<- list(href = entry$href, lead = FALSE, of = dkt)
   built <<- built + 1L
@@ -172,10 +205,12 @@ for (v in unique(work$volume[vol_rows])) {
   }
 }
 write_opinion_index(site_dir, idx)
+.op_write_json(skipped, opinion_skipped_path(site_dir))
 n <- write_opinion_index_page(site_dir, idx)
 n_opds <- write_opinion_opds(site_dir, idx)
 cat("opinions: OPDS catalogue of", n_opds %||% 0, "EPUB(s)\n")
-left <- sum(!work$dkt %in% names(idx))
+left <- sum(!work$dkt %in% c(names(idx), names(skipped)))
+cat("opinions:", n_short, "opinion(s) relating to orders read and found under", OPINION_MIN_WORDS, "words; not published\n")
 cat("opinions:", built, "built this run (", fetched, "download(s));", length(failed), "failed;", left, "still to build;",
     n %||% 0, "on the index\n")
 if (length(failed)) cat("  failed:", paste(failed, collapse = ", "), "\n")

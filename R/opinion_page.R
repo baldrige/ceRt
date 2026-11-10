@@ -25,7 +25,9 @@
 
 suppressPackageStartupMessages({ library(stringr); library(jsonlite) })
 
-OPINION_PAGE_VERSION <- "p1"
+# p2: companion dockets (a consolidated case's page is its lead's), and the
+#     opinions relating to orders.
+OPINION_PAGE_VERSION <- "p2"
 OPINION_DIR <- "opinions"
 
 opinion_href <- function(term, dkt, ext = "html") sprintf("/%s/%s/%s.%s", OPINION_DIR, term, dkt, ext)
@@ -61,7 +63,12 @@ opinion_worklist <- function(site_dir) {
   rows <- lapply(names(lu), function(d) {
     e <- lu[[d]]
     if (is.null(e$url) || is.null(e$decided)) return(NULL)
-    tibble::tibble(dkt = d, url = e$url, decided = e$decided)
+    # `also`: the dockets the opinion's own first pages name -- consolidated
+    # cases, which the listing files under the lead alone. The parser that
+    # fills it also catches page ranges ("68-69"), so only numbers that are
+    # cases on this site count.
+    also <- intersect(setdiff(as.character(unlist(e$also)), d), names(cap))
+    tibble::tibble(dkt = d, url = e$url, decided = e$decided, also = list(also[grepl("^[0-9]{2}-[0-9]{1,5}$", also)]))
   })
   df <- dplyr::bind_rows(rows)
   if (!nrow(df)) return(df)
@@ -71,11 +78,11 @@ opinion_worklist <- function(site_dir) {
   out <- lapply(split(df, df$url), function(g) {
     lead <- g$dkt[1]
     in_vol <- grepl("#page=|preliminaryprint|boundvolumes", g$url[1])
-    tibble::tibble(dkt = lead, dkts = list(g$dkt), url = g$url[1], decided = g$decided[1],
+    tibble::tibble(dkt = lead, dkts = list(unique(c(g$dkt, unlist(g$also)))), url = g$url[1], decided = g$decided[1],
                    volume = if (in_vol) sub("#.*$", "", g$url[1]) else NA_character_,
                    anchor = suppressWarnings(as.integer(str_match(g$url[1], "#page=(\\d+)")[1, 2])),
                    term = opinion_term(g$decided[1]),
-                   caption = as.character(cap[[lead]] %||% paste("No.", lead)))
+                   caption = as.character(cap[[lead]] %||% paste("No.", lead)), class = "merits")
   })
   df <- dplyr::bind_rows(out)
   df[order(df$decided, df$dkt, decreasing = TRUE), , drop = FALSE]
@@ -92,7 +99,14 @@ opinion_short_caption <- function(short, long) {
   out <- vapply(w, function(x) {
     if (tolower(x) == "v.") return("v.")
     hit <- lw[key(lw) == key(x)]
-    core <- if (length(hit)) sub(",$", "", hit[1]) else str_to_title(x)
+    # An agency's initials ("FCC" where the docket says "Federal Communications
+    # Commission") stay capitals: the letters are the initials of words that
+    # follow one another in the long caption.
+    bare <- gsub("[^A-Za-z]", "", x)
+    initials <- paste(substr(lw[grepl("^[A-Z]", lw)], 1, 1), collapse = "")
+    core <- if (length(hit)) sub(",$", "", hit[1])
+            else if (nchar(bare) >= 2 && nchar(bare) <= 6 && bare == toupper(bare) && grepl(bare, initials, fixed = TRUE)) sub(",$", "", x)
+            else str_to_title(x)
     paste0(core, if (grepl(",$", x) && !grepl(",$", core)) "," else "")
   }, character(1))
   s <- paste(out, collapse = " ")
@@ -211,15 +225,17 @@ write_opinion_index_page <- function(site_dir, idx) {
                        caption = vapply(ent, function(e) e$caption %||% "", character(1)),
                        decided = vapply(ent, function(e) e$decided %||% "", character(1)),
                        term = vapply(ent, function(e) as.integer(e$term), integer(1)),
-                       href = vapply(ent, function(e) e$href, character(1)))
+                       href = vapply(ent, function(e) e$href, character(1)),
+                       class = vapply(ent, function(e) e$class %||% "merits", character(1)))
   df <- df[order(df$decided, decreasing = TRUE), , drop = FALSE]
   terms <- sort(unique(df$term), decreasing = TRUE)
   blocks <- vapply(terms, function(t) {
     g <- df[df$term == t, , drop = FALSE]
     paste0("<section class='oterm' id='ot", t, "'><h2>October Term ", t, " <span>", nrow(g), " opinion", if (nrow(g) == 1) "" else "s",
            "</span></h2><ul>",
-           paste(sprintf("<li><a href='%s'>%s</a><span class='od'>No. %s · %s</span></li>", g$href, .op_esc(g$caption), g$dkt,
-                         vapply(g$decided, .op_long_date, character(1))), collapse = ""),
+           paste(sprintf("<li><a href='%s'>%s</a><span class='od'>No. %s · %s%s</span></li>", g$href, .op_esc(g$caption), g$dkt,
+                         vapply(g$decided, .op_long_date, character(1)),
+                         ifelse(g$class == "orders", " · opinion relating to an order", "")), collapse = ""),
            "</ul></section>")
   }, character(1))
   css <- fill_palette("
@@ -236,7 +252,7 @@ write_opinion_index_page <- function(site_dir, idx) {
     .oix .oopds a{color:var(--link)}
     .oix .oopds code{font-size:.92em;overflow-wrap:anywhere}
   ")
-  dek <- "The Court’s merits opinions as pages you can read, with a Markdown file and an EPUB of each."
+  dek <- "The Court’s opinions as pages you can read, with a Markdown file and an EPUB of each: every merits decision, and the longer opinions on applications and orders."
   html <- paste0(
     "<!DOCTYPE html>\n<html lang=\"en\">\n",
     page_head("Opinions — Supreme Court Report", site_breadcrumb_jsonld("Opinions"), extra_css = css,
@@ -254,6 +270,96 @@ write_opinion_index_page <- function(site_dir, idx) {
     "</main></body>\n</html>\n")
   writeLines(enc2utf8(smarten_html(html)), file.path(site_dir, OPINION_DIR, "index.html"), useBytes = TRUE)
   invisible(nrow(df))
+}
+
+# ---- opinions relating to orders ----------------------------------------------------
+# The Court's other opinions: a per curiam on an emergency application (26A560),
+# a dissent from a denial of certiorari, a statement respecting one. They are
+# not on the Granted & Noted List, so the Justices section never names them;
+# the Court lists them itself at /opinions/relatingtoorders/<yy>, one row per
+# writing, several rows to a PDF (a second writing is the same file at
+# "#page=N").
+#
+# One page per PDF, at the docket the listing gives it first. Only the LONG
+# ones: OPINION_MIN_WORDS, counted after reading the file, because nothing in
+# the listing says how long a writing is. A two-paragraph statement is not
+# worth a page and an EPUB; No. 26A560's per curiam (1,085 words) is.
+#
+# opinions/orders.json is the listing as last read, keyed by PDF, so a Term is
+# fetched once and only the newest two are re-read each run. Decisions the site
+# already knows about (applications/applications.json, the Recent decisions
+# manifests) are folded in, so a listing that cannot be fetched loses nothing
+# that is already on the site.
+OPINION_MIN_WORDS <- 750L
+OPINION_ORDERS_URL <- "https://www.supremecourt.gov/opinions/relatingtoorders/%s"
+
+opinion_orders_path <- function(site_dir) file.path(site_dir, OPINION_DIR, "orders.json")
+opinion_skipped_path <- function(site_dir) file.path(site_dir, OPINION_DIR, "skipped.json")
+.op_read_json <- function(p) if (file.exists(p)) tryCatch(fromJSON(p, simplifyVector = FALSE), error = function(e) list()) else list()
+.op_write_json <- function(x, p) {
+  dir.create(dirname(p), recursive = TRUE, showWarnings = FALSE)
+  writeLines(if (length(x)) toJSON(x[order(names(x))], auto_unbox = TRUE, null = "null") else "{}", p, useBytes = TRUE)
+}
+
+# One Term's listing -> tibble(dkt, date, url). Needs .parse_opinion_listing()
+# (R/site_decisions.R). A request that fails returns no rows, never an error.
+fetch_order_opinions_listing <- function(term2) {
+  url <- sprintf(OPINION_ORDERS_URL, term2)
+  html <- tryCatch({
+    resp <- httr2::request(url) |> httr2::req_user_agent("ceRt SCOTUS docketing dashboard (httr2)") |>
+      httr2::req_timeout(45) |> httr2::req_retry(max_tries = 3) |> httr2::req_error(is_error = \(r) FALSE) |> httr2::req_perform()
+    if (httr2::resp_status(resp) == 200L) httr2::resp_body_string(resp) else NA_character_
+  }, error = function(e) NA_character_)
+  if (is.na(html)) { message("  orders listing for OT", term2, ": not fetched"); return(NULL) }
+  x <- .parse_opinion_listing(html)
+  if (is.null(x) || !nrow(x)) return(NULL)
+  tibble::tibble(dkt = x$dkt, date = as.character(x$date), url = x$url)
+}
+
+# The cache, refreshed for `terms` (two-digit) and topped up from what the site
+# already knows. Returns it: a list keyed by the PDF's URL without "#page",
+# each {dkts, decided, url}.
+refresh_orders_cache <- function(site_dir, terms = character()) {
+  cache <- .op_read_json(opinion_orders_path(site_dir))
+  add <- function(dkt, date, url) {
+    if (is.na(url) || !nzchar(url) || is.na(dkt) || !grepl("\\.pdf", url)) return(invisible())
+    base <- sub("#.*$", "", sub("^http:", "https:", url))
+    e <- cache[[base]] %||% list(dkts = list(), decided = NULL, url = base)
+    e$dkts <- as.list(unique(c(unlist(e$dkts), dkt)))
+    if (!is.na(date) && nzchar(date)) e$decided <- min(c(e$decided, date))
+    cache[[base]] <<- e
+  }
+  for (t in terms) {
+    x <- fetch_order_opinions_listing(t)
+    if (!is.null(x)) for (i in seq_len(nrow(x))) add(x$dkt[i], x$date[i], x$url[i])
+    Sys.sleep(1)
+  }
+  apps <- .op_read_json(file.path(site_dir, "applications", "applications.json"))
+  for (a in apps) if (!is.null(a$opinion_url)) add(a$dkt, a$outcome_date %||% NA_character_, a$opinion_url)
+  for (f in c("arguments/decided.json", "dashboards/decided.json")) for (r in .op_read_json(file.path(site_dir, f))) {
+    if (identical(r$kind, "argued")) next
+    urls <- c(r$opinion_url, unlist(str_extract_all(r$writing_urls %||% "", "https?://\\S+")))
+    for (u in urls) add(r$dkt, r$date %||% NA_character_, u)
+  }
+  cache <- cache[vapply(cache, function(e) !is.null(e$decided) && length(e$dkts) > 0, logical(1))]
+  .op_write_json(cache, opinion_orders_path(site_dir))
+  cache
+}
+
+# The cache as work-list rows, shaped like opinion_worklist()'s.
+opinion_orders_worklist <- function(site_dir, cache) {
+  if (!length(cache)) return(tibble::tibble())
+  cap <- tryCatch(fromJSON(file.path(site_dir, "cases", "search.json"), simplifyVector = FALSE), error = function(e) list())
+  rows <- lapply(cache, function(e) {
+    d <- unlist(e$dkts); lead <- d[1]
+    tibble::tibble(dkt = lead, dkts = list(d), url = e$url, decided = e$decided, volume = NA_character_, anchor = NA_integer_,
+                   term = opinion_term(e$decided), caption = as.character(cap[[lead]] %||% paste("No.", lead)), class = "orders")
+  })
+  df <- dplyr::bind_rows(rows)
+  # One page per docket: where a docket has two files (an opinion revised under
+  # a new name), the newer.
+  df <- df[order(df$decided, df$url, decreasing = TRUE), , drop = FALSE]
+  df[!duplicated(df$dkt), , drop = FALSE]
 }
 
 # ---- OPDS: the EPUBs as a catalogue an e-reader can subscribe to ----------------

@@ -94,8 +94,38 @@ built:
   one PDF of a thousand pages and more, 22 of them holding about 257
   decisions, most of OT2016–OT2020.
 
-Not built: opinions relating to orders, in-chambers opinions, emergency-docket
-per curiams.
+- **Opinions relating to orders**, the long ones — see below.
+
+Not built: in-chambers opinions, and an opinion relating to an order that
+runs under 750 words.
+
+### Opinions relating to orders
+
+A per curiam on an emergency application (No. 26A560), a dissent from a
+denial of certiorari, a statement respecting one. They are not on the
+Granted & Noted List, so `justices/lineups.json` never names them; the Court
+lists them at `/opinions/relatingtoorders/<yy>`, one row per writing and
+several rows to a PDF.
+
+- **One page per PDF**, at the first docket the listing gives it; a second
+  docket on the same file (26A139 with 26A124) points at that page.
+- **Only the long ones.** `OPINION_MIN_WORDS` is 750, counted after the file
+  is read, because nothing in the listing says how long a writing is. No.
+  26A560's per curiam is 1,085 words; a two-paragraph statement is not worth
+  a page. One found short is recorded in `opinions/skipped.json` (with the
+  threshold it was judged by) and not downloaded again.
+- **No opinion of the Court is required** — a dissent from a denial has none.
+- `opinions/orders.json` is the listing as last read, keyed by PDF. Each run
+  re-reads the two newest Terms; `order_terms` on the dispatch reads others,
+  for the back-catalogue. Opinions the site already knows about
+  (`applications/applications.json`, the Recent decisions manifests) are
+  folded in, so a listing that cannot be fetched loses nothing.
+- A docket with a merits opinion keeps that page.
+- On the index and in the page's Term, these sit under the Term of the date
+  decided, like everything else: an application numbered 26A… and decided in
+  September 2026 is under October Term 2025.
+- The case page of such a docket has no "Argument & decision" block, so it
+  gets a short "Opinion" section with the link.
 
 ### A case inside a volume
 
