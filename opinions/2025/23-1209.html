@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script async src='/analytics.js'></script><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate icon" href="/favicon.ico" sizes="any"><link rel="alternate" type="application/atom+xml" title="Supreme Court Report" href="/feed.xml"><link rel="alternate" type="application/atom+xml" title="Certiorari grants" href="/grants.xml"><title>M &amp; K Employee Solutions, LLC v. Trustees of — Opinion — Supreme Court Report</title><meta name="description" content="The opinion in M &amp; K Employee Solutions, LLC v. Trustees of (No. 23-1209), decided May 21, 2026: the full text with its footnotes, as a page, a Markdown file and an EPUB."><link rel="canonical" href="https://supremecourt.report/opinions/2025/23-1209.html"><meta property="og:site_name" content="Supreme Court Report"><meta property="og:type" content="article"><meta property="og:title" content="M &amp; K Employee Solutions, LLC v. Trustees of — Opinion — Supreme Court Report"><meta property="og:description" content="The opinion in M &amp; K Employee Solutions, LLC v. Trustees of (No. 23-1209), decided May 21, 2026: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta property="og:url" content="https://supremecourt.report/opinions/2025/23-1209.html"><meta property="og:image" content="https://supremecourt.report/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Supreme Court Report - docket analytics for the Supreme Court of the United States"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="M &amp; K Employee Solutions, LLC v. Trustees of — Opinion — Supreme Court Report"><meta name="twitter:description" content="The opinion in M &amp; K Employee Solutions, LLC v. Trustees of (No. 23-1209), decided May 21, 2026: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta name="twitter:image" content="https://supremecourt.report/og.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap"><style>
+  :root{--paper:#fdfcfa;--panel:#ffffff;--ink:#1a1a1e;--ink-soft:#484850;--faint:#63636b;--accent:#9c0e3a;--link:#9c0e3a;--rule:#dbd8d2;--nav-max:60rem}
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{font-family:'Newsreader',Georgia,serif;font-size:19px;line-height:1.6;
+    color:var(--ink);background:var(--paper);margin:0;font-feature-settings:'onum' 1}
+  body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
+    opacity:.5;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");}
+  .wrap{max-width:40rem;margin:0 auto;padding:3rem 1.4rem 4rem}
+  .kicker{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 1rem}
+  h1{font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:clamp(2.4rem,7vw,3.6rem);line-height:1;letter-spacing:-.015em;
+    margin:0 0 1rem;color:var(--ink)}
+  h1 em{font-style:italic;font-weight:500;color:var(--accent)}
+  .dek{font-size:1.15rem;line-height:1.5;color:var(--ink-soft);font-style:italic;
+    margin:0 0 1.4rem}
+  .brule{border:0;height:0;border-top:2px solid var(--ink);margin:1.4rem 0 .3rem;
+    position:relative}
+  .brule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+    border-top:1px solid var(--rule)}
+  ul.idx{list-style:none;padding:0;margin:1.6rem 0}
+  ul.idx li{border-bottom:1px solid var(--rule)}
+  /* Whole row is one block-level link: a large, reliable tap target on mobile. */
+  ul.idx a.row{display:flex;justify-content:space-between;align-items:baseline;
+    gap:1rem;padding:.9rem .4rem;text-decoration:none;border:0;color:inherit}
+  ul.idx a.row:hover{background:rgba(156,14,58,.05)}
+  ul.idx .d{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.16rem;
+    color:var(--accent);line-height:1.25}
+  ul.idx a.row:hover .d{text-decoration:underline;text-underline-offset:3px}
+  ul.idx .count{color:var(--faint);font-size:.9rem;font-style:italic;white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  /* A long note (an order list's "3 GVRs / 230 denied / 4 habeas denied /
+     ...", items separated by middots) cannot sit on one line: nowrap made it
+     claim the row and
+     squeezed the title into a column three words wide, and on a phone it ran off
+     the screen. Such a row opts in (meta_wrap): the note wraps, only between its
+     items, and takes at most ~45% of the row, so the title always has the
+     larger share. Under 34rem it drops beneath the title at full width. */
+  /* ("long", not "wrap": .wrap is the page container and its padding.) */
+  ul.idx .count.long{white-space:normal;text-align:right;max-width:45%;line-height:1.45}
+  ul.idx .count.long .seg{white-space:nowrap}
+  @media(max-width:34rem){
+    ul.idx a.row.longmeta{flex-wrap:wrap;row-gap:.2rem}
+    ul.idx .count.long{max-width:none;flex-basis:100%;text-align:left}
+  }
+  /* Compact horizontal strip of the most recent pages beneath a category row. */
+  ul.idx .recent{display:flex;flex-wrap:wrap;align-items:baseline;
+    gap:.3rem .85rem;padding:0 .4rem 1rem;margin-top:-.35rem}
+  ul.idx .recent .rlabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  ul.idx .recent a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--ink-soft);text-decoration:none;font-variant-numeric:tabular-nums;
+    border-bottom:1px solid var(--rule);padding-bottom:1px}
+  ul.idx .recent a:hover{color:var(--accent);border-color:var(--accent)}
+  /* Optional panel beneath the section index (home page: most-read cases). */
+  .panel{margin:2.4rem 0 0}
+  .panel h2{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 .25rem}
+  .panel .pnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:0 0 .5rem}
+  /* "Live now" (live_argument_panel, /live.js): hidden unless the Court is
+     streaming an argument. One red dot, the same --accent as the headings, so
+     the live state is a mark and not a new colour. */
+  .live h2 .ldot{display:inline-block;width:.5rem;height:.5rem;border-radius:50%;
+    background:var(--accent);margin-right:.5rem;vertical-align:.08rem;
+    animation:lpulse 2s ease-in-out infinite}
+  @keyframes lpulse{50%{opacity:.25}}
+  @media (prefers-reduced-motion:reduce){.live h2 .ldot{animation:none}}
+  .lplay{display:flex;flex-wrap:wrap;gap:.6rem .9rem;align-items:center;margin:.8rem 0 .3rem}
+  .lplay button{font:600 .9rem/1 'Newsreader',Georgia,serif;letter-spacing:.04em;
+    color:var(--paper);background:var(--accent);border:0;border-radius:2px;
+    padding:.6rem 1.05rem;cursor:pointer}
+  .lplay button:disabled{opacity:.6;cursor:progress}
+  .lplay button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  /* The player takes a row of its own and may never outgrow the column. A flex
+     item's min-width is auto, which for a replaced element is the browser's own
+     controls' width -- wider than the column on a phone, where mobile Safari
+     and Chrome draw larger controls than the desktop. */
+  .lplay audio{display:block;flex:1 1 100%;width:100%;min-width:0;max-width:100%;
+    box-sizing:border-box;margin:0}
+  .lplay .lstat{font-size:.85rem;color:var(--faint)}
+  /* --- Likeliest grants -----------------------------------------------------
+     Its own rows rather than ol.mostread's: this panel carries a question under
+     the caption, which that list has no room for, and a percentage that has to
+     read as the row's subject rather than as a trailing note.
+     The window toggle is two real radio inputs plus :has() -- no JavaScript.
+     Both windows are rendered at build time and one is hidden, which is the only
+     way a static site can offer the choice: there is no server to ask for the
+     other one. Real radios, not styled buttons, so the control is reachable by
+     keyboard and announced as a choice. */
+  .lead{margin:0 0 1.9rem}
+  .lead h2{margin-bottom:.35rem}
+  .lead .pnote{margin:0 0 .7rem}
+  .wr{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+  .win{display:inline-flex;gap:.25rem;margin:0 0 .55rem;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .win label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .win label:hover{color:var(--ink)}
+  .lead:has(#w7:checked) label[for=w7],
+  .lead:has(#w28:checked) label[for=w28],
+  .lead:has(#wall:checked) label[for=wall]{background:var(--accent);color:var(--paper)}
+  .wr:focus-visible+label{outline:2px solid var(--accent);outline-offset:2px}
+  /* Three windows, one shown: the checked radio hides the other two. */
+  .lead:has(#w7:checked) :is(.g28,.n28,.gall,.nall),
+  .lead:has(#w28:checked) :is(.g7,.n7,.gall,.nall),
+  .lead:has(#wall:checked) :is(.g7,.n7,.g28,.n28){display:none}
+  /* The show/hide controls for a panel's secondary line -- the question under
+     a forecast row, the holding under a decision. Same box as the window
+     toggle, a checkbox instead of radios, and no script: the sibling rule does
+     the work and the lines simply show where :has() is unsupported. The
+     questions are on by default (they are what a forecast row asks); the
+     holdings are off (the caption, kind and disposition already say what
+     happened, and the holding is the more). */
+  .opts{display:inline-flex;gap:.25rem;margin:0 .45rem .55rem 0;vertical-align:top;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .opts label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .opts label:hover{color:var(--ink)}
+  .lead:has(#qon:checked) label[for=qon],
+  .panel:has(#hon:checked) label[for=hon]{background:var(--accent);color:var(--paper)}
+  .lead:has(#qon:not(:checked)) .gq{display:none}
+  .panel:has(#hon:not(:checked)) .chold{display:none}
+  /* --- Upcoming at the Court ------------------------------------------------
+     A date gutter and a two-line body, the same shape as the grant rows above
+     it, so the two panels read as one page rather than two widgets. */
+  .cal{margin:0 0 1.9rem}
+  ol.cal{list-style:none;margin:0;padding:0}
+  ol.cal li{border-top:1px solid var(--rule)}
+  ol.cal li:last-child{border-bottom:1px solid var(--rule)}
+  /* The row is a container, not an anchor: an argument day carries one link per
+     case it hears and anchors cannot nest. Hover lives on the row so it still
+     reads as one unit, and each link colours on its own hover. */
+  ol.cal .crow{display:flex;gap:.95rem;align-items:baseline;padding:.55rem .1rem}
+  ol.cal .crow:hover{background:rgba(156,14,58,.05)}
+  ol.cal a{text-decoration:none;color:inherit}
+  ol.cal a:hover,ol.cal a:focus-visible{color:var(--accent)}
+  ol.cal .cdet a{border-bottom:1px solid rgba(156,14,58,.35)}
+  ol.cal .cdet a:hover{border-bottom-color:var(--accent)}
+  ol.cal .cwhen{flex:none;width:4.6rem;font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.96rem;color:var(--ink);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  ol.cal .cdow{display:block;font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);text-transform:uppercase;letter-spacing:.08em}
+  ol.cal .ctx{flex:1;min-width:0}
+  ol.cal .ckind{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:.98rem;line-height:1.25}
+  ol.cal .cdet{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.12rem}
+  /* Recent decisions reuses the calendar rows and adds exactly two things: the
+     kind word that opens the detail line, and the one outbound link (the slip
+     opinion), which takes the link colour the rest of the row deliberately
+     does not. */
+  ol.cal .dk{font-weight:600;color:var(--ink)}
+  ol.cal .cdet a.pdf{color:var(--link)}
+  /* The holding, from the Court's slip-opinion feed: one sentence, set
+     smaller and in the soft ink so the caption stays the row's headline. */
+  ol.cal .chold{display:block;font-size:.86rem;line-height:1.4;color:var(--ink-soft);
+    font-style:italic;margin-top:.15rem}
+  ol.cal .cdet a.pdf:hover,ol.cal .cdet a.pdf:focus-visible{color:var(--accent);
+    border-bottom-color:var(--accent)}
+  ol.grants{list-style:none;margin:0;padding:0}
+  ol.grants li{border-top:1px solid var(--rule)}
+  ol.grants li:last-child{border-bottom:1px solid var(--rule)}
+  ol.grants a{display:flex;gap:.95rem;align-items:baseline;text-decoration:none;
+    color:inherit;padding:.62rem .1rem}
+  ol.grants a:hover{background:rgba(156,14,58,.05)}
+  ol.grants a:hover .gc{color:var(--accent)}
+  ol.grants .gv{flex:none;width:3.5rem;text-align:right;
+    font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.22rem;
+    line-height:1.1;color:var(--accent);font-variant-numeric:tabular-nums}
+  ol.grants .gx{font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);margin-left:.3rem}
+  ol.grants .gtx{flex:1;min-width:0}
+  /* Subject-area line under the caption, in the section-label idiom (h2.sec):
+     small tracked caps in the faint ink, so it classifies without competing. */
+  ol.grants .gs,ol.mostread .ms{display:block;font-size:.68rem;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--faint);line-height:1.3;margin-top:.12rem}
+  ol.grants .gc{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:1rem;line-height:1.25}
+  ol.grants .gq{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.16rem}
+  ol.grants .gd{flex:none;font-size:.76rem;color:var(--faint);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  .more{margin:.75rem 0 0;font-size:.92rem}
+  .more a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.35)}
+  .more a:hover{border-bottom-color:var(--link)}
+  h2.sec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:.88rem;
+    letter-spacing:.09em;color:var(--faint);text-transform:uppercase;
+    margin:2.1rem 0 .6rem;padding-bottom:.28rem;border-bottom:1px solid var(--rule)}
+  @media(max-width:40rem){
+    ol.grants a{flex-wrap:wrap}
+    ol.grants .gd{width:100%;padding-left:4.45rem;margin-top:-.1rem}
+  }
+  ol.mostread{list-style:none;counter-reset:mr;padding:0;margin:0}
+  ol.mostread li{counter-increment:mr;border-bottom:1px solid var(--rule)}
+  ol.mostread a{display:flex;align-items:baseline;gap:.7rem;padding:.6rem .4rem;
+    text-decoration:none;color:inherit}
+  ol.mostread a:hover{background:rgba(156,14,58,.05)}
+  ol.mostread a::before{content:counter(mr);font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.95rem;color:var(--faint);min-width:1.1rem;
+    font-variant-numeric:tabular-nums}
+  ol.mostread .mc{flex:1;font-size:1rem;line-height:1.3}
+  ol.mostread .mct{display:block}
+  ol.mostread a:hover .mct{color:var(--accent);text-decoration:underline;
+    text-underline-offset:3px}
+  ol.mostread .mdk{color:var(--accent);font-weight:600;font-size:.82rem;
+    font-variant-numeric:tabular-nums;white-space:nowrap}
+  ol.mostread .mv{color:var(--faint);font-size:.85rem;font-style:italic;
+    white-space:nowrap;font-variant-numeric:tabular-nums}
+  /* Forecast percentages carry weight the most-read counts do not: the number is
+     the claim, not a footnote to the ranking. Upright, accent, tabular. */
+  ol.mostread .mv.fc{color:var(--accent);font-style:normal;font-weight:600;
+    font-size:.95rem;min-width:2.6rem;text-align:right}
+  /* Feed follow line. Deliberately quiet -- a footnote under the section list,
+     styled like .recent rather than like a call to action. */
+  .feeds{display:flex;flex-wrap:wrap;align-items:baseline;gap:.3rem .85rem;
+    margin:2.2rem 0 0;padding-top:1.1rem;border-top:1px solid var(--rule)}
+  .feeds .flabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  .feeds a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .feeds a:hover{border-color:var(--link)}
+  .back{margin-top:2rem;font-size:.95rem}
+  .back a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .back a:hover{border-color:var(--link)}
+  /* Home-page case search. */
+  .csearch{position:relative;margin:0 0 1.4rem}
+  #cq{width:100%;font-family:'Newsreader',Georgia,serif;font-size:1.05rem;color:var(--ink);
+    background:var(--panel);border:1px solid var(--rule);border-radius:3px;padding:.7rem .9rem}
+  #cq:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(156,14,58,.1)}
+  #cq::placeholder{color:var(--faint)}
+  #cq.loading{background-image:linear-gradient(90deg,transparent,rgba(156,14,58,.06),transparent);
+    background-size:40% 100%;background-repeat:no-repeat;animation:csl 1s infinite}
+  @keyframes csl{0%{background-position:-40% 0}100%{background-position:140% 0}}
+  .cres{list-style:none;margin:.35rem 0 0;padding:0;max-height:24rem;overflow-y:auto;
+    border:1px solid var(--rule);border-radius:3px;background:var(--panel)}
+  .cres:empty{display:none}
+  .cres li{border-bottom:1px solid var(--rule)}
+  .cres li:last-child{border-bottom:0}
+  .cres a{display:block;padding:.55rem .7rem;text-decoration:none;color:var(--ink);
+    font-size:.98rem;line-height:1.3}
+  .cres a:hover,.cres li.act a{background:rgba(156,14,58,.06)}
+  .cres mark{background:rgba(156,14,58,.14);color:inherit;padding:0 .05em;border-radius:2px}
+  .cres .cd{color:var(--accent);font-variant-numeric:tabular-nums;font-weight:600;
+    margin-right:.5rem;white-space:nowrap}
+  .cnone{padding:.55rem .7rem;color:var(--faint);font-style:italic}
+  .cnone a,.cqp a{color:var(--link);font-style:normal;text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .cqp{margin:.45rem 0 0;font-size:.88rem;color:var(--faint)}
+  /* /cases/ browse index: grouped sections with per-bucket counts. */
+  .csec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+    text-transform:uppercase;letter-spacing:.12em;color:var(--accent);
+    margin:2.2rem 0 .3rem;padding-bottom:.35rem;border-bottom:1px solid var(--rule);
+    display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
+  .csec .cn{font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:.85rem;
+    letter-spacing:0;text-transform:none;color:var(--faint);
+    font-variant-numeric:tabular-nums}
+  .cnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:.5rem 0 0}
+  .cnote a{color:var(--accent)}
+  ul.terms{list-style:none;padding:0;margin:1rem 0 0;display:flex;flex-wrap:wrap;
+    gap:.5rem 1.6rem}
+  ul.terms li{display:inline-flex;align-items:baseline;gap:.4rem}
+  ul.terms a{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.05rem;
+    color:var(--accent);text-decoration:none;border-bottom:1px solid var(--rule)}
+  ul.terms a:hover{border-bottom-color:var(--accent)}
+  ul.terms .cn{color:var(--faint);font-size:.85rem;font-variant-numeric:tabular-nums}
+  /* About page: running prose rather than an index, so it takes a measure and a
+     little more leading than the section rows above it. */
+  .about{margin:1.6rem 0 0;font-size:1.05rem;line-height:1.65;max-width:34rem}
+  .about p{margin:0 0 1rem}
+  .about a{color:var(--accent);text-decoration:none;
+    border-bottom:1px solid var(--rule)}
+  .about a:hover{border-bottom-color:var(--accent)}
+  .about .contact{margin:2rem 0 0;background:var(--panel);border:1px solid var(--rule);
+    border-left:4px solid var(--accent);padding:1.1rem 1.3rem}
+  .about .contact h2{font:600 .78rem/1 'Newsreader',Georgia,serif;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--accent);margin:0 0 .5rem}
+  .about .contact p{margin:0;font-size:1rem}
+
+/* ---- masthead ---- */
+.smast-in{max-width:var(--nav-max,60rem);margin:0 auto;padding:.85rem 1.5rem .5rem;
+  display:flex;align-items:baseline;justify-content:space-between;gap:1.4rem;flex-wrap:wrap}
+.smast-wm{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+  letter-spacing:.005em;color:var(--ink,#1a1a1e);text-decoration:none;white-space:nowrap;flex:none}
+.smast-wm em{font-style:italic;font-weight:500;color:var(--accent,#9c0e3a)}
+.smast-wm:hover{color:var(--accent,#9c0e3a)}
+/* Row gap first, then column. At 1.35rem the six section links measured 596px
+   of max-content -- 4px wider than the 592px row the 40rem index container
+   leaves them -- so ABOUT alone wrapped to a third line under the wordmark, on
+   every page page_style.R writes. 1.05rem brings the row to 572px: 20px of
+   slack at 40rem, and 45px on the 54rem case pages, which were themselves only
+   21px from wrapping. The .4rem row gap is for the day a seventh section
+   overruns it anyway -- a nav that wraps should read as a stack, not an orphan. */
+.snav{display:flex;gap:.4rem 1.05rem;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+.snav a{font:600 .72rem/1 'Newsreader',Georgia,serif;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--ink-soft,var(--soft,#484850));text-decoration:none;display:inline-block;
+  padding:.5rem 0;border-bottom:1.5px solid transparent}
+.snav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--rule,#dbd8d2)}
+.snav a[aria-current='page']{color:var(--accent,#9c0e3a);
+  border-bottom-color:var(--accent,#9c0e3a)}
+.smast-rule-w{max-width:var(--nav-max,60rem);margin:0 auto;padding:0 1.5rem}
+.smast-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0;position:relative}
+.smast-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.skip{position:absolute;left:-9999px;top:0;background:var(--panel,#ffffff);
+  color:var(--accent,#9c0e3a);padding:.6rem 1rem;
+  border:1px solid var(--accent,#9c0e3a);
+  font:600 .8rem/1 'Newsreader',Georgia,serif;letter-spacing:.1em;text-transform:uppercase;z-index:10}
+.skip:focus{left:.5rem;top:.5rem}
+/* ---- breadcrumb ---- */
+.bcrumb{margin:.7rem 0 0}
+.bcrumb ol{list-style:none;display:flex;flex-wrap:wrap;align-items:baseline;
+  gap:.1rem .45rem;margin:0;padding:0}
+.bcrumb li{display:inline-flex;align-items:baseline;gap:.45rem}
+.bcrumb a{font:400 .8rem/1.5 'Newsreader',Georgia,serif;color:var(--ink-soft,var(--soft,#484850));
+  text-decoration:none;border-bottom:1px solid var(--rule,#dbd8d2)}
+.bcrumb a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.bcrumb .sep{color:var(--faint,#63636b);font-size:.8rem;line-height:1.5}
+.bcrumb [aria-current='page']{font:400 .8rem/1.5 'Newsreader',Georgia,serif;
+  color:var(--faint,#63636b);font-variant-numeric:tabular-nums}
+/* ---- case footer ---- */
+.cfoot{margin:2.4rem 0 0}
+.cfoot-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0 0 1rem;position:relative}
+.cfoot-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.cfoot-off{font-size:.95rem;margin:0 0 1.1rem}
+.cfoot-off a{color:var(--link,#9c0e3a);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.4)}
+.cfoot-off a:hover{border-bottom-color:var(--link,#9c0e3a)}
+.cfoot-lab{font:600 .68rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);margin:0 0 .5rem}
+.cfoot-nav{display:flex;flex-wrap:wrap;gap:.35rem 1.1rem;list-style:none;margin:0;padding:0}
+.cfoot-nav a{font-size:.92rem;color:var(--ink-soft,var(--soft,#484850));text-decoration:none;
+  border-bottom:1px solid var(--rule,#dbd8d2);padding-bottom:1px}
+.cfoot-nav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.cfoot-stamp{margin:1.2rem 0 0;font-size:.8rem;color:var(--faint,#63636b);font-style:italic}
+/* ---- prev / next ---- */
+.pnav{margin:2.2rem 0 0;border-top:1px solid var(--rule,#dbd8d2);padding-top:1rem;
+  display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.pnav a,.pnav span.none{text-decoration:none;color:inherit;display:block;padding:.5rem .2rem}
+.pnav a:hover{background:rgba(156,14,58,.05)}
+.pnav .dir{font:600 .66rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);display:block;margin-bottom:.3rem}
+.pnav .lab{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1rem;line-height:1.25;
+  color:var(--accent,#9c0e3a);display:block}
+.pnav a:hover .lab{text-decoration:underline;text-underline-offset:3px}
+.pnav .nx{text-align:right}
+.pnav .none{opacity:.35}
+@media(max-width:640px){
+  .smast-in{padding:.7rem 1.1rem .25rem;gap:.15rem}
+  .smast-wm{font-size:.98rem}
+  .smast-in nav{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+    -webkit-mask-image:linear-gradient(90deg,#000 86%,transparent);
+    mask-image:linear-gradient(90deg,#000 86%,transparent)}
+  .smast-in nav::-webkit-scrollbar{display:none}
+  .snav{flex-wrap:nowrap;gap:1.15rem;padding-right:2.4rem}
+  .snav a{padding:.7rem 0;white-space:nowrap}
+  .smast-rule-w{padding:0 1.1rem}
+  .cfoot-nav{gap:.5rem 1rem}
+  .cfoot-nav a{padding-bottom:.3rem}
+  .pnav{grid-template-columns:1fr;gap:.2rem}
+  .pnav .nx{text-align:left;border-top:1px solid var(--rule,#dbd8d2)}
+}
+
+  .wrap.opn{max-width:42rem}
+  .opn .ometa{font-size:.92rem;color:var(--ink-soft);margin:.3rem 0 0}
+  .opn .oget{display:flex;flex-wrap:wrap;gap:.4rem .6rem;margin:1.1rem 0 0;padding:0;list-style:none;font-size:.9rem}
+  .opn .oget a{display:inline-block;padding:.32rem .7rem;border:1px solid var(--rule);border-radius:4px;color:var(--ink);text-decoration:none;background:var(--panel)}
+  .opn .oget a:hover{border-color:var(--accent);color:var(--accent)}
+  .opn .osrc{font-size:.84rem;color:var(--faint);margin:.9rem 0 0;line-height:1.45}
+  .opn .osrc a{color:var(--link)}
+  .opn .otoc{margin:1.6rem 0 0;padding:.8rem 1rem;border:1px solid var(--rule);border-radius:4px;background:var(--panel);font-size:.95rem}
+  .opn .otoc ol{margin:0;padding:0;list-style:none}
+  .opn .otoc li{margin:.25rem 0}
+  .opn .otoc a{color:var(--ink);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.35)}
+  .opn .otoc a:hover{color:var(--accent)}
+  .opn section.op{margin-top:3rem;border-top:2px solid var(--ink);padding-top:1.1rem}
+  .opn section.op h2{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.5rem;line-height:1.2;margin:0 0 1rem;color:var(--ink)}
+  .opn section.op p{margin:0 0 .95rem;line-height:1.62;hyphens:auto;overflow-wrap:break-word}
+  .opn section.op p.byline{color:var(--ink-soft);font-style:italic}
+  .opn section.op p.sep{text-align:center;letter-spacing:.3em;color:var(--faint);margin:1.6rem 0}
+  .opn section.op h3.oh{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.12rem;text-align:center;margin:2rem 0 1rem;color:var(--ink)}
+  .opn section.op blockquote{margin:0 0 .95rem;padding:0 0 0 1.1rem;border-left:2px solid var(--rule);color:var(--ink-soft)}
+  .opn section.op blockquote p{margin-bottom:.6rem;font-size:.96em}
+  .opn .sc{font-variant-caps:small-caps;letter-spacing:.02em}
+  .opn .pg{font-size:.66em;color:var(--faint);vertical-align:.3em;margin:0 .3em 0 .1em;font-variant-numeric:tabular-nums;user-select:none;white-space:nowrap}
+  .opn .pg::before{content:'*'}
+  .opn sup.fnr{font-size:.68em;line-height:0;margin-left:.05em}
+  .opn sup.fnr a{color:var(--link);text-decoration:none;padding:0 .1em}
+  .opn aside.notes{margin-top:2rem;border-top:1px solid var(--rule);padding-top:.8rem;font-size:.88rem;color:var(--ink-soft)}
+  .opn aside.notes h3{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1rem;margin:0 0 .6rem;color:var(--ink)}
+  .opn aside.notes ol{margin:0;padding-left:1.7rem}
+  .opn aside.notes li{margin:0 0 .55rem}
+  .opn aside.notes li.sym{list-style:none;margin-left:-1.7rem}
+  .opn aside.notes li.sym .mk{margin-right:.3rem}
+  .opn aside.notes li.sym p{display:inline}
+  .opn aside.notes p{margin:0 0 .4rem;line-height:1.5}
+  .opn aside.notes a.back{color:var(--link);text-decoration:none;margin-left:.2rem}
+  .opn aside.notes li:target,.opn sup.fnr a:target,.opn .pg:target{background:rgba(156,14,58,.12);outline:.2rem solid rgba(156,14,58,.12)}
+  .opn section.op,.opn aside.notes li,.opn sup.fnr a{scroll-margin-top:1rem}
+  .opn section.op-syllabus p,.opn section.op-counsel p{font-size:.95em}
+  .opn section.op-counsel summary{cursor:pointer;font-family:'Fraunces',Georgia,serif;font-size:1.05rem;color:var(--ink-soft)}
+  .opn .osyl{font-size:.84rem;color:var(--faint);font-style:italic;margin:-.5rem 0 1rem}
+  .opn p.back{margin-top:3rem;font-size:.92rem}
+  @media print{.smast,.bcrumb,.opn .oget,.opn .otoc,.opn p.back{display:none}.opn section.op{break-before:page}}
+</style><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://supremecourt.report/"},{"@type":"ListItem","position":2,"name":"Opinions","item":"https://supremecourt.report/opinions/"},{"@type":"ListItem","position":3,"name":"M & K Employee Solutions, LLC v. Trustees of"}]}</script><meta name='otv' content='p1'><link rel='alternate' type='text/markdown' href='/opinions/2025/23-1209.md'><link rel='alternate' type='application/epub+zip' href='/opinions/2025/23-1209.epub'></head><body><a class='skip' href='#main'>Skip to content</a><header><div class='smast-in'><a class='smast-wm' href='/'>Supreme Court <em>Report</em></a><nav aria-label='Sections'><ul class='snav'><li><a href='/dashboards/'>Docket</a></li><li><a href='/conferences/'>Conferences</a></li><li><a href='/relists/'>Relists</a></li><li><a href='/applications/'>Interim</a></li><li><a href='/arguments/'>Arguments</a></li><li><a href='/justices/' aria-current='page'>Justices</a></li><li><a href='/counsel/'>Counsel</a></li><li><a href='/funnel/'>Funnel</a></li><li><a href='/methods.html'>Model</a></li><li><a href='/about.html'>About</a></li></ul></nav></div><div class='smast-rule-w'><hr class='smast-rule'></div></header><main class='wrap opn' id='main' data-dkt='23-1209'><nav class='bcrumb' aria-label='Breadcrumb'><ol><li><a href='/'>Home</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><a href='/opinions/'>Opinions</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><span aria-current='page'>M &amp; K Employee Solutions, LLC v. Trustees of</span></li></ol></nav><p class='kicker'>No. 23-1209 · decided May 21, 2026 · 608 U. S. 264</p><h1 style='font-size:clamp(1.7rem,4.6vw,2.4rem);line-height:1.12'>M &amp; K Employee Solutions, LLC v. Trustees of</h1><p class='ometa'>M &amp; K Employee Solutions, LLC, et al. v. Trustees of the IAM National Pension Fund. No separate writings.</p><ul class='oget'><li><a href='/opinions/2025/23-1209.epub' download>EPUB</a></li><li><a href='/opinions/2025/23-1209.md' download>Markdown</a></li><li><a href='https://www.supremecourt.gov/opinions/25pdf/608us1r34_f2bh.pdf' rel='noopener'>The Court’s PDF</a></li><li><a href='/cases/23-1209.html'>The docket</a></li></ul><p class='osrc'>Set from the PDF the Court published, which is the authoritative text. The small starred numbers are that PDF’s page numbers. A conversion can introduce errors; check a quotation against the <a href='https://www.supremecourt.gov/opinions/25pdf/608us1r34_f2bh.pdf' rel='noopener'>original</a>.</p><nav class="otoc" aria-label="Contents"><ol>
+<li><a href="#s1">Syllabus</a></li>
+<li><a href="#s2">Counsel</a></li>
+<li><a href="#s3">Opinion of the Court</a></li>
+</ol></nav>
+<section id="s1" class="op op-syllabus"><h2>Syllabus</h2><p class='osyl'>Prepared by the Reporter of Decisions for the convenience of the reader; it is no part of the opinion of the Court.</p>
+<p>Pursuant to the Employee Retirement Income Security Act of 1974 (ERISA), as amended, an employer that stops participating in an underfunded Multiemployer Pension Plan (MPP), must pay the plan “withdrawal liability,” <em>i</em>.<em>e</em>., the employer's share of the plan's unfunded vested benefits (UVBs). See 29 U. S. C. § 1391. Withdrawal liability is calculated based on the plan's UVBs “as of” the statutory measurement date—the last day of the plan year preceding the employer's withdrawal. §§ 1391(b)(2)(E)(i), (c)(2)(C)(i), (3)(A), (4)(A). Determining the value of a plan's UVBs depends upon both hard data (such as the number of beneficiaries and the value of the plan's assets) and a variety of actuarial predictions about the future. One key actuarial assumption is the discount rate, which is the interest rate “used to discount future benefit payments to their present value.” 87 Fed. Reg. 62317.</p>
+<p>Petitioners are four employers who withdrew from the IAM National Pension Fund (Fund)—an underfunded MPP—between April and December 2018. The Fund assessed each employer's withdrawal liability “as of” December 31, 2017 (the measurement date). In making this calculation, the Fund applied a discount rate of 6.50%, which it had adopted with its actuarial firm in January 2018. The Fund had previously used a discount rate of 7.50% to value its UVBs. Petitioners each initiated arbitrations challenging their assessments. In each case, the arbitrators determined that the assessments were erroneous because the Fund had applied actuarial assumptions adopted after the measurement date. The arbitrators instead required the Fund to use the actuarial assumptions that were “<em>in effect</em>” on the measurement date—<em>i</em>.<em>e</em>., the 7.50% discount rate. App. 293. The Fund sought review in Federal District Court. The courts disagreed with the arbitrators and held that actuaries could use assumptions adopted after the measurement date. The D. C. Circuit affirmed in a consolidated appeal. Its decision conflicted with a decision of the Second Circuit, and this Court granted certiorari to resolve when actuarial assumptions may be selected for purposes of calculating withdrawal liability.</p>
+<p><span class="pg" id="s1-p265" title="page 265 of the original">265</span><em>Held</em>: The provisions of ERISA governing the calculation of withdrawal liability—§§ 1391 and 1393—do not require the actuarial assumptions underlying that calculation to be selected on or before the measurement date. Pp. 271–277.</p>
+<p>(a) Section 1391 requires withdrawal liability to be calculated based on the value of a plan's UVBs “as of” the measurement date. Petitioners contend that §1391's “as of” language establishes a deadline for the selection of actuarial assumptions. But § 1391 sets no such deadline. The term “as of” is understood “to assign an event to one time and the recognition of it to another.” W. Follett, Modern American Usage 41. Section 1391's “as of” language thus means that the hard data that feeds the UVB calculation must be fixed on the measurement date, but the calculation itself can be performed after that date. Actuarial assumptions are not observable facts about the plan; instead, they are predictive judgments used as tools to calculate UVBs. Accordingly, while §1391's “as of” requirement sets the reference point for factual inputs, it has no bearing on when actuaries must select their assumptions. Pp. 271–274.</p>
+<p>(b) Section 1393, which governs the use of actuarial assumptions for assessing withdrawal liability, states that the assumptions must be “reasonable,” “tak[e] into account the experience of the plan and reasonable expectations,” and “offer the actuary's best estimate of anticipated experience under the plan.” § 1393(a)(1). Section 1393 provides no deadline by which actuaries must select their assumptions, and the Court does not generally read limitations into statutes that do not appear in their text. <em>Romag Fasteners, Inc.</em> v. <em>Fossil Group, Inc.</em>, 590 U. S. 212, 215. Indeed, because Congress included a deadline for the selection of actuarial assumptions in a different section of the statute, but imposed no similar limit in § 1393, the Court presumes that the omission in § 1393 is intentional. See <em>Russello</em> v. <em>United States</em>, 464 U. S. 16, 23. Moreover, § 1393's instruction that actuarial assumptions reflect the actuary's “best estimate,” § 1393(a)(1), supports the conclusion that actuaries can select their assumptions after the measurement date. Requiring actuaries to use assumptions selected before the measurement date could prevent them from relying on the most up-to-date data when selecting their assumptions, resulting in assumptions that do not reflect their “best estimate.” Pp. 274–275.</p>
+<p>(c) Petitioners' remaining arguments do not overcome the absence of a textual deadline for adopting actuarial assumptions. First, petitioners point to a different provision of ERISA that prohibits plans from applying any new “plan rule or amendment” to an employer's withdrawal liability if the rule or amendment is adopted after the employer withdraws.<span class="pg" id="s1-p266" title="page 266 of the original">266</span> § 1394(a). But the retroactivity limits in § 1394 concededly do not apply to actuarial assumptions. Congress chose not to enact a similar antiretroactivity rule in § 1393, and inferring one would override Congress's choice.</p>
+<p>Petitioners fall back on a policy argument, contending that allowing plans to adopt actuarial assumptions after the measurement date will invite manipulation, enabling plans and their actuaries to retroactively select assumptions in order to increase withdrawing employers' liability. But petitioners' proposed rule does not address these concerns, and in any event, “policy concerns cannot trump the best interpretation of the statutory text.” <em>Patel</em> v. <em>Garland</em>, 596 U. S. 328, 346. Congress chose which limits to impose on the selection of actuarial assumptions, and it is not the role of the Court to supplant Congress's choices. Pp. 275–277.</p>
+<p>92 F. 4th 316, affirmed.</p>
+<p><span class="sc">Jackson</span>, J., delivered the opinion for a unanimous Court.</p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li class="sym" value="0"><span class="mk">*</span><p>Briefs of <em>amici curiae</em> urging reversal were filed for the Chamber of Commerce of the United States of America by <em>Jonathan S. Franklin</em> and <em>Gregory Ossi</em>; and for the HR Policy Association by <em>Sarah Bryan Fask</em>.</p><p>Briefs of <em>amici curiae</em> urging affirmance were filed for AARP et al. by <em>Rachel N. Lokken, Louis Lopez,</em> and <em>William Alvarado Rivera</em>; for the American Federation of Labor and Congress of Industrial Organizations by <em>Matthew J. Ginsburg</em> and <em>Darin M. Dalmat</em>; for the National Coordinating Committee for Multiemployer Plans by <em>Paul A. Green</em>; for the Pension Rights Center by <em>Israel Goldowitz</em> and <em>Theresa S. Gee</em>; and for the Segal Group, Inc., et al. by <em>Samuel I. Levin.</em></p><p><em>Mark M. Trapp</em> filed a brief for James P. Naughton as <em>amicus curiae.</em></p></li>
+</ol></aside></section>
+<section id="s2" class="op op-counsel"><details><summary>Counsel</summary><p><em>Michael E. Kenneally, Jr.,</em> argued the cause for petitioners. With him on the briefs were <em>Andrew R. Hellman, Deborah S. Davidson, Donald J. Vogel, R. Jay Taylor, Jr., James A. Eckhart, Jonathan Janow,</em> and <em>William P. Lewis.</em></p>
+<p><em>John E. Roberts</em> argued the cause for respondent. With him on the brief were <em>Myron D. Rumeld, Mark D. Harris, Neil V. Shah, Lena H. Hughes,</em> and <em>Lucas Kowalczyk</em>.</p>
+<p><em>Kevin J. Barber</em> argued the cause for the United States as <em>amicus curiae</em> urging affirmance. With him on the brief were <em>Solicitor General Sauer, Deputy Solicitor General Gannon,</em> and <em>Karen L. Morris.</em>*</p></details></section>
+<section id="s3" class="op op-court"><h2>Opinion of the Court</h2>
+<p class="byline">Justice Jackson delivered the opinion of the Court.</p>
+<p>An employer that stops participating in an underfunded Multiemployer Pension Plan must pay the plan “withdrawal liability”—<em>i</em>. <em>e</em>., its share of the plan's unfunded vested benefits. Calculating the unfunded vested benefits is a complicated endeavor because the plan's actuary must predict the value of the plan's future assets and obligations. To do so, the actuary makes certain assumptions about, for example, retirees' life expectancies and the anticipated growth rate of the plan's investments. By statute, an employer's withdrawal liability is based on the value of the plan's unfunded vested benefits “as of” the last day of the plan year preceding the employer's withdrawal, also known as the measurement date. 29 U. S. C. § 1391.</p>
+<p>The question presented in this case is whether the “as of” language sets the measurement date as the deadline by which actuaries must select the assumptions that underlie the withdrawal-liability calculation. The Court of Appeals for the D. C. Circuit held that it does not, concluding that actuaries may select their assumptions after the measurement date. We agree. The statute governing the selection and use of actuarial assumptions in the withdrawal-liability context contains no requirement that actuaries use assumptions adopted prior to the measurement date.</p>
+<h3 class="oh">I</h3>
+<h3 class="oh">A</h3>
+<p>The Employee Retirement Income Security Act of 1974 (ERISA) provides “comprehensive regulation for private pension plans.” <em>Connolly</em> v. <em>Pension Benefit Guaranty Corporation</em>, 475 U. S. 211, 214 (1986). One type of pension plan that ERISA regulates is a Multiemployer Pension Plan (MPP). An MPP is a plan “to which more than one employer contributes” and is “maintained to fulfill the terms of collective-bargaining agreements.” <em>Concrete Pipe &amp; Products of Cal., Inc.</em> v. <em>Construction Laborers Pension Trust</em> <span class="pg" id="s3-p268" title="page 268 of the original">268</span><em>for Southern Cal.</em>, 508 U. S. 602, 605 (1993); see 29 U. S. C. § 1002(37).</p>
+<p>As amended by the Multiemployer Pension Plan Amendments Act of 1980, ERISA requires employers that withdraw from an underfunded MPP to pay “withdrawal liability.” § 1381(a); see <em>Milwaukee Brewery Workers' Pension Plan</em> v. <em>Jos. Schlitz Brewing Co.</em>, 513 U. S. 414, 417 (1995). Withdrawal liability reflects the employer's share of the plan's unfunded vested benefits (UVBs)—that is, the difference between the present value of the benefits owed to employees and the current value of the plan's assets. §§ 1381(b)(1), 1393(c). By requiring employers to pay their share of the UVBs, ERISA seeks to ensure that plans do not become insolvent when employers withdraw. <em>Milwaukee Brewery</em>, 513 U. S., at 416–417.</p>
+<p>Section 1391 specifies the methods that plans may use to calculate withdrawal liability. The common feature of each method is the requirement that withdrawal liability be calculated based on the plan's UVBs “as of” the last day of the plan year preceding the employer's withdrawal—the measurement date. See §§ 1391(b)(2)(E)(i), (c)(2)(C)(i), (3)(A), (4)(A); <em>Milwaukee Brewery</em>, 513 U. S., at 417–418.</p>
+<p>Determining a plan's UVBs is not a matter of simple arithmetic. The value of the UVBs depends upon both hard data about the plan (such as the number of beneficiaries and the value of the plan's assets) and a variety of predictions about the future. For example, how many employees will draw on their benefits and for how long? And what is the value of those future benefits in today's dollars?</p>
+<p>To make these predictions, a plan's actuary must select demographic and economic assumptions about how the plan's assets and obligations will change over time. American Academy of Actuaries, Issue Brief: Selection of Actuarial Assumptions for Multiemployer Plans 3 (July 2020). A key actuarial assumption—the one relevant here—is the discount rate: the interest rate “used to discount future benefit payments<span class="pg" id="s3-p269" title="page 269 of the original">269</span> to their present value.” 87 Fed. Reg. 62317 (2022); see Actuarial Standards Board, Actuarial Standard of Practice No. 27, § 3.3 (2023) (ASOP). A higher discount rate reduces the value of the plan's UVBs. 87 Fed. Reg. 62317. Lower UVBs, in turn, correspond to a lower withdrawal liability for employers. <em>Ibid.</em></p>
+<p>Actuaries select the assumptions underlying their UVB calculations based on relevant “current and historical data,” ASOP No. 27, § 3.5, including growth in the plan's earnings, inflation, yields on securities, and other macroeconomic conditions, <em>id</em>., § 3.7. ERISA imposes few substantive requirements on the selection of these assumptions. Section 1393, which governs the use of actuarial assumptions in calculating withdrawal liability, says only that the actuary must use “actuarial assumptions and methods which, in the aggregate, are reasonable (taking into account the experience of the plan and reasonable expectations) and which, in combination, offer the actuary's best estimate of anticipated experience under the plan.” § 1393(a)(1).<sup class="fnr"><a id="s3-r1" href="#s3-n1">1</a></sup></p>
+<h3 class="oh">B</h3>
+<p>The IAM National Pension Fund (Fund) is an MPP serving employees who are covered by collective bargaining agreements with the International Association of Machinists and Aerospace Workers. In November 2017, its actuarial firm, Cheiron, published the annual valuation of the Fund's assets and liabilities for the 2016 Plan Year. Using a discount rate of 7.50%, Cheiron valued the Fund's UVBs at close to $500 million. Two months later, on January 24, 2018, Cheiron met with the Fund's trustees to discuss the actuarial assumptions it would use to calculate withdrawal liability for employers who withdrew in 2018. They settled on a discount rate of 6.50%, 1% lower than the rate previously<span class="pg" id="s3-p270" title="page 270 of the original">270</span> used. Cheiron published its actuarial valuation for Plan Year 2017 on April 17, 2019. Using the 6.50% discount rate, it valued the Fund's UVBs at just over $3 billion—six times the prior year's figure.</p>
+<p>Petitioners are four employers who used to contribute to the Fund. Each withdrew from the Fund between April and December 2018. Pursuant to § 1391, the Fund assessed each employer's withdrawal liability “as of” December 31, 2017 (the last day of the plan year preceding the year in which they withdrew). The Fund applied the 6.50% discount rate adopted in January 2018 to calculate their withdrawal liability. Using the 6.50% discount rate, as compared to the previously adopted 7.50% discount rate, dramatically increased petitioners' withdrawal liability; M&amp;K Employee Solutions, for example, was assessed withdrawal liability of around $6.2 million, whereas it would have owed only around $1.8 million using the prior assumptions.</p>
+<p>Petitioners initiated separate arbitrations to challenge their withdrawal-liability assessments. See § 1401(a). Each of the arbitrators determined that the assessment was erroneous because the Fund had applied actuarial assumptions adopted after December 31, 2017. Doing so, the arbitrators reasoned, conflicted with § 1391's requirement that withdrawal liability be calculated “as of” the measurement date. The arbitrators instead required the Fund to use the actuarial assumptions that were “in effect” on the measurement date—<em>i</em>. <em>e</em>., the 7.50% discount rate. App. 293 (emphasis deleted); see also <em>id</em>., at 26–27, 49, 71.</p>
+<p>The Fund sought review of the arbitral awards in Federal District Court. Three of the actions were consolidated, while the fourth proceeded separately. In both cases, the District Courts disagreed with the arbitrators, holding that actuaries could use assumptions adopted after the measurement date to calculate withdrawal liability. 2022 WL 4534998, *11 (D DC, Sept. 28, 2022); <em>Trustees of the IAM Nat. Pension Fund</em> v. <em>Ohio Magnetics, Inc.</em>, 656 F. Supp. 3d 112, 136–137 (DC 2023).</p>
+<p><span class="pg" id="s3-p271" title="page 271 of the original">271</span>In a consolidated appeal, the Court of Appeals for the D. C. Circuit affirmed. 92 F. 4th 316, 322 (2024). The court reasoned that “requir[ing] an actuary to determine what assumptions to use before the close of business on the measurement date” would conflict with Congress's instruction in §1393(a)(1) “that an actuary use its `best estimate' of the plan's anticipated experience as of the measurement date.” <em>Id.</em>, at 322–323. Accordingly, the court held that actuaries could adopt assumptions after the measurement date as long as the assumptions were “based on the body of knowledge available up to the measurement date.” <em>Id</em>., at 322 (internal quotation marks omitted).</p>
+<p>The D. C. Circuit's decision conflicted with a decision of the Second Circuit, which held that MPPs must adopt their interest rate assumptions for withdrawal-liability purposes on or before the measurement date. <em>National Retirement Fund</em> v. <em>Metz Culinary Mgmt., Inc.</em>, 946 F. 3d 146, 152 (2020). We granted certiorari to resolve this split over <em>when</em> actuarial assumptions may be selected for purposes of calculating withdrawal liability. 606 U. S. 930, amended 606 U. S. 958 (2025).<sup class="fnr"><a id="s3-r2" href="#s3-n2">2</a></sup>For the reasons that follow, we now hold that withdrawal liability can be calculated based on actuarial assumptions adopted after the measurement date.</p>
+<h3 class="oh">II</h3>
+<p>Two sections of ERISA govern the calculation of withdrawal liability: §§ 1391 and 1393. Neither requires that actuarial assumptions be selected on or before the measurement date.</p>
+<h3 class="oh">A</h3>
+<p>Section 1391 lays out the various methods that plans can use to calculate withdrawal liability. It does not mention actuarial assumptions at all. Nevertheless, petitioners ask <span class="pg" id="s3-p272" title="page 272 of the original">272</span>us to identify a deadline for the selection of assumptions from § 1391's directive that withdrawal liability be calculated based on the plan's UVBs “as of” the measurement date. See, <em>e</em>. <em>g</em>., §1391(b)(2)(E)(i). But the “as of” language sets no such deadline.</p>
+<p>Dictionaries define “as of” to mean “at the date mentioned.” Oxford American Dictionary 34 (1980); see also Webster's Third New International Dictionary 129 (1976) (“at or on (a specific time or date)”). In context, the term is understood “to assign an event to one time and the recognition of it to another.” W. Follett, Modern American Usage 41 (rev. ed. 1998). Thus, §1391's use of “as of” means two things. First, the hard data about the plan that feeds the UVB calculation must be fixed on the measurement date. Second, and as all agree, the actual UVB calculation can be performed after the measurement date. For purposes of this case, then, the key question is whether actuarial assumptions are akin to the facts about the plan that must be fixed <em>on</em> the measurement date, or whether they are a part of the UVB calculation itself and can therefore be selected <em>after</em> the measurement date.</p>
+<p>Petitioners argue that actuarial assumptions are factual inputs into the UVB calculation, much like hard data such as the number of plan beneficiaries. On this view, to comply with § 1391, the actuarial assumptions must be “frozen” on the measurement date. Brief for Petitioners 23. In other words, they say, the actuary must use the assumptions that are “in effect” on the measurement date—<em>i</em>. <em>e</em>., the assumptions most recently adopted before the measurement date— to value the UVBs. Brief for Petitioners 37.</p>
+<p>But petitioners' argument is based on a flawed understanding of actuarial assumptions. These assumptions are not factual inputs. Instead, they are predictive judgments about a plan's anticipated future performance—<em>tools</em> actuaries use to calculate the plan's UVBs. The distinction between tool and fact is clear from the text of ERISA: Section <span class="pg" id="s3-p273" title="page 273 of the original">273</span>1393 groups actuarial assumptions together with “methods” in prescribing how withdrawal liability must be calculated. See § 1393(a)(1). The relevant similarity between assumptions and methods is that both are tools used to make actuarial valuations. See, <em>e. g.</em>, § 1393(a) (referring to actuarial assumptions as something “used” to determine UVBs); § 1401(a)(3)(B)(i) (same).</p>
+<p>The Actuarial Standards of Practice likewise support our conclusion that actuarial assumptions are not observable facts about the plan that are “in effect” on a particular date.<sup class="fnr"><a id="s3-r3" href="#s3-n3">3</a></sup>These professional guidelines instruct actuaries to select assumptions <em>for the purpose of</em> making a particular calculation or measurement. See ASOP No. 27, § 3.3 (“The actuary should identify the types of assumptions to use for a specific measurement,” taking into account, among other things, “the purpose of the measurement”); <em>id</em>., § 3.8 (“The actuary should take into account the purpose of the measurement as a primary factor in selecting a discount rate”). In other words, actuaries make assumptions when the need for an actuarial valuation arises.</p>
+<p>In this case, for example, the Fund's actuary adopted assumptions for purposes of its 2016 Plan Year annual valuation. The Fund then adopted new actuarial assumptions for purposes of calculating withdrawal liability for employers who withdrew in 2018, and later for its 2017 Plan Year annual valuation. As this case illustrates, actuarial assumptions are adopted for the purpose of a particular calculation or measurement; they are not generally “in effect” in the way that petitioners urge.</p>
+<p>With this understanding of actuarial assumptions, petitioners' proposed interpretation of § 1391 falls apart. Because<span class="pg" id="s3-p274" title="page 274 of the original">274</span> actuarial assumptions are tools used to calculate UVBs rather than hard data about the plan, they cannot be “frozen” on the measurement date. Section 1391's “as of” requirement sets the reference point for the factual inputs into the UVB calculation. It has no bearing on when actuaries must select the tools, including assumptions, they use to calculate a plan's UVBs.</p>
+<h3 class="oh">B</h3>
+<p>Section 1393, the section of ERISA that governs the use of actuarial assumptions for assessing withdrawal liability, confirms that the measurement date is not a deadline by which actuaries must select their assumptions. Indeed, § 1393 provides no deadline at all. The statute merely says that the actuary's assumptions must be “reasonable,” must “tak[e] into account the experience of the plan and reasonable expectations,” and must “offer the actuary's best estimate of anticipated experience under the plan.” § 1393(a)(1). We generally do not read limitations into statutes that do not appear in their text, <em>Romag Fasteners, Inc.</em> v. <em>Fossil Group, Inc.</em>, 590 U. S. 212, 215 (2020), and we discern no basis for doing so here.</p>
+<p>The omission of any deadline in § 1393 is significant given Congress's inclusion of a similar deadline in a different section of the statute. Specifically: The amortization period for an employer's withdrawal-liability payments must be determined based on “the assumptions used for the most recent actuarial valuation for the plan.” § 1399(c)(1)(A)(ii). But Congress imposed no similar limit for the actuarial assumptions used to calculate withdrawal liability; we presume this omission is intentional. See <em>Russello</em> v. <em>United States</em>, 464 U. S. 16, 23 (1983) (“[W]here Congress includes particular language in one section of a statute but omits it in another section of the same Act, it is generally presumed that Congress acts intentionally and purposely in the disparate inclusion or exclusion” (internal quotation marks omitted)).</p>
+<p><span class="pg" id="s3-p275" title="page 275 of the original">275</span>Moreover, § 1393's instruction that actuarial assumptions reflect the actuary's “best estimate of anticipated experience under the plan,” § 1393(a)(1), supports the conclusion that actuaries can select their assumptions after the measurement date. Recall that actuaries choose assumptions based on the plan's past performance, changes in the market, and other relevant information. ASOP No. 27, § 3.5. Thus, the assumptions should “reflect the actuary's knowledge as of the measurement date.” <em>Id</em>., § 3.4.6. But the relevant information about the plan's performance or macroeconomic conditions, as it stood on the measurement date, may not become available until after the measurement date. See American Academy of Actuaries, Issue Brief: Selection of Actuarial Assumptions for Multiemployer Plans 4. Requiring actuaries to use assumptions selected before the measurement date could therefore prevent them from relying on the most upto-date data when selecting their assumptions. This, in turn, could mean that their assumptions do not reflect their “best estimate.” § 1393(a)(1).</p>
+<p>More fundamentally, requiring actuaries to use assumptions based on stale data would result in an incoherent statutory scheme. Under petitioners' view, actuaries must value a plan's UVBs based on hard data as it stood on the measurement date while at the same time applying assumptions selected based on an older set of facts. The statute does not mandate this mismatch. Instead, actuaries may select their assumptions after the measurement date in order to value the UVBs as of the measurement date.</p>
+<h3 class="oh">III</h3>
+<p>Unable to identify a deadline for adopting actuarial assumptions in the text of ERISA, petitioners turn to two other arguments—one about statutory context and the other related to policy concerns. Neither has merit.</p>
+<p>First, petitioners contend that the statute contains a broad antiretroactivity principle. They point to a different section <span class="pg" id="s3-p276" title="page 276 of the original">276</span>of ERISA, § 1394, for support. This section prohibits plans from applying any new “plan rule or amendment” to an employer's withdrawal liability if the rule or amendment is adopted after the employer withdraws. § 1394(a).</p>
+<p>But this section hurts rather than helps petitioners. As they acknowledge, actuarial assumptions are not plan rules or amendments. Accordingly, the retroactivity limits in § 1394 do not apply to actuarial assumptions. Congress chose not to enact a similar antiretroactivity rule in § 1393, which strongly suggests that actuarial assumptions are not subject to any such limitation. See <em>Russello</em>, 464 U. S., at 23. Inferring an antiretroactivity rule for the selection of actuarial assumptions would override Congress's choice.</p>
+<p>So petitioners fall back on a policy argument. They contend that allowing plans to adopt actuarial assumptions after the measurement date will open the door to manipulation. Plans and their actuaries, petitioners worry, will retroactively select assumptions in order to increase withdrawing employers' liability. But their proposed rule—that withdrawal liability must be based on assumptions adopted before the measurement date—does nothing to address these concerns. Plans and actuaries could still select assumptions with an eye towards inflating withdrawal liability before the measurement date given the significant discretion they enjoy in selecting assumptions.</p>
+<p>In any event, “policy concerns cannot trump the best interpretation of the statutory text.” <em>Patel</em> v. <em>Garland</em>, 596 U. S. 328, 346 (2022). Congress chose which limits to impose on the selection of actuarial assumptions. The statute requires that actuarial assumptions be “reasonable” and reflect actuaries' “best estimate.” § 1393(a)(1). And the statute permits employers to challenge actuarial assumptions in arbitration, including on the ground that they were “unreasonable.” § 1401(a)(3)(B)(i). Indeed, many of the worst-case scenarios petitioners posit—for example, that actuaries will adopt intentionally low discount rates for withdrawal liability but <span class="pg" id="s3-p277" title="page 277 of the original">277</span>high discount rates for other purposes—are subject to challenge in arbitration. It is not the role of the Court to supplant Congress's choices, as reflected in the statutory text, with our own.</p>
+<p class="sep">* * *</p>
+<p>ERISA does not require pension plans to assess withdrawal liability based on actuarial assumptions adopted before the measurement date. We therefore affirm the judgment of the D. C. Circuit.</p>
+<p><em>It is so ordered.</em></p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li id="s3-n1" value="1"><p>In the alternative, the actuary can use “assumptions and methods set forth in the [Pension Benefit Guaranty Corporation's] regulations.” 29 U. S. C. § 1393(a)(2); see § 1301(a)(4). This alternative is not at issue here. <a class="back" href="#s3-r1" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n2" value="2"><p>The parties also disputed below whether actuarial assumptions must be based on only the information available as of the measurement date. We leave that question for another day. <a class="back" href="#s3-r2" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n3" value="3"><p>Consulting the Actuarial Standards of Practice is appropriate here because this is a statute “addressed to specialists,” so it “must be read by judges with the minds of the specialists.” <em>Becerra</em> v. <em>Empire Health Foundation, for Valley Hospital Medical Center</em>, 597 U. S. 424, 434 (2022) (internal quotation marks omitted). <a class="back" href="#s3-r3" aria-label="Back to the text">↩</a></p></li>
+</ol></aside></section><p class='back'><a href='/opinions/'>&larr; All opinions</a> · <a href='/justices/ot2025.html'>The Justices, October Term 2025 &rarr;</a></p></main></body>
+</html>
+

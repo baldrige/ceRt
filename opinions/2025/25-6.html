@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script async src='/analytics.js'></script><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate icon" href="/favicon.ico" sizes="any"><link rel="alternate" type="application/atom+xml" title="Supreme Court Report" href="/feed.xml"><link rel="alternate" type="application/atom+xml" title="Certiorari grants" href="/grants.xml"><title>Keathley v. Buddy Ayers Construction, Inc. — Opinion — Supreme Court Report</title><meta name="description" content="The opinion in Keathley v. Buddy Ayers Construction, Inc. (No. 25-6), decided June 11, 2026: the full text with its footnotes, as a page, a Markdown file and an EPUB."><link rel="canonical" href="https://supremecourt.report/opinions/2025/25-6.html"><meta property="og:site_name" content="Supreme Court Report"><meta property="og:type" content="article"><meta property="og:title" content="Keathley v. Buddy Ayers Construction, Inc. — Opinion — Supreme Court Report"><meta property="og:description" content="The opinion in Keathley v. Buddy Ayers Construction, Inc. (No. 25-6), decided June 11, 2026: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta property="og:url" content="https://supremecourt.report/opinions/2025/25-6.html"><meta property="og:image" content="https://supremecourt.report/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Supreme Court Report - docket analytics for the Supreme Court of the United States"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Keathley v. Buddy Ayers Construction, Inc. — Opinion — Supreme Court Report"><meta name="twitter:description" content="The opinion in Keathley v. Buddy Ayers Construction, Inc. (No. 25-6), decided June 11, 2026: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta name="twitter:image" content="https://supremecourt.report/og.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap"><style>
+  :root{--paper:#fdfcfa;--panel:#ffffff;--ink:#1a1a1e;--ink-soft:#484850;--faint:#63636b;--accent:#9c0e3a;--link:#9c0e3a;--rule:#dbd8d2;--nav-max:60rem}
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{font-family:'Newsreader',Georgia,serif;font-size:19px;line-height:1.6;
+    color:var(--ink);background:var(--paper);margin:0;font-feature-settings:'onum' 1}
+  body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
+    opacity:.5;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");}
+  .wrap{max-width:40rem;margin:0 auto;padding:3rem 1.4rem 4rem}
+  .kicker{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 1rem}
+  h1{font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:clamp(2.4rem,7vw,3.6rem);line-height:1;letter-spacing:-.015em;
+    margin:0 0 1rem;color:var(--ink)}
+  h1 em{font-style:italic;font-weight:500;color:var(--accent)}
+  .dek{font-size:1.15rem;line-height:1.5;color:var(--ink-soft);font-style:italic;
+    margin:0 0 1.4rem}
+  .brule{border:0;height:0;border-top:2px solid var(--ink);margin:1.4rem 0 .3rem;
+    position:relative}
+  .brule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+    border-top:1px solid var(--rule)}
+  ul.idx{list-style:none;padding:0;margin:1.6rem 0}
+  ul.idx li{border-bottom:1px solid var(--rule)}
+  /* Whole row is one block-level link: a large, reliable tap target on mobile. */
+  ul.idx a.row{display:flex;justify-content:space-between;align-items:baseline;
+    gap:1rem;padding:.9rem .4rem;text-decoration:none;border:0;color:inherit}
+  ul.idx a.row:hover{background:rgba(156,14,58,.05)}
+  ul.idx .d{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.16rem;
+    color:var(--accent);line-height:1.25}
+  ul.idx a.row:hover .d{text-decoration:underline;text-underline-offset:3px}
+  ul.idx .count{color:var(--faint);font-size:.9rem;font-style:italic;white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  /* A long note (an order list's "3 GVRs / 230 denied / 4 habeas denied /
+     ...", items separated by middots) cannot sit on one line: nowrap made it
+     claim the row and
+     squeezed the title into a column three words wide, and on a phone it ran off
+     the screen. Such a row opts in (meta_wrap): the note wraps, only between its
+     items, and takes at most ~45% of the row, so the title always has the
+     larger share. Under 34rem it drops beneath the title at full width. */
+  /* ("long", not "wrap": .wrap is the page container and its padding.) */
+  ul.idx .count.long{white-space:normal;text-align:right;max-width:45%;line-height:1.45}
+  ul.idx .count.long .seg{white-space:nowrap}
+  @media(max-width:34rem){
+    ul.idx a.row.longmeta{flex-wrap:wrap;row-gap:.2rem}
+    ul.idx .count.long{max-width:none;flex-basis:100%;text-align:left}
+  }
+  /* Compact horizontal strip of the most recent pages beneath a category row. */
+  ul.idx .recent{display:flex;flex-wrap:wrap;align-items:baseline;
+    gap:.3rem .85rem;padding:0 .4rem 1rem;margin-top:-.35rem}
+  ul.idx .recent .rlabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  ul.idx .recent a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--ink-soft);text-decoration:none;font-variant-numeric:tabular-nums;
+    border-bottom:1px solid var(--rule);padding-bottom:1px}
+  ul.idx .recent a:hover{color:var(--accent);border-color:var(--accent)}
+  /* Optional panel beneath the section index (home page: most-read cases). */
+  .panel{margin:2.4rem 0 0}
+  .panel h2{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 .25rem}
+  .panel .pnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:0 0 .5rem}
+  /* "Live now" (live_argument_panel, /live.js): hidden unless the Court is
+     streaming an argument. One red dot, the same --accent as the headings, so
+     the live state is a mark and not a new colour. */
+  .live h2 .ldot{display:inline-block;width:.5rem;height:.5rem;border-radius:50%;
+    background:var(--accent);margin-right:.5rem;vertical-align:.08rem;
+    animation:lpulse 2s ease-in-out infinite}
+  @keyframes lpulse{50%{opacity:.25}}
+  @media (prefers-reduced-motion:reduce){.live h2 .ldot{animation:none}}
+  .lplay{display:flex;flex-wrap:wrap;gap:.6rem .9rem;align-items:center;margin:.8rem 0 .3rem}
+  .lplay button{font:600 .9rem/1 'Newsreader',Georgia,serif;letter-spacing:.04em;
+    color:var(--paper);background:var(--accent);border:0;border-radius:2px;
+    padding:.6rem 1.05rem;cursor:pointer}
+  .lplay button:disabled{opacity:.6;cursor:progress}
+  .lplay button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  /* The player takes a row of its own and may never outgrow the column. A flex
+     item's min-width is auto, which for a replaced element is the browser's own
+     controls' width -- wider than the column on a phone, where mobile Safari
+     and Chrome draw larger controls than the desktop. */
+  .lplay audio{display:block;flex:1 1 100%;width:100%;min-width:0;max-width:100%;
+    box-sizing:border-box;margin:0}
+  .lplay .lstat{font-size:.85rem;color:var(--faint)}
+  /* --- Likeliest grants -----------------------------------------------------
+     Its own rows rather than ol.mostread's: this panel carries a question under
+     the caption, which that list has no room for, and a percentage that has to
+     read as the row's subject rather than as a trailing note.
+     The window toggle is two real radio inputs plus :has() -- no JavaScript.
+     Both windows are rendered at build time and one is hidden, which is the only
+     way a static site can offer the choice: there is no server to ask for the
+     other one. Real radios, not styled buttons, so the control is reachable by
+     keyboard and announced as a choice. */
+  .lead{margin:0 0 1.9rem}
+  .lead h2{margin-bottom:.35rem}
+  .lead .pnote{margin:0 0 .7rem}
+  .wr{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+  .win{display:inline-flex;gap:.25rem;margin:0 0 .55rem;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .win label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .win label:hover{color:var(--ink)}
+  .lead:has(#w7:checked) label[for=w7],
+  .lead:has(#w28:checked) label[for=w28],
+  .lead:has(#wall:checked) label[for=wall]{background:var(--accent);color:var(--paper)}
+  .wr:focus-visible+label{outline:2px solid var(--accent);outline-offset:2px}
+  /* Three windows, one shown: the checked radio hides the other two. */
+  .lead:has(#w7:checked) :is(.g28,.n28,.gall,.nall),
+  .lead:has(#w28:checked) :is(.g7,.n7,.gall,.nall),
+  .lead:has(#wall:checked) :is(.g7,.n7,.g28,.n28){display:none}
+  /* The show/hide controls for a panel's secondary line -- the question under
+     a forecast row, the holding under a decision. Same box as the window
+     toggle, a checkbox instead of radios, and no script: the sibling rule does
+     the work and the lines simply show where :has() is unsupported. The
+     questions are on by default (they are what a forecast row asks); the
+     holdings are off (the caption, kind and disposition already say what
+     happened, and the holding is the more). */
+  .opts{display:inline-flex;gap:.25rem;margin:0 .45rem .55rem 0;vertical-align:top;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .opts label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .opts label:hover{color:var(--ink)}
+  .lead:has(#qon:checked) label[for=qon],
+  .panel:has(#hon:checked) label[for=hon]{background:var(--accent);color:var(--paper)}
+  .lead:has(#qon:not(:checked)) .gq{display:none}
+  .panel:has(#hon:not(:checked)) .chold{display:none}
+  /* --- Upcoming at the Court ------------------------------------------------
+     A date gutter and a two-line body, the same shape as the grant rows above
+     it, so the two panels read as one page rather than two widgets. */
+  .cal{margin:0 0 1.9rem}
+  ol.cal{list-style:none;margin:0;padding:0}
+  ol.cal li{border-top:1px solid var(--rule)}
+  ol.cal li:last-child{border-bottom:1px solid var(--rule)}
+  /* The row is a container, not an anchor: an argument day carries one link per
+     case it hears and anchors cannot nest. Hover lives on the row so it still
+     reads as one unit, and each link colours on its own hover. */
+  ol.cal .crow{display:flex;gap:.95rem;align-items:baseline;padding:.55rem .1rem}
+  ol.cal .crow:hover{background:rgba(156,14,58,.05)}
+  ol.cal a{text-decoration:none;color:inherit}
+  ol.cal a:hover,ol.cal a:focus-visible{color:var(--accent)}
+  ol.cal .cdet a{border-bottom:1px solid rgba(156,14,58,.35)}
+  ol.cal .cdet a:hover{border-bottom-color:var(--accent)}
+  ol.cal .cwhen{flex:none;width:4.6rem;font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.96rem;color:var(--ink);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  ol.cal .cdow{display:block;font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);text-transform:uppercase;letter-spacing:.08em}
+  ol.cal .ctx{flex:1;min-width:0}
+  ol.cal .ckind{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:.98rem;line-height:1.25}
+  ol.cal .cdet{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.12rem}
+  /* Recent decisions reuses the calendar rows and adds exactly two things: the
+     kind word that opens the detail line, and the one outbound link (the slip
+     opinion), which takes the link colour the rest of the row deliberately
+     does not. */
+  ol.cal .dk{font-weight:600;color:var(--ink)}
+  ol.cal .cdet a.pdf{color:var(--link)}
+  /* The holding, from the Court's slip-opinion feed: one sentence, set
+     smaller and in the soft ink so the caption stays the row's headline. */
+  ol.cal .chold{display:block;font-size:.86rem;line-height:1.4;color:var(--ink-soft);
+    font-style:italic;margin-top:.15rem}
+  ol.cal .cdet a.pdf:hover,ol.cal .cdet a.pdf:focus-visible{color:var(--accent);
+    border-bottom-color:var(--accent)}
+  ol.grants{list-style:none;margin:0;padding:0}
+  ol.grants li{border-top:1px solid var(--rule)}
+  ol.grants li:last-child{border-bottom:1px solid var(--rule)}
+  ol.grants a{display:flex;gap:.95rem;align-items:baseline;text-decoration:none;
+    color:inherit;padding:.62rem .1rem}
+  ol.grants a:hover{background:rgba(156,14,58,.05)}
+  ol.grants a:hover .gc{color:var(--accent)}
+  ol.grants .gv{flex:none;width:3.5rem;text-align:right;
+    font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.22rem;
+    line-height:1.1;color:var(--accent);font-variant-numeric:tabular-nums}
+  ol.grants .gx{font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);margin-left:.3rem}
+  ol.grants .gtx{flex:1;min-width:0}
+  /* Subject-area line under the caption, in the section-label idiom (h2.sec):
+     small tracked caps in the faint ink, so it classifies without competing. */
+  ol.grants .gs,ol.mostread .ms{display:block;font-size:.68rem;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--faint);line-height:1.3;margin-top:.12rem}
+  ol.grants .gc{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:1rem;line-height:1.25}
+  ol.grants .gq{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.16rem}
+  ol.grants .gd{flex:none;font-size:.76rem;color:var(--faint);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  .more{margin:.75rem 0 0;font-size:.92rem}
+  .more a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.35)}
+  .more a:hover{border-bottom-color:var(--link)}
+  h2.sec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:.88rem;
+    letter-spacing:.09em;color:var(--faint);text-transform:uppercase;
+    margin:2.1rem 0 .6rem;padding-bottom:.28rem;border-bottom:1px solid var(--rule)}
+  @media(max-width:40rem){
+    ol.grants a{flex-wrap:wrap}
+    ol.grants .gd{width:100%;padding-left:4.45rem;margin-top:-.1rem}
+  }
+  ol.mostread{list-style:none;counter-reset:mr;padding:0;margin:0}
+  ol.mostread li{counter-increment:mr;border-bottom:1px solid var(--rule)}
+  ol.mostread a{display:flex;align-items:baseline;gap:.7rem;padding:.6rem .4rem;
+    text-decoration:none;color:inherit}
+  ol.mostread a:hover{background:rgba(156,14,58,.05)}
+  ol.mostread a::before{content:counter(mr);font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.95rem;color:var(--faint);min-width:1.1rem;
+    font-variant-numeric:tabular-nums}
+  ol.mostread .mc{flex:1;font-size:1rem;line-height:1.3}
+  ol.mostread .mct{display:block}
+  ol.mostread a:hover .mct{color:var(--accent);text-decoration:underline;
+    text-underline-offset:3px}
+  ol.mostread .mdk{color:var(--accent);font-weight:600;font-size:.82rem;
+    font-variant-numeric:tabular-nums;white-space:nowrap}
+  ol.mostread .mv{color:var(--faint);font-size:.85rem;font-style:italic;
+    white-space:nowrap;font-variant-numeric:tabular-nums}
+  /* Forecast percentages carry weight the most-read counts do not: the number is
+     the claim, not a footnote to the ranking. Upright, accent, tabular. */
+  ol.mostread .mv.fc{color:var(--accent);font-style:normal;font-weight:600;
+    font-size:.95rem;min-width:2.6rem;text-align:right}
+  /* Feed follow line. Deliberately quiet -- a footnote under the section list,
+     styled like .recent rather than like a call to action. */
+  .feeds{display:flex;flex-wrap:wrap;align-items:baseline;gap:.3rem .85rem;
+    margin:2.2rem 0 0;padding-top:1.1rem;border-top:1px solid var(--rule)}
+  .feeds .flabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  .feeds a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .feeds a:hover{border-color:var(--link)}
+  .back{margin-top:2rem;font-size:.95rem}
+  .back a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .back a:hover{border-color:var(--link)}
+  /* Home-page case search. */
+  .csearch{position:relative;margin:0 0 1.4rem}
+  #cq{width:100%;font-family:'Newsreader',Georgia,serif;font-size:1.05rem;color:var(--ink);
+    background:var(--panel);border:1px solid var(--rule);border-radius:3px;padding:.7rem .9rem}
+  #cq:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(156,14,58,.1)}
+  #cq::placeholder{color:var(--faint)}
+  #cq.loading{background-image:linear-gradient(90deg,transparent,rgba(156,14,58,.06),transparent);
+    background-size:40% 100%;background-repeat:no-repeat;animation:csl 1s infinite}
+  @keyframes csl{0%{background-position:-40% 0}100%{background-position:140% 0}}
+  .cres{list-style:none;margin:.35rem 0 0;padding:0;max-height:24rem;overflow-y:auto;
+    border:1px solid var(--rule);border-radius:3px;background:var(--panel)}
+  .cres:empty{display:none}
+  .cres li{border-bottom:1px solid var(--rule)}
+  .cres li:last-child{border-bottom:0}
+  .cres a{display:block;padding:.55rem .7rem;text-decoration:none;color:var(--ink);
+    font-size:.98rem;line-height:1.3}
+  .cres a:hover,.cres li.act a{background:rgba(156,14,58,.06)}
+  .cres mark{background:rgba(156,14,58,.14);color:inherit;padding:0 .05em;border-radius:2px}
+  .cres .cd{color:var(--accent);font-variant-numeric:tabular-nums;font-weight:600;
+    margin-right:.5rem;white-space:nowrap}
+  .cnone{padding:.55rem .7rem;color:var(--faint);font-style:italic}
+  .cnone a,.cqp a{color:var(--link);font-style:normal;text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .cqp{margin:.45rem 0 0;font-size:.88rem;color:var(--faint)}
+  /* /cases/ browse index: grouped sections with per-bucket counts. */
+  .csec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+    text-transform:uppercase;letter-spacing:.12em;color:var(--accent);
+    margin:2.2rem 0 .3rem;padding-bottom:.35rem;border-bottom:1px solid var(--rule);
+    display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
+  .csec .cn{font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:.85rem;
+    letter-spacing:0;text-transform:none;color:var(--faint);
+    font-variant-numeric:tabular-nums}
+  .cnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:.5rem 0 0}
+  .cnote a{color:var(--accent)}
+  ul.terms{list-style:none;padding:0;margin:1rem 0 0;display:flex;flex-wrap:wrap;
+    gap:.5rem 1.6rem}
+  ul.terms li{display:inline-flex;align-items:baseline;gap:.4rem}
+  ul.terms a{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.05rem;
+    color:var(--accent);text-decoration:none;border-bottom:1px solid var(--rule)}
+  ul.terms a:hover{border-bottom-color:var(--accent)}
+  ul.terms .cn{color:var(--faint);font-size:.85rem;font-variant-numeric:tabular-nums}
+  /* About page: running prose rather than an index, so it takes a measure and a
+     little more leading than the section rows above it. */
+  .about{margin:1.6rem 0 0;font-size:1.05rem;line-height:1.65;max-width:34rem}
+  .about p{margin:0 0 1rem}
+  .about a{color:var(--accent);text-decoration:none;
+    border-bottom:1px solid var(--rule)}
+  .about a:hover{border-bottom-color:var(--accent)}
+  .about .contact{margin:2rem 0 0;background:var(--panel);border:1px solid var(--rule);
+    border-left:4px solid var(--accent);padding:1.1rem 1.3rem}
+  .about .contact h2{font:600 .78rem/1 'Newsreader',Georgia,serif;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--accent);margin:0 0 .5rem}
+  .about .contact p{margin:0;font-size:1rem}
+
+/* ---- masthead ---- */
+.smast-in{max-width:var(--nav-max,60rem);margin:0 auto;padding:.85rem 1.5rem .5rem;
+  display:flex;align-items:baseline;justify-content:space-between;gap:1.4rem;flex-wrap:wrap}
+.smast-wm{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+  letter-spacing:.005em;color:var(--ink,#1a1a1e);text-decoration:none;white-space:nowrap;flex:none}
+.smast-wm em{font-style:italic;font-weight:500;color:var(--accent,#9c0e3a)}
+.smast-wm:hover{color:var(--accent,#9c0e3a)}
+/* Row gap first, then column. At 1.35rem the six section links measured 596px
+   of max-content -- 4px wider than the 592px row the 40rem index container
+   leaves them -- so ABOUT alone wrapped to a third line under the wordmark, on
+   every page page_style.R writes. 1.05rem brings the row to 572px: 20px of
+   slack at 40rem, and 45px on the 54rem case pages, which were themselves only
+   21px from wrapping. The .4rem row gap is for the day a seventh section
+   overruns it anyway -- a nav that wraps should read as a stack, not an orphan. */
+.snav{display:flex;gap:.4rem 1.05rem;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+.snav a{font:600 .72rem/1 'Newsreader',Georgia,serif;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--ink-soft,var(--soft,#484850));text-decoration:none;display:inline-block;
+  padding:.5rem 0;border-bottom:1.5px solid transparent}
+.snav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--rule,#dbd8d2)}
+.snav a[aria-current='page']{color:var(--accent,#9c0e3a);
+  border-bottom-color:var(--accent,#9c0e3a)}
+.smast-rule-w{max-width:var(--nav-max,60rem);margin:0 auto;padding:0 1.5rem}
+.smast-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0;position:relative}
+.smast-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.skip{position:absolute;left:-9999px;top:0;background:var(--panel,#ffffff);
+  color:var(--accent,#9c0e3a);padding:.6rem 1rem;
+  border:1px solid var(--accent,#9c0e3a);
+  font:600 .8rem/1 'Newsreader',Georgia,serif;letter-spacing:.1em;text-transform:uppercase;z-index:10}
+.skip:focus{left:.5rem;top:.5rem}
+/* ---- breadcrumb ---- */
+.bcrumb{margin:.7rem 0 0}
+.bcrumb ol{list-style:none;display:flex;flex-wrap:wrap;align-items:baseline;
+  gap:.1rem .45rem;margin:0;padding:0}
+.bcrumb li{display:inline-flex;align-items:baseline;gap:.45rem}
+.bcrumb a{font:400 .8rem/1.5 'Newsreader',Georgia,serif;color:var(--ink-soft,var(--soft,#484850));
+  text-decoration:none;border-bottom:1px solid var(--rule,#dbd8d2)}
+.bcrumb a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.bcrumb .sep{color:var(--faint,#63636b);font-size:.8rem;line-height:1.5}
+.bcrumb [aria-current='page']{font:400 .8rem/1.5 'Newsreader',Georgia,serif;
+  color:var(--faint,#63636b);font-variant-numeric:tabular-nums}
+/* ---- case footer ---- */
+.cfoot{margin:2.4rem 0 0}
+.cfoot-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0 0 1rem;position:relative}
+.cfoot-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.cfoot-off{font-size:.95rem;margin:0 0 1.1rem}
+.cfoot-off a{color:var(--link,#9c0e3a);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.4)}
+.cfoot-off a:hover{border-bottom-color:var(--link,#9c0e3a)}
+.cfoot-lab{font:600 .68rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);margin:0 0 .5rem}
+.cfoot-nav{display:flex;flex-wrap:wrap;gap:.35rem 1.1rem;list-style:none;margin:0;padding:0}
+.cfoot-nav a{font-size:.92rem;color:var(--ink-soft,var(--soft,#484850));text-decoration:none;
+  border-bottom:1px solid var(--rule,#dbd8d2);padding-bottom:1px}
+.cfoot-nav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.cfoot-stamp{margin:1.2rem 0 0;font-size:.8rem;color:var(--faint,#63636b);font-style:italic}
+/* ---- prev / next ---- */
+.pnav{margin:2.2rem 0 0;border-top:1px solid var(--rule,#dbd8d2);padding-top:1rem;
+  display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.pnav a,.pnav span.none{text-decoration:none;color:inherit;display:block;padding:.5rem .2rem}
+.pnav a:hover{background:rgba(156,14,58,.05)}
+.pnav .dir{font:600 .66rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);display:block;margin-bottom:.3rem}
+.pnav .lab{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1rem;line-height:1.25;
+  color:var(--accent,#9c0e3a);display:block}
+.pnav a:hover .lab{text-decoration:underline;text-underline-offset:3px}
+.pnav .nx{text-align:right}
+.pnav .none{opacity:.35}
+@media(max-width:640px){
+  .smast-in{padding:.7rem 1.1rem .25rem;gap:.15rem}
+  .smast-wm{font-size:.98rem}
+  .smast-in nav{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+    -webkit-mask-image:linear-gradient(90deg,#000 86%,transparent);
+    mask-image:linear-gradient(90deg,#000 86%,transparent)}
+  .smast-in nav::-webkit-scrollbar{display:none}
+  .snav{flex-wrap:nowrap;gap:1.15rem;padding-right:2.4rem}
+  .snav a{padding:.7rem 0;white-space:nowrap}
+  .smast-rule-w{padding:0 1.1rem}
+  .cfoot-nav{gap:.5rem 1rem}
+  .cfoot-nav a{padding-bottom:.3rem}
+  .pnav{grid-template-columns:1fr;gap:.2rem}
+  .pnav .nx{text-align:left;border-top:1px solid var(--rule,#dbd8d2)}
+}
+
+  .wrap.opn{max-width:42rem}
+  .opn .ometa{font-size:.92rem;color:var(--ink-soft);margin:.3rem 0 0}
+  .opn .oget{display:flex;flex-wrap:wrap;gap:.4rem .6rem;margin:1.1rem 0 0;padding:0;list-style:none;font-size:.9rem}
+  .opn .oget a{display:inline-block;padding:.32rem .7rem;border:1px solid var(--rule);border-radius:4px;color:var(--ink);text-decoration:none;background:var(--panel)}
+  .opn .oget a:hover{border-color:var(--accent);color:var(--accent)}
+  .opn .osrc{font-size:.84rem;color:var(--faint);margin:.9rem 0 0;line-height:1.45}
+  .opn .osrc a{color:var(--link)}
+  .opn .otoc{margin:1.6rem 0 0;padding:.8rem 1rem;border:1px solid var(--rule);border-radius:4px;background:var(--panel);font-size:.95rem}
+  .opn .otoc ol{margin:0;padding:0;list-style:none}
+  .opn .otoc li{margin:.25rem 0}
+  .opn .otoc a{color:var(--ink);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.35)}
+  .opn .otoc a:hover{color:var(--accent)}
+  .opn section.op{margin-top:3rem;border-top:2px solid var(--ink);padding-top:1.1rem}
+  .opn section.op h2{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.5rem;line-height:1.2;margin:0 0 1rem;color:var(--ink)}
+  .opn section.op p{margin:0 0 .95rem;line-height:1.62;hyphens:auto;overflow-wrap:break-word}
+  .opn section.op p.byline{color:var(--ink-soft);font-style:italic}
+  .opn section.op p.sep{text-align:center;letter-spacing:.3em;color:var(--faint);margin:1.6rem 0}
+  .opn section.op h3.oh{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.12rem;text-align:center;margin:2rem 0 1rem;color:var(--ink)}
+  .opn section.op blockquote{margin:0 0 .95rem;padding:0 0 0 1.1rem;border-left:2px solid var(--rule);color:var(--ink-soft)}
+  .opn section.op blockquote p{margin-bottom:.6rem;font-size:.96em}
+  .opn .sc{font-variant-caps:small-caps;letter-spacing:.02em}
+  .opn .pg{font-size:.66em;color:var(--faint);vertical-align:.3em;margin:0 .3em 0 .1em;font-variant-numeric:tabular-nums;user-select:none;white-space:nowrap}
+  .opn .pg::before{content:'*'}
+  .opn sup.fnr{font-size:.68em;line-height:0;margin-left:.05em}
+  .opn sup.fnr a{color:var(--link);text-decoration:none;padding:0 .1em}
+  .opn aside.notes{margin-top:2rem;border-top:1px solid var(--rule);padding-top:.8rem;font-size:.88rem;color:var(--ink-soft)}
+  .opn aside.notes h3{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1rem;margin:0 0 .6rem;color:var(--ink)}
+  .opn aside.notes ol{margin:0;padding-left:1.7rem}
+  .opn aside.notes li{margin:0 0 .55rem}
+  .opn aside.notes li.sym{list-style:none;margin-left:-1.7rem}
+  .opn aside.notes li.sym .mk{margin-right:.3rem}
+  .opn aside.notes li.sym p{display:inline}
+  .opn aside.notes p{margin:0 0 .4rem;line-height:1.5}
+  .opn aside.notes a.back{color:var(--link);text-decoration:none;margin-left:.2rem}
+  .opn aside.notes li:target,.opn sup.fnr a:target,.opn .pg:target{background:rgba(156,14,58,.12);outline:.2rem solid rgba(156,14,58,.12)}
+  .opn section.op,.opn aside.notes li,.opn sup.fnr a{scroll-margin-top:1rem}
+  .opn section.op-syllabus p,.opn section.op-counsel p{font-size:.95em}
+  .opn section.op-counsel summary{cursor:pointer;font-family:'Fraunces',Georgia,serif;font-size:1.05rem;color:var(--ink-soft)}
+  .opn .osyl{font-size:.84rem;color:var(--faint);font-style:italic;margin:-.5rem 0 1rem}
+  .opn p.back{margin-top:3rem;font-size:.92rem}
+  @media print{.smast,.bcrumb,.opn .oget,.opn .otoc,.opn p.back{display:none}.opn section.op{break-before:page}}
+</style><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://supremecourt.report/"},{"@type":"ListItem","position":2,"name":"Opinions","item":"https://supremecourt.report/opinions/"},{"@type":"ListItem","position":3,"name":"Keathley v. Buddy Ayers Construction, Inc."}]}</script><meta name='otv' content='p1'><link rel='alternate' type='text/markdown' href='/opinions/2025/25-6.md'><link rel='alternate' type='application/epub+zip' href='/opinions/2025/25-6.epub'></head><body><a class='skip' href='#main'>Skip to content</a><header><div class='smast-in'><a class='smast-wm' href='/'>Supreme Court <em>Report</em></a><nav aria-label='Sections'><ul class='snav'><li><a href='/dashboards/'>Docket</a></li><li><a href='/conferences/'>Conferences</a></li><li><a href='/relists/'>Relists</a></li><li><a href='/applications/'>Interim</a></li><li><a href='/arguments/'>Arguments</a></li><li><a href='/justices/' aria-current='page'>Justices</a></li><li><a href='/counsel/'>Counsel</a></li><li><a href='/funnel/'>Funnel</a></li><li><a href='/methods.html'>Model</a></li><li><a href='/about.html'>About</a></li></ul></nav></div><div class='smast-rule-w'><hr class='smast-rule'></div></header><main class='wrap opn' id='main' data-dkt='25-6'><nav class='bcrumb' aria-label='Breadcrumb'><ol><li><a href='/'>Home</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><a href='/opinions/'>Opinions</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><span aria-current='page'>Keathley v. Buddy Ayers Construction, Inc.</span></li></ol></nav><p class='kicker'>No. 25-6 · decided June 11, 2026 · 608 U. S. 647</p><h1 style='font-size:clamp(1.7rem,4.6vw,2.4rem);line-height:1.12'>Keathley v. Buddy Ayers Construction, Inc.</h1><p class='ometa'>Thomas Keathley v. Buddy Ayers Construction, Incorporated. 2 separate writings.</p><ul class='oget'><li><a href='/opinions/2025/25-6.epub' download>EPUB</a></li><li><a href='/opinions/2025/25-6.md' download>Markdown</a></li><li><a href='https://www.supremecourt.gov/opinions/25pdf/608us2r48_k53m.pdf' rel='noopener'>The Court’s PDF</a></li><li><a href='/cases/25-6.html'>The docket</a></li></ul><p class='osrc'>Set from the PDF the Court published, which is the authoritative text. The small starred numbers are that PDF’s page numbers. A conversion can introduce errors; check a quotation against the <a href='https://www.supremecourt.gov/opinions/25pdf/608us2r48_k53m.pdf' rel='noopener'>original</a>.</p><nav class="otoc" aria-label="Contents"><ol>
+<li><a href="#s1">Syllabus</a></li>
+<li><a href="#s2">Counsel</a></li>
+<li><a href="#s3">Opinion of the Court</a></li>
+<li><a href="#s4">Justice Thomas, concurring</a></li>
+<li><a href="#s5">Justice Sotomayor, concurring</a></li>
+</ol></nav>
+<section id="s1" class="op op-syllabus"><h2>Syllabus</h2><p class='osyl'>Prepared by the Reporter of Decisions for the convenience of the reader; it is no part of the opinion of the Court.</p>
+<p>Thomas Keathley and his wife filed a Chapter 13 bankruptcy petition in U. S. Bankruptcy Court in December 2019. The Bankruptcy Code requires debtors to file bankruptcy schedules listing their property, including “[c]laims against third parties, whether or not [the debtor] ha[s] filed a lawsuit or made a demand for payment.” Official Form 106A/B, Schedule A/B: Property, Pt. 4, Question 33. Debtors must swear “[u]nder penalty of perjury” that the information provided is “true and correct.” Official Form 106Dec, Declaration About an Individual Debtor's Schedules. In April 2020, based on the Keathley's disclosures, the Bankruptcy Court confirmed an amended repayment plan providing for interest-free repayment of 100% of creditors' claims over five years. In August 2021, while the bankruptcy case remained open, Keathley was involved in a car accident in Mississippi with a driver employed by Buddy Ayers Construction, Inc. Keathley retained a personal-injury attorney and informed his bankruptcy counsel that he intended to sue Buddy Ayers Construction. Neither Keathley nor his bankruptcy counsel disclosed the potential personal-injury claim to the Bankruptcy Court. Keathley then filed a personal-injury action in U. S. District Court in December 2021, asserting negligence claims against the company, again without notifying the Bankruptcy Court.</p>
+<p>In March 2023, Buddy Ayers Construction moved for summary judgment on grounds of judicial estoppel based on Keathley's failure to disclose his personal-injury claims in the pending bankruptcy proceeding. Keathley immediately filed an amended schedule notifying the Bankruptcy Court of his pending claims. He then submitted affidavits in response to the motion for summary judgment, explaining that his omission had been inadvertent. The District Court, relying on Fifth Circuit precedent, found that Keathley knew of the facts underlying his claims and hypothetically had a motive to conceal, and therefore held the omission was not inadvertent or a mistake, entering summary judgment for Buddy Ayers Construction. The Fifth Circuit affirmed, with one judge concurring but expressing doubt that judicial estoppel's goals were advanced by its application given evidence the omission was an “honest mistake.”</p>
+<p><span class="pg" id="s1-p648" title="page 648 of the original">648</span><em>Held</em>: To determine whether an omission of a claim in the bankruptcy context was inadvertent or mistaken for purposes of judicial estoppel, courts should look to the totality of the circumstances surrounding the omission; the Fifth Circuit erred by artificially narrowing its inquiry to whether the debtor had knowledge of the underlying facts or a potential motive to conceal the claim. Pp. 654–657.</p>
+<p>(a) Judicial estoppel is an “equitable doctrine” intended “to protect the integrity of the judicial process” by “prohibiting parties from deliberately changing positions according to the exigencies of the moment” and preventing the “risk of inconsistent court determinations.” <em>New Hampshire</em> v. <em>Maine</em>, 532 U. S. 742, 749–751 (internal quotation marks omitted). Some lower courts apply judicial estoppel to bar lawsuits by debtors who fail to disclose claims in bankruptcy proceedings, viewing the failure to disclose as an “implicit representation” that the claim does not exist. 18B C. Wright, A. Miller, &amp; E. Cooper, Federal Practice and Procedure §4477.9. Pp. 654–655.</p>
+<p>(b) Assuming without deciding that judicial estoppel can apply in the bankruptcy context and that “inadvertence or mistake” can function as an exception to that application, the Fifth Circuit's rule is both too rigid and too broad. The rigidity comes from the Fifth Circuit's failure to fully recognize that “judicial estoppel is an equitable doctrine.” <em>New Hampshire</em>, 532 U. S., at 750 (internal quotation marks omitted). Equity “eschews mechanical rules; it depends on flexibility,” <em>Holmberg</em> v. <em>Armbrecht</em>, 327 U. S. 392, 396, and when a court conducts an equitable inquiry, it must act “on a case-by-case basis,” considering all relevant facts and circumstances, <em>Holland</em> v. <em>Florida</em>, 560 U. S. 631, 649–650 (internal quotation marks omitted). The Fifth Circuit's rule allows courts to consider only two circumstances—whether the debtor knew of the underlying facts and whether there was a potential motive to conceal— and does not permit courts to look at any other evidence tending to show the omission was inadvertent. That rigidity is out of step with equity. The Fifth Circuit's rule is also overly broad because it holds that an omission falls outside the exception any time a debtor knows certain facts or could potentially benefit from nondisclosure, circumstances that will almost always be true, as the Fifth Circuit recognized. A near-dispositive criterion is a poor fit for a fair inquiry into whether an omission is <em>actually</em> the result of inadvertence or mistake. Pp. 655–657.</p>
+<p>Vacated and remanded.</p>
+<p><span class="sc">Jackson</span>, J., delivered the opinion for a unanimous Court. <span class="sc">Thomas</span>, J., filed a concurring opinion, in which <span class="sc">Gorsuch</span>, J., joined, <em>post</em>, p. 657. <span class="sc">Sotomayor</span>, J., filed a concurring opinion, <em>post</em>, p. 662.</p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li class="sym" value="0"><span class="mk">*</span><p>Briefs of <em>amici curiae</em> urging reversal were filed for the American Association for Justice by <em>Jeffrey R. White</em> and <em>Bruce Plaxen</em>; and for the Hon. Melanie Cyganowski et al. by <em>David R. Kuney.</em></p><p>Briefs of <em>amici curiae</em> were filed for the National Association of Bankruptcy Trustees et al. by <em>Catherine L. Steege</em>; and for the National Consumer Bankruptcy Rights Center et al. by <em>James J. Haller</em>.</p></li>
+</ol></aside></section>
+<section id="s2" class="op op-counsel"><details><summary>Counsel</summary><p><em>Gregory G. Garre</em> argued the cause for petitioner. With him on the briefs were <em>Christina R. Gay</em>, <em>Eric J. Lewellyn</em>, and <em>Thomas R. Greer</em>.</p>
+<p><em>Frederick Liu</em> argued the cause for the United States as <em>amicus curiae</em> urging vacatur. On the brief were <em>Solicitor General Sauer, Assistant Attorney General Shumate, Deputy Solicitor General Gannon, Aimee W. Brown</em>, <em>Michael S. Raab, Cynthia A. Barmore, Lisa A. Tracy, Beth A. Levene</em>, and <em>Wendy Cox.</em></p>
+<p><em>William M. Jay</em> argued the cause for respondent. With him on the brief were <em>Isabel M. Marin</em>, <em>William E. Evans</em>, and <em>David D. O'Donnell</em>.*</p></details></section>
+<section id="s3" class="op op-court"><h2>Opinion of the Court</h2>
+<p class="byline">Justice Jackson delivered the opinion of the Court.</p>
+<p>After commencing a bankruptcy case, the debtor must disclose his assets to the bankruptcy court to facilitate the creation of an accurate bankruptcy estate. These assets include any claims the debtor has against third parties, regardless of whether those claims have already been filed as part of an active lawsuit. The debtor also avers that he has no relevant assets other than those disclosed.</p>
+<p>Occasionally, a debtor who has failed to disclose a claim to the bankruptcy court will later attempt to press that claim in court. When that happens, some lower courts have considered whether the lawsuit should be dismissed under the doctrine of judicial estoppel, which generally prevents a party from assuming inconsistent positions in successive litigation.</p>
+<p>This Court has never applied judicial estoppel in the bankruptcy context. But we have suggested in other situations <span class="pg" id="s3-p650" title="page 650 of the original">650</span>that judicial estoppel may be inapposite where the inconsistent position was the result of “inadvertence or mistake.” <em>New Hampshire</em> v. <em>Maine</em>, 532 U. S. 742, 753 (2001). In this case, the Fifth Circuit applied a follow-on rule that the omission of a claim in the bankruptcy context will be considered inadvertent or a mistake in only two circumstances: (1) when the debtor was unaware of the underlying facts of his claim, or (2) where there was no hypothetical motive to conceal the claim.</p>
+<p>We reject that approach. To determine whether an omission was inadvertent or mistaken for purposes of judicial estoppel, courts should look to the totality of the circumstances surrounding the omission. Thus, we hold that the Fifth Circuit's less holistic formulation was erroneous.</p>
+<h3 class="oh">I</h3>
+<h3 class="oh">A</h3>
+<p>When a debtor files for bankruptcy, a bankruptcy estate is created comprising the debtor's property. 11 U. S. C. § 541(a). That property encompasses “all legal or equitable interests of the debtor in property as of the commencement” of the bankruptcy case, including pending and unliquidated claims against third parties. § 541(a)(1); see 5 Collier on Bankruptcy ¶541.07 (R. Levin &amp; H. Sommer eds., 16th ed. 2026) (Collier). As relevant here, for bankruptcy cases proceeding under Chapter 13, the estate also includes property—and therefore claims—that the debtor acquires after the bankruptcy case commences but before it is closed, dismissed, or converted to a case under another chapter. § 1306(a)(1); see also <em>Harris</em> v. <em>Viegelahn</em>, 575 U. S. 510, 514 (2015).</p>
+<p>An accurate bankruptcy estate is necessary for orderly bankruptcy proceedings. Chapter 13 allows a debtor to retain his property if he proposes, and a bankruptcy court confirms, a plan for debt repayment over a 3- to 5-year period. §§ 1306(b), 1322(d), 1327(b). Creditors and the trustee (who <span class="pg" id="s3-p651" title="page 651 of the original">651</span>helps administer the bankruptcy proceedings) must understand the full scope of the debtor's assets to determine whether to support or object to the proposed repayment plan. See §§ 1302(b)(2)(B), 1324(a), 1325(b); 8 Collier ¶1302.03, at 1302–8 to 1302–9. The estate also provides valuable information to the bankruptcy court because the court may confirm the debtor's repayment plan only if the proposed repayments are “not less than the amount that would be paid” to creditors if the estate were liquidated under Chapter 7. § 1325(a)(4). In addition, the value of the estate helps the court evaluate whether to require the debtor to pay creditors back on a more accelerated timeline or with interest. See § 1322(b).</p>
+<p>To facilitate the creation of an accurate bankruptcy estate, the Bankruptcy Code imposes disclosure obligations on debtors. For instance, debtors must file bankruptcy schedules listing their property. See § 521(a)(1)(B); Fed. Rule Bkrtcy. Proc. 1007(b)(1). One such schedule requires debtors to disclose all “[c]laims against third parties, whether or not [the debtor] ha[s] filed a lawsuit or made a demand for payment.” Official Form 106A/B, Schedule A/B: Property, Pt. 4, Question 33. The schedule lists “[a]ccidents” and “rights to sue” as “[e]xamples” of possible claims. <em>Ibid</em>. (emphasis deleted). Debtors must swear, “[u]nder penalty of perjury,” that the information provided is “true and correct.” Official Form 106Dec, Declaration About an Individual Debtor's Schedules.<sup class="fnr"><a id="s3-r1" href="#s3-n1">1</a></sup></p>
+<h3 class="oh">B</h3>
+<p>Thomas Keathley and his wife filed a Chapter 13 bankruptcy petition in the U. S. Bankruptcy Court for the Eastern<span class="pg" id="s3-p652" title="page 652 of the original">652</span> District of Arkansas in December 2019. In April 2020, that court confirmed an amended repayment plan, providing for interest-free repayment of 100% of the creditors' claims over the course of five years.</p>
+<p>In August 2021, Keathley was involved in a car accident in Mississippi with a driver employed by respondent Buddy Ayers Construction, Inc. Keathley retained a personal-injury attorney and informed his bankruptcy counsel that he intended to sue Buddy Ayers Construction. Even though Keathley's bankruptcy case remained open, neither Keathley nor his bankruptcy counsel disclosed the potential personal-injury claims to the Bankruptcy Court. Keathley then filed the instant personal-injury action in the U. S. District Court for the Northern District of Mississippi in December 2021, asserting claims for negligence against the company. Keathley did not notify the Bankruptcy Court of the existence of his claims at this point, either.</p>
+<p>In March 2023, Buddy Ayers Construction moved for summary judgment on grounds of judicial estoppel based on Keathley's failure to disclose his personal-injury claims in the open bankruptcy proceeding. Keathley immediately filed an amended schedule notifying the Bankruptcy Court of his personal-injury claims. Then, in response to the pending motion for summary judgment in the personal-injury suit, Keathley explained that the omission had been inadvertent. In support, he submitted an affidavit attesting that, after he told his bankruptcy counsel about his personal-injury claims, he “believed [he] had done everything [he] needed to do.” App. 184. He also filed an affidavit from his bankruptcy counsel noting that Keathley “received no benefit monetarily, or otherwise, from the nondisclosure.” <em>Id</em>., at 182. Based on this evidence, he argued that judicial estoppel was inappropriate.</p>
+<p>The District Court disagreed. Relying on Fifth Circuit precedent, the court explained that the omission of a claim on the bankruptcy schedules will be considered the result of <span class="pg" id="s3-p653" title="page 653 of the original">653</span>inadvertence or mistake only if (1) the debtor did not know the facts underlying the claim, or (2) there was no potential motive to conceal the claim. 686 F. Supp. 3d 495, 497, 500–501 (ND Miss. 2023) (citing <em>United States ex rel. Long</em> v. <em>GS-DMIdea City, LLC</em>, 798 F. 3d 265, 273 (CA5 2015); <em>Love</em> v. <em>Tyson Foods, Inc</em>., 677 F. 3d 258, 262 (CA5 2012)). Applying that rule, the District Court found that Keathley concededly knew of the facts underlying his personal-injury claims and had a hypothetical motive to conceal: Keathley might have had to pay interest on his debts had the Bankruptcy Court and creditors known of the personal-injury lawsuit. The District Court therefore held that Keathley's omission was not inadvertent or a mistake and entered summary judgment for Buddy Ayers Construction based on judicial estoppel. 686 F. Supp. 3d, at 501, 503.<sup class="fnr"><a id="s3-r2" href="#s3-n2">2</a></sup></p>
+<p>The Fifth Circuit affirmed, relying on the same precedent as the District Court. 2025 WL 673434 (Mar. 3, 2025) (<em>per curiam</em>). Judge Haynes concurred based on her agreement that Fifth Circuit precedent dictated this outcome. But she expressed “doubt that the goals” of judicial estoppel were advanced by its application to Keathley's claims, given her view that there was evidence his omission was, in fact, an “honest mistake.” <em>Id</em>., at *8. Judge Haynes further noted that “[o]ther circuits take a more holistic approach than” the Fifth Circuit does when assessing the application of judicial estoppel in the bankruptcy context. <em>Ibid.</em> (collecting cases).</p>
+<p>Much like the Fifth Circuit, the Tenth Circuit also considers an omission to be inadvertent only if the debtor lacked <span class="pg" id="s3-p654" title="page 654 of the original">654</span>knowledge of the underlying claim or had no potential motive to conceal the claim.<sup class="fnr"><a id="s3-r3" href="#s3-n3">3</a></sup>But five other Courts of Appeals conduct a more fact-specific inquiry and do not so stringently limit the analysis.<sup class="fnr"><a id="s3-r4" href="#s3-n4">4</a></sup>We granted certiorari to resolve this conflict. 607 U. S. 992 (2025).</p>
+<h3 class="oh">II</h3>
+<h3 class="oh">A</h3>
+<p>Judicial estoppel is an “equitable doctrine” intended “to protect the integrity of the judicial process,” both by “prohibiting parties from deliberately changing positions according to the exigencies of the moment,” and by preventing the “risk of inconsistent court determinations.” <em>New Hampshire</em>, 532 U. S., at 749–751 (internal quotation marks omitted).</p>
+<p>Sometimes, as happened here, a debtor seeks to litigate a claim against a third party that he failed to disclose in his bankruptcy proceedings. Some lower courts apply judicial estoppel to bar such lawsuits, reasoning that application of the doctrine “raises the cost of lying” and “induces debtors to be truthful in their bankruptcy filings.” <em>Cannon-Stokes</em> v. <em>Potter</em>, 453 F. 3d 446, 448 (CA7 2006) (internal quotation marks omitted).</p>
+<p>The courts that apply judicial estoppel to claims in the bankruptcy context view the debtor's failure to disclose a particular claim as an “implicit representation” that the claim does not exist. 18B C. Wright, A. Miller, &amp; E. Cooper, Federal Practice and Procedure § 4477.9 (3d ed. 2019 and Supp. 2026) (collecting cases). On this view, when the debtor files a lawsuit based on that claim, he has taken inconsistent<span class="pg" id="s3-p655" title="page 655 of the original">655</span> positions in the two judicial proceedings “by asserting in the civil lawsuit that he has a claim against the defendant while denying under oath in the bankruptcy proceeding that the claim exists.” <em>Slater</em> v. <em>United States Steel Corp</em>., 871 F. 3d 1174, 1176 (CA11 2017) (en banc).</p>
+<p>Based on that understanding, those lower courts have developed a general rule for the application of judicial estoppel in the bankruptcy context: “If a plaintiff-debtor omits a pending (or soon-to-be-filed) lawsuit from the bankruptcy schedules and obtains a discharge (or plan confirmation), judicial estoppel bars the action.” <em>Ah Quin</em> v. <em>County of Kauai Dept. of Transp</em>., 733 F. 3d 267, 271 (CA9 2013).</p>
+<h3 class="oh">B</h3>
+<p>While this Court has never applied judicial estoppel in the bankruptcy context, in a different context we left open whether it “may be appropriate to resist application of judicial estoppel” when the party's prior inconsistent position was due to “inadvertence or mistake.” <em>New Hampshire</em>, 532 U. S., at 753. For purposes of this opinion, we assume without deciding that judicial estoppel can apply in the bankruptcy context and that “inadvertence or mistake” can function as an exception to that application. Operating under those assumptions, the Fifth Circuit's understanding of “inadvertence or mistake” is simultaneously too rigid and too broad.</p>
+<p>The rigidity comes from the Fifth Circuit's failure to fully recognize that “judicial estoppel is an equitable doctrine.” <em>Id</em>., at 750 (internal quotation marks omitted). As such, its “examination must be made in the light of the recognized principles of equity.” <em>United States Nat. Bank</em> v. <em>Chase Nat. Bank</em>, 331 U. S. 28, 36 (1947). Equity, we have said, “eschews mechanical rules; it depends on flexibility.” <em>Holmberg</em> v. <em>Armbrecht</em>, 327 U. S. 392, 396 (1946). Thus, when a court conducts an equitable inquiry, it must act “on a caseby-case basis,” considering all relevant facts and circumstances.<span class="pg" id="s3-p656" title="page 656 of the original">656</span> <em>Holland</em> v. <em>Florida</em>, 560 U. S. 631, 649–650 (2010) (internal quotation marks omitted). In other words, equitable doctrines require room to consider all of the particulars.</p>
+<p>By contrast, the Fifth Circuit's rule allows courts to consider only two circumstances when assessing inadvertence or mistake: whether the debtor knew of the underlying facts of the claim, and whether there was a potential motive to conceal the claim. See <em>In re Coastal Plains, Inc</em>., 179 F. 3d 197, 210 (CA5 1999); <em>Love</em>, 677 F. 3d, at 262. And under this rule, a court may not look at any other evidence tending to show that the omission was inadvertent. That rigidity is out of step with equity. To determine whether the omission was inadvertent or a mistake, the Fifth Circuit instead should have examined the totality of the circumstances surrounding Keathley's failure to report his personal-injury claims earlier. See, <em>e</em>. <em>g</em>., <em>Ah Quin</em>, 733 F. 3d, at 276 (“[R]ather than applying a presumption of deceit, judicial estoppel requires an inquiry into whether the plaintiff's bankruptcy filing was, <em>in fact</em>, inadvertent or mistaken, as those terms are commonly understood” (emphasis added and deleted)).</p>
+<p>The Fifth Circuit's rule is not only overly rigid; it is also overly broad. In particular, the Fifth Circuit holds that an omission falls outside of the exception any time a debtor knows certain facts or could potentially benefit from nondisclosure of a claim. But it is rare for a debtor to be unaware of the underlying facts of his claim, and a debtor will almost always hypothetically benefit from not revealing such a claim to his creditors. In essence, then, the Fifth Circuit's approach is a one-size-fits-all test that requires courts to view as purposeful nearly every bankruptcy omission. Indeed, the decision below acknowledged as much, noting that, under Fifth Circuit precedent, the potential-motive element “ `is almost always met if a debtor fails to disclose a claim or possible claim to the bankruptcy court.' ” 2025 WL 673434, *5 (quoting <em>Love</em>, 677 F. 3d, at 262).</p>
+<p><span class="pg" id="s3-p657" title="page 657 of the original">657</span>The overbreadth of the Fifth Circuit's rule (the fact that it almost always is satisfied) makes it patently incompatible with an inadvertence-or-mistake standard, which suggests that circumstances—and outcomes—may vary. A near-dispositive criterion is a poor fit for a fair inquiry into whether an omission is <em>actually</em> the result of inadvertence or mistake.<sup class="fnr"><a id="s3-r5" href="#s3-n5">5</a></sup></p>
+<p class="sep">* * *</p>
+<p>Today's decision is straightforward. The Fifth Circuit artificially narrowed its inquiry into whether Keathley's bankruptcy-schedule omission was the result of inadvertence or mistake by assessing <em>only</em> whether he had knowledge of the underlying facts or a potential motive to conceal his personal-injury suit. That was error. Accordingly, we vacate the judgment of the Court of Appeals for the Fifth Circuit and remand the case for further proceedings consistent with this opinion.</p>
+<p><em>It is so ordered.</em></p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li id="s3-n1" value="1"><p>The parties here have proceeded on the understanding that the debtor has a continuing duty to disclose assets that arise after the initial filing of the bankruptcy petition (and therefore are part of the Chapter 13 estate). See Brief for Petitioner 5–6. We presume the same and do not opine on whether such a duty exists. See Brief for National Consumer Bankruptcy Rights Center et al. as <em>Amici Curiae</em> 6–12 (noting split on continuing duty to disclose). <a class="back" href="#s3-r1" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n2" value="2"><p>Keathley moved for reconsideration based on an affidavit he submitted from the staff attorney for the Chapter 13 Trustee in his bankruptcy case. The affidavit explained that it is common practice in the Eastern District of Arkansas for debtors to amend their filings to disclose postpetition personal-injury claims shortly before settlement or other disposition of the claims. The District Court denied the motion. 706 F. Supp. 3d 628, 630 (ND Miss. 2023). <a class="back" href="#s3-r2" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n3" value="3"><p><em>Eastman</em> v. <em>Union Pacific R. Co.</em>, 493 F. 3d 1151, 1157 (CA10 2007). <a class="back" href="#s3-r3" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n4" value="4"><p><em>Martineau</em> v. <em>Wier</em>, 934 F. 3d 385, 393–396 (CA4 2019); <em>Stanley</em> v. <em>FCA US, LLC</em>, 51 F. 4th 215, 221 (CA6 2022); <em>Spaine</em> v. <em>Community Contacts, Inc.</em>, 756 F. 3d 542, 548 (CA7 2014); <em>Ah Quin</em> v. <em>County of Kauai Dept. of Transp</em>., 733 F. 3d 267, 276–277 (CA9 2013); <em>Slater</em> v. <em>United States Steel Corp</em>., 871 F. 3d 1174, 1189, and n. 17 (CA11 2017) (en banc). <a class="back" href="#s3-r4" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n5" value="5"><p>The parties also dispute at some length whether bad faith is required for judicial estoppel to apply. See, <em>e</em>. <em>g</em>., Brief for Petitioner 11–24; Brief for Respondent 20–35. In light of our narrow holding—responding only to the analysis used by the Fifth Circuit—we need not resolve any further questions about the application of judicial estoppel in the bankruptcy context. <a class="back" href="#s3-r5" aria-label="Back to the text">↩</a></p></li>
+</ol></aside></section>
+<section id="s4" class="op op-concurring"><h2>Justice Thomas, concurring</h2>
+<p class="byline">Justice Thomas, with whom Justice Gorsuch joins, concurring.</p>
+<p>The Court's opinion correctly concludes that the Fifth Circuit's approach to judicial estoppel is not defensible on its own terms. I join it in full. I write separately to express doubt about the foundation of the doctrine of judicial estoppel. Judicial estoppel generally prevents a party from asserting a position in one lawsuit that contradicts its position in a previous proceeding. Lower federal courts have applied this doctrine broadly without clear authority to do so, <span class="pg" id="s4-p658" title="page 658 of the original">658</span>and with only limited support from this Court's precedents. In a future case, we should reexamine it.</p>
+<h3 class="oh">I</h3>
+<p>The doctrine of judicial estoppel entered the mainstream in the federal courts only in the past few decades. See Brief for American Association for Justice as <em>Amicus Curiae</em> 7–9. By all accounts, it was first recognized in an 1857 decision of the Tennessee Supreme Court. See <em>Hamilton</em> v. <em>Zimmerman</em>, 37 Tenn. 39; see D. Henkin, Judicial Estoppel—Beating Shields Into Swords and Back Again, 139 U. Pa. L. Rev. 1711, 1719 (1991). A century later, judicial estoppel was still “the minority viewpoint which has encountered inhospitable reception outside the State of Tennessee.” <em>Parkinson</em> v. <em>California Co.</em>, 233 F. 2d 432, 437–438 (CA10 1956). As late as 1980, the D. C. Circuit declined to apply judicial estoppel because it “ha[d] not been followed by anything approaching a majority of jurisdictions, nor [was] there a discernible modern trend in that direction.” <em>Konstantinidis</em> v. <em>Chen</em>, 626 F. 2d 933, 938.</p>
+<p>Despite its slow and late start, judicial estoppel has now become commonplace in the Courts of Appeals.<sup class="fnr"><a id="s4-r1" href="#s4-n1">1</a></sup>As generally understood, the doctrine can bar a party's suit based on <span class="pg" id="s4-p659" title="page 659 of the original">659</span>its representations in an entirely unrelated suit against another party. In the Fifth Circuit, for example, judicial estoppel can bar a claim whenever it is inconsistent with a prior position that the party took; a court accepted the prior position; and the party's inconsistency was not inadvertent. <em>In re Flugence</em>, 738 F. 3d 126, 129 (2013) (<em>per curiam</em>). In this way, judicial estoppel reaches much further than the older doctrine of “equitable estoppel,” which requires the party invoking the doctrine to prove that it was itself the object of a previous representation, that it relied on the previous representation, and that it was prejudiced by the change in positions. See <em>Konstantinidis</em>, 626 F. 2d, at 937.</p>
+<p>Cases such as this one show the doctrine's breadth: The Fifth Circuit applied judicial estoppel to foreclose a lawsuit against a defendant because the plaintiff failed to mention the cause of action on a form in prior bankruptcy proceedings involving an entirely unrelated set of parties. As a result, the defendant was relieved of all liability for injuring the plaintiff, regardless of whether his conduct was tortious and regardless of whether he was in any manner affected by the plaintiff's other proceedings. Other jurisdictions apply judicial estoppel in similar circumstances. See, <em>e</em>. <em>g</em>., <em>Slater</em> v. <em>United States Steel Corp.</em>, 871 F. 3d 1174, 1176 (CA11 2017) (en banc); <em>Spaine</em> v. <em>Community Contacts, Inc.</em>, 756 F. 3d 542, 547 (CA7 2014); <em>Ah Quin</em> v. <em>County of Kauai Dept. of Transp.</em>, 733 F. 3d 267, 271 (CA9 2013); <em>Payless Wholesale Distributors, Inc.</em> v. <em>Alberto Culver</em> (<em>P. R.</em>) <em>Inc.</em>, 989 F. 2d 570, 571–572 (CA1 1993).</p>
+<h3 class="oh">II</h3>
+<p>Despite the widespread modern adoption of judicial estoppel, its foundation remains questionable.</p>
+<p>It is unclear what gives federal courts the authority to bar suits based on judicial estoppel. Often, as in the case below, federal courts treat judicial estoppel as a matter of federal law and feel free to craft their own standards and extend the <span class="pg" id="s4-p660" title="page 660 of the original">660</span>doctrine to new contexts.<sup class="fnr"><a id="s4-r2" href="#s4-n2">2</a></sup>But, the doctrine appears to have no basis in any statute, any Federal Rule of Civil Procedure, or any traditional inherent power of federal courts. Although the doctrine purports to punish litigants to “protect the integrity of the judicial process,” <em>Edwards</em> v. <em>Aetna Life Ins. Co.</em>, 690 F. 2d 595, 598 (CA6 1982), the courts of appeals have not justified it as an exercise of the traditional sanctioning power that courts have been held to have in other contexts, see, <em>e</em>. <em>g</em>., <em>Link</em> v. <em>Wabash R. Co.</em>, 370 U. S. 626, 629–630 (1962). And, although federal courts often assume that the doctrine can arise from their general equitable authority, see <em>Slater</em>, 871 F. 3d, at 1187–1188; <em>Ryan Operations G. P.</em> v. <em>Santiam-Midwest Lumber Co.</em>, 81 F. 3d 355, 365 (CA3 1996); <em>In re Flugence</em>, 738 F. 3d, at 131–132, that “equitable authority is not freewheeling,” and requires for its use “a founding-era antecedent,” <em>Trump</em> v. <em>CASA, Inc.</em>, 606 U. S. 831, 841, 846–847 (2025); see also <em>Trump</em> v. <em>Hawaii</em>, 585 U. S. 667, 716 (2018) (<span class="sc">Thomas</span>, J., concurring). Judicial estoppel appears to lack such an antecedent.<sup class="fnr"><a id="s4-r3" href="#s4-n3">3</a></sup></p>
+<p>This Court's precedents do not justify the current state of judicial-estoppel doctrine, either. The Court has apparently <span class="pg" id="s4-p661" title="page 661 of the original">661</span>enforced judicial estoppel only a single time, in an original-jurisdiction case that did not resemble many of the cases in which lower courts now apply it. See <em>New Hampshire</em> v. <em>Maine</em>, 532 U. S. 742 (2001).<sup class="fnr"><a id="s4-r4" href="#s4-n4">4</a></sup>Because <em>New Hampshire</em> was an original-jurisdiction case, the Court understood itself to have greater flexibility in adjudicating the dispute than lower courts have in ordinary diversity actions. Cf. <em>Massachusetts</em> v. <em>Missouri</em>, 308 U. S. 1, 15 (1939) (explaining, even after <em>Erie</em>, that controversies between States are decided based on “the accepted principles of the common law or equity systems of jurisprudence”). Moreover, the Court applied the doctrine based on prior litigation between the same two parties. It estopped New Hampshire from adopting a new position after it had taken the opposite position in a previous suit against the same party before the same Court: New Hampshire “convinced this Court to accept one interpretation” of a decree in a case against Maine, “benefited from that interpretation,” and then “urge[d] an inconsistent interpretation to gain an additional advantage at Maine's expense.” 532 U. S., at 755. Given these facts, the Court's <span class="pg" id="s4-p662" title="page 662 of the original">662</span>decision may well have been justifiable as a matter of equitable estoppel.</p>
+<p><em>New Hampshire</em> certainly does not ordain that judicial estoppel should apply in cases like Keathley's, in which his inconsistency was between, on the one hand, representations to creditors in a bankruptcy court, and, on the other hand, representations in a separate tort suit against a stranger to those bankruptcy proceedings. At a minimum, it is difficult to see how application of this doctrine in cases such as this one serves any equitable purpose, or how an interest in “the integrity of the judicial process” could justify it. <em>Id</em>., at 749 (internal quotation marks omitted).</p>
+<h3 class="oh">III</h3>
+<p>Judicial estoppel has secured widespread acceptance in the Courts of Appeals without any clear authority in statutes, rules of procedure, or this Court's precedents. In a future case, this doctrine merits a closer look.</p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li id="s4-n1" value="1"><p>Every Court of Appeals has recognized it in one form or another. See, <em>e</em>. <em>g</em>., <em>Perry</em> v. <em>Blum</em>, 629 F. 3d 1, 8 (CA1 2010); <em>Clark</em> v. <em>AII Acquisition, LLC</em>, 886 F. 3d 261, 266 (CA2 2018); <em>Ryan Operations G. P.</em> v. <em>Santiam-Midwest Lumber Co.</em>, 81 F. 3d 355, 358–359 (CA3 1996); <em>Lowery</em> v. <em>Stovall</em>, 92 F. 3d 219, 223 (CA4 1996); <em>In re Coastal Plains, Inc.</em>, 179 F. 3d 197, 204 (CA5 1999); <em>Reynolds</em> v. <em>Commissioner</em>, 861 F. 2d 469, 472, 474 (CA6 1988); <em>Cannon-Stokes</em> v. <em>Potter</em>, 453 F. 3d 446, 447–448 (CA7 2006); <em>Stallings</em> v. <em>Hussmann Corp.</em>, 447 F. 3d 1041, 1047 (CA8 2006); <em>Milton H. Greene Archives, Inc.</em> v. <em>Marilyn Monroe LLC</em>, 692 F. 3d 983, 986 (CA9 2012); <em>Eastman</em> v. <em>Union Pacific R. Co.</em>, 493 F. 3d 1151, 1156 (CA10 2007); <em>Slater</em> v. <em>United States Steel Corp.</em>, 871 F. 3d 1174, 1180 (CA11 2017) (en banc); <em>Marshall</em> v. <em>Honeywell Technology Systems, Inc.</em>, 828 F. 3d 923, 931 (CADC 2016); <em>Data Gen. Corp.</em> v. <em>Johnson</em>, 78 F. 3d 1556, 1565 (CA Fed. 1996). <a class="back" href="#s4-r1" aria-label="Back to the text">↩</a></p></li>
+<li id="s4-n2" value="2"><p>2025 WL 673434, *4–*5 (CA5, Mar. 3, 2025) (<em>per curiam</em>) (case below); see also <em>Ryan Operations G. P.</em>, 81 F. 3d, at 358; <em>John S. Clark Co.</em> v. <em>Faggert &amp; Frieden, P. C.</em>, 65 F. 3d 26, 28–29 (CA4 1995); <em>Patriot Cinemas, Inc.</em> v. <em>General Cinema Corp.</em>, 834 F. 2d 208, 215 (CA1 1987); <em>Warda</em> v. <em>Commissioner</em>, 15 F. 3d 533, 538, n. 4 (CA6 1994). <a class="back" href="#s4-r2" aria-label="Back to the text">↩</a></p></li>
+<li id="s4-n3" value="3"><p>The Courts of Appeals sometimes instead treat judicial estoppel as a matter of substantive state law in diversity cases, an approach that raises its own set of questions, such as in what sense the doctrine is substantive and whose law governs. <em>E. g., Kirk</em> v. <em>Schaeffier Group USA, Inc.</em>, 887 F. 3d 376, 383 (CA8 2018). The choice of law for judicial estoppel is a source of deep confusion. See N. Frazer, Reassessing the Doctrine of Judicial Estoppel: The Implications of the Judicial Integrity Rationale, 101 Va. L. Rev. 1501, 1503 (2015); 18B C. Wright, A. Miller, &amp; E. Cooper, Federal Practice and Procedure § 4477.8, p. 591 (3d ed. 2019) (“The question . . . cannot be fully answered”). But, this approach would at least cohere with the treatment of the related, but distinct doctrine of <em>equitable</em> estoppel, which is generally treated as a substantive question governed by the applicable state law under <em>Erie R. Co.</em> v. <em>Tompkins</em>, 304 U. S. 64 (1938). Cf. <em>Arthur Andersen LLP</em> v. <em>Carlisle</em>, 556 U. S. 624, 631 (2009); see <em>Petro Harvester Operating Co.</em> v. <em>Keith</em>, 954 F. 3d 686, 698 (CA5 2020). <a class="back" href="#s4-r3" aria-label="Back to the text">↩</a></p></li>
+<li id="s4-n4" value="4"><p><em>New Hampshire</em> cited the Court's 1895 decision in <em>Davis</em> v. <em>Wakelee</em>, 156 U. S. 680, for the proposition that “ `[w]here a party assumes a certain position in a legal proceeding, and succeeds in maintaining that position, he may not thereafter, simply because his interests have changed, assume a contrary position, especially if it be to the prejudice of the party who has acquiesced in the position formerly taken by him.' ” 532 U. S., at 749 (quoting <em>Davis</em>, 156 U. S., at 689). But, <em>Davis</em> does not appear to be a judicial-estoppel case. The Court did not invoke the doctrine, and the facts appear to have satisfied the distinctive elements of equitable estoppel: mutuality of parties and reliance by the nonestopped party. 156 U. S., at 690. <em>Davis</em> also rejected the argument that an honest mistake could prevent estoppel, <em>ibid.,</em> which is consistent with equitable estoppel but, as the Court explains, not judicial estoppel, <em>ante,</em> at 655. <a class="back" href="#s4-r4" aria-label="Back to the text">↩</a></p></li>
+</ol></aside></section>
+<section id="s5" class="op op-concurring"><h2>Justice Sotomayor, concurring</h2>
+<p class="byline">Justice Sotomayor, concurring.</p>
+<p>Today, the Court correctly holds that, assuming judicial estoppel applies in the bankruptcy context, the Fifth Circuit's exceedingly narrow test for determining whether an inconsistent position was based on inadvertence or mistake is erroneous. I write to address why it may not ever make sense to apply judicial estoppel when bankruptcy proceedings are pending, and why, in any context, judicial estoppel should always turn on the totality of the circumstances.</p>
+<h3 class="oh">I</h3>
+<p>One of the principal justifications for judicial estoppel is that it prevents a party from using the “ `judicial process' ” to “derive an unfair advantage” by taking a position in one proceeding and an inconsistent position in a separate proceeding. <em>New Hampshire</em> v. <em>Maine</em>, 532 U. S. 742, 749, 751 (2001). In bankruptcy, the “unfair advantage” a dishonest <span class="pg" id="s5-p663" title="page 663 of the original">663</span>debtor gains by failing to disclose assets comes at the creditors' expense and deprives them of potential recovery. From here, the argument goes, judicial estoppel is needed in other proceedings to deter that bankruptcy misconduct and to protect both the “integrity of the bankruptcy system” and “the rights of creditors to an equitable distribution of the assets of the debtor's estate.” <em>Reed</em> v. <em>Arlington</em>, 650 F. 3d 571, 574 (CA5 2011) (en banc).</p>
+<p>There are many reasons to doubt the logic of this argument, which may account for why “this Court has never applied judicial estoppel in the bankruptcy context.” <em>Ante</em>, at 655. To start, applying judicial estoppel to debtors still involved in open bankruptcies is more likely to hurt creditors than it is to help them. Instead, the party most likely to benefit is the potential tortfeasor in the separate proceeding: someone who is not prejudiced by the debtor's earlier, inconsistent position, but whom judicial estoppel permits to escape liability.</p>
+<p>Take the facts of this case as an example. At the time the District Court applied judicial estoppel to dismiss petitioner Keathley's tort claim against respondent, Keathley and his wife were operating under an amended repayment plan in which they still needed to make interest-free payments to creditors for about four more years. If the District Court had not applied judicial estoppel, and if Keathley had prevailed on the merits of that tort claim, any judgment he received could have been used in turn to pay creditors interest or shorten the repayment period or both. See, <em>e</em>. <em>g</em>., 11 U. S. C. §§ 1329(a)(1)–(2). By applying judicial estoppel, the courts below prevented Keathley from recovering any money at all and thus “vaporiz[ed] assets that could [have been] used for the creditors' benefit.” <em>Biesek</em> v. <em>Soo Line R. Co.</em>, 440 F. 3d 410, 413 (CA7 2006). They also gave respondent, the employer of the alleged tortfeasor, a windfall even though it was not involved in the bankruptcy and thus was neither misled nor impacted by the delayed disclosure. <span class="pg" id="s5-p664" title="page 664 of the original">664</span>“Judicial estoppel is an equitable doctrine,” but this is “not an equitable application.” <em>Ibid.</em>; see 18 J. Moore, D. Coquillette, G. Joseph, G. Vairo, &amp; C. Varner, Moore's Federal Practice § 134.31, p. 134–102 (3d ed. 2026) (explaining that judicial estoppel should be applied “with an intent to achieve substantial justice”).</p>
+<p>There were other, more equitable options available that would have served the underlying goals of judicial estoppel. For instance, because the Keathleys had not yet completed the repayment process at the time Keathley filed this claim, the Bankruptcy Court retained jurisdiction over the bankruptcy. That court was better positioned than both the District Court and Fifth Circuit in the personal-injury suit to address any harm to creditors caused by Keathley's belated disclosure of the suit in the bankruptcy proceeding. In the wake of that disclosure, the Bankruptcy Court could have imposed sanctions, Fed. Rule Bkrtcy. Proc. 9011, or modified the repayment plan, 11 U. S. C. § 1329. It could have even converted this Chapter 13 bankruptcy to a Chapter 7 case, which would have allowed a trustee to pursue this suit on the creditors' behalf. See §§ 323(b), 704(a)(1), 1307(c); <em>Marrama</em> v. <em>Citizens Bank of Mass.</em>, 549 U. S. 365, 372–374 (2007). The Solicitor General of the United States, as <em>amicus curiae</em>, lists further options still. See Brief for United States as <em>Amicus Curiae</em> 20–23 (surveying tools in a bankruptcy court's arsenal). Judicial estoppel, by contrast, provides one remedy and one remedy only: dismissal of the tort claim. Given that bankruptcy courts can craft full remedies to alleviate any prejudice to creditors caused by a belated disclosure of a claim, it is difficult to see how using judicial estoppel to bar the debtor from pursuing a separate claim, which only harms creditors, is either needed or warranted.</p>
+<p>For similar reasons, a bankruptcy court is also well positioned to mitigate any harms to the “integrity of the bankruptcy system,” and the judicial system generally, caused by inconsistent positions. For instance, in response to deliberate<span class="pg" id="s5-p665" title="page 665 of the original">665</span> nondisclosures, a bankruptcy court may, in certain circumstances, revoke an order of confirmation, <em>e</em>. <em>g</em>., § 1330(a), decline to discharge the debtor, §§ 727(a)(2), (4), fine the debtor, 18 U. S. C. § 401, or refer the debtor to the United States Attorney's Office for potential perjury, §§ 152, 1621. It can also protect the broader judicial system's interest in preventing “ `inconsistent court determinations,' ” <em>New Hampshire</em>, 532 U. S., at 751, by simply modifying its earlier orders.* Applying judicial estoppel to a case (and thereby dismissing it) arguably has the opposite effect. Although judicial estoppel might prevent inconsistent judgments in some circumstances, it likely “ `undermines the integrity' ” of both court systems when it becomes “a tool in the arsenal of potentially bad actors to reap a windfall” and secure that advantage at creditors' detriment. 2025 WL 673434, *8 (CA5, Mar. 3, 2025) (Haynes, J., concurring in judgment), App. to Pet. for Cert. 20a, 22a.</p>
+<p>All told, judicial estoppel is based in equity, and “specific factual contexts” must “inform the doctrine's application.” <em>New Hampshire</em>, 532 U. S., at 751. The above discussion has focused on the context of pending bankruptcy proceedings because the judicial estoppel calculus may look different if the debtor takes an inconsistent position long after discharge. Cf. 11 U. S. C. § 350(b) (allowing bankruptcy courts to reopen closed cases to “administer assets” or for other “cause[s]”); Brief for United States as <em>Amicus Curiae</em> 22 (observing that, for closed bankruptcies, a bankruptcy court can revoke a discharge within certain time periods depending on <span class="pg" id="s5-p666" title="page 666 of the original">666</span>the kind of bankruptcy at issue). When such a proceeding is still open, however, it is doubtful that equity ever demands the application of judicial estoppel to a claim asserted by a debtor in a different proceeding, even when that claim relies on a deliberately inconsistent position.</p>
+<h3 class="oh">II</h3>
+<p>This case also illustrates another important facet of judicial estoppel: In assessing whether certain circumstances warrant using this equitable tool, courts should apply tests that account for their totality. As this Court has explained, and reiterates today, “ `[t]he circumstances under which judicial estoppel may appropriately be invoked are probably not reducible to any general formulation of principle.' ” <em>New Hampshire</em>, 532 U. S., at 750 (alteration in original). This stems from the doctrine's grounding in equity, which “eschews mechanical rules” and “depends on flexibility.” <em>Holmberg</em> v. <em>Armbrecht</em>, 327 U. S. 392, 396 (1946).</p>
+<p>Although Courts of Appeals have attempted to add structure to this analysis, some have more successfully captured the doctrine's underlying principles than others. Take how courts have approached the judicial estoppel inquiry in the bankruptcy context specifically. If the doctrine is to apply in this context, then the Fifth Circuit's approach, as the Court correctly identifies, was both “too rigid and too broad.” <em>Ante</em>, at 655. It distilled the test for whether a prior inconsistent position was “inadvertent or a mistake” down to two factors and then defined one of them in such a way that ensured a prior inconsistent position was never inadvertent or mistaken. See <em>ante</em>, at 656–657.</p>
+<p>The Eleventh Circuit previously employed a test that suffered from a similar problem. That Circuit used to “permi[t] the inference that a plaintiff intended to make a mockery of the judicial system simply because he failed to disclose a civil claim.” <em>Slater</em> v. <em>United States Steel Corp.</em>, 871 F. 3d 1174, 1185 (2017) (en banc) (describing the Circuit's prior test). <span class="pg" id="s5-p667" title="page 667 of the original">667</span>Like the Fifth Circuit's test, this inference resembled a “one-size-fits-all approach,” which did not ensure that judicial estoppel applied “only when a party acted with a sufficiently culpable mental state.” <em>Id</em>., at 1185–1186. It also did not allow a court to factor in “any proceedings that occurred in the bankruptcy court after the omission was discovered,” which hampered a court's ability to “ensure that the integrity of the bankruptcy court [was] protected” by the application of judicial estoppel. <em>Id</em>., at 1186. Finally, it did not tie the application of the doctrine to the “facts and circumstances” of a given dispute, which “risk[ed] that [its] application” would “give the civil defendant a windfall at the expense of innocent creditors.” <em>Ibid</em>.</p>
+<p>The Eleventh Circuit in <em>Slater</em> retreated from this test. It now applies one that considers “all the facts and circumstances of [a] particular case” and therefore one that does not suffer from any of the same shortfalls that arise when the application of the doctrine neglects critical context. <em>Id</em>., at 1185; <em>id</em>., at 1186–1189 (listing a nonexhaustive set of considerations). This new approach appears more closely to adhere to the “ `case-by-case' ” assessment that equity requires and that judicial estoppel is intended to facilitate. <em>Ante</em>, at 655–657 (quoting <em>Holland</em> v. <em>Florida</em>, 560 U. S. 631, 649–650 (2010)).</p>
+<p>Any test for applying judicial estoppel, not only in the bankruptcy context but in other factual contexts as well, must ensure that it captures the totality of the circumstances and consistently leads to equitable applications. The Court rightfully vacates the decision below.</p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li class="sym" value="0"><span class="mk">*</span><p>Notably, after Keathley informed the Bankruptcy Court of his claim, the court did not impose any sanctions. In an affidavit submitted to the District Court here, a staff attorney for the Chapter 13 trustee assigned to the case explained, moreover, that “there [was] nothing unusual or misleading about [the Keathleys] not disclosing the [tort claim] while [it was] ongoing,” and that even if they had “notified the” Bankruptcy Court “immediately, . . . it would not have had any effect on the administration of the bankruptcy.” App. 253.</p></li>
+</ol></aside></section><p class='back'><a href='/opinions/'>&larr; All opinions</a> · <a href='/justices/ot2025.html'>The Justices, October Term 2025 &rarr;</a></p></main></body>
+</html>
+

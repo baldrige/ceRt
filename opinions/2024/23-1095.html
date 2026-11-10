@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script async src='/analytics.js'></script><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate icon" href="/favicon.ico" sizes="any"><link rel="alternate" type="application/atom+xml" title="Supreme Court Report" href="/feed.xml"><link rel="alternate" type="application/atom+xml" title="Certiorari grants" href="/grants.xml"><title>Thompson v. United States — Opinion — Supreme Court Report</title><meta name="description" content="The opinion in Thompson v. United States (No. 23-1095), decided March 21, 2025: the full text with its footnotes, as a page, a Markdown file and an EPUB."><link rel="canonical" href="https://supremecourt.report/opinions/2024/23-1095.html"><meta property="og:site_name" content="Supreme Court Report"><meta property="og:type" content="article"><meta property="og:title" content="Thompson v. United States — Opinion — Supreme Court Report"><meta property="og:description" content="The opinion in Thompson v. United States (No. 23-1095), decided March 21, 2025: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta property="og:url" content="https://supremecourt.report/opinions/2024/23-1095.html"><meta property="og:image" content="https://supremecourt.report/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Supreme Court Report - docket analytics for the Supreme Court of the United States"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Thompson v. United States — Opinion — Supreme Court Report"><meta name="twitter:description" content="The opinion in Thompson v. United States (No. 23-1095), decided March 21, 2025: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta name="twitter:image" content="https://supremecourt.report/og.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap"><style>
+  :root{--paper:#fdfcfa;--panel:#ffffff;--ink:#1a1a1e;--ink-soft:#484850;--faint:#63636b;--accent:#9c0e3a;--link:#9c0e3a;--rule:#dbd8d2;--nav-max:60rem}
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{font-family:'Newsreader',Georgia,serif;font-size:19px;line-height:1.6;
+    color:var(--ink);background:var(--paper);margin:0;font-feature-settings:'onum' 1}
+  body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
+    opacity:.5;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");}
+  .wrap{max-width:40rem;margin:0 auto;padding:3rem 1.4rem 4rem}
+  .kicker{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 1rem}
+  h1{font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:clamp(2.4rem,7vw,3.6rem);line-height:1;letter-spacing:-.015em;
+    margin:0 0 1rem;color:var(--ink)}
+  h1 em{font-style:italic;font-weight:500;color:var(--accent)}
+  .dek{font-size:1.15rem;line-height:1.5;color:var(--ink-soft);font-style:italic;
+    margin:0 0 1.4rem}
+  .brule{border:0;height:0;border-top:2px solid var(--ink);margin:1.4rem 0 .3rem;
+    position:relative}
+  .brule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+    border-top:1px solid var(--rule)}
+  ul.idx{list-style:none;padding:0;margin:1.6rem 0}
+  ul.idx li{border-bottom:1px solid var(--rule)}
+  /* Whole row is one block-level link: a large, reliable tap target on mobile. */
+  ul.idx a.row{display:flex;justify-content:space-between;align-items:baseline;
+    gap:1rem;padding:.9rem .4rem;text-decoration:none;border:0;color:inherit}
+  ul.idx a.row:hover{background:rgba(156,14,58,.05)}
+  ul.idx .d{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.16rem;
+    color:var(--accent);line-height:1.25}
+  ul.idx a.row:hover .d{text-decoration:underline;text-underline-offset:3px}
+  ul.idx .count{color:var(--faint);font-size:.9rem;font-style:italic;white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  /* A long note (an order list's "3 GVRs / 230 denied / 4 habeas denied /
+     ...", items separated by middots) cannot sit on one line: nowrap made it
+     claim the row and
+     squeezed the title into a column three words wide, and on a phone it ran off
+     the screen. Such a row opts in (meta_wrap): the note wraps, only between its
+     items, and takes at most ~45% of the row, so the title always has the
+     larger share. Under 34rem it drops beneath the title at full width. */
+  /* ("long", not "wrap": .wrap is the page container and its padding.) */
+  ul.idx .count.long{white-space:normal;text-align:right;max-width:45%;line-height:1.45}
+  ul.idx .count.long .seg{white-space:nowrap}
+  @media(max-width:34rem){
+    ul.idx a.row.longmeta{flex-wrap:wrap;row-gap:.2rem}
+    ul.idx .count.long{max-width:none;flex-basis:100%;text-align:left}
+  }
+  /* Compact horizontal strip of the most recent pages beneath a category row. */
+  ul.idx .recent{display:flex;flex-wrap:wrap;align-items:baseline;
+    gap:.3rem .85rem;padding:0 .4rem 1rem;margin-top:-.35rem}
+  ul.idx .recent .rlabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  ul.idx .recent a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--ink-soft);text-decoration:none;font-variant-numeric:tabular-nums;
+    border-bottom:1px solid var(--rule);padding-bottom:1px}
+  ul.idx .recent a:hover{color:var(--accent);border-color:var(--accent)}
+  /* Optional panel beneath the section index (home page: most-read cases). */
+  .panel{margin:2.4rem 0 0}
+  .panel h2{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 .25rem}
+  .panel .pnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:0 0 .5rem}
+  /* "Live now" (live_argument_panel, /live.js): hidden unless the Court is
+     streaming an argument. One red dot, the same --accent as the headings, so
+     the live state is a mark and not a new colour. */
+  .live h2 .ldot{display:inline-block;width:.5rem;height:.5rem;border-radius:50%;
+    background:var(--accent);margin-right:.5rem;vertical-align:.08rem;
+    animation:lpulse 2s ease-in-out infinite}
+  @keyframes lpulse{50%{opacity:.25}}
+  @media (prefers-reduced-motion:reduce){.live h2 .ldot{animation:none}}
+  .lplay{display:flex;flex-wrap:wrap;gap:.6rem .9rem;align-items:center;margin:.8rem 0 .3rem}
+  .lplay button{font:600 .9rem/1 'Newsreader',Georgia,serif;letter-spacing:.04em;
+    color:var(--paper);background:var(--accent);border:0;border-radius:2px;
+    padding:.6rem 1.05rem;cursor:pointer}
+  .lplay button:disabled{opacity:.6;cursor:progress}
+  .lplay button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  /* The player takes a row of its own and may never outgrow the column. A flex
+     item's min-width is auto, which for a replaced element is the browser's own
+     controls' width -- wider than the column on a phone, where mobile Safari
+     and Chrome draw larger controls than the desktop. */
+  .lplay audio{display:block;flex:1 1 100%;width:100%;min-width:0;max-width:100%;
+    box-sizing:border-box;margin:0}
+  .lplay .lstat{font-size:.85rem;color:var(--faint)}
+  /* --- Likeliest grants -----------------------------------------------------
+     Its own rows rather than ol.mostread's: this panel carries a question under
+     the caption, which that list has no room for, and a percentage that has to
+     read as the row's subject rather than as a trailing note.
+     The window toggle is two real radio inputs plus :has() -- no JavaScript.
+     Both windows are rendered at build time and one is hidden, which is the only
+     way a static site can offer the choice: there is no server to ask for the
+     other one. Real radios, not styled buttons, so the control is reachable by
+     keyboard and announced as a choice. */
+  .lead{margin:0 0 1.9rem}
+  .lead h2{margin-bottom:.35rem}
+  .lead .pnote{margin:0 0 .7rem}
+  .wr{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+  .win{display:inline-flex;gap:.25rem;margin:0 0 .55rem;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .win label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .win label:hover{color:var(--ink)}
+  .lead:has(#w7:checked) label[for=w7],
+  .lead:has(#w28:checked) label[for=w28],
+  .lead:has(#wall:checked) label[for=wall]{background:var(--accent);color:var(--paper)}
+  .wr:focus-visible+label{outline:2px solid var(--accent);outline-offset:2px}
+  /* Three windows, one shown: the checked radio hides the other two. */
+  .lead:has(#w7:checked) :is(.g28,.n28,.gall,.nall),
+  .lead:has(#w28:checked) :is(.g7,.n7,.gall,.nall),
+  .lead:has(#wall:checked) :is(.g7,.n7,.g28,.n28){display:none}
+  /* The show/hide controls for a panel's secondary line -- the question under
+     a forecast row, the holding under a decision. Same box as the window
+     toggle, a checkbox instead of radios, and no script: the sibling rule does
+     the work and the lines simply show where :has() is unsupported. The
+     questions are on by default (they are what a forecast row asks); the
+     holdings are off (the caption, kind and disposition already say what
+     happened, and the holding is the more). */
+  .opts{display:inline-flex;gap:.25rem;margin:0 .45rem .55rem 0;vertical-align:top;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .opts label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .opts label:hover{color:var(--ink)}
+  .lead:has(#qon:checked) label[for=qon],
+  .panel:has(#hon:checked) label[for=hon]{background:var(--accent);color:var(--paper)}
+  .lead:has(#qon:not(:checked)) .gq{display:none}
+  .panel:has(#hon:not(:checked)) .chold{display:none}
+  /* --- Upcoming at the Court ------------------------------------------------
+     A date gutter and a two-line body, the same shape as the grant rows above
+     it, so the two panels read as one page rather than two widgets. */
+  .cal{margin:0 0 1.9rem}
+  ol.cal{list-style:none;margin:0;padding:0}
+  ol.cal li{border-top:1px solid var(--rule)}
+  ol.cal li:last-child{border-bottom:1px solid var(--rule)}
+  /* The row is a container, not an anchor: an argument day carries one link per
+     case it hears and anchors cannot nest. Hover lives on the row so it still
+     reads as one unit, and each link colours on its own hover. */
+  ol.cal .crow{display:flex;gap:.95rem;align-items:baseline;padding:.55rem .1rem}
+  ol.cal .crow:hover{background:rgba(156,14,58,.05)}
+  ol.cal a{text-decoration:none;color:inherit}
+  ol.cal a:hover,ol.cal a:focus-visible{color:var(--accent)}
+  ol.cal .cdet a{border-bottom:1px solid rgba(156,14,58,.35)}
+  ol.cal .cdet a:hover{border-bottom-color:var(--accent)}
+  ol.cal .cwhen{flex:none;width:4.6rem;font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.96rem;color:var(--ink);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  ol.cal .cdow{display:block;font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);text-transform:uppercase;letter-spacing:.08em}
+  ol.cal .ctx{flex:1;min-width:0}
+  ol.cal .ckind{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:.98rem;line-height:1.25}
+  ol.cal .cdet{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.12rem}
+  /* Recent decisions reuses the calendar rows and adds exactly two things: the
+     kind word that opens the detail line, and the one outbound link (the slip
+     opinion), which takes the link colour the rest of the row deliberately
+     does not. */
+  ol.cal .dk{font-weight:600;color:var(--ink)}
+  ol.cal .cdet a.pdf{color:var(--link)}
+  /* The holding, from the Court's slip-opinion feed: one sentence, set
+     smaller and in the soft ink so the caption stays the row's headline. */
+  ol.cal .chold{display:block;font-size:.86rem;line-height:1.4;color:var(--ink-soft);
+    font-style:italic;margin-top:.15rem}
+  ol.cal .cdet a.pdf:hover,ol.cal .cdet a.pdf:focus-visible{color:var(--accent);
+    border-bottom-color:var(--accent)}
+  ol.grants{list-style:none;margin:0;padding:0}
+  ol.grants li{border-top:1px solid var(--rule)}
+  ol.grants li:last-child{border-bottom:1px solid var(--rule)}
+  ol.grants a{display:flex;gap:.95rem;align-items:baseline;text-decoration:none;
+    color:inherit;padding:.62rem .1rem}
+  ol.grants a:hover{background:rgba(156,14,58,.05)}
+  ol.grants a:hover .gc{color:var(--accent)}
+  ol.grants .gv{flex:none;width:3.5rem;text-align:right;
+    font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.22rem;
+    line-height:1.1;color:var(--accent);font-variant-numeric:tabular-nums}
+  ol.grants .gx{font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);margin-left:.3rem}
+  ol.grants .gtx{flex:1;min-width:0}
+  /* Subject-area line under the caption, in the section-label idiom (h2.sec):
+     small tracked caps in the faint ink, so it classifies without competing. */
+  ol.grants .gs,ol.mostread .ms{display:block;font-size:.68rem;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--faint);line-height:1.3;margin-top:.12rem}
+  ol.grants .gc{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:1rem;line-height:1.25}
+  ol.grants .gq{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.16rem}
+  ol.grants .gd{flex:none;font-size:.76rem;color:var(--faint);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  .more{margin:.75rem 0 0;font-size:.92rem}
+  .more a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.35)}
+  .more a:hover{border-bottom-color:var(--link)}
+  h2.sec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:.88rem;
+    letter-spacing:.09em;color:var(--faint);text-transform:uppercase;
+    margin:2.1rem 0 .6rem;padding-bottom:.28rem;border-bottom:1px solid var(--rule)}
+  @media(max-width:40rem){
+    ol.grants a{flex-wrap:wrap}
+    ol.grants .gd{width:100%;padding-left:4.45rem;margin-top:-.1rem}
+  }
+  ol.mostread{list-style:none;counter-reset:mr;padding:0;margin:0}
+  ol.mostread li{counter-increment:mr;border-bottom:1px solid var(--rule)}
+  ol.mostread a{display:flex;align-items:baseline;gap:.7rem;padding:.6rem .4rem;
+    text-decoration:none;color:inherit}
+  ol.mostread a:hover{background:rgba(156,14,58,.05)}
+  ol.mostread a::before{content:counter(mr);font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.95rem;color:var(--faint);min-width:1.1rem;
+    font-variant-numeric:tabular-nums}
+  ol.mostread .mc{flex:1;font-size:1rem;line-height:1.3}
+  ol.mostread .mct{display:block}
+  ol.mostread a:hover .mct{color:var(--accent);text-decoration:underline;
+    text-underline-offset:3px}
+  ol.mostread .mdk{color:var(--accent);font-weight:600;font-size:.82rem;
+    font-variant-numeric:tabular-nums;white-space:nowrap}
+  ol.mostread .mv{color:var(--faint);font-size:.85rem;font-style:italic;
+    white-space:nowrap;font-variant-numeric:tabular-nums}
+  /* Forecast percentages carry weight the most-read counts do not: the number is
+     the claim, not a footnote to the ranking. Upright, accent, tabular. */
+  ol.mostread .mv.fc{color:var(--accent);font-style:normal;font-weight:600;
+    font-size:.95rem;min-width:2.6rem;text-align:right}
+  /* Feed follow line. Deliberately quiet -- a footnote under the section list,
+     styled like .recent rather than like a call to action. */
+  .feeds{display:flex;flex-wrap:wrap;align-items:baseline;gap:.3rem .85rem;
+    margin:2.2rem 0 0;padding-top:1.1rem;border-top:1px solid var(--rule)}
+  .feeds .flabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  .feeds a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .feeds a:hover{border-color:var(--link)}
+  .back{margin-top:2rem;font-size:.95rem}
+  .back a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .back a:hover{border-color:var(--link)}
+  /* Home-page case search. */
+  .csearch{position:relative;margin:0 0 1.4rem}
+  #cq{width:100%;font-family:'Newsreader',Georgia,serif;font-size:1.05rem;color:var(--ink);
+    background:var(--panel);border:1px solid var(--rule);border-radius:3px;padding:.7rem .9rem}
+  #cq:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(156,14,58,.1)}
+  #cq::placeholder{color:var(--faint)}
+  #cq.loading{background-image:linear-gradient(90deg,transparent,rgba(156,14,58,.06),transparent);
+    background-size:40% 100%;background-repeat:no-repeat;animation:csl 1s infinite}
+  @keyframes csl{0%{background-position:-40% 0}100%{background-position:140% 0}}
+  .cres{list-style:none;margin:.35rem 0 0;padding:0;max-height:24rem;overflow-y:auto;
+    border:1px solid var(--rule);border-radius:3px;background:var(--panel)}
+  .cres:empty{display:none}
+  .cres li{border-bottom:1px solid var(--rule)}
+  .cres li:last-child{border-bottom:0}
+  .cres a{display:block;padding:.55rem .7rem;text-decoration:none;color:var(--ink);
+    font-size:.98rem;line-height:1.3}
+  .cres a:hover,.cres li.act a{background:rgba(156,14,58,.06)}
+  .cres mark{background:rgba(156,14,58,.14);color:inherit;padding:0 .05em;border-radius:2px}
+  .cres .cd{color:var(--accent);font-variant-numeric:tabular-nums;font-weight:600;
+    margin-right:.5rem;white-space:nowrap}
+  .cnone{padding:.55rem .7rem;color:var(--faint);font-style:italic}
+  .cnone a,.cqp a{color:var(--link);font-style:normal;text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .cqp{margin:.45rem 0 0;font-size:.88rem;color:var(--faint)}
+  /* /cases/ browse index: grouped sections with per-bucket counts. */
+  .csec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+    text-transform:uppercase;letter-spacing:.12em;color:var(--accent);
+    margin:2.2rem 0 .3rem;padding-bottom:.35rem;border-bottom:1px solid var(--rule);
+    display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
+  .csec .cn{font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:.85rem;
+    letter-spacing:0;text-transform:none;color:var(--faint);
+    font-variant-numeric:tabular-nums}
+  .cnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:.5rem 0 0}
+  .cnote a{color:var(--accent)}
+  ul.terms{list-style:none;padding:0;margin:1rem 0 0;display:flex;flex-wrap:wrap;
+    gap:.5rem 1.6rem}
+  ul.terms li{display:inline-flex;align-items:baseline;gap:.4rem}
+  ul.terms a{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.05rem;
+    color:var(--accent);text-decoration:none;border-bottom:1px solid var(--rule)}
+  ul.terms a:hover{border-bottom-color:var(--accent)}
+  ul.terms .cn{color:var(--faint);font-size:.85rem;font-variant-numeric:tabular-nums}
+  /* About page: running prose rather than an index, so it takes a measure and a
+     little more leading than the section rows above it. */
+  .about{margin:1.6rem 0 0;font-size:1.05rem;line-height:1.65;max-width:34rem}
+  .about p{margin:0 0 1rem}
+  .about a{color:var(--accent);text-decoration:none;
+    border-bottom:1px solid var(--rule)}
+  .about a:hover{border-bottom-color:var(--accent)}
+  .about .contact{margin:2rem 0 0;background:var(--panel);border:1px solid var(--rule);
+    border-left:4px solid var(--accent);padding:1.1rem 1.3rem}
+  .about .contact h2{font:600 .78rem/1 'Newsreader',Georgia,serif;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--accent);margin:0 0 .5rem}
+  .about .contact p{margin:0;font-size:1rem}
+
+/* ---- masthead ---- */
+.smast-in{max-width:var(--nav-max,60rem);margin:0 auto;padding:.85rem 1.5rem .5rem;
+  display:flex;align-items:baseline;justify-content:space-between;gap:1.4rem;flex-wrap:wrap}
+.smast-wm{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+  letter-spacing:.005em;color:var(--ink,#1a1a1e);text-decoration:none;white-space:nowrap;flex:none}
+.smast-wm em{font-style:italic;font-weight:500;color:var(--accent,#9c0e3a)}
+.smast-wm:hover{color:var(--accent,#9c0e3a)}
+/* Row gap first, then column. At 1.35rem the six section links measured 596px
+   of max-content -- 4px wider than the 592px row the 40rem index container
+   leaves them -- so ABOUT alone wrapped to a third line under the wordmark, on
+   every page page_style.R writes. 1.05rem brings the row to 572px: 20px of
+   slack at 40rem, and 45px on the 54rem case pages, which were themselves only
+   21px from wrapping. The .4rem row gap is for the day a seventh section
+   overruns it anyway -- a nav that wraps should read as a stack, not an orphan. */
+.snav{display:flex;gap:.4rem 1.05rem;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+.snav a{font:600 .72rem/1 'Newsreader',Georgia,serif;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--ink-soft,var(--soft,#484850));text-decoration:none;display:inline-block;
+  padding:.5rem 0;border-bottom:1.5px solid transparent}
+.snav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--rule,#dbd8d2)}
+.snav a[aria-current='page']{color:var(--accent,#9c0e3a);
+  border-bottom-color:var(--accent,#9c0e3a)}
+.smast-rule-w{max-width:var(--nav-max,60rem);margin:0 auto;padding:0 1.5rem}
+.smast-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0;position:relative}
+.smast-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.skip{position:absolute;left:-9999px;top:0;background:var(--panel,#ffffff);
+  color:var(--accent,#9c0e3a);padding:.6rem 1rem;
+  border:1px solid var(--accent,#9c0e3a);
+  font:600 .8rem/1 'Newsreader',Georgia,serif;letter-spacing:.1em;text-transform:uppercase;z-index:10}
+.skip:focus{left:.5rem;top:.5rem}
+/* ---- breadcrumb ---- */
+.bcrumb{margin:.7rem 0 0}
+.bcrumb ol{list-style:none;display:flex;flex-wrap:wrap;align-items:baseline;
+  gap:.1rem .45rem;margin:0;padding:0}
+.bcrumb li{display:inline-flex;align-items:baseline;gap:.45rem}
+.bcrumb a{font:400 .8rem/1.5 'Newsreader',Georgia,serif;color:var(--ink-soft,var(--soft,#484850));
+  text-decoration:none;border-bottom:1px solid var(--rule,#dbd8d2)}
+.bcrumb a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.bcrumb .sep{color:var(--faint,#63636b);font-size:.8rem;line-height:1.5}
+.bcrumb [aria-current='page']{font:400 .8rem/1.5 'Newsreader',Georgia,serif;
+  color:var(--faint,#63636b);font-variant-numeric:tabular-nums}
+/* ---- case footer ---- */
+.cfoot{margin:2.4rem 0 0}
+.cfoot-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0 0 1rem;position:relative}
+.cfoot-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.cfoot-off{font-size:.95rem;margin:0 0 1.1rem}
+.cfoot-off a{color:var(--link,#9c0e3a);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.4)}
+.cfoot-off a:hover{border-bottom-color:var(--link,#9c0e3a)}
+.cfoot-lab{font:600 .68rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);margin:0 0 .5rem}
+.cfoot-nav{display:flex;flex-wrap:wrap;gap:.35rem 1.1rem;list-style:none;margin:0;padding:0}
+.cfoot-nav a{font-size:.92rem;color:var(--ink-soft,var(--soft,#484850));text-decoration:none;
+  border-bottom:1px solid var(--rule,#dbd8d2);padding-bottom:1px}
+.cfoot-nav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.cfoot-stamp{margin:1.2rem 0 0;font-size:.8rem;color:var(--faint,#63636b);font-style:italic}
+/* ---- prev / next ---- */
+.pnav{margin:2.2rem 0 0;border-top:1px solid var(--rule,#dbd8d2);padding-top:1rem;
+  display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.pnav a,.pnav span.none{text-decoration:none;color:inherit;display:block;padding:.5rem .2rem}
+.pnav a:hover{background:rgba(156,14,58,.05)}
+.pnav .dir{font:600 .66rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);display:block;margin-bottom:.3rem}
+.pnav .lab{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1rem;line-height:1.25;
+  color:var(--accent,#9c0e3a);display:block}
+.pnav a:hover .lab{text-decoration:underline;text-underline-offset:3px}
+.pnav .nx{text-align:right}
+.pnav .none{opacity:.35}
+@media(max-width:640px){
+  .smast-in{padding:.7rem 1.1rem .25rem;gap:.15rem}
+  .smast-wm{font-size:.98rem}
+  .smast-in nav{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+    -webkit-mask-image:linear-gradient(90deg,#000 86%,transparent);
+    mask-image:linear-gradient(90deg,#000 86%,transparent)}
+  .smast-in nav::-webkit-scrollbar{display:none}
+  .snav{flex-wrap:nowrap;gap:1.15rem;padding-right:2.4rem}
+  .snav a{padding:.7rem 0;white-space:nowrap}
+  .smast-rule-w{padding:0 1.1rem}
+  .cfoot-nav{gap:.5rem 1rem}
+  .cfoot-nav a{padding-bottom:.3rem}
+  .pnav{grid-template-columns:1fr;gap:.2rem}
+  .pnav .nx{text-align:left;border-top:1px solid var(--rule,#dbd8d2)}
+}
+
+  .wrap.opn{max-width:42rem}
+  .opn .ometa{font-size:.92rem;color:var(--ink-soft);margin:.3rem 0 0}
+  .opn .oget{display:flex;flex-wrap:wrap;gap:.4rem .6rem;margin:1.1rem 0 0;padding:0;list-style:none;font-size:.9rem}
+  .opn .oget a{display:inline-block;padding:.32rem .7rem;border:1px solid var(--rule);border-radius:4px;color:var(--ink);text-decoration:none;background:var(--panel)}
+  .opn .oget a:hover{border-color:var(--accent);color:var(--accent)}
+  .opn .osrc{font-size:.84rem;color:var(--faint);margin:.9rem 0 0;line-height:1.45}
+  .opn .osrc a{color:var(--link)}
+  .opn .otoc{margin:1.6rem 0 0;padding:.8rem 1rem;border:1px solid var(--rule);border-radius:4px;background:var(--panel);font-size:.95rem}
+  .opn .otoc ol{margin:0;padding:0;list-style:none}
+  .opn .otoc li{margin:.25rem 0}
+  .opn .otoc a{color:var(--ink);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.35)}
+  .opn .otoc a:hover{color:var(--accent)}
+  .opn section.op{margin-top:3rem;border-top:2px solid var(--ink);padding-top:1.1rem}
+  .opn section.op h2{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.5rem;line-height:1.2;margin:0 0 1rem;color:var(--ink)}
+  .opn section.op p{margin:0 0 .95rem;line-height:1.62;hyphens:auto;overflow-wrap:break-word}
+  .opn section.op p.byline{color:var(--ink-soft);font-style:italic}
+  .opn section.op p.sep{text-align:center;letter-spacing:.3em;color:var(--faint);margin:1.6rem 0}
+  .opn section.op h3.oh{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.12rem;text-align:center;margin:2rem 0 1rem;color:var(--ink)}
+  .opn section.op blockquote{margin:0 0 .95rem;padding:0 0 0 1.1rem;border-left:2px solid var(--rule);color:var(--ink-soft)}
+  .opn section.op blockquote p{margin-bottom:.6rem;font-size:.96em}
+  .opn .sc{font-variant-caps:small-caps;letter-spacing:.02em}
+  .opn .pg{font-size:.66em;color:var(--faint);vertical-align:.3em;margin:0 .3em 0 .1em;font-variant-numeric:tabular-nums;user-select:none;white-space:nowrap}
+  .opn .pg::before{content:'*'}
+  .opn sup.fnr{font-size:.68em;line-height:0;margin-left:.05em}
+  .opn sup.fnr a{color:var(--link);text-decoration:none;padding:0 .1em}
+  .opn aside.notes{margin-top:2rem;border-top:1px solid var(--rule);padding-top:.8rem;font-size:.88rem;color:var(--ink-soft)}
+  .opn aside.notes h3{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1rem;margin:0 0 .6rem;color:var(--ink)}
+  .opn aside.notes ol{margin:0;padding-left:1.7rem}
+  .opn aside.notes li{margin:0 0 .55rem}
+  .opn aside.notes li.sym{list-style:none;margin-left:-1.7rem}
+  .opn aside.notes li.sym .mk{margin-right:.3rem}
+  .opn aside.notes li.sym p{display:inline}
+  .opn aside.notes p{margin:0 0 .4rem;line-height:1.5}
+  .opn aside.notes a.back{color:var(--link);text-decoration:none;margin-left:.2rem}
+  .opn aside.notes li:target,.opn sup.fnr a:target,.opn .pg:target{background:rgba(156,14,58,.12);outline:.2rem solid rgba(156,14,58,.12)}
+  .opn section.op,.opn aside.notes li,.opn sup.fnr a{scroll-margin-top:1rem}
+  .opn section.op-syllabus p,.opn section.op-counsel p{font-size:.95em}
+  .opn section.op-counsel summary{cursor:pointer;font-family:'Fraunces',Georgia,serif;font-size:1.05rem;color:var(--ink-soft)}
+  .opn .osyl{font-size:.84rem;color:var(--faint);font-style:italic;margin:-.5rem 0 1rem}
+  .opn p.back{margin-top:3rem;font-size:.92rem}
+  @media print{.smast,.bcrumb,.opn .oget,.opn .otoc,.opn p.back{display:none}.opn section.op{break-before:page}}
+</style><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://supremecourt.report/"},{"@type":"ListItem","position":2,"name":"Opinions","item":"https://supremecourt.report/opinions/"},{"@type":"ListItem","position":3,"name":"Thompson v. United States"}]}</script><meta name='otv' content='p1'><link rel='alternate' type='text/markdown' href='/opinions/2024/23-1095.md'><link rel='alternate' type='application/epub+zip' href='/opinions/2024/23-1095.epub'></head><body><a class='skip' href='#main'>Skip to content</a><header><div class='smast-in'><a class='smast-wm' href='/'>Supreme Court <em>Report</em></a><nav aria-label='Sections'><ul class='snav'><li><a href='/dashboards/'>Docket</a></li><li><a href='/conferences/'>Conferences</a></li><li><a href='/relists/'>Relists</a></li><li><a href='/applications/'>Interim</a></li><li><a href='/arguments/'>Arguments</a></li><li><a href='/justices/' aria-current='page'>Justices</a></li><li><a href='/counsel/'>Counsel</a></li><li><a href='/funnel/'>Funnel</a></li><li><a href='/methods.html'>Model</a></li><li><a href='/about.html'>About</a></li></ul></nav></div><div class='smast-rule-w'><hr class='smast-rule'></div></header><main class='wrap opn' id='main' data-dkt='23-1095'><nav class='bcrumb' aria-label='Breadcrumb'><ol><li><a href='/'>Home</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><a href='/opinions/'>Opinions</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><span aria-current='page'>Thompson v. United States</span></li></ol></nav><p class='kicker'>No. 23-1095 · decided March 21, 2025 · 604 U. S. 408</p><h1 style='font-size:clamp(1.7rem,4.6vw,2.4rem);line-height:1.12'>Thompson v. United States</h1><p class='ometa'>Patrick D. Thompson v. United States. 2 separate writings.</p><ul class='oget'><li><a href='/opinions/2024/23-1095.epub' download>EPUB</a></li><li><a href='/opinions/2024/23-1095.md' download>Markdown</a></li><li><a href='https://www.supremecourt.gov/opinions/24pdf/604us2r18_9p6b.pdf' rel='noopener'>The Court’s PDF</a></li><li><a href='/cases/23-1095.html'>The docket</a></li></ul><p class='osrc'>Set from the PDF the Court published, which is the authoritative text. The small starred numbers are that PDF’s page numbers. A conversion can introduce errors; check a quotation against the <a href='https://www.supremecourt.gov/opinions/24pdf/604us2r18_9p6b.pdf' rel='noopener'>original</a>.</p><nav class="otoc" aria-label="Contents"><ol>
+<li><a href="#s1">Syllabus</a></li>
+<li><a href="#s2">Counsel</a></li>
+<li><a href="#s3">Opinion of the Court</a></li>
+<li><a href="#s4">Justice Alito, concurring</a></li>
+<li><a href="#s5">Justice Jackson, concurring</a></li>
+</ol></nav>
+<section id="s1" class="op op-syllabus"><h2>Syllabus</h2><p class='osyl'>Prepared by the Reporter of Decisions for the convenience of the reader; it is no part of the opinion of the Court.</p>
+<p>Patrick Thompson took out three loans totaling $219,000 from one bank. After the bank failed, the Federal Deposit Insurance Corporation (FDIC) became responsible for collecting the outstanding loans. During a call with the FDIC's loan servicer, Thompson disputed the $269,120.58 balance shown on his invoice (which consisted of the $219,000 Thompson had borrowed plus interest), stating that he had “no idea where the 269 number comes from” and that he “borrowed . . . $110,000.” Thompson made similar statements in a later call with FDIC contractors. Thompson was later charged with violating 18 U. S. C. § 1014, which prohibits “knowingly mak[ing] any false statement” to influence the FDIC's action on any loan. A jury found Thompson guilty, and he moved for acquittal, arguing that his statements were not false because he had in fact borrowed $110,000, even though he later borrowed more. The courts below concluded that they did not need to reach that argument because they read § 1014 to also criminalize misleading statements, and Thompson's statements were at least misleading.</p>
+<p><em>Held</em>: Section 1014, which prohibits “knowingly mak[ing] any false statement,” does not criminalize statements that are misleading but not false. Pp. 413–418.</p>
+<p>(a) The statutory text criminalizes “false statement[s]” but does not use the word “misleading.” False and misleading are two different things. A misleading statement can be true, and a true statement is not false. Given that, it is significant that the statute uses only the word “false,” which means “not true.” Adding “any” before “false statement” does not transform the scope of the statute. A statute that applies to “any false statement” does not cover all misleading statements, only the “false” ones. While the Government argues that “false” and “misleading” have long been considered synonyms, the overlap between false statements and misleading ones is beside the point. The only relevant question under the text of § 1014 is whether the statement—even if misleading, deceitful, or some other adjective—is also “false.” Pp. 413–415.</p>
+<p>(b) Statutory context confirms that § 1014 does not cover all misleading statements. Many other statutes, including other criminal statutes in Title 18, expressly prohibit both “false” and “misleading” statements. <span class="pg" id="s1-p409" title="page 409 of the original">409</span>Interpreting “false” in §1014 to include “misleading” would make the inclusion of “misleading” in those statutes superfluous. Further, when § 1014 was enacted in 1948, none of the 11 predecessor provisions consolidated into § 1014 used the word “misleading,” while many other statutes from the same period used the phrase “false or misleading.” Historical context thus confirms that when Congress intended to cover all misleading statements, “it knew how to do so.” <em>Custis</em> v. <em>United States</em>, 511 U. S. 485, 492. Pp. 415–416.</p>
+<p>(c) Precedent supports the Court's reading of § 1014. In <em>United States</em> v. <em>Wells</em>, 519 U. S. 482, the Court held that § 1014 does not incorporate a materiality requirement because the statute does not “so much as mention materiality,” whereas many other statutes do. <em>Id.</em>, at 490, 492. The same logic suggests that § 1014 does not reach all misleading statements. In <em>Williams</em> v. <em>United States</em>, 458 U. S. 279, the Court reversed a conviction under § 1014 for depositing several bad checks, on the basis that the defendant's conduct “did not involve the making of a `false statement' ” because “a check is not a factual assertion at all, and therefore cannot be characterized as `true' or `false.' ” <em>Id.</em>, at 284. That logic shows that a conviction under § 1014 requires at least two things: (1) the defendant made a statement, and (2) that statement can be characterized as “false” and not “true.” Section 1014 does not cover a statement rendered misleading by virtue of a material omission unless that statement can be characterized as “false” and not “true.” Finally, the Court's decision in <em>Kay</em> v. <em>United States</em>, 303 U. S. 1, does not support the Government, as <em>Kay</em> did not suggest that misleading statements were independently unlawful under § 1014's predecessor. Pp. 416–417.</p>
+<p>(d) The right question under § 1014 is whether Thompson's statements were false, and the Court agrees that at least some context is relevant to that determination. The Court remands for the Seventh Circuit to determine whether a reasonable jury could find that Thompson's statements were false. Pp. 417–418.</p>
+<p>89 F. 4th 1010, vacated and remanded.</p>
+<p><span class="sc">Roberts</span>, C. J., delivered the opinion for a unanimous Court. <span class="sc">Alito, J.</span>, <em>post</em>, p. 418, and <span class="sc">Jackson</span>, J., <em>post</em>, p. 421, filed concurring opinions.</p></section>
+<section id="s2" class="op op-counsel"><details><summary>Counsel</summary><p><em>Chris Gair</em> argued the cause for petitioner. With him on the briefs was <em>Stuart Banner</em>.</p>
+<p><em>Caroline A. Flynn</em> argued the cause for the United States. With her on the brief were <em>Solicitor General Prelogar</em>, <em>Prin</em><em>cipal</em><span class="pg" id="s2-p410" title="page 410 of the original">410</span><em> Deputy Assistant Attorney General Argentieri</em>, <em>Deputy Solicitor General Feigin,</em> and <em>Sofla M. Vickery</em>.*</p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li class="sym" value="0"><span class="mk">*</span><p>Briefs of <em>amici curiae</em> urging reversal were filed for the National Association of Criminal Defense Lawyers by <em>Steven F. Molo</em>, <em>Eugene A. Sokoloff</em>, and <em>Jeffrey T. Greene</em>; and for Joel S. Johnson, <em>pro se.</em></p></li>
+</ol></aside></details></section>
+<section id="s3" class="op op-court"><h2>Opinion of the Court</h2>
+<p class="byline">Chief Justice Roberts delivered the opinion of the Court.</p>
+<p>Patrick Thompson took out three loans totaling $219,000 from the same bank. Later, Thompson told the Federal Deposit Insurance Corporation (FDIC) that he had “borrowed . . . $110,000” from the bank. Thompson was indicted under 18 U. S. C. § 1014 for making “false statement[s]” to the FDIC. Thompson argued that his statements were not false because he had in fact taken out a loan for $110,000 just as he said. Both the District Court and the Seventh Circuit held that they did not need to consider that argument. In their view, the prohibition in § 1014 against “false statement[s]” extends to misleading ones as well, and Thompson's statements were at least misleading in failing to mention the additional loans. The question presented is whether § 1014 criminalizes statements that are misleading but not false.</p>
+<h3 class="oh">I</h3>
+<h3 class="oh">A</h3>
+<p>Between 2011 and 2014, Patrick Thompson took out three loans from the Washington Federal Bank for Savings. Thompson first borrowed $110,000 in 2011 to make an equity contribution to a law firm. Thompson then borrowed $20,000 from the Bank in 2013 and another $89,000 in 2014, resulting in a total loan balance of $219,000. In 2017, the Bank failed, and the FDIC became responsible for collecting the Bank's outstanding loans. As part of that process, the FDIC's loan servicer—Planet Home Lending—sent Thompson an invoice in February 2018 listing a balance due of <span class="pg" id="s3-p411" title="page 411 of the original">411</span>$269,120.58, which consisted of the $219,000 Thompson had borrowed plus interest.</p>
+<p>On February 23, 2018, Thompson called the customer service line of Planet Home Lending. During the call, which was recorded, Thompson told the customer service agent that he had “no idea where the 269 number comes from.” App. 52. Thompson said, “I borrowed the money, I owe the money— but I borrowed . . . I think it was $110,000.” <em>Id</em>., at 56. Thompson agreed with the agent that he was claiming a “discrepancy,” and said that he was “disput[ing]” the balance listed on the invoice. <em>Id</em>., at 53, 61. The agent told Thompson that Planet Home Lending would research the issue. <em>Id</em>., at 62.</p>
+<p>On March 1, 2018, Thompson received a call from two FDIC contractors. The call was not recorded, but the contractors took notes. According to those notes, Thompson mentioned borrowing $110,000 for “home improvement.” <em>Id</em>., at 138.</p>
+<p>Thompson and the FDIC ultimately agreed to settle Thompson's debt for $219,000—the principal amount of his loans.</p>
+<h3 class="oh">B</h3>
+<p>Thompson was later charged with two counts of violating 18 U. S. C. § 1014. That statute prohibits “knowingly mak[ing] any false statement or report . . . for the purpose of influencing in any way the action of . . . the Federal Deposit Insurance Corporation . . . upon any . . . loan.” Count one of the indictment alleged that on the February 23 phone call, Thompson “falsely stated he only owed . . . $110,000 to [the Bank] and that any higher amount was incorrect, when [he] then knew he had received $219,000.” App. 4. Count two alleged that on the March 1 phone call, Thompson “falsely stated that he only owed $110,000 to [the Bank], that any higher amount was incorrect, and that these funds were for home improvement, when [he] then knew he had received <span class="pg" id="s3-p412" title="page 412 of the original">412</span>$219,000 from [the Bank] and the $110,000 was paid to a law firm as [his] capital contribution.” <em>Id</em>., at 5.</p>
+<p>The jury found Thompson guilty on both counts. He moved for acquittal or a new trial, arguing that a “conviction for false statements cannot be sustained where, as here, the alleged statements are literally true, even if misleading.” Defendant's Post-Trial Motion for Judgment of Acquittal and for New Trial in No. 1:21–cr–00279 (ND Ill., Mar. 17, 2022), ECF Doc. 154, p. 7. Thompson argued that his statements about borrowing $110,000 were literally true because he had in fact borrowed that amount of money from the Bank, even though he later borrowed more. <em>Id</em>., at 10–11.*</p>
+<p>The District Court denied Thompson's motion. It found that “the Seventh Circuit does not require literal falsity in Section 1014 cases.” App. to Pet. for Cert. 52a (citing <em>United States</em> v. <em>Freed</em>, 921 F. 3d 716, 723 (CA7 2019)). The District Court acknowledged that “Thompson's argument would have more traction” in the Sixth Circuit, where “a Section 1014 conviction cannot rest on material omissions or implied misrepresentations.” App. to Pet. for Cert. 52a (citing <em>United States</em> v. <em>Kurlemann</em>, 736 F. 3d 439 (CA6 2013)). But the District Court concluded that Thompson had “failed to direct the Court to a Supreme Court case or Seventh Circuit case that holds that a Section 1014 conviction requires a literally false statement.” App. to Pet. for Cert. 52a. The District Court therefore found it unnecessary to “address the Government's argument that Thompson's statements were literally false,” because “literal falsity is not required to sustain a Section 1014 conviction.” <em>Id</em>., at 56a.</p>
+<p>The Seventh Circuit affirmed. Like the District Court, the Seventh Circuit concluded that it “need not decide whether Thompson's statements were literally true because his argument runs headfirst into [Seventh Circuit] precedent.”<span class="pg" id="s3-p413" title="page 413 of the original">413</span> 89 F. 4th 1010, 1016 (2024). According to the panel, the Seventh Circuit had “already decided [in <em>Freed</em>] that § 1014 criminalizes misleading representations.” <em>Ibid</em>. The panel found that Thompson's statements were misleading because “the implication of his statements was that he owed [the Bank] no more than $110,000.” <em>Id</em>., at 1017. The panel acknowledged the Sixth Circuit's contrary holding in <em>United States</em> v. <em>Kurlemann</em>, 736 F. 3d 439, but it concluded that it was bound by Seventh Circuit precedent. 89 F. 4th, at 1017–1018.</p>
+<p>We granted certiorari to determine whether § 1014 criminalizes statements that are misleading but not false. 603 U. S. 948 (2024).</p>
+<h3 class="oh">II</h3>
+<h3 class="oh">A</h3>
+<p>We start with the text. Section 1014 criminalizes “knowingly mak[ing] any false statement or report.” It does not use the word “misleading.” Yet false and misleading are two different things. A misleading statement can be true. See <em>Peel</em> v. <em>Attorney Registration and Disciplinary Comm'n of Ill.</em>, 496 U. S. 91, 102 (1990) (noting that a “statement, even if true, could be misleading”). And a true statement is obviously not false. See <em>Victor</em> v. <em>Nebraska</em>, 511 U. S. 1, 10 (1994) (“[T]o suppose that the same proposition is both true and false . . . is manifestly absurd.” (quoting 1 Works of James Wilson 519 (J. Andrews ed. 1896))). So basic logic dictates that at least some misleading statements are not false.</p>
+<p>The Government agrees with this principle, and even suggested an example at oral argument: If a tennis player says she “won the championship” when her opponent forfeited, her statement—even if true—might be misleading because it could lead people to think she had won a contested match. Tr. of Oral Arg. 69. The Government also agreed at oral argument with another example: If a doctor tells a patient, <span class="pg" id="s3-p414" title="page 414 of the original">414</span>“I've done a hundred of these surgeries,” when 99 of those patients died, the statement—even if true—would be misleading because it might lead people to think those surgeries were successful. <em>Id</em>., at 71.</p>
+<p>Given that some misleading statements are also true, it is significant that the statute uses only the word “false.” If that word means anything, it means “not true,” both today and in 1948 when the statute was enacted. Black's Law Dictionary 742 (12th ed. 2024) (“Untrue &lt;a false statement&gt;”); <em>id</em>., at 721 (4th ed. 1951) (“Not true”). Just as a matter of plain text, then, a statement that is misleading but true is by definition not a “false statement.”</p>
+<p>Adding “any” before “false statement” does not change that result. Contra, Brief for United States 19–20. Certainly, “any” has an “expansive meaning.” <em>Department of Housing and Urban Development</em> v. <em>Rucker</em>, 535 U. S. 125, 131 (2002) (quoting <em>United States</em> v. <em>Gonzales</em>, 520 U. S. 1, 5 (1997)). But “[e]xpansive, yes; transformative, no.” <em>Freeman</em> v. <em>Quicken Loans, Inc.</em>, 566 U. S. 624, 635 (2012). A statute that applies to “any Ford owner” does not cover all car owners, because the car must still be a Ford. So too a statute that applies to “any false statement” does not cover all misleading statements, because the statement must still be false. See <em>Brogan</em> v. <em>United States</em>, 522 U. S. 398, 400 (1998) (defining “ `any' false statement” as “a <em>false</em> statement `of whatever kind' ” (quoting <em>Gonzales</em>, 520 U. S., at 5; emphasis added)).</p>
+<p>The Government wisely agrees that “false” means “not true.” Brief for United States 14. But, dictionary in hand, the Government notes that “false” can also mean “deceitful.” <em>Id</em>., at 15 (quoting Black's Law Dictionary 748 (3d ed. 1933); alterations omitted). And, thesaurus in the other hand, the Government adds that “false and misleading have long been considered synonyms.” Brief for United States 26 (citing Webster's Dictionary of Synonyms 327, 549–550 (1942)). Absent from the Government's account, however, is the fact <span class="pg" id="s3-p415" title="page 415 of the original">415</span>that some misleading statements are not false, as the Government acknowledged at oral argument. Tr. of Oral Arg. 68. Given that fact, the Government's textual arguments simply point out the “substantial overlap” between the two terms. Brief for United States 26. That overlap is beside the point. Certainly, the statute's prohibition on “false statement[s]” could reach <em>some</em> statements that are “mislead[ing],” “deceitful,” “deceptive,” or “mendacious,” <em>id</em>., at 15, but only because those particular statements are <em>also</em> false. Regardless of whether other adjectives apply, the only relevant question according to the text of the statute is whether the statement is “false.”</p>
+<h3 class="oh">B</h3>
+<p>Statutory context confirms that § 1014 does not cover all misleading statements. Again, the statute uses the word “false.” It does not use “misleading.” Many other statutes do, including other criminal statutes in Title 18 of the U. S. Code. See, <em>e</em>. <em>g</em>., 18 U. S. C. § 1038(a) (“convey false or misleading information”); § 1365(b) (“renders materially false or misleading the labeling of . . . a consumer product”); § 1515(b) (“making a false or misleading statement”); see also Securities Act of 1933, 48 Stat. 84–85, as amended, 15 U. S. C. § 77q(a)(2) (prohibiting obtaining property through “any untrue statement of a material fact” or “any omission” that renders a statement “misleading”). Interpreting the word “false” to include “misleading” would make the inclusion of “misleading” in those statutes superfluous. See <em>Gustafson</em> v. <em>Alloyd Co.</em>, 513 U. S. 561, 574 (1995) (“[T]he Court will avoid a reading which renders some words altogether redundant.”).</p>
+<p>Context from the time of enactment of § 1014 further confirms that the statute does not reach all misleading statements. As we explained in a previous case, “Congress originally enacted § 1014 as part of its recodification of the federal criminal code in 1948.” <em>United States</em> v. <em>Wells</em>, 519 U. S. 482, <span class="pg" id="s3-p416" title="page 416 of the original">416</span>492 (1997). Eleven of the thirteen provisions brought together by § 1014 prohibited “false” statements, and none used the word “misleading,” see 7 U. S. C. §§ 1026(a), 1514(a) (1946 ed.); 12 U. S. C. §§ 596, 981, 1122, 1138d(a), 1248, 1312, 1441(a), 1467(a) (1946 ed.); 15 U. S. C. § 616(a) (1946 ed.). These predecessor statutes were all enacted in the decades prior to 1948. Many other statutes enacted in the same period used the phrase “false or misleading.” See, <em>e</em>. <em>g</em>., Perishable Agricultural Commodities Act, 1930, § 2(4), 46 Stat. 532; Public Utility Act of 1935, § 16(a), 49 Stat. 829; Federal Food, Drug, and Cosmetic Act of 1938, § 602(a), 52 Stat. 1054. The language of these other statutes shows that when Congress intended to cover all misleading statements, “it knew how to do so.” <em>Custis</em> v. <em>United States</em>, 511 U. S. 485, 492 (1994).</p>
+<h3 class="oh">C</h3>
+<p>Precedent supports our reading of the text. For example, in <em>United States</em> v. <em>Wells</em>, 519 U. S. 482, we held that § 1014 does not incorporate a materiality requirement because the statute does not “so much as mention materiality,” whereas many other statutes do. <em>Id</em>., at 490, 492. The same logic suggests that § 1014 does not reach all misleading statements.</p>
+<p>Our decision in <em>Williams</em> v. <em>United States</em>, 458 U. S. 279 (1982), is also instructive. The defendant in that case deposited several bad checks, then was convicted under § 1014 on the theory that he falsely represented having more money than he had. See <em>id</em>., at 283. We reversed the conviction because the defendant's “course of conduct did not involve the making of a `false statement' ” for the “simple reason” that “a check is not a factual assertion at all, and therefore cannot be characterized as `true' or `false.' ” <em>Id</em>., at 284. That logic shows that a conviction under § 1014 requires at least two things: (1) the defendant made a statement, and (2) that statement can be characterized as “false” and not “true.” The dissent in <em>Williams</em> observed that this reasoning<span class="pg" id="s3-p417" title="page 417 of the original">417</span> “would apply equally to material omissions.” <em>Id</em>., at 296 (opinion of Marshall, J.). Precisely so. If a material omission renders a statement misleading, § 1014 still does not cover that statement unless it can be characterized as “false” and not “true.” A statement that is true but misleading does not fit the bill.</p>
+<p>The Government contends that one of our precedents points in the opposite direction. In <em>Kay</em> v. <em>United States</em>, 303 U. S. 1 (1938), this Court described a predecessor statute to § 1014 as “secur[ing] protection against false <em>and misleading</em> representations,” even though that statute used only the word “false.” <em>Id</em>., at 7 (emphasis added); see also <em>id</em>., at 3, n. 1. Indeed, as the Government points out, this Court used the word “misleading” (or “mislead”) several times throughout the opinion. <em>Id</em>., at 6, 7, 8. But nearly every time the word appears, it describes a person's intent while making a false statement, not the statement itself. See <em>id</em>., at 5–6 (“making false statements with intent to mislead”); <em>id</em>., at 6 (“falsely with intent to mislead”); <em>id</em>., at 7 (“false statements designed to mislead”). And in describing the statute as “secur[ing] protections against false and misleading representations,” the Court used the word “and” rather than “or.” <em>Id</em>., at 7; see also <em>id</em>., at 8. <em>Kay</em> thus did not suggest that misleading statements were independently unlawful under § 1014's predecessor. Instead, the Government's argument about <em>Kay</em> again comes down to the overlap between false and misleading. Certainly, a statute that criminalizes “false” statements also criminalizes statements that are both false <em>and</em> misleading, or false statements made <em>with intent</em> to mislead. But the question before us is whether such a statute also criminalizes statements that are misleading but not false. The answer to that question must be no.</p>
+<h3 class="oh">III</h3>
+<p>The Government argues that we should affirm on the alternative basis that Thompson's statements <em>were</em> false. But <span class="pg" id="s3-p418" title="page 418 of the original">418</span>neither the District Court nor the Seventh Circuit answered that question, and “we are a court of review, not of first view.” <em>Cutter</em> v. <em>Wilkinson</em>, 544 U. S. 709, 718, n. 7 (2005). Our holding shows, however, that this question is the right one to ask under § 1014. And as the litigation before us has clarified, even Thompson agrees that “[c]ontext obviously matters in determining whether a statement is false.” Reply Brief 7. Thompson concedes, for example, that if he “had made his statement in response to a question like `did you borrow $269,000?,' ” then “his statement, in context, would have been false.” <em>Id</em>., at 9. We agree with the parties that at least some context is relevant to determining whether a statement is false under § 1014. We leave for remand the question whether a reasonable jury could find that Thompson's statements in this case were false.</p>
+<p class="sep">* * *</p>
+<p>In casual conversation, people use many overlapping words to describe shady statements: false, misleading, dishonest, deceptive, literally true, and more. Only one of those words appears in the statute. Section 1014 does not criminalize statements that are misleading but true. Under the statute, it is not enough that a statement is misleading. It must be “false.”</p>
+<p>The judgment of the Court of Appeals for the Seventh Circuit is vacated, and the case is remanded for further proceedings consistent with this opinion.</p>
+<p><em>It is so ordered.</em></p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li class="sym" value="0"><span class="mk">*</span><p>Thompson did not argue that his alleged statement about “home improvement” was a true statement. See also Tr. of Oral Arg. 28 (“That is a false statement.”).</p></li>
+</ol></aside></section>
+<section id="s4" class="op op-concurring"><h2>Justice Alito, concurring</h2>
+<p class="byline">Justice Alito, concurring.</p>
+<p>I join the opinion of the Court but write separately to summarize my understanding of the decision. Five aspects of today's decision are most important.</p>
+<p><em>First</em>, the Court holds that 18 U. S. C. § 1014 criminalizes only those statements that are “false.” Other related statutes refer to both “false” and “misleading” statements. But <span class="pg" id="s4-p419" title="page 419 of the original">419</span>§ 1014 does not, so we assume the omission was intentional. See <em>Rotkiske</em> v. <em>Klemm</em>, 589 U. S. 8, 14 (2019) (“Congress has shown that it knows how to adopt the omitted language”). The decision below, which held that § 1014 applies to merely “misleading representations,” 89 F. 4th 1010, 1016 (CA7 2024), was therefore erroneous.</p>
+<p><em>Second</em>, as used in § 1014, the term “false” means “not true.” <em>Ante</em>, at 414 (internal quotation marks omitted). That is what it means in ordinary speech. See, <em>e. g</em>., Webster's Third New International Dictionary 819 (1976) (“not corresponding to truth or reality: not true”); Random House Dictionary of the English Language 695 (2d ed. 1987) (“not true or correct; erroneous”). Neither party advocates giving “false statement” a specialized or term-of-art reading, and the Court rightly declines to do so. Accordingly, “false statement” in § 1014 bears its ordinary meaning.</p>
+<p><em>Third</em>, in considering whether a statement is “false,” judges and juries must view the statement in “the context in which it is made.” <em>United States</em> v. <em>Briggs</em>, 592 U. S. 69, 72 (2020). That is how people generally evaluate the truth or falsity of a statement. Cf. <em>Deal</em> v. <em>United States</em>, 508 U. S. 129, 132 (1993) (discussing the “fundamental principle . . . of language” that “the meaning of a word” or statement “cannot be determined in isolation”). And since § 1014 uses the adjective “false” in the ordinary sense of the term, the same approach applies.</p>
+<p>In ordinary speech, we do not regard a statement as true or false based solely on the literal or semantic meaning of its words viewed in isolation. Two examples illustrate this principle. Start with an example adapted from the parties' briefs. See Brief for United States 16; Reply Brief 8–9. After noticing that a plate of 12 fresh-baked cookies has only crumbs remaining, a mother asks her daughter, “Did you eat all the cookies?” If the child says “I ate three” when she actually had all 12, her words would be literally true in isolation but false in context. The child <em>did</em> eat three cookies <span class="pg" id="s4-p420" title="page 420 of the original">420</span>(then nine more). In context, however, the child is implicitly saying that she ate <em>only</em> three cookies, and that is false.</p>
+<p>Consider another example, adapted from a law-review article by Professor Richard Fallon. See The Statutory Interpretation Muddle, 114 Nw. U. L. Rev. 269, 272 (2019). Parents James and Rachel are talking about their teenage son Alex. James enlists Alex to help rake leaves, but Alex is distracted and does little work. Afterwards, James tells Rachel: “As usual, Alex was a big help.” Taken literally, his statement is false. But if James and Rachel have often spoken about Alex's unwillingness to help with household chores, Rachel would understand that James's statement was ironic and that James actually meant Alex was no help at all. So, in context, James's statement is actually true.</p>
+<p>Petitioner readily acknowledges that falsity must be judged in context. See Reply Brief 7–8; Tr. of Oral Arg. 6–7. Courts should keep this important point in mind in future § 1014 cases.</p>
+<p><em>Fourth</em>, as used in ordinary speech, the terms “false” and “misleading” may “overlap.” <em>Ante</em>, at 415. A statement that might in ordinary speech be casually described as “misleading” may actually be misleading <em>and</em> false when viewed in context. Because there is no clear line demarcating statements that are false in context from those that are merely misleading, there is no reason why a court should make any reference to misleading statements in a § 1014 case. It was error for the Court of Appeals to hold that § 1014 applies to “misleading” statements, and it would likewise be wrong for a court to instruct a jury that it must acquit if it finds that a charged statement is misleading. The pattern jury instructions used in the various Circuits avoid this problem,* <span class="pg" id="s4-p421" title="page 421 of the original">421</span>and our decision in this case does not necessitate any change.</p>
+<p><em>Finally</em>, the question that the Seventh Circuit must address on remand is narrow. Although the Court of Appeals affirmed petitioner's conviction on the ground that his statements were “misleading,” the trial judge gave no such instruction to the jury. Petitioner did not object to the judge's § 1014 instructions below, and he does not challenge them here. Instead of basing his request for reversal on instructional error, he moved after trial for a judgment of acquittal based on insufficient evidence. See Fed. Rule Crim. Proc. 29(c). Thus, the applicable test on remand is whether, viewing the evidence in the light most favorable to the Government, any rational finder of fact could conclude beyond a reasonable doubt that petitioner's statements were false in context. See <em>Jackson</em> v. <em>Virginia</em>, 443 U. S. 307, 318–319 (1979); <em>United States</em> v. <em>Armbruster</em>, 48 F. 4th 527, 531 (CA7 2022).</p>
+<p>With these observations, I join the Court's opinion.</p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li class="sym" value="0"><span class="mk">*</span><p>Most Circuits simply have the trial judge instruct the jury, in relevant part, that it must find the defendant “made a false statement.” <em>E</em>. <em>g</em>., Model Crim. Jury Instr. § 15.41 (CA9 2022); Pattern Crim. Jury Instr. § 2.48 (CA10 2025). Some Circuits also have the judge add that “[a] statement is `false' if it was untrue when made.” <em>E</em>. <em>g</em>., Pattern Crim. Jury Instr. § 4.18.1014 (CA1 2024); Model Crim. Jury Instr. § 6.18.1014 (CA8 2023). And it appears that none of the pattern jury instructions mentions “misleading” statements. See 2 L. Sand et al., Modern Federal Jury Instructions–Criminal ¶37.03 (2024).</p></li>
+</ol></aside></section>
+<section id="s5" class="op op-concurring"><h2>Justice Jackson, concurring</h2>
+<p class="byline">Justice Jackson, concurring.</p>
+<p>I agree with the Court's conclusion that 18 U. S. C. § 1014 criminalizes only false statements. <em>Ante</em>, at 418. I write separately to note that the pre-verdict instructions the District Court provided to the jury in this case did not say otherwise. That is, while the lower courts may have misunderstood the scope of § 1014, the jury was properly instructed that it could find Thompson guilty only if the prosecution proved beyond a reasonable doubt that Thompson “made the charged false statement[s].” App. 157–158. For count two, the jury specifically found that Thompson made all of the statements alleged. <em>Id</em>., at 160. Moreover, and importantly,<span class="pg" id="s5-p422" title="page 422 of the original">422</span> the jury was <em>not</em> advised that § 1014 “criminalizes misleading representations,” 89 F. 4th 1010, 1016 (CA7 2024), as was mistakenly required by the Seventh Circuit precedent the Court rejects today.</p>
+<p>Thus, in my view, there is little for the Seventh Circuit to do on remand but affirm the District Court's judgment upholding the jury's guilty verdict. Whether Thompson's statements were, in fact, false is a question for the jury— and here, one the jury has already answered. At most, then, the Seventh Circuit can properly assess whether any reasonable jury could have found that Thompson's statements satisfled § 1014's falsity element. On this record, I think that legal issue is not subject to reasonable debate.</p></section><p class='back'><a href='/opinions/'>&larr; All opinions</a> · <a href='/justices/ot2024.html'>The Justices, October Term 2024 &rarr;</a></p></main></body>
+</html>
+

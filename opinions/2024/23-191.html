@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script async src='/analytics.js'></script><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate icon" href="/favicon.ico" sizes="any"><link rel="alternate" type="application/atom+xml" title="Supreme Court Report" href="/feed.xml"><link rel="alternate" type="application/atom+xml" title="Certiorari grants" href="/grants.xml"><title>Williams v. Reed — Opinion — Supreme Court Report</title><meta name="description" content="The opinion in Williams v. Reed (No. 23-191), decided February 21, 2025: the full text with its footnotes, as a page, a Markdown file and an EPUB."><link rel="canonical" href="https://supremecourt.report/opinions/2024/23-191.html"><meta property="og:site_name" content="Supreme Court Report"><meta property="og:type" content="article"><meta property="og:title" content="Williams v. Reed — Opinion — Supreme Court Report"><meta property="og:description" content="The opinion in Williams v. Reed (No. 23-191), decided February 21, 2025: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta property="og:url" content="https://supremecourt.report/opinions/2024/23-191.html"><meta property="og:image" content="https://supremecourt.report/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Supreme Court Report - docket analytics for the Supreme Court of the United States"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Williams v. Reed — Opinion — Supreme Court Report"><meta name="twitter:description" content="The opinion in Williams v. Reed (No. 23-191), decided February 21, 2025: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta name="twitter:image" content="https://supremecourt.report/og.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap"><style>
+  :root{--paper:#fdfcfa;--panel:#ffffff;--ink:#1a1a1e;--ink-soft:#484850;--faint:#63636b;--accent:#9c0e3a;--link:#9c0e3a;--rule:#dbd8d2;--nav-max:60rem}
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{font-family:'Newsreader',Georgia,serif;font-size:19px;line-height:1.6;
+    color:var(--ink);background:var(--paper);margin:0;font-feature-settings:'onum' 1}
+  body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
+    opacity:.5;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");}
+  .wrap{max-width:40rem;margin:0 auto;padding:3rem 1.4rem 4rem}
+  .kicker{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 1rem}
+  h1{font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:clamp(2.4rem,7vw,3.6rem);line-height:1;letter-spacing:-.015em;
+    margin:0 0 1rem;color:var(--ink)}
+  h1 em{font-style:italic;font-weight:500;color:var(--accent)}
+  .dek{font-size:1.15rem;line-height:1.5;color:var(--ink-soft);font-style:italic;
+    margin:0 0 1.4rem}
+  .brule{border:0;height:0;border-top:2px solid var(--ink);margin:1.4rem 0 .3rem;
+    position:relative}
+  .brule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+    border-top:1px solid var(--rule)}
+  ul.idx{list-style:none;padding:0;margin:1.6rem 0}
+  ul.idx li{border-bottom:1px solid var(--rule)}
+  /* Whole row is one block-level link: a large, reliable tap target on mobile. */
+  ul.idx a.row{display:flex;justify-content:space-between;align-items:baseline;
+    gap:1rem;padding:.9rem .4rem;text-decoration:none;border:0;color:inherit}
+  ul.idx a.row:hover{background:rgba(156,14,58,.05)}
+  ul.idx .d{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.16rem;
+    color:var(--accent);line-height:1.25}
+  ul.idx a.row:hover .d{text-decoration:underline;text-underline-offset:3px}
+  ul.idx .count{color:var(--faint);font-size:.9rem;font-style:italic;white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  /* A long note (an order list's "3 GVRs / 230 denied / 4 habeas denied /
+     ...", items separated by middots) cannot sit on one line: nowrap made it
+     claim the row and
+     squeezed the title into a column three words wide, and on a phone it ran off
+     the screen. Such a row opts in (meta_wrap): the note wraps, only between its
+     items, and takes at most ~45% of the row, so the title always has the
+     larger share. Under 34rem it drops beneath the title at full width. */
+  /* ("long", not "wrap": .wrap is the page container and its padding.) */
+  ul.idx .count.long{white-space:normal;text-align:right;max-width:45%;line-height:1.45}
+  ul.idx .count.long .seg{white-space:nowrap}
+  @media(max-width:34rem){
+    ul.idx a.row.longmeta{flex-wrap:wrap;row-gap:.2rem}
+    ul.idx .count.long{max-width:none;flex-basis:100%;text-align:left}
+  }
+  /* Compact horizontal strip of the most recent pages beneath a category row. */
+  ul.idx .recent{display:flex;flex-wrap:wrap;align-items:baseline;
+    gap:.3rem .85rem;padding:0 .4rem 1rem;margin-top:-.35rem}
+  ul.idx .recent .rlabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  ul.idx .recent a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--ink-soft);text-decoration:none;font-variant-numeric:tabular-nums;
+    border-bottom:1px solid var(--rule);padding-bottom:1px}
+  ul.idx .recent a:hover{color:var(--accent);border-color:var(--accent)}
+  /* Optional panel beneath the section index (home page: most-read cases). */
+  .panel{margin:2.4rem 0 0}
+  .panel h2{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 .25rem}
+  .panel .pnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:0 0 .5rem}
+  /* "Live now" (live_argument_panel, /live.js): hidden unless the Court is
+     streaming an argument. One red dot, the same --accent as the headings, so
+     the live state is a mark and not a new colour. */
+  .live h2 .ldot{display:inline-block;width:.5rem;height:.5rem;border-radius:50%;
+    background:var(--accent);margin-right:.5rem;vertical-align:.08rem;
+    animation:lpulse 2s ease-in-out infinite}
+  @keyframes lpulse{50%{opacity:.25}}
+  @media (prefers-reduced-motion:reduce){.live h2 .ldot{animation:none}}
+  .lplay{display:flex;flex-wrap:wrap;gap:.6rem .9rem;align-items:center;margin:.8rem 0 .3rem}
+  .lplay button{font:600 .9rem/1 'Newsreader',Georgia,serif;letter-spacing:.04em;
+    color:var(--paper);background:var(--accent);border:0;border-radius:2px;
+    padding:.6rem 1.05rem;cursor:pointer}
+  .lplay button:disabled{opacity:.6;cursor:progress}
+  .lplay button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  /* The player takes a row of its own and may never outgrow the column. A flex
+     item's min-width is auto, which for a replaced element is the browser's own
+     controls' width -- wider than the column on a phone, where mobile Safari
+     and Chrome draw larger controls than the desktop. */
+  .lplay audio{display:block;flex:1 1 100%;width:100%;min-width:0;max-width:100%;
+    box-sizing:border-box;margin:0}
+  .lplay .lstat{font-size:.85rem;color:var(--faint)}
+  /* --- Likeliest grants -----------------------------------------------------
+     Its own rows rather than ol.mostread's: this panel carries a question under
+     the caption, which that list has no room for, and a percentage that has to
+     read as the row's subject rather than as a trailing note.
+     The window toggle is two real radio inputs plus :has() -- no JavaScript.
+     Both windows are rendered at build time and one is hidden, which is the only
+     way a static site can offer the choice: there is no server to ask for the
+     other one. Real radios, not styled buttons, so the control is reachable by
+     keyboard and announced as a choice. */
+  .lead{margin:0 0 1.9rem}
+  .lead h2{margin-bottom:.35rem}
+  .lead .pnote{margin:0 0 .7rem}
+  .wr{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+  .win{display:inline-flex;gap:.25rem;margin:0 0 .55rem;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .win label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .win label:hover{color:var(--ink)}
+  .lead:has(#w7:checked) label[for=w7],
+  .lead:has(#w28:checked) label[for=w28],
+  .lead:has(#wall:checked) label[for=wall]{background:var(--accent);color:var(--paper)}
+  .wr:focus-visible+label{outline:2px solid var(--accent);outline-offset:2px}
+  /* Three windows, one shown: the checked radio hides the other two. */
+  .lead:has(#w7:checked) :is(.g28,.n28,.gall,.nall),
+  .lead:has(#w28:checked) :is(.g7,.n7,.gall,.nall),
+  .lead:has(#wall:checked) :is(.g7,.n7,.g28,.n28){display:none}
+  /* The show/hide controls for a panel's secondary line -- the question under
+     a forecast row, the holding under a decision. Same box as the window
+     toggle, a checkbox instead of radios, and no script: the sibling rule does
+     the work and the lines simply show where :has() is unsupported. The
+     questions are on by default (they are what a forecast row asks); the
+     holdings are off (the caption, kind and disposition already say what
+     happened, and the holding is the more). */
+  .opts{display:inline-flex;gap:.25rem;margin:0 .45rem .55rem 0;vertical-align:top;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .opts label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .opts label:hover{color:var(--ink)}
+  .lead:has(#qon:checked) label[for=qon],
+  .panel:has(#hon:checked) label[for=hon]{background:var(--accent);color:var(--paper)}
+  .lead:has(#qon:not(:checked)) .gq{display:none}
+  .panel:has(#hon:not(:checked)) .chold{display:none}
+  /* --- Upcoming at the Court ------------------------------------------------
+     A date gutter and a two-line body, the same shape as the grant rows above
+     it, so the two panels read as one page rather than two widgets. */
+  .cal{margin:0 0 1.9rem}
+  ol.cal{list-style:none;margin:0;padding:0}
+  ol.cal li{border-top:1px solid var(--rule)}
+  ol.cal li:last-child{border-bottom:1px solid var(--rule)}
+  /* The row is a container, not an anchor: an argument day carries one link per
+     case it hears and anchors cannot nest. Hover lives on the row so it still
+     reads as one unit, and each link colours on its own hover. */
+  ol.cal .crow{display:flex;gap:.95rem;align-items:baseline;padding:.55rem .1rem}
+  ol.cal .crow:hover{background:rgba(156,14,58,.05)}
+  ol.cal a{text-decoration:none;color:inherit}
+  ol.cal a:hover,ol.cal a:focus-visible{color:var(--accent)}
+  ol.cal .cdet a{border-bottom:1px solid rgba(156,14,58,.35)}
+  ol.cal .cdet a:hover{border-bottom-color:var(--accent)}
+  ol.cal .cwhen{flex:none;width:4.6rem;font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.96rem;color:var(--ink);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  ol.cal .cdow{display:block;font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);text-transform:uppercase;letter-spacing:.08em}
+  ol.cal .ctx{flex:1;min-width:0}
+  ol.cal .ckind{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:.98rem;line-height:1.25}
+  ol.cal .cdet{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.12rem}
+  /* Recent decisions reuses the calendar rows and adds exactly two things: the
+     kind word that opens the detail line, and the one outbound link (the slip
+     opinion), which takes the link colour the rest of the row deliberately
+     does not. */
+  ol.cal .dk{font-weight:600;color:var(--ink)}
+  ol.cal .cdet a.pdf{color:var(--link)}
+  /* The holding, from the Court's slip-opinion feed: one sentence, set
+     smaller and in the soft ink so the caption stays the row's headline. */
+  ol.cal .chold{display:block;font-size:.86rem;line-height:1.4;color:var(--ink-soft);
+    font-style:italic;margin-top:.15rem}
+  ol.cal .cdet a.pdf:hover,ol.cal .cdet a.pdf:focus-visible{color:var(--accent);
+    border-bottom-color:var(--accent)}
+  ol.grants{list-style:none;margin:0;padding:0}
+  ol.grants li{border-top:1px solid var(--rule)}
+  ol.grants li:last-child{border-bottom:1px solid var(--rule)}
+  ol.grants a{display:flex;gap:.95rem;align-items:baseline;text-decoration:none;
+    color:inherit;padding:.62rem .1rem}
+  ol.grants a:hover{background:rgba(156,14,58,.05)}
+  ol.grants a:hover .gc{color:var(--accent)}
+  ol.grants .gv{flex:none;width:3.5rem;text-align:right;
+    font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.22rem;
+    line-height:1.1;color:var(--accent);font-variant-numeric:tabular-nums}
+  ol.grants .gx{font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);margin-left:.3rem}
+  ol.grants .gtx{flex:1;min-width:0}
+  /* Subject-area line under the caption, in the section-label idiom (h2.sec):
+     small tracked caps in the faint ink, so it classifies without competing. */
+  ol.grants .gs,ol.mostread .ms{display:block;font-size:.68rem;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--faint);line-height:1.3;margin-top:.12rem}
+  ol.grants .gc{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:1rem;line-height:1.25}
+  ol.grants .gq{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.16rem}
+  ol.grants .gd{flex:none;font-size:.76rem;color:var(--faint);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  .more{margin:.75rem 0 0;font-size:.92rem}
+  .more a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.35)}
+  .more a:hover{border-bottom-color:var(--link)}
+  h2.sec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:.88rem;
+    letter-spacing:.09em;color:var(--faint);text-transform:uppercase;
+    margin:2.1rem 0 .6rem;padding-bottom:.28rem;border-bottom:1px solid var(--rule)}
+  @media(max-width:40rem){
+    ol.grants a{flex-wrap:wrap}
+    ol.grants .gd{width:100%;padding-left:4.45rem;margin-top:-.1rem}
+  }
+  ol.mostread{list-style:none;counter-reset:mr;padding:0;margin:0}
+  ol.mostread li{counter-increment:mr;border-bottom:1px solid var(--rule)}
+  ol.mostread a{display:flex;align-items:baseline;gap:.7rem;padding:.6rem .4rem;
+    text-decoration:none;color:inherit}
+  ol.mostread a:hover{background:rgba(156,14,58,.05)}
+  ol.mostread a::before{content:counter(mr);font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.95rem;color:var(--faint);min-width:1.1rem;
+    font-variant-numeric:tabular-nums}
+  ol.mostread .mc{flex:1;font-size:1rem;line-height:1.3}
+  ol.mostread .mct{display:block}
+  ol.mostread a:hover .mct{color:var(--accent);text-decoration:underline;
+    text-underline-offset:3px}
+  ol.mostread .mdk{color:var(--accent);font-weight:600;font-size:.82rem;
+    font-variant-numeric:tabular-nums;white-space:nowrap}
+  ol.mostread .mv{color:var(--faint);font-size:.85rem;font-style:italic;
+    white-space:nowrap;font-variant-numeric:tabular-nums}
+  /* Forecast percentages carry weight the most-read counts do not: the number is
+     the claim, not a footnote to the ranking. Upright, accent, tabular. */
+  ol.mostread .mv.fc{color:var(--accent);font-style:normal;font-weight:600;
+    font-size:.95rem;min-width:2.6rem;text-align:right}
+  /* Feed follow line. Deliberately quiet -- a footnote under the section list,
+     styled like .recent rather than like a call to action. */
+  .feeds{display:flex;flex-wrap:wrap;align-items:baseline;gap:.3rem .85rem;
+    margin:2.2rem 0 0;padding-top:1.1rem;border-top:1px solid var(--rule)}
+  .feeds .flabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  .feeds a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .feeds a:hover{border-color:var(--link)}
+  .back{margin-top:2rem;font-size:.95rem}
+  .back a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .back a:hover{border-color:var(--link)}
+  /* Home-page case search. */
+  .csearch{position:relative;margin:0 0 1.4rem}
+  #cq{width:100%;font-family:'Newsreader',Georgia,serif;font-size:1.05rem;color:var(--ink);
+    background:var(--panel);border:1px solid var(--rule);border-radius:3px;padding:.7rem .9rem}
+  #cq:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(156,14,58,.1)}
+  #cq::placeholder{color:var(--faint)}
+  #cq.loading{background-image:linear-gradient(90deg,transparent,rgba(156,14,58,.06),transparent);
+    background-size:40% 100%;background-repeat:no-repeat;animation:csl 1s infinite}
+  @keyframes csl{0%{background-position:-40% 0}100%{background-position:140% 0}}
+  .cres{list-style:none;margin:.35rem 0 0;padding:0;max-height:24rem;overflow-y:auto;
+    border:1px solid var(--rule);border-radius:3px;background:var(--panel)}
+  .cres:empty{display:none}
+  .cres li{border-bottom:1px solid var(--rule)}
+  .cres li:last-child{border-bottom:0}
+  .cres a{display:block;padding:.55rem .7rem;text-decoration:none;color:var(--ink);
+    font-size:.98rem;line-height:1.3}
+  .cres a:hover,.cres li.act a{background:rgba(156,14,58,.06)}
+  .cres mark{background:rgba(156,14,58,.14);color:inherit;padding:0 .05em;border-radius:2px}
+  .cres .cd{color:var(--accent);font-variant-numeric:tabular-nums;font-weight:600;
+    margin-right:.5rem;white-space:nowrap}
+  .cnone{padding:.55rem .7rem;color:var(--faint);font-style:italic}
+  .cnone a,.cqp a{color:var(--link);font-style:normal;text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .cqp{margin:.45rem 0 0;font-size:.88rem;color:var(--faint)}
+  /* /cases/ browse index: grouped sections with per-bucket counts. */
+  .csec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+    text-transform:uppercase;letter-spacing:.12em;color:var(--accent);
+    margin:2.2rem 0 .3rem;padding-bottom:.35rem;border-bottom:1px solid var(--rule);
+    display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
+  .csec .cn{font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:.85rem;
+    letter-spacing:0;text-transform:none;color:var(--faint);
+    font-variant-numeric:tabular-nums}
+  .cnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:.5rem 0 0}
+  .cnote a{color:var(--accent)}
+  ul.terms{list-style:none;padding:0;margin:1rem 0 0;display:flex;flex-wrap:wrap;
+    gap:.5rem 1.6rem}
+  ul.terms li{display:inline-flex;align-items:baseline;gap:.4rem}
+  ul.terms a{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.05rem;
+    color:var(--accent);text-decoration:none;border-bottom:1px solid var(--rule)}
+  ul.terms a:hover{border-bottom-color:var(--accent)}
+  ul.terms .cn{color:var(--faint);font-size:.85rem;font-variant-numeric:tabular-nums}
+  /* About page: running prose rather than an index, so it takes a measure and a
+     little more leading than the section rows above it. */
+  .about{margin:1.6rem 0 0;font-size:1.05rem;line-height:1.65;max-width:34rem}
+  .about p{margin:0 0 1rem}
+  .about a{color:var(--accent);text-decoration:none;
+    border-bottom:1px solid var(--rule)}
+  .about a:hover{border-bottom-color:var(--accent)}
+  .about .contact{margin:2rem 0 0;background:var(--panel);border:1px solid var(--rule);
+    border-left:4px solid var(--accent);padding:1.1rem 1.3rem}
+  .about .contact h2{font:600 .78rem/1 'Newsreader',Georgia,serif;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--accent);margin:0 0 .5rem}
+  .about .contact p{margin:0;font-size:1rem}
+
+/* ---- masthead ---- */
+.smast-in{max-width:var(--nav-max,60rem);margin:0 auto;padding:.85rem 1.5rem .5rem;
+  display:flex;align-items:baseline;justify-content:space-between;gap:1.4rem;flex-wrap:wrap}
+.smast-wm{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+  letter-spacing:.005em;color:var(--ink,#1a1a1e);text-decoration:none;white-space:nowrap;flex:none}
+.smast-wm em{font-style:italic;font-weight:500;color:var(--accent,#9c0e3a)}
+.smast-wm:hover{color:var(--accent,#9c0e3a)}
+/* Row gap first, then column. At 1.35rem the six section links measured 596px
+   of max-content -- 4px wider than the 592px row the 40rem index container
+   leaves them -- so ABOUT alone wrapped to a third line under the wordmark, on
+   every page page_style.R writes. 1.05rem brings the row to 572px: 20px of
+   slack at 40rem, and 45px on the 54rem case pages, which were themselves only
+   21px from wrapping. The .4rem row gap is for the day a seventh section
+   overruns it anyway -- a nav that wraps should read as a stack, not an orphan. */
+.snav{display:flex;gap:.4rem 1.05rem;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+.snav a{font:600 .72rem/1 'Newsreader',Georgia,serif;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--ink-soft,var(--soft,#484850));text-decoration:none;display:inline-block;
+  padding:.5rem 0;border-bottom:1.5px solid transparent}
+.snav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--rule,#dbd8d2)}
+.snav a[aria-current='page']{color:var(--accent,#9c0e3a);
+  border-bottom-color:var(--accent,#9c0e3a)}
+.smast-rule-w{max-width:var(--nav-max,60rem);margin:0 auto;padding:0 1.5rem}
+.smast-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0;position:relative}
+.smast-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.skip{position:absolute;left:-9999px;top:0;background:var(--panel,#ffffff);
+  color:var(--accent,#9c0e3a);padding:.6rem 1rem;
+  border:1px solid var(--accent,#9c0e3a);
+  font:600 .8rem/1 'Newsreader',Georgia,serif;letter-spacing:.1em;text-transform:uppercase;z-index:10}
+.skip:focus{left:.5rem;top:.5rem}
+/* ---- breadcrumb ---- */
+.bcrumb{margin:.7rem 0 0}
+.bcrumb ol{list-style:none;display:flex;flex-wrap:wrap;align-items:baseline;
+  gap:.1rem .45rem;margin:0;padding:0}
+.bcrumb li{display:inline-flex;align-items:baseline;gap:.45rem}
+.bcrumb a{font:400 .8rem/1.5 'Newsreader',Georgia,serif;color:var(--ink-soft,var(--soft,#484850));
+  text-decoration:none;border-bottom:1px solid var(--rule,#dbd8d2)}
+.bcrumb a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.bcrumb .sep{color:var(--faint,#63636b);font-size:.8rem;line-height:1.5}
+.bcrumb [aria-current='page']{font:400 .8rem/1.5 'Newsreader',Georgia,serif;
+  color:var(--faint,#63636b);font-variant-numeric:tabular-nums}
+/* ---- case footer ---- */
+.cfoot{margin:2.4rem 0 0}
+.cfoot-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0 0 1rem;position:relative}
+.cfoot-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.cfoot-off{font-size:.95rem;margin:0 0 1.1rem}
+.cfoot-off a{color:var(--link,#9c0e3a);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.4)}
+.cfoot-off a:hover{border-bottom-color:var(--link,#9c0e3a)}
+.cfoot-lab{font:600 .68rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);margin:0 0 .5rem}
+.cfoot-nav{display:flex;flex-wrap:wrap;gap:.35rem 1.1rem;list-style:none;margin:0;padding:0}
+.cfoot-nav a{font-size:.92rem;color:var(--ink-soft,var(--soft,#484850));text-decoration:none;
+  border-bottom:1px solid var(--rule,#dbd8d2);padding-bottom:1px}
+.cfoot-nav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.cfoot-stamp{margin:1.2rem 0 0;font-size:.8rem;color:var(--faint,#63636b);font-style:italic}
+/* ---- prev / next ---- */
+.pnav{margin:2.2rem 0 0;border-top:1px solid var(--rule,#dbd8d2);padding-top:1rem;
+  display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.pnav a,.pnav span.none{text-decoration:none;color:inherit;display:block;padding:.5rem .2rem}
+.pnav a:hover{background:rgba(156,14,58,.05)}
+.pnav .dir{font:600 .66rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);display:block;margin-bottom:.3rem}
+.pnav .lab{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1rem;line-height:1.25;
+  color:var(--accent,#9c0e3a);display:block}
+.pnav a:hover .lab{text-decoration:underline;text-underline-offset:3px}
+.pnav .nx{text-align:right}
+.pnav .none{opacity:.35}
+@media(max-width:640px){
+  .smast-in{padding:.7rem 1.1rem .25rem;gap:.15rem}
+  .smast-wm{font-size:.98rem}
+  .smast-in nav{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+    -webkit-mask-image:linear-gradient(90deg,#000 86%,transparent);
+    mask-image:linear-gradient(90deg,#000 86%,transparent)}
+  .smast-in nav::-webkit-scrollbar{display:none}
+  .snav{flex-wrap:nowrap;gap:1.15rem;padding-right:2.4rem}
+  .snav a{padding:.7rem 0;white-space:nowrap}
+  .smast-rule-w{padding:0 1.1rem}
+  .cfoot-nav{gap:.5rem 1rem}
+  .cfoot-nav a{padding-bottom:.3rem}
+  .pnav{grid-template-columns:1fr;gap:.2rem}
+  .pnav .nx{text-align:left;border-top:1px solid var(--rule,#dbd8d2)}
+}
+
+  .wrap.opn{max-width:42rem}
+  .opn .ometa{font-size:.92rem;color:var(--ink-soft);margin:.3rem 0 0}
+  .opn .oget{display:flex;flex-wrap:wrap;gap:.4rem .6rem;margin:1.1rem 0 0;padding:0;list-style:none;font-size:.9rem}
+  .opn .oget a{display:inline-block;padding:.32rem .7rem;border:1px solid var(--rule);border-radius:4px;color:var(--ink);text-decoration:none;background:var(--panel)}
+  .opn .oget a:hover{border-color:var(--accent);color:var(--accent)}
+  .opn .osrc{font-size:.84rem;color:var(--faint);margin:.9rem 0 0;line-height:1.45}
+  .opn .osrc a{color:var(--link)}
+  .opn .otoc{margin:1.6rem 0 0;padding:.8rem 1rem;border:1px solid var(--rule);border-radius:4px;background:var(--panel);font-size:.95rem}
+  .opn .otoc ol{margin:0;padding:0;list-style:none}
+  .opn .otoc li{margin:.25rem 0}
+  .opn .otoc a{color:var(--ink);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.35)}
+  .opn .otoc a:hover{color:var(--accent)}
+  .opn section.op{margin-top:3rem;border-top:2px solid var(--ink);padding-top:1.1rem}
+  .opn section.op h2{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.5rem;line-height:1.2;margin:0 0 1rem;color:var(--ink)}
+  .opn section.op p{margin:0 0 .95rem;line-height:1.62;hyphens:auto;overflow-wrap:break-word}
+  .opn section.op p.byline{color:var(--ink-soft);font-style:italic}
+  .opn section.op p.sep{text-align:center;letter-spacing:.3em;color:var(--faint);margin:1.6rem 0}
+  .opn section.op h3.oh{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.12rem;text-align:center;margin:2rem 0 1rem;color:var(--ink)}
+  .opn section.op blockquote{margin:0 0 .95rem;padding:0 0 0 1.1rem;border-left:2px solid var(--rule);color:var(--ink-soft)}
+  .opn section.op blockquote p{margin-bottom:.6rem;font-size:.96em}
+  .opn .sc{font-variant-caps:small-caps;letter-spacing:.02em}
+  .opn .pg{font-size:.66em;color:var(--faint);vertical-align:.3em;margin:0 .3em 0 .1em;font-variant-numeric:tabular-nums;user-select:none;white-space:nowrap}
+  .opn .pg::before{content:'*'}
+  .opn sup.fnr{font-size:.68em;line-height:0;margin-left:.05em}
+  .opn sup.fnr a{color:var(--link);text-decoration:none;padding:0 .1em}
+  .opn aside.notes{margin-top:2rem;border-top:1px solid var(--rule);padding-top:.8rem;font-size:.88rem;color:var(--ink-soft)}
+  .opn aside.notes h3{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1rem;margin:0 0 .6rem;color:var(--ink)}
+  .opn aside.notes ol{margin:0;padding-left:1.7rem}
+  .opn aside.notes li{margin:0 0 .55rem}
+  .opn aside.notes li.sym{list-style:none;margin-left:-1.7rem}
+  .opn aside.notes li.sym .mk{margin-right:.3rem}
+  .opn aside.notes li.sym p{display:inline}
+  .opn aside.notes p{margin:0 0 .4rem;line-height:1.5}
+  .opn aside.notes a.back{color:var(--link);text-decoration:none;margin-left:.2rem}
+  .opn aside.notes li:target,.opn sup.fnr a:target,.opn .pg:target{background:rgba(156,14,58,.12);outline:.2rem solid rgba(156,14,58,.12)}
+  .opn section.op,.opn aside.notes li,.opn sup.fnr a{scroll-margin-top:1rem}
+  .opn section.op-syllabus p,.opn section.op-counsel p{font-size:.95em}
+  .opn section.op-counsel summary{cursor:pointer;font-family:'Fraunces',Georgia,serif;font-size:1.05rem;color:var(--ink-soft)}
+  .opn .osyl{font-size:.84rem;color:var(--faint);font-style:italic;margin:-.5rem 0 1rem}
+  .opn p.back{margin-top:3rem;font-size:.92rem}
+  @media print{.smast,.bcrumb,.opn .oget,.opn .otoc,.opn p.back{display:none}.opn section.op{break-before:page}}
+</style><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://supremecourt.report/"},{"@type":"ListItem","position":2,"name":"Opinions","item":"https://supremecourt.report/opinions/"},{"@type":"ListItem","position":3,"name":"Williams v. Reed"}]}</script><meta name='otv' content='p1'><link rel='alternate' type='text/markdown' href='/opinions/2024/23-191.md'><link rel='alternate' type='application/epub+zip' href='/opinions/2024/23-191.epub'></head><body><a class='skip' href='#main'>Skip to content</a><header><div class='smast-in'><a class='smast-wm' href='/'>Supreme Court <em>Report</em></a><nav aria-label='Sections'><ul class='snav'><li><a href='/dashboards/'>Docket</a></li><li><a href='/conferences/'>Conferences</a></li><li><a href='/relists/'>Relists</a></li><li><a href='/applications/'>Interim</a></li><li><a href='/arguments/'>Arguments</a></li><li><a href='/justices/' aria-current='page'>Justices</a></li><li><a href='/counsel/'>Counsel</a></li><li><a href='/funnel/'>Funnel</a></li><li><a href='/methods.html'>Model</a></li><li><a href='/about.html'>About</a></li></ul></nav></div><div class='smast-rule-w'><hr class='smast-rule'></div></header><main class='wrap opn' id='main' data-dkt='23-191'><nav class='bcrumb' aria-label='Breadcrumb'><ol><li><a href='/'>Home</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><a href='/opinions/'>Opinions</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><span aria-current='page'>Williams v. Reed</span></li></ol></nav><p class='kicker'>No. 23-191 · decided February 21, 2025 · 604 U. S. 168</p><h1 style='font-size:clamp(1.7rem,4.6vw,2.4rem);line-height:1.12'>Williams v. Reed</h1><p class='ometa'>Nancy Williams, et al. v. Greg Reed, Secretary, Alabama Department of Workforce. 1 separate writing.</p><ul class='oget'><li><a href='/opinions/2024/23-191.epub' download>EPUB</a></li><li><a href='/opinions/2024/23-191.md' download>Markdown</a></li><li><a href='https://www.supremecourt.gov/opinions/24pdf/604us1r11_2b8e.pdf' rel='noopener'>The Court’s PDF</a></li><li><a href='/cases/23-191.html'>The docket</a></li></ul><p class='osrc'>Set from the PDF the Court published, which is the authoritative text. The small starred numbers are that PDF’s page numbers. A conversion can introduce errors; check a quotation against the <a href='https://www.supremecourt.gov/opinions/24pdf/604us1r11_2b8e.pdf' rel='noopener'>original</a>.</p><nav class="otoc" aria-label="Contents"><ol>
+<li><a href="#s1">Syllabus</a></li>
+<li><a href="#s2">Counsel</a></li>
+<li><a href="#s3">Opinion of the Court</a></li>
+<li><a href="#s4">Justice Thomas, dissenting</a></li>
+</ol></nav>
+<section id="s1" class="op op-syllabus"><h2>Syllabus</h2><p class='osyl'>Prepared by the Reporter of Decisions for the convenience of the reader; it is no part of the opinion of the Court.</p>
+<p>Petitioners are unemployed workers who contend that the Alabama Department of Labor unlawfully delayed processing their state unemployment benefits claims. They sued the Alabama Secretary of Labor in state court under 42 U. S. C. § 1983, raising due process and federal statutory arguments and seeking a court order requiring the Department to process their claims more quickly. The Secretary moved to dismiss on several grounds, including that the state trial court lacked jurisdiction because the claimants had not satisfied the relevant statute's strict administrative-exhaustion requirement. See Ala. Code § 25–4–95. The state trial court granted the Secretary's motion and dismissed the complaint, leaving the claimants in a catch-22—unable to sue to obtain an order expediting the administrative process because they had not yet completed the process allegedly being delayed. The Alabama Supreme Court affirmed on failure-to-exhaust grounds, concluding that § 1983 did not preempt the State's administrative-exhaustion requirement.</p>
+<p><em>Held</em>: Where a state court's application of a state exhaustion requirement in effect immunizes state officials from § 1983 claims challenging delays in the administrative process, state courts may not deny those § 1983 claims on failure-to-exhaust grounds. Pp. 173–179.</p>
+<p>(a) “[A] state law that immunizes government conduct otherwise subject to suit under § 1983 is pre-empted, even where the federal civil rights litigation takes place in state court.” <em>Felder</em> v. <em>Casey</em>, 487 U. S. 131, 139. Thus, in <em>Howlett</em> v. <em>Rose</em>, this Court held that § 1983 preempted a Florida rule extending the State's sovereign immunity from § 1983 suits “to municipalities, counties, and school districts” because it in effect afforded immunity from certain § 1983 claims. 496 U. S. 356, 366. And in <em>Haywood</em> v. <em>Drown</em>, the Court held that a New York statute designed to shield correction officers from damages claims by prisoners was preempted by § 1983. 556 U. S. 729. Pp. 174–175.</p>
+<p>(b) Under Alabama's exhaustion requirement, state courts cannot review claims of unlawful delays under § 1983 unless and until the claimants first complete the administrative process and receive a final decision on their claims. Such a requirement operates to immunize state officials from a narrow class of claims brought under § 1983. Under this Court's precedents, Alabama cannot apply such an immunity rule. Pp. 175–176.</p>
+<p><span class="pg" id="s1-p169" title="page 169 of the original">169</span>(c) According to the Secretary, the jurisdictional nature of Alabama's exhaustion provision distinguishes it from the state rules at issue in <em>Haywood</em> and <em>Howlett</em>. But this Court's precedents have not treated the jurisdictional label of state rules as dispositive when state rules functionally immunize defendants from a class of § 1983 claims in state court. In <em>Haywood</em>, for example, the Court stated that the jurisdictional status of New York's rule did not insulate it from preemption. 556 U. S., at 739–742.</p>
+<p>Next, the Secretary suggests that any delays in the state administrative process can be cured by claimants' seeking a writ of mandamus from the state courts to compel the Department to act more quickly. It is not evident, however, that mandamus is available to the claimants here. In any event, the Secretary's argument is simply another way of saying that the claimant must go through the state process before suing under § 1983 to challenge any delays in that process. Just as Alabama may not force plaintiffs to complete the state administrative process before plaintiffs may sue under § 1983 to challenge allegedly unlawful delays, the State may not force plaintiffs to seek mandamus before bringing those claims. Pp. 176–178.</p>
+<p>387 So. 3d 138, reversed and remanded.</p>
+<p><span class="sc">Kavanaugh</span>, J., delivered the opinion of the Court, in which <span class="sc">Roberts</span>, C. J., and <span class="sc">Sotomayor</span>, <span class="sc">Kagan</span>, and <span class="sc">Jackson</span>, JJ., joined. <span class="sc">Thomas</span>, J., filed a dissenting opinion, in which <span class="sc">Alito</span>, <span class="sc">Gorsuch</span>, and <span class="sc">Barrett</span>, JJ., joined as to Part II, <em>post</em>, p. 179.</p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li class="sym" value="0"><span class="mk">*</span><p>Briefs of <em>amici curiae</em> urging reversal were filed for the Chamber of Commerce of the United States of America by <em>Steven A. Engel</em>, <em>Michael H. McGinley</em>, <em>Brian A. Kulp</em>, and <em>Jonathan D. Urick</em>; for the Constitutional Accountability Center by <em>Elizabeth B. Wydra</em>, <em>Brianne J. Gorod</em>, and <em>Brian R. Frazelle</em>; for the Islam and Religious Freedom Action Team et al. by <em>Brian P. Morrissey</em> and <em>Nicholas R. Reaves</em>; for the National Health Law Program et al. by <em>Theresa M. Sprain</em>; and for Public Citizen et al. by <em>Wendy Liu</em>, <em>Allison M. Zieve</em>, and <em>David D. Cole</em>.</p><p>A brief of <em>amici curiae</em> urging affirmance was filed for the State of Tennessee et al. by <em>Jonathan Skrmetti</em>, Attorney General of Tennessee, <em>J. Matthew Rice</em>, Solicitor General, and <em>Gabriel Krimm</em>, Assistant Solicitor General, and by the Attorneys General for their respective States as follows: <em>Raúl R. Labrador</em> of Idaho, <em>Theodore E. Rokita</em> of Indiana, <em>Brenna Bird</em> of Iowa, <em>Kris W. Kobach</em> of Kansas, <em>Liz Murrill</em> of Louisiana, <em>Lynn Fitch</em> of Mississippi<em>, Michael T. Hilgers</em> of Nebraska, <em>Drew H. Wrigley</em> of North Dakota, <em>Dave Yost</em> of Ohio, <em>Michelle A. Henry</em> of Pennsylvania; <em>Alan Wilson</em> of South Carolina, <em>Marty J. Jackley</em> of South Dakota, <em>Ken Paxton</em> of Texas, <em>Sean D. Reyes</em> of Utah, and <em>Patrick Morrisey</em> of West Virginia.</p></li>
+</ol></aside></section>
+<section id="s2" class="op op-counsel"><details><summary>Counsel</summary><p><em>Adam G. Unikowsky</em> argued the cause for petitioners. With him on the briefs were <em>Arjun R. Ramamurti, Michael Forton, Lawrence Gardella, Farah Majid, Chisolm Allenlundy</em>, <em>David A. Strauss</em>, and <em>Sarah M. Konsky</em></p>
+<p><em>Edmund G. LaCour, Jr.,</em> Solicitor General of Alabama, argued the cause for respondent. With him on the brief were <em>Steve Marshall</em>, Attorney General, <em>Robert M. Overing</em>, Deputy Solicitor General, <em>Dylan Mauldin</em>, Assistant Solicitor General, and <em>Brenton M. Smith</em>, Assistant Attorney General.*</p></details></section>
+<section id="s3" class="op op-court"><h2>Opinion of the Court</h2>
+<p class="byline">Justice Kavanaugh delivered the opinion of the Court.</p>
+<p>Several unemployed workers in Alabama applied for unemployment benefits from the State. In their view, the Alabama Department of Labor has unlawfully delayed the processing of their benefits claims. So the claimants sued the Alabama Secretary of Labor in state court under 42 U. S. C. § 1983, raising due process and federal statutory arguments and seeking a court order requiring the Department to process their claims more quickly. The Alabama Supreme Court ruled that the claimants could not sue under § 1983 to challenge delays in the administrative process until the claimants completed that process. But that ruling created a catch-22: Because the claimants cannot sue until they complete the administrative process, they can <em>never</em> sue under § 1983 to obtain an order expediting the administrative process. This Court's precedents do not permit States to immunize state officials from § 1983 suits in that way. See <em>Haywood</em> v. <em>Drown</em>, 556 U. S. 729 (2009); <em>Howlett</em> v. <em>Rose</em>, 496 U. S. 356 (1990). On that narrow ground, we reverse.</p>
+<h3 class="oh">I</h3>
+<h3 class="oh">A</h3>
+<p>The State of Alabama grants monetary benefits to unemployed claimants who meet certain eligibility criteria. See <span class="pg" id="s3-p171" title="page 171 of the original">171</span>Ala. Code § 25–4–90 <em>et seq</em>. (2016); Ala. Admin. Code, ch. 480–4–3 (Supp. 2019). To obtain unemployment benefits, a claimant first must apply to the Alabama Department of Labor “in accordance with such general rules as the secretary may prescribe.” Ala. Code § 25–4–90.<sup class="fnr"><a id="s3-r1" href="#s3-n1">1</a></sup>After receiving an application, the Department, through an examiner designated by the Secretary, must “promptly” make a “determination” on the claim. § 25–4–91(a). The Department also must “promptly” notify the claimant of the determination, generally by mailing a notice to his or her last known address. § 25–4–91(c)(1). The relevant statutory provisions do not define “promptly.”</p>
+<p>A claimant who wants to appeal an adverse determination must, within 7 days of the delivery of the notice or 15 days of the mailing of the notice, seek review by an appeals tribunal. § 25–4–91(d). That tribunal consists of a Department employee who is appointed by the Secretary. § 25–4–92(a). The tribunal must “hear and decide disputed claims and other due process cases” related to benefits claims. <em>Ibid.</em> And the tribunal must “promptly” hold a hearing. Ala. Admin. Code Rule 480–1–4–.09(2). The tribunal must then decide the appeal “within 30 days” of the hearing. Ala. Admin. Code Rule 480–1–4–.11(1).</p>
+<p>A claimant who loses before the appeals tribunal may seek discretionary review before the Department's Board of Appeals, which is composed of three members appointed by the Governor. Ala. Code § 25–2–12. A claimant must seek review within 15 days from the date when the appeals tribunal's decision was mailed to the claimant. § 25–4–92(c). If the Board of Appeals does not grant review within 10 days of the claimant's filing, then the decision of the appeals tribunal becomes final. § 25–4–94(b).</p>
+<p><span class="pg" id="s3-p172" title="page 172 of the original">172</span>After the Board of Appeals denies review, fails to grant review within the 10-day period, or grants review and issues an adverse decision, the claimant may then challenge the denial of benefits in Alabama state court. § 25–4–95. But not until then. The Alabama law setting forth these procedures includes a strict exhaustion requirement, which provides:</p>
+<blockquote>
+<p>“No circuit court shall permit an appeal from a decision allowing or disallowing a claim for benefits unless the decision sought to be reviewed is that of an appeals tribunal or of the board of appeals and unless the person filing such appeal has exhausted his administrative remedies as provided by this chapter.” <em>Ibid.</em></p>
+</blockquote>
+<p class="cont">That statutory procedure “shall be exclusive.” §25–4–96. On its face, the State's exhaustion requirement prevents claimants from challenging adverse benefits determinations in state court, including in suits brought under § 1983, until the Board of Appeals has completed or denied review.</p>
+<h3 class="oh">B</h3>
+<p>In this case, 21 Alabama claimants applied for unemployment benefits. They contend that the Department, in various ways, has unlawfully delayed the processing of their benefits claims. For example, plaintiff Derek Bateman alleges that he attempted to appeal his claim to an appeals tribunal. But according to Bateman, the Department never scheduled a hearing or otherwise acted on his appeal, even after he attempted to follow up by email and phone calls numerous times.</p>
+<p>The 21 claimants sued the Secretary of Labor in his official capacity in the Circuit Court of Montgomery County, Alabama. Invoking 42 U. S. C. § 1983, they asserted among other things that the Department's delays in processing their benefits claims violated the Due Process Clause of the Fourteenth Amendment and the Social Security Act of 1935.</p>
+<p>The claimants did not ask the court to rule that they were entitled to unemployment benefits. Rather, they simply <span class="pg" id="s3-p173" title="page 173 of the original">173</span>asked the court to order the Department to promptly address their benefits claims. As relevant here, the claimants sought a court order requiring the Department to: (1) “issue an initial nonmonetary decision within the next ten days to every plaintiff who has not yet received a decision”; (2) “provide within ten days a hearing date for each of the plaintiffs who [has] requested a hearing”; (3) schedule such hearings for a date not later than 90 days after the request for the hearing; and (4) pay every approved claim within two days of the date of approval. App. 42–43.</p>
+<p>The Secretary moved to dismiss the complaint on several grounds. The Secretary argued, among other things, that the state trial court lacked jurisdiction because the claimants had not satisfied the administrative-exhaustion requirement in Alabama Code § 25–4–95. The court granted the Secretary's motion and dismissed the complaint.</p>
+<p>The claimants appealed to the Alabama Supreme Court. That court affirmed on failure-to-exhaust grounds. <em>Johnson</em> v. <em>Washington</em>, 387 So. 3d 138, 144 (Ala. 2023). The court concluded that under this Court's precedents, § 1983 did not preempt the State's administrative-exhaustion requirement. <em>Id</em>., at 143–144.</p>
+<p>Justice Cook dissented. He reasoned that under this Court's § 1983 precedents, the State could not bar a suit challenging the Department's delays in making a determination on a benefits claim. <em>Id</em>., at 146–150.</p>
+<p>This Court granted certiorari. 601 U. S. 994 (2024).</p>
+<h3 class="oh">II</h3>
+<p>The Secretary argues that Alabama's exhaustion requirement constitutes a “neutral rule of judicial administration” and that the Alabama Supreme Court permissibly applied that statutory rule to bar the claimants' § 1983 suit in state court. <em>Haywood</em> v. <em>Drown</em>, 556 U. S. 729, 738 (2009). The claimants respond that Alabama may not preclude § 1983 suits on failure-to-exhaust grounds when, as here, plaintiffs <span class="pg" id="s3-p174" title="page 174 of the original">174</span>challenge the Department's delays in processing their claims. Otherwise, they say, Alabama's rule would create a catch-22 preventing adjudication of, and in effect immunizing state officials from, this narrow category of § 1983 claims about delays in the administrative process.<sup class="fnr"><a id="s3-r2" href="#s3-n2">2</a></sup></p>
+<p>In light of this Court's precedents, we agree with the claimants. In the unusual circumstances presented here— where a state court's application of a state exhaustion requirement in effect immunizes state officials from § 1983 claims challenging delays in the administrative process— state courts may not deny those § 1983 claims on failure-toexhaust grounds.</p>
+<h3 class="oh">A</h3>
+<p>This Court has long held that “a state law that immunizes government conduct otherwise subject to suit under § 1983 is pre-empted, even where the federal civil rights litigation takes place in state court.” <em>Felder</em> v. <em>Casey</em>, 487 U. S. 131, 139 (1988). As the Court has explained, States possess “no authority to override” Congress's “decision to subject state” officials “to liability for violations of federal rights.” <em>Id</em>., at 143. That principle bars any state rule immunizing state officials from a “particular species” of federal claims, even if the immunity rule is “cloaked in jurisdictional garb.” <em>Haywood</em>, 556 U. S., at 739, 742.</p>
+<p>In <em>Howlett</em> v. <em>Rose</em>, for example, the Court analyzed a Florida rule extending the State's sovereign immunity from § 1983 suits “not only to the State and its arms but also to municipalities, counties, and school districts that might otherwise be subject to suit under § 1983.” 496 U. S. 356, 365–366 (1990). This Court held that § 1983 preempted Florida's rule because the rule in effect afforded immunity from certain § 1983 claims. <em>Id</em>., at 375–378.</p>
+<p><span class="pg" id="s3-p175" title="page 175 of the original">175</span>And in <em>Haywood</em> v. <em>Drown</em>, the Court addressed a New York statute depriving state courts of jurisdiction over claims by prisoners seeking damages against state correctional officers. See 556 U. S., at 733–734. The Court reiterated that States “lack authority to nullify a federal right or cause of action they believe is inconsistent with their local policies.” <em>Id</em>., at 736. In violation of that principle, New York in essence had created “an immunity defense” for correctional officers when those officers were sued under § 1983 in state court. <em>Id</em>., at 736–737, n. 5, 742. The <em>Haywood</em> Court held that “the unique scheme adopted by the State of New York—a law designed to shield a particular class of defendants (correction officers) from a particular type of liability (damages) brought by a particular class of plaintiffs (prisoners)”—was preempted by § 1983. <em>Id</em>., at 741–742.<sup class="fnr"><a id="s3-r3" href="#s3-n3">3</a></sup></p>
+<h3 class="oh">B</h3>
+<p>Here, the Alabama Supreme Court ruled that the State's exhaustion requirement applies to “procedural challenges related to the administration of unemployment-compensation benefits in addition to substantive challenges regarding the decision to award (or not award) those benefits.” <em>Johnson</em> v. <em>Washington</em>, 387 So. 3d 138, 143 (2023). And it concluded that the universe of “procedural challenges” requiring exhaustion includes § 1983 suits alleging that the Department is unlawfully delaying the processing of benefits claims.</p>
+<p>Alabama's exhaustion requirement operates to immunize state officials from a narrow class of claims brought under § 1983—namely, claims of unlawful delay in the administrative process. Under Alabama's exhaustion requirement, state courts cannot review claims of unlawful delays under <span class="pg" id="s3-p176" title="page 176 of the original">176</span>§ 1983 unless and until the claimants first complete the administrative process and receive a final decision on their claims. In essence, Alabama has said that to challenge delays in the administrative process under § 1983, you first have to exhaust the administrative process. Of course, that means that you can <em>never</em> challenge delays in the administrative process. That catch-22 prevents the claimants here from obtaining a merits resolution of their § 1983 claims in state court and in effect immunizes state officials from those kinds of § 1983 suits for injunctive relief.</p>
+<p>Under this Court's precedents, however, Alabama cannot maintain such an immunity rule. As this Court's cases have repeatedly held, “a state law that immunizes government conduct otherwise subject to suit under § 1983 is pre-empted, even where the federal civil rights litigation takes place in state court.” <em>Felder</em>, 487 U. S., at 139; see also <em>Howlett</em>, 496 U. S., at 375–378.<sup class="fnr"><a id="s3-r4" href="#s3-n4">4</a></sup></p>
+<h3 class="oh">C</h3>
+<p>In response, the Secretary advances two primary points.</p>
+<p><em>First</em>, the Secretary argues that the “jurisdictional nature of Alabama's exhaustion provision sets it apart from procedural<span class="pg" id="s3-p177" title="page 177 of the original">177</span> rules that may be more readily preempted by § 1983.” Brief for Respondent 25. In particular, according to the Secretary, the jurisdictional status of Alabama's exhaustion requirement distinguishes it from the state rules at issue in <em>Haywood</em> and <em>Howlett</em>.</p>
+<p>States “retain substantial leeway to establish the contours of their judicial systems” and are free to enforce “neutral” jurisdictional rules. <em>Haywood</em>, 556 U. S., at 735–736. The Secretary's argument fails, however, because this Court's precedents have not treated the jurisdictional label of state rules as dispositive when state rules functionally immunize defendants from a class of § 1983 claims in state court. In <em>Haywood</em>, for example, a New York law withdrew the state courts' jurisdiction over a class of § 1983 claims against correctional officers. The Court stated that the jurisdictional status of New York's rule did not insulate the rule from preemption. <em>Id</em>., at 739–742. As the Court explained, New York's law operated as “an immunity statute cloaked in jurisdictional garb.” <em>Id</em>., at 742. To treat the jurisdictional label as dispositive would allow the Supremacy Clause to be “evaded.” <em>Ibid.</em>; see also <em>Howlett</em>, 496 U. S., at 383.</p>
+<p><em>Second</em>, the Secretary suggests that the claimants could seek a writ of mandamus from the state courts to compel the Department to act more quickly. For that reason, the Secretary says that any delays in the state administrative process can be cured within the state judicial system.</p>
+<p>To begin with, it is not evident that mandamus is available to the claimants here. The Secretary cites a lone decades-old case from an Alabama intermediate appellate court suggesting in dicta that mandamus would be “appropriate” in a case where a state agency intentionally delayed its decision on a couple's application to become adoptive parents. <em>Vance</em> v. <em>Montgomery Cty. Dept. of Human Resources</em>, 693 So. 2d 493, 495 (Ala. Civ. App. 1997). If mandamus relief were available in these unemployment benefits cases, one would <span class="pg" id="s3-p178" title="page 178 of the original">178</span>have expected the Alabama Supreme Court to say so in its opinion here. Yet the court did not say or suggest that mandamus relief would be available.</p>
+<p>In any event, the Secretary's argument based on the supposed availability of mandamus is simply another way of saying that the claimant must go through the process provided by the State before suing under § 1983 to challenge delays in the state process. To be sure, the availability of mandamus relief in state court might be relevant to the merits of a due process or federal statutory claim challenging delays in the state process. But just as Alabama may not force plaintiffs to complete the state administrative process before plaintiffs may sue under § 1983 to challenge allegedly unlawful delays, Alabama may not force plaintiffs to seek mandamus before bringing those § 1983 claims. Otherwise, by the time the plaintiffs could sue for injunctive relief under § 1983, their claims would be moot.</p>
+<p>For its part, the dissent largely discusses issues that we do not address in this opinion. In Part II–C–2, when the dissent eventually turns to the merits of our legal analysis, the dissent argues that <em>Haywood</em>'s reasoning about immunity rules applies only where a “focus on statutory purpose” reveals that a state rule reflects “ `policy disagreement' ” with federal law. <em>Post</em>, at 189 (opinion of <span class="sc">Thomas</span>, J.) (quoting <em>Haywood</em>, 556 U. S., at 737–738). We respectfully disagree with the dissent's reading of <em>Haywood</em>. That decision did not endorse a freewheeling inquiry into whether a state rule's “purpose” or “policy” (however assessed) is at odds with federal law. Rather, a state rule runs afoul of <em>Haywood</em> if it operates as an “immunity statute cloaked in jurisdictional garb” by wholly barring a “particular species” of § 1983 suits in state court. <em>Id.</em>, at 739, 742.</p>
+<p>The dissent also suggests that the claimants forfeited their argument based on <em>Haywood</em> and <em>Howlett</em> in the Alabama Supreme Court. In that court, however, the claimants clearly raised the argument that under § 1983 the State could <span class="pg" id="s3-p179" title="page 179 of the original">179</span>not apply an administrative-exhaustion requirement to their claims challenging delays in the administrative process. Reply Brief for Appellant in <em>Johnson</em> v. <em>Washington</em>, No. SC–2022–0897 (Ala. Sup. Ct.), pp. 16–17.</p>
+<p>The dissent further says that our opinion may have “ripple effects.” <em>Post</em>, at 190. But as we have emphasized, our opinion today is narrow; it resolves this dispute but is careful not to go beyond this Court's existing precedents. See n. 2, <em>supra</em>.</p>
+<p class="sep">* * *</p>
+<p>The Alabama Supreme Court interpreted the State's administrative-exhaustion requirement for unemployment benefits claims to in effect immunize the Alabama Secretary of Labor from § 1983 due process suits alleging that the Department has unlawfully delayed in processing benefits claims. By affording immunity from those claims, the Alabama ruling contravenes this Court's § 1983 precedents. We therefore reverse the judgment of the Alabama Supreme Court and remand the case for further proceedings not inconsistent with this opinion.</p>
+<p><em>It is so ordered.</em></p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li id="s3-n1" value="1"><p>During this litigation, Alabama changed the name of its Department of Labor to the Department of Workforce, and Greg Reed, Alabama's first Secretary of Workforce, was substituted as the respondent. See 2024 Ala. Acts no. 2024–115. Like the parties' briefing, we refer to the Secretary and the Department by their titles when this suit was filed. <a class="back" href="#s3-r1" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n2" value="2"><p>The claimants also contend, more broadly, that this Court's § 1983 precedents—especially <em>Patsy</em> v. <em>Board of Regents of Fla.</em>, 457 U. S. 496 (1982), and <em>Felder</em> v. <em>Casey</em>, 487 U. S. 131 (1988)—categorically bar both federal and state courts from applying state administrative-exhaustion requirements to § 1983 claims. We need not address that broader argument. <a class="back" href="#s3-r2" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n3" value="3"><p>In <em>Haywood</em>, the Court declined to address “whether Congress may compel a State to offer a forum, otherwise unavailable under state law, to hear suits brought pursuant to § 1983.” 556 U. S., at 739. This case similarly does not require us to address that underlying question: Alabama “has made this inquiry unnecessary by creating courts of general jurisdiction that routinely sit to hear analogous § 1983 actions.” <em>Ibid.</em> <a class="back" href="#s3-r3" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n4" value="4"><p>Importantly, the Court's holding today does not mean that premature procedural due process claims will necessarily prevail. As this Court has stated, “a procedural due process claim is not complete when the deprivation occurs. Rather, the claim is complete only when the State fails to provide due process.” <em>Reed</em> v. <em>Goertz</em>, 598 U. S. 230, 236 (2023) (quotation marks and citation omitted); see <em>Alvin</em> v. <em>Suzuki</em>, 227 F. 3d 107, 116 (CA3 2000). Therefore, as counsel for the claimants rightly acknowledged at oral argument, a plaintiff who asserts a “due process claim without exhausting” will “usually lose” because of the requirement that the challenged procedural deprivation must have already occurred, except “in an unusual case” where “you're actually challenging the inability to exhaust.” Tr. of Oral Arg. 36.</p><p>Here, the claimants allege that the State's delays in completing the administrative process violated their due process and statutory rights. We take no position on the merits of those claims. <a class="back" href="#s3-r4" aria-label="Back to the text">↩</a></p></li>
+</ol></aside></section>
+<section id="s4" class="op op-dissenting"><h2>Justice Thomas, dissenting</h2>
+<p class="byline">Justice Thomas, with whom Justice Alito, Justice Gorsuch, and Justice Barrett join as to Part II, dissenting.</p>
+<p>Alabama law requires claimants seeking unemployment benefits to exhaust their administrative remedies before suing over those benefits in state court. Petitioners, the claimants here, failed to complete that process before they sued under Rev. Stat. § 1979, 42 U. S. C. § 1983. The Alabama Supreme Court accordingly held that it lacked jurisdiction over the suit. That holding was plainly permissible. As a matter of first principles, States have unfettered discretion over whether to provide a forum for § 1983 claims in their courts. And, Alabama's exhaustion rule does not transgress the limitations that our precedents have recognized.<span class="pg" id="s4-p180" title="page 180 of the original">180</span> The Court concludes otherwise by endorsing an as-applied theory of futility that is both forfeited and meritless, moving our jurisprudence even further off course. I respectfully dissent.</p>
+<h3 class="oh">I</h3>
+<p>This case is straightforward under first principles. Our federal system gives States “plenary authority to decide whether their local courts will have subject-matter jurisdiction over federal causes of action.” <em>Haywood</em> v. <em>Drown</em>, 556 U. S. 729, 743 (2009) (<span class="sc">Thomas</span>, J., dissenting). The Constitution allows States to hear federal claims in their courts, but it does “not impose a duty on state courts to do so.” <em>Id</em>., at 747. Thus, “[o]nce a State exercises its sovereign prerogative to deprive its courts of subject-matter jurisdiction over a federal cause of action, it is the end of the matter as far as the Constitution is concerned.” <em>Id</em>., at 749.</p>
+<p>The only potential constraint that the Constitution places on a State's jurisdictional discretion is the possibility that a federal statute may preempt state law. The Supremacy Clause makes the “Constitution, and the Laws of the United States which shall be made in Pursuance thereof . . . the supreme Law of the Land.” Art. VI, cl. 2. Accordingly, “[f]ederal law must prevail when Congress validly enacts a statute that expressly supersedes state law, or when the state law conflicts with a federal statute.” <em>Haywood</em>, 556 U. S., at 764 (<span class="sc">Thomas</span>, J., dissenting) (citations omitted). This preemption rule raises the “difficult question” whether Congress can “require state courts to entertain a federal cause of action.” <em>Ibid</em>., n. 8.</p>
+<p>We need not answer that question here because § 1983 does not raise any preemption issue. By its text, the provision does not “command” States to provide a forum for § 1983 plaintiffs. <em>Id</em>., at 765. Instead, it merely “addresses who may sue and be sued for violations of federal law.” <em>Ibid.</em>; see § 1983 (deeming “liable” state officials who deny “any citizen of the United States or other person within the jurisdiction thereof . . . any rights, privileges, or immunities secured <span class="pg" id="s4-p181" title="page 181 of the original">181</span>by the Constitution and laws”). Nor does Alabama's exhaustion bar, which regulates state-court litigation, create any implicit conflict with § 1983. Plaintiffs who do not exhaust state remedies are always free to bring their claims in a federal forum. <em>Id.</em>, at 766; see also <em>Felder</em> v. <em>Casey</em>, 487 U. S. 131, 160 (1988) (O'Connor, J., dissenting) (“Every [§ 1983] plaintiff has the option of proceeding in federal court, and the [state] statute has not the slightest effect on that right”). Preemption analysis requires nothing further.</p>
+<p>This Court's precedents err to the extent they recognize a broader form of conflict preemption for “state-court procedural rules that are perceived to `burde[n] the exercise of the federal right' in state court.” <em>Haywood</em>, 556 U. S., at 766 (<span class="sc">Thomas</span>, J., dissenting) (quoting <em>Felder</em>, 487 U. S., at 141). This form of conflict preemption targets state-law rules that constitute an obstacle to the “goals” embodied in federal law. <em>Id</em>., at 138. But, only federal law itself can support preemption under the Supremacy Clause. Extratextual speculation about Congress's purposes cannot. See <em>Wyeth</em> v. <em>Levine</em>, 555 U. S. 555, 603–604 (2009) (<span class="sc">Thomas</span>, J., concurring in judgment).</p>
+<p>Our precedents also err in establishing the requirement at issue here—that state jurisdictional rules be “neutral,” even in the absence of a directly conflicting federal law. See <em>infra</em>, at 183. The Supremacy Clause does not of its own force “constrai[n] the States' authority to define the subject-matter jurisdiction of their own courts.” <em>Haywood</em>, 556 U. S., at 750 (<span class="sc">Thomas</span>, J., dissenting). Rather, in making the Constitution and federal law supreme, “it provides only a rule of decision that the state court must follow if it adjudicates the claim.” <em>Id</em>., at 751. I would therefore disregard our further limitation as “demonstrably erroneous.” See <em>Gamble</em> v. <em>United States</em>, 587 U. S. 678, 717–718 (2019) (<span class="sc">Thomas</span>, J., concurring).*</p>
+<p><span class="pg" id="s4-p182" title="page 182 of the original">182</span>Taken together, this case should begin and end with Alabama's plenary authority to decide which federal matters its state courts will have subject-matter jurisdiction to hear. Alabama exercised that authority to create an exhaustion requirement, and we should respect its decision.</p>
+<h3 class="oh">II</h3>
+<p>This Court should affirm even under existing precedents. Alabama's exhaustion requirement does not run afoul of the limitations that this Court has identified on a State's authority to restrict federal causes of action from proceeding in state court. Petitioners misread our precedents in arguing otherwise, and the majority's theory likewise cannot pass muster.</p>
+<h3 class="oh">A</h3>
+<p>Although this Court has held that there are limits on a State's discretion in regulating state-court jurisdiction over federal causes of action, our precedents emphasize that state authority predominates. “The general rule `bottomed deeply in belief in the importance of state control of state <span class="pg" id="s4-p183" title="page 183 of the original">183</span>judicial procedure, is that federal law takes the state courts as it finds them.' ” <em>Howlett</em> v. <em>Rose</em>, 496 U. S. 356, 372 (1990) (quoting H. Hart, The Relations Between State and Federal Law, 54 Colum. L. Rev. 489, 508 (1954)). Each State thus has “great latitude to establish the structure and jurisdiction of [its] own courts.” <em>Howlett</em>, 496 U. S., at 372. This latitude allows States to decide which federal claims their courts can hear. <em>Ibid.</em></p>
+<p>As relevant here, our precedents establish that States must exercise this jurisdictional latitude only through “neutral” rules that do not embody any “policy disagreement” with federal law. <em>Haywood</em>, 556 U. S., at 735–737. Based on this principle, we have identified two narrow exceptions to a State's ordinary discretion. First, a State may not refuse to hear a federal claim “solely because [it] is brought under a federal law.” <em>McKnett</em> v. <em>St. Louis &amp; San Francisco R. Co.</em>, 292 U. S. 230, 233–234 (1934). Second, a State may not deprive its courts of jurisdiction over a “disfavored” federal claim, even if it simultaneously denies jurisdiction to an “identical state claim,” where doing so would “undermine federal law.” <em>Haywood</em>, 556 U. S., at 737–739.</p>
+<p>For good reason, no one suggests that the first exception applies. Alabama's exhaustion requirement by its terms does “not discriminate against rights arising under federal laws.” See <em>McKnett</em>, 292 U. S., at 234. Instead, it imposes a generally applicable exhaustion process “for the making of determinations with respect to claims for unemployment compensation benefits.” Ala. Code § 25–4–96 (2016). State and federal claims regarding unemployment benefits are equally subject to this process, including as to “procedural” challenges like the one here. <em>Johnson</em> v. <em>Washington</em>, 387 So. 3d 138, 143 (Ala. 2023).</p>
+<p>The second exception does not apply either. Alabama's exhaustion requirement is nothing like the statute in <em>Haywood</em> that this Court viewed as “disfavor[ing]” federal law. <span class="pg" id="s4-p184" title="page 184 of the original">184</span>556 U. S., at 738. That statute deprived New York courts of jurisdiction over “damages suits filed by prisoners against state correction officers,” based on the State's belief that they were “by and large frivolous and vexatious.” <em>Id.</em>, at 733 (discussing N. Y. Correc. Law Ann. § 24 (West 1987)). This Court deemed New York's rule “effectively an immunity statute cloaked in jurisdictional garb,” which protected correction officers from a subset of disfavored § 1983 claims even as New York courts continued to hear most § 1983 actions. 556 U. S., at 741–742. According to the <em>Haywood</em> majority, that policy-driven denial could not be squared with the supremacy of § 1983's countervailing policy. <em>Id</em>., at 740.</p>
+<p>Alabama's decision to create an exhaustion requirement for all unemployment-benefits-related claims does not embody any comparable policy judgment. Rather, this requirement, which has existed since 1939, is an ordinary jurisdictional rule reflecting the Alabama Department of Labor's comparative “competence over the subject matter” of unemployment benefits. <em>Howlett</em>, 496 U. S., at 381; see 1939 Ala. Acts no. 497, pp. 737–741. The exhaustion process serves all the useful functions that this Court has recognized: It allows the agency with subject-matter expertise to retain primary responsibility over the area; it avoids unnecessary litigation; and it creates a record in case judicial review is necessary. <em>McCarthy</em> v. <em>Madigan</em>, 503 U. S. 140, 145 (1992). In short, Alabama's exhaustion requirement is a procedural step that “promotes judicial efficiency,” <em>ibid.</em>, in contrast to the statute in <em>Haywood</em>, which created a <em>de facto</em> “immunity” shielding a class of claims from judicial review, 556 U. S., at 742. We have no authority to interfere with Alabama's choice.</p>
+<h3 class="oh">B</h3>
+<p>Petitioners try to evade Alabama's exhaustion requirement by arguing for a different exception. On their view, our decisions in <em>Patsy</em> v. <em>Board of Regents of Fla.</em>, 457 U. S. <span class="pg" id="s4-p185" title="page 185 of the original">185</span>496 (1982), and <em>Felder</em> establish that States are categorically precluded from imposing exhaustion requirements in the § 1983 context. But, petitioners badly misread both decisions.</p>
+<p><em>Patsy</em> addressed whether <em>federal courts</em> can impose an exhaustion requirement for § 1983 cases in the absence of a congressional directive to do so. See 457 U. S., at 501. The Court held that they cannot, reasoning that federal courts may create exhaustion requirements only where doing so is consistent with congressional intent, because “Congress is vested with the power to prescribe the basic procedural scheme under which claims may be heard in federal courts.” <em>Id</em>., at 501–502, 516. That analysis has no relevance to the question here: whether States have authority “to establish the structure and jurisdiction of their own courts.” <em>Howlett</em>, 496 U. S., at 372.</p>
+<p><em>Felder</em> too is inapposite. That decision held that § 1983 preempted a Wisconsin notice-of-claim statute that effectively altered the scope of § 1983 liability on the merits. See 487 U. S., at 153. That is, the statute subjected state-court plaintiffs to a dismissal with prejudice if they did not first submit their claims against the State or its officers to the government for an advance merits determination. <em>Id.</em>, at 136–137, and n. 2; see <em>Haywood</em>, 556 U. S., at 773–774, n. 11 (<span class="sc">Thomas</span>, J., dissenting). Failure to exhaust under that statute operated as a state-created merits defense to § 1983 liability. But, the impermissibility of such a merits defense says nothing about a State's discretion to create true jurisdictional rules, which speak only to the judiciary's “ `power' ” to “ `proceed at all.' ” <em>Steel Co.</em> v. <em>Citizens for Better Environment</em>, 523 U. S. 83, 94 (1998) (quoting <em>Ex parte McCardle</em>, 7 Wall. 506, 514 (1869)).</p>
+<p><em>Felder</em> would remain inapposite even if it had involved a purportedly jurisdictional rule compelling dismissal without prejudice. In that event, the Wisconsin statute would simply have raised the problem that this Court later confronted <span class="pg" id="s4-p186" title="page 186 of the original">186</span>in <em>Haywood</em>, where the State singled out a “disfavored” category of claims for second-class treatment. 556 U. S., at 738. The notice-of-claim statute in <em>Felder</em> existed to “further the State's interest in minimizing liability and the expenses associated with it.” 487 U. S., at 143. And, although <em>Felder</em> noted that the statute “impose[d] an exhaustion requirement,” it treated that fact as one of multiple “interrelated” factors that caused the Wisconsin statute to “burden” § 1983 claimants. <em>Id</em>., at 141, 146. The exhaustion requirement was not an independently fatal problem, so <em>Felder</em>'s language on exhaustion should not be overread. See <em>Cohens</em> v. <em>Virginia</em>, 6 Wheat. 264, 399 (1821) (“[G]eneral expressions, in every opinion, are to be taken in connection with the case in which those expressions are used. If they go beyond the case, they may be respected, but ought not to control the judgment in a subsequent suit when the very point is presented for decision”).</p>
+<h3 class="oh">C</h3>
+<p>The majority rules for petitioners on narrower grounds, but its holding is equally unpersuasive. The majority does not dispute that, as a general matter, Alabama is entitled to apply its exhaustion requirement to § 1983 claims. See <em>ante,</em> at 174, n. 2. It instead holds that, under <em>Haywood</em>, Alabama's discretion cannot extend to the specific claims here, which challenge delays in the exhaustion process itself. <em>Ante</em>, at 173–174. On the majority's view, maintaining the exhaustion requirement for such claims would mean that petitioners will never be able to advance to state court, leaving the State essentially “immun[e]” from challenges to its exhaustion process. <em>Ante</em>, at 175–176. This theory of futility is both forfeited and meritless.</p>
+<h3 class="oh">1</h3>
+<p>“[T]his Court has almost unfailingly refused to consider any federal-law challenge to a state-court decision unless the federal claim `was either addressed by or properly presented <span class="pg" id="s4-p187" title="page 187 of the original">187</span>to the state court that rendered the decision we have been asked to review.' ” <em>Howell</em> v. <em>Mississippi</em>, 543 U. S. 440, 443 (2005) (<em>per curiam</em>) (quoting <em>Adams</em> v. <em>Robertson</em>, 520 U. S. 83, 86 (1997) (<em>per curiam</em>)). In fact, the Court's historical practice has generally been to treat this preservation requirement as jurisdictional, although our more recent cases have expressed uncertainty on this issue. <em>Howell</em>, 543 U. S., at 445–446. In view of petitioners' preservation obligation, we should reject as forfeited their newfound theory of futility, which was neither presented nor addressed below.</p>
+<p>Until seeking certiorari, petitioners litigated this case as a facial challenge, arguing solely that § 1983 “categorically” preempted States from applying exhaustion requirements in the § 1983 context. Reply Brief for Appellant in <em>Johnson</em> v. <em>Washington</em>, No. SC–2022–0897 (Ala. Sup. Ct.), p. 16. The Alabama Supreme Court accordingly understood that this facial challenge was petitioners' “only” argument for federal preemption. 387 So. 3d, at 143–144. Petitioners belatedly contend that they also raised a futility-based argument, but the briefing they cite merely addressed how the futility of waiting for exhaustion affected the proper timing of their facial challenge. See Reply Brief 24, n. 3 (citing Reply Brief for Appellant in No. SC–2022–0897, at 16–17).</p>
+<p>Because petitioners raised only a facial challenge below, they cannot press an as-applied challenge here. “[F]acial” and “as-applied” claims are distinct and must be individually preserved. See <em>United States</em> v. <em>Stevens</em>, 559 U. S. 460, 473, n. 3 (2010); see also, <em>e</em>.<em>g</em>., <em>Moody</em> v. <em>NetChoice, LLC</em>, 603 U. S. 707, 723 (2024) (“NetChoice chose to litigate these cases as facial challenges, and that decision comes at a cost”). So, petitioners cannot now argue that Alabama's exhaustion requirement is impermissible in the specific circumstance where exhaustion would be futile.</p>
+<p>There is no reason to treat this case as the “very rare exceptio[n]” in which petitioners' forfeiture might be overlooked. <em>Adams</em>, 520 U. S., at 86 (internal quotation marks <span class="pg" id="s4-p188" title="page 188 of the original">188</span>omitted). The majority, which ignores that petitioners needed to raise their as-applied objection specifically, certainly provides no justification. See <em>ante,</em> at 178–179. Instead, its analysis only highlights why we should not decide petitioners' as-applied challenge in the first instance.</p>
+<p>The majority's futility theory depends on the assumption that petitioners will never have their day in court if we leave Alabama's exhaustion requirement intact. See <em>ante,</em> at 175–176. But, petitioners' failure to raise their as-applied claim below means that we have no way of knowing whether this assumption is true. It may be the case that the exhaustion requirement here contains an implicit futility exception. Cf. <em>Graysville</em> v. <em>Glenn</em>, 46 So. 3d 925, 929 (Ala. 2010) (identifying futility as a “recognized exceptio[n]” to the “exhaustionof-administrative-remedies doctrine” generally). Or, it may be the case that petitioners may obtain mandamus relief, as the dissent below suggested and the State underscored. See 387 So. 3d, at 146 (Cook, J., dissenting); Tr. of Oral Arg. 54–56. As a federal court assessing petitioners' objection in the first instance, we have no way to assess the viability of these or any other mechanisms.</p>
+<p>The majority's attempts to disregard this uncertainty are unpersuasive. The majority concludes that the uncertainty should count against the State, and expresses doubt about the availability of mandamus based on the Alabama Supreme Court's failure to address that form of relief. <em>Ante,</em> at 177–178. But, that court had no reason to opine on the alternative pathways available to petitioners, given that petitioners failed to raise an as-applied challenge. We should not reward petitioners for their own mistake. Likewise, the majority's assertion that mandamus would be irrelevant even if it were available is puzzling. <em>Ante,</em> at 178<em>.</em> If petitioners can secure completion of the exhaustion process through mandamus, then by definition they will not be in a “catch22” that “prevents [them] from obtaining a merits resolution of their § 1983 claims in state court.” <em>Ante</em>, at 176.</p>
+<h3 class="oh"><span class="pg" id="s4-p189" title="page 189 of the original">189</span>2</h3>
+<p>In any event, petitioners' as-applied challenge fails on the merits. Unlike the New York statute in <em>Haywood</em>, Alabama's exhaustion requirement is not “ `an immunity statute cloaked in jurisdictional garb.' ” Contra, <em>ante,</em> at 177 (quoting <em>Haywood</em>, 556 U. S., at 742).</p>
+<p>Properly understood, <em>Haywood</em> directs our focus to the challenged statute's purpose. The Court there viewed the New York statute as an immunity statute because it was “designed to shield” correction officers from damages claims brought by prisoners, “[b]ased on the belief” that these claims tended to be “frivolous and vexatious.” <em>Id.</em>, at 741–742. In other words, States cannot implicitly reject the supremacy of federal law by basing a jurisdictional limitation— even one that also applies to state claims—on “policy disagreement” with federal law. <em>Id</em>., at 737–738.</p>
+<p>A focus on statutory purpose makes clear that Alabama's exhaustion requirement raises no <em>Haywood</em> problem. There is no credible argument that Alabama adopted its exhaustion requirement <em>in order</em> to defeat challenges to the exhaustion process itself. Alabama created its exhaustion scheme in 1939, decades before the understanding that public benefits give rise to a due process interest emerged. See <em>supra</em>, at 181–182, n. And, the Alabama exhaustion process is by all accounts an ordinary exhaustion requirement common among public-benefits schemes, which in the mine-run case serves to facilitate the adjudication of benefits determinations on the merits. There is no reason to think that Alabama intended to cause mischief in the rare context of a § 1983 challenge to its procedures.</p>
+<p>At most, this case presents a circumstance in which Alabama's “neutral jurisdictional rule” has the <em>effect</em> of defeating a federal claim. See <em>Haywood</em>, 556 U. S., at 735. But, again, our precedents disallow a State's jurisdictional rule only if it is in fact not “neutral”—that is, if it is “based on a policy disagreement,” and so is intended to “shut the courthouse<span class="pg" id="s4-p190" title="page 190 of the original">190</span> door to federal claims that it considers at odds with its local policy.” <em>Id</em>., at 737–738, 740.</p>
+<p>The majority's contrary conclusion misunderstands <em>Haywood</em>. Ignoring that decision's purpose-focused language, the majority asserts that it disallows any state rule that “operates as an `immunity statute' . . . by wholly barring a `particular species' of § 1983 suits in state court.” <em>Ante,</em> at 178 (quoting 556 U. S., at 739, 742). But, in context, that quoted language only reinforces the majority's error. Those lines in <em>Haywood</em> reiterate that what mattered there was New York's illicit purpose: A State may not “dee[m]” “a particular species of suits . . . inappropriate for its trial courts.” <em>Id</em>., at 739–740. Nor may a State effectively create an “immunity statute” “[b]ased on the belief that [certain claims] are frivolous and vexatious.” <em>Id</em>., at 742. Nothing in <em>Haywood</em> suggests that a state rule could be impermissible just because it has the incidental effect of disallowing certain federal claims.</p>
+<p>The majority also does not grapple with the possible ripple effects of its reading of <em>Haywood</em>. It professes only that its opinion is “narrow” and does nothing more than “resolv[e] this dispute.” <em>Ante,</em> at 179. But, the majority's protestations do not make it so.</p>
+<p>A constraint based on incidental effects is notably more amorphous than our prior focus on statutory purpose. After all, to the extent the Supremacy Clause bars States from enacting nominally jurisdictional rules that “registe[r their] dissent” from federal policy, States may craft their laws with an eye toward avoiding conflict. <em>Haywood</em>, 556 U. S., at 737–738. But, the same is not true for incidental effects. No statute can be perfectly drafted to anticipate every application that ultimately arises, so it is inevitable that exhaustion requirements will occasionally slow or defeat claims that we might think, as a policy matter, ought to go forward. That happenstance is not a reason for suspicion, just as we do not malign the many federal statutes with similarly categorical exhaustion requirements. See, <em>e</em>. <em>g</em>., <em>Booth</em> v. <em>Churner</em>, 532 <span class="pg" id="s4-p191" title="page 191 of the original">191</span>U. S. 731, 733–734 (2001) (applying the Prison Litigation Reform Act's exhaustion requirement even where the exhaustion process could not provide the prisoner's requested relief). Here too, the Court should not encroach on Alabama's “latitude to establish the structure and jurisdiction of [its] own courts.” <em>Howlett</em>, 496 U. S., at 372.</p>
+<h3 class="oh">III</h3>
+<p>The Court's decision is irreconcilable with both first principles and precedent. I respectfully dissent.</p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li class="sym" value="0"><span class="mk">*</span><p>Petitioners' suit implicates other precedents that may not withstand scrutiny. I doubt that petitioners have a true due process interest in “mere Government benefits and entitlements.” <em>Axon Enterprise, Inc.</em> v. <em>FTC</em>, 598 U. S. 175, 201, n. 3 (2023) (<span class="sc">Thomas</span>, J., concurring). Tellingly, the Court's original expansion of the Due Process Clause into this context came without meaningful legal analysis. The Court simply highlighted the social importance of “entitlements,” which had come to make up “[m]uch of the existing wealth in this country,” and which only the poor had been theretofore unable to effectively enforce. See <em>Goldberg</em> v. <em>Kelly</em>, 397 U. S. 254, 262, and n. 8 (1970) (citing C. Reich, Individual Rights and Social Welfare: The Emerging Legal Issues, 74 Yale L. J. 1245, 1255 (1965); C. Reich, The New Property, 73 Yale L. J. 733 (1964)). As Justice Black recognized at the time, it “strains credulity” as a textual matter “to say that the government's promise of charity to an individual is property” protected by the Fourteenth Amendment. 397 U. S., at 275 (dissenting opinion). Moreover, further examination may be required as to whether § 1983 can provide petitioners a cause of action in any event. Cf. T. Lindley, Anachronistic Readings of Section 1983, 75 Ala. L. Rev. 897, 900–901 (2024) (contending that, as originally understood, § 1983 did not provide a freestanding cause of action).</p></li>
+</ol></aside></section><p class='back'><a href='/opinions/'>&larr; All opinions</a> · <a href='/justices/ot2024.html'>The Justices, October Term 2024 &rarr;</a></p></main></body>
+</html>
+

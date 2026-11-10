@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script async src='/analytics.js'></script><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate icon" href="/favicon.ico" sizes="any"><link rel="alternate" type="application/atom+xml" title="Supreme Court Report" href="/feed.xml"><link rel="alternate" type="application/atom+xml" title="Certiorari grants" href="/grants.xml"><title>Ames v. Ohio Dept. of Youth Servs. — Opinion — Supreme Court Report</title><meta name="description" content="The opinion in Ames v. Ohio Dept. of Youth Servs. (No. 23-1039), decided June 5, 2025: the full text with its footnotes, as a page, a Markdown file and an EPUB."><link rel="canonical" href="https://supremecourt.report/opinions/2024/23-1039.html"><meta property="og:site_name" content="Supreme Court Report"><meta property="og:type" content="article"><meta property="og:title" content="Ames v. Ohio Dept. of Youth Servs. — Opinion — Supreme Court Report"><meta property="og:description" content="The opinion in Ames v. Ohio Dept. of Youth Servs. (No. 23-1039), decided June 5, 2025: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta property="og:url" content="https://supremecourt.report/opinions/2024/23-1039.html"><meta property="og:image" content="https://supremecourt.report/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Supreme Court Report - docket analytics for the Supreme Court of the United States"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Ames v. Ohio Dept. of Youth Servs. — Opinion — Supreme Court Report"><meta name="twitter:description" content="The opinion in Ames v. Ohio Dept. of Youth Servs. (No. 23-1039), decided June 5, 2025: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta name="twitter:image" content="https://supremecourt.report/og.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap"><style>
+  :root{--paper:#fdfcfa;--panel:#ffffff;--ink:#1a1a1e;--ink-soft:#484850;--faint:#63636b;--accent:#9c0e3a;--link:#9c0e3a;--rule:#dbd8d2;--nav-max:60rem}
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{font-family:'Newsreader',Georgia,serif;font-size:19px;line-height:1.6;
+    color:var(--ink);background:var(--paper);margin:0;font-feature-settings:'onum' 1}
+  body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
+    opacity:.5;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");}
+  .wrap{max-width:40rem;margin:0 auto;padding:3rem 1.4rem 4rem}
+  .kicker{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 1rem}
+  h1{font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:clamp(2.4rem,7vw,3.6rem);line-height:1;letter-spacing:-.015em;
+    margin:0 0 1rem;color:var(--ink)}
+  h1 em{font-style:italic;font-weight:500;color:var(--accent)}
+  .dek{font-size:1.15rem;line-height:1.5;color:var(--ink-soft);font-style:italic;
+    margin:0 0 1.4rem}
+  .brule{border:0;height:0;border-top:2px solid var(--ink);margin:1.4rem 0 .3rem;
+    position:relative}
+  .brule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+    border-top:1px solid var(--rule)}
+  ul.idx{list-style:none;padding:0;margin:1.6rem 0}
+  ul.idx li{border-bottom:1px solid var(--rule)}
+  /* Whole row is one block-level link: a large, reliable tap target on mobile. */
+  ul.idx a.row{display:flex;justify-content:space-between;align-items:baseline;
+    gap:1rem;padding:.9rem .4rem;text-decoration:none;border:0;color:inherit}
+  ul.idx a.row:hover{background:rgba(156,14,58,.05)}
+  ul.idx .d{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.16rem;
+    color:var(--accent);line-height:1.25}
+  ul.idx a.row:hover .d{text-decoration:underline;text-underline-offset:3px}
+  ul.idx .count{color:var(--faint);font-size:.9rem;font-style:italic;white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  /* A long note (an order list's "3 GVRs / 230 denied / 4 habeas denied /
+     ...", items separated by middots) cannot sit on one line: nowrap made it
+     claim the row and
+     squeezed the title into a column three words wide, and on a phone it ran off
+     the screen. Such a row opts in (meta_wrap): the note wraps, only between its
+     items, and takes at most ~45% of the row, so the title always has the
+     larger share. Under 34rem it drops beneath the title at full width. */
+  /* ("long", not "wrap": .wrap is the page container and its padding.) */
+  ul.idx .count.long{white-space:normal;text-align:right;max-width:45%;line-height:1.45}
+  ul.idx .count.long .seg{white-space:nowrap}
+  @media(max-width:34rem){
+    ul.idx a.row.longmeta{flex-wrap:wrap;row-gap:.2rem}
+    ul.idx .count.long{max-width:none;flex-basis:100%;text-align:left}
+  }
+  /* Compact horizontal strip of the most recent pages beneath a category row. */
+  ul.idx .recent{display:flex;flex-wrap:wrap;align-items:baseline;
+    gap:.3rem .85rem;padding:0 .4rem 1rem;margin-top:-.35rem}
+  ul.idx .recent .rlabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  ul.idx .recent a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--ink-soft);text-decoration:none;font-variant-numeric:tabular-nums;
+    border-bottom:1px solid var(--rule);padding-bottom:1px}
+  ul.idx .recent a:hover{color:var(--accent);border-color:var(--accent)}
+  /* Optional panel beneath the section index (home page: most-read cases). */
+  .panel{margin:2.4rem 0 0}
+  .panel h2{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 .25rem}
+  .panel .pnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:0 0 .5rem}
+  /* "Live now" (live_argument_panel, /live.js): hidden unless the Court is
+     streaming an argument. One red dot, the same --accent as the headings, so
+     the live state is a mark and not a new colour. */
+  .live h2 .ldot{display:inline-block;width:.5rem;height:.5rem;border-radius:50%;
+    background:var(--accent);margin-right:.5rem;vertical-align:.08rem;
+    animation:lpulse 2s ease-in-out infinite}
+  @keyframes lpulse{50%{opacity:.25}}
+  @media (prefers-reduced-motion:reduce){.live h2 .ldot{animation:none}}
+  .lplay{display:flex;flex-wrap:wrap;gap:.6rem .9rem;align-items:center;margin:.8rem 0 .3rem}
+  .lplay button{font:600 .9rem/1 'Newsreader',Georgia,serif;letter-spacing:.04em;
+    color:var(--paper);background:var(--accent);border:0;border-radius:2px;
+    padding:.6rem 1.05rem;cursor:pointer}
+  .lplay button:disabled{opacity:.6;cursor:progress}
+  .lplay button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  /* The player takes a row of its own and may never outgrow the column. A flex
+     item's min-width is auto, which for a replaced element is the browser's own
+     controls' width -- wider than the column on a phone, where mobile Safari
+     and Chrome draw larger controls than the desktop. */
+  .lplay audio{display:block;flex:1 1 100%;width:100%;min-width:0;max-width:100%;
+    box-sizing:border-box;margin:0}
+  .lplay .lstat{font-size:.85rem;color:var(--faint)}
+  /* --- Likeliest grants -----------------------------------------------------
+     Its own rows rather than ol.mostread's: this panel carries a question under
+     the caption, which that list has no room for, and a percentage that has to
+     read as the row's subject rather than as a trailing note.
+     The window toggle is two real radio inputs plus :has() -- no JavaScript.
+     Both windows are rendered at build time and one is hidden, which is the only
+     way a static site can offer the choice: there is no server to ask for the
+     other one. Real radios, not styled buttons, so the control is reachable by
+     keyboard and announced as a choice. */
+  .lead{margin:0 0 1.9rem}
+  .lead h2{margin-bottom:.35rem}
+  .lead .pnote{margin:0 0 .7rem}
+  .wr{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+  .win{display:inline-flex;gap:.25rem;margin:0 0 .55rem;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .win label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .win label:hover{color:var(--ink)}
+  .lead:has(#w7:checked) label[for=w7],
+  .lead:has(#w28:checked) label[for=w28],
+  .lead:has(#wall:checked) label[for=wall]{background:var(--accent);color:var(--paper)}
+  .wr:focus-visible+label{outline:2px solid var(--accent);outline-offset:2px}
+  /* Three windows, one shown: the checked radio hides the other two. */
+  .lead:has(#w7:checked) :is(.g28,.n28,.gall,.nall),
+  .lead:has(#w28:checked) :is(.g7,.n7,.gall,.nall),
+  .lead:has(#wall:checked) :is(.g7,.n7,.g28,.n28){display:none}
+  /* The show/hide controls for a panel's secondary line -- the question under
+     a forecast row, the holding under a decision. Same box as the window
+     toggle, a checkbox instead of radios, and no script: the sibling rule does
+     the work and the lines simply show where :has() is unsupported. The
+     questions are on by default (they are what a forecast row asks); the
+     holdings are off (the caption, kind and disposition already say what
+     happened, and the holding is the more). */
+  .opts{display:inline-flex;gap:.25rem;margin:0 .45rem .55rem 0;vertical-align:top;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .opts label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .opts label:hover{color:var(--ink)}
+  .lead:has(#qon:checked) label[for=qon],
+  .panel:has(#hon:checked) label[for=hon]{background:var(--accent);color:var(--paper)}
+  .lead:has(#qon:not(:checked)) .gq{display:none}
+  .panel:has(#hon:not(:checked)) .chold{display:none}
+  /* --- Upcoming at the Court ------------------------------------------------
+     A date gutter and a two-line body, the same shape as the grant rows above
+     it, so the two panels read as one page rather than two widgets. */
+  .cal{margin:0 0 1.9rem}
+  ol.cal{list-style:none;margin:0;padding:0}
+  ol.cal li{border-top:1px solid var(--rule)}
+  ol.cal li:last-child{border-bottom:1px solid var(--rule)}
+  /* The row is a container, not an anchor: an argument day carries one link per
+     case it hears and anchors cannot nest. Hover lives on the row so it still
+     reads as one unit, and each link colours on its own hover. */
+  ol.cal .crow{display:flex;gap:.95rem;align-items:baseline;padding:.55rem .1rem}
+  ol.cal .crow:hover{background:rgba(156,14,58,.05)}
+  ol.cal a{text-decoration:none;color:inherit}
+  ol.cal a:hover,ol.cal a:focus-visible{color:var(--accent)}
+  ol.cal .cdet a{border-bottom:1px solid rgba(156,14,58,.35)}
+  ol.cal .cdet a:hover{border-bottom-color:var(--accent)}
+  ol.cal .cwhen{flex:none;width:4.6rem;font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.96rem;color:var(--ink);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  ol.cal .cdow{display:block;font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);text-transform:uppercase;letter-spacing:.08em}
+  ol.cal .ctx{flex:1;min-width:0}
+  ol.cal .ckind{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:.98rem;line-height:1.25}
+  ol.cal .cdet{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.12rem}
+  /* Recent decisions reuses the calendar rows and adds exactly two things: the
+     kind word that opens the detail line, and the one outbound link (the slip
+     opinion), which takes the link colour the rest of the row deliberately
+     does not. */
+  ol.cal .dk{font-weight:600;color:var(--ink)}
+  ol.cal .cdet a.pdf{color:var(--link)}
+  /* The holding, from the Court's slip-opinion feed: one sentence, set
+     smaller and in the soft ink so the caption stays the row's headline. */
+  ol.cal .chold{display:block;font-size:.86rem;line-height:1.4;color:var(--ink-soft);
+    font-style:italic;margin-top:.15rem}
+  ol.cal .cdet a.pdf:hover,ol.cal .cdet a.pdf:focus-visible{color:var(--accent);
+    border-bottom-color:var(--accent)}
+  ol.grants{list-style:none;margin:0;padding:0}
+  ol.grants li{border-top:1px solid var(--rule)}
+  ol.grants li:last-child{border-bottom:1px solid var(--rule)}
+  ol.grants a{display:flex;gap:.95rem;align-items:baseline;text-decoration:none;
+    color:inherit;padding:.62rem .1rem}
+  ol.grants a:hover{background:rgba(156,14,58,.05)}
+  ol.grants a:hover .gc{color:var(--accent)}
+  ol.grants .gv{flex:none;width:3.5rem;text-align:right;
+    font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.22rem;
+    line-height:1.1;color:var(--accent);font-variant-numeric:tabular-nums}
+  ol.grants .gx{font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);margin-left:.3rem}
+  ol.grants .gtx{flex:1;min-width:0}
+  /* Subject-area line under the caption, in the section-label idiom (h2.sec):
+     small tracked caps in the faint ink, so it classifies without competing. */
+  ol.grants .gs,ol.mostread .ms{display:block;font-size:.68rem;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--faint);line-height:1.3;margin-top:.12rem}
+  ol.grants .gc{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:1rem;line-height:1.25}
+  ol.grants .gq{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.16rem}
+  ol.grants .gd{flex:none;font-size:.76rem;color:var(--faint);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  .more{margin:.75rem 0 0;font-size:.92rem}
+  .more a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.35)}
+  .more a:hover{border-bottom-color:var(--link)}
+  h2.sec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:.88rem;
+    letter-spacing:.09em;color:var(--faint);text-transform:uppercase;
+    margin:2.1rem 0 .6rem;padding-bottom:.28rem;border-bottom:1px solid var(--rule)}
+  @media(max-width:40rem){
+    ol.grants a{flex-wrap:wrap}
+    ol.grants .gd{width:100%;padding-left:4.45rem;margin-top:-.1rem}
+  }
+  ol.mostread{list-style:none;counter-reset:mr;padding:0;margin:0}
+  ol.mostread li{counter-increment:mr;border-bottom:1px solid var(--rule)}
+  ol.mostread a{display:flex;align-items:baseline;gap:.7rem;padding:.6rem .4rem;
+    text-decoration:none;color:inherit}
+  ol.mostread a:hover{background:rgba(156,14,58,.05)}
+  ol.mostread a::before{content:counter(mr);font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.95rem;color:var(--faint);min-width:1.1rem;
+    font-variant-numeric:tabular-nums}
+  ol.mostread .mc{flex:1;font-size:1rem;line-height:1.3}
+  ol.mostread .mct{display:block}
+  ol.mostread a:hover .mct{color:var(--accent);text-decoration:underline;
+    text-underline-offset:3px}
+  ol.mostread .mdk{color:var(--accent);font-weight:600;font-size:.82rem;
+    font-variant-numeric:tabular-nums;white-space:nowrap}
+  ol.mostread .mv{color:var(--faint);font-size:.85rem;font-style:italic;
+    white-space:nowrap;font-variant-numeric:tabular-nums}
+  /* Forecast percentages carry weight the most-read counts do not: the number is
+     the claim, not a footnote to the ranking. Upright, accent, tabular. */
+  ol.mostread .mv.fc{color:var(--accent);font-style:normal;font-weight:600;
+    font-size:.95rem;min-width:2.6rem;text-align:right}
+  /* Feed follow line. Deliberately quiet -- a footnote under the section list,
+     styled like .recent rather than like a call to action. */
+  .feeds{display:flex;flex-wrap:wrap;align-items:baseline;gap:.3rem .85rem;
+    margin:2.2rem 0 0;padding-top:1.1rem;border-top:1px solid var(--rule)}
+  .feeds .flabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  .feeds a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .feeds a:hover{border-color:var(--link)}
+  .back{margin-top:2rem;font-size:.95rem}
+  .back a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .back a:hover{border-color:var(--link)}
+  /* Home-page case search. */
+  .csearch{position:relative;margin:0 0 1.4rem}
+  #cq{width:100%;font-family:'Newsreader',Georgia,serif;font-size:1.05rem;color:var(--ink);
+    background:var(--panel);border:1px solid var(--rule);border-radius:3px;padding:.7rem .9rem}
+  #cq:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(156,14,58,.1)}
+  #cq::placeholder{color:var(--faint)}
+  #cq.loading{background-image:linear-gradient(90deg,transparent,rgba(156,14,58,.06),transparent);
+    background-size:40% 100%;background-repeat:no-repeat;animation:csl 1s infinite}
+  @keyframes csl{0%{background-position:-40% 0}100%{background-position:140% 0}}
+  .cres{list-style:none;margin:.35rem 0 0;padding:0;max-height:24rem;overflow-y:auto;
+    border:1px solid var(--rule);border-radius:3px;background:var(--panel)}
+  .cres:empty{display:none}
+  .cres li{border-bottom:1px solid var(--rule)}
+  .cres li:last-child{border-bottom:0}
+  .cres a{display:block;padding:.55rem .7rem;text-decoration:none;color:var(--ink);
+    font-size:.98rem;line-height:1.3}
+  .cres a:hover,.cres li.act a{background:rgba(156,14,58,.06)}
+  .cres mark{background:rgba(156,14,58,.14);color:inherit;padding:0 .05em;border-radius:2px}
+  .cres .cd{color:var(--accent);font-variant-numeric:tabular-nums;font-weight:600;
+    margin-right:.5rem;white-space:nowrap}
+  .cnone{padding:.55rem .7rem;color:var(--faint);font-style:italic}
+  .cnone a,.cqp a{color:var(--link);font-style:normal;text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .cqp{margin:.45rem 0 0;font-size:.88rem;color:var(--faint)}
+  /* /cases/ browse index: grouped sections with per-bucket counts. */
+  .csec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+    text-transform:uppercase;letter-spacing:.12em;color:var(--accent);
+    margin:2.2rem 0 .3rem;padding-bottom:.35rem;border-bottom:1px solid var(--rule);
+    display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
+  .csec .cn{font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:.85rem;
+    letter-spacing:0;text-transform:none;color:var(--faint);
+    font-variant-numeric:tabular-nums}
+  .cnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:.5rem 0 0}
+  .cnote a{color:var(--accent)}
+  ul.terms{list-style:none;padding:0;margin:1rem 0 0;display:flex;flex-wrap:wrap;
+    gap:.5rem 1.6rem}
+  ul.terms li{display:inline-flex;align-items:baseline;gap:.4rem}
+  ul.terms a{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.05rem;
+    color:var(--accent);text-decoration:none;border-bottom:1px solid var(--rule)}
+  ul.terms a:hover{border-bottom-color:var(--accent)}
+  ul.terms .cn{color:var(--faint);font-size:.85rem;font-variant-numeric:tabular-nums}
+  /* About page: running prose rather than an index, so it takes a measure and a
+     little more leading than the section rows above it. */
+  .about{margin:1.6rem 0 0;font-size:1.05rem;line-height:1.65;max-width:34rem}
+  .about p{margin:0 0 1rem}
+  .about a{color:var(--accent);text-decoration:none;
+    border-bottom:1px solid var(--rule)}
+  .about a:hover{border-bottom-color:var(--accent)}
+  .about .contact{margin:2rem 0 0;background:var(--panel);border:1px solid var(--rule);
+    border-left:4px solid var(--accent);padding:1.1rem 1.3rem}
+  .about .contact h2{font:600 .78rem/1 'Newsreader',Georgia,serif;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--accent);margin:0 0 .5rem}
+  .about .contact p{margin:0;font-size:1rem}
+
+/* ---- masthead ---- */
+.smast-in{max-width:var(--nav-max,60rem);margin:0 auto;padding:.85rem 1.5rem .5rem;
+  display:flex;align-items:baseline;justify-content:space-between;gap:1.4rem;flex-wrap:wrap}
+.smast-wm{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+  letter-spacing:.005em;color:var(--ink,#1a1a1e);text-decoration:none;white-space:nowrap;flex:none}
+.smast-wm em{font-style:italic;font-weight:500;color:var(--accent,#9c0e3a)}
+.smast-wm:hover{color:var(--accent,#9c0e3a)}
+/* Row gap first, then column. At 1.35rem the six section links measured 596px
+   of max-content -- 4px wider than the 592px row the 40rem index container
+   leaves them -- so ABOUT alone wrapped to a third line under the wordmark, on
+   every page page_style.R writes. 1.05rem brings the row to 572px: 20px of
+   slack at 40rem, and 45px on the 54rem case pages, which were themselves only
+   21px from wrapping. The .4rem row gap is for the day a seventh section
+   overruns it anyway -- a nav that wraps should read as a stack, not an orphan. */
+.snav{display:flex;gap:.4rem 1.05rem;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+.snav a{font:600 .72rem/1 'Newsreader',Georgia,serif;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--ink-soft,var(--soft,#484850));text-decoration:none;display:inline-block;
+  padding:.5rem 0;border-bottom:1.5px solid transparent}
+.snav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--rule,#dbd8d2)}
+.snav a[aria-current='page']{color:var(--accent,#9c0e3a);
+  border-bottom-color:var(--accent,#9c0e3a)}
+.smast-rule-w{max-width:var(--nav-max,60rem);margin:0 auto;padding:0 1.5rem}
+.smast-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0;position:relative}
+.smast-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.skip{position:absolute;left:-9999px;top:0;background:var(--panel,#ffffff);
+  color:var(--accent,#9c0e3a);padding:.6rem 1rem;
+  border:1px solid var(--accent,#9c0e3a);
+  font:600 .8rem/1 'Newsreader',Georgia,serif;letter-spacing:.1em;text-transform:uppercase;z-index:10}
+.skip:focus{left:.5rem;top:.5rem}
+/* ---- breadcrumb ---- */
+.bcrumb{margin:.7rem 0 0}
+.bcrumb ol{list-style:none;display:flex;flex-wrap:wrap;align-items:baseline;
+  gap:.1rem .45rem;margin:0;padding:0}
+.bcrumb li{display:inline-flex;align-items:baseline;gap:.45rem}
+.bcrumb a{font:400 .8rem/1.5 'Newsreader',Georgia,serif;color:var(--ink-soft,var(--soft,#484850));
+  text-decoration:none;border-bottom:1px solid var(--rule,#dbd8d2)}
+.bcrumb a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.bcrumb .sep{color:var(--faint,#63636b);font-size:.8rem;line-height:1.5}
+.bcrumb [aria-current='page']{font:400 .8rem/1.5 'Newsreader',Georgia,serif;
+  color:var(--faint,#63636b);font-variant-numeric:tabular-nums}
+/* ---- case footer ---- */
+.cfoot{margin:2.4rem 0 0}
+.cfoot-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0 0 1rem;position:relative}
+.cfoot-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.cfoot-off{font-size:.95rem;margin:0 0 1.1rem}
+.cfoot-off a{color:var(--link,#9c0e3a);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.4)}
+.cfoot-off a:hover{border-bottom-color:var(--link,#9c0e3a)}
+.cfoot-lab{font:600 .68rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);margin:0 0 .5rem}
+.cfoot-nav{display:flex;flex-wrap:wrap;gap:.35rem 1.1rem;list-style:none;margin:0;padding:0}
+.cfoot-nav a{font-size:.92rem;color:var(--ink-soft,var(--soft,#484850));text-decoration:none;
+  border-bottom:1px solid var(--rule,#dbd8d2);padding-bottom:1px}
+.cfoot-nav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.cfoot-stamp{margin:1.2rem 0 0;font-size:.8rem;color:var(--faint,#63636b);font-style:italic}
+/* ---- prev / next ---- */
+.pnav{margin:2.2rem 0 0;border-top:1px solid var(--rule,#dbd8d2);padding-top:1rem;
+  display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.pnav a,.pnav span.none{text-decoration:none;color:inherit;display:block;padding:.5rem .2rem}
+.pnav a:hover{background:rgba(156,14,58,.05)}
+.pnav .dir{font:600 .66rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);display:block;margin-bottom:.3rem}
+.pnav .lab{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1rem;line-height:1.25;
+  color:var(--accent,#9c0e3a);display:block}
+.pnav a:hover .lab{text-decoration:underline;text-underline-offset:3px}
+.pnav .nx{text-align:right}
+.pnav .none{opacity:.35}
+@media(max-width:640px){
+  .smast-in{padding:.7rem 1.1rem .25rem;gap:.15rem}
+  .smast-wm{font-size:.98rem}
+  .smast-in nav{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+    -webkit-mask-image:linear-gradient(90deg,#000 86%,transparent);
+    mask-image:linear-gradient(90deg,#000 86%,transparent)}
+  .smast-in nav::-webkit-scrollbar{display:none}
+  .snav{flex-wrap:nowrap;gap:1.15rem;padding-right:2.4rem}
+  .snav a{padding:.7rem 0;white-space:nowrap}
+  .smast-rule-w{padding:0 1.1rem}
+  .cfoot-nav{gap:.5rem 1rem}
+  .cfoot-nav a{padding-bottom:.3rem}
+  .pnav{grid-template-columns:1fr;gap:.2rem}
+  .pnav .nx{text-align:left;border-top:1px solid var(--rule,#dbd8d2)}
+}
+
+  .wrap.opn{max-width:42rem}
+  .opn .ometa{font-size:.92rem;color:var(--ink-soft);margin:.3rem 0 0}
+  .opn .oget{display:flex;flex-wrap:wrap;gap:.4rem .6rem;margin:1.1rem 0 0;padding:0;list-style:none;font-size:.9rem}
+  .opn .oget a{display:inline-block;padding:.32rem .7rem;border:1px solid var(--rule);border-radius:4px;color:var(--ink);text-decoration:none;background:var(--panel)}
+  .opn .oget a:hover{border-color:var(--accent);color:var(--accent)}
+  .opn .osrc{font-size:.84rem;color:var(--faint);margin:.9rem 0 0;line-height:1.45}
+  .opn .osrc a{color:var(--link)}
+  .opn .otoc{margin:1.6rem 0 0;padding:.8rem 1rem;border:1px solid var(--rule);border-radius:4px;background:var(--panel);font-size:.95rem}
+  .opn .otoc ol{margin:0;padding:0;list-style:none}
+  .opn .otoc li{margin:.25rem 0}
+  .opn .otoc a{color:var(--ink);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.35)}
+  .opn .otoc a:hover{color:var(--accent)}
+  .opn section.op{margin-top:3rem;border-top:2px solid var(--ink);padding-top:1.1rem}
+  .opn section.op h2{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.5rem;line-height:1.2;margin:0 0 1rem;color:var(--ink)}
+  .opn section.op p{margin:0 0 .95rem;line-height:1.62;hyphens:auto;overflow-wrap:break-word}
+  .opn section.op p.byline{color:var(--ink-soft);font-style:italic}
+  .opn section.op p.sep{text-align:center;letter-spacing:.3em;color:var(--faint);margin:1.6rem 0}
+  .opn section.op h3.oh{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.12rem;text-align:center;margin:2rem 0 1rem;color:var(--ink)}
+  .opn section.op blockquote{margin:0 0 .95rem;padding:0 0 0 1.1rem;border-left:2px solid var(--rule);color:var(--ink-soft)}
+  .opn section.op blockquote p{margin-bottom:.6rem;font-size:.96em}
+  .opn .sc{font-variant-caps:small-caps;letter-spacing:.02em}
+  .opn .pg{font-size:.66em;color:var(--faint);vertical-align:.3em;margin:0 .3em 0 .1em;font-variant-numeric:tabular-nums;user-select:none;white-space:nowrap}
+  .opn .pg::before{content:'*'}
+  .opn sup.fnr{font-size:.68em;line-height:0;margin-left:.05em}
+  .opn sup.fnr a{color:var(--link);text-decoration:none;padding:0 .1em}
+  .opn aside.notes{margin-top:2rem;border-top:1px solid var(--rule);padding-top:.8rem;font-size:.88rem;color:var(--ink-soft)}
+  .opn aside.notes h3{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1rem;margin:0 0 .6rem;color:var(--ink)}
+  .opn aside.notes ol{margin:0;padding-left:1.7rem}
+  .opn aside.notes li{margin:0 0 .55rem}
+  .opn aside.notes li.sym{list-style:none;margin-left:-1.7rem}
+  .opn aside.notes li.sym .mk{margin-right:.3rem}
+  .opn aside.notes li.sym p{display:inline}
+  .opn aside.notes p{margin:0 0 .4rem;line-height:1.5}
+  .opn aside.notes a.back{color:var(--link);text-decoration:none;margin-left:.2rem}
+  .opn aside.notes li:target,.opn sup.fnr a:target,.opn .pg:target{background:rgba(156,14,58,.12);outline:.2rem solid rgba(156,14,58,.12)}
+  .opn section.op,.opn aside.notes li,.opn sup.fnr a{scroll-margin-top:1rem}
+  .opn section.op-syllabus p,.opn section.op-counsel p{font-size:.95em}
+  .opn section.op-counsel summary{cursor:pointer;font-family:'Fraunces',Georgia,serif;font-size:1.05rem;color:var(--ink-soft)}
+  .opn .osyl{font-size:.84rem;color:var(--faint);font-style:italic;margin:-.5rem 0 1rem}
+  .opn p.back{margin-top:3rem;font-size:.92rem}
+  @media print{.smast,.bcrumb,.opn .oget,.opn .otoc,.opn p.back{display:none}.opn section.op{break-before:page}}
+</style><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://supremecourt.report/"},{"@type":"ListItem","position":2,"name":"Opinions","item":"https://supremecourt.report/opinions/"},{"@type":"ListItem","position":3,"name":"Ames v. Ohio Dept. of Youth Servs."}]}</script><meta name='otv' content='p1'><link rel='alternate' type='text/markdown' href='/opinions/2024/23-1039.md'><link rel='alternate' type='application/epub+zip' href='/opinions/2024/23-1039.epub'></head><body><a class='skip' href='#main'>Skip to content</a><header><div class='smast-in'><a class='smast-wm' href='/'>Supreme Court <em>Report</em></a><nav aria-label='Sections'><ul class='snav'><li><a href='/dashboards/'>Docket</a></li><li><a href='/conferences/'>Conferences</a></li><li><a href='/relists/'>Relists</a></li><li><a href='/applications/'>Interim</a></li><li><a href='/arguments/'>Arguments</a></li><li><a href='/justices/' aria-current='page'>Justices</a></li><li><a href='/counsel/'>Counsel</a></li><li><a href='/funnel/'>Funnel</a></li><li><a href='/methods.html'>Model</a></li><li><a href='/about.html'>About</a></li></ul></nav></div><div class='smast-rule-w'><hr class='smast-rule'></div></header><main class='wrap opn' id='main' data-dkt='23-1039'><nav class='bcrumb' aria-label='Breadcrumb'><ol><li><a href='/'>Home</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><a href='/opinions/'>Opinions</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><span aria-current='page'>Ames v. Ohio Dept. of Youth Servs.</span></li></ol></nav><p class='kicker'>No. 23-1039 · decided June 5, 2025 · 605 U. S. 303</p><h1 style='font-size:clamp(1.7rem,4.6vw,2.4rem);line-height:1.12'>Ames v. Ohio Dept. of Youth Servs.</h1><p class='ometa'>Marlean A. Ames v. Ohio Department of Youth Services. 1 separate writing.</p><ul class='oget'><li><a href='/opinions/2024/23-1039.epub' download>EPUB</a></li><li><a href='/opinions/2024/23-1039.md' download>Markdown</a></li><li><a href='https://www.supremecourt.gov/opinions/24pdf/605us1r39_kkg1.pdf' rel='noopener'>The Court’s PDF</a></li><li><a href='/cases/23-1039.html'>The docket</a></li></ul><p class='osrc'>Set from the PDF the Court published, which is the authoritative text. The small starred numbers are that PDF’s page numbers. A conversion can introduce errors; check a quotation against the <a href='https://www.supremecourt.gov/opinions/24pdf/605us1r39_kkg1.pdf' rel='noopener'>original</a>.</p><nav class="otoc" aria-label="Contents"><ol>
+<li><a href="#s1">Syllabus</a></li>
+<li><a href="#s2">Counsel</a></li>
+<li><a href="#s3">Opinion of the Court</a></li>
+<li><a href="#s4">Justice Thomas, concurring</a></li>
+</ol></nav>
+<section id="s1" class="op op-syllabus"><h2>Syllabus</h2><p class='osyl'>Prepared by the Reporter of Decisions for the convenience of the reader; it is no part of the opinion of the Court.</p>
+<p>Petitioner Marlean Ames, a heterosexual woman, has worked for the Ohio Department of Youth Services in various roles since 2004. In 2019, the agency interviewed Ames for a new management position but ultimately hired another candidate—a lesbian woman. The agency subsequently demoted Ames from her role as a program administrator and later hired a gay man to fill that role. Ames then filed this lawsuit against the agency under Title VII, alleging that she was denied the management promotion and demoted because of her sexual orientation. The District Court granted summary judgment to the agency, and the Sixth Circuit affirmed. The courts below analyzed Ames's claims under <em>McDonnell Douglas Corp.</em> v. <em>Green</em>, 411 U. S. 792, which sets forth the traditional framework for evaluating disparate-treatment claims that rest on circumstantial evidence. At the first step of that framework, the plaintiff must make a prima facie showing that the defendant acted with a discriminatory motive. Like the District Court, the Sixth Circuit held that Ames had failed to meet her prima facie burden because she had not shown “ `background circumstances to support the suspicion that the defendant is that unusual employer who discriminates against the majority.' ” 87 F. 4th 822, 825. The court reasoned that Ames, as a straight woman, was required to make this showing “in addition to the usual ones for establishing a prima-facie case.” <em>Ibid.</em></p>
+<p><em>Held</em>: The Sixth Circuit's “background circumstances” rule—which requires members of a majority group to satisfy a heightened evidentiary standard to prevail on a Title VII claim—cannot be squared with the text of Title VII or the Court's precedents. Pp. 308–313.</p>
+<p>(a) Title VII's disparate-treatment provision bars employers from intentionally discriminating against their employees on the basis of race, color, religion, sex, or national origin. 42 U. S. C. § 2000e–2(a)(1). For most plaintiffs, the first step of the <em>McDonnell Douglas</em> framework— stating a prima facie case of discrimination—is “not onerous.” <em>Texas Dept. of Community Affairs</em> v. <em>Burdine</em>, 450 U. S. 248, 253. The Sixth Circuit's “background circumstances” rule requires plaintiffs who are members of a majority group to bear an additional burden at step one. But the text of Title VII's disparate-treatment provision draws no distinctions between majority-group plaintiffs and minority-group plaintiffs.<span class="pg" id="s1-p304" title="page 304 of the original">304</span> The provision focuses on individuals rather than groups, barring discrimination against “any individual” because of protected characteristics. Congress left no room for courts to impose special requirements on majority-group plaintiffs alone.</p>
+<p>This Court's precedents reinforce that understanding of the statute, and make clear that the standard for proving disparate treatment under Title VII does not vary based on whether or not the plaintiff is a member of a majority group. See, <em>e. g., Griggs</em> v. <em>Duke Power Co.</em>, 401 U. S. 424, 431 (“[d]iscriminatory preference for any group, minority or majority, is precisely and only what Congress has proscribed” in Title VII). Moreover, the “background circumstances” rule—which subjects all majority-group plaintiffs to the same, highly specific evidentiary standard in <em>every</em> case—ignores the Court's instruction to avoid inflexible applications of the prima facie standard. <em>Teamsters</em> v. <em>United States</em>, 431 U. S. 324, 358. Pp. 308–311.</p>
+<p>(b) Ohio argues that the “background circumstances” rule does not subject majority-group plaintiffs to a heightened evidentiary standard but rather is “just another way of asking whether the circumstances surrounding an employment decision, if otherwise unexplained, suggest that the decision was because of a protected characteristic.” Brief for Respondent 10. Ohio's recasting is directly at odds with the Sixth Circuit's description of the “background circumstances” rule and its application of that rule in this case. Ohio's alternative argument that Ames's Title VII claims would fail even absent the “background circumstances” rule is for the courts below to consider in the first instance on remand. Pp. 311–313.</p>
+<p>87 F. 4th 822, vacated and remanded.</p>
+<p>J<span class="sc">ackson, J.,</span> delivered the opinion for a unanimous Court. T<span class="sc">homas, J.,</span> filed a concurring opinion, in which G<span class="sc">orsuch</span>, J., joined, <em>post</em>, p. 313.</p></section>
+<section id="s2" class="op op-counsel"><details><summary>Counsel</summary><p><em>Xiao Wang</em> argued the cause for petitioner. With him on the briefs was <em>Edward L. Gilbert.</em></p>
+<p><em>Ashley Robertson</em> argued the cause for the United States as <em>amicus curiae</em> in support of vacatur. With her on the brief were <em>Solicitor General Prelogar, Assistant Attorney General Clarke, Deputy Solicitor General Fletcher, Bonnie I. Robin-Vergeer, Karla Gilbride, Jennifer S. Goldstein, Anne Noel Occhialino,</em> and <em>Julie L. Gantz.</em></p>
+<p><em>T. Elliot Gaiser,</em> Solicitor General of Ohio, argued the cause for respondent. With him on the brief were <em>Dave</em> <span class="pg" id="s2-p305" title="page 305 of the original">305</span><em>Yost,</em> Attorney General, <em>Michael J. Hendershot,</em> Chief Deputy Solicitor General, and <em>Samuel C. Peterson,</em> Deputy Solicitor General.<em>*</em></p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li class="sym" value="0"><span class="mk">*</span><p>Briefs of <em>amici curiae</em> urging reversal were filed for the America First Legal Foundation by <em>Christopher E. Mills</em>; for the American Alliance for Equal Rights by <em>Thomas R. McCarthy</em> and <em>Cameron T. Norris</em>; for the Equal Protection Project by <em>William A. Jacobson</em> and <em>James R. Nault</em>; for the National Employment Lawyers Association by <em>Eric Schnapper</em>; and for the Pacific Legal Foundation by <em>Jeffrey D. Jennings</em>.</p><p>Briefs of <em>amici curiae</em> urging affirmance were filed for the Local Government Legal Center et al. by <em>Nadia A. Sarkis</em> and <em>Kelly Shea Delvac</em>; and for the NAACP Legal Defense &amp; Educational Fund, Inc., et al. by <em>Janai S. Nelson, Samuel Spital, Alexsis M. Johnson, Avatara A. Smith-Carrington, Molly M. Cain, Jennifer A. Holmes,</em> and <em>Michaele N. Turnage-Young.</em></p><p>Briefs of <em>amici curiae</em> were filed for the Massachusetts Chapter of the National Organization for Women by <em>Robert S. Mantell</em>; for Katie Eyer et al. by <em>Zachary D. Tripp, Robert B. Niles-Weed, Katie Eyer, pro se, Sandra F. Sperino,</em> and <em>Deborah A. Widiss</em>; and for Josh Young by <em>William E. Trachman.</em></p></li>
+</ol></aside></details></section>
+<section id="s3" class="op op-court"><h2>Opinion of the Court</h2>
+<p class="byline">Justice Jackson delivered the opinion of the Court.</p>
+<p>Title VII prohibits employers from discriminating against employees on the basis of race, color, religion, sex, or national origin. Under our Title VII precedents, a plaintiff may make out a prima facie case of disparate treatment by showing “that she applied for an available position for which she was qualified, but was rejected under circumstances which give rise to an inference of unlawful discrimination.” <em>Texas Dept. of Community Affairs</em> v. <em>Burdine</em>, 450 U. S. 248, 253 (1981).</p>
+<p>The question in this case is whether, to satisfy that prima facie burden, a plaintiff who is a member of a majority group must also show “ `background circumstances to support the suspicion that the defendant is that unusual employer who discriminates against the majority.' ” 87 F. 4th 822, 825 (CA6 2023) (<em>per curiam</em>). We hold that this additional <span class="pg" id="s3-p306" title="page 306 of the original">306</span>“background circumstances” requirement is not consistent with Title VII's text or our case law construing the statute. Accordingly, we vacate the judgment below and remand for application of the proper prima facie standard.</p>
+<h3 class="oh">I</h3>
+<p>The Ohio Department of Youth Services operates the State's juvenile correctional system. In 2004, the agency hired petitioner Marlean Ames, a heterosexual woman, to serve as an executive secretary. Ames was eventually promoted to program administrator and, in 2019, applied for a newly created management position in the agency's Office of Quality and Improvement. Although the agency interviewed her for the position, it ultimately hired a different candidate—a lesbian woman—to fill the role.</p>
+<p>A few days after Ames interviewed for the management position, her supervisors removed her from her role as program administrator. She accepted a demotion to the secretarial role she had held when she first joined the agency—a move that resulted in a significant pay cut. The agency then hired a gay man to fill the vacant program-administrator position. Ames subsequently filed this lawsuit against the agency under Title VII, alleging that she was denied the management promotion and demoted because of her sexual orientation.</p>
+<p>The District Court granted summary judgment to the agency. 2023 WL 2539214, *12 (SD Ohio, Mar. 16, 2023). The court analyzed Ames's claims under <em>McDonnell Douglas Corp.</em> v. <em>Green</em>, 411 U. S. 792 (1973), which establishes the traditional framework for evaluating disparate-treatment claims that rest on circumstantial evidence. At the first step of that framework, the plaintiff must make a prima facie showing that the defendant acted with a discriminatory motive. Relying on Circuit precedent, the District Court concluded that Ames had failed to make that showing because <span class="pg" id="s3-p307" title="page 307 of the original">307</span>she had not presented evidence of “ `background circumstances' ” suggesting that the agency was the rare employer who discriminates against members of a majority group. 2023 WL 2539214, *7. Without that evidence, the court held, plaintiffs who are members of majority groups—including heterosexual plaintiffs, like Ames—could not discharge their evidentiary burden at the first step of the <em>McDonnell Douglas</em> inquiry. 2023 WL 2539214, *8–*9.</p>
+<p>The Sixth Circuit affirmed. Like the District Court, the Sixth Circuit held that Ames had failed to meet her prima facie burden because she had not shown “ `background circumstances to support the suspicion that the defendant is that unusual employer who discriminates against the majority.' ” 87 F. 4th, at 825. The court reasoned that Ames, as a straight woman, was required to make this showing “in addition to the usual ones for establishing a prima-facie case.” <em>Ibid.</em> And it explained that plaintiffs can typically satisfy this burden, where applicable, by presenting “evidence that a member of the relevant minority group (here, gay people) made the employment decision at issue, or with statistical evidence showing a pattern of discrimination . . . against members of the majority group.” <em>Ibid.</em> The panel concluded that the agency was entitled to summary judgment because Ames had failed to present either type of evidence. <em>Ibid.</em></p>
+<p>Judge Kethledge concurred in the court's decision but wrote separately to express his disagreement with the “background circumstances” rule. In his view, the requirement was not only unworkable—in that it required an assessment of evidence presented by different plaintiffs under different standards—but also diverged substantially from Title VII's text. <em>Id.</em>, at 827–828.</p>
+<p>The Sixth Circuit's decision reinforced a Circuit split as to whether majority-group plaintiffs are subject to a different evidentiary burden than minority-group plaintiffs at <em>McDon</em><em>nell</em><span class="pg" id="s3-p308" title="page 308 of the original">308</span><em> Douglas</em>'s first step.<sup class="fnr"><a id="s3-r1" href="#s3-n1">1</a></sup>We granted certiorari to resolve that split. See 603 U. S. 948 (2024).</p>
+<h3 class="oh">II</h3>
+<p>Title VII's disparate-treatment provision bars employers from intentionally discriminating against their employees on the basis of race, color, religion, sex, or national origin. 78 Stat. 255, 42 U. S. C. § 2000e–2(a)(1). In <em>McDonnell Douglas</em>, this Court laid out a three-step burden-shifting framework for evaluating claims arising under that provision. 411 U. S., at 802–804. The <em>McDonnell Douglas</em> framework aims to “bring the litigants and the court expeditiously and fairly to th[e] ultimate question” in a disparate-treatment case— namely, whether “the defendant intentionally discriminated against the plaintiff.” <em>Burdine</em>, 450 U. S., at 253.<sup class="fnr"><a id="s3-r2" href="#s3-n2">2</a></sup></p>
+<p>At the first step of the familiar three-step inquiry, the plaintiff bears the “initial burden” of “establishing a prima facie case” by producing enough evidence to support an inference of discriminatory motive. <em>McDonnell Douglas</em>, 411 U. S., at 802. If the plaintiff clears that hurdle, the burden <span class="pg" id="s3-p309" title="page 309 of the original">309</span>then “shift[s] to the employer to articulate some legitimate, nondiscriminatory reason for the employee's rejection.” <em>Ibid.</em> Finally, if the employer articulates such a justification, the plaintiff must then have a “fair opportunity” to show that the stated justification “was in fact pretext” for discrimination. <em>Id.</em>, at 804. A plaintiff “may succeed [under the <em>McDonnell Douglas</em> framework] either directly by persuading the court that a discriminatory reason more likely motivated the employer or indirectly by showing that the employer's proffered explanation is unworthy of credence.” <em>Burdine</em>, 450 U. S., at 256.</p>
+<p>For most plaintiffs, the first step of the <em>McDonnell Douglas</em> framework—the prima facie burden—is “not onerous.” <em>Burdine</em>, 450 U. S., at 253. A plaintiff may satisfy it simply by presenting evidence “that she applied for an available position for which she was qualified, but was rejected under circumstances which give rise to an inference of unlawful discrimination.” <em>Ibid.</em> But, under Sixth Circuit precedent, plaintiffs who are members of a majority group bear an additional burden at step one: They must also establish “ `background circumstances to support the suspicion that the defendant is that unusual employer who discriminates against the majority.' ” 87 F. 4th, at 825.</p>
+<p>As outlined below, the Sixth Circuit's “background circumstances” rule cannot be squared with the text of Title VII or our longstanding precedents. And nothing Ohio has said, in its brief or at oral argument, persuades us otherwise.</p>
+<h3 class="oh">A</h3>
+<p>As a textual matter, Title VII's disparate-treatment provision draws no distinctions between majority-group plaintiffs and minority-group plaintiffs. Rather, the provision makes it unlawful “to fail or refuse to hire or to discharge <em>any individual</em>, or otherwise to discriminate against <em>any individual</em> with respect to his compensation, terms, conditions, or privileges of employment, because of such individual's race, color, <span class="pg" id="s3-p310" title="page 310 of the original">310</span>religion, sex, or national origin.” 42 U. S. C. § 2000e–2(a)(1) (emphasis added). The “law's focus on individuals rather than groups [is] anything but academic.” <em>Bostock</em> v. <em>Clayton County</em>, 590 U. S. 644, 659 (2020). By establishing the same protections for every “individual”—without regard to that individual's membership in a minority or majority group—Congress left no room for courts to impose special requirements on majority-group plaintiffs alone.</p>
+<p>Our precedents reinforce that understanding of the statute. In <em>Griggs</em> v. <em>Duke Power Co.</em>, 401 U. S. 424 (1971), for instance, we said that “[d]iscriminatory preference for any group, minority <em>or majority</em>, is precisely and only what Congress has proscribed” in Title VII. <em>Id</em>., at 431 (emphasis added). We made the same point even more explicitly in <em>McDonald</em> v. <em>Santa Fe Trail Transportation Co.</em>, 427 U. S. 273 (1976), a few years later. The employer in that case had argued that certain forms of discrimination against White employees fell outside the reach of Title VII. <em>Id</em>., at 280, n. 8. But we rejected that argument, holding that “Title VII prohibit[ed] racial discrimination against the white petitioners in th[at] case <em>upon the same standards</em> as would be applicable were they Negroes.” <em>Id</em>., at 280 (emphasis added); see also <em>id</em>., at 279 (citing favorably the Equal Employment Opportunity Commission's view that Title VII bars discrimination “against whites on the same terms as racial discrimination against nonwhites”).</p>
+<p>Our case law thus makes clear that the standard for proving disparate treatment under Title VII does not vary based on whether or not the plaintiff is a member of a majority group. Accord, <em>Bostock</em>, 590 U. S., at 659 (“This statute works to protect individuals of both sexes from discrimination, and does so equally”). The “background circumstances” rule flouts that basic principle.</p>
+<p>The “background circumstances” rule also ignores our instruction to avoid inflexible applications of <em>McDonnell Douglas</em>'s first prong. This Court has repeatedly explained <span class="pg" id="s3-p311" title="page 311 of the original">311</span>that the “precise requirements of a prima facie case can vary depending on the context and were `never intended to be rigid, mechanized, or ritualistic.' ” <em>Swierkiewicz</em> v. <em>Sorema N. A.</em>, 534 U. S. 506, 512 (2002) (quoting <em>Furnco Constr. Corp.</em> v. <em>Waters</em>, 438 U. S. 567, 577 (1978)). In <em>McDonnell Douglas</em> itself, we observed that the “facts necessarily will vary in Title VII cases,” and that “the prima facie proof required” can therefore differ from case to case. 411 U. S., at 802, n. 13.</p>
+<p>The “background circumstances” rule disregards this admonition by uniformly subjecting all majority-group plaintiffs to the same, highly specific evidentiary standard in <em>every</em> case. As the Sixth Circuit observed, the rule effectively requires majority-group plaintiffs (and only majority-group plaintiffs) to produce certain types of evidence—such as statistical proof or information about the relevant decisionmaker's protected traits—that would not otherwise be required to make out a prima facie case. 87 F. 4th, at 825.</p>
+<p>This Court has long rejected such “inflexible formulation[s]” of the prima facie standard in disparate-treatment cases. <em>Teamsters</em> v. <em>United States</em>, 431 U. S. 324, 358 (1977). We do so again today.</p>
+<h3 class="oh">B</h3>
+<p>Ohio barely contests any of the above. At oral argument, the State repeatedly acknowledged that Title VII's disparate-treatment provision imposes the same prima facie burden on majority-group plaintiffs that it imposes on minority-group plaintiffs.<sup class="fnr"><a id="s3-r3" href="#s3-n3">3</a></sup>Its brief likewise offers no justification for imposing a heightened evidentiary standard on majority-group plaintiffs. Instead, Ohio tries to attack the <span class="pg" id="s3-p312" title="page 312 of the original">312</span>premise of the question presented by arguing that the “background circumstances” rule does not operate to subject majority-group plaintiffs to a heightened evidentiary standard at all. Under Ohio's view, the “background circumstances” requirement “is not an additional prima facie element” but, rather, “just another way of asking whether the circumstances surrounding an employment decision, if otherwise unexplained, suggest that the decision was because of a protected characteristic.” Brief for Respondent 10.</p>
+<p>This contention is directly at odds with the Court of Appeals' description of the “background circumstances” rule and its application of that requirement in this case. The Court of Appeals explicitly held that “Ames is heterosexual . . . which means she must make a showing <em>in addition to the usual ones</em> for establishing a prima-facie case.” 87 F. 4th, at 825 (emphasis added). And the ensuing passage of the court's opinion confirmed that a higher evidentiary standard was being imposed on Ames because of her sexual orientation. The court stated: “Whether Ames made the necessary showing of `background circumstances' is the principal issue here” because “otherwise Ames's prima-facie case was easy to make.” <em>Ibid.</em> The court then recounted how Ames was qualified, had been denied a promotion in favor of a gay candidate, and was later demoted in favor of another gay candidate—evidence that would ordinarily satisfy her prima facie burden—before it specifically faulted Ames for failing to make the “requisite showing of `background circumstances.' ” <em>Ibid.</em></p>
+<p>In short, the Sixth Circuit expressly based its holding affirming summary judgment in favor of the agency on Ames's failure to satisfy a heightened evidentiary standard. Ohio's attempt to recast the “background circumstances” rule as an application of the ordinary prima facie standard thus misses the mark by a mile.</p>
+<p>Ohio also urges this Court to affirm the judgment below on alternative grounds, arguing that Ames's Title VII claims <span class="pg" id="s3-p313" title="page 313 of the original">313</span>would fail even absent the “background circumstances” rule. But those alternative arguments would require us to resolve issues that the Court of Appeals did not address in the first instance and that fall beyond the scope of the question presented. We granted review to consider the validity of the “background circumstances” rule, and we reject that rule for the reasons set forth above. We leave it to the courts below to address any of Ohio's remaining arguments on remand.</p>
+<p class="sep">* * *</p>
+<p>The Sixth Circuit has implemented a rule that requires certain Title VII plaintiffs—those who are members of majority groups—to satisfy a heightened evidentiary standard in order to carry their burden under the first step of the <em>McDonnell Douglas</em> framework. We conclude that Title VII does not impose such a heightened standard on majority-group plaintiffs. Therefore, the judgment below is vacated, and the case is remanded for application of the proper prima facie standard.</p>
+<p><em>It is so ordered.</em></p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li id="s3-n1" value="1"><p>In addition to the Sixth Circuit, four other Circuits have held or suggested that majority-group plaintiffs must satisfy a heightened burden to make out a prima facie case of disparate treatment under Title VII. See <em>Hammer</em> v. <em>Ashcroft</em>, 383 F. 3d 722, 724 (CA8 2004); <em>Mills</em> v. <em>Health Care Serv. Corp.</em>, 171 F. 3d 450, 457 (CA7 1999); <em>Harding</em> v. <em>Gray</em>, 9 F. 3d 150, 153 (CADC 1993); <em>Notari</em> v. <em>Denver Water Dept.</em>, 971 F. 2d 585, 589 (CA10 1992). Other Circuits do not impose any heightened burden on majority-group plaintiffs. <a class="back" href="#s3-r1" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n2" value="2"><p>Although our cases have sometimes described the <em>McDonnell Douglas</em> inquiry as a “burden-shifting” framework, the “ultimate burden of persuading the trier of fact that the defendant intentionally discriminated against the plaintiff remains at all times with the plaintiff.” <em>Burdine</em>, 450 U. S., at 253. <em>McDonnell Douglas</em> merely aims to provide “ `a sensible, orderly way to evaluate the evidence' ” that “ `bears on the critical question of discrimination.' ” <em>Postal Service Bd. of Governors</em> v. <em>Aikens</em>, 460 U. S. 711, 715 (1983). For purposes of this case, we assume without deciding that the <em>McDonnell Douglas</em> framework applies at the summary-judgment stage of litigation. <a class="back" href="#s3-r2" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n3" value="3"><p>See Tr. of Oral Arg. 39 (“Ohio agrees it is wrong to hold some litigants to a higher standard because of their protected characteristics”); <em>id.</em>, at 44 (endorsing the Solicitor General's position that Title VII imposes the same standards on majority-group and minority-group plaintiffs); <em>id.</em>, at 49–51 (confirming that Ames “should have the same burden” as other plaintiffs). <a class="back" href="#s3-r3" aria-label="Back to the text">↩</a></p></li>
+</ol></aside></section>
+<section id="s4" class="op op-concurring"><h2>Justice Thomas, concurring</h2>
+<p class="byline">Justice Thomas, with whom Justice Gorsuch joins, concurring.</p>
+<p>I join the Court's opinion in full. I write separately to highlight the problems that arise when judges create atextual legal rules and frameworks. Judge-made doctrines have a tendency to distort the underlying statutory text, impose unnecessary burdens on litigants, and cause confusion for courts. The “background circumstances” rule—correctly rejected by the Court today—is one example of this phenomenon. And, the decision below involves another example: The Sixth Circuit analyzed Ames's Title VII claim under the three-step framework developed by this Court in <em>McDonnell Douglas Corp.</em> v. <em>Green</em>, 411 U. S. 792 (1973). As with the “background circumstances” rule, the <em>McDonnell Douglas</em> framework lacks any basis in the text of Title VII <span class="pg" id="s4-p314" title="page 314 of the original">314</span>and has proved difficult for courts to apply. In a case where the parties ask us to do so, I would be willing to consider whether the <em>McDonnell Douglas</em> framework is a workable and useful evidentiary tool.</p>
+<h3 class="oh">I</h3>
+<p>The Sixth Circuit's “background circumstances” rule imposes a heightened burden on Title VII plaintiffs who belong to so-called “majority groups.” See 87 F. 4th 822, 825 (2023). The rule requires a majority-group plaintiff to prove, in addition to the standard elements of a Title VII claim, that background circumstances “ `support the suspicion that the defendant is that unusual employer who discriminates against the majority.' ” <em>Ibid.</em> This additional requirement is a paradigmatic example of how judge-made doctrines can distort the underlying statutory text.</p>
+<p>As the Court's opinion explains, the “background circumstances” rule lacks any basis in the text of Title VII. <em>Ante</em>, at 310. Title VII bars employment discrimination against “any individual” “because of such individual's race, color, religion, sex, or national origin.” 42 U. S. C. § 2000e–2(a)(1). “Thus, to state the obvious, the statute bars discrimination against `any individual' on the grounds specified therein.” 87 F. 4th, at 827 (Kethledge, J., concurring). The “background circumstances” rule plainly contravenes that statutory command by imposing a higher burden on some individuals based solely on their membership in a particular demographic group.<sup class="fnr"><a id="s4-r1" href="#s4-n1">1</a></sup></p>
+<p>This rule is a product of improper judicial lawmaking. See <em>Stewart Organization, Inc.</em> v. <em>Ricoh Corp.</em>, 487 U. S. 22, 38 (1988) (Scalia, J., dissenting) (“[W]hile interpreting and applying substantive law is the essence of the `judicial <span class="pg" id="s4-p315" title="page 315 of the original">315</span>Power' created under Article III of the Constitution, that power does not encompass the making of substantive law”). The rule was created by D. C. Circuit judges in <em>Parker</em> v. <em>Baltimore &amp; Ohio R. Co.</em>, 652 F. 2d 1012 (1981). Applying their own “common sense,” these judges determined that extra evidence is required to prove discrimination when a Title VII plaintiff is white. <em>Id.</em>, at 1017. In support of this proposition, the court cited only its mistaken understanding of the <em>McDonnell Douglas</em> framework, another judge-made construct, see Part II, <em>infra</em>. 652 F. 2d, at 1017<em>.</em> At no point in its development of this new rule did the court refer to the text of Title VII.</p>
+<p>The “background circumstances” rule also highlights how judge-made doctrines can be difficult for courts to apply. Because courts lack an underlying legal authority on which to ground their analysis, there is no principled way to resolve doctrinal ambiguities. The “background circumstances” rule suffers from this flaw. A number of courts have described the rule as “vague and ill-defined.” <em>E. g.</em>, <em>Iadimarco</em> v. <em>Runyon</em>, 190 F. 3d 151, 161 (CA3 1999); see also <em>Stock</em> v. <em>Universal Foods Corp.</em>, 817 F. Supp. 1300, 1306 (Md. 1993) (describing the rule as “vague and difficult to apply”). Most notably, the “background circumstances” rule requires courts to perform the difficult—if not impossible—task of deciding whether a particular plaintiff qualifies as a member of the so-called “majority.” See <em>Smyer</em> v. <em>Kroger Ltd. Partnership 1</em>, 2024 WL 1007116, *7 (CA6, Mar. 8, 2024) (Boggs, J., concurring) (explaining that we live “[i]n a world where it has become increasingly difficult to determine who belongs in the majority”).</p>
+<p>How a court defines the boundaries of a population can affect whether a particular person falls into a majority or minority group. Women, for example, make up the majority in the United States as a whole, but not in some States and counties. See Dept. of Commerce, Census Bureau, L. Blakeslee, Z. Caplan, J. Meyer, M. Rabe, &amp; A. Roberts, Age <span class="pg" id="s4-p316" title="page 316 of the original">316</span>and Sex Composition: 2020, pp. 2, 8, 14–15 (C2020BR–06, 2023) (Census Bureau). Similarly, women make up the majority of employees in certain industries, such as teaching and nursing, but the minority in other industries, such as construction. Brief for America First Legal Foundation as <em>Amicus Curiae</em> 13 (citing Dept. of Labor, Occupations With the Largest Share of Women Workers (Apr. 2025), https:// www.dol.gov/agencies/wb/data/occupations/largest-share-women-workers; Dept. of Labor, Occupations With the Smallest Share of Women Workers (Apr. 2025), https://www .dol.gov/agencies/wb/data/occupations/occupations-smallest-share-women-workers).</p>
+<p>Defining the “majority” is even more difficult in the context of race, as racial categories tend to be “overbroad” and “imprecise in many ways.” <em>Students for Fair Admissions, Inc.</em> v. <em>President and Fellows of Harvard College</em>, 600 U. S. 181, 216 (2023).<sup class="fnr"><a id="s4-r2" href="#s4-n2">2</a></sup>“American families have become increasingly multicultural,” and “attempts to divide us all up into a handful of groups have become only more incoherent with time.” <em>Id.</em>, at 293 (<span class="sc">Gorsuch</span>, <span class="sc">J</span>., concurring). And, even if courts could identify all the relevant racial groups and their boundaries, courts would still struggle to determine which racial groups make up a majority. Black employees in Detroit, for example, make up a majority in their city, but not in Michigan or the United States at large. See Census Bureau, <span class="pg" id="s4-p317" title="page 317 of the original">317</span>Quick Facts: Detroit City, Michigan (July 2024), https://www .census.gov/quickfacts/fact/table/detroitcitymichigan/ PST045224; Census Bureau, Quick Facts: Michigan (July 2024), https://www.census.gov/quickfacts/fact/table/MI/ PST045224.</p>
+<p>Similar problems arise with religion. As with sex and race, a particular religion could make up the majority or the minority, depending on how the population is defined. And, in the context of religion, the “background circumstances” rule requires courts to decide both the plaintiff's religion and how the plaintiff's religion compares with the religion of everyone else in the relevant population. Those tasks are formidable, as Americans hold a wide range of religious beliefs, as well as a wide range of views about the proper way to categorize other religions. Americans have different views, for example, on whether Catholics are Christians. The “judicial process is singularly ill equipped to resolve” these kinds of faith-based “differences.” <em>Thomas</em> v. <em>Review Bd. of Ind. Employment Security Div.</em>, 450 U. S. 707, 715 (1981); see also <em>Our Lady of Guadalupe School</em> v. <em>Morrissey-Berru</em>, 591 U. S. 732, 761 (2020) (“[D]etermining whether a person is a `co-religionist' will not always be easy”).</p>
+<p>Courts that have adopted the “background circumstances” rule have offered no guidance on how to decide whether a particular person is a member of the “majority.” See <em>Bishopp</em> v. <em>District of Columbia</em>, 788 F. 2d 781, 786, n. 5 (CADC 1986) (“[N]either this court nor the Supreme Court has squarely addressed the issue whether minority status for purposes of a prima facie case could have a regional or local meaning”). Instead, judges have been left to their own devices to make these challenging determinations.</p>
+<p>Most courts appear to have sidestepped these difficulties by abandoning the search for neutral principles and instead assuming that the “background circumstances” rule applies only to white and male plaintiffs. The Tenth Circuit, for example, assumed that the rule applies to “white plaintiff[s]” <span class="pg" id="s4-p318" title="page 318 of the original">318</span>on the ground that white individuals are “members of a historically favored group.” <em>Taken</em> v. <em>Oklahoma Corp. Comm'n</em>, 125 F. 3d 1366, 1369 (1997). Similarly, the D. C. Circuit applied the rule to a white plaintiff while acknowledging that “[o]f course whites are in the minority in the District of Columbia.” <em>Bishopp</em>, 788 F. 2d, at 786, and n. 5. In other words, courts with this rule have enshrined into Title VII's antidiscrimination law an explicitly race-based preference: White plaintiffs must prove the existence of background circumstances, while nonwhite plaintiffs need not do so. Such a rule is undoubtedly contrary to Title VII, and likely violates the Constitution, under which “there can be no such thing as either a creditor or a debtor race.” <em>Adarand Constructors, Inc.</em> v. <em>Peña</em>, 515 U. S. 200, 239 (1995) (Scalia, J., concurring in part and concurring in judgment); see n. 1, <em>supra</em>.</p>
+<p>Thankfully, today's decision obviates the need for courts to engage in the “sordid business” of “divvying us up by race” or any other protected trait. <em>League of United Latin American Citizens</em> v. <em>Perry</em>, 548 U. S. 399, 511 (2006) (<span class="sc">Roberts</span>, C. <span class="sc">J</span>., concurring in part, concurring in judgment in part, and dissenting in part). I simply observe that the “background circumstances” rule is emblematic of the serious challenges that can arise when judges invent atextual requirements.<sup class="fnr"><a id="s4-r3" href="#s4-n3">3</a></sup><span class="pg" id="s4-p319" title="page 319 of the original">319</span>For too long, that rule put “a deep scratch across [the] surface” of Title VII. 87 F. 4th, at 827 (Kethledge, J., concurring). I am pleased that the Court rejects it in full today.</p>
+<h3 class="oh">II</h3>
+<p>This case involves a second judge-made rule. Relying on Circuit precedent, the Sixth Circuit applied the three-step framework developed by this Court in <em>McDonnell Douglas</em> to determine whether Ames's Title VII claim should survive summary judgment. The Court today assumes without deciding that the <em>McDonnell Douglas</em> framework is an appropriate tool for making that determination. <em>Ante</em>, at 308, n. 2. But, the judge-made <em>McDonnell Douglas</em> framework has no basis in the text of Title VII. And, as I have previously explained, lower courts' extension of this doctrine into the summary-judgment context has caused “significant confusion” and “troubling outcomes on the ground.” <em>Hittle</em> v. <em>City of Stockton</em>, 604 U. S. –––, ––– – ––– (2025) (opinion dissenting from denial of certiorari). In an appropriate case, this Court should consider whether the <em>McDonnell Douglas</em> framework is an appropriate tool to evaluate Title VII claims at summary judgment.</p>
+<h3 class="oh">A</h3>
+<p>The <em>McDonnell Douglas</em> framework is a judge-made evidentiary “tool.” <em>Comcast Corp.</em> v. <em>National Assn. of African American-Owned Media</em>, 589 U. S. 327, 340 (2020). It was originally developed for courts to use in a bench trial. <em>Hittle</em>, 604 U. S., at ––– (opinion of <span class="sc">Thomas</span>, <span class="sc">J</span>.). Its intended purpose was to help “bring the litigants and the court expeditiously and fairly to th[e] ultimate question” in a Title VII case—that is, whether “the defendant intentionally discriminated against the plaintiff.” <em>Texas Dept. of Community Affairs</em> v. <em>Burdine</em>, 450 U. S. 248, 253 (1981).</p>
+<p><span class="pg" id="s4-p320" title="page 320 of the original">320</span>The framework has three steps, which this Court has summarized as follows: “First, the plaintiff has the burden of proving by the preponderance of the evidence a prima facie case of discrimination.” <em>Id.</em>, at 252–253. “Second, if the plaintiff succeeds in proving the prima facie case, the burden shifts to the defendant `to articulate some legitimate, nondiscriminatory reason for the employee's rejection.' ” <em>Id.</em>, at 253 (quoting <em>McDonnell Douglas</em>, 411 U. S., at 802). “Third, should the defendant carry this burden, the plaintiff must then have an opportunity to prove by a preponderance of the evidence that the legitimate reasons offered by the defendant were not its true reasons, but were a pretext for discrimination.” 450 U. S., at 253<em>.</em></p>
+<p>The <em>McDonnell Douglas</em> framework was made “out of whole cloth.” <em>Hittle</em>, 604 U. S., at ––– (opinion of <span class="sc">Thomas</span>, <span class="sc">J</span>.). Its contours have no basis in the text of Title VII or any other source of law. And, as far as I can tell, this Court has never attempted to justify it on textual grounds. <em>Ibid.</em>; see <em>Tynes</em> v. <em>Florida Dept. of Juvenile Justice</em>, 88 F. 4th 939, 952 (CA11 2023) (Newsom, J., concurring) (“There's certainly no textual warrant in Title VII or the Federal Rules for so elaborate a scheme, and so far as I know, no one has ever even sought to justify it as rooted in either”); <em>Griffith</em> v. <em>Des Moines</em>, 387 F. 3d 733, 740 (CA8 2004) (Magnuson, J., concurring specially) (“Absent from th[e] opinion was any justification or authority for this scheme”).</p>
+<h3 class="oh">B</h3>
+<p>The <em>McDonnell Douglas</em> framework exemplifies how judge-made doctrines can have amorphous bounds. Although originally designed for the bench-trial context, the <em>McDonnell Douglas</em> framework has over the years “taken on a life of its own.” <em>Tynes</em>, 88 F. 4th, at 952 (Newsom, J., concurring). It is today “the presumptive means of resolving Title VII cases at summary judgment.” <em>Ibid.</em> And, that development has come without this Court ever considering—much<span class="pg" id="s4-p321" title="page 321 of the original">321</span> less holding—that the framework is an appropriate tool for the summary-judgment task.</p>
+<p>Far from extending the framework to new contexts, this Court has taken steps to “limi[t] the relevancy and applicability of the <em>McDonnell Douglas</em> framework.” T. Tymkovich, The Problem With Pretext, 85 Denver U. L. Rev. 503, 507 (2008) (Tymkovich). For example, this Court has held that <em>McDonnell Douglas</em> is “inapplicable” when the plaintiff relies on direct evidence to prove his claim. <em>Trans World Airlines, Inc.</em> v. <em>Thurston</em>, 469 U. S. 111, 121 (1985). The Court has also held that the framework does not apply in Title VII mixed-motive cases. <em>Price Waterhouse</em> v. <em>Hopkins</em>, 490 U. S. 228, 258 (1989) (plurality opinion). We have said that the framework is inapplicable at the pleading stage, <em>Swierkiewicz</em> v. <em>Sorema N. A.</em>, 534 U. S. 506, 508 (2002), and in deciding post-trial motions, <em>Postal Service Bd. of Governors</em> v. <em>Aikens</em>, 460 U. S. 711, 715 (1983). This Court has further explained that a plaintiff need not satisfy the first step of the framework at trial. <em>Ibid.</em> And, we have strongly suggested that the framework should not be referenced in jury instructions because it is too confusing. <em>Vance</em> v. <em>Ball State Univ.</em>, 570 U. S. 421, 444–445, and n. 13 (2013).</p>
+<p>Notwithstanding this Court's steps to limit <em>McDonnell Douglas</em>, it is now the framework that “courts typically apply” “to determine whether the plaintiff has proffered sufficient evidence to survive summary judgment.” <em>Jackson</em> v. <em>VHS Detroit Receiving Hospital, Inc.</em>, 814 F. 3d 769, 776 (CA6 2016). The reason for this expansion is unclear. This Court has only once addressed the application of <em>McDonnell Douglas</em> to Title VII cases at summary judgment, and it held that the framework did not apply. See <em>Trans World Airlines</em>, 469 U. S., at 121.<sup class="fnr"><a id="s4-r4" href="#s4-n4">4</a></sup>But, however we got here, <em>McDon</em><em>nell</em><span class="pg" id="s4-p322" title="page 322 of the original">322</span><em> Douglas</em> now undeniably plays a prominent role in Title VII cases at summary judgment.</p>
+<h3 class="oh">C</h3>
+<p>I seriously doubt that the <em>McDonnell Douglas</em> framework is a suitable tool for evaluating Title VII claims at summary judgment. In my view, the framework is incompatible with the summary-judgment standard; it fails to encompass the various ways in which a plaintiff could prove his claim; it requires courts to maintain artificial distinctions between direct and circumstantial evidence; and it has created outsized judicial confusion.</p>
+<h3 class="oh">1</h3>
+<p>My first concern is that the <em>McDonnell Douglas</em> framework is incompatible with the summary-judgment standard set forth in Federal Rule of Civil Procedure 56.</p>
+<p>Rule 56(a) requires a court to grant summary judgment when the movant establishes that there is “no genuine dispute as to any material fact and the movant is entitled to judgment as a matter of law.” But, “the language this Court has used to describe the [<em>McDonnell Douglas</em>] framework does not neatly track” that rule. <em>Hittle</em>, 604 U. S., at ––– (opinion of <span class="sc">Thomas</span>, <span class="sc">J</span>.). Namely, the framework does not speak in terms of “genuine dispute[s]” regarding the facts. Fed. Rule Civ. Proc. 56(a). Instead, it speaks in terms of “proving” facts “by the preponderance of the evidence.” <em>Burdine</em>, 450 U. S., at 252–253. That difference is significant because “a plaintiff need not establish or prove any elements—by a preponderance or otherwise—to survive summary judgment.” <em>Hittle</em>, 604 U. S., at ––– (opinion of <span class="sc">Thomas</span>, <span class="sc">J</span>.). In my view, requiring a plaintiff to satisfy the <em>McDonnell Douglas</em> framework—as this Court has described<span class="pg" id="s4-p323" title="page 323 of the original">323</span> it—requires a plaintiff to prove too much at summary judgment.</p>
+<p>If courts are to apply <em>McDonnell Douglas</em> at summary judgment, they must modify the framework to match the applicable legal standard. For example, at the third step, the question for the court cannot be whether the plaintiff has “prove[d] by a preponderance of the evidence that the legitimate reasons offered by the defendant . . . were a pretext for discrimination.” <em>Burdine</em>, 450 U. S., at 253. Instead, the plaintiff need only present sufficient evidence to create a “genuine dispute as to” whether the employer's stated reason was pretextual. Rule 56(a).</p>
+<h3 class="oh">2</h3>
+<p>A second problem with the <em>McDonnell Douglas</em> framework is that it fails to capture all the ways in which a plaintiff can prove a Title VII claim. See <em>Hittle</em>, 604 U. S., at ––– (opinion of <span class="sc">Thomas</span>, <span class="sc">J</span>.). <em>McDonnell Douglas</em> “sets forth criteria that, if satisfied, will allow a plaintiff to prove a Title VII violation.” 604 U. S., at –––<em>.</em> But, satisfying <em>McDonnell Douglas</em> is “not the only way” to prevail under Title VII. 604 U. S., at –––<em>.</em></p>
+<p>For example, the text of Title VII provides that “an unlawful employment practice is established when the complaining party demonstrates that race, color, religion, sex, or national origin was a <em>motivating factor</em> for any employment practice, <em>even though other factors also motivated the practice.</em>” 42 U. S. C. § 2000e–2(m) (emphasis added). In other words, a plaintiff may establish a Title VII violation by proving that an employer took an employment action <em>in part</em> because of an unlawful motive.</p>
+<p>Yet, the <em>McDonnell Douglas</em> framework requires a plaintiff to prove that “the legitimate reasons offered by the defendant were not its true reasons, but were a pretext for discrimination.” <em>Burdine</em>, 450 U. S., at 253. That requirement demands more than the text of Title VII: Under the <span class="pg" id="s4-p324" title="page 324 of the original">324</span>statute, a plaintiff need not establish that the employer's stated reason for its action was <em>wholly</em> pretextual. A plaintiff could prevail even if the employer's stated reason was <em>part</em> of the reason for the employer's action. It follows that a plaintiff's inability to satisfy <em>McDonnell Douglas</em>'s third step does not necessarily mean that the plaintiff's claim should fail. In view of that problem, this Court has held that the <em>McDonnell Douglas</em> framework should not be used in cases where the plaintiff argues that the employer operated with mixed motives. <em>Price Waterhouse</em>, 490 U. S., at 258 (plurality opinion). Instead, the framework appears to be limited to cases where the plaintiff argues that discrimination was the sole factor influencing the employer's decision. But, “[n]othing in the text of [Title VII] indicates that Congress intended courts to maintain this dichotomy.” Tymkovich 522.</p>
+<p>And, even in so-called single-motive cases, <em>McDonnell Douglas</em> fails to capture all the ways in which a plaintiff could prevail. See <em>Berry</em> v. <em>Crestwood Healthcare LP</em>, 84 F. 4th 1300, 1310 (CA11 2023) (observing that a plaintiff can prove a Title VII claim without satisfying <em>McDonnell Douglas</em>'s three steps). A plaintiff who cannot establish a prima facie case at the first step or pretext at the third step can still prevail under Title VII so long as his evidence raises a reasonable inference of unlawful discrimination. The “ultimate question” is simply whether “the defendant intentionally discriminated against the plaintiff.” <em>Burdine</em>, 450 U. S., at 253.</p>
+<h3 class="oh">3</h3>
+<p>Another problem with the <em>McDonnell Douglas</em> framework is that it requires courts to draw and maintain an artificial distinction between direct and circumstantial evidence.</p>
+<p>This Court has held that “the <em>McDonnell Douglas</em> test is inapplicable where the plaintiff presents direct evidence of discrimination.” <em>Trans World Airlines</em>, 469 U. S., at 121. Our precedent therefore requires courts to “make the often <span class="pg" id="s4-p325" title="page 325 of the original">325</span>subtle and difficult distinction between `direct' and `indirect' or `circumstantial' evidence.” <em>Price Waterhouse</em>, 490 U. S., at 291 (Kennedy, J., dissenting).</p>
+<p>In most civil litigation contexts, courts have no occasion to distinguish between direct and circumstantial evidence. “[I]n any lawsuit, the plaintiff may prove his case by direct or circumstantial evidence,” or some combination thereof. <em>Aikens</em>, 460 U. S., at 714, n. 3. And, the law makes no distinction regarding the weight or value assigned to either kind of evidence. “The reason for treating circumstantial and direct evidence alike,” we have explained, “is both clear and deep rooted: `Circumstantial evidence is not only sufficient, but may also be more certain, satisfying and persuasive than direct evidence.' ” <em>Desert Palace, Inc.</em> v. <em>Costa</em>, 539 U. S. 90, 100 (2003).</p>
+<p>That “ `[c]onventional rul[e] of civil litigation' ”—that a plaintiff can proceed with direct or circumstantial evidence— applies with full force to Title VII cases. <em>Id.</em>, at 99. Yet, <em>McDonnell Douglas</em> requires courts to determine at the outset the nature of the evidence before it, which often prolongs litigation instead of streamlining it. See, <em>e. g.</em>, <em>Othman</em> v. <em>Country Club Hills</em>, 671 F. 3d 672, 675 (CA8 2012). Because a Title VII plaintiff can prove his claim with either direct or circumstantial evidence, I am skeptical of a framework that requires courts to perform the “difficult” task of characterizing each piece of evidence. <em>Price Waterhouse</em>, 490 U. S., at 291 (Kennedy, J., dissenting).</p>
+<h3 class="oh">4</h3>
+<p>That the <em>McDonnell Douglas</em> framework “has befuddled” courts “[s]ince its inception” is yet another reason to question it. <em>Griffith</em>, 387 F. 3d, at 746 (Magnuson, J., concurring specially). Six years after this Court created the framework, the First Circuit observed that “the subtleties of <em>McDonnell Douglas</em> are confusing” and “have caused considerable difficulty for judges of all levels.” <em>Loeb</em> v. <em>Textron, Inc.</em>, 600 <span class="pg" id="s4-p326" title="page 326 of the original">326</span>F. 2d 1003, 1016 (CA1 1979). That early confusion never dissipated. A decade later, Justice Kennedy made the same observation, explaining that “[l]ower courts long have had difficulty applying <em>McDonnell Douglas</em>.” <em>Price Waterhouse</em>, 490 U. S., at 291 (dissenting opinion). About 20 years after that, Judge Tymkovich too observed that “[l]ower courts have struggled to implement the burden-shifting framework for over thirty years.” Tymkovich 529. The <em>McDonnell Douglas</em> framework has been on the books for over 50 years now, and courts still report “continuing confusion.” <em>Tynes</em>, 88 F. 4th, at 945; see also <em>Hittle</em>, 604 U. S., at ––– (opinion of <span class="sc">Thomas</span>, <span class="sc">J</span>.) (collecting examples). That those who have carefully grappled with the framework for decades cannot make sense of it suggests that the framework is unworkable.</p>
+<h3 class="oh">D</h3>
+<p>This case did not present the question whether the <em>McDonnell Douglas</em> framework is an appropriate tool for evaluating Title VII claims at summary judgment. In a case where that issue is squarely before us, I would consider whether the framework should be used for that purpose.</p>
+<p>In the meantime, litigants and lower courts are free to proceed without the <em>McDonnell Douglas</em> framework. This Court has never required anyone to use it. And, district courts are well equipped to resolve summary judgment motions without it. Every day—and in almost every context except the Title VII context—district courts across the country resolve summary judgment motions by applying the straightforward text of Rule 56. In my view, it might behoove courts and litigants to take that same approach in Title VII cases.</p>
+<p class="sep">* * *</p>
+<p>Atextual, judge-created legal rules have a tendency to generate complexity, confusion, and erroneous results. I am pleased that the Court correctly rejects the atextual “background circumstances” rule today.</p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li id="s4-n1" value="1"><p>The “background circumstances” rule is also plainly at odds with the Constitution's guarantee of equal protection. That guarantee “ `cannot mean one thing when applied to one individual and something else when applied to [another].' ” <em>Students for Fair Admissions, Inc.</em> v. <em>President and Fellows of Harvard College</em>, 600 U. S. 181, 206 (2023). <a class="back" href="#s4-r1" aria-label="Back to the text">↩</a></p></li>
+<li id="s4-n2" value="2"><p>“The term `Asian,' ” for example, “is extremely broad and masks important variations by country of origin.” R. Bhopal, Migration, Ethnicity, Race, and Health in Multicultural Societies 18 (2d ed. 2014). Courts have also struggled to determine what it means to be “Hispanic.” See, <em>e. g.</em>, <em>Major Concrete Constr., Inc.</em> v. <em>Erie Cty.</em>, 134 App. Div. 2d 872, 873–874, 521 N. Y. S. 2d 959, 960 (1987) (upholding an administrative determination that a person with one Mexican grandparent did not qualify as Hispanic); see also M. Lopez, J. Krogstad, &amp; J. Passel, Pew Research Center, Who Is Hispanic? (Sept. 15, 2022), https://web.archive.org/web/20220930084123/ https://www.pewresearch.org/fact-tank/2022/09/15/who-is-hispanic/ (describing “evolving cultural norms about what it means to be Hispanic or Latino in the U. S. today”). <a class="back" href="#s4-r2" aria-label="Back to the text">↩</a></p></li>
+<li id="s4-n3" value="3"><p>The “ `background circumstances' ” rule is nonsensical for an additional reason: It requires courts to assume that only an “ `unusual employer' ” would discriminate against those it perceives to be in the majority. 87 F. 4th 822, 825 (CA6 2023). But, a number of this Nation's largest and most prestigious employers have overtly discriminated against those they deem members of so-called majority groups. American employers have long been “obsessed” with “diversity, equity, and inclusion” initiatives and affirmative action plans. Brief for America First Legal Foundation as <em>Amicus Curiae</em> 8. Initiatives of this kind have often led to overt discrimination against those perceived to be in the majority. <em>Harvard College</em>, 600 U. S., at 258 (<span class="sc">Thomas</span>, <span class="sc">J</span>., concurring); <em>Preston</em> v. <em>Wisconsin Health Fund</em>, 397 F. 3d 539, 542 (CA7 2005) (Posner, J., for the court) (explaining that companies are “under pressure from affirmative action plans” to discriminate in favor of members of so-called minority groups). <a class="back" href="#s4-r3" aria-label="Back to the text">↩</a></p></li>
+<li id="s4-n4" value="4"><p>To be sure, this Court has assumed without deciding that the <em>McDonnell Douglas</em> framework applies at summary judgment in contexts outside of Title VII. See, <em>e. g.</em>, <em>O'Connor</em> v. <em>Consolidated Coin Caterers Corp.</em>, 517 U. S. 308, 311 (1996) (Age Discrimination in Employment Act). But, as far as I can tell, this Court has never had occasion to decide whether the <em>McDonnell Douglas</em> framework is a useful or appropriate tool for evaluating any kind of claim at summary judgment. <a class="back" href="#s4-r4" aria-label="Back to the text">↩</a></p></li>
+</ol></aside></section><p class='back'><a href='/opinions/'>&larr; All opinions</a> · <a href='/justices/ot2024.html'>The Justices, October Term 2024 &rarr;</a></p></main></body>
+</html>
+

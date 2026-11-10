@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script async src='/analytics.js'></script><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate icon" href="/favicon.ico" sizes="any"><link rel="alternate" type="application/atom+xml" title="Supreme Court Report" href="/feed.xml"><link rel="alternate" type="application/atom+xml" title="Certiorari grants" href="/grants.xml"><title>Parrish v. United States — Opinion — Supreme Court Report</title><meta name="description" content="The opinion in Parrish v. United States (No. 24-275), decided June 12, 2025: the full text with its footnotes, as a page, a Markdown file and an EPUB."><link rel="canonical" href="https://supremecourt.report/opinions/2024/24-275.html"><meta property="og:site_name" content="Supreme Court Report"><meta property="og:type" content="article"><meta property="og:title" content="Parrish v. United States — Opinion — Supreme Court Report"><meta property="og:description" content="The opinion in Parrish v. United States (No. 24-275), decided June 12, 2025: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta property="og:url" content="https://supremecourt.report/opinions/2024/24-275.html"><meta property="og:image" content="https://supremecourt.report/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Supreme Court Report - docket analytics for the Supreme Court of the United States"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Parrish v. United States — Opinion — Supreme Court Report"><meta name="twitter:description" content="The opinion in Parrish v. United States (No. 24-275), decided June 12, 2025: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta name="twitter:image" content="https://supremecourt.report/og.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap"><style>
+  :root{--paper:#fdfcfa;--panel:#ffffff;--ink:#1a1a1e;--ink-soft:#484850;--faint:#63636b;--accent:#9c0e3a;--link:#9c0e3a;--rule:#dbd8d2;--nav-max:60rem}
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{font-family:'Newsreader',Georgia,serif;font-size:19px;line-height:1.6;
+    color:var(--ink);background:var(--paper);margin:0;font-feature-settings:'onum' 1}
+  body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
+    opacity:.5;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");}
+  .wrap{max-width:40rem;margin:0 auto;padding:3rem 1.4rem 4rem}
+  .kicker{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 1rem}
+  h1{font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:clamp(2.4rem,7vw,3.6rem);line-height:1;letter-spacing:-.015em;
+    margin:0 0 1rem;color:var(--ink)}
+  h1 em{font-style:italic;font-weight:500;color:var(--accent)}
+  .dek{font-size:1.15rem;line-height:1.5;color:var(--ink-soft);font-style:italic;
+    margin:0 0 1.4rem}
+  .brule{border:0;height:0;border-top:2px solid var(--ink);margin:1.4rem 0 .3rem;
+    position:relative}
+  .brule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+    border-top:1px solid var(--rule)}
+  ul.idx{list-style:none;padding:0;margin:1.6rem 0}
+  ul.idx li{border-bottom:1px solid var(--rule)}
+  /* Whole row is one block-level link: a large, reliable tap target on mobile. */
+  ul.idx a.row{display:flex;justify-content:space-between;align-items:baseline;
+    gap:1rem;padding:.9rem .4rem;text-decoration:none;border:0;color:inherit}
+  ul.idx a.row:hover{background:rgba(156,14,58,.05)}
+  ul.idx .d{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.16rem;
+    color:var(--accent);line-height:1.25}
+  ul.idx a.row:hover .d{text-decoration:underline;text-underline-offset:3px}
+  ul.idx .count{color:var(--faint);font-size:.9rem;font-style:italic;white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  /* A long note (an order list's "3 GVRs / 230 denied / 4 habeas denied /
+     ...", items separated by middots) cannot sit on one line: nowrap made it
+     claim the row and
+     squeezed the title into a column three words wide, and on a phone it ran off
+     the screen. Such a row opts in (meta_wrap): the note wraps, only between its
+     items, and takes at most ~45% of the row, so the title always has the
+     larger share. Under 34rem it drops beneath the title at full width. */
+  /* ("long", not "wrap": .wrap is the page container and its padding.) */
+  ul.idx .count.long{white-space:normal;text-align:right;max-width:45%;line-height:1.45}
+  ul.idx .count.long .seg{white-space:nowrap}
+  @media(max-width:34rem){
+    ul.idx a.row.longmeta{flex-wrap:wrap;row-gap:.2rem}
+    ul.idx .count.long{max-width:none;flex-basis:100%;text-align:left}
+  }
+  /* Compact horizontal strip of the most recent pages beneath a category row. */
+  ul.idx .recent{display:flex;flex-wrap:wrap;align-items:baseline;
+    gap:.3rem .85rem;padding:0 .4rem 1rem;margin-top:-.35rem}
+  ul.idx .recent .rlabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  ul.idx .recent a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--ink-soft);text-decoration:none;font-variant-numeric:tabular-nums;
+    border-bottom:1px solid var(--rule);padding-bottom:1px}
+  ul.idx .recent a:hover{color:var(--accent);border-color:var(--accent)}
+  /* Optional panel beneath the section index (home page: most-read cases). */
+  .panel{margin:2.4rem 0 0}
+  .panel h2{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 .25rem}
+  .panel .pnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:0 0 .5rem}
+  /* "Live now" (live_argument_panel, /live.js): hidden unless the Court is
+     streaming an argument. One red dot, the same --accent as the headings, so
+     the live state is a mark and not a new colour. */
+  .live h2 .ldot{display:inline-block;width:.5rem;height:.5rem;border-radius:50%;
+    background:var(--accent);margin-right:.5rem;vertical-align:.08rem;
+    animation:lpulse 2s ease-in-out infinite}
+  @keyframes lpulse{50%{opacity:.25}}
+  @media (prefers-reduced-motion:reduce){.live h2 .ldot{animation:none}}
+  .lplay{display:flex;flex-wrap:wrap;gap:.6rem .9rem;align-items:center;margin:.8rem 0 .3rem}
+  .lplay button{font:600 .9rem/1 'Newsreader',Georgia,serif;letter-spacing:.04em;
+    color:var(--paper);background:var(--accent);border:0;border-radius:2px;
+    padding:.6rem 1.05rem;cursor:pointer}
+  .lplay button:disabled{opacity:.6;cursor:progress}
+  .lplay button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  /* The player takes a row of its own and may never outgrow the column. A flex
+     item's min-width is auto, which for a replaced element is the browser's own
+     controls' width -- wider than the column on a phone, where mobile Safari
+     and Chrome draw larger controls than the desktop. */
+  .lplay audio{display:block;flex:1 1 100%;width:100%;min-width:0;max-width:100%;
+    box-sizing:border-box;margin:0}
+  .lplay .lstat{font-size:.85rem;color:var(--faint)}
+  /* --- Likeliest grants -----------------------------------------------------
+     Its own rows rather than ol.mostread's: this panel carries a question under
+     the caption, which that list has no room for, and a percentage that has to
+     read as the row's subject rather than as a trailing note.
+     The window toggle is two real radio inputs plus :has() -- no JavaScript.
+     Both windows are rendered at build time and one is hidden, which is the only
+     way a static site can offer the choice: there is no server to ask for the
+     other one. Real radios, not styled buttons, so the control is reachable by
+     keyboard and announced as a choice. */
+  .lead{margin:0 0 1.9rem}
+  .lead h2{margin-bottom:.35rem}
+  .lead .pnote{margin:0 0 .7rem}
+  .wr{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+  .win{display:inline-flex;gap:.25rem;margin:0 0 .55rem;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .win label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .win label:hover{color:var(--ink)}
+  .lead:has(#w7:checked) label[for=w7],
+  .lead:has(#w28:checked) label[for=w28],
+  .lead:has(#wall:checked) label[for=wall]{background:var(--accent);color:var(--paper)}
+  .wr:focus-visible+label{outline:2px solid var(--accent);outline-offset:2px}
+  /* Three windows, one shown: the checked radio hides the other two. */
+  .lead:has(#w7:checked) :is(.g28,.n28,.gall,.nall),
+  .lead:has(#w28:checked) :is(.g7,.n7,.gall,.nall),
+  .lead:has(#wall:checked) :is(.g7,.n7,.g28,.n28){display:none}
+  /* The show/hide controls for a panel's secondary line -- the question under
+     a forecast row, the holding under a decision. Same box as the window
+     toggle, a checkbox instead of radios, and no script: the sibling rule does
+     the work and the lines simply show where :has() is unsupported. The
+     questions are on by default (they are what a forecast row asks); the
+     holdings are off (the caption, kind and disposition already say what
+     happened, and the holding is the more). */
+  .opts{display:inline-flex;gap:.25rem;margin:0 .45rem .55rem 0;vertical-align:top;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .opts label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .opts label:hover{color:var(--ink)}
+  .lead:has(#qon:checked) label[for=qon],
+  .panel:has(#hon:checked) label[for=hon]{background:var(--accent);color:var(--paper)}
+  .lead:has(#qon:not(:checked)) .gq{display:none}
+  .panel:has(#hon:not(:checked)) .chold{display:none}
+  /* --- Upcoming at the Court ------------------------------------------------
+     A date gutter and a two-line body, the same shape as the grant rows above
+     it, so the two panels read as one page rather than two widgets. */
+  .cal{margin:0 0 1.9rem}
+  ol.cal{list-style:none;margin:0;padding:0}
+  ol.cal li{border-top:1px solid var(--rule)}
+  ol.cal li:last-child{border-bottom:1px solid var(--rule)}
+  /* The row is a container, not an anchor: an argument day carries one link per
+     case it hears and anchors cannot nest. Hover lives on the row so it still
+     reads as one unit, and each link colours on its own hover. */
+  ol.cal .crow{display:flex;gap:.95rem;align-items:baseline;padding:.55rem .1rem}
+  ol.cal .crow:hover{background:rgba(156,14,58,.05)}
+  ol.cal a{text-decoration:none;color:inherit}
+  ol.cal a:hover,ol.cal a:focus-visible{color:var(--accent)}
+  ol.cal .cdet a{border-bottom:1px solid rgba(156,14,58,.35)}
+  ol.cal .cdet a:hover{border-bottom-color:var(--accent)}
+  ol.cal .cwhen{flex:none;width:4.6rem;font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.96rem;color:var(--ink);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  ol.cal .cdow{display:block;font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);text-transform:uppercase;letter-spacing:.08em}
+  ol.cal .ctx{flex:1;min-width:0}
+  ol.cal .ckind{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:.98rem;line-height:1.25}
+  ol.cal .cdet{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.12rem}
+  /* Recent decisions reuses the calendar rows and adds exactly two things: the
+     kind word that opens the detail line, and the one outbound link (the slip
+     opinion), which takes the link colour the rest of the row deliberately
+     does not. */
+  ol.cal .dk{font-weight:600;color:var(--ink)}
+  ol.cal .cdet a.pdf{color:var(--link)}
+  /* The holding, from the Court's slip-opinion feed: one sentence, set
+     smaller and in the soft ink so the caption stays the row's headline. */
+  ol.cal .chold{display:block;font-size:.86rem;line-height:1.4;color:var(--ink-soft);
+    font-style:italic;margin-top:.15rem}
+  ol.cal .cdet a.pdf:hover,ol.cal .cdet a.pdf:focus-visible{color:var(--accent);
+    border-bottom-color:var(--accent)}
+  ol.grants{list-style:none;margin:0;padding:0}
+  ol.grants li{border-top:1px solid var(--rule)}
+  ol.grants li:last-child{border-bottom:1px solid var(--rule)}
+  ol.grants a{display:flex;gap:.95rem;align-items:baseline;text-decoration:none;
+    color:inherit;padding:.62rem .1rem}
+  ol.grants a:hover{background:rgba(156,14,58,.05)}
+  ol.grants a:hover .gc{color:var(--accent)}
+  ol.grants .gv{flex:none;width:3.5rem;text-align:right;
+    font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.22rem;
+    line-height:1.1;color:var(--accent);font-variant-numeric:tabular-nums}
+  ol.grants .gx{font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);margin-left:.3rem}
+  ol.grants .gtx{flex:1;min-width:0}
+  /* Subject-area line under the caption, in the section-label idiom (h2.sec):
+     small tracked caps in the faint ink, so it classifies without competing. */
+  ol.grants .gs,ol.mostread .ms{display:block;font-size:.68rem;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--faint);line-height:1.3;margin-top:.12rem}
+  ol.grants .gc{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:1rem;line-height:1.25}
+  ol.grants .gq{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.16rem}
+  ol.grants .gd{flex:none;font-size:.76rem;color:var(--faint);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  .more{margin:.75rem 0 0;font-size:.92rem}
+  .more a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.35)}
+  .more a:hover{border-bottom-color:var(--link)}
+  h2.sec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:.88rem;
+    letter-spacing:.09em;color:var(--faint);text-transform:uppercase;
+    margin:2.1rem 0 .6rem;padding-bottom:.28rem;border-bottom:1px solid var(--rule)}
+  @media(max-width:40rem){
+    ol.grants a{flex-wrap:wrap}
+    ol.grants .gd{width:100%;padding-left:4.45rem;margin-top:-.1rem}
+  }
+  ol.mostread{list-style:none;counter-reset:mr;padding:0;margin:0}
+  ol.mostread li{counter-increment:mr;border-bottom:1px solid var(--rule)}
+  ol.mostread a{display:flex;align-items:baseline;gap:.7rem;padding:.6rem .4rem;
+    text-decoration:none;color:inherit}
+  ol.mostread a:hover{background:rgba(156,14,58,.05)}
+  ol.mostread a::before{content:counter(mr);font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.95rem;color:var(--faint);min-width:1.1rem;
+    font-variant-numeric:tabular-nums}
+  ol.mostread .mc{flex:1;font-size:1rem;line-height:1.3}
+  ol.mostread .mct{display:block}
+  ol.mostread a:hover .mct{color:var(--accent);text-decoration:underline;
+    text-underline-offset:3px}
+  ol.mostread .mdk{color:var(--accent);font-weight:600;font-size:.82rem;
+    font-variant-numeric:tabular-nums;white-space:nowrap}
+  ol.mostread .mv{color:var(--faint);font-size:.85rem;font-style:italic;
+    white-space:nowrap;font-variant-numeric:tabular-nums}
+  /* Forecast percentages carry weight the most-read counts do not: the number is
+     the claim, not a footnote to the ranking. Upright, accent, tabular. */
+  ol.mostread .mv.fc{color:var(--accent);font-style:normal;font-weight:600;
+    font-size:.95rem;min-width:2.6rem;text-align:right}
+  /* Feed follow line. Deliberately quiet -- a footnote under the section list,
+     styled like .recent rather than like a call to action. */
+  .feeds{display:flex;flex-wrap:wrap;align-items:baseline;gap:.3rem .85rem;
+    margin:2.2rem 0 0;padding-top:1.1rem;border-top:1px solid var(--rule)}
+  .feeds .flabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  .feeds a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .feeds a:hover{border-color:var(--link)}
+  .back{margin-top:2rem;font-size:.95rem}
+  .back a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .back a:hover{border-color:var(--link)}
+  /* Home-page case search. */
+  .csearch{position:relative;margin:0 0 1.4rem}
+  #cq{width:100%;font-family:'Newsreader',Georgia,serif;font-size:1.05rem;color:var(--ink);
+    background:var(--panel);border:1px solid var(--rule);border-radius:3px;padding:.7rem .9rem}
+  #cq:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(156,14,58,.1)}
+  #cq::placeholder{color:var(--faint)}
+  #cq.loading{background-image:linear-gradient(90deg,transparent,rgba(156,14,58,.06),transparent);
+    background-size:40% 100%;background-repeat:no-repeat;animation:csl 1s infinite}
+  @keyframes csl{0%{background-position:-40% 0}100%{background-position:140% 0}}
+  .cres{list-style:none;margin:.35rem 0 0;padding:0;max-height:24rem;overflow-y:auto;
+    border:1px solid var(--rule);border-radius:3px;background:var(--panel)}
+  .cres:empty{display:none}
+  .cres li{border-bottom:1px solid var(--rule)}
+  .cres li:last-child{border-bottom:0}
+  .cres a{display:block;padding:.55rem .7rem;text-decoration:none;color:var(--ink);
+    font-size:.98rem;line-height:1.3}
+  .cres a:hover,.cres li.act a{background:rgba(156,14,58,.06)}
+  .cres mark{background:rgba(156,14,58,.14);color:inherit;padding:0 .05em;border-radius:2px}
+  .cres .cd{color:var(--accent);font-variant-numeric:tabular-nums;font-weight:600;
+    margin-right:.5rem;white-space:nowrap}
+  .cnone{padding:.55rem .7rem;color:var(--faint);font-style:italic}
+  .cnone a,.cqp a{color:var(--link);font-style:normal;text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .cqp{margin:.45rem 0 0;font-size:.88rem;color:var(--faint)}
+  /* /cases/ browse index: grouped sections with per-bucket counts. */
+  .csec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+    text-transform:uppercase;letter-spacing:.12em;color:var(--accent);
+    margin:2.2rem 0 .3rem;padding-bottom:.35rem;border-bottom:1px solid var(--rule);
+    display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
+  .csec .cn{font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:.85rem;
+    letter-spacing:0;text-transform:none;color:var(--faint);
+    font-variant-numeric:tabular-nums}
+  .cnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:.5rem 0 0}
+  .cnote a{color:var(--accent)}
+  ul.terms{list-style:none;padding:0;margin:1rem 0 0;display:flex;flex-wrap:wrap;
+    gap:.5rem 1.6rem}
+  ul.terms li{display:inline-flex;align-items:baseline;gap:.4rem}
+  ul.terms a{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.05rem;
+    color:var(--accent);text-decoration:none;border-bottom:1px solid var(--rule)}
+  ul.terms a:hover{border-bottom-color:var(--accent)}
+  ul.terms .cn{color:var(--faint);font-size:.85rem;font-variant-numeric:tabular-nums}
+  /* About page: running prose rather than an index, so it takes a measure and a
+     little more leading than the section rows above it. */
+  .about{margin:1.6rem 0 0;font-size:1.05rem;line-height:1.65;max-width:34rem}
+  .about p{margin:0 0 1rem}
+  .about a{color:var(--accent);text-decoration:none;
+    border-bottom:1px solid var(--rule)}
+  .about a:hover{border-bottom-color:var(--accent)}
+  .about .contact{margin:2rem 0 0;background:var(--panel);border:1px solid var(--rule);
+    border-left:4px solid var(--accent);padding:1.1rem 1.3rem}
+  .about .contact h2{font:600 .78rem/1 'Newsreader',Georgia,serif;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--accent);margin:0 0 .5rem}
+  .about .contact p{margin:0;font-size:1rem}
+
+/* ---- masthead ---- */
+.smast-in{max-width:var(--nav-max,60rem);margin:0 auto;padding:.85rem 1.5rem .5rem;
+  display:flex;align-items:baseline;justify-content:space-between;gap:1.4rem;flex-wrap:wrap}
+.smast-wm{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+  letter-spacing:.005em;color:var(--ink,#1a1a1e);text-decoration:none;white-space:nowrap;flex:none}
+.smast-wm em{font-style:italic;font-weight:500;color:var(--accent,#9c0e3a)}
+.smast-wm:hover{color:var(--accent,#9c0e3a)}
+/* Row gap first, then column. At 1.35rem the six section links measured 596px
+   of max-content -- 4px wider than the 592px row the 40rem index container
+   leaves them -- so ABOUT alone wrapped to a third line under the wordmark, on
+   every page page_style.R writes. 1.05rem brings the row to 572px: 20px of
+   slack at 40rem, and 45px on the 54rem case pages, which were themselves only
+   21px from wrapping. The .4rem row gap is for the day a seventh section
+   overruns it anyway -- a nav that wraps should read as a stack, not an orphan. */
+.snav{display:flex;gap:.4rem 1.05rem;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+.snav a{font:600 .72rem/1 'Newsreader',Georgia,serif;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--ink-soft,var(--soft,#484850));text-decoration:none;display:inline-block;
+  padding:.5rem 0;border-bottom:1.5px solid transparent}
+.snav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--rule,#dbd8d2)}
+.snav a[aria-current='page']{color:var(--accent,#9c0e3a);
+  border-bottom-color:var(--accent,#9c0e3a)}
+.smast-rule-w{max-width:var(--nav-max,60rem);margin:0 auto;padding:0 1.5rem}
+.smast-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0;position:relative}
+.smast-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.skip{position:absolute;left:-9999px;top:0;background:var(--panel,#ffffff);
+  color:var(--accent,#9c0e3a);padding:.6rem 1rem;
+  border:1px solid var(--accent,#9c0e3a);
+  font:600 .8rem/1 'Newsreader',Georgia,serif;letter-spacing:.1em;text-transform:uppercase;z-index:10}
+.skip:focus{left:.5rem;top:.5rem}
+/* ---- breadcrumb ---- */
+.bcrumb{margin:.7rem 0 0}
+.bcrumb ol{list-style:none;display:flex;flex-wrap:wrap;align-items:baseline;
+  gap:.1rem .45rem;margin:0;padding:0}
+.bcrumb li{display:inline-flex;align-items:baseline;gap:.45rem}
+.bcrumb a{font:400 .8rem/1.5 'Newsreader',Georgia,serif;color:var(--ink-soft,var(--soft,#484850));
+  text-decoration:none;border-bottom:1px solid var(--rule,#dbd8d2)}
+.bcrumb a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.bcrumb .sep{color:var(--faint,#63636b);font-size:.8rem;line-height:1.5}
+.bcrumb [aria-current='page']{font:400 .8rem/1.5 'Newsreader',Georgia,serif;
+  color:var(--faint,#63636b);font-variant-numeric:tabular-nums}
+/* ---- case footer ---- */
+.cfoot{margin:2.4rem 0 0}
+.cfoot-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0 0 1rem;position:relative}
+.cfoot-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.cfoot-off{font-size:.95rem;margin:0 0 1.1rem}
+.cfoot-off a{color:var(--link,#9c0e3a);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.4)}
+.cfoot-off a:hover{border-bottom-color:var(--link,#9c0e3a)}
+.cfoot-lab{font:600 .68rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);margin:0 0 .5rem}
+.cfoot-nav{display:flex;flex-wrap:wrap;gap:.35rem 1.1rem;list-style:none;margin:0;padding:0}
+.cfoot-nav a{font-size:.92rem;color:var(--ink-soft,var(--soft,#484850));text-decoration:none;
+  border-bottom:1px solid var(--rule,#dbd8d2);padding-bottom:1px}
+.cfoot-nav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.cfoot-stamp{margin:1.2rem 0 0;font-size:.8rem;color:var(--faint,#63636b);font-style:italic}
+/* ---- prev / next ---- */
+.pnav{margin:2.2rem 0 0;border-top:1px solid var(--rule,#dbd8d2);padding-top:1rem;
+  display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.pnav a,.pnav span.none{text-decoration:none;color:inherit;display:block;padding:.5rem .2rem}
+.pnav a:hover{background:rgba(156,14,58,.05)}
+.pnav .dir{font:600 .66rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);display:block;margin-bottom:.3rem}
+.pnav .lab{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1rem;line-height:1.25;
+  color:var(--accent,#9c0e3a);display:block}
+.pnav a:hover .lab{text-decoration:underline;text-underline-offset:3px}
+.pnav .nx{text-align:right}
+.pnav .none{opacity:.35}
+@media(max-width:640px){
+  .smast-in{padding:.7rem 1.1rem .25rem;gap:.15rem}
+  .smast-wm{font-size:.98rem}
+  .smast-in nav{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+    -webkit-mask-image:linear-gradient(90deg,#000 86%,transparent);
+    mask-image:linear-gradient(90deg,#000 86%,transparent)}
+  .smast-in nav::-webkit-scrollbar{display:none}
+  .snav{flex-wrap:nowrap;gap:1.15rem;padding-right:2.4rem}
+  .snav a{padding:.7rem 0;white-space:nowrap}
+  .smast-rule-w{padding:0 1.1rem}
+  .cfoot-nav{gap:.5rem 1rem}
+  .cfoot-nav a{padding-bottom:.3rem}
+  .pnav{grid-template-columns:1fr;gap:.2rem}
+  .pnav .nx{text-align:left;border-top:1px solid var(--rule,#dbd8d2)}
+}
+
+  .wrap.opn{max-width:42rem}
+  .opn .ometa{font-size:.92rem;color:var(--ink-soft);margin:.3rem 0 0}
+  .opn .oget{display:flex;flex-wrap:wrap;gap:.4rem .6rem;margin:1.1rem 0 0;padding:0;list-style:none;font-size:.9rem}
+  .opn .oget a{display:inline-block;padding:.32rem .7rem;border:1px solid var(--rule);border-radius:4px;color:var(--ink);text-decoration:none;background:var(--panel)}
+  .opn .oget a:hover{border-color:var(--accent);color:var(--accent)}
+  .opn .osrc{font-size:.84rem;color:var(--faint);margin:.9rem 0 0;line-height:1.45}
+  .opn .osrc a{color:var(--link)}
+  .opn .otoc{margin:1.6rem 0 0;padding:.8rem 1rem;border:1px solid var(--rule);border-radius:4px;background:var(--panel);font-size:.95rem}
+  .opn .otoc ol{margin:0;padding:0;list-style:none}
+  .opn .otoc li{margin:.25rem 0}
+  .opn .otoc a{color:var(--ink);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.35)}
+  .opn .otoc a:hover{color:var(--accent)}
+  .opn section.op{margin-top:3rem;border-top:2px solid var(--ink);padding-top:1.1rem}
+  .opn section.op h2{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.5rem;line-height:1.2;margin:0 0 1rem;color:var(--ink)}
+  .opn section.op p{margin:0 0 .95rem;line-height:1.62;hyphens:auto;overflow-wrap:break-word}
+  .opn section.op p.byline{color:var(--ink-soft);font-style:italic}
+  .opn section.op p.sep{text-align:center;letter-spacing:.3em;color:var(--faint);margin:1.6rem 0}
+  .opn section.op h3.oh{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.12rem;text-align:center;margin:2rem 0 1rem;color:var(--ink)}
+  .opn section.op blockquote{margin:0 0 .95rem;padding:0 0 0 1.1rem;border-left:2px solid var(--rule);color:var(--ink-soft)}
+  .opn section.op blockquote p{margin-bottom:.6rem;font-size:.96em}
+  .opn .sc{font-variant-caps:small-caps;letter-spacing:.02em}
+  .opn .pg{font-size:.66em;color:var(--faint);vertical-align:.3em;margin:0 .3em 0 .1em;font-variant-numeric:tabular-nums;user-select:none;white-space:nowrap}
+  .opn .pg::before{content:'*'}
+  .opn sup.fnr{font-size:.68em;line-height:0;margin-left:.05em}
+  .opn sup.fnr a{color:var(--link);text-decoration:none;padding:0 .1em}
+  .opn aside.notes{margin-top:2rem;border-top:1px solid var(--rule);padding-top:.8rem;font-size:.88rem;color:var(--ink-soft)}
+  .opn aside.notes h3{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1rem;margin:0 0 .6rem;color:var(--ink)}
+  .opn aside.notes ol{margin:0;padding-left:1.7rem}
+  .opn aside.notes li{margin:0 0 .55rem}
+  .opn aside.notes li.sym{list-style:none;margin-left:-1.7rem}
+  .opn aside.notes li.sym .mk{margin-right:.3rem}
+  .opn aside.notes li.sym p{display:inline}
+  .opn aside.notes p{margin:0 0 .4rem;line-height:1.5}
+  .opn aside.notes a.back{color:var(--link);text-decoration:none;margin-left:.2rem}
+  .opn aside.notes li:target,.opn sup.fnr a:target,.opn .pg:target{background:rgba(156,14,58,.12);outline:.2rem solid rgba(156,14,58,.12)}
+  .opn section.op,.opn aside.notes li,.opn sup.fnr a{scroll-margin-top:1rem}
+  .opn section.op-syllabus p,.opn section.op-counsel p{font-size:.95em}
+  .opn section.op-counsel summary{cursor:pointer;font-family:'Fraunces',Georgia,serif;font-size:1.05rem;color:var(--ink-soft)}
+  .opn .osyl{font-size:.84rem;color:var(--faint);font-style:italic;margin:-.5rem 0 1rem}
+  .opn p.back{margin-top:3rem;font-size:.92rem}
+  @media print{.smast,.bcrumb,.opn .oget,.opn .otoc,.opn p.back{display:none}.opn section.op{break-before:page}}
+</style><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://supremecourt.report/"},{"@type":"ListItem","position":2,"name":"Opinions","item":"https://supremecourt.report/opinions/"},{"@type":"ListItem","position":3,"name":"Parrish v. United States"}]}</script><meta name='otv' content='p1'><link rel='alternate' type='text/markdown' href='/opinions/2024/24-275.md'><link rel='alternate' type='application/epub+zip' href='/opinions/2024/24-275.epub'></head><body><a class='skip' href='#main'>Skip to content</a><header><div class='smast-in'><a class='smast-wm' href='/'>Supreme Court <em>Report</em></a><nav aria-label='Sections'><ul class='snav'><li><a href='/dashboards/'>Docket</a></li><li><a href='/conferences/'>Conferences</a></li><li><a href='/relists/'>Relists</a></li><li><a href='/applications/'>Interim</a></li><li><a href='/arguments/'>Arguments</a></li><li><a href='/justices/' aria-current='page'>Justices</a></li><li><a href='/counsel/'>Counsel</a></li><li><a href='/funnel/'>Funnel</a></li><li><a href='/methods.html'>Model</a></li><li><a href='/about.html'>About</a></li></ul></nav></div><div class='smast-rule-w'><hr class='smast-rule'></div></header><main class='wrap opn' id='main' data-dkt='24-275'><nav class='bcrumb' aria-label='Breadcrumb'><ol><li><a href='/'>Home</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><a href='/opinions/'>Opinions</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><span aria-current='page'>Parrish v. United States</span></li></ol></nav><p class='kicker'>No. 24-275 · decided June 12, 2025 · 605 U. S. 376</p><h1 style='font-size:clamp(1.7rem,4.6vw,2.4rem);line-height:1.12'>Parrish v. United States</h1><p class='ometa'>Donte Parrish v. United States. 2 separate writings.</p><ul class='oget'><li><a href='/opinions/2024/24-275.epub' download>EPUB</a></li><li><a href='/opinions/2024/24-275.md' download>Markdown</a></li><li><a href='https://www.supremecourt.gov/opinions/24pdf/605us2r43_e29g.pdf' rel='noopener'>The Court’s PDF</a></li><li><a href='/cases/24-275.html'>The docket</a></li></ul><p class='osrc'>Set from the PDF the Court published, which is the authoritative text. The small starred numbers are that PDF’s page numbers. A conversion can introduce errors; check a quotation against the <a href='https://www.supremecourt.gov/opinions/24pdf/605us2r43_e29g.pdf' rel='noopener'>original</a>.</p><nav class="otoc" aria-label="Contents"><ol>
+<li><a href="#s1">Syllabus</a></li>
+<li><a href="#s2">Counsel</a></li>
+<li><a href="#s3">Opinion of the Court</a></li>
+<li><a href="#s4">Justice Jackson, concurring in the judgment</a></li>
+<li><a href="#s5">Justice Gorsuch, dissenting</a></li>
+</ol></nav>
+<section id="s1" class="op op-syllabus"><h2>Syllabus</h2><p class='osyl'>Prepared by the Reporter of Decisions for the convenience of the reader; it is no part of the opinion of the Court.</p>
+<p>Federal inmate Donte Parrish alleges that he was placed in restrictive segregated confinement for 23 months based on his suspected involvement in another inmate's death. After a hearing officer cleared him of wrongdoing, Parrish filed suit in Federal District Court seeking damages for his time in segregated confinement. The District Court dismissed his case on March 23, 2020, holding that some claims were untimely and others unexhausted. When the court's order reached the federal prison two weeks later, Parrish was no longer there, having been transferred to a different facility. Parrish received the dismissal order three months after it was issued and promptly filed a notice of appeal, explaining his delayed receipt. The Fourth Circuit recognized that Parrish's notice of appeal came well after the 60-day appeal period for suits against the United States, so it construed Parrish's filing as a motion to reopen the time to appeal under 28 U. S. C. § 2107(c). On remand, the District Court granted reopening for 14 days. Parrish did not file a second notice of appeal. Although both Parrish and the United States argued that the original notice of appeal was sufficient, the Fourth Circuit held that Parrish's failure to file a new notice of appeal within the reopened appeal period deprived the court of jurisdiction.</p>
+<p><em>Held</em>: A litigant who files a notice of appeal after the original appeal deadline but before the court grants reopening need not file a second notice after reopening. The original notice relates forward to the date reopening is granted. Pp. 381–391.</p>
+<p>(a) Civil litigants must ordinarily file a notice of appeal within 30 days after entry of judgment, or 60 days when the United States is a party. §§ 2107(a), (b). In civil cases, the requirement to file a timely notice is jurisdictional. <em>Bowles</em> v. <em>Russell</em>, 551 U. S. 205, 214. Congress created two exceptions: Courts may extend the appeal time upon a showing of excusable neglect or good cause, and courts may reopen the time for appeal when a party entitled to notice does not receive it within 21 days of entry. § 2107(c). Here, there is no dispute that the District Court properly reopened Parrish's time to appeal. Pp. 381–382.</p>
+<p>(b) Section 2107(c) establishes that a reopened appeal period runs for 14 days from “the date of entry of the order reopening the time for <span class="pg" id="s1-p377" title="page 377 of the original">377</span>appeal.” A notice filed after that 14-day period is late, meaning it can no longer serve its purpose. <em>Bowles</em>, 551 U. S., at 214. A notice filed before reopening is granted, however, is merely early. While the statute's text does not address the jurisdictional consequences of a premature filing, Congress legislates against the background of common-law principles, which apply unless a contrary statutory purpose is evident. See <em>Astoria Fed. Sav. &amp; Loan Assn.</em> v. <em>Solimino</em>, 501 U. S. 104, 108. This Court has long held that premature but adequate notices of appeal should relate forward to the entry of the document that makes an appeal possible. For over a century, the Court has consistently applied this principle to avoid dismissing appeals based on mere technicalities when “no genuine doubt exists about who is appealing, from what judgment, to which appellate court.” <em>Becker</em> v. <em>Montgomery</em>, 532 U. S. 757, 767–768.</p>
+<p>The practice with regard to premature notices did not change when Congress passed the first version of what is now 28 U. S. C. § 2107 in 1948, or when the Federal Rules of Appellate Procedure were subsequently promulgated. The text of § 2107(c) itself provides no indication that Congress sought to “terminate” the longstanding relation-forward rule “or disturb its development.” <em>Minerva Surgical, Inc.</em> v. <em>Hologic, Inc.</em>, 594 U. S. 559, 572. Applying the relation-forward rule, Parrish's notice related forward to the date of the District Court's reopening order. Pp. 382–386.</p>
+<p>(c) Counterarguments are unpersuasive. While the word “reopen” presumes the appeal period has closed, this merely confirms that Parrish's notice was premature with respect to the reopened period—it does not resolve whether the notice should relate forward. The characterization of the notice as “late” rather than “premature” fails to recognize that there were two proper times to appeal: the original 60-day period and the 14-day reopening period. The Fourth Circuit's concern that a single filing cannot serve dual purposes is contradicted by precedent recognizing that one document can simultaneously function as both a notice of appeal and other required filings. See, <em>e. g.</em>, <em>Smith</em> v. <em>Barry</em>, 502 U. S. 244, 245. Pp. 386–387.</p>
+<p>(d) The Federal Rules of Appellate Procedure support this result. Rules 4(a)(2) and 4(a)(4) codify the principle that premature notices should relate forward when they do not prejudice opposing parties. The 1993 amendment eliminating restrictions on relation-forward was specifically designed to avoid creating “a trap for an unsuspecting litigant” and to address the problem that “[m]any litigants, especially pro se litigants, fail[ed] to file the second notice of appeal.” Fed. Rule App. Proc. 4, 28 U. S. C. App., p. 11<em>.</em> Rule 4(a)(6)'s silence on relation-forward does not create a negative implication prohibiting it, particularly given <span class="pg" id="s1-p378" title="page 378 of the original">378</span>the Rules' emphasis on securing “just, speedy, and inexpensive determination” of every action or proceeding and disregarding “errors and defects that do not affect any party's substantial rights.” Fed. Rules Civ. Proc. 1, 61. So long as Rule 4(a)(6) does not speak to relation forward, the default rule applies. That means Parrish's appeal can go forward under the Federal Rules as well as the statute. Pp. 387–390. 74 F. 4th 160, reversed and remanded. <span class="sc">Sotomayor</span>, J., delivered the opinion of the Court, in which <span class="sc">Roberts</span>, C. J., and <span class="sc">Alito</span>, <span class="sc">Kagan</span>, <span class="sc">Kavanaugh</span>, and <span class="sc">Barrett</span>, JJ., joined. <span class="sc">Jackson</span>, J., filed an opinion concurring in the judgment, in which <span class="sc">Thomas</span>, J., joined, <em>post</em>, p. 391. <span class="sc">Gorsuch</span>, J., filed a dissenting opinion, <em>post</em>, p. 393.</p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li class="sym" value="0"><span class="mk">*</span><p>Briefs of <em>amici curiae</em> urging reversal were filed for the Center for Constitutional Rights et al. by <em>Jaqueline Aranda Osorno</em>, <em>Lucia Goin</em>, and <em>Jim Davy</em>; for the Roderick &amp; Solange MacArthur Justice Center et al. by <em>Aram A. Gavoor</em>; and for the University of Illinois Chicago School of Law—Pro Bono Litigation Clinic by <em>Yelena Duterte</em> and <em>J. Damian Ortiz.</em></p><p><em>Bryan Lammon</em>, <em>pro se,</em> and <em>Jennifer Franklin</em> filed a brief for Bryan Lammon as <em>amicus curiae</em>.</p></li>
+</ol></aside></section>
+<section id="s2" class="op op-counsel"><details><summary>Counsel</summary><p><em>Amanda K. Rice</em> argued the cause for petitioner. With her on the briefs were <em>Amanda R</em>. <em>Parker</em>, <em>Sarah Welch</em>, and <em>Samuel V. Lioi.</em></p>
+<p><em>Aimee W. Brown</em> argued the cause for the United States in support of petitioner. With her on the briefs were <em>Solicitor General Sauer</em>, <em>Acting Solicitor General Harris</em>, <em>Deputy Assistant Attorney General McArthur</em>, <em>Deputy Solicitor General Kneedler</em>, and <em>Steven A. Myers</em>.</p>
+<p><em>Michael R. Huston</em>, by invitation of the Court, 604 U. S. 1115, argued the cause and filed a brief as <em>amicus curiae</em> in support of the judgment below. With him on the brief were <em>Karl J. Worsham</em>, <em>Addison W. Bennett</em>, <em>Jordan M. Buckwald</em>, <em>Victoria L. Romine</em>, and <em>Jacob J. Taber</em>.*</p></details></section>
+<section id="s3" class="op op-court"><h2>Opinion of the Court</h2>
+<p class="byline">Justice Sotomayor delivered the opinion of the Court.</p>
+<p>In civil litigation, filing your notice of appeal too late deprives the court of appeals of jurisdiction over the appeal. Litigants who miss the appeal deadline because they do not <span class="pg" id="s3-p379" title="page 379 of the original">379</span>timely receive the district court's decision, however, are not without recourse. In such circumstances, Congress has authorized courts to reopen the time to appeal. The question in this case is whether a litigant who files a notice of appeal before the court grants reopening must file a second notice after reopening.</p>
+<p>The answer is no. A notice of appeal filed after the original deadline but before reopening is late with respect to the original appeal period, but merely early with respect to the reopened one. Precedent teaches that a premature notice of appeal, if otherwise adequate, relates forward to the date of the order making the appeal possible. So a notice filed before reopening relates forward to the date reopening is granted, making a second notice unnecessary. Because the Fourth Circuit held otherwise, this Court now reverses.</p>
+<h3 class="oh">I</h3>
+<h3 class="oh">A</h3>
+<p>In the winter of 2009, while petitioner Donte Parrish was incarcerated at the federal prison in Hazelton, West Virginia, a group of inmates attacked and killed Jimmy Lee Wilson. An incident report found Parrish partly responsible. Not long thereafter, Parrish was placed in restrictive, segregated confinement, where he remained for 23 months. The reason, Parrish says, was his alleged involvement in Wilson's death. Yet Parrish did not receive a hearing to contest his guilt until August 2015, long after his segregated confinement had ended. Eventually, following a second hearing and an appeal, a discipline hearing officer expunged Parrish's disciplinary record and concluded he had committed “[n]o prohibited act” during the incident. App. in No. 20–1766 (CA4), p. 77.</p>
+<p>Parrish filed two administrative tort claims, alleging due process violations and wrongful confinement. When the Government rejected those claims, Parrish filed this suit in Federal District Court, seeking damages for his time in segregated custody. The District Court dismissed the case, <span class="pg" id="s3-p380" title="page 380 of the original">380</span>holding that some claims were untimely and others unexhausted.</p>
+<h3 class="oh">B</h3>
+<p>The important part, for present purposes, is what happened next. The District Court entered its judgment dismissing the case on March 23, 2020. The next day, Parrish was released from federal custody and transferred to a state penitentiary. So when the District Court's order finally made it to the federal prison two weeks later, Parrish was no longer there.</p>
+<p>Parrish ultimately received the opinion and judgment dismissing his lawsuit three months after the District Court had issued it. He promptly sent a letter to the court, explaining that “[d]ue to my being transferred from Federal to State custody I did not receive this order until June 25, 2020. It is now 7/8/20 and I'm filing this notice of appeal.” App. to Pet. for Cert. 71a. The Fourth Circuit recognized that Parrish's notice of appeal came well after the 60-day appeal period for suits against the United States, but construed it as a motion to reopen the time to file an appeal under 28 U. S. C. § 2107(c). 827 Fed. Appx. 327 (2020). On remand, the District Court granted reopening “for fourteen (14) days following the entry of this Order” and transmitted the record back to the Fourth Circuit. App. to Pet. for Cert. 61a–62a. Parrish did not file a second notice of appeal.</p>
+<p>Back at the Court of Appeals, the United States indicated that Parrish's initial notice of appeal had adequately communicated his “intent to seek appellate review,” meaning (in the Government's view) that he was “not required to file a second notice.” Brief for United States in No. 20–1766 (CA4), pp. 10–11 (capitalization and boldface omitted). Parrish agreed.</p>
+<p>The Fourth Circuit did not. In the Fourth Circuit's view, Parrish should have filed a new notice of appeal after the District Court reopened the appeal window. Unlike an extension of the original appeal period, the Fourth Circuit reasoned,<span class="pg" id="s3-p381" title="page 381 of the original">381</span> reopening under § 2107(c) “provides for a <em>new</em> 14-day window for filing a notice of appeal, running from the date of the district court's order granting the reopening.” 74 F. 4th 160, 165 (2023). Parrish's first notice was untimely with respect to the original appeal period and he failed to file an appeal within the reopened period, so, the court held, it lacked jurisdiction to hear his case. In dissent, then-Chief Judge Gregory argued that the reopening order had “validated [Parrish's] earlier notice of appeal,” such that no second notice was required. <em>Id</em>., at 168. The full Circuit denied rehearing en banc by a vote of 9 to 6.</p>
+<p>Because the Fourth Circuit's holding created a split with at least two other Courts of Appeals,<sup class="fnr"><a id="s3-r1" href="#s3-n1">1</a></sup>this Court granted certiorari, 604 U. S. 1096 (2025), to decide whether a litigant who files a notice of appeal after the ordinary appeal period expires must file a second notice after the appeal period is reopened, Pet. for Cert. i. Parrish and the United States agree the answer to that question is no, so the Court appointed Michael Huston as <em>amicus curiae</em> to defend the judgment below. 604 U. S. 1115 (2025). He has ably discharged his responsibilities.</p>
+<h3 class="oh">II</h3>
+<h3 class="oh">A</h3>
+<p>Litigants must ordinarily file a notice of appeal within 30 days “after the entry of” the relevant “judgment, order[,] or decree” to secure their right to an appeal. 28 U. S. C. § 2107(a). When the United States is involved as a party, as it is here, that period is extended to 60 days. § 2107(b). In <span class="pg" id="s3-p382" title="page 382 of the original">382</span>a civil case, the requirement to file a timely notice of appeal is jurisdictional. <em>Bowles</em> v. <em>Russell</em>, 551 U. S. 205, 214 (2007).</p>
+<p>Recognizing that harsh consequences would result from unyielding application of these deadlines, Congress crafted two exceptions. First, any time during the appeal period, or within 30 days after its expiration, the district court may “extend the time for appeal upon a showing of excusable neglect or good cause.” § 2107(c). Second, when “a party entitled to notice” of a decision “d[oes] not receive such notice . . . within 21 days of [the decision's] entry,” the district court may “reopen the time for appeal for a period of 14 days from the date of entry of the [reopening] order,” if no party would be prejudiced by the reopening. <em>Ibid.</em> To take advantage of the latter provision, a litigant must file a motion to reopen “within 180 days after entry of the judgment or order or within 14 days after” receiving it, “whichever is earlier.” <em>Ibid.</em></p>
+<p>Here, all agree, the District Court properly reopened Parrish's time to appeal because Parrish filed his notice within 14 days of receiving the judgment dismissing his case, and no prejudice would result from reopening. The question is whether Parrish's subsequent failure to file a second notice of appeal deprived the Fourth Circuit of appellate jurisdiction.</p>
+<h3 class="oh">B</h3>
+<p>Because § 2107(c) sets the jurisdictional requirements related to reopening, the analysis begins there. The statute's text makes clear that a reopened appeal period does not begin until “the date of entry of the order reopening the time for appeal,” and that it thereafter runs “for a period of 14 days.” A notice filed after that 14-day period is late, meaning, this Court has held, that it can no longer serve its purpose. <em>Bowles</em>, 551 U. S., at 214. A notice filed before reopening is granted, however, is merely early. And while the statute's text makes clear that a pre-reopening notice would <span class="pg" id="s3-p383" title="page 383 of the original">383</span>be early, it says nothing about whether such prematurity should be given jurisdictional consequences.</p>
+<p>Congress legislates, however, “against a background of common-law adjudicatory principles,” and it expects those principles to apply “except `when a statutory purpose to the contrary is evident.' ” <em>Astoria Fed. Sav. &amp; Loan Assn.</em> v. <em>Solimino</em>, 501 U. S. 104, 108 (1991) (quoting <em>Isbrandtsen Co.</em> v. <em>Johnson</em>, 343 U. S. 779, 783 (1952)). When Congress passed the provision allowing reopening of the appeal period in 1991, then, it would have expected background rules governing early notices of appeal to continue to apply. 501 U. S., at 108<em>.</em> Here, those rules make clear that Parrish should have been able to proceed with his appeal.</p>
+<p>This Court has long emphasized that “ `the purpose of pleading is to facilitate a proper decision on the merits.' ” <em>Foman</em> v. <em>Davis</em>, 371 U. S. 178, 182 (1962). Accordingly, “imperfections in noticing an appeal should not be fatal where no genuine doubt exists about who is appealing, from what judgment, to which appellate court.” <em>Becker</em> v. <em>Montgomery</em>, 532 U. S. 757, 767–768 (2001) (citing <em>Smith</em> v. <em>Barry</em>, 502 U. S. 244, 248–249 (1992)). Consistent with that core principle, “the technical defect of prematurity . . . should not be allowed to extinguish an otherwise proper appeal.” <em>FirsTier Mortgage Co.</em> v. <em>Investors Mortgage Ins. Co.</em>, 498 U. S. 269, 273 (1991). Instead, an adequate but premature notice of appeal “relates forward to the entry of the document that renders an appeal possible.” 16A C. Wright, A. Miller, E. Cooper, &amp; C. Struve, Federal Practice and Procedure § 3950.5, p. 453 (5th ed. 2019) (reviewing the Circuits' application of that rule).</p>
+<p>This Court has adhered to that principle for well over a century. In <em>Ex parte Roberts</em>, 15 Wall. 384 (1873), the Court held that a defendant who filed near-simultaneous motions for a new trial and “for the allowance of an appeal” could have his appeal heard after the district court ruled on the new trial motion. <em>Id</em>., at 385–386. The Court reaffirmed <span class="pg" id="s3-p384" title="page 384 of the original">384</span>that holding in <em>Luckenbach S. S. Co.</em> v. <em>United States</em>, 272 U. S. 533 (1926), explaining that a notice of appeal filed before disposition of a new-trial motion was “premature” but “not a nullity.” <em>Id</em>., at 535. More than two decades later, a unanimous Court summarily reversed the Ninth Circuit for dismissing an appeal in a criminal case where the defendant had filed his notice after the court announced his sentence but before the entry of judgment. <em>Lemke</em> v. <em>United States</em>, 346 U. S. 325 (1953) (<em>per curiam</em>).</p>
+<p>Congress passed the first version of what is now 28 U. S. C. § 2107 in 1948, setting the 30- and 60-day timelines for civil appeals that still exist today. See 62 Stat. 963. That enactment did not change the practice with regard to premature notices. In <em>Foman</em>, this Court held (again unanimously) that the combination of a timely but incomplete notice of appeal and a premature but complete notice sufficed to convey appellate jurisdiction. 371 U. S., at 181. In the process, the Court emphasized that “decisions on the merits” ought not be “avoided on the basis of . . . mere technicalities.” <em>Ibid</em>. More recently, after promulgation of the first Federal Rules of Appellate Procedure, we held that an appeal filed after a ruling from the bench but before the entry of judgment was effective, notwithstanding its prematurity. <em>FirsTier</em>, 498 U. S., at 274. That holding, the Court explained, reflected the “general practice in the courts of appeals of deeming certain premature notices of appeal effective.” <em>Id</em>., at 273, 275–276 (citing as examples <em>Ruby</em> v. <em>Secretary of Navy</em>, 365 F. 2d 385 (CA9 1966), and <em>Firchau</em> v. <em>Diamond Nat. Corp</em>., 345 F. 2d 269 (CA9 1965)); see generally 16A Wright, Federal Practice and Procedure § 3950.5 (collecting cases).</p>
+<p>The text of § 2107(c), enacted on the heels of <em>FirsTier</em>, provides no indication that Congress sought to “terminate” the longstanding relation-forward rule “or disturb its development.” <em>Minerva Surgical, Inc.</em> v. <em>Hologic, Inc.</em>, 594 U. S. 559, 572 (2021). It simply does not speak to the issue. The <span class="pg" id="s3-p385" title="page 385 of the original">385</span>natural inference, therefore, is that Congress expected the relation-forward principle to apply. <em>Ibid.</em></p>
+<p>A contrary result would not only “subvert congressional design,” <em>ibid</em>., it would also make little sense. The purpose of a notice of appeal (as its moniker suggests) is to provide opposing parties and the court with notice of one's intent to appeal. That is why “the notice afforded by a document . . . determines the document's sufficiency as a notice of appeal.” <em>Smith</em>, 502 U. S., at 248. So long as “no genuine doubt exists about who is appealing, from what judgment, to which appellate court,” <em>Becker</em>, 532 U. S., at 767–768, there is little value and significant harm in dismissing appeals on the basis of prematurity alone.</p>
+<p>This case illustrates the point. As the Government admits, it was perfectly clear after Parrish's first notice that he intended to appeal his case's dismissal. Sending another notice would amount to nothing more than “ `empty paper shuffling.' ” <em>Hinton</em> v. <em>Elwood</em>, 997 F. 2d 774, 778 (CA10 1993). Yet on account of that procedural nicety, the Fourth Circuit would have deprived Parrish of his right to an appeal. Absent clear congressional direction to the contrary, “[i]t is too late in the day . . . for decisions on the merits to be avoided on the basis of such mere technicalities” as prematurity. <em>Foman</em>, 371 U. S., at 181.<sup class="fnr"><a id="s3-r2" href="#s3-n2">2</a></sup></p>
+<p>Applying the default relation-forward rule, Parrish's single notice of appeal conveyed appellate jurisdiction to the <span class="pg" id="s3-p386" title="page 386 of the original">386</span>Fourth Circuit. True, with respect to the original appeal window, the notice came too late. With respect to the 14day reopening period, however, Parrish's notice was merely premature. Parrish's filing otherwise provided ample notice to all involved. Accordingly, his notice related forward to the date of the District Court's reopening order.</p>
+<h3 class="oh">C</h3>
+<p><em>Amicus</em>'s counterarguments do not persuade. The word “reopen,” he argues, “presumes that the period to appeal has already closed before the motion is filed.” Brief for Court-Appointed <em>Amicus Curiae</em> 14. It follows that the 14-day appeals period following reopening “is the only time during which an appeal can be commenced.” <em>Ibid.</em> Because Parrish's notice came before that time, the argument goes, it should be given no effect.</p>
+<p>The problem with this argument is that it establishes only that Parrish's notice of appeal came too early with respect to the reopened appeals period. Yet that much was never in dispute. The question, rather, is whether Parrish's premature notice related forward to the entry of the reopening order. Simply showing that the notice came too early merely restates the question; it does not answer it.</p>
+<p>Perhaps sensing this problem, <em>amicus</em> attempts to characterize Parrish's notice as tardy rather than premature. According to <em>amicus</em>, “premature” means “ `done <em>before the usual</em>, <em>proper</em>, <em>or appointed time</em>,' ” and (he says) here the appointed time for appealing “was within 60 days after the judgment.” <em>Id</em>., at 26 (quoting 12 Oxford English Dictionary 362 (2d ed. 1989)). Because Parrish “filed his only notice of appeal <em>after</em> that window closed,” <em>amicus</em> argues, the notice was late, not early. Brief for Court-Appointed <em>Amicus Curiae</em> 26<em>.</em> That argument simply elides that there were two “proper” times to appeal here, not one: The original 60-day period, and the 14-day reopening. Parrish's notice was late only with respect to the former.</p>
+<p><span class="pg" id="s3-p387" title="page 387 of the original">387</span>Driving the Fourth Circuit's analysis, meanwhile, was the idea that, once Parrish's filing had been construed as a motion to reopen, it could not simultaneously retain its function as a notice of appeal. 74 F. 4th, at 163 (“[B]ecause Parrish's earlier filing has already been construed” as a motion to reopen, “we cannot now reconstrue it to be simultaneously both the motion that must precede a district court's reopening order and the notice that must follow after the order is granted”). This Court has repeatedly emphasized, however, that a single filing can serve multiple purposes in just such fashion. For example, one filing can serve simultaneously as the principal merits brief and the notice of appeal that would ordinarily precede it. <em>Smith</em>, 502 U. S., at 245. Similarly, one filing can serve as a notice of appeal as well as an antecedent request for certificate of appealability. See <em>Slack</em> v. <em>McDaniel</em>, 529 U. S. 473, 483 (2000). There is no reason why Parrish's filing could not similarly serve as both a notice of appeal and a request for reopening.</p>
+<p>In sum, § 2107(c) did not deprive the Fourth Circuit of appellate jurisdiction over Parrish's appeal.<sup class="fnr"><a id="s3-r3" href="#s3-n3">3</a></sup></p>
+<h3 class="oh">III</h3>
+<p>The Rules of Appellate Procedure do not bar Parrish's appeal, either. To the contrary, they are entirely consistent with the relation-forward principle.</p>
+<p>As this Court has recognized, Rules 4(a)(2) and 4(a)(4) “codify” the general understanding that “certain premature notices do not prejudice the appellee and that the technical defect of prematurity therefore should not be allowed to extinguish<span class="pg" id="s3-p388" title="page 388 of the original">388</span> an otherwise proper appeal.” <em>FirsTier</em>, 498 U. S., at 273. Thus, Rule 4(a)(2) explains that a notice filed “after the court announces a decision or order,” but “before the entry of the judgment or order,” relates forward to the date the judgment is entered.<sup class="fnr"><a id="s3-r4" href="#s3-n4">4</a></sup>And Rule 4(a)(4) explains that, if a notice of appeal is filed before the district court has disposed of certain specified post-trial motions, the notice of appeal will relate forward to the date of the “order disposing of the last such” motion.</p>
+<p>A prior iteration of Rule 4(a)(4) prohibited relation forward in certain limited contexts, requiring duplicative notices of appeal. The result: “Many litigants, especially pro se litigants, fail[ed] to file the second notice of appeal.” Fed. Rule App. Proc. 4, 28 U. S. C. App., p. 11 (citing <em>Aver-hart</em> v. <em>Arrendondo</em>, 773 F. 2d 919 (CA7 1985), and <em>Harcon Barge Co.</em> v. <em>D &amp; G Boat Rentals, Inc.</em>, 746 F. 2d 278 (CA5 1984)). So in 1993, the Rules Committee amended Rule 4 to delete its restrictions on the relation-forward principle, concluding they “created a trap for an unsuspecting litigant who files a notice of appeal before a posttrial motion, or while a posttrial motion is pending.” 28 U. S. C. App., at 11<em>.</em></p>
+<p>Today, nothing in the Rules suggests any intent to abrogate the relation forward of premature notices of appeal. To the contrary, “the spirit of the Federal Rules” is that “decisions on the merits [should not] be avoided on the basis of . . . mere technicalities.” <em>Foman</em>, 371 U. S., at 181. Federal Rule of Civil Procedure 1 provides that the Rules “should be construed, administered, and employed by the court and the parties to secure the just, speedy, and inexpensive determination of every action and proceeding.” Thus, courts are directed to “disregard all errors and defects that do not affect<span class="pg" id="s3-p389" title="page 389 of the original">389</span> any party's substantial rights.” Fed. Rule Civ. Proc. 61. When a premature notice of appeal makes clear “who is appealing, from what judgment, to which appellate court,” <em>Becker</em>, 532 U. S., at 767–768, its relation forward to entry of the document formally enabling the appeal does not affect substantial rights.<sup class="fnr"><a id="s3-r5" href="#s3-n5">5</a></sup>By contrast, as the Committee's prior experiment with a contrary Rule illustrated, see <em>supra</em>, at 388, requiring a second notice of appeal substantially undermines the rights of unsophisticated litigants.</p>
+<p><em>Amicus</em> points out that Rules 4(a)(2) and 4(a)(4) expressly permit relation forward, while Rule 4(a)(6), governing reopening, is silent on the issue. By way of negative implication, <em>amicus</em> says, it follows that relation forward is not permitted in the context of reopening. “ `The force of any negative implication, however, depends on context.' ” <em>NLRB</em> v. <em>SW General, Inc.</em>, 580 U. S. 288, 302 (2017) (quoting <em>Marx</em> v. <em>General Revenue Corp</em>., 568 U. S. 371, 381 (2013)). Here that context includes not only the background relation-forward principle but also the Rules' own emphasis on function over form. <em>Foman</em>, 371 U. S., at 181. Against that backdrop it is unlikely that the Rules Committee sought impliedly to prohibit relation forward in Rule 4(a)(6) by allowing it in Rules 4(a)(2) and 4(a)(4), neither of which have anything to do with reopening.<sup class="fnr"><a id="s3-r6" href="#s3-n6">6</a></sup>Indeed, this Court has <span class="pg" id="s3-p390" title="page 390 of the original">390</span>previously recognized that the Rules' codification of a preexisting practice in one context need not imply that all other applications are foreclosed. See <em>Scarborough</em> v. <em>Principi</em>, 541 U. S. 401, 417–418 (2004).</p>
+<p><em>Amicus</em>'s reading is made particularly implausible by the fact that relation forward of a postjudgment notice preceding a reopening order could not prejudice the other parties. To reopen the appeals period, a would-be appellant must file either a request to reopen, or (as here) a notice of appeal that is construed as such a request. Assuming the filings are otherwise adequate, either one would put the other side on notice of the filer's intent to appeal. Other parties thus have nothing to gain from being served a second notice after reopening is granted.</p>
+<p>Finally, the Rules Committee knows how to restrict relation forward when it wants to do so. Recall that Rule 4(a)(4) codifies this Court's holdings that a notice of appeal filed alongside a post-trial motion will relate forward to the entry of an order disposing of the post-trial motion. See <em>supra</em>, at 387–388. Rule 4(a)(4)(B)(ii) carves out a narrow exception: Someone who wishes to appeal not only the original judgment, but also the substance of an order resolving the post-trial motion, “must file a notice of appeal, or an amended notice of appeal,” after “the entry of the order disposing” of that motion. That makes sense. An amended notice of appeal in those circumstances informs the opposing party that the appeal will cover more than just the original judgment. So in the limited circumstance where the Rules require it, the second notice serves a real purpose.</p>
+<p>If the Rules Committee believes a second notice could be similarly useful in the context of reopening, it remains free to recommend a change. Indeed, the Committee is apparently considering that issue presently. So long as Rule 4(a)(6) does not speak to relation forward, however, the default rule applies. That means Parrish's appeal can go forward under the Rules as well as the statute.</p>
+<p class="sep">* * *</p>
+<p>When a district court grants reopening to a litigant who has already filed a notice making his intent to appeal clear, no second notice of appeal is required. Instead, the original notice relates forward to the date reopening is granted. Donte Parrish's notice of appeal thus did all that was required of it. The judgment of the Fourth Circuit is reversed, and the case is remanded for further proceedings consistent with this opinion.</p>
+<p><em>It is so ordered.</em></p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li id="s3-n1" value="1"><p>See <em>Winters</em> v. <em>Taskila</em>, 88 F. 4th 665, 671 (CA6 2023), and <em>United States</em> v. <em>Withers</em>, 638 F. 3d 1055, 1061–1062 (CA9 2011), both holding that a post-reopening notice of appeal is not required to confer appellate jurisdiction under 28 U. S. C. § 2107(c). Other Circuits have adopted the same approach in unpublished opinions. See <em>Holden</em> v. <em>Attorney Gen. of N. J.</em>, 2023 WL 8798084, *1, n. 4 (CA3, Dec. 20, 2023); <em>Norwood</em> v. <em>East Allen Cty. Schools</em>, 825 Fed. Appx. 383, 386–387 (CA7 2020); <em>United States</em> v. <em>Marshall</em>, 1998 WL 864012, *2 (CA10, Dec. 14, 1998). <a class="back" href="#s3-r1" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n2" value="2"><p>In the context of reopening, requiring <em>pro se</em> litigants to refile their appeal after the district court has told them their delay in appealing has been excused is especially likely to lead to confusion. Given the brevity of the reopening period, moreover, this rule would leave many incarcerated litigants without any means to take advantage of reopening. District court decisions are slow to reach inmates at the best of times. In this case, the judgment sent by certified mail to the federal prison where Parrish had been incarcerated took 15 days to arrive there. Had the reopening order been delivered at the same speed, the reopened appeal period would have been over before the order granting it arrived. <a class="back" href="#s3-r2" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n3" value="3"><p>The dissent would have dismissed this case as improvidently granted because, in its view, the Rules Committee could have resolved the question presented. <em>Post</em>, at 393 (opinion of <span class="sc">Gorsuch, J.</span>). Yet “ `[it] is axiomatic that the Federal Rules of Civil Procedure do not create or withdraw federal jurisdiction.' ” <em>Hamer</em> v. <em>Neighborhood Housing Servs. of Chicago</em>, 583 U. S. 17, 19 (2017). Accordingly, the Rules Committee could not change the Fourth Circuit's jurisdictional holding about § 2107(c). <a class="back" href="#s3-r3" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n4" value="4"><p>The same rule applies in criminal appeals. Rule 4(b)(2), which codifies this Court's holding in <em>Lemke</em> v. <em>United States</em>, 346 U. S. 325 (1953) (<em>per curiam</em>), provides that “[a] notice of appeal filed after the court announces a decision, sentence, or order—but before the entry of the judgment or order—is treated as filed on the date of and after the entry”). <a class="back" href="#s3-r4" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n5" value="5"><p>That principle explains as well why the Rules do not permit “a notice of appeal from a clearly interlocutory decision—such as a discovery ruling or a sanction order under Rule 11 . . .—to serve as a notice of appeal from the final judgment.” <em>FirsTier Mortgage Co.</em> v. <em>Investors Mortgage Ins. Co.</em>, 498 U. S. 269, 276 (1991). A notice so far removed from the relevant appealable decision would not make clear “from what judgment” the appellant intends to seek relief. <em>Becker</em>, 532 U. S., at 767. <a class="back" href="#s3-r5" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n6" value="6"><p>To be sure, that Rule 4(a)(4) specifically enumerates certain specified post-trial motions may raise a negative inference that relation forward is not permitted, under the Rules, with respect to other post-trial motions. But any such inference does not extend to the entirely distinct context of Rule 4(a)(6) reopening. <a class="back" href="#s3-r6" aria-label="Back to the text">↩</a></p></li>
+</ol></aside></section>
+<section id="s4" class="op op-judgment"><h2>Justice Jackson, concurring in the judgment</h2>
+<p class="byline">Justice Jackson, with whom Justice Thomas joins, concurring in the judgment.</p>
+<p>As the Court explains, Donte Parrish submitted a late notice of appeal, which the Fourth Circuit construed as a “motion to reopen” the time to appeal and the District Court subsequently granted. I agree with the Court's conclusion that Parrish did not need to do anything more in order for his notice of appeal to be treated as timely. I write separately to explain why, in my view, it is unnecessary to resort to ripening or relation-forward principles to reach that result.</p>
+<p>All parties agree that the statutory deadline for filing a notice of appeal had passed when Parrish's notice arrived at the courthouse. There is also no dispute that, because the deadline to file a notice of appeal is jurisdictional, Parrish's tardiness could not have been waived or excused unless a provision of law extended the period during which he could file the notice. Luckily for Parrish, the relevant statute in this case contains such a provision: Section 2107(c) of Title 28 permits a district court to “reopen the time for appeal for a period of 14 days from the date of entry of the [reopening] order” if certain conditions are met. See § 2107(c) (allowing reopening if the movant did not receive notice of the judgment within 21 days of its issuance; he sought reopening within 14 days of notice or 180 days of judgment, whichever <span class="pg" id="s4-p392" title="page 392 of the original">392</span>is earlier; and no party would be prejudiced by reopening); see also <em>ante</em>, at 382. After the Fourth Circuit construed Parrish's notice as a motion to reopen under this provision, the District Court properly concluded that Parrish met the statutory criteria and reopened the window in which Parrish could file.</p>
+<p>As a practical matter, litigants file motions like this one— seeking to reopen or extend a deadline—every day in federal district court. When they do so, they often attach to their motion the (late) document they hope to receive permission to file. For example, when a party has missed a filing deadline, they frequently ask for an extension of time to file the substantive document they had hoped to submit. The motion they submit usually explains or seeks to justify the delay, and a proposed order extending the relevant deadline (ready for the court's signature) is often included. The proposed substantive filing is also appended to that packet— which the district court then dockets, if it grants the extension.</p>
+<p>Because Parrish's filing was effectively submitted in this manner, to me, the court that received it should have handled it in that way. Having construed Parrish's notice of appeal as a motion to reopen, the court should have done what district courts do every day in our federal system when such a motion is granted: docket the proposed substantive filing— here, the notice of appeal. With the notice of appeal thus docketed, the court should have then transferred the case to the Court of Appeals for further proceedings.</p>
+<p>This way of conceptualizing Parrish's filing does not require reliance on principles of ripening or relation forward. It also makes sense, because Parrish filed what the court construed as a “motion to reopen” for the purpose of allowing <em>that very document</em> (the notice of appeal) to be filed. It would indeed be strange to reopen a case because the litigant has filed a proposed notice of appeal, but then fail to treat <span class="pg" id="s4-p393" title="page 393 of the original">393</span>that filing as what the movant proposes it to be: a notice of appeal accepted by the court as timely filed.</p>
+<p>In short, when a late litigant submits a proposed filing along with a motion that asks the court to accept it, the substantive document does not come “too early.” <em>Ante</em>, at 386. Rather, it comes contingent upon the court's granting the accompanying motion, with an understanding that, if the motion is granted, the filing will be docketed.</p>
+<p>This reasoning, of course, might not apply in other factual circumstances, such as when a would-be appellant files a notice of appeal late and then, days later, submits a separate motion to reopen; in that case, a court may well need to establish whether the earlier filed notice of appeal “relates forward” upon the granting of the separate motion to reopen. But, here, the “motion to reopen” and the notice of appeal were one and the same, making the factual basis for our rule of decision much simpler. Parrish's proposed notice of appeal should have been docketed as timely filed upon the District Court's granting of his “motion to reopen.”</p></section>
+<section id="s5" class="op op-dissenting"><h2>Justice Gorsuch, dissenting</h2>
+<p class="byline">Justice Gorsuch, dissenting.</p>
+<p>Respectfully, I would have dismissed this case as improvidently granted. The Advisory Committee on Appellate Rules has already launched a study to consider whether changes to Federal Rule of Appellate Procedure 4(a)(6) may be warranted to treat premature notices of appeal as relating forward to the first day of the 14-day window 28 U. S. C. § 2107(c) prescribes. Brief in Opposition 16; see also <em>Winters</em> v. <em>Taskila</em>, 88 F. 4th 665, 671–672 (CA6 2023). Surely, too, a change to the rules could have solved the problem presented by this case. Contra, <em>ante,</em> at 387, n. 3. Even if § 2107(c) requires a notice to be filed during a certain window, the Rules Committee could provide that a premature notice shall be treated as filed at a later date. Already, the Committee has done exactly that in other appellate rules,</p>
+<p>394 Cite as: 605 U. S. 376 (2025)</p>
+<p>including Rules 4(a)(2) and 4(a)(4). See Advisory Committee's Notes on 1979 Amendments, 28 U. S. C. App., p. 10. Rather than take up problems the Rules Committee can solve and has announced its interest in solving—and, in doing so, risk the possibility that the Committee (understandably) may suspend its own activities and delay their resolution—I believe the wiser and more efficient course is to let the Committee get on with its work. That body is charged with “review[ing] issues of precisely this sort.” <em>Winters</em>, 88 F. 4th, at 672; see also <em>Kemp</em> v. <em>United States</em>, 596 U. S. 528, 540–542 (2022) (<span class="sc">Gorsuch, J.</span>, dissenting).</p></section><p class='back'><a href='/opinions/'>&larr; All opinions</a> · <a href='/justices/ot2024.html'>The Justices, October Term 2024 &rarr;</a></p></main></body>
+</html>
+

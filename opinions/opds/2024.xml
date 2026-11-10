@@ -1,0 +1,865 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/terms/" xmlns:opds="http://opds-spec.org/2010/catalog">
+<id>https://supremecourt.report/opinions/opds/2024.xml</id>
+<title>Opinions, October Term 2024</title>
+<updated>2025-06-27T00:00:00Z</updated>
+<author><name>Supreme Court Report</name><uri>https://supremecourt.report/</uri></author>
+<link rel="self" href="https://supremecourt.report/opinions/opds/2024.xml" type="application/atom+xml;profile=opds-catalog;kind=acquisition"/>
+<link rel="start" href="https://supremecourt.report/opinions/opds.xml" type="application/atom+xml;profile=opds-catalog;kind=navigation"/>
+<link rel="up" href="https://supremecourt.report/opinions/opds.xml" type="application/atom+xml;profile=opds-catalog;kind=navigation"/>
+<entry>
+<id>urn:supremecourt-report:opinion:2024:24A884</id>
+<title>Trump v. CASA, Inc.</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2025-06-27T00:00:00Z</updated>
+<published>2025-06-27T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2025-06-27</dc:issued>
+<category term="ot2024" label="October Term 2024"/>
+<summary type="text">No. 24A884 · decided June 27, 2025 · 606 U. S. 831 · 32,195 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/24A884.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/24A884.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2024/24A884.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2024:24-354</id>
+<title>Fcc v. Consumers' Research</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2025-06-27T00:00:00Z</updated>
+<published>2025-06-27T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2025-06-27</dc:issued>
+<category term="ot2024" label="October Term 2024"/>
+<summary type="text">No. 24-354 · decided June 27, 2025 · 606 U. S. 656 · 25,328 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/24-354.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/24-354.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2024/24-354.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2024:24-316</id>
+<title>Kennedy v. Braidwood Management, Inc.</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2025-06-27T00:00:00Z</updated>
+<published>2025-06-27T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2025-06-27</dc:issued>
+<category term="ot2024" label="October Term 2024"/>
+<summary type="text">No. 24-316 · decided June 27, 2025 · 606 U. S. 748 · 23,918 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/24-316.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/24-316.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2024/24-316.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2024:24-297</id>
+<title>Mahmoud v. Taylor</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2025-06-27T00:00:00Z</updated>
+<published>2025-06-27T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2025-06-27</dc:issued>
+<category term="ot2024" label="October Term 2024"/>
+<summary type="text">No. 24-297 · decided June 27, 2025 · 606 U. S. 522 · 27,768 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/24-297.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/24-297.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2024/24-297.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2024:23-1122</id>
+<title>Free Speech Coalition, Inc. v. Paxton</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2025-06-27T00:00:00Z</updated>
+<published>2025-06-27T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2025-06-27</dc:issued>
+<category term="ot2024" label="October Term 2024"/>
+<summary type="text">No. 23-1122 · decided June 27, 2025 · 606 U. S. 461 · 17,660 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-1122.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-1122.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2024/23-1122.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2024:23-1275</id>
+<title>Medina v. Planned Parenthood South Atlantic</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2025-06-26T00:00:00Z</updated>
+<published>2025-06-26T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2025-06-26</dc:issued>
+<category term="ot2024" label="October Term 2024"/>
+<summary type="text">No. 23-1275 · decided June 26, 2025 · 606 U. S. 357 · 16,909 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-1275.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-1275.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2024/23-1275.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2024:23-1270</id>
+<title>Riley v. Bondi</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2025-06-26T00:00:00Z</updated>
+<published>2025-06-26T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2025-06-26</dc:issued>
+<category term="ot2024" label="October Term 2024"/>
+<summary type="text">No. 23-1270 · decided June 26, 2025 · 606 U. S. 259 · 14,758 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-1270.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-1270.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2024/23-1270.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2024:23-1002</id>
+<title>Hewitt v. United States</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2025-06-26T00:00:00Z</updated>
+<published>2025-06-26T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2025-06-26</dc:issued>
+<category term="ot2024" label="October Term 2024"/>
+<summary type="text">No. 23-1002 · decided June 26, 2025 · 606 U. S. 419 · 11,248 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-1002.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-1002.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2024/23-1002.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2024:23-7809</id>
+<title>Gutierrez v. Saenz</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2025-06-24T00:00:00Z</updated>
+<published>2025-06-24T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2025-06-24</dc:issued>
+<category term="ot2024" label="October Term 2024"/>
+<summary type="text">No. 23-7809 · decided June 24, 2025 · 606 U. S. 305 · 14,997 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-7809.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-7809.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2024/23-7809.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2024:24-7</id>
+<title>Diamond Alternative Energy, LLC v. Epa</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2025-06-20T00:00:00Z</updated>
+<published>2025-06-20T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2025-06-20</dc:issued>
+<category term="ot2024" label="October Term 2024"/>
+<summary type="text">No. 24-7 · decided June 20, 2025 · 606 U. S. 100 · 12,961 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/24-7.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/24-7.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2024/24-7.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2024:24-151</id>
+<title>Fuld v. Palestine Liberation Organization</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2025-06-20T00:00:00Z</updated>
+<published>2025-06-20T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2025-06-20</dc:issued>
+<category term="ot2024" label="October Term 2024"/>
+<summary type="text">No. 24-151 · decided June 20, 2025 · 606 U. S. ___ · 13,083 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/24-151.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/24-151.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2024/24-151.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2024:23-997</id>
+<title>Stanley v. City of Sanford</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2025-06-20T00:00:00Z</updated>
+<published>2025-06-20T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2025-06-20</dc:issued>
+<category term="ot2024" label="October Term 2024"/>
+<summary type="text">No. 23-997 · decided June 20, 2025 · 606 U. S. 46 · 15,625 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-997.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-997.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2024/23-997.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2024:23-7483</id>
+<title>Esteras v. United States</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2025-06-20T00:00:00Z</updated>
+<published>2025-06-20T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2025-06-20</dc:issued>
+<category term="ot2024" label="October Term 2024"/>
+<summary type="text">No. 23-7483 · decided June 20, 2025 · 606 U. S. 185 · 11,378 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-7483.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-7483.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2024/23-7483.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2024:23-1226</id>
+<title>McLaughlin Chiropractic Associates, Inc. v. McKesson Corporation, et al.</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2025-06-20T00:00:00Z</updated>
+<published>2025-06-20T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2025-06-20</dc:issued>
+<category term="ot2024" label="October Term 2024"/>
+<summary type="text">No. 23-1226 · decided June 20, 2025 · 606 U. S. 146 · 11,064 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-1226.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-1226.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2024/23-1226.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2024:23-1187</id>
+<title>Fda v. R. J. Reynolds Vapor Co.</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2025-06-20T00:00:00Z</updated>
+<published>2025-06-20T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2025-06-20</dc:issued>
+<category term="ot2024" label="October Term 2024"/>
+<summary type="text">No. 23-1187 · decided June 20, 2025 · 606 U. S. 226 · 9,416 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-1187.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-1187.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2024/23-1187.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2024:23-477</id>
+<title>United States v. Skrmetti</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2025-06-18T00:00:00Z</updated>
+<published>2025-06-18T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2025-06-18</dc:issued>
+<category term="ot2024" label="October Term 2024"/>
+<summary type="text">No. 23-477 · decided June 18, 2025 · 605 U. S. 495 · 31,712 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-477.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-477.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2024/23-477.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2024:23-1324</id>
+<title>Perttu v. Richards</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2025-06-18T00:00:00Z</updated>
+<published>2025-06-18T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2025-06-18</dc:issued>
+<category term="ot2024" label="October Term 2024"/>
+<summary type="text">No. 23-1324 · decided June 18, 2025 · 605 U. S. 460 · 10,887 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-1324.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-1324.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2024/23-1324.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2024:23-1300</id>
+<title>Nrc v. Texas</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2025-06-18T00:00:00Z</updated>
+<published>2025-06-18T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2025-06-18</dc:issued>
+<category term="ot2024" label="October Term 2024"/>
+<summary type="text">No. 23-1300 · decided June 18, 2025 · 605 U. S. 665 · 14,581 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-1300.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-1300.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2024/23-1300.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2024:23-1229</id>
+<title>Epa v. Calumet Shreveport Refining, L.L.C.</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2025-06-18T00:00:00Z</updated>
+<published>2025-06-18T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2025-06-18</dc:issued>
+<category term="ot2024" label="October Term 2024"/>
+<summary type="text">No. 23-1229 · decided June 18, 2025 · 605 U. S. 627 · 11,631 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-1229.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-1229.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2024/23-1229.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2024:23-1067</id>
+<title>Oklahoma v. Epa</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2025-06-18T00:00:00Z</updated>
+<published>2025-06-18T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2025-06-18</dc:issued>
+<category term="ot2024" label="October Term 2024"/>
+<summary type="text">No. 23-1067 · decided June 18, 2025 · 605 U. S. 609 · 5,006 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-1067.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-1067.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2024/23-1067.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2024:24-416</id>
+<title>Commissioner v. Zuch</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2025-06-12T00:00:00Z</updated>
+<published>2025-06-12T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2025-06-12</dc:issued>
+<category term="ot2024" label="October Term 2024"/>
+<summary type="text">No. 24-416 · decided June 12, 2025 · 605 U. S. 422 · 6,353 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/24-416.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/24-416.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2024/24-416.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2024:24-362</id>
+<title>Martin v. United States</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2025-06-12T00:00:00Z</updated>
+<published>2025-06-12T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2025-06-12</dc:issued>
+<category term="ot2024" label="October Term 2024"/>
+<summary type="text">No. 24-362 · decided June 12, 2025 · 605 U. S. 395 · 8,247 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/24-362.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/24-362.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2024/24-362.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2024:24-320</id>
+<title>Soto v. United States</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2025-06-12T00:00:00Z</updated>
+<published>2025-06-12T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2025-06-12</dc:issued>
+<category term="ot2024" label="October Term 2024"/>
+<summary type="text">No. 24-320 · decided June 12, 2025 · 605 U. S. 360 · 4,518 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/24-320.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/24-320.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2024/24-320.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2024:24-275</id>
+<title>Parrish v. United States</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2025-06-12T00:00:00Z</updated>
+<published>2025-06-12T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2025-06-12</dc:issued>
+<category term="ot2024" label="October Term 2024"/>
+<summary type="text">No. 24-275 · decided June 12, 2025 · 605 U. S. 376 · 5,726 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/24-275.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/24-275.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2024/24-275.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2024:24-249</id>
+<title>A. J. T. v. Osseo Area Schools, Independent</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2025-06-12T00:00:00Z</updated>
+<published>2025-06-12T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2025-06-12</dc:issued>
+<category term="ot2024" label="October Term 2024"/>
+<summary type="text">No. 24-249 · decided June 12, 2025 · 605 U. S. 335 · 7,768 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/24-249.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/24-249.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2024/24-249.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2024:23-1345</id>
+<title>Rivers v. Guerrero</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2025-06-12T00:00:00Z</updated>
+<published>2025-06-12T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2025-06-12</dc:issued>
+<category term="ot2024" label="October Term 2024"/>
+<summary type="text">No. 23-1345 · decided June 12, 2025 · 605 U. S. 443 · 4,745 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-1345.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-1345.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2024/23-1345.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2024:24-304</id>
+<title>Laboratory Corp. of America Holdings v. Davis</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2025-06-05T00:00:00Z</updated>
+<published>2025-06-05T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2025-06-05</dc:issued>
+<category term="ot2024" label="October Term 2024"/>
+<summary type="text">No. 24-304 · decided June 5, 2025 · 605 U. S. 303 · 1,756 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/24-304.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/24-304.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2024/24-304.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2024:24-154</id>
+<title>Catholic Charities Bureau, Inc. v. Wisconsin</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2025-06-05T00:00:00Z</updated>
+<published>2025-06-05T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2025-06-05</dc:issued>
+<category term="ot2024" label="October Term 2024"/>
+<summary type="text">No. 24-154 · decided June 5, 2025 · 605 U. S. 238 · 11,903 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/24-154.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/24-154.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2024/24-154.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2024:23-1259</id>
+<title>BLOM Bank SAL v. Honickman</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2025-06-05T00:00:00Z</updated>
+<published>2025-06-05T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2025-06-05</dc:issued>
+<category term="ot2024" label="October Term 2024"/>
+<summary type="text">No. 23-1259 · decided June 5, 2025 · 605 U. S. 204 · 5,932 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-1259.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-1259.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2024/23-1259.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2024:23-1201</id>
+<title>CC/Devas (Mauritius) Limited, et al. v. Antrix Corp. Ltd., et al.</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2025-06-05T00:00:00Z</updated>
+<published>2025-06-05T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2025-06-05</dc:issued>
+<category term="ot2024" label="October Term 2024"/>
+<summary type="text">No. 23-1201 · decided June 5, 2025 · 605 U. S. 223 · 4,350 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-1201.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-1201.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2024/23-1201.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2024:23-1141</id>
+<title>Smith &amp; Wesson Brands, Inc. v. Estados Unidos</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2025-06-05T00:00:00Z</updated>
+<published>2025-06-05T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2025-06-05</dc:issued>
+<category term="ot2024" label="October Term 2024"/>
+<summary type="text">No. 23-1141 · decided June 5, 2025 · 605 U. S. 280 · 6,810 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-1141.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-1141.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2024/23-1141.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2024:23-1039</id>
+<title>Ames v. Ohio Dept. of Youth Servs.</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2025-06-05T00:00:00Z</updated>
+<published>2025-06-05T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2025-06-05</dc:issued>
+<category term="ot2024" label="October Term 2024"/>
+<summary type="text">No. 23-1039 · decided June 5, 2025 · 605 U. S. 303 · 6,713 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-1039.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-1039.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2024/23-1039.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2024:23-975</id>
+<title>Seven County Infrastructure Coalition, et al. v. Eagle County, Colorado, et al.</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2025-05-29T00:00:00Z</updated>
+<published>2025-05-29T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2025-05-29</dc:issued>
+<category term="ot2024" label="October Term 2024"/>
+<summary type="text">No. 23-975 · decided May 29, 2025 · 605 U. S. 168 · 10,048 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-975.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-975.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2024/23-975.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2024:24-394</id>
+<title>Oklahoma Statewide Charter School Board, et al. v. Gentner Drummond, Attorney General of Oklahoma, ex rel. Oklahoma</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2025-05-22T00:00:00Z</updated>
+<published>2025-05-22T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2025-05-22</dc:issued>
+<category term="ot2024" label="October Term 2024"/>
+<summary type="text">No. 24-394 · decided May 22, 2025 · 886 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/24-394.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/24-394.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2024/24-394.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2024:23-909</id>
+<title>Kousisis v. United States</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2025-05-22T00:00:00Z</updated>
+<published>2025-05-22T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2025-05-22</dc:issued>
+<category term="ot2024" label="October Term 2024"/>
+<summary type="text">No. 23-909 · decided May 22, 2025 · 605 U. S. 114 · 14,850 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-909.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-909.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2024/23-909.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2024:23-1239</id>
+<title>Barnes v. Felix</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2025-05-15T00:00:00Z</updated>
+<published>2025-05-15T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2025-05-15</dc:issued>
+<category term="ot2024" label="October Term 2024"/>
+<summary type="text">No. 23-1239 · decided May 15, 2025 · 605 U. S. 73 · 5,344 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-1239.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-1239.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2024/23-1239.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2024:23-861</id>
+<title>Feliciano v. Department of Transportation</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2025-04-30T00:00:00Z</updated>
+<published>2025-04-30T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2025-04-30</dc:issued>
+<category term="ot2024" label="October Term 2024"/>
+<summary type="text">No. 23-861 · decided April 30, 2025 · 605 U. S. 38 · 9,888 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-861.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-861.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2024/23-861.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2024:23-715</id>
+<title>Advocate Christ Medical Center v. Kennedy</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2025-04-29T00:00:00Z</updated>
+<published>2025-04-29T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2025-04-29</dc:issued>
+<category term="ot2024" label="October Term 2024"/>
+<summary type="text">No. 23-715 · decided April 29, 2025 · 605 U. S. 1 · 10,792 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-715.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-715.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2024/23-715.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2024:23-929</id>
+<title>Hugo Abisai Monsalvo Velazquez v. Pamela Bondi, Attorney General</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2025-04-22T00:00:00Z</updated>
+<published>2025-04-22T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2025-04-22</dc:issued>
+<category term="ot2024" label="October Term 2024"/>
+<summary type="text">No. 23-929 · decided April 22, 2025 · 604 U. S. 712 · 14,818 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-929.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-929.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2024/23-929.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2024:23-1007</id>
+<title>Cunningham v. Cornell Univ.</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2025-04-17T00:00:00Z</updated>
+<published>2025-04-17T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2025-04-17</dc:issued>
+<category term="ot2024" label="October Term 2024"/>
+<summary type="text">No. 23-1007 · decided April 17, 2025 · 604 U. S. 693 · 5,543 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-1007.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-1007.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2024/23-1007.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2024:23-365</id>
+<title>Medical Marijuana, Inc. v. Horn</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2025-04-02T00:00:00Z</updated>
+<published>2025-04-02T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2025-04-02</dc:issued>
+<category term="ot2024" label="October Term 2024"/>
+<summary type="text">No. 23-365 · decided April 2, 2025 · 604 U. S. 593 · 16,378 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-365.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-365.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2024/23-365.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2024:23-1038</id>
+<title>Fda v. Wages and White Lion Investments, L.L.C.</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2025-04-02T00:00:00Z</updated>
+<published>2025-04-02T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2025-04-02</dc:issued>
+<category term="ot2024" label="October Term 2024"/>
+<summary type="text">No. 23-1038 · decided April 2, 2025 · 604 U. S. 542 · 14,913 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-1038.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-1038.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2024/23-1038.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2024:23-852</id>
+<title>Bondi v. VanDerStok</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2025-03-26T00:00:00Z</updated>
+<published>2025-03-26T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2025-03-26</dc:issued>
+<category term="ot2024" label="October Term 2024"/>
+<summary type="text">No. 23-852 · decided March 26, 2025 · 604 U. S. 458 · 16,518 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-852.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-852.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2024/23-852.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2024:23-824</id>
+<title>United States v. Miller</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2025-03-26T00:00:00Z</updated>
+<published>2025-03-26T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2025-03-26</dc:issued>
+<category term="ot2024" label="October Term 2024"/>
+<summary type="text">No. 23-824 · decided March 26, 2025 · 604 U. S. 518 · 7,060 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-824.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-824.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2024/23-824.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2024:23-825</id>
+<title>Delligatti v. United States</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2025-03-21T00:00:00Z</updated>
+<published>2025-03-21T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2025-03-21</dc:issued>
+<category term="ot2024" label="October Term 2024"/>
+<summary type="text">No. 23-825 · decided March 21, 2025 · 604 U. S. 423 · 10,858 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-825.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-825.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2024/23-825.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2024:23-1095</id>
+<title>Thompson v. United States</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2025-03-21T00:00:00Z</updated>
+<published>2025-03-21T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2025-03-21</dc:issued>
+<category term="ot2024" label="October Term 2024"/>
+<summary type="text">No. 23-1095 · decided March 21, 2025 · 604 U. S. 408 · 4,537 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-1095.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-1095.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2024/23-1095.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2024:23-713</id>
+<title>Bufkin v. Collins</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2025-03-05T00:00:00Z</updated>
+<published>2025-03-05T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2025-03-05</dc:issued>
+<category term="ot2024" label="October Term 2024"/>
+<summary type="text">No. 23-713 · decided March 5, 2025 · 604 U. S. 369 · 11,287 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-713.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-713.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2024/23-713.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2024:23-753</id>
+<title>City and County of San Francisco v. Epa</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2025-03-04T00:00:00Z</updated>
+<published>2025-03-04T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2025-03-04</dc:issued>
+<category term="ot2024" label="October Term 2024"/>
+<summary type="text">No. 23-753 · decided March 4, 2025 · 604 U. S. 334 · 10,097 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-753.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-753.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2024/23-753.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2024:23-971</id>
+<title>Waetzig v. Halliburton Energy Services, Inc.</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2025-02-26T00:00:00Z</updated>
+<published>2025-02-26T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2025-02-26</dc:issued>
+<category term="ot2024" label="October Term 2024"/>
+<summary type="text">No. 23-971 · decided February 26, 2025 · 604 U. S. 305 · 4,737 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-971.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-971.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2024/23-971.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2024:23-900</id>
+<title>Dewberry Group, Inc. v. Dewberry Engineers Inc.</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2025-02-26T00:00:00Z</updated>
+<published>2025-02-26T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2025-02-26</dc:issued>
+<category term="ot2024" label="October Term 2024"/>
+<summary type="text">No. 23-900 · decided February 26, 2025 · 604 U. S. 321 · 4,012 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-900.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-900.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2024/23-900.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2024:23-621</id>
+<title>Lackey v. Stinnie</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2025-02-25T00:00:00Z</updated>
+<published>2025-02-25T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2025-02-25</dc:issued>
+<category term="ot2024" label="October Term 2024"/>
+<summary type="text">No. 23-621 · decided February 25, 2025 · 604 U. S. 192 · 10,453 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-621.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-621.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2024/23-621.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2024:22-7466</id>
+<title>Glossip v. Oklahoma</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2025-02-25T00:00:00Z</updated>
+<published>2025-02-25T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2025-02-25</dc:issued>
+<category term="ot2024" label="October Term 2024"/>
+<summary type="text">No. 22-7466 · decided February 25, 2025 · 604 U. S. 226 · 22,948 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/22-7466.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/22-7466.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2024/22-7466.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2024:23-867</id>
+<title>Republic of Hungary v. Simon</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2025-02-21T00:00:00Z</updated>
+<published>2025-02-21T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2025-02-21</dc:issued>
+<category term="ot2024" label="October Term 2024"/>
+<summary type="text">No. 23-867 · decided February 21, 2025 · 604 U. S. 115 · 7,373 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-867.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-867.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2024/23-867.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2024:23-191</id>
+<title>Williams v. Reed</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2025-02-21T00:00:00Z</updated>
+<published>2025-02-21T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2025-02-21</dc:issued>
+<category term="ot2024" label="October Term 2024"/>
+<summary type="text">No. 23-191 · decided February 21, 2025 · 604 U. S. 168 · 6,747 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-191.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-191.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2024/23-191.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2024:23-1127</id>
+<title>Wisconsin Bell, Inc. v. United States, ex rel. Todd Heath</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2025-02-21T00:00:00Z</updated>
+<published>2025-02-21T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2025-02-21</dc:issued>
+<category term="ot2024" label="October Term 2024"/>
+<summary type="text">No. 23-1127 · decided February 21, 2025 · 604 U. S. 140 · 8,274 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-1127.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-1127.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2024/23-1127.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2024:24-656</id>
+<title>TikTok Inc. v. Garland</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2025-01-17T00:00:00Z</updated>
+<published>2025-01-17T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2025-01-17</dc:issued>
+<category term="ot2024" label="October Term 2024"/>
+<summary type="text">No. 24-656 · decided January 17, 2025 · 604 U. S. 56 · 8,650 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/24-656.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/24-656.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2024/24-656.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2024:23-677</id>
+<title>Royal Canin U. S. A., Inc. v. Wullschleger</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2025-01-15T00:00:00Z</updated>
+<published>2025-01-15T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2025-01-15</dc:issued>
+<category term="ot2024" label="October Term 2024"/>
+<summary type="text">No. 23-677 · decided January 15, 2025 · 604 U. S. 22 · 6,450 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-677.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-677.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2024/23-677.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2024:23-217</id>
+<title>E.M.D. Sales, Inc. v. Carrera</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2025-01-15T00:00:00Z</updated>
+<published>2025-01-15T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2025-01-15</dc:issued>
+<category term="ot2024" label="October Term 2024"/>
+<summary type="text">No. 23-217 · decided January 15, 2025 · 604 U. S. 45 · 3,055 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-217.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-217.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2024/23-217.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2024:23-970</id>
+<title>NVIDIA Corporation, et al. v. E. Ohman J:or Fonder AB, et al.</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2024-12-11T00:00:00Z</updated>
+<published>2024-12-11T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2024-12-11</dc:issued>
+<category term="ot2024" label="October Term 2024"/>
+<summary type="text">No. 23-970 · decided December 11, 2024 · 303 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-970.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-970.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2024/23-970.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2024:23-583</id>
+<title>Bouarfa v. Mayorkas</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2024-12-10T00:00:00Z</updated>
+<published>2024-12-10T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2024-12-10</dc:issued>
+<category term="ot2024" label="October Term 2024"/>
+<summary type="text">No. 23-583 · decided December 10, 2024 · 604 U. S. 6 · 4,012 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-583.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-583.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2024/23-583.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2024:23-980</id>
+<title>Facebook, Inc., et al. v. Amalgamated Bank, et al.</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2024-11-22T00:00:00Z</updated>
+<published>2024-11-22T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2024-11-22</dc:issued>
+<category term="ot2024" label="October Term 2024"/>
+<summary type="text">No. 23-980 · decided November 22, 2024 · 286 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-980.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2024/23-980.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2024/23-980.html" type="text/html"/>
+</entry>
+</feed>
+

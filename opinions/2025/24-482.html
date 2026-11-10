@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script async src='/analytics.js'></script><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate icon" href="/favicon.ico" sizes="any"><link rel="alternate" type="application/atom+xml" title="Supreme Court Report" href="/feed.xml"><link rel="alternate" type="application/atom+xml" title="Certiorari grants" href="/grants.xml"><title>Ellingburg v. United States — Opinion — Supreme Court Report</title><meta name="description" content="The opinion in Ellingburg v. United States (No. 24-482), decided January 20, 2026: the full text with its footnotes, as a page, a Markdown file and an EPUB."><link rel="canonical" href="https://supremecourt.report/opinions/2025/24-482.html"><meta property="og:site_name" content="Supreme Court Report"><meta property="og:type" content="article"><meta property="og:title" content="Ellingburg v. United States — Opinion — Supreme Court Report"><meta property="og:description" content="The opinion in Ellingburg v. United States (No. 24-482), decided January 20, 2026: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta property="og:url" content="https://supremecourt.report/opinions/2025/24-482.html"><meta property="og:image" content="https://supremecourt.report/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Supreme Court Report - docket analytics for the Supreme Court of the United States"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Ellingburg v. United States — Opinion — Supreme Court Report"><meta name="twitter:description" content="The opinion in Ellingburg v. United States (No. 24-482), decided January 20, 2026: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta name="twitter:image" content="https://supremecourt.report/og.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap"><style>
+  :root{--paper:#fdfcfa;--panel:#ffffff;--ink:#1a1a1e;--ink-soft:#484850;--faint:#63636b;--accent:#9c0e3a;--link:#9c0e3a;--rule:#dbd8d2;--nav-max:60rem}
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{font-family:'Newsreader',Georgia,serif;font-size:19px;line-height:1.6;
+    color:var(--ink);background:var(--paper);margin:0;font-feature-settings:'onum' 1}
+  body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
+    opacity:.5;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");}
+  .wrap{max-width:40rem;margin:0 auto;padding:3rem 1.4rem 4rem}
+  .kicker{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 1rem}
+  h1{font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:clamp(2.4rem,7vw,3.6rem);line-height:1;letter-spacing:-.015em;
+    margin:0 0 1rem;color:var(--ink)}
+  h1 em{font-style:italic;font-weight:500;color:var(--accent)}
+  .dek{font-size:1.15rem;line-height:1.5;color:var(--ink-soft);font-style:italic;
+    margin:0 0 1.4rem}
+  .brule{border:0;height:0;border-top:2px solid var(--ink);margin:1.4rem 0 .3rem;
+    position:relative}
+  .brule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+    border-top:1px solid var(--rule)}
+  ul.idx{list-style:none;padding:0;margin:1.6rem 0}
+  ul.idx li{border-bottom:1px solid var(--rule)}
+  /* Whole row is one block-level link: a large, reliable tap target on mobile. */
+  ul.idx a.row{display:flex;justify-content:space-between;align-items:baseline;
+    gap:1rem;padding:.9rem .4rem;text-decoration:none;border:0;color:inherit}
+  ul.idx a.row:hover{background:rgba(156,14,58,.05)}
+  ul.idx .d{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.16rem;
+    color:var(--accent);line-height:1.25}
+  ul.idx a.row:hover .d{text-decoration:underline;text-underline-offset:3px}
+  ul.idx .count{color:var(--faint);font-size:.9rem;font-style:italic;white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  /* A long note (an order list's "3 GVRs / 230 denied / 4 habeas denied /
+     ...", items separated by middots) cannot sit on one line: nowrap made it
+     claim the row and
+     squeezed the title into a column three words wide, and on a phone it ran off
+     the screen. Such a row opts in (meta_wrap): the note wraps, only between its
+     items, and takes at most ~45% of the row, so the title always has the
+     larger share. Under 34rem it drops beneath the title at full width. */
+  /* ("long", not "wrap": .wrap is the page container and its padding.) */
+  ul.idx .count.long{white-space:normal;text-align:right;max-width:45%;line-height:1.45}
+  ul.idx .count.long .seg{white-space:nowrap}
+  @media(max-width:34rem){
+    ul.idx a.row.longmeta{flex-wrap:wrap;row-gap:.2rem}
+    ul.idx .count.long{max-width:none;flex-basis:100%;text-align:left}
+  }
+  /* Compact horizontal strip of the most recent pages beneath a category row. */
+  ul.idx .recent{display:flex;flex-wrap:wrap;align-items:baseline;
+    gap:.3rem .85rem;padding:0 .4rem 1rem;margin-top:-.35rem}
+  ul.idx .recent .rlabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  ul.idx .recent a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--ink-soft);text-decoration:none;font-variant-numeric:tabular-nums;
+    border-bottom:1px solid var(--rule);padding-bottom:1px}
+  ul.idx .recent a:hover{color:var(--accent);border-color:var(--accent)}
+  /* Optional panel beneath the section index (home page: most-read cases). */
+  .panel{margin:2.4rem 0 0}
+  .panel h2{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 .25rem}
+  .panel .pnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:0 0 .5rem}
+  /* "Live now" (live_argument_panel, /live.js): hidden unless the Court is
+     streaming an argument. One red dot, the same --accent as the headings, so
+     the live state is a mark and not a new colour. */
+  .live h2 .ldot{display:inline-block;width:.5rem;height:.5rem;border-radius:50%;
+    background:var(--accent);margin-right:.5rem;vertical-align:.08rem;
+    animation:lpulse 2s ease-in-out infinite}
+  @keyframes lpulse{50%{opacity:.25}}
+  @media (prefers-reduced-motion:reduce){.live h2 .ldot{animation:none}}
+  .lplay{display:flex;flex-wrap:wrap;gap:.6rem .9rem;align-items:center;margin:.8rem 0 .3rem}
+  .lplay button{font:600 .9rem/1 'Newsreader',Georgia,serif;letter-spacing:.04em;
+    color:var(--paper);background:var(--accent);border:0;border-radius:2px;
+    padding:.6rem 1.05rem;cursor:pointer}
+  .lplay button:disabled{opacity:.6;cursor:progress}
+  .lplay button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  /* The player takes a row of its own and may never outgrow the column. A flex
+     item's min-width is auto, which for a replaced element is the browser's own
+     controls' width -- wider than the column on a phone, where mobile Safari
+     and Chrome draw larger controls than the desktop. */
+  .lplay audio{display:block;flex:1 1 100%;width:100%;min-width:0;max-width:100%;
+    box-sizing:border-box;margin:0}
+  .lplay .lstat{font-size:.85rem;color:var(--faint)}
+  /* --- Likeliest grants -----------------------------------------------------
+     Its own rows rather than ol.mostread's: this panel carries a question under
+     the caption, which that list has no room for, and a percentage that has to
+     read as the row's subject rather than as a trailing note.
+     The window toggle is two real radio inputs plus :has() -- no JavaScript.
+     Both windows are rendered at build time and one is hidden, which is the only
+     way a static site can offer the choice: there is no server to ask for the
+     other one. Real radios, not styled buttons, so the control is reachable by
+     keyboard and announced as a choice. */
+  .lead{margin:0 0 1.9rem}
+  .lead h2{margin-bottom:.35rem}
+  .lead .pnote{margin:0 0 .7rem}
+  .wr{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+  .win{display:inline-flex;gap:.25rem;margin:0 0 .55rem;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .win label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .win label:hover{color:var(--ink)}
+  .lead:has(#w7:checked) label[for=w7],
+  .lead:has(#w28:checked) label[for=w28],
+  .lead:has(#wall:checked) label[for=wall]{background:var(--accent);color:var(--paper)}
+  .wr:focus-visible+label{outline:2px solid var(--accent);outline-offset:2px}
+  /* Three windows, one shown: the checked radio hides the other two. */
+  .lead:has(#w7:checked) :is(.g28,.n28,.gall,.nall),
+  .lead:has(#w28:checked) :is(.g7,.n7,.gall,.nall),
+  .lead:has(#wall:checked) :is(.g7,.n7,.g28,.n28){display:none}
+  /* The show/hide controls for a panel's secondary line -- the question under
+     a forecast row, the holding under a decision. Same box as the window
+     toggle, a checkbox instead of radios, and no script: the sibling rule does
+     the work and the lines simply show where :has() is unsupported. The
+     questions are on by default (they are what a forecast row asks); the
+     holdings are off (the caption, kind and disposition already say what
+     happened, and the holding is the more). */
+  .opts{display:inline-flex;gap:.25rem;margin:0 .45rem .55rem 0;vertical-align:top;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .opts label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .opts label:hover{color:var(--ink)}
+  .lead:has(#qon:checked) label[for=qon],
+  .panel:has(#hon:checked) label[for=hon]{background:var(--accent);color:var(--paper)}
+  .lead:has(#qon:not(:checked)) .gq{display:none}
+  .panel:has(#hon:not(:checked)) .chold{display:none}
+  /* --- Upcoming at the Court ------------------------------------------------
+     A date gutter and a two-line body, the same shape as the grant rows above
+     it, so the two panels read as one page rather than two widgets. */
+  .cal{margin:0 0 1.9rem}
+  ol.cal{list-style:none;margin:0;padding:0}
+  ol.cal li{border-top:1px solid var(--rule)}
+  ol.cal li:last-child{border-bottom:1px solid var(--rule)}
+  /* The row is a container, not an anchor: an argument day carries one link per
+     case it hears and anchors cannot nest. Hover lives on the row so it still
+     reads as one unit, and each link colours on its own hover. */
+  ol.cal .crow{display:flex;gap:.95rem;align-items:baseline;padding:.55rem .1rem}
+  ol.cal .crow:hover{background:rgba(156,14,58,.05)}
+  ol.cal a{text-decoration:none;color:inherit}
+  ol.cal a:hover,ol.cal a:focus-visible{color:var(--accent)}
+  ol.cal .cdet a{border-bottom:1px solid rgba(156,14,58,.35)}
+  ol.cal .cdet a:hover{border-bottom-color:var(--accent)}
+  ol.cal .cwhen{flex:none;width:4.6rem;font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.96rem;color:var(--ink);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  ol.cal .cdow{display:block;font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);text-transform:uppercase;letter-spacing:.08em}
+  ol.cal .ctx{flex:1;min-width:0}
+  ol.cal .ckind{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:.98rem;line-height:1.25}
+  ol.cal .cdet{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.12rem}
+  /* Recent decisions reuses the calendar rows and adds exactly two things: the
+     kind word that opens the detail line, and the one outbound link (the slip
+     opinion), which takes the link colour the rest of the row deliberately
+     does not. */
+  ol.cal .dk{font-weight:600;color:var(--ink)}
+  ol.cal .cdet a.pdf{color:var(--link)}
+  /* The holding, from the Court's slip-opinion feed: one sentence, set
+     smaller and in the soft ink so the caption stays the row's headline. */
+  ol.cal .chold{display:block;font-size:.86rem;line-height:1.4;color:var(--ink-soft);
+    font-style:italic;margin-top:.15rem}
+  ol.cal .cdet a.pdf:hover,ol.cal .cdet a.pdf:focus-visible{color:var(--accent);
+    border-bottom-color:var(--accent)}
+  ol.grants{list-style:none;margin:0;padding:0}
+  ol.grants li{border-top:1px solid var(--rule)}
+  ol.grants li:last-child{border-bottom:1px solid var(--rule)}
+  ol.grants a{display:flex;gap:.95rem;align-items:baseline;text-decoration:none;
+    color:inherit;padding:.62rem .1rem}
+  ol.grants a:hover{background:rgba(156,14,58,.05)}
+  ol.grants a:hover .gc{color:var(--accent)}
+  ol.grants .gv{flex:none;width:3.5rem;text-align:right;
+    font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.22rem;
+    line-height:1.1;color:var(--accent);font-variant-numeric:tabular-nums}
+  ol.grants .gx{font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);margin-left:.3rem}
+  ol.grants .gtx{flex:1;min-width:0}
+  /* Subject-area line under the caption, in the section-label idiom (h2.sec):
+     small tracked caps in the faint ink, so it classifies without competing. */
+  ol.grants .gs,ol.mostread .ms{display:block;font-size:.68rem;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--faint);line-height:1.3;margin-top:.12rem}
+  ol.grants .gc{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:1rem;line-height:1.25}
+  ol.grants .gq{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.16rem}
+  ol.grants .gd{flex:none;font-size:.76rem;color:var(--faint);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  .more{margin:.75rem 0 0;font-size:.92rem}
+  .more a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.35)}
+  .more a:hover{border-bottom-color:var(--link)}
+  h2.sec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:.88rem;
+    letter-spacing:.09em;color:var(--faint);text-transform:uppercase;
+    margin:2.1rem 0 .6rem;padding-bottom:.28rem;border-bottom:1px solid var(--rule)}
+  @media(max-width:40rem){
+    ol.grants a{flex-wrap:wrap}
+    ol.grants .gd{width:100%;padding-left:4.45rem;margin-top:-.1rem}
+  }
+  ol.mostread{list-style:none;counter-reset:mr;padding:0;margin:0}
+  ol.mostread li{counter-increment:mr;border-bottom:1px solid var(--rule)}
+  ol.mostread a{display:flex;align-items:baseline;gap:.7rem;padding:.6rem .4rem;
+    text-decoration:none;color:inherit}
+  ol.mostread a:hover{background:rgba(156,14,58,.05)}
+  ol.mostread a::before{content:counter(mr);font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.95rem;color:var(--faint);min-width:1.1rem;
+    font-variant-numeric:tabular-nums}
+  ol.mostread .mc{flex:1;font-size:1rem;line-height:1.3}
+  ol.mostread .mct{display:block}
+  ol.mostread a:hover .mct{color:var(--accent);text-decoration:underline;
+    text-underline-offset:3px}
+  ol.mostread .mdk{color:var(--accent);font-weight:600;font-size:.82rem;
+    font-variant-numeric:tabular-nums;white-space:nowrap}
+  ol.mostread .mv{color:var(--faint);font-size:.85rem;font-style:italic;
+    white-space:nowrap;font-variant-numeric:tabular-nums}
+  /* Forecast percentages carry weight the most-read counts do not: the number is
+     the claim, not a footnote to the ranking. Upright, accent, tabular. */
+  ol.mostread .mv.fc{color:var(--accent);font-style:normal;font-weight:600;
+    font-size:.95rem;min-width:2.6rem;text-align:right}
+  /* Feed follow line. Deliberately quiet -- a footnote under the section list,
+     styled like .recent rather than like a call to action. */
+  .feeds{display:flex;flex-wrap:wrap;align-items:baseline;gap:.3rem .85rem;
+    margin:2.2rem 0 0;padding-top:1.1rem;border-top:1px solid var(--rule)}
+  .feeds .flabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  .feeds a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .feeds a:hover{border-color:var(--link)}
+  .back{margin-top:2rem;font-size:.95rem}
+  .back a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .back a:hover{border-color:var(--link)}
+  /* Home-page case search. */
+  .csearch{position:relative;margin:0 0 1.4rem}
+  #cq{width:100%;font-family:'Newsreader',Georgia,serif;font-size:1.05rem;color:var(--ink);
+    background:var(--panel);border:1px solid var(--rule);border-radius:3px;padding:.7rem .9rem}
+  #cq:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(156,14,58,.1)}
+  #cq::placeholder{color:var(--faint)}
+  #cq.loading{background-image:linear-gradient(90deg,transparent,rgba(156,14,58,.06),transparent);
+    background-size:40% 100%;background-repeat:no-repeat;animation:csl 1s infinite}
+  @keyframes csl{0%{background-position:-40% 0}100%{background-position:140% 0}}
+  .cres{list-style:none;margin:.35rem 0 0;padding:0;max-height:24rem;overflow-y:auto;
+    border:1px solid var(--rule);border-radius:3px;background:var(--panel)}
+  .cres:empty{display:none}
+  .cres li{border-bottom:1px solid var(--rule)}
+  .cres li:last-child{border-bottom:0}
+  .cres a{display:block;padding:.55rem .7rem;text-decoration:none;color:var(--ink);
+    font-size:.98rem;line-height:1.3}
+  .cres a:hover,.cres li.act a{background:rgba(156,14,58,.06)}
+  .cres mark{background:rgba(156,14,58,.14);color:inherit;padding:0 .05em;border-radius:2px}
+  .cres .cd{color:var(--accent);font-variant-numeric:tabular-nums;font-weight:600;
+    margin-right:.5rem;white-space:nowrap}
+  .cnone{padding:.55rem .7rem;color:var(--faint);font-style:italic}
+  .cnone a,.cqp a{color:var(--link);font-style:normal;text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .cqp{margin:.45rem 0 0;font-size:.88rem;color:var(--faint)}
+  /* /cases/ browse index: grouped sections with per-bucket counts. */
+  .csec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+    text-transform:uppercase;letter-spacing:.12em;color:var(--accent);
+    margin:2.2rem 0 .3rem;padding-bottom:.35rem;border-bottom:1px solid var(--rule);
+    display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
+  .csec .cn{font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:.85rem;
+    letter-spacing:0;text-transform:none;color:var(--faint);
+    font-variant-numeric:tabular-nums}
+  .cnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:.5rem 0 0}
+  .cnote a{color:var(--accent)}
+  ul.terms{list-style:none;padding:0;margin:1rem 0 0;display:flex;flex-wrap:wrap;
+    gap:.5rem 1.6rem}
+  ul.terms li{display:inline-flex;align-items:baseline;gap:.4rem}
+  ul.terms a{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.05rem;
+    color:var(--accent);text-decoration:none;border-bottom:1px solid var(--rule)}
+  ul.terms a:hover{border-bottom-color:var(--accent)}
+  ul.terms .cn{color:var(--faint);font-size:.85rem;font-variant-numeric:tabular-nums}
+  /* About page: running prose rather than an index, so it takes a measure and a
+     little more leading than the section rows above it. */
+  .about{margin:1.6rem 0 0;font-size:1.05rem;line-height:1.65;max-width:34rem}
+  .about p{margin:0 0 1rem}
+  .about a{color:var(--accent);text-decoration:none;
+    border-bottom:1px solid var(--rule)}
+  .about a:hover{border-bottom-color:var(--accent)}
+  .about .contact{margin:2rem 0 0;background:var(--panel);border:1px solid var(--rule);
+    border-left:4px solid var(--accent);padding:1.1rem 1.3rem}
+  .about .contact h2{font:600 .78rem/1 'Newsreader',Georgia,serif;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--accent);margin:0 0 .5rem}
+  .about .contact p{margin:0;font-size:1rem}
+
+/* ---- masthead ---- */
+.smast-in{max-width:var(--nav-max,60rem);margin:0 auto;padding:.85rem 1.5rem .5rem;
+  display:flex;align-items:baseline;justify-content:space-between;gap:1.4rem;flex-wrap:wrap}
+.smast-wm{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+  letter-spacing:.005em;color:var(--ink,#1a1a1e);text-decoration:none;white-space:nowrap;flex:none}
+.smast-wm em{font-style:italic;font-weight:500;color:var(--accent,#9c0e3a)}
+.smast-wm:hover{color:var(--accent,#9c0e3a)}
+/* Row gap first, then column. At 1.35rem the six section links measured 596px
+   of max-content -- 4px wider than the 592px row the 40rem index container
+   leaves them -- so ABOUT alone wrapped to a third line under the wordmark, on
+   every page page_style.R writes. 1.05rem brings the row to 572px: 20px of
+   slack at 40rem, and 45px on the 54rem case pages, which were themselves only
+   21px from wrapping. The .4rem row gap is for the day a seventh section
+   overruns it anyway -- a nav that wraps should read as a stack, not an orphan. */
+.snav{display:flex;gap:.4rem 1.05rem;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+.snav a{font:600 .72rem/1 'Newsreader',Georgia,serif;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--ink-soft,var(--soft,#484850));text-decoration:none;display:inline-block;
+  padding:.5rem 0;border-bottom:1.5px solid transparent}
+.snav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--rule,#dbd8d2)}
+.snav a[aria-current='page']{color:var(--accent,#9c0e3a);
+  border-bottom-color:var(--accent,#9c0e3a)}
+.smast-rule-w{max-width:var(--nav-max,60rem);margin:0 auto;padding:0 1.5rem}
+.smast-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0;position:relative}
+.smast-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.skip{position:absolute;left:-9999px;top:0;background:var(--panel,#ffffff);
+  color:var(--accent,#9c0e3a);padding:.6rem 1rem;
+  border:1px solid var(--accent,#9c0e3a);
+  font:600 .8rem/1 'Newsreader',Georgia,serif;letter-spacing:.1em;text-transform:uppercase;z-index:10}
+.skip:focus{left:.5rem;top:.5rem}
+/* ---- breadcrumb ---- */
+.bcrumb{margin:.7rem 0 0}
+.bcrumb ol{list-style:none;display:flex;flex-wrap:wrap;align-items:baseline;
+  gap:.1rem .45rem;margin:0;padding:0}
+.bcrumb li{display:inline-flex;align-items:baseline;gap:.45rem}
+.bcrumb a{font:400 .8rem/1.5 'Newsreader',Georgia,serif;color:var(--ink-soft,var(--soft,#484850));
+  text-decoration:none;border-bottom:1px solid var(--rule,#dbd8d2)}
+.bcrumb a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.bcrumb .sep{color:var(--faint,#63636b);font-size:.8rem;line-height:1.5}
+.bcrumb [aria-current='page']{font:400 .8rem/1.5 'Newsreader',Georgia,serif;
+  color:var(--faint,#63636b);font-variant-numeric:tabular-nums}
+/* ---- case footer ---- */
+.cfoot{margin:2.4rem 0 0}
+.cfoot-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0 0 1rem;position:relative}
+.cfoot-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.cfoot-off{font-size:.95rem;margin:0 0 1.1rem}
+.cfoot-off a{color:var(--link,#9c0e3a);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.4)}
+.cfoot-off a:hover{border-bottom-color:var(--link,#9c0e3a)}
+.cfoot-lab{font:600 .68rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);margin:0 0 .5rem}
+.cfoot-nav{display:flex;flex-wrap:wrap;gap:.35rem 1.1rem;list-style:none;margin:0;padding:0}
+.cfoot-nav a{font-size:.92rem;color:var(--ink-soft,var(--soft,#484850));text-decoration:none;
+  border-bottom:1px solid var(--rule,#dbd8d2);padding-bottom:1px}
+.cfoot-nav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.cfoot-stamp{margin:1.2rem 0 0;font-size:.8rem;color:var(--faint,#63636b);font-style:italic}
+/* ---- prev / next ---- */
+.pnav{margin:2.2rem 0 0;border-top:1px solid var(--rule,#dbd8d2);padding-top:1rem;
+  display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.pnav a,.pnav span.none{text-decoration:none;color:inherit;display:block;padding:.5rem .2rem}
+.pnav a:hover{background:rgba(156,14,58,.05)}
+.pnav .dir{font:600 .66rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);display:block;margin-bottom:.3rem}
+.pnav .lab{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1rem;line-height:1.25;
+  color:var(--accent,#9c0e3a);display:block}
+.pnav a:hover .lab{text-decoration:underline;text-underline-offset:3px}
+.pnav .nx{text-align:right}
+.pnav .none{opacity:.35}
+@media(max-width:640px){
+  .smast-in{padding:.7rem 1.1rem .25rem;gap:.15rem}
+  .smast-wm{font-size:.98rem}
+  .smast-in nav{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+    -webkit-mask-image:linear-gradient(90deg,#000 86%,transparent);
+    mask-image:linear-gradient(90deg,#000 86%,transparent)}
+  .smast-in nav::-webkit-scrollbar{display:none}
+  .snav{flex-wrap:nowrap;gap:1.15rem;padding-right:2.4rem}
+  .snav a{padding:.7rem 0;white-space:nowrap}
+  .smast-rule-w{padding:0 1.1rem}
+  .cfoot-nav{gap:.5rem 1rem}
+  .cfoot-nav a{padding-bottom:.3rem}
+  .pnav{grid-template-columns:1fr;gap:.2rem}
+  .pnav .nx{text-align:left;border-top:1px solid var(--rule,#dbd8d2)}
+}
+
+  .wrap.opn{max-width:42rem}
+  .opn .ometa{font-size:.92rem;color:var(--ink-soft);margin:.3rem 0 0}
+  .opn .oget{display:flex;flex-wrap:wrap;gap:.4rem .6rem;margin:1.1rem 0 0;padding:0;list-style:none;font-size:.9rem}
+  .opn .oget a{display:inline-block;padding:.32rem .7rem;border:1px solid var(--rule);border-radius:4px;color:var(--ink);text-decoration:none;background:var(--panel)}
+  .opn .oget a:hover{border-color:var(--accent);color:var(--accent)}
+  .opn .osrc{font-size:.84rem;color:var(--faint);margin:.9rem 0 0;line-height:1.45}
+  .opn .osrc a{color:var(--link)}
+  .opn .otoc{margin:1.6rem 0 0;padding:.8rem 1rem;border:1px solid var(--rule);border-radius:4px;background:var(--panel);font-size:.95rem}
+  .opn .otoc ol{margin:0;padding:0;list-style:none}
+  .opn .otoc li{margin:.25rem 0}
+  .opn .otoc a{color:var(--ink);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.35)}
+  .opn .otoc a:hover{color:var(--accent)}
+  .opn section.op{margin-top:3rem;border-top:2px solid var(--ink);padding-top:1.1rem}
+  .opn section.op h2{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.5rem;line-height:1.2;margin:0 0 1rem;color:var(--ink)}
+  .opn section.op p{margin:0 0 .95rem;line-height:1.62;hyphens:auto;overflow-wrap:break-word}
+  .opn section.op p.byline{color:var(--ink-soft);font-style:italic}
+  .opn section.op p.sep{text-align:center;letter-spacing:.3em;color:var(--faint);margin:1.6rem 0}
+  .opn section.op h3.oh{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.12rem;text-align:center;margin:2rem 0 1rem;color:var(--ink)}
+  .opn section.op blockquote{margin:0 0 .95rem;padding:0 0 0 1.1rem;border-left:2px solid var(--rule);color:var(--ink-soft)}
+  .opn section.op blockquote p{margin-bottom:.6rem;font-size:.96em}
+  .opn .sc{font-variant-caps:small-caps;letter-spacing:.02em}
+  .opn .pg{font-size:.66em;color:var(--faint);vertical-align:.3em;margin:0 .3em 0 .1em;font-variant-numeric:tabular-nums;user-select:none;white-space:nowrap}
+  .opn .pg::before{content:'*'}
+  .opn sup.fnr{font-size:.68em;line-height:0;margin-left:.05em}
+  .opn sup.fnr a{color:var(--link);text-decoration:none;padding:0 .1em}
+  .opn aside.notes{margin-top:2rem;border-top:1px solid var(--rule);padding-top:.8rem;font-size:.88rem;color:var(--ink-soft)}
+  .opn aside.notes h3{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1rem;margin:0 0 .6rem;color:var(--ink)}
+  .opn aside.notes ol{margin:0;padding-left:1.7rem}
+  .opn aside.notes li{margin:0 0 .55rem}
+  .opn aside.notes li.sym{list-style:none;margin-left:-1.7rem}
+  .opn aside.notes li.sym .mk{margin-right:.3rem}
+  .opn aside.notes li.sym p{display:inline}
+  .opn aside.notes p{margin:0 0 .4rem;line-height:1.5}
+  .opn aside.notes a.back{color:var(--link);text-decoration:none;margin-left:.2rem}
+  .opn aside.notes li:target,.opn sup.fnr a:target,.opn .pg:target{background:rgba(156,14,58,.12);outline:.2rem solid rgba(156,14,58,.12)}
+  .opn section.op,.opn aside.notes li,.opn sup.fnr a{scroll-margin-top:1rem}
+  .opn section.op-syllabus p,.opn section.op-counsel p{font-size:.95em}
+  .opn section.op-counsel summary{cursor:pointer;font-family:'Fraunces',Georgia,serif;font-size:1.05rem;color:var(--ink-soft)}
+  .opn .osyl{font-size:.84rem;color:var(--faint);font-style:italic;margin:-.5rem 0 1rem}
+  .opn p.back{margin-top:3rem;font-size:.92rem}
+  @media print{.smast,.bcrumb,.opn .oget,.opn .otoc,.opn p.back{display:none}.opn section.op{break-before:page}}
+</style><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://supremecourt.report/"},{"@type":"ListItem","position":2,"name":"Opinions","item":"https://supremecourt.report/opinions/"},{"@type":"ListItem","position":3,"name":"Ellingburg v. United States"}]}</script><meta name='otv' content='p1'><link rel='alternate' type='text/markdown' href='/opinions/2025/24-482.md'><link rel='alternate' type='application/epub+zip' href='/opinions/2025/24-482.epub'></head><body><a class='skip' href='#main'>Skip to content</a><header><div class='smast-in'><a class='smast-wm' href='/'>Supreme Court <em>Report</em></a><nav aria-label='Sections'><ul class='snav'><li><a href='/dashboards/'>Docket</a></li><li><a href='/conferences/'>Conferences</a></li><li><a href='/relists/'>Relists</a></li><li><a href='/applications/'>Interim</a></li><li><a href='/arguments/'>Arguments</a></li><li><a href='/justices/' aria-current='page'>Justices</a></li><li><a href='/counsel/'>Counsel</a></li><li><a href='/funnel/'>Funnel</a></li><li><a href='/methods.html'>Model</a></li><li><a href='/about.html'>About</a></li></ul></nav></div><div class='smast-rule-w'><hr class='smast-rule'></div></header><main class='wrap opn' id='main' data-dkt='24-482'><nav class='bcrumb' aria-label='Breadcrumb'><ol><li><a href='/'>Home</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><a href='/opinions/'>Opinions</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><span aria-current='page'>Ellingburg v. United States</span></li></ol></nav><p class='kicker'>No. 24-482 · decided January 20, 2026 · 607 U. S. 163</p><h1 style='font-size:clamp(1.7rem,4.6vw,2.4rem);line-height:1.12'>Ellingburg v. United States</h1><p class='ometa'>Holsey Ellingburg, Jr. v. United States. 1 separate writing.</p><ul class='oget'><li><a href='/opinions/2025/24-482.epub' download>EPUB</a></li><li><a href='/opinions/2025/24-482.md' download>Markdown</a></li><li><a href='https://www.supremecourt.gov/opinions/25pdf/607us1r09_4fb4.pdf' rel='noopener'>The Court’s PDF</a></li><li><a href='/cases/24-482.html'>The docket</a></li></ul><p class='osrc'>Set from the PDF the Court published, which is the authoritative text. The small starred numbers are that PDF’s page numbers. A conversion can introduce errors; check a quotation against the <a href='https://www.supremecourt.gov/opinions/25pdf/607us1r09_4fb4.pdf' rel='noopener'>original</a>.</p><nav class="otoc" aria-label="Contents"><ol>
+<li><a href="#s1">Syllabus</a></li>
+<li><a href="#s2">Counsel</a></li>
+<li><a href="#s3">Opinion of the Court</a></li>
+<li><a href="#s4">Justice Thomas, concurring</a></li>
+</ol></nav>
+<section id="s1" class="op op-syllabus"><h2>Syllabus</h2><p class='osyl'>Prepared by the Reporter of Decisions for the convenience of the reader; it is no part of the opinion of the Court.</p>
+<p>The Mandatory Victims Restitution Act of 1996 requires defendants convicted of certain federal crimes to pay monetary restitution to victims. Although petitioner Ellingburg committed his crime <em>before</em> the MVRA's enactment, he was sentenced under the MVRA and ordered to pay $7,567.25 in restitution. Ellingburg raised an Ex Post Facto Clause challenge to his continued restitution obligation. The Eighth Circuit concluded that restitution under the MVRA is not criminal punishment subject to the Ex Post Facto Clause.</p>
+<p><em>Held</em>: Restitution under the MVRA is plainly criminal punishment for purposes of the Ex Post Facto Clause. Whether a law violates the Ex Post Facto Clause requires evaluating whether the law imposes a criminal or penal sanction as opposed to a civil remedy. That question is one “of statutory construction” that requires the Court to “consider the statute's text and its structure.” <em>Smith</em> v. <em>Doe</em>, 538 U. S. 84, 92 (quotation marks omitted). When viewed as a whole, the MVRA makes abundantly clear that restitution is criminal punishment. The MVRA labels restitution as a “penalty” for a criminal “offense.” 18 U. S. C. § 3663A(a)(1). Only a criminal defendant convicted of a qualifying crime may be ordered to pay restitution. Restitution is imposed at sentencing for that offense together with other criminal punishments such as imprisonment and fines. And at the sentencing proceeding where restitution is imposed, the Government, not the victim, is the party adverse to the defendant. Further, the federal MVRA restitution regime is codified in Title 18, “Crimes and Criminal Procedure,” and the statutory provisions authorizing restitution orders are contained in Chapter 232 of that Title, entitled “Miscellaneous Sentencing Provisions.” A district court imposing restitution must follow the procedures applicable to other criminal penalties.</p>
+<p>The Court's precedents have understood restitution under the MVRA to be criminal punishment. See <em>Manrique</em> v. <em>United States</em>, 581 U. S. 116, 118. And the Court's precedents on related issues further buttress the conclusion that MVRA restitution is criminal punishment. See <em>United States</em> v. <em>Bajakajian</em>, 524 U. S. 321, 328; <em>United States</em> v. <em>One Assortment of 89 Firearms</em>, 465 U. S. 354, 363–366.</p>
+<p><span class="pg" id="s1-p164" title="page 164 of the original">164</span>Finally, while Congress intended restitution under the MVRA to both punish offenders and compensate victims, victims cannot initiate or settle the restitution process as they would if it were a civil proceeding. The text and structure of the Act demonstrate that Congress intended restitution under the Act to impose criminal punishment. Pp. 165–169. 113 F. 4th 839, reversed and remanded. <span class="sc">Kavanaugh, J.,</span> delivered the opinion for a unanimous Court. <span class="sc">Thomas</span>, J., filed a concurring opinion, in which <span class="sc">Gorsuch</span>, <span class="sc">J.,</span> joined, <em>post</em>, p. 169.</p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li class="sym" value="0"><span class="mk">*</span><p><em>Andrew T. Tutt, Dana Kagan McGinley,</em> and <em>Nicole L. Masiello</em> filed a brief for Restitution Scholars as <em>amici curiae</em> urging reversal. Briefs of <em>amici curiae</em> urging vacatur were filed for the Cato Institute et al. by <em>Matthew P. Cavedon</em>; for the Constitutional Accountability Center by <em>Elizabeth B. Wydra</em> and <em>Brianne J. Gorod</em>; for the NACDL et al. by <em>Lauren Willard Zehmer, Abby Wright, Hassan Ahmad,</em> and <em>Jeffrey T. Green</em>; and for Wayne A. Logan by <em>Krystal B. Swendsboe</em>.</p><p>Briefs of <em>amici curiae</em> were filed for Beth A. Colgan, <em>pro se</em>; for Jennifer Laurin by <em>Mahogane Reed</em>; and for Debra Ricketts-Holder by <em>Allyson N. Ho, Bradley G. Hubbard,</em> and <em>Paul G. Cassell.</em></p></li>
+</ol></aside></section>
+<section id="s2" class="op op-counsel"><details><summary>Counsel</summary><p><em>Amy Mason Saharia</em> argued the cause for petitioner. With her on the briefs were <em>Lisa S. Blatt, Atticus W. De-Prospo, Rohit P. Asirvatham</em>, and <em>R. Shane Roberts, Jr.</em></p>
+<p><em>Ashley Robertson</em> argued the cause for the United States urging vacatur. On the briefs were <em>Solicitor General Sauer</em>, <em>Deputy Solicitor General Feigin, Acting Assistant Attorney General Galeotti,</em> and <em>Andrew W. Lang.</em></p>
+<p><em>John F. Bash,</em> by appointment of the Court, 605 U. S. 908, argued the cause as <em>amicus curiae</em> in support of the judgment below. With him on the brief were <em>Nicholas J. Caluda, Alex Van Dyke,</em> and <em>Christopher G. Michel.</em>*</p></details></section>
+<section id="s3" class="op op-court"><h2>Opinion of the Court</h2>
+<p class="byline">Justice Kavanaugh delivered the opinion of the Court.</p>
+<p>Under the Mandatory Victims Restitution Act of 1996, defendants convicted of certain federal crimes must pay monetary restitution to the victims. That Act, known as the <span class="pg" id="s3-p165" title="page 165 of the original">165</span>MVRA, became law on April 24, 1996. Petitioner Ellingburg was sentenced later in 1996 and ordered to pay restitution in the amount of $7,567.25. He has not yet satisfied that obligation.</p>
+<p>Ellingburg has now raised an Ex Post Facto Clause challenge to his continued restitution obligation because he committed his crime <em>before</em> the enactment of the MVRA. The Ex Post Facto Clause issue turns in part on the threshold question of whether restitution under the MVRA is criminal punishment. Applying Circuit precedent, the U. S. Court of Appeals for the Eighth Circuit concluded that restitution under the MVRA is not criminal punishment. 113 F. 4th 839, 841–842 (2024). We now reverse.</p>
+<p>In this Court, Ellingburg and the United States agree that the Eighth Circuit erred and that MVRA restitution is criminal punishment. The Court therefore appointed John F. Bash as <em>amicus curiae</em> to defend the judgment of the Eighth Circuit. 605 U. S. 908 (2025). He has ably discharged his responsibilities.</p>
+<p>When determining whether a law violates the Ex Post Facto Clause, the Court must evaluate whether the law imposes a criminal or penal sanction as opposed to a civil remedy. Assessing whether “a statutory scheme is civil or criminal is first of all a question of statutory construction” that requires the Court to “consider the statute's text and its structure.” <em>Smith</em> v. <em>Doe</em>, 538 U. S. 84, 92 (2003) (quotation marks omitted).<sup class="fnr"><a id="s3-r1" href="#s3-n1">1</a></sup></p>
+<p><span class="pg" id="s3-p166" title="page 166 of the original">166</span>Here, the statutory analysis is straightforward: Restitution under the MVRA is plainly criminal punishment for purposes of the Ex Post Facto Clause.<sup class="fnr"><a id="s3-r2" href="#s3-n2">2</a></sup></p>
+<p>Numerous features of the MVRA lead to that conclusion. The MVRA labels restitution as a “penalty” for a criminal “offense.” 18 U. S. C. § 3663A(a)(1). A court may order restitution only with respect to a criminal “defendant” and only after that defendant's conviction of a qualifying crime. <em>Ibid</em>. Restitution is imposed during “sentencing” for the offense. <em>Ibid.</em> At the sentencing proceeding where restitution is ordered, the Government, not the victim, is the party adverse to the defendant.</p>
+<p>At sentencing, restitution is imposed together with other criminal punishments such as imprisonment and fines. Indeed, for misdemeanors, restitution may be “in lieu of” those punishments, making restitution the sole punishment for a federal offense in certain circumstances. <em>Ibid</em>. In addition, when a defendant does not make the required restitution payments, the court may modify the terms of his supervised release or probation and impose imprisonment if the court determines that “alternatives to imprisonment are not adequate to serve the purposes of punishment and deterrence.” §§ 3614(b)(2), 3613A(a)(1).</p>
+<p>As a further sign that MVRA restitution is criminal punishment, the federal MVRA restitution regime is codified in Title 18, “Crimes and Criminal Procedure.” The main statutory provisions authorizing restitution orders, § 3663 and § 3663A, are contained in Chapter 232 of Title 18, entitled “Miscellaneous Sentencing Provisions.” Another statutory provision, § 3556, states that a court “shall order restitution” in “imposing a sentence” for covered offenses. That provision is housed in Chapter 227 of Title 18, entitled “Sentences.”<span class="pg" id="s3-p167" title="page 167 of the original">167</span> The statute also refers to a “sentence that imposes an order of restitution.” § 3664(<em>o</em>). When imposing restitution, a district court must follow the procedures applicable to other criminal penalties, including the Federal Rules of Criminal Procedure. See § 3664(c). And § 3663(c) directs the U. S. Sentencing Commission to promulgate criminal sentencing guidelines for restitution. § 208, 110 Stat. 1240; § 3663(c)(7).</p>
+<p>When viewed as a whole, then, the MVRA makes abundantly clear that restitution is criminal punishment. We are not saying that all of the statutory features present here are necessary to constitute criminal punishment, but they are sufficient.</p>
+<p>Given the statutory text and structure, it comes as no surprise that this Court's precedents have understood restitution under the MVRA to be criminal punishment. In <em>Manrique</em> v. <em>United States</em>, the Court stated that the MVRA requires courts “to impose restitution as part of the sentence.” 581 U. S. 116, 118 (2017). In <em>Pasquantino</em> v. <em>United States</em>, the Court explained that restitution under the MVRA is designed “to mete out appropriate criminal punishment.” 544 U. S. 349, 365 (2005). And in <em>Paroline</em> v. <em>United States</em>, the Court repeated that description. 572 U. S. 434, 456 (2014).</p>
+<p>This Court's precedents on related issues further buttress the conclusion that MVRA restitution is criminal punishment. For example, forfeiture under 18 U. S. C. § 982(a)(1)— like restitution under the MVRA—occurs at the culmination of a criminal proceeding and requires conviction of an underlying crime. That forfeiture, the Court concluded, is criminal punishment. See <em>United States</em> v. <em>Bajakajian</em>, 524 U. S. 321, 328 (1998). By contrast, the Court determined that the forfeiture of firearms under 18 U. S. C. § 924(d) ordered during an <em>in rem</em> proceeding is a civil sanction. <em>United States</em> v. <em>One Assortment of 89 Firearms</em>, 465 U. S. 354, 363–366 (1984).</p>
+<p><span class="pg" id="s3-p168" title="page 168 of the original">168</span>As the Government cautions, not everything that occurs at criminal sentencing or even that appears in a criminal judgment may necessarily be part of the punishment. See Tr. of Oral Arg. 22–23. But we need not explore that point further here because, for the reasons we have explained, MVRA restitution is criminal punishment.</p>
+<p><em>Amicus</em> relies heavily on <em>Smith</em> v. <em>Doe</em>, 538 U. S. 84. There, this Court considered a law requiring a defendant convicted of certain crimes to register as a sex offender. The Court held that the registration mandate was civil. The legislature adopted “distinctly civil procedures” for the imposition of registration requirements. <em>Id</em>., at 96 (quotation marks omitted). By contrast, to reiterate what we said above, MVRA restitution is labeled as a penalty, is codified in the criminal code, is predicated on a criminal conviction, is imposed against a criminal defendant, is sometimes imposed in lieu of other penalties, is ordered at sentencing where the United States is the adverse party, and can result in resentencing when the defendant refuses to pay. So <em>Smith</em> v. <em>Doe</em> does not control.</p>
+<p>It is true, as <em>amicus</em> thoroughly explains, that the MVRA seeks to compensate crime victims, a nonpunitive goal. Several provisions of the MVRA reflect that objective, such as a provision requiring that restitution amounts be based on a victim's loss. §3664(f)(1)(A); see also, <em>e</em>. <em>g</em>., §3664(j). But those provisions show only that Congress intended restitution under the MVRA to both punish and compensate. And so long as the text and structure of the Act demonstrate that Congress intended at least “to impose punishment,” that “ends the inquiry.” <em>Smith</em>, 538 U. S., at 92; see <em>Paroline</em>, 572 U. S., at 456; <em>Pasquantino</em>, 544 U. S., at 365.</p>
+<p>To be sure, as <em>amicus</em> points out, victims receive notice of sentencing proceedings and are consulted by prosecutors. But outreach to victims and some participation by victims in criminal proceedings are not unusual. See, <em>e</em>. <em>g</em>., § 3771(a). With respect to restitution, the key point is that victims do <span class="pg" id="s3-p169" title="page 169 of the original">169</span>not have the power to initiate or settle the restitution process as they would if it were a civil proceeding.</p>
+<p>Our ruling today does not mean that a restitution statute can never be civil. But the statutory text and structure of the MVRA demonstrate that restitution under that Act is criminal punishment.</p>
+<p>For those reasons, we reverse the judgment of the U. S. Court of Appeals for the Eighth Circuit and remand the case for further proceedings consistent with this opinion. On remand, the Court of Appeals may consider the Government's separate arguments for affirmance of the District Court's judgment.</p>
+<p><em>It is so ordered.</em></p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li id="s3-n1" value="1"><p>If the text and structure of a statute do not demonstrate that Congress intended criminal punishment, the statute may still be deemed criminal or penal if the “party challenging the statute provides `the clearest proof' that `the statutory scheme [is] so punitive either in purpose or effect as to negate [the Government's] intention' to deem it `civil.' ” <em>Kansas</em> v. <em>Hendricks</em>, 521 U. S. 346, 361 (1997) (quoting <em>United States</em> v. <em>Ward</em>, 448 U. S. 242, 248–249 (1980)). <a class="back" href="#s3-r1" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n2" value="2"><p><em>Amicus</em> contends that Ellingburg's restitution was not imposed under the MVRA even though Ellingburg was sentenced after the MVRA took effect in 1996. But the Eighth Circuit decided this case on the understanding that the MVRA was applied to Ellingburg. <a class="back" href="#s3-r2" aria-label="Back to the text">↩</a></p></li>
+</ol></aside></section>
+<section id="s4" class="op op-concurring"><h2>Justice Thomas, concurring</h2>
+<p class="byline">Justice Thomas, with whom Justice Gorsuch joins, concurring.</p>
+<p>I join the Court's opinion in full because it correctly applies our precedent. I write separately to clarify the foundation of that precedent. This Court's 1798 decision in <em>Calder</em> v. <em>Bull</em>, 3 Dall. 386, established that the Ex Post Facto Clauses forbid only those retroactive laws that impose “punishment” for a “crime.” <em>Id</em>., at 386, 389–391 (opinion of Chase, J.). Over the 228 years since <em>Calder</em>, the Court has struggled to articulate what it means for a law to impose punishment for a crime, and thus to be subject to the Ex Post Facto Clauses. The Court's more recent precedents have implemented <em>Calder</em> through two multifactor tests that turn largely on whether the legislature labels the law as criminal or civil. But in 1798, “punishment” for a “crime” would have been understood to refer to any coercive penalty for a public wrong. Many laws that are nominally civil today would therefore have been subject to the Ex Post Facto Clauses under <em>Calder</em>. I would restore <em>Calder</em>'s approach to the Ex Post Facto Clauses.</p>
+<h3 class="oh">I</h3>
+<p>The Constitution twice prohibits ex post facto laws. As to the Federal Government, it provides that “No Bill of Attainder<span class="pg" id="s4-p170" title="page 170 of the original">170</span> or ex post facto Law shall be passed.” Art. I, § 9, cl. 3. As to the States, it provides that “No State shall . . . pass any Bill of Attainder, ex post facto Law, or Law impairing the Obligation of Contracts.” Art. I, § 10, cl. 1. In its general sense, a law is ex post facto—meaning “after the fact”—when it applies retroactively to conduct that occurred before the law was enacted.</p>
+<p>The two Ex Post Facto Clauses reflected the importance of the protection to the Founding Fathers. James Iredell believed that the protection against ex post facto laws was “the most essential right of all,” which was worth “ten thousand declarations of rights” without it. Answers to Mr. Mason's Objections to the New Constitution, in Pamphlets on the Constitution of the United States 334, 368 (P. Ford ed. 1888) (reprint 1968). “A man may feel some pride in his security,” Iredell wrote, “when he knows that what he does innocently and safely to-day in accordance with the laws of his country, cannot be tortured into guilt and danger tomorrow.” <em>Ibid</em>. In the Federalist Papers, Alexander Hamilton placed “the prohibition of ex post facto laws” among the greatest “securities to liberty and republicanism.” The Federalist No. 84, p. 571 (P. Ford ed. 1898). James Madison argued that ex post facto laws are “contrary to the first principles of the social compact.” <em>Id</em>., No. 44, at 296.</p>
+<p>Ex post facto laws lack legitimacy because laws must precede the actions that they govern. Laws regulating actions after the fact “deprive citizens of notice and fair warning and are, therefore, an affront to man's `reason and freewill.' ” <em>Peugh</em> v. <em>United States</em>, 569 U. S. 530, 561 (2013) (<span class="sc">Thomas</span>, J., dissenting) (quoting 1 W. Blackstone, Commentaries on the Laws of England 39 (1765) (Blackstone)). As Blackstone explained, “it is impossible that the party could foresee” that his actions would become unlawful if they were lawful when he took them. <em>Id</em>., at 46. When a man had no notice that his actions were unlawful, “all punishment for not abstaining must of consequence be cruel and unjust.” <em>Ibid.</em> An ex <span class="pg" id="s4-p171" title="page 171 of the original">171</span>post facto law is even “more unreasonable,” Blackstone thought, than the reviled practice of the Roman emperor “Caligula, who . . . wrote his laws in a very small character, and hung them up upon high pillars, the more effectually to ensnare the people.” <em>Ibid.</em></p>
+<p>Many believed that no constitutional prohibition was necessary because an ex post facto law would be invalid as contrary to natural law. At the Constitutional Convention, Oliver Ellsworth argued that “[i]t cannot . . . be necessary to prohibit” ex post facto laws because “no lawyer, no civilian . . . would not say that ex post facto laws were void of themselves.” 2 M. Farrand, Records of the Federal Convention of 1787, p. 376 (1966) (Farrand). James Wilson thought that a constitutional prohibition on ex post facto laws would suggest that the Convention denied that such laws were already forbidden by natural law, to its embarrassment. “It will bring refiexions on the Constitution—and proclaim that we are ignorant of the first principles of Legislation.” <em>Ibid</em>. In fact, “[a]ll the delegates who spoke explicitly or implicitly regarded an ex post facto law as a violation of natural law, and most of them therefore thought it unnecessary to include such a basic natural law principle in the written constitution.” S. Sherry, The Founders' Unwritten Constitution, 54 U. Chi. L. Rev. 1127, 1157 (1987). The Convention nonetheless adopted the Ex Post Facto Clauses after it was urged that “the Judges can take hold of” them if a legislature ever enacts such a law. 2 Farrand 376 (Williamson).</p>
+<h3 class="oh">II</h3>
+<p>The lodestar of this Court's ex post facto jurisprudence is <em>Calder</em> v. <em>Bull</em>, which established that the Ex Post Facto Clauses apply only to laws that impose “punishment” for “crime[s].” 3 Dall., at 389–391. <em>Calder</em>—and especially Justice Chase's lead <em>seriatim</em> opinion—has since provided the definitive gloss on the Ex Post Facto Clauses. Justice Chase's definition of “<em>ex post facto</em> laws” continues to “provid[e]<span class="pg" id="s4-p172" title="page 172 of the original">172</span> an authoritative account of the scope of the <em>Ex Post Facto</em> Clause.” <em>Stogner</em> v. <em>California</em>, 539 U. S. 607, 611 (2003); accord, <em>e</em>. <em>g</em>., <em>Peugh</em>, 569 U. S., at 532–533. This Court's modern precedents, including today's opinion, decide whether a law is subject to the Ex Post Facto Clauses based on whether it satisfies <em>Calder</em>'s requirement that it be “criminal or penal.” <em>Weaver</em> v. <em>Graham</em>, 450 U. S. 24, 29 (1981); see also <em>ante,</em> at 165. But this Court's implementation of <em>Calder</em> seems to have lost sight of how <em>Calder</em> would have been understood when it was decided.</p>
+<p><em>Calder</em> concerned a state legislature's intervention in a traditional private-law dispute. The case arose out of the probate proceedings for the estate of a Connecticut man named Normand Morison. In 1779, Morison wrote a will leaving his property to his wife Abigail and her heirs. See 8 The Documentary History of the Supreme Court of the United States, 1789–1800, p. 89 (M. Marcus ed. 2007). Soon after Morison wrote his will, he and Abigail had a son. <em>Ibid</em>. When the son was young, Morison died. <em>Ibid</em>. Abigail started the probate process so that she could inherit Morison's property as his will promised. <em>Ibid</em>. But the probate judge held up the process because he wanted to check whether the birth of their son affected the will's validity. <em>Ibid</em>. At the time, Abigail did not mind the delay because the default intestacy rules would have given the property to her and her son anyway. <em>Id</em>., at 89–90.</p>
+<p>But later events jeopardized Abigail's right to inherit Morison's property. First, Connecticut changed the default intestacy rules so that, absent a valid will, property like Morison's would pass to his nearest blood relative, not to a surviving spouse like Abigail. <em>Id</em>., at 90, and n. 9. Second, the probate court, without telling Abigail, disapproved Morison's original will. <em>Id</em>., at 90. And third, a few years later, Abigail and Morison's son died. <em>Ibid</em>. After her son died, Abigail and her new husband Caleb Bull returned to probate court. <em>Ibid</em>. The Bulls were surprised to learn that the <span class="pg" id="s4-p173" title="page 173 of the original">173</span>probate court had disapproved Morison's will years earlier without telling Abigail—apparently on the theory that he would have wanted to change it after his son was born. <em>Ibid</em>. And, since Connecticut had enacted new default intestacy rules in the meantime, the absence of a valid will meant that Morison's estate would pass on to his blood relatives rather than to Abigail. <em>Ibid</em>. Morison's blood relatives, the Calders, were suddenly the lawful heirs of his property. <em>Id</em>., at 90–91.</p>
+<p>Abigail and Caleb Bull petitioned the Connecticut Legislature for relief. They convinced the legislature that Morison did not intend to revoke his will after his son died, so the legislature issued a decree in 1795 granting them a rehearing on the validity of Morison's original will. <em>Id</em>., at 91. The legislature's 1795 decree effectively vacated the original probate-court decision deeming the will void and granted a new hearing at which the probate court could adjudicate the will's validity. <em>Id.</em>, at 91, 107. The probate court held a new hearing pursuant to the decree and concluded that Morison's original will was valid after all. <em>Id.</em>, at 91. Having now lost in probate court, the Calders appealed this new decision and challenged the legislature's decree that had granted the Bulls a new hearing. <em>Id</em>., at 91–92. The Calders argued, eventually to this Court, that the legislature's decree was an unconstitutional ex post facto law because it retroactively voided the probate court's original decision, which caused them to lose an inheritance that would otherwise have been theirs. <em>Id</em>., at 92.</p>
+<p>In <em>Calder</em> v. <em>Bull</em>, this Court gave two reasons why the legislature's decree granting a new trial did not violate the State Ex Post Facto Clause. See Art. I, § 10, cl. 1. The first reason was that the legislature's decree operated on a legal decision by a court, not a past action by the Calders. There was nothing that the parties had done in the past that was “in any manner affected by the law or resolution of Connecticut.” 3 Dall., at 392 (opinion of Chase, J.). “It does not <span class="pg" id="s4-p174" title="page 174 of the original">174</span><em>concern</em>, or <em>relate</em> to, <em>any act done by them</em>.” <em>Ibid</em>. Instead, the decree effectively vacated a probate decision and gave the court an opportunity to correct its decision, just like appellate courts do every day. <em>Ibid</em>. The new hearing, after all, was conducted under the same substantive laws as were in force at the original hearing. In fact, the Justices seemed to believe that the Connecticut Legislature's “resolution or law,” <em>id</em>., at 387, was not a legislative but a judicial act, consistent with state legislatures' traditional judicial power to review state-court decisions—and thus could not be an ex post facto “law” at all. See <em>id</em>., at 395–396 (opinion of Paterson, J.) (“[W]e may, in the present instance, consider the Legislature of the State, as having acted in their customary judicial capacity”); <em>id</em>., at 398 (opinion of Iredell, J.) (“an exercise of judicial, not of legislative, authority”); <em>id</em>., at 400 (opinion of Cushing, J.) (“If the act is a judicial act, it is not touched by the Federal Constitution”).</p>
+<p>The more lasting legacy of <em>Calder</em>, however, was its second reason. Three of the four <em>seriatim</em> opinions in <em>Calder</em> limited the Ex Post Facto Clauses to laws imposing criminal punishment. On their view, the Clauses did not forbid other kinds of retroactive laws. Justice Chase, in what has proved to be the most influential opinion, gave a comprehensive account of the scope of the Ex Post Facto Clauses. He understood the Clauses to be limited to retroactive laws imposing criminal punishment. He explained that the Ex Post Facto Clauses covered only those laws that “<em>create</em>” a “<em>crime</em>,” “<em>aggravate</em>” a crime, “encrease the punishment” for a crime, or “change the rules of evidence, <em>for the purpose of conviction</em>.” <em>Id.</em>, at 391.</p>
+<p>Justice Chase's account implied that the Clauses did not apply to other kinds of retroactive laws. First, on his view, the Clauses did not touch private law. Justice Chase did “not think” that the Ex Post Facto Clause “was inserted to Secure the citizen in his <em>private rights</em>, of either <em>property</em>, or <em>contracts</em>.” <em>Id.</em>, at 390. Accordingly, the Clauses would <span class="pg" id="s4-p175" title="page 175 of the original">175</span>not prohibit a law that retroactively paused a debtor's obligations to a creditor or voided a contract. Such laws, in Justice Chase's view, were governed by separate constitutional prohibitions on impairing the obligations of contracts and making anything but gold or silver a tender in payments of debts. <em>Ibid</em>.; see Art. I, § 10, cl. 1. Second, because the Clauses were meant as protections against the government, they did not apply to laws that retroactively made a law more lenient. They would not, for example, forbid a law that retroactively “mollifies the rigor of the <em>criminal</em> law.” <em>Calder</em>, 3 Dall., at 391 (opinion of Chase, J.).</p>
+<p>The other two <em>seriatim</em> opinions in <em>Calder</em> that addressed the question agreed. Justice Paterson explained that “the meaning, annexed to the terms <em>ex post facto laws</em>, unquestionably refers to crimes, and nothing else.” <em>Id.</em>, at 396. Justice Iredell—an adamant proponent of the Ex Post Facto Clauses, see <em>supra</em>, at 170—likewise thought that they did not “extend to civil cases, to cases that merely affect the private property of citizens.” <em>Calder</em>, 3 Dall., at 400. Instead, the Clauses applied only to laws that retroactively “inflict a punishment” for an “offence.” <em>Ibid.</em></p>
+<p>Some, myself included, have questioned whether <em>Calder</em> was right to limit the Ex Post Facto Clauses to laws imposing criminal punishment. See, <em>e</em>. <em>g</em>., <em>Satterlee</em> v. <em>Matthewson</em>, 2 Pet. 380, 416, and n. (a) (1829) (opinion of Johnson, J.) (arguing that the Ex Post Facto Clauses protect more); O. Field, Ex Post Facto in the Constitution, 20 Mich. L. Rev. 315, 331 (1922) (“[T]here have been reputable authorities, both past and present, who incline to the view that the ex post facto provisions of the Constitution prohibited civil as well as criminal legislation”); <em>Eastern Enterprises</em> v. <em>Apfel</em>, 524 U. S. 498, 538–539 (1998) (<span class="sc">Thomas</span>, J., concurring). Others have defended <em>Calder</em>'s limitation. See, <em>e</em>. <em>g</em>., R. Natelson, Statutory Retroactivity: The Founders' View, 39 Idaho L. Rev. 489, 493–494 (2003); C. Nelson, Originalism and Interpretive Conventions, 70 U. Chi. L. Rev. 519, 578–582 <span class="pg" id="s4-p176" title="page 176 of the original">176</span>(2003). But often lost in that debate has been the question of what <em>Calder</em> meant when it limited the Clauses to laws imposing criminal punishment.</p>
+<h3 class="oh">III</h3>
+<p>This Court's recent precedents have attempted to implement <em>Calder</em>'s limitation of the Clauses to criminal punishment. But, in doing so, they have adopted a framework that turns largely on legislative labeling, has little basis in history, and is unnecessarily convoluted.</p>
+<h3 class="oh">A</h3>
+<p>The modern precedents follow <em>Calder</em>'s limitation of the Ex Post Facto Clauses to laws that impose criminal punishment. Based on “Justice Chase's now familiar opinion in <em>Calder</em>,” this Court has repeatedly held that the Clauses apply exclusively to laws that “retroactively alter the definition of crimes or increase the punishment for criminal acts,” but not to other kinds of retroactive laws. <em>Collins</em> v. <em>Youngblood</em>, 497 U. S. 37, 41–43 (1990); see also, <em>e</em>. <em>g</em>., <em>Kansas</em> v. <em>Hendricks</em>, 521 U. S. 346, 370 (1997); <em>Smith</em> v. <em>Doe</em>, 538 U. S. 84, 92 (2003).</p>
+<p>But in defining criminal punishment—and thus the scope of <em>Calder</em>'s limitation—the Court's modern framework applies two multifactor tests developed in the 20th century. The first multifactor test asks whether the legislature “intended” the law to be viewed as criminal or penal. <em>Smith</em>, 538 U. S., at 92–93; see also <em>ante</em>, at 165, n. 1. Under this test, a law is subject to the Ex Post Facto Clauses “[i]f the intention of the legislature was to impose punishment.” <em>Smith</em>, 538 U. S., at 92. But if “the intention was to enact a regulatory scheme that is civil and nonpunitive,” then a law is presumptively not subject to the Ex Post Facto Clauses. <em>Ibid</em>. This test has included up to five factors, most of which allow a legislature to avoid the Clauses through labeling or semantics. Those five factors are whether the legislature had a <span class="pg" id="s4-p177" title="page 177 of the original">177</span>“ `preference' ” for “ `one label or the other,' ” <em>id</em>., at 93 (quoting <em>Hudson</em> v. <em>United States</em>, 522 U. S. 93, 99 (1997)); whether the “codification” was in the criminal or civil code, <em>Smith</em>, 538 U. S., at 94; whether legislative history or similar indicators suggested nonpunitive goals, <em>United States</em> v. <em>One Assortment of 89 Firearms</em>, 465 U. S. 354, 364 (1984); whether the legislature provided traditional “safeguards associated with the criminal process,” <em>Smith</em>, 538 U. S., at 96; and whether the legislature gave enforcement power to an agency with power to enforce civil laws, <em>ibid.</em></p>
+<p>The second multifactor test, which applies only if the law survives the first test, asks whether the law's other features render it criminal or penal. See <em>id</em>., at 92. Under this second test, a law is subject to the Ex Post Facto Clauses if it is “so punitive either in purpose or effect as to negate [the legislature's] intention to deem it civil.” <em>Ibid</em>. (internal quotation marks omitted). The Court has at times said that this second test is a function of up to seven factors: whether the law involves an affirmative disability or restraint, imposes what has historically been regarded as a punishment, requires a finding of scienter, promotes the traditional aims of punishment, applies to behavior which is already a crime, lacks a rational alternative purpose, or is excessive in relation to that purpose. <em>Kennedy</em> v. <em>Mendoza-Martinez</em>, 372 U. S. 144, 168–169 (1963); see <em>Smith</em>, 538 U. S., at 97 (explaining that <em>Mendoza-Martinez</em> factors “migrated” to ex post facto jurisprudence). So long as a law survives the first test, “ `only the clearest proof' ” under the second test can make it subject to the Ex Post Facto Clauses. <em>Smith</em>, 538 U. S., at 92 (quoting <em>Hudson</em>, 522 U. S., at 100).</p>
+<h3 class="oh">B</h3>
+<p>This modern framework is incongruous with the historical purpose of Ex Post Facto Clauses. The modern framework, because of how much it turns on legislative labeling and semantics, allows a legislature to manipulate when the protection<span class="pg" id="s4-p178" title="page 178 of the original">178</span> will apply. Under the first test, for example, a legislature might be able to impose a retroactive $10,000 fine on some previously innocent conduct—such as drinking coffee or going to the gym—if it labeled the law “civil,” placed it in the civil code, expressed a nonpunitive purpose, <em>omitted</em> protections for the accused, and let non-traditional prosecutors (such as a health agency) enforce it. See <em>supra</em>, at 176–177. Under the second test, the legislature might be able to prevail by aggravating the fair-notice problems that motivate the Clauses, such as by having its retroactive law impose strict liability and then applying it only to previously innocent conduct. See <em>Mendoza-Martinez</em>, 372 U. S., at 168–169. It is unlikely that a constitutional prohibition designed to curb a “cruel and unjust” legislature, 1 Blackstone 46, can be so easily manipulated by the same legislature. See <em>United States</em> v. <em>Rahimi</em>, 602 U. S. 680, 776 (2024) (<span class="sc">Thomas</span>, J., dissenting) (explaining that the Constitution does not “allow . . . majoritarian interests to determine” the scope of “constitutional rights”).</p>
+<p>The modern framework is also convoluted. It is difficult for courts, let alone ordinary citizens, to predict how this Court will weigh the modern framework's combined twelve factors spread over two tests. This Court's own precedents admit that the twelve factors are “neither exhaustive nor dispositive,” <em>United States</em> v. <em>Ward</em>, 448 U. S. 242, 249 (1980), and need not be given equal weights, <em>Smith</em>, 538 U. S., at 105. Such “multifactor balancing test[s]” invite “policy-driven, `arbitrary discretion.' ” <em>Gamble</em> v. <em>United States</em>, 587 U. S. 678, 724 (2019) (<span class="sc">Thomas</span>, J., concurring). We should strive to avoid such unclear rules in any context, but especially when interpreting a constitutional guarantee of clear notice.</p>
+<h3 class="oh">IV</h3>
+<p>When <em>Calder</em> said that the Ex Post Facto Clauses apply only to laws imposing punishment for crimes, it was referring to an established category of laws. A crime meant a <span class="pg" id="s4-p179" title="page 179 of the original">179</span>“public wrong,” which is an injury to the sovereign in its sovereign capacity<em>. Calder</em> therefore encompassed offenses against the sovereign regardless of whether they were nominally criminal or civil. And punishment simply referred to the law's coercive sanction—meaning a traditional deprivation of life, liberty, or property—redressing that public wrong. Applying this understanding would restore the Clauses to their proper role without the problems attendant to the more recent precedents.</p>
+<h3 class="oh">A</h3>
+<p>The English common law divided all unlawful acts into “private wrongs” and “public wrongs.” See 3 Blackstone 2. Blackstone titled the third and fourth volumes of his Commentaries, respectively, “Of Private Wrongs” and “Of Public Wrongs.” This dichotomy was fundamental to English and American law.</p>
+<p>Public wrongs were injuries to the sovereign. A public wrong was “a breach and violation of public rights and duties, which affect the whole community, considered as a community.” <em>Ibid</em>. Because a public wrong injured the community, it was deemed an injury to the sovereign in his sovereign capacity. 4 Blackstone 2–7. It followed that an action to redress a public wrong was brought on behalf of the sovereign, not the victim. J. Locke, Second Treatise of Civil Government 7 (J. Gough ed. 1948) (Locke). In concrete terms, actions for public wrongs were brought in England on behalf of the King, and here on behalf of the State or the United States—typically by public prosecutors, rather than privately by the victims. The sovereign “is supposed by the law to be the person injured by every infraction of the public rights belonging to that community, and is therefore in all cases the proper prosecutor for every public offense.” 4 Blackstone 2; see also <em>Robertson</em> v. <em>United States ex rel. Watson</em>, 560 U. S. 272, 279 (2010) (<span class="sc">Roberts</span>, C. J., dissenting) (a criminal prosecution is an action “on behalf of the sovereign, <span class="pg" id="s4-p180" title="page 180 of the original">180</span>seeking to vindicate a public wrong”). Public wrongs included all wrongs deemed injuries to the sovereign and redressable by the sovereign, from murder to mayhem to public nuisance. 4 Blackstone 5–6.</p>
+<p>Private wrongs, in contrast, were injuries to individuals in their private capacity. An action inflicted a private wrong insofar as it infringed “the private or civil rights belonging to individuals, considered as individuals.” 3 Blackstone 2. For example, a dispute with a fellow citizen over a land claim or a failure to pay a debt concerned a private wrong. “[I]f I detain a field from another man, to which the law has given him a right, this is a civil injury, and not a crime,” Blackstone explained, because “only the right of an individual is concerned, and it is immaterial to the public, which of us is in possession of the land.” 4 Blackstone 5. Private wrongs were redressable by the individuals whose rights were violated, not the sovereign.</p>
+<p>A single act could be both a private wrong and a public wrong. <em>Id</em>., at 5–6. “The same acts will generally constitute a private injury, as well as a public crime. A public punishment is inflicted on the part of the state, to restrain such conduct, and the party injured is entitled to a compensation for the injury he has sustained.” 2 Z. Swift, System of the Laws of the State of Connecticut 292 (1796); accord, <em>ibid</em>. (“If one man assaults and beats another, he is punished by a fine for disturbing the peace, and compelled to compensate in money the person he has abused and wounded”). The private suit brought by the individual vindicated the private wrong, and the public prosecution brought by the sovereign vindicated the public wrong. This overlap carries forward to modern law: Theft can be redressed through a tort suit brought by the victim and a criminal prosecution brought by the State.</p>
+<p>When the opinions in <em>Calder</em> spoke of “crimes,” they meant public wrongs. The prevailing definition of a “crime” around the time of <em>Calder</em> was “a violation of law to the <span class="pg" id="s4-p181" title="page 181 of the original">181</span>injury of the public, a public offense.” N. Webster, A Compendious Dictionary of the English Language 72 (1806) (Webster). Blackstone used the terms “crimes” and “public wrongs” interchangeably. See 4 Blackstone 1–5. His fourth volume covered “public wrongs, or crimes and misdemeanors.” <em>Id</em>., at 1.<sup class="fnr"><a id="s4-r1" href="#s4-n1">1</a></sup>The “common-law conception of crime,” this Court has long recognized, was an “offense against the sovereignty of the government.” <em>Heath</em> v. <em>Alabama</em>, 474 U. S. 82, 88 (1985). So <em>Calder</em>'s limitation of the Ex Post Facto Clauses to crimes would have originally been understood to include all public wrongs.</p>
+<p><em>Calder</em> itself confirms this understanding. Justice Chase distinguished crimes not with nominally civil laws enforced by the sovereign, but with laws that merely “secure[d] <em>private rights</em>,” like contract laws. 3 Dall., at 390. Justices Chase and Iredell used “crime” interchangeably with “offence.” <em>Ibid.</em>; <em>id</em>., at 400 (opinion of Iredell, J.). Justices Chase and Paterson said that their definitions tracked Blackstone's. See <em>id.</em>, at 391 (opinion of Chase, J.) (“<em>Sir William Blackstone</em>, in his commentaries, considers an <em>ex post facto law</em> precisely in the <em>same</em> light I have done”); <em>id.</em>, at 396 (opinion of Paterson, J.) (similar). Justice Iredell explained in a contemporaneous opinion that the Ex Post Facto Clauses could be limited to crimes because “there . . . is little reason to apprehend a legislative interference for the sake of unjustly transferring property from one man to another.” <em>Minge</em> v. <em>Gilmour</em>, 17 F. Cas. 440, 443, No. 9,631 (CC NC 1798). And, of course, the occasion for <em>Calder</em>'s distinction was a probate dispute, where only private rights are implicated.<sup class="fnr"><a id="s4-r2" href="#s4-n2">2</a></sup></p>
+<p><span class="pg" id="s4-p182" title="page 182 of the original">182</span>In turn, when <em>Calder</em> referred to criminal “punishment,” it simply meant whatever coercive sanction—or deprivation of life, liberty, or property—the law imposed as redress for committing those crimes. Blackstone understood punishment to include the traditional “coercive penalties” that the law imposed as redress for a public wrong. See 4 Blackstone 7–8. Dictionaries defined “punishment” broadly as “[a]ny infliction or pain imposed in vengeance of a crime,” S. Johnson, A Dictionary of the English Language (6th ed. 1785), or “any thing inflicted for a crime,” Webster 241. The power of punishing an offender was the power to harm the offender in a way that was otherwise forbidden: “[N]o one ought to harm another in his life, health, liberty, or possessions”—“<em>unless</em> it be to do justice on an offender.” Locke 5 (emphasis added); see also <em>id</em>., at 6 (describing when “one man may lawfully do harm to another, which is that we call punishment”).</p>
+<p>The Ex Post Facto Clauses therefore prohibit retroactive laws that impose coercive penalties for public wrongs. Contrary to the modern framework, it does not matter what the legislature labels the law, where it places the law, which agency it vests enforcement with, what its stated goals were, whether it provides safeguards for the accused, whether it requires a showing of scienter, or whether the conduct to which it applies is already a crime. Contra, <em>Smith</em>, 538 U. S., at 96; <em>Martinez-Mendoza</em>, 372 U. S., at 168–169. What matters is what the law does. If it punishes a public wrong—or an injury to the sovereign in its sovereign capacity—then it is subject to the Ex Post Facto Clauses. If it changes merely private relations, such as the rules of contract or property or probate, then it is not.</p>
+<p>Whether a law is subject to the Ex Post Facto Clauses will therefore typically depend on how it is enforced. If it is enforced on behalf of the sovereign to redress a sovereign <span class="pg" id="s4-p183" title="page 183 of the original">183</span>injury, then it is subject to the Clauses. See 4 Blackstone 2. If instead it is enforced by a private person to vindicate his own private rights, then it is not. In this case, for example, the law was subject to the Ex Post Facto Clauses because it was enforced against Ellingburg by the United States, not by the First Union National Bank, whose private rights Ellingburg violated when he robbed it. And the United States's action was redressing a sovereign injury to the community as a whole, not a private wrong. Cf. 3 Blackstone 257 (explaining that the King can bring “common law actions” to redress private wrongs to himself, such as an “action for trespass for taking away his goods”).<sup class="fnr"><a id="s4-r3" href="#s4-n3">3</a></sup></p>
+<p><em>Calder</em>'s understanding secures Ex Post Facto Clause protection in a wide range of contexts involving nominally civil laws. Those contexts include civil proceedings seeking fines for public offenses. See, <em>e</em>. <em>g</em>., <em>Army Corps of Engineers</em> v. <em>Hawkes Co.</em>, 578 U. S. 590, 600 (2016) (describing “civil penalties of up to $37,500 for each day [the challenger] violated the Act”). They include enforcement proceedings brought by administrative agencies. See <em>Axon Enterprise, Inc.</em> v. <em>FTC</em>, 598 U. S. 175, 196 (2023) (<span class="sc">Thomas</span>, J., concurring) (describing the 20th-century rise of such proceedings). And they include municipal sanctions like speeding tickets. “If one were to commit a minor traffic offense at a time the offense was to be punished by a $25 fine, and the government were to then amend the statute and impose a fine of $1,000,000 dollars, it would be nonsensical to treat that fine as non-punitive simply because the offense was processed civilly.” Brief for Professor Beth Colgan as <em>Amicus Curiae</em> 8, n. 3. Because all of these offenses impose punishments <span class="pg" id="s4-p184" title="page 184 of the original">184</span>for public wrongs, <em>Calder</em> would treat them all as subject to the Ex Post Facto Clauses.</p>
+<h3 class="oh">B</h3>
+<p>This understanding of <em>Calder</em> long prevailed. Courts took the position that “the relevant line for the Clause's scope” lay between “punishments imposed in response to public offenses whether prosecuted criminally or civilly on the one hand, and purely private disputes on the other.” Brief for Professor Beth Colgan as <em>Amicus Curiae</em> 5. This Court confirmed, contrary to the modern precedents, that “the <em>ex post facto</em> effect of a law cannot be evaded by giving a civil form to that which is essentially criminal.” <em>Burgess</em> v. <em>Salmon</em>, 97 U. S. 381, 385 (1878). The influential commentator Thomas Cooley likewise explained that a “law will be <em>ex post facto</em> in the constitutional sense” if it “subject[s] an individual to a pecuniary penalty” or “deprives a party of any valuable right” retroactively, even if “it does not in terms declare the acts to which the penalty is attached criminal.” Constitutional Limitations 321 (6th ed. 1890).</p>
+<p>In a similar context, when a State sought nominally civil fines against a company for doing business without proper forms, this Court explained that the statute “was in the strictest sense a penal statute.” <em>Wisconsin</em> v. <em>Pelican Ins. Co</em>., 127 U. S. 265, 299 (1888). The Court held that the nominally civil statute was penal because “[t]he cause of action was not any private injury, but solely the offence committed against the State by violating her law.” <em>Ibid</em>. Likewise, “[t]he prosecution was in the name of the State.” <em>Ibid</em>. The Court explained that “[t]he real nature of the case is not affected by the forms provided by the law of the State”; these forms were “immaterial” to whether the law was criminal or penal in a constitutional sense. <em>Ibid</em>. Thus, the Court concluded, “[i]n whatever form the State pursues her right to punish the offence against her sovereignty,” an action is criminal or penal in substance whenever it seeks to <span class="pg" id="s4-p185" title="page 185 of the original">185</span>“compe[l] the offender to pay a pecuniary fine by way of punishment for the offence.” <em>Ibid</em>.</p>
+<p>Other decisions followed the same reasoning. For example, when the United States brought a nominally civil action for damages based on a public offense, the defendants were entitled to other criminal-procedure protections because the action “was in its nature and essence, though not its form, a penal or criminal action.” <em>United States</em> v. <em>Poyllon</em>, 27 F. Cas. 608, 611, No. 16,081 (NY 1812). And when a statute forbade “any fine or forfeiture under any penal statute,” the statute applied to a nominally civil action for debt on behalf of the sovereign against someone who committed a public offense. <em>Adams</em> v. <em>Woods</em>, 2 Cranch 336, 337, 340–341 (1805) (emphasis deleted). Chief Justice Marshall explained that the category of penal laws referred “not to any particular mode of proceeding, but generally to any prosecution, trial, or punishment for the offence.” <em>Ibid</em>.</p>
+<p>This understanding of <em>Calder</em> harmonizes the Ex Post Facto Clauses with their historical purpose. It means that the Clauses ensure fair notice against government enforcement actions, regardless of whether the legislature labels them civil. As <span class="sc">Justice Gorsuch</span> has explained, today's “civil” laws “regularly impose penalties far more severe than those found in many criminal statutes.” <em>Sessions</em> v. <em>Dimaya</em>, 584 U. S. 148, 184 (2018) (opinion concurring in part and concurring in judgment). “Today's `civil' penalties include confiscatory rather than compensatory fines, forfeiture provisions that allow homes to be taken, remedies that strip persons of their professional licenses and livelihoods, and the power to commit persons against their will indefinitely.' ” <em>Ibid</em>. This understanding also helps reconcile <em>Calder</em> with its critics, many of whom have focused on the injustice of allowing the government to retroactively impose sanctions for public offenses that it deems civil. See, <em>e</em>. <em>g</em>., Brief for Professor Wayne A. Logan as <em>Amicus Curiae</em> 31–32; cf. D. Troy, Retroactive Legislation 49–55 (1998).</p>
+<p><span class="pg" id="s4-p186" title="page 186 of the original">186</span>This understanding of <em>Calder</em> also simplifies the law. Rather than making the Ex Post Facto Clauses' application depend on twelve factors with indeterminate weights, this understanding makes it depend on a simple legal inquiry with a long pedigree in our legal tradition—whether the law imposes a coercive penalty to redress a public wrong. See, <em>e</em>. <em>g</em>., <em>Pelican Ins. Co</em>., 127 U. S., at 299; <em>Robertson</em>, 560 U. S., at 278–279 (<span class="sc">Roberts</span>, C. J., dissenting). In most cases, that inquiry will just come down to who enforces the law, the sovereign or the injured private party.</p>
+<p class="sep">* * *</p>
+<p>In <em>Collins</em> v. <em>Youngblood</em>, this Court explained that any “departure from <em>Calder</em>'s explanation of the original understanding of the Ex Post Facto Clause[s] was . . . unjustified.” 497 U. S., at 49. The Court understood itself to be bound by what <em>Calder</em> meant rather than by its intervening precedents that misunderstood <em>Calder</em>. 497 U. S., at 49–50. Today, this Court's precedents concerning the scope of laws imposing criminal punishment have departed from <em>Calder</em>'s understanding of that category. In a future case, the Court should consider returning to <em>Calder</em>'s understanding.</p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li id="s4-n1" value="1"><p>Crimes and misdemeanors were for these purposes “synonymous.” 4 Blackstone 5. <a class="back" href="#s4-r1" aria-label="Back to the text">↩</a></p></li>
+<li id="s4-n2" value="2"><p>Professor Caleb Nelson has read <em>Calder</em> along the same lines: “By `criminal' laws,” he has explained, “Justice Iredell and his colleagues may simply have meant laws that defined offenses and imposed punishments for them,” even if “the penalties that they prescribed could be collected through civil suits.” C. Nelson, Originalism and Interpretive Conventions, 70 U. Chi. L. Rev. 519, 582, n. 255 (2003). <a class="back" href="#s4-r2" aria-label="Back to the text">↩</a></p></li>
+<li id="s4-n3" value="3"><p>Sovereigns sometimes delegated enforcement of public wrongs to private persons. But, unlike in actions redressing private wrongs, the private persons in those circumstances acted “on behalf of the sovereign” and were subject to the sovereign's control. <em>Robertson</em> v. <em>United States ex rel. Watson</em>, 560 U. S. 272, 279 (2010) (<span class="sc">Roberts</span>, C. J., dissenting); see <em>ibid</em>. (collecting authorities). <a class="back" href="#s4-r3" aria-label="Back to the text">↩</a></p></li>
+</ol></aside></section><p class='back'><a href='/opinions/'>&larr; All opinions</a> · <a href='/justices/ot2025.html'>The Justices, October Term 2025 &rarr;</a></p></main></body>
+</html>
+

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/terms/" xmlns:opds="http://opds-spec.org/2010/catalog">
+<id>https://supremecourt.report/opinions/opds/2023.xml</id>
+<title>Opinions, October Term 2023</title>
+<updated>2024-07-01T00:00:00Z</updated>
+<author><name>Supreme Court Report</name><uri>https://supremecourt.report/</uri></author>
+<link rel="self" href="https://supremecourt.report/opinions/opds/2023.xml" type="application/atom+xml;profile=opds-catalog;kind=acquisition"/>
+<link rel="start" href="https://supremecourt.report/opinions/opds.xml" type="application/atom+xml;profile=opds-catalog;kind=navigation"/>
+<link rel="up" href="https://supremecourt.report/opinions/opds.xml" type="application/atom+xml;profile=opds-catalog;kind=navigation"/>
+<entry>
+<id>urn:supremecourt-report:opinion:2023:23-939</id>
+<title>Trump v. United States</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2024-07-01T00:00:00Z</updated>
+<published>2024-07-01T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2024-07-01</dc:issued>
+<category term="ot2023" label="October Term 2023"/>
+<summary type="text">No. 23-939 · decided July 1, 2024 · 603 U. S. 593 · 34,468 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2023/23-939.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2023/23-939.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2023/23-939.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2023:22-555</id>
+<title>Moody v. NetChoice, LLC</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2024-07-01T00:00:00Z</updated>
+<published>2024-07-01T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2024-07-01</dc:issued>
+<category term="ot2023" label="October Term 2023"/>
+<summary type="text">No. 22-555 · decided July 1, 2024 · 603 U. S. ___ · 24,719 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2023/22-555.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2023/22-555.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2023/22-555.html" type="text/html"/>
+</entry>
+</feed>
+
