@@ -534,7 +534,7 @@
 <dc:language>en</dc:language>
 <dc:issued>2022-04-28</dc:issued>
 <category term="ot2021" label="October Term 2021"/>
-<summary type="text">No. 20-807 · decided April 28, 2022 · 98 words</summary>
+<summary type="text">No. 20-807 · decided April 28, 2022 · 22 words</summary>
 <link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2021/20-807.epub" type="application/epub+zip"/>
 <link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2021/20-807.md" type="text/markdown"/>
 <link rel="alternate" href="https://supremecourt.report/opinions/2021/20-807.html" type="text/html"/>
@@ -835,14 +835,14 @@
 </entry>
 <entry>
 <id>urn:supremecourt-report:opinion:2021:21-588</id>
-<title>United States v. Texas, et al.</title>
+<title>United States v. Texas</title>
 <author><name>Supreme Court of the United States</name></author>
 <updated>2021-12-10T00:00:00Z</updated>
 <published>2021-12-10T00:00:00Z</published>
 <dc:language>en</dc:language>
 <dc:issued>2021-12-10</dc:issued>
 <category term="ot2021" label="October Term 2021"/>
-<summary type="text">No. 21-588 · decided December 10, 2021 · 494 words</summary>
+<summary type="text">No. 21-588 · decided December 10, 2021 · 595 U. S. 74 · 201 words</summary>
 <link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2021/21-588.epub" type="application/epub+zip"/>
 <link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2021/21-588.md" type="text/markdown"/>
 <link rel="alternate" href="https://supremecourt.report/opinions/2021/21-588.html" type="text/html"/>
