@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script async src='/analytics.js'></script><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate icon" href="/favicon.ico" sizes="any"><link rel="alternate" type="application/atom+xml" title="Supreme Court Report" href="/feed.xml"><link rel="alternate" type="application/atom+xml" title="Certiorari grants" href="/grants.xml"><title>Sandoz Inc. v. Amgen Inc. — Opinion — Supreme Court Report</title><meta name="description" content="The opinion in Sandoz Inc. v. Amgen Inc. (No. 15-1039), decided June 12, 2017: the full text with its footnotes, as a page, a Markdown file and an EPUB."><link rel="canonical" href="https://supremecourt.report/opinions/2016/15-1039.html"><meta property="og:site_name" content="Supreme Court Report"><meta property="og:type" content="article"><meta property="og:title" content="Sandoz Inc. v. Amgen Inc. — Opinion — Supreme Court Report"><meta property="og:description" content="The opinion in Sandoz Inc. v. Amgen Inc. (No. 15-1039), decided June 12, 2017: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta property="og:url" content="https://supremecourt.report/opinions/2016/15-1039.html"><meta property="og:image" content="https://supremecourt.report/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Supreme Court Report - docket analytics for the Supreme Court of the United States"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Sandoz Inc. v. Amgen Inc. — Opinion — Supreme Court Report"><meta name="twitter:description" content="The opinion in Sandoz Inc. v. Amgen Inc. (No. 15-1039), decided June 12, 2017: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta name="twitter:image" content="https://supremecourt.report/og.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap"><style>
+  :root{--paper:#fdfcfa;--panel:#ffffff;--ink:#1a1a1e;--ink-soft:#484850;--faint:#63636b;--accent:#9c0e3a;--link:#9c0e3a;--rule:#dbd8d2;--nav-max:60rem}
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{font-family:'Newsreader',Georgia,serif;font-size:19px;line-height:1.6;
+    color:var(--ink);background:var(--paper);margin:0;font-feature-settings:'onum' 1}
+  body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
+    opacity:.5;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");}
+  .wrap{max-width:40rem;margin:0 auto;padding:3rem 1.4rem 4rem}
+  .kicker{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 1rem}
+  h1{font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:clamp(2.4rem,7vw,3.6rem);line-height:1;letter-spacing:-.015em;
+    margin:0 0 1rem;color:var(--ink)}
+  h1 em{font-style:italic;font-weight:500;color:var(--accent)}
+  .dek{font-size:1.15rem;line-height:1.5;color:var(--ink-soft);font-style:italic;
+    margin:0 0 1.4rem}
+  .brule{border:0;height:0;border-top:2px solid var(--ink);margin:1.4rem 0 .3rem;
+    position:relative}
+  .brule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+    border-top:1px solid var(--rule)}
+  ul.idx{list-style:none;padding:0;margin:1.6rem 0}
+  ul.idx li{border-bottom:1px solid var(--rule)}
+  /* Whole row is one block-level link: a large, reliable tap target on mobile. */
+  ul.idx a.row{display:flex;justify-content:space-between;align-items:baseline;
+    gap:1rem;padding:.9rem .4rem;text-decoration:none;border:0;color:inherit}
+  ul.idx a.row:hover{background:rgba(156,14,58,.05)}
+  ul.idx .d{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.16rem;
+    color:var(--accent);line-height:1.25}
+  ul.idx a.row:hover .d{text-decoration:underline;text-underline-offset:3px}
+  ul.idx .count{color:var(--faint);font-size:.9rem;font-style:italic;white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  /* A long note (an order list's "3 GVRs / 230 denied / 4 habeas denied /
+     ...", items separated by middots) cannot sit on one line: nowrap made it
+     claim the row and
+     squeezed the title into a column three words wide, and on a phone it ran off
+     the screen. Such a row opts in (meta_wrap): the note wraps, only between its
+     items, and takes at most ~45% of the row, so the title always has the
+     larger share. Under 34rem it drops beneath the title at full width. */
+  /* ("long", not "wrap": .wrap is the page container and its padding.) */
+  ul.idx .count.long{white-space:normal;text-align:right;max-width:45%;line-height:1.45}
+  ul.idx .count.long .seg{white-space:nowrap}
+  @media(max-width:34rem){
+    ul.idx a.row.longmeta{flex-wrap:wrap;row-gap:.2rem}
+    ul.idx .count.long{max-width:none;flex-basis:100%;text-align:left}
+  }
+  /* Compact horizontal strip of the most recent pages beneath a category row. */
+  ul.idx .recent{display:flex;flex-wrap:wrap;align-items:baseline;
+    gap:.3rem .85rem;padding:0 .4rem 1rem;margin-top:-.35rem}
+  ul.idx .recent .rlabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  ul.idx .recent a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--ink-soft);text-decoration:none;font-variant-numeric:tabular-nums;
+    border-bottom:1px solid var(--rule);padding-bottom:1px}
+  ul.idx .recent a:hover{color:var(--accent);border-color:var(--accent)}
+  /* Optional panel beneath the section index (home page: most-read cases). */
+  .panel{margin:2.4rem 0 0}
+  .panel h2{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 .25rem}
+  .panel .pnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:0 0 .5rem}
+  /* "Live now" (live_argument_panel, /live.js): hidden unless the Court is
+     streaming an argument. One red dot, the same --accent as the headings, so
+     the live state is a mark and not a new colour. */
+  .live h2 .ldot{display:inline-block;width:.5rem;height:.5rem;border-radius:50%;
+    background:var(--accent);margin-right:.5rem;vertical-align:.08rem;
+    animation:lpulse 2s ease-in-out infinite}
+  @keyframes lpulse{50%{opacity:.25}}
+  @media (prefers-reduced-motion:reduce){.live h2 .ldot{animation:none}}
+  .lplay{display:flex;flex-wrap:wrap;gap:.6rem .9rem;align-items:center;margin:.8rem 0 .3rem}
+  .lplay button{font:600 .9rem/1 'Newsreader',Georgia,serif;letter-spacing:.04em;
+    color:var(--paper);background:var(--accent);border:0;border-radius:2px;
+    padding:.6rem 1.05rem;cursor:pointer}
+  .lplay button:disabled{opacity:.6;cursor:progress}
+  .lplay button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  /* The player takes a row of its own and may never outgrow the column. A flex
+     item's min-width is auto, which for a replaced element is the browser's own
+     controls' width -- wider than the column on a phone, where mobile Safari
+     and Chrome draw larger controls than the desktop. */
+  .lplay audio{display:block;flex:1 1 100%;width:100%;min-width:0;max-width:100%;
+    box-sizing:border-box;margin:0}
+  .lplay .lstat{font-size:.85rem;color:var(--faint)}
+  /* --- Likeliest grants -----------------------------------------------------
+     Its own rows rather than ol.mostread's: this panel carries a question under
+     the caption, which that list has no room for, and a percentage that has to
+     read as the row's subject rather than as a trailing note.
+     The window toggle is two real radio inputs plus :has() -- no JavaScript.
+     Both windows are rendered at build time and one is hidden, which is the only
+     way a static site can offer the choice: there is no server to ask for the
+     other one. Real radios, not styled buttons, so the control is reachable by
+     keyboard and announced as a choice. */
+  .lead{margin:0 0 1.9rem}
+  .lead h2{margin-bottom:.35rem}
+  .lead .pnote{margin:0 0 .7rem}
+  .wr{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+  .win{display:inline-flex;gap:.25rem;margin:0 0 .55rem;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .win label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .win label:hover{color:var(--ink)}
+  .lead:has(#w7:checked) label[for=w7],
+  .lead:has(#w28:checked) label[for=w28],
+  .lead:has(#wall:checked) label[for=wall]{background:var(--accent);color:var(--paper)}
+  .wr:focus-visible+label{outline:2px solid var(--accent);outline-offset:2px}
+  /* Three windows, one shown: the checked radio hides the other two. */
+  .lead:has(#w7:checked) :is(.g28,.n28,.gall,.nall),
+  .lead:has(#w28:checked) :is(.g7,.n7,.gall,.nall),
+  .lead:has(#wall:checked) :is(.g7,.n7,.g28,.n28){display:none}
+  /* The show/hide controls for a panel's secondary line -- the question under
+     a forecast row, the holding under a decision. Same box as the window
+     toggle, a checkbox instead of radios, and no script: the sibling rule does
+     the work and the lines simply show where :has() is unsupported. The
+     questions are on by default (they are what a forecast row asks); the
+     holdings are off (the caption, kind and disposition already say what
+     happened, and the holding is the more). */
+  .opts{display:inline-flex;gap:.25rem;margin:0 .45rem .55rem 0;vertical-align:top;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .opts label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .opts label:hover{color:var(--ink)}
+  .lead:has(#qon:checked) label[for=qon],
+  .panel:has(#hon:checked) label[for=hon]{background:var(--accent);color:var(--paper)}
+  .lead:has(#qon:not(:checked)) .gq{display:none}
+  .panel:has(#hon:not(:checked)) .chold{display:none}
+  /* --- Upcoming at the Court ------------------------------------------------
+     A date gutter and a two-line body, the same shape as the grant rows above
+     it, so the two panels read as one page rather than two widgets. */
+  .cal{margin:0 0 1.9rem}
+  ol.cal{list-style:none;margin:0;padding:0}
+  ol.cal li{border-top:1px solid var(--rule)}
+  ol.cal li:last-child{border-bottom:1px solid var(--rule)}
+  /* The row is a container, not an anchor: an argument day carries one link per
+     case it hears and anchors cannot nest. Hover lives on the row so it still
+     reads as one unit, and each link colours on its own hover. */
+  ol.cal .crow{display:flex;gap:.95rem;align-items:baseline;padding:.55rem .1rem}
+  ol.cal .crow:hover{background:rgba(156,14,58,.05)}
+  ol.cal a{text-decoration:none;color:inherit}
+  ol.cal a:hover,ol.cal a:focus-visible{color:var(--accent)}
+  ol.cal .cdet a{border-bottom:1px solid rgba(156,14,58,.35)}
+  ol.cal .cdet a:hover{border-bottom-color:var(--accent)}
+  ol.cal .cwhen{flex:none;width:4.6rem;font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.96rem;color:var(--ink);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  ol.cal .cdow{display:block;font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);text-transform:uppercase;letter-spacing:.08em}
+  ol.cal .ctx{flex:1;min-width:0}
+  ol.cal .ckind{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:.98rem;line-height:1.25}
+  ol.cal .cdet{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.12rem}
+  /* Recent decisions reuses the calendar rows and adds exactly two things: the
+     kind word that opens the detail line, and the one outbound link (the slip
+     opinion), which takes the link colour the rest of the row deliberately
+     does not. */
+  ol.cal .dk{font-weight:600;color:var(--ink)}
+  ol.cal .cdet a.pdf{color:var(--link)}
+  /* The holding, from the Court's slip-opinion feed: one sentence, set
+     smaller and in the soft ink so the caption stays the row's headline. */
+  ol.cal .chold{display:block;font-size:.86rem;line-height:1.4;color:var(--ink-soft);
+    font-style:italic;margin-top:.15rem}
+  ol.cal .cdet a.pdf:hover,ol.cal .cdet a.pdf:focus-visible{color:var(--accent);
+    border-bottom-color:var(--accent)}
+  ol.grants{list-style:none;margin:0;padding:0}
+  ol.grants li{border-top:1px solid var(--rule)}
+  ol.grants li:last-child{border-bottom:1px solid var(--rule)}
+  ol.grants a{display:flex;gap:.95rem;align-items:baseline;text-decoration:none;
+    color:inherit;padding:.62rem .1rem}
+  ol.grants a:hover{background:rgba(156,14,58,.05)}
+  ol.grants a:hover .gc{color:var(--accent)}
+  ol.grants .gv{flex:none;width:3.5rem;text-align:right;
+    font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.22rem;
+    line-height:1.1;color:var(--accent);font-variant-numeric:tabular-nums}
+  ol.grants .gx{font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);margin-left:.3rem}
+  ol.grants .gtx{flex:1;min-width:0}
+  /* Subject-area line under the caption, in the section-label idiom (h2.sec):
+     small tracked caps in the faint ink, so it classifies without competing. */
+  ol.grants .gs,ol.mostread .ms{display:block;font-size:.68rem;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--faint);line-height:1.3;margin-top:.12rem}
+  ol.grants .gc{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:1rem;line-height:1.25}
+  ol.grants .gq{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.16rem}
+  ol.grants .gd{flex:none;font-size:.76rem;color:var(--faint);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  .more{margin:.75rem 0 0;font-size:.92rem}
+  .more a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.35)}
+  .more a:hover{border-bottom-color:var(--link)}
+  h2.sec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:.88rem;
+    letter-spacing:.09em;color:var(--faint);text-transform:uppercase;
+    margin:2.1rem 0 .6rem;padding-bottom:.28rem;border-bottom:1px solid var(--rule)}
+  @media(max-width:40rem){
+    ol.grants a{flex-wrap:wrap}
+    ol.grants .gd{width:100%;padding-left:4.45rem;margin-top:-.1rem}
+  }
+  ol.mostread{list-style:none;counter-reset:mr;padding:0;margin:0}
+  ol.mostread li{counter-increment:mr;border-bottom:1px solid var(--rule)}
+  ol.mostread a{display:flex;align-items:baseline;gap:.7rem;padding:.6rem .4rem;
+    text-decoration:none;color:inherit}
+  ol.mostread a:hover{background:rgba(156,14,58,.05)}
+  ol.mostread a::before{content:counter(mr);font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.95rem;color:var(--faint);min-width:1.1rem;
+    font-variant-numeric:tabular-nums}
+  ol.mostread .mc{flex:1;font-size:1rem;line-height:1.3}
+  ol.mostread .mct{display:block}
+  ol.mostread a:hover .mct{color:var(--accent);text-decoration:underline;
+    text-underline-offset:3px}
+  ol.mostread .mdk{color:var(--accent);font-weight:600;font-size:.82rem;
+    font-variant-numeric:tabular-nums;white-space:nowrap}
+  ol.mostread .mv{color:var(--faint);font-size:.85rem;font-style:italic;
+    white-space:nowrap;font-variant-numeric:tabular-nums}
+  /* Forecast percentages carry weight the most-read counts do not: the number is
+     the claim, not a footnote to the ranking. Upright, accent, tabular. */
+  ol.mostread .mv.fc{color:var(--accent);font-style:normal;font-weight:600;
+    font-size:.95rem;min-width:2.6rem;text-align:right}
+  /* Feed follow line. Deliberately quiet -- a footnote under the section list,
+     styled like .recent rather than like a call to action. */
+  .feeds{display:flex;flex-wrap:wrap;align-items:baseline;gap:.3rem .85rem;
+    margin:2.2rem 0 0;padding-top:1.1rem;border-top:1px solid var(--rule)}
+  .feeds .flabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  .feeds a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .feeds a:hover{border-color:var(--link)}
+  .back{margin-top:2rem;font-size:.95rem}
+  .back a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .back a:hover{border-color:var(--link)}
+  /* Home-page case search. */
+  .csearch{position:relative;margin:0 0 1.4rem}
+  #cq{width:100%;font-family:'Newsreader',Georgia,serif;font-size:1.05rem;color:var(--ink);
+    background:var(--panel);border:1px solid var(--rule);border-radius:3px;padding:.7rem .9rem}
+  #cq:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(156,14,58,.1)}
+  #cq::placeholder{color:var(--faint)}
+  #cq.loading{background-image:linear-gradient(90deg,transparent,rgba(156,14,58,.06),transparent);
+    background-size:40% 100%;background-repeat:no-repeat;animation:csl 1s infinite}
+  @keyframes csl{0%{background-position:-40% 0}100%{background-position:140% 0}}
+  .cres{list-style:none;margin:.35rem 0 0;padding:0;max-height:24rem;overflow-y:auto;
+    border:1px solid var(--rule);border-radius:3px;background:var(--panel)}
+  .cres:empty{display:none}
+  .cres li{border-bottom:1px solid var(--rule)}
+  .cres li:last-child{border-bottom:0}
+  .cres a{display:block;padding:.55rem .7rem;text-decoration:none;color:var(--ink);
+    font-size:.98rem;line-height:1.3}
+  .cres a:hover,.cres li.act a{background:rgba(156,14,58,.06)}
+  .cres mark{background:rgba(156,14,58,.14);color:inherit;padding:0 .05em;border-radius:2px}
+  .cres .cd{color:var(--accent);font-variant-numeric:tabular-nums;font-weight:600;
+    margin-right:.5rem;white-space:nowrap}
+  .cnone{padding:.55rem .7rem;color:var(--faint);font-style:italic}
+  .cnone a,.cqp a{color:var(--link);font-style:normal;text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .cqp{margin:.45rem 0 0;font-size:.88rem;color:var(--faint)}
+  /* /cases/ browse index: grouped sections with per-bucket counts. */
+  .csec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+    text-transform:uppercase;letter-spacing:.12em;color:var(--accent);
+    margin:2.2rem 0 .3rem;padding-bottom:.35rem;border-bottom:1px solid var(--rule);
+    display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
+  .csec .cn{font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:.85rem;
+    letter-spacing:0;text-transform:none;color:var(--faint);
+    font-variant-numeric:tabular-nums}
+  .cnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:.5rem 0 0}
+  .cnote a{color:var(--accent)}
+  ul.terms{list-style:none;padding:0;margin:1rem 0 0;display:flex;flex-wrap:wrap;
+    gap:.5rem 1.6rem}
+  ul.terms li{display:inline-flex;align-items:baseline;gap:.4rem}
+  ul.terms a{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.05rem;
+    color:var(--accent);text-decoration:none;border-bottom:1px solid var(--rule)}
+  ul.terms a:hover{border-bottom-color:var(--accent)}
+  ul.terms .cn{color:var(--faint);font-size:.85rem;font-variant-numeric:tabular-nums}
+  /* About page: running prose rather than an index, so it takes a measure and a
+     little more leading than the section rows above it. */
+  .about{margin:1.6rem 0 0;font-size:1.05rem;line-height:1.65;max-width:34rem}
+  .about p{margin:0 0 1rem}
+  .about a{color:var(--accent);text-decoration:none;
+    border-bottom:1px solid var(--rule)}
+  .about a:hover{border-bottom-color:var(--accent)}
+  .about .contact{margin:2rem 0 0;background:var(--panel);border:1px solid var(--rule);
+    border-left:4px solid var(--accent);padding:1.1rem 1.3rem}
+  .about .contact h2{font:600 .78rem/1 'Newsreader',Georgia,serif;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--accent);margin:0 0 .5rem}
+  .about .contact p{margin:0;font-size:1rem}
+
+/* ---- masthead ---- */
+.smast-in{max-width:var(--nav-max,60rem);margin:0 auto;padding:.85rem 1.5rem .5rem;
+  display:flex;align-items:baseline;justify-content:space-between;gap:1.4rem;flex-wrap:wrap}
+.smast-wm{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+  letter-spacing:.005em;color:var(--ink,#1a1a1e);text-decoration:none;white-space:nowrap;flex:none}
+.smast-wm em{font-style:italic;font-weight:500;color:var(--accent,#9c0e3a)}
+.smast-wm:hover{color:var(--accent,#9c0e3a)}
+/* Row gap first, then column. At 1.35rem the six section links measured 596px
+   of max-content -- 4px wider than the 592px row the 40rem index container
+   leaves them -- so ABOUT alone wrapped to a third line under the wordmark, on
+   every page page_style.R writes. 1.05rem brings the row to 572px: 20px of
+   slack at 40rem, and 45px on the 54rem case pages, which were themselves only
+   21px from wrapping. The .4rem row gap is for the day a seventh section
+   overruns it anyway -- a nav that wraps should read as a stack, not an orphan. */
+.snav{display:flex;gap:.4rem 1.05rem;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+.snav a{font:600 .72rem/1 'Newsreader',Georgia,serif;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--ink-soft,var(--soft,#484850));text-decoration:none;display:inline-block;
+  padding:.5rem 0;border-bottom:1.5px solid transparent}
+.snav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--rule,#dbd8d2)}
+.snav a[aria-current='page']{color:var(--accent,#9c0e3a);
+  border-bottom-color:var(--accent,#9c0e3a)}
+.smast-rule-w{max-width:var(--nav-max,60rem);margin:0 auto;padding:0 1.5rem}
+.smast-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0;position:relative}
+.smast-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.skip{position:absolute;left:-9999px;top:0;background:var(--panel,#ffffff);
+  color:var(--accent,#9c0e3a);padding:.6rem 1rem;
+  border:1px solid var(--accent,#9c0e3a);
+  font:600 .8rem/1 'Newsreader',Georgia,serif;letter-spacing:.1em;text-transform:uppercase;z-index:10}
+.skip:focus{left:.5rem;top:.5rem}
+/* ---- breadcrumb ---- */
+.bcrumb{margin:.7rem 0 0}
+.bcrumb ol{list-style:none;display:flex;flex-wrap:wrap;align-items:baseline;
+  gap:.1rem .45rem;margin:0;padding:0}
+.bcrumb li{display:inline-flex;align-items:baseline;gap:.45rem}
+.bcrumb a{font:400 .8rem/1.5 'Newsreader',Georgia,serif;color:var(--ink-soft,var(--soft,#484850));
+  text-decoration:none;border-bottom:1px solid var(--rule,#dbd8d2)}
+.bcrumb a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.bcrumb .sep{color:var(--faint,#63636b);font-size:.8rem;line-height:1.5}
+.bcrumb [aria-current='page']{font:400 .8rem/1.5 'Newsreader',Georgia,serif;
+  color:var(--faint,#63636b);font-variant-numeric:tabular-nums}
+/* ---- case footer ---- */
+.cfoot{margin:2.4rem 0 0}
+.cfoot-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0 0 1rem;position:relative}
+.cfoot-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.cfoot-off{font-size:.95rem;margin:0 0 1.1rem}
+.cfoot-off a{color:var(--link,#9c0e3a);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.4)}
+.cfoot-off a:hover{border-bottom-color:var(--link,#9c0e3a)}
+.cfoot-lab{font:600 .68rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);margin:0 0 .5rem}
+.cfoot-nav{display:flex;flex-wrap:wrap;gap:.35rem 1.1rem;list-style:none;margin:0;padding:0}
+.cfoot-nav a{font-size:.92rem;color:var(--ink-soft,var(--soft,#484850));text-decoration:none;
+  border-bottom:1px solid var(--rule,#dbd8d2);padding-bottom:1px}
+.cfoot-nav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.cfoot-stamp{margin:1.2rem 0 0;font-size:.8rem;color:var(--faint,#63636b);font-style:italic}
+/* ---- prev / next ---- */
+.pnav{margin:2.2rem 0 0;border-top:1px solid var(--rule,#dbd8d2);padding-top:1rem;
+  display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.pnav a,.pnav span.none{text-decoration:none;color:inherit;display:block;padding:.5rem .2rem}
+.pnav a:hover{background:rgba(156,14,58,.05)}
+.pnav .dir{font:600 .66rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);display:block;margin-bottom:.3rem}
+.pnav .lab{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1rem;line-height:1.25;
+  color:var(--accent,#9c0e3a);display:block}
+.pnav a:hover .lab{text-decoration:underline;text-underline-offset:3px}
+.pnav .nx{text-align:right}
+.pnav .none{opacity:.35}
+@media(max-width:640px){
+  .smast-in{padding:.7rem 1.1rem .25rem;gap:.15rem}
+  .smast-wm{font-size:.98rem}
+  .smast-in nav{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+    -webkit-mask-image:linear-gradient(90deg,#000 86%,transparent);
+    mask-image:linear-gradient(90deg,#000 86%,transparent)}
+  .smast-in nav::-webkit-scrollbar{display:none}
+  .snav{flex-wrap:nowrap;gap:1.15rem;padding-right:2.4rem}
+  .snav a{padding:.7rem 0;white-space:nowrap}
+  .smast-rule-w{padding:0 1.1rem}
+  .cfoot-nav{gap:.5rem 1rem}
+  .cfoot-nav a{padding-bottom:.3rem}
+  .pnav{grid-template-columns:1fr;gap:.2rem}
+  .pnav .nx{text-align:left;border-top:1px solid var(--rule,#dbd8d2)}
+}
+
+  .wrap.opn{max-width:42rem}
+  .opn .ometa{font-size:.92rem;color:var(--ink-soft);margin:.3rem 0 0}
+  .opn .oget{display:flex;flex-wrap:wrap;gap:.4rem .6rem;margin:1.1rem 0 0;padding:0;list-style:none;font-size:.9rem}
+  .opn .oget a{display:inline-block;padding:.32rem .7rem;border:1px solid var(--rule);border-radius:4px;color:var(--ink);text-decoration:none;background:var(--panel)}
+  .opn .oget a:hover{border-color:var(--accent);color:var(--accent)}
+  .opn .osrc{font-size:.84rem;color:var(--faint);margin:.9rem 0 0;line-height:1.45}
+  .opn .osrc a{color:var(--link)}
+  .opn .otoc{margin:1.6rem 0 0;padding:.8rem 1rem;border:1px solid var(--rule);border-radius:4px;background:var(--panel);font-size:.95rem}
+  .opn .otoc ol{margin:0;padding:0;list-style:none}
+  .opn .otoc li{margin:.25rem 0}
+  .opn .otoc a{color:var(--ink);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.35)}
+  .opn .otoc a:hover{color:var(--accent)}
+  .opn section.op{margin-top:3rem;border-top:2px solid var(--ink);padding-top:1.1rem}
+  .opn section.op h2{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.5rem;line-height:1.2;margin:0 0 1rem;color:var(--ink)}
+  .opn section.op p{margin:0 0 .95rem;line-height:1.62;hyphens:auto;overflow-wrap:break-word}
+  .opn section.op p.byline{color:var(--ink-soft);font-style:italic}
+  .opn section.op p.sep{text-align:center;letter-spacing:.3em;color:var(--faint);margin:1.6rem 0}
+  .opn section.op h3.oh{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.12rem;text-align:center;margin:2rem 0 1rem;color:var(--ink)}
+  .opn section.op blockquote{margin:0 0 .95rem;padding:0 0 0 1.1rem;border-left:2px solid var(--rule);color:var(--ink-soft)}
+  .opn section.op blockquote p{margin-bottom:.6rem;font-size:.96em}
+  .opn .sc{font-variant-caps:small-caps;letter-spacing:.02em}
+  .opn .pg{font-size:.66em;color:var(--faint);vertical-align:.3em;margin:0 .3em 0 .1em;font-variant-numeric:tabular-nums;user-select:none;white-space:nowrap}
+  .opn .pg::before{content:'*'}
+  .opn sup.fnr{font-size:.68em;line-height:0;margin-left:.05em}
+  .opn sup.fnr a{color:var(--link);text-decoration:none;padding:0 .1em}
+  .opn aside.notes{margin-top:2rem;border-top:1px solid var(--rule);padding-top:.8rem;font-size:.88rem;color:var(--ink-soft)}
+  .opn aside.notes h3{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1rem;margin:0 0 .6rem;color:var(--ink)}
+  .opn aside.notes ol{margin:0;padding-left:1.7rem}
+  .opn aside.notes li{margin:0 0 .55rem}
+  .opn aside.notes li.sym{list-style:none;margin-left:-1.7rem}
+  .opn aside.notes li.sym .mk{margin-right:.3rem}
+  .opn aside.notes li.sym p{display:inline}
+  .opn aside.notes p{margin:0 0 .4rem;line-height:1.5}
+  .opn aside.notes a.back{color:var(--link);text-decoration:none;margin-left:.2rem}
+  .opn aside.notes li:target,.opn sup.fnr a:target,.opn .pg:target{background:rgba(156,14,58,.12);outline:.2rem solid rgba(156,14,58,.12)}
+  .opn section.op,.opn aside.notes li,.opn sup.fnr a{scroll-margin-top:1rem}
+  .opn section.op-syllabus p,.opn section.op-counsel p{font-size:.95em}
+  .opn section.op-counsel summary{cursor:pointer;font-family:'Fraunces',Georgia,serif;font-size:1.05rem;color:var(--ink-soft)}
+  .opn .osyl{font-size:.84rem;color:var(--faint);font-style:italic;margin:-.5rem 0 1rem}
+  .opn p.back{margin-top:3rem;font-size:.92rem}
+  @media print{.smast,.bcrumb,.opn .oget,.opn .otoc,.opn p.back{display:none}.opn section.op{break-before:page}}
+</style><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://supremecourt.report/"},{"@type":"ListItem","position":2,"name":"Opinions","item":"https://supremecourt.report/opinions/"},{"@type":"ListItem","position":3,"name":"Sandoz Inc. v. Amgen Inc."}]}</script><meta name='otv' content='p1'><link rel='alternate' type='text/markdown' href='/opinions/2016/15-1039.md'><link rel='alternate' type='application/epub+zip' href='/opinions/2016/15-1039.epub'></head><body><a class='skip' href='#main'>Skip to content</a><header><div class='smast-in'><a class='smast-wm' href='/'>Supreme Court <em>Report</em></a><nav aria-label='Sections'><ul class='snav'><li><a href='/dashboards/'>Docket</a></li><li><a href='/conferences/'>Conferences</a></li><li><a href='/relists/'>Relists</a></li><li><a href='/applications/'>Interim</a></li><li><a href='/arguments/'>Arguments</a></li><li><a href='/justices/' aria-current='page'>Justices</a></li><li><a href='/counsel/'>Counsel</a></li><li><a href='/funnel/'>Funnel</a></li><li><a href='/methods.html'>Model</a></li><li><a href='/about.html'>About</a></li></ul></nav></div><div class='smast-rule-w'><hr class='smast-rule'></div></header><main class='wrap opn' id='main' data-dkt='15-1039'><nav class='bcrumb' aria-label='Breadcrumb'><ol><li><a href='/'>Home</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><a href='/opinions/'>Opinions</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><span aria-current='page'>Sandoz Inc. v. Amgen Inc.</span></li></ol></nav><p class='kicker'>No. 15-1039 · decided June 12, 2017 · 582 U. S. 1</p><h1 style='font-size:clamp(1.7rem,4.6vw,2.4rem);line-height:1.12'>Sandoz Inc. v. Amgen Inc.</h1><p class='ometa'>No. 15-1039. 1 separate writing.</p><ul class='oget'><li><a href='/opinions/2016/15-1039.epub' download>EPUB</a></li><li><a href='/opinions/2016/15-1039.md' download>Markdown</a></li><li><a href='https://www.supremecourt.gov/opinions/boundvolumes/582BV.pdf#page=38' rel='noopener'>The Court’s PDF</a></li><li><a href='/cases/15-1039.html'>The docket</a></li></ul><p class='osrc'>Set from the PDF the Court published, which is the authoritative text. The small starred numbers are that PDF’s page numbers. A conversion can introduce errors; check a quotation against the <a href='https://www.supremecourt.gov/opinions/boundvolumes/582BV.pdf#page=38' rel='noopener'>original</a>.</p><nav class="otoc" aria-label="Contents"><ol>
+<li><a href="#s1">Syllabus</a></li>
+<li><a href="#s2">Counsel</a></li>
+<li><a href="#s3">Opinion of the Court</a></li>
+<li><a href="#s4">Justice Breyer, concurring</a></li>
+</ol></nav>
+<section id="s1" class="op op-syllabus"><h2>Syllabus</h2><p class='osyl'>Prepared by the Reporter of Decisions for the convenience of the reader; it is no part of the opinion of the Court.</p>
+<p><span class="pg" id="s1-p2" title="page 2 of the original">2</span>on the lists for immediate litigation. The second phase—triggered when the applicant, pursuant to § 262(<em>l</em>)(8)(A), gives the sponsor notice at least 180 days before commercially marketing the biosimilar—involves any listed patents not litigated in the first phase. The applicant has substantial control over the timing and scope of both phases of litigation.</p>
+<p>Failure to comply with these procedural requirements may lead to two consequences relevant here. Under § 262(<em>l</em>)(9)(C), if an applicant fails to provide its application and manufacturing information to the sponsor under § 262(<em>l</em>)(2)(A), then the sponsor, but not the applicant, may immediately bring an action “for a declaration of infringement, validity, or enforceability of any patent that claims the biological product or a use of the biological product.” And under § 262(<em>l</em>)(9)(B), if an applicant provides the application and manufacturing information but fails to complete a subsequent step in the process, the sponsor, but not the applicant, may bring a declaratory-judgment action with respect to any patent included on the sponsor's list of relevant patents.</p>
+<p>Neupogen is a filgrastim product marketed by Amgen, which claims to hold patents on methods of manufacturing and using filgrastim. Sandoz sought FDA approval to market a biosimilar filgrastim product under the brand name Zarxio, with Neupogen as the reference product. A day after the FDA informed Sandoz that its application had been accepted for review, Sandoz notified Amgen that it had submitted an application and that it intended to market Zarxio immediately upon receiving FDA approval. It later informed Amgen that it did not intend to provide the application and manufacturing information required by § 262(<em>l</em>)(2)(A) and that Amgen could sue immediately for infringement under § 262(<em>l</em>)(9)(C).</p>
+<p>Amgen sued Sandoz for patent infringement and also asserted that Sandoz engaged in “unlawful” conduct in violation of California's unfair competition law. This latter claim was predicated on two alleged violations of the BPCIA: Sandoz's failure to provide its application and manufacturing information under § 262(<em>l</em>)(2)(A), and its provision of notice of commercial marketing under § 262(<em>l</em>)(8)(A) prior to obtaining licensure from the FDA. Amgen sought injunctions to enforce both BPCIA requirements. Sandoz counterclaimed for declaratory judgments that the asserted patent was invalid and not infringed and that it had not violated the BPCIA.</p>
+<p>While the case was pending, the FDA licensed Zarxio, and Sandoz provided Amgen a further notice of commercial marketing. The District Court subsequently granted partial judgment on the pleadings to Sandoz on its BPCIA counterclaims and dismissed Amgen's unfair competition claims with prejudice. The Federal Circuit affirmed in part, <span class="pg" id="s1-p3" title="page 3 of the original">3</span>vacated in part, and remanded. The court affirmed the dismissal of Amgen's state-law claim based on Sandoz's alleged violation of § 262(<em>l</em>)(2)(A), holding that Sandoz did not violate the BPCIA in failing to disclose its application and manufacturing information and that the BPCIA provides the exclusive remedies for failure to comply with this requirement. The court also held that under § 262(<em>l</em>)(8)(A) an applicant must provide notice of commercial marketing after obtaining licensure, and that this requirement is mandatory. It thus enjoined Sandoz from marketing Zarxio until 180 days after the date it provided its second notice.</p>
+<p><em>Held</em>: Section 262(<em>l</em>)(2)(A) is not enforceable by injunction under federal law, but the Federal Circuit on remand should determine whether a state-law injunction is available. An applicant may provide notice under § 262(<em>l</em>)(8)(A) prior to obtaining licensure. Pp. 14–22.</p>
+<p>(a) Section 262(<em>l</em>)(2)(A)'s requirement that an applicant provide the sponsor with its application and manufacturing information is not enforceable by an injunction under federal law. The Federal Circuit reached the proper result on this point, but its reasoning was flawed. It cited § 271(e)(4), which expressly provides the “only remedies” for an act of artificial infringement. In light of this language, the court reasoned that no remedy other than those specified in the text—such as an injunction to compel the applicant to provide its application and manufacturing information—was available. The problem with this reasoning is that Sandoz's failure to disclose was not an act of artificial infringement remediable under § 271(e)(4). Submitting an application constitutes an act of artificial infringement; failing to disclose the application and manufacturing information required by § 262(<em>l</em>)(2)(A) does not.</p>
+<p>Another provision, § 262(<em>l</em>)(9)(C), provides a remedy for an applicant's failure to turn over its application and manufacturing information. It authorizes the sponsor, but not the applicant, to bring an immediate declaratory-judgment action for artificial infringement, thus vesting in the sponsor the control that the applicant would otherwise have exercised over the scope and timing of the patent litigation and depriving the applicant of the certainty it could have obtained by bringing a declaratory-judgment action prior to marketing its product. The presence of this remedy, coupled with the absence of any other textually specified remedies, indicates that Congress did not intend sponsors to have access to injunctive relief, at least as a matter of federal law, to enforce the disclosure requirement. See <em>Great-West Life &amp; Annuity Ins. Co.</em> v. <em>Knudson</em>, 534 U. S. 204, 209. Statutory context further confirms that Congress did not authorize courts to enforce § 262(<em>l</em>)(2)(A) by injunction. Pp. 14–17.</p>
+<p><span class="pg" id="s1-p4" title="page 4 of the original">4</span>(b) The Federal Circuit should determine on remand whether an injunction is available under state law to enforce § 262(<em>l</em>)(2)(A). Whether Sandoz's conduct was “unlawful” under California's unfair competition statute is a question of state law, and the Federal Circuit thus erred in attempting to answer that question by referring only to the BPCIA. There is no dispute about how the federal scheme actually works on the facts of these cases: Sandoz failed to disclose the requisite information under § 262(<em>l</em>)(2)(A), and was accordingly subject to the consequence specified in § 262(<em>l</em>)(9)(C). As a result, there is nothing to decide on this point as a matter of federal law. The court on remand should determine whether California law would treat noncompliance with § 262(<em>l</em>)(2)(A) as “unlawful,” and whether the BPCIA pre-empts any additional state-law remedy for failure to comply with § 262(<em>l</em>)(2)(A). Pp. 17–19.</p>
+<p>(c) An applicant may provide notice of commercial marketing before obtaining a license. Section 262(<em>l</em>)(8)(A) states that the applicant “shall provide notice to the reference product sponsor not later than 180 days before the date of the first commercial marketing of the biological product licensed under subsection (k).” Because the phrase “of the biological product licensed under subsection (k)” modifies “commercial marketing” rather than “notice,” “commercial marketing” is the point in time by which the biosimilar must be “licensed.” Accordingly, the applicant may provide notice either before or after receiving FDA approval. Statutory context confirms that § 262(<em>l</em>)(8)(A) contains a single timing requirement (180 days before marketing) rather than the two requirements posited by the Federal Circuit (after licensing, and 180 days before marketing). “Had Congress intended to” impose two timing requirements in § 262(<em>l</em>)(8)(A), “it presumably would have done so expressly as it did in the” adjacent provision, § 262(<em>l</em>)(8)(B). <em>Russello</em> v. <em>United States</em>, 464 U. S. 16, 23. Amgen's contrary arguments are unpersuasive, and its various policy arguments cannot overcome the statute's plain language. Pp. 19–21.</p>
+<p>794 F. 3d 1347, vacated in part, reversed in part, and remanded.</p>
+<p><span class="sc">Thomas,</span> J., delivered the opinion for a unanimous Court. B<span class="sc">reyer, J.,</span> filed a concurring opinion, <em>post</em>, p. 22.</p></section>
+<section id="s2" class="op op-counsel"><details><summary>Counsel</summary><p><em>Deanne E. Maynard</em> argued the cause for petitioner in No. 15–1039 and respondent in No. 15–1195. With her on the briefs were <em>Joseph R. Palmore, Marc A. Hearron, Bryan J. Leitch, Rachel Krevans,</em> and <em>Julie Y. Park.</em></p>
+<p><em>Anthony A. Yang</em> argued the cause for the United States as <em>amicus curiae</em> supporting petitioner in No. 15–1039 and <span class="pg" id="s2-p5" title="page 5 of the original">5</span>respondent in No. 15–1195. With him on the brief were <em>Acting Solicitor General Francisco, Acting Assistant Attorney General Readler, Deputy Solicitor General Kneedler, Scott R. McIntosh,</em> and <em>Lowell V. Sturgill, Jr.</em></p>
+<p><em>Seth P. Waxman</em> argued the cause for respondents in No. 15–1039 and petitioners in No. 15–1195. With him on the brief were <em>Thomas G. Saunders, Daniel Winik, Jonathan P. Graham, Stuart L. Watt, Wendy A</em>. <em>Whiteford</em>, <em>Lois M. Kwasigroch, Kimberlin L</em>. <em>Morley</em>, <em>Nicholas Groom-bridge, Eric Alan Stone,</em> and <em>Jennifer H. Wu</em>.†</p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li class="sym" value="0"><span class="mk">†</span><p>Briefs of <em>amici curiae</em> urging reversal in No. 15–1039 were filed for AARP et al. by <em>William Alvarado Rivera</em>; for Adello Biologics, LLC, by <em>Clifton S. Elgarten</em>, <em>Teresa Stanek Rea</em>, and <em>Deborah Yellin</em>; and for Pharmaceutical Care Management Association et al. by <em>James P. Ellison</em>.</p><p><em>Kevin E. Noonan, John D. Cravero,</em> and <em>Erika Lietzan</em> filed a brief for 11 Professors as <em>amici curiae</em> urging reversal in No. 15–1195.</p><p>Briefs of <em>amici curiae</em> in both cases were filed for AbbVie Inc. by <em>Melissa Arbus Sherry, Gregory G. Garre, Michael A. Morin,</em> and <em>Alexandra Shechtel</em>; for America's Health Insurance Plans by <em>Carlos T. Angulo</em> and <em>Julie Simon Miller</em>; for Apotex Inc. et al. by <em>David C. Frederick, Miles J. Sweet, Kerry B. McTigue, Barry P. Golob, Aaron S. Lukas,</em> and <em>Stephen A. Miller</em>; for Biosimilars Council by <em>William M. Jay, Jaime A. Santos,</em> and <em>Elaine Hermann Blais</em>; for Biotechnology Innovation Organization by <em>Donald R. Ware</em> and <em>Barbara A. Fiacco</em>; for Coherus Biosciences, Inc., by <em>W. Chad Shear</em> and <em>Craig E. Countryman</em>; for Genentech, Inc., by <em>E. Joshua Rosenkranz</em> and <em>Eric A. Shumsky</em>; for Janssen Biotech Inc. by <em>Gregory L. Diskant, Eugene M. Gelernter,</em> and <em>Irena Royzman</em>; and for Mylan Inc. by <em>William A. Rakoczy.</em></p></li>
+</ol></aside></details></section>
+<section id="s3" class="op op-court"><h2>Opinion of the Court</h2>
+<p class="byline">Justice Thomas delivered the opinion of the Court.</p>
+<p>These cases involve 42 U. S. C. § 262(<em>l</em>), which was enacted as part of the Biologics Price Competition and Innovation Act of 2009 (BPCIA), 124 Stat. 808. The BPCIA governs a type of drug called a biosimilar, which is a biologic product that is highly similar to a biologic product that has already been approved by the Food and Drug Administration (FDA). Under § 262(<em>l</em>), an applicant that seeks FDA approval of a biosimilar must provide its application materials and manufacturing<span class="pg" id="s3-p6" title="page 6 of the original">6</span> information to the manufacturer of the corresponding biologic within 20 days of the date the FDA notifies the applicant that it has accepted the application for review. The applicant then must give notice to the manufacturer at least 180 days before marketing the biosimilar commercially.</p>
+<p>The first question presented by these cases is whether the requirement that an applicant provide its application and manufacturing information to the manufacturer of the biologic is enforceable by injunction. We conclude that an injunction is not available under federal law, but we remand for the court below to decide whether an injunction is available under state law. The second question is whether the applicant must give notice to the manufacturer after, rather than before, obtaining a license from the FDA for its biosimilar. We conclude that an applicant may provide notice before obtaining a license.</p>
+<h3 class="oh">I</h3>
+<p>The complex statutory scheme at issue in these cases establishes processes both for obtaining FDA approval of biosimilars and for resolving patent disputes between manufacturers of licensed biologics and manufacturers of biosimilars. Before turning to the questions presented, we first explain the statutory background.</p>
+<h3 class="oh">A</h3>
+<p>A biologic is a type of drug derived from natural, biological sources such as animals or microorganisms. Biologics thus differ from traditional drugs, which are typically synthesized from chemicals.<sup class="fnr"><a id="s3-r1" href="#s3-n1">1</a></sup>A manufacturer of a biologic may market the drug only if the FDA has licensed it pursuant to either of two review processes set forth in § 262. The default pathway for approval, used for new biologics, is set forth in § 262(a). Under that subsection, the FDA may license<span class="pg" id="s3-p7" title="page 7 of the original">7</span> a new biologic if, among other things, the manufacturer demonstrates that it is “safe, pure, and potent.” § 262(a)(2)(C)(i)(I). In addition to this default route, the statute also prescribes an alternative, abbreviated route for FDA approval of biosimilars, which is set forth in § 262(k).</p>
+<p>To obtain approval through the BPCIA's abbreviated process, the manufacturer of a biosimilar (applicant) does not need to show that the product is “safe, pure, and potent.” Instead, the applicant may piggyback on the showing made by the manufacturer (sponsor) of a previously licensed biologic (reference product). See § 262(k)(2)(A)(iii). An applicant must show that its product is “highly similar” to the reference product and that there are no “clinically meaningful differences” between the two in terms of “safety, purity, and potency.” §§ 262(i)(2)(A), (B); see also § 262(k) (2)(A)(i)(I)<em>.</em> An applicant may not submit an application until 4 years after the reference product is first licensed, and the FDA may not license a biosimilar until 12 years after the reference product is first licensed. §§ 262(k)(7)(A), (B). As a result, the manufacturer of a new biologic enjoys a 12-year period when its biologic may be marketed without competition from biosimilars.</p>
+<h3 class="oh">B</h3>
+<p>A sponsor may hold multiple patents covering the biologic, its therapeutic uses, and the processes used to manufacture it. Those patents may constrain an applicant's ability to market its biosimilar even after the expiration of the 12-year exclusivity period contained in § 262(k)(7)(A).</p>
+<p>The BPCIA facilitates litigation during the period preceding FDA approval so that the parties do not have to wait until commercial marketing to resolve their patent disputes. It enables the parties to bring infringement actions at certain points in the application process, even if the applicant has not yet committed an act that would traditionally constitute patent infringement. See 35 U. S. C. § 271(a) (traditionally infringing acts include making, using, offering to sell, <span class="pg" id="s3-p8" title="page 8 of the original">8</span>or selling any patented invention within the United States without authority to do so). Specifically, it provides that the mere submission of a biosimilar application constitutes an act of infringement. §§ 271(e)(2)(C)(i), (ii). We will refer to this kind of preapproval infringement as “artificial” infringement. Section 271(e)(4) provides remedies for artificial infringement, including injunctive relief and damages.</p>
+<h3 class="oh">C</h3>
+<p>The BPCIA sets forth a carefully calibrated scheme for preparing to adjudicate, and then adjudicating, claims of infringement. See 42 U. S. C. § 262(<em>l</em>). When the FDA accepts an application for review, it notifies the applicant, who within 20 days “shall provide” to the sponsor a copy of the application and information about how the biosimilar is manufactured. § 262(<em>l</em>)(2)(A). The applicant also “may provide” the sponsor with any additional information that it requests. § 262(<em>l</em>)(2)(B). These disclosures enable the sponsor to evaluate the biosimilar for possible infringement of patents it holds on the reference product (<em>i. e.</em>, the corresponding biologic). § 262(<em>l</em>)(1)(D). The information the applicant provides is subject to strict confidentiality rules, enforceable by injunction. See § 262(<em>l</em>)(1)(H). The first question presented by these cases is whether § 262(<em>l</em>)(2)(A)'s requirement—that the applicant provide its application and manufacturing information to the sponsor—is itself enforceable by injunction.</p>
+<p>After the applicant makes the requisite disclosures, the parties exchange information to identify relevant patents and to flesh out the legal arguments that they might raise in future litigation. Within 60 days of receiving the application and manufacturing information, the sponsor “shall provide” to the applicant “a list of patents” for which it believes it could assert an infringement claim if a person without a license made, used, offered to sell, sold, or imported “the biological product that is the subject of the [biosimilar] application.”<span class="pg" id="s3-p9" title="page 9 of the original">9</span> § 262(<em>l</em>)(3)(A)(i). The sponsor must also identify any patents on the list that it would be willing to license. § 262(<em>l</em>)(3)(A)(ii)<em>.</em></p>
+<p>Next, within 60 days of receiving the sponsor's list, the applicant may provide to the sponsor a list of patents that the applicant believes are relevant but that the sponsor omitted from its own list, § 262(<em>l</em>)(3)(B)(i), and “shall provide” to the sponsor reasons why it could not be held liable for infringing the relevant patents, § 262(<em>l</em>)(3)(B)(ii). The applicant may argue that the relevant patents are invalid, unenforceable, or not infringed, or the applicant may agree not to market the biosimilar until a particular patent has expired. <em>Ibid.</em> The applicant must also respond to the sponsor's offers to license particular patents. § 262(<em>l</em>)(3)(B)(iii). Then, within 60 days of receiving the applicant's responses, the sponsor “shall provide” to the applicant its own arguments concerning infringement, enforceability, and validity as to each relevant patent. § 262(<em>l</em>)(3)(C).</p>
+<p>Following this exchange, the BPCIA channels the parties into two phases of patent litigation. In the first phase, the parties collaborate to identify patents that they would like to litigate immediately. The second phase is triggered by the applicant's notice of commercial marketing and involves any patents that were included on the parties' § 262(<em>l</em>)(3) lists but not litigated in the first phase.</p>
+<p>At the outset of the first phase, the applicant and the sponsor must negotiate to determine which patents included on the § 262(<em>l</em>)(3) lists will be litigated immediately. See §§ 262(<em>l</em>)(4)(A), (<em>l</em>)(6). If they cannot agree, then they must engage in another list exchange. § 262(<em>l</em>)(4)(B). The applicant “shall notify” the sponsor of the number of patents it intends to list for litigation, § 262(<em>l</em>)(5)(A), and, within five days, the parties “shall simultaneously exchange” lists of the patents they would like to litigate immediately. § 262(<em>l</em>)(5)(B)(i). This process gives the applicant substantial control over the scope of the first phase of litigation: <span class="pg" id="s3-p10" title="page 10 of the original">10</span>The number of patents on the sponsor's list is limited to the number contained in the applicant's list, though the sponsor always has the right to list at least one patent. § 262(<em>l</em>)(5)(B)(ii).</p>
+<p>The parties then proceed to litigate infringement with respect to the patents they agreed to litigate or, if they failed to agree, the patents contained on the lists they simultaneously exchanged under § 262(<em>l</em>)(5). §§ 262(<em>l</em>)(6)(A), (B). Section 271(e)(2)(C)(i) facilitates this first phase of litigation by making it an act of artificial infringement, with respect to any patent included on the parties' § 262(<em>l</em>)(3) lists, to submit an application for a license from the FDA. The sponsor “shall bring an action” in court within 30 days of the date of agreement or the simultaneous list exchange. §§ 262(<em>l</em>)(6)(A), (B)<em>.</em> If the sponsor brings a timely action and prevails, it may obtain a remedy provided by § 271(e)(4).</p>
+<p>The second phase of litigation involves patents that were included on the original § 262(<em>l</em>)(3) lists but not litigated in the first phase (and any patents that the sponsor acquired after the § 262(<em>l</em>)(3) exchange occurred and added to the lists, see § 262(<em>l</em>)(7)). The second phase is commenced by the applicant's notice of commercial marketing, which the applicant “shall provide” to the sponsor “not later than 180 days before the date of the first commercial marketing of the biological product licensed under subsection (k).” § 262(<em>l</em>)(8)(A). The BPCIA bars any declaratory-judgment action prior to this notice. § 262(<em>l</em>)(9)(A) (prohibiting, in situations where the parties have complied with each step of the BPCIA process, either the sponsor or the applicant from seeking a “declaration of infringement, validity, or enforceability of any patent” that was included on the § 262(<em>l</em>)(3) lists but not litigated in the first phase “prior to the date notice is received under paragraph (8)(A)”). Because the applicant (subject to certain constraints) chooses when to begin commercial marketing and when to give notice, it wields substantial control over the timing of the second phase of litigation. The second <span class="pg" id="s3-p11" title="page 11 of the original">11</span>question presented is whether notice is effective if an applicant provides it prior to the FDA's decision to license the biosimilar.</p>
+<p>In this second phase of litigation, <em>either</em> party may sue for declaratory relief. See § 262(<em>l</em>)(9)(A). In addition, prior to the date of first commercial marketing, the sponsor may “seek a preliminary injunction prohibiting the [biosimilar] applicant from engaging in the commercial manufacture or sale of [the biosimilar] until the court decides the issue of patent validity, enforcement, and infringement with respect to any patent that” was included on the § 262(<em>l</em>)(3) lists but not litigated in the first phase. § 262(<em>l</em>)(8)(B).</p>
+<h3 class="oh">D</h3>
+<p>If the parties comply with each step outlined in the BPCIA, they will have the opportunity to litigate the relevant patents before the biosimilar is marketed. To encourage parties to comply with its procedural requirements, the BPCIA includes various consequences for failing to do so. Two of the BPCIA's remedial provisions are at issue here. Under § 262(<em>l</em>)(9)(C), if an applicant fails to provide its application and manufacturing information to the sponsor—thus effectively pretermitting the entire two-phase litigation process—then the sponsor, but not the applicant, may immediately bring an action “for a declaration of infringement, validity, or enforceability of any patent that claims the biological product or a use of the biological product.” Section 271(e)(2)(C)(ii) facilitates this action by making it an artificial act of infringement, with respect to any patent that <em>could</em> have been included on the § 262(<em>l</em>)(3) lists, to submit a biosimilar application. Similarly, when an applicant provides the application and manufacturing information but fails to complete a subsequent step, § 262(<em>l</em>)(9)(B) provides that the sponsor, but not the applicant, may bring a declaratory-judgment action with respect to any patent included on the sponsor's § 262(<em>l</em>)(3)(A) list of patents (as well as those it acquired later <span class="pg" id="s3-p12" title="page 12 of the original">12</span>and added to the list). As noted, it is an act of artificial infringement, with respect to any patent on the § 262(<em>l</em>)(3) lists, to submit an application to the FDA. See § 271(e)(2)(C)(i).</p>
+<h3 class="oh">II</h3>
+<p>These cases concern filgrastim, a biologic used to stimulate the production of white blood cells. Amgen (collectively), the respondent in No. 15–1039 and the petitioner in No. 15–1195, has marketed a filgrastim product called Neupogen since 1991 and claims to hold patents on methods of manufacturing and using filgrastim. In May 2014, Sandoz, the petitioner in No. 15–1039 and the respondent in No. 15–1195, filed an application with the FDA seeking approval to market a filgrastim biosimilar under the brand name Zarxio, with Neupogen as the reference product. The FDA informed Sandoz on July 7, 2014, that it had accepted the application for review. One day later, Sandoz notified Amgen both that it had submitted an application and that it intended to begin marketing Zarxio immediately upon receiving FDA approval, which it expected in the first half of 2015. Sandoz later confirmed that it did not intend to provide the requisite application and manufacturing information under § 262(<em>l</em>) (2)(A) and informed Amgen that Amgen could sue for infringement immediately under § 262(<em>l</em>)(9)(C).</p>
+<p>In October 2014, Amgen sued Sandoz for patent infringement. Amgen also asserted two claims under California's unfair competition law, which prohibits “any unlawful . . . business act or practice.” Cal. Bus. &amp; Prof. Code Ann. § 17200 (West 2008). A “business act or practice” is “unlawful” under the unfair competition law if it violates a rule contained in some other state or federal statute. <em>Rose</em> v. <em>Bank of America, N. A.</em>, 57 Cal. 4th 390, 396, 304 P. 3d 181, 185 (2013). Amgen alleged that Sandoz engaged in “unlawful” conduct when it failed to provide its application and manufacturing information under § 262(<em>l</em>)(2)(A), and when it provided notice of commercial marketing under § 262(<em>l</em>)(8)(A) <span class="pg" id="s3-p13" title="page 13 of the original">13</span>before, rather than after, the FDA licensed its biosimilar. Amgen sought injunctions to enforce both requirements. Sandoz counterclaimed for declaratory judgments that the asserted patent was invalid and not infringed and that it had not violated the BPCIA.</p>
+<p>While the case was pending in the District Court, the FDA licensed Zarxio, and Sandoz provided Amgen a further notice of commercial marketing. The District Court subsequently granted partial judgment on the pleadings to Sandoz on its BPCIA counterclaims and dismissed Amgen's unfair competition claims with prejudice. 2015 WL 1264756, *7–*9 (ND Cal., Mar. 19, 2015). After the District Court entered final judgment as to these claims, Amgen appealed to the Federal Circuit, which granted an injunction pending appeal against the commercial marketing of Zarxio.</p>
+<p>A divided Federal Circuit affirmed in part, vacated in part, and remanded. First, the court affirmed the dismissal of Amgen's state-law claim based on Sandoz's alleged violation of § 262(<em>l</em>)(2)(A). It held that Sandoz did not violate the BPCIA in failing to disclose its application and manufacturing information. It further held that the remedies contained in the BPCIA are the exclusive remedies for an applicant's failure to comply with § 262(<em>l</em>)(2)(A). 794 F. 3d 1347, 1357, 1360 (2015).</p>
+<p>Second, the court held that an applicant may provide effective notice of commercial marketing only <em>after</em> the FDA has licensed the biosimilar. <em>Id.,</em> at 1358. Accordingly, the 180day clock began after Sandoz's second, postlicensure notice. The Federal Circuit further concluded that the notice requirement is mandatory and extended its injunction pending appeal to bar Sandoz from marketing Zarxio until 180 days after the date it provided its second notice. <em>Id.,</em> at 1360–1361.</p>
+<p>We granted Sandoz's petition for certiorari, No. 15–1039, and Amgen's conditional cross-petition for certiorari, No. 15–1195, and consolidated the cases. 580 U. S. 1089 (2017).</p>
+<h3 class="oh"><span class="pg" id="s3-p14" title="page 14 of the original">14</span>III</h3>
+<p>The first question we must answer is whether § 262(<em>l</em>) (2)(A)'s requirement that an applicant provide the sponsor with its application and manufacturing information is enforceable by an injunction under either federal or state law.</p>
+<h3 class="oh">A</h3>
+<p>We agree with the Federal Circuit that an injunction under federal law is not available to enforce § 262(<em>l</em>)(2)(A), though for slightly different reasons than those provided by the court below. The Federal Circuit held that “42 U. S. C. § 262(<em>l</em>)(9)(C) and 35 U. S. C. § 271(e) expressly provide the only remedies” for a violation of § 262(<em>l</em>)(2)(A), 794 F. 3d, at 1357, and neither of those provisions authorizes a court to compel compliance with § 262(<em>l</em>)(2)(A). In concluding that the remedies specified in the BPCIA are exclusive, the Federal Circuit relied primarily on § 271(e)(4), which states that it provides “ `the only remedies which may be granted by a court for an act of [artificial] infringement.' ” <em>Id.,</em> at 1356 (emphasis deleted).</p>
+<p>The flaw in the Federal Circuit's reasoning is that Sandoz's failure to disclose its application and manufacturing information was not an act of artificial infringement, and thus was not remediable under § 271(e)(4). Submitting an application constitutes an act of artificial infringement. See §§ 271(e)(2)(C)(i), (ii) (“It shall be an act of infringement to submit . . . an application seeking approval of a biological product”). Failing to disclose the application and manufacturing information under § 262(<em>l</em>)(2)(A) does not.</p>
+<p>In reaching the opposite conclusion, the Federal Circuit relied on § 271(e)(2)(C)(ii), which states that “[i]t shall be an act of infringement to submit[,] <em>if the applicant for the application fails to provide the application and information required under [§ 262(l)(2)(A)]</em>, an application seeking approval of a biological product for a patent that could be identified pursuant to [§ 262(<em>l</em>)(3)(A)(i)].” (Emphasis added.) <span class="pg" id="s3-p15" title="page 15 of the original">15</span>The court appeared to conclude, based on the italicized language, that an applicant's noncompliance with § 262(<em>l</em>)(2)(A) is an element of the act of artificial infringement (along with the submission of the application). 794 F. 3d, at 1356. We disagree. The italicized language merely assists in identifying which patents will be the subject of the artificial infringement suit. It does not define the act of artificial infringement itself.</p>
+<p>This conclusion follows from the structure of § 271(e)(2)(C). Clause (i) of § 271(e)(2)(C) defines artificial infringement in the situation where the parties proceed through the list exchange process and the patents subject to suit are those contained in the § 262(<em>l</em>)(3) lists, as supplemented under § 262(<em>l</em>)(7). That clause provides that it is an act of artificial infringement to submit, “<em>with respect to a patent that is identified in the list of patents described in [§ 262(l)(3)] (including as provided under [§ 262(l)(7)])</em>, an application seeking approval of a biological product.” (Emphasis added.) Clause (ii) of § 271(e)(2)(C), in contrast, defines artificial infringement in the situation where an applicant fails to disclose its application and manufacturing information altogether and the parties never prepare the § 262(<em>l</em>)(3) lists. That clause provides that the submission of the application represents an act of artificial infringement with respect to any patent that <em>could</em> have been included on the lists.</p>
+<p>In this way, the two clauses of § 271(e)(2)(C) work in tandem. They both treat submission of the application as the act of artificial infringement for which § 271(e)(4) provides the remedies. And they both identify the patents subject to suit, although by different means depending on whether the applicant disclosed its application and manufacturing information under § 262(<em>l</em>)(2)(A). If the applicant made the disclosures, clause (i) applies; if it did not, clause (ii) applies. In neither instance is the applicant's failure to provide its application and manufacturing information an element of the act of artificial infringement, and in neither instance does <span class="pg" id="s3-p16" title="page 16 of the original">16</span>§ 271(e)(4) provide a remedy for that failure. See Brief for Amgen Inc. et al. 66–67 (conceding both points).</p>
+<p>A separate provision of § 262, however, does provide a remedy for an applicant's failure to turn over its application and manufacturing information. When an applicant fails to comply with § 262(<em>l</em>)(2)(A), § 262(<em>l</em>)(9)(C) authorizes the sponsor, but not the applicant, to bring an immediate declaratory-judgment action for artificial infringement as defined in § 271(e)(2)(C)(ii). Section 262(<em>l</em>)(9)(C) thus vests in the sponsor the control that the applicant would otherwise have exercised over the scope and timing of the patent litigation. It also deprives the applicant of the certainty that it could have obtained by bringing a declaratory-judgment action prior to marketing its product.</p>
+<p>The remedy provided by § 262(<em>l</em>)(9)(C) excludes all other federal remedies, including injunctive relief. Where, as here, “a statute expressly provides a remedy, courts must be especially reluctant to provide additional remedies.” <em>Karahalios</em> v. <em>Federal Employees</em>, 489 U. S. 527, 533 (1989). The BPCIA's “carefully crafted and detailed enforcement scheme provides strong evidence that Congress did <em>not</em> intend to authorize other remedies that it simply forgot to incorporate expressly.” <em>Great-West Life &amp; Annuity Ins. Co.</em> v. <em>Knudson</em>, 534 U. S. 204, 209 (2002) (internal quotation marks omitted). The presence of § 262(<em>l</em>)(9)(C), coupled with the absence of any other textually specified remedies, indicates that Congress did not intend sponsors to have access to injunctive relief, at least as a matter of federal law, to enforce the disclosure requirement.</p>
+<p>Statutory context further confirms that Congress did not authorize courts to enforce § 262(<em>l</em>)(2)(A) by injunction. Section 262(<em>l</em>)(1)(H) provides that “the court shall consider immediate injunctive relief to be an appropriate and necessary remedy for any violation or threatened violation” of the rules governing the confidentiality of information disclosed under § 262(<em>l</em>). We assume that Congress acted intentionally<span class="pg" id="s3-p17" title="page 17 of the original">17</span> when it provided an injunctive remedy for breach of the confidentiality requirements but not for breach of § 262(<em>l</em>)(2)(A)'s disclosure requirement. Cf. <em>Touche Ross &amp; Co.</em> v. <em>Redington</em>, 442 U. S. 560, 572 (1979) (“[W]hen Congress wished to provide a private damage remedy, it knew how to do so and did so expressly”).<sup class="fnr"><a id="s3-r2" href="#s3-n2">2</a></sup>Accordingly, the Federal Circuit properly declined to grant an injunction under federal law.</p>
+<h3 class="oh">B</h3>
+<p>The Federal Circuit rejected Amgen's request for an injunction under state law for two reasons. First, it interpreted California's unfair competition law not to provide a remedy when the underlying statute specifies an “expressly . . . exclusive” remedy. 794 F. 3d, at 1360 (citing Cal. Bus. &amp; Prof. Code Ann. § 17205; <em>Loeffier</em> v. <em>Target Corp.</em>, 58 Cal. 4th 1081, 1125–1126, 324 P. 3d 50, 76 (2014)). It further held that §271(e)(4), by its text, “provides `the only remedies' ” for an applicant's failure to disclose its application and manufacturing information. 794 F. 3d, at 1360 (quoting § 271(e)(4)). The court thus concluded that no state remedy was available for Sandoz's alleged violation of § 262(<em>l</em>)(2)(A) under the terms of California's unfair competition law.</p>
+<p>This state-law holding rests on an incorrect interpretation of federal law. As we have explained, failure to comply with § 262(<em>l</em>)(2)(A) is not an act of artificial infringement. Because § 271(e)(4) provides remedies only for artificial infringement, it provides no remedy at all, much less an “expressly<span class="pg" id="s3-p18" title="page 18 of the original">18</span> . . . exclusive” one, for Sandoz's failure to comply with § 262(<em>l</em>)(2)(A).</p>
+<p>Second, the Federal Circuit held in the alternative that Sandoz's failure to disclose its application and manufacturing information was not “unlawful” under California's unfair competition law. In the court's view, when an applicant declines to provide its application and manufacturing information to the sponsor, it takes a path “expressly contemplated by” § 262(<em>l</em>)(9)(C) and § 271(e)(2)(C)(ii) and thus does not violate the BPCIA. 794 F. 3d, at 1357, 1360. In their briefs before this Court, the parties frame this issue as whether the § 262(<em>l</em>)(2)(A) requirement is mandatory in all circumstances, see Brief for Amgen Inc. et al. 58, or merely a condition precedent to the information exchange process, see Reply Brief for Sandoz Inc. 33. If it is only a condition precedent, then an applicant effectively has the option to withhold its application and manufacturing information and does not commit an “unlawful” act in doing so.</p>
+<p>We decline to resolve this particular dispute definitively because it does not present a question of federal law. The BPCIA, standing alone, does not require a court to decide whether § 262(<em>l</em>)(2)(A) is mandatory or conditional; the court need only determine whether the applicant supplied the sponsor with the information required under § 262(<em>l</em>)(2)(A). If the applicant failed to provide that information, then the sponsor, but not the applicant, could bring an immediate declaratory-judgment action pursuant to § 262(<em>l</em>)(9)(C). The parties in these cases agree—as did the Federal Circuit— that Sandoz failed to comply with § 262(<em>l</em>)(2)(A), thus subjecting itself to that consequence. There is no dispute about how the federal scheme actually works, and thus nothing for us to decide as a matter of federal law. The mandatory or conditional nature of the BPCIA's requirements matters <em>only</em> for purposes of California's unfair competition law, which penalizes “unlawful” conduct. Whether Sandoz's conduct was “unlawful” under the unfair competition law is a <span class="pg" id="s3-p19" title="page 19 of the original">19</span>state-law question, and the court below erred in attempting to answer that question by referring to the BPCIA alone.</p>
+<p>On remand, the Federal Circuit should determine whether California law would treat noncompliance with § 262(<em>l</em>)(2)(A) as “unlawful.” If the answer is yes, then the court should proceed to determine whether the BPCIA pre-empts any additional remedy available under state law for an applicant's failure to comply with § 262(<em>l</em>)(2)(A) (and whether Sandoz has forfeited any pre-emption defense, see 794 F. 3d, at 1360, n. 5). The court is also of course free to address the preemption question first by assuming that a remedy under state law exists.</p>
+<h3 class="oh">IV</h3>
+<p>The second question at issue in these cases is whether an applicant must provide notice <em>after</em> the FDA licenses its biosimilar, or if it may also provide effective notice before licensure. Section 262(<em>l</em>)(8)(A) states that the applicant “shall provide notice to the reference product sponsor not later than 180 days before the date of the first commercial marketing of the biological product licensed under subsection (k).” The Federal Circuit held that an applicant's biosimilar must already be “licensed” at the time the applicant gives notice. 794 F. 3d, at 1358.</p>
+<p>We disagree. The applicant must give “notice” at least 180 days “before the date of the first commercial marketing.” “[C]ommercial marketing,” in turn, must be “of the biological product licensed under subsection (k).” § 262(<em>l</em>)(8)(A). Because this latter phrase modifies “commercial marketing” rather than “notice,” “commercial marketing” is the point in time by which the biosimilar must be “licensed.” The statute's use of the word “licensed” merely reflects the fact that, on the “date of the first commercial marketing,” the product must be “licensed.” See § 262(a)(1)(A). Accordingly, the applicant may provide notice either before or after receiving FDA approval.</p>
+<p><span class="pg" id="s3-p20" title="page 20 of the original">20</span>Statutory context confirms this interpretation. Section 262(<em>l</em>)(8)(A) contains a single timing requirement: The applicant must provide notice at least 180 days prior to marketing its biosimilar. The Federal Circuit, however, interpreted the provision to impose two timing requirements: The applicant must provide notice after the FDA licenses the biosimilar <em>and</em> at least 180 days before the applicant markets the biosimilar. An adjacent provision expressly sets forth just that type of dual timing requirement. See § 262(<em>l</em>)(8)(B) (“<em>After</em> receiving notice under subparagraph (A) and <em>before</em> such date of the first commercial marketing of such biological product, the reference product sponsor may seek a preliminary injunction” (emphasis added)). But Congress did not use that structure in § 262(<em>l</em>)(8)(A). “Had Congress intended to” impose two timing requirements in § 262(<em>l</em>)(8)(A), “it presumably would have done so expressly as it did in the immediately following” subparagraph. <em>Russello</em> v. <em>United States</em>, 464 U. S. 16, 23 (1983).</p>
+<p>We are not persuaded by Amgen's arguments to the contrary. Amgen points out that other provisions refer to “ `the biological product <em>that is the subject of</em> ' ” the application rather than the “ `biological product <em>licensed under</em> subsection (k).' ” Brief for Amgen Inc. et al. 28 (emphasis added). In its view, this variation “is a strong textual indication that § 262(<em>l</em>)(8)(A), unlike the other provisions, refers to a product that has already been `licensed' by the FDA.” <em>Ibid.</em></p>
+<p>Amgen's interpretation is not necessary to harmonize Congress' use of the two different phrases. The provision upon which Amgen primarily relies (and that is generally illustrative of the other provisions it cites) requires the applicant to explain why the sponsor's patents are “ `invalid, unenforceable, or will not be infringed by the commercial marketing of the biological product that is the subject of the subsection (k) application.' ” <em>Id.,</em> at 29–30 (quoting § 262(<em>l</em>)(3)(B)(ii)(I); emphasis deleted). This provision uses the phrase “subject of the subsection (k) application” rather than “product licensed<span class="pg" id="s3-p21" title="page 21 of the original">21</span> under subsection (k)” because the applicant can evaluate validity, enforceability, and infringement with respect to the biosimilar only as it exists <em>when the applicant is conducting the evaluation</em>, which it does before licensure. The applicant cannot make the same evaluation with respect to the biosimilar as it will exist after licensure, because the biosimilar's specifications may change during the application process. See, <em>e. g.,</em> 794 F. 3d, at 1358. In contrast, nothing in § 262(<em>l</em>)(8)(A) turns on the precise status or characteristics of the biosimilar application.</p>
+<p>Amgen also advances a host of policy arguments that prelicensure notice is undesirable. See Brief for Amgen Inc. et al. 35–42. Sandoz and the Government, in turn, respond with their own bevy of arguments that Amgen's concerns are misplaced and that prelicensure notice affirmatively furthers Congress' intent. See Brief for Sandoz Inc. 39–42, 56; Brief for United States as <em>Amicus Curiae</em> 28–29. The plausibility of the contentions on both sides illustrates why such disputes are appropriately addressed to Congress, not the courts. Even if we were persuaded that Amgen had the better of the policy arguments, those arguments could not overcome the statute's plain language, which is our “primary guide” to Congress' preferred policy. <em>McFarland</em> v. <em>Scott</em>, 512 U. S. 849, 865 (1994) (<span class="sc">Thomas, J.,</span> dissenting).</p>
+<p>In sum, because Sandoz fully complied with § 262(<em>l</em>)(8)(A) when it first gave notice (before licensure) in July 2014, the Federal Circuit erred in issuing a federal injunction prohibiting Sandoz from marketing Zarxio until 180 days after licensure. Furthermore, because Amgen's request for state-law relief is predicated on its argument that the BPCIA forbids prelicensure notice, its claim under California's unfair competition law also fails. We accordingly reverse the Federal Circuit's judgment as to the notice provision.</p>
+<p class="sep">* * *</p>
+<p>For the foregoing reasons, the judgment of the Court of Appeals is vacated in part and reversed in part, and the <span class="pg" id="s3-p22" title="page 22 of the original">22</span>cases are remanded for further proceedings consistent with this opinion.</p>
+<p><em>It is so ordered.</em></p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li id="s3-n1" value="1"><p>FDA, What Are “Biologics” Questions and Answers (Aug. 5, 2015), http:// www.fda.gov/aboutfda/centersoffices/officeofmedicalproductsandtobacco/ cber/ucm133077.htm (as last visited June 6, 2017). <a class="back" href="#s3-r1" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n2" value="2"><p>In holding that § 262(<em>l</em>)(9)(C) represents the exclusive remedy for an applicant's failure to provide its application and manufacturing information, we express no view on whether a district court could take into account an applicant's violation of § 262(<em>l</em>)(2)(A) (or any other BPCIA procedural requirement) in deciding whether to grant a preliminary injunction under 35 U. S. C. § 271(e)(4)(B) or § 283 against marketing the biosimilar. See <em>Winter</em> v. <em>Natural Resources Defense Council, Inc.</em>, 555 U. S. 7, 20 (2008) (court should consider “balance of equities” in deciding whether to grant a preliminary injunction). <a class="back" href="#s3-r2" aria-label="Back to the text">↩</a></p></li>
+</ol></aside></section>
+<section id="s4" class="op op-concurring"><h2>Justice Breyer, concurring</h2>
+<p class="byline">Justice Breyer, concurring.</p>
+<p>The Court's interpretation of the statutory terms before us is a reasonable interpretation, and I join its opinion. In my view, Congress implicitly delegated to the Food and Drug Administration authority to interpret those same terms. That being so, if that agency, after greater experience administering this statute, determines that a different interpretation would better serve the statute's objectives, it may well have authority to depart from, or to modify, today's interpretation, see <em>National Cable &amp; Telecommunications Assn.</em> v. <em>Brand X Internet Services</em>, 545 U. S. 967, 982–984 (2005), though we need not now decide any such matter.</p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li class="sym" value="0"><span class="mk">*</span><p>Together with No. 15–1195, <em>Amgen Inc. et al.</em> v. <em>Sandoz Inc</em>., also on certiorari to the same court.</p><p>1</p></li>
+</ol></aside></section><p class='back'><a href='/opinions/'>&larr; All opinions</a> · <a href='/justices/ot2016.html'>The Justices, October Term 2016 &rarr;</a></p></main></body>
+</html>
+

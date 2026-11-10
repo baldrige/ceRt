@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script async src='/analytics.js'></script><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate icon" href="/favicon.ico" sizes="any"><link rel="alternate" type="application/atom+xml" title="Supreme Court Report" href="/feed.xml"><link rel="alternate" type="application/atom+xml" title="Certiorari grants" href="/grants.xml"><title>Microsoft Corp. v. Baker — Opinion — Supreme Court Report</title><meta name="description" content="The opinion in Microsoft Corp. v. Baker (No. 15-457), decided June 12, 2017: the full text with its footnotes, as a page, a Markdown file and an EPUB."><link rel="canonical" href="https://supremecourt.report/opinions/2016/15-457.html"><meta property="og:site_name" content="Supreme Court Report"><meta property="og:type" content="article"><meta property="og:title" content="Microsoft Corp. v. Baker — Opinion — Supreme Court Report"><meta property="og:description" content="The opinion in Microsoft Corp. v. Baker (No. 15-457), decided June 12, 2017: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta property="og:url" content="https://supremecourt.report/opinions/2016/15-457.html"><meta property="og:image" content="https://supremecourt.report/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Supreme Court Report - docket analytics for the Supreme Court of the United States"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Microsoft Corp. v. Baker — Opinion — Supreme Court Report"><meta name="twitter:description" content="The opinion in Microsoft Corp. v. Baker (No. 15-457), decided June 12, 2017: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta name="twitter:image" content="https://supremecourt.report/og.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap"><style>
+  :root{--paper:#fdfcfa;--panel:#ffffff;--ink:#1a1a1e;--ink-soft:#484850;--faint:#63636b;--accent:#9c0e3a;--link:#9c0e3a;--rule:#dbd8d2;--nav-max:60rem}
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{font-family:'Newsreader',Georgia,serif;font-size:19px;line-height:1.6;
+    color:var(--ink);background:var(--paper);margin:0;font-feature-settings:'onum' 1}
+  body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
+    opacity:.5;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");}
+  .wrap{max-width:40rem;margin:0 auto;padding:3rem 1.4rem 4rem}
+  .kicker{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 1rem}
+  h1{font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:clamp(2.4rem,7vw,3.6rem);line-height:1;letter-spacing:-.015em;
+    margin:0 0 1rem;color:var(--ink)}
+  h1 em{font-style:italic;font-weight:500;color:var(--accent)}
+  .dek{font-size:1.15rem;line-height:1.5;color:var(--ink-soft);font-style:italic;
+    margin:0 0 1.4rem}
+  .brule{border:0;height:0;border-top:2px solid var(--ink);margin:1.4rem 0 .3rem;
+    position:relative}
+  .brule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+    border-top:1px solid var(--rule)}
+  ul.idx{list-style:none;padding:0;margin:1.6rem 0}
+  ul.idx li{border-bottom:1px solid var(--rule)}
+  /* Whole row is one block-level link: a large, reliable tap target on mobile. */
+  ul.idx a.row{display:flex;justify-content:space-between;align-items:baseline;
+    gap:1rem;padding:.9rem .4rem;text-decoration:none;border:0;color:inherit}
+  ul.idx a.row:hover{background:rgba(156,14,58,.05)}
+  ul.idx .d{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.16rem;
+    color:var(--accent);line-height:1.25}
+  ul.idx a.row:hover .d{text-decoration:underline;text-underline-offset:3px}
+  ul.idx .count{color:var(--faint);font-size:.9rem;font-style:italic;white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  /* A long note (an order list's "3 GVRs / 230 denied / 4 habeas denied /
+     ...", items separated by middots) cannot sit on one line: nowrap made it
+     claim the row and
+     squeezed the title into a column three words wide, and on a phone it ran off
+     the screen. Such a row opts in (meta_wrap): the note wraps, only between its
+     items, and takes at most ~45% of the row, so the title always has the
+     larger share. Under 34rem it drops beneath the title at full width. */
+  /* ("long", not "wrap": .wrap is the page container and its padding.) */
+  ul.idx .count.long{white-space:normal;text-align:right;max-width:45%;line-height:1.45}
+  ul.idx .count.long .seg{white-space:nowrap}
+  @media(max-width:34rem){
+    ul.idx a.row.longmeta{flex-wrap:wrap;row-gap:.2rem}
+    ul.idx .count.long{max-width:none;flex-basis:100%;text-align:left}
+  }
+  /* Compact horizontal strip of the most recent pages beneath a category row. */
+  ul.idx .recent{display:flex;flex-wrap:wrap;align-items:baseline;
+    gap:.3rem .85rem;padding:0 .4rem 1rem;margin-top:-.35rem}
+  ul.idx .recent .rlabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  ul.idx .recent a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--ink-soft);text-decoration:none;font-variant-numeric:tabular-nums;
+    border-bottom:1px solid var(--rule);padding-bottom:1px}
+  ul.idx .recent a:hover{color:var(--accent);border-color:var(--accent)}
+  /* Optional panel beneath the section index (home page: most-read cases). */
+  .panel{margin:2.4rem 0 0}
+  .panel h2{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 .25rem}
+  .panel .pnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:0 0 .5rem}
+  /* "Live now" (live_argument_panel, /live.js): hidden unless the Court is
+     streaming an argument. One red dot, the same --accent as the headings, so
+     the live state is a mark and not a new colour. */
+  .live h2 .ldot{display:inline-block;width:.5rem;height:.5rem;border-radius:50%;
+    background:var(--accent);margin-right:.5rem;vertical-align:.08rem;
+    animation:lpulse 2s ease-in-out infinite}
+  @keyframes lpulse{50%{opacity:.25}}
+  @media (prefers-reduced-motion:reduce){.live h2 .ldot{animation:none}}
+  .lplay{display:flex;flex-wrap:wrap;gap:.6rem .9rem;align-items:center;margin:.8rem 0 .3rem}
+  .lplay button{font:600 .9rem/1 'Newsreader',Georgia,serif;letter-spacing:.04em;
+    color:var(--paper);background:var(--accent);border:0;border-radius:2px;
+    padding:.6rem 1.05rem;cursor:pointer}
+  .lplay button:disabled{opacity:.6;cursor:progress}
+  .lplay button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  /* The player takes a row of its own and may never outgrow the column. A flex
+     item's min-width is auto, which for a replaced element is the browser's own
+     controls' width -- wider than the column on a phone, where mobile Safari
+     and Chrome draw larger controls than the desktop. */
+  .lplay audio{display:block;flex:1 1 100%;width:100%;min-width:0;max-width:100%;
+    box-sizing:border-box;margin:0}
+  .lplay .lstat{font-size:.85rem;color:var(--faint)}
+  /* --- Likeliest grants -----------------------------------------------------
+     Its own rows rather than ol.mostread's: this panel carries a question under
+     the caption, which that list has no room for, and a percentage that has to
+     read as the row's subject rather than as a trailing note.
+     The window toggle is two real radio inputs plus :has() -- no JavaScript.
+     Both windows are rendered at build time and one is hidden, which is the only
+     way a static site can offer the choice: there is no server to ask for the
+     other one. Real radios, not styled buttons, so the control is reachable by
+     keyboard and announced as a choice. */
+  .lead{margin:0 0 1.9rem}
+  .lead h2{margin-bottom:.35rem}
+  .lead .pnote{margin:0 0 .7rem}
+  .wr{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+  .win{display:inline-flex;gap:.25rem;margin:0 0 .55rem;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .win label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .win label:hover{color:var(--ink)}
+  .lead:has(#w7:checked) label[for=w7],
+  .lead:has(#w28:checked) label[for=w28],
+  .lead:has(#wall:checked) label[for=wall]{background:var(--accent);color:var(--paper)}
+  .wr:focus-visible+label{outline:2px solid var(--accent);outline-offset:2px}
+  /* Three windows, one shown: the checked radio hides the other two. */
+  .lead:has(#w7:checked) :is(.g28,.n28,.gall,.nall),
+  .lead:has(#w28:checked) :is(.g7,.n7,.gall,.nall),
+  .lead:has(#wall:checked) :is(.g7,.n7,.g28,.n28){display:none}
+  /* The show/hide controls for a panel's secondary line -- the question under
+     a forecast row, the holding under a decision. Same box as the window
+     toggle, a checkbox instead of radios, and no script: the sibling rule does
+     the work and the lines simply show where :has() is unsupported. The
+     questions are on by default (they are what a forecast row asks); the
+     holdings are off (the caption, kind and disposition already say what
+     happened, and the holding is the more). */
+  .opts{display:inline-flex;gap:.25rem;margin:0 .45rem .55rem 0;vertical-align:top;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .opts label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .opts label:hover{color:var(--ink)}
+  .lead:has(#qon:checked) label[for=qon],
+  .panel:has(#hon:checked) label[for=hon]{background:var(--accent);color:var(--paper)}
+  .lead:has(#qon:not(:checked)) .gq{display:none}
+  .panel:has(#hon:not(:checked)) .chold{display:none}
+  /* --- Upcoming at the Court ------------------------------------------------
+     A date gutter and a two-line body, the same shape as the grant rows above
+     it, so the two panels read as one page rather than two widgets. */
+  .cal{margin:0 0 1.9rem}
+  ol.cal{list-style:none;margin:0;padding:0}
+  ol.cal li{border-top:1px solid var(--rule)}
+  ol.cal li:last-child{border-bottom:1px solid var(--rule)}
+  /* The row is a container, not an anchor: an argument day carries one link per
+     case it hears and anchors cannot nest. Hover lives on the row so it still
+     reads as one unit, and each link colours on its own hover. */
+  ol.cal .crow{display:flex;gap:.95rem;align-items:baseline;padding:.55rem .1rem}
+  ol.cal .crow:hover{background:rgba(156,14,58,.05)}
+  ol.cal a{text-decoration:none;color:inherit}
+  ol.cal a:hover,ol.cal a:focus-visible{color:var(--accent)}
+  ol.cal .cdet a{border-bottom:1px solid rgba(156,14,58,.35)}
+  ol.cal .cdet a:hover{border-bottom-color:var(--accent)}
+  ol.cal .cwhen{flex:none;width:4.6rem;font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.96rem;color:var(--ink);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  ol.cal .cdow{display:block;font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);text-transform:uppercase;letter-spacing:.08em}
+  ol.cal .ctx{flex:1;min-width:0}
+  ol.cal .ckind{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:.98rem;line-height:1.25}
+  ol.cal .cdet{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.12rem}
+  /* Recent decisions reuses the calendar rows and adds exactly two things: the
+     kind word that opens the detail line, and the one outbound link (the slip
+     opinion), which takes the link colour the rest of the row deliberately
+     does not. */
+  ol.cal .dk{font-weight:600;color:var(--ink)}
+  ol.cal .cdet a.pdf{color:var(--link)}
+  /* The holding, from the Court's slip-opinion feed: one sentence, set
+     smaller and in the soft ink so the caption stays the row's headline. */
+  ol.cal .chold{display:block;font-size:.86rem;line-height:1.4;color:var(--ink-soft);
+    font-style:italic;margin-top:.15rem}
+  ol.cal .cdet a.pdf:hover,ol.cal .cdet a.pdf:focus-visible{color:var(--accent);
+    border-bottom-color:var(--accent)}
+  ol.grants{list-style:none;margin:0;padding:0}
+  ol.grants li{border-top:1px solid var(--rule)}
+  ol.grants li:last-child{border-bottom:1px solid var(--rule)}
+  ol.grants a{display:flex;gap:.95rem;align-items:baseline;text-decoration:none;
+    color:inherit;padding:.62rem .1rem}
+  ol.grants a:hover{background:rgba(156,14,58,.05)}
+  ol.grants a:hover .gc{color:var(--accent)}
+  ol.grants .gv{flex:none;width:3.5rem;text-align:right;
+    font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.22rem;
+    line-height:1.1;color:var(--accent);font-variant-numeric:tabular-nums}
+  ol.grants .gx{font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);margin-left:.3rem}
+  ol.grants .gtx{flex:1;min-width:0}
+  /* Subject-area line under the caption, in the section-label idiom (h2.sec):
+     small tracked caps in the faint ink, so it classifies without competing. */
+  ol.grants .gs,ol.mostread .ms{display:block;font-size:.68rem;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--faint);line-height:1.3;margin-top:.12rem}
+  ol.grants .gc{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:1rem;line-height:1.25}
+  ol.grants .gq{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.16rem}
+  ol.grants .gd{flex:none;font-size:.76rem;color:var(--faint);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  .more{margin:.75rem 0 0;font-size:.92rem}
+  .more a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.35)}
+  .more a:hover{border-bottom-color:var(--link)}
+  h2.sec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:.88rem;
+    letter-spacing:.09em;color:var(--faint);text-transform:uppercase;
+    margin:2.1rem 0 .6rem;padding-bottom:.28rem;border-bottom:1px solid var(--rule)}
+  @media(max-width:40rem){
+    ol.grants a{flex-wrap:wrap}
+    ol.grants .gd{width:100%;padding-left:4.45rem;margin-top:-.1rem}
+  }
+  ol.mostread{list-style:none;counter-reset:mr;padding:0;margin:0}
+  ol.mostread li{counter-increment:mr;border-bottom:1px solid var(--rule)}
+  ol.mostread a{display:flex;align-items:baseline;gap:.7rem;padding:.6rem .4rem;
+    text-decoration:none;color:inherit}
+  ol.mostread a:hover{background:rgba(156,14,58,.05)}
+  ol.mostread a::before{content:counter(mr);font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.95rem;color:var(--faint);min-width:1.1rem;
+    font-variant-numeric:tabular-nums}
+  ol.mostread .mc{flex:1;font-size:1rem;line-height:1.3}
+  ol.mostread .mct{display:block}
+  ol.mostread a:hover .mct{color:var(--accent);text-decoration:underline;
+    text-underline-offset:3px}
+  ol.mostread .mdk{color:var(--accent);font-weight:600;font-size:.82rem;
+    font-variant-numeric:tabular-nums;white-space:nowrap}
+  ol.mostread .mv{color:var(--faint);font-size:.85rem;font-style:italic;
+    white-space:nowrap;font-variant-numeric:tabular-nums}
+  /* Forecast percentages carry weight the most-read counts do not: the number is
+     the claim, not a footnote to the ranking. Upright, accent, tabular. */
+  ol.mostread .mv.fc{color:var(--accent);font-style:normal;font-weight:600;
+    font-size:.95rem;min-width:2.6rem;text-align:right}
+  /* Feed follow line. Deliberately quiet -- a footnote under the section list,
+     styled like .recent rather than like a call to action. */
+  .feeds{display:flex;flex-wrap:wrap;align-items:baseline;gap:.3rem .85rem;
+    margin:2.2rem 0 0;padding-top:1.1rem;border-top:1px solid var(--rule)}
+  .feeds .flabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  .feeds a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .feeds a:hover{border-color:var(--link)}
+  .back{margin-top:2rem;font-size:.95rem}
+  .back a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .back a:hover{border-color:var(--link)}
+  /* Home-page case search. */
+  .csearch{position:relative;margin:0 0 1.4rem}
+  #cq{width:100%;font-family:'Newsreader',Georgia,serif;font-size:1.05rem;color:var(--ink);
+    background:var(--panel);border:1px solid var(--rule);border-radius:3px;padding:.7rem .9rem}
+  #cq:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(156,14,58,.1)}
+  #cq::placeholder{color:var(--faint)}
+  #cq.loading{background-image:linear-gradient(90deg,transparent,rgba(156,14,58,.06),transparent);
+    background-size:40% 100%;background-repeat:no-repeat;animation:csl 1s infinite}
+  @keyframes csl{0%{background-position:-40% 0}100%{background-position:140% 0}}
+  .cres{list-style:none;margin:.35rem 0 0;padding:0;max-height:24rem;overflow-y:auto;
+    border:1px solid var(--rule);border-radius:3px;background:var(--panel)}
+  .cres:empty{display:none}
+  .cres li{border-bottom:1px solid var(--rule)}
+  .cres li:last-child{border-bottom:0}
+  .cres a{display:block;padding:.55rem .7rem;text-decoration:none;color:var(--ink);
+    font-size:.98rem;line-height:1.3}
+  .cres a:hover,.cres li.act a{background:rgba(156,14,58,.06)}
+  .cres mark{background:rgba(156,14,58,.14);color:inherit;padding:0 .05em;border-radius:2px}
+  .cres .cd{color:var(--accent);font-variant-numeric:tabular-nums;font-weight:600;
+    margin-right:.5rem;white-space:nowrap}
+  .cnone{padding:.55rem .7rem;color:var(--faint);font-style:italic}
+  .cnone a,.cqp a{color:var(--link);font-style:normal;text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .cqp{margin:.45rem 0 0;font-size:.88rem;color:var(--faint)}
+  /* /cases/ browse index: grouped sections with per-bucket counts. */
+  .csec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+    text-transform:uppercase;letter-spacing:.12em;color:var(--accent);
+    margin:2.2rem 0 .3rem;padding-bottom:.35rem;border-bottom:1px solid var(--rule);
+    display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
+  .csec .cn{font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:.85rem;
+    letter-spacing:0;text-transform:none;color:var(--faint);
+    font-variant-numeric:tabular-nums}
+  .cnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:.5rem 0 0}
+  .cnote a{color:var(--accent)}
+  ul.terms{list-style:none;padding:0;margin:1rem 0 0;display:flex;flex-wrap:wrap;
+    gap:.5rem 1.6rem}
+  ul.terms li{display:inline-flex;align-items:baseline;gap:.4rem}
+  ul.terms a{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.05rem;
+    color:var(--accent);text-decoration:none;border-bottom:1px solid var(--rule)}
+  ul.terms a:hover{border-bottom-color:var(--accent)}
+  ul.terms .cn{color:var(--faint);font-size:.85rem;font-variant-numeric:tabular-nums}
+  /* About page: running prose rather than an index, so it takes a measure and a
+     little more leading than the section rows above it. */
+  .about{margin:1.6rem 0 0;font-size:1.05rem;line-height:1.65;max-width:34rem}
+  .about p{margin:0 0 1rem}
+  .about a{color:var(--accent);text-decoration:none;
+    border-bottom:1px solid var(--rule)}
+  .about a:hover{border-bottom-color:var(--accent)}
+  .about .contact{margin:2rem 0 0;background:var(--panel);border:1px solid var(--rule);
+    border-left:4px solid var(--accent);padding:1.1rem 1.3rem}
+  .about .contact h2{font:600 .78rem/1 'Newsreader',Georgia,serif;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--accent);margin:0 0 .5rem}
+  .about .contact p{margin:0;font-size:1rem}
+
+/* ---- masthead ---- */
+.smast-in{max-width:var(--nav-max,60rem);margin:0 auto;padding:.85rem 1.5rem .5rem;
+  display:flex;align-items:baseline;justify-content:space-between;gap:1.4rem;flex-wrap:wrap}
+.smast-wm{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+  letter-spacing:.005em;color:var(--ink,#1a1a1e);text-decoration:none;white-space:nowrap;flex:none}
+.smast-wm em{font-style:italic;font-weight:500;color:var(--accent,#9c0e3a)}
+.smast-wm:hover{color:var(--accent,#9c0e3a)}
+/* Row gap first, then column. At 1.35rem the six section links measured 596px
+   of max-content -- 4px wider than the 592px row the 40rem index container
+   leaves them -- so ABOUT alone wrapped to a third line under the wordmark, on
+   every page page_style.R writes. 1.05rem brings the row to 572px: 20px of
+   slack at 40rem, and 45px on the 54rem case pages, which were themselves only
+   21px from wrapping. The .4rem row gap is for the day a seventh section
+   overruns it anyway -- a nav that wraps should read as a stack, not an orphan. */
+.snav{display:flex;gap:.4rem 1.05rem;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+.snav a{font:600 .72rem/1 'Newsreader',Georgia,serif;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--ink-soft,var(--soft,#484850));text-decoration:none;display:inline-block;
+  padding:.5rem 0;border-bottom:1.5px solid transparent}
+.snav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--rule,#dbd8d2)}
+.snav a[aria-current='page']{color:var(--accent,#9c0e3a);
+  border-bottom-color:var(--accent,#9c0e3a)}
+.smast-rule-w{max-width:var(--nav-max,60rem);margin:0 auto;padding:0 1.5rem}
+.smast-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0;position:relative}
+.smast-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.skip{position:absolute;left:-9999px;top:0;background:var(--panel,#ffffff);
+  color:var(--accent,#9c0e3a);padding:.6rem 1rem;
+  border:1px solid var(--accent,#9c0e3a);
+  font:600 .8rem/1 'Newsreader',Georgia,serif;letter-spacing:.1em;text-transform:uppercase;z-index:10}
+.skip:focus{left:.5rem;top:.5rem}
+/* ---- breadcrumb ---- */
+.bcrumb{margin:.7rem 0 0}
+.bcrumb ol{list-style:none;display:flex;flex-wrap:wrap;align-items:baseline;
+  gap:.1rem .45rem;margin:0;padding:0}
+.bcrumb li{display:inline-flex;align-items:baseline;gap:.45rem}
+.bcrumb a{font:400 .8rem/1.5 'Newsreader',Georgia,serif;color:var(--ink-soft,var(--soft,#484850));
+  text-decoration:none;border-bottom:1px solid var(--rule,#dbd8d2)}
+.bcrumb a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.bcrumb .sep{color:var(--faint,#63636b);font-size:.8rem;line-height:1.5}
+.bcrumb [aria-current='page']{font:400 .8rem/1.5 'Newsreader',Georgia,serif;
+  color:var(--faint,#63636b);font-variant-numeric:tabular-nums}
+/* ---- case footer ---- */
+.cfoot{margin:2.4rem 0 0}
+.cfoot-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0 0 1rem;position:relative}
+.cfoot-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.cfoot-off{font-size:.95rem;margin:0 0 1.1rem}
+.cfoot-off a{color:var(--link,#9c0e3a);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.4)}
+.cfoot-off a:hover{border-bottom-color:var(--link,#9c0e3a)}
+.cfoot-lab{font:600 .68rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);margin:0 0 .5rem}
+.cfoot-nav{display:flex;flex-wrap:wrap;gap:.35rem 1.1rem;list-style:none;margin:0;padding:0}
+.cfoot-nav a{font-size:.92rem;color:var(--ink-soft,var(--soft,#484850));text-decoration:none;
+  border-bottom:1px solid var(--rule,#dbd8d2);padding-bottom:1px}
+.cfoot-nav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.cfoot-stamp{margin:1.2rem 0 0;font-size:.8rem;color:var(--faint,#63636b);font-style:italic}
+/* ---- prev / next ---- */
+.pnav{margin:2.2rem 0 0;border-top:1px solid var(--rule,#dbd8d2);padding-top:1rem;
+  display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.pnav a,.pnav span.none{text-decoration:none;color:inherit;display:block;padding:.5rem .2rem}
+.pnav a:hover{background:rgba(156,14,58,.05)}
+.pnav .dir{font:600 .66rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);display:block;margin-bottom:.3rem}
+.pnav .lab{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1rem;line-height:1.25;
+  color:var(--accent,#9c0e3a);display:block}
+.pnav a:hover .lab{text-decoration:underline;text-underline-offset:3px}
+.pnav .nx{text-align:right}
+.pnav .none{opacity:.35}
+@media(max-width:640px){
+  .smast-in{padding:.7rem 1.1rem .25rem;gap:.15rem}
+  .smast-wm{font-size:.98rem}
+  .smast-in nav{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+    -webkit-mask-image:linear-gradient(90deg,#000 86%,transparent);
+    mask-image:linear-gradient(90deg,#000 86%,transparent)}
+  .smast-in nav::-webkit-scrollbar{display:none}
+  .snav{flex-wrap:nowrap;gap:1.15rem;padding-right:2.4rem}
+  .snav a{padding:.7rem 0;white-space:nowrap}
+  .smast-rule-w{padding:0 1.1rem}
+  .cfoot-nav{gap:.5rem 1rem}
+  .cfoot-nav a{padding-bottom:.3rem}
+  .pnav{grid-template-columns:1fr;gap:.2rem}
+  .pnav .nx{text-align:left;border-top:1px solid var(--rule,#dbd8d2)}
+}
+
+  .wrap.opn{max-width:42rem}
+  .opn .ometa{font-size:.92rem;color:var(--ink-soft);margin:.3rem 0 0}
+  .opn .oget{display:flex;flex-wrap:wrap;gap:.4rem .6rem;margin:1.1rem 0 0;padding:0;list-style:none;font-size:.9rem}
+  .opn .oget a{display:inline-block;padding:.32rem .7rem;border:1px solid var(--rule);border-radius:4px;color:var(--ink);text-decoration:none;background:var(--panel)}
+  .opn .oget a:hover{border-color:var(--accent);color:var(--accent)}
+  .opn .osrc{font-size:.84rem;color:var(--faint);margin:.9rem 0 0;line-height:1.45}
+  .opn .osrc a{color:var(--link)}
+  .opn .otoc{margin:1.6rem 0 0;padding:.8rem 1rem;border:1px solid var(--rule);border-radius:4px;background:var(--panel);font-size:.95rem}
+  .opn .otoc ol{margin:0;padding:0;list-style:none}
+  .opn .otoc li{margin:.25rem 0}
+  .opn .otoc a{color:var(--ink);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.35)}
+  .opn .otoc a:hover{color:var(--accent)}
+  .opn section.op{margin-top:3rem;border-top:2px solid var(--ink);padding-top:1.1rem}
+  .opn section.op h2{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.5rem;line-height:1.2;margin:0 0 1rem;color:var(--ink)}
+  .opn section.op p{margin:0 0 .95rem;line-height:1.62;hyphens:auto;overflow-wrap:break-word}
+  .opn section.op p.byline{color:var(--ink-soft);font-style:italic}
+  .opn section.op p.sep{text-align:center;letter-spacing:.3em;color:var(--faint);margin:1.6rem 0}
+  .opn section.op h3.oh{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.12rem;text-align:center;margin:2rem 0 1rem;color:var(--ink)}
+  .opn section.op blockquote{margin:0 0 .95rem;padding:0 0 0 1.1rem;border-left:2px solid var(--rule);color:var(--ink-soft)}
+  .opn section.op blockquote p{margin-bottom:.6rem;font-size:.96em}
+  .opn .sc{font-variant-caps:small-caps;letter-spacing:.02em}
+  .opn .pg{font-size:.66em;color:var(--faint);vertical-align:.3em;margin:0 .3em 0 .1em;font-variant-numeric:tabular-nums;user-select:none;white-space:nowrap}
+  .opn .pg::before{content:'*'}
+  .opn sup.fnr{font-size:.68em;line-height:0;margin-left:.05em}
+  .opn sup.fnr a{color:var(--link);text-decoration:none;padding:0 .1em}
+  .opn aside.notes{margin-top:2rem;border-top:1px solid var(--rule);padding-top:.8rem;font-size:.88rem;color:var(--ink-soft)}
+  .opn aside.notes h3{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1rem;margin:0 0 .6rem;color:var(--ink)}
+  .opn aside.notes ol{margin:0;padding-left:1.7rem}
+  .opn aside.notes li{margin:0 0 .55rem}
+  .opn aside.notes li.sym{list-style:none;margin-left:-1.7rem}
+  .opn aside.notes li.sym .mk{margin-right:.3rem}
+  .opn aside.notes li.sym p{display:inline}
+  .opn aside.notes p{margin:0 0 .4rem;line-height:1.5}
+  .opn aside.notes a.back{color:var(--link);text-decoration:none;margin-left:.2rem}
+  .opn aside.notes li:target,.opn sup.fnr a:target,.opn .pg:target{background:rgba(156,14,58,.12);outline:.2rem solid rgba(156,14,58,.12)}
+  .opn section.op,.opn aside.notes li,.opn sup.fnr a{scroll-margin-top:1rem}
+  .opn section.op-syllabus p,.opn section.op-counsel p{font-size:.95em}
+  .opn section.op-counsel summary{cursor:pointer;font-family:'Fraunces',Georgia,serif;font-size:1.05rem;color:var(--ink-soft)}
+  .opn .osyl{font-size:.84rem;color:var(--faint);font-style:italic;margin:-.5rem 0 1rem}
+  .opn p.back{margin-top:3rem;font-size:.92rem}
+  @media print{.smast,.bcrumb,.opn .oget,.opn .otoc,.opn p.back{display:none}.opn section.op{break-before:page}}
+</style><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://supremecourt.report/"},{"@type":"ListItem","position":2,"name":"Opinions","item":"https://supremecourt.report/opinions/"},{"@type":"ListItem","position":3,"name":"Microsoft Corp. v. Baker"}]}</script><meta name='otv' content='p1'><link rel='alternate' type='text/markdown' href='/opinions/2016/15-457.md'><link rel='alternate' type='application/epub+zip' href='/opinions/2016/15-457.epub'></head><body><a class='skip' href='#main'>Skip to content</a><header><div class='smast-in'><a class='smast-wm' href='/'>Supreme Court <em>Report</em></a><nav aria-label='Sections'><ul class='snav'><li><a href='/dashboards/'>Docket</a></li><li><a href='/conferences/'>Conferences</a></li><li><a href='/relists/'>Relists</a></li><li><a href='/applications/'>Interim</a></li><li><a href='/arguments/'>Arguments</a></li><li><a href='/justices/' aria-current='page'>Justices</a></li><li><a href='/counsel/'>Counsel</a></li><li><a href='/funnel/'>Funnel</a></li><li><a href='/methods.html'>Model</a></li><li><a href='/about.html'>About</a></li></ul></nav></div><div class='smast-rule-w'><hr class='smast-rule'></div></header><main class='wrap opn' id='main' data-dkt='15-457'><nav class='bcrumb' aria-label='Breadcrumb'><ol><li><a href='/'>Home</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><a href='/opinions/'>Opinions</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><span aria-current='page'>Microsoft Corp. v. Baker</span></li></ol></nav><p class='kicker'>No. 15-457 · decided June 12, 2017 · 582 U. S. 23</p><h1 style='font-size:clamp(1.7rem,4.6vw,2.4rem);line-height:1.12'>Microsoft Corp. v. Baker</h1><p class='ometa'>No. 15-457. 1 separate writing.</p><ul class='oget'><li><a href='/opinions/2016/15-457.epub' download>EPUB</a></li><li><a href='/opinions/2016/15-457.md' download>Markdown</a></li><li><a href='https://www.supremecourt.gov/opinions/boundvolumes/582BV.pdf#page=60' rel='noopener'>The Court’s PDF</a></li><li><a href='/cases/15-457.html'>The docket</a></li></ul><p class='osrc'>Set from the PDF the Court published, which is the authoritative text. The small starred numbers are that PDF’s page numbers. A conversion can introduce errors; check a quotation against the <a href='https://www.supremecourt.gov/opinions/boundvolumes/582BV.pdf#page=60' rel='noopener'>original</a>.</p><nav class="otoc" aria-label="Contents"><ol>
+<li><a href="#s1">Syllabus</a></li>
+<li><a href="#s2">Counsel</a></li>
+<li><a href="#s3">Opinion of the Court</a></li>
+<li><a href="#s4">Justice Thomas, concurring in the judgment</a></li>
+</ol></nav>
+<section id="s1" class="op op-syllabus"><h2>Syllabus</h2><p class='osyl'>Prepared by the Reporter of Decisions for the convenience of the reader; it is no part of the opinion of the Court.</p>
+<p>Orders granting or denying class certification are inherently interlocutory, hence not immediately reviewable under 28 U. S. C. § 1291, which empowers federal courts of appeals to review only “final decisions of the district courts.” In <em>Coopers &amp; Lybrand</em> v. <em>Livesay</em>, 437 U. S. 463, a 1978 decision, this Court held that the death-knell doctrine—which rested on courts' recognition that a denial of class certification would sometimes end a lawsuit for all practical purposes—did not warrant mandatory appellate jurisdiction of certification orders. <em>Id.,</em> at 470, 477. Although the death-knell theory likely “enhanced the quality of justice afforded a few litigants,” it did so at a heavy cost to §1291's finality requirement. <em>Id.</em>, at 473. First, the potential for multiple interlocutory appeals inhered in the doctrine. See <em>id.,</em> at 474. Second, the death-knell theory forced appellate courts indiscriminately into the trial process, circumventing the two-tiered “screening procedure” Congress established for interlocutory appeals in 28 U. S. C. § 1292(b). 437 U. S., at 474, 476. Finally, the doctrine “operat[ed] only in favor of plaintiffs,” even though the class-certification question may be critically important to defendants as well. <em>Id.</em>, at 476.</p>
+<p>Two decades later, in 1998, after Congress amended the Rules Enabling Act, 28 U. S. C. § 2071 <em>et seq.</em>, to empower this Court to promulgate rules providing for interlocutory appeal of orders “not otherwise provided for [in § 1292],” § 1292(e), this Court approved Federal Rule of Civil Procedure 23(f). Rule 23(f) authorizes “permissive interlocutory appeal” from adverse class-certification orders in “the sole discretion of the court of appeals.” 28 U. S. C. App., p. 815. This discretionary arrangement was the product of careful calibration on the part of the rulemakers.</p>
+<p>Respondents, owners of Microsoft's videogame console, the Xbox 360, filed this putative class action alleging a design defect in the device. The District Court struck respondents' class allegations from the complaint, and the Court of Appeals denied respondents permission to appeal that order under Rule 23(f). Instead of pursuing their individual claims to final judgment on the merits, respondents stipulated to a voluntary dismissal of their claims with prejudice, but reserved the right to revive their claims should the Court of Appeals reverse the District <span class="pg" id="s1-p24" title="page 24 of the original">24</span>Court's certification denial. Respondents then appealed, challenging only the interlocutory order striking their class allegations. The Ninth Circuit held it had jurisdiction to entertain the appeal under § 1291. It then held that the District Court's rationale for striking respondents' class allegations was an impermissible one, but refused to opine on whether class certification was inappropriate for a different reason, leaving that question for the District Court on remand.</p>
+<p><em>Held</em>: Federal courts of appeals lack jurisdiction under § 1291 to review an order denying class certification (or, as here, an order striking class allegations) after the named plaintiffs have voluntarily dismissed their claims with prejudice. Pp. 36–42.</p>
+<p>(a) Section 1291's final-judgment rule preserves the proper balance between trial and appellate courts, minimizes the harassment and delay that would result from repeated interlocutory appeals, and promotes the efficient administration of justice. This Court has resisted efforts to stretch § 1291 to permit appeals of right that would erode the finality principle and disserve its objectives. See, <em>e. g.</em>, <em>Mohawk Industries, Inc.</em> v. <em>Carpenter</em>, 558 U. S. 100, 112. Attempts to secure appeal as of right from adverse class-certification orders fit that bill. Pp. 36–37.</p>
+<p>(b) Respondents' voluntary-dismissal tactic, even more than the death-knell theory, invites protracted litigation and piecemeal appeals. Under the death-knell doctrine, a court of appeals could decline to hear an appeal if it determined that the plaintiff “ha[d] adequate incentive to continue” despite the denial of class certification. <em>Coopers &amp; Lybrand</em>, 437 U. S., at 471. Under respondents' theory, however, the decision whether an immediate appeal will lie resides exclusively with the plaintiff, who need only dismiss her claims with prejudice in order to appeal the district court's order denying class certification. And she may exercise that option more than once, interrupting district court proceedings with an interlocutory appeal again, should the court deny class certification on a different ground.</p>
+<p>Respondents contend that their position promotes efficiency, observing that after dismissal with prejudice the case is over if the plaintiff loses on appeal. But plaintiffs with weak merits claims may readily assume that risk, mindful that class certification often leads to a hefty settlement. And the same argument was evident in the death-knell context, yet this Court determined that the potential for piecemeal litigation was “apparent and serious.” <em>Id</em>., at 474. That potential is greater still under respondents' theory, where plaintiffs alone determine whether and when to appeal an adverse certification ruling. Pp. 37–39.</p>
+<p>(c) Also like the death-knell doctrine, respondents' theory allows indiscriminate appellate review of interlocutory orders. Beyond disturbing<span class="pg" id="s1-p25" title="page 25 of the original">25</span> the “ `appropriate relationship between the respective courts,' ” <em>Coopers &amp; Lybrand</em>, 437 U. S., at 476, respondents' dismissal tactic undercuts Rule 23(f)'s discretionary regime. This consideration is “[o]f prime significance to the jurisdictional issue” in this case, <em>Swint</em> v. <em>Chambers County Comm'n</em>, 514 U. S. 35, 46, because Congress has established rulemaking as the means for determining when a decision is final for purposes of § 1291 and for providing for appellate review of interlocutory orders not covered by statute, see §§ 2072(c) and 1292(e).</p>
+<p>Respondents maintain that Rule 23(f) is irrelevant, for it concerns interlocutory orders, whereas this case involves an actual final judgment. Yet permitting respondents' voluntary-dismissal tactic to yield an appeal of right would seriously undermine Rule 23(f)'s careful calibration, as well as Congress' designation of rulemaking “as the preferred means for determining whether and when prejudgment orders should be immediately appealable,” <em>Mohawk Industries</em>, 558 U. S.<em>,</em> at 113. Plaintiffs in putative class actions cannot transform a tentative interlocutory order into a final judgment within the meaning of § 1291 simply by dismissing their claims with prejudice. Finality “is not a technical concept of temporal or physical termination.” <em>Cobbledick</em> v. <em>United States</em>, 309 U. S. 323, 326. It is one “means [geared to] achieving a healthy legal system,” <em>ibid.</em>, and its contours are determined accordingly. Pp. 39–41.</p>
+<p>(d) The one-sidedness of respondents' voluntary-dismissal device reinforces the conclusion that it does not support mandatory appellate jurisdiction of refusals to grant class certification. The tactic permits only plaintiffs, never defendants, to force an immediate appeal of an adverse certification ruling. Yet the “class issue” may be just as important to defendants, <em>Coopers &amp; Lybrand</em>, 437 U. S., at 476, for class certification may force a defendant to settle rather than run the risk of ruinous liability. Pp. 41–42.</p>
+<p>797 F. 3d 607, reversed and remanded.</p>
+<p>G<span class="sc">insburg, J.,</span> delivered the opinion of the Court, in which K<span class="sc">ennedy, Breyer,</span> S<span class="sc">otomayor,</span> and <span class="sc">Kagan</span>, <span class="sc">JJ.,</span> joined. <span class="sc">Thomas, J.,</span> filed an opinion concurring in the judgment, in which <span class="sc">Roberts, C. J.,</span> and <span class="sc">Alito, J.,</span> joined, <em>post</em>, p. 42. G<span class="sc">orsuch, J.,</span> took no part in the consideration or decision of the case.</p></section>
+<section id="s2" class="op op-counsel"><details><summary>Counsel</summary><p><em>Jeffrey L. Fisher</em> argued the cause for petitioner. With him on the briefs were <em>Stephen M. Rummage</em>, <em>Fred B. Burnside</em>, <em>Bradford L. Smith</em>, <em>Horacio E. Gutiérrez</em>, <em>David M</em>. <em>Howard</em>, <em>Timothy G</em>. <em>Fielden,</em> and <em>Charles B</em>. <em>Casper</em>.</p>
+<p><span class="pg" id="s2-p26" title="page 26 of the original">26</span><em>Peter K</em>. <em>Stris</em> argued the cause for respondents. With him on the brief were <em>Brendan S</em>. <em>Maher</em>, <em>Daniel L</em>. <em>Geyser</em>, <em>Douglas D</em>. <em>Geyser</em>, <em>Radha A. Pathak</em>, <em>Dana Berkowitz</em>, <em>Victor O'Connell</em>, <em>Shaun P</em>. <em>Martin</em>, <em>Robert L</em>. <em>Esensten</em>, <em>Jeffrey M</em>. <em>Ostrow</em>, <em>Jonathan M</em>. <em>Streisfeld</em>, <em>Darren T</em>. <em>Kaplan</em>, <em>Mark A</em>. <em>Griffin</em>, <em>Amy Williams-Derry</em>, <em>Benjamin Gould</em>, <em>Paul L</em>. <em>Stritmatter</em>, and <em>Bradley J</em>. <em>Moore</em>.*</p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li class="sym" value="0"><span class="mk">*</span><p>Briefs of <em>amici curiae</em> urging reversal were filed for the Chamber of Commerce of the United States of America et al. by <em>Mark W. Mosier</em>, <em>Kate Comerford Todd</em>, <em>Warren Postman</em>, and <em>Deborah R</em>. <em>White</em>; for Civil Procedure Scholars by <em>E</em>. <em>Joshua Rosenkranz</em>, <em>Robert M</em>. <em>Loeb</em>, and <em>Thomas M</em>. <em>Bondy</em>; for DRI–The Voice of the Defense Bar by <em>Mary Massaron</em>, <em>Laura E</em>. <em>Proctor</em>, and <em>Hilary A</em>. <em>Ballentine</em>; for the Pacific Legal Foundation by <em>Deborah J</em>. <em>La Fetra</em>; for the Product Liability Advisory Council, Inc., by <em>John H</em>. <em>Beisner</em> and <em>Geoffrey M</em>. <em>Wyatt</em>; and for the Washington Legal Foundation et al. by <em>Cory L</em>. <em>Andrews</em>.</p><p>Briefs of <em>amici curiae</em> urging affirmance were filed for Complex Litigation Law Professors by <em>Rishi Bhandari</em>; and for Public Citizen, Inc., by <em>Adina H</em>. <em>Rosenbaum</em> and <em>Scott L</em>. <em>Nelson.</em></p><p>A brief of <em>amicus curiae</em> was filed for Public Justice, P. C., by <em>Jason L</em>. <em>Lichtman</em>, <em>Jonathan D</em>. <em>Selbin</em>, <em>Andrew R</em>. <em>Kaufman</em>, <em>Leslie A</em>. <em>Brueckner</em>, and <em>F</em>. <em>Paul Bland</em>, <em>Jr</em>.</p></li>
+</ol></aside></details></section>
+<section id="s3" class="op op-court"><h2>Opinion of the Court</h2>
+<p class="byline">Justice Ginsburg delivered the opinion of the Court.</p>
+<p>This case concerns options open to plaintiffs, when denied class-action certification by a district court, to gain appellate review of the district court's order. Orders granting or denying class certification, this Court has held, are “inherently interlocutory,” <em>Coopers &amp; Lybrand</em> v. <em>Livesay</em>, 437 U. S. 463, 470 (1978), hence not immediately reviewable under 28 U. S. C. § 1291, which provides for appeals from “final decisions.” Pursuant to Federal Rule of Civil Procedure 23(f), promulgated in 1998, however, orders denying or granting class certification may be appealed immediately if the court of appeals so permits. Absent such permission, plaintiffs may pursue their individual claims on the merits to final judgment, at which point the denial of class-action certification becomes ripe for review.</p>
+<p><span class="pg" id="s3-p27" title="page 27 of the original">27</span>The plaintiffs in the instant case, respondents here, were denied Rule 23(f) permission to appeal the District Court's refusal to grant class certification. Instead of pursuing their individual claims to final judgment on the merits, respondents stipulated to a voluntary dismissal of their claims “with prejudice,” but reserved the right to revive their claims should the Court of Appeals reverse the District Court's certification denial.</p>
+<p>We hold that the voluntary dismissal essayed by respondents does not qualify as a “final decision” within the compass of § 1291. The tactic would undermine § 1291's firm finality principle, designed to guard against piecemeal appeals, and subvert the balanced solution Rule 23(f) put in place for immediate review of class-action orders.</p>
+<h3 class="oh">I</h3>
+<h3 class="oh">A</h3>
+<p>Under § 1291 of the Judicial Code, federal courts of appeals are empowered to review only “final decisions of the district courts.” 28 U. S. C. § 1291.<sup class="fnr"><a id="s3-r1" href="#s3-n1">1</a></sup>Two guides, our decision in <em>Coopers &amp; Lybrand</em> v. <em>Livesay</em>, 437 U. S. 463 (1978), and Federal Rule of Civil Procedure 23(f), control our application of that finality rule here.</p>
+<h3 class="oh">1</h3>
+<p>In <em>Coopers &amp; Lybrand</em>, this Court considered whether a plaintiff in a putative class action may, under certain circumstances, appeal as of right a district court order striking class allegations or denying a motion for class certification. We held unanimously that the so-called “death-knell” doctrine did not warrant mandatory appellate jurisdiction of such “inherently interlocutory” orders. 437 U. S., at 470, 477. Courts of Appeals employing the doctrine “regarded <span class="pg" id="s3-p28" title="page 28 of the original">28</span>[their] jurisdiction as depending on whether [rejection of class-action status] had sounded the `death knell' of the action.” <em>Id.</em>, at 466. These courts asked whether the refusal to certify a class would end a lawsuit for all practical purposes because the value of the named plaintiff's individual claims made it “economically imprudent to pursue his lawsuit to a final judgment and [only] then seek appellate review of [the] adverse class determination.” <em>Id.</em>, at 469–470. If, in the court of appeals' view, the order would terminate the litigation, the court deemed the order an appealable final decision under § 1291. <em>Id.,</em> at 471. If, instead, the court determined that the plaintiff had “adequate incentive to continue [litigating], the order [was] considered interlocutory.” <em>Ibid.</em> Consequently, immediate appeal would be denied.</p>
+<p>The death-knell theory likely “enhance[d] the quality of justice afforded a few litigants,” we recognized. <em>Id.</em>, at 473. But the theory did so, we observed, at a heavy cost to § 1291's finality requirement, and therefore to “the judicial system's overall capacity to administer justice.” <em>Id.,</em> at 473; see <em>id.</em>, at 471 (Section 1291 “evinces a legislative judgment that `restricting appellate review to final decisions prevents the debilitating effect on judicial administration caused by piecemeal appeal disposition.' ” (quoting <em>Eisen</em> v. <em>Carlisle &amp; Jacquelin</em>, 417 U. S. 156, 170 (1974); alterations and internal quotation marks omitted)). First, the potential for multiple interlocutory appeals inhered in the doctrine: When a ruling denying class certification on one ground was reversed on appeal, a death-knell plaintiff might again claim “entitle[ment] to an appeal as a matter of right” if, on remand, the district court denied class certification on a different ground. <em>Coopers &amp; Lybrand</em>, 437 U. S., at 474.</p>
+<p>Second, the doctrine forced appellate courts indiscriminately into the trial process, thereby defeating a “vital purpose of the final-judgment rule—that of maintaining the appropriate relationship between the respective courts.” <em>Id.</em>, at 476 (internal quotation marks omitted); see <em>id.</em>, at 474. <span class="pg" id="s3-p29" title="page 29 of the original">29</span>The Interlocutory Appeals Act of 1958, 28 U. S. C. § 1292(b), we explained, had created a two-tiered “screening procedure” to preserve this relationship and to restrict the availability of interlocutory review to “appropriate cases.” 437 U. S., at 474. For a party to obtain review under § 1292(b), the district court must certify that the interlocutory order “involves a controlling question of law as to which there is substantial ground for difference of opinion and that an immediate appeal from the order may materially advance the ultimate termination of the litigation.” The court of appeals may then, “in its discretion, permit an appeal to be taken from such order.” The death-knell doctrine, we stressed, “circumvent[ed] [§ 1292(b)'s] restrictions.” <em>Id.</em>, at 475.</p>
+<p>Finally, we observed, the doctrine was one sided: It “operate[d] only in favor of plaintiffs,” even though the class-certification question is often “of critical importance to defendants as well.” <em>Id.</em>, at 476. Just as a denial of class certification may sound the death knell for plaintiffs, “[c]ertification of a large class may so increase the defendant's potential damages liability and litigation costs that he may find it economically prudent to settle and to abandon a meritorious defense.” <em>Ibid.</em><sup class="fnr"><a id="s3-r2" href="#s3-n2">2</a></sup></p>
+<p>In view of these concerns, the Court reached this conclusion in <em>Coopers &amp; Lybrand</em>: “[T]he fact that an interlocutory order may induce a party to abandon his claim before final judgment is not a sufficient reason for considering [the order] a `final decision' within the meaning of § 1291.” <em>Id.</em>, at 477.<sup class="fnr"><a id="s3-r3" href="#s3-n3">3</a></sup></p>
+<h3 class="oh"><span class="pg" id="s3-p30" title="page 30 of the original">30</span>2</h3>
+<p>After <em>Coopers &amp; Lybrand</em>, a party seeking immediate review of an adverse class-certification order had no easy recourse. The Federal Rules of Civil Procedure did not then “contain any unique provisions governing appeals” in class actions, <em>id.</em>, at 470, so parties had to survive § 1292(b)'s two-level inspection, see <em>id.</em>, at 474–475, and n. 27; <em>supra</em>, at 29, or satisfy the extraordinary-circumstances test applicable to writs of mandamus, see <em>Will</em> v. <em>United States</em>, 389 U. S. 90, 108 (1967) (Black, J., concurring) (“[In] extraordinary circumstances, mandamus may be used to review an interlocutory order which is by no means `final' and thus appealable under federal statutes.”); cf. <em>Coopers &amp; Lybrand</em>, 437 U. S., at 466, n. 6.</p>
+<p>Another avenue opened in 1998 when this Court approved Federal Rule of Civil Procedure 23(f). Seen as a response to <em>Coopers &amp; Lybrand</em>, see, <em>e. g.</em>, <em>Blair</em> v. <em>Equifax Check Services, Inc.</em>, 181 F. 3d 832, 834 (CA7 1999); Solimine &amp; Hines, Deciding To Decide: Class Action Certification and Interlocutory Review by the United States Courts of Appeals Under Rule 23(f), 41 Wm. &amp; Mary L. Rev. 1531, 1568 (2000), Rule 23(f) authorizes “permissive interlocutory appeal” from adverse class-certification orders in the discretion of the court of appeals, Advisory Committee's 1998 Note on subd. (f) of Fed. Rule Civ. Proc. 23, 28 U. S. C. App., p. 815 (hereinafter Committee Note on Rule 23(f)). The Rule was adopted pursuant to § 1292(e), see Committee Note on Rule 23(f), which empowers this Court, in accordance with the Rules Enabling Act, 28 U. S. C. § 2072, to promulgate rules “to provide for an appeal of an interlocutory decision to the <span class="pg" id="s3-p31" title="page 31 of the original">31</span>courts of appeals that is not otherwise provided for [in §1292].” §1292(e).<sup class="fnr"><a id="s3-r4" href="#s3-n4">4</a></sup>Rule 23(f) reads:</p>
+<blockquote>
+<p>“A court of appeals may permit an appeal from an order granting or denying class-action certification . . . if a petition for permission to appeal is filed with the circuit clerk within 14 days after the order is entered. An appeal does not stay proceedings in the district court unless the district judge or the court of appeals so orders.” <sup class="fnr"><a id="s3-r5" href="#s3-n5">5</a></sup></p>
+</blockquote>
+<p class="cont">Courts of appeals wield “unfettered discretion” under Rule 23(f), akin to the discretion afforded circuit courts under §1292(b). Committee Note on Rule 23(f). But Rule 23(f) otherwise “departs from the § 1292(b) model,” for it requires neither district court certification nor adherence to § 1292(b)'s other “limiting requirements.” Committee Note on Rule 23(f); see <em>supra</em>, at 29.</p>
+<p>This resolution was the product of careful calibration. By “[r]emoving the power of the district court to defeat any opportunity to appeal,” the drafters of Rule 23(f) sought to provide “significantly greater protection against improvident certification decisions than § 1292(b)” alone offered. Judicial Conference of the United States, Advisory Committee on Civil Rules, Minutes of November 9–10, 1995. But the drafters declined to go further and provide for appeal as a <span class="pg" id="s3-p32" title="page 32 of the original">32</span>matter of right. “[A] right to appeal would lead to abuse” on the part of plaintiffs and defendants alike, the drafters apprehended, “increas[ing] delay and expense” over “routine class certification decisions” unworthy of immediate appeal. <em>Ibid.</em> (internal quotation marks omitted). See also Brief for Civil Procedure Scholars as <em>Amici Curiae</em> 6–7, 11–14 (“Rule 23(f) was crafted to balance the benefits of immediate review against the costs of interlocutory appeals.” (capitalization omitted)). Rule 23(f ) therefore commits the decision whether to permit interlocutory appeal from an adverse certification decision to “the sole discretion of the court of appeals.” Committee Note on Rule 23(f); see Federal Judicial Center, T. Willging, L. Hooper, &amp; R. Niemic, Empirical Study of Class Actions in Four Federal District Courts: Final Report to the Advisory Committee on Civil Rules 86 (1996) (hereinafter Federal Judicial Center Study) (“The discretionary nature of the proposed rule . . . is designed to be a guard against abuse of the appellate process.”).<sup class="fnr"><a id="s3-r6" href="#s3-n6">6</a></sup></p>
+<p>The Rules Committee offered some guidance to courts of appeals considering whether to authorize appeal under Rule 23(f). “Permission is most likely to be granted,” the Committee Note states, “when the certification decision turns on a novel or unsettled question of law,” or when “the decision on certification is likely dispositive of the litigation,” as in a death-knell or reverse death-knell situation. Committee Note on Rule 23(f); see <em>supra</em>, at 29, and n. 2. Even so, the Rule allows courts of appeals to grant or deny review “on <span class="pg" id="s3-p33" title="page 33 of the original">33</span>the basis of <em>any</em> consideration.” Committee Note on Rule 23(f) (emphasis added).</p>
+<h3 class="oh">B</h3>
+<p>With this background in mind, we turn to the putative class action underlying our jurisdictional inquiry. The lawsuit is not the first of its kind. A few years after petitioner Microsoft Corporation released its popular videogame console, the Xbox 360, a group of Xbox owners brought a putative class action against Microsoft based on an alleged design defect in the device. See <em>In re Microsoft Xbox 360 Scratched Disc Litigation</em>, 2009 WL 10219350, *1 (WD Wash., Oct. 5, 2009). The named plaintiffs, advised by some of the same counsel representing respondents in this case, asserted that the Xbox scratched (and thus destroyed) game discs during normal game-playing conditions. See <em>ibid.</em> The District Court denied class certification, holding that individual issues of damages and causation predominated over common issues. See <em>id.</em>, at *6–*7. The plaintiffs petitioned the Ninth Circuit under Rule 23(f) for leave to appeal the class-certification denial, but the Ninth Circuit denied the request. See 851 F. Supp. 2d 1274, 1276 (WD Wash. 2012). Thereafter, the <em>Scratched Disc</em> plaintiffs settled their claims individually. 851 F. Supp. 2d, at 1276.</p>
+<p>Two years later, in 2011, respondents filed this lawsuit in the same Federal District Court. They proposed a nationwide class of Xbox owners based on the same design defect alleged in <em>Scratched Disc Litigation</em>. See 851 F. Supp. 2d, at 1275–1276. The class-certification analysis in the earlier case did not control, respondents urged, because an intervening Ninth Circuit decision constituted a change in law sufficient to overcome the deference ordinarily due, as a matter of comity, the previous certification denial. <em>Id.,</em> at 1277–1278. The District Court disagreed. Concluding that the relevant Circuit decision had not undermined <em>Scratched Disc Litigation</em>'s causation analysis, the court determined that comity required adherence to the earlier certification denial <span class="pg" id="s3-p34" title="page 34 of the original">34</span>and therefore struck respondents' class allegations. 851 F. Supp. 2d, at 1280–1281.</p>
+<p>Invoking Rule 23(f), respondents petitioned the Ninth Circuit for permission to appeal that ruling.<sup class="fnr"><a id="s3-r7" href="#s3-n7">7</a></sup>Interlocutory review was appropriate in this case, they argued, because the District Court's order striking the class allegations created a “death-knell situation”: The “small size of [their] claims ma[de] it economically irrational to bear the cost of litigating th[e] case to final judgment,” they asserted, so the order would “effectively kil[l] the case.” Pet. for Permission To Appeal Under Rule 23(f) in No. 12–80085 (CA9), App. 118. The Ninth Circuit denied the petition. Order in No. 12–80085 (CA9, June 12, 2012), App. 121.</p>
+<p>Respondents then had several options. They could have settled their individual claims like their <em>Scratched Disc</em> predecessors or petitioned the District Court, pursuant to § 1292(b), to certify the interlocutory order for appeal, see <em>supra</em>, at 29. They could also have proceeded to litigate their case, mindful that the District Court could later reverse course and certify the proposed class. See Fed. Rule Civ. Proc. 23(c)(1)(C) (“An order that grants or denies class certification may be altered or amended before final judgment.”); <em>Coopers &amp; Lybrand</em>, 437 U. S., at 469 (a certification order “is subject to revision in the District Court”). Or, in the event the District Court did not change course, respondents could have litigated the case to final judgment and then appealed. <em>Ibid.</em> (“an order denying class certification is subject to effective review after final judgment at the behest of the named plaintiff”).</p>
+<p><span class="pg" id="s3-p35" title="page 35 of the original">35</span>Instead of taking one of those routes, respondents moved to dismiss their case with prejudice. “After the [c]ourt has entered a final order and judgment,” respondents explained, they would “appeal the . . . order striking [their] class allegations.” Motion To Dismiss in No. 11–cv–00722 (WD Wash., Sept. 25, 2012), App. 122–123. In respondents' view, the voluntary dismissal enabled them “to pursue their individual claims or to pursue relief solely on behalf of the class, should the certification decision be reversed.” Brief for Respondents 15. Microsoft stipulated to the dismissal, but maintained that respondents would have “no right to appeal” the order striking the class allegations after thus dismissing their claims. App. to Pet. for Cert. 35a–36a. The District Court granted the stipulated motion to dismiss, <em>id.</em>, at 39a, and respondents appealed. They challenged only the District Court's interlocutory order striking their class allegations, not the dismissal order which they invited. See Brief for Plaintiffs-Appellants in No. 12–35946 (CA9).</p>
+<p>The Ninth Circuit held it had jurisdiction to entertain the appeal under § 1291. 797 F. 3d 607, 612 (2015). The Court of Appeals rejected Microsoft's argument that respondents' voluntary dismissal, explicitly engineered to appeal the District Court's interlocutory order striking the class allegations, impermissibly circumvented Rule 23(f). <em>Ibid.</em>, n. 3. Because the stipulated dismissal “did not involve a settlement,” the court reasoned, it was “ `a sufficiently adverse— and thus appealable—final decision' ” under § 1291. <em>Id.</em>, at 612 (quoting <em>Berger</em> v. <em>Home Depot USA, Inc.</em>, 741 F. 3d 1061, 1065 (CA9 2014)); see <em>id.</em>, at 1065 (relying on 7B C. Wright, A. Miller, &amp; M. Kane, Federal Practice and Procedure § 1802, pp. 297–298 (3d ed. 2005), for the proposition “that finality for appeal purposes can be achieved in this manner”).</p>
+<p>Satisfied of its jurisdiction, the Ninth Circuit held that the District Court had abused its discretion in striking respondents' class allegations. 797 F. 3d, at 615. The Court of Appeals “express[ed] no opinion on whether” respondents <span class="pg" id="s3-p36" title="page 36 of the original">36</span>“should prevail on a motion for class certification,” <em>ibid.</em>, concluding only that the District Court had misread recent Circuit precedent, see <em>id.</em>, at 613–615, and therefore misapplied the comity doctrine, <em>id.</em>, at 615. Whether a class should be certified, the court said, was a question for remand, “better addressed if and when [respondents] move[d] for class certification.” <em>Ibid.</em></p>
+<p>We granted certiorari to resolve a Circuit conflict over this question: Do federal courts of appeals have jurisdiction under § 1291 and Article III of the Constitution to review an order denying class certification (or, as here, an order striking class allegations) after the named plaintiffs have voluntarily dismissed their claims with prejudice? <sup class="fnr"><a id="s3-r8" href="#s3-n8">8</a></sup>577 U. S. 1099 (2016). Because we hold that § 1291 does not countenance jurisdiction by these means, we do not reach the constitutional question, and therefore do not address the arguments and analysis discussed in the opinion concurring in the judgment.</p>
+<h3 class="oh">II</h3>
+<p>“From the very foundation of our judicial system,” the general rule has been that “the whole case and every matter in controversy in it [must be] decided in a single appeal.” <em>McLish</em> v. <em>Roff</em>, 141 U. S. 661, 665–666 (1891). This final-judgment rule, now codified in § 1291, preserves the proper balance between trial and appellate courts, minimizes the harassment and delay that would result from repeated interlocutory appeals, and promotes the efficient administration <span class="pg" id="s3-p37" title="page 37 of the original">37</span>of justice. See <em>Firestone Tire &amp; Rubber Co.</em> v. <em>Risjord</em>, 449 U. S. 368, 374 (1981).</p>
+<p>Construing § 1291 in line with these reasons for the rule, we have recognized that “finality is to be given a practical rather than a technical construction.” <em>Eisen</em>, 417 U. S., at 171 (internal quotation marks omitted). Repeatedly we have resisted efforts to stretch § 1291 to permit appeals of right that would erode the finality principle and disserve its objectives. See, <em>e. g.</em>, <em>Mohawk Industries, Inc.</em> v. <em>Carpenter</em>, 558 U. S. 100, 112 (2009); <em>Digital Equipment Corp.</em> v. <em>Desktop Direct, Inc.</em>, 511 U. S. 863, 878–879, 884 (1994); <em>Cobbledick</em> v. <em>United States</em>, 309 U. S. 323, 324–325, 330 (1940) (construing § 1291's predecessor statute). Attempts to secure appeal as of right from adverse class-certification orders fit that bill. See <em>supra</em>, at 27–29. Because respondents' dismissal device subverts the final-judgment rule and the process Congress has established for refining that rule and for determining when nonfinal orders may be immediately appealed, see §§ 2072(c) and 1292(e), the tactic does not give rise to a “final decisio[n]” under § 1291.</p>
+<h3 class="oh">A</h3>
+<p>Respondents' voluntary-dismissal tactic, even more than the death-knell theory, invites protracted litigation and piecemeal appeals. Under the death-knell doctrine, a court of appeals could decline to hear an appeal if it determined that the plaintiff “ha[d] adequate incentive to continue” despite the denial of class certification. <em>Coopers &amp; Lybrand</em>, 437 U. S., at 471. Appellate courts lack even that authority under respondents' theory. Instead, the decision whether an immediate appeal will lie resides exclusively with the plaintiff; she need only dismiss her claims with prejudice, whereupon she may appeal the district court's order denying class certification. And, as under the death-knell doctrine, she may exercise that option more than once, stopping and starting the district court proceedings with repeated interlocutory<span class="pg" id="s3-p38" title="page 38 of the original">38</span> appeals. See <em>id.</em>, at 474 (death-knell doctrine offered “no assurance that the trial process [would] not again be disrupted by interlocutory review”).</p>
+<p>Consider this case. The Ninth Circuit reviewed and rejected only the District Court's application of comity as a basis for striking respondents' class allegations. 797 F. 3d, at 615. The appeals court declined to reach Microsoft's other arguments against class certification. See <em>ibid.</em> It remained open to the District Court, in the Court of Appeals' view, to deny class certification on a different ground, and respondents would be free, under their theory, to force appellate review of any new order denying certification by again dismissing their claims. In designing Rule 23(f)'s provision for discretionary review, the Rules Committee sought to prevent such disruption and delay. See <em>supra</em>, at 31–34.<sup class="fnr"><a id="s3-r9" href="#s3-n9">9</a></sup></p>
+<p>Respondents nevertheless maintain that their position promotes efficiency, observing that after dismissal with prejudice the case is over if the plaintiff loses on appeal. Brief for Respondents 38–39. Their way, they say, means prompt resolution of many lawsuits and infrequent use of the voluntary-dismissal tactic, for “most appeals lose” and few plaintiffs will “take th[e] risk” of losing their claims for good. <em>Id.</em>, at 35–36. Respondents overlook the prospect that plaintiffs with weak merits claims may readily assume that risk, mindful that class certification often leads to a hefty settlement. See <em>Coopers &amp; Lybrand</em>, 437 U. S., at 476 (defendant facing the specter of classwide liability may “abandon a meritorious defense”). Indeed, the same argument— that the case was over if the plaintiff lost on appeal—was <span class="pg" id="s3-p39" title="page 39 of the original">39</span>evident in the death-knell context, yet this Court determined that the potential for piecemeal litigation was “apparent and serious.” <em>Id.</em>, at 474.<sup class="fnr"><a id="s3-r10" href="#s3-n10">10</a></sup>And that potential is greater still under respondents' theory, where plaintiffs alone determine whether and when to appeal an adverse certification ruling.</p>
+<h3 class="oh">B</h3>
+<p>Another vice respondents' theory shares with the death-knell doctrine, both allow indiscriminate appellate review of interlocutory orders. <em>Ibid</em>. Beyond disturbing the “appropriate relationship between the respective courts,” <em>id.,</em> at 476 (internal quotation marks omitted), respondents' dismissal tactic undercuts Rule 23(f)'s discretionary regime. This consideration is “[o]f prime significance to the jurisdictional issue before us.” <em>Swint</em> v. <em>Chambers County Comm'n</em>, 514 U. S. 35, 46 (1995) (pendent appellate jurisdiction in collateral-order context would undermine § 1292(b)); see <em>supra</em>, at 28–29 (death-knell doctrine impermissibly circumvented § 1292(b)).</p>
+<p>In the Rules Enabling Act, as earlier recounted, Congress authorized this Court to determine when a decision is final for purposes of § 1291, and to provide for appellate review of interlocutory orders not covered by statute. See <em>supra</em>, at 30–32, and n. 4. These changes are to come from rulemaking, however, not judicial decisions in particular controversies or inventive litigation ploys. See <em>Swint</em>, 514 U. S., at 48. In this case, the rulemaking process has dealt with the matter, yielding a “measured, practical solutio[n]” to the questions <span class="pg" id="s3-p40" title="page 40 of the original">40</span>whether and when adverse certification orders may be immediately appealed. <em>Mohawk Industries</em>, 558 U. S., at 114. Over years the Advisory Committee on the Federal Rules of Civil Procedure studied the data on class-certification rulings and appeals, weighed various proposals, received public comment, and refined the draft rule and Committee Note. See Solimine &amp; Hines, 41 Wm. &amp; Mary L. Rev., at 1564–1566, and nn. 178–189; Federal Judicial Center Study 80–87. Rule 23(f) reflects the rulemakers' informed assessment, permitting, as explained <em>supra</em>, at 30–32, interlocutory appeals of adverse certification orders, whether sought by plaintiffs or defendants, solely in the discretion of the courts of appeals. That assessment “warrants the Judiciary's full respect.” <em>Swint</em>, 514 U. S., at 48; see <em>Mohawk Industries</em>, 558 U. S., at 118–119 (<span class="sc">Thomas</span>, J., concurring in part and concurring in judgment).</p>
+<p>Here, however, the Ninth Circuit, after denying respondents permission to appeal under Rule 23(f), nevertheless assumed jurisdiction of their appeal challenging only the District Court's order striking the class allegations. See <em>supra</em>, at 34–35. According to respondents, even plaintiffs who altogether bypass Rule 23(f) may force an appeal by dismissing their claims with prejudice. See Tr. of Oral Arg. 34. Rule 23(f), respondents say, is irrelevant, for it “address[es] <em>interlocutory</em> orders,” whereas this case involves “an <em>actual</em> final judgment.” Brief for Respondents 26, 28.</p>
+<p>We are not persuaded. If respondents' voluntary-dismissal tactic could yield an appeal of right, Rule 23(f)'s careful calibration—as well as Congress' designation of rulemaking “as the preferred means for determining whether and when prejudgment orders should be immediately appealable,” <em>Mohawk Industries</em>, 558 U. S., at 113 (majority opinion)—“would be severely undermined,” <em>Swint</em>, 514 U. S., at 47. Respondents, after all, “[sought] review of only the [inherently interlocutory] orde[r]” striking their class allegations; they “d[id] not complain of the `final' orde[r] that dismissed<span class="pg" id="s3-p41" title="page 41 of the original">41</span> their cas[e].” <em>Camesi</em> v. <em>University of Pittsburgh Medical Center</em>, 729 F. 3d 239, 244 (CA3 2013).</p>
+<p>Plaintiffs in putative class actions cannot transform a tentative interlocutory order, see <em>supra</em>, at 34–35, into a final judgment within the meaning of § 1291 simply by dismissing their claims with prejudice—subject, no less, to the right to “revive” those claims if the denial of class certification is reversed on appeal, see Brief for Respondents 45; Tr. of Oral Arg. 31 (assertion by respondents' counsel that, if the appeal succeeds, “everything would spring back to life” on remand). Were respondents' reasoning embraced by this Court, “Congress['] final decision rule would end up a pretty puny one.” <em>Digital Equipment Corp.</em>, 511 U. S., at 872. Contrary to respondents' argument, § 1291's firm final-judgment rule is not satisfied whenever a litigant persuades a district court to issue an order purporting to end the litigation. Finality, we have long cautioned, “is not a technical concept of temporal or physical termination.” <em>Cobbledick</em>, 309 U. S., at 326. It is one “means [geared to] achieving a healthy legal system,” <em>ibid.</em>, and its contours are determined accordingly, see <em>supra</em>, at 37.<sup class="fnr"><a id="s3-r11" href="#s3-n11">11</a></sup></p>
+<h3 class="oh">C</h3>
+<p>The one-sidedness of respondents' voluntary-dismissal device “reinforce[s] our conclusion that [it] does not support appellate jurisdiction of prejudgment orders denying class certification.” <em>Coopers &amp; Lybrand</em>, 437 U. S., at 476; see <em>supra</em>, at 29. Respondents' theory permits plaintiffs only, never defendants, to force an immediate appeal of an adverse certification ruling. Yet the “class issue” may be just as important to defendants, <em>Coopers &amp; Lybrand</em>, 437 U. S., at 476, for “[a]n order granting certification . . . may force a defendant<span class="pg" id="s3-p42" title="page 42 of the original">42</span> to settle rather than . . . run the risk of potentially ruinous liability,” Committee Note on Rule 23(f); see <em>supra</em>, at 29, and n. 2 (defendants may face a “reverse death knell”). Accordingly, we recognized in <em>Coopers &amp; Lybrand</em> that “[w]hatever similarities or differences there are between plaintiffs and defendants in this context involve questions of policy for Congress.” 437 U. S., at 476. Congress chose the rulemaking process to settle the matter, and the rulemakers did so by adopting Rule 23(f)'s evenhanded prescription. It is not the prerogative of litigants or federal courts to disturb that settlement. See <em>supra</em>, at 39–40.</p>
+<p class="sep">* * *</p>
+<p>For the reasons stated, the judgment of the Court of Appeals for the Ninth Circuit is reversed, and the case is remanded for further proceedings consistent with this opinion.</p>
+<p><em>It is so ordered.</em></p>
+<p><span class="sc">Justice Gorsuch</span> took no part in the consideration or decision of this case.</p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li id="s3-n1" value="1"><p>Section 1292, which authorizes review of certain interlocutory decisions, does not include among those decisions class-action certifications. See 28 U. S. C. § 1292. <a class="back" href="#s3-r1" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n2" value="2"><p>This scenario has been called a “reverse death knell,” Sullivan &amp; Trueblood, Rule 23(f): A Note on Law and Discretion in the Courts of Appeals, 246 F. R. D. 277, 280 (2008), or “inverse death knell,” 7B C. Wright, A. Miller, &amp; M. Kane, Federal Practice and Procedure § 1802, p. 299 (3d ed. 2005), for it too ends the litigation as a practical matter. <a class="back" href="#s3-r2" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n3" value="3"><p><em>Coopers &amp; Lybrand</em> v. <em>Livesay</em>, 437 U. S. 463 (1978), also rejected the collateral-order doctrine as a basis for invoking § 1291 to appeal an order denying class certification. The collateral-order doctrine applies only to a “small class” of decisions that are conclusive, that resolve important issues “completely separate from the merits,” and that are “effectively unreviewable on appeal from a final judgment.” <em>Id</em>., at 468. An order concerning class certification, we explained, fails each of these criteria. See <em>id.</em>, at 469. <a class="back" href="#s3-r3" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n4" value="4"><p>Congress amended the Rules Enabling Act, 28 U. S. C. § 2071 <em>et seq.</em>, in 1990 to authorize this Court to prescribe rules “defin[ing] when a ruling of a district court is final for the purposes of appeal under section 1291.” § 2072(c). Congress enacted § 1292(e) two years later, and that same year the Advisory Committee on the Federal Rules of Civil Procedure began to review proposals for what would become Rule 23(f). See Solimine &amp; Hines, Deciding To Decide: Class Action Certification and Interlocutory Review by the United States Courts of Appeals Under Rule 23(f), 41 Wm. &amp; Mary L. Rev. 1531, 1563–1564, 1566, n. 189 (2000). <a class="back" href="#s3-r4" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n5" value="5"><p>Rule 23(f) has changed little since its adoption in 1998. See Advisory Committee's 2007 and 2009 Notes on subd. (f) of Fed. Rule Civ. Proc. 23, 28 U. S. C. App., p. 820 (deleting a redundancy and increasing the time to petition for permission to appeal from 10 to 14 days, respectively). <a class="back" href="#s3-r5" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n6" value="6"><p>Legislation striking this balance was also introduced in Congress. See H. R. 660, 105th Cong., 1st Sess. (1997). The bill, which would have amended § 1292(b) to provide for interlocutory appeal of adverse class determinations, likewise committed the decision whether an immediate appeal would lie exclusively to the courts of appeals: “The court of appeals may, in its discretion, permit the appeal to be taken from such determination.” <em>Ibid.</em> Upon learning that “proposed Rule 23(f) [was] well advanced,” the bill's sponsor, Representative Charles Canady, joined forces with the Rules Committee. See Judicial Conference of the United States, Advisory Committee on Civil Rules, Minutes of May 1–2, 1997. <a class="back" href="#s3-r6" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n7" value="7"><p>An order striking class allegations is “functional[ly] equivalent” to an order denying class certification and therefore appealable under Rule 23(f). <em>Scott</em> v. <em>Family Dollar Stores, Inc.</em>, 733 F. 3d 105, 110–111, n. 2 (CA4 2013) (quoting <em>In re Bemis Co.</em>, 279 F. 3d 419, 421 (CA7 2002)). See also <em>United Airlines, Inc.</em> v. <em>McDonald</em>, 432 U. S. 385, 388, and n. 4 (1977) (equating order striking class allegations with “a denial of class certification”). <a class="back" href="#s3-r7" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n8" value="8"><p>Compare <em>Berger</em> v. <em>Home Depot USA, Inc.</em>, 741 F. 3d 1061, 1065 (CA9 2014) (assuming jurisdiction under these circumstances); <em>Gary Plastic Packaging Corp.</em> v. <em>Merrill Lynch</em>, 903 F. 2d 176, 179 (CA2 1990) (assuming jurisdiction after dismissal for failure to prosecute), with <em>Camesi</em> v. <em>University of Pittsburgh Medical Center</em>, 729 F. 3d 239, 245–247 (CA3 2013) (no jurisdiction under § 1291 or Article III in this situation); <em>Rhodes</em> v. <em>E. I. du Pont de Nemours &amp; Co.</em>, 636 F. 3d 88, 100 (CA4 2011) (no jurisdiction under Article III). <a class="back" href="#s3-r8" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n9" value="9"><p>Rule 23(f) avoids delay not only by limiting class-certification appeals to those permitted by the federal courts of appeals, but also by specifying that “[a]n appeal does not stay proceedings in the district court unless the district judge or the court of appeals so orders.” See <em>Blair</em> v. <em>Equifax Check Services, Inc.</em>, 181 F. 3d 832, 835 (CA7 1999) (“Rule 23(f) is drafted to avoid delay.”). Respondents' dismissal tactic, by contrast, halts district court proceedings whenever invoked. <a class="back" href="#s3-r9" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n10" value="10"><p>The very premise of the death-knell doctrine was that plaintiffs “would not pursue their claims individually.” <em>Coopers &amp; Lybrand</em>, 437 U. S., at 466. Having pressed such an argument for the benefit of immediate review, a death-knell plaintiff who lost on appeal would encounter the general proposition, long laid down, that “where a party assumes a certain position in a legal proceeding, and succeeds in maintaining that position, he may not thereafter, simply because his interests have changed, assume a contrary position.” <em>Davis</em> v. <em>Wakelee</em>, 156 U. S. 680, 689 (1895). <a class="back" href="#s3-r10" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n11" value="11"><p>Respondents also invoke our decision in <em>United States</em> v. <em>Procter &amp; Gamble Co.</em>, 356 U. S. 677 (1958), but that case—a civil antitrust enforcement action—involved neither class-action certification nor the sort of dismissal tactic at issue here. See <em>id.,</em> at 681 (the Government “did not consent to a judgment against [it]” (internal quotation marks omitted)). <a class="back" href="#s3-r11" aria-label="Back to the text">↩</a></p></li>
+</ol></aside></section>
+<section id="s4" class="op op-judgment"><h2>Justice Thomas, concurring in the judgment</h2>
+<p class="byline">Justice Thomas, with whom The Chief Justice and Justice Alito join, concurring in the judgment.</p>
+<p>I agree with the Court that the Court of Appeals lacked jurisdiction over respondents' appeal, but I would ground that conclusion in Article III of the Constitution instead of 28 U. S. C. § 1291. I therefore concur only in the judgment.</p>
+<p>The plaintiffs in this case, respondents here, sued Microsoft, petitioner here, to recover damages after they purchased allegedly faulty video game consoles that Microsoft manufactured. The plaintiffs brought claims for themselves (individual claims) and on behalf of a putative class of similarly situated consumers (class allegations). Early in the litigation, the District Court granted Microsoft's motion to strike the class allegations, effectively declining to certify <span class="pg" id="s4-p43" title="page 43 of the original">43</span>the class. The Court of Appeals denied permission to appeal that decision under Federal Rule of Civil Procedure 23(f), which requires a party to obtain permission from the court of appeals before appealing a decision regarding class certification.</p>
+<p>The plaintiffs decided not to pursue their individual claims, instead stipulating to a voluntary dismissal of those claims with prejudice. They then filed a notice of appeal from the voluntary dismissal order. On appeal, they did not ask the Court of Appeals to reverse the District Court's dismissal of their individual claims. They instead asked the Court of Appeals to reverse the order striking their class allegations. The question presented in this case is whether the Court of Appeals had jurisdiction to hear the appeal under both § 1291, which grants appellate jurisdiction to the courts of appeals over “final decisions” by district courts, and under Article III of the Constitution, which limits the jurisdiction of federal courts to “cases” and “controversies.”</p>
+<p>The Court today holds that the Court of Appeals lacked jurisdiction under § 1291 because the voluntary dismissal with prejudice did not result in a “final decision.” I disagree with that holding. A decision is “final” for purposes of § 1291 if it “ends the litigation on the merits and leaves nothing for the court to do but execute the judgment.” <em>Catlin</em> v. <em>United States</em>, 324 U. S. 229, 233 (1945). The order here dismissed all of the plaintiffs' claims with prejudice and left nothing for the District Court to do but execute the judgment. See App. to Pet. for Cert. 39a (“direct[ing] the Clerk to enter Judgment . . . and close th[e] case”).</p>
+<p>The Court reaches the opposite conclusion, relying not on the text of § 1291 or this Court's precedents about finality, but on Rule 23(f). Rule 23(f) makes interlocutory orders regarding class certification appealable only with the permission of the court of appeals. The Court concludes that the plaintiffs' “voluntary dismissal” “does not qualify as a `final decision' ” because allowing the plaintiffs' appeal would “subvert<span class="pg" id="s4-p44" title="page 44 of the original">44</span> the balanced solution Rule 23(f) put in place for immediate review of class-action orders.” <em>Ante,</em> at 27.</p>
+<p>The Court's conclusion does not follow from its reasoning. Whether a dismissal with prejudice is “final” depends on the meaning of §1291, not Rule 23(f). Rule 23(f) says nothing about finality, much less about the finality of an order dismissing individual claims with prejudice. I agree with the Court that the plaintiffs are trying to avoid the requirements for interlocutory appeals under Rule 23(f), but our view of the balance struck in that Rule should not warp our understanding of finality under § 1291.</p>
+<p>Although I disagree with the Court's reading of § 1291, I agree that the plaintiffs could not appeal in these circumstances. In my view, they could not appeal because the Court of Appeals lacked jurisdiction under Article III of the Constitution. The “judicial Power” of the United States extends only to “Cases” and “Controversies.” Art. III, § 2. This requirement limits the jurisdiction of the federal courts to issues presented “in an adversary context,” <em>Flast</em> v. <em>Cohen</em>, 392 U. S. 83, 95 (1968), in which the parties maintain an “actual” and “concrete” interest, <em>Campbell-Ewald Co.</em> v. <em>Gomez</em>, 577 U. S. 153, 160–161 (2016) (internal quotation marks omitted). Put another way, “Article III denies federal courts the power to decide questions that cannot affect the rights of litigants in the case before them, and confines them to resolving real and substantial controversies admitting of specific relief through a decree of a conclusive character.” <em>Lewis</em> v. <em>Continental Bank Corp</em>., 494 U. S. 472, 477 (1990) (internal quotation marks, citation, and alteration omitted).</p>
+<p>The plaintiffs' appeal from their voluntary dismissal did not satisfy this jurisdictional requirement. When the plaintiffs asked the District Court to dismiss their claims, they consented to the judgment against them and disavowed any right to relief from Microsoft. The parties thus were no longer adverse to each other on any claims, and the Court of <span class="pg" id="s4-p45" title="page 45 of the original">45</span>Appeals could not “affect the[ir] rights” in any legally cognizable manner. <em>Ibid</em>. Indeed, it has long been the rule that a party may not appeal from the voluntary dismissal of a claim, since the party consented to the judgment against it. See, <em>e. g., Evans</em> v. <em>Phillips</em>, 4 Wheat. 73 (1819); <em>Lord</em> v. <em>Veazie</em>, 8 How. 251, 255–256 (1850); <em>United States</em> v. <em>Babbitt</em>, 104 U. S. 767 (1882); <em>Deakins</em> v. <em>Monaghan</em>, 484 U. S. 193, 199–200 (1988).</p>
+<p>The plaintiffs contend that their interest in reversing the order striking their class allegations is sufficient to satisfy Article III's case-or-controversy requirement, but they misunderstand the status of putative class actions. Class allegations, without an underlying individual claim, do not give rise to a “case” or “controversy.” Those allegations are simply the means of invoking a procedural mechanism that enables a plaintiff to litigate his individual claims on behalf of a class. See <em>Shady Grove Orthopedic Associates, P. A.</em> v. <em>Allstate Ins. Co.</em>, 559 U. S. 393, 408 (2010) (plurality opinion). Thus, because the Court of Appeals lacked Article III jurisdiction to adjudicate the individual claims, it could not hear the plaintiffs' appeal of the order striking their class allegations.</p>
+<p>The plaintiffs' representation that they hope to “revive their [individual] claims should they prevail” on the appeal of the order striking their class allegations does not undermine this conclusion. Brief for Respondents 45. This Court has interpreted Article III “to demand that an actual controversy be extant at all stages of review, not merely at the time the complaint is filed.” <em>Campbell Ewald Co.</em>, <em>supra</em>, at 160 (internal quotation marks and alterations omitted). And in any event, a favorable ruling on class certification would not “revive” their individual claims: A court's decision about class allegations “in no way touch[es] the merits” of those claims. <em>Gardner</em> v. <em>Westinghouse Broadcasting Co</em>., 437 U. S. 478, 482 (1978) (internal quotation marks omitted).</p>
+<p class="sep">* * *</p>
+<p>Because I would hold that the Court of Appeals lacked jurisdiction under Article III to consider respondents' appeal, I concur in the judgment.</p></section><p class='back'><a href='/opinions/'>&larr; All opinions</a> · <a href='/justices/ot2016.html'>The Justices, October Term 2016 &rarr;</a></p></main></body>
+</html>
+

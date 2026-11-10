@@ -1,0 +1,879 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/terms/" xmlns:opds="http://opds-spec.org/2010/catalog">
+<id>https://supremecourt.report/opinions/opds/2016.xml</id>
+<title>Opinions, October Term 2016</title>
+<updated>2017-06-26T00:00:00Z</updated>
+<author><name>Supreme Court Report</name><uri>https://supremecourt.report/</uri></author>
+<link rel="self" href="https://supremecourt.report/opinions/opds/2016.xml" type="application/atom+xml;profile=opds-catalog;kind=acquisition"/>
+<link rel="start" href="https://supremecourt.report/opinions/opds.xml" type="application/atom+xml;profile=opds-catalog;kind=navigation"/>
+<link rel="up" href="https://supremecourt.report/opinions/opds.xml" type="application/atom+xml;profile=opds-catalog;kind=navigation"/>
+<entry>
+<id>urn:supremecourt-report:opinion:2016:16-6219</id>
+<title>Davila v. Davis</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2017-06-26T00:00:00Z</updated>
+<published>2017-06-26T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2017-06-26</dc:issued>
+<category term="ot2016" label="October Term 2016"/>
+<summary type="text">No. 16-6219 · decided June 26, 2017 · 582 U. S. 521 · 8,042 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/16-6219.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/16-6219.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2016/16-6219.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2016:16-373</id>
+<title>System v. Anz Securities, Inc.</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2017-06-26T00:00:00Z</updated>
+<published>2017-06-26T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2017-06-26</dc:issued>
+<category term="ot2016" label="October Term 2016"/>
+<summary type="text">No. 16-373 · decided June 26, 2017 · 582 U. S. 497 · 7,765 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/16-373.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/16-373.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2016/16-373.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2016:15-577</id>
+<title>No. 15-577</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2017-06-26T00:00:00Z</updated>
+<published>2017-06-26T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2017-06-26</dc:issued>
+<category term="ot2016" label="October Term 2016"/>
+<summary type="text">No. 15-577 · decided June 26, 2017 · 582 U. S. 449 · 13,648 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-577.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-577.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2016/15-577.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2016:15-118</id>
+<title>Hernandez v. Mesa</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2017-06-26T00:00:00Z</updated>
+<published>2017-06-26T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2017-06-26</dc:issued>
+<category term="ot2016" label="October Term 2016"/>
+<summary type="text">No. 15-118 · decided June 26, 2017 · 582 U. S. 548 · 4,201 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-118.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-118.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2016/15-118.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2016:16-399</id>
+<title>Perry v. Merit Systems Protection Bd.</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2017-06-23T00:00:00Z</updated>
+<published>2017-06-23T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2017-06-23</dc:issued>
+<category term="ot2016" label="October Term 2016"/>
+<summary type="text">No. 16-399 · decided June 23, 2017 · 582 U. S. 420 · 8,486 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/16-399.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/16-399.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2016/16-399.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2016:16-327</id>
+<title>Jae Lee v. United States</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2017-06-23T00:00:00Z</updated>
+<published>2017-06-23T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2017-06-23</dc:issued>
+<category term="ot2016" label="October Term 2016"/>
+<summary type="text">No. 16-327 · decided June 23, 2017 · 582 U. S. 357 · 7,731 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/16-327.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/16-327.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2016/16-327.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2016:15-214</id>
+<title>Murr v. Wisconsin</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2017-06-23T00:00:00Z</updated>
+<published>2017-06-23T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2017-06-23</dc:issued>
+<category term="ot2016" label="October Term 2016"/>
+<summary type="text">No. 15-214 · decided June 23, 2017 · 582 U. S. 383 · 11,948 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-214.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-214.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2016/15-214.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2016:16-309</id>
+<title>Maslenjak v. United States</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2017-06-22T00:00:00Z</updated>
+<published>2017-06-22T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2017-06-22</dc:issued>
+<category term="ot2016" label="October Term 2016"/>
+<summary type="text">No. 16-309 · decided June 22, 2017 · 582 U. S. 335 · 6,469 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/16-309.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/16-309.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2016/16-309.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2016:16-240</id>
+<title>Weaver v. Massachusetts</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2017-06-22T00:00:00Z</updated>
+<published>2017-06-22T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2017-06-22</dc:issued>
+<category term="ot2016" label="October Term 2016"/>
+<summary type="text">No. 16-240 · decided June 22, 2017 · 582 U. S. 286 · 8,622 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/16-240.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/16-240.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2016/16-240.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2016:15-1503</id>
+<title>Turner v. United States</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2017-06-22T00:00:00Z</updated>
+<published>2017-06-22T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2017-06-22</dc:issued>
+<category term="ot2016" label="October Term 2016"/>
+<summary type="text">No. 15-1503 · decided June 22, 2017 · 582 U. S. 313 · 6,564 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-1503.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-1503.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2016/15-1503.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2016:16-5294</id>
+<title>No. 16-5294</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2017-06-19T00:00:00Z</updated>
+<published>2017-06-19T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2017-06-19</dc:issued>
+<category term="ot2016" label="October Term 2016"/>
+<summary type="text">No. 16-5294 · decided June 19, 2017 · 582 U. S. 183 · 10,657 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/16-5294.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/16-5294.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2016/16-5294.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2016:16-466</id>
+<title>Bristol-Myers Squibb Co. v. Superior</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2017-06-19T00:00:00Z</updated>
+<published>2017-06-19T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2017-06-19</dc:issued>
+<category term="ot2016" label="October Term 2016"/>
+<summary type="text">No. 16-466 · decided June 19, 2017 · 582 U. S. 255 · 7,210 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/16-466.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/16-466.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2016/16-466.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2016:15-1358</id>
+<title>Ziglar v. Abbasi</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2017-06-19T00:00:00Z</updated>
+<published>2017-06-19T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2017-06-19</dc:issued>
+<category term="ot2016" label="October Term 2016"/>
+<summary type="text">No. 15-1358 · decided June 19, 2017 · 582 U. S. 120 · 20,672 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-1358.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-1358.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2016/15-1358.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2016:15-1293</id>
+<title>Matal v. Tam</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2017-06-19T00:00:00Z</updated>
+<published>2017-06-19T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2017-06-19</dc:issued>
+<category term="ot2016" label="October Term 2016"/>
+<summary type="text">No. 15-1293 · decided June 19, 2017 · 582 U. S. 218 · 11,027 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-1293.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-1293.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2016/15-1293.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2016:15-1194</id>
+<title>Packingham v. North Carolina</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2017-06-19T00:00:00Z</updated>
+<published>2017-06-19T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2017-06-19</dc:issued>
+<category term="ot2016" label="October Term 2016"/>
+<summary type="text">No. 15-1194 · decided June 19, 2017 · 582 U. S. 98 · 6,365 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-1194.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-1194.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2016/15-1194.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2016:16-349</id>
+<title>Henson v. Santander Consumer Usa Inc.</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2017-06-12T00:00:00Z</updated>
+<published>2017-06-12T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2017-06-12</dc:issued>
+<category term="ot2016" label="October Term 2016"/>
+<summary type="text">No. 16-349 · decided June 12, 2017 · 582 U. S. 79 · 4,011 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/16-349.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/16-349.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2016/16-349.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2016:15-457</id>
+<title>Microsoft Corp. v. Baker</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2017-06-12T00:00:00Z</updated>
+<published>2017-06-12T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2017-06-12</dc:issued>
+<category term="ot2016" label="October Term 2016"/>
+<summary type="text">No. 15-457 · decided June 12, 2017 · 582 U. S. 23 · 6,639 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-457.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-457.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2016/15-457.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2016:15-1191</id>
+<title>Sessions v. Morales-Santana</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2017-06-12T00:00:00Z</updated>
+<published>2017-06-12T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2017-06-12</dc:issued>
+<category term="ot2016" label="October Term 2016"/>
+<summary type="text">No. 15-1191 · decided June 12, 2017 · 582 U. S. 47 · 8,120 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-1191.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-1191.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2016/15-1191.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2016:15-1039</id>
+<title>Sandoz Inc. v. Amgen Inc.</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2017-06-12T00:00:00Z</updated>
+<published>2017-06-12T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2017-06-12</dc:issued>
+<category term="ot2016" label="October Term 2016"/>
+<summary type="text">No. 15-1039 · decided June 12, 2017 · 582 U. S. 1 · 6,400 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-1039.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-1039.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2016/15-1039.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2016:16-605</id>
+<title>Town Of Chester v. Laroe Estates, Inc.</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2017-06-05T00:00:00Z</updated>
+<published>2017-06-05T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2017-06-05</dc:issued>
+<category term="ot2016" label="October Term 2016"/>
+<summary type="text">No. 16-605 · decided June 5, 2017 · 581 U. S. 433 · 2,976 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/16-605.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/16-605.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2016/16-605.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2016:16-529</id>
+<title>Kokesh v. Sec</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2017-06-05T00:00:00Z</updated>
+<published>2017-06-05T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2017-06-05</dc:issued>
+<category term="ot2016" label="October Term 2016"/>
+<summary type="text">No. 16-529 · decided June 5, 2017 · 581 U. S. 455 · 3,898 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/16-529.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/16-529.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2016/16-529.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2016:16-258</id>
+<title>Advocate Health Care Network v. Stapleton</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2017-06-05T00:00:00Z</updated>
+<published>2017-06-05T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2017-06-05</dc:issued>
+<category term="ot2016" label="October Term 2016"/>
+<summary type="text">No. 16-258 · decided June 5, 2017 · 581 U. S. 468 · 4,935 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/16-258.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/16-258.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2016/16-258.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2016:16-142</id>
+<title>Honeycutt v. United States</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2017-06-05T00:00:00Z</updated>
+<published>2017-06-05T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2017-06-05</dc:issued>
+<category term="ot2016" label="October Term 2016"/>
+<summary type="text">No. 16-142 · decided June 5, 2017 · 581 U. S. 443 · 3,603 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/16-142.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/16-142.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2016/16-142.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2016:16-54</id>
+<title>Esquivel-Quintana v. Sessions</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2017-05-30T00:00:00Z</updated>
+<published>2017-05-30T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2017-05-30</dc:issued>
+<category term="ot2016" label="October Term 2016"/>
+<summary type="text">No. 16-54 · decided May 30, 2017 · 581 U. S. 385 · 4,740 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/16-54.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/16-54.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2016/16-54.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2016:16-405</id>
+<title>Bnsf R. Co. v. Tyrrell</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2017-05-30T00:00:00Z</updated>
+<published>2017-05-30T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2017-05-30</dc:issued>
+<category term="ot2016" label="October Term 2016"/>
+<summary type="text">No. 16-405 · decided May 30, 2017 · 581 U. S. 402 · 5,275 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/16-405.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/16-405.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2016/16-405.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2016:16-369</id>
+<title>County Of Los Angeles v. Mendez</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2017-05-30T00:00:00Z</updated>
+<published>2017-05-30T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2017-05-30</dc:issued>
+<category term="ot2016" label="October Term 2016"/>
+<summary type="text">No. 16-369 · decided May 30, 2017 · 581 U. S. 420 · 4,015 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/16-369.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/16-369.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2016/16-369.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2016:15-1189</id>
+<title>Impression Products, Inc. v. Lexmark Int'l, Inc.</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2017-05-30T00:00:00Z</updated>
+<published>2017-05-30T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2017-05-30</dc:issued>
+<category term="ot2016" label="October Term 2016"/>
+<summary type="text">No. 15-1189 · decided May 30, 2017 · 581 U. S. 360 · 8,190 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-1189.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-1189.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2016/15-1189.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2016:16-341</id>
+<title>Tc Heartland Llc v. Kraft Foods Group</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2017-05-22T00:00:00Z</updated>
+<published>2017-05-22T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2017-05-22</dc:issued>
+<category term="ot2016" label="October Term 2016"/>
+<summary type="text">No. 16-341 · decided May 22, 2017 · 581 U. S. 258 · 3,713 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/16-341.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/16-341.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2016/16-341.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2016:16-254</id>
+<title>Water Splash, Inc. v. Menon</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2017-05-22T00:00:00Z</updated>
+<published>2017-05-22T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2017-05-22</dc:issued>
+<category term="ot2016" label="October Term 2016"/>
+<summary type="text">No. 16-254 · decided May 22, 2017 · 581 U. S. 271 · 3,813 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/16-254.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/16-254.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2016/16-254.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2016:15-1262</id>
+<title>Cooper v. Harris</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2017-05-22T00:00:00Z</updated>
+<published>2017-05-22T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2017-05-22</dc:issued>
+<category term="ot2016" label="October Term 2016"/>
+<summary type="text">No. 15-1262 · decided May 22, 2017 · 581 U. S. 285 · 20,542 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-1262.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-1262.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2016/15-1262.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2016:16-348</id>
+<title>Midland Funding, Llc v. Johnson</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2017-05-15T00:00:00Z</updated>
+<published>2017-05-15T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2017-05-15</dc:issued>
+<category term="ot2016" label="October Term 2016"/>
+<summary type="text">No. 16-348 · decided May 15, 2017 · 581 U. S. 224 · 6,935 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/16-348.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/16-348.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2016/16-348.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2016:16-32</id>
+<title>Kindred Nursing Centers L. P. v. Clark</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2017-05-15T00:00:00Z</updated>
+<published>2017-05-15T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2017-05-15</dc:issued>
+<category term="ot2016" label="October Term 2016"/>
+<summary type="text">No. 16-32 · decided May 15, 2017 · 581 U. S. 246 · 3,540 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/16-32.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/16-32.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2016/16-32.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2016:15-1031</id>
+<title>Howell v. Howell</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2017-05-15T00:00:00Z</updated>
+<published>2017-05-15T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2017-05-15</dc:issued>
+<category term="ot2016" label="October Term 2016"/>
+<summary type="text">No. 15-1031 · decided May 15, 2017 · 581 U. S. 214 · 3,177 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-1031.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-1031.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2016/15-1031.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2016:15-423</id>
+<title>No. 15-423</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2017-05-01T00:00:00Z</updated>
+<published>2017-05-01T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2017-05-01</dc:issued>
+<category term="ot2016" label="October Term 2016"/>
+<summary type="text">No. 15-423 · decided May 1, 2017 · 581 U. S. 170 · 6,124 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-423.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-423.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2016/15-423.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2016:15-1111</id>
+<title>Bank Of America Corp. v. Miami</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2017-05-01T00:00:00Z</updated>
+<published>2017-05-01T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2017-05-01</dc:issued>
+<category term="ot2016" label="October Term 2016"/>
+<summary type="text">No. 15-1111 · decided May 1, 2017 · 581 U. S. 189 · 7,670 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-1111.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-1111.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2016/15-1111.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2016:15-1500</id>
+<title>Lewis v. Clarke</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2017-04-25T00:00:00Z</updated>
+<published>2017-04-25T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2017-04-25</dc:issued>
+<category term="ot2016" label="October Term 2016"/>
+<summary type="text">No. 15-1500 · decided April 25, 2017 · 581 U. S. 155 · 4,146 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-1500.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-1500.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2016/15-1500.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2016:15-7250</id>
+<title>Manrique v. United States</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2017-04-19T00:00:00Z</updated>
+<published>2017-04-19T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2017-04-19</dc:issued>
+<category term="ot2016" label="October Term 2016"/>
+<summary type="text">No. 15-7250 · decided April 19, 2017 · 581 U. S. 116 · 3,807 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-7250.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-7250.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2016/15-7250.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2016:15-1256</id>
+<title>Nelson v. Colorado</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2017-04-19T00:00:00Z</updated>
+<published>2017-04-19T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2017-04-19</dc:issued>
+<category term="ot2016" label="October Term 2016"/>
+<summary type="text">No. 15-1256 · decided April 19, 2017 · 581 U. S. 128 · 7,266 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-1256.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-1256.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2016/15-1256.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2016:16-149</id>
+<title>Coventry Health Care Of Mo., Inc. v. Nevils</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2017-04-18T00:00:00Z</updated>
+<published>2017-04-18T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2017-04-18</dc:issued>
+<category term="ot2016" label="October Term 2016"/>
+<summary type="text">No. 16-149 · decided April 18, 2017 · 581 U. S. 87 · 3,763 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/16-149.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/16-149.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2016/16-149.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2016:15-1406</id>
+<title>Goodyear Tire &amp; Rubber Co. v. Haeger</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2017-04-18T00:00:00Z</updated>
+<published>2017-04-18T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2017-04-18</dc:issued>
+<category term="ot2016" label="October Term 2016"/>
+<summary type="text">No. 15-1406 · decided April 18, 2017 · 581 U. S. 101 · 4,705 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-1406.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-1406.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2016/15-1406.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2016:15-9260</id>
+<title>Dean v. United States</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2017-04-03T00:00:00Z</updated>
+<published>2017-04-03T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2017-04-03</dc:issued>
+<category term="ot2016" label="October Term 2016"/>
+<summary type="text">No. 15-9260 · decided April 3, 2017 · 581 U. S. 62 · 3,197 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-9260.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-9260.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2016/15-9260.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2016:15-1248</id>
+<title>No. 15-1248</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2017-04-03T00:00:00Z</updated>
+<published>2017-04-03T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2017-04-03</dc:issued>
+<category term="ot2016" label="October Term 2016"/>
+<summary type="text">No. 15-1248 · decided April 3, 2017 · 581 U. S. 72 · 4,574 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-1248.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-1248.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2016/15-1248.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2016:15-1391</id>
+<title>Expressions Hair Design v. Schneiderman</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2017-03-29T00:00:00Z</updated>
+<published>2017-03-29T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2017-03-29</dc:issued>
+<category term="ot2016" label="October Term 2016"/>
+<summary type="text">No. 15-1391 · decided March 29, 2017 · 581 U. S. 37 · 6,895 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-1391.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-1391.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2016/15-1391.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2016:15-797</id>
+<title>Moore v. Texas</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2017-03-28T00:00:00Z</updated>
+<published>2017-03-28T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2017-03-28</dc:issued>
+<category term="ot2016" label="October Term 2016"/>
+<summary type="text">No. 15-797 · decided March 28, 2017 · 581 U. S. 1 · 10,136 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-797.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-797.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2016/15-797.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2016:15-866</id>
+<title>Star Athletica, L. L. C. v. Varsity Brands, Inc.</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2017-03-22T00:00:00Z</updated>
+<published>2017-03-22T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2017-03-22</dc:issued>
+<category term="ot2016" label="October Term 2016"/>
+<summary type="text">No. 15-866 · decided March 22, 2017 · 580 U. S. 405 · 10,051 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-866.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-866.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2016/15-866.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2016:15-827</id>
+<title>No. 15-827</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2017-03-22T00:00:00Z</updated>
+<published>2017-03-22T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2017-03-22</dc:issued>
+<category term="ot2016" label="October Term 2016"/>
+<summary type="text">No. 15-827 · decided March 22, 2017 · 580 U. S. 386 · 5,913 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-827.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-827.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2016/15-827.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2016:15-649</id>
+<title>Czyzewski v. Jevic Holding Corp.</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2017-03-22T00:00:00Z</updated>
+<published>2017-03-22T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2017-03-22</dc:issued>
+<category term="ot2016" label="October Term 2016"/>
+<summary type="text">No. 15-649 · decided March 22, 2017 · 580 U. S. 451 · 6,977 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-649.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-649.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2016/15-649.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2016:15-927</id>
+<title>Sca Hygiene Products Aktiebolag v. First</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2017-03-21T00:00:00Z</updated>
+<published>2017-03-21T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2017-03-21</dc:issued>
+<category term="ot2016" label="October Term 2016"/>
+<summary type="text">No. 15-927 · decided March 21, 2017 · 580 U. S. 328 · 9,078 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-927.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-927.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2016/15-927.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2016:15-1251</id>
+<title>Nlrb v. Sw General, Inc.</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2017-03-21T00:00:00Z</updated>
+<published>2017-03-21T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2017-03-21</dc:issued>
+<category term="ot2016" label="October Term 2016"/>
+<summary type="text">No. 15-1251 · decided March 21, 2017 · 580 U. S. 288 · 12,296 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-1251.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-1251.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2016/15-1251.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2016:14-9496</id>
+<title>Manuel v. Joliet</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2017-03-21T00:00:00Z</updated>
+<published>2017-03-21T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2017-03-21</dc:issued>
+<category term="ot2016" label="October Term 2016"/>
+<summary type="text">No. 14-9496 · decided March 21, 2017 · 580 U. S. 357 · 7,579 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/14-9496.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/14-9496.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2016/14-9496.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2016:15-8544</id>
+<title>Beckles v. United States</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2017-03-06T00:00:00Z</updated>
+<published>2017-03-06T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2017-03-06</dc:issued>
+<category term="ot2016" label="October Term 2016"/>
+<summary type="text">No. 15-8544 · decided March 6, 2017 · 580 U. S. 256 · 8,424 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-8544.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-8544.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2016/15-8544.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2016:15-606</id>
+<title>Pena-Rodriguez v. Colorado</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2017-03-06T00:00:00Z</updated>
+<published>2017-03-06T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2017-03-06</dc:issued>
+<category term="ot2016" label="October Term 2016"/>
+<summary type="text">No. 15-606 · decided March 6, 2017 · 580 U. S. 206 · 14,905 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-606.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-606.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2016/15-606.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2016:15-680</id>
+<title>Bethune-Hill v. Virginia State Bd. Of Elections</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2017-03-01T00:00:00Z</updated>
+<published>2017-03-01T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2017-03-01</dc:issued>
+<category term="ot2016" label="October Term 2016"/>
+<summary type="text">No. 15-680 · decided March 1, 2017 · 580 U. S. 178 · 8,671 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-680.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-680.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2016/15-680.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2016:15-8049</id>
+<title>Buck v. Davis</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2017-02-22T00:00:00Z</updated>
+<published>2017-02-22T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2017-02-22</dc:issued>
+<category term="ot2016" label="October Term 2016"/>
+<summary type="text">No. 15-8049 · decided February 22, 2017 · 580 U. S. 100 · 12,709 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-8049.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-8049.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2016/15-8049.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2016:15-497</id>
+<title>Fry v. Napoleon Community Schools</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2017-02-22T00:00:00Z</updated>
+<published>2017-02-22T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2017-02-22</dc:issued>
+<category term="ot2016" label="October Term 2016"/>
+<summary type="text">No. 15-497 · decided February 22, 2017 · 580 U. S. 154 · 7,171 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-497.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-497.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2016/15-497.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2016:14-1538</id>
+<title>Life Technologies Corp. v. Promega Corp.</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2017-02-22T00:00:00Z</updated>
+<published>2017-02-22T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2017-02-22</dc:issued>
+<category term="ot2016" label="October Term 2016"/>
+<summary type="text">No. 14-1538 · decided February 22, 2017 · 580 U. S. 140 · 3,685 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/14-1538.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/14-1538.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2016/14-1538.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2016:14-1055</id>
+<title>Lightfoot v. Cendant Mortgage Corp.</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2017-01-18T00:00:00Z</updated>
+<published>2017-01-18T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2017-01-18</dc:issued>
+<category term="ot2016" label="October Term 2016"/>
+<summary type="text">No. 14-1055 · decided January 18, 2017 · 580 U. S. 82 · 5,538 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/14-1055.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/14-1055.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2016/14-1055.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2016:15-5991</id>
+<title>Shaw v. United States</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2016-12-12T00:00:00Z</updated>
+<published>2016-12-12T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2016-12-12</dc:issued>
+<category term="ot2016" label="October Term 2016"/>
+<summary type="text">No. 15-5991 · decided December 12, 2016 · 580 U. S. 63 · 3,447 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-5991.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-5991.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2016/15-5991.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2016:15-777</id>
+<title>Samsung Electronics Co. v. Apple Inc.</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2016-12-06T00:00:00Z</updated>
+<published>2016-12-06T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2016-12-06</dc:issued>
+<category term="ot2016" label="October Term 2016"/>
+<summary type="text">No. 15-777 · decided December 6, 2016 · 580 U. S. 53 · 2,826 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-777.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-777.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2016/15-777.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2016:15-628</id>
+<title>Salman v. United States</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2016-12-06T00:00:00Z</updated>
+<published>2016-12-06T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2016-12-06</dc:issued>
+<category term="ot2016" label="October Term 2016"/>
+<summary type="text">No. 15-628 · decided December 6, 2016 · 580 U. S. 39 · 4,205 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-628.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-628.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2016/15-628.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2016:15-513</id>
+<title>State Farm Fire &amp; Casualty Co. v. United States</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2016-12-06T00:00:00Z</updated>
+<published>2016-12-06T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2016-12-06</dc:issued>
+<category term="ot2016" label="October Term 2016"/>
+<summary type="text">No. 15-513 · decided December 6, 2016 · 580 U. S. 26 · 3,894 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-513.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-513.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2016/15-513.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2016:15-537</id>
+<title>Bravo-Fernandez v. United States</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2016-11-29T00:00:00Z</updated>
+<published>2016-11-29T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2016-11-29</dc:issued>
+<category term="ot2016" label="October Term 2016"/>
+<summary type="text">No. 15-537 · decided November 29, 2016 · 580 U. S. 5 · 6,411 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-537.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2016/15-537.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2016/15-537.html" type="text/html"/>
+</entry>
+</feed>
+

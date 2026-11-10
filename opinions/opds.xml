@@ -74,8 +74,15 @@
 <id>https://supremecourt.report/opinions/opds/2017.xml</id>
 <title>October Term 2017</title>
 <updated>2018-06-27T00:00:00Z</updated>
-<content type="text">38 opinions</content>
+<content type="text">61 opinions</content>
 <link rel="subsection" href="https://supremecourt.report/opinions/opds/2017.xml" type="application/atom+xml;profile=opds-catalog;kind=acquisition"/>
+</entry>
+<entry>
+<id>https://supremecourt.report/opinions/opds/2016.xml</id>
+<title>October Term 2016</title>
+<updated>2017-06-26T00:00:00Z</updated>
+<content type="text">62 opinions</content>
+<link rel="subsection" href="https://supremecourt.report/opinions/opds/2016.xml" type="application/atom+xml;profile=opds-catalog;kind=acquisition"/>
 </entry>
 </feed>
 

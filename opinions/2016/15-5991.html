@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script async src='/analytics.js'></script><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate icon" href="/favicon.ico" sizes="any"><link rel="alternate" type="application/atom+xml" title="Supreme Court Report" href="/feed.xml"><link rel="alternate" type="application/atom+xml" title="Certiorari grants" href="/grants.xml"><title>Shaw v. United States — Opinion — Supreme Court Report</title><meta name="description" content="The opinion in Shaw v. United States (No. 15-5991), decided December 12, 2016: the full text with its footnotes, as a page, a Markdown file and an EPUB."><link rel="canonical" href="https://supremecourt.report/opinions/2016/15-5991.html"><meta property="og:site_name" content="Supreme Court Report"><meta property="og:type" content="article"><meta property="og:title" content="Shaw v. United States — Opinion — Supreme Court Report"><meta property="og:description" content="The opinion in Shaw v. United States (No. 15-5991), decided December 12, 2016: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta property="og:url" content="https://supremecourt.report/opinions/2016/15-5991.html"><meta property="og:image" content="https://supremecourt.report/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Supreme Court Report - docket analytics for the Supreme Court of the United States"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Shaw v. United States — Opinion — Supreme Court Report"><meta name="twitter:description" content="The opinion in Shaw v. United States (No. 15-5991), decided December 12, 2016: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta name="twitter:image" content="https://supremecourt.report/og.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap"><style>
+  :root{--paper:#fdfcfa;--panel:#ffffff;--ink:#1a1a1e;--ink-soft:#484850;--faint:#63636b;--accent:#9c0e3a;--link:#9c0e3a;--rule:#dbd8d2;--nav-max:60rem}
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{font-family:'Newsreader',Georgia,serif;font-size:19px;line-height:1.6;
+    color:var(--ink);background:var(--paper);margin:0;font-feature-settings:'onum' 1}
+  body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
+    opacity:.5;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");}
+  .wrap{max-width:40rem;margin:0 auto;padding:3rem 1.4rem 4rem}
+  .kicker{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 1rem}
+  h1{font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:clamp(2.4rem,7vw,3.6rem);line-height:1;letter-spacing:-.015em;
+    margin:0 0 1rem;color:var(--ink)}
+  h1 em{font-style:italic;font-weight:500;color:var(--accent)}
+  .dek{font-size:1.15rem;line-height:1.5;color:var(--ink-soft);font-style:italic;
+    margin:0 0 1.4rem}
+  .brule{border:0;height:0;border-top:2px solid var(--ink);margin:1.4rem 0 .3rem;
+    position:relative}
+  .brule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+    border-top:1px solid var(--rule)}
+  ul.idx{list-style:none;padding:0;margin:1.6rem 0}
+  ul.idx li{border-bottom:1px solid var(--rule)}
+  /* Whole row is one block-level link: a large, reliable tap target on mobile. */
+  ul.idx a.row{display:flex;justify-content:space-between;align-items:baseline;
+    gap:1rem;padding:.9rem .4rem;text-decoration:none;border:0;color:inherit}
+  ul.idx a.row:hover{background:rgba(156,14,58,.05)}
+  ul.idx .d{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.16rem;
+    color:var(--accent);line-height:1.25}
+  ul.idx a.row:hover .d{text-decoration:underline;text-underline-offset:3px}
+  ul.idx .count{color:var(--faint);font-size:.9rem;font-style:italic;white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  /* A long note (an order list's "3 GVRs / 230 denied / 4 habeas denied /
+     ...", items separated by middots) cannot sit on one line: nowrap made it
+     claim the row and
+     squeezed the title into a column three words wide, and on a phone it ran off
+     the screen. Such a row opts in (meta_wrap): the note wraps, only between its
+     items, and takes at most ~45% of the row, so the title always has the
+     larger share. Under 34rem it drops beneath the title at full width. */
+  /* ("long", not "wrap": .wrap is the page container and its padding.) */
+  ul.idx .count.long{white-space:normal;text-align:right;max-width:45%;line-height:1.45}
+  ul.idx .count.long .seg{white-space:nowrap}
+  @media(max-width:34rem){
+    ul.idx a.row.longmeta{flex-wrap:wrap;row-gap:.2rem}
+    ul.idx .count.long{max-width:none;flex-basis:100%;text-align:left}
+  }
+  /* Compact horizontal strip of the most recent pages beneath a category row. */
+  ul.idx .recent{display:flex;flex-wrap:wrap;align-items:baseline;
+    gap:.3rem .85rem;padding:0 .4rem 1rem;margin-top:-.35rem}
+  ul.idx .recent .rlabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  ul.idx .recent a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--ink-soft);text-decoration:none;font-variant-numeric:tabular-nums;
+    border-bottom:1px solid var(--rule);padding-bottom:1px}
+  ul.idx .recent a:hover{color:var(--accent);border-color:var(--accent)}
+  /* Optional panel beneath the section index (home page: most-read cases). */
+  .panel{margin:2.4rem 0 0}
+  .panel h2{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 .25rem}
+  .panel .pnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:0 0 .5rem}
+  /* "Live now" (live_argument_panel, /live.js): hidden unless the Court is
+     streaming an argument. One red dot, the same --accent as the headings, so
+     the live state is a mark and not a new colour. */
+  .live h2 .ldot{display:inline-block;width:.5rem;height:.5rem;border-radius:50%;
+    background:var(--accent);margin-right:.5rem;vertical-align:.08rem;
+    animation:lpulse 2s ease-in-out infinite}
+  @keyframes lpulse{50%{opacity:.25}}
+  @media (prefers-reduced-motion:reduce){.live h2 .ldot{animation:none}}
+  .lplay{display:flex;flex-wrap:wrap;gap:.6rem .9rem;align-items:center;margin:.8rem 0 .3rem}
+  .lplay button{font:600 .9rem/1 'Newsreader',Georgia,serif;letter-spacing:.04em;
+    color:var(--paper);background:var(--accent);border:0;border-radius:2px;
+    padding:.6rem 1.05rem;cursor:pointer}
+  .lplay button:disabled{opacity:.6;cursor:progress}
+  .lplay button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  /* The player takes a row of its own and may never outgrow the column. A flex
+     item's min-width is auto, which for a replaced element is the browser's own
+     controls' width -- wider than the column on a phone, where mobile Safari
+     and Chrome draw larger controls than the desktop. */
+  .lplay audio{display:block;flex:1 1 100%;width:100%;min-width:0;max-width:100%;
+    box-sizing:border-box;margin:0}
+  .lplay .lstat{font-size:.85rem;color:var(--faint)}
+  /* --- Likeliest grants -----------------------------------------------------
+     Its own rows rather than ol.mostread's: this panel carries a question under
+     the caption, which that list has no room for, and a percentage that has to
+     read as the row's subject rather than as a trailing note.
+     The window toggle is two real radio inputs plus :has() -- no JavaScript.
+     Both windows are rendered at build time and one is hidden, which is the only
+     way a static site can offer the choice: there is no server to ask for the
+     other one. Real radios, not styled buttons, so the control is reachable by
+     keyboard and announced as a choice. */
+  .lead{margin:0 0 1.9rem}
+  .lead h2{margin-bottom:.35rem}
+  .lead .pnote{margin:0 0 .7rem}
+  .wr{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+  .win{display:inline-flex;gap:.25rem;margin:0 0 .55rem;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .win label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .win label:hover{color:var(--ink)}
+  .lead:has(#w7:checked) label[for=w7],
+  .lead:has(#w28:checked) label[for=w28],
+  .lead:has(#wall:checked) label[for=wall]{background:var(--accent);color:var(--paper)}
+  .wr:focus-visible+label{outline:2px solid var(--accent);outline-offset:2px}
+  /* Three windows, one shown: the checked radio hides the other two. */
+  .lead:has(#w7:checked) :is(.g28,.n28,.gall,.nall),
+  .lead:has(#w28:checked) :is(.g7,.n7,.gall,.nall),
+  .lead:has(#wall:checked) :is(.g7,.n7,.g28,.n28){display:none}
+  /* The show/hide controls for a panel's secondary line -- the question under
+     a forecast row, the holding under a decision. Same box as the window
+     toggle, a checkbox instead of radios, and no script: the sibling rule does
+     the work and the lines simply show where :has() is unsupported. The
+     questions are on by default (they are what a forecast row asks); the
+     holdings are off (the caption, kind and disposition already say what
+     happened, and the holding is the more). */
+  .opts{display:inline-flex;gap:.25rem;margin:0 .45rem .55rem 0;vertical-align:top;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .opts label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .opts label:hover{color:var(--ink)}
+  .lead:has(#qon:checked) label[for=qon],
+  .panel:has(#hon:checked) label[for=hon]{background:var(--accent);color:var(--paper)}
+  .lead:has(#qon:not(:checked)) .gq{display:none}
+  .panel:has(#hon:not(:checked)) .chold{display:none}
+  /* --- Upcoming at the Court ------------------------------------------------
+     A date gutter and a two-line body, the same shape as the grant rows above
+     it, so the two panels read as one page rather than two widgets. */
+  .cal{margin:0 0 1.9rem}
+  ol.cal{list-style:none;margin:0;padding:0}
+  ol.cal li{border-top:1px solid var(--rule)}
+  ol.cal li:last-child{border-bottom:1px solid var(--rule)}
+  /* The row is a container, not an anchor: an argument day carries one link per
+     case it hears and anchors cannot nest. Hover lives on the row so it still
+     reads as one unit, and each link colours on its own hover. */
+  ol.cal .crow{display:flex;gap:.95rem;align-items:baseline;padding:.55rem .1rem}
+  ol.cal .crow:hover{background:rgba(156,14,58,.05)}
+  ol.cal a{text-decoration:none;color:inherit}
+  ol.cal a:hover,ol.cal a:focus-visible{color:var(--accent)}
+  ol.cal .cdet a{border-bottom:1px solid rgba(156,14,58,.35)}
+  ol.cal .cdet a:hover{border-bottom-color:var(--accent)}
+  ol.cal .cwhen{flex:none;width:4.6rem;font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.96rem;color:var(--ink);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  ol.cal .cdow{display:block;font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);text-transform:uppercase;letter-spacing:.08em}
+  ol.cal .ctx{flex:1;min-width:0}
+  ol.cal .ckind{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:.98rem;line-height:1.25}
+  ol.cal .cdet{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.12rem}
+  /* Recent decisions reuses the calendar rows and adds exactly two things: the
+     kind word that opens the detail line, and the one outbound link (the slip
+     opinion), which takes the link colour the rest of the row deliberately
+     does not. */
+  ol.cal .dk{font-weight:600;color:var(--ink)}
+  ol.cal .cdet a.pdf{color:var(--link)}
+  /* The holding, from the Court's slip-opinion feed: one sentence, set
+     smaller and in the soft ink so the caption stays the row's headline. */
+  ol.cal .chold{display:block;font-size:.86rem;line-height:1.4;color:var(--ink-soft);
+    font-style:italic;margin-top:.15rem}
+  ol.cal .cdet a.pdf:hover,ol.cal .cdet a.pdf:focus-visible{color:var(--accent);
+    border-bottom-color:var(--accent)}
+  ol.grants{list-style:none;margin:0;padding:0}
+  ol.grants li{border-top:1px solid var(--rule)}
+  ol.grants li:last-child{border-bottom:1px solid var(--rule)}
+  ol.grants a{display:flex;gap:.95rem;align-items:baseline;text-decoration:none;
+    color:inherit;padding:.62rem .1rem}
+  ol.grants a:hover{background:rgba(156,14,58,.05)}
+  ol.grants a:hover .gc{color:var(--accent)}
+  ol.grants .gv{flex:none;width:3.5rem;text-align:right;
+    font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.22rem;
+    line-height:1.1;color:var(--accent);font-variant-numeric:tabular-nums}
+  ol.grants .gx{font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);margin-left:.3rem}
+  ol.grants .gtx{flex:1;min-width:0}
+  /* Subject-area line under the caption, in the section-label idiom (h2.sec):
+     small tracked caps in the faint ink, so it classifies without competing. */
+  ol.grants .gs,ol.mostread .ms{display:block;font-size:.68rem;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--faint);line-height:1.3;margin-top:.12rem}
+  ol.grants .gc{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:1rem;line-height:1.25}
+  ol.grants .gq{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.16rem}
+  ol.grants .gd{flex:none;font-size:.76rem;color:var(--faint);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  .more{margin:.75rem 0 0;font-size:.92rem}
+  .more a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.35)}
+  .more a:hover{border-bottom-color:var(--link)}
+  h2.sec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:.88rem;
+    letter-spacing:.09em;color:var(--faint);text-transform:uppercase;
+    margin:2.1rem 0 .6rem;padding-bottom:.28rem;border-bottom:1px solid var(--rule)}
+  @media(max-width:40rem){
+    ol.grants a{flex-wrap:wrap}
+    ol.grants .gd{width:100%;padding-left:4.45rem;margin-top:-.1rem}
+  }
+  ol.mostread{list-style:none;counter-reset:mr;padding:0;margin:0}
+  ol.mostread li{counter-increment:mr;border-bottom:1px solid var(--rule)}
+  ol.mostread a{display:flex;align-items:baseline;gap:.7rem;padding:.6rem .4rem;
+    text-decoration:none;color:inherit}
+  ol.mostread a:hover{background:rgba(156,14,58,.05)}
+  ol.mostread a::before{content:counter(mr);font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.95rem;color:var(--faint);min-width:1.1rem;
+    font-variant-numeric:tabular-nums}
+  ol.mostread .mc{flex:1;font-size:1rem;line-height:1.3}
+  ol.mostread .mct{display:block}
+  ol.mostread a:hover .mct{color:var(--accent);text-decoration:underline;
+    text-underline-offset:3px}
+  ol.mostread .mdk{color:var(--accent);font-weight:600;font-size:.82rem;
+    font-variant-numeric:tabular-nums;white-space:nowrap}
+  ol.mostread .mv{color:var(--faint);font-size:.85rem;font-style:italic;
+    white-space:nowrap;font-variant-numeric:tabular-nums}
+  /* Forecast percentages carry weight the most-read counts do not: the number is
+     the claim, not a footnote to the ranking. Upright, accent, tabular. */
+  ol.mostread .mv.fc{color:var(--accent);font-style:normal;font-weight:600;
+    font-size:.95rem;min-width:2.6rem;text-align:right}
+  /* Feed follow line. Deliberately quiet -- a footnote under the section list,
+     styled like .recent rather than like a call to action. */
+  .feeds{display:flex;flex-wrap:wrap;align-items:baseline;gap:.3rem .85rem;
+    margin:2.2rem 0 0;padding-top:1.1rem;border-top:1px solid var(--rule)}
+  .feeds .flabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  .feeds a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .feeds a:hover{border-color:var(--link)}
+  .back{margin-top:2rem;font-size:.95rem}
+  .back a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .back a:hover{border-color:var(--link)}
+  /* Home-page case search. */
+  .csearch{position:relative;margin:0 0 1.4rem}
+  #cq{width:100%;font-family:'Newsreader',Georgia,serif;font-size:1.05rem;color:var(--ink);
+    background:var(--panel);border:1px solid var(--rule);border-radius:3px;padding:.7rem .9rem}
+  #cq:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(156,14,58,.1)}
+  #cq::placeholder{color:var(--faint)}
+  #cq.loading{background-image:linear-gradient(90deg,transparent,rgba(156,14,58,.06),transparent);
+    background-size:40% 100%;background-repeat:no-repeat;animation:csl 1s infinite}
+  @keyframes csl{0%{background-position:-40% 0}100%{background-position:140% 0}}
+  .cres{list-style:none;margin:.35rem 0 0;padding:0;max-height:24rem;overflow-y:auto;
+    border:1px solid var(--rule);border-radius:3px;background:var(--panel)}
+  .cres:empty{display:none}
+  .cres li{border-bottom:1px solid var(--rule)}
+  .cres li:last-child{border-bottom:0}
+  .cres a{display:block;padding:.55rem .7rem;text-decoration:none;color:var(--ink);
+    font-size:.98rem;line-height:1.3}
+  .cres a:hover,.cres li.act a{background:rgba(156,14,58,.06)}
+  .cres mark{background:rgba(156,14,58,.14);color:inherit;padding:0 .05em;border-radius:2px}
+  .cres .cd{color:var(--accent);font-variant-numeric:tabular-nums;font-weight:600;
+    margin-right:.5rem;white-space:nowrap}
+  .cnone{padding:.55rem .7rem;color:var(--faint);font-style:italic}
+  .cnone a,.cqp a{color:var(--link);font-style:normal;text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .cqp{margin:.45rem 0 0;font-size:.88rem;color:var(--faint)}
+  /* /cases/ browse index: grouped sections with per-bucket counts. */
+  .csec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+    text-transform:uppercase;letter-spacing:.12em;color:var(--accent);
+    margin:2.2rem 0 .3rem;padding-bottom:.35rem;border-bottom:1px solid var(--rule);
+    display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
+  .csec .cn{font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:.85rem;
+    letter-spacing:0;text-transform:none;color:var(--faint);
+    font-variant-numeric:tabular-nums}
+  .cnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:.5rem 0 0}
+  .cnote a{color:var(--accent)}
+  ul.terms{list-style:none;padding:0;margin:1rem 0 0;display:flex;flex-wrap:wrap;
+    gap:.5rem 1.6rem}
+  ul.terms li{display:inline-flex;align-items:baseline;gap:.4rem}
+  ul.terms a{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.05rem;
+    color:var(--accent);text-decoration:none;border-bottom:1px solid var(--rule)}
+  ul.terms a:hover{border-bottom-color:var(--accent)}
+  ul.terms .cn{color:var(--faint);font-size:.85rem;font-variant-numeric:tabular-nums}
+  /* About page: running prose rather than an index, so it takes a measure and a
+     little more leading than the section rows above it. */
+  .about{margin:1.6rem 0 0;font-size:1.05rem;line-height:1.65;max-width:34rem}
+  .about p{margin:0 0 1rem}
+  .about a{color:var(--accent);text-decoration:none;
+    border-bottom:1px solid var(--rule)}
+  .about a:hover{border-bottom-color:var(--accent)}
+  .about .contact{margin:2rem 0 0;background:var(--panel);border:1px solid var(--rule);
+    border-left:4px solid var(--accent);padding:1.1rem 1.3rem}
+  .about .contact h2{font:600 .78rem/1 'Newsreader',Georgia,serif;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--accent);margin:0 0 .5rem}
+  .about .contact p{margin:0;font-size:1rem}
+
+/* ---- masthead ---- */
+.smast-in{max-width:var(--nav-max,60rem);margin:0 auto;padding:.85rem 1.5rem .5rem;
+  display:flex;align-items:baseline;justify-content:space-between;gap:1.4rem;flex-wrap:wrap}
+.smast-wm{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+  letter-spacing:.005em;color:var(--ink,#1a1a1e);text-decoration:none;white-space:nowrap;flex:none}
+.smast-wm em{font-style:italic;font-weight:500;color:var(--accent,#9c0e3a)}
+.smast-wm:hover{color:var(--accent,#9c0e3a)}
+/* Row gap first, then column. At 1.35rem the six section links measured 596px
+   of max-content -- 4px wider than the 592px row the 40rem index container
+   leaves them -- so ABOUT alone wrapped to a third line under the wordmark, on
+   every page page_style.R writes. 1.05rem brings the row to 572px: 20px of
+   slack at 40rem, and 45px on the 54rem case pages, which were themselves only
+   21px from wrapping. The .4rem row gap is for the day a seventh section
+   overruns it anyway -- a nav that wraps should read as a stack, not an orphan. */
+.snav{display:flex;gap:.4rem 1.05rem;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+.snav a{font:600 .72rem/1 'Newsreader',Georgia,serif;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--ink-soft,var(--soft,#484850));text-decoration:none;display:inline-block;
+  padding:.5rem 0;border-bottom:1.5px solid transparent}
+.snav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--rule,#dbd8d2)}
+.snav a[aria-current='page']{color:var(--accent,#9c0e3a);
+  border-bottom-color:var(--accent,#9c0e3a)}
+.smast-rule-w{max-width:var(--nav-max,60rem);margin:0 auto;padding:0 1.5rem}
+.smast-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0;position:relative}
+.smast-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.skip{position:absolute;left:-9999px;top:0;background:var(--panel,#ffffff);
+  color:var(--accent,#9c0e3a);padding:.6rem 1rem;
+  border:1px solid var(--accent,#9c0e3a);
+  font:600 .8rem/1 'Newsreader',Georgia,serif;letter-spacing:.1em;text-transform:uppercase;z-index:10}
+.skip:focus{left:.5rem;top:.5rem}
+/* ---- breadcrumb ---- */
+.bcrumb{margin:.7rem 0 0}
+.bcrumb ol{list-style:none;display:flex;flex-wrap:wrap;align-items:baseline;
+  gap:.1rem .45rem;margin:0;padding:0}
+.bcrumb li{display:inline-flex;align-items:baseline;gap:.45rem}
+.bcrumb a{font:400 .8rem/1.5 'Newsreader',Georgia,serif;color:var(--ink-soft,var(--soft,#484850));
+  text-decoration:none;border-bottom:1px solid var(--rule,#dbd8d2)}
+.bcrumb a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.bcrumb .sep{color:var(--faint,#63636b);font-size:.8rem;line-height:1.5}
+.bcrumb [aria-current='page']{font:400 .8rem/1.5 'Newsreader',Georgia,serif;
+  color:var(--faint,#63636b);font-variant-numeric:tabular-nums}
+/* ---- case footer ---- */
+.cfoot{margin:2.4rem 0 0}
+.cfoot-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0 0 1rem;position:relative}
+.cfoot-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.cfoot-off{font-size:.95rem;margin:0 0 1.1rem}
+.cfoot-off a{color:var(--link,#9c0e3a);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.4)}
+.cfoot-off a:hover{border-bottom-color:var(--link,#9c0e3a)}
+.cfoot-lab{font:600 .68rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);margin:0 0 .5rem}
+.cfoot-nav{display:flex;flex-wrap:wrap;gap:.35rem 1.1rem;list-style:none;margin:0;padding:0}
+.cfoot-nav a{font-size:.92rem;color:var(--ink-soft,var(--soft,#484850));text-decoration:none;
+  border-bottom:1px solid var(--rule,#dbd8d2);padding-bottom:1px}
+.cfoot-nav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.cfoot-stamp{margin:1.2rem 0 0;font-size:.8rem;color:var(--faint,#63636b);font-style:italic}
+/* ---- prev / next ---- */
+.pnav{margin:2.2rem 0 0;border-top:1px solid var(--rule,#dbd8d2);padding-top:1rem;
+  display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.pnav a,.pnav span.none{text-decoration:none;color:inherit;display:block;padding:.5rem .2rem}
+.pnav a:hover{background:rgba(156,14,58,.05)}
+.pnav .dir{font:600 .66rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);display:block;margin-bottom:.3rem}
+.pnav .lab{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1rem;line-height:1.25;
+  color:var(--accent,#9c0e3a);display:block}
+.pnav a:hover .lab{text-decoration:underline;text-underline-offset:3px}
+.pnav .nx{text-align:right}
+.pnav .none{opacity:.35}
+@media(max-width:640px){
+  .smast-in{padding:.7rem 1.1rem .25rem;gap:.15rem}
+  .smast-wm{font-size:.98rem}
+  .smast-in nav{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+    -webkit-mask-image:linear-gradient(90deg,#000 86%,transparent);
+    mask-image:linear-gradient(90deg,#000 86%,transparent)}
+  .smast-in nav::-webkit-scrollbar{display:none}
+  .snav{flex-wrap:nowrap;gap:1.15rem;padding-right:2.4rem}
+  .snav a{padding:.7rem 0;white-space:nowrap}
+  .smast-rule-w{padding:0 1.1rem}
+  .cfoot-nav{gap:.5rem 1rem}
+  .cfoot-nav a{padding-bottom:.3rem}
+  .pnav{grid-template-columns:1fr;gap:.2rem}
+  .pnav .nx{text-align:left;border-top:1px solid var(--rule,#dbd8d2)}
+}
+
+  .wrap.opn{max-width:42rem}
+  .opn .ometa{font-size:.92rem;color:var(--ink-soft);margin:.3rem 0 0}
+  .opn .oget{display:flex;flex-wrap:wrap;gap:.4rem .6rem;margin:1.1rem 0 0;padding:0;list-style:none;font-size:.9rem}
+  .opn .oget a{display:inline-block;padding:.32rem .7rem;border:1px solid var(--rule);border-radius:4px;color:var(--ink);text-decoration:none;background:var(--panel)}
+  .opn .oget a:hover{border-color:var(--accent);color:var(--accent)}
+  .opn .osrc{font-size:.84rem;color:var(--faint);margin:.9rem 0 0;line-height:1.45}
+  .opn .osrc a{color:var(--link)}
+  .opn .otoc{margin:1.6rem 0 0;padding:.8rem 1rem;border:1px solid var(--rule);border-radius:4px;background:var(--panel);font-size:.95rem}
+  .opn .otoc ol{margin:0;padding:0;list-style:none}
+  .opn .otoc li{margin:.25rem 0}
+  .opn .otoc a{color:var(--ink);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.35)}
+  .opn .otoc a:hover{color:var(--accent)}
+  .opn section.op{margin-top:3rem;border-top:2px solid var(--ink);padding-top:1.1rem}
+  .opn section.op h2{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.5rem;line-height:1.2;margin:0 0 1rem;color:var(--ink)}
+  .opn section.op p{margin:0 0 .95rem;line-height:1.62;hyphens:auto;overflow-wrap:break-word}
+  .opn section.op p.byline{color:var(--ink-soft);font-style:italic}
+  .opn section.op p.sep{text-align:center;letter-spacing:.3em;color:var(--faint);margin:1.6rem 0}
+  .opn section.op h3.oh{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.12rem;text-align:center;margin:2rem 0 1rem;color:var(--ink)}
+  .opn section.op blockquote{margin:0 0 .95rem;padding:0 0 0 1.1rem;border-left:2px solid var(--rule);color:var(--ink-soft)}
+  .opn section.op blockquote p{margin-bottom:.6rem;font-size:.96em}
+  .opn .sc{font-variant-caps:small-caps;letter-spacing:.02em}
+  .opn .pg{font-size:.66em;color:var(--faint);vertical-align:.3em;margin:0 .3em 0 .1em;font-variant-numeric:tabular-nums;user-select:none;white-space:nowrap}
+  .opn .pg::before{content:'*'}
+  .opn sup.fnr{font-size:.68em;line-height:0;margin-left:.05em}
+  .opn sup.fnr a{color:var(--link);text-decoration:none;padding:0 .1em}
+  .opn aside.notes{margin-top:2rem;border-top:1px solid var(--rule);padding-top:.8rem;font-size:.88rem;color:var(--ink-soft)}
+  .opn aside.notes h3{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1rem;margin:0 0 .6rem;color:var(--ink)}
+  .opn aside.notes ol{margin:0;padding-left:1.7rem}
+  .opn aside.notes li{margin:0 0 .55rem}
+  .opn aside.notes li.sym{list-style:none;margin-left:-1.7rem}
+  .opn aside.notes li.sym .mk{margin-right:.3rem}
+  .opn aside.notes li.sym p{display:inline}
+  .opn aside.notes p{margin:0 0 .4rem;line-height:1.5}
+  .opn aside.notes a.back{color:var(--link);text-decoration:none;margin-left:.2rem}
+  .opn aside.notes li:target,.opn sup.fnr a:target,.opn .pg:target{background:rgba(156,14,58,.12);outline:.2rem solid rgba(156,14,58,.12)}
+  .opn section.op,.opn aside.notes li,.opn sup.fnr a{scroll-margin-top:1rem}
+  .opn section.op-syllabus p,.opn section.op-counsel p{font-size:.95em}
+  .opn section.op-counsel summary{cursor:pointer;font-family:'Fraunces',Georgia,serif;font-size:1.05rem;color:var(--ink-soft)}
+  .opn .osyl{font-size:.84rem;color:var(--faint);font-style:italic;margin:-.5rem 0 1rem}
+  .opn p.back{margin-top:3rem;font-size:.92rem}
+  @media print{.smast,.bcrumb,.opn .oget,.opn .otoc,.opn p.back{display:none}.opn section.op{break-before:page}}
+</style><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://supremecourt.report/"},{"@type":"ListItem","position":2,"name":"Opinions","item":"https://supremecourt.report/opinions/"},{"@type":"ListItem","position":3,"name":"Shaw v. United States"}]}</script><meta name='otv' content='p1'><link rel='alternate' type='text/markdown' href='/opinions/2016/15-5991.md'><link rel='alternate' type='application/epub+zip' href='/opinions/2016/15-5991.epub'></head><body><a class='skip' href='#main'>Skip to content</a><header><div class='smast-in'><a class='smast-wm' href='/'>Supreme Court <em>Report</em></a><nav aria-label='Sections'><ul class='snav'><li><a href='/dashboards/'>Docket</a></li><li><a href='/conferences/'>Conferences</a></li><li><a href='/relists/'>Relists</a></li><li><a href='/applications/'>Interim</a></li><li><a href='/arguments/'>Arguments</a></li><li><a href='/justices/' aria-current='page'>Justices</a></li><li><a href='/counsel/'>Counsel</a></li><li><a href='/funnel/'>Funnel</a></li><li><a href='/methods.html'>Model</a></li><li><a href='/about.html'>About</a></li></ul></nav></div><div class='smast-rule-w'><hr class='smast-rule'></div></header><main class='wrap opn' id='main' data-dkt='15-5991'><nav class='bcrumb' aria-label='Breadcrumb'><ol><li><a href='/'>Home</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><a href='/opinions/'>Opinions</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><span aria-current='page'>Shaw v. United States</span></li></ol></nav><p class='kicker'>No. 15-5991 · decided December 12, 2016 · 580 U. S. 63</p><h1 style='font-size:clamp(1.7rem,4.6vw,2.4rem);line-height:1.12'>Shaw v. United States</h1><p class='ometa'>No. 15-5991. No separate writings.</p><ul class='oget'><li><a href='/opinions/2016/15-5991.epub' download>EPUB</a></li><li><a href='/opinions/2016/15-5991.md' download>Markdown</a></li><li><a href='https://www.supremecourt.gov/opinions/boundvolumes/580BV.pdf#page=287' rel='noopener'>The Court’s PDF</a></li><li><a href='/cases/15-5991.html'>The docket</a></li></ul><p class='osrc'>Set from the PDF the Court published, which is the authoritative text. The small starred numbers are that PDF’s page numbers. A conversion can introduce errors; check a quotation against the <a href='https://www.supremecourt.gov/opinions/boundvolumes/580BV.pdf#page=287' rel='noopener'>original</a>.</p><nav class="otoc" aria-label="Contents"><ol>
+<li><a href="#s1">Syllabus</a></li>
+<li><a href="#s2">Counsel</a></li>
+<li><a href="#s3">Opinion of the Court</a></li>
+</ol></nav>
+<section id="s1" class="op op-syllabus"><h2>Syllabus</h2><p class='osyl'>Prepared by the Reporter of Decisions for the convenience of the reader; it is no part of the opinion of the Court.</p>
+<p>Petitioner Shaw used identifying numbers of a bank account belonging to</p>
+<p>bank customer Hsu in a scheme to transfer funds from that account to accounts at other institutions from which Shaw was able to obtain Hsu's funds. Shaw was convicted of violating 18 U. S. C. § 1344(1), which makes it a crime to “knowingly execut[e] a scheme . . . to defraud a financial institution.” The Ninth Circuit affirmed.</p>
+<p><em>Held</em>:</p>
+<p>1. Subsection (1) of the bank fraud statute covers schemes to deprive a bank of money in a customer's deposit account. Shaw's arguments in favor of his claim that subsection (1) does not apply to him because he intended to cheat only a bank depositor, not a bank, are unpersuasive.</p>
+<p>First, the bank did have property rights in Hsu's bank deposits: When a customer deposits funds, the bank ordinarily becomes the owner of the funds, which the bank has a right to use as a source of loans that help the bank earn profits. Sometimes, the contract between the customer and the bank provides that the customer retains ownership of the funds and the bank only assumes possession; even then, the bank has a property interest in the funds because its role is akin to that of a bailee. Hence, for purposes of the bank fraud statute, a scheme fraudulently to obtain funds from a bank depositor's account normally is also a scheme fraudulently to obtain property from a “financial institution,” at least where, as here, the defendant knew that the bank held the deposits, the funds obtained came from the deposit account, and the defendant misled the bank in order to obtain those funds.</p>
+<p>Second, Shaw may not have intended to cause the bank financial harm, but the statute, while insisting upon “a scheme to defraud,” demands neither a showing that the bank suffered ultimate financial loss nor a showing that the defendant intended to cause such loss. This Court has found no case that interprets the statute as Shaw does. Cf. <em>Carpenter</em> v. <em>United States</em>, 484 U. S. 19, 26.</p>
+<p>Third, that Shaw may have been ignorant of relevant bank-related property law is no defense to criminal prosecution for bank fraud. Shaw knew that the bank possessed Hsu's account, Shaw made false statements to the bank, Shaw believed that those false statements would lead the bank to release from that account funds that ultimately <span class="pg" id="s1-p64" title="page 64 of the original">64</span>and wrongfully ended up with Shaw, and the bank in fact possessed a property interest in the account. These facts are sufficient to show that Shaw knew that he was entering into a scheme to defraud the bank even if he was not aware of the niceties of bank-related property law. Cf. <em>Pasquantino</em> v. <em>United States</em>, 544 U. S. 349, 355–356.</p>
+<p>Fourth, Shaw mistakenly contends that the statute requires the Government to prove not just that he acted with the <em>knowledge</em> that he would likely harm the bank's property interest but also that such was his <em>purpose.</em> This Court has found no relevant authority supporting the view that a statute making criminal the “<em>knowin[g]</em> execut[ion of] a scheme . . . to defraud” requires something more than knowledge. <em>Allison Engine Co.</em> v. <em>United States ex rel. Sanders</em>, 553 U. S. 662, 665–668; <em>Tanner</em> v. <em>United States</em>, 483 U. S. 107, 110–112; <em>United States</em> v. <em>Cohn</em>, 270 U. S. 339, 343; and <em>Bridges</em> v. <em>United States</em>, 346 U. S. 209, 221–222, distinguished.</p>
+<p>Fifth, subsection (2) of the bank fraud statute, which makes criminal the use of “false or fraudulent pretenses” to obtain “property . . . under the custody or control of” a bank, may overlap with subsection (1), but it does not do so completely. Thus, it should not be read as excluding from subsection (1) applications that would otherwise fall within the scope of subsection (1), such as the conduct at issue in this case. See <em>Loughrin</em> v. <em>United States</em>, 573 U. S. 351, 358, n. 4.</p>
+<p>Finally, because the bank fraud statute is clear enough, the rule of lenity is not implicated. Pp. 66–72.</p>
+<p>2. With regard to the parties' dispute over whether the District Court improperly instructed the jury that a scheme to defraud a bank must be one to deceive the bank <em>or</em> deprive it of something of value, instead of one to deceive <em>and</em> deprive, the Ninth Circuit is left to determine whether that question was properly presented and, if so, whether the instruction given is lawful, and, if not, whether any error was harmless in this case. P. 72.</p>
+<p>781 F. 3d 1130, vacated and remanded.</p>
+<p><span class="sc">Breyer,</span> J., delivered the opinion for a unanimous Court.</p></section>
+<section id="s2" class="op op-counsel"><details><summary>Counsel</summary><p><em>Koren L. Bell</em> argued the cause for petitioner. With her on the briefs were <em>Hilary L. Potashner</em> and <em>James H. Locklin</em>.</p>
+<p><em>Anthony A. Yang</em> argued the cause for the United States. With him on the brief were <em>Acting Solicitor General Ger</em><em>shengorn,</em><span class="pg" id="s2-p65" title="page 65 of the original">65</span><em> Assistant Attorney General Caldwell</em>, <em>Deputy Solicitor General Dreeben</em>, and <em>Scott A. C. Meisler</em>.<em>*</em></p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li class="sym" value="0"><span class="mk">*</span><p>A brief of <em>amicus curiae</em> was filed for the National Association of Criminal Defense Lawyers by <em>John D. Cline</em> and <em>Jeffrey L. Fisher</em>.</p></li>
+</ol></aside></details></section>
+<section id="s3" class="op op-court"><h2>Opinion of the Court</h2>
+<p class="byline">Justice Breyer delivered the opinion of the Court.</p>
+<p>A federal statute makes it a crime “knowingly [to] execut[e] a scheme . . . to defraud a financial institution,” 18 U. S. C. § 1344(1), for example, a federally insured bank, 18 U. S. C. § 20. The petitioner, Lawrence Shaw, was convicted of violating this provision. He argues here that the provision does not apply to him because he intended to cheat only a bank depositor, not a bank. We do not accept his arguments.</p>
+<h3 class="oh">I</h3>
+<p>The relevant criminal statute makes it a crime:</p>
+<blockquote>
+<p>“knowingly [to] execut[e] a scheme . . . “(1) to defraud a financial institution; or</p>
+<p>“(2) to obtain any of the moneys, funds, credits, assets, securities, or other property owned by, or under the custody or control of, a financial institution, by means of false or fraudulent pretenses, representations, or promises.” § 1344.</p>
+</blockquote>
+<p class="cont">Shaw obtained the identifying numbers of a Bank of America account belonging to a bank customer, Stanley Hsu. Shaw used those numbers (and other related information) to transfer funds from Hsu's account to other accounts at other institutions from which Shaw could obtain (and eventually did obtain) Hsu's funds. Shaw was convicted of violating the first clause of the statute, namely, the prohibition against “defraud[ing] a financial institution.” The Ninth Circuit affirmed his conviction. 781 F. 3d 1130 (2015). Shaw then filed a petition for certiorari arguing that the words “scheme to defraud a financial institution” require the Government to <span class="pg" id="s3-p66" title="page 66 of the original">66</span>prove that the defendant had “a specific intent not only to deceive, but also to cheat, a <em>bank</em>,” rather than “a <em>non-bank</em> third party.” Pet. for Cert. i (emphasis added). We granted review.</p>
+<h3 class="oh">II</h3>
+<p>Shaw makes several related arguments in favor of his basic claim, namely, that the statute does not cover schemes to deprive a bank of customer deposits. First, he says that subsection (1) requires “an intent to wrong a victim bank [a `financial institution'] <em>in its property rights</em> . . . .” Brief for Petitioner 23. He adds that the property he took, money in Hsu's bank account, belonged to Hsu, the bank's customer, and that Hsu is not a “financial institution.” <em>Id.,</em> at 25, 45. Hence Shaw's was a scheme “designed” to obtain only “a bank <em>customer's</em> property,” not “a bank's <em>own</em> property.” <em>Id.,</em> at 24–25.</p>
+<p>The basic flaw in this argument lies in the fact that the bank, too, had property rights in Hsu's bank account. When a customer deposits funds, the bank ordinarily becomes the owner of the funds and consequently has the right to use the funds as a source of loans that help the bank earn profits (though the customer retains the right, for example, to withdraw funds). 5A Michie, Banks and Banking, ch. 9, § 1, pp. 1–7 (2014) (Michie); <em>id.</em>, § 4b, at 54–58; <em>id.</em>, § 38, at 162; <em>Phoenix Bank</em> v. <em>Risley</em>, 111 U. S. 125, 127 (1884). Sometimes, the contract between the customer and the bank provides that the customer retains ownership of the funds and the bank merely assumes possession. Michie, ch. 9, § 38, at 162; <em>Phoenix Bank, supra</em>, at 127. But even then the bank is like a bailee, say, a garage that stores a customer's car. Michie, ch. 9, § 38, at 162. And as bailee, the bank can assert the right to possess the deposited funds against all the world but for the bailor (or, say, the bailor's authorized agent). 8A Am. Jur. 2d, Bailment § 166, pp. 685–686 (2009). This right, too, is a property right. 2 W. Blackstone, Commentaries on the Laws of England 452–454 (1766) (referring to a bailee's <span class="pg" id="s3-p67" title="page 67 of the original">67</span>right in a bailment as a “special qualified property”). Thus, Shaw's scheme to cheat Hsu was also a scheme to deprive the bank of certain bank property rights.</p>
+<p>Hence, for purposes of the bank fraud statute, a scheme fraudulently to obtain funds from a bank depositor's account normally is also a scheme fraudulently to obtain property from a “financial institution,” at least where, as here, the defendant knew that the bank held the deposits, the funds obtained came from the deposit account, and the defendant misled the bank in order to obtain those funds.</p>
+<p>Second, Shaw says he did not intend to cause the bank financial harm. Indeed, the parties appear to agree that, due to standard banking practices in place at the time of the fraud, no bank involved in the scheme ultimately suffered any monetary loss. Brief for Petitioner 4; Brief for United States 4, 27–28. But the statute, while insisting upon “a scheme to defraud,” demands neither a showing of ultimate financial loss nor a showing of intent to cause financial loss. Many years ago Judge Learned Hand pointed out that “[a] man is none the less cheated out of his property, when he is induced to part with it by fraud,” even if “he gets a quid pro quo of equal value.” <em>United States</em> v. <em>Rowe</em>, 56 F. 2d 747, 749 (CA2 1932). That is because “[i]t may be impossible to measure his loss by the gross scales available to a court, but he has suffered a wrong; he has lost,” for example, “his chance to bargain with the facts before him.” <em>Ibid.</em> Cf. O. Holmes, The Common Law 132 (1881) (“[A] man is liable to an action for deceit if he makes a false representation to another, knowing it to be false, but intending that the other should believe and act upon it”); <em>Neder</em> v. <em>United States</em>, 527 U. S. 1, 21–25 (1999) (bank fraud statute's definition of fraud reflects the common law).</p>
+<p>It is consequently not surprising that, when interpreting the analogous mail fraud statute, we have held it “sufficient” that the victim (here, the bank) be “deprived of its right” to use of the property, even if it ultimately did not suffer <span class="pg" id="s3-p68" title="page 68 of the original">68</span>unreimbursed loss. <em>Carpenter</em> v. <em>United States</em>, 484 U. S. 19, 26–27 (1987). Lower courts have explained that, where cash is taken from a bank “but the bank [is] fully insured[,] [t]he theft [is] complete when the cash [i]s taken; the fact that the bank ha[s] a contract with an insurance company enabling it to shift the loss to that company [is] immaterial.” <em>United States</em> v. <em>Kucik</em>, 844 F. 2d 493, 495 (CA7 1988). And commentators have made clear that “on the criminal side, it is generally held that the lack of financial loss is no defense to false pretenses.” 2 W. LaFave &amp; A. Scott, Substantive Criminal Law § 8.7(i)(3), p. 404 (1986). We have found no case from this Court interpreting the bank fraud statute as requiring that the victim bank ultimately suffer financial harm, or that the defendant intend that the victim bank suffer such harm.</p>
+<p>Third, Shaw appears to argue that, whatever the true state of property law, he did not <em>know</em> that the bank had a property interest in Hsu's account; hence he could not have intended to cheat the bank of its property. Shaw did know, however, that the bank possessed Hsu's account. He did make false statements to the bank. He did correctly believe that those false statements would lead the bank to release from that account funds that ultimately and wrongfully ended up in Shaw's pocket. And the bank did in fact possess a property interest in the account. These facts are sufficient to show that Shaw knew he was entering into a scheme to defraud the bank even if he was not aware of the niceties of bank-related property law. To require more, <em>i. e.,</em> to require actual knowledge of those bank-related property-law niceties, would free (or convict) equally culpable defendants depending upon their property-law expertise—an arbitrary result. We have found no case from this Court requiring legal knowledge of the kind Shaw suggests he lacked. But we have found cases in roughly similar fraud-related contexts where this Court has asked only whether the targeted property was in fact property in the hands of the victim, not <span class="pg" id="s3-p69" title="page 69 of the original">69</span>whether the defendant knew that the law would characterize the items at issue as “property.” See <em>Pasquantino</em> v. <em>United States</em>, 544 U. S. 349, 355–356 (2005) (Canada's right to uncollected excise taxes on imported liquor counted as “property” for purposes of the wire fraud statute); <em>Carpenter</em>, <em>supra</em>, at 25–26 (a newspaper's interest in the confidentiality of the contents and timing of a news column counted as property for the purposes of the mail and wire fraud statutes). We conclude that the legal ignorance that Shaw claims here is no defense to criminal prosecution for bank fraud.</p>
+<p>Fourth, Shaw argues that the bank fraud statute requires the Government to prove more than his simple <em>knowledge</em> that he would likely harm the bank's property interest; in his view, the Government must prove that such was his <em>purpose.</em> See <em>Voisine</em> v. <em>United States</em>, 579 U. S. 686, 691–692 (2016) (“knowingly” committing an assault requires an awareness “ `that [harm] is practically certain,' ” whereas “purposefully” committing an assault is “to have that result as a `conscious object' ” (quoting ALI, Model Penal Code §§ 2.02(2)(a)–(b) (1962))). Shaw adds that his purpose was to take money from Hsu; taking property from the bank was not his <em>purpose.</em></p>
+<p>But the statute itself makes criminal the “<em>knowin[g]</em> execut[ion of] a scheme . . . to defraud.” (Emphasis added.) To hold that something other than knowledge is required would assume that Congress intended to distinguish, in respect to states of mind, between (1) the fraudulent scheme, and (2) its fraudulent elements. Why would Congress wish to do so? Shaw refers us to a number of cases involving fraud against the Government and points to language in those cases suggesting that the relevant statutes required that the defendant's purpose be to harm the statutorily protected target and not a third party. Brief for Petitioner 25–29. But in two of those cases, the fraudulent statement was made not to the Government but to the third party—a circumstance<span class="pg" id="s3-p70" title="page 70 of the original">70</span> not present here. See <em>Allison Engine Co.</em> v. <em>United States ex rel. Sanders</em>, 553 U. S. 662, 665–668 (2008); <em>Tanner</em> v. <em>United States</em>, 483 U. S. 107, 110–112 (1987). In the third, the relevant portion of the statute expressly required a false statement “ `for the <em>purpose</em> . . . of . . . defrauding the Government of the United States.' ” <em>United States</em> v. <em>Cohn</em>, 270 U. S. 339, 343 (1926) (emphasis added). As for the fourth case, the language Shaw cites states the uncontroversial proposition that “defrauding or attempting to defraud the United States” means “fraud against the Government.” <em>Bridges</em> v. <em>United States</em>, 346 U. S. 209, 221–222 (1953). In any event, these cases all involved crimes of fraud targeting the Government—an area of the law with its own special rules and protections. We have found no relevant authority in the area of mail fraud, wire fraud, financial frauds, or the like supporting Shaw's view.</p>
+<p>Fifth, Shaw, reading the bank fraud statute as a whole, urges us to compare subsection (1) with subsection (2). <em>Supra,</em> at 65. Subsection (2), he points out, makes criminal the use of “false or fraudulent pretenses” to obtain “property . . . under the custody or control of” a bank. And in his view that fact means that we should read subsection (1) not to apply to those circumstances. That is to say, given the language of subsection (2), efforts such as his effort fraudulently to obtain money deposited in a bank account should not fall within the scope of the subsection (1) phrase “scheme . . . to defraud a financial institution.” Brief for Petitioner 30–33.</p>
+<p>As we read the two subsections, however, they do not demand that interpretation. The two subsections overlap substantially but not completely. Subsection (2) makes criminal the use of a scheme</p>
+<blockquote>
+<p>“to obtain any of the moneys, funds, credits, assets, securities, or other property owned by, or under the custody or control of, a financial institution, by means of false or fraudulent pretenses, representations, or promises.”</p>
+</blockquote>
+<p class="cont"><span class="pg" id="s3-p71" title="page 71 of the original">71</span>This language covers much that subsection (1) also covers, for example, making a false representation to a bank in order to obtain property belonging to that bank. See <em>Loughrin</em> v. <em>United States</em>, 573 U. S. 351, 358, n. 4 (2014) (recognizing the “substantial” overlap between the two subsections and noting that such overlap “is not uncommon in criminal statutes”). At the same time, it applies to a circumstance in which a shopper makes a false statement to a department store cashier in order to pay for goods with money “under the custody or control of a financial institution,” say, Bank A. The shopper's false statement, though designed to obtain Bank A's property, might well not amount to an effort (under subsection (1)) to defraud Bank A (since the statement was made not to Bank A but to an agent of the department store). Given, on the one hand, the overlap and, on the other hand, a plausible reading of the language that applies it to circumstances significantly different from those at issue here, we have no good reason to read subsection (2) as excluding from subsection (1) applications that would otherwise fall within the scope of subsection (1), such as conduct of the kind before us.</p>
+<p>Finally, Shaw asks us to apply the rule of lenity. Brief for Petitioner 40–41. We have said that the rule applies if “at the end of the process of construing what Congress has expressed,” <em>Callanan</em> v. <em>United States</em>, 364 U. S. 587, 596 (1961), there is “ `a grievous ambiguity or uncertainty in the statute,' ” <em>Muscarello</em> v. <em>United States</em>, 524 U. S. 125, 138–139 (1998) (quoting <em>Staples</em> v. <em>United States</em>, 511 U. S. 600, 619, n. 17 (1994)). The statute is clear enough that we need not rely on the rule of lenity. As we have said, a deposit account at a bank counts as bank property for purposes of subsection (1). <em>Supra,</em> at 66–67. The defendant, in circumstances such as those present here, need not know that the deposit account is, as a legal matter, characterized as bank property. <em>Supra</em>, at 68–69. Moreover, in those circumstances, the Government need not prove that the defendant <span class="pg" id="s3-p72" title="page 72 of the original">72</span>intended that the bank ultimately suffer monetary loss. <em>Supra,</em> at 67–68. Finally, the statute as applied here requires a state of mind equivalent to knowledge, not purpose. <em>Supra</em>, at 69–70.</p>
+<h3 class="oh">III</h3>
+<p>Shaw further argues that the instructions the District Court gave the jury were erroneous. He points out that the District Court told the jury that the</p>
+<blockquote>
+<p>“phrase `scheme to defraud' means any deliberate plan of action or course of conduct by which someone intends to deceive, cheat, <em>or</em> deprive a financial institution of something of value.” App. 18 (emphasis added).</p>
+</blockquote>
+<p class="cont">This instruction, Shaw says, could be understood as permitting the jury to find him guilty if it found no more than that his scheme was one to deceive the bank but not to “<em>deprive</em>” the bank of anything of value. Brief for Petitioner 22–23 (emphasis added). The parties agree, as do we, that the scheme must be one to deceive the bank <em>and</em> deprive it of something of value.</p>
+<p>For reasons previously pointed out, we have held that a plan to deprive a bank of money in a customer's deposit account is a plan to deprive the bank of “something of value” within the meaning of the bank fraud statute. The parties dispute whether the jury instruction is nonetheless ambiguous or otherwise improper. We leave to the Ninth Circuit to determine whether that question was fairly presented to that court and, if so, whether the instruction is lawful, and, if not, whether any error was harmless in this case.</p>
+<p>For these reasons, the judgment of the Ninth Circuit is vacated, and the case is remanded for further proceedings consistent with this opinion.</p>
+<p><em>It is so ordered.</em></p></section><p class='back'><a href='/opinions/'>&larr; All opinions</a> · <a href='/justices/ot2016.html'>The Justices, October Term 2016 &rarr;</a></p></main></body>
+</html>
+

@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script async src='/analytics.js'></script><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate icon" href="/favicon.ico" sizes="any"><link rel="alternate" type="application/atom+xml" title="Supreme Court Report" href="/feed.xml"><link rel="alternate" type="application/atom+xml" title="Certiorari grants" href="/grants.xml"><title>Salman v. United States — Opinion — Supreme Court Report</title><meta name="description" content="The opinion in Salman v. United States (No. 15-628), decided December 6, 2016: the full text with its footnotes, as a page, a Markdown file and an EPUB."><link rel="canonical" href="https://supremecourt.report/opinions/2016/15-628.html"><meta property="og:site_name" content="Supreme Court Report"><meta property="og:type" content="article"><meta property="og:title" content="Salman v. United States — Opinion — Supreme Court Report"><meta property="og:description" content="The opinion in Salman v. United States (No. 15-628), decided December 6, 2016: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta property="og:url" content="https://supremecourt.report/opinions/2016/15-628.html"><meta property="og:image" content="https://supremecourt.report/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Supreme Court Report - docket analytics for the Supreme Court of the United States"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Salman v. United States — Opinion — Supreme Court Report"><meta name="twitter:description" content="The opinion in Salman v. United States (No. 15-628), decided December 6, 2016: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta name="twitter:image" content="https://supremecourt.report/og.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap"><style>
+  :root{--paper:#fdfcfa;--panel:#ffffff;--ink:#1a1a1e;--ink-soft:#484850;--faint:#63636b;--accent:#9c0e3a;--link:#9c0e3a;--rule:#dbd8d2;--nav-max:60rem}
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{font-family:'Newsreader',Georgia,serif;font-size:19px;line-height:1.6;
+    color:var(--ink);background:var(--paper);margin:0;font-feature-settings:'onum' 1}
+  body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
+    opacity:.5;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");}
+  .wrap{max-width:40rem;margin:0 auto;padding:3rem 1.4rem 4rem}
+  .kicker{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 1rem}
+  h1{font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:clamp(2.4rem,7vw,3.6rem);line-height:1;letter-spacing:-.015em;
+    margin:0 0 1rem;color:var(--ink)}
+  h1 em{font-style:italic;font-weight:500;color:var(--accent)}
+  .dek{font-size:1.15rem;line-height:1.5;color:var(--ink-soft);font-style:italic;
+    margin:0 0 1.4rem}
+  .brule{border:0;height:0;border-top:2px solid var(--ink);margin:1.4rem 0 .3rem;
+    position:relative}
+  .brule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+    border-top:1px solid var(--rule)}
+  ul.idx{list-style:none;padding:0;margin:1.6rem 0}
+  ul.idx li{border-bottom:1px solid var(--rule)}
+  /* Whole row is one block-level link: a large, reliable tap target on mobile. */
+  ul.idx a.row{display:flex;justify-content:space-between;align-items:baseline;
+    gap:1rem;padding:.9rem .4rem;text-decoration:none;border:0;color:inherit}
+  ul.idx a.row:hover{background:rgba(156,14,58,.05)}
+  ul.idx .d{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.16rem;
+    color:var(--accent);line-height:1.25}
+  ul.idx a.row:hover .d{text-decoration:underline;text-underline-offset:3px}
+  ul.idx .count{color:var(--faint);font-size:.9rem;font-style:italic;white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  /* A long note (an order list's "3 GVRs / 230 denied / 4 habeas denied /
+     ...", items separated by middots) cannot sit on one line: nowrap made it
+     claim the row and
+     squeezed the title into a column three words wide, and on a phone it ran off
+     the screen. Such a row opts in (meta_wrap): the note wraps, only between its
+     items, and takes at most ~45% of the row, so the title always has the
+     larger share. Under 34rem it drops beneath the title at full width. */
+  /* ("long", not "wrap": .wrap is the page container and its padding.) */
+  ul.idx .count.long{white-space:normal;text-align:right;max-width:45%;line-height:1.45}
+  ul.idx .count.long .seg{white-space:nowrap}
+  @media(max-width:34rem){
+    ul.idx a.row.longmeta{flex-wrap:wrap;row-gap:.2rem}
+    ul.idx .count.long{max-width:none;flex-basis:100%;text-align:left}
+  }
+  /* Compact horizontal strip of the most recent pages beneath a category row. */
+  ul.idx .recent{display:flex;flex-wrap:wrap;align-items:baseline;
+    gap:.3rem .85rem;padding:0 .4rem 1rem;margin-top:-.35rem}
+  ul.idx .recent .rlabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  ul.idx .recent a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--ink-soft);text-decoration:none;font-variant-numeric:tabular-nums;
+    border-bottom:1px solid var(--rule);padding-bottom:1px}
+  ul.idx .recent a:hover{color:var(--accent);border-color:var(--accent)}
+  /* Optional panel beneath the section index (home page: most-read cases). */
+  .panel{margin:2.4rem 0 0}
+  .panel h2{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 .25rem}
+  .panel .pnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:0 0 .5rem}
+  /* "Live now" (live_argument_panel, /live.js): hidden unless the Court is
+     streaming an argument. One red dot, the same --accent as the headings, so
+     the live state is a mark and not a new colour. */
+  .live h2 .ldot{display:inline-block;width:.5rem;height:.5rem;border-radius:50%;
+    background:var(--accent);margin-right:.5rem;vertical-align:.08rem;
+    animation:lpulse 2s ease-in-out infinite}
+  @keyframes lpulse{50%{opacity:.25}}
+  @media (prefers-reduced-motion:reduce){.live h2 .ldot{animation:none}}
+  .lplay{display:flex;flex-wrap:wrap;gap:.6rem .9rem;align-items:center;margin:.8rem 0 .3rem}
+  .lplay button{font:600 .9rem/1 'Newsreader',Georgia,serif;letter-spacing:.04em;
+    color:var(--paper);background:var(--accent);border:0;border-radius:2px;
+    padding:.6rem 1.05rem;cursor:pointer}
+  .lplay button:disabled{opacity:.6;cursor:progress}
+  .lplay button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  /* The player takes a row of its own and may never outgrow the column. A flex
+     item's min-width is auto, which for a replaced element is the browser's own
+     controls' width -- wider than the column on a phone, where mobile Safari
+     and Chrome draw larger controls than the desktop. */
+  .lplay audio{display:block;flex:1 1 100%;width:100%;min-width:0;max-width:100%;
+    box-sizing:border-box;margin:0}
+  .lplay .lstat{font-size:.85rem;color:var(--faint)}
+  /* --- Likeliest grants -----------------------------------------------------
+     Its own rows rather than ol.mostread's: this panel carries a question under
+     the caption, which that list has no room for, and a percentage that has to
+     read as the row's subject rather than as a trailing note.
+     The window toggle is two real radio inputs plus :has() -- no JavaScript.
+     Both windows are rendered at build time and one is hidden, which is the only
+     way a static site can offer the choice: there is no server to ask for the
+     other one. Real radios, not styled buttons, so the control is reachable by
+     keyboard and announced as a choice. */
+  .lead{margin:0 0 1.9rem}
+  .lead h2{margin-bottom:.35rem}
+  .lead .pnote{margin:0 0 .7rem}
+  .wr{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+  .win{display:inline-flex;gap:.25rem;margin:0 0 .55rem;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .win label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .win label:hover{color:var(--ink)}
+  .lead:has(#w7:checked) label[for=w7],
+  .lead:has(#w28:checked) label[for=w28],
+  .lead:has(#wall:checked) label[for=wall]{background:var(--accent);color:var(--paper)}
+  .wr:focus-visible+label{outline:2px solid var(--accent);outline-offset:2px}
+  /* Three windows, one shown: the checked radio hides the other two. */
+  .lead:has(#w7:checked) :is(.g28,.n28,.gall,.nall),
+  .lead:has(#w28:checked) :is(.g7,.n7,.gall,.nall),
+  .lead:has(#wall:checked) :is(.g7,.n7,.g28,.n28){display:none}
+  /* The show/hide controls for a panel's secondary line -- the question under
+     a forecast row, the holding under a decision. Same box as the window
+     toggle, a checkbox instead of radios, and no script: the sibling rule does
+     the work and the lines simply show where :has() is unsupported. The
+     questions are on by default (they are what a forecast row asks); the
+     holdings are off (the caption, kind and disposition already say what
+     happened, and the holding is the more). */
+  .opts{display:inline-flex;gap:.25rem;margin:0 .45rem .55rem 0;vertical-align:top;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .opts label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .opts label:hover{color:var(--ink)}
+  .lead:has(#qon:checked) label[for=qon],
+  .panel:has(#hon:checked) label[for=hon]{background:var(--accent);color:var(--paper)}
+  .lead:has(#qon:not(:checked)) .gq{display:none}
+  .panel:has(#hon:not(:checked)) .chold{display:none}
+  /* --- Upcoming at the Court ------------------------------------------------
+     A date gutter and a two-line body, the same shape as the grant rows above
+     it, so the two panels read as one page rather than two widgets. */
+  .cal{margin:0 0 1.9rem}
+  ol.cal{list-style:none;margin:0;padding:0}
+  ol.cal li{border-top:1px solid var(--rule)}
+  ol.cal li:last-child{border-bottom:1px solid var(--rule)}
+  /* The row is a container, not an anchor: an argument day carries one link per
+     case it hears and anchors cannot nest. Hover lives on the row so it still
+     reads as one unit, and each link colours on its own hover. */
+  ol.cal .crow{display:flex;gap:.95rem;align-items:baseline;padding:.55rem .1rem}
+  ol.cal .crow:hover{background:rgba(156,14,58,.05)}
+  ol.cal a{text-decoration:none;color:inherit}
+  ol.cal a:hover,ol.cal a:focus-visible{color:var(--accent)}
+  ol.cal .cdet a{border-bottom:1px solid rgba(156,14,58,.35)}
+  ol.cal .cdet a:hover{border-bottom-color:var(--accent)}
+  ol.cal .cwhen{flex:none;width:4.6rem;font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.96rem;color:var(--ink);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  ol.cal .cdow{display:block;font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);text-transform:uppercase;letter-spacing:.08em}
+  ol.cal .ctx{flex:1;min-width:0}
+  ol.cal .ckind{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:.98rem;line-height:1.25}
+  ol.cal .cdet{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.12rem}
+  /* Recent decisions reuses the calendar rows and adds exactly two things: the
+     kind word that opens the detail line, and the one outbound link (the slip
+     opinion), which takes the link colour the rest of the row deliberately
+     does not. */
+  ol.cal .dk{font-weight:600;color:var(--ink)}
+  ol.cal .cdet a.pdf{color:var(--link)}
+  /* The holding, from the Court's slip-opinion feed: one sentence, set
+     smaller and in the soft ink so the caption stays the row's headline. */
+  ol.cal .chold{display:block;font-size:.86rem;line-height:1.4;color:var(--ink-soft);
+    font-style:italic;margin-top:.15rem}
+  ol.cal .cdet a.pdf:hover,ol.cal .cdet a.pdf:focus-visible{color:var(--accent);
+    border-bottom-color:var(--accent)}
+  ol.grants{list-style:none;margin:0;padding:0}
+  ol.grants li{border-top:1px solid var(--rule)}
+  ol.grants li:last-child{border-bottom:1px solid var(--rule)}
+  ol.grants a{display:flex;gap:.95rem;align-items:baseline;text-decoration:none;
+    color:inherit;padding:.62rem .1rem}
+  ol.grants a:hover{background:rgba(156,14,58,.05)}
+  ol.grants a:hover .gc{color:var(--accent)}
+  ol.grants .gv{flex:none;width:3.5rem;text-align:right;
+    font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.22rem;
+    line-height:1.1;color:var(--accent);font-variant-numeric:tabular-nums}
+  ol.grants .gx{font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);margin-left:.3rem}
+  ol.grants .gtx{flex:1;min-width:0}
+  /* Subject-area line under the caption, in the section-label idiom (h2.sec):
+     small tracked caps in the faint ink, so it classifies without competing. */
+  ol.grants .gs,ol.mostread .ms{display:block;font-size:.68rem;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--faint);line-height:1.3;margin-top:.12rem}
+  ol.grants .gc{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:1rem;line-height:1.25}
+  ol.grants .gq{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.16rem}
+  ol.grants .gd{flex:none;font-size:.76rem;color:var(--faint);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  .more{margin:.75rem 0 0;font-size:.92rem}
+  .more a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.35)}
+  .more a:hover{border-bottom-color:var(--link)}
+  h2.sec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:.88rem;
+    letter-spacing:.09em;color:var(--faint);text-transform:uppercase;
+    margin:2.1rem 0 .6rem;padding-bottom:.28rem;border-bottom:1px solid var(--rule)}
+  @media(max-width:40rem){
+    ol.grants a{flex-wrap:wrap}
+    ol.grants .gd{width:100%;padding-left:4.45rem;margin-top:-.1rem}
+  }
+  ol.mostread{list-style:none;counter-reset:mr;padding:0;margin:0}
+  ol.mostread li{counter-increment:mr;border-bottom:1px solid var(--rule)}
+  ol.mostread a{display:flex;align-items:baseline;gap:.7rem;padding:.6rem .4rem;
+    text-decoration:none;color:inherit}
+  ol.mostread a:hover{background:rgba(156,14,58,.05)}
+  ol.mostread a::before{content:counter(mr);font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.95rem;color:var(--faint);min-width:1.1rem;
+    font-variant-numeric:tabular-nums}
+  ol.mostread .mc{flex:1;font-size:1rem;line-height:1.3}
+  ol.mostread .mct{display:block}
+  ol.mostread a:hover .mct{color:var(--accent);text-decoration:underline;
+    text-underline-offset:3px}
+  ol.mostread .mdk{color:var(--accent);font-weight:600;font-size:.82rem;
+    font-variant-numeric:tabular-nums;white-space:nowrap}
+  ol.mostread .mv{color:var(--faint);font-size:.85rem;font-style:italic;
+    white-space:nowrap;font-variant-numeric:tabular-nums}
+  /* Forecast percentages carry weight the most-read counts do not: the number is
+     the claim, not a footnote to the ranking. Upright, accent, tabular. */
+  ol.mostread .mv.fc{color:var(--accent);font-style:normal;font-weight:600;
+    font-size:.95rem;min-width:2.6rem;text-align:right}
+  /* Feed follow line. Deliberately quiet -- a footnote under the section list,
+     styled like .recent rather than like a call to action. */
+  .feeds{display:flex;flex-wrap:wrap;align-items:baseline;gap:.3rem .85rem;
+    margin:2.2rem 0 0;padding-top:1.1rem;border-top:1px solid var(--rule)}
+  .feeds .flabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  .feeds a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .feeds a:hover{border-color:var(--link)}
+  .back{margin-top:2rem;font-size:.95rem}
+  .back a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .back a:hover{border-color:var(--link)}
+  /* Home-page case search. */
+  .csearch{position:relative;margin:0 0 1.4rem}
+  #cq{width:100%;font-family:'Newsreader',Georgia,serif;font-size:1.05rem;color:var(--ink);
+    background:var(--panel);border:1px solid var(--rule);border-radius:3px;padding:.7rem .9rem}
+  #cq:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(156,14,58,.1)}
+  #cq::placeholder{color:var(--faint)}
+  #cq.loading{background-image:linear-gradient(90deg,transparent,rgba(156,14,58,.06),transparent);
+    background-size:40% 100%;background-repeat:no-repeat;animation:csl 1s infinite}
+  @keyframes csl{0%{background-position:-40% 0}100%{background-position:140% 0}}
+  .cres{list-style:none;margin:.35rem 0 0;padding:0;max-height:24rem;overflow-y:auto;
+    border:1px solid var(--rule);border-radius:3px;background:var(--panel)}
+  .cres:empty{display:none}
+  .cres li{border-bottom:1px solid var(--rule)}
+  .cres li:last-child{border-bottom:0}
+  .cres a{display:block;padding:.55rem .7rem;text-decoration:none;color:var(--ink);
+    font-size:.98rem;line-height:1.3}
+  .cres a:hover,.cres li.act a{background:rgba(156,14,58,.06)}
+  .cres mark{background:rgba(156,14,58,.14);color:inherit;padding:0 .05em;border-radius:2px}
+  .cres .cd{color:var(--accent);font-variant-numeric:tabular-nums;font-weight:600;
+    margin-right:.5rem;white-space:nowrap}
+  .cnone{padding:.55rem .7rem;color:var(--faint);font-style:italic}
+  .cnone a,.cqp a{color:var(--link);font-style:normal;text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .cqp{margin:.45rem 0 0;font-size:.88rem;color:var(--faint)}
+  /* /cases/ browse index: grouped sections with per-bucket counts. */
+  .csec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+    text-transform:uppercase;letter-spacing:.12em;color:var(--accent);
+    margin:2.2rem 0 .3rem;padding-bottom:.35rem;border-bottom:1px solid var(--rule);
+    display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
+  .csec .cn{font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:.85rem;
+    letter-spacing:0;text-transform:none;color:var(--faint);
+    font-variant-numeric:tabular-nums}
+  .cnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:.5rem 0 0}
+  .cnote a{color:var(--accent)}
+  ul.terms{list-style:none;padding:0;margin:1rem 0 0;display:flex;flex-wrap:wrap;
+    gap:.5rem 1.6rem}
+  ul.terms li{display:inline-flex;align-items:baseline;gap:.4rem}
+  ul.terms a{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.05rem;
+    color:var(--accent);text-decoration:none;border-bottom:1px solid var(--rule)}
+  ul.terms a:hover{border-bottom-color:var(--accent)}
+  ul.terms .cn{color:var(--faint);font-size:.85rem;font-variant-numeric:tabular-nums}
+  /* About page: running prose rather than an index, so it takes a measure and a
+     little more leading than the section rows above it. */
+  .about{margin:1.6rem 0 0;font-size:1.05rem;line-height:1.65;max-width:34rem}
+  .about p{margin:0 0 1rem}
+  .about a{color:var(--accent);text-decoration:none;
+    border-bottom:1px solid var(--rule)}
+  .about a:hover{border-bottom-color:var(--accent)}
+  .about .contact{margin:2rem 0 0;background:var(--panel);border:1px solid var(--rule);
+    border-left:4px solid var(--accent);padding:1.1rem 1.3rem}
+  .about .contact h2{font:600 .78rem/1 'Newsreader',Georgia,serif;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--accent);margin:0 0 .5rem}
+  .about .contact p{margin:0;font-size:1rem}
+
+/* ---- masthead ---- */
+.smast-in{max-width:var(--nav-max,60rem);margin:0 auto;padding:.85rem 1.5rem .5rem;
+  display:flex;align-items:baseline;justify-content:space-between;gap:1.4rem;flex-wrap:wrap}
+.smast-wm{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+  letter-spacing:.005em;color:var(--ink,#1a1a1e);text-decoration:none;white-space:nowrap;flex:none}
+.smast-wm em{font-style:italic;font-weight:500;color:var(--accent,#9c0e3a)}
+.smast-wm:hover{color:var(--accent,#9c0e3a)}
+/* Row gap first, then column. At 1.35rem the six section links measured 596px
+   of max-content -- 4px wider than the 592px row the 40rem index container
+   leaves them -- so ABOUT alone wrapped to a third line under the wordmark, on
+   every page page_style.R writes. 1.05rem brings the row to 572px: 20px of
+   slack at 40rem, and 45px on the 54rem case pages, which were themselves only
+   21px from wrapping. The .4rem row gap is for the day a seventh section
+   overruns it anyway -- a nav that wraps should read as a stack, not an orphan. */
+.snav{display:flex;gap:.4rem 1.05rem;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+.snav a{font:600 .72rem/1 'Newsreader',Georgia,serif;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--ink-soft,var(--soft,#484850));text-decoration:none;display:inline-block;
+  padding:.5rem 0;border-bottom:1.5px solid transparent}
+.snav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--rule,#dbd8d2)}
+.snav a[aria-current='page']{color:var(--accent,#9c0e3a);
+  border-bottom-color:var(--accent,#9c0e3a)}
+.smast-rule-w{max-width:var(--nav-max,60rem);margin:0 auto;padding:0 1.5rem}
+.smast-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0;position:relative}
+.smast-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.skip{position:absolute;left:-9999px;top:0;background:var(--panel,#ffffff);
+  color:var(--accent,#9c0e3a);padding:.6rem 1rem;
+  border:1px solid var(--accent,#9c0e3a);
+  font:600 .8rem/1 'Newsreader',Georgia,serif;letter-spacing:.1em;text-transform:uppercase;z-index:10}
+.skip:focus{left:.5rem;top:.5rem}
+/* ---- breadcrumb ---- */
+.bcrumb{margin:.7rem 0 0}
+.bcrumb ol{list-style:none;display:flex;flex-wrap:wrap;align-items:baseline;
+  gap:.1rem .45rem;margin:0;padding:0}
+.bcrumb li{display:inline-flex;align-items:baseline;gap:.45rem}
+.bcrumb a{font:400 .8rem/1.5 'Newsreader',Georgia,serif;color:var(--ink-soft,var(--soft,#484850));
+  text-decoration:none;border-bottom:1px solid var(--rule,#dbd8d2)}
+.bcrumb a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.bcrumb .sep{color:var(--faint,#63636b);font-size:.8rem;line-height:1.5}
+.bcrumb [aria-current='page']{font:400 .8rem/1.5 'Newsreader',Georgia,serif;
+  color:var(--faint,#63636b);font-variant-numeric:tabular-nums}
+/* ---- case footer ---- */
+.cfoot{margin:2.4rem 0 0}
+.cfoot-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0 0 1rem;position:relative}
+.cfoot-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.cfoot-off{font-size:.95rem;margin:0 0 1.1rem}
+.cfoot-off a{color:var(--link,#9c0e3a);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.4)}
+.cfoot-off a:hover{border-bottom-color:var(--link,#9c0e3a)}
+.cfoot-lab{font:600 .68rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);margin:0 0 .5rem}
+.cfoot-nav{display:flex;flex-wrap:wrap;gap:.35rem 1.1rem;list-style:none;margin:0;padding:0}
+.cfoot-nav a{font-size:.92rem;color:var(--ink-soft,var(--soft,#484850));text-decoration:none;
+  border-bottom:1px solid var(--rule,#dbd8d2);padding-bottom:1px}
+.cfoot-nav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.cfoot-stamp{margin:1.2rem 0 0;font-size:.8rem;color:var(--faint,#63636b);font-style:italic}
+/* ---- prev / next ---- */
+.pnav{margin:2.2rem 0 0;border-top:1px solid var(--rule,#dbd8d2);padding-top:1rem;
+  display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.pnav a,.pnav span.none{text-decoration:none;color:inherit;display:block;padding:.5rem .2rem}
+.pnav a:hover{background:rgba(156,14,58,.05)}
+.pnav .dir{font:600 .66rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);display:block;margin-bottom:.3rem}
+.pnav .lab{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1rem;line-height:1.25;
+  color:var(--accent,#9c0e3a);display:block}
+.pnav a:hover .lab{text-decoration:underline;text-underline-offset:3px}
+.pnav .nx{text-align:right}
+.pnav .none{opacity:.35}
+@media(max-width:640px){
+  .smast-in{padding:.7rem 1.1rem .25rem;gap:.15rem}
+  .smast-wm{font-size:.98rem}
+  .smast-in nav{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+    -webkit-mask-image:linear-gradient(90deg,#000 86%,transparent);
+    mask-image:linear-gradient(90deg,#000 86%,transparent)}
+  .smast-in nav::-webkit-scrollbar{display:none}
+  .snav{flex-wrap:nowrap;gap:1.15rem;padding-right:2.4rem}
+  .snav a{padding:.7rem 0;white-space:nowrap}
+  .smast-rule-w{padding:0 1.1rem}
+  .cfoot-nav{gap:.5rem 1rem}
+  .cfoot-nav a{padding-bottom:.3rem}
+  .pnav{grid-template-columns:1fr;gap:.2rem}
+  .pnav .nx{text-align:left;border-top:1px solid var(--rule,#dbd8d2)}
+}
+
+  .wrap.opn{max-width:42rem}
+  .opn .ometa{font-size:.92rem;color:var(--ink-soft);margin:.3rem 0 0}
+  .opn .oget{display:flex;flex-wrap:wrap;gap:.4rem .6rem;margin:1.1rem 0 0;padding:0;list-style:none;font-size:.9rem}
+  .opn .oget a{display:inline-block;padding:.32rem .7rem;border:1px solid var(--rule);border-radius:4px;color:var(--ink);text-decoration:none;background:var(--panel)}
+  .opn .oget a:hover{border-color:var(--accent);color:var(--accent)}
+  .opn .osrc{font-size:.84rem;color:var(--faint);margin:.9rem 0 0;line-height:1.45}
+  .opn .osrc a{color:var(--link)}
+  .opn .otoc{margin:1.6rem 0 0;padding:.8rem 1rem;border:1px solid var(--rule);border-radius:4px;background:var(--panel);font-size:.95rem}
+  .opn .otoc ol{margin:0;padding:0;list-style:none}
+  .opn .otoc li{margin:.25rem 0}
+  .opn .otoc a{color:var(--ink);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.35)}
+  .opn .otoc a:hover{color:var(--accent)}
+  .opn section.op{margin-top:3rem;border-top:2px solid var(--ink);padding-top:1.1rem}
+  .opn section.op h2{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.5rem;line-height:1.2;margin:0 0 1rem;color:var(--ink)}
+  .opn section.op p{margin:0 0 .95rem;line-height:1.62;hyphens:auto;overflow-wrap:break-word}
+  .opn section.op p.byline{color:var(--ink-soft);font-style:italic}
+  .opn section.op p.sep{text-align:center;letter-spacing:.3em;color:var(--faint);margin:1.6rem 0}
+  .opn section.op h3.oh{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.12rem;text-align:center;margin:2rem 0 1rem;color:var(--ink)}
+  .opn section.op blockquote{margin:0 0 .95rem;padding:0 0 0 1.1rem;border-left:2px solid var(--rule);color:var(--ink-soft)}
+  .opn section.op blockquote p{margin-bottom:.6rem;font-size:.96em}
+  .opn .sc{font-variant-caps:small-caps;letter-spacing:.02em}
+  .opn .pg{font-size:.66em;color:var(--faint);vertical-align:.3em;margin:0 .3em 0 .1em;font-variant-numeric:tabular-nums;user-select:none;white-space:nowrap}
+  .opn .pg::before{content:'*'}
+  .opn sup.fnr{font-size:.68em;line-height:0;margin-left:.05em}
+  .opn sup.fnr a{color:var(--link);text-decoration:none;padding:0 .1em}
+  .opn aside.notes{margin-top:2rem;border-top:1px solid var(--rule);padding-top:.8rem;font-size:.88rem;color:var(--ink-soft)}
+  .opn aside.notes h3{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1rem;margin:0 0 .6rem;color:var(--ink)}
+  .opn aside.notes ol{margin:0;padding-left:1.7rem}
+  .opn aside.notes li{margin:0 0 .55rem}
+  .opn aside.notes li.sym{list-style:none;margin-left:-1.7rem}
+  .opn aside.notes li.sym .mk{margin-right:.3rem}
+  .opn aside.notes li.sym p{display:inline}
+  .opn aside.notes p{margin:0 0 .4rem;line-height:1.5}
+  .opn aside.notes a.back{color:var(--link);text-decoration:none;margin-left:.2rem}
+  .opn aside.notes li:target,.opn sup.fnr a:target,.opn .pg:target{background:rgba(156,14,58,.12);outline:.2rem solid rgba(156,14,58,.12)}
+  .opn section.op,.opn aside.notes li,.opn sup.fnr a{scroll-margin-top:1rem}
+  .opn section.op-syllabus p,.opn section.op-counsel p{font-size:.95em}
+  .opn section.op-counsel summary{cursor:pointer;font-family:'Fraunces',Georgia,serif;font-size:1.05rem;color:var(--ink-soft)}
+  .opn .osyl{font-size:.84rem;color:var(--faint);font-style:italic;margin:-.5rem 0 1rem}
+  .opn p.back{margin-top:3rem;font-size:.92rem}
+  @media print{.smast,.bcrumb,.opn .oget,.opn .otoc,.opn p.back{display:none}.opn section.op{break-before:page}}
+</style><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://supremecourt.report/"},{"@type":"ListItem","position":2,"name":"Opinions","item":"https://supremecourt.report/opinions/"},{"@type":"ListItem","position":3,"name":"Salman v. United States"}]}</script><meta name='otv' content='p1'><link rel='alternate' type='text/markdown' href='/opinions/2016/15-628.md'><link rel='alternate' type='application/epub+zip' href='/opinions/2016/15-628.epub'></head><body><a class='skip' href='#main'>Skip to content</a><header><div class='smast-in'><a class='smast-wm' href='/'>Supreme Court <em>Report</em></a><nav aria-label='Sections'><ul class='snav'><li><a href='/dashboards/'>Docket</a></li><li><a href='/conferences/'>Conferences</a></li><li><a href='/relists/'>Relists</a></li><li><a href='/applications/'>Interim</a></li><li><a href='/arguments/'>Arguments</a></li><li><a href='/justices/' aria-current='page'>Justices</a></li><li><a href='/counsel/'>Counsel</a></li><li><a href='/funnel/'>Funnel</a></li><li><a href='/methods.html'>Model</a></li><li><a href='/about.html'>About</a></li></ul></nav></div><div class='smast-rule-w'><hr class='smast-rule'></div></header><main class='wrap opn' id='main' data-dkt='15-628'><nav class='bcrumb' aria-label='Breadcrumb'><ol><li><a href='/'>Home</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><a href='/opinions/'>Opinions</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><span aria-current='page'>Salman v. United States</span></li></ol></nav><p class='kicker'>No. 15-628 · decided December 6, 2016 · 580 U. S. 39</p><h1 style='font-size:clamp(1.7rem,4.6vw,2.4rem);line-height:1.12'>Salman v. United States</h1><p class='ometa'>No. 15-628. No separate writings.</p><ul class='oget'><li><a href='/opinions/2016/15-628.epub' download>EPUB</a></li><li><a href='/opinions/2016/15-628.md' download>Markdown</a></li><li><a href='https://www.supremecourt.gov/opinions/boundvolumes/580BV.pdf#page=263' rel='noopener'>The Court’s PDF</a></li><li><a href='/cases/15-628.html'>The docket</a></li></ul><p class='osrc'>Set from the PDF the Court published, which is the authoritative text. The small starred numbers are that PDF’s page numbers. A conversion can introduce errors; check a quotation against the <a href='https://www.supremecourt.gov/opinions/boundvolumes/580BV.pdf#page=263' rel='noopener'>original</a>.</p><nav class="otoc" aria-label="Contents"><ol>
+<li><a href="#s1">Syllabus</a></li>
+<li><a href="#s2">Counsel</a></li>
+<li><a href="#s3">Opinion of the Court</a></li>
+</ol></nav>
+<section id="s1" class="op op-syllabus"><h2>Syllabus</h2><p class='osyl'>Prepared by the Reporter of Decisions for the convenience of the reader; it is no part of the opinion of the Court.</p>
+<p>Section 10(b) of the Securities Exchange Act of 1934 and the Securities and Exchange Commission's Rule 10b–5 prohibit undisclosed trading on inside corporate information by persons bound by a duty of trust and confidence not to exploit that information for their personal advantage. These persons are also forbidden from tipping inside information to others for trading. A tippee who receives such information with the knowledge that its disclosure breached the tipper's duty acquires that duty and may be liable for securities fraud for any undisclosed trading on the information. In <em>Dirks</em> v. <em>SEC</em>, 463 U. S. 646, this Court explained that tippee liability hinges on whether the tipper's disclosure breaches a fiduciary duty, which occurs when the tipper discloses the information for a personal benefit. The Court also held that a personal benefit may be inferred where the tipper receives something of value in exchange for the tip or “makes a gift of confidential information to a trading relative or friend.” <em>Id.,</em> at 664.</p>
+<p>Petitioner Salman was indicted for federal securities-fraud crimes for trading on inside information he received from a friend and relative-bymarriage, Michael Kara, who, in turn, received the information from his brother, Maher Kara, a former investment banker at Citigroup. Maher testified at Salman's trial that he shared inside information with his brother Michael to benefit him and expected him to trade on it, and Michael testified to sharing that information with Salman, who knew that it was from Maher. Salman was convicted.</p>
+<p>While Salman's appeal to the Ninth Circuit was pending, the Second Circuit decided that <em>Dirks</em> does not permit a factfinder to infer a personal benefit to the tipper from a gift of confidential information to a trading relative or friend, unless there is “proof of a meaningfully close personal relationship” between tipper and tippee “that generates an exchange that is objective, consequential, and represents at least a potential gain of a pecuniary or similarly valuable nature,” <em>United States</em> v. <em>Newman</em>, 773 F. 3d 438, 452, cert. denied, 577 U. S. 874. The Ninth Circuit declined to follow <em>Newman</em> so far, holding that <em>Dirks</em> allowed Salman's jury to infer that the tipper breached a duty because he made “ `a gift of confidential information to a trading relative.' ” 792 F. 3d 1087, 1092 (quoting <em>Dirks</em>, <em>supra</em>, at 664).</p>
+<p><span class="pg" id="s1-p40" title="page 40 of the original">40</span><em>Held</em>: The Ninth Circuit properly applied <em>Dirks</em> to affirm Salman's conviction. Under <em>Dirks</em>, the jury could infer that the tipper here personally benefited from making a gift of confidential information to a trading relative<em>.</em> Pp. 46–52.</p>
+<p>(a) Salman contends that a gift of confidential information to a friend or family member alone is insufficient to establish the personal benefit required for tippee liability, claiming that a tipper does not personally benefit unless the tipper's goal in disclosing information is to obtain money, property, or something of tangible value. The Government counters that a gift of confidential information to anyone, not just a “trading relative or friend,” is enough to prove securities fraud because a tipper personally benefits through any disclosure of confidential trading information for a personal (noncorporate) purpose. The Government argues that any concerns raised by permitting such an inference are significantly alleviated by other statutory elements prosecutors must satisfy. Pp. 46–48.</p>
+<p>(b) This Court adheres to the holding in <em>Dirks</em>, which easily resolves the case at hand: “[W]hen an insider makes a gift of confidential information to a trading relative or friend . . . [t]he tip and trade resemble trading by the insider himself followed by a gift of the profits to the recipient,” 463 U. S., at 664. In these situations, the tipper personally benefits because giving a gift of trading information to a trading relative is the same thing as trading by the tipper followed by a gift of the proceeds. Here, by disclosing confidential information as a gift to his brother with the expectation that he would trade on it, Maher breached his duty of trust and confidence to Citigroup and its clients—a duty acquired and breached by Salman when he traded on the information with full knowledge that it had been improperly disclosed. To the extent that the Second Circuit in <em>Newman</em> held that the tipper must also receive something of a “pecuniary or similarly valuable nature” in exchange for a gift to a trading relative, that rule is inconsistent with <em>Dirks.</em> Pp. 48–50.</p>
+<p>(c) Salman's arguments to the contrary are rejected. Salman has cited nothing in this Court's precedents that undermines the gift-giving principle this Court announced in <em>Dirks</em>. Nor has he demonstrated that either § 10(b) itself or <em>Dirks'</em>s gift-giving standard “leav[e] grave uncertainty about how to estimate the risk posed by a crime” or are plagued by “hopeless indeterminacy.” <em>Johnson</em> v. <em>United States</em>, 576 U. S. 591, 597, 598. Salman also has shown “no grievous ambiguity or uncertainty that would trigger” the rule of lenity. <em>Barber</em> v. <em>Thomas</em>, 560 U. S. 474, 492 (internal quotation marks omitted). To the contrary, his conduct is in the heartland of <em>Dirks</em>'s rule concerning gifts of confidential information to trading relatives. Pp. 50–52.</p>
+<p>792 F. 3d 1087, affirmed.</p>
+<p><span class="pg" id="s1-p41" title="page 41 of the original">41</span><span class="sc">Alito</span>, J., delivered the opinion for a unanimous Court.</p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li class="sym" value="0"><span class="mk">*</span><p>Briefs of <em>amici curiae</em> urging reversal were filed for the Cato Institute by <em>Bradley J. Bondi, Thaya Brook Knight</em>, and <em>Ilya Shapiro</em>; for the National Association of Criminal Defense Lawyers et al. by <em>Meir Feder</em>, <em>Ira M. Feinberg, Jeffrey L. Fisher,</em> and <em>Henry W. Asbill</em>; for Mark Cuban by <em>Ralph C. Ferrara, Ann M. Ashton</em>, and <em>Stephen A. Best</em>; and for Daryl M. Payton by <em>Sean Hecker</em> and <em>Katrina Teresa Farell.</em></p><p>Briefs of <em>amicus curiae</em> urging affirmance were filed for Occupy the SEC by <em>Akshat Tewary</em>; and for Richard D. Freer by <em>Sarah M. Shalf</em>.</p><p>Briefs of <em>amici curiae</em> were filed for the NYU Center on the Administration of Criminal Law by <em>Stephen L. Ascher, Anthony S. Barkow,</em> and <em>Matthew S. Hellman</em>; and for the Securities Industry and Financial Markets Association by <em>Carter G. Phillips, Kwaku A. Akowuah, A. Robert Pietrzak, Joseph McLaughlin,</em> and <em>Daniel A. McLaughlin.</em></p></li>
+</ol></aside></section>
+<section id="s2" class="op op-counsel"><details><summary>Counsel</summary><p><em>Alexandra A. E. Shapiro</em> argued the cause for petitioner. With her on the briefs were <em>Daniel J. O'Neill</em> and <em>John D. Cline.</em></p>
+<p><em>Deputy Solicitor General Dreeben</em> argued the cause for the United States. With him on the brief were <em>Acting Solicitor General Gershengorn, Assistant Attorney General Caldwell, Elaine J. Goldenberg, Ross B. Goldman, Anne K. Small, Sanket J. Bulsara, Michael A. Conley, Jacob H. Stillman,</em> and <em>David D. Lisitza.</em>*</p></details></section>
+<section id="s3" class="op op-court"><h2>Opinion of the Court</h2>
+<p class="byline">Justice Alito delivered the opinion of the Court.</p>
+<p>Section 10(b) of the Securities Exchange Act of 1934 and the Securities and Exchange Commission's Rule 10b–5 prohibit undisclosed trading on inside corporate information by individuals who are under a duty of trust and confidence that prohibits them from secretly using such information for their personal advantage. 48 Stat. 891, as amended, 15 U. S. C. § 78j(b) (prohibiting the use, “in connection with the purchase or sale of any security,” of “any manipulative or deceptive device or contrivance in contravention of such rules as the [Securities and Exchange Commission] may prescribe”); 17 CFR § 240.10b–5 (2016) (forbidding the use, “in connection with the purchase or sale of any security,” of “any device, <span class="pg" id="s3-p42" title="page 42 of the original">42</span>scheme, or artifice to defraud,” or any “act, practice, or course of business which operates . . . as a fraud or deceit”); see <em>United States</em> v. <em>O'Hagan</em>, 521 U. S. 642, 650–652 (1997). Individuals under this duty may face criminal and civil liability for trading on inside information (unless they make appropriate disclosures ahead of time).</p>
+<p>These persons also may not tip inside information to others for trading. The tippee acquires the tipper's duty to disclose or abstain from trading if the tippee knows the information was disclosed in breach of the tipper's duty, and the tippee may commit securities fraud by trading in disregard of that knowledge. In <em>Dirks</em> v. <em>SEC</em>, 463 U. S. 646 (1983), this Court explained that a tippee's liability for trading on inside information hinges on whether the tipper breached a fiduciary duty by disclosing the information. A tipper breaches such a fiduciary duty, we held, when the tipper discloses the inside information for a personal benefit. And, we went on to say, a jury can infer a personal benefit—and thus a breach of the tipper's duty—where the tipper receives something of value in exchange for the tip or “makes a gift of confidential information to a trading relative or friend.” <em>Id.,</em> at 664.</p>
+<p>Petitioner Bassam Salman challenges his convictions for conspiracy and insider trading. Salman received lucrative trading tips from an extended family member, who had received the information from Salman's brother-in-law. Salman then traded on the information. He argues that he cannot be held liable as a tippee because the tipper (his brother-in-law) did not personally receive money or property in exchange for the tips and thus did not personally benefit from them. The Court of Appeals disagreed, holding that <em>Dirks</em> allowed the jury to infer that the tipper here breached a duty because he made a “ `gift of confidential information to a trading relative.' ” 792 F. 3d 1087, 1092 (CA9 2015) (quoting <em>Dirks</em>, <em>supra</em>, at 664). Because the Court of Appeals properly applied <em>Dirks</em>, we affirm the judgment below.</p>
+<h3 class="oh"><span class="pg" id="s3-p43" title="page 43 of the original">43</span>I</h3>
+<p>Maher Kara was an investment banker in Citigroup's healthcare investment banking group. He dealt with highly confidential information about mergers and acquisitions involving Citigroup's clients. Maher enjoyed a close relationship with his older brother, Mounir Kara (known as Michael). After Maher started at Citigroup, he began discussing aspects of his job with Michael. At first he relied on Michael's chemistry background to help him grasp scientific concepts relevant to his new job. Then, while their father was battling cancer, the brothers discussed companies that dealt with innovative cancer treatment and pain management techniques. Michael began to trade on the information Maher shared with him. At first, Maher was unaware of his brother's trading activity, but eventually he began to suspect that it was taking place.</p>
+<p>Ultimately, Maher began to assist Michael's trading by sharing inside information with his brother about pending mergers and acquisitions. Maher sometimes used code words to communicate corporate information to his brother. Other times, he shared inside information about deals he was not working on in order to avoid detection. See, <em>e. g.,</em> App. 118, 124–125. Without his younger brother's knowledge, Michael fed the information to others—including Salman, Michael's friend and Maher's brother-in-law. By the time the authorities caught on, Salman had made over $1.5 million in profits that he split with another relative who executed trades via a brokerage account on Salman's behalf.</p>
+<p>Salman was indicted on one count of conspiracy to commit securities fraud, see 18 U. S. C. § 371, and four counts of securities fraud, see 15 U. S. C. §§ 78j(b), 78ff; 18 U. S. C. § 2; 17 CFR § 240.10b–5. Facing charges of their own, both Maher and Michael pleaded guilty and testified at Salman's trial.</p>
+<p>The evidence at trial established that Maher and Michael enjoyed a “very close relationship.” App. 215. Maher “love[d] [his] brother very much,” Michael was like “a second <span class="pg" id="s3-p44" title="page 44 of the original">44</span>father to Maher,” and Michael was the best man at Maher's wedding to Salman's sister. <em>Id</em>., at 158, 195, 104–107. Maher testified that he shared inside information with his brother to benefit him and with the expectation that his brother would trade on it. While Maher explained that he disclosed the information in large part to appease Michael (who pestered him incessantly for it), he also testifled that he tipped his brother to “help him” and to “fulfil[l] whatever needs he had.” <em>Id</em>., at 118, 82. For instance, Michael once called Maher and told him that “he needed a favor.” <em>Id.</em>, at 124. Maher offered his brother money but Michael asked for information instead. Maher then disclosed an upcoming acquisition. <em>Ibid.</em> Although he instantly regretted the tip and called his brother back to implore him not to trade, Maher expected his brother to do so anyway. <em>Id.</em>, at 125.</p>
+<p>For his part, Michael told the jury that his brother's tips gave him “timely information that the average person does not have access to” and “access to stocks, options, and what have you, that I can capitalize on, that the average person would never have or dream of.” <em>Id.</em>, at 251. Michael testifled that he became friends with Salman when Maher was courting Salman's sister and later began sharing Maher's tips with Salman. As he explained at trial, “any time a major deal came in, [Salman] was the first on my phone list.” <em>Id</em>., at 258. Michael also testified that he told Salman that the information was coming from Maher. See, <em>e. g., id</em>., at 286 (“ `Maher is the source of all this information' ”).</p>
+<p>After a jury trial in the Northern District of California, Salman was convicted on all counts. He was sentenced to 36 months of imprisonment, three years of supervised release, and over $730,000 in restitution. After his motion for a new trial was denied, Salman appealed to the Ninth Circuit. While his appeal was pending, the Second Circuit issued its opinion in <em>United States</em> v. <em>Newman</em>, 773 F. 3d 438 (2014), cert. denied, 577 U. S. 874 (2015). There, the Second Circuit reversed the convictions of two portfolio managers <span class="pg" id="s3-p45" title="page 45 of the original">45</span>who traded on inside information. The <em>Newman</em> defendants were “several steps removed from the corporate insiders” and the court found that “there was no evidence that either was aware of the source of the inside information.” 773 F. 3d, at 443. The court acknowledged that <em>Dirks</em> and Second Circuit case law allow a factfinder to infer a personal benefit to the tipper from a gift of confidential information to a trading relative or friend. 773 F. 3d, at 452. But the court concluded that, “[t]o the extent” <em>Dirks</em> permits “such an inference,” the inference “is impermissible in the absence of proof of a meaningfully close personal relationship that generates an exchange that is objective, consequential, and represents at least a potential gain of a pecuniary or similarly valuable nature.” 773 F. 3d, at 452.<sup class="fnr"><a id="s3-r1" href="#s3-n1">1</a></sup></p>
+<p>Pointing to <em>Newman</em>, Salman argued that his conviction should be reversed. While the evidence established that Maher made a gift of trading information to Michael and that Salman knew it, there was no evidence that Maher received anything of “a pecuniary or similarly valuable nature” in exchange—or that Salman knew of any such benefit. The Ninth Circuit disagreed and affirmed Salman's conviction. 792 F. 3d 1087. The court reasoned that the case was governed by <em>Dirks</em>'s holding that a tipper benefits personally by making a gift of confidential information to a trading relative or friend. Indeed, Maher's disclosures to Michael were “precisely the gift of confidential information to a trading relative that <em>Dirks</em> envisioned.” 792 F. 3d, at 1092 (internal quotation marks omitted). To the extent <em>Newman</em> went further and required additional gain to the tipper in cases involving gifts of confidential information to family and friends, the Ninth Circuit “decline[d] to follow it.” 792 F. 3d, at 1093.</p>
+<p><span class="pg" id="s3-p46" title="page 46 of the original">46</span>We granted certiorari to resolve the tension between the Second Circuit's <em>Newman</em> decision and the Ninth Circuit's decision in this case.<sup class="fnr"><a id="s3-r2" href="#s3-n2">2</a></sup>577 U. S. 1101 (2016).</p>
+<h3 class="oh">II</h3>
+<h3 class="oh">A</h3>
+<p>In this case, Salman contends that an insider's “gift of confidential information to a trading relative or friend,” <em>Dirks</em>, 463 U. S., at 664, is not enough to establish securities fraud. Instead, Salman argues, a tipper does not personally benefit unless the tipper's goal in disclosing inside information is to obtain money, property, or something of tangible value. He claims that our insider-trading precedents, and the cases those precedents cite, involve situations in which the insider exploited confidential information for the insider's own “tangible monetary profit.” Brief for Petitioner 31. He suggests that his position is reinforced by our criminal-fraud precedents outside of the insider-trading context, because those cases confirm that a fraudster must personally obtain <span class="pg" id="s3-p47" title="page 47 of the original">47</span>money or property. <em>Id</em>., at 33–34. More broadly, Salman urges that defining a gift as a personal benefit renders the insider-trading offense indeterminate and overbroad: indeterminate, because liability may turn on facts such as the closeness of the relationship between tipper and tippee and the tipper's purpose for disclosure; and overbroad, because the Government may avoid having to prove a concrete personal benefit by simply arguing that the tipper meant to give a gift to the tippee. He also argues that we should interpret <em>Dirks</em>'s standard narrowly so as to avoid constitutional concerns. Brief for Petitioner 36–37. Finally, Salman contends that gift situations create especially troubling problems for remote tippees—that is, tippees who receive inside information from another tippee, rather than the tipper— who may have no knowledge of the relationship between the original tipper and tippee and thus may not know why the tipper made the disclosure. <em>Id</em>., at 43, 48, 50.</p>
+<p>The Government disagrees and argues that a gift of confidential information to anyone, not just a “trading relative or friend,” is enough to prove securities fraud. See Brief for United States 27 (“<em>Dirks</em>'s personal-benefit test encompasses a gift to <em>any</em> person with the expectation that the information will be used for trading, not just to a `trading relative or friend' ” (quoting 463 U. S., at 664; emphasis in original)). Under the Government's view, a tipper personally benefits whenever the tipper discloses confidential trading information for a noncorporate purpose. Accordingly, a gift to a friend, a family member, or anyone else would support the inference that the tipper exploited the trading value of inside information for personal purposes and thus personally benefited from the disclosure. The Government claims to find support for this reading in <em>Dirks</em> and the precedents on which <em>Dirks</em> relied. See, <em>e. g., id.</em>, at 654 (“fraud” in an insider-trading case “derives from the `inherent unfairness involved where one takes advantage' of `information intended to be available only for a corporate purpose and not <span class="pg" id="s3-p48" title="page 48 of the original">48</span>for the personal benefit of anyone' ” (quoting <em>In re Merrill Lynch, Pierce, Fenner &amp; Smith, Inc.</em>, 43 S. E. C. 933, 936 (1968))).</p>
+<p>The Government also argues that Salman's concerns about unlimited and indeterminate liability for remote tippees are significantly alleviated by other statutory elements that prosecutors must satisfy to convict a tippee for insider trading. The Government observes that, in order to establish a defendant's criminal liability as a tippee, it must prove beyond a reasonable doubt that the tipper expected that the information being disclosed would be used in securities trading. Brief for United States 23–24; Tr. of Oral Arg. 38. The Government also notes that, to establish a defendant's criminal liability as a tippee, it must prove that the tippee knew that the tipper breached a duty<em>—</em>in other words, that the tippee knew that the tipper disclosed the information for a personal benefit and that the tipper expected trading to ensue. Brief for United States 43; Tr. of Oral Arg. 36–37, 39.</p>
+<h3 class="oh">B</h3>
+<p>We adhere to <em>Dirks,</em> which easily resolves the narrow issue presented here.</p>
+<p>In <em>Dirks</em>, we explained that a tippee is exposed to liability for trading on inside information only if the tippee participates in a breach of the tipper's fiduciary duty. Whether the tipper breached that duty depends “in large part on the purpose of the disclosure” to the tippee. 463 U. S., at 662. “[T]he test,” we explained, “is whether the insider personally will benefit, directly or indirectly, from his disclosure.” <em>Ibid.</em> Thus, the disclosure of confidential information without personal benefit is not enough. In determining whether a tipper derived a personal benefit, we instructed courts to “focus on objective criteria, <em>i. e.,</em> whether the insider receives a direct or indirect personal benefit from the disclosure, such as a pecuniary gain or a reputational benefit that will translate into future earnings.” <em>Id.,</em> at 663. This personal benefit<span class="pg" id="s3-p49" title="page 49 of the original">49</span> can “often” be inferred from “objective facts and circumstances,” we explained, such as “a relationship between the insider and the recipient that suggests a <em>quid pro quo</em> from the latter, or an intention to benefit the particular recipient.” <em>Id.,</em> at 664. In particular, we held that “[t]he elements of fiduciary duty and exploitation of nonpublic information also exist <em>when an insider makes a gift of confidential information to a trading relative or friend</em>.” <em>Ibid.</em> (emphasis added). In such cases, “[t]he tip and trade resemble trading by the insider . . . followed by a gift of the profits to the recipient.” <em>Ibid.</em> We then applied this gift-giving principle to resolve <em>Dirks</em> itself, finding it dispositive that the tippers “received no monetary or personal benefit” from their tips to Dirks, “<em>nor was their purpose to make a gift of valuable information to Dirks</em>.” <em>Id.,</em> at 667 (emphasis added).</p>
+<p>Our discussion of gift giving resolves this case. Maher, the tipper, provided inside information to a close relative, his brother Michael. <em>Dirks</em> makes clear that a tipper breaches a fiduciary duty by making a gift of confidential information to “a trading relative,” and that rule is sufficient to resolve the case at hand. As Salman's counsel acknowledged at oral argument, Maher would have breached his duty had he personally traded on the information here himself then given the proceeds as a gift to his brother. Tr. of Oral Arg. 3–4. It is obvious that Maher would personally benefit in that situation. But Maher effectively achieved the same result by disclosing the information to Michael, and allowing him to trade on it. <em>Dirks</em> appropriately prohibits that approach, as well. Cf. 463 U. S., at 659 (holding that “insiders [are] forbidden” both “from personally using undisclosed corporate information to their advantage” and from “giv[ing] such information to an outsider for the same improper purpose of exploiting the information for their personal gain”). <em>Dirks</em> specifies that when a tipper gives inside information to “a trading relative or friend,” the jury can infer that the tipper meant to provide the equivalent of a cash gift. In such situations,<span class="pg" id="s3-p50" title="page 50 of the original">50</span> the tipper benefits personally because giving a gift of trading information is the same thing as trading by the tipper followed by a gift of the proceeds. Here, by disclosing confidential information as a gift to his brother with the expectation that he would trade on it, Maher breached his duty of trust and confidence to Citigroup and its clients—a duty Salman acquired, and breached himself, by trading on the information with full knowledge that it had been improperly disclosed.</p>
+<p>To the extent the Second Circuit held that the tipper must also receive something of a “pecuniary or similarly valuable nature” in exchange for a gift to family or friends, <em>Newman</em>, 773 F. 3d, at 452, we agree with the Ninth Circuit that this requirement is inconsistent with <em>Dirks</em>.</p>
+<h3 class="oh">C</h3>
+<p>Salman points out that many insider-trading cases—including several that <em>Dirks</em> cited—involved insiders who personally profited through the misuse of trading information. But this observation does not undermine the test <em>Dirks</em> articulated and applied. Salman also cites a sampling of our criminal-fraud decisions construing other federal fraud statutes, suggesting that they stand for the proposition that fraud is not consummated unless the defendant obtains money or property. <em>Sekhar</em> v. <em>United States</em>, 570 U. S. 729 (2013) (Hobbs Act); <em>Skilling</em> v. <em>United States</em>, 561 U. S. 358 (2010) (honest-services mail and wire fraud); <em>Cleveland</em> v. <em>United States</em>, 531 U. S. 12 (2000) (wire fraud); <em>McNally</em> v. <em>United States</em>, 483 U. S. 350 (1987) (mail fraud). Assuming that these cases are relevant to our construction of § 10(b) (a proposition the Government forcefully disputes), nothing in them undermines the commonsense point we made in <em>Dirks.</em> Making a gift of inside information to a relative like Michael is little different from trading on the information, obtaining the profits, and doling them out to the trading relative. The tipper benefits either way. The facts of this case illustrate <span class="pg" id="s3-p51" title="page 51 of the original">51</span>the point: In one of their tipper-tippee interactions, Michael asked Maher for a favor, declined Maher's offer of money, and instead requested and received lucrative trading information.</p>
+<p>We reject Salman's argument that <em>Dirks</em>'s gift-giving standard is unconstitutionally vague as applied to this case. <em>Dirks</em> created a simple and clear “guiding principle” for determining tippee liability, 463 U. S., at 664, and Salman has not demonstrated that either § 10(b) itself or the <em>Dirks</em> gift-giving standard “leav[e] grave uncertainty about how to estimate the risk posed by a crime” or are plagued by “hopeless indeterminacy,” <em>Johnson</em> v. <em>United States</em>, 576 U. S. 591, 597, 598 (2015). At most, Salman shows that in some factual circumstances assessing liability for gift giving will be difficult. That alone cannot render “shapeless” a federal criminal prohibition, for even clear rules “produce close cases.” <em>Id.,</em> at 602, 601. We also reject Salman's appeal to the rule of lenity, as he has shown “no grievous ambiguity or uncertainty that would trigger the rule's application.” <em>Barber</em> v. <em>Thomas</em>, 560 U. S. 474, 492 (2010) (internal quotation marks omitted). To the contrary, Salman's conduct is in the heartland of <em>Dirks</em>'s rule concerning gifts. It remains the case that “[d]etermining whether an insider personally benefits from a particular disclosure, a question of fact, will not always be easy for courts.” 463 U. S., at 664. But there is no need for us to address those difficult cases today, because this case involves “precisely the `gift of confidential information to a trading relative' that <em>Dirks</em> envisioned.” 792 F. 3d, at 1092 (quoting 463 U. S., at 664).</p>
+<h3 class="oh">III</h3>
+<p>Salman's jury was properly instructed that a personal benefit includes “the benefit one would obtain from simply making a gift of confidential information to a trading relative.” App. 398–399. As the Court of Appeals noted, “the Government presented direct evidence that the disclosure was intended as a gift of market-sensitive information.” 792 F. 3d, <span class="pg" id="s3-p52" title="page 52 of the original">52</span>at 1094. And, as Salman conceded below, this evidence is sufficient to sustain his conviction under our reading of <em>Dirks</em>. Appellant's Supplemental Brief in No. 14–10204 (CA9), p. 6 (“Maher made a gift of confidential information to a trading relative [Michael] . . . and, if [Michael's] testimony is accepted as true (as it must be for purposes of sufficiency review), Salman knew that Maher had made such a gift” (internal quotation marks, brackets, and citation omitted)). Accordingly, the Ninth Circuit's judgment is affirmed.</p>
+<p><em>It is so ordered.</em></p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li id="s3-n1" value="1"><p>The Second Circuit also reversed the <em>Newman</em> defendants' convictions because the Government introduced no evidence that the defendants knew the information they traded on came from insiders or that the insiders received a personal benefit in exchange for the tips. 773 F. 3d, at 453–454. This case does not implicate those issues. <a class="back" href="#s3-r1" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n2" value="2"><p><em>Dirks</em> v. <em>SEC</em>, 463 U. S. 646 (1983), established the personal-benefit framework in a case brought under the classical theory of insider-trading liability, which applies “when a corporate insider” or his tippee “trades in the securities of [the tipper's] corporation on the basis of material, nonpublic information.” <em>United States</em> v. <em>O'Hagan</em>, 521 U. S. 642, 651–652 (1997). In such a case, the defendant breaches a duty to, and takes advantage of, the shareholders of his corporation. By contrast, the misappropriation theory holds that a person commits securities fraud “when he misappropriates confidential information for securities trading purposes, in breach of a duty owed to the source of the information” such as an employer or client. <em>Id.,</em> at 652. In such a case, the defendant breaches a duty to, and defrauds, the source of the information, as opposed to the shareholders of his corporation. The Court of Appeals observed that this is a misappropriation case, 792 F. 3d, 1087, 1092, n. 4 (CA9 2015), while the Government represents that both theories apply on the facts of this case, Brief for United States 15, n. 1. We need not resolve the question. The parties do not dispute that <em>Dirks</em>'s personal-benefit analysis applies in both classical and misappropriation cases, so we will proceed on the assumption that it does. <a class="back" href="#s3-r2" aria-label="Back to the text">↩</a></p></li>
+</ol></aside></section><p class='back'><a href='/opinions/'>&larr; All opinions</a> · <a href='/justices/ot2016.html'>The Justices, October Term 2016 &rarr;</a></p></main></body>
+</html>
+

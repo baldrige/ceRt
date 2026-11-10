@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script async src='/analytics.js'></script><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate icon" href="/favicon.ico" sizes="any"><link rel="alternate" type="application/atom+xml" title="Supreme Court Report" href="/feed.xml"><link rel="alternate" type="application/atom+xml" title="Certiorari grants" href="/grants.xml"><title>Turner v. United States — Opinion — Supreme Court Report</title><meta name="description" content="The opinion in Turner v. United States (No. 15-1503), decided June 22, 2017: the full text with its footnotes, as a page, a Markdown file and an EPUB."><link rel="canonical" href="https://supremecourt.report/opinions/2016/15-1503.html"><meta property="og:site_name" content="Supreme Court Report"><meta property="og:type" content="article"><meta property="og:title" content="Turner v. United States — Opinion — Supreme Court Report"><meta property="og:description" content="The opinion in Turner v. United States (No. 15-1503), decided June 22, 2017: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta property="og:url" content="https://supremecourt.report/opinions/2016/15-1503.html"><meta property="og:image" content="https://supremecourt.report/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Supreme Court Report - docket analytics for the Supreme Court of the United States"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Turner v. United States — Opinion — Supreme Court Report"><meta name="twitter:description" content="The opinion in Turner v. United States (No. 15-1503), decided June 22, 2017: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta name="twitter:image" content="https://supremecourt.report/og.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap"><style>
+  :root{--paper:#fdfcfa;--panel:#ffffff;--ink:#1a1a1e;--ink-soft:#484850;--faint:#63636b;--accent:#9c0e3a;--link:#9c0e3a;--rule:#dbd8d2;--nav-max:60rem}
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{font-family:'Newsreader',Georgia,serif;font-size:19px;line-height:1.6;
+    color:var(--ink);background:var(--paper);margin:0;font-feature-settings:'onum' 1}
+  body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
+    opacity:.5;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");}
+  .wrap{max-width:40rem;margin:0 auto;padding:3rem 1.4rem 4rem}
+  .kicker{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 1rem}
+  h1{font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:clamp(2.4rem,7vw,3.6rem);line-height:1;letter-spacing:-.015em;
+    margin:0 0 1rem;color:var(--ink)}
+  h1 em{font-style:italic;font-weight:500;color:var(--accent)}
+  .dek{font-size:1.15rem;line-height:1.5;color:var(--ink-soft);font-style:italic;
+    margin:0 0 1.4rem}
+  .brule{border:0;height:0;border-top:2px solid var(--ink);margin:1.4rem 0 .3rem;
+    position:relative}
+  .brule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+    border-top:1px solid var(--rule)}
+  ul.idx{list-style:none;padding:0;margin:1.6rem 0}
+  ul.idx li{border-bottom:1px solid var(--rule)}
+  /* Whole row is one block-level link: a large, reliable tap target on mobile. */
+  ul.idx a.row{display:flex;justify-content:space-between;align-items:baseline;
+    gap:1rem;padding:.9rem .4rem;text-decoration:none;border:0;color:inherit}
+  ul.idx a.row:hover{background:rgba(156,14,58,.05)}
+  ul.idx .d{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.16rem;
+    color:var(--accent);line-height:1.25}
+  ul.idx a.row:hover .d{text-decoration:underline;text-underline-offset:3px}
+  ul.idx .count{color:var(--faint);font-size:.9rem;font-style:italic;white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  /* A long note (an order list's "3 GVRs / 230 denied / 4 habeas denied /
+     ...", items separated by middots) cannot sit on one line: nowrap made it
+     claim the row and
+     squeezed the title into a column three words wide, and on a phone it ran off
+     the screen. Such a row opts in (meta_wrap): the note wraps, only between its
+     items, and takes at most ~45% of the row, so the title always has the
+     larger share. Under 34rem it drops beneath the title at full width. */
+  /* ("long", not "wrap": .wrap is the page container and its padding.) */
+  ul.idx .count.long{white-space:normal;text-align:right;max-width:45%;line-height:1.45}
+  ul.idx .count.long .seg{white-space:nowrap}
+  @media(max-width:34rem){
+    ul.idx a.row.longmeta{flex-wrap:wrap;row-gap:.2rem}
+    ul.idx .count.long{max-width:none;flex-basis:100%;text-align:left}
+  }
+  /* Compact horizontal strip of the most recent pages beneath a category row. */
+  ul.idx .recent{display:flex;flex-wrap:wrap;align-items:baseline;
+    gap:.3rem .85rem;padding:0 .4rem 1rem;margin-top:-.35rem}
+  ul.idx .recent .rlabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  ul.idx .recent a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--ink-soft);text-decoration:none;font-variant-numeric:tabular-nums;
+    border-bottom:1px solid var(--rule);padding-bottom:1px}
+  ul.idx .recent a:hover{color:var(--accent);border-color:var(--accent)}
+  /* Optional panel beneath the section index (home page: most-read cases). */
+  .panel{margin:2.4rem 0 0}
+  .panel h2{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 .25rem}
+  .panel .pnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:0 0 .5rem}
+  /* "Live now" (live_argument_panel, /live.js): hidden unless the Court is
+     streaming an argument. One red dot, the same --accent as the headings, so
+     the live state is a mark and not a new colour. */
+  .live h2 .ldot{display:inline-block;width:.5rem;height:.5rem;border-radius:50%;
+    background:var(--accent);margin-right:.5rem;vertical-align:.08rem;
+    animation:lpulse 2s ease-in-out infinite}
+  @keyframes lpulse{50%{opacity:.25}}
+  @media (prefers-reduced-motion:reduce){.live h2 .ldot{animation:none}}
+  .lplay{display:flex;flex-wrap:wrap;gap:.6rem .9rem;align-items:center;margin:.8rem 0 .3rem}
+  .lplay button{font:600 .9rem/1 'Newsreader',Georgia,serif;letter-spacing:.04em;
+    color:var(--paper);background:var(--accent);border:0;border-radius:2px;
+    padding:.6rem 1.05rem;cursor:pointer}
+  .lplay button:disabled{opacity:.6;cursor:progress}
+  .lplay button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  /* The player takes a row of its own and may never outgrow the column. A flex
+     item's min-width is auto, which for a replaced element is the browser's own
+     controls' width -- wider than the column on a phone, where mobile Safari
+     and Chrome draw larger controls than the desktop. */
+  .lplay audio{display:block;flex:1 1 100%;width:100%;min-width:0;max-width:100%;
+    box-sizing:border-box;margin:0}
+  .lplay .lstat{font-size:.85rem;color:var(--faint)}
+  /* --- Likeliest grants -----------------------------------------------------
+     Its own rows rather than ol.mostread's: this panel carries a question under
+     the caption, which that list has no room for, and a percentage that has to
+     read as the row's subject rather than as a trailing note.
+     The window toggle is two real radio inputs plus :has() -- no JavaScript.
+     Both windows are rendered at build time and one is hidden, which is the only
+     way a static site can offer the choice: there is no server to ask for the
+     other one. Real radios, not styled buttons, so the control is reachable by
+     keyboard and announced as a choice. */
+  .lead{margin:0 0 1.9rem}
+  .lead h2{margin-bottom:.35rem}
+  .lead .pnote{margin:0 0 .7rem}
+  .wr{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+  .win{display:inline-flex;gap:.25rem;margin:0 0 .55rem;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .win label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .win label:hover{color:var(--ink)}
+  .lead:has(#w7:checked) label[for=w7],
+  .lead:has(#w28:checked) label[for=w28],
+  .lead:has(#wall:checked) label[for=wall]{background:var(--accent);color:var(--paper)}
+  .wr:focus-visible+label{outline:2px solid var(--accent);outline-offset:2px}
+  /* Three windows, one shown: the checked radio hides the other two. */
+  .lead:has(#w7:checked) :is(.g28,.n28,.gall,.nall),
+  .lead:has(#w28:checked) :is(.g7,.n7,.gall,.nall),
+  .lead:has(#wall:checked) :is(.g7,.n7,.g28,.n28){display:none}
+  /* The show/hide controls for a panel's secondary line -- the question under
+     a forecast row, the holding under a decision. Same box as the window
+     toggle, a checkbox instead of radios, and no script: the sibling rule does
+     the work and the lines simply show where :has() is unsupported. The
+     questions are on by default (they are what a forecast row asks); the
+     holdings are off (the caption, kind and disposition already say what
+     happened, and the holding is the more). */
+  .opts{display:inline-flex;gap:.25rem;margin:0 .45rem .55rem 0;vertical-align:top;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .opts label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .opts label:hover{color:var(--ink)}
+  .lead:has(#qon:checked) label[for=qon],
+  .panel:has(#hon:checked) label[for=hon]{background:var(--accent);color:var(--paper)}
+  .lead:has(#qon:not(:checked)) .gq{display:none}
+  .panel:has(#hon:not(:checked)) .chold{display:none}
+  /* --- Upcoming at the Court ------------------------------------------------
+     A date gutter and a two-line body, the same shape as the grant rows above
+     it, so the two panels read as one page rather than two widgets. */
+  .cal{margin:0 0 1.9rem}
+  ol.cal{list-style:none;margin:0;padding:0}
+  ol.cal li{border-top:1px solid var(--rule)}
+  ol.cal li:last-child{border-bottom:1px solid var(--rule)}
+  /* The row is a container, not an anchor: an argument day carries one link per
+     case it hears and anchors cannot nest. Hover lives on the row so it still
+     reads as one unit, and each link colours on its own hover. */
+  ol.cal .crow{display:flex;gap:.95rem;align-items:baseline;padding:.55rem .1rem}
+  ol.cal .crow:hover{background:rgba(156,14,58,.05)}
+  ol.cal a{text-decoration:none;color:inherit}
+  ol.cal a:hover,ol.cal a:focus-visible{color:var(--accent)}
+  ol.cal .cdet a{border-bottom:1px solid rgba(156,14,58,.35)}
+  ol.cal .cdet a:hover{border-bottom-color:var(--accent)}
+  ol.cal .cwhen{flex:none;width:4.6rem;font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.96rem;color:var(--ink);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  ol.cal .cdow{display:block;font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);text-transform:uppercase;letter-spacing:.08em}
+  ol.cal .ctx{flex:1;min-width:0}
+  ol.cal .ckind{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:.98rem;line-height:1.25}
+  ol.cal .cdet{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.12rem}
+  /* Recent decisions reuses the calendar rows and adds exactly two things: the
+     kind word that opens the detail line, and the one outbound link (the slip
+     opinion), which takes the link colour the rest of the row deliberately
+     does not. */
+  ol.cal .dk{font-weight:600;color:var(--ink)}
+  ol.cal .cdet a.pdf{color:var(--link)}
+  /* The holding, from the Court's slip-opinion feed: one sentence, set
+     smaller and in the soft ink so the caption stays the row's headline. */
+  ol.cal .chold{display:block;font-size:.86rem;line-height:1.4;color:var(--ink-soft);
+    font-style:italic;margin-top:.15rem}
+  ol.cal .cdet a.pdf:hover,ol.cal .cdet a.pdf:focus-visible{color:var(--accent);
+    border-bottom-color:var(--accent)}
+  ol.grants{list-style:none;margin:0;padding:0}
+  ol.grants li{border-top:1px solid var(--rule)}
+  ol.grants li:last-child{border-bottom:1px solid var(--rule)}
+  ol.grants a{display:flex;gap:.95rem;align-items:baseline;text-decoration:none;
+    color:inherit;padding:.62rem .1rem}
+  ol.grants a:hover{background:rgba(156,14,58,.05)}
+  ol.grants a:hover .gc{color:var(--accent)}
+  ol.grants .gv{flex:none;width:3.5rem;text-align:right;
+    font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.22rem;
+    line-height:1.1;color:var(--accent);font-variant-numeric:tabular-nums}
+  ol.grants .gx{font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);margin-left:.3rem}
+  ol.grants .gtx{flex:1;min-width:0}
+  /* Subject-area line under the caption, in the section-label idiom (h2.sec):
+     small tracked caps in the faint ink, so it classifies without competing. */
+  ol.grants .gs,ol.mostread .ms{display:block;font-size:.68rem;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--faint);line-height:1.3;margin-top:.12rem}
+  ol.grants .gc{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:1rem;line-height:1.25}
+  ol.grants .gq{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.16rem}
+  ol.grants .gd{flex:none;font-size:.76rem;color:var(--faint);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  .more{margin:.75rem 0 0;font-size:.92rem}
+  .more a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.35)}
+  .more a:hover{border-bottom-color:var(--link)}
+  h2.sec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:.88rem;
+    letter-spacing:.09em;color:var(--faint);text-transform:uppercase;
+    margin:2.1rem 0 .6rem;padding-bottom:.28rem;border-bottom:1px solid var(--rule)}
+  @media(max-width:40rem){
+    ol.grants a{flex-wrap:wrap}
+    ol.grants .gd{width:100%;padding-left:4.45rem;margin-top:-.1rem}
+  }
+  ol.mostread{list-style:none;counter-reset:mr;padding:0;margin:0}
+  ol.mostread li{counter-increment:mr;border-bottom:1px solid var(--rule)}
+  ol.mostread a{display:flex;align-items:baseline;gap:.7rem;padding:.6rem .4rem;
+    text-decoration:none;color:inherit}
+  ol.mostread a:hover{background:rgba(156,14,58,.05)}
+  ol.mostread a::before{content:counter(mr);font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.95rem;color:var(--faint);min-width:1.1rem;
+    font-variant-numeric:tabular-nums}
+  ol.mostread .mc{flex:1;font-size:1rem;line-height:1.3}
+  ol.mostread .mct{display:block}
+  ol.mostread a:hover .mct{color:var(--accent);text-decoration:underline;
+    text-underline-offset:3px}
+  ol.mostread .mdk{color:var(--accent);font-weight:600;font-size:.82rem;
+    font-variant-numeric:tabular-nums;white-space:nowrap}
+  ol.mostread .mv{color:var(--faint);font-size:.85rem;font-style:italic;
+    white-space:nowrap;font-variant-numeric:tabular-nums}
+  /* Forecast percentages carry weight the most-read counts do not: the number is
+     the claim, not a footnote to the ranking. Upright, accent, tabular. */
+  ol.mostread .mv.fc{color:var(--accent);font-style:normal;font-weight:600;
+    font-size:.95rem;min-width:2.6rem;text-align:right}
+  /* Feed follow line. Deliberately quiet -- a footnote under the section list,
+     styled like .recent rather than like a call to action. */
+  .feeds{display:flex;flex-wrap:wrap;align-items:baseline;gap:.3rem .85rem;
+    margin:2.2rem 0 0;padding-top:1.1rem;border-top:1px solid var(--rule)}
+  .feeds .flabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  .feeds a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .feeds a:hover{border-color:var(--link)}
+  .back{margin-top:2rem;font-size:.95rem}
+  .back a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .back a:hover{border-color:var(--link)}
+  /* Home-page case search. */
+  .csearch{position:relative;margin:0 0 1.4rem}
+  #cq{width:100%;font-family:'Newsreader',Georgia,serif;font-size:1.05rem;color:var(--ink);
+    background:var(--panel);border:1px solid var(--rule);border-radius:3px;padding:.7rem .9rem}
+  #cq:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(156,14,58,.1)}
+  #cq::placeholder{color:var(--faint)}
+  #cq.loading{background-image:linear-gradient(90deg,transparent,rgba(156,14,58,.06),transparent);
+    background-size:40% 100%;background-repeat:no-repeat;animation:csl 1s infinite}
+  @keyframes csl{0%{background-position:-40% 0}100%{background-position:140% 0}}
+  .cres{list-style:none;margin:.35rem 0 0;padding:0;max-height:24rem;overflow-y:auto;
+    border:1px solid var(--rule);border-radius:3px;background:var(--panel)}
+  .cres:empty{display:none}
+  .cres li{border-bottom:1px solid var(--rule)}
+  .cres li:last-child{border-bottom:0}
+  .cres a{display:block;padding:.55rem .7rem;text-decoration:none;color:var(--ink);
+    font-size:.98rem;line-height:1.3}
+  .cres a:hover,.cres li.act a{background:rgba(156,14,58,.06)}
+  .cres mark{background:rgba(156,14,58,.14);color:inherit;padding:0 .05em;border-radius:2px}
+  .cres .cd{color:var(--accent);font-variant-numeric:tabular-nums;font-weight:600;
+    margin-right:.5rem;white-space:nowrap}
+  .cnone{padding:.55rem .7rem;color:var(--faint);font-style:italic}
+  .cnone a,.cqp a{color:var(--link);font-style:normal;text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .cqp{margin:.45rem 0 0;font-size:.88rem;color:var(--faint)}
+  /* /cases/ browse index: grouped sections with per-bucket counts. */
+  .csec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+    text-transform:uppercase;letter-spacing:.12em;color:var(--accent);
+    margin:2.2rem 0 .3rem;padding-bottom:.35rem;border-bottom:1px solid var(--rule);
+    display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
+  .csec .cn{font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:.85rem;
+    letter-spacing:0;text-transform:none;color:var(--faint);
+    font-variant-numeric:tabular-nums}
+  .cnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:.5rem 0 0}
+  .cnote a{color:var(--accent)}
+  ul.terms{list-style:none;padding:0;margin:1rem 0 0;display:flex;flex-wrap:wrap;
+    gap:.5rem 1.6rem}
+  ul.terms li{display:inline-flex;align-items:baseline;gap:.4rem}
+  ul.terms a{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.05rem;
+    color:var(--accent);text-decoration:none;border-bottom:1px solid var(--rule)}
+  ul.terms a:hover{border-bottom-color:var(--accent)}
+  ul.terms .cn{color:var(--faint);font-size:.85rem;font-variant-numeric:tabular-nums}
+  /* About page: running prose rather than an index, so it takes a measure and a
+     little more leading than the section rows above it. */
+  .about{margin:1.6rem 0 0;font-size:1.05rem;line-height:1.65;max-width:34rem}
+  .about p{margin:0 0 1rem}
+  .about a{color:var(--accent);text-decoration:none;
+    border-bottom:1px solid var(--rule)}
+  .about a:hover{border-bottom-color:var(--accent)}
+  .about .contact{margin:2rem 0 0;background:var(--panel);border:1px solid var(--rule);
+    border-left:4px solid var(--accent);padding:1.1rem 1.3rem}
+  .about .contact h2{font:600 .78rem/1 'Newsreader',Georgia,serif;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--accent);margin:0 0 .5rem}
+  .about .contact p{margin:0;font-size:1rem}
+
+/* ---- masthead ---- */
+.smast-in{max-width:var(--nav-max,60rem);margin:0 auto;padding:.85rem 1.5rem .5rem;
+  display:flex;align-items:baseline;justify-content:space-between;gap:1.4rem;flex-wrap:wrap}
+.smast-wm{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+  letter-spacing:.005em;color:var(--ink,#1a1a1e);text-decoration:none;white-space:nowrap;flex:none}
+.smast-wm em{font-style:italic;font-weight:500;color:var(--accent,#9c0e3a)}
+.smast-wm:hover{color:var(--accent,#9c0e3a)}
+/* Row gap first, then column. At 1.35rem the six section links measured 596px
+   of max-content -- 4px wider than the 592px row the 40rem index container
+   leaves them -- so ABOUT alone wrapped to a third line under the wordmark, on
+   every page page_style.R writes. 1.05rem brings the row to 572px: 20px of
+   slack at 40rem, and 45px on the 54rem case pages, which were themselves only
+   21px from wrapping. The .4rem row gap is for the day a seventh section
+   overruns it anyway -- a nav that wraps should read as a stack, not an orphan. */
+.snav{display:flex;gap:.4rem 1.05rem;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+.snav a{font:600 .72rem/1 'Newsreader',Georgia,serif;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--ink-soft,var(--soft,#484850));text-decoration:none;display:inline-block;
+  padding:.5rem 0;border-bottom:1.5px solid transparent}
+.snav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--rule,#dbd8d2)}
+.snav a[aria-current='page']{color:var(--accent,#9c0e3a);
+  border-bottom-color:var(--accent,#9c0e3a)}
+.smast-rule-w{max-width:var(--nav-max,60rem);margin:0 auto;padding:0 1.5rem}
+.smast-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0;position:relative}
+.smast-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.skip{position:absolute;left:-9999px;top:0;background:var(--panel,#ffffff);
+  color:var(--accent,#9c0e3a);padding:.6rem 1rem;
+  border:1px solid var(--accent,#9c0e3a);
+  font:600 .8rem/1 'Newsreader',Georgia,serif;letter-spacing:.1em;text-transform:uppercase;z-index:10}
+.skip:focus{left:.5rem;top:.5rem}
+/* ---- breadcrumb ---- */
+.bcrumb{margin:.7rem 0 0}
+.bcrumb ol{list-style:none;display:flex;flex-wrap:wrap;align-items:baseline;
+  gap:.1rem .45rem;margin:0;padding:0}
+.bcrumb li{display:inline-flex;align-items:baseline;gap:.45rem}
+.bcrumb a{font:400 .8rem/1.5 'Newsreader',Georgia,serif;color:var(--ink-soft,var(--soft,#484850));
+  text-decoration:none;border-bottom:1px solid var(--rule,#dbd8d2)}
+.bcrumb a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.bcrumb .sep{color:var(--faint,#63636b);font-size:.8rem;line-height:1.5}
+.bcrumb [aria-current='page']{font:400 .8rem/1.5 'Newsreader',Georgia,serif;
+  color:var(--faint,#63636b);font-variant-numeric:tabular-nums}
+/* ---- case footer ---- */
+.cfoot{margin:2.4rem 0 0}
+.cfoot-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0 0 1rem;position:relative}
+.cfoot-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.cfoot-off{font-size:.95rem;margin:0 0 1.1rem}
+.cfoot-off a{color:var(--link,#9c0e3a);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.4)}
+.cfoot-off a:hover{border-bottom-color:var(--link,#9c0e3a)}
+.cfoot-lab{font:600 .68rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);margin:0 0 .5rem}
+.cfoot-nav{display:flex;flex-wrap:wrap;gap:.35rem 1.1rem;list-style:none;margin:0;padding:0}
+.cfoot-nav a{font-size:.92rem;color:var(--ink-soft,var(--soft,#484850));text-decoration:none;
+  border-bottom:1px solid var(--rule,#dbd8d2);padding-bottom:1px}
+.cfoot-nav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.cfoot-stamp{margin:1.2rem 0 0;font-size:.8rem;color:var(--faint,#63636b);font-style:italic}
+/* ---- prev / next ---- */
+.pnav{margin:2.2rem 0 0;border-top:1px solid var(--rule,#dbd8d2);padding-top:1rem;
+  display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.pnav a,.pnav span.none{text-decoration:none;color:inherit;display:block;padding:.5rem .2rem}
+.pnav a:hover{background:rgba(156,14,58,.05)}
+.pnav .dir{font:600 .66rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);display:block;margin-bottom:.3rem}
+.pnav .lab{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1rem;line-height:1.25;
+  color:var(--accent,#9c0e3a);display:block}
+.pnav a:hover .lab{text-decoration:underline;text-underline-offset:3px}
+.pnav .nx{text-align:right}
+.pnav .none{opacity:.35}
+@media(max-width:640px){
+  .smast-in{padding:.7rem 1.1rem .25rem;gap:.15rem}
+  .smast-wm{font-size:.98rem}
+  .smast-in nav{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+    -webkit-mask-image:linear-gradient(90deg,#000 86%,transparent);
+    mask-image:linear-gradient(90deg,#000 86%,transparent)}
+  .smast-in nav::-webkit-scrollbar{display:none}
+  .snav{flex-wrap:nowrap;gap:1.15rem;padding-right:2.4rem}
+  .snav a{padding:.7rem 0;white-space:nowrap}
+  .smast-rule-w{padding:0 1.1rem}
+  .cfoot-nav{gap:.5rem 1rem}
+  .cfoot-nav a{padding-bottom:.3rem}
+  .pnav{grid-template-columns:1fr;gap:.2rem}
+  .pnav .nx{text-align:left;border-top:1px solid var(--rule,#dbd8d2)}
+}
+
+  .wrap.opn{max-width:42rem}
+  .opn .ometa{font-size:.92rem;color:var(--ink-soft);margin:.3rem 0 0}
+  .opn .oget{display:flex;flex-wrap:wrap;gap:.4rem .6rem;margin:1.1rem 0 0;padding:0;list-style:none;font-size:.9rem}
+  .opn .oget a{display:inline-block;padding:.32rem .7rem;border:1px solid var(--rule);border-radius:4px;color:var(--ink);text-decoration:none;background:var(--panel)}
+  .opn .oget a:hover{border-color:var(--accent);color:var(--accent)}
+  .opn .osrc{font-size:.84rem;color:var(--faint);margin:.9rem 0 0;line-height:1.45}
+  .opn .osrc a{color:var(--link)}
+  .opn .otoc{margin:1.6rem 0 0;padding:.8rem 1rem;border:1px solid var(--rule);border-radius:4px;background:var(--panel);font-size:.95rem}
+  .opn .otoc ol{margin:0;padding:0;list-style:none}
+  .opn .otoc li{margin:.25rem 0}
+  .opn .otoc a{color:var(--ink);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.35)}
+  .opn .otoc a:hover{color:var(--accent)}
+  .opn section.op{margin-top:3rem;border-top:2px solid var(--ink);padding-top:1.1rem}
+  .opn section.op h2{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.5rem;line-height:1.2;margin:0 0 1rem;color:var(--ink)}
+  .opn section.op p{margin:0 0 .95rem;line-height:1.62;hyphens:auto;overflow-wrap:break-word}
+  .opn section.op p.byline{color:var(--ink-soft);font-style:italic}
+  .opn section.op p.sep{text-align:center;letter-spacing:.3em;color:var(--faint);margin:1.6rem 0}
+  .opn section.op h3.oh{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.12rem;text-align:center;margin:2rem 0 1rem;color:var(--ink)}
+  .opn section.op blockquote{margin:0 0 .95rem;padding:0 0 0 1.1rem;border-left:2px solid var(--rule);color:var(--ink-soft)}
+  .opn section.op blockquote p{margin-bottom:.6rem;font-size:.96em}
+  .opn .sc{font-variant-caps:small-caps;letter-spacing:.02em}
+  .opn .pg{font-size:.66em;color:var(--faint);vertical-align:.3em;margin:0 .3em 0 .1em;font-variant-numeric:tabular-nums;user-select:none;white-space:nowrap}
+  .opn .pg::before{content:'*'}
+  .opn sup.fnr{font-size:.68em;line-height:0;margin-left:.05em}
+  .opn sup.fnr a{color:var(--link);text-decoration:none;padding:0 .1em}
+  .opn aside.notes{margin-top:2rem;border-top:1px solid var(--rule);padding-top:.8rem;font-size:.88rem;color:var(--ink-soft)}
+  .opn aside.notes h3{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1rem;margin:0 0 .6rem;color:var(--ink)}
+  .opn aside.notes ol{margin:0;padding-left:1.7rem}
+  .opn aside.notes li{margin:0 0 .55rem}
+  .opn aside.notes li.sym{list-style:none;margin-left:-1.7rem}
+  .opn aside.notes li.sym .mk{margin-right:.3rem}
+  .opn aside.notes li.sym p{display:inline}
+  .opn aside.notes p{margin:0 0 .4rem;line-height:1.5}
+  .opn aside.notes a.back{color:var(--link);text-decoration:none;margin-left:.2rem}
+  .opn aside.notes li:target,.opn sup.fnr a:target,.opn .pg:target{background:rgba(156,14,58,.12);outline:.2rem solid rgba(156,14,58,.12)}
+  .opn section.op,.opn aside.notes li,.opn sup.fnr a{scroll-margin-top:1rem}
+  .opn section.op-syllabus p,.opn section.op-counsel p{font-size:.95em}
+  .opn section.op-counsel summary{cursor:pointer;font-family:'Fraunces',Georgia,serif;font-size:1.05rem;color:var(--ink-soft)}
+  .opn .osyl{font-size:.84rem;color:var(--faint);font-style:italic;margin:-.5rem 0 1rem}
+  .opn p.back{margin-top:3rem;font-size:.92rem}
+  @media print{.smast,.bcrumb,.opn .oget,.opn .otoc,.opn p.back{display:none}.opn section.op{break-before:page}}
+</style><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://supremecourt.report/"},{"@type":"ListItem","position":2,"name":"Opinions","item":"https://supremecourt.report/opinions/"},{"@type":"ListItem","position":3,"name":"Turner v. United States"}]}</script><meta name='otv' content='p1'><link rel='alternate' type='text/markdown' href='/opinions/2016/15-1503.md'><link rel='alternate' type='application/epub+zip' href='/opinions/2016/15-1503.epub'></head><body><a class='skip' href='#main'>Skip to content</a><header><div class='smast-in'><a class='smast-wm' href='/'>Supreme Court <em>Report</em></a><nav aria-label='Sections'><ul class='snav'><li><a href='/dashboards/'>Docket</a></li><li><a href='/conferences/'>Conferences</a></li><li><a href='/relists/'>Relists</a></li><li><a href='/applications/'>Interim</a></li><li><a href='/arguments/'>Arguments</a></li><li><a href='/justices/' aria-current='page'>Justices</a></li><li><a href='/counsel/'>Counsel</a></li><li><a href='/funnel/'>Funnel</a></li><li><a href='/methods.html'>Model</a></li><li><a href='/about.html'>About</a></li></ul></nav></div><div class='smast-rule-w'><hr class='smast-rule'></div></header><main class='wrap opn' id='main' data-dkt='15-1503'><nav class='bcrumb' aria-label='Breadcrumb'><ol><li><a href='/'>Home</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><a href='/opinions/'>Opinions</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><span aria-current='page'>Turner v. United States</span></li></ol></nav><p class='kicker'>No. 15-1503 · decided June 22, 2017 · 582 U. S. 313</p><h1 style='font-size:clamp(1.7rem,4.6vw,2.4rem);line-height:1.12'>Turner v. United States</h1><p class='ometa'>No. 15-1503. 1 separate writing.</p><ul class='oget'><li><a href='/opinions/2016/15-1503.epub' download>EPUB</a></li><li><a href='/opinions/2016/15-1503.md' download>Markdown</a></li><li><a href='https://www.supremecourt.gov/opinions/boundvolumes/582BV.pdf#page=350' rel='noopener'>The Court’s PDF</a></li><li><a href='/cases/15-1503.html'>The docket</a></li></ul><p class='osrc'>Set from the PDF the Court published, which is the authoritative text. The small starred numbers are that PDF’s page numbers. A conversion can introduce errors; check a quotation against the <a href='https://www.supremecourt.gov/opinions/boundvolumes/582BV.pdf#page=350' rel='noopener'>original</a>.</p><nav class="otoc" aria-label="Contents"><ol>
+<li><a href="#s1">Syllabus</a></li>
+<li><a href="#s2">Counsel</a></li>
+<li><a href="#s3">Opinion of the Court</a></li>
+<li><a href="#s4">Justice Kagan, dissenting</a></li>
+</ol></nav>
+<section id="s1" class="op op-syllabus"><h2>Syllabus</h2><p class='osyl'>Prepared by the Reporter of Decisions for the convenience of the reader; it is no part of the opinion of the Court.</p>
+<p>Petitioners—Timothy Catlett, Russell Overton, Levy Rouse, Kelvin Smith, Charles and Christopher Turner, and Clifton Yarborough—and several others were indicted for the kidnaping, robbery, and murder of Catherine Fuller. At trial, the Government advanced the theory that Fuller was attacked by a large group of individuals. Its evidentiary centerpiece consisted of the testimony of Calvin Alston and Harry Bennett, who confessed to participating in a group attack and cooperated with the Government in return for leniency. Several other Government witnesses corroborated aspects of Alston's and Bennett's testimony. Melvin Montgomery testified that he was in a park among a group of people, heard someone say they were “going to get that one,” saw petitioner Overton pointing to Fuller, and saw several persons, including some petitioners, cross the street in her direction. Maurice Thomas testified that he saw the attack, identified some petitioners as participants, and later overheard petitioner Catlett say that they “had to kill her.” Carrie Eleby and Linda Jacobs testified that they heard screams coming from an alley where a “gang of boys” was beating someone near a garage, approached the group, and saw some petitioners participating in the attack. Finally, the Government played a videotape of petitioner Yarborough's statement to detectives, describing how he was part of a large group that carried out the attack. None of the defendants rebutted the prosecution witnesses' claims that Fuller was killed in a group attack. The seven petitioners were convicted.</p>
+<p>Long after their convictions became final, petitioners discovered that the Government had withheld evidence from the defense at the time of trial. In postconviction proceedings, they argued that seven specific pieces of withheld evidence were both favorable to the defense and material to their guilt under <em>Brady</em> v. <em>Maryland</em>, 373 U. S. 83. This evidence included the identity of a man seen running into the alley after the murder and stopping near the garage where Fuller's body had already been found; the statement of a passerby who claimed to hear groans coming from a closed garage; and evidence tending to impeach *Together with No. 15–1504<em>, Overton</em> v. <em>United States</em>, also on certiorari</p>
+<p>to the same court.</p>
+<p><span class="pg" id="s1-p314" title="page 314 of the original">314</span>witnesses Eleby, Jacobs, and Thomas. The D. C. Superior Court rejected petitioners' <em>Brady</em> claims, finding that the withheld evidence was not material. The D. C. Court of Appeals affirmed.</p>
+<p><em>Held</em>: The withheld evidence is not material under <em>Brady.</em> Pp. 323–328. (a) The Government does not contest petitioners' claim that the with</p>
+<p>held evidence was “favorable to the defense.” Petitioners and the Government, however, do contest the materiality of the undisclosed <em>Brady</em> information. Such “evidence is `material' . . . when there is a reasonable probability that, had the evidence been disclosed, the result of the proceeding would have been different.” <em>Cone</em> v. <em>Bell</em>, 556 U. S. 449, 469–470. “A `reasonable probability' of a different result” is one in which the suppressed evidence “ `undermines confidence in the outcome of the trial.' ” <em>Kyles</em> v. <em>Whitley</em>, 514 U. S. 419, 434. To make that determination, this Court “evaluate[s]” the withheld evidence “in the context of the entire record.” <em>United States</em> v. <em>Agurs</em>, 427 U. S. 97, 112. Pp. 323–325.</p>
+<p>(b) Petitioners' main argument is that, had they known about the withheld evidence, they could have challenged the Government's basic group attack theory by raising an alternative theory, namely, that a single perpetrator (or two at most) had attacked Fuller. Considering the withheld evidence “in the context of the entire record,” <em>Agurs</em>, <em>supra,</em> at 112, that evidence is too little, too weak, or too distant from the main evidentiary points to meet <em>Brady</em>'s standards.</p>
+<p>A group attack was the very cornerstone of the Government's case, and virtually every witness to the crime agreed that Fuller was killed by a large group of perpetrators. It is not reasonably probable that the withheld evidence could have led to a different result at trial. Petitioners' problem is that their current alternative theory would have had to persuade the jury that both Alston and Bennett falsely confessed to being active participants in a group attack that never occurred; that Yarborough falsely implicated himself in that group attack and yet gave a highly similar account of how it occurred; that Thomas, an otherwise disinterested witness, wholly fabricated his story; that both Eleby and Jacobs likewise testified to witnessing a group attack that did not occur; and that Montgomery in fact did not see petitioners and others, as a group, identify Fuller as a target and leave together to rob her.</p>
+<p>As for the undisclosed impeachment evidence, the record shows that it was largely cumulative of impeachment evidence petitioners already had and used at trial. This is not to suggest that impeachment evidence is immaterial with respect to a witness who has already been impeached with other evidence, see <em>Wearry</em> v. <em>Cain</em>, 577 U. S. 385, 392–394. But in the context of this trial, with respect to these witnesses, the cumulative <span class="pg" id="s1-p315" title="page 315 of the original">315</span>effect of the withheld evidence is insufficient to undermine confidence in the jury's verdict, see <em>Smith</em> v. <em>Cain</em>, 565 U. S. 73, 75–76. Pp. 325–328. 116 A. 3d 894, affirmed. <span class="sc">Breyer</span>, J., delivered the opinion of the Court, in which <span class="sc">Roberts</span>, C. J., and <span class="sc">Kennedy</span>, <span class="sc">Thomas</span>, <span class="sc">Alito</span>, and <span class="sc">Sotomayor</span>, JJ., joined. <span class="sc">Kagan</span>, J., filed a dissenting opinion, in which <span class="sc">Ginsburg</span>, J., joined, <em>post</em>, p. 330. <span class="sc">Gorsuch</span>, J., took no part in the consideration or decision of the cases.</p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li class="sym" value="0"><span class="mk">†</span><p>Briefs of <em>amici curiae</em> urging reversal in both cases were filed for the Cato Institute by <em>Jeffrey M. Harris</em>, <em>Beth A. Williams</em>, <em>Damon C. Andrews</em>, and <em>Ilya Shapiro</em>; for the Center on Wrongful Convictions of Youth by <em>Laura H. Nirider</em>, <em>Steven A. Drizin</em>, and <em>Megan G. Crane</em>; for Former Prosecutors by <em>Julia M. Jordan</em>, <em>Elizabeth A. Cassady</em>, and <em>H. Rodgin Cohen</em>; for the Innocence Network by <em>Richard W. Mark</em>, <em>Amer S. Ahmed</em>, <em>Gabriel K. Gillett</em>, and <em>David Debold</em>; for the National Association of Criminal Defense Lawyers by <em>Jeffrey T. Green</em>, <em>David Porter</em>, and <em>Sarah O'Rourke Schrup</em>; for the Texas Public Policy Foundation et al. by <em>John D. Cline</em> and <em>Robert Henneke</em>; and for Wilfredo Lora by <em>Alan B. Morrison</em>.</p></li>
+</ol></aside></section>
+<section id="s2" class="op op-counsel"><details><summary>Counsel</summary><p><em>John S. Williams</em> argued the cause for petitioners in No. 15–1503. With him on the briefs were <em>Robert M. Cary, Kannon K. Shanmugam</em>, <em>Shawn Armbrust</em>, <em>Barry J. Pollack</em>, <em>Veronice A. Holt</em>, <em>Jenifer Wicks</em>, and <em>Donald P. Salzman</em>.</p>
+<p><em>Deanna M. Rice</em> argued the cause for petitioner in No. 15–1504. With her on the briefs were <em>Michael E. Antalics</em>, <em>Jonathan D. Hacker</em>, and <em>Kevin D. Feder</em>.</p>
+<p><em>Deputy Solicitor General Dreeben</em> argued the cause for the United States in both cases. With him on the brief were <em>Acting Solicitor General Francisco</em>, <em>Acting Assistant Attorney General Blanco</em>, <em>Ann O'Connell</em>, and <em>Elizabeth D. Collery</em>.†</p></details></section>
+<section id="s3" class="op op-court"><h2>Opinion of the Court</h2>
+<p class="byline">Justice Breyer delivered the opinion of the Court.</p>
+<p>In <em>Brady</em> v. <em>Maryland</em>, 373 U. S. 83 (1963), this Court held that the government violates the Constitution's Due Process Clause “if it withholds evidence that is favorable to the defense and <em>material</em> to the defendant's guilt or punishment.” <span class="pg" id="s3-p316" title="page 316 of the original">316</span><em>Smith</em> v. <em>Cain</em>, 565 U. S. 73, 75 (2012) (emphasis added) (summarizing <em>Brady</em> holding). In 1985 the seven petitioners in these cases were tried together in the Superior Court for the District of Columbia for the kidnaping, armed robbery, and murder of Catherine Fuller. Long after petitioners' convictions became final, it emerged that the Government possessed certain evidence that it failed to disclose to the defense. The only question before us here is whether that withheld evidence was “material” under <em>Brady</em>. The D. C. Superior Court, after a 16-day evidentiary hearing, determined that the withheld evidence was not material. <em>Catlett</em> v. <em>United States</em>, Crim. No. 8617–FEL–84 etc. (Aug. 6, 2012), App. to Pet. for Cert. in No. 15–1503, pp. 84a, n. 4, 81a–131a. The D. C. Court of Appeals reviewed the record, reached the same conclusion, and affirmed the Superior Court. 116 A. 3d 894 (2015). After reviewing the record, we reach the same conclusion as did the lower courts.</p>
+<h3 class="oh">I</h3>
+<p>In these fact-intensive cases, we set out here only a basic description of the record facts along with our reasons for reaching our conclusion. We refer those who wish more detail to the opinions of the lower courts. App. to Pet. for Cert. in No. 15–1503, at 81a–131a; 116 A. 3d 894.</p>
+<h3 class="oh">A</h3>
+<h3 class="oh"><em>The Trial</em></h3>
+<p>On March 22, 1985, a grand jury indicted the seven petitioners—Timothy Catlett, Russell Overton, Levy Rouse, Kelvin Smith, Charles Turner, Christopher Turner, and Clifton Yarborough—and several others for the kidnaping, robbery, and murder of Catherine Fuller. The evidence produced at their joint trial showed that on October 1, 1984, at around 4:30 p.m., Catherine Fuller left her home to go shopping. At around 6 p.m., William Freeman, a street vendor, found Fuller's body inside an alley garage between <span class="pg" id="s3-p317" title="page 317 of the original">317</span>Eighth and Ninth Streets N. E., just a few blocks from Fuller's home. See Appendix, <em>infra</em> (showing a map of the area in which the murder was committed). Fuller had been robbed, severely beaten, and sodomized with an object that caused extensive internal injuries.</p>
+<p>The Government advanced the theory at trial that Fuller had been attacked in the alley by a large group of individuals, including petitioners; codefendants Steve Webb, Alfonso Harris, and Felicia Ruffin; as well as by Calvin Alston and Harry Bennett. The Government's evidentiary centerpiece consisted of testimony by Alston and Bennett, who confessed to participating in the offense and who cooperated with the Government in return for leniency. Although the testimony of Alston and Bennett diverged on minor details, it was consistent in stating that, and describing how, Fuller was attacked by a sizable group of individuals, including petitioners and they themselves.</p>
+<p>Alston testified that at about 4:10 p.m. on the day of the murder, he arrived in a park located on H Street between Eighth and Ninth Streets. He said he found a group of people gathered there. It included petitioners Levy Rouse, Russell Overton, Christopher Turner, Charles Turner, Kelvin Smith, Clifton Yarborough, and Timothy Catlett, as well as several codefendants and others. Those in the group were talking and singing while Catlett was banging out a beat. Alston suggested “getting paid” by robbing someone. Record A467. Catlett, Overton, Rouse, Smith, Charles Turner, Christopher Turner, Yarborough, and several others agreed. Alston pointed at Catherine Fuller, who was walking on the other side of H Street near the corner of H and Eighth Streets. Those in the group said they were “game for getting paid.” <em>Id.,</em> at A471–A472. Alston, Rouse, Yarborough, and Charles Turner crossed H Street moving toward Eighth Street and followed Fuller down Eighth Street. The rest of the group crossed H Street and moved toward Ninth Street. When Alston's group approached Fuller, Charles <span class="pg" id="s3-p318" title="page 318 of the original">318</span>Turner shoved her into an alley that runs between Eighth and Ninth Streets. Charles Turner, Rouse, and Alston began punching Fuller. They were soon joined by Christopher Turner, Smith, and others. All of them continued to hit and kick Fuller until she fell to the ground. Rouse and Charles Turner then carried Fuller to the center of the alley and dropped her in front of a garage located at the point where the alley joins another, perpendicular alley that runs toward I Street. Someone dragged Fuller into the garage. Alston, Rouse, Charles Turner, Overton, Yarborough, and Catlett followed. Others stood outside. Members of the group tore Fuller's clothes off and struggled over her change purse. Overton and Charles Turner then held Fuller's legs, and Alston, Catlett, Harris, and Yarborough stood around her while Rouse sodomized her with a foot-long pipe. Shortly after, the group dispersed and left the alley.</p>
+<p>Harry Bennett's testimony was similar. Bennett also described a group attack. He said that he had gone to the H Street park, where he saw Rouse, Overton, Christopher Turner, Smith, Catlett, and others gathered. Alston was talking to the group about “[g]etting paid” and said “let's go get that lady.” <em>Id.,</em> at A368–A370. At that point Alston, Rouse, Overton, and Webb crossed H Street and approached Fuller, while Catlett, Christopher Turner, Charles Turner, and Harris followed in a separate group. Bennett added that he himself went to the corner of Eighth and H Streets to watch for police. He then went into the alley and joined the group in kicking and beating Fuller. He testified that at least 12 people were there, with some beating Fuller and others watching or picking up her jewelry. Overton then dragged Fuller into the garage, and Bennett, Rouse, Christopher Turner, Charles Turner, Catlett, Smith, Harris, and Webb followed, as did some “girls.” <em>Id.,</em> at A402–A405. Alston and Steve Webb held Fuller's legs, and Rouse sodomized her with a pole. The group then dispersed from the garage and alley.</p>
+<p><span class="pg" id="s3-p319" title="page 319 of the original">319</span>The Government presented several other witnesses who corroborated aspects of Alston's and Bennett's testimony, including the fact that Fuller was attacked by a group. Melvin Montgomery testified that he was in the H Street park on the afternoon of the murder. He saw Overton, Catlett, Rouse, Charles Turner, and others gathered there. The group was being noisy and singing a song about needing money. Somebody then said they were “going to get that one,” and Montgomery saw that Overton was pointing to a woman standing on the corner of Eighth Street. App. 77–79. Overton, Catlett, Rouse, Charles Turner, and others crossed H Street. Some headed toward Eighth Street while others went toward Ninth Street. Montgomery did not follow them.</p>
+<p>Maurice Thomas, then 14 years old, testified that he witnessed the attack itself. Thomas lived in the neighborhood and knew many of the defendants. As he was walking home, he glanced down the Eighth Street alley and saw a group surrounding Fuller. Thomas saw Catlett pat Fuller down and then hit her. He then saw everyone in the group join in hitting her. Thomas said he knew Catlett, Yarborough, Rouse, Charles Turner, Christopher Turner, and Smith and recognized them in the group. Thomas heard Fuller calling for help. He ran home where he found his aunt, who told him not to tell anyone what he saw. Later that day, Thomas saw Catlett at a corner store, and heard Catlett say to someone that they “had to kill her” because “she spotted someone he was with.” <em>Id.,</em> at 127–128.</p>
+<p>On the afternoon of the murder, Carrie Eleby and Linda Jacobs were looking for petitioner Smith, who was Eleby's boyfriend, near the corner of H and Eighth Streets. They heard screams coming from where a “gang of boys” was beating somebody near the garage in the alley. Record A539–A541. Eleby and Jacobs approached the group. Eleby recognized Christopher Turner, Smith, Catlett, Rouse, Overton, Alston, and Webb kicking Fuller while Yarborough stood <span class="pg" id="s3-p320" title="page 320 of the original">320</span>nearby. Both Eleby and Jacobs testified that they saw Rouse sodomize Fuller with a pole. Eleby added that Overton held Fuller's legs.</p>
+<p>Finally, the Government played a videotape of a recorded statement that Yarborough, one of the petitioners, had given to detectives on December 9, 1984, approximately two months after the murder. Names were redacted. The video shows Yarborough describing in detail how he was part of a large group that forced Fuller into the alley, jointly robbed and assaulted her, and dragged her into the garage.</p>
+<p>None of the defendants tried, through witnesses or other evidence, to rebut the prosecution's claim that Fuller was killed in a group attack. Rather, each petitioner pursued what was essentially a “not me, maybe them” defense, namely, that he was not part of the group that attacked Fuller. Each tried to establish this defense by impeaching witnesses who had placed that particular petitioner at the scene. Some, for example, provided evidence that Eleby and Jacobs had used PCP the day of Fuller's murder. Some also tried to establish alibis for the time of Fuller's death.</p>
+<p>The jury convicted all seven petitioners, along with codefendant Steve Webb (who subsequently died). The jury acquitted codefendants Alfonso Harris and Felicia Ruffin. On direct appeal, the D. C. Court of Appeals affirmed petitioners' convictions, though it remanded for resentencing. <em>Catlett</em> v. <em>United States</em>, 545 A. 2d 1202, 1219 (1988). The trial court resentenced petitioners to the same amount of prison time. App. to Pet. for Cert. in No. 15–1503, at 82a, n. 2.</p>
+<h3 class="oh">B</h3>
+<h3 class="oh"><em>The</em> Brady <em>Claims</em></h3>
+<p>Beginning in 2010, petitioners pursued postconviction proceedings in which they sought to vacate their convictions or to be granted a new trial. App. to Pet. for Cert. in No. 15–1503, at 84a, n. 4. After petitioners' convictions became final, it emerged that the Government possessed certain evidence that it had withheld from the defense at the time of <span class="pg" id="s3-p321" title="page 321 of the original">321</span>trial. Petitioners discovered other withheld evidence in their review of the trial prosecutor's case file, which the Government turned over to petitioners in the course of the postconviction proceedings. Among other postconviction claims, petitioners contended that the withheld evidence was both favorable and material, entitling them to relief under <em>Brady</em>.</p>
+<p>The D. C. Superior Court considered petitioners' <em>Brady</em> claims as part of a 16-day evidentiary hearing. It rejected those claims, finding that “none of the undisclosed information was material.” App. to Pet. for Cert. in No. 15–1503, at 130a. The D. C. Court of Appeals affirmed. 116 A. 3d, at 901. It similarly concluded that the withheld evidence was not material under <em>Brady</em>. 116 A. 3d<em>,</em> at 913–926. At issue in those proceedings were the following seven specific pieces of evidence:</p>
+<p>1. <em>The identity of James McMillan.</em> Freeman, the vendor who discovered Fuller's body in the alley garage, testifled at trial that, while he was waiting for police to arrive, he saw two men run into the alley and stop near the garage for about five minutes before running away when an officer approached. One of the men had a bulge under his coat. Early in the trial, codefendant Harris' counsel had requested the identity of the two men to confirm that her client was not one of them. But the Government refused to disclose the men's identity.</p>
+<p>In their postconviction review of the prosecutor's files, petitioners learned that Freeman had identified the two men he saw in the alley as James McMillan and Gerald Merkerson. McMillan lived in a house which opens in the back onto a connecting alley. In the weeks following Fuller's murder, but before petitioners' trial, McMillan was arrested for beating and robbing two women in the neighborhood. Neither attack included a sexual assault. Separately, petitioners learned that seven years after petitioners' trial, McMillan had robbed, sodomized, and murdered a young woman in an alley.</p>
+<p><span class="pg" id="s3-p322" title="page 322 of the original">322</span>2. <em>The interview with Willie Luchie.</em> The prosecutor's notes also recorded an undisclosed interview with Willie Luchie, who told the prosecutor that he and three others walked through the alley on their way to an H Street liquor store between 5:30 and 5:45 p.m. on the evening of the murder. As the group walked by the garage, Luchie “heard several groans” and “remembers the doors to the garage being closed.” App. 25. Another person in the group recalled “hear[ing] some moans,” while the other two persons did not recall hearing anything unusual. <em>Id.,</em> at 27, 53; Record A992. The group continued walking without looking into the garage or otherwise investigating the source of the sounds. They did not see McMillan or any other person in the alley when they passed through.</p>
+<p>3. <em>The interviews with Ammie Davis.</em> Undisclosed notes written by a police officer and the prosecutor refer to two interviews with Ammie Davis, who had been arrested for disorderly conduct a few weeks after Fuller's murder. Davis initially told a police investigator that she had seen another individual, James Blue, beat Fuller to death in the alley. Shortly thereafter, she said she only saw Blue grab Fuller and push her into the alley. Davis also said that a girlfriend, whom she did not name, accompanied her. She promised to call the investigator with more details, but she did not do so.</p>
+<p>About 9 months later (after petitioners were indicted but approximately 11 weeks before their trial), a prosecutor learned of the investigator's notes and interviewed Davis. The prosecutor's notes state that Davis did not provide any more details, except to say that the girlfriend who accompanied her was nicknamed “ `Shorty.' ” App. 267–268. About two months later, which was shortly before petitioners' trial, Blue murdered Davis in an unrelated drug dispute.</p>
+<p>During the postconviction evidentiary hearing, the prosecutor who interviewed Davis testified that he did not disclose Davis' statement because she acted “playful” and “not serious”<span class="pg" id="s3-p323" title="page 323 of the original">323</span> during the interview and he found her to be “totally incredible.” <em>Id</em>., at 269–272. Additionally, the prosecutor stated that he knew Davis had previously falsely accused Blue of a different murder, and on another occasion had falsely accused a different individual of a different murder.</p>
+<p>4. <em>Impeachment of Kaye Porter and Carrie Eleby.</em> Kaye Porter accompanied Eleby during an initial interview with homicide detectives. Porter agreed with Eleby that she had also heard Alston state that he was involved in robbing Fuller. An undisclosed prosecutorial note states that in a later interview with detectives, Porter stated that she did not actually recall hearing Alston's statement and just went along with what Eleby said. The note also states that Eleby likewise admitted that she had lied about Porter being present during Alston's statement and had asked Porter to support her.</p>
+<p>5. <em>Impeachment of Carrie Eleby.</em> A prosecutor's undisclosed note revealed that Eleby said she had been high on PCP during a January 9, 1985, meeting with investigators.</p>
+<p>6. <em>Impeachment of Linda Jacobs.</em> An undisclosed note of an interview with Linda Jacobs said that the detective had “question[ed] her hard” and that she had “vacillated” about what she saw. Record A1009. The prosecutor recalled that the detective “kept raising his voice” and was “smacking his hand on the desk” during the interview. <em>Id.,</em> at A2298–A2299.</p>
+<p>7. <em>Impeachment of Maurice Thomas.</em> An undisclosed note of an interview with Maurice Thomas' aunt stated that she “does not recall Maurice ever telling her anything such as this.” <em>Id</em>., at A1010; see App. 295–296.</p>
+<h3 class="oh">II</h3>
+<h3 class="oh">A</h3>
+<p>The Government does not contest petitioners' claim that the withheld evidence was “favorable to the accused, either because it is exculpatory, or because it is impeaching.” <span class="pg" id="s3-p324" title="page 324 of the original">324</span><em>Strickler</em> v. <em>Greene</em>, 527 U. S. 263, 281–282 (1999). Neither does the Government contest petitioners' claim that it “suppressed” the evidence, “either willfully or inadvertently.” <em>Id</em>., at 282. It does, as it must, concede that the <em>Brady</em> rule's “ `overriding concern [is] with the justice of the finding of guilt,' ” <em>United States</em> v. <em>Bagley</em>, 473 U. S. 667, 678 (1985) (quoting <em>United States</em> v. <em>Agurs</em>, 427 U. S. 97, 112 (1976)), and that the Government's “ `interest . . . in a criminal prosecution is not that it shall win a case, but that justice shall be done,' ” <em>Kyles</em> v. <em>Whitley</em>, 514 U. S. 419, 439 (1995) (quoting <em>Berger</em> v. <em>United States</em>, 295 U. S. 78, 88 (1935)). Consistent with these principles, the Government assured the Court at oral argument that subsequent to petitioners' trial, it has adopted a “generous policy of discovery” in criminal cases under which it discloses any “information that a defendant might wish to use.” Tr. of Oral Arg. 47–48. As we have recognized, and as the Government agrees, <em>ibid.</em>, “[t]his is as it should be.” <em>Kyles, supra,</em> at 439 (explaining that a “ `prudent prosecutor['s]' ” better course is to take care to disclose any evidence favorable to the defendant (quoting <em>Agurs</em>, <em>supra,</em> at 108)).</p>
+<p>Petitioners and the Government, however, do contest the materiality of the undisclosed <em>Brady</em> information. “[E]vidence is `material' within the meaning of <em>Brady</em> when there is a reasonable probability that, had the evidence been disclosed, the result of the proceeding would have been different.” <em>Cone</em> v. <em>Bell</em>, 556 U. S. 449, 469–470 (2009) (citing <em>Bagley</em>, <em>supra</em>, at 682). “A `reasonable probability' of a different result” is one in which the suppressed evidence “ `undermines confidence in the outcome of the trial.' ” <em>Kyles</em>, <em>supra,</em> at 434 (quoting <em>Bagley</em>, <em>supra,</em> at 678). In other words, petitioners here are entitled to a new trial only if they “establis[h] the prejudice necessary to satisfy the `materiality' inquiry.” <em>Strickler</em>, <em>supra</em>, at 282.</p>
+<p>Consequently, the issue before us here is legally simple but factually complex. We must examine the trial record, <span class="pg" id="s3-p325" title="page 325 of the original">325</span>“evaluat[e]” the withheld evidence “in the context of the entire record,” <em>Agurs</em>, <em>supra</em>, at 112, and determine in light of that examination whether “there is a reasonable probability that, had the evidence been disclosed, the result of the proceeding would have been different,” <em>Cone, supra</em>, at 470 (citing <em>Bagley</em>, <em>supra</em>, at 682). Having done so, we agree with the lower courts that there was no such reasonable probability.</p>
+<h3 class="oh">B</h3>
+<p>Petitioners' main argument is that, had they known about McMillan's identity and Luchie's statement, they could have challenged the Government's basic theory that Fuller was killed in a group attack. Petitioners contend that they could have raised an alternative theory, namely, that a single perpetrator (or two at most) had attacked Fuller. According to petitioners, the groans that Luchie and his companion heard when they walked through the alley between 5:30 and 5:45 p.m. suggest that the attack was taking place inside the garage at that moment. The added facts that the garage was small and that Luchie's group saw no one in the alley could bolster a “single attacker” theory. Freeman's recollection that one garage door was open when he found Fuller's body at around 6 p.m., combined with Luchie's recollection that both doors were shut around 5:30 or 5:45 p.m., could suggest that one or two perpetrators were in the garage when Luchie walked by but left before Freeman arrived. McMillan's identity as one of the men Freeman saw enter the alley after Freeman discovered Fuller's body would have revealed McMillan's criminal convictions in the months before petitioners' trial. Petitioners argue that together, this evidence would have permitted the defense to knit together a theory that the group attack did not occur at all—and that it was actually McMillan, alone or with an accomplice, who murdered Fuller. They add that they could have used the investigators' failure to follow up on Ammie Davis' claim about James Blue, and the various pieces of withheld impeachment <span class="pg" id="s3-p326" title="page 326 of the original">326</span>evidence, to suggest that an incomplete investigation had ended up accusing the wrong persons.</p>
+<p>Considering the withheld evidence “in the context of the entire record,” however, <em>Agurs</em>, <em>supra</em>, at 112, we conclude that it is too little, too weak, or too distant from the main evidentiary points to meet <em>Brady</em>'s standards. As petitioners recognize, McMillan's guilt (or that of any other single, or near single, perpetrator) is inconsistent with petitioners' guilt only if there was no group attack. But a group attack was the very cornerstone of the Government's case. The witnesses may have differed on minor details, but virtually every witness to the crime itself agreed as to a main theme: that Fuller was killed by a large group of perpetrators. The evidence at trial was such that, even though petitioners knew that Freeman saw two men enter the alley after he discovered Fuller's body, that one appeared to have a bulky object hidden under his coat, and that both ran when the police arrived, none of the petitioners attempted to mount a defense that implicated those men as alternative perpetrators acting alone.</p>
+<p>Is it reasonably probable that adding McMillan's identity, and Luchie's ambiguous statement that he heard groans but saw no one, could have led to a different result at trial? We conclude that it is not. The problem for petitioners is that their current alternative theory would have had to persuade the jury that both Alston and Bennett falsely confessed to being active participants in a group attack that never occurred; that Yarborough falsely implicated himself in that group attack and, through coordinated effort or coincidence, gave a highly similar account of how it occurred; that Thomas, a disinterested witness who recognized petitioners when he happened upon the attack and heard Catlett refer to it later that night, wholly fabricated his story; that both Eleby and Jacobs likewise testified to witnessing a group attack that did not occur; and that Montgomery in fact did <span class="pg" id="s3-p327" title="page 327 of the original">327</span>not see petitioners and others, as a group, identify Fuller as a target and leave the park to rob her.</p>
+<p>With respect to the undisclosed impeachment evidence, the record shows that it was largely cumulative of impeachment evidence petitioners already had and used at trial. For example, the jury heard multiple times about Eleby's frequent PCP use, including Eleby's own testimony that she and Jacobs had smoked PCP shortly before they witnessed Fuller's attack. In this context, it would not have surprised the jury to learn that Eleby used PCP on yet another occasion. Porter was a minor witness who was also impeached at trial with evidence about changes in her testimony over time, leaving little added significance to the note that she changed her mind about having agreed with Eleby's claims. The jury was also well aware of Jacobs' vacillation, as she was impeached on the stand with her shifting stories about what she witnessed. Knowledge that a detective raised his voice during an interview with her would have added little more. Nor do we see how the note about the statement by Thomas' aunt could have mattered much, given the facts that neither side chose to call the aunt as a witness and that the jury already knew, from Thomas' testimony, that his aunt had told him not to tell anyone what he saw. As for James Blue, petitioners argue that the investigators' delay in following up on Ammie Davis' statement could have led the jury to doubt the thoroughness of the investigation. But this likelihood is seriously undercut by notes about Davis' demeanor and lack of detail, and by her prior false accusations that Blue committed a different murder and that yet another person committed yet a different murder.</p>
+<p>We of course do not suggest that impeachment evidence is immaterial with respect to a witness who has already been impeached with other evidence. See <em>Wearry</em> v. <em>Cain</em>, 577 U. S. 385, 392–394 (2016) (<em>per curiam</em>). We conclude only that in the context of this trial, with respect to these witnesses,<span class="pg" id="s3-p328" title="page 328 of the original">328</span> the cumulative effect of the withheld evidence is insufficient to “ `undermine confidence' ” in the jury's verdict, <em>Smith,</em> 565 U. S., at 75–76 (quoting <em>Kyles</em>, 514 U. S., at 434; brackets omitted).</p>
+<h3 class="oh">III</h3>
+<p>On the basis of our review of the record, we agree with the lower courts that there is not a “reasonable probability” that the withheld evidence would have changed the outcome of petitioners' trial, <em>id.,</em> at 434 (internal quotation marks omitted). The judgment of the D. C. Court of Appeals, accordingly, is affirmed.</p>
+<p><em>It is so ordered.</em></p>
+<p><span class="sc">Justice Gorsuch</span> took no part in the consideration or decision of these cases.</p>
+<h3 class="oh"><span class="pg" id="s3-p329" title="page 329 of the original">329</span>APPENDIX</h3></section>
+<section id="s4" class="op op-dissenting"><h2>Justice Kagan, dissenting</h2>
+<p class="byline">Justice Kagan, with whom Justice Ginsburg joins, dissenting.</p>
+<p>Consider two criminal cases. In the first, the government accuses ten defendants of acting together to commit a vicious murder and robbery. At trial, each defendant accepts that the attack occurred almost exactly as the government describes—contending only that <em>he</em> wasn't part of the rampaging group. The defendants thus undermine each other's arguments at every turn. In the second case, the government makes the same arguments as before. But this time, all of the accused adopt a common defense, built around an alternative account of the crime. Armed with new evidence that someone else perpetrated the murder, the defendants vigorously dispute the government's gang-attack narrative and challenge the credibility of its investigation. The question this case presents is whether such a unified defense, relying on evidence unavailable in the first scenario, had a “reasonable probability” (less than a preponderance) of shifting even one juror's vote. <em>Cone</em> v. <em>Bell</em>, 556 U. S. 449, 452, 470 (2009); see <em>Kyles</em> v. <em>Whitley</em>, 514 U. S. 419, 434 (1995).</p>
+<p>That is the relevant question because the Government here knew about but withheld the evidence of an alternative perpetrator—and so prevented the defendants from coming together to press that theory of the case. If the Government's non-disclosure was material, in the sense just described, this Court's decision in <em>Brady</em> v. <em>Maryland</em>, 373 U. S. 83 (1963), demands a new trial. The Court today holds it was not material: In light of the evidence the Government offered, the majority argues, the transformed defense stood little chance of persuading a juror to vote to acquit. That conclusion is not indefensible: The Government put on quite a few witnesses who said that the defendants committed the crime. But in the end, I think the majority gets the answer in this case wrong. With the undisclosed evidence, the whole tenor of the trial would have changed. Rather than relying on a “not me, maybe them” defense, <em>ante,</em> at 320, all <span class="pg" id="s4-p331" title="page 331 of the original">331</span>the defendants would have relentlessly impeached the Government's (thoroughly impeachable) witnesses and offered the jurors a way to view the crime in a different light. In my view, that could well have flipped one or more jurors— which is all <em>Brady</em> requires.</p>
+<p>Before explaining that view, I note that the majority and I share some common ground. We agree on the universe of exculpatory or impeaching evidence suppressed in this case: The majority's description of that evidence, and of the trial held without it, is scrupulously fair. See <em>ante,</em> at 316–320, 321–323. We also agree—as does the Government—that such evidence ought to be disclosed to defendants as a matter of course. See <em>ante,</em> at 324. Constitutional requirements aside, turning over exculpatory materials is a core responsibility of all prosecutors—whose professional interest and obligation is not to win cases but to ensure justice is done. See <em>Kyles</em>, 514 U. S., at 439. And finally, we agree on the legal standard by which to assess the materiality of undisclosed evidence for purposes of applying the constitutional rule: Courts are to ask whether there is a “reasonable probability” that disclosure of the evidence would have led to a different outcome—<em>i. e.,</em> an acquittal or hung jury rather than a conviction. See <em>ante,</em> at 325.</p>
+<p>But I part ways with the majority in applying that standard to the evidence withheld in this case. That evidence falls into three basic categories, discussed below. Taken together, the materials would have recast the trial significantly—so much so as to “undermine[ ] confidence” in the guilty verdicts reached in their absence. <em>Kyles</em>, 514 U. S., at 434.</p>
+<p>First, the Government suppressed information identifying a possible alternative perpetrator. The defendants knew that, shortly before the police arrived, witnesses had observed two men acting suspiciously near the alleyway garage where Catherine Fuller's body was found. But they did not know—because the Government never told them—that a <span class="pg" id="s4-p332" title="page 332 of the original">332</span>witness had identified one of those men as James McMillan. Equipped with that information, the defendants would have discovered that in the weeks following Fuller's murder, McMillan assaulted and robbed two other women of comparable age in the same neighborhood. And using <em>that</em> information, the defendants would have united around a common defense. They would all have pointed their fingers at McMillan (rather than at each other), arguing that he committed Fuller's murder as part of a string of similar crimes.</p>
+<p>Second, the Government suppressed witness statements suggesting that one or two perpetrators—not a large group—carried out the attack. Those statements were given by two individuals who walked past the garage around the time of Fuller's death. They told the police that they heard groans coming from inside the garage; and one remarked that the garage's doors were closed at the time. Introducing that evidence at trial would have sown doubt about the Government's group-attack narrative, because that many people (as everyone agrees) couldn't have fit inside the small garage. And the questions thus raised would have further supported the defendants' theory that McMillan (and perhaps an accomplice) had committed the murder.</p>
+<p>Third and finally, the Government suppressed a raft of evidence discrediting its investigation and impeaching its witnesses. Undisclosed files, for example, showed that the police took more than nine months to look into a witness's claim that a man named James Blue had murdered Fuller. Evidence of that kind of negligence could easily have led jurors to wonder about the competence of all the police work done in the case. Other withheld documents revealed that one of the Government's main witnesses was high on PCP when she met with investigators to identify participants in the crime— and that she also encouraged a friend to lie to the police to support her story. Using that sort of information, see also <em>ante,</em> at 323, the defendants could have undercut the Government's witnesses—even while presenting their own account of the murder.</p>
+<p><span class="pg" id="s4-p333" title="page 333 of the original">333</span>In reply to all this, the majority argues that “none of the [accused] attempted to mount [an alternative-perpetrator] defense” and that such a defense would have challenged “the very cornerstone of the Government's case.” <em>Ante,</em> at 326. But that just proves my point. The defendants didn't offer an alternative-perpetrator defense because the Government prevented them from learning what made it credible: that one of the men seen near the garage had a record of assaulting and robbing middle-aged women, and that witnesses would back up the theory that only one or two individuals had committed the murder. Moreover, that defense had game-changing potential exactly <em>because</em> it challenged the cornerstone of the Government's case. Without the withheld evidence, each of the defendants had little choice but to accept the Government's framing of the crime as a group attack—and argue only that <em>he</em> wasn't there. That meant the defendants often worked at cross-purposes. In particular, each defendant not identified by a Government witness sought to bolster that witness's credibility, no matter the harm to his co-defendants. As one defense lawyer remarked after another's supposed cross-examination of a Government witness: “They've got [an extra] prosecutor[ ] in the courtroom now.” Saperstein &amp; Walsh, 10 Defendants Complicate Trial, Washington Post, Nov. 17, 1985, p. A14, col. 1. Credible alternative-perpetrator evidence would have allowed the defendants to escape this cycle of mutually assured destruction. By enabling the defendants to jointly attack the Government's “cornerstone” theory, the withheld evidence would have reframed the case presented to the jury.</p>
+<p>Still, the majority claims, an alternative-perpetrator defense would have had no realistic chance of changing the outcome because the Government had ample evidence of a group attack, including five witnesses who testified that they had participated in it or seen it happen. See <em>ante,</em> at 326–327. But the Government's case wasn't nearly the slam-dunk the majority suggests. No physical evidence tied any of the defendants to the crime—a highly surprising fact if, as the <span class="pg" id="s4-p334" title="page 334 of the original">334</span>Government claimed, more than ten people carried out a spur-of-the-moment, rampage-like attack in a confined space. And as even the majority recognizes, the Government's five eyewitnesses had some serious credibility deficits. See <em>ante</em>, at 327. Two had been charged as defendants, and agreed to testify only in exchange for favorable plea deals. See 116 A. 3d 894, 902 (D. C. 2015). Two admitted they were high on PCP at the time. See <em>id.,</em> at 903, 911; App. A535–A536, A649. (As noted above, one was also high when she later met with police to identify the culprits.) One was an eighth-grader whose own aunt contradicted parts of his trial testimony. See 116 A. 3d, at 903, 911. Even in the absence of an alternative account of the crime, the jury took more than a week—and many dozens of votes—to reach its final verdict. Had the defendants offered a unified counter-narrative, based on the withheld evidence, one or more jurors could well have concluded that the Government had not proved its case beyond a reasonable doubt.</p>
+<p>Again, the issue here concerns the difference between two criminal cases. The Government got the case it most wanted—the one in which the defendants, each in an effort to save himself, formed something of a circular firing squad. And the Government avoided the case it most feared—the one in which the defendants acted jointly to show that a man known to assault women like Fuller committed her murder. The difference between the two cases lay in the Government's files—evidence of obvious relevance that prosecutors nonetheless chose to suppress. I think it could have mattered to the trial's outcome. For that reason, I respectfully dissent.</p></section><p class='back'><a href='/opinions/'>&larr; All opinions</a> · <a href='/justices/ot2016.html'>The Justices, October Term 2016 &rarr;</a></p></main></body>
+</html>
+

@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script async src='/analytics.js'></script><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate icon" href="/favicon.ico" sizes="any"><link rel="alternate" type="application/atom+xml" title="Supreme Court Report" href="/feed.xml"><link rel="alternate" type="application/atom+xml" title="Certiorari grants" href="/grants.xml"><title>Czyzewski v. Jevic Holding Corp. — Opinion — Supreme Court Report</title><meta name="description" content="The opinion in Czyzewski v. Jevic Holding Corp. (No. 15-649), decided March 22, 2017: the full text with its footnotes, as a page, a Markdown file and an EPUB."><link rel="canonical" href="https://supremecourt.report/opinions/2016/15-649.html"><meta property="og:site_name" content="Supreme Court Report"><meta property="og:type" content="article"><meta property="og:title" content="Czyzewski v. Jevic Holding Corp. — Opinion — Supreme Court Report"><meta property="og:description" content="The opinion in Czyzewski v. Jevic Holding Corp. (No. 15-649), decided March 22, 2017: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta property="og:url" content="https://supremecourt.report/opinions/2016/15-649.html"><meta property="og:image" content="https://supremecourt.report/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Supreme Court Report - docket analytics for the Supreme Court of the United States"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Czyzewski v. Jevic Holding Corp. — Opinion — Supreme Court Report"><meta name="twitter:description" content="The opinion in Czyzewski v. Jevic Holding Corp. (No. 15-649), decided March 22, 2017: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta name="twitter:image" content="https://supremecourt.report/og.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap"><style>
+  :root{--paper:#fdfcfa;--panel:#ffffff;--ink:#1a1a1e;--ink-soft:#484850;--faint:#63636b;--accent:#9c0e3a;--link:#9c0e3a;--rule:#dbd8d2;--nav-max:60rem}
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{font-family:'Newsreader',Georgia,serif;font-size:19px;line-height:1.6;
+    color:var(--ink);background:var(--paper);margin:0;font-feature-settings:'onum' 1}
+  body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
+    opacity:.5;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");}
+  .wrap{max-width:40rem;margin:0 auto;padding:3rem 1.4rem 4rem}
+  .kicker{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 1rem}
+  h1{font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:clamp(2.4rem,7vw,3.6rem);line-height:1;letter-spacing:-.015em;
+    margin:0 0 1rem;color:var(--ink)}
+  h1 em{font-style:italic;font-weight:500;color:var(--accent)}
+  .dek{font-size:1.15rem;line-height:1.5;color:var(--ink-soft);font-style:italic;
+    margin:0 0 1.4rem}
+  .brule{border:0;height:0;border-top:2px solid var(--ink);margin:1.4rem 0 .3rem;
+    position:relative}
+  .brule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+    border-top:1px solid var(--rule)}
+  ul.idx{list-style:none;padding:0;margin:1.6rem 0}
+  ul.idx li{border-bottom:1px solid var(--rule)}
+  /* Whole row is one block-level link: a large, reliable tap target on mobile. */
+  ul.idx a.row{display:flex;justify-content:space-between;align-items:baseline;
+    gap:1rem;padding:.9rem .4rem;text-decoration:none;border:0;color:inherit}
+  ul.idx a.row:hover{background:rgba(156,14,58,.05)}
+  ul.idx .d{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.16rem;
+    color:var(--accent);line-height:1.25}
+  ul.idx a.row:hover .d{text-decoration:underline;text-underline-offset:3px}
+  ul.idx .count{color:var(--faint);font-size:.9rem;font-style:italic;white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  /* A long note (an order list's "3 GVRs / 230 denied / 4 habeas denied /
+     ...", items separated by middots) cannot sit on one line: nowrap made it
+     claim the row and
+     squeezed the title into a column three words wide, and on a phone it ran off
+     the screen. Such a row opts in (meta_wrap): the note wraps, only between its
+     items, and takes at most ~45% of the row, so the title always has the
+     larger share. Under 34rem it drops beneath the title at full width. */
+  /* ("long", not "wrap": .wrap is the page container and its padding.) */
+  ul.idx .count.long{white-space:normal;text-align:right;max-width:45%;line-height:1.45}
+  ul.idx .count.long .seg{white-space:nowrap}
+  @media(max-width:34rem){
+    ul.idx a.row.longmeta{flex-wrap:wrap;row-gap:.2rem}
+    ul.idx .count.long{max-width:none;flex-basis:100%;text-align:left}
+  }
+  /* Compact horizontal strip of the most recent pages beneath a category row. */
+  ul.idx .recent{display:flex;flex-wrap:wrap;align-items:baseline;
+    gap:.3rem .85rem;padding:0 .4rem 1rem;margin-top:-.35rem}
+  ul.idx .recent .rlabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  ul.idx .recent a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--ink-soft);text-decoration:none;font-variant-numeric:tabular-nums;
+    border-bottom:1px solid var(--rule);padding-bottom:1px}
+  ul.idx .recent a:hover{color:var(--accent);border-color:var(--accent)}
+  /* Optional panel beneath the section index (home page: most-read cases). */
+  .panel{margin:2.4rem 0 0}
+  .panel h2{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 .25rem}
+  .panel .pnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:0 0 .5rem}
+  /* "Live now" (live_argument_panel, /live.js): hidden unless the Court is
+     streaming an argument. One red dot, the same --accent as the headings, so
+     the live state is a mark and not a new colour. */
+  .live h2 .ldot{display:inline-block;width:.5rem;height:.5rem;border-radius:50%;
+    background:var(--accent);margin-right:.5rem;vertical-align:.08rem;
+    animation:lpulse 2s ease-in-out infinite}
+  @keyframes lpulse{50%{opacity:.25}}
+  @media (prefers-reduced-motion:reduce){.live h2 .ldot{animation:none}}
+  .lplay{display:flex;flex-wrap:wrap;gap:.6rem .9rem;align-items:center;margin:.8rem 0 .3rem}
+  .lplay button{font:600 .9rem/1 'Newsreader',Georgia,serif;letter-spacing:.04em;
+    color:var(--paper);background:var(--accent);border:0;border-radius:2px;
+    padding:.6rem 1.05rem;cursor:pointer}
+  .lplay button:disabled{opacity:.6;cursor:progress}
+  .lplay button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  /* The player takes a row of its own and may never outgrow the column. A flex
+     item's min-width is auto, which for a replaced element is the browser's own
+     controls' width -- wider than the column on a phone, where mobile Safari
+     and Chrome draw larger controls than the desktop. */
+  .lplay audio{display:block;flex:1 1 100%;width:100%;min-width:0;max-width:100%;
+    box-sizing:border-box;margin:0}
+  .lplay .lstat{font-size:.85rem;color:var(--faint)}
+  /* --- Likeliest grants -----------------------------------------------------
+     Its own rows rather than ol.mostread's: this panel carries a question under
+     the caption, which that list has no room for, and a percentage that has to
+     read as the row's subject rather than as a trailing note.
+     The window toggle is two real radio inputs plus :has() -- no JavaScript.
+     Both windows are rendered at build time and one is hidden, which is the only
+     way a static site can offer the choice: there is no server to ask for the
+     other one. Real radios, not styled buttons, so the control is reachable by
+     keyboard and announced as a choice. */
+  .lead{margin:0 0 1.9rem}
+  .lead h2{margin-bottom:.35rem}
+  .lead .pnote{margin:0 0 .7rem}
+  .wr{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+  .win{display:inline-flex;gap:.25rem;margin:0 0 .55rem;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .win label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .win label:hover{color:var(--ink)}
+  .lead:has(#w7:checked) label[for=w7],
+  .lead:has(#w28:checked) label[for=w28],
+  .lead:has(#wall:checked) label[for=wall]{background:var(--accent);color:var(--paper)}
+  .wr:focus-visible+label{outline:2px solid var(--accent);outline-offset:2px}
+  /* Three windows, one shown: the checked radio hides the other two. */
+  .lead:has(#w7:checked) :is(.g28,.n28,.gall,.nall),
+  .lead:has(#w28:checked) :is(.g7,.n7,.gall,.nall),
+  .lead:has(#wall:checked) :is(.g7,.n7,.g28,.n28){display:none}
+  /* The show/hide controls for a panel's secondary line -- the question under
+     a forecast row, the holding under a decision. Same box as the window
+     toggle, a checkbox instead of radios, and no script: the sibling rule does
+     the work and the lines simply show where :has() is unsupported. The
+     questions are on by default (they are what a forecast row asks); the
+     holdings are off (the caption, kind and disposition already say what
+     happened, and the holding is the more). */
+  .opts{display:inline-flex;gap:.25rem;margin:0 .45rem .55rem 0;vertical-align:top;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .opts label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .opts label:hover{color:var(--ink)}
+  .lead:has(#qon:checked) label[for=qon],
+  .panel:has(#hon:checked) label[for=hon]{background:var(--accent);color:var(--paper)}
+  .lead:has(#qon:not(:checked)) .gq{display:none}
+  .panel:has(#hon:not(:checked)) .chold{display:none}
+  /* --- Upcoming at the Court ------------------------------------------------
+     A date gutter and a two-line body, the same shape as the grant rows above
+     it, so the two panels read as one page rather than two widgets. */
+  .cal{margin:0 0 1.9rem}
+  ol.cal{list-style:none;margin:0;padding:0}
+  ol.cal li{border-top:1px solid var(--rule)}
+  ol.cal li:last-child{border-bottom:1px solid var(--rule)}
+  /* The row is a container, not an anchor: an argument day carries one link per
+     case it hears and anchors cannot nest. Hover lives on the row so it still
+     reads as one unit, and each link colours on its own hover. */
+  ol.cal .crow{display:flex;gap:.95rem;align-items:baseline;padding:.55rem .1rem}
+  ol.cal .crow:hover{background:rgba(156,14,58,.05)}
+  ol.cal a{text-decoration:none;color:inherit}
+  ol.cal a:hover,ol.cal a:focus-visible{color:var(--accent)}
+  ol.cal .cdet a{border-bottom:1px solid rgba(156,14,58,.35)}
+  ol.cal .cdet a:hover{border-bottom-color:var(--accent)}
+  ol.cal .cwhen{flex:none;width:4.6rem;font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.96rem;color:var(--ink);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  ol.cal .cdow{display:block;font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);text-transform:uppercase;letter-spacing:.08em}
+  ol.cal .ctx{flex:1;min-width:0}
+  ol.cal .ckind{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:.98rem;line-height:1.25}
+  ol.cal .cdet{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.12rem}
+  /* Recent decisions reuses the calendar rows and adds exactly two things: the
+     kind word that opens the detail line, and the one outbound link (the slip
+     opinion), which takes the link colour the rest of the row deliberately
+     does not. */
+  ol.cal .dk{font-weight:600;color:var(--ink)}
+  ol.cal .cdet a.pdf{color:var(--link)}
+  /* The holding, from the Court's slip-opinion feed: one sentence, set
+     smaller and in the soft ink so the caption stays the row's headline. */
+  ol.cal .chold{display:block;font-size:.86rem;line-height:1.4;color:var(--ink-soft);
+    font-style:italic;margin-top:.15rem}
+  ol.cal .cdet a.pdf:hover,ol.cal .cdet a.pdf:focus-visible{color:var(--accent);
+    border-bottom-color:var(--accent)}
+  ol.grants{list-style:none;margin:0;padding:0}
+  ol.grants li{border-top:1px solid var(--rule)}
+  ol.grants li:last-child{border-bottom:1px solid var(--rule)}
+  ol.grants a{display:flex;gap:.95rem;align-items:baseline;text-decoration:none;
+    color:inherit;padding:.62rem .1rem}
+  ol.grants a:hover{background:rgba(156,14,58,.05)}
+  ol.grants a:hover .gc{color:var(--accent)}
+  ol.grants .gv{flex:none;width:3.5rem;text-align:right;
+    font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.22rem;
+    line-height:1.1;color:var(--accent);font-variant-numeric:tabular-nums}
+  ol.grants .gx{font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);margin-left:.3rem}
+  ol.grants .gtx{flex:1;min-width:0}
+  /* Subject-area line under the caption, in the section-label idiom (h2.sec):
+     small tracked caps in the faint ink, so it classifies without competing. */
+  ol.grants .gs,ol.mostread .ms{display:block;font-size:.68rem;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--faint);line-height:1.3;margin-top:.12rem}
+  ol.grants .gc{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:1rem;line-height:1.25}
+  ol.grants .gq{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.16rem}
+  ol.grants .gd{flex:none;font-size:.76rem;color:var(--faint);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  .more{margin:.75rem 0 0;font-size:.92rem}
+  .more a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.35)}
+  .more a:hover{border-bottom-color:var(--link)}
+  h2.sec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:.88rem;
+    letter-spacing:.09em;color:var(--faint);text-transform:uppercase;
+    margin:2.1rem 0 .6rem;padding-bottom:.28rem;border-bottom:1px solid var(--rule)}
+  @media(max-width:40rem){
+    ol.grants a{flex-wrap:wrap}
+    ol.grants .gd{width:100%;padding-left:4.45rem;margin-top:-.1rem}
+  }
+  ol.mostread{list-style:none;counter-reset:mr;padding:0;margin:0}
+  ol.mostread li{counter-increment:mr;border-bottom:1px solid var(--rule)}
+  ol.mostread a{display:flex;align-items:baseline;gap:.7rem;padding:.6rem .4rem;
+    text-decoration:none;color:inherit}
+  ol.mostread a:hover{background:rgba(156,14,58,.05)}
+  ol.mostread a::before{content:counter(mr);font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.95rem;color:var(--faint);min-width:1.1rem;
+    font-variant-numeric:tabular-nums}
+  ol.mostread .mc{flex:1;font-size:1rem;line-height:1.3}
+  ol.mostread .mct{display:block}
+  ol.mostread a:hover .mct{color:var(--accent);text-decoration:underline;
+    text-underline-offset:3px}
+  ol.mostread .mdk{color:var(--accent);font-weight:600;font-size:.82rem;
+    font-variant-numeric:tabular-nums;white-space:nowrap}
+  ol.mostread .mv{color:var(--faint);font-size:.85rem;font-style:italic;
+    white-space:nowrap;font-variant-numeric:tabular-nums}
+  /* Forecast percentages carry weight the most-read counts do not: the number is
+     the claim, not a footnote to the ranking. Upright, accent, tabular. */
+  ol.mostread .mv.fc{color:var(--accent);font-style:normal;font-weight:600;
+    font-size:.95rem;min-width:2.6rem;text-align:right}
+  /* Feed follow line. Deliberately quiet -- a footnote under the section list,
+     styled like .recent rather than like a call to action. */
+  .feeds{display:flex;flex-wrap:wrap;align-items:baseline;gap:.3rem .85rem;
+    margin:2.2rem 0 0;padding-top:1.1rem;border-top:1px solid var(--rule)}
+  .feeds .flabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  .feeds a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .feeds a:hover{border-color:var(--link)}
+  .back{margin-top:2rem;font-size:.95rem}
+  .back a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .back a:hover{border-color:var(--link)}
+  /* Home-page case search. */
+  .csearch{position:relative;margin:0 0 1.4rem}
+  #cq{width:100%;font-family:'Newsreader',Georgia,serif;font-size:1.05rem;color:var(--ink);
+    background:var(--panel);border:1px solid var(--rule);border-radius:3px;padding:.7rem .9rem}
+  #cq:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(156,14,58,.1)}
+  #cq::placeholder{color:var(--faint)}
+  #cq.loading{background-image:linear-gradient(90deg,transparent,rgba(156,14,58,.06),transparent);
+    background-size:40% 100%;background-repeat:no-repeat;animation:csl 1s infinite}
+  @keyframes csl{0%{background-position:-40% 0}100%{background-position:140% 0}}
+  .cres{list-style:none;margin:.35rem 0 0;padding:0;max-height:24rem;overflow-y:auto;
+    border:1px solid var(--rule);border-radius:3px;background:var(--panel)}
+  .cres:empty{display:none}
+  .cres li{border-bottom:1px solid var(--rule)}
+  .cres li:last-child{border-bottom:0}
+  .cres a{display:block;padding:.55rem .7rem;text-decoration:none;color:var(--ink);
+    font-size:.98rem;line-height:1.3}
+  .cres a:hover,.cres li.act a{background:rgba(156,14,58,.06)}
+  .cres mark{background:rgba(156,14,58,.14);color:inherit;padding:0 .05em;border-radius:2px}
+  .cres .cd{color:var(--accent);font-variant-numeric:tabular-nums;font-weight:600;
+    margin-right:.5rem;white-space:nowrap}
+  .cnone{padding:.55rem .7rem;color:var(--faint);font-style:italic}
+  .cnone a,.cqp a{color:var(--link);font-style:normal;text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .cqp{margin:.45rem 0 0;font-size:.88rem;color:var(--faint)}
+  /* /cases/ browse index: grouped sections with per-bucket counts. */
+  .csec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+    text-transform:uppercase;letter-spacing:.12em;color:var(--accent);
+    margin:2.2rem 0 .3rem;padding-bottom:.35rem;border-bottom:1px solid var(--rule);
+    display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
+  .csec .cn{font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:.85rem;
+    letter-spacing:0;text-transform:none;color:var(--faint);
+    font-variant-numeric:tabular-nums}
+  .cnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:.5rem 0 0}
+  .cnote a{color:var(--accent)}
+  ul.terms{list-style:none;padding:0;margin:1rem 0 0;display:flex;flex-wrap:wrap;
+    gap:.5rem 1.6rem}
+  ul.terms li{display:inline-flex;align-items:baseline;gap:.4rem}
+  ul.terms a{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.05rem;
+    color:var(--accent);text-decoration:none;border-bottom:1px solid var(--rule)}
+  ul.terms a:hover{border-bottom-color:var(--accent)}
+  ul.terms .cn{color:var(--faint);font-size:.85rem;font-variant-numeric:tabular-nums}
+  /* About page: running prose rather than an index, so it takes a measure and a
+     little more leading than the section rows above it. */
+  .about{margin:1.6rem 0 0;font-size:1.05rem;line-height:1.65;max-width:34rem}
+  .about p{margin:0 0 1rem}
+  .about a{color:var(--accent);text-decoration:none;
+    border-bottom:1px solid var(--rule)}
+  .about a:hover{border-bottom-color:var(--accent)}
+  .about .contact{margin:2rem 0 0;background:var(--panel);border:1px solid var(--rule);
+    border-left:4px solid var(--accent);padding:1.1rem 1.3rem}
+  .about .contact h2{font:600 .78rem/1 'Newsreader',Georgia,serif;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--accent);margin:0 0 .5rem}
+  .about .contact p{margin:0;font-size:1rem}
+
+/* ---- masthead ---- */
+.smast-in{max-width:var(--nav-max,60rem);margin:0 auto;padding:.85rem 1.5rem .5rem;
+  display:flex;align-items:baseline;justify-content:space-between;gap:1.4rem;flex-wrap:wrap}
+.smast-wm{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+  letter-spacing:.005em;color:var(--ink,#1a1a1e);text-decoration:none;white-space:nowrap;flex:none}
+.smast-wm em{font-style:italic;font-weight:500;color:var(--accent,#9c0e3a)}
+.smast-wm:hover{color:var(--accent,#9c0e3a)}
+/* Row gap first, then column. At 1.35rem the six section links measured 596px
+   of max-content -- 4px wider than the 592px row the 40rem index container
+   leaves them -- so ABOUT alone wrapped to a third line under the wordmark, on
+   every page page_style.R writes. 1.05rem brings the row to 572px: 20px of
+   slack at 40rem, and 45px on the 54rem case pages, which were themselves only
+   21px from wrapping. The .4rem row gap is for the day a seventh section
+   overruns it anyway -- a nav that wraps should read as a stack, not an orphan. */
+.snav{display:flex;gap:.4rem 1.05rem;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+.snav a{font:600 .72rem/1 'Newsreader',Georgia,serif;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--ink-soft,var(--soft,#484850));text-decoration:none;display:inline-block;
+  padding:.5rem 0;border-bottom:1.5px solid transparent}
+.snav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--rule,#dbd8d2)}
+.snav a[aria-current='page']{color:var(--accent,#9c0e3a);
+  border-bottom-color:var(--accent,#9c0e3a)}
+.smast-rule-w{max-width:var(--nav-max,60rem);margin:0 auto;padding:0 1.5rem}
+.smast-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0;position:relative}
+.smast-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.skip{position:absolute;left:-9999px;top:0;background:var(--panel,#ffffff);
+  color:var(--accent,#9c0e3a);padding:.6rem 1rem;
+  border:1px solid var(--accent,#9c0e3a);
+  font:600 .8rem/1 'Newsreader',Georgia,serif;letter-spacing:.1em;text-transform:uppercase;z-index:10}
+.skip:focus{left:.5rem;top:.5rem}
+/* ---- breadcrumb ---- */
+.bcrumb{margin:.7rem 0 0}
+.bcrumb ol{list-style:none;display:flex;flex-wrap:wrap;align-items:baseline;
+  gap:.1rem .45rem;margin:0;padding:0}
+.bcrumb li{display:inline-flex;align-items:baseline;gap:.45rem}
+.bcrumb a{font:400 .8rem/1.5 'Newsreader',Georgia,serif;color:var(--ink-soft,var(--soft,#484850));
+  text-decoration:none;border-bottom:1px solid var(--rule,#dbd8d2)}
+.bcrumb a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.bcrumb .sep{color:var(--faint,#63636b);font-size:.8rem;line-height:1.5}
+.bcrumb [aria-current='page']{font:400 .8rem/1.5 'Newsreader',Georgia,serif;
+  color:var(--faint,#63636b);font-variant-numeric:tabular-nums}
+/* ---- case footer ---- */
+.cfoot{margin:2.4rem 0 0}
+.cfoot-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0 0 1rem;position:relative}
+.cfoot-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.cfoot-off{font-size:.95rem;margin:0 0 1.1rem}
+.cfoot-off a{color:var(--link,#9c0e3a);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.4)}
+.cfoot-off a:hover{border-bottom-color:var(--link,#9c0e3a)}
+.cfoot-lab{font:600 .68rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);margin:0 0 .5rem}
+.cfoot-nav{display:flex;flex-wrap:wrap;gap:.35rem 1.1rem;list-style:none;margin:0;padding:0}
+.cfoot-nav a{font-size:.92rem;color:var(--ink-soft,var(--soft,#484850));text-decoration:none;
+  border-bottom:1px solid var(--rule,#dbd8d2);padding-bottom:1px}
+.cfoot-nav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.cfoot-stamp{margin:1.2rem 0 0;font-size:.8rem;color:var(--faint,#63636b);font-style:italic}
+/* ---- prev / next ---- */
+.pnav{margin:2.2rem 0 0;border-top:1px solid var(--rule,#dbd8d2);padding-top:1rem;
+  display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.pnav a,.pnav span.none{text-decoration:none;color:inherit;display:block;padding:.5rem .2rem}
+.pnav a:hover{background:rgba(156,14,58,.05)}
+.pnav .dir{font:600 .66rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);display:block;margin-bottom:.3rem}
+.pnav .lab{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1rem;line-height:1.25;
+  color:var(--accent,#9c0e3a);display:block}
+.pnav a:hover .lab{text-decoration:underline;text-underline-offset:3px}
+.pnav .nx{text-align:right}
+.pnav .none{opacity:.35}
+@media(max-width:640px){
+  .smast-in{padding:.7rem 1.1rem .25rem;gap:.15rem}
+  .smast-wm{font-size:.98rem}
+  .smast-in nav{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+    -webkit-mask-image:linear-gradient(90deg,#000 86%,transparent);
+    mask-image:linear-gradient(90deg,#000 86%,transparent)}
+  .smast-in nav::-webkit-scrollbar{display:none}
+  .snav{flex-wrap:nowrap;gap:1.15rem;padding-right:2.4rem}
+  .snav a{padding:.7rem 0;white-space:nowrap}
+  .smast-rule-w{padding:0 1.1rem}
+  .cfoot-nav{gap:.5rem 1rem}
+  .cfoot-nav a{padding-bottom:.3rem}
+  .pnav{grid-template-columns:1fr;gap:.2rem}
+  .pnav .nx{text-align:left;border-top:1px solid var(--rule,#dbd8d2)}
+}
+
+  .wrap.opn{max-width:42rem}
+  .opn .ometa{font-size:.92rem;color:var(--ink-soft);margin:.3rem 0 0}
+  .opn .oget{display:flex;flex-wrap:wrap;gap:.4rem .6rem;margin:1.1rem 0 0;padding:0;list-style:none;font-size:.9rem}
+  .opn .oget a{display:inline-block;padding:.32rem .7rem;border:1px solid var(--rule);border-radius:4px;color:var(--ink);text-decoration:none;background:var(--panel)}
+  .opn .oget a:hover{border-color:var(--accent);color:var(--accent)}
+  .opn .osrc{font-size:.84rem;color:var(--faint);margin:.9rem 0 0;line-height:1.45}
+  .opn .osrc a{color:var(--link)}
+  .opn .otoc{margin:1.6rem 0 0;padding:.8rem 1rem;border:1px solid var(--rule);border-radius:4px;background:var(--panel);font-size:.95rem}
+  .opn .otoc ol{margin:0;padding:0;list-style:none}
+  .opn .otoc li{margin:.25rem 0}
+  .opn .otoc a{color:var(--ink);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.35)}
+  .opn .otoc a:hover{color:var(--accent)}
+  .opn section.op{margin-top:3rem;border-top:2px solid var(--ink);padding-top:1.1rem}
+  .opn section.op h2{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.5rem;line-height:1.2;margin:0 0 1rem;color:var(--ink)}
+  .opn section.op p{margin:0 0 .95rem;line-height:1.62;hyphens:auto;overflow-wrap:break-word}
+  .opn section.op p.byline{color:var(--ink-soft);font-style:italic}
+  .opn section.op p.sep{text-align:center;letter-spacing:.3em;color:var(--faint);margin:1.6rem 0}
+  .opn section.op h3.oh{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.12rem;text-align:center;margin:2rem 0 1rem;color:var(--ink)}
+  .opn section.op blockquote{margin:0 0 .95rem;padding:0 0 0 1.1rem;border-left:2px solid var(--rule);color:var(--ink-soft)}
+  .opn section.op blockquote p{margin-bottom:.6rem;font-size:.96em}
+  .opn .sc{font-variant-caps:small-caps;letter-spacing:.02em}
+  .opn .pg{font-size:.66em;color:var(--faint);vertical-align:.3em;margin:0 .3em 0 .1em;font-variant-numeric:tabular-nums;user-select:none;white-space:nowrap}
+  .opn .pg::before{content:'*'}
+  .opn sup.fnr{font-size:.68em;line-height:0;margin-left:.05em}
+  .opn sup.fnr a{color:var(--link);text-decoration:none;padding:0 .1em}
+  .opn aside.notes{margin-top:2rem;border-top:1px solid var(--rule);padding-top:.8rem;font-size:.88rem;color:var(--ink-soft)}
+  .opn aside.notes h3{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1rem;margin:0 0 .6rem;color:var(--ink)}
+  .opn aside.notes ol{margin:0;padding-left:1.7rem}
+  .opn aside.notes li{margin:0 0 .55rem}
+  .opn aside.notes li.sym{list-style:none;margin-left:-1.7rem}
+  .opn aside.notes li.sym .mk{margin-right:.3rem}
+  .opn aside.notes li.sym p{display:inline}
+  .opn aside.notes p{margin:0 0 .4rem;line-height:1.5}
+  .opn aside.notes a.back{color:var(--link);text-decoration:none;margin-left:.2rem}
+  .opn aside.notes li:target,.opn sup.fnr a:target,.opn .pg:target{background:rgba(156,14,58,.12);outline:.2rem solid rgba(156,14,58,.12)}
+  .opn section.op,.opn aside.notes li,.opn sup.fnr a{scroll-margin-top:1rem}
+  .opn section.op-syllabus p,.opn section.op-counsel p{font-size:.95em}
+  .opn section.op-counsel summary{cursor:pointer;font-family:'Fraunces',Georgia,serif;font-size:1.05rem;color:var(--ink-soft)}
+  .opn .osyl{font-size:.84rem;color:var(--faint);font-style:italic;margin:-.5rem 0 1rem}
+  .opn p.back{margin-top:3rem;font-size:.92rem}
+  @media print{.smast,.bcrumb,.opn .oget,.opn .otoc,.opn p.back{display:none}.opn section.op{break-before:page}}
+</style><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://supremecourt.report/"},{"@type":"ListItem","position":2,"name":"Opinions","item":"https://supremecourt.report/opinions/"},{"@type":"ListItem","position":3,"name":"Czyzewski v. Jevic Holding Corp."}]}</script><meta name='otv' content='p1'><link rel='alternate' type='text/markdown' href='/opinions/2016/15-649.md'><link rel='alternate' type='application/epub+zip' href='/opinions/2016/15-649.epub'></head><body><a class='skip' href='#main'>Skip to content</a><header><div class='smast-in'><a class='smast-wm' href='/'>Supreme Court <em>Report</em></a><nav aria-label='Sections'><ul class='snav'><li><a href='/dashboards/'>Docket</a></li><li><a href='/conferences/'>Conferences</a></li><li><a href='/relists/'>Relists</a></li><li><a href='/applications/'>Interim</a></li><li><a href='/arguments/'>Arguments</a></li><li><a href='/justices/' aria-current='page'>Justices</a></li><li><a href='/counsel/'>Counsel</a></li><li><a href='/funnel/'>Funnel</a></li><li><a href='/methods.html'>Model</a></li><li><a href='/about.html'>About</a></li></ul></nav></div><div class='smast-rule-w'><hr class='smast-rule'></div></header><main class='wrap opn' id='main' data-dkt='15-649'><nav class='bcrumb' aria-label='Breadcrumb'><ol><li><a href='/'>Home</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><a href='/opinions/'>Opinions</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><span aria-current='page'>Czyzewski v. Jevic Holding Corp.</span></li></ol></nav><p class='kicker'>No. 15-649 · decided March 22, 2017 · 580 U. S. 451</p><h1 style='font-size:clamp(1.7rem,4.6vw,2.4rem);line-height:1.12'>Czyzewski v. Jevic Holding Corp.</h1><p class='ometa'>No. 15-649. 1 separate writing.</p><ul class='oget'><li><a href='/opinions/2016/15-649.epub' download>EPUB</a></li><li><a href='/opinions/2016/15-649.md' download>Markdown</a></li><li><a href='https://www.supremecourt.gov/opinions/boundvolumes/580BV.pdf#page=678' rel='noopener'>The Court’s PDF</a></li><li><a href='/cases/15-649.html'>The docket</a></li></ul><p class='osrc'>Set from the PDF the Court published, which is the authoritative text. The small starred numbers are that PDF’s page numbers. A conversion can introduce errors; check a quotation against the <a href='https://www.supremecourt.gov/opinions/boundvolumes/580BV.pdf#page=678' rel='noopener'>original</a>.</p><nav class="otoc" aria-label="Contents"><ol>
+<li><a href="#s1">Syllabus</a></li>
+<li><a href="#s2">Counsel</a></li>
+<li><a href="#s3">Opinion of the Court</a></li>
+<li><a href="#s4">Justice Thomas, dissenting</a></li>
+</ol></nav>
+<section id="s1" class="op op-syllabus"><h2>Syllabus</h2><p class='osyl'>Prepared by the Reporter of Decisions for the convenience of the reader; it is no part of the opinion of the Court.</p>
+<p>There are three possible conclusions to a Chapter 11 bankruptcy. First, debtor and creditors may negotiate a plan to govern the distribution of the estate's value. See, <em>e. g.</em>, 11 U. S. C. §§ 1121, 1123, 1129, 1141. Second, the bankruptcy court may convert the case to Chapter 7 for liquidation of the business and distribution of its assets to creditors. §§ 1112(a), (b), 726. Finally, the bankruptcy court may dismiss the case. § 1112(b). A court ordering a dismissal ordinarily attempts to restore the prepetition financial status quo. § 349(b)(3). Yet if perfect restoration proves difficult or impossible, the court may, “for cause,” alter the dismissal's normal restorative consequences, § 349(b)—<em>i. e.,</em> it may order a “structured dismissal.” The Bankruptcy Code also establishes basic priority rules for determining the order in which the court will distribute an estate's assets. The Code makes clear that distributions in a Chapter 7 liquidation must follow this prescribed order. §§ 725, 726. Chapter 11 permits some flexibility, but a court still cannot confirm a plan that contains priority-violating distributions over the objection of an impaired creditor class. §§ 1129(a)(7), (b)(2). The Code does not explicitly state what priority rules—if any—apply to the distribution of assets in a structured dismissal.</p>
+<p>Respondent Jevic Transportation filed for Chapter 11 bankruptcy after being purchased in a leveraged buyout. The bankruptcy prompted two lawsuits. In the first, a group of former Jevic truckdrivers, petitioners here, was awarded a judgment against Jevic for Jevic's failure to provide proper notice of termination in violation of state and federal Worker Adjustment and Retraining Notification (WARN) Acts. Part of that judgment counted as a priority wage claim under § 507(a)(4), entitling the workers to payment ahead of general unsecured claims against the Jevic estate. In the second suit, a court-authorized committee representing Jevic's unsecured creditors sued Sun Capital and CIT Group, respondents here, for fraudulent conveyance in connection with the leveraged buyout of Jevic. These parties negotiated a settlement agreement that called for a structured dismissal of Jevic's Chapter 11 bankruptcy. Under the proposed structured dismissal, petitioners would receive nothing on their WARN claims, but lower-priority general unsecured creditors would be paid. Petitioners argued that the <span class="pg" id="s1-p452" title="page 452 of the original">452</span>distribution scheme accordingly violated the Code's priority rules by paying general unsecured claims ahead of their own. The Bankruptcy Court nevertheless approved the settlement agreement and dismissed the case, reasoning that because the proposed payouts would occur pursuant to a structured dismissal rather than an approved plan, the failure to follow ordinary priority rules did not bar approval. The District Court and the Third Circuit affirmed.</p>
+<p><em>Held</em>:</p>
+<p>1. Petitioners have Article III standing. Respondents argue that petitioners have not “suffered an injury in fact,” or at least one “likely to be redressed by a favorable judicial decision,” <em>Spokeo, Inc.</em> v. <em>Robins</em>, 578 U. S. 330, 338, because petitioners would have gotten nothing even if the Bankruptcy Court had never approved the structured dismissal and will still get nothing if the structured dismissal is undone now. That argument rests upon the assumptions that (1) without a violation of ordinary priority rules, there will be no settlement, and (2) without a settlement, the fraudulent-conveyance lawsuit has no value. The record, however, indicates both that a settlement that respects ordinary priorities remains a reasonable possibility and that the fraudulent-conveyance claim could have litigation value. Therefore, as a consequence of the Bankruptcy Court's approval of the structured dismissal, petitioners lost a chance to obtain a settlement that respected their priorities or, if not that, the power to assert the fraudulent-conveyance claim themselves. A decision in their favor is likely to redress that loss. Pp. 462–464.</p>
+<p>2. Bankruptcy courts may not approve structured dismissals that provide for distributions that do not follow ordinary priority rules without the consent of affected creditors. Pp. 464–471.</p>
+<p>(a) Given the importance of the priority system, this Court looks for an affirmative indication of intent before concluding that Congress means to make a major departure. See <em>Whitman</em> v. <em>American Trucking Assns., Inc.</em>, 531 U. S. 457, 468. Nothing in the statute evinces such intent. Insofar as the dismissal sections of Chapter 11 foresee any transfer of assets, they seek a restoration of the prepetition financial status quo. Read in context, § 349(b), which permits a bankruptcy judge, “for cause, [to] orde[r] otherwise,” seems designed to give courts the flexibility to protect reliance interests acquired in the bankruptcy, not to make general end-of-case distributions that would be flatly impermissible in a Chapter 11 plan or Chapter 7 liquidation. Precedent does not support a contrary position. <em>E. g.</em>, <em>In re Iridium Operating LLC,</em> 478 F. 3d 452 (CA2), distinguished. Cases in which courts have approved deviations from ordinary priority rules generally involve interim <span class="pg" id="s1-p453" title="page 453 of the original">453</span>distributions serving significant Code-related objectives. That is not the case here, where, <em>e. g.,</em> the priority-violating distribution is attached to a final disposition, does not preserve the debtor as a going concern, does not make the disfavored creditors better off, does not promote the possibility of a confirmable plan, does not help to restore the <em>status quo ante</em>, and does not protect reliance interests. Pp. 464–469.</p>
+<p>(b) Congress did not authorize a “rare case” exception that permits courts to disregard priority in structured dismissals for “sufficient reasons.” The fact that it is difficult to give precise content to the concept of “sufficient reasons” threatens to turn the court below's exception into a more general rule, resulting in uncertainty that has potentially serious consequences—<em>e. g.,</em> departure from the protections granted particular classes of creditors, changes in the bargaining power of different classes of creditors even in bankruptcies that do not end in structured dismissals, risks of collusion, and increased difficulty in achieving settlements. Courts cannot deviate from the strictures of the Code, even in “rare cases.” Pp. 469–471.</p>
+<p>787 F. 3d 173, reversed and remanded.</p>
+<p>B<span class="sc">reyer, J.,</span> delivered the opinion of the Court, in which R<span class="sc">oberts,</span> C. J., and K<span class="sc">ennedy,</span> G<span class="sc">insburg,</span> S<span class="sc">otomayor,</span> and <span class="sc">Kagan, JJ.,</span> joined. <span class="sc">Thomas, J.,</span> filed a dissenting opinion, in which <span class="sc">Alito, J.,</span> joined, <em>post</em>, p. 471.</p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li class="sym" value="0"><span class="mk">*</span><p>Briefs of <em>amici curiae</em> urging reversal were filed for the State of Illinois et al. by <em>Lisa Madigan</em>, Attorney General of Illinois, <em>David L. Franklin</em>, Solicitor General, <em>Brett E. Legner</em>, Deputy Solicitor General, and <em>James D. Newbold</em>, Assistant Attorney General, and by the Attorneys General for their respective jurisdictions as follows: <em>Jahna Lindemuth</em> of Alaska, <em>Mark Brnovich</em> of Arizona, <em>Kamala D. Harris</em> of California, <em>George Jepsen</em> of Connecticut, <em>Karl A. Racine</em> of the District of Columbia, <em>Sam Olens</em> of Georgia, <em>Douglas S. Chin</em> of Hawaii, <em>Lawrence G. Wasden</em> of Idaho, <em>Gregory F. Zoeller</em> of Indiana, <em>Tom Miller</em> of Iowa, <em>Derek Schmidt</em> of Kansas, <em>Andy Beshear</em> of Kentucky, <em>Jeff Landry</em> of Louisiana, <em>Janet T. Mills</em> of Maine, <em>Brian E. Frosh</em> of Maryland, <em>Maura Healy</em> of Massachusetts, <em>Bill Schuette</em> of Michigan, <em>Lori Swanson</em> of Minnesota, <em>Tim Fox</em> of Montana, <em>Adam Paul Laxalt</em> of Nevada, <em>Joseph A. Foster</em> of New Hampshire, <em>Hector H. Balderas</em> of New Mexico, <em>Eric T. Schneiderman</em> of New York, <em>Wayne Stenehjem</em> of North Dakota, <em>Michael DeWine</em> of Ohio, <em>Ellen F. Rosenblum</em> of Oregon, <em>Bruce R. Beemer</em> of Pennsylvania, <em>Peter F. Kilmartin</em> of Rhode Island, <em>Alan Wilson</em> of South Carolina, <em>Herbert H. Slatery III</em> of Tennessee, <em>Ken Paxton</em> of Texas, <em>Sean D. Reyes</em> of Utah, <em>Robert W. Ferguson</em> of Washington, <em>Patrick Morrisey</em> of West Virginia, and <em>Peter K. Michael</em> of Wyoming; for the Loan Syndications and Trading Association by <em>Ronald J. Mann</em> and <em>Elliot Ganz</em>; for the National Employment Law Project et al. by <em>Simon A. Steel</em>, <em>Catherine K. Ruckelshaus</em>, <em>Sally Greenberg</em>, <em>Seymour W. James, Jr.</em>, and <em>Kenneth Kimerling</em>; and for Law Professors by <em>Jonathan C. Lipson</em>.</p><p>Briefs of <em>amici curiae</em> urging affirmance were filed for Jagdeep S. Bhandari et al. by <em>Richard Lieb</em> and <em>John Collen</em>; and for Law Professors by <em>David R. Kuney</em>.</p></li>
+</ol></aside></section>
+<section id="s2" class="op op-counsel"><details><summary>Counsel</summary><p><em>Danielle Spinelli</em> argued the cause for petitioners. With her on the briefs were <em>Craig Goldblatt</em>, <em>Joel Millar</em>, <em>Matthew Guarnieri</em>, <em>Jack A. Raisner</em>, <em>Rene S. Roupinian</em>, and <em>Christopher D. Loizides</em>.</p>
+<p><em>Sarah E. Harrington</em> argued the cause for the United States as <em>amicus curiae</em> urging reversal. With her on the brief were <em>Acting Solicitor General Gershengorn</em>, <em>Principal Deputy Assistant Attorney General Mizer</em>, <em>Deputy Solicitor General Stewart</em>, <em>Michael S. Raab</em>, <em>Dana Kaersvang</em>, <em>Ramona D. Elliott</em>, <em>P. Matthew Sutko</em>, and <em>Wendy Cox</em>.</p>
+<p><em>Christopher Landau</em> argued the cause for respondents. With him on the brief were <em>James P. Gillespie</em>, <em>Jason M. Wilcox</em>, <em>Robert J. Feinstein</em>, <em>Richard P. Norton</em>, and <em>Linda Richenderfer</em>.*</p></details></section>
+<section id="s3" class="op op-court"><h2>Opinion of the Court</h2>
+<p class="byline">Justice Breyer delivered the opinion of the Court.</p>
+<p>Bankruptcy Code Chapter 11 allows debtors and their creditors to negotiate a plan for dividing an estate's value. See 11 U. S. C. §§ 1123, 1129, 1141. But sometimes the parties cannot agree on a plan. If so, the bankruptcy court may decide to dismiss the case. § 1112(b). The Code then ordinarily provides for what is, in effect, a restoration of the prepetition financial status quo. § 349(b).</p>
+<p>In the case before us, a Bankruptcy Court dismissed a Chapter 11 bankruptcy. But the court did not simply restore the prepetition status quo<em>.</em> Instead, the court ordered a distribution of estate assets that gave money to high-priority secured creditors and to low-priority general unsecured creditors but which skipped certain dissenting mid-priority creditors. The skipped creditors would have been <span class="pg" id="s3-p455" title="page 455 of the original">455</span>entitled to payment ahead of the general unsecured creditors in a Chapter 11 <em>plan</em> (or in a Chapter 7 liquidation). See §§ 507, 725, 726, 1129. The question before us is whether a bankruptcy court has the legal power to order this priority-skipping kind of distribution scheme in connection with a Chapter 11 <em>dismissal</em>.</p>
+<p>In our view, a bankruptcy court does not have such a power. A distribution scheme ordered in connection with the dismissal of a Chapter 11 case cannot, without the consent of the affected parties, deviate from the basic priority rules that apply under the primary mechanisms the Code establishes for final distributions of estate value in business bankruptcies.</p>
+<h3 class="oh">I</h3>
+<h3 class="oh">A</h3>
+<h3 class="oh">1</h3>
+<p>We begin with a few fundamentals: A business may file for bankruptcy under either Chapter 7 or Chapter 11. In Chapter 7, a trustee liquidates the debtor's assets and distributes them to creditors. See § 701 <em>et seq.</em> In Chapter 11, debtor and creditors try to negotiate a plan that will govern the distribution of valuable assets from the debtor's estate and often keep the business operating as a going concern. See, <em>e. g.,</em> §§ 1121, 1123, 1129, 1141 (setting out the framework in which the parties negotiate).</p>
+<p>Filing for Chapter 11 bankruptcy has several relevant legal consequences. First, an estate is created comprising all property of the debtor. § 541(a)(1). Second, a fiduciary is installed to manage the estate in the interest of the creditors. §§ 1106, 1107(a). This fiduciary, often the debtor's existing management team, acts as “debtor in possession.” §§ 1101(1), 1104. It may operate the business, §§ 363(c)(1), 1108, and perform certain bankruptcy-related functions, such as seeking to recover for the estate preferential or fraudulent transfers made to other persons, § 547 (transfers made <span class="pg" id="s3-p456" title="page 456 of the original">456</span>before bankruptcy that unfairly preferred particular creditors); § 548 (fraudulent transfers, including transfers made before bankruptcy for which the debtor did not receive fair value). Third, an “automatic stay” of all collection proceedings against the debtor takes effect. § 362(a).</p>
+<p>It is important to keep in mind that Chapter 11 foresees three possible outcomes. The first is a bankruptcy-court-confirmed plan. Such a plan may keep the business operating but, at the same time, help creditors by providing for payments, perhaps over time. See §§ 1123, 1129, 1141. The second possible outcome is conversion of the case to a Chapter 7 proceeding for liquidation of the business and a distribution of its remaining assets. §§ 1112(a), (b), 726. That conversion in effect confesses an inability to find a plan. The third possible outcome is dismissal of the Chapter 11 case. § 1112(b). A dismissal typically “revests the property of the estate in the entity in which such property was vested immediately before the commencement of the case”— in other words, it aims to return to the prepetition financial status quo. § 349(b)(3).</p>
+<p>Nonetheless, recognizing that conditions may have changed in ways that make a perfect restoration of the status quo difficult or impossible, the Code permits the bankruptcy court, “for cause,” to alter a Chapter 11 dismissal's ordinary restorative consequences. § 349(b). A dismissal that does so (or which has other special conditions attached) is often referred to as a “structured dismissal,” defined by the American Bankruptcy Institute as a</p>
+<blockquote>
+<p>“hybrid dismissal and confirmation order . . . that . . . typically dismisses the case while, among other things, approving certain distributions to creditors, granting certain third-party releases, enjoining certain conduct by creditors, and not necessarily vacating orders or unwinding transactions undertaken during the case.” American Bankruptcy Institute Commission To Study the Reform of Chapter 11, 2012–2014 Final Report and Recommendations 270 (2014).</p>
+</blockquote>
+<p class="cont"><span class="pg" id="s3-p457" title="page 457 of the original">457</span>Although the Code does not expressly mention structured dismissals, they “appear to be increasingly common.” <em>Ibid.</em>, n. 973.</p>
+<h3 class="oh">2</h3>
+<p>The Code also sets forth a basic system of priority, which ordinarily determines the order in which the bankruptcy court will distribute assets of the estate. Secured creditors are highest on the priority list, for they must receive the proceeds of the collateral that secures their debts. 11 U. S. C. § 725. Special classes of creditors, such as those who hold certain claims for taxes or wages, come next in a listed order. §§ 507, 726(a)(1). Then come low-priority creditors, including general unsecured creditors. § 726(a)(2). The Code places equity holders at the bottom of the priority list. They receive nothing until all previously listed creditors have been paid in full. § 726(a)(6).</p>
+<p>The Code makes clear that distributions of assets in a Chapter 7 liquidation must follow this prescribed order. §§ 725, 726. It provides somewhat more flexibility for distributions pursuant to Chapter 11 plans, which may impose a different ordering with the consent of the affected parties. But a bankruptcy court cannot confirm a plan that contains priority-violating distributions over the objection of an impaired creditor class. §§ 1129(a)(7), (b)(2).</p>
+<p>The question here concerns the interplay between the Code's priority rules and a Chapter 11 dismissal. Here, the Bankruptcy Court neither liquidated the debtor under Chapter 7 nor confirmed a Chapter 11 plan. But the court, instead of reverting to the prebankruptcy status quo, ordered a distribution of the estate assets to creditors by attaching conditions to the dismissal (<em>i. e.,</em> it ordered a structured dismissal). The Code does not explicitly state what priority rules—if any—apply to a distribution in these circumstances. May a court consequently provide for distributions that deviate from the ordinary priority rules that would apply to a Chapter 7 liquidation or a Chapter 11 plan? Can it approve conditions that give estate assets to members of a lower priority<span class="pg" id="s3-p458" title="page 458 of the original">458</span> class while skipping objecting members of a higher priority class?</p>
+<h3 class="oh">B</h3>
+<p>In 2006, Sun Capital Partners, a private equity firm, acquired Jevic Transportation Corporation with money borrowed from CIT Group in a “leveraged buyout.” In a leveraged buyout, the buyer (B) typically borrows from a third party (T) a large share of the funds needed to purchase a company (C). B then pays the money to C's shareholders. Having bought the stock, B owns C. B then pledges C's assets to T so that T will have security for its loan. Thus, if the selling price for C is $50 million, B might use $10 million of its own money, borrow $40 million from T, pay $50 million to C's shareholders, and then pledge C assets worth $40 million (or more) to T as security for T's $40 million loan. If B manages C well, it might make enough money to pay T back the $40 million and earn a handsome profit on its own $10 million investment. But, if the deal sours and C descends into bankruptcy, beware of what might happen: Instead of C's $40 million in assets being distributed to its existing creditors, the money will go to T to pay back T's loan—the loan that allowed B to buy C. (T will receive what remains of C's assets because T is now a secured creditor, putting it at the top of the priority list). Since C's shareholders receive money while C's creditors lose their claim to C's remaining assets, unsuccessful leveraged buyouts often lead to fraudulent-conveyance suits alleging that the purchaser (B) transferred the company's assets without receiving fair value in return. See Lipson &amp; Vandermeuse, <em>Stern,</em> Seriously: The Article I Judicial Power, Fraudulent Transfers, and Leveraged Buyouts, 2013 Wis. L. Rev. 1161, 1220–1221.</p>
+<p>This is precisely what happened here. Just two years after Sun's buyout, Jevic (C in our leveraged buyout example) filed for Chapter 11 bankruptcy. At the time of filing, it owed $53 million to senior secured creditors Sun and CIT <span class="pg" id="s3-p459" title="page 459 of the original">459</span>(B and T in our example), and over $20 million to tax and general unsecured creditors.</p>
+<p>The circumstances surrounding Jevic's bankruptcy led to two lawsuits. First, petitioners, a group of former Jevic truckdrivers, filed suit in Bankruptcy Court against Jevic and Sun. Petitioners pointed out that, just before entering bankruptcy, Jevic had halted almost all its operations and had told petitioners that they would be fired. Petitioners claimed that Jevic and Sun had thereby violated state and federal Worker Adjustment and Retraining Notification (WARN) Acts—laws that require a company to give workers at least 60 days' notice before their termination. See 29 U. S. C. § 2102; N. J. Stat. Ann. § 34:21–2 (West 2011). The Bankruptcy Court granted summary judgment for petitioners against Jevic, leaving them (and <em>this</em> is the point to remember) with a judgment that petitioners say is worth $12.4 million. See <em>In re Jevic Holding Corp.</em>, 496 B. R. 151 (Bkrtcy. Ct. Del. 2013). Some $8.3 million of that judgment counts as a priority wage claim under 11 U. S. C. § 507(a)(4), and is therefore entitled to payment ahead of general unsecured claims against the Jevic estate.</p>
+<p>Petitioners' WARN suit against Sun continued throughout most of the litigation now before us. But eventually Sun prevailed on the ground that Sun was not the workers' employer at the relevant times. See <em>In re Jevic Holding Corp.</em>, 656 Fed. Appx. 617 (CA3 2016).</p>
+<p>Second, the Bankruptcy Court authorized a committee representing Jevic's unsecured creditors to sue Sun and CIT. The Bankruptcy Court and the parties were aware that any proceeds from such a suit would belong not to the unsecured creditors, but to the bankruptcy estate. See §§ 541(a)(1), (6); <em>Official Comm. of Unsecured Creditors of Cybergenics Corp.</em> v. <em>Chinery</em>, 330 F. 3d 548, 552–553 (CA3 2003) (en banc) (holding that a creditor's committee can bring a derivative action on behalf of the estate). The committee alleged that Sun and CIT, in the course of their leveraged buyout, had “hastened<span class="pg" id="s3-p460" title="page 460 of the original">460</span> Jevic's bankruptcy by saddling it with debts that it couldn't service.” <em>In re Jevic Holding Corp.</em>, 787 F. 3d 173, 176 (CA3 2015). In 2011, the Bankruptcy Court held that the committee had adequately pleaded claims of preferential transfer under § 547 and of fraudulent transfer under § 548. <em>In re Jevic Holding Corp.</em>, 2011 WL 4345204 (Bkrtcy. Ct. Del., Sept. 15, 2011).</p>
+<p>Sun, CIT, Jevic, and the committee then tried to negotiate a settlement of this “fraudulent-conveyance” lawsuit. By that point, the depleted Jevic estate's only remaining assets were the fraudulent-conveyance claim itself and $1.7 million in cash, which was subject to a lien held by Sun.</p>
+<p>The parties reached a settlement agreement. It provided (1) that the Bankruptcy Court would dismiss the fraudulent-conveyance action with prejudice; (2) that CIT would deposit $2 million into an account earmarked to pay the committee's legal fees and administrative expenses; (3) that Sun would assign its lien on Jevic's remaining $1.7 million to a trust, which would pay taxes and administrative expenses and distribute the remainder on a pro rata basis to the low-priority general unsecured creditors, <em>but which would not distribute anything to petitioners</em> (who, by virtue of their WARN judgment, held an $8.3 million mid-level-priority wage claim against the estate); and (4) that Jevic's Chapter 11 bankruptcy would be dismissed.</p>
+<p>Apparently Sun insisted on a distribution that would skip petitioners because petitioners' WARN suit against Sun was still pending and Sun did not want to help finance that litigation. See 787 F. 3d, at 177–178, n. 4 (Sun's counsel acknowledging before the Bankruptcy Court that “ `Sun probably does care where the money goes because you can take judicial notice that there's a pending WARN action against Sun by the WARN plaintiffs. And if the money goes to the WARN plaintiffs, then you're funding someone who is suing you who otherwise doesn't have funds and is doing it on a contingent fee basis' ”). The essential point is that, regardless<span class="pg" id="s3-p461" title="page 461 of the original">461</span> of the reason, the proposed settlement called for a structured dismissal that provided for distributions that did not follow ordinary priority rules.</p>
+<p>Sun, CIT, Jevic, and the committee asked the Bankruptcy Court to approve the settlement and dismiss the case. Petitioners and the U. S. Trustee objected, arguing that the settlement's distribution plan violated the Code's priority scheme because it skipped petitioners—who, by virtue of their WARN judgment, had mid-level priority claims against estate assets—and distributed estate money to low-priority general unsecured creditors.</p>
+<p>The Bankruptcy Court agreed with petitioners that the settlement's distribution scheme failed to follow ordinary priority rules. App. to Pet. for Cert. 58a. But it held that this did not bar approval. <em>Ibid</em>. That, in the Bankruptcy Court's view, was because the proposed payouts would occur pursuant to a structured dismissal of a Chapter 11 petition rather than an approval of a Chapter 11 plan. <em>Ibid</em>. The court accordingly decided to grant the motion in light of the “dire circumstances” facing the estate and its creditors. <em>Id.,</em> at 57a. Specifically, the court predicted that without the settlement and dismissal, there was “no realistic prospect” of a meaningful distribution for anyone other than the secured creditors. <em>Id.,</em> at 58a. A confirmable Chapter 11 plan was unattainable. And there would be no funds to operate, investigate, or litigate were the case converted to a proceeding in Chapter 7. <em>Ibid.</em></p>
+<p>The District Court affirmed the Bankruptcy Court. It recognized that the settlement distribution violated ordinary priority rules. But those rules, it wrote, were “not a bar to the approval of the settlement as [the settlement] is not a reorganization plan.” <em>In re Jevic Holding Corp.</em>, 2014 WL 268613, *3 (D Del., Jan. 24, 2014).</p>
+<p>The Third Circuit affirmed the District Court by a vote of 2 to 1. 787 F. 3d, at 175; <em>id</em>., at 186 (Scirica, J., concurring in part and dissenting in part). The majority held that <span class="pg" id="s3-p462" title="page 462 of the original">462</span>structured dismissals need not always respect priority. Congress, the court explained, had only “codified the absolute priority rule . . . in the specific context of plan confirmation.” <em>Id.</em>, at 183. As a result, courts could, “in rare instances like this one, approve structured dismissals that do not strictly adhere to the Bankruptcy Code's priority scheme.” <em>Id.</em>, at 180.</p>
+<p>Petitioners (the workers with the WARN judgment) sought certiorari. We granted their petition.</p>
+<h3 class="oh">II</h3>
+<p>Respondents initially argue that petitioners lack standing because they have suffered no injury, or at least no injury that will be remedied by a decision in their favor. See <em>Spokeo, Inc</em>. v<em>. Robins</em>, 578 U. S. 330, 338 (2016) (explaining that, for Article III standing, a plaintiff must have “(1) suffered an injury in fact, (2) that is fairly traceable to the challenged conduct of the defendant, and (3) that is likely to be redressed by a favorable judicial decision”). Respondents concede that the structured dismissal approved by the Bankruptcy Court contained distribution conditions that skipped over petitioners, ensuring that petitioners received nothing on their multimillion-dollar WARN claim against the Jevic estate. But respondents still assert that petitioners suffered no loss.</p>
+<p>The reason, respondents say, is that petitioners would have gotten nothing even if the Bankruptcy Court had never approved the structured dismissal in the first place, and will still get nothing if the structured dismissal is undone now. Reversal will eliminate the settlement of the committee's fraudulent-conveyance lawsuit, which was conditioned on the Bankruptcy Court's approval of the priority-violating structured dismissal. If the Bankruptcy Court cannot approve that dismissal, respondents contend, Sun and CIT will no longer agree to settle. Nor will petitioners ever be able to obtain a litigation recovery. Hence there will be no lawsuit <span class="pg" id="s3-p463" title="page 463 of the original">463</span>money to distribute. And in the absence of lawsuit money, Jevic's assets amount to about $1.7 million, all pledged to Sun, leaving nothing for anyone else, let alone petitioners. Thus, even if petitioners are right that the structured dismissal was impermissible, it cost them nothing. And a judicial decision in their favor will gain them nothing. No loss. No redress.</p>
+<p>This argument, however, rests upon respondents' claims that (1) without a violation of ordinary priority rules, there will be no settlement, and (2) without a settlement, the fraudulent-conveyance lawsuit has no value. In our view, the record does not support either of these propositions.</p>
+<p>As to the first, the record indicates that a settlement that respects ordinary priorities remains a reasonable possibility. It makes clear (as counsel made clear before our Court, see Tr. of Oral Arg. 58) that Sun insisted upon a settlement that gave petitioners nothing only because it did not want to help fund petitioners' WARN lawsuit against it. See 787 F. 3d, at 177–178, n. 4. But Sun has now won that lawsuit. See 656 Fed. Appx. 617. If Sun's given reason for opposing distributions to petitioners has disappeared, why would Sun not settle while permitting some of the settlement money to go to petitioners?</p>
+<p>As to the second, the record indicates that the fraudulent-conveyance claim could have litigation value. CIT and Sun, after all, settled the lawsuit for $3.7 million, which would make little sense if the action truly had no chance of success. The Bankruptcy Court could convert the case to Chapter 7, allowing a Chapter 7 trustee to pursue the suit against Sun and CIT. Or the court could simply dismiss the Chapter 11 bankruptcy, thereby allowing petitioners to assert the fraudulent-conveyance claim themselves. Given these possibilities, there is no reason to believe that the claim could not be pursued with counsel obtained on a contingency basis. Of course, the lawsuit—like any lawsuit—<em>might</em> prove fruit-less, but the mere <em>possibility</em> of failure does not eliminate <span class="pg" id="s3-p464" title="page 464 of the original">464</span>the value of the claim or petitioners' injury in being unable to bring it.</p>
+<p>Consequently, the Bankruptcy Court's approval of the structured dismissal cost petitioners something. They lost a chance to obtain a settlement that respected their priority. Or, if not that, they lost the power to bring their own lawsuit on a claim that had a settlement value of $3.7 million. For standing purposes, a loss of even a small amount of money is ordinarily an “injury.” See, <em>e. g., McGowan</em> v. <em>Maryland</em>, 366 U. S. 420, 430–431 (1961) (finding that appellants fined $5 plus costs had standing to assert an Establishment Clause challenge). And the ruling before us could well have cost petitioners considerably more. See <em>Clinton</em> v. <em>City of New York</em>, 524 U. S. 417, 430–431 (1998) (imposition of a “substantial contingent liability” qualifies as an injury). A decision in petitioners' favor is likely to redress that loss. We accordingly conclude that petitioners have standing.</p>
+<h3 class="oh">III</h3>
+<p>We turn to the basic question presented: Can a bankruptcy court approve a structured dismissal that provides for distributions that do not follow ordinary priority rules without the affected creditors' consent? Our simple answer to this complicated question is “no.”</p>
+<p>The Code's priority system constitutes a basic underpinning of business bankruptcy law. Distributions of estate assets at the termination of a business bankruptcy normally take place through a Chapter 7 liquidation or a Chapter 11 plan, and both are governed by priority. In Chapter 7 liquidations, priority is an absolute command—lower-priority creditors cannot receive anything until higher-priority creditors have been paid in full. See 11 U. S. C. §§ 725, 726. Chapter 11 plans provide somewhat more flexibility, but a priority-violating plan still cannot be confirmed over the objection of an impaired class of creditors. See § 1129(b).</p>
+<p><span class="pg" id="s3-p465" title="page 465 of the original">465</span>The priority system applicable to those distributions has long been considered fundamental to the Bankruptcy Code's operation. See H. R. Rep. No. 103–835, p. 33 (1994) (explaining that the Code is “designed to enforce a distribution of the debtor's assets in an orderly manner . . . in accordance with established principles rather than on the basis of the inside influence or economic leverage of a particular creditor”); Roe &amp; Tung, Breaking Bankruptcy Priority: How Rent-Seeking Upends the Creditors' Bargain, 99 Va. L. Rev. 1235, 1243, 1236 (2013) (arguing that the first principle of bankruptcy is that “distribution conforms to predetermined statutory and contractual priorities,” and that priority is, “quite appropriately, bankruptcy's most important and famous rule”); Markell, Owners, Auctions, and Absolute Priority in Bankruptcy Reorganizations, 44 Stan. L. Rev. 69, 123 (1991) (stating that a fixed priority scheme is recognized as “the cornerstone of reorganization practice and theory”).</p>
+<p>The importance of the priority system leads us to expect more than simple statutory silence if, and when, Congress were to intend a major departure. See <em>Whitman</em> v. <em>American Trucking Assns., Inc.</em>, 531 U. S. 457, 468 (2001) (“Congress . . . does not, one might say, hide elephants in mouse-holes”). Put somewhat more directly, we would expect to see some affirmative indication of intent if Congress actually meant to make structured dismissals a backdoor means to achieve the exact kind of nonconsensual priority-violating final distributions that the Code prohibits in Chapter 7 liquidations and Chapter 11 plans.</p>
+<p>We can find nothing in the statute that evinces this intent. The Code gives a bankruptcy court the power to “dismiss” a Chapter 11 case. § 1112(b). But the word “dismiss” itself says nothing about the power to make nonconsensual priority-violating distributions of estate value. Neither the word “structured,” nor the word “conditions,” nor anything else about distributing estate value to creditors pursuant to a dismissal appears in any relevant part of the Code.</p>
+<p><span class="pg" id="s3-p466" title="page 466 of the original">466</span>Insofar as the dismissal sections of Chapter 11 foresee any transfer of assets, they seek a restoration of the prepetition financial status quo<em>.</em> See § 349(b)(1) (dismissal ordinarily reinstates a variety of avoided transfers and voided liens); § 349(b)(2) (dismissal ordinarily vacates certain types of bankruptcy orders); § 349(b)(3) (dismissal ordinarily “revests the property of the estate in the entity in which such property was vested immediately before the commencement of the case”); see also H. R. Rep. No. 95–595, p. 338 (1977) (dismissal's “basic purpose . . . is to undo the bankruptcy case, as far as practicable, and to restore all property rights to the position in which they were found at the commencement of the case”).</p>
+<p>Section 349(b), we concede, also says that a bankruptcy judge may, “for cause, orde[r] otherwise.” But, read in context, this provision appears designed to give courts the flexibility to “make the appropriate orders to protect rights acquired in reliance on the bankruptcy case.” <em>Id</em>., at 338; cf., <em>e. g., Wiese</em> v. <em>Community Bank of Central Wis.</em>, 552 F. 3d 584, 590 (CA7 2009) (upholding, under § 349(b), a Bankruptcy Court's decision not to reinstate a debtor's claim against a bank that gave up a lien in reliance on the claim being released in the debtor's reorganization plan). Nothing else in the Code authorizes a court ordering a dismissal to make general end-of-case distributions of estate assets to creditors of the kind that normally take place in a Chapter 7 liquidation or Chapter 11 plan—let alone final distributions that do not help to restore the <em>status quo ante</em> or protect reliance interests acquired in the bankruptcy, and that would be flatly impermissible in a Chapter 7 liquidation or a Chapter 11 plan because they violate priority without the impaired creditors' consent. That being so, the word “cause” is too weak a reed upon which to rest so weighty a power. See <em>United Sav. Assn. of Tex.</em> v. <em>Timbers of Inwood Forest Associates, Ltd.</em>, 484 U. S. 365, 371 (1988) (noting that “[s]tatutory construction . . . is a holistic endeavor” and that a court should select <span class="pg" id="s3-p467" title="page 467 of the original">467</span>a “meanin[g that] produces a substantive effect that is compatible with the rest of the law”); <em>Kelly</em> v. <em>Robinson</em>, 479 U. S. 36, 43 (1986) (in interpreting a statute, a court “must not be guided by a single sentence or member of a sentence, but look to the provisions of the whole law, and to its object and policy” (internal quotation marks omitted)); cf. <em>In re Sadler</em>, 935 F. 2d 918, 921 (CA7 1991) (“ `Cause' under § 349(b) means an acceptable reason. Desire to make an end run around a statute is not an adequate reason”).</p>
+<p>We have found no contrary precedent, either from this Court, or, for that matter, from lower court decisions reflecting common bankruptcy practice. The Third Circuit referred briefly to <em>In re Buffet Partners, L. P.</em>, 2014 WL 3735804 (Bkrtcy. Ct. ND Tex., July 28, 2014). The court in that case approved a structured dismissal. (We express no view about the legality of structured dismissals in general.) But at the same time it pointed out “that not one party with an economic stake in the case has objected to the dismissal in this manner.” <em>Id.</em>, at *4.</p>
+<p>The Third Circuit also relied upon <em>In re Iridium Operating LLC</em>, 478 F. 3d 452 (CA2 2007). But <em>Iridium</em> did not involve a structured dismissal. It addressed an <em>interim</em> distribution of settlement proceeds to fund a litigation trust that would press claims on the estate's behalf. See <em>id.</em>, at 459–460. The <em>Iridium</em> court observed that, when evaluating this type of preplan settlement, “[i]t is difficult to employ the rule of priorities” because “the nature and extent of the Estate and the claims against it are <em>not yet fully resolved</em>.” <em>Id.</em>, at 464 (emphasis added). The decision does not state or suggest that the Code authorizes nonconsensual departures from ordinary priority rules in the context of a dismissal— which is a <em>final</em> distribution of estate value—and in the absence of any further unresolved bankruptcy issues.</p>
+<p>We recognize that <em>Iridium</em> is not the only case in which a court has approved interim distributions that violate ordinary priority rules. But in such instances one can generally <span class="pg" id="s3-p468" title="page 468 of the original">468</span>find significant Code-related objectives that the priority-violating distributions serve. Courts, for example, have approved “first-day” wage orders that allow payment of employees' prepetition wages, “critical vendor” orders that allow payment of essential suppliers' prepetition invoices, and “roll-ups” that allow lenders who continue financing the debtor to be paid first on their prepetition claims. See <em>Cybergenics</em>, 330 F. 3d, at 574, n. 8; D. Baird, Elements of Bankruptcy 232–234 (6th ed. 2014); Roe, 99 Va. L. Rev., at 1250–1264. In doing so, these courts have usually found that the distributions at issue would “enable a successful reorganization and make even the disfavored creditors better off.” <em>In re Kmart Corp.</em>, 359 F. 3d 866, 872 (CA7 2004) (discussing the justifications for critical-vendor orders); see also <em>Toibb</em> v. <em>Radloff</em>, 501 U. S. 157, 163–164 (1991) (recognizing “permitting business debtors to reorganize and restructure their debts in order to revive the debtors' businesses” and “maximizing the value of the bankruptcy estate” as purposes of the Code). By way of contrast, in a structured dismissal like the one ordered below, the priority-violating distribution is attached to a final disposition; it does not preserve the debtor as a going concern; it does not make the disfavored creditors better off; it does not promote the possibility of a confirmable plan; it does not help to restore the <em>status quo ante</em>; and it does not protect reliance interests. In short, we cannot find in the violation of ordinary priority rules that occurred here any significant offsetting bankruptcy-related justification.</p>
+<p>Rather, the distributions at issue here more closely resemble proposed transactions that lower courts have refused to allow on the ground that they circumvent the Code's procedural safeguards. See, <em>e. g., In re Braniff Airways, Inc.</em>, 700 F. 2d 935, 940 (CA5 1983) (prohibiting an attempt to “short circuit the requirements of Chapter 11 for confirmation of a reorganization plan by establishing the terms of the plan <em>sub rosa</em> in connection with a sale of assets”); <em>In re Lionel</em> <span class="pg" id="s3-p469" title="page 469 of the original">469</span><em>Corp.</em>, 722 F. 2d 1063, 1069 (CA2 1983) (reversing a Bankruptcy Court's approval of an asset sale after holding that § 363 does not “gran[t] the bankruptcy judge <em>carte blanche</em>” or “swallo[w] up Chapter 11's safeguards”); <em>In re Biolitec, Inc.</em>, 528 B. R. 261, 269 (Bkrtcy. Ct. NJ 2014) (rejecting a structured dismissal because it “seeks to alter parties' rights without their consent and lacks many of the Code's most important safeguards”); cf. <em>In re Chrysler LLC</em>, 576 F. 3d 108, 118 (CA2 2009) (approving a § 363 asset sale because the Bankruptcy Court demonstrated “proper solicitude for the priority between creditors and deemed it essential that the [s]ale in no way upset that priority”), vacated as moot, 592 F. 3d 370 (CA2 2010) (<em>per curiam</em>).</p>
+<h3 class="oh">IV</h3>
+<p>We recognize that the Third Circuit did not approve nonconsensual priority-violating structured dismissals in general. To the contrary, the court held that they were permissible only in those “rare case[s]” in which courts could find “sufficient reasons” to disregard priority. 787 F. 3d, at 175, 186. Despite the “rare case” limitation, we still cannot agree.</p>
+<p>For one thing, it is difficult to give precise content to the concept “sufficient reasons.” That fact threatens to turn a “rare case” exception into a more general rule. Consider the present case. The Bankruptcy Court feared that (1) without the worker-skipping distribution, there would be no settlement, (2) without a settlement, all the unsecured creditors would receive nothing, and consequently (3) its distributions would make some creditors (high- and low-priority creditors) better off without making other (mid-priority) creditors worse off (for they would receive nothing regardless). But, as we have pointed out, the record provides equivocal support for the first two propositions. See <em>supra,</em> at 462–464. And one can readily imagine other cases that turn on comparably dubious predictions. The result is uncertainty.<span class="pg" id="s3-p470" title="page 470 of the original">470</span> And uncertainty will lead to similar claims being made in many, not just a few, cases. See Rudzik, A Priority Is a Priority Is a Priority—Except When It Isn't, 34 Am. Bkrtcy. Inst. J. 16, 79 (2015) (“[O]nce the floodgates are opened, debtors and favored creditors can be expected to make every case that `rare case' ”).</p>
+<p>The consequences are potentially serious. They include departure from the protections Congress granted particular classes of creditors. See, <em>e. g., United States</em> v. <em>Embassy Restaurant, Inc.</em>, 359 U. S. 29, 32 (1959) (Congress established employee wage priority “to alleviate in some degree the hardship that unemployment usually brings to workers and their families” when an employer files for bankruptcy); H. R. Rep. No. 95–595, at 187 (explaining the importance of ensuring that employees do not “abandon a failing business for fear of not being paid”). They include changes in the bargaining power of different classes of creditors even in bankruptcies that do not end in structured dismissals. See Warren, A Theory of Absolute Priority, 1991 Ann. Survey Am. L. 9, 30. They include risks of collusion, <em>i. e.</em>, senior secured creditors and general unsecured creditors teaming up to squeeze out priority unsecured creditors. See <em>Bank of America Nat. Trust and Sav. Assn.</em> v. <em>203 North LaSalle Street Partnership</em>, 526 U. S. 434, 444 (1999) (discussing how the absolute priority rule was developed in response to “concern with `the ability of a few insiders, whether representatives of management or major creditors, to use the reorganization process to gain an unfair advantage' ” (quoting H. R. Doc. No. 93–137, pt. I, p. 255 (1973))). And they include making settlement more difficult to achieve. See Landes &amp; Posner, Legal Precedent: A Theoretical and Empirical Analysis, 19 J. Law &amp; Econ. 249, 271 (1976) (arguing that “the ratio of lawsuits to settlements is mainly a function of the amount of uncertainty, which leads to divergent estimates by the parties of the probable outcome”); see also <em>RadLAX Gateway Hotel, LLC</em> v. <em>Amalgamated Bank</em>, 566 U. S. 639, <span class="pg" id="s3-p471" title="page 471 of the original">471</span>649 (2012) (noting the importance of clarity and predictability in light of the fact that the “Bankruptcy Code standardizes an expansive (and sometimes unruly) area of law”).</p>
+<p>For these reasons, as well as those set forth in Part III, we conclude that Congress did not authorize a “rare case” exception. We cannot “alter the balance struck by the statute,” <em>Law</em> v. <em>Siegel</em>, 571 U. S. 415, 427 (2014), not even in “rare cases.” Cf. <em>Norwest Bank Worthington</em> v. <em>Ahlers</em>, 485 U. S. 197, 207 (1988) (explaining that courts cannot deviate from the procedures “specified by the Code,” even when they sincerely “believ[e] that . . . creditors would be better off ”). The judgment of the Court of Appeals is reversed, and the case is remanded for further proceedings consistent with this opinion.</p>
+<p><em>It is so ordered.</em></p></section>
+<section id="s4" class="op op-dissenting"><h2>Justice Thomas, dissenting</h2>
+<p class="byline">Justice Thomas, with whom Justice Alito joins, dissenting.</p>
+<p>Today, the Court answers a novel and important question of bankruptcy law. Unfortunately, it does so without the benefit of any reasoned opinions on the dispositive issue from the courts of appeals (apart from the Court of Appeals' opinion in this case) and with briefing on that issue from only one of the parties. That is because, having persuaded us to grant certiorari on one question, petitioners chose to argue a different question on the merits. In light of that switch, I would dismiss the writ of certiorari as improvidently granted.</p>
+<p>We granted certiorari to decide “[w]hether a bankruptcy court may authorize the distribution of settlement proceeds in a manner that violates the statutory priority scheme.” Pet. for Cert. i. According to petitioners, the decision below “deepened an existing . . . split” among the Courts of Appeals on this question. <em>Id.</em>, at 8; see <em>id.</em>, at 15–16 (citing <em>In re AWECO, Inc.</em>, 725 F. 2d 293, 298 (CA5 1984), and <em>In re Iridium Operating LLC</em>, 478 F. 3d 452, 464 (CA2 2007)). After <span class="pg" id="s4-p472" title="page 472 of the original">472</span>we granted certiorari, however, petitioners recast the question presented to ask “[w]hether a Chapter 11 case may be terminated by a `structured dismissal' that distributes estate property in violation of the Bankruptcy Code's priority scheme.” Brief for Petitioners i. Although both questions involve priority-skipping distributions of estate assets, the recast question is narrower—and different—than the one on which we granted certiorari. It is also not the subject of a circuit conflict.</p>
+<p>I think it is unwise for the Court to decide the reformulated question today, for two reasons. First, it is a “novel question of bankruptcy law” arising in the rapidly developing field of structured dismissals. <em>In re Jevic Holding Corp.</em>, 787 F. 3d 173, 175 (CA3 2015). Experience shows that we would greatly benefit from the views of additional courts of appeals on this question. We also would have benefited from full, adversarial briefing. In reliance on this Court's Rules prohibiting parties from changing the substance of the question presented, see Rule 24.1(a); see also Rule 14.1(a), respondents declined to brief the question that the majority now decides, see Brief for Respondents 52. Second, deciding this question may invite future petitioners to seek review of a circuit conflict only then to change the question to one that seems more favorable. “I would not reward such baitand-switch tactics.” <em>City and County of San Francisco</em> v. <em>Sheehan</em>, 575 U. S. 600, 620 (2015) (Scalia, J., concurring in part and dissenting in part); see also <em>Visa, Inc.</em> v. <em>Osborn</em>, <em>post</em>, p. 993.</p>
+<p>Accordingly, I would dismiss the writ as improvidently granted. I respectfully dissent.</p></section><p class='back'><a href='/opinions/'>&larr; All opinions</a> · <a href='/justices/ot2016.html'>The Justices, October Term 2016 &rarr;</a></p></main></body>
+</html>
+
