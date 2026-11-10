@@ -581,7 +581,11 @@ def note_blocks(note_lines, left, open_note):
         if RULE.match(ln["text"]):
             continue
         runs = [dict(r) for r in ln["runs"]]
-        ind = ln["x0"] - left
+        # A note's indent can arrive as a space set in the body's size, ahead
+        # of the number: it is not the line's first run for any purpose here.
+        while runs and not runs[0]["t"].strip():
+            runs.pop(0)
+        ind =ln["x0"] - left
         marker = None
         if ind >= 4.0 and runs:
             first = runs[0]["t"].strip()
@@ -832,6 +836,10 @@ def extract(path, first=None, last=None, words_path=None):
         runs = clean_runs(b["runs"])
         text = plain(runs)
         hit = classify_byline(text) if b["type"] == "p" else None
+        # A print centres "Per Curiam." over a one-sentence disposition (a
+        # dismissal as improvidently granted), and a centred line is a heading.
+        if b["type"] == "h" and PER_CURIAM.match(text.strip()):
+            hit = ("percuriam", "", text.strip(), "")
         # The syllabus of a fractured decision summarises each part in the
         # byline's own words ("Justice Kagan delivered the opinion of the Court
         # with respect to Parts I, II-B ..., concluding that"). A real byline

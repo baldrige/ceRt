@@ -1381,6 +1381,12 @@ docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
               else !(outcome %in% c("gvr", "dismissed"))
   argsec <- if (length(ad) && show_arg)
     paste0("<section><h2>Argument &amp; decision</h2>", paste(ad, collapse = ""), "</section>") else ""
+  # An application, or a petition denied over a dissent, has no argument block
+  # to carry the link; where the site has the opinion as a page of its own
+  # (the longer opinions relating to orders, R/opinion_page.R), say so here.
+  if (!nzchar(argsec) && !is.na(opinion))
+    argsec <- paste0("<section><h2>Opinion</h2><p><a href='", opinion, "'>Read the opinion</a> &middot; <a href='",
+                     sub("[.]html$", ".epub", opinion), "'>EPUB</a></p></section>")
 
   ty <- cx$type %||% "paid"; if (is.na(ty)) ty <- "paid"
   if (is_orig) ty <- "orig"
