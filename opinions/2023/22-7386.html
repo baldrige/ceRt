@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script async src='/analytics.js'></script><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate icon" href="/favicon.ico" sizes="any"><link rel="alternate" type="application/atom+xml" title="Supreme Court Report" href="/feed.xml"><link rel="alternate" type="application/atom+xml" title="Certiorari grants" href="/grants.xml"><title>Louis McIntosh, aka Lou D v. United States — Opinion — Supreme Court Report</title><meta name="description" content="The opinion in Louis McIntosh, aka Lou D v. United States (No. 22-7386), decided April 17, 2024: the full text with its footnotes, as a page, a Markdown file and an EPUB."><link rel="canonical" href="https://supremecourt.report/opinions/2023/22-7386.html"><meta property="og:site_name" content="Supreme Court Report"><meta property="og:type" content="article"><meta property="og:title" content="Louis McIntosh, aka Lou D v. United States — Opinion — Supreme Court Report"><meta property="og:description" content="The opinion in Louis McIntosh, aka Lou D v. United States (No. 22-7386), decided April 17, 2024: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta property="og:url" content="https://supremecourt.report/opinions/2023/22-7386.html"><meta property="og:image" content="https://supremecourt.report/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Supreme Court Report - docket analytics for the Supreme Court of the United States"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Louis McIntosh, aka Lou D v. United States — Opinion — Supreme Court Report"><meta name="twitter:description" content="The opinion in Louis McIntosh, aka Lou D v. United States (No. 22-7386), decided April 17, 2024: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta name="twitter:image" content="https://supremecourt.report/og.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap"><style>
+  :root{--paper:#fdfcfa;--panel:#ffffff;--ink:#1a1a1e;--ink-soft:#484850;--faint:#63636b;--accent:#9c0e3a;--link:#9c0e3a;--rule:#dbd8d2;--nav-max:60rem}
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{font-family:'Newsreader',Georgia,serif;font-size:19px;line-height:1.6;
+    color:var(--ink);background:var(--paper);margin:0;font-feature-settings:'onum' 1}
+  body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
+    opacity:.5;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");}
+  .wrap{max-width:40rem;margin:0 auto;padding:3rem 1.4rem 4rem}
+  .kicker{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 1rem}
+  h1{font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:clamp(2.4rem,7vw,3.6rem);line-height:1;letter-spacing:-.015em;
+    margin:0 0 1rem;color:var(--ink)}
+  h1 em{font-style:italic;font-weight:500;color:var(--accent)}
+  .dek{font-size:1.15rem;line-height:1.5;color:var(--ink-soft);font-style:italic;
+    margin:0 0 1.4rem}
+  .brule{border:0;height:0;border-top:2px solid var(--ink);margin:1.4rem 0 .3rem;
+    position:relative}
+  .brule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+    border-top:1px solid var(--rule)}
+  ul.idx{list-style:none;padding:0;margin:1.6rem 0}
+  ul.idx li{border-bottom:1px solid var(--rule)}
+  /* Whole row is one block-level link: a large, reliable tap target on mobile. */
+  ul.idx a.row{display:flex;justify-content:space-between;align-items:baseline;
+    gap:1rem;padding:.9rem .4rem;text-decoration:none;border:0;color:inherit}
+  ul.idx a.row:hover{background:rgba(156,14,58,.05)}
+  ul.idx .d{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.16rem;
+    color:var(--accent);line-height:1.25}
+  ul.idx a.row:hover .d{text-decoration:underline;text-underline-offset:3px}
+  ul.idx .count{color:var(--faint);font-size:.9rem;font-style:italic;white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  /* A long note (an order list's "3 GVRs / 230 denied / 4 habeas denied /
+     ...", items separated by middots) cannot sit on one line: nowrap made it
+     claim the row and
+     squeezed the title into a column three words wide, and on a phone it ran off
+     the screen. Such a row opts in (meta_wrap): the note wraps, only between its
+     items, and takes at most ~45% of the row, so the title always has the
+     larger share. Under 34rem it drops beneath the title at full width. */
+  /* ("long", not "wrap": .wrap is the page container and its padding.) */
+  ul.idx .count.long{white-space:normal;text-align:right;max-width:45%;line-height:1.45}
+  ul.idx .count.long .seg{white-space:nowrap}
+  @media(max-width:34rem){
+    ul.idx a.row.longmeta{flex-wrap:wrap;row-gap:.2rem}
+    ul.idx .count.long{max-width:none;flex-basis:100%;text-align:left}
+  }
+  /* Compact horizontal strip of the most recent pages beneath a category row. */
+  ul.idx .recent{display:flex;flex-wrap:wrap;align-items:baseline;
+    gap:.3rem .85rem;padding:0 .4rem 1rem;margin-top:-.35rem}
+  ul.idx .recent .rlabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  ul.idx .recent a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--ink-soft);text-decoration:none;font-variant-numeric:tabular-nums;
+    border-bottom:1px solid var(--rule);padding-bottom:1px}
+  ul.idx .recent a:hover{color:var(--accent);border-color:var(--accent)}
+  /* Optional panel beneath the section index (home page: most-read cases). */
+  .panel{margin:2.4rem 0 0}
+  .panel h2{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 .25rem}
+  .panel .pnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:0 0 .5rem}
+  /* "Live now" (live_argument_panel, /live.js): hidden unless the Court is
+     streaming an argument. One red dot, the same --accent as the headings, so
+     the live state is a mark and not a new colour. */
+  .live h2 .ldot{display:inline-block;width:.5rem;height:.5rem;border-radius:50%;
+    background:var(--accent);margin-right:.5rem;vertical-align:.08rem;
+    animation:lpulse 2s ease-in-out infinite}
+  @keyframes lpulse{50%{opacity:.25}}
+  @media (prefers-reduced-motion:reduce){.live h2 .ldot{animation:none}}
+  .lplay{display:flex;flex-wrap:wrap;gap:.6rem .9rem;align-items:center;margin:.8rem 0 .3rem}
+  .lplay button{font:600 .9rem/1 'Newsreader',Georgia,serif;letter-spacing:.04em;
+    color:var(--paper);background:var(--accent);border:0;border-radius:2px;
+    padding:.6rem 1.05rem;cursor:pointer}
+  .lplay button:disabled{opacity:.6;cursor:progress}
+  .lplay button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  /* The player takes a row of its own and may never outgrow the column. A flex
+     item's min-width is auto, which for a replaced element is the browser's own
+     controls' width -- wider than the column on a phone, where mobile Safari
+     and Chrome draw larger controls than the desktop. */
+  .lplay audio{display:block;flex:1 1 100%;width:100%;min-width:0;max-width:100%;
+    box-sizing:border-box;margin:0}
+  .lplay .lstat{font-size:.85rem;color:var(--faint)}
+  /* --- Likeliest grants -----------------------------------------------------
+     Its own rows rather than ol.mostread's: this panel carries a question under
+     the caption, which that list has no room for, and a percentage that has to
+     read as the row's subject rather than as a trailing note.
+     The window toggle is two real radio inputs plus :has() -- no JavaScript.
+     Both windows are rendered at build time and one is hidden, which is the only
+     way a static site can offer the choice: there is no server to ask for the
+     other one. Real radios, not styled buttons, so the control is reachable by
+     keyboard and announced as a choice. */
+  .lead{margin:0 0 1.9rem}
+  .lead h2{margin-bottom:.35rem}
+  .lead .pnote{margin:0 0 .7rem}
+  .wr{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+  .win{display:inline-flex;gap:.25rem;margin:0 0 .55rem;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .win label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .win label:hover{color:var(--ink)}
+  .lead:has(#w7:checked) label[for=w7],
+  .lead:has(#w28:checked) label[for=w28],
+  .lead:has(#wall:checked) label[for=wall]{background:var(--accent);color:var(--paper)}
+  .wr:focus-visible+label{outline:2px solid var(--accent);outline-offset:2px}
+  /* Three windows, one shown: the checked radio hides the other two. */
+  .lead:has(#w7:checked) :is(.g28,.n28,.gall,.nall),
+  .lead:has(#w28:checked) :is(.g7,.n7,.gall,.nall),
+  .lead:has(#wall:checked) :is(.g7,.n7,.g28,.n28){display:none}
+  /* The show/hide controls for a panel's secondary line -- the question under
+     a forecast row, the holding under a decision. Same box as the window
+     toggle, a checkbox instead of radios, and no script: the sibling rule does
+     the work and the lines simply show where :has() is unsupported. The
+     questions are on by default (they are what a forecast row asks); the
+     holdings are off (the caption, kind and disposition already say what
+     happened, and the holding is the more). */
+  .opts{display:inline-flex;gap:.25rem;margin:0 .45rem .55rem 0;vertical-align:top;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .opts label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .opts label:hover{color:var(--ink)}
+  .lead:has(#qon:checked) label[for=qon],
+  .panel:has(#hon:checked) label[for=hon]{background:var(--accent);color:var(--paper)}
+  .lead:has(#qon:not(:checked)) .gq{display:none}
+  .panel:has(#hon:not(:checked)) .chold{display:none}
+  /* --- Upcoming at the Court ------------------------------------------------
+     A date gutter and a two-line body, the same shape as the grant rows above
+     it, so the two panels read as one page rather than two widgets. */
+  .cal{margin:0 0 1.9rem}
+  ol.cal{list-style:none;margin:0;padding:0}
+  ol.cal li{border-top:1px solid var(--rule)}
+  ol.cal li:last-child{border-bottom:1px solid var(--rule)}
+  /* The row is a container, not an anchor: an argument day carries one link per
+     case it hears and anchors cannot nest. Hover lives on the row so it still
+     reads as one unit, and each link colours on its own hover. */
+  ol.cal .crow{display:flex;gap:.95rem;align-items:baseline;padding:.55rem .1rem}
+  ol.cal .crow:hover{background:rgba(156,14,58,.05)}
+  ol.cal a{text-decoration:none;color:inherit}
+  ol.cal a:hover,ol.cal a:focus-visible{color:var(--accent)}
+  ol.cal .cdet a{border-bottom:1px solid rgba(156,14,58,.35)}
+  ol.cal .cdet a:hover{border-bottom-color:var(--accent)}
+  ol.cal .cwhen{flex:none;width:4.6rem;font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.96rem;color:var(--ink);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  ol.cal .cdow{display:block;font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);text-transform:uppercase;letter-spacing:.08em}
+  ol.cal .ctx{flex:1;min-width:0}
+  ol.cal .ckind{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:.98rem;line-height:1.25}
+  ol.cal .cdet{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.12rem}
+  /* Recent decisions reuses the calendar rows and adds exactly two things: the
+     kind word that opens the detail line, and the one outbound link (the slip
+     opinion), which takes the link colour the rest of the row deliberately
+     does not. */
+  ol.cal .dk{font-weight:600;color:var(--ink)}
+  ol.cal .cdet a.pdf{color:var(--link)}
+  /* The holding, from the Court's slip-opinion feed: one sentence, set
+     smaller and in the soft ink so the caption stays the row's headline. */
+  ol.cal .chold{display:block;font-size:.86rem;line-height:1.4;color:var(--ink-soft);
+    font-style:italic;margin-top:.15rem}
+  ol.cal .cdet a.pdf:hover,ol.cal .cdet a.pdf:focus-visible{color:var(--accent);
+    border-bottom-color:var(--accent)}
+  ol.grants{list-style:none;margin:0;padding:0}
+  ol.grants li{border-top:1px solid var(--rule)}
+  ol.grants li:last-child{border-bottom:1px solid var(--rule)}
+  ol.grants a{display:flex;gap:.95rem;align-items:baseline;text-decoration:none;
+    color:inherit;padding:.62rem .1rem}
+  ol.grants a:hover{background:rgba(156,14,58,.05)}
+  ol.grants a:hover .gc{color:var(--accent)}
+  ol.grants .gv{flex:none;width:3.5rem;text-align:right;
+    font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.22rem;
+    line-height:1.1;color:var(--accent);font-variant-numeric:tabular-nums}
+  ol.grants .gx{font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);margin-left:.3rem}
+  ol.grants .gtx{flex:1;min-width:0}
+  /* Subject-area line under the caption, in the section-label idiom (h2.sec):
+     small tracked caps in the faint ink, so it classifies without competing. */
+  ol.grants .gs,ol.mostread .ms{display:block;font-size:.68rem;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--faint);line-height:1.3;margin-top:.12rem}
+  ol.grants .gc{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:1rem;line-height:1.25}
+  ol.grants .gq{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.16rem}
+  ol.grants .gd{flex:none;font-size:.76rem;color:var(--faint);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  .more{margin:.75rem 0 0;font-size:.92rem}
+  .more a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.35)}
+  .more a:hover{border-bottom-color:var(--link)}
+  h2.sec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:.88rem;
+    letter-spacing:.09em;color:var(--faint);text-transform:uppercase;
+    margin:2.1rem 0 .6rem;padding-bottom:.28rem;border-bottom:1px solid var(--rule)}
+  @media(max-width:40rem){
+    ol.grants a{flex-wrap:wrap}
+    ol.grants .gd{width:100%;padding-left:4.45rem;margin-top:-.1rem}
+  }
+  ol.mostread{list-style:none;counter-reset:mr;padding:0;margin:0}
+  ol.mostread li{counter-increment:mr;border-bottom:1px solid var(--rule)}
+  ol.mostread a{display:flex;align-items:baseline;gap:.7rem;padding:.6rem .4rem;
+    text-decoration:none;color:inherit}
+  ol.mostread a:hover{background:rgba(156,14,58,.05)}
+  ol.mostread a::before{content:counter(mr);font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.95rem;color:var(--faint);min-width:1.1rem;
+    font-variant-numeric:tabular-nums}
+  ol.mostread .mc{flex:1;font-size:1rem;line-height:1.3}
+  ol.mostread .mct{display:block}
+  ol.mostread a:hover .mct{color:var(--accent);text-decoration:underline;
+    text-underline-offset:3px}
+  ol.mostread .mdk{color:var(--accent);font-weight:600;font-size:.82rem;
+    font-variant-numeric:tabular-nums;white-space:nowrap}
+  ol.mostread .mv{color:var(--faint);font-size:.85rem;font-style:italic;
+    white-space:nowrap;font-variant-numeric:tabular-nums}
+  /* Forecast percentages carry weight the most-read counts do not: the number is
+     the claim, not a footnote to the ranking. Upright, accent, tabular. */
+  ol.mostread .mv.fc{color:var(--accent);font-style:normal;font-weight:600;
+    font-size:.95rem;min-width:2.6rem;text-align:right}
+  /* Feed follow line. Deliberately quiet -- a footnote under the section list,
+     styled like .recent rather than like a call to action. */
+  .feeds{display:flex;flex-wrap:wrap;align-items:baseline;gap:.3rem .85rem;
+    margin:2.2rem 0 0;padding-top:1.1rem;border-top:1px solid var(--rule)}
+  .feeds .flabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  .feeds a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .feeds a:hover{border-color:var(--link)}
+  .back{margin-top:2rem;font-size:.95rem}
+  .back a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .back a:hover{border-color:var(--link)}
+  /* Home-page case search. */
+  .csearch{position:relative;margin:0 0 1.4rem}
+  #cq{width:100%;font-family:'Newsreader',Georgia,serif;font-size:1.05rem;color:var(--ink);
+    background:var(--panel);border:1px solid var(--rule);border-radius:3px;padding:.7rem .9rem}
+  #cq:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(156,14,58,.1)}
+  #cq::placeholder{color:var(--faint)}
+  #cq.loading{background-image:linear-gradient(90deg,transparent,rgba(156,14,58,.06),transparent);
+    background-size:40% 100%;background-repeat:no-repeat;animation:csl 1s infinite}
+  @keyframes csl{0%{background-position:-40% 0}100%{background-position:140% 0}}
+  .cres{list-style:none;margin:.35rem 0 0;padding:0;max-height:24rem;overflow-y:auto;
+    border:1px solid var(--rule);border-radius:3px;background:var(--panel)}
+  .cres:empty{display:none}
+  .cres li{border-bottom:1px solid var(--rule)}
+  .cres li:last-child{border-bottom:0}
+  .cres a{display:block;padding:.55rem .7rem;text-decoration:none;color:var(--ink);
+    font-size:.98rem;line-height:1.3}
+  .cres a:hover,.cres li.act a{background:rgba(156,14,58,.06)}
+  .cres mark{background:rgba(156,14,58,.14);color:inherit;padding:0 .05em;border-radius:2px}
+  .cres .cd{color:var(--accent);font-variant-numeric:tabular-nums;font-weight:600;
+    margin-right:.5rem;white-space:nowrap}
+  .cnone{padding:.55rem .7rem;color:var(--faint);font-style:italic}
+  .cnone a,.cqp a{color:var(--link);font-style:normal;text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .cqp{margin:.45rem 0 0;font-size:.88rem;color:var(--faint)}
+  /* /cases/ browse index: grouped sections with per-bucket counts. */
+  .csec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+    text-transform:uppercase;letter-spacing:.12em;color:var(--accent);
+    margin:2.2rem 0 .3rem;padding-bottom:.35rem;border-bottom:1px solid var(--rule);
+    display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
+  .csec .cn{font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:.85rem;
+    letter-spacing:0;text-transform:none;color:var(--faint);
+    font-variant-numeric:tabular-nums}
+  .cnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:.5rem 0 0}
+  .cnote a{color:var(--accent)}
+  ul.terms{list-style:none;padding:0;margin:1rem 0 0;display:flex;flex-wrap:wrap;
+    gap:.5rem 1.6rem}
+  ul.terms li{display:inline-flex;align-items:baseline;gap:.4rem}
+  ul.terms a{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.05rem;
+    color:var(--accent);text-decoration:none;border-bottom:1px solid var(--rule)}
+  ul.terms a:hover{border-bottom-color:var(--accent)}
+  ul.terms .cn{color:var(--faint);font-size:.85rem;font-variant-numeric:tabular-nums}
+  /* About page: running prose rather than an index, so it takes a measure and a
+     little more leading than the section rows above it. */
+  .about{margin:1.6rem 0 0;font-size:1.05rem;line-height:1.65;max-width:34rem}
+  .about p{margin:0 0 1rem}
+  .about a{color:var(--accent);text-decoration:none;
+    border-bottom:1px solid var(--rule)}
+  .about a:hover{border-bottom-color:var(--accent)}
+  .about .contact{margin:2rem 0 0;background:var(--panel);border:1px solid var(--rule);
+    border-left:4px solid var(--accent);padding:1.1rem 1.3rem}
+  .about .contact h2{font:600 .78rem/1 'Newsreader',Georgia,serif;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--accent);margin:0 0 .5rem}
+  .about .contact p{margin:0;font-size:1rem}
+
+/* ---- masthead ---- */
+.smast-in{max-width:var(--nav-max,60rem);margin:0 auto;padding:.85rem 1.5rem .5rem;
+  display:flex;align-items:baseline;justify-content:space-between;gap:1.4rem;flex-wrap:wrap}
+.smast-wm{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+  letter-spacing:.005em;color:var(--ink,#1a1a1e);text-decoration:none;white-space:nowrap;flex:none}
+.smast-wm em{font-style:italic;font-weight:500;color:var(--accent,#9c0e3a)}
+.smast-wm:hover{color:var(--accent,#9c0e3a)}
+/* Row gap first, then column. At 1.35rem the six section links measured 596px
+   of max-content -- 4px wider than the 592px row the 40rem index container
+   leaves them -- so ABOUT alone wrapped to a third line under the wordmark, on
+   every page page_style.R writes. 1.05rem brings the row to 572px: 20px of
+   slack at 40rem, and 45px on the 54rem case pages, which were themselves only
+   21px from wrapping. The .4rem row gap is for the day a seventh section
+   overruns it anyway -- a nav that wraps should read as a stack, not an orphan. */
+.snav{display:flex;gap:.4rem 1.05rem;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+.snav a{font:600 .72rem/1 'Newsreader',Georgia,serif;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--ink-soft,var(--soft,#484850));text-decoration:none;display:inline-block;
+  padding:.5rem 0;border-bottom:1.5px solid transparent}
+.snav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--rule,#dbd8d2)}
+.snav a[aria-current='page']{color:var(--accent,#9c0e3a);
+  border-bottom-color:var(--accent,#9c0e3a)}
+.smast-rule-w{max-width:var(--nav-max,60rem);margin:0 auto;padding:0 1.5rem}
+.smast-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0;position:relative}
+.smast-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.skip{position:absolute;left:-9999px;top:0;background:var(--panel,#ffffff);
+  color:var(--accent,#9c0e3a);padding:.6rem 1rem;
+  border:1px solid var(--accent,#9c0e3a);
+  font:600 .8rem/1 'Newsreader',Georgia,serif;letter-spacing:.1em;text-transform:uppercase;z-index:10}
+.skip:focus{left:.5rem;top:.5rem}
+/* ---- breadcrumb ---- */
+.bcrumb{margin:.7rem 0 0}
+.bcrumb ol{list-style:none;display:flex;flex-wrap:wrap;align-items:baseline;
+  gap:.1rem .45rem;margin:0;padding:0}
+.bcrumb li{display:inline-flex;align-items:baseline;gap:.45rem}
+.bcrumb a{font:400 .8rem/1.5 'Newsreader',Georgia,serif;color:var(--ink-soft,var(--soft,#484850));
+  text-decoration:none;border-bottom:1px solid var(--rule,#dbd8d2)}
+.bcrumb a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.bcrumb .sep{color:var(--faint,#63636b);font-size:.8rem;line-height:1.5}
+.bcrumb [aria-current='page']{font:400 .8rem/1.5 'Newsreader',Georgia,serif;
+  color:var(--faint,#63636b);font-variant-numeric:tabular-nums}
+/* ---- case footer ---- */
+.cfoot{margin:2.4rem 0 0}
+.cfoot-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0 0 1rem;position:relative}
+.cfoot-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.cfoot-off{font-size:.95rem;margin:0 0 1.1rem}
+.cfoot-off a{color:var(--link,#9c0e3a);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.4)}
+.cfoot-off a:hover{border-bottom-color:var(--link,#9c0e3a)}
+.cfoot-lab{font:600 .68rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);margin:0 0 .5rem}
+.cfoot-nav{display:flex;flex-wrap:wrap;gap:.35rem 1.1rem;list-style:none;margin:0;padding:0}
+.cfoot-nav a{font-size:.92rem;color:var(--ink-soft,var(--soft,#484850));text-decoration:none;
+  border-bottom:1px solid var(--rule,#dbd8d2);padding-bottom:1px}
+.cfoot-nav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.cfoot-stamp{margin:1.2rem 0 0;font-size:.8rem;color:var(--faint,#63636b);font-style:italic}
+/* ---- prev / next ---- */
+.pnav{margin:2.2rem 0 0;border-top:1px solid var(--rule,#dbd8d2);padding-top:1rem;
+  display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.pnav a,.pnav span.none{text-decoration:none;color:inherit;display:block;padding:.5rem .2rem}
+.pnav a:hover{background:rgba(156,14,58,.05)}
+.pnav .dir{font:600 .66rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);display:block;margin-bottom:.3rem}
+.pnav .lab{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1rem;line-height:1.25;
+  color:var(--accent,#9c0e3a);display:block}
+.pnav a:hover .lab{text-decoration:underline;text-underline-offset:3px}
+.pnav .nx{text-align:right}
+.pnav .none{opacity:.35}
+@media(max-width:640px){
+  .smast-in{padding:.7rem 1.1rem .25rem;gap:.15rem}
+  .smast-wm{font-size:.98rem}
+  .smast-in nav{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+    -webkit-mask-image:linear-gradient(90deg,#000 86%,transparent);
+    mask-image:linear-gradient(90deg,#000 86%,transparent)}
+  .smast-in nav::-webkit-scrollbar{display:none}
+  .snav{flex-wrap:nowrap;gap:1.15rem;padding-right:2.4rem}
+  .snav a{padding:.7rem 0;white-space:nowrap}
+  .smast-rule-w{padding:0 1.1rem}
+  .cfoot-nav{gap:.5rem 1rem}
+  .cfoot-nav a{padding-bottom:.3rem}
+  .pnav{grid-template-columns:1fr;gap:.2rem}
+  .pnav .nx{text-align:left;border-top:1px solid var(--rule,#dbd8d2)}
+}
+
+  .wrap.opn{max-width:42rem}
+  .opn .ometa{font-size:.92rem;color:var(--ink-soft);margin:.3rem 0 0}
+  .opn .oget{display:flex;flex-wrap:wrap;gap:.4rem .6rem;margin:1.1rem 0 0;padding:0;list-style:none;font-size:.9rem}
+  .opn .oget a{display:inline-block;padding:.32rem .7rem;border:1px solid var(--rule);border-radius:4px;color:var(--ink);text-decoration:none;background:var(--panel)}
+  .opn .oget a:hover{border-color:var(--accent);color:var(--accent)}
+  .opn .osrc{font-size:.84rem;color:var(--faint);margin:.9rem 0 0;line-height:1.45}
+  .opn .osrc a{color:var(--link)}
+  .opn .otoc{margin:1.6rem 0 0;padding:.8rem 1rem;border:1px solid var(--rule);border-radius:4px;background:var(--panel);font-size:.95rem}
+  .opn .otoc ol{margin:0;padding:0;list-style:none}
+  .opn .otoc li{margin:.25rem 0}
+  .opn .otoc a{color:var(--ink);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.35)}
+  .opn .otoc a:hover{color:var(--accent)}
+  .opn section.op{margin-top:3rem;border-top:2px solid var(--ink);padding-top:1.1rem}
+  .opn section.op h2{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.5rem;line-height:1.2;margin:0 0 1rem;color:var(--ink)}
+  .opn section.op p{margin:0 0 .95rem;line-height:1.62;hyphens:auto;overflow-wrap:break-word}
+  .opn section.op p.byline{color:var(--ink-soft);font-style:italic}
+  .opn section.op p.sep{text-align:center;letter-spacing:.3em;color:var(--faint);margin:1.6rem 0}
+  .opn section.op h3.oh{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.12rem;text-align:center;margin:2rem 0 1rem;color:var(--ink)}
+  .opn section.op blockquote{margin:0 0 .95rem;padding:0 0 0 1.1rem;border-left:2px solid var(--rule);color:var(--ink-soft)}
+  .opn section.op blockquote p{margin-bottom:.6rem;font-size:.96em}
+  .opn .sc{font-variant-caps:small-caps;letter-spacing:.02em}
+  .opn .pg{font-size:.66em;color:var(--faint);vertical-align:.3em;margin:0 .3em 0 .1em;font-variant-numeric:tabular-nums;user-select:none;white-space:nowrap}
+  .opn .pg::before{content:'*'}
+  .opn sup.fnr{font-size:.68em;line-height:0;margin-left:.05em}
+  .opn sup.fnr a{color:var(--link);text-decoration:none;padding:0 .1em}
+  .opn aside.notes{margin-top:2rem;border-top:1px solid var(--rule);padding-top:.8rem;font-size:.88rem;color:var(--ink-soft)}
+  .opn aside.notes h3{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1rem;margin:0 0 .6rem;color:var(--ink)}
+  .opn aside.notes ol{margin:0;padding-left:1.7rem}
+  .opn aside.notes li{margin:0 0 .55rem}
+  .opn aside.notes li.sym{list-style:none;margin-left:-1.7rem}
+  .opn aside.notes li.sym .mk{margin-right:.3rem}
+  .opn aside.notes li.sym p{display:inline}
+  .opn aside.notes p{margin:0 0 .4rem;line-height:1.5}
+  .opn aside.notes a.back{color:var(--link);text-decoration:none;margin-left:.2rem}
+  .opn aside.notes li:target,.opn sup.fnr a:target,.opn .pg:target{background:rgba(156,14,58,.12);outline:.2rem solid rgba(156,14,58,.12)}
+  .opn section.op,.opn aside.notes li,.opn sup.fnr a{scroll-margin-top:1rem}
+  .opn section.op-syllabus p,.opn section.op-counsel p{font-size:.95em}
+  .opn section.op-counsel summary{cursor:pointer;font-family:'Fraunces',Georgia,serif;font-size:1.05rem;color:var(--ink-soft)}
+  .opn .osyl{font-size:.84rem;color:var(--faint);font-style:italic;margin:-.5rem 0 1rem}
+  .opn p.back{margin-top:3rem;font-size:.92rem}
+  @media print{.smast,.bcrumb,.opn .oget,.opn .otoc,.opn p.back{display:none}.opn section.op{break-before:page}}
+</style><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://supremecourt.report/"},{"@type":"ListItem","position":2,"name":"Opinions","item":"https://supremecourt.report/opinions/"},{"@type":"ListItem","position":3,"name":"Louis McIntosh, aka Lou D v. United States"}]}</script><meta name='otv' content='p1'><link rel='alternate' type='text/markdown' href='/opinions/2023/22-7386.md'><link rel='alternate' type='application/epub+zip' href='/opinions/2023/22-7386.epub'></head><body><a class='skip' href='#main'>Skip to content</a><header><div class='smast-in'><a class='smast-wm' href='/'>Supreme Court <em>Report</em></a><nav aria-label='Sections'><ul class='snav'><li><a href='/dashboards/'>Docket</a></li><li><a href='/conferences/'>Conferences</a></li><li><a href='/relists/'>Relists</a></li><li><a href='/applications/'>Interim</a></li><li><a href='/arguments/'>Arguments</a></li><li><a href='/justices/' aria-current='page'>Justices</a></li><li><a href='/counsel/'>Counsel</a></li><li><a href='/funnel/'>Funnel</a></li><li><a href='/methods.html'>Model</a></li><li><a href='/about.html'>About</a></li></ul></nav></div><div class='smast-rule-w'><hr class='smast-rule'></div></header><main class='wrap opn' id='main' data-dkt='22-7386'><nav class='bcrumb' aria-label='Breadcrumb'><ol><li><a href='/'>Home</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><a href='/opinions/'>Opinions</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><span aria-current='page'>Louis McIntosh, aka Lou D v. United States</span></li></ol></nav><p class='kicker'>No. 22-7386 · decided April 17, 2024 · 601 U. S. 330</p><h1 style='font-size:clamp(1.7rem,4.6vw,2.4rem);line-height:1.12'>Louis McIntosh, aka Lou D v. United States</h1><p class='ometa'>No separate writings.</p><ul class='oget'><li><a href='/opinions/2023/22-7386.epub' download>EPUB</a></li><li><a href='/opinions/2023/22-7386.md' download>Markdown</a></li><li><a href='https://www.supremecourt.gov/opinions/23pdf/601us2r17_nmio.pdf' rel='noopener'>The Court’s PDF</a></li><li><a href='/cases/22-7386.html'>The docket</a></li></ul><p class='osrc'>Set from the PDF the Court published, which is the authoritative text. The small starred numbers are that PDF’s page numbers. A conversion can introduce errors; check a quotation against the <a href='https://www.supremecourt.gov/opinions/23pdf/601us2r17_nmio.pdf' rel='noopener'>original</a>.</p><nav class="otoc" aria-label="Contents"><ol>
+<li><a href="#s1">Syllabus</a></li>
+<li><a href="#s2">Counsel</a></li>
+<li><a href="#s3">Opinion of the Court</a></li>
+</ol></nav>
+<section id="s1" class="op op-syllabus"><h2>Syllabus</h2><p class='osyl'>Prepared by the Reporter of Decisions for the convenience of the reader; it is no part of the opinion of the Court.</p>
+<p>Petitioner Louis McIntosh was indicted on multiple counts of Hobbs Act robbery and firearm offenses. The indictment set forth the demand that McIntosh “shall forfeit . . . all property . . . derived from proceeds traceable to the commission of the [Hobbs Act] offenses.” The Government also later provided McIntosh with a pretrial bill of particulars that included as property subject to forfeiture $75,000 in cash and a BMW that McIntosh purchased just five days after one of the robberies. After a jury convicted McIntosh, the District Court imposed a forfeiture of $75,000 and the BMW at the sentencing hearing. Although the District Court also ordered the Government to submit an order of forfeiture for the court's signature within a week from the hearing, the Government failed to do so. On appeal, the Government moved for a limited remand to supplement the record with a written order of forfeiture. The Second Circuit granted the unopposed motion. Back in District Court, McIntosh argued that the failure to comply with Federal Rule of Criminal Procedure 32.2(b)(2)(B)—which provides that “[u]nless doing so is impractical,” a federal district court “must enter the preliminary order [of forfeiture] sufficiently in advance of sentencing to allow the parties to suggest revisions or modifications before the order becomes final as to the defendant”—meant that the District Court could not proceed with forfeiture at all. The District Court overruled McIntosh's objections, finding that the Rule is a time-related directive, and that the failure to enter a preliminary order of forfeiture before sentencing did not prevent the court from ordering forfeiture because the missed deadline did not prejudice McIntosh. The Second Circuit affirmed in relevant part.</p>
+<p><em>Held</em>: A district court's failure to comply with Rule 32.2(b)(2)(B)'s requirement to enter a preliminary order before sentencing does not bar a judge from ordering forfeiture at sentencing subject to harmless-error principles on appellate review. Pp. 336–345.</p>
+<p>(a) Although the District Court did not comply with Rule 32.2(b)(2)(B) when it failed to enter a preliminary order of forfeiture before McIntosh's initial sentencing, the District Court retained its power to order forfeiture against McIntosh. Pp. 336–342.</p>
+<p><span class="pg" id="s1-p331" title="page 331 of the original">331</span>(1) This Court has identified three types of time limits: (i) jurisdictional deadlines; (ii) mandatory claim-processing rules, and (iii) time-related directives. See <em>Dolan</em> v. <em>United States</em>, 560 U. S. 605, 610–611. McIntosh claims that Rule 32.2(b)(2)(B) is a claim-processing rule—a mandatory deadline that regulates the timing of motions or claims before the court and that, unlike jurisdictional deadlines, is subject to waiver and forfeiture by the litigant. <em>Id.</em>, at 610. The Government, on the other hand, argues that Rule 32.2(b)(2)(B) is a flexible time-related directive—a deadline that seeks speed by directing a public official to act by a certain time and that, if missed, does not deprive the official of “the power to take the action to which the deadline applies.” <em>Id.,</em> at 611. Noncompliance with a mandatory claim-processing rule is presumed to be prejudicial, <em>Manrique</em> v. <em>United States</em>, 581 U. S. 116, 125 (2017), but noncompliance with a time-related directive is, in this context, subject to harmless-error principles on appellate review, Fed. Rule Crim. Proc. 52(a). The Court agrees with the Second Circuit and the Government that Rule 32.2(b)(2)(B) establishes a time-related directive. Pp. 337–338.</p>
+<p>(2) The Court in <em>Dolan</em> addressed the proper remedy when a district court misses a statutory deadline to take action related to criminal sentencing imposed by a statute that “ `d[id] not specify a consequence for noncompliance.' ” 560 U. S., at 611. The Court held that the provision at issue was a time-related directive, such that, if “a sentencing court misses the . . . deadline,” it retains the power to act in that circumstance. <em>Ibid.</em> Other cases similarly have recognized that certain deadlines, if missed, do not deprive a public official of the power to take the action to which the deadline applies. See, <em>e. g., Barnhart</em> v. <em>Peabody Coal Co.</em>, 537 U. S. 149, 171–172; <em>Regions Hospital</em> v. <em>Shalala</em>, 522 U. S. 448, 459, n. 3; <em>United States</em> v. <em>James Daniel Good Real Property</em>, 510 U. S. 43, 63–65. These cases involved timing provisions that did not specify a consequence for the public officials' noncompliance with the prescribed deadlines. Pp. 338–340.</p>
+<p>(3) Several features of Rule 32.2(b)(2)(B) lead to the conclusion that the Rule is best understood as a time-related directive. First, its plain language contemplates flexibility regarding the timing of a preliminary order's entry, providing the indeterminate command that a preliminary order be entered “sufficiently in advance of sentencing” “[u]nless doing so is impractical.” This flexibility takes the Rule further away from the category of “rigid” and “ `inflexible claim-processing rule[s].' ” <em>Eberhart</em> v. <em>United States</em>, 546 U. S. 12, 13 (<em>per curiam</em>). Second, Rule 32.2(b)(2)(B) does not impose a specific consequence for noncompliance, in contrast to other parts of Rule 32.2. See, <em>e. g.,</em> 32.2(a). In the absence of such specification, courts typically “will not in the ordinary</p>
+<p>332 M<span class="sc">c</span>INTOSH <em>v.</em> UNITED STATES</p>
+<p>course impose their own coercive sanction” for noncompliance with a timing directive. <em>James Daniel Good</em>, 510 U. S., at 63. Third, Rule 32.2(b)(2)(B) governs the conduct of the district court, not the litigants. Mandatory claim-processing rules ordinarily “requir[e] that the <em>parties</em> take certain procedural steps at certain specified times,” <em>Henderson</em> v. <em>Shinseki</em>, 562 U. S. 428, 435 (emphasis added), and time-related directives typically spur public officials to act within a specified time. That distinction holds even in the examples that McIntosh identifies, and he has not identified a mandatory claim-processing rule that is analogous to Rule 32.2(b)(2)(B). Pp. 340–342.</p>
+<p>(b) McIntosh's contrary arguments are unpersuasive. He points to the Rule's use of the word “must” to highlight its mandatory character, but such language standing “alone has not always led this Court to interpret statutes to bar judges . . . from taking action to which a missed statutory deadline refers.” <em>Dolan</em>, 560 U. S., at 611–612. Construed in context, the Rule contemplates some flexibility with its impracticality exception and indeterminate command that a preliminary order be entered “sufficiently in advance of sentencing.” Nor does it “mak[e] sense,” as McIntosh claims, to classify Rule 32.2(b)(2)(B) as a mandatory claim-processing rule because the Government must move the process forward. Although the Government plays an indispensable role in the criminal-forfeiture process, the Rule is directed exclusively to the sentencing court. McIntosh also contends that an affirmance here would deprive the Rule of any effect, but a timely objection likely will prompt the district court to enter the preliminary order and, if appropriate, postpone sentencing. A timely objection would, at the very least, result in harmless-error review of the Rule's violation. Finally, because McIntosh has not shown that reading the requirement as a time-related directive would frustrate significantly Rule 32.2's effectiveness, McIntosh's invocation of the Rule's purpose—to ensure due process and promote judicial economy—falls flat. Pp. 342–344.</p>
+<p>(c) Noncompliance with Rule 32.2(b)(2)(B) is a procedural error subject to harmlessness review. Because McIntosh did not challenge the lower courts' harmlessness analysis in either his certiorari petition or his opening brief, this Court need not revisit it. Pp. 344–345.</p>
+<p>58 F. 4th 606, affirmed.</p>
+<p><span class="sc">Sotomayor</span>, J., delivered the opinion for a unanimous Court.</p></section>
+<section id="s2" class="op op-counsel"><details><summary>Counsel</summary><p><em>Steven Y. Yurowitz</em> argued the cause for petitioner. With him on the briefs were <em>William J. Dobie</em> and <em>Devi M. Rao</em>.</p>
+<p><span class="pg" id="s2-p333" title="page 333 of the original">333</span><em>Matthew Guarnieri</em> argued the cause for the United States. With him on the brief were <em>Solicitor General Prelogar, Acting Assistant Attorney General Argentieri, Deputy Solicitor General Gannon,</em> and <em>Katherine T. Allen.</em>*</p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li class="sym" value="0"><span class="mk">*</span><p>Briefs of <em>amici curiae</em> urging reversal were filed for the National Association of Criminal Defense Lawyers by <em>Steven L. Kessler</em> and <em>David M. Porter</em>; and for the New York Council of Defense Lawyers by <em>Noam Biale</em>.</p></li>
+</ol></aside></details></section>
+<section id="s3" class="op op-court"><h2>Opinion of the Court</h2>
+<p class="byline">Justice Sotomayor delivered the opinion of the Court.</p>
+<p>In certain criminal cases, Congress has authorized the Government to seek forfeiture of a defendant's ill-gotten gains as part of the defendant's sentence. Federal Rule of Criminal Procedure 32.2 sets forth specific procedures for imposing criminal forfeiture in such cases. In particular, Rule 32.2(b)(2)(B) provides that, “[u]nless doing so is impractical,” a federal district court “must enter the preliminary order [of forfeiture] sufficiently in advance of sentencing to allow the parties to suggest revisions or modifications before the order becomes final as to the defendant.”</p>
+<p>The question presented in this case is whether a district court that fails to comply with Rule 32.2(b)(2)(B)'s requirement to enter a preliminary order before sentencing is powerless to order forfeiture against the defendant. In light of the Rule's text and relevant precedents, this Court holds that the failure to enter a preliminary order does not bar a judge from ordering forfeiture at sentencing subject to harmless-error principles on appellate review.</p>
+<h3 class="oh">I</h3>
+<p>Between 2009 and 2011, Louis McIntosh committed a series of violent robberies and attempted robberies in New York. In one such robbery, McIntosh and two others held a man at gunpoint, bound and gagged him in his basement, and then took $70,000 in cash from the man's house. Five days later, McIntosh bought a BMW for approximately $10,000</p>
+<p>334 M<span class="sc">c</span>INTOSH <em>v.</em> UNITED STATES</p>
+<p>with cash and money orders and listed his mother as the buyer.</p>
+<p>In June 2011, McIntosh was indicted along with five others on multiple counts of Hobbs Act robbery and firearm offenses. The indictment set forth that, for the Hobbs Act robbery counts, the defendants “shall forfeit to the United States . . . all property . . . that constitutes or is derived from proceeds traceable to the commission of the offenses, including but not limited to a sum in United States currency representing the amount of proceeds obtained as a result of the offenses.” App. 10–11. The Government provided McIntosh with a pretrial bill of particulars the next month that listed the BMW as “property subject to forfeiture.” <em>Id.</em>, at 12, 14.</p>
+<p>A jury convicted McIntosh on all counts.<sup class="fnr"><a id="s3-r1" href="#s3-n1">1</a></sup>On May 23, 2014, the District Court held the sentencing hearing. The Government had not mentioned the forfeiture in its sentencing memorandum, and the District Court did not enter a preliminary order of forfeiture prior to the hearing. At the hearing, however, the Government stated that it was seeking forfeiture for “$75,000 in a money judgment, as well as the BMW.” <em>Id.</em>, at 54. The Government offered to submit a proposed order “within the next week.” <em>Ibid.</em> McIntosh objected to the forfeiture. He argued that there was no “dispositive” evidence connecting the BMW to any robbery proceeds, insisting that a family member had purchased the car. <em>Id.</em>, at 54–55. It is not clear from the record whether McIntosh's objection to the forfeiture was also based on the absence of a preliminary order.</p>
+<p>The District Court overruled McIntosh's objection to the forfeiture based on the trial evidence that the Government presented. As part of the sentence, the District Court imposed a forfeiture of “$75,000 and the BMW” as “fruits of the crime[s],” and ordered the Government to “submit an order <span class="pg" id="s3-p335" title="page 335 of the original">335</span>of forfeiture for signature by the Court within a week.” <em>Id.</em>, at 62. The written judgment memorialized these instructions.<sup class="fnr"><a id="s3-r2" href="#s3-n2">2</a></sup>Notwithstanding the District Court's order, the Government failed to submit a proposed order of forfeiture.</p>
+<p>On appeal, the Government moved for a limited remand to the District Court to “supplement the record by entering the formal orde[r] of . . . forfeiture.” <em>Id.</em>, at 68. The Government conceded that McIntosh could then “contes[t] the timeliness of [a formal forfeiture] order,” and the District Court could “make whatever findings it deem[ed] appropriate.” <em>Id.</em>, at 71. The Second Circuit granted the Government's unopposed motion and remanded the case.</p>
+<p>Back in the District Court, McIntosh objected to the Government's newly proposed order. McIntosh argued that the District Court failed to comply with Rule 32.2(b)(2)(B) when it did not enter a preliminary order prior to his original sentencing, and thus it could not proceed with forfeiture at all. In McIntosh's view, the delay prejudiced him because the BMW lost value while the forfeiture issue was litigated, which meant he would be credited less money against his money judgment.</p>
+<p>The District Court again overruled McIntosh's objections. It concluded that Rule 32.2(b)(2)(B) is a time-related directive, rather than a jurisdictional deadline or a mandatory claim-processing rule, and thus the court retained the power to order forfeiture. The failure to comply with the time-related directive, the court found, did not prejudice McIntosh. Accordingly, the District Court entered the proposed order of forfeiture and entered an amended judgment reflecting the order.</p>
+<p>The Second Circuit affirmed in relevant part. Like the District Court, the Court of Appeals concluded that Rule 32.2(b)(2)(B) is a “ `time-related directiv[e],' ” which does</p>
+<p>336 M<span class="sc">c</span>INTOSH <em>v.</em> UNITED STATES</p>
+<p>“ `not deprive a judge . . . of the power to take the action to which the deadline applies if the deadline is missed.' ” 58 F. 4th 606, 609 (2023) (quoting <em>Dolan</em> v. <em>United States</em>, 560 U. S. 605, 611 (2010)). The Second Circuit also rejected McIntosh's prejudice argument. In an accompanying summary order, the Second Circuit vacated the judgment in part and remanded for recalculation of the forfeiture amount because the $75,000 figure reflected the total proceeds of the robberies rather than the amount McIntosh personally received. See 2023 WL 382945, *2 (Jan. 25, 2023).</p>
+<p>McIntosh filed a petition for a writ of certiorari, alleging a split among the Courts of Appeals on the consequences of failing to adhere to Rule 32.2(b)'s requirements.<sup class="fnr"><a id="s3-r3" href="#s3-n3">3</a></sup>During the second remand, while the petition was pending, the District Court entered an agreed-upon preliminary order of forfeiture for $28,000 and the BMW. On September 20, 2023, the District Court entered its final forfeiture order. Days later, this Court granted McIntosh's petition limited to the question “[w]hether a district court may enter a criminal forfeiture order outside the time limitations set forth in Rule 32.2.” Pet. for Cert. i. See 600 U. S. ––– (2023).</p>
+<h3 class="oh">II</h3>
+<p>Rule 32.2(b)(2)(B) provides: “Unless doing so is impractical, the court must enter the preliminary order [of forfeiture] sufficiently in advance of sentencing to allow the parties to suggest revisions or modifications before the order becomes <span class="pg" id="s3-p337" title="page 337 of the original">337</span>final as to the defendant.” The order becomes final either at sentencing or before then if the defendant consents. See Fed. Rule Crim. Proc. 32.2(b)(4)(A). It is undisputed that the District Court did not comply with Rule 32.2(b)(2)(B) when it failed to enter a preliminary order of forfeiture before McIntosh's initial sentencing. Despite that error, the District Court retained its power to order forfeiture against McIntosh.</p>
+<h3 class="oh">A</h3>
+<p>This Court has identified three types of time limits: (1) jurisdictional deadlines; (2) mandatory claim-processing rules; and (3) time-related directives. See <em>Dolan</em>, 560 U. S., at 610–611. Jurisdictional deadlines are rare. See <em>United States</em> v. <em>Kwai Fun Wong</em>, 575 U. S. 402, 410 (2015) (“[M]ost time bars are nonjurisdictional”). If the court misses a jurisdictional deadline, it is completely powerless to take any relevant action, and the “parties cannot waive” the deadline. <em>Dolan</em>, 560 U. S., at 610. Put differently, noncompliance with a jurisdictional deadline cannot be excused. No one contends that Rule 32.2(b)(2)(B) is jurisdictional because it “does not expressly refer to subject-matter jurisdiction or speak in jurisdictional terms.” <em>Musacchio</em> v. <em>United States</em>, 577 U. S. 237, 246 (2016). Instead, the parties' dispute revolves around the other two types of time limits.</p>
+<p>Mandatory claim-processing rules “regulate the timing of motions or claims brought before the court.” <em>Dolan</em>, 560 U. S., at 610. That is why, generally speaking, “filing deadlines” are the “ `quintessential claim-processing rules.' ” <em>Sebelius</em> v. <em>Auburn Regional Medical Center</em>, 568 U. S. 145, 154 (2013). If the affected party alerts the court to the deadline and invokes its protection, the relevant action cannot be taken after the deadline has passed. Unlike jurisdictional limits, though, mandatory claim-processing rules are subject to waiver and forfeiture by a litigant. <em>Dolan</em>, 560 U. S., at 610.</p>
+<p>Time-related directives “see[k] speed” by directing “a judge or other public official” to act by a certain time. <em>Id.</em>,</p>
+<p>338 M<span class="sc">c</span>INTOSH <em>v.</em> UNITED STATES</p>
+<p>at 611. Missing that kind of deadline does not deprive the official of “the power to take the action to which the deadline applies.” <em>Ibid.</em> Moreover, whereas noncompliance with a mandatory claim-processing rule is presumed to be prejudicial, <em>Manrique</em> v. <em>United States</em>, 581 U. S. 116, 125 (2017), the failure to follow a time-related directive is, in this context, subject to harmless-error principles on appellate review, Fed. Rule Crim. Proc. 52(a).</p>
+<p>McIntosh contends that Rule 32.2(b)(2)(B) is a mandatory claim-processing rule, and thus the District Court could not order forfeiture once McIntosh objected to the absence of a preliminary order prior to his initial sentencing. The Government, on the other hand, argues that Rule 32.2(b)(2)(B) is a flexible time-related directive, and thus the absence of a preliminary order did not bar the District Court from ordering forfeiture at sentencing.<sup class="fnr"><a id="s3-r4" href="#s3-n4">4</a></sup></p>
+<p>This Court agrees with the Second Circuit and the Government that Rule 32.2(b)(2)(B) establishes a time-related directive. Accordingly, a district judge's failure to enter a preliminary order prior to sentencing does not deprive a judge of the power to order forfeiture.</p>
+<h3 class="oh">B</h3>
+<p>In <em>Dolan</em> v. <em>United States</em>, this Court similarly addressed the proper remedy for when a district court misses a deadline to take action related to criminal sentencing. That case <span class="pg" id="s3-p339" title="page 339 of the original">339</span>involved a provision in the Mandatory Victims Restitution Act of 1996, which states that,“[i]f the victim's losses are not ascertainable by the date that is 10 days prior to sentencing, . . . the court shall set a date for the final determination of the victim's losses, not to exceed 90 days after sentencing.” 18 U. S. C. § 3664(d)(5). This Court noted that the statute “ `d[id] not specify a consequence for noncompliance with' ” the deadline. <em>Dolan</em>, 560 U. S., at 611 (quoting <em>United States</em> v. <em>James Daniel Good Real Property</em>, 510 U. S. 43, 63 (1993)). It then held that the provision was a time-related directive, such that, if “a sentencing court misses the statute's 90-day deadline, even through its own fault or that of the Government,” the sentencing court retains “the power to order restitution” in that circumstance. 560 U. S., at 611<em>.</em></p>
+<p><em>Dolan</em> was just the latest in a line of cases recognizing that certain deadlines, if missed, do not deprive a public official of the power to take the action to which the deadline applies. See, <em>e</em>.<em>g</em>., <em>Barnhart</em> v. <em>Peabody Coal Co.</em>, 537 U. S. 149, 171–172 (2003) (missed deadline for assigning industry retiree benefits did not prevent later award of benefits); <em>Regions Hospital</em> v. <em>Shalala</em>, 522 U. S. 448, 459, n. 3 (1998) (missed deadline to submit agency report did not deprive official of “power to act beyond it”); <em>James Daniel Good</em>, 510 U. S., at 63–65 (missed deadline for civil-forfeiture proceedings did not prevent federal officers from seeking forfeiture of property used to commit a federal drug offense); <em>United States</em> v. <em>Montalvo-Murillo</em>, 495 U. S. 711, 717–718 (1990) (missed deadline to hold bail hearing did not require the release of pretrial detainee); <em>Brock</em> v. <em>Pierce County</em>, 476 U. S. 253, 266 (1986) (missed deadline to determine misuse of federal grant funds did not “divest [public official] of jurisdiction to act after that time”).</p>
+<p>Each of these cases involved timing provisions that did not specify a consequence for the public officials' noncompliance</p>
+<p>340 M<span class="sc">c</span>INTOSH <em>v.</em> UNITED STATES</p>
+<p>with the prescribed deadlines. Those provisions are examples of “ `requisitions intended for the guide of officers in the conduct of business devolved upon them [that] do not limit their power or render its exercise in disregard of the requisitions ineffectual.' ” <em>James Daniel Good</em>, 510 U. S., at 63 (quoting <em>French</em> v. <em>Edwards</em>, 13 Wall. 506, 511 (1872)). In such circumstances, “courts will not in the ordinary course impose their own coercive sanction,” 510 U. S., at 63, nor typically attribute “intent to limit an [official's] power to get a mandatory job done merely from a specification to act by a certain time,” <em>Barnhart</em>, 537 U. S., at 160.</p>
+<h3 class="oh">C</h3>
+<p>In this Court's taxonomy of time limits, Rule 32.2(b)(2)(B) is best understood as a time-related directive. It functions “as a spur to prompt action, not as a bar to tardy completion of . . . business.” <em>Id.</em>, at 172. Several features of the Rule guide this Court's analysis.</p>
+<p>First, far from imposing “rigid” constraints characteristic of mandatory claim-processing rules, the plain language of the Rule contemplates flexibility regarding the timing of a preliminary order's entry. <em>Eberhart</em> v. <em>United States</em>, 546 U. S. 12, 13 (2005) (<em>per curiam</em>). It requires that a preliminary order of forfeiture be entered before sentencing, “[u]nless doing so is impractical.” Rule 32.2(b)(2)(B). As such, the Rule anticipates that, in some circumstances, it may be “impractical” to enter a preliminary order of forfeiture before sentencing. Similarly, the Rule contains the indeterminate command that a preliminary order be entered “<em>sufficiently in advance</em> of sentencing to allow the parties to suggest revisions or modifications before the order becomes final as to the defendant.” <em>Ibid.</em> (emphasis added). Of course, what is sufficient in one case may not be in another. Both the impracticality exception and the sufficiently-inadvance condition take the Rule further away from the category<span class="pg" id="s3-p341" title="page 341 of the original">341</span> of “rigid” and “ `inflexible claim-processing rule[s].' ” <em>Eberhart</em>, 546 U. S., at 13.<sup class="fnr"><a id="s3-r5" href="#s3-n5">5</a></sup></p>
+<p>Second, Rule 32.2(b)(2)(B) “ `does not specify a consequence for noncompliance with its timing provisions.' ” 58 F. 4th, at 610 (quoting <em>Dolan</em>, 560 U. S., at 611). In the absence of such specification, courts “will not in the ordinary course impose their own coercive sanction” for noncompliance with a timing directive. <em>James Daniel Good</em>, 510 U. S., at 63. Indeed, it would be especially strange to prohibit a sentencing court from ordering forfeiture for not complying with Rule 32.2(b)(2)(B) where other parts of Rule 32.2 specify that consequence for noncompliance. Rule 32.2(a), for example, provides that the Government's failure to include a forfeiture allegation in the indictment means that the “court must not enter a judgment of forfeiture.” The use of “ `explicit language' ” specifying a sanction in Rule 32.2(a) but not in Rule 32.2(b)(2)(B) “ `cautions against inferring' the same limitation” in Rule 32.2(b)(2)(B). <em>State Farm Fire &amp; Casualty Co.</em> v. <em>United States ex rel. Rigsby</em>, 580 U. S. 26, 34 (2016).</p>
+<p>Third, “Rule 32.2(b)(2)(B) governs the conduct of the district court, not the litigants.” 58 F. 4th, at 611. Recall that time-related directives typically spur public officials to act within a specified time. Mandatory claim-processing rules, by contrast, ordinarily “requir[e] that the <em>parties</em> take certain procedural steps at certain specified times.” <em>Henderson</em> v. <em>Shinseki</em>, 562 U. S. 428, 435 (2011) (emphasis added).</p>
+<p>342 M<span class="sc">c</span>INTOSH <em>v.</em> UNITED STATES</p>
+<p>That distinction holds even in the examples that McIntosh identified of claim-processing rules addressed to courts. Take <em>Santos-Zacaria</em> v. <em>Garland</em>, 598 U. S. 411 (2023), and <em>Gonzalez</em> v. <em>Thaler</em>, 565 U. S. 134 (2012), for example. See Brief for Petitioner 34–35; Tr. of Oral Arg. 13. The claim-processing rules in those cases conditioned the court's authority to act on the parties' adherence to a certain procedure, and not on the court's compliance with a deadline. See <em>Santos-Zacaria</em>, 598 U. S., at 416 (analyzing provision stating that “ `[a] court may review a final order of removal only if . . . the alien has exhausted all administrative remedies available to the alien as of right' ”); <em>Gonzalez</em>, 565 U. S., at 140 (analyzing provision stating that a court of appeals “ `may issue' ” a certificate of appealability “ `only if the applicant has made a substantial showing of the denial of a constitutional right' ”). McIntosh has not identified a mandatory claim-processing rule that is analogous to Rule 32.2(b)(2)(B).</p>
+<p>In sum, Rule 32.2(b)(2)(B) is a time-related directive that, if missed, does not deprive the judge of her power to order forfeiture against the defendant.</p>
+<h3 class="oh">III</h3>
+<p>McIntosh's arguments to the contrary are unpersuasive. He first points to Rule 32.2(b)(2)(B)'s use of the word “must” to highlight its mandatory character. Yet this kind of mandatory language standing “alone has not always led this Court to interpret statutes to bar judges (or other officials) from taking action to which a missed statutory deadline refers.” <em>Dolan</em>, 560 U. S., at 611–612; see also <em>id</em>., at 607–608 (concluding that statute providing that a sentencing court “ `shall set a date' ” within a specified time period to determine restitution amount was a time-related directive); <em>Barnhart</em>, 537 U. S., at 152 (“ `shall' . . . assign”); <em>Regions Hospital</em>, 522 U. S., at 459, n. 3 (“ `shall report' ”); <em>Montalvo-Murillo</em>, 495 U. S., at 717 (“ `shall hold a hearing' ”); <em>Brock</em>, 476 U. S., at 256 (“ `shall' determine”). Additionally, Rule <span class="pg" id="s3-p343" title="page 343 of the original">343</span>32.2(b)(2)(B)'s use of “must” has to be construed in context to determine whether its time limit is a mandatory claim-processing rule or a time-related directive. That context, as discussed above, demonstrates that the Rule contemplates some flexibility by specifying that the preliminary order be entered “sufficiently in advance of sentencing,” “[u]nless doing so is impractical.” Rule 32.2(b)(2)(B); see <em>supra</em>, at 340–341.</p>
+<p>McIntosh also argues that it “makes sense” to classify Rule 32.2(b)(2)(B) as a mandatory claim-processing rule because Rule 32.2 requires the Government to take specific steps “to move the criminal forfeiture process forward.” Brief for Petitioner 11. For example, the Government must provide notice in the indictment that it “will seek the forfeiture of property as part of any sentence,” “establis[h] the requisite nexus between the property and the offense,” and “publish . . . and send notice” of the forfeiture order to potential claimants. Fed. Rules Crim. Proc. 32.2(a), (b)(1)(A), (b)(6)(A). Although McIntosh is correct that the Government plays an indispensable role in the criminal forfeiture process, Rule 32.2(b)(2)(B) is directed exclusively to the sentencing court. It does not even mention the Government. That the instruction to the court may in turn push the Government to take certain steps as a practical matter does not change the Rule's addressee.<sup class="fnr"><a id="s3-r6" href="#s3-n6">6</a></sup></p>
+<p>344 M<span class="sc">c</span>INTOSH <em>v.</em> UNITED STATES</p>
+<p>McIntosh further contends that an affirmance here would deprive Rule 32.2(b)(2)(B) of any effect such that it “might as well not exist.” Brief for Petitioner 3. Not so. In most cases, a timely objection required to preserve a claim of error likely will prompt the district court to enter the preliminary order and, if appropriate, postpone sentencing. As counsel for McIntosh conceded at argument, defendants receive the benefit of the Rule in that situation. See Tr. of Oral Arg. 11–12. If a timely objection is raised and no preliminary order is entered, at the very least, the violation of Rule 32.2(b)(2)(B) would be reviewed for harmlessness. See Fed. Rule Crim. Proc. 52(a); see also <em>United States</em> v. <em>Lee</em>, 77 F. 4th 565, 583 (CA7 2023) (reviewing a Rule 32.2(b)(2)(B) violation for harmless error); <em>United States</em> v. <em>Farias</em>, 836 F. 3d 1315, 1330 (CA11 2016) (same).</p>
+<p>Finally, McIntosh falls back on the general purpose of Rule 32.2, which he describes as “ensur[ing] criminal defendants receive due process before their property is permanently taken by the government” and “promot[ing] judicial economy.” Brief for Petitioner 11. That is all true. McIntosh does not explain, though, how it promotes judicial economy to treat Rule 32.2(b)(2)(B) as an inflexible claim-processing rule. If anything, judicial economy is better served by allowing courts some flexibility to ensure the accuracy and completeness of the final forfeiture order and address an inadvertent failure to enter a preliminary order in advance of sentencing. Because McIntosh has not shown that reading the requirement as a time-related directive would frustrate significantly Rule 32.2's effectiveness, McIntosh's invocation of purpose falls flat.</p>
+<h3 class="oh">IV</h3>
+<p>Noncompliance with Rule 32.2(b)(2)(B)'s timing requirement is a procedural error subject to harmlessness review. <span class="pg" id="s3-p345" title="page 345 of the original">345</span>Here, the Second Circuit agreed with the District Court that McIntosh failed to show “prejudice sufficient to void the forfeiture order.” 58 F. 4th, at 611. Both courts noted McIntosh knew from the time of his indictment in 2011 and from the pretrial bill of particulars that the Government sought forfeiture. Both courts also rejected the argument that the absence of a timely preliminary order prejudiced McIntosh by causing the BMW to lose value. They explained that McIntosh “could have sought an interlocutory sale of the car if he had wished to preserve its value” and could have done so without a preliminary order. <em>Ibid.</em></p>
+<p>McIntosh did not challenge the lower courts' harmlessness analysis in either his certiorari petition or his opening brief, so this Court need not revisit it.</p>
+<p class="sep">* * *</p>
+<p>Because Rule 32.2(b)(2)(B) is a time-related directive that, if missed, does not deprive a district court of its power to order forfeiture, the judgment of the Court of Appeals for the Second Circuit is</p>
+<blockquote>
+<p><em>Affirmed.</em></p>
+</blockquote>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li id="s3-n1" value="1"><p>The District Court subsequently directed a judgment of acquittal on two counts of attempted robbery. <a class="back" href="#s3-r1" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n2" value="2"><p>The judgment instructed McIntosh to forfeit “$95,000” instead of “$75,000,” App. 50, but the District Court later corrected this conceded clerical error in the amended judgment. <a class="back" href="#s3-r2" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n3" value="3"><p>According to McIntosh's petition, the Eighth Circuit treats Rule 32.2(b)'s deadline as jurisdictional, see <em>United States</em> v. <em>Shakur</em>, 691 F. 3d 979 (2012); the Sixth Circuit treats it as a mandatory claim-processing rule, see <em>United States</em> v. <em>Maddux</em>, 37 F. 4th 1170 (2022); and the Fourth Circuit, like the Second Circuit below, treats it as a time-related directive, see <em>United States</em> v. <em>Martin</em>, 662 F. 3d 301 (2011). See Pet. for Cert. i; but see <em>United States</em> v. <em>Lee</em>, 77 F. 4th 565, 577 (CA7 2023) (explaining that, while it “appears at first glance that there is conflict . . . , a closer look at the decisions suggests that there may be less difference than meets the eye”). <a class="back" href="#s3-r3" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n4" value="4"><p>The parties disagree on whether McIntosh timely objected to the lack of a preliminary order at the initial sentencing and whether he relinquished any objection by agreeing to the entry of the revised, now-operative order of forfeiture during the second remand. The Government argues that, if this Court agrees with McIntosh that Rule 32.2(b)(2)(B) is a mandatory claim-processing rule, the case should be remanded to determine whether McIntosh forfeited such an objection “under the particular circumstances of this case.” Brief for United States 17. Because this Court, however, agrees with the Government's view of Rule 32.2(b)(2)(B), a remand is not warranted. <a class="back" href="#s3-r4" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n5" value="5"><p>Because the District Court ordered the forfeiture at McIntosh's initial sentencing, this case does not implicate Rule 32.2(b)(4)(B)'s requirement that forfeiture be imposed at sentencing. Cf. <em>Lee</em>, 77 F. 4th, at 582–583 (explaining that, although “the requirement of a <em>preliminary</em> order is a time-related directive, . . . [t]he requirement that [a final order] must be included in the oral judgment of the court has the character of a claims-processing rule”); Tr. of Oral Arg. 34–36 (Government counsel stating that the requirements relating to the final order's entry raise “a harder set of issues” for the Government, which are not implicated in this case). <a class="back" href="#s3-r5" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n6" value="6"><p>The Government explains that the Department of Justice instructs its prosecutors to recommend a preliminary order of forfeiture prior to sentencing to assist judges at sentencing. See Brief for United States 26 (citing Dept. of Justice, Money Laundering and Asset Recovery Section, Asset Forfeiture Policy Manual 5–22 (2023)). Here, in circumstances that this Court expects are a rare occurrence, the Government admits that McIntosh's prosecutors failed to adhere to this guidance multiple times over. The prosecutors failed to: (1) remind the court of its Rule 32.2(b) (2)(B) obligation; (2) prepare a proposed preliminary order prior to sentencing; (3) comply with the District Court's instruction at sentencing to submit a proposed order of forfeiture within a week from the hearing; and (4) comply with the District Court's instruction in the judgment to submit a written order within one week of issuance of the judgment. Notwithstanding these failures, Rule 32.2(b)(2)(B)'s plain terms require a district court, and not the prosecutors, to enter a preliminary order. <a class="back" href="#s3-r6" aria-label="Back to the text">↩</a></p></li>
+</ol></aside></section><p class='back'><a href='/opinions/'>&larr; All opinions</a> · <a href='/justices/ot2023.html'>The Justices, October Term 2023 &rarr;</a></p></main></body>
+</html>
+

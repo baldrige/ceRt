@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script async src='/analytics.js'></script><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate icon" href="/favicon.ico" sizes="any"><link rel="alternate" type="application/atom+xml" title="Supreme Court Report" href="/feed.xml"><link rel="alternate" type="application/atom+xml" title="Certiorari grants" href="/grants.xml"><title>Wilkins v. United States — Opinion — Supreme Court Report</title><meta name="description" content="The opinion in Wilkins v. United States (No. 21-1164), decided March 28, 2023: the full text with its footnotes, as a page, a Markdown file and an EPUB."><link rel="canonical" href="https://supremecourt.report/opinions/2022/21-1164.html"><meta property="og:site_name" content="Supreme Court Report"><meta property="og:type" content="article"><meta property="og:title" content="Wilkins v. United States — Opinion — Supreme Court Report"><meta property="og:description" content="The opinion in Wilkins v. United States (No. 21-1164), decided March 28, 2023: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta property="og:url" content="https://supremecourt.report/opinions/2022/21-1164.html"><meta property="og:image" content="https://supremecourt.report/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Supreme Court Report - docket analytics for the Supreme Court of the United States"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Wilkins v. United States — Opinion — Supreme Court Report"><meta name="twitter:description" content="The opinion in Wilkins v. United States (No. 21-1164), decided March 28, 2023: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta name="twitter:image" content="https://supremecourt.report/og.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap"><style>
+  :root{--paper:#fdfcfa;--panel:#ffffff;--ink:#1a1a1e;--ink-soft:#484850;--faint:#63636b;--accent:#9c0e3a;--link:#9c0e3a;--rule:#dbd8d2;--nav-max:60rem}
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{font-family:'Newsreader',Georgia,serif;font-size:19px;line-height:1.6;
+    color:var(--ink);background:var(--paper);margin:0;font-feature-settings:'onum' 1}
+  body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
+    opacity:.5;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");}
+  .wrap{max-width:40rem;margin:0 auto;padding:3rem 1.4rem 4rem}
+  .kicker{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 1rem}
+  h1{font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:clamp(2.4rem,7vw,3.6rem);line-height:1;letter-spacing:-.015em;
+    margin:0 0 1rem;color:var(--ink)}
+  h1 em{font-style:italic;font-weight:500;color:var(--accent)}
+  .dek{font-size:1.15rem;line-height:1.5;color:var(--ink-soft);font-style:italic;
+    margin:0 0 1.4rem}
+  .brule{border:0;height:0;border-top:2px solid var(--ink);margin:1.4rem 0 .3rem;
+    position:relative}
+  .brule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+    border-top:1px solid var(--rule)}
+  ul.idx{list-style:none;padding:0;margin:1.6rem 0}
+  ul.idx li{border-bottom:1px solid var(--rule)}
+  /* Whole row is one block-level link: a large, reliable tap target on mobile. */
+  ul.idx a.row{display:flex;justify-content:space-between;align-items:baseline;
+    gap:1rem;padding:.9rem .4rem;text-decoration:none;border:0;color:inherit}
+  ul.idx a.row:hover{background:rgba(156,14,58,.05)}
+  ul.idx .d{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.16rem;
+    color:var(--accent);line-height:1.25}
+  ul.idx a.row:hover .d{text-decoration:underline;text-underline-offset:3px}
+  ul.idx .count{color:var(--faint);font-size:.9rem;font-style:italic;white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  /* A long note (an order list's "3 GVRs / 230 denied / 4 habeas denied /
+     ...", items separated by middots) cannot sit on one line: nowrap made it
+     claim the row and
+     squeezed the title into a column three words wide, and on a phone it ran off
+     the screen. Such a row opts in (meta_wrap): the note wraps, only between its
+     items, and takes at most ~45% of the row, so the title always has the
+     larger share. Under 34rem it drops beneath the title at full width. */
+  /* ("long", not "wrap": .wrap is the page container and its padding.) */
+  ul.idx .count.long{white-space:normal;text-align:right;max-width:45%;line-height:1.45}
+  ul.idx .count.long .seg{white-space:nowrap}
+  @media(max-width:34rem){
+    ul.idx a.row.longmeta{flex-wrap:wrap;row-gap:.2rem}
+    ul.idx .count.long{max-width:none;flex-basis:100%;text-align:left}
+  }
+  /* Compact horizontal strip of the most recent pages beneath a category row. */
+  ul.idx .recent{display:flex;flex-wrap:wrap;align-items:baseline;
+    gap:.3rem .85rem;padding:0 .4rem 1rem;margin-top:-.35rem}
+  ul.idx .recent .rlabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  ul.idx .recent a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--ink-soft);text-decoration:none;font-variant-numeric:tabular-nums;
+    border-bottom:1px solid var(--rule);padding-bottom:1px}
+  ul.idx .recent a:hover{color:var(--accent);border-color:var(--accent)}
+  /* Optional panel beneath the section index (home page: most-read cases). */
+  .panel{margin:2.4rem 0 0}
+  .panel h2{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 .25rem}
+  .panel .pnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:0 0 .5rem}
+  /* "Live now" (live_argument_panel, /live.js): hidden unless the Court is
+     streaming an argument. One red dot, the same --accent as the headings, so
+     the live state is a mark and not a new colour. */
+  .live h2 .ldot{display:inline-block;width:.5rem;height:.5rem;border-radius:50%;
+    background:var(--accent);margin-right:.5rem;vertical-align:.08rem;
+    animation:lpulse 2s ease-in-out infinite}
+  @keyframes lpulse{50%{opacity:.25}}
+  @media (prefers-reduced-motion:reduce){.live h2 .ldot{animation:none}}
+  .lplay{display:flex;flex-wrap:wrap;gap:.6rem .9rem;align-items:center;margin:.8rem 0 .3rem}
+  .lplay button{font:600 .9rem/1 'Newsreader',Georgia,serif;letter-spacing:.04em;
+    color:var(--paper);background:var(--accent);border:0;border-radius:2px;
+    padding:.6rem 1.05rem;cursor:pointer}
+  .lplay button:disabled{opacity:.6;cursor:progress}
+  .lplay button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  /* The player takes a row of its own and may never outgrow the column. A flex
+     item's min-width is auto, which for a replaced element is the browser's own
+     controls' width -- wider than the column on a phone, where mobile Safari
+     and Chrome draw larger controls than the desktop. */
+  .lplay audio{display:block;flex:1 1 100%;width:100%;min-width:0;max-width:100%;
+    box-sizing:border-box;margin:0}
+  .lplay .lstat{font-size:.85rem;color:var(--faint)}
+  /* --- Likeliest grants -----------------------------------------------------
+     Its own rows rather than ol.mostread's: this panel carries a question under
+     the caption, which that list has no room for, and a percentage that has to
+     read as the row's subject rather than as a trailing note.
+     The window toggle is two real radio inputs plus :has() -- no JavaScript.
+     Both windows are rendered at build time and one is hidden, which is the only
+     way a static site can offer the choice: there is no server to ask for the
+     other one. Real radios, not styled buttons, so the control is reachable by
+     keyboard and announced as a choice. */
+  .lead{margin:0 0 1.9rem}
+  .lead h2{margin-bottom:.35rem}
+  .lead .pnote{margin:0 0 .7rem}
+  .wr{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+  .win{display:inline-flex;gap:.25rem;margin:0 0 .55rem;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .win label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .win label:hover{color:var(--ink)}
+  .lead:has(#w7:checked) label[for=w7],
+  .lead:has(#w28:checked) label[for=w28],
+  .lead:has(#wall:checked) label[for=wall]{background:var(--accent);color:var(--paper)}
+  .wr:focus-visible+label{outline:2px solid var(--accent);outline-offset:2px}
+  /* Three windows, one shown: the checked radio hides the other two. */
+  .lead:has(#w7:checked) :is(.g28,.n28,.gall,.nall),
+  .lead:has(#w28:checked) :is(.g7,.n7,.gall,.nall),
+  .lead:has(#wall:checked) :is(.g7,.n7,.g28,.n28){display:none}
+  /* The show/hide controls for a panel's secondary line -- the question under
+     a forecast row, the holding under a decision. Same box as the window
+     toggle, a checkbox instead of radios, and no script: the sibling rule does
+     the work and the lines simply show where :has() is unsupported. The
+     questions are on by default (they are what a forecast row asks); the
+     holdings are off (the caption, kind and disposition already say what
+     happened, and the holding is the more). */
+  .opts{display:inline-flex;gap:.25rem;margin:0 .45rem .55rem 0;vertical-align:top;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .opts label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .opts label:hover{color:var(--ink)}
+  .lead:has(#qon:checked) label[for=qon],
+  .panel:has(#hon:checked) label[for=hon]{background:var(--accent);color:var(--paper)}
+  .lead:has(#qon:not(:checked)) .gq{display:none}
+  .panel:has(#hon:not(:checked)) .chold{display:none}
+  /* --- Upcoming at the Court ------------------------------------------------
+     A date gutter and a two-line body, the same shape as the grant rows above
+     it, so the two panels read as one page rather than two widgets. */
+  .cal{margin:0 0 1.9rem}
+  ol.cal{list-style:none;margin:0;padding:0}
+  ol.cal li{border-top:1px solid var(--rule)}
+  ol.cal li:last-child{border-bottom:1px solid var(--rule)}
+  /* The row is a container, not an anchor: an argument day carries one link per
+     case it hears and anchors cannot nest. Hover lives on the row so it still
+     reads as one unit, and each link colours on its own hover. */
+  ol.cal .crow{display:flex;gap:.95rem;align-items:baseline;padding:.55rem .1rem}
+  ol.cal .crow:hover{background:rgba(156,14,58,.05)}
+  ol.cal a{text-decoration:none;color:inherit}
+  ol.cal a:hover,ol.cal a:focus-visible{color:var(--accent)}
+  ol.cal .cdet a{border-bottom:1px solid rgba(156,14,58,.35)}
+  ol.cal .cdet a:hover{border-bottom-color:var(--accent)}
+  ol.cal .cwhen{flex:none;width:4.6rem;font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.96rem;color:var(--ink);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  ol.cal .cdow{display:block;font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);text-transform:uppercase;letter-spacing:.08em}
+  ol.cal .ctx{flex:1;min-width:0}
+  ol.cal .ckind{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:.98rem;line-height:1.25}
+  ol.cal .cdet{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.12rem}
+  /* Recent decisions reuses the calendar rows and adds exactly two things: the
+     kind word that opens the detail line, and the one outbound link (the slip
+     opinion), which takes the link colour the rest of the row deliberately
+     does not. */
+  ol.cal .dk{font-weight:600;color:var(--ink)}
+  ol.cal .cdet a.pdf{color:var(--link)}
+  /* The holding, from the Court's slip-opinion feed: one sentence, set
+     smaller and in the soft ink so the caption stays the row's headline. */
+  ol.cal .chold{display:block;font-size:.86rem;line-height:1.4;color:var(--ink-soft);
+    font-style:italic;margin-top:.15rem}
+  ol.cal .cdet a.pdf:hover,ol.cal .cdet a.pdf:focus-visible{color:var(--accent);
+    border-bottom-color:var(--accent)}
+  ol.grants{list-style:none;margin:0;padding:0}
+  ol.grants li{border-top:1px solid var(--rule)}
+  ol.grants li:last-child{border-bottom:1px solid var(--rule)}
+  ol.grants a{display:flex;gap:.95rem;align-items:baseline;text-decoration:none;
+    color:inherit;padding:.62rem .1rem}
+  ol.grants a:hover{background:rgba(156,14,58,.05)}
+  ol.grants a:hover .gc{color:var(--accent)}
+  ol.grants .gv{flex:none;width:3.5rem;text-align:right;
+    font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.22rem;
+    line-height:1.1;color:var(--accent);font-variant-numeric:tabular-nums}
+  ol.grants .gx{font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);margin-left:.3rem}
+  ol.grants .gtx{flex:1;min-width:0}
+  /* Subject-area line under the caption, in the section-label idiom (h2.sec):
+     small tracked caps in the faint ink, so it classifies without competing. */
+  ol.grants .gs,ol.mostread .ms{display:block;font-size:.68rem;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--faint);line-height:1.3;margin-top:.12rem}
+  ol.grants .gc{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:1rem;line-height:1.25}
+  ol.grants .gq{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.16rem}
+  ol.grants .gd{flex:none;font-size:.76rem;color:var(--faint);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  .more{margin:.75rem 0 0;font-size:.92rem}
+  .more a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.35)}
+  .more a:hover{border-bottom-color:var(--link)}
+  h2.sec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:.88rem;
+    letter-spacing:.09em;color:var(--faint);text-transform:uppercase;
+    margin:2.1rem 0 .6rem;padding-bottom:.28rem;border-bottom:1px solid var(--rule)}
+  @media(max-width:40rem){
+    ol.grants a{flex-wrap:wrap}
+    ol.grants .gd{width:100%;padding-left:4.45rem;margin-top:-.1rem}
+  }
+  ol.mostread{list-style:none;counter-reset:mr;padding:0;margin:0}
+  ol.mostread li{counter-increment:mr;border-bottom:1px solid var(--rule)}
+  ol.mostread a{display:flex;align-items:baseline;gap:.7rem;padding:.6rem .4rem;
+    text-decoration:none;color:inherit}
+  ol.mostread a:hover{background:rgba(156,14,58,.05)}
+  ol.mostread a::before{content:counter(mr);font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.95rem;color:var(--faint);min-width:1.1rem;
+    font-variant-numeric:tabular-nums}
+  ol.mostread .mc{flex:1;font-size:1rem;line-height:1.3}
+  ol.mostread .mct{display:block}
+  ol.mostread a:hover .mct{color:var(--accent);text-decoration:underline;
+    text-underline-offset:3px}
+  ol.mostread .mdk{color:var(--accent);font-weight:600;font-size:.82rem;
+    font-variant-numeric:tabular-nums;white-space:nowrap}
+  ol.mostread .mv{color:var(--faint);font-size:.85rem;font-style:italic;
+    white-space:nowrap;font-variant-numeric:tabular-nums}
+  /* Forecast percentages carry weight the most-read counts do not: the number is
+     the claim, not a footnote to the ranking. Upright, accent, tabular. */
+  ol.mostread .mv.fc{color:var(--accent);font-style:normal;font-weight:600;
+    font-size:.95rem;min-width:2.6rem;text-align:right}
+  /* Feed follow line. Deliberately quiet -- a footnote under the section list,
+     styled like .recent rather than like a call to action. */
+  .feeds{display:flex;flex-wrap:wrap;align-items:baseline;gap:.3rem .85rem;
+    margin:2.2rem 0 0;padding-top:1.1rem;border-top:1px solid var(--rule)}
+  .feeds .flabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  .feeds a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .feeds a:hover{border-color:var(--link)}
+  .back{margin-top:2rem;font-size:.95rem}
+  .back a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .back a:hover{border-color:var(--link)}
+  /* Home-page case search. */
+  .csearch{position:relative;margin:0 0 1.4rem}
+  #cq{width:100%;font-family:'Newsreader',Georgia,serif;font-size:1.05rem;color:var(--ink);
+    background:var(--panel);border:1px solid var(--rule);border-radius:3px;padding:.7rem .9rem}
+  #cq:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(156,14,58,.1)}
+  #cq::placeholder{color:var(--faint)}
+  #cq.loading{background-image:linear-gradient(90deg,transparent,rgba(156,14,58,.06),transparent);
+    background-size:40% 100%;background-repeat:no-repeat;animation:csl 1s infinite}
+  @keyframes csl{0%{background-position:-40% 0}100%{background-position:140% 0}}
+  .cres{list-style:none;margin:.35rem 0 0;padding:0;max-height:24rem;overflow-y:auto;
+    border:1px solid var(--rule);border-radius:3px;background:var(--panel)}
+  .cres:empty{display:none}
+  .cres li{border-bottom:1px solid var(--rule)}
+  .cres li:last-child{border-bottom:0}
+  .cres a{display:block;padding:.55rem .7rem;text-decoration:none;color:var(--ink);
+    font-size:.98rem;line-height:1.3}
+  .cres a:hover,.cres li.act a{background:rgba(156,14,58,.06)}
+  .cres mark{background:rgba(156,14,58,.14);color:inherit;padding:0 .05em;border-radius:2px}
+  .cres .cd{color:var(--accent);font-variant-numeric:tabular-nums;font-weight:600;
+    margin-right:.5rem;white-space:nowrap}
+  .cnone{padding:.55rem .7rem;color:var(--faint);font-style:italic}
+  .cnone a,.cqp a{color:var(--link);font-style:normal;text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .cqp{margin:.45rem 0 0;font-size:.88rem;color:var(--faint)}
+  /* /cases/ browse index: grouped sections with per-bucket counts. */
+  .csec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+    text-transform:uppercase;letter-spacing:.12em;color:var(--accent);
+    margin:2.2rem 0 .3rem;padding-bottom:.35rem;border-bottom:1px solid var(--rule);
+    display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
+  .csec .cn{font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:.85rem;
+    letter-spacing:0;text-transform:none;color:var(--faint);
+    font-variant-numeric:tabular-nums}
+  .cnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:.5rem 0 0}
+  .cnote a{color:var(--accent)}
+  ul.terms{list-style:none;padding:0;margin:1rem 0 0;display:flex;flex-wrap:wrap;
+    gap:.5rem 1.6rem}
+  ul.terms li{display:inline-flex;align-items:baseline;gap:.4rem}
+  ul.terms a{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.05rem;
+    color:var(--accent);text-decoration:none;border-bottom:1px solid var(--rule)}
+  ul.terms a:hover{border-bottom-color:var(--accent)}
+  ul.terms .cn{color:var(--faint);font-size:.85rem;font-variant-numeric:tabular-nums}
+  /* About page: running prose rather than an index, so it takes a measure and a
+     little more leading than the section rows above it. */
+  .about{margin:1.6rem 0 0;font-size:1.05rem;line-height:1.65;max-width:34rem}
+  .about p{margin:0 0 1rem}
+  .about a{color:var(--accent);text-decoration:none;
+    border-bottom:1px solid var(--rule)}
+  .about a:hover{border-bottom-color:var(--accent)}
+  .about .contact{margin:2rem 0 0;background:var(--panel);border:1px solid var(--rule);
+    border-left:4px solid var(--accent);padding:1.1rem 1.3rem}
+  .about .contact h2{font:600 .78rem/1 'Newsreader',Georgia,serif;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--accent);margin:0 0 .5rem}
+  .about .contact p{margin:0;font-size:1rem}
+
+/* ---- masthead ---- */
+.smast-in{max-width:var(--nav-max,60rem);margin:0 auto;padding:.85rem 1.5rem .5rem;
+  display:flex;align-items:baseline;justify-content:space-between;gap:1.4rem;flex-wrap:wrap}
+.smast-wm{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+  letter-spacing:.005em;color:var(--ink,#1a1a1e);text-decoration:none;white-space:nowrap;flex:none}
+.smast-wm em{font-style:italic;font-weight:500;color:var(--accent,#9c0e3a)}
+.smast-wm:hover{color:var(--accent,#9c0e3a)}
+/* Row gap first, then column. At 1.35rem the six section links measured 596px
+   of max-content -- 4px wider than the 592px row the 40rem index container
+   leaves them -- so ABOUT alone wrapped to a third line under the wordmark, on
+   every page page_style.R writes. 1.05rem brings the row to 572px: 20px of
+   slack at 40rem, and 45px on the 54rem case pages, which were themselves only
+   21px from wrapping. The .4rem row gap is for the day a seventh section
+   overruns it anyway -- a nav that wraps should read as a stack, not an orphan. */
+.snav{display:flex;gap:.4rem 1.05rem;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+.snav a{font:600 .72rem/1 'Newsreader',Georgia,serif;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--ink-soft,var(--soft,#484850));text-decoration:none;display:inline-block;
+  padding:.5rem 0;border-bottom:1.5px solid transparent}
+.snav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--rule,#dbd8d2)}
+.snav a[aria-current='page']{color:var(--accent,#9c0e3a);
+  border-bottom-color:var(--accent,#9c0e3a)}
+.smast-rule-w{max-width:var(--nav-max,60rem);margin:0 auto;padding:0 1.5rem}
+.smast-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0;position:relative}
+.smast-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.skip{position:absolute;left:-9999px;top:0;background:var(--panel,#ffffff);
+  color:var(--accent,#9c0e3a);padding:.6rem 1rem;
+  border:1px solid var(--accent,#9c0e3a);
+  font:600 .8rem/1 'Newsreader',Georgia,serif;letter-spacing:.1em;text-transform:uppercase;z-index:10}
+.skip:focus{left:.5rem;top:.5rem}
+/* ---- breadcrumb ---- */
+.bcrumb{margin:.7rem 0 0}
+.bcrumb ol{list-style:none;display:flex;flex-wrap:wrap;align-items:baseline;
+  gap:.1rem .45rem;margin:0;padding:0}
+.bcrumb li{display:inline-flex;align-items:baseline;gap:.45rem}
+.bcrumb a{font:400 .8rem/1.5 'Newsreader',Georgia,serif;color:var(--ink-soft,var(--soft,#484850));
+  text-decoration:none;border-bottom:1px solid var(--rule,#dbd8d2)}
+.bcrumb a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.bcrumb .sep{color:var(--faint,#63636b);font-size:.8rem;line-height:1.5}
+.bcrumb [aria-current='page']{font:400 .8rem/1.5 'Newsreader',Georgia,serif;
+  color:var(--faint,#63636b);font-variant-numeric:tabular-nums}
+/* ---- case footer ---- */
+.cfoot{margin:2.4rem 0 0}
+.cfoot-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0 0 1rem;position:relative}
+.cfoot-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.cfoot-off{font-size:.95rem;margin:0 0 1.1rem}
+.cfoot-off a{color:var(--link,#9c0e3a);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.4)}
+.cfoot-off a:hover{border-bottom-color:var(--link,#9c0e3a)}
+.cfoot-lab{font:600 .68rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);margin:0 0 .5rem}
+.cfoot-nav{display:flex;flex-wrap:wrap;gap:.35rem 1.1rem;list-style:none;margin:0;padding:0}
+.cfoot-nav a{font-size:.92rem;color:var(--ink-soft,var(--soft,#484850));text-decoration:none;
+  border-bottom:1px solid var(--rule,#dbd8d2);padding-bottom:1px}
+.cfoot-nav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.cfoot-stamp{margin:1.2rem 0 0;font-size:.8rem;color:var(--faint,#63636b);font-style:italic}
+/* ---- prev / next ---- */
+.pnav{margin:2.2rem 0 0;border-top:1px solid var(--rule,#dbd8d2);padding-top:1rem;
+  display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.pnav a,.pnav span.none{text-decoration:none;color:inherit;display:block;padding:.5rem .2rem}
+.pnav a:hover{background:rgba(156,14,58,.05)}
+.pnav .dir{font:600 .66rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);display:block;margin-bottom:.3rem}
+.pnav .lab{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1rem;line-height:1.25;
+  color:var(--accent,#9c0e3a);display:block}
+.pnav a:hover .lab{text-decoration:underline;text-underline-offset:3px}
+.pnav .nx{text-align:right}
+.pnav .none{opacity:.35}
+@media(max-width:640px){
+  .smast-in{padding:.7rem 1.1rem .25rem;gap:.15rem}
+  .smast-wm{font-size:.98rem}
+  .smast-in nav{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+    -webkit-mask-image:linear-gradient(90deg,#000 86%,transparent);
+    mask-image:linear-gradient(90deg,#000 86%,transparent)}
+  .smast-in nav::-webkit-scrollbar{display:none}
+  .snav{flex-wrap:nowrap;gap:1.15rem;padding-right:2.4rem}
+  .snav a{padding:.7rem 0;white-space:nowrap}
+  .smast-rule-w{padding:0 1.1rem}
+  .cfoot-nav{gap:.5rem 1rem}
+  .cfoot-nav a{padding-bottom:.3rem}
+  .pnav{grid-template-columns:1fr;gap:.2rem}
+  .pnav .nx{text-align:left;border-top:1px solid var(--rule,#dbd8d2)}
+}
+
+  .wrap.opn{max-width:42rem}
+  .opn .ometa{font-size:.92rem;color:var(--ink-soft);margin:.3rem 0 0}
+  .opn .oget{display:flex;flex-wrap:wrap;gap:.4rem .6rem;margin:1.1rem 0 0;padding:0;list-style:none;font-size:.9rem}
+  .opn .oget a{display:inline-block;padding:.32rem .7rem;border:1px solid var(--rule);border-radius:4px;color:var(--ink);text-decoration:none;background:var(--panel)}
+  .opn .oget a:hover{border-color:var(--accent);color:var(--accent)}
+  .opn .osrc{font-size:.84rem;color:var(--faint);margin:.9rem 0 0;line-height:1.45}
+  .opn .osrc a{color:var(--link)}
+  .opn .otoc{margin:1.6rem 0 0;padding:.8rem 1rem;border:1px solid var(--rule);border-radius:4px;background:var(--panel);font-size:.95rem}
+  .opn .otoc ol{margin:0;padding:0;list-style:none}
+  .opn .otoc li{margin:.25rem 0}
+  .opn .otoc a{color:var(--ink);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.35)}
+  .opn .otoc a:hover{color:var(--accent)}
+  .opn section.op{margin-top:3rem;border-top:2px solid var(--ink);padding-top:1.1rem}
+  .opn section.op h2{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.5rem;line-height:1.2;margin:0 0 1rem;color:var(--ink)}
+  .opn section.op p{margin:0 0 .95rem;line-height:1.62;hyphens:auto;overflow-wrap:break-word}
+  .opn section.op p.byline{color:var(--ink-soft);font-style:italic}
+  .opn section.op p.sep{text-align:center;letter-spacing:.3em;color:var(--faint);margin:1.6rem 0}
+  .opn section.op h3.oh{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.12rem;text-align:center;margin:2rem 0 1rem;color:var(--ink)}
+  .opn section.op blockquote{margin:0 0 .95rem;padding:0 0 0 1.1rem;border-left:2px solid var(--rule);color:var(--ink-soft)}
+  .opn section.op blockquote p{margin-bottom:.6rem;font-size:.96em}
+  .opn .sc{font-variant-caps:small-caps;letter-spacing:.02em}
+  .opn .pg{font-size:.66em;color:var(--faint);vertical-align:.3em;margin:0 .3em 0 .1em;font-variant-numeric:tabular-nums;user-select:none;white-space:nowrap}
+  .opn .pg::before{content:'*'}
+  .opn sup.fnr{font-size:.68em;line-height:0;margin-left:.05em}
+  .opn sup.fnr a{color:var(--link);text-decoration:none;padding:0 .1em}
+  .opn aside.notes{margin-top:2rem;border-top:1px solid var(--rule);padding-top:.8rem;font-size:.88rem;color:var(--ink-soft)}
+  .opn aside.notes h3{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1rem;margin:0 0 .6rem;color:var(--ink)}
+  .opn aside.notes ol{margin:0;padding-left:1.7rem}
+  .opn aside.notes li{margin:0 0 .55rem}
+  .opn aside.notes li.sym{list-style:none;margin-left:-1.7rem}
+  .opn aside.notes li.sym .mk{margin-right:.3rem}
+  .opn aside.notes li.sym p{display:inline}
+  .opn aside.notes p{margin:0 0 .4rem;line-height:1.5}
+  .opn aside.notes a.back{color:var(--link);text-decoration:none;margin-left:.2rem}
+  .opn aside.notes li:target,.opn sup.fnr a:target,.opn .pg:target{background:rgba(156,14,58,.12);outline:.2rem solid rgba(156,14,58,.12)}
+  .opn section.op,.opn aside.notes li,.opn sup.fnr a{scroll-margin-top:1rem}
+  .opn section.op-syllabus p,.opn section.op-counsel p{font-size:.95em}
+  .opn section.op-counsel summary{cursor:pointer;font-family:'Fraunces',Georgia,serif;font-size:1.05rem;color:var(--ink-soft)}
+  .opn .osyl{font-size:.84rem;color:var(--faint);font-style:italic;margin:-.5rem 0 1rem}
+  .opn p.back{margin-top:3rem;font-size:.92rem}
+  @media print{.smast,.bcrumb,.opn .oget,.opn .otoc,.opn p.back{display:none}.opn section.op{break-before:page}}
+</style><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://supremecourt.report/"},{"@type":"ListItem","position":2,"name":"Opinions","item":"https://supremecourt.report/opinions/"},{"@type":"ListItem","position":3,"name":"Wilkins v. United States"}]}</script><meta name='otv' content='p1'><link rel='alternate' type='text/markdown' href='/opinions/2022/21-1164.md'><link rel='alternate' type='application/epub+zip' href='/opinions/2022/21-1164.epub'></head><body><a class='skip' href='#main'>Skip to content</a><header><div class='smast-in'><a class='smast-wm' href='/'>Supreme Court <em>Report</em></a><nav aria-label='Sections'><ul class='snav'><li><a href='/dashboards/'>Docket</a></li><li><a href='/conferences/'>Conferences</a></li><li><a href='/relists/'>Relists</a></li><li><a href='/applications/'>Interim</a></li><li><a href='/arguments/'>Arguments</a></li><li><a href='/justices/' aria-current='page'>Justices</a></li><li><a href='/counsel/'>Counsel</a></li><li><a href='/funnel/'>Funnel</a></li><li><a href='/methods.html'>Model</a></li><li><a href='/about.html'>About</a></li></ul></nav></div><div class='smast-rule-w'><hr class='smast-rule'></div></header><main class='wrap opn' id='main' data-dkt='21-1164'><nav class='bcrumb' aria-label='Breadcrumb'><ol><li><a href='/'>Home</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><a href='/opinions/'>Opinions</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><span aria-current='page'>Wilkins v. United States</span></li></ol></nav><p class='kicker'>No. 21-1164 · decided March 28, 2023 · 598 U. S. 152</p><h1 style='font-size:clamp(1.7rem,4.6vw,2.4rem);line-height:1.12'>Wilkins v. United States</h1><p class='ometa'>Larry Steven Wilkins, et al. v. United States. 1 separate writing.</p><ul class='oget'><li><a href='/opinions/2022/21-1164.epub' download>EPUB</a></li><li><a href='/opinions/2022/21-1164.md' download>Markdown</a></li><li><a href='https://www.supremecourt.gov/opinions/22pdf/598us1r9_8mjp.pdf' rel='noopener'>The Court’s PDF</a></li><li><a href='/cases/21-1164.html'>The docket</a></li></ul><p class='osrc'>Set from the PDF the Court published, which is the authoritative text. The small starred numbers are that PDF’s page numbers. A conversion can introduce errors; check a quotation against the <a href='https://www.supremecourt.gov/opinions/22pdf/598us1r9_8mjp.pdf' rel='noopener'>original</a>.</p><nav class="otoc" aria-label="Contents"><ol>
+<li><a href="#s1">Syllabus</a></li>
+<li><a href="#s2">Counsel</a></li>
+<li><a href="#s3">Opinion of the Court</a></li>
+<li><a href="#s4">Justice Thomas, dissenting</a></li>
+</ol></nav>
+<section id="s1" class="op op-syllabus"><h2>Syllabus</h2><p class='osyl'>Prepared by the Reporter of Decisions for the convenience of the reader; it is no part of the opinion of the Court.</p>
+<p>Petitioners Larry Steven Wilkins and Jane Stanton own properties in</p>
+<p>rural Montana that border a road for which the United States has held an easement since 1962. The Government claims that the easement includes public access, which petitioners dispute. In 2018, petitioners sued the Government under the Quiet Title Act, which allows challenges to the United States' rights in real property. The Government moved to dismiss on the ground that petitioners' claim is barred by the Act's 12-year time bar. 28 U. S. C. § 2409a(g). Petitioners countered that § 2409a(g)'s time limit is a nonjurisdictional claims-processing rule. The District Court agreed with the Government and dismissed the case for lack of subject-matter jurisdiction. The Ninth Circuit held that § 2409a(g) had already been interpreted as jurisdictional in <em>Block</em> v. <em>North Dakota ex rel. Board of Univ. and School Lands,</em> 461 U. S. 273, and affirmed.</p>
+<p><em>Held</em>: Section 2409a(g) is a nonjurisdictional claims-processing rule. Pp. 156–165.</p>
+<p>(a) Jurisdiction is a word of many meanings. This Court has emphasized the distinction between “the classes of cases a court may entertain (subject-matter jurisdiction)” and “nonjurisdictional claim-processing rules, which seek to promote the orderly progress of litigation by requiring that the parties take certain procedural steps at certain specified times.” <em>Fort Bend County</em> v. <em>Davis</em>, 587 U. S. –––, –––. Nonjurisdictional claim-processing rules generally include a range of “threshold requirements that claimants must complete, or exhaust, before filing a lawsuit.” <em>Reed Elsevier, Inc.</em> v. <em>Muchnick</em>, 559 U. S. 154, 166. Jurisdictional bars—which may be raised by any party at any time during the proceedings and which are required to be raised by a court <em>sua sponte</em>—run the risk of disrupting the “orderly progress of litigation” that procedural rules often “seek to promote.” <em>Henderson</em> v. <em>Shinseki,</em> 562 U. S. 428, 435.</p>
+<p>Given the risk of disruption and waste that accompanies the jurisdictional label, a procedural requirement will be construed as jurisdictional only if Congress “clearly states” that it is. <em>Boechler</em> v. <em>Commissioner</em>, 596 U. S. –––, –––. To determine whether the statutory text “plainly <span class="pg" id="s1-p153" title="page 153 of the original">153</span>show[s] that Congress imbued a procedural bar with jurisdictional consequences,” courts apply “traditional tools of statutory construction.” <em>United States</em> v. <em>Kwai Fun Wong</em>, 575 U. S. 402, 410.</p>
+<p>Section 2409a(g) lacks a jurisdictional clear statement, and nothing about § 2409a(g)'s text or context gives reason to depart from this Court's observation that “most time bars are nonjurisdictional.” <em>Ibid.</em> Section 2409a(g) states that an action “shall be barred unless it is commenced within twelve years of the date upon which it accrued.” This “text speaks only to a claim's timeliness,” and its “mundane statute-oflimitations language say[s] only what every time bar, by definition, must: that after a certain time a claim is barred.” <em>Ibid</em>. Further, “[t]his Court has often explained that Congress's separation of a filing deadline from a jurisdictional grant indicates that the time bar is not jurisdictional.” <em>Id.,</em> at 411. Here, the Quiet Title Act's jurisdictional grant is in §1346(f), well afield of §2409a(g). And “[n]othing [in §1346(f)] conditions the jurisdictional grant on the limitations perio[d in § 2409a(g)] or otherwise links those separate provisions.” <em>Id</em>., at 412. Pp. 156–159.</p>
+<p>(b) None of the three decisions of this Court on which the Government relies—<em>Block,</em> 461 U. S. 273, <em>United States</em> v. <em>Mottaz,</em> 476 U. S. 834, and <em>United States</em> v. <em>Beggerly,</em> 524 U. S. 38—definitively interpreted § 2409a(g) as jurisdictional. This Court has made clear that it will not undo a “definitive earlier interpretation” of a statutory provision as jurisdictional without due regard for the principles of <em>stare decisis</em>. <em>John R. Sand &amp; Gravel Co.</em> v. <em>United States,</em> 552 U. S. 130, 138. Yet the mere fact that this Court previously described something as jurisdictional is not dispositive, as “[c]ourts, including this Court, have more than occasionally misused the term `jurisdictional' to refer to nonjurisdictional prescriptions.” <em>Fort Bend</em>, 587 U. S., at ––– – –––, n. 4 (some internal quotation marks and brackets omitted). To separate “definitive” interpretations of jurisdiction from those in which the term “jurisdictional” has been used imprecisely, the Court asks if a prior decision addressed whether a provision is “ `technically jurisdictional,' ” <em>i. e.,</em> whether it truly operates as a limit on a court's subject-matter jurisdiction, and whether anything in the decision “turn[ed] on that characterization.” <em>Arbaugh</em> v. <em>Y &amp; H Corp.</em>, 546 U. S. 500, 512 (quoting <em>Steel Co.</em> v. <em>Citizens for Better Environment</em>, 523 U. S. 83, 91). A decision that simply states that “the court is dismissing `for lack of jurisdiction' when some threshold fact has not been established” is understood as a “drive-by jurisdictional rulin[g]” and receives “no precedential effect.” <em>Arbaugh</em>, 546 U. S., at 511.</p>
+<p><em>Block</em> is a textbook “drive-by jurisdictional rulin[g].” <em>Arbaugh</em>, 546 U. S., at 511<em>.</em> The Government points to a statement in that opinion's <span class="pg" id="s1-p154" title="page 154 of the original">154</span>conclusion that if the Quiet Title Act's time limit applied, “the courts below had no jurisdiction to inquire into the merits,” <em>Block</em>, 461 U. S., at 292. Yet there is no discussion in <em>Block</em> about whether the provision is “ `technically jurisdictional' ”—just a mere statement that a “threshold fact” must “b[e] established” for there to be “jurisdiction.” <em>Arbaugh</em>, 546 U. S., at 512. While <em>Block</em> did describe the Act's time limit as “a condition on the waiver of sovereign immunity,” 461 U. S., at 287, <em>Block</em> never addressed whether the Act's time limit was truly a limit on subject-matter jurisdiction, nor did anything in the case turn on this question. Contrary to the Government's contentions, even in that era, time limits in suits against the Government were not necessarily subject-matter jurisdictional under this Court's case law.</p>
+<p>Like <em>Block</em>, <em>Mottaz</em> contains no discussion of whether the Quiet Title Act's 12-year time bar was technically jurisdictional. Instead, the Court decided which of two possible time bars applied and, having determined it was the Quiet Title Act's 12-year limit, concluded that the plaintiff had notice over 12 years before she sued. Neither step in the Court's analysis “turn[ed] on” whether any time limits were “ `technically jurisdictional.' ” <em>Arbaugh</em>, 546 U. S., at 512. Once again, general statements in the opinion about waivers of immunity cannot change this basic fact.</p>
+<p>Finally, in <em>Beggerly</em>, the Court carefully analyzed whether the text and context of § 2409a(g) were consistent with equitable tolling. This would have been a mere waste of words if the Court had already held in <em>Block</em> and <em>Mottaz</em> that § 2409a(g) was jurisdictional.</p>
+<p>These three cases point in one direction: This Court has never definitively interpreted § 2409a(g) as jurisdictional. The Government's argument about legislative acquiescence is unavailing given the absence of any definitive judicial interpretation to which Congress could acquiesce. Pp. 159–165.</p>
+<p>13 F. 4th 791, reversed and remanded.</p>
+<p><span class="sc">Sotomayor</span>, J., delivered the opinion of the Court, in which <span class="sc">Kagan</span>, <span class="sc">Gorsuch</span>, <span class="sc">Kavanaugh</span>, <span class="sc">Barrett</span>, and <span class="sc">Jackson</span>, JJ., joined. <span class="sc">Thomas</span>, J., filed a dissenting opinion, in which <span class="sc">Roberts</span>, C. J., and <span class="sc">Alito</span>, J., joined, <em>post</em>, p. 166.</p></section>
+<section id="s2" class="op op-counsel"><details><summary>Counsel</summary><p><em>Jeffrey W. McCoy</em> argued the cause for petitioners. With him on the briefs were <em>Damien M. Schiff, James M. Manley,</em> and <em>Ethan Blevins.</em></p>
+<p><em>Benjamin W. Snyder</em> argued the cause for the United States. With him on the brief were <em>Solicitor General Pre</em><em>logar</em>,<span class="pg" id="s2-p155" title="page 155 of the original">155</span> <em>Assistant Attorney General Kim, Deputy Solicitor General Kneedler, William B. Lazarus, John L. Smeltzer, Kevin W. McArdle,</em> and <em>Babak Rastgoufard.*</em></p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li class="sym" value="0"><span class="mk">*</span><p>Briefs of <em>amici curiae</em> urging reversal were filed for Local Government Organizations by <em>Daniel H. Bromberg</em> and <em>Jeffrey W. Mikoni</em>; and for the National Federation of Independent Business Small Business Legal Center et al. by <em>Elizabeth Gaudio Milito, Robert Henneke,</em> and <em>Chance Weldon.</em></p></li>
+</ol></aside></details></section>
+<section id="s3" class="op op-court"><h2>Opinion of the Court</h2>
+<p class="byline">Justice Sotomayor delivered the opinion of the Court.</p>
+<p>Larry Steven Wilkins and Jane Stanton wanted quiet titles and a quiet road. Wilkins and Stanton, the petitioners here, both live alongside Robbins Gulch Road in rural Montana. The United States has permission, called an easement, for use of the road, which the Government interprets to include making the road available for public use. Petitioners allege that the road's public use has intruded upon their private lives, with strangers trespassing, stealing, and even shooting Wilkins' cat.</p>
+<p>Petitioners sued over the scope of the easement under the Quiet Title Act, which allows challenges to the United States' rights in real property. Invoking the Act's 12-year time limit, 28 U. S. C. § 2409a(g), the Government maintains that the suit is jurisdictionally barred. Petitioners counter, and the Court holds, that § 2409a(g) is a nonjurisdictional claims-processing rule.</p>
+<h3 class="oh">I</h3>
+<p>Robbins Gulch Road runs through about a mile of private property. Petitioners acquired their properties along the road in 1991 and 2004. Back in 1962, petitioners' predecessors in interest had granted the United States an easement for the road. The Government contends that the easement includes public access, which petitioners dispute. On petitioners' telling, the easement does not allow access to the general public and requires the Government to maintain and patrol the road.</p>
+<p><span class="pg" id="s3-p156" title="page 156 of the original">156</span>In 2018, petitioners brought suit under the Quiet Title Act. The Government moved to dismiss the action on the ground that the Act's 12-year time limit had expired. Under the Act, “[a]ny civil action . . . , except for an action brought by a State, shall be barred unless it is commenced within twelve years of the date upon which it accrued.” § 2409a(g). Accrual occurs “on the date the plaintiff or his predecessor in interest knew or should have known of the claim of the United States.” <em>Ibid.</em> The parties disagreed as to whether the Act's time limit is jurisdictional, which is relevant to the procedures for litigating whether § 2409a(g) bars petitioners' claim.<sup class="fnr"><a id="s3-r1" href="#s3-n1">1</a></sup></p>
+<p>The District Court agreed with the Government and dismissed the case for lack of subject-matter jurisdiction. The Ninth Circuit affirmed the dismissal for lack of jurisdiction. 13 F. 4th 791 (2021). Applying Circuit precedent, the Court of Appeals held that this Court had already interpreted § 2409a(g) as jurisdictional in <em>Block</em> v. <em>North Dakota ex rel. Board of Univ. and School Lands</em>, 461 U. S. 273 (1983). This further entrenched a divide among the Courts of Appeals.<sup class="fnr"><a id="s3-r2" href="#s3-n2">2</a></sup>This Court granted certiorari to resolve the split, 596 U. S. ––– (2022), and now reverses the Ninth Circuit's judgment.</p>
+<h3 class="oh">II</h3>
+<h3 class="oh">A</h3>
+<p>“Jurisdiction, this Court has observed, is a word of many, too many, meanings.” <em>Arbaugh</em> v. <em>Y &amp; H Corp.</em>, 546 U. S. <span class="pg" id="s3-p157" title="page 157 of the original">157</span>500, 510 (2006) (internal quotation marks omitted). In particular, this Court has emphasized the distinction between limits on “the classes of cases a court may entertain (subject-matter jurisdiction)” and “nonjurisdictional claim-processing rules, which seek to promote the orderly progress of litigation by requiring that the parties take certain procedural steps at certain specified times.” <em>Fort Bend County</em> v. <em>Davis</em>, 587 U. S. –––, ––– – ––– (2019) (internal quotation marks omitted). The latter category generally includes a range of “threshold requirements that claimants must complete, or exhaust, before filing a lawsuit.” <em>Reed Elsevier, Inc.</em> v. <em>Muchnick</em>, 559 U. S. 154, 166 (2010).</p>
+<p>To police this jurisdictional line, this Court will “treat a procedural requirement as jurisdictional only if Congress `clearly states' that it is.” <em>Boechler</em> v. <em>Commissioner,</em> 596 U. S. –––, ––– (2022) (quoting <em>Arbaugh</em>, 546 U. S., at 515). This principle of construction is not a burden courts impose on Congress. To the contrary, this principle seeks to avoid judicial interpretations that undermine Congress' judgment. Loosely treating procedural requirements as jurisdictional risks undermining the very reason Congress enacted them.</p>
+<p>Procedural rules often “seek to promote the orderly progress of litigation” within our adversarial system. <em>Henderson</em> v. <em>Shinseki</em>, 562 U. S. 428, 435 (2011). Limits on subject-matter jurisdiction, in contrast, have a unique potential to disrupt the orderly course of litigation. “Branding a rule as going to a court's subject-matter jurisdiction alters the normal operation of our adversarial system.” <em>Id.</em>, at 434. “For purposes of efficiency and fairness, our legal system is replete with rules” like forfeiture, which require parties to raise arguments themselves and to do so at certain times. <em>Ibid.</em> Jurisdictional bars, however, “may be raised at any time” and courts have a duty to consider them <em>sua sponte</em>. <em>Ibid.</em> When such eleventh-hour jurisdictional objections prevail post-trial or on appeal, “many months of work on the part of the attorneys and the court may be <span class="pg" id="s3-p158" title="page 158 of the original">158</span>wasted.” <em>Id.</em>, at 435. Similarly, doctrines like waiver and estoppel ensure efficiency and fairness by precluding parties from raising arguments they had previously disavowed. Because these doctrines do not apply to jurisdictional objections, parties can disclaim such an objection, only to resurrect it when things go poorly for them on the merits. <em>Ibid.</em></p>
+<p>Given this risk of disruption and waste that accompanies the jurisdictional label, courts will not lightly apply it to procedures Congress enacted to keep things running smoothly and efficiently. Courts will also not assume that in creating a mundane claims-processing rule, Congress made it “unique in our adversarial system” by allowing parties to raise it at any time and requiring courts to consider it <em>sua sponte</em>. <em>Sebelius</em> v. <em>Auburn Regional Medical Center</em>, 568 U. S. 145, 153 (2013). Instead, “traditional tools of statutory construction must plainly show that Congress imbued a procedural bar with jurisdictional consequences.” <em>United States</em> v. <em>Kwai Fun Wong</em>, 575 U. S. 402, 410 (2015).</p>
+<p>Under this clear statement rule, the analysis of § 2409a(g) is straightforward.<sup class="fnr"><a id="s3-r3" href="#s3-n3">3</a></sup>“[I]n applying th[e] clear statement rule, we have made plain that most time bars are nonjurisdictional.”<span class="pg" id="s3-p159" title="page 159 of the original">159</span> <em>Ibid.</em> Nothing about § 2409a(g)'s text or context gives reason to depart from this beaten path. Section 2409a(g) states that an action “shall be barred unless it is commenced within twelve years of the date upon which it accrued.” This “text speaks only to a claim's timeliness,” and its “mundane statute-of-limitations language . . . say[s] only what every time bar, by definition, must: that after a certain time a claim is barred.” <em>Id</em>., at 410. Further, “[t]his Court has often explained that Congress's separation of a filing deadline from a jurisdictional grant indicates that the time bar is not jurisdictional.” <em>Id.</em>, at 411. The Quiet Title Act's jurisdictional grant is in 28 U. S. C. §1346(f),<sup class="fnr"><a id="s3-r4" href="#s3-n4">4</a></sup>well afield of § 2409a(g). And “[n]othing conditions the jurisdictional grant on the limitations perio[d], or otherwise links those separate provisions.” <em>Wong</em>, 575 U. S., at 412. Section 2409a(g) therefore lacks a jurisdictional clear statement.</p>
+<h3 class="oh">B</h3>
+<p>The Government does not focus on the text of § 2409a(g), but instead points to a trilogy of decisions by this Court that purportedly establish that the provision is jurisdictional. None of these three decisions definitively interpreted § 2409a(g) as jurisdictional.</p>
+<p>This Court has made clear that it will not undo a “definitive earlier interpretation” of a statutory provision as jurisdictional without due regard for principles of <em>stare decisis</em>. <em>John R. Sand &amp; Gravel Co.</em> v. <em>United States</em>, 552 U. S. 130, 138 (2008). At the same time, however, “[c]ourts, including this Court, have more than occasionally misused the term `jurisdictional' to refer to nonjurisdictional prescriptions.” <em>Fort Bend</em>, 587 U. S., at ––– – –––, n. 4 (some internal quotation marks and alterations omitted). The mere fact that this <span class="pg" id="s3-p160" title="page 160 of the original">160</span>Court previously described something “without elaboration” as jurisdictional therefore does not end the inquiry. <em>Henderson</em>, 562 U. S., at 437. To separate the wheat from the chaff, this Court has asked if the prior decision addressed whether a provision is “ `technically jurisdictional' ”— whether it truly operates as a limit on a court's subject-matter jurisdiction—and whether anything in the decision “turn[ed] on that characterization.” <em>Arbaugh</em>, 546 U. S., at 512 (quoting <em>Steel Co.</em> v. <em>Citizens for Better Environment</em>, 523 U. S. 83, 91 (1998)); see also <em>Zipes</em> v. <em>Trans World Airlines, Inc.</em>, 455 U. S. 385, 395 (1982) (looking to whether “the legal character of the requirement was . . . at issue”). If a decision simply states that “the court is dismissing `for lack of jurisdiction' when some threshold fact has not been established,” it is understood as a “drive-by jurisdictional rulin[g]” that receives “no precedential effect.” <em>Arbaugh</em>, 546 U. S., at 511 (some internal quotation marks omitted).</p>
+<p>The Government begins with <em>Block</em>, 461 U. S. 273. The case presented “two separate issues” about the Quiet Title Act, neither of which was whether the 12-year limit was jurisdictional. <em>Id.</em>, at 276. First, the Court held that the Act was “the exclusive procedure” for challenging “the title of the United States to real property.” <em>Id.</em>, at 276–277, 286. Second, the Court held that the 12-year limit applied to States. <em>Id.</em>, at 277. It was only in the opinion's conclusion that, in remanding, the Court remarked that if the time limit applied, “the courts below had no jurisdiction to inquire into the merits.” <em>Id.</em>, at 292. The opinion contains no discussion of whether the provision was “ `technically jurisdictional' ” or what in the case would have “turn[ed] on that characterization.” <em>Arbaugh</em>, 546 U. S., at 512 (quoting <em>Steel Co.</em>, 523 U. S., at 91). There is nothing more than an “unrefined dispositio[n]” stating that a “threshold fact” must “b[e] established” for there to be “jurisdiction.” 546 U. S., at 511 (internal quotation marks omitted). This is a textbook “drive-by jurisdictional rulin[g]” that <em>Arbaugh</em> held “should <span class="pg" id="s3-p161" title="page 161 of the original">161</span>be accorded no precedential effect” as to whether a limit is jurisdictional. <em>Ibid.</em> (internal quotation marks omitted).</p>
+<p>In an effort to endow a fleeting statement with lasting significance, the Government and the dissent invoke historical context. <em>Block</em> described the Act's time limit as “a condition on the waiver of sovereign immunity.” 461 U. S., at 287. <em>Block</em> never stated, however, that the Act's time limit was therefore truly a limit on subject-matter jurisdiction. Yet according to the Government and the dissent, this went without saying because the case law at the time was “unmistakably” clear that conditions on waivers of immunity were subject-matter jurisdictional. <em>Post,</em> at 174.</p>
+<p>This reading is undermined by the very history on which it draws. In <em>Irwin</em> v. <em>Department of Veterans Affairs</em>, 498 U. S. 89 (1990), the Court surveyed the case law about whether “time limits in suits against the Government” are subject to “equitable tolling, waiver, and estoppel.” <em>Id.</em>, at 94. If associating time limits with waivers of sovereign immunity clearly made those limits jurisdictional, equitable exceptions would be just as clearly foreclosed. Instead, <em>Irwin</em> described the Court's approach to this question as “ad hoc” and “unpredictab[le],” “leaving open” whether equitable exceptions were available in any given case. <em>Id.</em>, at 94–95. Accordingly, even if “a statute of limitations [was] a condition on the waiver of sovereign immunity and thus must be strictly construed,” this still “d[id] not answer the question whether equitable tolling can be applied to this statute of limitations.” <em>Bowen</em> v. <em>City of New York</em>, 476 U. S. 467, 479 (1986). The Court instead analyzed the specific statutory scheme at issue, with varying results. <em>Ibid.</em> (citing <em>Honda</em> v. <em>Clark</em>, 386 U. S. 484 (1967)).</p>
+<p><em>Block</em> itself reflected the ambivalent nature of time limits for suits against the Government. <em>Block</em> recognized that “we should not construe such a time-bar provision unduly restrictively,” 461 U. S., at 287, which the Court quoted just a few years later in support of the proposition that some <span class="pg" id="s3-p162" title="page 162 of the original">162</span>such limits are subject to equitable tolling, <em>Bowen</em>, 476 U. S., at 479; see also <em>Irwin</em>, 498 U. S., at 94. Similarly, while <em>Block</em> cautioned that exceptions to such time limits will not “be lightly implied,” it did not hold they were categorically precluded. 461 U. S., at 287. <em>Block</em> thus acknowledged nothing more than a general proposition, echoed by <em>Irwin</em>, that “a condition to the waiver of sovereign immunity . . . must be strictly construed.” <em>Irwin</em>, 498 U. S., at 94. In <em>Irwin</em>, as elsewhere, this did not mean that time limits accompanying such waivers are necessarily jurisdictional.</p>
+<p>Next, the Government offers <em>United States</em> v. <em>Mottaz</em>, 476 U. S. 834 (1986). Once again, the question presented was not whether the Quiet Title Act's 12-year time limit was technically jurisdictional. The Court instead had to decide which of two possible statutory time bars applied. <em>Id.</em>, at 841. This analysis proceeded in two steps. First, the Court asked which of several federal statutes—“the Quiet Title Act; the Allotment Acts; [or] the Tucker Act”—was the “source of . . . jurisdiction” based on the nature of the plaintiff's claim and the relief sought. <em>Ibid.</em> (citations omitted). The Court explained that the Quiet Title Act applied because it was “ `the exclusive means by which adverse claimants could challenge the United States' title to real property,' ” and the plaintiff's claim fell “within the Act's scope.” <em>Id.</em>, at 841–842 (quoting <em>Block</em>, 461 U. S., at 286). Second, the Court “then determine[d] whether [the] suit was brought within the relevant limitations period.” <em>Mottaz</em>, 476 U. S., at 841. The Court concluded that the plaintiff had notice over 12 years before she sued, and “[h]er claim [was] therefore barred.” <em>Id.</em>, at 843–844. Neither step in the Court's analysis “turn[ed] on” whether any time limits were “ `technically jurisdictional.' ” <em>Arbaugh</em>, 546 U. S., at 512 (quoting <em>Steel Co.</em>, 523 U. S., at 91).</p>
+<p>General statements in the opinion about waivers of immunity cannot change this basic fact. At the outset of its analysis, the Court observed that “the terms of [the United <span class="pg" id="s3-p163" title="page 163 of the original">163</span>States'] waiver of sovereign immunity define the extent of the court's jurisdiction” and that “ `a statute of limitations . . . constitutes a condition on the waiver.' ” <em>Mottaz</em>, 476 U. S., at 841 (quoting <em>Block</em>, 461 U. S., at 287). Neither of these statements, however, played a role in determining which statute applied or whether the plaintiff brought her claim within 12 years after it accrued. There is also no indication in the opinion that the parties raised tolling or other equitable exceptions. As such, “ `the legal character' ” of the time limit was never “ `at issue.' ” <em>Reed Elsevier</em>, 559 U. S., at 169, n. 8 (quoting <em>Zipes</em>, 455 U. S., at 395).</p>
+<p>The Government also points to <em>Mottaz</em>'s procedural background section. Buried in a paragraph recounting a tangled procedural history, the Court remarked that the Government raised the Quiet Title Act, “apparently for the first time,” in a petition for rehearing. 476 U. S., at 840. This supposedly reveals that the Court <em>sua sponte</em> and <em>sub silentio</em> raised, considered, and rejected an argument that the Government had forfeited the Quiet Title Act's time limit, doing so all because the time limit was jurisdictional. Yet a background section is an unlikely place for such a ruling. This is particularly true where, as the word “apparently” indicates, the Court did not pause over its passing remark. Nor did the Court mention this again. Further, even if the Court had secretly considered forfeiture, there were nonjurisdictional reasons the Court could have concluded forfeiture did not apply.<sup class="fnr"><a id="s3-r5" href="#s3-n5">5</a></sup>Speculating about what this Court might have <span class="pg" id="s3-p164" title="page 164 of the original">164</span>thought about arguments it never addressed needlessly introduces confusion. This Court looks for definitive interpretations, not holdings in hiding.</p>
+<p>Finally, there is <em>United States</em> v. <em>Beggerly</em>, 524 U. S. 38 (1998). The Court in <em>Beggerly</em> addressed whether § 2409a(g) could be equitably tolled. <em>Id.</em>, at 48–49. Subject-matter jurisdiction, as noted, is never subject to equitable tolling. If <em>Block</em> and <em>Mottaz</em> had definitely interpreted § 2409a(g) as subject-matter jurisdictional, the Court could have just cited those cases and ended the matter without further discussion.<sup class="fnr"><a id="s3-r6" href="#s3-n6">6</a></sup>Instead, the Court parsed the provision's text and context, concluding that “by providing that the statute of limitations will not begin to run until the plaintiff `knew or should have known of the claim of the United States,' ” the law “has already effectively allowed for equitable tolling.” <em>Beggerly</em>, 524 U. S., at 48. Also relevant were “the unusually generous” time limit and the importance of clarity when it comes to land rights. <em>Id.</em>, at 48–49. This careful analysis of whether the text and context were consistent with equitable tolling would have been wasted words if the Court had already held that § 2409a(g) was jurisdictional. Precisely because the Court's inquiry was so focused on the particular nature of equitable tolling, <em>Beggerly</em> also did not address whether other exceptions such as “fraudulent concealment or equitable estoppel might apply,” as Justice Stevens noted in his concurrence. <em>Id.</em>, at 49. If anything, <em>Beggerly'</em>s discussion of nonjurisdictional reasons why tolling specifically was unavailable indicates the Court understood § 2409a(g) not to be jurisdictional. Thus, <em>Beggerly</em> undermines any notion that <em>Block</em> and <em>Mottaz</em> had put the jurisdictional question to rest.</p>
+<p><span class="pg" id="s3-p165" title="page 165 of the original">165</span>All three cases therefore point in one direction: This Court has never definitively interpreted § 2409a(g) as jurisdictional.<sup class="fnr"><a id="s3-r7" href="#s3-n7">7</a></sup>For similar reasons, the Government's argument about legislative acquiescence is unavailing. Congress amended the Act in 1986 to provide special rules for States in the wake of <em>Block.</em> See 100 Stat. 3351–3352. Then, as now, “none of our decisions establishe[d]” that the time limit was jurisdictional, so there was no definitive judicial interpretation to which Congress could acquiesce. <em>Alexander</em> v. <em>Sandoval</em>, 532 U. S. 275, 291 (2001). The mere existence of a decision employing the term jurisdiction without elaboration does not show Congress adopted that view. Nor can the Government's handful of lower court opinions stand in for a ruling of this Court, especially where some of these decisions contain only fleeting references to jurisdiction.<sup class="fnr"><a id="s3-r8" href="#s3-n8">8</a></sup>See <em>Boechler</em>, 596 U. S., at –––.</p>
+<p>All told, neither this Court's precedents nor Congress' actions established that § 2409a(g) is jurisdictional. While the Government warns that revisiting precedent results in uncertainty, no revisiting is necessary here. Far more uncertainty would follow from the Government's method of divining definitive interpretations from stray remarks.</p>
+<p class="sep">* * *</p>
+<p>Section 2409a(g) is a nonjurisdictional claims-processing rule. The Court of Appeals' contrary judgment is reversed, and the case is remanded for further proceedings consistent with this opinion.</p>
+<p><em>It is so ordered.</em></p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li id="s3-n1" value="1"><p>The parties dispute the precise implications on remand of a ruling that § 2409a(g) is nonjurisdictional. This Court takes no position on that dispute. <a class="back" href="#s3-r1" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n2" value="2"><p>Compare <em>Wisconsin Valley Improvement Co.</em> v. <em>United States</em>, 569 F. 3d 331, 333–335 (CA7 2009), with, <em>e. g.</em>, <em>Bank One Texas</em> v. <em>United States</em>, 157 F. 3d 397, 402–403 (CA5 1998); <em>Spirit Lake Tribe</em> v. <em>North Dakota</em>, 262 F. 3d 732, 737–738 (CA8 2001); <em>Kane County</em> v. <em>United States</em>, 772 F. 3d 1205, 1214–1215 (CA10 2014); and <em>F.E.B. Corp</em>. v. <em>United States</em>, 818 F. 3d 681, 685–686 (CA11 2016). <a class="back" href="#s3-r2" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n3" value="3"><p>The dissent maintains that this Court's settled clear statement rule does not apply here because § 2409a(g) is a condition on a waiver of sovereign immunity and “as such, this Court should interpret it as a jurisdictional bar to suit.” <em>Post,</em> at 166 (opinion of <span class="sc">Thomas</span>, J.). Over three decades ago, this Court in “<em>Irwin</em> . . . foreclose[d] th[e] argument” that “time limits” are jurisdictional simply because they “function as conditions on the Government's waiver of sovereign immunity.” <em>Wong</em>, 575 U. S., at 417–418 (citing <em>Irwin</em> v. <em>Department of Veterans Affairs</em>, 498 U. S. 89 (1990)). Contrary to the dissent's suggestion, <em>Irwin</em> extends to the “many statutes that create claims for relief against the United States or its agencies [and] apply only to Government defendants.” <em>Scarborough</em> v. <em>Principi</em>, 541 U. S. 401, 422 (2004); cf. also <em>Boechler</em> v. <em>Commissioner</em>, 596 U. S. ––– (2022) (applying clear statement rule to petitions for review of agency action). Notably, even the dissent in <em>Wong</em> did not engage in such an attempt to turn back the clock, instead arguing that the provision in that case was jurisdictional based on its specific text and history. See 575 U. S., at 423–428 (opinion of <span class="sc">Alito</span>, J.). <a class="back" href="#s3-r3" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n4" value="4"><p>Section 1346(f ) provides that “[t]he district courts shall have exclusive original jurisdiction of civil actions under section 2409a to quiet title to an estate or interest in real property in which an interest is claimed by the United States.” <a class="back" href="#s3-r4" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n5" value="5"><p>For example, the Court might have concluded forfeiture did not apply because of the confusing way the case had been pleaded, see Brief for United States in <em>United States</em> v. <em>Mottaz</em>, O. T. 1985, No. 85–546, p. 22, n. 11, or that any forfeiture argument had itself been forfeited. Or the Court might have, on reflection, agreed with the Government that it had sufficiently raised the Quiet Title Act prior to rehearing. <em>Ibid.</em> The dissent, <em>post,</em> at 173, n. 3, mistakes these observations as a suggestion that <em>Mottaz</em> actually took one of those approaches. Far from it. This Court is merely declining to read tea leaves to divine lost meanings about what the <em>Mottaz</em> Court might have thought about a forfeiture argument it never raised and over which “the parties did not cross swords.” <em>Arbaugh</em> v. <em>Y &amp; H Corp</em>., 546 U. S. 500, 512 (2006). <a class="back" href="#s3-r5" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n6" value="6"><p>The Court was not unaware of <em>Block</em>, quoting it for a different point in the very same section. <em>Beggerly,</em> 524 U. S., at 48. <a class="back" href="#s3-r6" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n7" value="7"><p>The dissent invokes a fourth case, <em>United States</em> v. <em>Dalm</em>, 494 U. S. 596 (1990), which offers no more support. <em>Dalm</em> involved a separate provision of a separate statute, see <em>id.</em>, at 601–602, and cannot render § 2490a(g) jurisdictional when Quiet Title Act cases like <em>Block</em>, <em>Mottaz</em>, and <em>Beggerly</em> failed to do so. <a class="back" href="#s3-r7" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n8" value="8"><p>See <em>Fulcher</em> v. <em>United States</em>, 696 F. 2d 1073, 1078 (CA4 1982). <a class="back" href="#s3-r8" aria-label="Back to the text">↩</a></p></li>
+</ol></aside></section>
+<section id="s4" class="op op-dissenting"><h2>Justice Thomas, dissenting</h2>
+<p class="byline">Justice Thomas, with whom The Chief Justice and Justice Alito join, dissenting.</p>
+<p>The doctrine of sovereign immunity bars suits against the United States. But, in the Quiet Title Act of 1972, Congress waived this immunity and consented to suits against the United States in order to determine the status of disputed property. 28 U. S. C. § 2409a. Congress conditioned this consent on, among other things, a 12-year statute of limitations: “Any civil action under this section, except for an action brought by a State, shall be barred unless it is commenced within twelve years of the date upon which it accrued.” § 2409a(g). This Court has long construed such conditions on waivers of sovereign immunity as jurisdictional. And, it has acknowledged the jurisdictional nature of the Quiet Title Act's statute of limitations in several precedents.</p>
+<p>In holding that § 2409a(g) is not jurisdictional, the majority commits two critical errors. First, it applies the same interpretive approach to a condition on a waiver of sovereign immunity that it would apply to any run-of-the-mill procedural rule. Second, by reading the Court's prior Quiet Title Act precedents in this way, the Court disregards their express recognition of the jurisdictional character of the Act's time bar. Accordingly, I respectfully dissent.</p>
+<h3 class="oh">I</h3>
+<p>This Court's skepticism of the jurisdictional character of procedural bars does not extend to conditions on a waiver of sovereign immunity. In the context of a waiver of sovereign immunity, the Court presumes that procedural limitations are jurisdictional. The Act's time bar is one such provision, and, as such, this Court should interpret it as a jurisdictional bar to suit.</p>
+<p>As a sovereign, the United States “is immune from suit save as it consents to be sued, . . . and the terms of its consent<span class="pg" id="s4-p167" title="page 167 of the original">167</span> to be sued in any court define that court's jurisdiction to entertain the suit.” <em>United States</em> v. <em>Sherwood</em>, 312 U. S. 584, 586 (1941); see also <em>Lehman</em> v. <em>Nakshian</em>, 453 U. S. 156, 160 (1981); <em>United States</em> v. <em>Mitchell</em>, 463 U. S. 206, 212 (1983) (describing this principle as “axiomatic”). Consequently, “[s]overeign immunity is by nature jurisdictional.” <em>Henderson</em> v. <em>United States</em>, 517 U. S. 654, 675 (1996) (<span class="sc">Thomas</span>, J., dissenting). This principle is longstanding, and the majority does not dispute it. See <em>ante</em>, at 161.</p>
+<p>“A necessary corollary of this rule,” however, “is that when Congress attaches conditions to legislation waiving the sovereign immunity of the United States, those conditions must be strictly observed, and exceptions thereto are not to be lightly implied.” <em>Block</em> v. <em>North Dakota ex rel. Board of Univ. and School Lands</em>, 461 U. S. 273, 287 (1983); see also <em>United States</em> v. <em>Nordic Village, Inc.</em>, 503 U. S. 30, 34 (1992) (stating that a waiver of sovereign immunity “must be construed strictly in favor of the sovereign” and “not enlarge[d] . . . beyond what the language requires” (internal quotation marks omitted)). Thus, “in many cases this Court has read procedural rules embodied in statutes waiving immunity strictly, with an eye to effectuating a restrictive legislative purpose when Congress relinquishes sovereign immunity.” <em>Honda</em> v. <em>Clark</em>, 386 U. S. 484, 501 (1967). In <em>United States</em> v. <em>Dalm</em>, 494 U. S. 596 (1990), the Court reaffirmed this “settled principl[e]” in the specific context of “[a] statute of limitations requiring that a suit against the Government be brought within a certain time period.” <em>Id.,</em> at 608. Such a requirement, the Court explained, “is one of ” the “terms of [the United States'] consent to be sued” and, therefore, “define[s] th[e] court's <em>jurisdiction</em> to entertain the suit.” <em>Ibid.</em> (emphasis added; internal quotation marks omitted).</p>
+<p>Those straightforward principles resolve this case. The Quiet Title Act partially waives the immunity of the United States by granting federal district courts “exclusive original <span class="pg" id="s4-p168" title="page 168 of the original">168</span>jurisdiction of civil actions under section 2409a to quiet title to an estate or interest in real property in which an interest is claimed by the United States.” 28 U. S. C. § 1346(f ). This provision's cross-reference to § 2409a incorporates several conditions on this waiver. For example, the Act specifies that the United States “shall not be disturbed in possession or control” of contested land “pending a final judgment or decree, the conclusion of any appeal therefrom, and sixty days,” and “if the final determination [is] adverse,” the United States shall have the right to purchase the land for just compensation. § 2409a(b). Similarly, the Act provides that any “civil action against the United States under this section shall be tried by the court without a jury” and bars suits based on adverse possession. <span class="sc">§</span> § 2409a(f ), (n). It also incorporates the time bar at issue here: “Any civil action under this section, except for an action brought by a State, shall be barred unless it is commenced within twelve years of the date upon which it accrued. Such action shall be deemed to have accrued on the date the plaintiff or his predecessor in interest knew or should have known of the claim of the United States.” § 2409a(g).</p>
+<p>These provisions carefully delineate the scope of the Act's limited waiver of sovereign immunity, establishing conditions on which the United States has consented to be sued. The United States has not, for example, consented to a jury trial or to be sued on an adverse possession theory. Similarly, and just as critically, it has not consented to be sued (except by a State) once the 12-year statute of limitations has passed.</p>
+<p>The majority acknowledges that these restrictions must be strictly construed. See <em>ante</em>, at 161. Yet, it concludes that the time bar should not be considered jurisdictional. In another context, the majority's conclusion is arguably plausible. But, in this context, it is simply incorrect. As a condition on the United States' limited waiver of sovereign immunity <span class="pg" id="s4-p169" title="page 169 of the original">169</span>in the Quiet Title Act, the Act's statute of limitations is jurisdictional. Moreover, in light of this Court's longstanding case law, the jurisdictional character of the time bar would have been well understood by the 1972 Congress. See <em>ante</em>, at 157 (suggesting that the Court should “avoid judicial interpretations that undermine Congress' judgment” when interpreting arguably jurisdictional provisions).</p>
+<p>With no answer to the Court's longstanding view that conditions on waivers of sovereign immunity are jurisdictional, the majority seeks refuge in <em>Irwin</em> v. <em>Department of Veterans Affairs</em>, 498 U. S. 89 (1990). <em>Ante</em>, at 161. <em>Irwin</em> considered whether equitable tolling should apply to the time to file an employment-discrimination lawsuit against the Government under Title VII of the Civil Rights Act of 1964. There, the Court reasoned that “[t]ime requirements in lawsuits between private litigants are customarily subject to `equitable tolling,' ” and that “[o]nce Congress has made . . . a waiver [of sovereign immunity], . . . making the rule of equitable tolling applicable to suits against the Government, in the same way that it is applicable to private suits, amounts to little, if any, broadening of the congressional waiver.” <em>Irwin</em>, 498 U. S., at 95. It thus concluded that “[s]uch a principle is likely to be a realistic assessment of legislative intent as well as a practically useful principle of interpretation.” <em>Ibid.</em></p>
+<p>The majority suggests that <em>Irwin</em> stands for the proposition that a condition on a waiver of sovereign immunity must be strictly construed, but then goes on to argue that it is not necessarily jurisdictional. <em>Ante</em>, at 161. However, our decision in <em>United States</em> v. <em>Williams</em>, 514 U. S. 527 (1995), decided five years after <em>Irwin</em>, demonstrates that statutes of limitations in suits brought against the United States are no less jurisdictional now than they were before <em>Irwin</em>. In <em>Williams</em>, the Court cited <em>Dalm</em>'s holding that failure to file a claim against the Government for a federal tax refund <span class="pg" id="s4-p170" title="page 170 of the original">170</span>within the statute-of-limitations period operates as a <em>jurisdictional</em> bar to suit, and the Court reaffirmed that a statute of limitations “narrow[s] the waiver of sovereign immunity.” 514 U. S., at 534, n. 7 (citing 494 U. S., at 602).<sup class="fnr"><a id="s4-r1" href="#s4-n1">1</a></sup><em>Irwin</em>, thus, does not disrupt this Court's long held understanding that conditions on waivers of sovereign immunity are presumptively jurisdictional.</p>
+<h3 class="oh">II</h3>
+<p>Regardless of whether conditions on waivers of sovereign immunity remain jurisdictional post-<em>Irwin</em>, we have said that, where the Court has offered a “definitive earlier interpretation” of a statutory time bar as jurisdictional, we will continue to treat it as jurisdictional unless and until Congress directs otherwise. <em>John R. Sand &amp; Gravel Co.</em> v. <em>United States</em>, 552 U. S. 130, 137–138 (2008); see also <em>United States</em> v. <em>Kwai Fun Wong</em>, 575 U. S. 402, 416 (2015) (reaffirming <em>John R. Sand</em>'s rule). And, we have emphasized that <em>Irwin</em> “does not imply revisiting past precedents.” <em>John R. Sand</em>, 552 U. S., at 137.</p>
+<p>The <em>John R. Sand</em> standard is amply met here. This Court concluded in <em>Block</em> v. <em>North Dakota ex rel. Board of Univ. and School Lands</em>, 461 U. S. 273 (1983), and again in <em>United States</em> v. <em>Mottaz</em>, 476 U. S. 834 (1986), that compliance with the Quiet Title Act's 12-year time bar is a jurisdictional prerequisite.</p>
+<p><span class="pg" id="s4-p171" title="page 171 of the original">171</span><em>Block</em> considered whether the Act's statute of limitations applied to state litigants.<sup class="fnr"><a id="s4-r2" href="#s4-n2">2</a></sup>There, the Government had argued that the plaintiffs' failure to sue within the 12-year deadline established by the statute meant that the “district court lacked jurisdiction” to consider the plaintiffs' claims. Brief for Petitioners in <em>Block</em> v. <em>North Dakota ex rel. Board of Univ. and School Lands</em>, O. T. 1982, No. 81–2337, p. 5. In assessing this argument, the Court made clear that it understood the Act's statute of limitations to arise in the context of a waiver of sovereign immunity, discussing at some length the tradeoffs proposed as Congress deliberated over the scope of the Act. See 461 U. S., at 280–285. The Court also prominently invoked <em>Sherwood</em> and <em>Lehman</em>, cases discussing the jurisdictional nature of sovereign-immunity waivers, to explain why the limitations provision must be “strictly observed.” <em>Block</em>, 461 U. S., at 287. After concluding that States were not exempt from the time bar, the Court stated that, “[i]f North Dakota's suit is barred by [the statute of limitations], the courts below had no jurisdiction to inquire into the merits,” and it remanded for the lower courts to determine whether the suit was so barred. <em>Id.</em>, at 292–293. This statement that the time bar went to “jurisdiction” was an integral part of the Court's instructions on remand. Moreover, on remand, the Eighth Circuit understood the Court to have used the term “jurisdiction” to refer to a court's authority to hear the case. See <em>North Dakota ex rel. Board of Univ. and School Lands</em> v. <em>Block</em>, 789 <span class="pg" id="s4-p172" title="page 172 of the original">172</span>F. 2d 1308, 1310 (CA8 1986) (noting that neither the Eighth Circuit nor the District Court had “ `jurisdiction to inquire into the merits' ” because the Act's “statute of limitations is jurisdictional”).</p>
+<p>In <em>Mottaz</em>, three years after <em>Block</em>, the Court again considered the jurisdictional nature of the Act's time bar. In the lower courts, the Government initially defended against a “somewhat opaque” set of claims by relying on the general 6-year statute of limitations for actions against the United States, 28 U. S. C. § 2401(a). <em>Mottaz</em>, 476 U. S., at 839. The District Court held that the suit was time barred under § 2401(a), but the Eighth Circuit reversed and remanded. <em>Id.</em>, at 838–839. The Government then argued, for the first time, in its petition for rehearing in the Court of Appeals that the suit arose under the Quiet Title Act and was thus subject to the Act's 12-year statute of limitations. <em>Id.</em>, at 840–841. This Court granted certiorari “to consider whether [the] respondent's claim was barred under either [the 6-year bar] or [the 12-year bar].” <em>Id.</em>, at 841.</p>
+<p>In addressing these, the Court cited <em>Sherwood</em> for the proposition that, “[w]hen the United States consents to be sued, the terms of its waiver of sovereign immunity define the extent of the court's jurisdiction.” 476 U. S., at 841. It then quoted <em>Block</em> for the proposition that “ `[w]hen waiver legislation contains a statute of limitations, the limitations provision constitutes a condition on the waiver of sovereign immunity,' ” treating <em>Block</em> as precedential on this point. 476 U. S., at 841. The Court also characterized the statute of limitations as a “central condition of the consent given by the Act.” <em>Id.</em>, at 843 (citing <em>Block</em>, 461 U. S., at 283–285). As in <em>Block</em>, this reasoning was a critical and substantial part of the Court's opinion. The Court ultimately concluded that the plaintiff's claim was untimely and thus barred under the Act. 476 U. S., at 844. The Court further concluded that no other statute “conferred jurisdiction” on the lower courts to adjudicate her claim. <em>Id.</em>, at 841; see also <em>id.</em>, 844–851.<span class="pg" id="s4-p173" title="page 173 of the original">173</span> In deciding the case, the Court noticeably did not engage in a forfeiture analysis, underscoring that it understood the Government's late-raised statute-of-limitations argument to be jurisdictional and, thus, capable of being raised at any point in the proceedings. See <em>Arbaugh</em> v. <em>Y &amp; H Corp.</em>, 546 U. S. 500, 514 (2006) (explaining that jurisdictional arguments cannot be forfeited).<sup class="fnr"><a id="s4-r3" href="#s4-n3">3</a></sup></p>
+<p><em>United States</em> v. <em>Beggerly</em>, 524 U. S. 38 (1998), on which the majority relies, see <em>ante</em>, at 164, is not to the contrary. In that case, the Court considered whether the Quiet Title Act's time bar may be equitably tolled. After noting that the Court of Appeals had considered the statute of limitations jurisdictional, see <em>Beggerly</em>, 524 U. S., at 42, the Court turned to the language of the Act. The Court emphasized that the 12-year statute of limitations began to accrue when the litigants knew or should have known of the claim of the United States, and it observed that the provision's text “has already effectively allowed for equitable tolling.” <em>Id.</em>, at 48 (citing <em>Irwin</em>, 498 U. S., at 96). “Given this fact, and the unusually generous nature of the [Act]'s limitations time period,” the Court concluded that “extension of the statutory period by additional equitable tolling would be unwarranted.” 524 U. S., at 48–49. Thus, while <em>Beggerly</em> might be read to view the Act's time bar as <em>potentially</em> susceptible to tolling (and thus, by inference, nonjurisdictional), the Court did not hold <span class="pg" id="s4-p174" title="page 174 of the original">174</span>that the bar <em>actually</em> could be tolled. Rather, the Court held the opposite. <em>Beggerly</em> is therefore, at best, ambiguous with respect to the jurisdictional nature of the time bar. As such, it does not overcome the Court's clear prior view set out in both <em>Block</em> and <em>Mottaz</em>.</p>
+<p>For the majority, the Court's statements in <em>Block</em> and <em>Mottaz</em> are not “definitiv[e]” enough to satisfy <em>John R. Sand</em>. <em>Ante,</em> at 165. But, the import of the Court's references to “jurisdiction” in <em>Block</em> and <em>Mottaz</em> would have been clear at the time. A court in the 1980s discussing a provision of a statute as a waiver of sovereign immunity, citing <em>Sherwood</em> (and, later, <em>Block</em>), invoked a well-known set of ideas that readers at the time unmistakably associated with the concept of jurisdiction. In fact, the Court in <em>Dalm</em> cited <em>Block</em> and <em>Mottaz</em>—and no other cases—for the proposition that conditions on waivers of sovereign immunity “define th[e] court's <em>jurisdiction</em> to entertain the suit.” 494 U. S., at 608 (emphasis added; internal quotation marks omitted). The Court's precedents must be understood in that context.</p>
+<p class="sep">* * *</p>
+<p>The Quiet Title Act's statute of limitations functions as a condition on a waiver of sovereign immunity, and is therefore jurisdictional. This Court has repeatedly characterized the Act's time bar as jurisdictional, and that interpretation remains authoritative under <em>John R. Sand</em>. Accordingly, I respectfully dissent.</p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li id="s4-n1" value="1"><p>I have previously noted that <em>Irwin</em> “does perhaps narrow the scope of the sovereign immunity canon.” <em>Scarborough</em> v. <em>Principi</em>, 541 U. S. 401, 426 (2004) (dissenting opinion). But, it “does so only in <em>limited circumstances</em>,” such as “where the Government is made subject to suit to the same extent and in the same manner as private parties are.” <em>Ibid.</em> (emphasis added). This is not one of those circumstances. The Quiet Title Act's framework <em>exclusively</em> governs actions to quiet title against the United States. And, it includes a number of conditions favorable to the Federal Government that would not apply in traditional quiet title actions among private litigants. <a class="back" href="#s4-r1" aria-label="Back to the text">↩</a></p></li>
+<li id="s4-n2" value="2"><p>At the time of the Court's decision, the Act's statute of limitations read as follows: “Any civil action under this section shall be barred unless it is commenced within twelve years of the date upon which it accrued. Such action shall be deemed to have accrued on the date the plaintiff or his predecessor in interest knew or should have known of the claim of the United States.” 28 U. S. C. §2409a(f) (1982 ed.). Congress subsequently amended the provision to add its current language excepting actions brought by States. <a class="back" href="#s4-r2" aria-label="Back to the text">↩</a></p></li>
+<li id="s4-n3" value="3"><p>The majority suggests that <em>United States</em> v. <em>Mottaz</em>, 476 U. S. 834, may have (<em>sub silentio</em>) concluded that forfeiture did not apply in that case. See <em>ante</em>, at 163, and n. 5. But, presumably, such a conclusion would have merited mention in the Court's opinion. To be sure, the majority notes that the Government had raised the statute of limitations “ `<em>apparently</em> for the first time' ” in a petition for rehearing. <em>Ante</em>, at 163 (quoting <em>Mottaz</em>, 476 U. S., at 840 (emphasis added)). However, the use of the word “apparently” does not indicate that the Court “did not pause over its passing remark,” as the majority contends. See <em>ante</em>, at 163. To the contrary, it suggests that the Court did not need to conduct a forfeiture analysis, because the provision was jurisdictional in any event (and thus not subject to forfeiture). <a class="back" href="#s4-r3" aria-label="Back to the text">↩</a></p></li>
+</ol></aside></section><p class='back'><a href='/opinions/'>&larr; All opinions</a> · <a href='/justices/ot2022.html'>The Justices, October Term 2022 &rarr;</a></p></main></body>
+</html>
+

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/terms/" xmlns:opds="http://opds-spec.org/2010/catalog">
+<id>https://supremecourt.report/opinions/opds/2021.xml</id>
+<title>Opinions, October Term 2021</title>
+<updated>2022-06-30T00:00:00Z</updated>
+<author><name>Supreme Court Report</name><uri>https://supremecourt.report/</uri></author>
+<link rel="self" href="https://supremecourt.report/opinions/opds/2021.xml" type="application/atom+xml;profile=opds-catalog;kind=acquisition"/>
+<link rel="start" href="https://supremecourt.report/opinions/opds.xml" type="application/atom+xml;profile=opds-catalog;kind=navigation"/>
+<link rel="up" href="https://supremecourt.report/opinions/opds.xml" type="application/atom+xml;profile=opds-catalog;kind=navigation"/>
+<entry>
+<id>urn:supremecourt-report:opinion:2021:21-954</id>
+<title>Biden v. Texas</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2022-06-30T00:00:00Z</updated>
+<published>2022-06-30T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2022-06-30</dc:issued>
+<category term="ot2021" label="October Term 2021"/>
+<summary type="text">No. 21-954 · decided June 30, 2022 · 597 U. S. 785 · 16,535 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2021/21-954.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2021/21-954.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2021/21-954.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2021:20-1530</id>
+<title>West Virginia v. Epa</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2022-06-30T00:00:00Z</updated>
+<published>2022-06-30T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2022-06-30</dc:issued>
+<category term="ot2021" label="October Term 2021"/>
+<summary type="text">No. 20-1530 · decided June 30, 2022 · 597 U. S. 697 · 26,344 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2021/20-1530.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2021/20-1530.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2021/20-1530.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2021:21-429</id>
+<title>Oklahoma v. Castro-Huerta</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2022-06-29T00:00:00Z</updated>
+<published>2022-06-29T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2022-06-29</dc:issued>
+<category term="ot2021" label="October Term 2021"/>
+<summary type="text">No. 21-429 · decided June 29, 2022 · 597 U. S. 629 · 19,116 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2021/21-429.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2021/21-429.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2021/21-429.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2021:20-603</id>
+<title>Torres v. Texas Department of Public Safety</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2022-06-29T00:00:00Z</updated>
+<published>2022-06-29T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2022-06-29</dc:issued>
+<category term="ot2021" label="October Term 2021"/>
+<summary type="text">No. 20-603 · decided June 29, 2022 · 597 U. S. 580 · 14,474 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2021/20-603.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2021/20-603.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2021/20-603.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2021:21-418</id>
+<title>Kennedy v. Bremerton School Dist.</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2022-06-27T00:00:00Z</updated>
+<published>2022-06-27T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2022-06-27</dc:issued>
+<category term="ot2021" label="October Term 2021"/>
+<summary type="text">No. 21-418 · decided June 27, 2022 · 597 U. S. 507 · 20,798 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2021/21-418.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2021/21-418.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2021/21-418.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2021:20-1650</id>
+<title>Concepcion v. United States</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2022-06-27T00:00:00Z</updated>
+<published>2022-06-27T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2022-06-27</dc:issued>
+<category term="ot2021" label="October Term 2021"/>
+<summary type="text">No. 20-1650 · decided June 27, 2022 · 597 U. S. 481 · 7,912 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2021/20-1650.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2021/20-1650.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2021/20-1650.html" type="text/html"/>
+</entry>
+</feed>
+

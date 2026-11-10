@@ -32,8 +32,22 @@
 <id>https://supremecourt.report/opinions/opds/2023.xml</id>
 <title>October Term 2023</title>
 <updated>2024-07-01T00:00:00Z</updated>
-<content type="text">2 opinions</content>
+<content type="text">59 opinions</content>
 <link rel="subsection" href="https://supremecourt.report/opinions/opds/2023.xml" type="application/atom+xml;profile=opds-catalog;kind=acquisition"/>
+</entry>
+<entry>
+<id>https://supremecourt.report/opinions/opds/2022.xml</id>
+<title>October Term 2022</title>
+<updated>2023-06-30T00:00:00Z</updated>
+<content type="text">57 opinions</content>
+<link rel="subsection" href="https://supremecourt.report/opinions/opds/2022.xml" type="application/atom+xml;profile=opds-catalog;kind=acquisition"/>
+</entry>
+<entry>
+<id>https://supremecourt.report/opinions/opds/2021.xml</id>
+<title>October Term 2021</title>
+<updated>2022-06-30T00:00:00Z</updated>
+<content type="text">6 opinions</content>
+<link rel="subsection" href="https://supremecourt.report/opinions/opds/2021.xml" type="application/atom+xml;profile=opds-catalog;kind=acquisition"/>
 </entry>
 </feed>
 

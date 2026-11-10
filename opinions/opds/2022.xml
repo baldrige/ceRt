@@ -1,0 +1,809 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/terms/" xmlns:opds="http://opds-spec.org/2010/catalog">
+<id>https://supremecourt.report/opinions/opds/2022.xml</id>
+<title>Opinions, October Term 2022</title>
+<updated>2023-06-30T00:00:00Z</updated>
+<author><name>Supreme Court Report</name><uri>https://supremecourt.report/</uri></author>
+<link rel="self" href="https://supremecourt.report/opinions/opds/2022.xml" type="application/atom+xml;profile=opds-catalog;kind=acquisition"/>
+<link rel="start" href="https://supremecourt.report/opinions/opds.xml" type="application/atom+xml;profile=opds-catalog;kind=navigation"/>
+<link rel="up" href="https://supremecourt.report/opinions/opds.xml" type="application/atom+xml;profile=opds-catalog;kind=navigation"/>
+<entry>
+<id>urn:supremecourt-report:opinion:2022:22-535</id>
+<title>Department of Education v. Brown</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2023-06-30T00:00:00Z</updated>
+<published>2023-06-30T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2023-06-30</dc:issued>
+<category term="ot2022" label="October Term 2022"/>
+<summary type="text">No. 22-535 · decided June 30, 2023 · 600 U. S. 551 · 5,220 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/22-535.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/22-535.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2022/22-535.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2022:22-506</id>
+<title>Biden v. Nebraska</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2023-06-30T00:00:00Z</updated>
+<published>2023-06-30T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2023-06-30</dc:issued>
+<category term="ot2022" label="October Term 2022"/>
+<summary type="text">No. 22-506 · decided June 30, 2023 · 600 U. S. 477 · 22,445 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/22-506.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/22-506.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2022/22-506.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2022:21-476</id>
+<title>Creative LLC v. Elenis</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2023-06-30T00:00:00Z</updated>
+<published>2023-06-30T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2023-06-30</dc:issued>
+<category term="ot2022" label="October Term 2022"/>
+<summary type="text">No. 21-476 · decided June 30, 2023 · 600 U. S. 570 · 20,764 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-476.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-476.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2022/21-476.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2022:22-174</id>
+<title>Gerald E. Groff v. Louis DeJoy, Postmaster General</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2023-06-29T00:00:00Z</updated>
+<published>2023-06-29T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2023-06-29</dc:issued>
+<category term="ot2022" label="October Term 2022"/>
+<summary type="text">No. 22-174 · decided June 29, 2023 · 600 U. S. 447 · 8,133 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/22-174.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/22-174.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2022/22-174.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2022:21-707</id>
+<title>Students for Fair Admissions, Inc. v. President</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2023-06-29T00:00:00Z</updated>
+<published>2023-06-29T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2023-06-29</dc:issued>
+<category term="ot2022" label="October Term 2022"/>
+<summary type="text">No. 21-707 · decided June 29, 2023 · 600 U. S. ___ · 64,027 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-707.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-707.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2022/21-707.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2022:21-1043</id>
+<title>Abitron Austria GmbH, et al. v. Hetronic International, Inc.</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2023-06-29T00:00:00Z</updated>
+<published>2023-06-29T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2023-06-29</dc:issued>
+<category term="ot2022" label="October Term 2022"/>
+<summary type="text">No. 21-1043 · decided June 29, 2023 · 600 U. S. 412 · 10,208 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-1043.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-1043.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2022/21-1043.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2022:20-1199</id>
+<title>Students for Fair Admissions, Inc. v. President</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2023-06-29T00:00:00Z</updated>
+<published>2023-06-29T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2023-06-29</dc:issued>
+<category term="ot2022" label="October Term 2022"/>
+<summary type="text">No. 20-1199 · decided June 29, 2023 · 600 U. S. 181 · 64,282 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/20-1199.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/20-1199.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2022/20-1199.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2022:22-138</id>
+<title>Counterman v. Colorado</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2023-06-27T00:00:00Z</updated>
+<published>2023-06-27T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2023-06-27</dc:issued>
+<category term="ot2022" label="October Term 2022"/>
+<summary type="text">No. 22-138 · decided June 27, 2023 · 600 U. S. 66 · 15,567 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/22-138.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/22-138.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2022/22-138.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2022:21-1271</id>
+<title>Moore v. Harper</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2023-06-27T00:00:00Z</updated>
+<published>2023-06-27T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2023-06-27</dc:issued>
+<category term="ot2022" label="October Term 2022"/>
+<summary type="text">No. 21-1271 · decided June 27, 2023 · 600 U. S. 1 · 18,712 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-1271.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-1271.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2022/21-1271.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2022:21-1168</id>
+<title>Mallory v. Norfolk Southern R. Co.</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2023-06-27T00:00:00Z</updated>
+<published>2023-06-27T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2023-06-27</dc:issued>
+<category term="ot2022" label="October Term 2022"/>
+<summary type="text">No. 21-1168 · decided June 27, 2023 · 600 U. S. 122 · 16,120 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-1168.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-1168.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2022/21-1168.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2022:22-58</id>
+<title>United States v. Texas</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2023-06-23T00:00:00Z</updated>
+<published>2023-06-23T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2023-06-23</dc:issued>
+<category term="ot2022" label="October Term 2022"/>
+<summary type="text">No. 22-58 · decided June 23, 2023 · 599 U. S. 670 · 19,961 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/22-58.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/22-58.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2022/22-58.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2022:22-196</id>
+<title>Samia v. United States</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2023-06-23T00:00:00Z</updated>
+<published>2023-06-23T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2023-06-23</dc:issued>
+<category term="ot2022" label="October Term 2022"/>
+<summary type="text">No. 22-196 · decided June 23, 2023 · 599 U. S. 635 · 10,891 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/22-196.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/22-196.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2022/22-196.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2022:22-179</id>
+<title>United States v. Hansen</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2023-06-23T00:00:00Z</updated>
+<published>2023-06-23T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2023-06-23</dc:issued>
+<category term="ot2022" label="October Term 2022"/>
+<summary type="text">No. 22-179 · decided June 23, 2023 · 599 U. S. 762 · 14,938 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/22-179.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/22-179.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2022/22-179.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2022:22-105</id>
+<title>Coinbase, Inc. v. Bielski</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2023-06-23T00:00:00Z</updated>
+<published>2023-06-23T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2023-06-23</dc:issued>
+<category term="ot2022" label="October Term 2022"/>
+<summary type="text">No. 22-105 · decided June 23, 2023 · 599 U. S. 736 · 7,229 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/22-105.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/22-105.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2022/22-105.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2022:22-381</id>
+<title>Yegiazaryan v. Smagin</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2023-06-22T00:00:00Z</updated>
+<published>2023-06-22T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2023-06-22</dc:issued>
+<category term="ot2022" label="October Term 2022"/>
+<summary type="text">No. 22-381 · decided June 22, 2023 · 599 U. S. 533 · 6,630 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/22-381.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/22-381.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2022/22-381.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2022:22-23</id>
+<title>Pugin v. Garland</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2023-06-22T00:00:00Z</updated>
+<published>2023-06-22T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2023-06-22</dc:issued>
+<category term="ot2022" label="October Term 2022"/>
+<summary type="text">No. 22-23 · decided June 22, 2023 · 599 U. S. 600 · 9,617 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/22-23.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/22-23.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2022/22-23.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2022:21-857</id>
+<title>Jones v. Hendrix</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2023-06-22T00:00:00Z</updated>
+<published>2023-06-22T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2023-06-22</dc:issued>
+<category term="ot2022" label="October Term 2022"/>
+<summary type="text">No. 21-857 · decided June 22, 2023 · 599 U. S. 465 · 18,455 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-857.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-857.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2022/21-857.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2022:21-1484</id>
+<title>Arizona v. Navajo Nation</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2023-06-22T00:00:00Z</updated>
+<published>2023-06-22T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2023-06-22</dc:issued>
+<category term="ot2022" label="October Term 2022"/>
+<summary type="text">No. 21-1484 · decided June 22, 2023 · 599 U. S. 555 · 14,665 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-1484.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-1484.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2022/21-1484.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2022:22-49</id>
+<title>Lora v. United States</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2023-06-16T00:00:00Z</updated>
+<published>2023-06-16T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2023-06-16</dc:issued>
+<category term="ot2022" label="October Term 2022"/>
+<summary type="text">No. 22-49 · decided June 16, 2023 · 599 U. S. 453 · 3,057 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/22-49.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/22-49.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2022/22-49.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2022:21-1052</id>
+<title>United States, ex rel. Jesse Polansky, M.D., M.P.H. v. Executive Health Resources, Inc., et al.</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2023-06-16T00:00:00Z</updated>
+<published>2023-06-16T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2023-06-16</dc:issued>
+<category term="ot2022" label="October Term 2022"/>
+<summary type="text">No. 21-1052 · decided June 16, 2023 · 599 U. S. 419 · 10,714 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-1052.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-1052.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2022/21-1052.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2022:22-227</id>
+<title>Chippewa Indians v. Coughlin</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2023-06-15T00:00:00Z</updated>
+<published>2023-06-15T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2023-06-15</dc:issued>
+<category term="ot2022" label="October Term 2022"/>
+<summary type="text">No. 22-227 · decided June 15, 2023 · 599 U. S. 382 · 10,795 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/22-227.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/22-227.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2022/22-227.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2022:21-376</id>
+<title>Haaland v. Brackeen</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2023-06-15T00:00:00Z</updated>
+<published>2023-06-15T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2023-06-15</dc:issued>
+<category term="ot2022" label="October Term 2022"/>
+<summary type="text">No. 21-376 · decided June 15, 2023 · 599 U. S. 255 · 37,958 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-376.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-376.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2022/21-376.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2022:21-1576</id>
+<title>Smith v. United States</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2023-06-15T00:00:00Z</updated>
+<published>2023-06-15T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2023-06-15</dc:issued>
+<category term="ot2022" label="October Term 2022"/>
+<summary type="text">No. 21-1576 · decided June 15, 2023 · 599 U. S. 236 · 5,597 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-1576.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-1576.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2022/21-1576.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2022:22-148</id>
+<title>Jack Daniel's Properties, Inc. v. VIP Products LLC</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2023-06-08T00:00:00Z</updated>
+<published>2023-06-08T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2023-06-08</dc:issued>
+<category term="ot2022" label="October Term 2022"/>
+<summary type="text">No. 22-148 · decided June 8, 2023 · 599 U. S. 140 · 7,672 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/22-148.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/22-148.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2022/22-148.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2022:22-10</id>
+<title>Dubin v. United States</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2023-06-08T00:00:00Z</updated>
+<published>2023-06-08T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2023-06-08</dc:issued>
+<category term="ot2022" label="October Term 2022"/>
+<summary type="text">No. 22-10 · decided June 8, 2023 · 599 U. S. 110 · 9,212 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/22-10.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/22-10.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2022/22-10.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2022:21-806</id>
+<title>Cty. v. Talevski</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2023-06-08T00:00:00Z</updated>
+<published>2023-06-08T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2023-06-08</dc:issued>
+<category term="ot2022" label="October Term 2022"/>
+<summary type="text">No. 21-806 · decided June 8, 2023 · 599 U. S. 166 · 19,616 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-806.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-806.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2022/21-806.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2022:21-1086</id>
+<title>Allen v. Milligan</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2023-06-08T00:00:00Z</updated>
+<published>2023-06-08T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2023-06-08</dc:issued>
+<category term="ot2022" label="October Term 2022"/>
+<summary type="text">No. 21-1086 · decided June 8, 2023 · 599 U. S. 1 · 29,932 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-1086.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-1086.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2022/21-1086.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2022:22-200</id>
+<title>Slack Technologies, LLC v. Pirani</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2023-06-01T00:00:00Z</updated>
+<published>2023-06-01T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2023-06-01</dc:issued>
+<category term="ot2022" label="October Term 2022"/>
+<summary type="text">No. 22-200 · decided June 1, 2023 · 598 U. S. 759 · 3,759 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/22-200.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/22-200.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2022/22-200.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2022:21-1449</id>
+<title>Glacier Northwest, Inc. v. Teamsters</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2023-06-01T00:00:00Z</updated>
+<published>2023-06-01T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2023-06-01</dc:issued>
+<category term="ot2022" label="October Term 2022"/>
+<summary type="text">No. 21-1449 · decided June 1, 2023 · 598 U. S. 771 · 13,175 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-1449.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-1449.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2022/21-1449.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2022:21-1326</id>
+<title>United States, et al., ex rel. Tracy Schutte, et al. v. SuperValu Inc., et al.</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2023-06-01T00:00:00Z</updated>
+<published>2023-06-01T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2023-06-01</dc:issued>
+<category term="ot2022" label="October Term 2022"/>
+<summary type="text">No. 21-1326 · decided June 1, 2023 · 598 U. S. 739 · 5,631 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-1326.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-1326.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2022/21-1326.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2022:22-210</id>
+<title>Dupree v. Younger</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2023-05-25T00:00:00Z</updated>
+<published>2023-05-25T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2023-05-25</dc:issued>
+<category term="ot2022" label="October Term 2022"/>
+<summary type="text">No. 22-210 · decided May 25, 2023 · 598 U. S. 729 · 3,051 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/22-210.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/22-210.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2022/22-210.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2022:22-166</id>
+<title>Tyler v. Hennepin County</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2023-05-25T00:00:00Z</updated>
+<published>2023-05-25T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2023-05-25</dc:issued>
+<category term="ot2022" label="October Term 2022"/>
+<summary type="text">No. 22-166 · decided May 25, 2023 · 598 U. S. 631 · 5,847 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/22-166.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/22-166.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2022/22-166.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2022:21-454</id>
+<title>Sackett v. Epa</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2023-05-25T00:00:00Z</updated>
+<published>2023-05-25T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2023-05-25</dc:issued>
+<category term="ot2022" label="October Term 2022"/>
+<summary type="text">No. 21-454 · decided May 25, 2023 · 598 U. S. 651 · 23,275 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-454.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-454.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2022/21-454.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2022:21-869</id>
+<title>Andy Warhol Foundation for the Visual Arts, Inc. v. Lynn Goldsmith, et al.</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2023-05-18T00:00:00Z</updated>
+<published>2023-05-18T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2023-05-18</dc:issued>
+<category term="ot2022" label="October Term 2022"/>
+<summary type="text">No. 21-869 · decided May 18, 2023 · 598 U. S. 508 · 21,813 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-869.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-869.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2022/21-869.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2022:21-757</id>
+<title>Amgen Inc. v. Sanofi</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2023-05-18T00:00:00Z</updated>
+<published>2023-05-18T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2023-05-18</dc:issued>
+<category term="ot2022" label="October Term 2022"/>
+<summary type="text">No. 21-757 · decided May 18, 2023 · 598 U. S. 594 · 7,411 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-757.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-757.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2022/21-757.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2022:21-1599</id>
+<title>Polselli v. Irs</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2023-05-18T00:00:00Z</updated>
+<published>2023-05-18T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2023-05-18</dc:issued>
+<category term="ot2022" label="October Term 2022"/>
+<summary type="text">No. 21-1599 · decided May 18, 2023 · 598 U. S. 432 · 5,462 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-1599.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-1599.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2022/21-1599.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2022:21-1496</id>
+<title>Twitter, Inc. v. Taamneh</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2023-05-18T00:00:00Z</updated>
+<published>2023-05-18T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2023-05-18</dc:issued>
+<category term="ot2022" label="October Term 2022"/>
+<summary type="text">No. 21-1496 · decided May 18, 2023 · 598 U. S. 471 · 11,197 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-1496.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-1496.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2022/21-1496.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2022:21-1454</id>
+<title>Ohio Adjutant General's Dept. v. Flra</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2023-05-18T00:00:00Z</updated>
+<published>2023-05-18T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2023-05-18</dc:issued>
+<category term="ot2022" label="October Term 2022"/>
+<summary type="text">No. 21-1454 · decided May 18, 2023 · 598 U. S. 449 · 6,392 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-1454.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-1454.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2022/21-1454.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2022:21-1333</id>
+<title>Reynaldo Gonzalez, et al. v. Google LLC</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2023-05-18T00:00:00Z</updated>
+<published>2023-05-18T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2023-05-18</dc:issued>
+<category term="ot2022" label="October Term 2022"/>
+<summary type="text">No. 21-1333 · decided May 18, 2023 · 1,713 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-1333.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-1333.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2022/21-1333.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2022:22-96</id>
+<title>P. R. v. Centro de Periodismo Investigativo, Inc.</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2023-05-11T00:00:00Z</updated>
+<published>2023-05-11T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2023-05-11</dc:issued>
+<category term="ot2022" label="October Term 2022"/>
+<summary type="text">No. 22-96 · decided May 11, 2023 · 598 U. S. 339 · 4,770 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/22-96.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/22-96.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2022/22-96.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2022:21-468</id>
+<title>National Pork Producers Council v. Ross</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2023-05-11T00:00:00Z</updated>
+<published>2023-05-11T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2023-05-11</dc:issued>
+<category term="ot2022" label="October Term 2022"/>
+<summary type="text">No. 21-468 · decided May 11, 2023 · 598 U. S. 356 · 16,477 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-468.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-468.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2022/21-468.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2022:21-1436</id>
+<title>Santos-Zacaria v. Garland</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2023-05-11T00:00:00Z</updated>
+<published>2023-05-11T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2023-05-11</dc:issued>
+<category term="ot2022" label="October Term 2022"/>
+<summary type="text">No. 21-1436 · decided May 11, 2023 · 598 U. S. 411 · 5,816 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-1436.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-1436.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2022/21-1436.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2022:21-1170</id>
+<title>Ciminelli v. United States</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2023-05-11T00:00:00Z</updated>
+<published>2023-05-11T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2023-05-11</dc:issued>
+<category term="ot2022" label="October Term 2022"/>
+<summary type="text">No. 21-1170 · decided May 11, 2023 · 598 U. S. 306 · 3,458 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-1170.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-1170.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2022/21-1170.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2022:21-1158</id>
+<title>Percoco v. United States</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2023-05-11T00:00:00Z</updated>
+<published>2023-05-11T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2023-05-11</dc:issued>
+<category term="ot2022" label="October Term 2022"/>
+<summary type="text">No. 21-1158 · decided May 11, 2023 · 598 U. S. 319 · 6,154 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-1158.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-1158.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2022/21-1158.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2022:21-442</id>
+<title>Reed v. Goertz</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2023-04-19T00:00:00Z</updated>
+<published>2023-04-19T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2023-04-19</dc:issued>
+<category term="ot2022" label="October Term 2022"/>
+<summary type="text">No. 21-442 · decided April 19, 2023 · 598 U. S. 230 · 9,586 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-442.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-442.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2022/21-442.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2022:21-1450</id>
+<title>Turkiye Halk Bankasi A. S. v. United States</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2023-04-19T00:00:00Z</updated>
+<published>2023-04-19T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2023-04-19</dc:issued>
+<category term="ot2022" label="October Term 2022"/>
+<summary type="text">No. 21-1450 · decided April 19, 2023 · 598 U. S. 264 · 7,662 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-1450.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-1450.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2022/21-1450.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2022:21-1270</id>
+<title>MOAC Mall Holdings LLC v. Transform Holdco LLC</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2023-04-19T00:00:00Z</updated>
+<published>2023-04-19T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2023-04-19</dc:issued>
+<category term="ot2022" label="October Term 2022"/>
+<summary type="text">No. 21-1270 · decided April 19, 2023 · 598 U. S. 288 · 5,272 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-1270.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-1270.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2022/21-1270.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2022:21-86</id>
+<title>Axon Enterprise, Inc. v. Ftc</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2023-04-14T00:00:00Z</updated>
+<published>2023-04-14T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2023-04-14</dc:issued>
+<category term="ot2022" label="October Term 2022"/>
+<summary type="text">No. 21-86 · decided April 14, 2023 · 598 U. S. 175 · 13,439 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-86.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-86.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2022/21-86.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2022:21-1239</id>
+<title>Axon Enterprise, Inc. v. Ftc</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2023-04-14T00:00:00Z</updated>
+<published>2023-04-14T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2023-04-14</dc:issued>
+<category term="ot2022" label="October Term 2022"/>
+<summary type="text">No. 21-1239 · decided April 14, 2023 · 598 U. S. ___ · 12,986 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-1239.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-1239.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2022/21-1239.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2022:21-1164</id>
+<title>Wilkins v. United States</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2023-03-28T00:00:00Z</updated>
+<published>2023-03-28T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2023-03-28</dc:issued>
+<category term="ot2022" label="October Term 2022"/>
+<summary type="text">No. 21-1164 · decided March 28, 2023 · 598 U. S. 152 · 6,776 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-1164.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-1164.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2022/21-1164.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2022:21-887</id>
+<title>Luna Perez v. Sturgis Public Schools</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2023-03-21T00:00:00Z</updated>
+<published>2023-03-21T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2023-03-21</dc:issued>
+<category term="ot2022" label="October Term 2022"/>
+<summary type="text">No. 21-887 · decided March 21, 2023 · 598 U. S. 142 · 3,016 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-887.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-887.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2022/21-887.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2022:21-1195</id>
+<title>Bittner v. United States</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2023-02-28T00:00:00Z</updated>
+<published>2023-02-28T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2023-02-28</dc:issued>
+<category term="ot2022" label="October Term 2022"/>
+<summary type="text">No. 21-1195 · decided February 28, 2023 · 598 U. S. 85 · 9,277 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-1195.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-1195.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2022/21-1195.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2022:21-984</id>
+<title>Helix Energy Solutions Group, Inc. v. Hewitt</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2023-02-22T00:00:00Z</updated>
+<published>2023-02-22T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2023-02-22</dc:issued>
+<category term="ot2022" label="October Term 2022"/>
+<summary type="text">No. 21-984 · decided February 22, 2023 · 598 U. S. 39 · 9,306 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-984.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-984.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2022/21-984.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2022:21-908</id>
+<title>Bartenwerfer v. Buckley</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2023-02-22T00:00:00Z</updated>
+<published>2023-02-22T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2023-02-22</dc:issued>
+<category term="ot2022" label="October Term 2022"/>
+<summary type="text">No. 21-908 · decided February 22, 2023 · 598 U. S. 69 · 4,712 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-908.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-908.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2022/21-908.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2022:21-846</id>
+<title>Cruz v. Arizona</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2023-02-22T00:00:00Z</updated>
+<published>2023-02-22T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2023-02-22</dc:issued>
+<category term="ot2022" label="October Term 2022"/>
+<summary type="text">No. 21-846 · decided February 22, 2023 · 598 U. S. 17 · 6,826 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-846.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-846.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2022/21-846.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2022:21-432</id>
+<title>Adolfo R. Arellano v. Denis R. McDonough, Secretary of Veterans Affairs</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2023-01-23T00:00:00Z</updated>
+<published>2023-01-23T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2023-01-23</dc:issued>
+<category term="ot2022" label="October Term 2022"/>
+<summary type="text">No. 21-432 · decided January 23, 2023 · 598 U. S. 1 · 3,801 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-432.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-432.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2022/21-432.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2022:21-1397</id>
+<title>In Re Grand Jury</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2023-01-23T00:00:00Z</updated>
+<published>2023-01-23T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2023-01-23</dc:issued>
+<category term="ot2022" label="October Term 2022"/>
+<summary type="text">No. 21-1397 · decided January 23, 2023 · 237 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-1397.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2022/21-1397.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2022/21-1397.html" type="text/html"/>
+</entry>
+</feed>
+

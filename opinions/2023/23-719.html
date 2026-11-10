@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script async src='/analytics.js'></script><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate icon" href="/favicon.ico" sizes="any"><link rel="alternate" type="application/atom+xml" title="Supreme Court Report" href="/feed.xml"><link rel="alternate" type="application/atom+xml" title="Certiorari grants" href="/grants.xml"><title>Trump v. Anderson — Opinion — Supreme Court Report</title><meta name="description" content="The opinion in Trump v. Anderson (No. 23-719), decided March 4, 2024: the full text with its footnotes, as a page, a Markdown file and an EPUB."><link rel="canonical" href="https://supremecourt.report/opinions/2023/23-719.html"><meta property="og:site_name" content="Supreme Court Report"><meta property="og:type" content="article"><meta property="og:title" content="Trump v. Anderson — Opinion — Supreme Court Report"><meta property="og:description" content="The opinion in Trump v. Anderson (No. 23-719), decided March 4, 2024: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta property="og:url" content="https://supremecourt.report/opinions/2023/23-719.html"><meta property="og:image" content="https://supremecourt.report/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Supreme Court Report - docket analytics for the Supreme Court of the United States"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Trump v. Anderson — Opinion — Supreme Court Report"><meta name="twitter:description" content="The opinion in Trump v. Anderson (No. 23-719), decided March 4, 2024: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta name="twitter:image" content="https://supremecourt.report/og.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap"><style>
+  :root{--paper:#fdfcfa;--panel:#ffffff;--ink:#1a1a1e;--ink-soft:#484850;--faint:#63636b;--accent:#9c0e3a;--link:#9c0e3a;--rule:#dbd8d2;--nav-max:60rem}
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{font-family:'Newsreader',Georgia,serif;font-size:19px;line-height:1.6;
+    color:var(--ink);background:var(--paper);margin:0;font-feature-settings:'onum' 1}
+  body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
+    opacity:.5;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");}
+  .wrap{max-width:40rem;margin:0 auto;padding:3rem 1.4rem 4rem}
+  .kicker{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 1rem}
+  h1{font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:clamp(2.4rem,7vw,3.6rem);line-height:1;letter-spacing:-.015em;
+    margin:0 0 1rem;color:var(--ink)}
+  h1 em{font-style:italic;font-weight:500;color:var(--accent)}
+  .dek{font-size:1.15rem;line-height:1.5;color:var(--ink-soft);font-style:italic;
+    margin:0 0 1.4rem}
+  .brule{border:0;height:0;border-top:2px solid var(--ink);margin:1.4rem 0 .3rem;
+    position:relative}
+  .brule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+    border-top:1px solid var(--rule)}
+  ul.idx{list-style:none;padding:0;margin:1.6rem 0}
+  ul.idx li{border-bottom:1px solid var(--rule)}
+  /* Whole row is one block-level link: a large, reliable tap target on mobile. */
+  ul.idx a.row{display:flex;justify-content:space-between;align-items:baseline;
+    gap:1rem;padding:.9rem .4rem;text-decoration:none;border:0;color:inherit}
+  ul.idx a.row:hover{background:rgba(156,14,58,.05)}
+  ul.idx .d{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.16rem;
+    color:var(--accent);line-height:1.25}
+  ul.idx a.row:hover .d{text-decoration:underline;text-underline-offset:3px}
+  ul.idx .count{color:var(--faint);font-size:.9rem;font-style:italic;white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  /* A long note (an order list's "3 GVRs / 230 denied / 4 habeas denied /
+     ...", items separated by middots) cannot sit on one line: nowrap made it
+     claim the row and
+     squeezed the title into a column three words wide, and on a phone it ran off
+     the screen. Such a row opts in (meta_wrap): the note wraps, only between its
+     items, and takes at most ~45% of the row, so the title always has the
+     larger share. Under 34rem it drops beneath the title at full width. */
+  /* ("long", not "wrap": .wrap is the page container and its padding.) */
+  ul.idx .count.long{white-space:normal;text-align:right;max-width:45%;line-height:1.45}
+  ul.idx .count.long .seg{white-space:nowrap}
+  @media(max-width:34rem){
+    ul.idx a.row.longmeta{flex-wrap:wrap;row-gap:.2rem}
+    ul.idx .count.long{max-width:none;flex-basis:100%;text-align:left}
+  }
+  /* Compact horizontal strip of the most recent pages beneath a category row. */
+  ul.idx .recent{display:flex;flex-wrap:wrap;align-items:baseline;
+    gap:.3rem .85rem;padding:0 .4rem 1rem;margin-top:-.35rem}
+  ul.idx .recent .rlabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  ul.idx .recent a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--ink-soft);text-decoration:none;font-variant-numeric:tabular-nums;
+    border-bottom:1px solid var(--rule);padding-bottom:1px}
+  ul.idx .recent a:hover{color:var(--accent);border-color:var(--accent)}
+  /* Optional panel beneath the section index (home page: most-read cases). */
+  .panel{margin:2.4rem 0 0}
+  .panel h2{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 .25rem}
+  .panel .pnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:0 0 .5rem}
+  /* "Live now" (live_argument_panel, /live.js): hidden unless the Court is
+     streaming an argument. One red dot, the same --accent as the headings, so
+     the live state is a mark and not a new colour. */
+  .live h2 .ldot{display:inline-block;width:.5rem;height:.5rem;border-radius:50%;
+    background:var(--accent);margin-right:.5rem;vertical-align:.08rem;
+    animation:lpulse 2s ease-in-out infinite}
+  @keyframes lpulse{50%{opacity:.25}}
+  @media (prefers-reduced-motion:reduce){.live h2 .ldot{animation:none}}
+  .lplay{display:flex;flex-wrap:wrap;gap:.6rem .9rem;align-items:center;margin:.8rem 0 .3rem}
+  .lplay button{font:600 .9rem/1 'Newsreader',Georgia,serif;letter-spacing:.04em;
+    color:var(--paper);background:var(--accent);border:0;border-radius:2px;
+    padding:.6rem 1.05rem;cursor:pointer}
+  .lplay button:disabled{opacity:.6;cursor:progress}
+  .lplay button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  /* The player takes a row of its own and may never outgrow the column. A flex
+     item's min-width is auto, which for a replaced element is the browser's own
+     controls' width -- wider than the column on a phone, where mobile Safari
+     and Chrome draw larger controls than the desktop. */
+  .lplay audio{display:block;flex:1 1 100%;width:100%;min-width:0;max-width:100%;
+    box-sizing:border-box;margin:0}
+  .lplay .lstat{font-size:.85rem;color:var(--faint)}
+  /* --- Likeliest grants -----------------------------------------------------
+     Its own rows rather than ol.mostread's: this panel carries a question under
+     the caption, which that list has no room for, and a percentage that has to
+     read as the row's subject rather than as a trailing note.
+     The window toggle is two real radio inputs plus :has() -- no JavaScript.
+     Both windows are rendered at build time and one is hidden, which is the only
+     way a static site can offer the choice: there is no server to ask for the
+     other one. Real radios, not styled buttons, so the control is reachable by
+     keyboard and announced as a choice. */
+  .lead{margin:0 0 1.9rem}
+  .lead h2{margin-bottom:.35rem}
+  .lead .pnote{margin:0 0 .7rem}
+  .wr{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+  .win{display:inline-flex;gap:.25rem;margin:0 0 .55rem;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .win label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .win label:hover{color:var(--ink)}
+  .lead:has(#w7:checked) label[for=w7],
+  .lead:has(#w28:checked) label[for=w28],
+  .lead:has(#wall:checked) label[for=wall]{background:var(--accent);color:var(--paper)}
+  .wr:focus-visible+label{outline:2px solid var(--accent);outline-offset:2px}
+  /* Three windows, one shown: the checked radio hides the other two. */
+  .lead:has(#w7:checked) :is(.g28,.n28,.gall,.nall),
+  .lead:has(#w28:checked) :is(.g7,.n7,.gall,.nall),
+  .lead:has(#wall:checked) :is(.g7,.n7,.g28,.n28){display:none}
+  /* The show/hide controls for a panel's secondary line -- the question under
+     a forecast row, the holding under a decision. Same box as the window
+     toggle, a checkbox instead of radios, and no script: the sibling rule does
+     the work and the lines simply show where :has() is unsupported. The
+     questions are on by default (they are what a forecast row asks); the
+     holdings are off (the caption, kind and disposition already say what
+     happened, and the holding is the more). */
+  .opts{display:inline-flex;gap:.25rem;margin:0 .45rem .55rem 0;vertical-align:top;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .opts label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .opts label:hover{color:var(--ink)}
+  .lead:has(#qon:checked) label[for=qon],
+  .panel:has(#hon:checked) label[for=hon]{background:var(--accent);color:var(--paper)}
+  .lead:has(#qon:not(:checked)) .gq{display:none}
+  .panel:has(#hon:not(:checked)) .chold{display:none}
+  /* --- Upcoming at the Court ------------------------------------------------
+     A date gutter and a two-line body, the same shape as the grant rows above
+     it, so the two panels read as one page rather than two widgets. */
+  .cal{margin:0 0 1.9rem}
+  ol.cal{list-style:none;margin:0;padding:0}
+  ol.cal li{border-top:1px solid var(--rule)}
+  ol.cal li:last-child{border-bottom:1px solid var(--rule)}
+  /* The row is a container, not an anchor: an argument day carries one link per
+     case it hears and anchors cannot nest. Hover lives on the row so it still
+     reads as one unit, and each link colours on its own hover. */
+  ol.cal .crow{display:flex;gap:.95rem;align-items:baseline;padding:.55rem .1rem}
+  ol.cal .crow:hover{background:rgba(156,14,58,.05)}
+  ol.cal a{text-decoration:none;color:inherit}
+  ol.cal a:hover,ol.cal a:focus-visible{color:var(--accent)}
+  ol.cal .cdet a{border-bottom:1px solid rgba(156,14,58,.35)}
+  ol.cal .cdet a:hover{border-bottom-color:var(--accent)}
+  ol.cal .cwhen{flex:none;width:4.6rem;font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.96rem;color:var(--ink);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  ol.cal .cdow{display:block;font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);text-transform:uppercase;letter-spacing:.08em}
+  ol.cal .ctx{flex:1;min-width:0}
+  ol.cal .ckind{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:.98rem;line-height:1.25}
+  ol.cal .cdet{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.12rem}
+  /* Recent decisions reuses the calendar rows and adds exactly two things: the
+     kind word that opens the detail line, and the one outbound link (the slip
+     opinion), which takes the link colour the rest of the row deliberately
+     does not. */
+  ol.cal .dk{font-weight:600;color:var(--ink)}
+  ol.cal .cdet a.pdf{color:var(--link)}
+  /* The holding, from the Court's slip-opinion feed: one sentence, set
+     smaller and in the soft ink so the caption stays the row's headline. */
+  ol.cal .chold{display:block;font-size:.86rem;line-height:1.4;color:var(--ink-soft);
+    font-style:italic;margin-top:.15rem}
+  ol.cal .cdet a.pdf:hover,ol.cal .cdet a.pdf:focus-visible{color:var(--accent);
+    border-bottom-color:var(--accent)}
+  ol.grants{list-style:none;margin:0;padding:0}
+  ol.grants li{border-top:1px solid var(--rule)}
+  ol.grants li:last-child{border-bottom:1px solid var(--rule)}
+  ol.grants a{display:flex;gap:.95rem;align-items:baseline;text-decoration:none;
+    color:inherit;padding:.62rem .1rem}
+  ol.grants a:hover{background:rgba(156,14,58,.05)}
+  ol.grants a:hover .gc{color:var(--accent)}
+  ol.grants .gv{flex:none;width:3.5rem;text-align:right;
+    font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.22rem;
+    line-height:1.1;color:var(--accent);font-variant-numeric:tabular-nums}
+  ol.grants .gx{font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);margin-left:.3rem}
+  ol.grants .gtx{flex:1;min-width:0}
+  /* Subject-area line under the caption, in the section-label idiom (h2.sec):
+     small tracked caps in the faint ink, so it classifies without competing. */
+  ol.grants .gs,ol.mostread .ms{display:block;font-size:.68rem;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--faint);line-height:1.3;margin-top:.12rem}
+  ol.grants .gc{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:1rem;line-height:1.25}
+  ol.grants .gq{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.16rem}
+  ol.grants .gd{flex:none;font-size:.76rem;color:var(--faint);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  .more{margin:.75rem 0 0;font-size:.92rem}
+  .more a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.35)}
+  .more a:hover{border-bottom-color:var(--link)}
+  h2.sec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:.88rem;
+    letter-spacing:.09em;color:var(--faint);text-transform:uppercase;
+    margin:2.1rem 0 .6rem;padding-bottom:.28rem;border-bottom:1px solid var(--rule)}
+  @media(max-width:40rem){
+    ol.grants a{flex-wrap:wrap}
+    ol.grants .gd{width:100%;padding-left:4.45rem;margin-top:-.1rem}
+  }
+  ol.mostread{list-style:none;counter-reset:mr;padding:0;margin:0}
+  ol.mostread li{counter-increment:mr;border-bottom:1px solid var(--rule)}
+  ol.mostread a{display:flex;align-items:baseline;gap:.7rem;padding:.6rem .4rem;
+    text-decoration:none;color:inherit}
+  ol.mostread a:hover{background:rgba(156,14,58,.05)}
+  ol.mostread a::before{content:counter(mr);font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.95rem;color:var(--faint);min-width:1.1rem;
+    font-variant-numeric:tabular-nums}
+  ol.mostread .mc{flex:1;font-size:1rem;line-height:1.3}
+  ol.mostread .mct{display:block}
+  ol.mostread a:hover .mct{color:var(--accent);text-decoration:underline;
+    text-underline-offset:3px}
+  ol.mostread .mdk{color:var(--accent);font-weight:600;font-size:.82rem;
+    font-variant-numeric:tabular-nums;white-space:nowrap}
+  ol.mostread .mv{color:var(--faint);font-size:.85rem;font-style:italic;
+    white-space:nowrap;font-variant-numeric:tabular-nums}
+  /* Forecast percentages carry weight the most-read counts do not: the number is
+     the claim, not a footnote to the ranking. Upright, accent, tabular. */
+  ol.mostread .mv.fc{color:var(--accent);font-style:normal;font-weight:600;
+    font-size:.95rem;min-width:2.6rem;text-align:right}
+  /* Feed follow line. Deliberately quiet -- a footnote under the section list,
+     styled like .recent rather than like a call to action. */
+  .feeds{display:flex;flex-wrap:wrap;align-items:baseline;gap:.3rem .85rem;
+    margin:2.2rem 0 0;padding-top:1.1rem;border-top:1px solid var(--rule)}
+  .feeds .flabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  .feeds a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .feeds a:hover{border-color:var(--link)}
+  .back{margin-top:2rem;font-size:.95rem}
+  .back a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .back a:hover{border-color:var(--link)}
+  /* Home-page case search. */
+  .csearch{position:relative;margin:0 0 1.4rem}
+  #cq{width:100%;font-family:'Newsreader',Georgia,serif;font-size:1.05rem;color:var(--ink);
+    background:var(--panel);border:1px solid var(--rule);border-radius:3px;padding:.7rem .9rem}
+  #cq:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(156,14,58,.1)}
+  #cq::placeholder{color:var(--faint)}
+  #cq.loading{background-image:linear-gradient(90deg,transparent,rgba(156,14,58,.06),transparent);
+    background-size:40% 100%;background-repeat:no-repeat;animation:csl 1s infinite}
+  @keyframes csl{0%{background-position:-40% 0}100%{background-position:140% 0}}
+  .cres{list-style:none;margin:.35rem 0 0;padding:0;max-height:24rem;overflow-y:auto;
+    border:1px solid var(--rule);border-radius:3px;background:var(--panel)}
+  .cres:empty{display:none}
+  .cres li{border-bottom:1px solid var(--rule)}
+  .cres li:last-child{border-bottom:0}
+  .cres a{display:block;padding:.55rem .7rem;text-decoration:none;color:var(--ink);
+    font-size:.98rem;line-height:1.3}
+  .cres a:hover,.cres li.act a{background:rgba(156,14,58,.06)}
+  .cres mark{background:rgba(156,14,58,.14);color:inherit;padding:0 .05em;border-radius:2px}
+  .cres .cd{color:var(--accent);font-variant-numeric:tabular-nums;font-weight:600;
+    margin-right:.5rem;white-space:nowrap}
+  .cnone{padding:.55rem .7rem;color:var(--faint);font-style:italic}
+  .cnone a,.cqp a{color:var(--link);font-style:normal;text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .cqp{margin:.45rem 0 0;font-size:.88rem;color:var(--faint)}
+  /* /cases/ browse index: grouped sections with per-bucket counts. */
+  .csec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+    text-transform:uppercase;letter-spacing:.12em;color:var(--accent);
+    margin:2.2rem 0 .3rem;padding-bottom:.35rem;border-bottom:1px solid var(--rule);
+    display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
+  .csec .cn{font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:.85rem;
+    letter-spacing:0;text-transform:none;color:var(--faint);
+    font-variant-numeric:tabular-nums}
+  .cnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:.5rem 0 0}
+  .cnote a{color:var(--accent)}
+  ul.terms{list-style:none;padding:0;margin:1rem 0 0;display:flex;flex-wrap:wrap;
+    gap:.5rem 1.6rem}
+  ul.terms li{display:inline-flex;align-items:baseline;gap:.4rem}
+  ul.terms a{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.05rem;
+    color:var(--accent);text-decoration:none;border-bottom:1px solid var(--rule)}
+  ul.terms a:hover{border-bottom-color:var(--accent)}
+  ul.terms .cn{color:var(--faint);font-size:.85rem;font-variant-numeric:tabular-nums}
+  /* About page: running prose rather than an index, so it takes a measure and a
+     little more leading than the section rows above it. */
+  .about{margin:1.6rem 0 0;font-size:1.05rem;line-height:1.65;max-width:34rem}
+  .about p{margin:0 0 1rem}
+  .about a{color:var(--accent);text-decoration:none;
+    border-bottom:1px solid var(--rule)}
+  .about a:hover{border-bottom-color:var(--accent)}
+  .about .contact{margin:2rem 0 0;background:var(--panel);border:1px solid var(--rule);
+    border-left:4px solid var(--accent);padding:1.1rem 1.3rem}
+  .about .contact h2{font:600 .78rem/1 'Newsreader',Georgia,serif;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--accent);margin:0 0 .5rem}
+  .about .contact p{margin:0;font-size:1rem}
+
+/* ---- masthead ---- */
+.smast-in{max-width:var(--nav-max,60rem);margin:0 auto;padding:.85rem 1.5rem .5rem;
+  display:flex;align-items:baseline;justify-content:space-between;gap:1.4rem;flex-wrap:wrap}
+.smast-wm{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+  letter-spacing:.005em;color:var(--ink,#1a1a1e);text-decoration:none;white-space:nowrap;flex:none}
+.smast-wm em{font-style:italic;font-weight:500;color:var(--accent,#9c0e3a)}
+.smast-wm:hover{color:var(--accent,#9c0e3a)}
+/* Row gap first, then column. At 1.35rem the six section links measured 596px
+   of max-content -- 4px wider than the 592px row the 40rem index container
+   leaves them -- so ABOUT alone wrapped to a third line under the wordmark, on
+   every page page_style.R writes. 1.05rem brings the row to 572px: 20px of
+   slack at 40rem, and 45px on the 54rem case pages, which were themselves only
+   21px from wrapping. The .4rem row gap is for the day a seventh section
+   overruns it anyway -- a nav that wraps should read as a stack, not an orphan. */
+.snav{display:flex;gap:.4rem 1.05rem;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+.snav a{font:600 .72rem/1 'Newsreader',Georgia,serif;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--ink-soft,var(--soft,#484850));text-decoration:none;display:inline-block;
+  padding:.5rem 0;border-bottom:1.5px solid transparent}
+.snav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--rule,#dbd8d2)}
+.snav a[aria-current='page']{color:var(--accent,#9c0e3a);
+  border-bottom-color:var(--accent,#9c0e3a)}
+.smast-rule-w{max-width:var(--nav-max,60rem);margin:0 auto;padding:0 1.5rem}
+.smast-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0;position:relative}
+.smast-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.skip{position:absolute;left:-9999px;top:0;background:var(--panel,#ffffff);
+  color:var(--accent,#9c0e3a);padding:.6rem 1rem;
+  border:1px solid var(--accent,#9c0e3a);
+  font:600 .8rem/1 'Newsreader',Georgia,serif;letter-spacing:.1em;text-transform:uppercase;z-index:10}
+.skip:focus{left:.5rem;top:.5rem}
+/* ---- breadcrumb ---- */
+.bcrumb{margin:.7rem 0 0}
+.bcrumb ol{list-style:none;display:flex;flex-wrap:wrap;align-items:baseline;
+  gap:.1rem .45rem;margin:0;padding:0}
+.bcrumb li{display:inline-flex;align-items:baseline;gap:.45rem}
+.bcrumb a{font:400 .8rem/1.5 'Newsreader',Georgia,serif;color:var(--ink-soft,var(--soft,#484850));
+  text-decoration:none;border-bottom:1px solid var(--rule,#dbd8d2)}
+.bcrumb a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.bcrumb .sep{color:var(--faint,#63636b);font-size:.8rem;line-height:1.5}
+.bcrumb [aria-current='page']{font:400 .8rem/1.5 'Newsreader',Georgia,serif;
+  color:var(--faint,#63636b);font-variant-numeric:tabular-nums}
+/* ---- case footer ---- */
+.cfoot{margin:2.4rem 0 0}
+.cfoot-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0 0 1rem;position:relative}
+.cfoot-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.cfoot-off{font-size:.95rem;margin:0 0 1.1rem}
+.cfoot-off a{color:var(--link,#9c0e3a);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.4)}
+.cfoot-off a:hover{border-bottom-color:var(--link,#9c0e3a)}
+.cfoot-lab{font:600 .68rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);margin:0 0 .5rem}
+.cfoot-nav{display:flex;flex-wrap:wrap;gap:.35rem 1.1rem;list-style:none;margin:0;padding:0}
+.cfoot-nav a{font-size:.92rem;color:var(--ink-soft,var(--soft,#484850));text-decoration:none;
+  border-bottom:1px solid var(--rule,#dbd8d2);padding-bottom:1px}
+.cfoot-nav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.cfoot-stamp{margin:1.2rem 0 0;font-size:.8rem;color:var(--faint,#63636b);font-style:italic}
+/* ---- prev / next ---- */
+.pnav{margin:2.2rem 0 0;border-top:1px solid var(--rule,#dbd8d2);padding-top:1rem;
+  display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.pnav a,.pnav span.none{text-decoration:none;color:inherit;display:block;padding:.5rem .2rem}
+.pnav a:hover{background:rgba(156,14,58,.05)}
+.pnav .dir{font:600 .66rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);display:block;margin-bottom:.3rem}
+.pnav .lab{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1rem;line-height:1.25;
+  color:var(--accent,#9c0e3a);display:block}
+.pnav a:hover .lab{text-decoration:underline;text-underline-offset:3px}
+.pnav .nx{text-align:right}
+.pnav .none{opacity:.35}
+@media(max-width:640px){
+  .smast-in{padding:.7rem 1.1rem .25rem;gap:.15rem}
+  .smast-wm{font-size:.98rem}
+  .smast-in nav{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+    -webkit-mask-image:linear-gradient(90deg,#000 86%,transparent);
+    mask-image:linear-gradient(90deg,#000 86%,transparent)}
+  .smast-in nav::-webkit-scrollbar{display:none}
+  .snav{flex-wrap:nowrap;gap:1.15rem;padding-right:2.4rem}
+  .snav a{padding:.7rem 0;white-space:nowrap}
+  .smast-rule-w{padding:0 1.1rem}
+  .cfoot-nav{gap:.5rem 1rem}
+  .cfoot-nav a{padding-bottom:.3rem}
+  .pnav{grid-template-columns:1fr;gap:.2rem}
+  .pnav .nx{text-align:left;border-top:1px solid var(--rule,#dbd8d2)}
+}
+
+  .wrap.opn{max-width:42rem}
+  .opn .ometa{font-size:.92rem;color:var(--ink-soft);margin:.3rem 0 0}
+  .opn .oget{display:flex;flex-wrap:wrap;gap:.4rem .6rem;margin:1.1rem 0 0;padding:0;list-style:none;font-size:.9rem}
+  .opn .oget a{display:inline-block;padding:.32rem .7rem;border:1px solid var(--rule);border-radius:4px;color:var(--ink);text-decoration:none;background:var(--panel)}
+  .opn .oget a:hover{border-color:var(--accent);color:var(--accent)}
+  .opn .osrc{font-size:.84rem;color:var(--faint);margin:.9rem 0 0;line-height:1.45}
+  .opn .osrc a{color:var(--link)}
+  .opn .otoc{margin:1.6rem 0 0;padding:.8rem 1rem;border:1px solid var(--rule);border-radius:4px;background:var(--panel);font-size:.95rem}
+  .opn .otoc ol{margin:0;padding:0;list-style:none}
+  .opn .otoc li{margin:.25rem 0}
+  .opn .otoc a{color:var(--ink);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.35)}
+  .opn .otoc a:hover{color:var(--accent)}
+  .opn section.op{margin-top:3rem;border-top:2px solid var(--ink);padding-top:1.1rem}
+  .opn section.op h2{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.5rem;line-height:1.2;margin:0 0 1rem;color:var(--ink)}
+  .opn section.op p{margin:0 0 .95rem;line-height:1.62;hyphens:auto;overflow-wrap:break-word}
+  .opn section.op p.byline{color:var(--ink-soft);font-style:italic}
+  .opn section.op p.sep{text-align:center;letter-spacing:.3em;color:var(--faint);margin:1.6rem 0}
+  .opn section.op h3.oh{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.12rem;text-align:center;margin:2rem 0 1rem;color:var(--ink)}
+  .opn section.op blockquote{margin:0 0 .95rem;padding:0 0 0 1.1rem;border-left:2px solid var(--rule);color:var(--ink-soft)}
+  .opn section.op blockquote p{margin-bottom:.6rem;font-size:.96em}
+  .opn .sc{font-variant-caps:small-caps;letter-spacing:.02em}
+  .opn .pg{font-size:.66em;color:var(--faint);vertical-align:.3em;margin:0 .3em 0 .1em;font-variant-numeric:tabular-nums;user-select:none;white-space:nowrap}
+  .opn .pg::before{content:'*'}
+  .opn sup.fnr{font-size:.68em;line-height:0;margin-left:.05em}
+  .opn sup.fnr a{color:var(--link);text-decoration:none;padding:0 .1em}
+  .opn aside.notes{margin-top:2rem;border-top:1px solid var(--rule);padding-top:.8rem;font-size:.88rem;color:var(--ink-soft)}
+  .opn aside.notes h3{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1rem;margin:0 0 .6rem;color:var(--ink)}
+  .opn aside.notes ol{margin:0;padding-left:1.7rem}
+  .opn aside.notes li{margin:0 0 .55rem}
+  .opn aside.notes li.sym{list-style:none;margin-left:-1.7rem}
+  .opn aside.notes li.sym .mk{margin-right:.3rem}
+  .opn aside.notes li.sym p{display:inline}
+  .opn aside.notes p{margin:0 0 .4rem;line-height:1.5}
+  .opn aside.notes a.back{color:var(--link);text-decoration:none;margin-left:.2rem}
+  .opn aside.notes li:target,.opn sup.fnr a:target,.opn .pg:target{background:rgba(156,14,58,.12);outline:.2rem solid rgba(156,14,58,.12)}
+  .opn section.op,.opn aside.notes li,.opn sup.fnr a{scroll-margin-top:1rem}
+  .opn section.op-syllabus p,.opn section.op-counsel p{font-size:.95em}
+  .opn section.op-counsel summary{cursor:pointer;font-family:'Fraunces',Georgia,serif;font-size:1.05rem;color:var(--ink-soft)}
+  .opn .osyl{font-size:.84rem;color:var(--faint);font-style:italic;margin:-.5rem 0 1rem}
+  .opn p.back{margin-top:3rem;font-size:.92rem}
+  @media print{.smast,.bcrumb,.opn .oget,.opn .otoc,.opn p.back{display:none}.opn section.op{break-before:page}}
+</style><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://supremecourt.report/"},{"@type":"ListItem","position":2,"name":"Opinions","item":"https://supremecourt.report/opinions/"},{"@type":"ListItem","position":3,"name":"Trump v. Anderson"}]}</script><meta name='otv' content='p1'><link rel='alternate' type='text/markdown' href='/opinions/2023/23-719.md'><link rel='alternate' type='application/epub+zip' href='/opinions/2023/23-719.epub'></head><body><a class='skip' href='#main'>Skip to content</a><header><div class='smast-in'><a class='smast-wm' href='/'>Supreme Court <em>Report</em></a><nav aria-label='Sections'><ul class='snav'><li><a href='/dashboards/'>Docket</a></li><li><a href='/conferences/'>Conferences</a></li><li><a href='/relists/'>Relists</a></li><li><a href='/applications/'>Interim</a></li><li><a href='/arguments/'>Arguments</a></li><li><a href='/justices/' aria-current='page'>Justices</a></li><li><a href='/counsel/'>Counsel</a></li><li><a href='/funnel/'>Funnel</a></li><li><a href='/methods.html'>Model</a></li><li><a href='/about.html'>About</a></li></ul></nav></div><div class='smast-rule-w'><hr class='smast-rule'></div></header><main class='wrap opn' id='main' data-dkt='23-719'><nav class='bcrumb' aria-label='Breadcrumb'><ol><li><a href='/'>Home</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><a href='/opinions/'>Opinions</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><span aria-current='page'>Trump v. Anderson</span></li></ol></nav><p class='kicker'>No. 23-719 · decided March 4, 2024 · 601 U. S. 100</p><h1 style='font-size:clamp(1.7rem,4.6vw,2.4rem);line-height:1.12'>Trump v. Anderson</h1><p class='ometa'>Donald J. Trump v. Norma Anderson, et al.. 1 separate writing.</p><ul class='oget'><li><a href='/opinions/2023/23-719.epub' download>EPUB</a></li><li><a href='/opinions/2023/23-719.md' download>Markdown</a></li><li><a href='https://www.supremecourt.gov/opinions/23pdf/601us1r06_a86c.pdf' rel='noopener'>The Court’s PDF</a></li><li><a href='/cases/23-719.html'>The docket</a></li></ul><p class='osrc'>Set from the PDF the Court published, which is the authoritative text. The small starred numbers are that PDF’s page numbers. A conversion can introduce errors; check a quotation against the <a href='https://www.supremecourt.gov/opinions/23pdf/601us1r06_a86c.pdf' rel='noopener'>original</a>.</p><nav class="otoc" aria-label="Contents"><ol>
+<li><a href="#s1">Syllabus</a></li>
+<li><a href="#s2">Counsel</a></li>
+<li><a href="#s3">Per Curiam</a></li>
+<li><a href="#s4">Justice Barrett, concurring in part and concurring in the judgment</a></li>
+</ol></nav>
+<section id="s1" class="op op-syllabus"><h2>Syllabus</h2><p class='osyl'>Prepared by the Reporter of Decisions for the convenience of the reader; it is no part of the opinion of the Court.</p>
+<p>Six Colorado voters (respondents here) filed a petition in Colorado state court against former President Donald J. Trump and Colorado Secretary of State Jena Griswold, contending that Section 3 of the Fourteenth Amendment to the Constitution prohibits former President Trump, who seeks the Presidential nomination of the Republican Party in this year's election, from becoming President again. Section 3 provides:</p>
+<p>“No person shall be a Senator or Representative in Congress, or elector of President and Vice President, or hold any office, civil or military, under the United States, or under any State, who, having previously taken an oath, as a member of Congress, or as an officer of the United States, or as a member of any State legislature, or as an executive or judicial officer of any State, to support the Constitution of the United States, shall have engaged in insurrection or rebellion against the same, or given aid or comfort to the enemies thereof. But Congress may by a vote of two-thirds of each House, remove such disability.”</p>
+<p>According to the respondents, Section 3 applies to the former President because after taking the Presidential oath in 2017, he intentionally incited the breaching of the Capitol on January 6, 2021, in order to retain power. The respondents claim that the former President is therefore not a qualified candidate under Colorado law and may not be placed on the Presidential primary ballot. The state District Court found that former President Trump had “engaged in insurrection” within the meaning of Section 3, but nonetheless denied the respondents' petition. It concluded that the Presidency, which Section 3 does not mention by name, is not an “office . . . under the United States” and the President is not an “officer of the United States” within the meaning of that provision. See App. to Pet. for Cert. 184a–284a. A divided Colorado Supreme Court reversed the District Court's operative holding that Section 3 did not apply to the former President, and otherwise affirmed. It accordingly ordered Secretary Griswold not to list former President Trump on the Presidential primary ballot or count any write-in votes cast for him. See <em>Anderson</em> v. <em>Griswold</em>, 543 P. 3d 283.</p>
+<p><em>Held</em>: Because the Constitution makes Congress, rather than the States, responsible for enforcing Section 3 against federal officeholders and candidates, the Colorado Supreme Court erred in ordering former President Trump excluded from Colorado's 2024 Presidential primary ballot.</p>
+<p><span class="pg" id="s1-p101" title="page 101 of the original">101</span>(a) Ratified after the Civil War, the Fourteenth Amendment “expand[ed] federal power at the expense of state autonomy” and thus “fundamentally altered the balance of state and federal power struck by the Constitution.” <em>Seminole Tribe of Fla.</em> v. <em>Florida</em>, 517 U. S. 44, 59. Section 3 was designed to help ensure an enduring Union by preventing former Confederates from returning to power. Because Section 3 works by imposing on certain individuals a preventive and severe penalty—disqualification from holding a wide array of offices—rather than by granting rights to all, it is necessary, as Chief Justice Chase concluded and the Colorado Supreme Court recognized, to “ `ascertain[ ] what particular individuals are embraced' ” by the provision. 543 P. 3d, at 316 (quoting <em>Griffin's Case</em>, 11 F. Cas. 7, 26 (No. 5,815) (CC Va. 1869) (Chase, Circuit Justice)). “To accomplish this ascertainment and ensure effective results, proceedings, evidence, decisions, and enforcements of decisions, more or less formal, are indispensable.” <em>Id.</em>, at 26.</p>
+<p>The Constitution empowers Congress to prescribe how those determinations should be made. The relevant provision is Section 5 of the Fourteenth Amendment, which enables Congress, subject to judicial review, to pass “appropriate legislation” to “enforce” the Fourteenth Amendment. See <em>City of Boerne</em> v. <em>Flores</em>, 521 U. S. 507, 536. That power is critical when it comes to Section 3. Indeed, shortly after ratification, hundreds of men were holding office in violation of Section 3, prompting Congress to pass Section 5 enforcement legislation. See Enforcement Act of 1870, 16 Stat. 143–144.</p>
+<p>(b) States have sovereign power over the qualifications and elections of their own officers, see <em>Taylor</em> v. <em>Beckham</em>, 178 U. S. 548, 570–571. But States lack the constitutional authority to enforce Section 3 with respect to federal offices, especially the Presidency. Because federal officers “ `owe their existence and functions to the united voice of the whole, not of a portion, of the people,' ” powers over their election and qualifications must be specifically “delegated to, rather than reserved by, the States.” <em>U. S. Term Limits, Inc.</em> v. <em>Thornton</em>, 514 U. S. 779, 803–804 (quoting 1 J. Story, Commentaries on the Constitution of the United States § 627, p. 435 (3d ed. 1858)).</p>
+<p>Not even the respondents contend that the Constitution authorizes the States to somehow remove <em>sitting</em> federal officeholders who may be violating Section 3. And the text of the Fourteenth Amendment, which speaks only to enforcement by Congress, does not affirmatively delegate to the States the power to enforce Section 3 against <em>candidates</em> for federal office. Moreover, because its substantive provisions “embody significant limitations on state authority,” <em>Fitzpatrick</em> v. <em>Bitzer</em>, 427 U. S. 445, 456, it would be incongruous to read this particular Amendment as silently granting the States that power. The only other plausible<span class="pg" id="s1-p102" title="page 102 of the original">102</span> constitutional sources of such a delegation are the Elections and Electors Clauses, which authorize States to conduct and regulate congressional and Presidential elections, respectively. See Art. I, § 4, cl. 1; Art. II, § 1, cl. 2. But there is little reason to think that these Clauses implicitly authorize the States to enforce Section 3 against federal officeholders and candidates. Granting the States that authority would invert the Fourteenth Amendment's rebalancing of federal and state power.</p>
+<p>The text of Section 3 reinforces these conclusions. Its final sentence empowers Congress to “remove” any Section 3 “disability” by a two-thirds vote of each House. Congress may exercise that amnesty power at any time, and historically, Congress sometimes removed Section 3 disabilities postelection to ensure that some of the people's chosen candidates could take office. But if States were free to enforce Section 3 by barring candidates from running in the first place, Congress would be forced to exercise its disability removal power before voting begins. It is implausible to suppose that the Constitution affirmatively delegated to the States the authority to impose such a burden on congressional power with respect to candidates for federal office. Cf. <em>McCulloch</em> v. <em>Maryland</em>, 4 Wheat. 316, 436.</p>
+<p>Nor have the respondents identified any tradition of state enforcement of Section 3 against federal officeholders or candidates in the years following ratification of the Fourteenth Amendment. Instead, it is Congress that has long given effect to Section 3 with respect to would-be or existing federal officeholders. And while Section 5 limits <em>congressional</em> legislation enforcing Section 3 by requiring Congress to “tailor its legislative scheme to remedying or preventing” the specific individual conduct that Section 3 prohibits, <em>Florida Prepaid Postsecondary Ed. Expense Bd.</em> v. <em>College Savings Bank</em>, 527 U. S. 627, 639, state enforcement might be argued to sweep more broadly. It is implausible that the Constitution grants the States freer rein than Congress to decide how Section 3 should be enforced with respect to federal offices.</p>
+<p>Finally, state enforcement with respect to the Presidency would raise heightened concerns. “[I]n the context of a Presidential election, state-imposed restrictions implicate a uniquely important national interest.” <em>Anderson</em> v. <em>Celebrezze</em>, 460 U. S. 780, 794–795 (footnote omitted). Conflicting state-by-state resolution of the question whether Section 3 bars a particular candidate for President could result not just from differing views of the merits, but also from variations in state law governing the proceedings that are necessary to make Section 3 disqualification determinations. The “patchwork” that would likely result from state enforcement would “sever the direct link that the Framers found so critical between the National Government and the people of the United States” as a whole. <em>U. S. Term Limits</em>, 514 U. S., at 822. Nothing in <span class="pg" id="s1-p103" title="page 103 of the original">103</span>the Constitution requires that the Nation endure the chaos that could result.</p>
+<p>543 P. 3d 283, reversed.</p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li class="sym" value="0"><span class="mk">*</span><p>Briefs of <em>amici curiae</em> urging reversal were filed for the State of Indiana et al. by <em>Theodore E. Rokita</em>, Attorney General of Indiana, <em>James A. Barta</em>, Solicitor General, and <em>Melinda R. Holmes</em>, Deputy Attorney General, by <em>Patrick Morrisey</em>, Attorney General of West Virginia, <em>Michael R. Williams</em>, Principal Deputy Solicitor General, and <em>David E. Gilbert</em>, Deputy Attorney General, by <em>Rusty D. Crandell, Linley Wilson,</em> and <em>Sam M. Hayes,</em> and by the Attorneys General for their respective States as follows: <em>Steve Marshall</em> of Alabama, <em>Tim Griffin</em> of Arkansas, <em>Ashley Moody</em> of Florida, <em>Christopher M. Carr</em> of Georgia, <em>Raúl Labrador</em> of Idaho, <em>Brenna Bird</em> of Iowa, <em>Russell Coleman</em> of Kentucky, <em>Liz Murrill</em> of Louisiana, <em>Lynn Fitch</em> of Mississippi, <em>Andrew Bailey</em> of Missouri, <em>Austin Knudsen</em> of Montana, <em>Michael T. Hilgers</em> of Nebraska, <em>John M. Formella</em> of New Hampshire, <em>Drew H. Wrigley</em> of North Dakota, <em>David A. Yost</em> of Ohio, <em>Gentner Drummond</em> of Oklahoma, <em>Alan Wilson</em> of South Carolina, <em>Marty Jackley</em> of South Dakota, <em>Jonathan Skrmetti</em> of Tennessee, <em>Ken Paxton</em> of Texas, <em>Sean D. Reyes</em> of Utah, <em>Jason Miyares</em> of Virginia, and <em>Bridget Hill</em> of Wyoming; for the State of Kansas by <em>Kris W. Kobach</em>, Attorney General, and <em>Anthony J. Powell</em>, Solicitor General; for Chuck Gray, Secretary of State of Wyoming, by <em>Judd E. Stone II</em>, <em>Ari Cuenin</em>, and <em>Gene P. Hamilton</em>; for America's Future et al. by <em>William J. Olson</em>, <em>Jeremiah L. Morgan</em>, <em>Robert J. Olson</em>, <em>Patrick McSweeney</em>, <em>J. Mark Brewer</em>, and <em>John I. Harris III</em>; for Christian Family Coalition (CFC) Florida, Inc., by <em>Dennis Grossman</em>; for the Claremont Institute's Center for Constitutional Jurisprudence by <em>John Yoo</em>; for Former Attorney General Edwin Meese III et al. by <em>Gene C. Schaerr</em>, <em>Kenneth A. Klukowski</em>, <em>Michael Boos</em>, and <em>Daniel H. Jorjani</em>; for Former U. S. Attorney Robert S. Brewer, Jr. et al. by <em>R. Trent Shores</em>; for the James Madison Center for Free Speech by <em>James Bopp</em>, <em>Jr</em>.; for Judicial Watch, Inc., et al. by <em>T. Russell Nobile</em>, <em>Robert D. Popper</em>, and <em>H. Christopher Coates</em>; for the Kansas Republican Party et al. by <em>Craig L. Uhrich</em>; for the Landmark Legal Foundation by <em>Michael J. O'Neill, Matthew C. Forys</em>, and <em>Richard P. Hutchison</em>; for the Public Interest Legal Foundation et al. by <em>J. Christian Adams</em> and <em>Kaylan Phillips</em>; for the Republican National Committee et al. by <em>Patrick N. Strawbridge</em>, <em>Gilbert C. Dickey</em>, <em>Christopher O. Murray</em>, and <em>Julian R. Ellis, Jr</em>.; for Sen. Ted Cruz et al. by <em>R. Trent McCotter</em> and <em>Gene P. Hamilton</em>; for Sen. Steve Daines et al. by <em>Noel J. Francisco</em>, <em>John M. Gore</em>, <em>E. Stewart Crosland</em>, and <em>Hashim M. Mooppan</em>; for Jack Coben by <em>Larry E. Coben</em>; for William Jones by <em>Stephen Yagman</em>; for Larry Kidd by <em>Larry J. Obhof</em>, <em>Jr</em>., and <em>Mark D. Wagoner</em>, <em>Jr</em>.; for Kurt T. Lash by <em>Christopher E. Mills</em>; for James T. Lindgren by <em>Benjamin M. Flowers</em>; for Pearl O. Madrial by <em>Harold Emmett Lucas</em>; for Terpsehore “Tore” Maras et al. by <em>Warner Mendenhall</em>; for Peter Meijer by <em>Charles R. Spies</em>; for Vivek Ramaswamy by <em>Jonathan Lien-hard</em>, <em>Phillip M. Gordon</em>, and <em>Edward Wenger</em>; for Seth Barrett Tillman by <em>Josh Blackman</em>, <em>C. Thomas Ludden</em>, <em>Robert W. Ray</em>, <em>R. Scott Reisch</em>, and <em>Jessica L. Hays</em>; for Devin Watkins et al. by <em>Devin Watkins</em>, <em>pro se</em>; for Gavin M. Wax et al. by <em>Edward Andrew Paltzik</em> and <em>Serge Krimnus</em>; and for 102 Colorado Registered Electors by <em>J. Gregory Troutman</em>.</p><p>Briefs of <em>amici curiae</em> urging affirmance were filed for Common Cause by <em>Gregory L. Diskant</em>, <em>Jonah M. Knobler</em>, and <em>Kathay Feng</em>; for the Constitutional Accountability Center by <em>Elizabeth B. Wydra</em> and <em>Brianne J. Gorod</em>; for Former Colorado Secretary of State Mary Estill Buchanan by <em>Michael A. Caplan</em>; for Former Republican Governors by <em>Jeffrey A. Mandell</em>, <em>Douglas M. Poland</em>, and <em>Rachel E. Snyder</em>; for Former Republican Members of Congress by <em>Faith E. Gay</em>; for Retired State Supreme Court Justices by <em>Ronald A. Fein</em>, <em>John C. Bonifaz</em>, <em>Ben T. Clements</em>, <em>Courtney Hostetler</em>, and <em>Charles N. Nauen</em>; for the San Francisco Taxpayers Association et al. by <em>Paul D. Scott</em>; for Floyd Abrams et al. by <em>Steven A. Hirsch</em>; for Carol Anderson et al. by <em>Erica Grossman</em> and <em>John Holland</em>; for Josh Autry, <em>pro se</em>; for Jeremy Bates, <em>pro se</em>; for David P. Cullenberg et al. by <em>Robert A. Stein</em>; for David M. Driesen et al. by <em>David M. Driesen</em>, <em>pro se</em>; for G. Antaeus B. Edelsohn by <em>Joan D. B. Edelsohn</em>; for Sherrilyn A. Ifill, <em>pro se</em>; for J. Michael Luttig et al. by <em>Richard D. Bernstein</em> and <em>Nancy A. Temple</em>; for Brian J. Martin by <em>Wallace K. Lightsey</em>; for Kermit Roosevelt by <em>Robert S. Peck</em>; for Ilya Somin by <em>Gerson H. Smoger</em>; and for David B. Tatge, <em>pro se</em>.</p><p>Briefs of <em>amici curiae</em> were filed for Michigan Secretary of State Jocelyn Benson by <em>Ann M. Sherman</em>, Solicitor General, <em>Heather S. Meingast</em>, Division Chief, and <em>Erik A. Grill</em>, Assistant Attorney General; for the Secretaries of State of Missouri et al. by <em>Barbara A. Smith</em>, <em>Jesus A. Osete</em>, and <em>Robert M. Thompson</em>; for American Historians by <em>Jonathan B. Miller</em>, <em>Joshua A. Rosenthal</em>, and <em>Michael Adame</em>; for the Association of the Bar of the City of New York by <em>Susan J. Kohlmann</em>, <em>Benjamin D. Alter</em>, <em>Marcy L. Kahn</em>, <em>Stephen L. Kass</em>, and <em>Jerry H. Goldfeder</em>; for the Brennan Center for Justice et al. by <em>Michelle S. Kallen</em>, <em>Wendy R. Weiser</em>, <em>Thomas P. Wolf</em>, <em>Eliza M. Sweren-Becker</em>, <em>Paul M. Smith</em>, <em>Adav Noti</em>, <em>Kevin P. Hancock</em>, <em>Benjamin L. Berwick</em>, and <em>Cameron O. Kistler</em>; for the Capitol Police Officers Present at the U. S. Capitol on January 6, 2021, by <em>Damon Hewitt</em>, <em>Jon M. Greenbaum</em>, <em>Marc P. Epstein</em>, <em>William J. Blechman</em>, <em>Elizabeth B. Honkonen</em>, <em>Lauren M. Blas</em>, <em>Lee R. Crain,</em> and <em>Mark J. Cherry</em>; for Children's Rights Legal Scholars et al. by <em>Julia A. Olson</em>, <em>Mathew W. dos Santos</em>, <em>Philip L. Gregory</em>, and <em>Catherine Smith</em>, <em>pro se</em>; for Condemned USA by <em>George T. Pallas</em>; for Experts in Democracy by <em>John Vail</em>; for the League for Sportsmen et al. by <em>Earl N. “Trey” Mayfield III</em>; for the NAACP Legal Defense &amp; Educational Fund, Inc., by <em>Anuja D. Thatte</em>, <em>Burt M. Rublin</em>, <em>Janai S. Nelson</em>, and <em>Samuel Spital</em>; for Professors and Legal Scholars by <em>Mari Newman</em>; for U. S. Term Limits by <em>David H. Thompson</em> and <em>Brian W. Barnes</em>; for Akhil Reed Amar et al. by <em>Vikram David Amar</em>, <em>pro se</em>; for Ryan Binkley et al. by <em>Erick G. Kaardal</em>; for David Boyle, <em>pro se</em>; for Orville Vernon Burton et al. by <em>Michael J. Kasper</em>; for Edward B. Foley et al. by <em>Michael B. Kimberly</em>; for Mark A. Graber by <em>Nelson Boyle</em>; for Edward J. Larson, by <em>J. Carl Cecere</em> and <em>Edward J. Larson, pro se; for Jordan L. Michelson by Anthony Robert Zelle; for Derek T. Muller by Heather Gebelin Hacker; for David E. Weisberg, pro se; and for Michael T. Worley by Burt M. Rublin.</em></p></li>
+</ol></aside></section>
+<section id="s2" class="op op-counsel"><details><summary>Counsel</summary><p><em>Jonathan F. Mitchell</em> argued the cause for petitioner. With him on the briefs were <em>Scott E. Gessler</em>, <em>David A. Warrington</em>, <em>Gary M. Lawkowski</em>, and <em>Harmeet Dhillon</em>. <em>Jay Alan Sekulow</em>, <em>Jordan A. Sekulow</em>, <em>Stuart J. Roth</em>, <em>Andrew J. Ekonomou</em>, <em>Jane Serene Raskin</em>, <em>Walter M. Weber</em>, <em>Cecilia Noland-Heil</em>, <em>Michael W. Melito</em>, and <em>Benjamin P. Sisney</em> filed briefs for respondent Colorado Republican State Central Committee urging reversal.</p>
+<p><em>Jason Murray</em> argued the cause for respondent Anderson et al. With him on the brief were <em>Donald Sherman</em>, <em>Nikhel Sus</em>, <em>Jonathan Maier, Martha Tierney, Mario Nicolais, Sean Grimsley</em>, <em>Eric Olson</em>, and <em>Isabel Broer</em>. <em>Shannon Wells Stevenson</em>, Solicitor General of Colorado, argued the cause for respondent Griswold. With her on the brief were <em>Philip J. Weiser</em>, Attorney General, <em>Natalie Hanlon Leh</em>, Deputy Attorney General, <em>Dayna Zolle Hauser</em>, <em>Michael Kotlarczyk</em>, <em>Michael McMaster</em>, <em>Joseph Michaels</em>, <em>LeeAnn Morrill</em>, and <em>Helen Norton</em>.*</p></details></section>
+<section id="s3" class="op op-percuriam"><h2>Per Curiam</h2>
+<p class="byline">Per Curiam.</p>
+<p>A group of Colorado voters contends that Section 3 of the Fourteenth Amendment to the Constitution prohibits former President Donald J. Trump, who seeks the Presidential nomination<span class="pg" id="s3-p105" title="page 105 of the original">105</span> of the Republican Party in this year's election, from becoming President again. The Colorado Supreme Court agreed with that contention. It ordered the Colorado secretary<span class="pg" id="s3-p106" title="page 106 of the original">106</span> of state to exclude the former President from the Republican primary ballot in the State and to disregard any write-in votes that Colorado voters might cast for him.</p>
+<p>Former President Trump challenges that decision on several grounds. Because the Constitution makes Congress, rather than the States, responsible for enforcing Section 3 against federal officeholders and candidates, we reverse.</p>
+<h3 class="oh">I</h3>
+<p>Last September, about six months before the March 5, 2024, Colorado primary election, four Republican and two unaffiliated Colorado voters filed a petition against former President Trump and Colorado Secretary of State Jena Griswold in Colorado state court. These voters—whom we refer to as the respondents—contend that after former President Trump's defeat in the 2020 Presidential election, he disrupted the peaceful transfer of power by intentionally organizing and inciting the crowd that breached the Capitol as Congress met to certify the election results on January 6, 2021. One consequence of those actions, the respondents maintain, is that former President Trump is constitutionally ineligible to serve as President again.</p>
+<p>Their theory turns on Section 3 of the Fourteenth Amendment. Section 3 provides:</p>
+<blockquote>
+<p>“No person shall be a Senator or Representative in Congress, or elector of President and Vice President, or hold any office, civil or military, under the United States, or under any State, who, having previously taken an oath, as a member of Congress, or as an officer of the United States, or as a member of any State legislature, or as an executive or judicial officer of any State, to support the <span class="pg" id="s3-p107" title="page 107 of the original">107</span>Constitution of the United States, shall have engaged in insurrection or rebellion against the same, or given aid or comfort to the enemies thereof. But Congress may by a vote of two-thirds of each House, remove such disability.”</p>
+</blockquote>
+<p>According to the respondents, Section 3 applies to the former President because after taking the Presidential oath in 2017, he intentionally incited the breaching of the Capitol on January 6 in order to retain power. They claim that he is therefore not a qualified candidate, and that as a result, the Colorado secretary of state may not place him on the primary ballot. See Colo. Rev. Stat. §§ 1–1–113(1), 1–4–1101(1), 1–4–1201, 1–4–1203(2)(a), 1–4–1204 (2023).</p>
+<p>After a five-day trial, the state District Court found that former President Trump had “engaged in insurrection” within the meaning of Section 3, but nonetheless denied the respondents' petition. The court held that Section 3 did not apply because the Presidency, which Section 3 does not mention by name, is not an “office . . . under the United States” and the President is not an “officer of the United States” within the meaning of that provision. See App. to Pet. for Cert. 184a–284a.</p>
+<p>In December, the Colorado Supreme Court reversed in part and affirmed in part by a 4 to 3 vote. Reversing the District Court's operative holding, the majority concluded that for purposes of Section 3, the Presidency is an office under the United States and the President is an officer of the United States. The court otherwise affirmed, holding (1) that the Colorado Election Code permitted the respondents' challenge based on Section 3; (2) that Congress need not pass implementing legislation for disqualifications under Section 3 to attach; (3) that the political question doctrine did not preclude judicial review of former President Trump's eligibility; (4) that the District Court did not abuse its discretion in admitting into evidence portions of a congressional Report on the events of January 6; (5) that the District Court <span class="pg" id="s3-p108" title="page 108 of the original">108</span>did not err in concluding that those events constituted an “insurrection” and that former President Trump “engaged in” that insurrection; and (6) that former President Trump's speech to the crowd that breached the Capitol on January 6 was not protected by the First Amendment. See <em>Anderson</em> v. <em>Griswold</em>, 543 P. 3d 283 (2023).</p>
+<p>The Colorado Supreme Court accordingly ordered Secretary Griswold not to “list President Trump's name on the 2024 presidential primary ballot” or “count any write-in votes cast for him.” <em>Id.</em>, at 342. Chief Justice Boatright and Justices Samour and Berkenkotter each filed dissenting opinions. <em>Id.</em>, at 342, 346, 361.</p>
+<p>Under the terms of the opinion of the Colorado Supreme Court, its ruling was automatically stayed pending this Court's review. See <em>id.</em>, at 342. We granted former President Trump's petition for certiorari, which raised a single question: “Did the Colorado Supreme Court err in ordering President Trump excluded from the 2024 presidential primary ballot?” See 601 U. S. ––– (2024). Concluding that it did, we now reverse.</p>
+<h3 class="oh">II</h3>
+<h3 class="oh">A</h3>
+<p>Proposed by Congress in 1866 and ratified by the States in 1868, the Fourteenth Amendment “expand[ed] federal power at the expense of state autonomy” and thus “fundamentally altered the balance of state and federal power struck by the Constitution.” <em>Seminole Tribe of Fla.</em> v. <em>Florida</em>, 517 U. S. 44, 59 (1996); see also <em>Ex parte Virginia</em>, 100 U. S. 339, 345 (1880). Section 1 of the Amendment, for instance, bars the States from “depriv[ing] any person of life, liberty, or property, without due process of law” or “deny[ing] to any person . . . the equal protection of the laws.” And Section 5 confers on Congress “power to enforce” those prohibitions, along with the other provisions of the Amendment, “by appropriate legislation.”</p>
+<p><span class="pg" id="s3-p109" title="page 109 of the original">109</span>Section 3 of the Amendment likewise restricts state autonomy, but through different means. It was designed to help ensure an enduring Union by preventing former Confederates from returning to power in the aftermath of the Civil War. See, <em>e. g.</em>, Cong. Globe, 39th Cong., 1st Sess., 2544 (1866) (statement of Rep. Stevens, warning that without appropriate constitutional reforms “yelling secessionists and hissing copperheads” would take seats in the House); <em>id.</em>, at 2768 (statement of Sen. Howard, lamenting prospect of a “State Legislature . . . made up entirely of disloyal elements” absent a disqualification provision). Section 3 aimed to prevent such a resurgence by barring from office “those who, having once taken an oath to support the Constitution of the United States, afterward went into rebellion against the Government of the United States.” Cong. Globe, 41st Cong., 1st Sess., 626 (1869) (statement of Sen. Trumbull).</p>
+<p>Section 3 works by imposing on certain individuals a preventive and severe penalty—disqualification from holding a wide array of offices—rather than by granting rights to all. It is therefore necessary, as Chief Justice Chase concluded and the Colorado Supreme Court itself recognized, to “ `ascertain[ ] what particular individuals are embraced' ” by the provision. 543 P. 3d, at 316 (quoting <em>Griffin's Case</em>, 11 F. Cas. 7, 26 (No. 5,815) (CC Va. 1869) (Chase, Circuit Justice)). Chase went on to explain that “[t]o accomplish this ascertainment and ensure effective results, proceedings, evidence, decisions, and enforcements of decisions, more or less formal, are indispensable.” <em>Id.</em>, at 26. For its part, the Colorado Supreme Court also concluded that there must be some kind of “determination” that Section 3 applies to a particular person “before the disqualification holds meaning.” 543 P. 3d, at 316.</p>
+<p>The Constitution empowers Congress to prescribe how those determinations should be made. The relevant provision is Section 5, which enables Congress, subject of course to judicial review, to pass “appropriate legislation” to “enforce”<span class="pg" id="s3-p110" title="page 110 of the original">110</span> the Fourteenth Amendment. See <em>City of Boerne</em> v. <em>Flores</em>, 521 U. S. 507, 536 (1997). Or as Senator Howard put it at the time the Amendment was framed, Section 5 “casts upon Congress the responsibility of seeing to it, for the future, that all the sections of the amendment are carried out in good faith.” Cong. Globe, 39th Cong., 1st Sess., at 2768.</p>
+<p>Congress's Section 5 power is critical when it comes to Section 3. Indeed, during a debate on enforcement legislation less than a year after ratification, Sen. Trumbull noted that “notwithstanding [Section 3] . . . hundreds of men [were] holding office” in violation of its terms. Cong. Globe, 41st Cong., 1st Sess., at 626. The Constitution, Trumbull noted, “provide[d] no means for enforcing” the disqualification, necessitating a “bill to give effect to the fundamental law embraced in the Constitution.” <em>Ibid.</em> The enforcement mechanism Trumbull championed was later enacted as part of the Enforcement Act of 1870, “pursuant to the power conferred by § 5 of the [Fourteenth] Amendment.” <em>General Building Contractors Assn., Inc.</em> v. <em>Pennsylvania</em>, 458 U. S. 375, 385 (1982); see 16 Stat. 143–144.</p>
+<h3 class="oh">B</h3>
+<p>This case raises the question whether the States, in addition to Congress, may also enforce Section 3. We conclude that States may disqualify persons holding or attempting to hold <em>state</em> office. But States have no power under the Constitution to enforce Section 3 with respect to federal offices, especially the Presidency.</p>
+<p>“In our federal system, the National Government possesses only limited powers; the States and the people retain the remainder.” <em>Bond</em> v. <em>United States</em>, 572 U. S. 844, 854 (2014). Among those retained powers is the power of a State to “order the processes of its own governance.” <em>Alden</em> v. <em>Maine</em>, 527 U. S. 706, 752 (1999). In particular, the States enjoy sovereign “power to prescribe the qualifications of their own officers” and “the manner of their election . . . <span class="pg" id="s3-p111" title="page 111 of the original">111</span>free from external interference, except so far as plainly provided by the Constitution of the United States.” <em>Taylor</em> v. <em>Beckham</em>, 178 U. S. 548, 570–571 (1900). Although the Fourteenth Amendment restricts state power, nothing in it plainly withdraws from the States this traditional authority. And after ratification of the Fourteenth Amendment, States used this authority to disqualify state officers in accordance with state statutes. See, <em>e. g.</em>, <em>Worthy</em> v. <em>Barrett</em>, 63 N. C. 199, 200, 204 (1869) (elected county sheriff); <em>State ex rel. Sandlin</em> v. <em>Watkins</em>, 21 La. 631, 631– 633 (1869) (state judge).</p>
+<p>Such power over governance, however, does not extend to <em>federal</em> officeholders and candidates. Because federal officers “ `owe their existence and functions to the united voice of the whole, not of a portion, of the people,' ” powers over their election and qualifications must be specifically “delegated to, rather than reserved by, the States.” <em>U. S. Term Limits, Inc.</em> v. <em>Thornton</em>, 514 U. S. 779, 803–804 (1995) (quoting 1 J. Story, Commentaries on the Constitution of the United States § 627, p. 435 (3d ed. 1858)). But nothing in the Constitution delegates to the States any power to enforce Section 3 against federal officeholders and candidates.</p>
+<p>As an initial matter, not even the respondents contend that the Constitution authorizes States to somehow remove <em>sitting</em> federal officeholders who may be violating Section 3. Such a power would flout the principle that “the Constitution guarantees `the entire independence of the General Government from any control by the respective States.' ” <em>Trump</em> v. <em>Vance</em>, 591 U. S. 786, 800 (2020) (quoting <em>Farmers and Mechanics Sav. Bank of Minneapolis</em> v. <em>Minnesota</em>, 232 U. S. 516, 521 (1914)). Indeed, consistent with that principle, States lack even the lesser powers to issue writs of mandamus against federal officials or to grant habeas corpus relief to persons in federal custody. See <em>McClung</em> v. <em>Silliman</em>, 6 Wheat. 598, 603–605 (1821); <em>Tarble's Case</em>, 13 Wall. 397, 405–410 (1872).</p>
+<p><span class="pg" id="s3-p112" title="page 112 of the original">112</span>The respondents nonetheless maintain that States may enforce Section 3 against <em>candidates</em> for federal office. But the text of the Fourteenth Amendment, on its face, does not affirmatively delegate such a power to the States. The terms of the Amendment speak only to enforcement by Congress, which enjoys power to enforce the Amendment through legislation pursuant to Section 5.</p>
+<p>This can hardly come as a surprise, given that the substantive provisions of the Amendment “embody significant limitations on state authority.” <em>Fitzpatrick</em> v. <em>Bitzer</em>, 427 U. S. 445, 456 (1976). Under the Amendment, States cannot abridge privileges or immunities, deprive persons of life, liberty, or property without due process, deny equal protection, or deny male inhabitants the right to vote (without thereby suffering reduced representation in the House). See Amdt. 14, §§ 1, 2. On the other hand, the Fourteenth Amendment grants new power to Congress to enforce the provisions of the Amendment against the States. It would be incongruous to read this particular Amendment as granting the States the power—silently no less—to disqualify a candidate for federal office.</p>
+<p>The only other plausible constitutional sources of such a delegation are the Elections and Electors Clauses, which authorize States to conduct and regulate congressional and Presidential elections, respectively. See Art. I, § 4, cl. 1; Art. II, § 1, cl. 2.<sup class="fnr"><a id="s3-r1" href="#s3-n1">1</a></sup>But there is little reason to think that these Clauses implicitly authorize the States to enforce Section 3 against federal officeholders and candidates. Granting the States that authority would invert the Fourteenth Amendment's rebalancing of federal and state power.</p>
+<p><span class="pg" id="s3-p113" title="page 113 of the original">113</span>The text of Section 3 reinforces these conclusions. Its final sentence empowers Congress to “remove” any Section 3 “disability” by a two-thirds vote of each House. The text imposes no limits on that power, and Congress may exercise it any time, as the respondents concede. See Brief for Respondents 50. In fact, historically, Congress sometimes exercised this amnesty power postelection to ensure that some of the people's chosen candidates could take office.<sup class="fnr"><a id="s3-r2" href="#s3-n2">2</a></sup>But if States were free to enforce Section 3 by barring candidates from running in the first place, Congress would be forced to exercise its disability removal power before voting begins if it wished for its decision to have any effect on the current election cycle. Perhaps a State may burden congressional authority in such a way when it exercises its “exclusive” sovereign power over its own state offices. <em>Taylor</em>, 178 U. S., at 571. But it is implausible to suppose that the Constitution affirmatively delegated to the States the authority to impose such a burden on congressional power with respect to candidates for federal office. Cf. <em>McCulloch</em> v. <em>Maryland</em>, 4 Wheat. 316, 436 (1819) (“States have no power . . . to retard, impede, burden, or in any manner control, the operations of the constitutional laws enacted by Congress”).</p>
+<p>Nor have the respondents identified any tradition of state enforcement of Section 3 against federal officeholders or candidates in the years following ratification of the Fourteenth Amendment.<sup class="fnr"><a id="s3-r3" href="#s3-n3">3</a></sup>Such a lack of historical precedent is generally<span class="pg" id="s3-p114" title="page 114 of the original">114</span> a “ `telling indication' ” of a “ `severe constitutional problem' ” with the asserted power. <em>United States</em> v. <em>Texas</em>, 599 U. S. 670, 677 (2023) (quoting <em>Free Enterprise Fund</em> v. <em>Public Company Accounting Oversight Bd.</em>, 561 U. S. 477, 505 (2010)). And it is an especially telling sign here, because as noted, States <em>did</em> disqualify persons from holding state offices following ratification of the Fourteenth Amendment. That pattern of disqualification with respect to state, but not federal offices provides “persuasive evidence of a general understanding” that the States lacked enforcement power with respect to the latter. <em>U. S. Term Limits</em>, 514 U. S., at 826.</p>
+<p>Instead, it is Congress that has long given effect to Section 3 with respect to would-be or existing federal officeholders. Shortly after ratification of the Amendment, Congress enacted the Enforcement Act of 1870. That Act authorized federal district attorneys to bring civil actions in federal court to remove anyone holding nonlegislative office—federal or state—in violation of Section 3, and made holding or attempting to hold office in violation of Section 3 a federal crime. §§ 14, 15, 16 Stat. 143–144 (repealed, 35 Stat. 1153–1154, 62 Stat. 992–993). In the years following ratification, the House and Senate exercised their unique powers under Article I to adjudicate challenges contending that certain prospective or sitting Members could not take or retain their seats due to Section 3. See Art. I, § 5, cls. 1, 2; 1 A. Hinds, Precedents of the House of Representatives §§ 459–463, pp. 470–486 (1907). And the Confiscation Act of 1862, which predated Section 3, effectively provided an additional procedure for enforcing disqualification. That law made engaging in insurrection or rebellion, among other acts, a federal <span class="pg" id="s3-p115" title="page 115 of the original">115</span>crime punishable by disqualification from holding office under the United States. See §§ 2, 3, 12 Stat. 590. A successor to those provisions remains on the books today. See 18 U. S. C. §2383.</p>
+<p>Moreover, permitting state enforcement of Section 3 against federal officeholders and candidates would raise serious questions about the scope of that power. Section 5 limits <em>congressional</em> legislation enforcing Section 3, because Section 5 is strictly “remedial.” <em>City of Boerne</em>, 521 U. S., at 520. To comply with that limitation, Congress “must tailor its legislative scheme to remedying or preventing” the specific conduct the relevant provision prohibits. <em>Florida Prepaid Postsecondary Ed. Expense Bd.</em> v. <em>College Savings Bank</em>, 527 U. S. 627, 639 (1999). Section 3, unlike other provisions of the Fourteenth Amendment, proscribes conduct of individuals. It bars persons from holding office after taking a qualifying oath and then engaging in insurrection or rebellion—nothing more. Any congressional legislation enforcing Section 3 must, like the Enforcement Act of 1870 and § 2383, reflect “congruence and proportionality” between preventing or remedying that conduct “and the means adopted to that end.” <em>City of Boerne</em>, 521 U. S., at 520. Neither we nor the respondents are aware of any other legislation by Congress to enforce Section 3. See Tr. of Oral Arg. 123.</p>
+<p>Any state enforcement of Section 3 against federal officeholders and candidates, though, would not derive from Section 5, which confers power only on “[t]he Congress.” As a result, such state enforcement might be argued to sweep more broadly than congressional enforcement could under our precedents. But the notion that the Constitution grants the States freer rein than Congress to decide how Section 3 should be enforced with respect to federal offices is simply implausible.</p>
+<p>Finally, state enforcement of Section 3 with respect to the Presidency would raise heightened concerns. “[I]n the context<span class="pg" id="s3-p116" title="page 116 of the original">116</span> of a Presidential election, state-imposed restrictions implicate a uniquely important national interest.” <em>Anderson</em> v. <em>Celebrezze</em>, 460 U. S. 780, 794–795 (1983) (footnote omitted). But state-by-state resolution of the question whether Section 3 bars a particular candidate for President from serving would be quite unlikely to yield a uniform answer consistent with the basic principle that “the President . . . represent[s] <em>all</em> the voters in the Nation.” <em>Id.</em>, at 795 (emphasis added).</p>
+<p>Conflicting state outcomes concerning the same candidate could result not just from differing views of the merits, but from variations in state law governing the proceedings that are necessary to make Section 3 disqualification determinations. Some States might allow a Section 3 challenge to succeed based on a preponderance of the evidence, while others might require a heightened showing. Certain evidence (like the congressional Report on which the lower courts relied here) might be admissible in some States but inadmissible hearsay in others. Disqualification might be possible only through criminal prosecution, as opposed to expedited civil proceedings, in particular States. Indeed, in some States— unlike Colorado (or Maine, where the secretary of state recently issued an order excluding former President Trump from the primary ballot)—procedures for excluding an ineligible candidate from the ballot may not exist at all. The result could well be that a single candidate would be declared ineligible in some States, but not others, based on the same conduct (and perhaps even the same factual record).</p>
+<p>The “patchwork” that would likely result from state enforcement would “sever the direct link that the Framers found so critical between the National Government and the people of the United States” as a whole. <em>U. S. Term Limits</em>, 514 U. S., at 822. But in a Presidential election “the impact of the votes cast in each State is affected by the votes cast”— or, in this case, the votes not allowed to be cast—“for the various candidates in other States.” <em>Anderson</em>, 460 U. S., at 795. An evolving electoral map could dramatically change the behavior of voters, parties, and States across the country, <span class="pg" id="s3-p117" title="page 117 of the original">117</span>in different ways and at different times. The disruption would be all the more acute—and could nullify the votes of millions and change the election result—if Section 3 enforcement were attempted after the Nation has voted. Nothing in the Constitution requires that we endure such chaos— arriving at any time or different times, up to and perhaps beyond the Inauguration.</p>
+<p class="sep">* * *</p>
+<p>For the reasons given, responsibility for enforcing Section 3 against federal officeholders and candidates rests with Congress and not the States. The judgment of the Colorado Supreme Court therefore cannot stand.</p>
+<p>All nine Members of the Court agree with that result. Our colleagues writing separately further agree with many of the reasons this opinion provides for reaching it. See <em>post</em>, Part I (joint opinion of <span class="sc">Sotomayor, Kagan,</span> and <span class="sc">Jackson</span>, JJ.); see also <em>post</em>, at 117–118 (opinion of <span class="sc">Barrett</span>, J.). So far as we can tell, they object only to our taking into account the distinctive way Section 3 works and the fact that Section 5 vests <em>in Congress</em> the power to enforce it. These are not the only reasons the States lack power to enforce this particular constitutional provision with respect to federal offices. But they are important ones, and it is the combination of all the reasons set forth in this opinion—not, as some of our colleagues would have it, just one particular rationale—that resolves this case. In our view, each of these reasons is necessary to provide a complete explanation for the judgment the Court unanimously reaches.</p>
+<p>The judgment of the Colorado Supreme Court is reversed.</p>
+<p>The mandate shall issue forthwith.</p>
+<p><em>It is so ordered.</em></p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li id="s3-n1" value="1"><p>The Elections Clause directs, in relevant part, that “[t]he Times, Places and Manner of holding Elections for Senators and Representatives, shall be prescribed in each State by the Legislature thereof.” Art. I, § 4, cl. 1. The Electors Clause similarly provides that “[e]ach State shall appoint, in such Manner as the Legislature thereof may direct, a Number of Electors,” who in turn elect the President. Art. II, §1, cl. 2. <a class="back" href="#s3-r1" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n2" value="2"><p>Shortly after the Fourteenth Amendment was ratified, for instance, Congress enacted a private bill to remove the Section 3 disability of Nelson Tift of Georgia, who had recently been elected to represent the State in Congress. See ch. 393, 15 Stat. 427. Tift took his seat in Congress immediately thereafter. See Cong. Globe, 40th Cong., 2d Sess., 4499–4500 (1868). Congress similarly acted postelection to remove the disabilities of persons elected to state and local offices. See Cong. Globe, 40th Cong., 3d Sess., 29–30, 120–121 (1868); ch. 5, 15 Stat. 435–436. <a class="back" href="#s3-r2" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n3" value="3"><p>We are aware of just one example of state enforcement against a would-be federal officer. In 1868, the Governor of Georgia refused to commission John Christy, who had won the most votes in a congressional election, because—in the Governor's view—Section 3 made Christy ineligible to serve. But the Governor's determination was not final; a committee of the House reviewed Christy's qualifications itself and recommended that he not be seated. The full House never acted on the matter, and Christy was never seated. See 1 A. Hinds, Precedents of the House of Representatives § 459, pp. 470–472 (1907). <a class="back" href="#s3-r3" aria-label="Back to the text">↩</a></p></li>
+</ol></aside></section>
+<section id="s4" class="op op-judgment"><h2>Justice Barrett, concurring in part and concurring in the judgment</h2>
+<p class="byline">Justice Barrett, concurring in part and concurring in the judgment.</p>
+<p>I join Parts I and II–B of the Court's opinion. I agree that States lack the power to enforce Section 3 against Presi</p>
+<h3 class="oh"><span class="pg" id="s4-p118" title="page 118 of the original">118</span><span class="sc">Sotomayor, Kagan,</span> and <span class="sc">Jackson, JJ.</span>, concurring in judgment</h3>
+<p>dential candidates. That principle is sufficient to resolve this case, and I would decide no more than that. This suit was brought by Colorado voters under state law in state court. It does not require us to address the complicated question whether federal legislation is the exclusive vehicle through which Section 3 can be enforced.</p>
+<p>The majority's choice of a different path leaves the remaining Justices with a choice of how to respond. In my judgment, this is not the time to amplify disagreement with stridency. The Court has settled a politically charged issue in the volatile season of a Presidential election. Particularly in this circumstance, writings on the Court should turn the national temperature down, not up. For present purposes, our differences are far less important than our unanimity: All nine Justices agree on the outcome of this case. That is the message Americans should take home.</p>
+<p><span class="sc">Justice Sotomayor</span>, <span class="sc">Justice Kagan</span>, and <span class="sc">Justice Jackson</span>, concurring in the judgment.</p>
+<p>“If it is not necessary to decide more to dispose of a case, then it is necessary <em>not</em> to decide more.” <em>Dobbs</em> v. <em>Jackson Women's Health Organization</em>, 597 U. S. 215, 348 (2022) (<span class="sc">Roberts</span>, C. J., concurring in judgment). That fundamental principle of judicial restraint is practically as old as our Republic. This Court is authorized “to say what the law is” only because “[t]hose who apply [a] rule to particular cases . . . must of <em>necessity</em> expound and interpret that rule.” <em>Marbury</em> v. <em>Madison</em>, 1 Cranch 137, 177 (1803) (emphasis added).</p>
+<p>Today, the Court departs from that vital principle, deciding not just this case, but challenges that might arise in the future. In this case, the Court must decide whether Colorado may keep a Presidential candidate off the ballot on the ground that he is an oathbreaking insurrectionist and thus disqualified from holding federal office under Section 3 of the Fourteenth Amendment. Allowing Colorado to do so would,</p>
+<h3 class="oh"><span class="pg" id="s4-p119" title="page 119 of the original">119</span><span class="sc">Sotomayor, Kagan,</span> and <span class="sc">Jackson, JJ.</span>, concurring in judgment</h3>
+<p>we agree, create a chaotic state-by-state patchwork, at odds with our Nation's federalism principles. That is enough to resolve this case. Yet the majority goes further. Even though “[a]ll nine Members of the Court” agree that this independent and sufficient rationale resolves this case, five Justices go on. They decide novel constitutional questions to insulate this Court and petitioner from future controversy. <em>Ante,</em> at 117. Although only an individual State's action is at issue here, the majority opines on which federal actors can enforce Section 3, and how they must do so. The majority announces that a disqualification for insurrection can occur only when Congress enacts a particular kind of legislation pursuant to Section 5 of the Fourteenth Amendment. In doing so, the majority shuts the door on other potential means of federal enforcement. We cannot join an opinion that decides momentous and difficult issues unnecessarily, and we therefore concur only in the judgment.</p>
+<h3 class="oh">I</h3>
+<p>Our Constitution leaves some questions to the States while committing others to the Federal Government. Federalism principles embedded in that constitutional structure decide this case. States cannot use their control over the ballot to “undermine the National Government.” <em>U. S. Term Limits, Inc.</em> v. <em>Thornton</em>, 514 U. S. 779, 810 (1995). That danger is even greater “in the context of a Presidential election.” <em>Anderson</em> v. <em>Celebrezze</em>, 460 U. S. 780, 794–795 (1983). State restrictions in that context “implicate a uniquely important national interest” extending beyond a State's “own borders.” <em>Ibid.</em> No doubt, States have significant “authority over presidential electors” and, in turn, Presidential elections. <em>Chiafalo</em> v. <em>Washington</em>, 591 U. S. 578, 588 (2020). That power, however, is limited by “other constitutional constraint[s],” including federalism principles. <em>Id</em>., at 589.</p>
+<p>The majority rests on such principles when it explains why Colorado cannot take petitioner off the ballot. “[S]tate-by</p>
+<h3 class="oh"><span class="pg" id="s4-p120" title="page 120 of the original">120</span><span class="sc">Sotomayor, Kagan,</span> and <span class="sc">Jackson, JJ.</span>, concurring in judgment</h3>
+<p>state resolution of the question whether Section 3 bars a particular candidate for President from serving,” the majority explains, “would be quite unlikely to yield a uniform answer consistent with the basic principle that `the President . . . represent[s] <em>all</em> the voters in the Nation.' ” <em>Ante</em>, at 116 (quoting <em>Anderson</em>, 460 U. S., at 795). That is especially so, the majority adds, because different States can reach “[c]onflicting . . . outcomes concerning the same candidate . . . not just from differing views of the merits, but from variations in state law governing the proceedings” to enforce Section 3. <em>Ante</em>, at 116<em>.</em></p>
+<p>The contrary conclusion that a handful of officials in a few States could decide the Nation's next President would be especially surprising with respect to Section 3. The Reconstruction Amendments “were specifically designed as an expansion of federal power and an intrusion on state sovereignty.” <em>City of Rome</em> v. <em>United States</em>, 446 U. S. 156, 179 (1980). Section 3 marked the first time the Constitution placed substantive limits on a State's authority to choose its own officials. Given that context, it would defy logic for Section 3 to give States new powers to determine who may hold the Presidency. Cf. <em>ante</em>, at 112 (“It would be incongruous to read this particular Amendment as granting the States the power—silently no less—to disqualify a candidate for federal office”).</p>
+<p>That provides a secure and sufficient basis to resolve this case. To allow Colorado to take a Presidential candidate off the ballot under Section 3 would imperil the Framers' vision of “a Federal Government directly responsible to the people.” <em>U. S. Term Limits</em>, 514 U. S., at 821. The Court should have started and ended its opinion with this conclusion.</p>
+<h3 class="oh">II</h3>
+<p>Yet the Court continues on to resolve questions not before us. In a case involving no federal action whatsoever, the</p>
+<h3 class="oh"><span class="pg" id="s4-p121" title="page 121 of the original">121</span><span class="sc">Sotomayor, Kagan,</span> and <span class="sc">Jackson, JJ.</span>, concurring in judgment</h3>
+<p>Court opines on how federal enforcement of Section 3 must proceed. Congress, the majority says, must enact legislation under Section 5 prescribing the procedures to “ ` “ascertain[ ] what particular individuals” ' ” should be disqualified. <em>Ante</em>, at 109 (quoting <em>Griffin's Case</em>, 11 F. Cas. 7, 26 (No. 5,815) (CC Va. 1869) (Chase, Circuit Justice)). These musings are as inadequately supported as they are gratuitous.</p>
+<p>To start, nothing in Section 3's text supports the majority's view of how federal disqualification efforts must operate. Section 3 states simply that “[n]o person shall” hold certain positions and offices if they are oathbreaking insurrectionists. Amdt. 14. Nothing in that unequivocal bar suggests that implementing legislation enacted under Section 5 is “critical” (or, for that matter, what that word means in this context). <em>Ante</em>, at 110. In fact, the text cuts the opposite way. Section 3 provides that when an oathbreaking insurrectionist is disqualified, “Congress may by a vote of two-thirds of each House, remove such disability.” It is hard to understand why the Constitution would require a congressional supermajority to remove a disqualification if a simple majority could nullify Section 3's operation by repealing or declining to pass implementing legislation. Even petitioner's lawyer acknowledged the “tension” in Section 3 that the majority's view creates. See Tr. of Oral Arg. 31.</p>
+<p>Similarly, nothing else in the rest of the Fourteenth Amendment supports the majority's view. Section 5 gives Congress the “power to enforce [the Amendment] by appropriate legislation.” Remedial legislation of any kind, however, is not required. All the Reconstruction Amendments (including the due process and equal protection guarantees and prohibition of slavery) “are self-executing,” meaning that they do not depend on legislation. <em>City of Boerne</em> v. <em>Flores</em>, 521 U. S. 507, 524 (1997); see <em>Civil Rights Cases</em>, 109 U. S. 3, 20 (1883). Similarly, other constitutional rules of disqualification, like the two-term limit on the Presidency, do not re</p>
+<h3 class="oh"><span class="pg" id="s4-p122" title="page 122 of the original">122</span><span class="sc">Sotomayor, Kagan,</span> and <span class="sc">Jackson, JJ.</span>, concurring in judgment</h3>
+<p>quire implementing legislation. See, <em>e</em>.<em>g</em>., Art. II, §1, cl. 5 (Presidential Qualifications); Amdt. 22 (Presidential Term Limits). Nor does the majority suggest otherwise. It simply creates a special rule for the insurrection disability in Section 3.</p>
+<p>The majority is left with next to no support for its requirement that a Section 3 disqualification can occur only pursuant to legislation enacted for that purpose. It cites <em>Griffin's Case</em>, but that is a nonprecedential, lower court opinion by a single Justice in his capacity as a circuit judge. See <em>ante</em>, at 109 (quoting 11 F. Cas., at 26). Once again, even petitioner's lawyer distanced himself from fully embracing this case as probative of Section 3's meaning. See Tr. of Oral Arg. 35–36. The majority also cites Senator Trumbull's statements that Section 3 “ `provide[d] no means for enforcing' ” itself. <em>Ante</em>, at 110 (quoting Cong. Globe, 41st Cong., 1st Sess., 626 (1869)). The majority, however, neglects to mention the Senator's view that “[i]t is the [F]ourteenth [A]mendment that prevents a person from holding office,” with the proposed legislation simply “afford[ing] a more efficient and speedy remedy” for effecting the disqualification. <em>Id.</em>, at 626–627.</p>
+<p>Ultimately, under the guise of providing a more “complete explanation for the judgment,” <em>ante,</em> at 117, the majority resolves many unsettled questions about Section 3. It forecloses judicial enforcement of that provision, such as might occur when a party is prosecuted by an insurrectionist and raises a defense on that score. The majority further holds that any legislation to enforce this provision must prescribe certain procedures “ `tailor[ed]' ” to Section 3, <em>ante,</em> at 115, ruling out enforcement under general federal statutes requiring the Government to comply with the law. By resolving these and other questions, the majority attempts to insulate all alleged insurrectionists from future challenges to their holding federal office.</p>
+<h3 class="oh"><span class="pg" id="s4-p123" title="page 123 of the original">123</span><span class="sc">Sotomayor, Kagan,</span> and <span class="sc">Jackson, JJ.</span>, concurring in judgment</h3>
+<p class="sep">* * *</p>
+<p>“What it does today, the Court should have left undone.” <em>Bush</em> v. <em>Gore</em>, 531 U. S. 98, 158 (2000) (Breyer, J., dissenting). The Court today needed to resolve only a single question: whether an individual State may keep a Presidential candidate found to have engaged in insurrection off its ballot. The majority resolves much more than the case before us. Although federal enforcement of Section 3 is in no way at issue, the majority announces novel rules for how that enforcement must operate. It reaches out to decide Section 3 questions not before us, and to foreclose future efforts to disqualify a Presidential candidate under that provision. In a sensitive case crying out for judicial restraint, it abandons that course.</p>
+<p>Section 3 serves an important, though rarely needed, role in our democracy. The American people have the power to vote for and elect candidates for national office, and that is a great and glorious thing. The men who drafted and ratified the Fourteenth Amendment, however, had witnessed an “insurrection [and] rebellion” to defend slavery. § 3. They wanted to ensure that those who had participated in that insurrection, and in possible future insurrections, could not return to prominent roles. Today, the majority goes beyond the necessities of this case to limit how Section 3 can bar an oathbreaking insurrectionist from becoming President. Although we agree that Colorado cannot enforce Section 3, we protest the majority's effort to use this case to define the limits of federal enforcement of that provision. Because we would decide only the issue before us, we concur only in the judgment.</p></section><p class='back'><a href='/opinions/'>&larr; All opinions</a> · <a href='/justices/ot2023.html'>The Justices, October Term 2023 &rarr;</a></p></main></body>
+</html>
+

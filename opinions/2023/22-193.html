@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script async src='/analytics.js'></script><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate icon" href="/favicon.ico" sizes="any"><link rel="alternate" type="application/atom+xml" title="Supreme Court Report" href="/feed.xml"><link rel="alternate" type="application/atom+xml" title="Certiorari grants" href="/grants.xml"><title>Muldrow v. St. Louis — Opinion — Supreme Court Report</title><meta name="description" content="The opinion in Muldrow v. St. Louis (No. 22-193), decided April 17, 2024: the full text with its footnotes, as a page, a Markdown file and an EPUB."><link rel="canonical" href="https://supremecourt.report/opinions/2023/22-193.html"><meta property="og:site_name" content="Supreme Court Report"><meta property="og:type" content="article"><meta property="og:title" content="Muldrow v. St. Louis — Opinion — Supreme Court Report"><meta property="og:description" content="The opinion in Muldrow v. St. Louis (No. 22-193), decided April 17, 2024: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta property="og:url" content="https://supremecourt.report/opinions/2023/22-193.html"><meta property="og:image" content="https://supremecourt.report/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Supreme Court Report - docket analytics for the Supreme Court of the United States"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Muldrow v. St. Louis — Opinion — Supreme Court Report"><meta name="twitter:description" content="The opinion in Muldrow v. St. Louis (No. 22-193), decided April 17, 2024: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta name="twitter:image" content="https://supremecourt.report/og.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap"><style>
+  :root{--paper:#fdfcfa;--panel:#ffffff;--ink:#1a1a1e;--ink-soft:#484850;--faint:#63636b;--accent:#9c0e3a;--link:#9c0e3a;--rule:#dbd8d2;--nav-max:60rem}
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{font-family:'Newsreader',Georgia,serif;font-size:19px;line-height:1.6;
+    color:var(--ink);background:var(--paper);margin:0;font-feature-settings:'onum' 1}
+  body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
+    opacity:.5;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");}
+  .wrap{max-width:40rem;margin:0 auto;padding:3rem 1.4rem 4rem}
+  .kicker{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 1rem}
+  h1{font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:clamp(2.4rem,7vw,3.6rem);line-height:1;letter-spacing:-.015em;
+    margin:0 0 1rem;color:var(--ink)}
+  h1 em{font-style:italic;font-weight:500;color:var(--accent)}
+  .dek{font-size:1.15rem;line-height:1.5;color:var(--ink-soft);font-style:italic;
+    margin:0 0 1.4rem}
+  .brule{border:0;height:0;border-top:2px solid var(--ink);margin:1.4rem 0 .3rem;
+    position:relative}
+  .brule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+    border-top:1px solid var(--rule)}
+  ul.idx{list-style:none;padding:0;margin:1.6rem 0}
+  ul.idx li{border-bottom:1px solid var(--rule)}
+  /* Whole row is one block-level link: a large, reliable tap target on mobile. */
+  ul.idx a.row{display:flex;justify-content:space-between;align-items:baseline;
+    gap:1rem;padding:.9rem .4rem;text-decoration:none;border:0;color:inherit}
+  ul.idx a.row:hover{background:rgba(156,14,58,.05)}
+  ul.idx .d{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.16rem;
+    color:var(--accent);line-height:1.25}
+  ul.idx a.row:hover .d{text-decoration:underline;text-underline-offset:3px}
+  ul.idx .count{color:var(--faint);font-size:.9rem;font-style:italic;white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  /* A long note (an order list's "3 GVRs / 230 denied / 4 habeas denied /
+     ...", items separated by middots) cannot sit on one line: nowrap made it
+     claim the row and
+     squeezed the title into a column three words wide, and on a phone it ran off
+     the screen. Such a row opts in (meta_wrap): the note wraps, only between its
+     items, and takes at most ~45% of the row, so the title always has the
+     larger share. Under 34rem it drops beneath the title at full width. */
+  /* ("long", not "wrap": .wrap is the page container and its padding.) */
+  ul.idx .count.long{white-space:normal;text-align:right;max-width:45%;line-height:1.45}
+  ul.idx .count.long .seg{white-space:nowrap}
+  @media(max-width:34rem){
+    ul.idx a.row.longmeta{flex-wrap:wrap;row-gap:.2rem}
+    ul.idx .count.long{max-width:none;flex-basis:100%;text-align:left}
+  }
+  /* Compact horizontal strip of the most recent pages beneath a category row. */
+  ul.idx .recent{display:flex;flex-wrap:wrap;align-items:baseline;
+    gap:.3rem .85rem;padding:0 .4rem 1rem;margin-top:-.35rem}
+  ul.idx .recent .rlabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  ul.idx .recent a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--ink-soft);text-decoration:none;font-variant-numeric:tabular-nums;
+    border-bottom:1px solid var(--rule);padding-bottom:1px}
+  ul.idx .recent a:hover{color:var(--accent);border-color:var(--accent)}
+  /* Optional panel beneath the section index (home page: most-read cases). */
+  .panel{margin:2.4rem 0 0}
+  .panel h2{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 .25rem}
+  .panel .pnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:0 0 .5rem}
+  /* "Live now" (live_argument_panel, /live.js): hidden unless the Court is
+     streaming an argument. One red dot, the same --accent as the headings, so
+     the live state is a mark and not a new colour. */
+  .live h2 .ldot{display:inline-block;width:.5rem;height:.5rem;border-radius:50%;
+    background:var(--accent);margin-right:.5rem;vertical-align:.08rem;
+    animation:lpulse 2s ease-in-out infinite}
+  @keyframes lpulse{50%{opacity:.25}}
+  @media (prefers-reduced-motion:reduce){.live h2 .ldot{animation:none}}
+  .lplay{display:flex;flex-wrap:wrap;gap:.6rem .9rem;align-items:center;margin:.8rem 0 .3rem}
+  .lplay button{font:600 .9rem/1 'Newsreader',Georgia,serif;letter-spacing:.04em;
+    color:var(--paper);background:var(--accent);border:0;border-radius:2px;
+    padding:.6rem 1.05rem;cursor:pointer}
+  .lplay button:disabled{opacity:.6;cursor:progress}
+  .lplay button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  /* The player takes a row of its own and may never outgrow the column. A flex
+     item's min-width is auto, which for a replaced element is the browser's own
+     controls' width -- wider than the column on a phone, where mobile Safari
+     and Chrome draw larger controls than the desktop. */
+  .lplay audio{display:block;flex:1 1 100%;width:100%;min-width:0;max-width:100%;
+    box-sizing:border-box;margin:0}
+  .lplay .lstat{font-size:.85rem;color:var(--faint)}
+  /* --- Likeliest grants -----------------------------------------------------
+     Its own rows rather than ol.mostread's: this panel carries a question under
+     the caption, which that list has no room for, and a percentage that has to
+     read as the row's subject rather than as a trailing note.
+     The window toggle is two real radio inputs plus :has() -- no JavaScript.
+     Both windows are rendered at build time and one is hidden, which is the only
+     way a static site can offer the choice: there is no server to ask for the
+     other one. Real radios, not styled buttons, so the control is reachable by
+     keyboard and announced as a choice. */
+  .lead{margin:0 0 1.9rem}
+  .lead h2{margin-bottom:.35rem}
+  .lead .pnote{margin:0 0 .7rem}
+  .wr{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+  .win{display:inline-flex;gap:.25rem;margin:0 0 .55rem;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .win label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .win label:hover{color:var(--ink)}
+  .lead:has(#w7:checked) label[for=w7],
+  .lead:has(#w28:checked) label[for=w28],
+  .lead:has(#wall:checked) label[for=wall]{background:var(--accent);color:var(--paper)}
+  .wr:focus-visible+label{outline:2px solid var(--accent);outline-offset:2px}
+  /* Three windows, one shown: the checked radio hides the other two. */
+  .lead:has(#w7:checked) :is(.g28,.n28,.gall,.nall),
+  .lead:has(#w28:checked) :is(.g7,.n7,.gall,.nall),
+  .lead:has(#wall:checked) :is(.g7,.n7,.g28,.n28){display:none}
+  /* The show/hide controls for a panel's secondary line -- the question under
+     a forecast row, the holding under a decision. Same box as the window
+     toggle, a checkbox instead of radios, and no script: the sibling rule does
+     the work and the lines simply show where :has() is unsupported. The
+     questions are on by default (they are what a forecast row asks); the
+     holdings are off (the caption, kind and disposition already say what
+     happened, and the holding is the more). */
+  .opts{display:inline-flex;gap:.25rem;margin:0 .45rem .55rem 0;vertical-align:top;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .opts label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .opts label:hover{color:var(--ink)}
+  .lead:has(#qon:checked) label[for=qon],
+  .panel:has(#hon:checked) label[for=hon]{background:var(--accent);color:var(--paper)}
+  .lead:has(#qon:not(:checked)) .gq{display:none}
+  .panel:has(#hon:not(:checked)) .chold{display:none}
+  /* --- Upcoming at the Court ------------------------------------------------
+     A date gutter and a two-line body, the same shape as the grant rows above
+     it, so the two panels read as one page rather than two widgets. */
+  .cal{margin:0 0 1.9rem}
+  ol.cal{list-style:none;margin:0;padding:0}
+  ol.cal li{border-top:1px solid var(--rule)}
+  ol.cal li:last-child{border-bottom:1px solid var(--rule)}
+  /* The row is a container, not an anchor: an argument day carries one link per
+     case it hears and anchors cannot nest. Hover lives on the row so it still
+     reads as one unit, and each link colours on its own hover. */
+  ol.cal .crow{display:flex;gap:.95rem;align-items:baseline;padding:.55rem .1rem}
+  ol.cal .crow:hover{background:rgba(156,14,58,.05)}
+  ol.cal a{text-decoration:none;color:inherit}
+  ol.cal a:hover,ol.cal a:focus-visible{color:var(--accent)}
+  ol.cal .cdet a{border-bottom:1px solid rgba(156,14,58,.35)}
+  ol.cal .cdet a:hover{border-bottom-color:var(--accent)}
+  ol.cal .cwhen{flex:none;width:4.6rem;font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.96rem;color:var(--ink);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  ol.cal .cdow{display:block;font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);text-transform:uppercase;letter-spacing:.08em}
+  ol.cal .ctx{flex:1;min-width:0}
+  ol.cal .ckind{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:.98rem;line-height:1.25}
+  ol.cal .cdet{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.12rem}
+  /* Recent decisions reuses the calendar rows and adds exactly two things: the
+     kind word that opens the detail line, and the one outbound link (the slip
+     opinion), which takes the link colour the rest of the row deliberately
+     does not. */
+  ol.cal .dk{font-weight:600;color:var(--ink)}
+  ol.cal .cdet a.pdf{color:var(--link)}
+  /* The holding, from the Court's slip-opinion feed: one sentence, set
+     smaller and in the soft ink so the caption stays the row's headline. */
+  ol.cal .chold{display:block;font-size:.86rem;line-height:1.4;color:var(--ink-soft);
+    font-style:italic;margin-top:.15rem}
+  ol.cal .cdet a.pdf:hover,ol.cal .cdet a.pdf:focus-visible{color:var(--accent);
+    border-bottom-color:var(--accent)}
+  ol.grants{list-style:none;margin:0;padding:0}
+  ol.grants li{border-top:1px solid var(--rule)}
+  ol.grants li:last-child{border-bottom:1px solid var(--rule)}
+  ol.grants a{display:flex;gap:.95rem;align-items:baseline;text-decoration:none;
+    color:inherit;padding:.62rem .1rem}
+  ol.grants a:hover{background:rgba(156,14,58,.05)}
+  ol.grants a:hover .gc{color:var(--accent)}
+  ol.grants .gv{flex:none;width:3.5rem;text-align:right;
+    font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.22rem;
+    line-height:1.1;color:var(--accent);font-variant-numeric:tabular-nums}
+  ol.grants .gx{font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);margin-left:.3rem}
+  ol.grants .gtx{flex:1;min-width:0}
+  /* Subject-area line under the caption, in the section-label idiom (h2.sec):
+     small tracked caps in the faint ink, so it classifies without competing. */
+  ol.grants .gs,ol.mostread .ms{display:block;font-size:.68rem;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--faint);line-height:1.3;margin-top:.12rem}
+  ol.grants .gc{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:1rem;line-height:1.25}
+  ol.grants .gq{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.16rem}
+  ol.grants .gd{flex:none;font-size:.76rem;color:var(--faint);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  .more{margin:.75rem 0 0;font-size:.92rem}
+  .more a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.35)}
+  .more a:hover{border-bottom-color:var(--link)}
+  h2.sec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:.88rem;
+    letter-spacing:.09em;color:var(--faint);text-transform:uppercase;
+    margin:2.1rem 0 .6rem;padding-bottom:.28rem;border-bottom:1px solid var(--rule)}
+  @media(max-width:40rem){
+    ol.grants a{flex-wrap:wrap}
+    ol.grants .gd{width:100%;padding-left:4.45rem;margin-top:-.1rem}
+  }
+  ol.mostread{list-style:none;counter-reset:mr;padding:0;margin:0}
+  ol.mostread li{counter-increment:mr;border-bottom:1px solid var(--rule)}
+  ol.mostread a{display:flex;align-items:baseline;gap:.7rem;padding:.6rem .4rem;
+    text-decoration:none;color:inherit}
+  ol.mostread a:hover{background:rgba(156,14,58,.05)}
+  ol.mostread a::before{content:counter(mr);font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.95rem;color:var(--faint);min-width:1.1rem;
+    font-variant-numeric:tabular-nums}
+  ol.mostread .mc{flex:1;font-size:1rem;line-height:1.3}
+  ol.mostread .mct{display:block}
+  ol.mostread a:hover .mct{color:var(--accent);text-decoration:underline;
+    text-underline-offset:3px}
+  ol.mostread .mdk{color:var(--accent);font-weight:600;font-size:.82rem;
+    font-variant-numeric:tabular-nums;white-space:nowrap}
+  ol.mostread .mv{color:var(--faint);font-size:.85rem;font-style:italic;
+    white-space:nowrap;font-variant-numeric:tabular-nums}
+  /* Forecast percentages carry weight the most-read counts do not: the number is
+     the claim, not a footnote to the ranking. Upright, accent, tabular. */
+  ol.mostread .mv.fc{color:var(--accent);font-style:normal;font-weight:600;
+    font-size:.95rem;min-width:2.6rem;text-align:right}
+  /* Feed follow line. Deliberately quiet -- a footnote under the section list,
+     styled like .recent rather than like a call to action. */
+  .feeds{display:flex;flex-wrap:wrap;align-items:baseline;gap:.3rem .85rem;
+    margin:2.2rem 0 0;padding-top:1.1rem;border-top:1px solid var(--rule)}
+  .feeds .flabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  .feeds a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .feeds a:hover{border-color:var(--link)}
+  .back{margin-top:2rem;font-size:.95rem}
+  .back a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .back a:hover{border-color:var(--link)}
+  /* Home-page case search. */
+  .csearch{position:relative;margin:0 0 1.4rem}
+  #cq{width:100%;font-family:'Newsreader',Georgia,serif;font-size:1.05rem;color:var(--ink);
+    background:var(--panel);border:1px solid var(--rule);border-radius:3px;padding:.7rem .9rem}
+  #cq:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(156,14,58,.1)}
+  #cq::placeholder{color:var(--faint)}
+  #cq.loading{background-image:linear-gradient(90deg,transparent,rgba(156,14,58,.06),transparent);
+    background-size:40% 100%;background-repeat:no-repeat;animation:csl 1s infinite}
+  @keyframes csl{0%{background-position:-40% 0}100%{background-position:140% 0}}
+  .cres{list-style:none;margin:.35rem 0 0;padding:0;max-height:24rem;overflow-y:auto;
+    border:1px solid var(--rule);border-radius:3px;background:var(--panel)}
+  .cres:empty{display:none}
+  .cres li{border-bottom:1px solid var(--rule)}
+  .cres li:last-child{border-bottom:0}
+  .cres a{display:block;padding:.55rem .7rem;text-decoration:none;color:var(--ink);
+    font-size:.98rem;line-height:1.3}
+  .cres a:hover,.cres li.act a{background:rgba(156,14,58,.06)}
+  .cres mark{background:rgba(156,14,58,.14);color:inherit;padding:0 .05em;border-radius:2px}
+  .cres .cd{color:var(--accent);font-variant-numeric:tabular-nums;font-weight:600;
+    margin-right:.5rem;white-space:nowrap}
+  .cnone{padding:.55rem .7rem;color:var(--faint);font-style:italic}
+  .cnone a,.cqp a{color:var(--link);font-style:normal;text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .cqp{margin:.45rem 0 0;font-size:.88rem;color:var(--faint)}
+  /* /cases/ browse index: grouped sections with per-bucket counts. */
+  .csec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+    text-transform:uppercase;letter-spacing:.12em;color:var(--accent);
+    margin:2.2rem 0 .3rem;padding-bottom:.35rem;border-bottom:1px solid var(--rule);
+    display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
+  .csec .cn{font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:.85rem;
+    letter-spacing:0;text-transform:none;color:var(--faint);
+    font-variant-numeric:tabular-nums}
+  .cnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:.5rem 0 0}
+  .cnote a{color:var(--accent)}
+  ul.terms{list-style:none;padding:0;margin:1rem 0 0;display:flex;flex-wrap:wrap;
+    gap:.5rem 1.6rem}
+  ul.terms li{display:inline-flex;align-items:baseline;gap:.4rem}
+  ul.terms a{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.05rem;
+    color:var(--accent);text-decoration:none;border-bottom:1px solid var(--rule)}
+  ul.terms a:hover{border-bottom-color:var(--accent)}
+  ul.terms .cn{color:var(--faint);font-size:.85rem;font-variant-numeric:tabular-nums}
+  /* About page: running prose rather than an index, so it takes a measure and a
+     little more leading than the section rows above it. */
+  .about{margin:1.6rem 0 0;font-size:1.05rem;line-height:1.65;max-width:34rem}
+  .about p{margin:0 0 1rem}
+  .about a{color:var(--accent);text-decoration:none;
+    border-bottom:1px solid var(--rule)}
+  .about a:hover{border-bottom-color:var(--accent)}
+  .about .contact{margin:2rem 0 0;background:var(--panel);border:1px solid var(--rule);
+    border-left:4px solid var(--accent);padding:1.1rem 1.3rem}
+  .about .contact h2{font:600 .78rem/1 'Newsreader',Georgia,serif;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--accent);margin:0 0 .5rem}
+  .about .contact p{margin:0;font-size:1rem}
+
+/* ---- masthead ---- */
+.smast-in{max-width:var(--nav-max,60rem);margin:0 auto;padding:.85rem 1.5rem .5rem;
+  display:flex;align-items:baseline;justify-content:space-between;gap:1.4rem;flex-wrap:wrap}
+.smast-wm{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+  letter-spacing:.005em;color:var(--ink,#1a1a1e);text-decoration:none;white-space:nowrap;flex:none}
+.smast-wm em{font-style:italic;font-weight:500;color:var(--accent,#9c0e3a)}
+.smast-wm:hover{color:var(--accent,#9c0e3a)}
+/* Row gap first, then column. At 1.35rem the six section links measured 596px
+   of max-content -- 4px wider than the 592px row the 40rem index container
+   leaves them -- so ABOUT alone wrapped to a third line under the wordmark, on
+   every page page_style.R writes. 1.05rem brings the row to 572px: 20px of
+   slack at 40rem, and 45px on the 54rem case pages, which were themselves only
+   21px from wrapping. The .4rem row gap is for the day a seventh section
+   overruns it anyway -- a nav that wraps should read as a stack, not an orphan. */
+.snav{display:flex;gap:.4rem 1.05rem;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+.snav a{font:600 .72rem/1 'Newsreader',Georgia,serif;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--ink-soft,var(--soft,#484850));text-decoration:none;display:inline-block;
+  padding:.5rem 0;border-bottom:1.5px solid transparent}
+.snav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--rule,#dbd8d2)}
+.snav a[aria-current='page']{color:var(--accent,#9c0e3a);
+  border-bottom-color:var(--accent,#9c0e3a)}
+.smast-rule-w{max-width:var(--nav-max,60rem);margin:0 auto;padding:0 1.5rem}
+.smast-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0;position:relative}
+.smast-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.skip{position:absolute;left:-9999px;top:0;background:var(--panel,#ffffff);
+  color:var(--accent,#9c0e3a);padding:.6rem 1rem;
+  border:1px solid var(--accent,#9c0e3a);
+  font:600 .8rem/1 'Newsreader',Georgia,serif;letter-spacing:.1em;text-transform:uppercase;z-index:10}
+.skip:focus{left:.5rem;top:.5rem}
+/* ---- breadcrumb ---- */
+.bcrumb{margin:.7rem 0 0}
+.bcrumb ol{list-style:none;display:flex;flex-wrap:wrap;align-items:baseline;
+  gap:.1rem .45rem;margin:0;padding:0}
+.bcrumb li{display:inline-flex;align-items:baseline;gap:.45rem}
+.bcrumb a{font:400 .8rem/1.5 'Newsreader',Georgia,serif;color:var(--ink-soft,var(--soft,#484850));
+  text-decoration:none;border-bottom:1px solid var(--rule,#dbd8d2)}
+.bcrumb a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.bcrumb .sep{color:var(--faint,#63636b);font-size:.8rem;line-height:1.5}
+.bcrumb [aria-current='page']{font:400 .8rem/1.5 'Newsreader',Georgia,serif;
+  color:var(--faint,#63636b);font-variant-numeric:tabular-nums}
+/* ---- case footer ---- */
+.cfoot{margin:2.4rem 0 0}
+.cfoot-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0 0 1rem;position:relative}
+.cfoot-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.cfoot-off{font-size:.95rem;margin:0 0 1.1rem}
+.cfoot-off a{color:var(--link,#9c0e3a);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.4)}
+.cfoot-off a:hover{border-bottom-color:var(--link,#9c0e3a)}
+.cfoot-lab{font:600 .68rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);margin:0 0 .5rem}
+.cfoot-nav{display:flex;flex-wrap:wrap;gap:.35rem 1.1rem;list-style:none;margin:0;padding:0}
+.cfoot-nav a{font-size:.92rem;color:var(--ink-soft,var(--soft,#484850));text-decoration:none;
+  border-bottom:1px solid var(--rule,#dbd8d2);padding-bottom:1px}
+.cfoot-nav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.cfoot-stamp{margin:1.2rem 0 0;font-size:.8rem;color:var(--faint,#63636b);font-style:italic}
+/* ---- prev / next ---- */
+.pnav{margin:2.2rem 0 0;border-top:1px solid var(--rule,#dbd8d2);padding-top:1rem;
+  display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.pnav a,.pnav span.none{text-decoration:none;color:inherit;display:block;padding:.5rem .2rem}
+.pnav a:hover{background:rgba(156,14,58,.05)}
+.pnav .dir{font:600 .66rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);display:block;margin-bottom:.3rem}
+.pnav .lab{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1rem;line-height:1.25;
+  color:var(--accent,#9c0e3a);display:block}
+.pnav a:hover .lab{text-decoration:underline;text-underline-offset:3px}
+.pnav .nx{text-align:right}
+.pnav .none{opacity:.35}
+@media(max-width:640px){
+  .smast-in{padding:.7rem 1.1rem .25rem;gap:.15rem}
+  .smast-wm{font-size:.98rem}
+  .smast-in nav{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+    -webkit-mask-image:linear-gradient(90deg,#000 86%,transparent);
+    mask-image:linear-gradient(90deg,#000 86%,transparent)}
+  .smast-in nav::-webkit-scrollbar{display:none}
+  .snav{flex-wrap:nowrap;gap:1.15rem;padding-right:2.4rem}
+  .snav a{padding:.7rem 0;white-space:nowrap}
+  .smast-rule-w{padding:0 1.1rem}
+  .cfoot-nav{gap:.5rem 1rem}
+  .cfoot-nav a{padding-bottom:.3rem}
+  .pnav{grid-template-columns:1fr;gap:.2rem}
+  .pnav .nx{text-align:left;border-top:1px solid var(--rule,#dbd8d2)}
+}
+
+  .wrap.opn{max-width:42rem}
+  .opn .ometa{font-size:.92rem;color:var(--ink-soft);margin:.3rem 0 0}
+  .opn .oget{display:flex;flex-wrap:wrap;gap:.4rem .6rem;margin:1.1rem 0 0;padding:0;list-style:none;font-size:.9rem}
+  .opn .oget a{display:inline-block;padding:.32rem .7rem;border:1px solid var(--rule);border-radius:4px;color:var(--ink);text-decoration:none;background:var(--panel)}
+  .opn .oget a:hover{border-color:var(--accent);color:var(--accent)}
+  .opn .osrc{font-size:.84rem;color:var(--faint);margin:.9rem 0 0;line-height:1.45}
+  .opn .osrc a{color:var(--link)}
+  .opn .otoc{margin:1.6rem 0 0;padding:.8rem 1rem;border:1px solid var(--rule);border-radius:4px;background:var(--panel);font-size:.95rem}
+  .opn .otoc ol{margin:0;padding:0;list-style:none}
+  .opn .otoc li{margin:.25rem 0}
+  .opn .otoc a{color:var(--ink);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.35)}
+  .opn .otoc a:hover{color:var(--accent)}
+  .opn section.op{margin-top:3rem;border-top:2px solid var(--ink);padding-top:1.1rem}
+  .opn section.op h2{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.5rem;line-height:1.2;margin:0 0 1rem;color:var(--ink)}
+  .opn section.op p{margin:0 0 .95rem;line-height:1.62;hyphens:auto;overflow-wrap:break-word}
+  .opn section.op p.byline{color:var(--ink-soft);font-style:italic}
+  .opn section.op p.sep{text-align:center;letter-spacing:.3em;color:var(--faint);margin:1.6rem 0}
+  .opn section.op h3.oh{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.12rem;text-align:center;margin:2rem 0 1rem;color:var(--ink)}
+  .opn section.op blockquote{margin:0 0 .95rem;padding:0 0 0 1.1rem;border-left:2px solid var(--rule);color:var(--ink-soft)}
+  .opn section.op blockquote p{margin-bottom:.6rem;font-size:.96em}
+  .opn .sc{font-variant-caps:small-caps;letter-spacing:.02em}
+  .opn .pg{font-size:.66em;color:var(--faint);vertical-align:.3em;margin:0 .3em 0 .1em;font-variant-numeric:tabular-nums;user-select:none;white-space:nowrap}
+  .opn .pg::before{content:'*'}
+  .opn sup.fnr{font-size:.68em;line-height:0;margin-left:.05em}
+  .opn sup.fnr a{color:var(--link);text-decoration:none;padding:0 .1em}
+  .opn aside.notes{margin-top:2rem;border-top:1px solid var(--rule);padding-top:.8rem;font-size:.88rem;color:var(--ink-soft)}
+  .opn aside.notes h3{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1rem;margin:0 0 .6rem;color:var(--ink)}
+  .opn aside.notes ol{margin:0;padding-left:1.7rem}
+  .opn aside.notes li{margin:0 0 .55rem}
+  .opn aside.notes li.sym{list-style:none;margin-left:-1.7rem}
+  .opn aside.notes li.sym .mk{margin-right:.3rem}
+  .opn aside.notes li.sym p{display:inline}
+  .opn aside.notes p{margin:0 0 .4rem;line-height:1.5}
+  .opn aside.notes a.back{color:var(--link);text-decoration:none;margin-left:.2rem}
+  .opn aside.notes li:target,.opn sup.fnr a:target,.opn .pg:target{background:rgba(156,14,58,.12);outline:.2rem solid rgba(156,14,58,.12)}
+  .opn section.op,.opn aside.notes li,.opn sup.fnr a{scroll-margin-top:1rem}
+  .opn section.op-syllabus p,.opn section.op-counsel p{font-size:.95em}
+  .opn section.op-counsel summary{cursor:pointer;font-family:'Fraunces',Georgia,serif;font-size:1.05rem;color:var(--ink-soft)}
+  .opn .osyl{font-size:.84rem;color:var(--faint);font-style:italic;margin:-.5rem 0 1rem}
+  .opn p.back{margin-top:3rem;font-size:.92rem}
+  @media print{.smast,.bcrumb,.opn .oget,.opn .otoc,.opn p.back{display:none}.opn section.op{break-before:page}}
+</style><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://supremecourt.report/"},{"@type":"ListItem","position":2,"name":"Opinions","item":"https://supremecourt.report/opinions/"},{"@type":"ListItem","position":3,"name":"Muldrow v. St. Louis"}]}</script><meta name='otv' content='p1'><link rel='alternate' type='text/markdown' href='/opinions/2023/22-193.md'><link rel='alternate' type='application/epub+zip' href='/opinions/2023/22-193.epub'></head><body><a class='skip' href='#main'>Skip to content</a><header><div class='smast-in'><a class='smast-wm' href='/'>Supreme Court <em>Report</em></a><nav aria-label='Sections'><ul class='snav'><li><a href='/dashboards/'>Docket</a></li><li><a href='/conferences/'>Conferences</a></li><li><a href='/relists/'>Relists</a></li><li><a href='/applications/'>Interim</a></li><li><a href='/arguments/'>Arguments</a></li><li><a href='/justices/' aria-current='page'>Justices</a></li><li><a href='/counsel/'>Counsel</a></li><li><a href='/funnel/'>Funnel</a></li><li><a href='/methods.html'>Model</a></li><li><a href='/about.html'>About</a></li></ul></nav></div><div class='smast-rule-w'><hr class='smast-rule'></div></header><main class='wrap opn' id='main' data-dkt='22-193'><nav class='bcrumb' aria-label='Breadcrumb'><ol><li><a href='/'>Home</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><a href='/opinions/'>Opinions</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><span aria-current='page'>Muldrow v. St. Louis</span></li></ol></nav><p class='kicker'>No. 22-193 · decided April 17, 2024 · 601 U. S. 346</p><h1 style='font-size:clamp(1.7rem,4.6vw,2.4rem);line-height:1.12'>Muldrow v. St. Louis</h1><p class='ometa'>Jatonya Clayborn Muldrow v. City of St. Louis, Missouri, et al.. 3 separate writings.</p><ul class='oget'><li><a href='/opinions/2023/22-193.epub' download>EPUB</a></li><li><a href='/opinions/2023/22-193.md' download>Markdown</a></li><li><a href='https://www.supremecourt.gov/opinions/23pdf/601us2r18_6j37.pdf' rel='noopener'>The Court’s PDF</a></li><li><a href='/cases/22-193.html'>The docket</a></li></ul><p class='osrc'>Set from the PDF the Court published, which is the authoritative text. The small starred numbers are that PDF’s page numbers. A conversion can introduce errors; check a quotation against the <a href='https://www.supremecourt.gov/opinions/23pdf/601us2r18_6j37.pdf' rel='noopener'>original</a>.</p><nav class="otoc" aria-label="Contents"><ol>
+<li><a href="#s1">Syllabus</a></li>
+<li><a href="#s2">Counsel</a></li>
+<li><a href="#s3">Opinion of the Court</a></li>
+<li><a href="#s4">Justice Thomas, concurring in the judgment</a></li>
+<li><a href="#s5">Justice Alito, concurring in the judgment</a></li>
+<li><a href="#s6">Justice Kavanaugh, concurring in the judgment</a></li>
+</ol></nav>
+<section id="s1" class="op op-syllabus"><h2>Syllabus</h2><p class='osyl'>Prepared by the Reporter of Decisions for the convenience of the reader; it is no part of the opinion of the Court.</p>
+<p>Sergeant Jatonya Clayborn Muldrow maintains that her employer, the St. Louis Police Department, transferred her from one job to another because she is a woman. From 2008 through 2017, Muldrow worked as a plainclothes officer in the Department's specialized Intelligence Division. In 2017, the new Intelligence Division commander asked to transfer Muldrow out of the unit so he could replace her with a male police officer. Against Muldrow's wishes, the Department approved the request and reassigned Muldrow to a uniformed job elsewhere in the Department. While Muldrow's rank and pay remained the same in the new position, her responsibilities, perks, and schedule did not. After the transfer, Muldrow no longer worked with high-ranking officials on the departmental priorities lodged in the Intelligence Division, instead supervising the day-to-day activities of neighborhood patrol officers. She also lost access to an unmarked take-home vehicle and had a less regular schedule involving weekend shifts.</p>
+<p>Muldrow brought this Title VII suit to challenge the transfer. She alleged that the City, in ousting her from the Intelligence Division, had “discriminate[d] against” her based on sex “with respect to” the “terms [or] conditions” of her employment. 42 U. S. C. § 2000e–2(a)(1). The District Court granted the City summary judgment. The Eighth Circuit affirmed, holding that Muldrow had to—but could not—show that the transfer caused her a “materially significant disadvantage.” 30 F. 4th 680, 688. Muldrow's lawsuit could not proceed, the court said, because the transfer “did not result in a diminution to her title, salary, or benefits” and had caused “only minor changes in working conditions.” <em>Id</em>., at 688–689.</p>
+<p><em>Held</em>: An employee challenging a job transfer under Title VII must show that the transfer brought about some harm with respect to an identifiable term or condition of employment, but that harm need not be significant. Pp. 354–360.</p>
+<p>(a) Title VII makes it unlawful for an employer “to fail or refuse to hire or to discharge any individual, or otherwise to discriminate against any individual with respect to his compensation, terms, conditions, or privileges of employment, because of such individual's . . . sex.” § 2000e–2(a)(1). Both parties agree that Muldrow's transfer implicated <span class="pg" id="s1-p347" title="page 347 of the original">347</span>“terms” and “conditions” of Muldrow's employment. The applicable statutory language thus prohibits “discriminat[ing] against” an individual “with respect to” the “terms [or] conditions” of employment because of that individual's sex.</p>
+<p>That language requires Muldrow to show that her transfer brought about some “disadvantageous” change in an employment term or condition. <em>Oncale</em> v. <em>Sundowner Offshore Services, Inc.</em>, 523 U. S. 75, 80. The words “discriminate against,” the Court has explained, refer to “differences in treatment that injure” employees. <em>Bostock</em> v. <em>Clayton County</em>, 590 U. S. 644, 681. In the typical transfer case, that worse treatment must be “with respect to” employment “terms [or] conditions.” § 2000e–2(a)(1). The “terms [or] conditions” phrase is not used “in the narrow contractual sense”; it covers more than the “economic or tangible.” <em>Oncale</em>, 523 U. S., at 78; <em>Meritor Savings Bank, FSB</em> v. <em>Vinson</em>, 477 U. S. 57, 64. Still, the phrase circumscribes the injuries that can give rise to a suit like this one. To make out a Title VII discrimination claim, a transferee must show some harm respecting an identifiable term or condition of employment.</p>
+<p>What the transferee does not have to show is that the harm incurred was “significant” or otherwise exceeded some heightened bar. “Discriminate against” means treat worse, here based on sex. See, <em>e. g.</em>, <em>Bostock</em>, 590 U. S., at 657. Neither that phrase nor any other establishes an elevated threshold of harm. To demand “significance” is to add words to the statute Congress enacted. It is to impose a new requirement on a Title VII claimant, so that the law as applied demands something more than the law as written. That difference can make a real difference for complaining transferees. By asking whether the harm to the transferee is significant, appellate courts have disregarded varied kinds of disadvantage. Pp. 354–356.</p>
+<p>(b) The City's three main arguments—based on statutory text, precedent, and policy—do not justify the use of a “significance” standard.</p>
+<p>The Court rejects the City's textual claim, which invokes the <em>ejusdem generis</em> canon—the idea that a general phrase following an enumeration of things should be read to encompass only things of the same basic kind. Applying that canon to the text of Title VII's anti-discrimination provision, the City claims that because refusing to hire or discharging a person causes a significant disadvantage, the “otherwise to discriminate against” phrase can apply only to things causing an equal level of harm. But the statutory text itself provides a different shared trait: Each kind of prohibited discrimination occurs by way of an employment action— whether pertaining to hiring, or firing, or compensating, or (as here) altering terms or conditions through a transfer. That is a more than <span class="pg" id="s1-p348" title="page 348 of the original">348</span>sufficient basis to unite the provision's several parts and avoid <em>ejusdem generis</em> problems.</p>
+<p>Contrary to the City's view, there is also no reason to import a significant-harm requirement from this Court's decision in <em>Burlington N. &amp; S. F. R. Co.</em> v. <em>White</em>, 548 U. S. 53. The Court there held that Title VII's anti-retaliation provision—which prohibits an employer from taking action against an employee for bringing or aiding a Title VII charge—applies only when the retaliatory action is “materially adverse,” meaning that it causes “significant” harm. <em>Id.</em>, at 68. <em>White</em> adopted that standard for reasons peculiar to the retaliation context. The test was meant to capture those employer actions serious enough to “dissuade[ ] a reasonable worker from making or supporting a charge of discrimination.” <em>Ibid.</em> An action causing less serious harm will not deter Title VII enforcement and so falls outside the purposes of the ban on retaliation. But that reasoning does not apply to the antidiscrimination provision, which flatly “prevent[s] injury to individuals based on” protected status, <em>id.,</em> at 63, without distinguishing between significant and less significant harms.</p>
+<p>Finally, there is reason to doubt the City's prediction that employees will flood courts with litigation in the absence of a significant-injury requirement. Courts retain multiple ways to dispose of meritless Title VII claims challenging transfer decisions. But even supposing the City's worst predictions come true, that would be the result of the statute Congress drafted. This Court will not add words to the statute to achieve what the City thinks a desirable result. Pp. 356–358.</p>
+<p>(c) The courts below applied the wrong standard to Muldrow's suit. Muldrow need show only some injury respecting her employment terms or conditions. Her allegations, if properly preserved and supported, meet that test with room to spare. The Court recognizes, however, that the decisions below may have rested in part on issues of forfeiture and proof. The Court leaves such matters for the courts below to address on remand under the proper Title VII standard. Pp. 359–360.</p>
+<p>30 F. 4th 680, vacated and remanded.</p>
+<p><span class="sc">Kagan</span>, J., delivered the opinion of the Court, in which <span class="sc">Roberts</span>, C. J., and <span class="sc">Sotomayor</span>, <span class="sc">Gorsuch</span>, <span class="sc">Barrett</span>, and <span class="sc">Jackson</span>, JJ., joined. <span class="sc">Thomas</span>, J., <em>post</em>, p. 360, <span class="sc">Alito</span>, J., <em>post</em>, p. 362, and <span class="sc">Kavanaugh</span>, J., <em>post</em>, p. 363, each filed an opinion concurring in the judgment.</p></section>
+<section id="s2" class="op op-counsel"><details><summary>Counsel</summary><p><em>Brian Wolfman</em> argued the cause for petitioner. With him on the briefs were <em>Regina Wang</em> and <em>Madeline Meth.</em></p>
+<p><span class="pg" id="s2-p349" title="page 349 of the original">349</span><em>Aimee W. Brown</em> argued the cause for the United States as <em>amicus curiae</em> urging reversal. With her on the brief were <em>Solicitor General Prelogar</em>, <em>Assistant Attorney General Clarke, Deputy Solicitor General Fletcher, Tovah R. Calderon, Gwendolyn Young Reams, Jennifer S. Goldstein, Anne Noel Occhialino,</em> and <em>Georgina Yeomans.</em></p>
+<p><em>Robert M. Loeb</em> argued the cause for respondents. With him on the brief were <em>Sheena Hamilton, Thomas M. Bondy, Robbie Manhas,</em> and <em>James Anglin Flynn.</em>*</p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li class="sym" value="0"><span class="mk">*</span><p>Briefs of <em>amici curiae</em> urging reversal were filed for the Constitutional Accountability Center et al. by <em>Elizabeth B. Wydra, Brianne J. Gorod,</em> and <em>David D. Cole</em>; for the Legal Aid Society et al. by <em>Jim Davy</em>; for the National Employment Lawyers Association et al. by <em>Carolyn L. Wheeler, Stephen B. Pershing, Janai Nelson, Samuel Spital, Rachel Kleinman, Emily Martin</em>, and <em>Rachel Smith</em>; for the National Treasury Employees Union by <em>Julie M. Wilson</em> and <em>Paras N. Shah</em>; and for Suja A. Thomas et al. by <em>Suja A. Thomas</em> and <em>Amy J. Wildermuth,</em> both <em>pro se</em>.</p><p>Briefs of <em>amici curiae</em> urging affirmance were filed for the State of Arkansas et al. by <em>Tim Griffin,</em> Attorney General of Arkansas, <em>Nicholas J. Bronni,</em> Solicitor General, <em>Dylan L. Jacobs,</em> Deputy Solicitor General, and <em>Asher L. Steinberg,</em> Senior Assistant Solicitor General, and by the Attorneys General for their respective States as follows: <em>Steve Marshall</em> of Alabama, <em>Ashley Moody</em> of Florida, <em>Raúl Labrador</em> of Idaho, <em>Theodore E. Rokita</em> of Indiana, <em>Brenna Bird</em> of Iowa, <em>Lynn Fitch</em> of Mississippi, <em>Austin Knudsen</em> of Montana, <em>Michael T. Hilgers</em> of Nebraska, <em>Drew Wrigley</em> of North Dakota, <em>Gentner F. Drummond</em> of Oklahoma, <em>Alan Wilson</em> of South Carolina, <em>Marty Jackley</em> of South Dakota, <em>Jonathan Skrmetti</em> of Tennessee, <em>Ken Paxton</em> of Texas, and <em>Sean D. Reyes</em> of Utah; for the Local Government Legal Center et al. by <em>Amanda Kellar Karras</em> and <em>Erich Eiselt</em>; for the National School Boards Association et al. by <em>Francisco M. Negrón, Jr., Sonja H. Trainor, Jason P. Renzelmann, Charles B. Galvin,</em> and <em>W. Joseph Scholler III</em>; and for the Society for Human Resource Management by <em>Richard B. Lapp</em> and <em>Camille A. Olson.</em></p><p>Briefs of <em>amici curiae</em> were filed for the District of Columbia et al. by <em>Brian L. Schwalb,</em> Attorney General of the District of Columbia, <em>Caroline S. Van Zile,</em> Solicitor General, <em>Ashwin P. Phatak,</em> Principal Deputy Solicitor General, and <em>Holly M. Johnson,</em> Senior Assistant Attorney General, and by the Attorneys General for their respective States as follows: <em>William Tong</em> of Connecticut, <em>Anne E. Lopez</em> of Hawaii, <em>Aaron M. Frey</em> of Maine, <em>Keith Ellison</em> of Minnesota, <em>Ellen F. Rosenblum</em> of Oregon, <em>Michelle A. Henry</em> of Pennsylvania, and <em>Charity R. Clark</em> of Vermont; and for the Chamber of Commerce of the United States of America et al. by <em>Jason C. Schwartz, Lucas C. Townsend, Angelo I. Amador, Stephanie A. Maloney,</em> and <em>Elizabeth Gaudio Milito</em>.</p></li>
+</ol></aside></details></section>
+<section id="s3" class="op op-court"><h2>Opinion of the Court</h2>
+<p class="byline">Justice Kagan delivered the opinion of the Court.</p>
+<p>Sergeant Jatonya Clayborn Muldrow maintains that her employer, the St. Louis Police Department, transferred her from one job to another because she is a woman. She sued the City of St. Louis under Title VII, alleging that she had suffered sex discrimination with respect to the “terms [or] conditions” of her employment. 42 U. S. C. § 2000e–2(a)(1). The courts below rejected the claim on the ground that the transfer did not cause Muldrow a “significant” employment disadvantage. Other courts have used similar standards in addressing Title VII suits arising from job transfers.</p>
+<p>Today, we disapprove that approach. Although an employee must show some harm from a forced transfer to prevail in a Title VII suit, she need not show that the injury satisfies a significance test. Title VII's text nowhere establishes that high bar.</p>
+<h3 class="oh">I</h3>
+<p>From 2008 through 2017, Sergeant Muldrow worked as a plainclothes officer in the St. Louis Police Department's specialized Intelligence Division. During her tenure there, she investigated public corruption and human trafficking cases, oversaw the Gang Unit, and served as head of the Gun Crimes Unit. By virtue of her Division position, Muldrow was also deputized as a Task Force Officer with the Federal Bureau of Investigation—a status granting her, among other things, FBI credentials, an unmarked take-home vehicle, and the authority to pursue investigations outside St. Louis. In 2017, the outgoing commander of the Intelligence Division told her newly appointed successor that Muldrow was a <span class="pg" id="s3-p351" title="page 351 of the original">351</span>“workhorse”—still more, that “if there was one sergeant he could count on in the Division,” it was Muldrow. 2020 WL 5505113, *1 (ED Mo., Sept. 11, 2020).</p>
+<p>But the new Intelligence Division commander, Captain Michael Deeba, instead asked the Department to transfer Muldrow out of the unit. Deeba wanted to replace Muldrow—whom he sometimes called “Mrs.” rather than the customary “Sergeant”—with a male police officer. See <em>id.,</em> at *1–*2. That officer, Deeba later testified, seemed a better fit for the Division's “very dangerous” work. <em>Id</em>., at *2; App. 139. The Department approved the transfer against Muldrow's wishes. It reassigned her to a uniformed job in the Department's Fifth District.</p>
+<p>While Muldrow's rank and pay remained the same in the new position, her responsibilities, perks, and schedule did not. Instead of working with high-ranking officials on the departmental priorities lodged in the Intelligence Division, Muldrow now supervised the day-to-day activities of neighborhood patrol officers. Her new duties included approving their arrests, reviewing their reports, and handling other administrative matters; she also did some patrol work herself. Because she no longer served in the Intelligence Division, she lost her FBI status and the car that came with it. And the change of jobs made Muldrow's workweek less regular. She had worked a traditional Monday-through-Friday week in the Intelligence Division. Now she was placed on a “rotating schedule” that often involved weekend shifts. 2020 WL 5505113, *2.</p>
+<p>Muldrow brought this Title VII suit to challenge the transfer. Her complaint alleged that the City, in ousting her from the Intelligence Division, had “discriminate[d] against” her based on sex “with respect to” the “terms [or] conditions” of her employment. § 2000e–2(a)(1). In later deposition testimony, Muldrow set out her view of what the transfer had cost her. She had been moved out of a “premier position [in] the Police Department” into a less “prestigious” and more <span class="pg" id="s3-p352" title="page 352 of the original">352</span>“administrative” uniformed role. App. 105, 114, 120. She had fewer “opportunities” to work on “important investigations,” as well as to “network” with commanding officers. <em>Id</em>., at 104. And she lost material benefits—her weekday work schedule and take-home car. Or as she summarized the situation: “I went from straight days, weekends off with a take-home car and more visibility and responsibility within the Department to a rotating schedule with few weekends off, assigned to . . . uniformed patrol,” with “responsibilities being limited to that of administrative work” and “supervising officers on patrol.” <em>Id</em>., at 120. Title VII, Muldrow asserted in her suit, prevented the City from making those changes to her employment because of her sex.</p>
+<p>The District Court, viewing the matter differently, granted the City summary judgment. Under Circuit precedent, the court explained, Muldrow needed to show that her transfer effected a “significant” change in working conditions producing “material employment disadvantage.” 2020 WL 5505113, *8–*9. And Muldrow, the court held, could not meet that heightened-injury standard. “[S]he experienced no change in salary or rank.” <em>Id.,</em> at *9. Her loss of “the networking [opportunities] available in Intelligence” was immaterial because she had not provided evidence that it had harmed her “career prospects.” <em>Id.,</em> at *8. And given her continued “supervisory role,” she had not “suffered a significant alteration to her work responsibilities.” <em>Id.,</em> at *9. Finally, the District Court concluded that the switch to a rotating schedule (including weekend work) and the loss of a take-home vehicle could not fill the gap. Although mentioning those changes “in her statement of facts,” Muldrow had not relied on them in “her argument against summary judgment.” <em>Ibid.</em>, n. 20. And anyway, the court stated, they “appear to be minor alterations of employment, rather than material harms.” <em>Ibid.</em></p>
+<p>The Court of Appeals for the Eighth Circuit affirmed. It agreed that Muldrow had to—but could not—show that the <span class="pg" id="s3-p353" title="page 353 of the original">353</span>transfer caused a “materially significant disadvantage.” 30 F. 4th 680, 688 (2022). Like the District Court, the Eighth Circuit emphasized that the transfer “did not result in a diminution to her title, salary, or benefits.” <em>Id.,</em> at 688–689. And the Circuit, too, maintained that the change in her job responsibilities was “insufficient” to support a Title VII claim. <em>Id.,</em> at 689. In the Fifth District, the court reasoned, Muldrow still had a “supervisory role” and participated in investigating serious crimes. <em>Id.,</em> at 688. So the court thought Muldrow's view of the new job—“more administrative and less prestigious”—was unsupported by record evidence and not “persuasive.” <em>Ibid.</em> The court did not address Muldrow's new schedule or her loss of a car, apparently thinking those matters either forfeited or too slight to mention. Overall, the court held, Muldrow's claim could not proceed because she had experienced “only minor changes in working conditions.” <em>Ibid.</em></p>
+<p>We granted certiorari, 600 U. S. ––– (2023), to resolve a Circuit split over whether an employee challenging a transfer under Title VII must meet a heightened threshold of harm—be it dubbed significant, serious, or something similar.<sup class="fnr"><a id="s3-r1" href="#s3-n1">1</a></sup>We now vacate the judgment below because the text of Title VII imposes no such requirement.</p>
+<h3 class="oh"><span class="pg" id="s3-p354" title="page 354 of the original">354</span>II</h3>
+<h3 class="oh">A</h3>
+<p>Title VII makes it unlawful for an employer “to fail or refuse to hire or to discharge any individual, or otherwise to discriminate against any individual with respect to his compensation, terms, conditions, or privileges of employment, because of such individual's race, color, religion, sex, or national origin.” § 2000e–2(a)(1). Muldrow's suit, as described above, alleges that she was transferred to a lesser position because she is a woman. That transfer, as both parties agree, implicated “terms” and “conditions” of Muldrow's employment, changing nothing less than the what, where, and when of her police work. See Brief for Muldrow 19; Brief for City 1, 45–46. So the statutory language applicable to this case prohibits “discriminat[ing] against” an individual “with respect to” the “terms [or] conditions” of employment because of that individual's sex.</p>
+<p>That language requires Muldrow to show that the transfer brought about some “disadvantageous” change in an employment term or condition. <em>Oncale</em> v. <em>Sundowner Offshore Services, Inc.</em>, 523 U. S. 75, 80 (1998). The words “discriminate against,” we have explained, refer to “differences in treatment that injure” employees. <em>Bostock</em> v. <em>Clayton County</em>, 590 U. S. 644, 681 (2020). Or otherwise said, the statute targets practices that “treat[ ] a person worse” because of sex or other protected trait. <em>Id.,</em> at 658. And in the typical transfer case, that “worse” treatment must pertain to—must be “with respect to”—employment “terms [or] conditions.” §2000e–2(a)(1). The “terms [or] conditions” phrase, we have made clear, is not used “in the narrow contractual sense”; it covers more than the “economic or tangible.” <em>Oncale</em>, 523 U. S., at 78; <em>Meritor Savings Bank, FSB</em> v. <em>Vinson</em>, 477 U. S. 57, 64 (1986). Still, the phrase circumscribes the injuries that can give rise to a suit like this one. To make out a Title VII discrimination claim, a transferee <span class="pg" id="s3-p355" title="page 355 of the original">355</span>must show some harm respecting an identifiable term or condition of employment.</p>
+<p>What the transferee does not have to show, according to the relevant text, is that the harm incurred was “significant.” 30 F. 4th, at 688. Or serious, or substantial, or any similar adjective suggesting that the disadvantage to the employee must exceed a heightened bar. See <em>supra,</em> at 353, and n. 1. “Discriminate against” means treat worse, here based on sex. See, <em>e. g.</em>, <em>Bostock</em>, 590 U. S., at 657–658, 681. But neither that phrase nor any other says anything about how much worse. There is nothing in the provision to distinguish, as the courts below did, between transfers causing significant disadvantages and transfers causing not-sosignificant ones. And there is nothing to otherwise establish an elevated threshold of harm. To demand “significance” is to add words—and significant words, as it were—to the statute Congress enacted. It is to impose a new requirement on a Title VII claimant, so that the law as applied demands something more of her than the law as written.</p>
+<p>And that difference can make a real difference for complaining transferees. Many forced transfers leave workers worse off respecting employment terms or conditions. (After all, a transfer is not usually forced when it leaves the employee better off.) But now add another question— whether the harm is significant. As appellate decisions reveal, the answers can lie in the eye of the beholder—and can disregard varied kinds of disadvantage. Take just a few examples from the caselaw. An engineering technician is assigned to work at a new job site—specifically, a 14-by-22foot wind tunnel; a court rules that the transfer does not have a “significant detrimental effect.” <em>Boone</em> v. <em>Goldin</em>, 178 F. 3d 253, 256 (CA4 1999). A shipping worker is required to take a position involving only nighttime work; a court decides that the assignment does not “constitute a <em>significant</em> change in employment.” <em>Daniels</em> v. <em>United Parcel</em> <span class="pg" id="s3-p356" title="page 356 of the original">356</span><em>Serv., Inc.</em>, 701 F. 3d 620, 635 (CA10 2012). And a school principal is forced into a non-school-based administrative role supervising fewer employees; a court again finds the change in job duties not “significant.” <em>Cole</em> v. <em>Wake Cty. Bd. of Educ.</em>, 834 Fed. Appx. 820, 821 (CA4 2021) (<em>per curiam</em>). All those employees suffered some injury in employment terms or conditions (allegedly because of race or sex). Their claims were rejected solely because courts rewrote Title VII, compelling workers to make a showing that the statutory text does not require.<sup class="fnr"><a id="s3-r2" href="#s3-n2">2</a></sup></p>
+<h3 class="oh">B</h3>
+<p>The City, in defense of that added requirement, makes three main arguments—one about the text, one about our precedent, and one about policy. None justifies the use of a “significance” standard.</p>
+<p>The textual claim invokes the <em>ejusdem generis</em> canon—the idea that a general phrase following an enumeration of things should be read to encompass only things of the same basic kind. Recall the prohibition at issue here: An employer may not, based on sex, “fail or refuse to hire” or “discharge” any person or “otherwise . . . discriminate against [her] with respect to [her] compensation, terms, conditions, <span class="pg" id="s3-p357" title="page 357 of the original">357</span>or privileges of employment.” § 2000e–2(a)(1); see <em>supra</em>, at 354. Refusing to hire or discharging a person, the City notes, causes a significant disadvantage; so the subsequent “otherwise” phrase, the City claims, can apply only to things causing an equal level of harm. See Brief for City 16, 25–27. But the City fails to explain why the presence of significant disadvantage must be part of the list's common denominator. The text itself provides a different shared trait. Each kind of prohibited discrimination occurs by way of an employment action—whether pertaining to hiring, or firing, or compensating, or (as here) altering terms or conditions through a transfer. That is a more than sufficient basis to unite the provision's several parts and avoid <em>ejusdem generis</em> problems. There is no need for courts to introduce a significant-harm requirement.</p>
+<p>The City's argument from precedent fares no better. It relies on <em>Burlington Northern &amp; Santa Fe Railway Co.</em> v. <em>White</em>, 548 U. S. 53 (2006), which addressed Title VII's separate anti-retaliation provision. Under that section, an employer may not take action against an employee for bringing or aiding a Title VII charge. See § 2000e–3(a). The Court held that the provision applies only when the retaliatory action is “materially adverse,” meaning that it causes “significant” harm. <em>Id</em>., at 68. The City thinks we should import the same standard into the anti-discrimination provision at issue. See Brief for City 18–19. But that would create a mismatch. <em>White</em> adopted the standard for reasons peculiar to the retaliation context. The test was meant to capture those (and only those) employer actions serious enough to “dissuade[ ] a reasonable worker from making or supporting a charge of discrimination.” 548 U. S., at 68. If an action causes less serious harm, the Court reasoned, it will not deter Title VII enforcement; and if it will not deter Title VII enforcement, it falls outside the purposes of the ban on retaliation. See <em>id.</em>, at 63, 68. But no such (frankly extra-textual) reasoning is applicable to the discrimination bar. <span class="pg" id="s3-p358" title="page 358 of the original">358</span>Whether an action causes significant enough harm to deter any employee conduct is there beside the point. <em>White</em> itself noted the difference: The anti-discrimination provision, we explained, simply “seeks a workplace where individuals are not discriminated against” because of traits like race and sex. <em>Id.,</em> at 63. The provision thus flatly “prevent[s] injury to individuals based on” status, <em>ibid.</em>, without distinguishing between significant and less significant harms.</p>
+<p>Finally, the City's policy objections cannot override Title VII's text. In the City's view, a significant-injury requirement is needed to prevent transferred employees from “swamp[ing] courts and employers” with insubstantial lawsuits requiring “burdensome discovery and trials.” Brief for City 45, 49 (capitalization and boldface omitted). But there is reason to doubt that the floodgates will open in the way feared. As we have explained, the anti-discrimination provision at issue requires that the employee show some injury. See <em>supra</em>, at 354–355. It requires that the injury asserted concern the terms or conditions of her employment. See <em>ibid.</em> Perhaps most notably, it requires that the employer have acted for discriminatory reasons—“because of” sex or race or other protected trait. § 2000e–2(a)(1). And in addressing that issue, a court may consider whether a less harmful act is, in a given context, less suggestive of intentional discrimination. So courts retain multiple ways to dispose of meritless Title VII claims challenging transfer decisions. But even supposing the City's worst predictions come true, that would be the result of the statute Congress drafted. As we noted in another Title VII decision, we will not “add words to the law” to achieve what some employers might think “a desirable result.” <em>EEOC</em> v. <em>Abercrombie &amp; Fitch Stores, Inc.</em>, 575 U. S. 768, 774 (2015). Had Congress wanted to limit liability for job transfers to those causing a significant disadvantage, it could have done so. By contrast, this Court does not get to make that judgment.</p>
+<h3 class="oh"><span class="pg" id="s3-p359" title="page 359 of the original">359</span>III</h3>
+<p>In light of everything said above, the Court of Appeals' treatment of Muldrow's suit cannot survive. The court required Muldrow to show that the allegedly discriminatory transfer out of the Intelligence Division produced a significant employment disadvantage. See <em>supra</em>, at 352–353. As we have explained, that is the wrong standard. Muldrow need show only some injury respecting her employment terms or conditions. The transfer must have left her worse off, but need not have left her significantly so. And Muldrow's allegations, if properly preserved and supported, meet that test with room to spare. Recall her principal allegations. She was moved from a plainclothes job in a prestigious specialized division giving her substantial responsibility over priority investigations and frequent opportunity to work with police commanders. She was moved to a uniformed job supervising one district's patrol officers, in which she was less involved in high-visibility matters and primarily performed administrative work. Her schedule became less regular, often requiring her to work weekends; and she lost her take-home car. If those allegations are proved, she was left worse off several times over. It does not matter, as the courts below thought (and <span class="sc">Justice Thomas</span> echoes), that her rank and pay remained the same, or that she still could advance to other jobs. See <em>ibid.</em>; <em>post,</em> at 361. Title VII prohibits making a transfer, based on sex, with the consequences Muldrow described.</p>
+<p>We recognize, however, that the decisions below may have rested in part on issues of forfeiture and proof. The District Court noted, for example, that Muldrow had failed to discuss in her argument against summary judgment the changes in her work schedule and vehicle access; and perhaps following that lead, the Court of Appeals did not address those harms. See <em>supra</em>, at 352–353. In addition, both courts suggested that some of the allegations Muldrow made about the nature <span class="pg" id="s3-p360" title="page 360 of the original">360</span>of the work she did in her old and new jobs lacked adequate evidentiary support. See <em>ibid</em>. We leave such matters for the courts below to address. All we require is that they use the proper Title VII standard, and not demand that Muldrow demonstrate her transfer caused “significant” harm.</p>
+<p>We accordingly vacate the judgment of the Court of Appeals for the Eighth Circuit and remand the case for further proceedings consistent with this opinion.</p>
+<p><em>It is so ordered.</em></p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li id="s3-n1" value="1"><p>Compare, <em>e</em>.<em>g</em>., 30 F. 4th 680, 688 (CA8 2022) (case below) (“materially significant disadvantage”); <em>Caraballo-Caraballo</em> v. <em>Correctional Admin.</em>, 892 F. 3d 53, 61 (CA1 2018) (“materially changes” employment conditions in a manner “more disruptive than a mere inconvenience or an alteration of job responsibilities”); <em>Williams</em> v. <em>R. H. Donnelley, Corp.</em>, 368 F. 3d 123, 128 (CA2 2004) (“materially significant disadvantage”); <em>James</em> v. <em>Booz-Allen &amp; Hamilton, Inc.</em>, 368 F. 3d 371, 376 (CA4 2004) (“significant detrimental effect”); <em>O'Neal</em> v. <em>Chicago</em>, 392 F. 3d 909, 911 (CA7 2004) (“materially adverse”); <em>Sanchez</em> v. <em>Denver Pub. Schools</em>, 164 F. 3d 527, 532 (CA10 1998) (“significant change”); and <em>Webb-Edwards</em> v. <em>Orange Cty. Sheriff 's Office</em>, 525 F. 3d 1013, 1033 (CA11 2008) (“serious and material change”), with <em>Chambers</em> v. <em>District of Columbia</em>, 35 F. 4th 870, 872, 876–877 (CADC 2022) (en banc) (overruling precedent that demanded an “objectively tangible harm” and rejecting a “material adversity” requirement). <a class="back" href="#s3-r1" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n2" value="2"><p><span class="sc">Justice Thomas</span>'s concurring opinion appears to disagree in two respects. He initially disputes that courts have applied a heightened-harm requirement in demanding that a plaintiff show something like “materially significant disadvantage.” See <em>post,</em> at 360 (opinion concurring in judgment). And as a corollary, he denies that courts will have to change their treatment of Title VII claims once they start to apply the simple injury standard set out in this opinion. See <em>post,</em> at 361–362. In light of those views, we underscore two points. First, this decision changes the legal standard used in any circuit that has previously required “significant,” “material,” or “serious” injury. It lowers the bar Title VII plaintiffs must meet. Second, because it does so, many cases will come out differently. The decisions described above are examples, intended to illustrate how claims that failed under a significance standard should now succeed. And as we will discuss, the decision below is another such example, putting to one side case-specific issues of forfeiture and proof. See <em>infra</em>, at 359–360. <a class="back" href="#s3-r2" aria-label="Back to the text">↩</a></p></li>
+</ol></aside></section>
+<section id="s4" class="op op-judgment"><h2>Justice Thomas, concurring in the judgment</h2>
+<p class="byline">Justice Thomas, concurring in the judgment.</p>
+<p>I agree with <span class="sc">Justice Alito</span> that the Courts of Appeals all appear to articulate the same principle, but with slightly varying verbal formulations: A plaintiff bringing a claim under 42 U. S. C. § 2000e–2(a)(1) must show harm that is more than trifling. <em>Post,</em> at 362–363 (opinion concurring in judgment). And, there is little practical difference between that principle and the Court's holding. <em>Ante,</em> at 350 (holding that an employee “must show some harm”).</p>
+<p>I am not convinced, however, that the Court accurately characterizes the Eighth Circuit's decision. I do not read the Eighth Circuit to have necessarily imposed a heightened-harm requirement in the form of a “significance” test. The Eighth Circuit defined an adverse employment action as “a tangible change in working conditions that produces a material employment disadvantage.” 30 F. 4th 680, 688 (2022) (internal quotation marks omitted). It further explained that “minor changes in duties or working conditions, even unpalatable or unwelcome ones, which cause no materially significant disadvantage, do not rise to the level of an adverse employment action.” <em>Ibid.</em> (alteration and internal quotation marks omitted). In other words, a plaintiff must have suffered an actual disadvantage as compared to minor changes—<em>i. e.</em>, more than a trifling harm. That standard aligns with the Court's observation that a plaintiff must <span class="pg" id="s4-p361" title="page 361 of the original">361</span>show “some `disadvantageous' change in an employment term or condition.” <em>Ante,</em> at 354 (quoting <em>Oncale</em> v. <em>Sundowner Offshore Services, Inc</em>., 523 U. S. 75, 80 (1998)).</p>
+<p>The Court insists that the Eighth Circuit must have demanded more given the weight of Muldrow's allegations. Specifically, the Court underscores Muldrow's claims that the City of St. Louis “moved [her] from a plainclothes job in a prestigious specialized division” with a take-home car and a regular schedule, to a “uniformed job supervising one district's patrol officers,” with no take-home car and an irregular schedule. <em>Ante</em>, at 359. But, most of those allegations are forfeited or attributable to a nonparty, the Federal Bureau of Investigation. See 2020 WL 5505113, *9, n. 20 (ED Mo., Sept. 11, 2020) (observing that Muldrow did not raise arguments based on “having to return her take-home [car],” “changes to her schedule, including having to work weekends,” or “having to work in plain clothes”); 30 F. 4th, at 689 (concluding that “the FBI had the sole authority to revoke” Muldrow's plainclothes and take-home car privileges). Before the Eighth Circuit, Muldrow argued only that the City moved her to a job that was “more administrative and less prestigious.” <em>Id.</em>, at 688. Her “only evidence” in support of that argument was “her own deposition testimony,” which neither the District Court nor the Eighth Circuit found persuasive. <em>Ibid</em>. And, Muldrow's testimony certainly did not establish any “proof of harm resulting from [her] reassignment.” <em>Ibid.</em> After the transfer, Muldrow's “pay and rank remained the same, she was given a supervisory role, and she was responsible for investigating violent crimes, such as homicides and robberies.” <em>Ibid</em>. Muldrow even conceded that the transfer “did not harm her future career prospects.” <em>Ibid</em>. At most, then, Muldrow “expresse[d] a mere preference for one position over the other.” <em>Id</em>., at 689.</p>
+<p>Muldrow failed to prove that there was any nontrifling change in her job's prestige—which was her lone theory of harm. <em>Id</em>., at 688–689. The Eighth Circuit rejected Muldrow's<span class="pg" id="s4-p362" title="page 362 of the original">362</span> adverse employment action claim accordingly. I fail to see how the Eighth Circuit's reasoning—that a plaintiff must offer colorable evidence of harm—is equivalent to the heightened-harm requirement the Court concludes the Eighth Circuit applied. <em>Ante,</em> at 359 (agreeing that “[t]he transfer must have left [Muldrow] worse off ”).</p>
+<p>All that said, I recognize that the terms “material” and “significant” can (but do not always) imply a heightened-harm requirement. Although I find it unlikely, it is possible that the Eighth Circuit had such a stringent test in mind when it stated that a plaintiff must show a “ `materially significant disadvantage.' ” 30 F. 4th, at 688. I thus agree to vacate and remand to the extent the Eighth Circuit's analysis is inconsistent with a more-than-trifling-harm requirement.</p></section>
+<section id="s5" class="op op-judgment"><h2>Justice Alito, concurring in the judgment</h2>
+<p class="byline">Justice Alito, concurring in the judgment.</p>
+<p>I agree with the judgment in this case. Assuming without deciding that all the facts mentioned by the Court are relevant and properly presented, petitioner's transfer altered the “terms” or “conditions” of her employment, 42 U. S. C. § 2000e–2(a)(1), and therefore she can prevail if she can prove that she was transferred because of her sex.</p>
+<p>I do not join the Court's unhelpful opinion. For decades, dozens of lower court judges, with a wealth of experience handling Title VII cases, have held that not every unwanted employment experience affects an employee's “terms” or “conditions” of employment. The lower courts have used various verbal formulations to express this point, and the Court, dubious about the words they had selected, granted review to provide guidance. Now, after briefing and argument, that guidance is as follows: Title VII plaintiffs must show that the event they challenge constituted a “harm” or “injury,” but that the event need not be “significant” or “substantial.” See <em>ante</em>, at 354–355, 358.</p>
+<p>I have no idea what this means, and I can just imagine how this guidance will be greeted by lower court judges. <span class="pg" id="s5-p363" title="page 363 of the original">363</span>The primary definition of “harm” is “physical or mental damage,” and an “injury” is defined as “an act that damages, harms, or hurts: an unjust or undeserved infliction of suffering or harm.” Webster's Third International Dictionary 1034, 1164 (1976). These definitions incorporate at least some degree of significance or substantiality. We do not typically say that we were harmed or injured by every unwanted experience. What would we think if a friend said, “I was harmed because the supermarket had run out of my favorite brand of peanut butter,” or, “I was injured because I ran into three rather than the usual two red lights on the way home from work”?</p>
+<p>I see little if any substantive difference between the terminology the Court approves and the terminology it doesn't like. The predictable result of today's decision is that careful lower court judges will mind the words they use but will continue to do pretty much just what they have done for years.</p></section>
+<section id="s6" class="op op-judgment"><h2>Justice Kavanaugh, concurring in the judgment</h2>
+<p class="byline">Justice Kavanaugh, concurring in the judgment.</p>
+<p>Title VII of the Civil Rights Act of 1964 makes it unlawful for an employer “to discriminate against any individual with respect to his compensation, terms, conditions, or privileges of employment, because of such individual's race, color, religion, sex, or national origin.” 42 U. S. C. § 2000e–2(a)(1). The question presented in this case is whether transferring an employee—for example, changing an employee's job responsibilities or job location—on the basis of race, color, religion, sex, or national origin violates Title VII. The answer is yes.</p>
+<p>I therefore agree with the straightforward opinion jointly authored by Judge Tatel and Judge Ginsburg for the en banc D. C. Circuit. See <em>Chambers</em> v. <em>District of Columbia</em>, 35 F. 4th 870 (2022). As that court explained, even when a transfer does not change an employee's compensation, a transfer does change the employee's terms, conditions, or privileges of employment. See <em>id.</em>, at 874–879. Therefore, <span class="pg" id="s6-p364" title="page 364 of the original">364</span>a transfer made on the basis of the employee's race, color, religion, sex, or national origin violates Title VII. See <em>id.</em>, at 874–875.</p>
+<p>As I see it and as the D. C. Circuit saw it, the issue here is not complicated. Suppose that an employer says to an employee in the Columbus office: “We are transferring you to the Cincinnati office because you are black. But your compensation will not change.” Does that violate Title VII? Of course it does. To begin with, the employer has treated the employee differently because of race. To be sure, the fact that a transfer may not involve a change in compensation can affect the amount of any damages, as Muldrow's attorney acknowledged. See Tr. of Oral Arg. 41–42. But a transfer changes the terms, conditions, or privileges of employment. Therefore, a discriminatory transfer violates the statute. “The plain text of Title VII requires no more.” <em>Chambers</em>, 35 F. 4th, at 875.<sup class="fnr"><a id="s6-r1" href="#s6-n1">1</a></sup></p>
+<p>Unlike the D. C. Circuit, some Courts of Appeals have held that discriminatory transfers are not prohibited by Title VII unless the transfer also causes significant employment disadvantage. <em>Ante</em>, at 353, n. 1. Today, this Court definitively rejects those rulings. <em>Ante</em>, at 355–356, and n. 2. I fully agree with the Court on that point.</p>
+<p>But the Court's opinion then goes on to require that a plaintiff in a discriminatory-transfer case show at least “some harm” beyond the harm of being transferred on the basis of race, color, religion, sex, or national origin. <em>Ante</em>, at 355. I disagree with the Court's new some-harm requirement. No court has adopted a some-harm requirement, and no <span class="pg" id="s6-p365" title="page 365 of the original">365</span>party or <em>amicus</em> advocated that requirement to this Court. More to the point, the text of Title VII does not require a separate showing of some harm. The discrimination is harm. The only question then is whether the relevant employment action changes the compensation, terms, conditions, or privileges of employment. A transfer does so. Therefore, as the D. C. Circuit explained, a transfer on the basis of race, color, religion, sex, or national origin is actionable under Title VII. <em>Chambers</em>, 35 F. 4th, at 874–879.</p>
+<p>All of that said, the Court's new some-harm requirement appears to be a relatively low bar. Importantly, the Court emphasizes that “some harm” is less than significant harm, serious harm, or substantial harm. <em>Ante</em>, at 355. Therefore, anyone who has been transferred because of race, color, religion, sex, or national origin should easily be able to show some additional harm—whether in money, time, satisfaction, schedule, convenience, commuting costs or time, prestige, status, career prospects, interest level, perks, professional relationships, networking opportunities, effects on family obligations, or the like. So even though I respectfully disagree with the Court's new some-harm requirement, I expect that the Court's approach and my preferred approach will land in the same place and lead to the same result in 99 out of 100 discriminatory-transfer cases, if not in all 100.</p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li id="s6-n1" value="1"><p>To be sure, the employment action in a transfer case must actually be a transfer (or denied transfer), which requires a change (or denied change) in the compensation, terms, conditions, or privileges of employment. See Brief for District of Columbia et al. as <em>Amici Curiae</em> 17–18. There may be edge cases about what qualifies as a transfer. But as the Solicitor General notes, a change in an employee's job location or job responsibilities readily qualifies. See Brief for United States as <em>Amicus Curiae</em> 11, 22. <a class="back" href="#s6-r1" aria-label="Back to the text">↩</a></p></li>
+</ol></aside></section><p class='back'><a href='/opinions/'>&larr; All opinions</a> · <a href='/justices/ot2023.html'>The Justices, October Term 2023 &rarr;</a></p></main></body>
+</html>
+

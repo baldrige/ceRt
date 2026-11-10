@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script async src='/analytics.js'></script><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate icon" href="/favicon.ico" sizes="any"><link rel="alternate" type="application/atom+xml" title="Supreme Court Report" href="/feed.xml"><link rel="alternate" type="application/atom+xml" title="Certiorari grants" href="/grants.xml"><title>Damian McElrath v. Georgia — Opinion — Supreme Court Report</title><meta name="description" content="The opinion in Damian McElrath v. Georgia (No. 22-721), decided February 21, 2024: the full text with its footnotes, as a page, a Markdown file and an EPUB."><link rel="canonical" href="https://supremecourt.report/opinions/2023/22-721.html"><meta property="og:site_name" content="Supreme Court Report"><meta property="og:type" content="article"><meta property="og:title" content="Damian McElrath v. Georgia — Opinion — Supreme Court Report"><meta property="og:description" content="The opinion in Damian McElrath v. Georgia (No. 22-721), decided February 21, 2024: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta property="og:url" content="https://supremecourt.report/opinions/2023/22-721.html"><meta property="og:image" content="https://supremecourt.report/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Supreme Court Report - docket analytics for the Supreme Court of the United States"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Damian McElrath v. Georgia — Opinion — Supreme Court Report"><meta name="twitter:description" content="The opinion in Damian McElrath v. Georgia (No. 22-721), decided February 21, 2024: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta name="twitter:image" content="https://supremecourt.report/og.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap"><style>
+  :root{--paper:#fdfcfa;--panel:#ffffff;--ink:#1a1a1e;--ink-soft:#484850;--faint:#63636b;--accent:#9c0e3a;--link:#9c0e3a;--rule:#dbd8d2;--nav-max:60rem}
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{font-family:'Newsreader',Georgia,serif;font-size:19px;line-height:1.6;
+    color:var(--ink);background:var(--paper);margin:0;font-feature-settings:'onum' 1}
+  body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
+    opacity:.5;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");}
+  .wrap{max-width:40rem;margin:0 auto;padding:3rem 1.4rem 4rem}
+  .kicker{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 1rem}
+  h1{font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:clamp(2.4rem,7vw,3.6rem);line-height:1;letter-spacing:-.015em;
+    margin:0 0 1rem;color:var(--ink)}
+  h1 em{font-style:italic;font-weight:500;color:var(--accent)}
+  .dek{font-size:1.15rem;line-height:1.5;color:var(--ink-soft);font-style:italic;
+    margin:0 0 1.4rem}
+  .brule{border:0;height:0;border-top:2px solid var(--ink);margin:1.4rem 0 .3rem;
+    position:relative}
+  .brule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+    border-top:1px solid var(--rule)}
+  ul.idx{list-style:none;padding:0;margin:1.6rem 0}
+  ul.idx li{border-bottom:1px solid var(--rule)}
+  /* Whole row is one block-level link: a large, reliable tap target on mobile. */
+  ul.idx a.row{display:flex;justify-content:space-between;align-items:baseline;
+    gap:1rem;padding:.9rem .4rem;text-decoration:none;border:0;color:inherit}
+  ul.idx a.row:hover{background:rgba(156,14,58,.05)}
+  ul.idx .d{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.16rem;
+    color:var(--accent);line-height:1.25}
+  ul.idx a.row:hover .d{text-decoration:underline;text-underline-offset:3px}
+  ul.idx .count{color:var(--faint);font-size:.9rem;font-style:italic;white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  /* A long note (an order list's "3 GVRs / 230 denied / 4 habeas denied /
+     ...", items separated by middots) cannot sit on one line: nowrap made it
+     claim the row and
+     squeezed the title into a column three words wide, and on a phone it ran off
+     the screen. Such a row opts in (meta_wrap): the note wraps, only between its
+     items, and takes at most ~45% of the row, so the title always has the
+     larger share. Under 34rem it drops beneath the title at full width. */
+  /* ("long", not "wrap": .wrap is the page container and its padding.) */
+  ul.idx .count.long{white-space:normal;text-align:right;max-width:45%;line-height:1.45}
+  ul.idx .count.long .seg{white-space:nowrap}
+  @media(max-width:34rem){
+    ul.idx a.row.longmeta{flex-wrap:wrap;row-gap:.2rem}
+    ul.idx .count.long{max-width:none;flex-basis:100%;text-align:left}
+  }
+  /* Compact horizontal strip of the most recent pages beneath a category row. */
+  ul.idx .recent{display:flex;flex-wrap:wrap;align-items:baseline;
+    gap:.3rem .85rem;padding:0 .4rem 1rem;margin-top:-.35rem}
+  ul.idx .recent .rlabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  ul.idx .recent a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--ink-soft);text-decoration:none;font-variant-numeric:tabular-nums;
+    border-bottom:1px solid var(--rule);padding-bottom:1px}
+  ul.idx .recent a:hover{color:var(--accent);border-color:var(--accent)}
+  /* Optional panel beneath the section index (home page: most-read cases). */
+  .panel{margin:2.4rem 0 0}
+  .panel h2{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 .25rem}
+  .panel .pnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:0 0 .5rem}
+  /* "Live now" (live_argument_panel, /live.js): hidden unless the Court is
+     streaming an argument. One red dot, the same --accent as the headings, so
+     the live state is a mark and not a new colour. */
+  .live h2 .ldot{display:inline-block;width:.5rem;height:.5rem;border-radius:50%;
+    background:var(--accent);margin-right:.5rem;vertical-align:.08rem;
+    animation:lpulse 2s ease-in-out infinite}
+  @keyframes lpulse{50%{opacity:.25}}
+  @media (prefers-reduced-motion:reduce){.live h2 .ldot{animation:none}}
+  .lplay{display:flex;flex-wrap:wrap;gap:.6rem .9rem;align-items:center;margin:.8rem 0 .3rem}
+  .lplay button{font:600 .9rem/1 'Newsreader',Georgia,serif;letter-spacing:.04em;
+    color:var(--paper);background:var(--accent);border:0;border-radius:2px;
+    padding:.6rem 1.05rem;cursor:pointer}
+  .lplay button:disabled{opacity:.6;cursor:progress}
+  .lplay button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  /* The player takes a row of its own and may never outgrow the column. A flex
+     item's min-width is auto, which for a replaced element is the browser's own
+     controls' width -- wider than the column on a phone, where mobile Safari
+     and Chrome draw larger controls than the desktop. */
+  .lplay audio{display:block;flex:1 1 100%;width:100%;min-width:0;max-width:100%;
+    box-sizing:border-box;margin:0}
+  .lplay .lstat{font-size:.85rem;color:var(--faint)}
+  /* --- Likeliest grants -----------------------------------------------------
+     Its own rows rather than ol.mostread's: this panel carries a question under
+     the caption, which that list has no room for, and a percentage that has to
+     read as the row's subject rather than as a trailing note.
+     The window toggle is two real radio inputs plus :has() -- no JavaScript.
+     Both windows are rendered at build time and one is hidden, which is the only
+     way a static site can offer the choice: there is no server to ask for the
+     other one. Real radios, not styled buttons, so the control is reachable by
+     keyboard and announced as a choice. */
+  .lead{margin:0 0 1.9rem}
+  .lead h2{margin-bottom:.35rem}
+  .lead .pnote{margin:0 0 .7rem}
+  .wr{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+  .win{display:inline-flex;gap:.25rem;margin:0 0 .55rem;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .win label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .win label:hover{color:var(--ink)}
+  .lead:has(#w7:checked) label[for=w7],
+  .lead:has(#w28:checked) label[for=w28],
+  .lead:has(#wall:checked) label[for=wall]{background:var(--accent);color:var(--paper)}
+  .wr:focus-visible+label{outline:2px solid var(--accent);outline-offset:2px}
+  /* Three windows, one shown: the checked radio hides the other two. */
+  .lead:has(#w7:checked) :is(.g28,.n28,.gall,.nall),
+  .lead:has(#w28:checked) :is(.g7,.n7,.gall,.nall),
+  .lead:has(#wall:checked) :is(.g7,.n7,.g28,.n28){display:none}
+  /* The show/hide controls for a panel's secondary line -- the question under
+     a forecast row, the holding under a decision. Same box as the window
+     toggle, a checkbox instead of radios, and no script: the sibling rule does
+     the work and the lines simply show where :has() is unsupported. The
+     questions are on by default (they are what a forecast row asks); the
+     holdings are off (the caption, kind and disposition already say what
+     happened, and the holding is the more). */
+  .opts{display:inline-flex;gap:.25rem;margin:0 .45rem .55rem 0;vertical-align:top;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .opts label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .opts label:hover{color:var(--ink)}
+  .lead:has(#qon:checked) label[for=qon],
+  .panel:has(#hon:checked) label[for=hon]{background:var(--accent);color:var(--paper)}
+  .lead:has(#qon:not(:checked)) .gq{display:none}
+  .panel:has(#hon:not(:checked)) .chold{display:none}
+  /* --- Upcoming at the Court ------------------------------------------------
+     A date gutter and a two-line body, the same shape as the grant rows above
+     it, so the two panels read as one page rather than two widgets. */
+  .cal{margin:0 0 1.9rem}
+  ol.cal{list-style:none;margin:0;padding:0}
+  ol.cal li{border-top:1px solid var(--rule)}
+  ol.cal li:last-child{border-bottom:1px solid var(--rule)}
+  /* The row is a container, not an anchor: an argument day carries one link per
+     case it hears and anchors cannot nest. Hover lives on the row so it still
+     reads as one unit, and each link colours on its own hover. */
+  ol.cal .crow{display:flex;gap:.95rem;align-items:baseline;padding:.55rem .1rem}
+  ol.cal .crow:hover{background:rgba(156,14,58,.05)}
+  ol.cal a{text-decoration:none;color:inherit}
+  ol.cal a:hover,ol.cal a:focus-visible{color:var(--accent)}
+  ol.cal .cdet a{border-bottom:1px solid rgba(156,14,58,.35)}
+  ol.cal .cdet a:hover{border-bottom-color:var(--accent)}
+  ol.cal .cwhen{flex:none;width:4.6rem;font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.96rem;color:var(--ink);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  ol.cal .cdow{display:block;font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);text-transform:uppercase;letter-spacing:.08em}
+  ol.cal .ctx{flex:1;min-width:0}
+  ol.cal .ckind{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:.98rem;line-height:1.25}
+  ol.cal .cdet{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.12rem}
+  /* Recent decisions reuses the calendar rows and adds exactly two things: the
+     kind word that opens the detail line, and the one outbound link (the slip
+     opinion), which takes the link colour the rest of the row deliberately
+     does not. */
+  ol.cal .dk{font-weight:600;color:var(--ink)}
+  ol.cal .cdet a.pdf{color:var(--link)}
+  /* The holding, from the Court's slip-opinion feed: one sentence, set
+     smaller and in the soft ink so the caption stays the row's headline. */
+  ol.cal .chold{display:block;font-size:.86rem;line-height:1.4;color:var(--ink-soft);
+    font-style:italic;margin-top:.15rem}
+  ol.cal .cdet a.pdf:hover,ol.cal .cdet a.pdf:focus-visible{color:var(--accent);
+    border-bottom-color:var(--accent)}
+  ol.grants{list-style:none;margin:0;padding:0}
+  ol.grants li{border-top:1px solid var(--rule)}
+  ol.grants li:last-child{border-bottom:1px solid var(--rule)}
+  ol.grants a{display:flex;gap:.95rem;align-items:baseline;text-decoration:none;
+    color:inherit;padding:.62rem .1rem}
+  ol.grants a:hover{background:rgba(156,14,58,.05)}
+  ol.grants a:hover .gc{color:var(--accent)}
+  ol.grants .gv{flex:none;width:3.5rem;text-align:right;
+    font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.22rem;
+    line-height:1.1;color:var(--accent);font-variant-numeric:tabular-nums}
+  ol.grants .gx{font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);margin-left:.3rem}
+  ol.grants .gtx{flex:1;min-width:0}
+  /* Subject-area line under the caption, in the section-label idiom (h2.sec):
+     small tracked caps in the faint ink, so it classifies without competing. */
+  ol.grants .gs,ol.mostread .ms{display:block;font-size:.68rem;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--faint);line-height:1.3;margin-top:.12rem}
+  ol.grants .gc{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:1rem;line-height:1.25}
+  ol.grants .gq{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.16rem}
+  ol.grants .gd{flex:none;font-size:.76rem;color:var(--faint);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  .more{margin:.75rem 0 0;font-size:.92rem}
+  .more a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.35)}
+  .more a:hover{border-bottom-color:var(--link)}
+  h2.sec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:.88rem;
+    letter-spacing:.09em;color:var(--faint);text-transform:uppercase;
+    margin:2.1rem 0 .6rem;padding-bottom:.28rem;border-bottom:1px solid var(--rule)}
+  @media(max-width:40rem){
+    ol.grants a{flex-wrap:wrap}
+    ol.grants .gd{width:100%;padding-left:4.45rem;margin-top:-.1rem}
+  }
+  ol.mostread{list-style:none;counter-reset:mr;padding:0;margin:0}
+  ol.mostread li{counter-increment:mr;border-bottom:1px solid var(--rule)}
+  ol.mostread a{display:flex;align-items:baseline;gap:.7rem;padding:.6rem .4rem;
+    text-decoration:none;color:inherit}
+  ol.mostread a:hover{background:rgba(156,14,58,.05)}
+  ol.mostread a::before{content:counter(mr);font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.95rem;color:var(--faint);min-width:1.1rem;
+    font-variant-numeric:tabular-nums}
+  ol.mostread .mc{flex:1;font-size:1rem;line-height:1.3}
+  ol.mostread .mct{display:block}
+  ol.mostread a:hover .mct{color:var(--accent);text-decoration:underline;
+    text-underline-offset:3px}
+  ol.mostread .mdk{color:var(--accent);font-weight:600;font-size:.82rem;
+    font-variant-numeric:tabular-nums;white-space:nowrap}
+  ol.mostread .mv{color:var(--faint);font-size:.85rem;font-style:italic;
+    white-space:nowrap;font-variant-numeric:tabular-nums}
+  /* Forecast percentages carry weight the most-read counts do not: the number is
+     the claim, not a footnote to the ranking. Upright, accent, tabular. */
+  ol.mostread .mv.fc{color:var(--accent);font-style:normal;font-weight:600;
+    font-size:.95rem;min-width:2.6rem;text-align:right}
+  /* Feed follow line. Deliberately quiet -- a footnote under the section list,
+     styled like .recent rather than like a call to action. */
+  .feeds{display:flex;flex-wrap:wrap;align-items:baseline;gap:.3rem .85rem;
+    margin:2.2rem 0 0;padding-top:1.1rem;border-top:1px solid var(--rule)}
+  .feeds .flabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  .feeds a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .feeds a:hover{border-color:var(--link)}
+  .back{margin-top:2rem;font-size:.95rem}
+  .back a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .back a:hover{border-color:var(--link)}
+  /* Home-page case search. */
+  .csearch{position:relative;margin:0 0 1.4rem}
+  #cq{width:100%;font-family:'Newsreader',Georgia,serif;font-size:1.05rem;color:var(--ink);
+    background:var(--panel);border:1px solid var(--rule);border-radius:3px;padding:.7rem .9rem}
+  #cq:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(156,14,58,.1)}
+  #cq::placeholder{color:var(--faint)}
+  #cq.loading{background-image:linear-gradient(90deg,transparent,rgba(156,14,58,.06),transparent);
+    background-size:40% 100%;background-repeat:no-repeat;animation:csl 1s infinite}
+  @keyframes csl{0%{background-position:-40% 0}100%{background-position:140% 0}}
+  .cres{list-style:none;margin:.35rem 0 0;padding:0;max-height:24rem;overflow-y:auto;
+    border:1px solid var(--rule);border-radius:3px;background:var(--panel)}
+  .cres:empty{display:none}
+  .cres li{border-bottom:1px solid var(--rule)}
+  .cres li:last-child{border-bottom:0}
+  .cres a{display:block;padding:.55rem .7rem;text-decoration:none;color:var(--ink);
+    font-size:.98rem;line-height:1.3}
+  .cres a:hover,.cres li.act a{background:rgba(156,14,58,.06)}
+  .cres mark{background:rgba(156,14,58,.14);color:inherit;padding:0 .05em;border-radius:2px}
+  .cres .cd{color:var(--accent);font-variant-numeric:tabular-nums;font-weight:600;
+    margin-right:.5rem;white-space:nowrap}
+  .cnone{padding:.55rem .7rem;color:var(--faint);font-style:italic}
+  .cnone a,.cqp a{color:var(--link);font-style:normal;text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .cqp{margin:.45rem 0 0;font-size:.88rem;color:var(--faint)}
+  /* /cases/ browse index: grouped sections with per-bucket counts. */
+  .csec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+    text-transform:uppercase;letter-spacing:.12em;color:var(--accent);
+    margin:2.2rem 0 .3rem;padding-bottom:.35rem;border-bottom:1px solid var(--rule);
+    display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
+  .csec .cn{font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:.85rem;
+    letter-spacing:0;text-transform:none;color:var(--faint);
+    font-variant-numeric:tabular-nums}
+  .cnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:.5rem 0 0}
+  .cnote a{color:var(--accent)}
+  ul.terms{list-style:none;padding:0;margin:1rem 0 0;display:flex;flex-wrap:wrap;
+    gap:.5rem 1.6rem}
+  ul.terms li{display:inline-flex;align-items:baseline;gap:.4rem}
+  ul.terms a{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.05rem;
+    color:var(--accent);text-decoration:none;border-bottom:1px solid var(--rule)}
+  ul.terms a:hover{border-bottom-color:var(--accent)}
+  ul.terms .cn{color:var(--faint);font-size:.85rem;font-variant-numeric:tabular-nums}
+  /* About page: running prose rather than an index, so it takes a measure and a
+     little more leading than the section rows above it. */
+  .about{margin:1.6rem 0 0;font-size:1.05rem;line-height:1.65;max-width:34rem}
+  .about p{margin:0 0 1rem}
+  .about a{color:var(--accent);text-decoration:none;
+    border-bottom:1px solid var(--rule)}
+  .about a:hover{border-bottom-color:var(--accent)}
+  .about .contact{margin:2rem 0 0;background:var(--panel);border:1px solid var(--rule);
+    border-left:4px solid var(--accent);padding:1.1rem 1.3rem}
+  .about .contact h2{font:600 .78rem/1 'Newsreader',Georgia,serif;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--accent);margin:0 0 .5rem}
+  .about .contact p{margin:0;font-size:1rem}
+
+/* ---- masthead ---- */
+.smast-in{max-width:var(--nav-max,60rem);margin:0 auto;padding:.85rem 1.5rem .5rem;
+  display:flex;align-items:baseline;justify-content:space-between;gap:1.4rem;flex-wrap:wrap}
+.smast-wm{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+  letter-spacing:.005em;color:var(--ink,#1a1a1e);text-decoration:none;white-space:nowrap;flex:none}
+.smast-wm em{font-style:italic;font-weight:500;color:var(--accent,#9c0e3a)}
+.smast-wm:hover{color:var(--accent,#9c0e3a)}
+/* Row gap first, then column. At 1.35rem the six section links measured 596px
+   of max-content -- 4px wider than the 592px row the 40rem index container
+   leaves them -- so ABOUT alone wrapped to a third line under the wordmark, on
+   every page page_style.R writes. 1.05rem brings the row to 572px: 20px of
+   slack at 40rem, and 45px on the 54rem case pages, which were themselves only
+   21px from wrapping. The .4rem row gap is for the day a seventh section
+   overruns it anyway -- a nav that wraps should read as a stack, not an orphan. */
+.snav{display:flex;gap:.4rem 1.05rem;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+.snav a{font:600 .72rem/1 'Newsreader',Georgia,serif;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--ink-soft,var(--soft,#484850));text-decoration:none;display:inline-block;
+  padding:.5rem 0;border-bottom:1.5px solid transparent}
+.snav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--rule,#dbd8d2)}
+.snav a[aria-current='page']{color:var(--accent,#9c0e3a);
+  border-bottom-color:var(--accent,#9c0e3a)}
+.smast-rule-w{max-width:var(--nav-max,60rem);margin:0 auto;padding:0 1.5rem}
+.smast-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0;position:relative}
+.smast-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.skip{position:absolute;left:-9999px;top:0;background:var(--panel,#ffffff);
+  color:var(--accent,#9c0e3a);padding:.6rem 1rem;
+  border:1px solid var(--accent,#9c0e3a);
+  font:600 .8rem/1 'Newsreader',Georgia,serif;letter-spacing:.1em;text-transform:uppercase;z-index:10}
+.skip:focus{left:.5rem;top:.5rem}
+/* ---- breadcrumb ---- */
+.bcrumb{margin:.7rem 0 0}
+.bcrumb ol{list-style:none;display:flex;flex-wrap:wrap;align-items:baseline;
+  gap:.1rem .45rem;margin:0;padding:0}
+.bcrumb li{display:inline-flex;align-items:baseline;gap:.45rem}
+.bcrumb a{font:400 .8rem/1.5 'Newsreader',Georgia,serif;color:var(--ink-soft,var(--soft,#484850));
+  text-decoration:none;border-bottom:1px solid var(--rule,#dbd8d2)}
+.bcrumb a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.bcrumb .sep{color:var(--faint,#63636b);font-size:.8rem;line-height:1.5}
+.bcrumb [aria-current='page']{font:400 .8rem/1.5 'Newsreader',Georgia,serif;
+  color:var(--faint,#63636b);font-variant-numeric:tabular-nums}
+/* ---- case footer ---- */
+.cfoot{margin:2.4rem 0 0}
+.cfoot-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0 0 1rem;position:relative}
+.cfoot-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.cfoot-off{font-size:.95rem;margin:0 0 1.1rem}
+.cfoot-off a{color:var(--link,#9c0e3a);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.4)}
+.cfoot-off a:hover{border-bottom-color:var(--link,#9c0e3a)}
+.cfoot-lab{font:600 .68rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);margin:0 0 .5rem}
+.cfoot-nav{display:flex;flex-wrap:wrap;gap:.35rem 1.1rem;list-style:none;margin:0;padding:0}
+.cfoot-nav a{font-size:.92rem;color:var(--ink-soft,var(--soft,#484850));text-decoration:none;
+  border-bottom:1px solid var(--rule,#dbd8d2);padding-bottom:1px}
+.cfoot-nav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.cfoot-stamp{margin:1.2rem 0 0;font-size:.8rem;color:var(--faint,#63636b);font-style:italic}
+/* ---- prev / next ---- */
+.pnav{margin:2.2rem 0 0;border-top:1px solid var(--rule,#dbd8d2);padding-top:1rem;
+  display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.pnav a,.pnav span.none{text-decoration:none;color:inherit;display:block;padding:.5rem .2rem}
+.pnav a:hover{background:rgba(156,14,58,.05)}
+.pnav .dir{font:600 .66rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);display:block;margin-bottom:.3rem}
+.pnav .lab{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1rem;line-height:1.25;
+  color:var(--accent,#9c0e3a);display:block}
+.pnav a:hover .lab{text-decoration:underline;text-underline-offset:3px}
+.pnav .nx{text-align:right}
+.pnav .none{opacity:.35}
+@media(max-width:640px){
+  .smast-in{padding:.7rem 1.1rem .25rem;gap:.15rem}
+  .smast-wm{font-size:.98rem}
+  .smast-in nav{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+    -webkit-mask-image:linear-gradient(90deg,#000 86%,transparent);
+    mask-image:linear-gradient(90deg,#000 86%,transparent)}
+  .smast-in nav::-webkit-scrollbar{display:none}
+  .snav{flex-wrap:nowrap;gap:1.15rem;padding-right:2.4rem}
+  .snav a{padding:.7rem 0;white-space:nowrap}
+  .smast-rule-w{padding:0 1.1rem}
+  .cfoot-nav{gap:.5rem 1rem}
+  .cfoot-nav a{padding-bottom:.3rem}
+  .pnav{grid-template-columns:1fr;gap:.2rem}
+  .pnav .nx{text-align:left;border-top:1px solid var(--rule,#dbd8d2)}
+}
+
+  .wrap.opn{max-width:42rem}
+  .opn .ometa{font-size:.92rem;color:var(--ink-soft);margin:.3rem 0 0}
+  .opn .oget{display:flex;flex-wrap:wrap;gap:.4rem .6rem;margin:1.1rem 0 0;padding:0;list-style:none;font-size:.9rem}
+  .opn .oget a{display:inline-block;padding:.32rem .7rem;border:1px solid var(--rule);border-radius:4px;color:var(--ink);text-decoration:none;background:var(--panel)}
+  .opn .oget a:hover{border-color:var(--accent);color:var(--accent)}
+  .opn .osrc{font-size:.84rem;color:var(--faint);margin:.9rem 0 0;line-height:1.45}
+  .opn .osrc a{color:var(--link)}
+  .opn .otoc{margin:1.6rem 0 0;padding:.8rem 1rem;border:1px solid var(--rule);border-radius:4px;background:var(--panel);font-size:.95rem}
+  .opn .otoc ol{margin:0;padding:0;list-style:none}
+  .opn .otoc li{margin:.25rem 0}
+  .opn .otoc a{color:var(--ink);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.35)}
+  .opn .otoc a:hover{color:var(--accent)}
+  .opn section.op{margin-top:3rem;border-top:2px solid var(--ink);padding-top:1.1rem}
+  .opn section.op h2{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.5rem;line-height:1.2;margin:0 0 1rem;color:var(--ink)}
+  .opn section.op p{margin:0 0 .95rem;line-height:1.62;hyphens:auto;overflow-wrap:break-word}
+  .opn section.op p.byline{color:var(--ink-soft);font-style:italic}
+  .opn section.op p.sep{text-align:center;letter-spacing:.3em;color:var(--faint);margin:1.6rem 0}
+  .opn section.op h3.oh{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.12rem;text-align:center;margin:2rem 0 1rem;color:var(--ink)}
+  .opn section.op blockquote{margin:0 0 .95rem;padding:0 0 0 1.1rem;border-left:2px solid var(--rule);color:var(--ink-soft)}
+  .opn section.op blockquote p{margin-bottom:.6rem;font-size:.96em}
+  .opn .sc{font-variant-caps:small-caps;letter-spacing:.02em}
+  .opn .pg{font-size:.66em;color:var(--faint);vertical-align:.3em;margin:0 .3em 0 .1em;font-variant-numeric:tabular-nums;user-select:none;white-space:nowrap}
+  .opn .pg::before{content:'*'}
+  .opn sup.fnr{font-size:.68em;line-height:0;margin-left:.05em}
+  .opn sup.fnr a{color:var(--link);text-decoration:none;padding:0 .1em}
+  .opn aside.notes{margin-top:2rem;border-top:1px solid var(--rule);padding-top:.8rem;font-size:.88rem;color:var(--ink-soft)}
+  .opn aside.notes h3{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1rem;margin:0 0 .6rem;color:var(--ink)}
+  .opn aside.notes ol{margin:0;padding-left:1.7rem}
+  .opn aside.notes li{margin:0 0 .55rem}
+  .opn aside.notes li.sym{list-style:none;margin-left:-1.7rem}
+  .opn aside.notes li.sym .mk{margin-right:.3rem}
+  .opn aside.notes li.sym p{display:inline}
+  .opn aside.notes p{margin:0 0 .4rem;line-height:1.5}
+  .opn aside.notes a.back{color:var(--link);text-decoration:none;margin-left:.2rem}
+  .opn aside.notes li:target,.opn sup.fnr a:target,.opn .pg:target{background:rgba(156,14,58,.12);outline:.2rem solid rgba(156,14,58,.12)}
+  .opn section.op,.opn aside.notes li,.opn sup.fnr a{scroll-margin-top:1rem}
+  .opn section.op-syllabus p,.opn section.op-counsel p{font-size:.95em}
+  .opn section.op-counsel summary{cursor:pointer;font-family:'Fraunces',Georgia,serif;font-size:1.05rem;color:var(--ink-soft)}
+  .opn .osyl{font-size:.84rem;color:var(--faint);font-style:italic;margin:-.5rem 0 1rem}
+  .opn p.back{margin-top:3rem;font-size:.92rem}
+  @media print{.smast,.bcrumb,.opn .oget,.opn .otoc,.opn p.back{display:none}.opn section.op{break-before:page}}
+</style><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://supremecourt.report/"},{"@type":"ListItem","position":2,"name":"Opinions","item":"https://supremecourt.report/opinions/"},{"@type":"ListItem","position":3,"name":"Damian McElrath v. Georgia"}]}</script><meta name='otv' content='p1'><link rel='alternate' type='text/markdown' href='/opinions/2023/22-721.md'><link rel='alternate' type='application/epub+zip' href='/opinions/2023/22-721.epub'></head><body><a class='skip' href='#main'>Skip to content</a><header><div class='smast-in'><a class='smast-wm' href='/'>Supreme Court <em>Report</em></a><nav aria-label='Sections'><ul class='snav'><li><a href='/dashboards/'>Docket</a></li><li><a href='/conferences/'>Conferences</a></li><li><a href='/relists/'>Relists</a></li><li><a href='/applications/'>Interim</a></li><li><a href='/arguments/'>Arguments</a></li><li><a href='/justices/' aria-current='page'>Justices</a></li><li><a href='/counsel/'>Counsel</a></li><li><a href='/funnel/'>Funnel</a></li><li><a href='/methods.html'>Model</a></li><li><a href='/about.html'>About</a></li></ul></nav></div><div class='smast-rule-w'><hr class='smast-rule'></div></header><main class='wrap opn' id='main' data-dkt='22-721'><nav class='bcrumb' aria-label='Breadcrumb'><ol><li><a href='/'>Home</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><a href='/opinions/'>Opinions</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><span aria-current='page'>Damian McElrath v. Georgia</span></li></ol></nav><p class='kicker'>No. 22-721 · decided February 21, 2024 · 601 U. S. 87</p><h1 style='font-size:clamp(1.7rem,4.6vw,2.4rem);line-height:1.12'>Damian McElrath v. Georgia</h1><p class='ometa'>1 separate writing.</p><ul class='oget'><li><a href='/opinions/2023/22-721.epub' download>EPUB</a></li><li><a href='/opinions/2023/22-721.md' download>Markdown</a></li><li><a href='https://www.supremecourt.gov/opinions/23pdf/601us1r05_1qm2.pdf' rel='noopener'>The Court’s PDF</a></li><li><a href='/cases/22-721.html'>The docket</a></li></ul><p class='osrc'>Set from the PDF the Court published, which is the authoritative text. The small starred numbers are that PDF’s page numbers. A conversion can introduce errors; check a quotation against the <a href='https://www.supremecourt.gov/opinions/23pdf/601us1r05_1qm2.pdf' rel='noopener'>original</a>.</p><nav class="otoc" aria-label="Contents"><ol>
+<li><a href="#s1">Syllabus</a></li>
+<li><a href="#s2">Counsel</a></li>
+<li><a href="#s3">Opinion of the Court</a></li>
+<li><a href="#s4">Justice Alito, concurring</a></li>
+</ol></nav>
+<section id="s1" class="op op-syllabus"><h2>Syllabus</h2><p class='osyl'>Prepared by the Reporter of Decisions for the convenience of the reader; it is no part of the opinion of the Court.</p>
+<p>After petitioner Damian McElrath killed his mother, the State of Georgia</p>
+<p>charged him with three crimes related to her death: malice murder, felony murder, and aggravated assault. At trial, the jury returned a split verdict against McElrath: “not guilty by reason of insanity” with respect to malice-murder, and “guilty but mentally ill” as to the other counts. On appeal, the Supreme Court of Georgia determined that the jury's “guilty but mentally ill” verdict for felony murder was “repugnant” to the jury's “not guilty by reason of insanity” verdict for malice murder under Georgia law, because the verdicts “required affirmative findings of different mental states that could not exist at the same time.” See 308 Ga. 104, 112, 839 S. E. 2d 573, 579. The court vacated both the malice-murder and felony-murder verdicts pursuant to Georgia's so-called repugnancy doctrine, and authorized retrial. <em>Ibid</em>., 839 S. E. 2d, at 580. On remand, McElrath argued that the Double Jeopardy Clause of the Fifth Amendment prohibited Georgia from retrying him for malice murder given the jury's prior “not guilty by reason of insanity” verdict on that charge. The Georgia courts rejected that argument.</p>
+<p><em>Held</em>: The jury's verdict that McElrath was not guilty of malice murder by reason of insanity constituted an acquittal for double jeopardy purposes notwithstanding any inconsistency with the jury's other verdicts. Pp. 93–98.</p>
+<p>(a) The Double Jeopardy Clause provides that “[n]o person shall . . . be subject for the same offence to be twice put in jeopardy of life or limb.” U. S. Const., Amdt. 5. “[I]t has long been settled under the Fifth Amendment that a verdict of acquittal is final, ending a defendant's jeopardy, and . . . is a bar to a subsequent prosecution for the same offence.” <em>Green</em> v. <em>United States</em>, 355 U. S. 184, 188 (internal quotation marks omitted). The Court's “cases have defined an acquittal to encompass any ruling that the prosecution's proof is insufficient to establish criminal liability for an offense.” <em>Evans</em> v. <em>Michigan</em>, 568 U. S. 313, 318. Once rendered, a jury's verdict of acquittal is inviolate. The principle “that `[a] verdict of acquittal . . . could not be reviewed, on error or otherwise,' ” is “[p]erhaps the most fundamental rule in the history of double jeopardy jurisprudence.” <em>United States</em> v. <em>Martin Linen Supply Co.</em>, 430 U. S. 564, 571. Whatever the basis for a jury's verdict, see <em>Bravo-Fernandez</em> v. <em>United States</em>, 580 U. S. 5, 10, the Double Jeop</p>
+<p>88 M<span class="sc">c</span>ELRATH <em>v.</em> GEORGIA</p>
+<p>ardy Clause prohibits second-guessing the reason for a jury's acquittal. Pp. 93–95.</p>
+<p>(b) Georgia law specifically provides that a defendant who establishes an insanity defense “shall not be found guilty of [the] crime.” Ga. Code Ann. §§16–3–2, 16–3–3. Here, the jury concluded that McElrath was not guilty by reason of insanity with respect to the malice-murder charge. That verdict was unquestionably a “ruling that the prosecution's proof is insufficient to establish criminal liability for an offense,” <em>Evans</em>, 568 U. S., at 318, and thus an acquittal.</p>
+<p>Georgia argues that there was no valid verdict pursuant to Georgia law, and thus no acquittal. But whether an acquittal has occurred for double jeopardy purposes is a question of federal law, and a State's characterization of a ruling is not binding on the Court. <em>Smalis</em> v. <em>Pennsylvania</em>, 476 U. S. 140, 144, n. 5. While States have the power “to regulate procedures under which [their] laws are carried out,” <em>Patterson</em> v. <em>New York</em>, 432 U. S. 197, 201, the ultimate question remains whether the Double Jeopardy Clause recognizes an event as an acquittal. The jury's verdict of not guilty by reason of insanity here constituted such a determination, and it is of no moment that the verdict was accompanied by other verdicts appearing to rest on inconsistent findings. An acquittal is an acquittal, even when a jury returns inconsistent verdicts. <em>Bravo-Fernandez</em>, 580 U. S., at 8. Georgia argues that the bar to second-guessing an acquittal applies only to <em>general</em> verdicts, but the Court's cases prohibit <em>any</em> speculation about the reasons for a jury's verdict of acquittal—even when, as here, specific jury findings provide a factual basis for such speculation. To do otherwise “would impermissibly authorize judges to usurp the jury right.” <em>Smith</em> v. <em>United States</em>, 599 U. S. 236, 252. Pp. 95–98.</p>
+<p>315 Ga. 126, 880 S. E. 2d 518, reversed and remanded.</p>
+<p><span class="sc">Jackson</span>, J., delivered the opinion for a unanimous Court. <span class="sc">Alito</span>, J., filed a concurring opinion, <em>post</em>, p. 98.</p></section>
+<section id="s2" class="op op-counsel"><details><summary>Counsel</summary><p><em>Richard A. Simpson</em> argued the cause for petitioner. With him on the briefs were <em>F. Andrew Hessick, H. Maddox Kilgore,</em> and <em>Carlos J. Rodriguez.</em></p>
+<p><em>Stephen J. Petrany</em>, Solicitor General of Georgia, argued the cause for respondent. With him on the brief were <em>Christopher M. Carr,</em> Attorney General, <em>Ross W. Bergethon,</em> Principal Deputy Solicitor General, and <em>Justin T. Golart,</em> <span class="pg" id="s2-p89" title="page 89 of the original">89</span><em>James E. Barrett,</em> and <em>Paul R. Draper,</em> Deputy Solicitors General<em>.</em>*</p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li class="sym" value="0"><span class="mk">*</span><p>Briefs of <em>amici curiae</em> urging reversal were filed for the Georgia Association of Criminal Defense Lawyers by <em>Greg Willis</em> and <em>V. Natasha Perdew Silas</em>; and for the National Association of Criminal Defense Lawyers et al. by <em>Carmen Iguina González, Sean Hecker, David Oscar Markus, David D. Cole,</em> and <em>Brandon Buskey</em>.</p><p>Briefs of <em>amici curiae</em> urging affirmance were filed for the State of Missouri et al. by <em>Andrew Bailey,</em> Attorney General of Missouri, <em>Joshua M. Divine,</em> Solicitor General, <em>Peter F. Donohue, Sr.,</em> Assistant Attorney General, and <em>Gregory M. Goodwin,</em> and by the Attorneys General for their respective States as follows: <em>Steve Marshall</em> of Alabama, <em>Tim Griffin</em> of Arkansas, <em>Raúl R. Labrador</em> of Idaho, <em>Brenna Bird</em> of Iowa, <em>Kris W. Kobach</em> of Kansas, <em>Jeff Landry</em> of Louisiana, <em>Lynn Fitch</em> of Mississippi, <em>Austin Knudsen</em> of Montana, <em>Michael T. Hilgers</em> of Nebraska, <em>Drew H. Wrigley</em> of North Dakota, <em>Alan Wilson</em> of South Carolina, <em>Jonathan Skrmetti</em> of Tennessee, <em>Ken Paxton</em> of Texas, and <em>Sean D. Reyes</em> of Utah; and for the District Attorneys' Association of Georgia by <em>Robert W. Smith, Jr.</em></p></li>
+</ol></aside></details></section>
+<section id="s3" class="op op-court"><h2>Opinion of the Court</h2>
+<p class="byline">Justice Jackson delivered the opinion of the Court.</p>
+<p>Under Georgia law, a jury's verdict in a criminal case can be set aside if it is “repugnant”—meaning that it involves “affirmative findings by the jury that are not legally and logically possible of existing simultaneously.” 308 Ga. 104, 112, 839 S. E. 2d 573, 579 (2020). In this case, a jury found that petitioner Damian McElrath was “not guilty by reason of insanity” with respect to a malice-murder count, but was “guilty but mentally ill” regarding two other counts—felony murder and aggravated assault—all of which pertained to the same underlying homicide. Invoking the repugnancy doctrine, Georgia courts nullified both the “not guilty” and “guilty” verdicts, and authorized McElrath's retrial.</p>
+<p>McElrath now maintains that the Fifth Amendment's Double Jeopardy Clause prevents the State from retrying him for the crime that had resulted in the “not guilty by reason of insanity” finding. Under the circumstances presented here, we agree. The jury's verdict constituted an acquittal</p>
+<p>90 M<span class="sc">c</span>ELRATH <em>v.</em> GEORGIA</p>
+<p>for double jeopardy purposes, and an acquittal is an acquittal notwithstanding its apparent inconsistency with other verdicts that the jury may have rendered.</p>
+<h3 class="oh">I</h3>
+<h3 class="oh">A</h3>
+<p>This case begins with tragedy. In 2012, petitioner Damian McElrath, then 18 years old, killed his mother Diane. Diane, a single parent who had adopted McElrath when he was two years old, struggled for years with caring for him. At a young age, McElrath was diagnosed with bipolar disorder and attention deficit hyperactivity disorder. He responded poorly to psychiatric treatment and sometimes refused to take his prescribed medication. He had trouble in school, including suspensions and low grades, and experienced several run-ins with law enforcement. These issues, among others, led to quarrels between McElrath and his mother.</p>
+<p>A few years before Diane's murder, McElrath's mental health began to deteriorate substantially, eventually manifesting in his belief that Diane was poisoning his food and drink with ammonia and pesticides. At some point, McElrath began to exhibit other delusions, such as a belief that he was an FBI agent who regularly traveled to Russia and had killed multiple people. These delusions intensified to the point that, just a few weeks before the events giving rise to this case, McElrath was committed to a mental-health facility, where he was diagnosed with schizophrenia. After two weeks of hospitalization, clinical staff believed that McElrath was no longer a threat to himself or others and that there was no evidence of further delusions. Thus, McElrath was discharged.</p>
+<p>One week later, McElrath stabbed Diane to death. Immediately after the stabbing, McElrath composed a note in which he explained that he had killed Diane because she had been poisoning him and that she had in fact confessed to <span class="pg" id="s3-p91" title="page 91 of the original">91</span>doing so. McElrath then called 911; he told the dispatch officer that he had killed his mother and asked if his actions were wrong. After law enforcement arrived at the scene, McElrath was taken to a police station for interrogation, where he told the investigator, “I killed my Mom because she poisoned me.” 308 Ga., at 105, 839 S. E. 2d, at 575 (internal quotation marks omitted).</p>
+<h3 class="oh">B</h3>
+<p>Georgia charged McElrath with three crimes stemming from Diane's death: malice murder, felony murder, and aggravated assault. At trial, McElrath did not dispute that he killed Diane but asserted an insanity defense.</p>
+<p>Under Georgia law, a jury may find a criminal defendant “not guilty by reason of insanity” if, at the time of the crime, he “did not have mental capacity to distinguish between right and wrong” or he committed the crime “because of a delusional compulsion as to such act which overmastered his will to resist committing the crime.” Ga. Code Ann. §§ 16–3–2, 16–3–3, 17–7–131(c)(1) (2019). Such a verdict results in the defendant's commitment to a state mental-health facility until a court determines that release is appropriate. § 17–7–131(d). Even if a defendant fails to prove an insanity defense, a Georgia jury may still render a verdict of “guilty but mentally ill,” under which the State Department of Corrections may, at its discretion, refer a defendant for temporary mental-health treatment. §§ 17–7–131(c)(2), (g).</p>
+<p>The jury returned a split verdict against McElrath. It found him not guilty by reason of insanity on the malice-murder charge and guilty but mentally ill on the felony-murder and aggravated-assault charges. The trial court accepted the jury's verdict, and eventually sentenced McElrath to life imprisonment based on the felony-murder conviction.<sup class="fnr"><a id="s3-r1" href="#s3-n1">1</a></sup></p>
+<p>92 M<span class="sc">c</span>ELRATH <em>v.</em> GEORGIA</p>
+<p>McElrath appealed. He argued that the felony-murder conviction should be vacated because the guilty-but-mentally-ill verdict for that crime was “repugnant” to the jury's “not guilty by reason of insanity” verdict for malice murder. See 308 Ga., at 112, 839 S. E. 2d, at 579 (explaining that, under Georgia's so-called “repugnancy” doctrine, a state court may set aside a verdict as repugnant when there are “affirmative findings by the jury that are not legally and logically possible of existing simultaneously”).</p>
+<p>The Supreme Court of Georgia agreed with McElrath that the verdicts were repugnant under Georgia law.<sup class="fnr"><a id="s3-r2" href="#s3-n2">2</a></sup>As the court explained, “the not guilty by reason of insanity verdict on malice murder and the guilty but mentally ill verdict on felony murder based on aggravated assault required affirmative findings of different mental states that could not exist at the same time during the commission of those crimes as they were indicted, proved, and charged to the jury.” <em>Ibid</em>. There was no way to reconcile those verdicts because, as the court noted, the jury could not conclude “that the crimes occurred at different times or through distinct acts.” <em>Ibid</em>., n. 15, 839 S. E. 2d, at 579, n. 15. But instead of vacating only the felony-murder conviction, as McElrath had requested, the State Supreme Court vacated both the malice-murder and felony-murder verdicts. <em>Id</em>., at 112, 839 S. E. 2d, at 580.<sup class="fnr"><a id="s3-r3" href="#s3-n3">3</a></sup></p>
+<p><span class="pg" id="s3-p93" title="page 93 of the original">93</span>On remand, McElrath argued that the Double Jeopardy Clause of the Fifth Amendment prohibited Georgia from retrying him for malice murder in light of the jury's prior “not guilty by reason of insanity” verdict on that charge. The trial court rejected this argument, and McElrath again appealed.</p>
+<p>The Supreme Court of Georgia affirmed. 315 Ga. 126, 880 S. E. 2d 518 (2022). The court recognized that, “[u]nder the general principles of double jeopardy,” the verdict of not guilty by reason of insanity “would appear to be an acquittal that precludes retrial, as not guilty verdicts are generally inviolate.” <em>Id</em>., at 130, 880 S. E. 2d, at 521. But the court concluded that the acquittal at issue in this case “los[t] considerable steam” when considered alongside the verdict of guilty but mentally ill, and because the verdicts were repugnant, “both [were] rendered valueless.” <em>Ibid</em>. In the court's view, repugnant verdicts were no different for double jeopardy purposes from “a situation in which a mistrial is declared after a jury is unable to reach a verdict.” <em>Ibid</em>., 880 S. E. 2d, at 522.</p>
+<p>Justice Pinson concurred, noting that he could not “quite shake the doubt” that the court's ruling was inconsistent “with the quite-absolute-sounding bar against retrying a defendant who has secured an acquittal verdict.” <em>Id</em>., at 132, 880 S. E. 2d, at 523. He joined the majority, however, because “[t]his lingering doubt [was] not enough to justify dissenting from an otherwise unanimous Court.” <em>Id.</em>, at 133, 880 S. E. 2d, at 523.</p>
+<p>We granted certiorari. 600 U. S. ––– (2023).</p>
+<h3 class="oh">II</h3>
+<p>The Double Jeopardy Clause provides that “[n]o person shall . . . be subject for the same offence to be twice put in jeopardy of life or limb.” U. S. Const., Amdt. 5. The “controlling constitutional principle” of the Clause “focuses on prohibitions against multiple trials.” <em>United States</em> v. <em>Mar</em></p>
+<p>94 M<span class="sc">c</span>ELRATH <em>v.</em> GEORGIA</p>
+<p><em>tin Linen Supply Co.</em>, 430 U. S. 564, 569 (1977) (internal quotation marks omitted). “[I]t has long been settled under the Fifth Amendment that a verdict of acquittal is final, ending a defendant's jeopardy, and . . . is a bar to a subsequent prosecution for the same offence.” <em>Green</em> v. <em>United States</em>, 355 U. S. 184, 188 (1957) (internal quotation marks omitted).</p>
+<p>What, then, is an acquittal? “[O]ur cases have defined an acquittal to encompass any ruling that the prosecution's proof is insufficient to establish criminal liability for an offense.” <em>Evans</em> v. <em>Michigan</em>, 568 U. S. 313, 318 (2013). “[L]abels do not control our analysis in this context; rather, the substance of [the ruling] does.” <em>Id.,</em> at 322. In particular, we look to whether the ruling's substance “relate[s] to the ultimate question of guilt or innocence.” <em>United States</em> v. <em>Scott</em>, 437 U. S. 82, 98, n. 11 (1978) (internal quotation marks omitted).</p>
+<p>Once rendered, a jury's verdict of acquittal is inviolate. We have described this principle—“that `[a] verdict of acquittal . . . could not be reviewed, on error or otherwise' ”—as “[p]erhaps the most fundamental rule in the history of double jeopardy jurisprudence.” <em>Martin Linen</em>, 430 U. S., at 571. This bright-line rule exists to preserve the jury's “overriding responsibility . . . to stand between the accused and a potentially arbitrary or abusive Government that is in command of the criminal sanction.” <em>Id</em>., at 572.</p>
+<p>We have long recognized that, while an acquittal might reflect a jury's determination that the defendant is innocent of the crime charged, such a verdict might also be “the result of compromise, compassion, lenity, or misunderstanding of the governing law.” <em>Bravo-Fernandez</em> v. <em>United States</em>, 580 U. S. 5, 10 (2016); see also <em>United States</em> v. <em>Powell</em>, 469 U. S. 57, 65 (1984). Whatever the basis, the Double Jeopardy Clause prohibits second-guessing the reason for a jury's acquittal. As a result, “the jury holds an unreviewable power to return a verdict of not guilty even for impermissible reasons.” <em>Smith</em> v. <em>United States</em>, 599 U. S. <span class="pg" id="s3-p95" title="page 95 of the original">95</span>236, 253 (2023) (internal quotation marks and alterations omitted).</p>
+<p>For double jeopardy purposes, a jury's determination that a defendant is not guilty by reason of insanity is a conclusion that “criminal culpability had not been established,” just as much as any other form of acquittal. <em>Burks</em> v. <em>United States</em>, 437 U. S. 1, 10 (1978). Such a verdict reflects “that the Government ha[s] failed to come forward with sufficient proof of [a defendant's] capacity to be responsible for criminal acts.” <em>Ibid</em>.</p>
+<h3 class="oh">III</h3>
+<p>Georgia law specifically provides that a defendant who establishes an insanity defense “shall not be found guilty of [the] crime.” Ga. Code Ann. §§16–3–2, 16–3–3. Here, after being instructed on Georgia's insanity defense, see App. 89a–92a, the jury concluded that McElrath was not guilty by reason of insanity with respect to the malice-murder charge. That jury determination was unquestionably a “ruling that the prosecution's proof is insufficient to establish criminal liability for an offense.” <em>Evans</em>, 568 U. S., at 318; see also <em>Burks</em>, 437 U. S., at 10.</p>
+<p>This conclusion is consistent with Georgia's concession that if the “not guilty” verdict were considered in isolation—that is, if the jury had reached the same conclusion under the same circumstances on a single count—it would have constituted a valid verdict of acquittal under state law. See Tr. of Oral Arg. 31–32. As we have long recognized, jeopardy clearly terminates under these circumstances. See <em>United States</em> v. <em>Ball</em>, 163 U. S. 662, 671 (1896); see also 6 W. LaFave, J. Israel, N. King, &amp; O. Kerr, Criminal Procedure § 25.3(b), p. 821 (4th ed. 2015) (describing this principle as “the cornerstone of double jeopardy jurisprudence”).</p>
+<p>In resisting this straightforward conclusion, the State reiterates the Georgia Supreme Court's holding that, because the “not guilty by reason of insanity” verdict was repugnant to the jury's other verdicts, all the verdicts the jury rendered</p>
+<p>96 M<span class="sc">c</span>ELRATH <em>v.</em> GEORGIA</p>
+<p>in McElrath's case were “a nullity and should not have been accepted by the trial court.” 315 Ga., at 127, 880 S. E. 2d, at 520. Georgia thus maintains that, because no verdict under state law issued, no acquittal took place.</p>
+<p>We cannot agree. To start, it is well established that whether an acquittal has occurred for purposes of the Double Jeopardy Clause is a question of federal, not state, law. Again, an acquittal occurs when there has been a ruling “relat[ing] to the ultimate question of guilt or innocence.” <em>Scott</em>, 437 U. S., at 98, n. 11 (internal quotation marks omitted). And “labels”—including those provided by state law—“do not control our analysis in this context.” <em>Evans</em>, 568 U. S., at 322. Thus, it is not dispositive whether a factfinder “incanted the word `acquit' ”; instead, an acquittal has occurred if the factfinder “acted on its view that the prosecution had failed to prove its case.” <em>Id</em>., at 325. Because of this focus on substance over labels, a State's “characterization, as a matter of double jeopardy law, of [a ruling] is not binding on us.” <em>Smalis</em> v. <em>Pennsylvania</em>, 476 U. S. 140, 144, n. 5 (1986); see also <em>Smith</em> v. <em>Massachusetts</em>, 543 U. S. 462, 468–469 (2005).</p>
+<p>To be sure, “[t]he States possess primary authority for defining and enforcing the criminal law,” <em>Engle</em> v. <em>Isaac</em>, 456 U. S. 107, 128 (1982)—a power that permits States “to regulate procedures under which [their] laws are carried out,” <em>Patterson</em> v. <em>New York</em>, 432 U. S. 197, 201 (1977). But the ultimate question is whether the Double Jeopardy Clause recognizes an event as an acquittal. In making that determination, we ask whether—given the operation of state law—there has been “any ruling that the prosecution's proof is insufficient to establish criminal liability for an offense.” <em>Evans</em>, 568 U. S., at 318. Here, for the reasons already discussed, the jury's verdict of not guilty by reason of insanity constituted such a determination.<sup class="fnr"><a id="s3-r4" href="#s3-n4">4</a></sup></p>
+<p><span class="pg" id="s3-p97" title="page 97 of the original">97</span>That McElrath's “not guilty by reason of insanity” verdict was accompanied by other verdicts that appeared to rest on inconsistent findings is of no moment. As we have explained, the Double Jeopardy Clause prohibits second-guessing an acquittal for any reason. See <em>Martin Linen</em>, 430 U. S., at 571. An acquittal is an acquittal, even “when a jury returns inconsistent verdicts, convicting on one count and acquitting on another count, where both counts turn on the very same issue of ultimate fact.” <em>Bravo-Fernandez</em>, 580 U. S., at 8. As far as the Fifth Amendment is concerned, “[i]nconsistency in a verdict is not a sufficient reason for setting it aside.” <em>Harris</em> v. <em>Rivera</em>, 454 U. S. 339, 345 (1981) (<em>per curiam</em>).</p>
+<p>Georgia contends that this bar to second-guessing an acquittal applies only to <em>general</em> verdicts of acquittal, because in evaluating a general verdict, there is no way to ascertain the true basis of the jury's decision. Here, by contrast, the jury based its verdicts on specific “affirmative findings of different mental states that could not exist at the same time.” 308 Ga., at 112, 839 S. E. 2d, at 579. Georgia maintains that, under the State's repugnancy doctrine, such “special findings” allow for an informed review (and potential nullification) of inconsistent jury verdicts, including a verdict of acquittal. Brief for Respondent 39.</p>
+<p>Georgia is mistaken. Once there has been an acquittal, our cases prohibit <em>any</em> speculation about the reasons for a jury's verdict—even when there are specific jury findings that provide a factual basis for such speculation—“because it is impossible for a court to be certain about the ground for the verdict without improperly delving into the jurors' deliberations.” <em>Smith</em>, 599 U. S., at 252–253. We simply cannot know why the jury in McElrath's case acted as it did, and the Double Jeopardy Clause forbids us to guess. “To</p>
+<p>98 M<span class="sc">c</span>ELRATH <em>v.</em> GEORGIA</p>
+<p>conclude otherwise would impermissibly authorize judges to usurp the jury right.” <em>Id</em>., at 252.</p>
+<p class="sep">* * *</p>
+<p>The jury's verdict of not guilty by reason of insanity on the malice-murder charge was an acquittal for purposes of the Double Jeopardy Clause. The Clause therefore bars retrial of McElrath on that charge.<sup class="fnr"><a id="s3-r5" href="#s3-n5">5</a></sup>The judgment of the Supreme Court of Georgia is reversed, and the case is remanded for further proceedings not inconsistent with this opinion.</p>
+<p><em>It is so ordered.</em></p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li id="s3-n1" value="1"><p>The aggravated-assault conviction merged into the felony-murder conviction because, under Georgia law, it served as a predicate for felony murder. See <em>Culpepper</em> v. <em>State</em>, 289 Ga. 736, 737, 715 S. E. 2d 155, 157 (2011). <a class="back" href="#s3-r1" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n2" value="2"><p>McElrath appealed directly to the Supreme Court of Georgia, which has appellate jurisdiction over all murder cases. See Ga. Const., Art. VI, § 6, ¶3; see also <em>Neal</em> v. <em>State</em>, 290 Ga. 563, 567, 722 S. E. 2d 765, 770 (2012) (Hunstein, C. J., concurring) (noting that the Georgia Constitution provides the State Supreme Court with “jurisdiction to decide direct appeals in life-imprisonment murder cases”). <a class="back" href="#s3-r2" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n3" value="3"><p>Georgia represents that, outside of this case, the Georgia Supreme Court has applied the repugnancy rule only once, in <em>Turner</em> v. <em>State</em>, 283 Ga. 17, 655 S. E. 2d 589 (2008). See Brief in Opposition 15. In contrast with McElrath's case, the court in <em>Turner</em> vacated only the guilty verdicts, leaving the jury's verdict of acquittal intact. See 283 Ga., at 21, 655 S. E. 2d, at 592. <a class="back" href="#s3-r3" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n4" value="4"><p>We need not, and do not, address the Double Jeopardy Clause's application to a trial judge's rejection of inconsistent or incomprehensible jury findings under state law. Cf. Brief for State of Missouri et al. as <em>Amici Curiae</em> 7–8. What is at issue here is Georgia's claim that, when a not-guilty verdict on one count is inconsistent with a guilty verdict on another count, double jeopardy poses no barrier to retrial on the former. <a class="back" href="#s3-r4" aria-label="Back to the text">↩</a></p></li>
+<li id="s3-n5" value="5"><p>On remand, the Georgia courts may address as a matter of state law the status of McElrath's vacated conviction for felony murder. See Tr. of Oral Arg. 64–67. <a class="back" href="#s3-r5" aria-label="Back to the text">↩</a></p></li>
+</ol></aside></section>
+<section id="s4" class="op op-concurring"><h2>Justice Alito, concurring</h2>
+<p class="byline">Justice Alito, concurring.</p>
+<p>I join the opinion of the Court but write to clarify my understanding of what we have held. In this case, there was indisputably an acquittal on the malice-murder charge. The jury returned a not-guilty verdict on that count, the trial judge entered a judgment of acquittal on that count, and petitioner appealed that part of the judgment. Because the Constitution does not permit appellate review of an acquittal, the State Supreme Court's decision must be reversed. As I understand it, our holding extends no further.</p>
+<p>As the Court recognizes, the situation here is different from one in which a trial judge refuses to accept inconsistent verdicts and thus sends the jury back to deliberate further. Some States follow this practice, and our decision does not address it. We have held that federal law does not prevent the acceptance of inconsistent verdicts, <em>United States</em> v. <em>Powell</em>, 469 U. S. 57, 68–69 (1984); <em>Dunn</em> v. <em>United States</em>, 284 U. S. 390, 393–394 (1932), but we have never held that the Constitution mandates that practice—which is not necessarily favorable to either the prosecution or the defense. Nothing<span class="pg" id="s4-p99" title="page 99 of the original">99</span> that we say today should be understood to express any view about whether a not-guilty verdict that is inconsistent with a verdict on another count and is not accepted by the trial judge constitutes an “acquittal” for double jeopardy purposes.</p></section><p class='back'><a href='/opinions/'>&larr; All opinions</a> · <a href='/justices/ot2023.html'>The Justices, October Term 2023 &rarr;</a></p></main></body>
+</html>
+
