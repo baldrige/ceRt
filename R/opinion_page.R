@@ -86,6 +86,25 @@ opinion_worklist <- function(site_dir) {
                    caption = as.character(cap[[lead]] %||% paste("No.", lead)), class = "merits")
   })
   df <- dplyr::bind_rows(out)
+  # One decision, one row. The listing can name the same opinion twice -- as a
+  # slip under one docket of a consolidated case and as its U.S. Reports
+  # excerpt under the other (20-1199 and 21-707) -- and each row then names
+  # the other docket as a companion. Left as two rows they took turns: each
+  # build re-read the one that had become a companion, published it, and
+  # demoted it again. The row whose docket comes first keeps the decision.
+  # (An original action, "22O141", has no such number and sorts last.)
+  num <- function(d) suppressWarnings(as.integer(sub("-.*$", "", d)) * 100000L + as.integer(sub("^.*-", "", d)))
+  df <- df[order(num(df$dkt), df$dkt), , drop = FALSE]
+  claimed <- character(); keep <- logical(nrow(df))
+  for (i in seq_len(nrow(df))) {
+    keep[i] <- !df$dkt[i] %in% claimed
+    if (keep[i]) {
+      # A companion already spoken for stays with the row that named it first.
+      df$dkts[[i]] <- c(df$dkt[i], setdiff(unlist(df$dkts[i]), c(claimed, df$dkt[i])))
+      claimed <- c(claimed, df$dkts[[i]])
+    }
+  }
+  df <- df[keep, , drop = FALSE]
   df[order(df$decided, df$dkt, decreasing = TRUE), , drop = FALSE]
 }
 
