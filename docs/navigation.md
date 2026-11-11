@@ -68,14 +68,44 @@ applications), most recent first, with links to prior terms. It does not need to
 
 | page type | masthead | breadcrumb | prev/next | footer nav |
 | --- | --- | --- | --- | --- |
-| landing | wordmark only | — | — | — |
+| landing | ✓ | — | — | — |
 | section index | ✓ active | — | — | — |
 | dated leaf | ✓ active | ✓ | ✓ by date | — |
 | case page | ✓ | ✓ | **no** | ✓ |
 | funnel, methods | ✓ active | — | — | — |
 
-The landing page carries no section links in its masthead — it *is* the section list,
-and repeating it 200px above itself is noise.
+The landing page carried no section links in its masthead while it *was* the section
+list. Since the forecast moved to the top it carries them like every other page, and
+the section list is a reference further down ("Explore the site", below).
+
+### The landing page
+
+Built by `build_dashboards.R` through `styled_index_page()`'s three landing-only
+arguments (2026-11-11). Testers found the old page daunting: one 40rem column
+five screens long, seven panels of equal weight, the forecast first and the map of
+the site last.
+
+- **Two columns from 62rem**, as wide as the masthead (60rem). The split is by
+  shape, not topic: the forecast, Recent decisions and Recent arguments carry
+  prose and take the wide column; Upcoming, Latest orders and Most-Read are date
+  or rank lists and take the narrow one. (A past/future split was tried first: the
+  forecast in the narrow column wrapped its question every 25 characters.)
+- **One column below 62rem, in its own order** (`columns$phone`): decisions,
+  forecast, orders, calendar, arguments, most-read. The columns become
+  `display:contents`, so each panel's `.slot` is an item of one flex column and
+  takes its `order`. On a phone Recent decisions leads because a first-time reader
+  can follow it; on a wide screen the forecast still leads, on the first screen.
+- **"Live now"** stays full width above both columns.
+- **A line for a newcomer** (`start`) under the search box points at the Funnel
+  explainer.
+- **"Explore the site"** (`groups`): the section list in three groups (Follow the
+  docket; Arguments and the Justices; How the forecasts work), side by side from
+  48rem, without the date strips. About is left out: the masthead carries it.
+- On a phone the title is 1.9rem, one line, so the first panel starts on the first
+  screen (about 540px down an 840px phone screen).
+
+Every other caller of `styled_index_page()` passes none of these and renders as
+before.
 
 **Case pages get no prev/next.** Docket numbers are assigned in filing order, so
 24-1121 and 24-1123 have nothing to do with 24-1122 — different parties, courts,
