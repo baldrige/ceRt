@@ -95,17 +95,23 @@ the site last.
   `display:contents`, so each panel's `.slot` is an item of one flex column and
   takes its `order`. On a phone Recent decisions leads because a first-time reader
   can follow it; on a wide screen the forecast still leads, on the first screen.
-- **The title block** (kicker, title, dek, search, the newcomer line) is centred
-  over the columns, in position and in its text; the search box and its results
-  stay left-aligned.
+- **No visible title block** (`title_block = FALSE`): no kicker, title, rule or
+  dek, and no questions-presented line under the search box. The masthead's
+  wordmark names the site; the title stays as a visually hidden `<h1>` and the
+  dek still writes the page's description. What remains, the search box and the
+  newcomer line, is centred over the columns (the box's own text and results stay
+  left-aligned). The Question Presented search is still linked from the same box
+  on the All Cases index and the 404.
 - **"Live now"** stays full width above both columns.
 - **A line for a newcomer** (`start`) under the search box points at the Funnel
   explainer.
 - **"Explore the site"** (`groups`): the section list in three groups (Follow the
   docket; Arguments and the Justices; How the forecasts work), side by side from
   48rem, without the date strips. About is left out: the masthead carries it.
-- On a phone the title is 1.9rem, one line, so the first panel starts on the first
-  screen (about 540px down an 840px phone screen).
+- The first panel starts about 275px down on a wide screen and 280px down on a
+  phone (it was ~430px and ~540px with the title block; one long column put it
+  well below the first screen). Where a page keeps its title block, the title is
+  1.9rem on a phone, one line.
 
 Every other caller of `styled_index_page()` passes none of these and renders as
 before.

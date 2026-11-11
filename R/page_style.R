@@ -278,6 +278,11 @@ INDEX_CSS <- paste0("\n  ", palette_root(), "
      flex column in their phone order (styled_index_page(columns=)). Flex
      margins do not collapse, so the panels' own margins are replaced here. */
   .wrap.home{max-width:60rem}
+  /* A heading for screen readers and search engines that is not drawn: the
+     landing page's title, when title_block = FALSE (the masthead's wordmark
+     already names the site). */
+  .vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);
+    white-space:nowrap;margin:0}
   .home>.kicker,.home>h1,.home>.brule,.home>.dek,.home>.csearch,.home>.start{max-width:40rem;
     margin-left:auto;margin-right:auto}
   /* The title block is centred over the columns, in position and in its text.
@@ -1312,7 +1317,14 @@ styled_index_page <- function(out_path, title, heading, items,
                               #           from each item's $group. An item with no
                               #           group is left out (About: the masthead
                               #           carries it).
-                              start = NULL, columns = NULL, groups = NULL) {
+                              #  title_block: FALSE drops the kicker, the title,
+                              #           the rule, the dek and the search box's
+                              #           questions-presented line from view. The
+                              #           title stays as a visually hidden <h1>,
+                              #           and the dek still writes the page's
+                              #           description.
+                              start = NULL, columns = NULL, groups = NULL,
+                              title_block = TRUE) {
   if (!is.null(groups)) items <- lapply(items, function(it) { it$recent <- NULL; it })
   rows <- lapply(items, function(it) {
     has_meta <- !is.null(it$meta) && nzchar(it$meta)
@@ -1382,11 +1394,12 @@ styled_index_page <- function(out_path, title, heading, items,
     id = "main",
     class = if (is.null(columns)) "wrap" else "wrap home",
     if (!is.null(crumb)) HTML(site_breadcrumb(crumb$label, crumb$section)),
-    if (!is.null(kicker)) tags$p(class = "kicker", smarten(kicker)),
-    heading_node,
-    tags$hr(class = "brule"),
-    if (!is.null(dek)) tags$p(class = "dek", smarten(dek)),
-    if (isTRUE(search) && isTRUE(search_top)) HTML(SEARCH_HTML),
+    if (!is.null(kicker) && title_block) tags$p(class = "kicker", smarten(kicker)),
+    if (title_block) heading_node else tags$h1(class = "vh", smarten(heading)),
+    if (title_block) tags$hr(class = "brule"),
+    if (!is.null(dek) && title_block) tags$p(class = "dek", smarten(dek)),
+    if (isTRUE(search) && isTRUE(search_top)) HTML(if (title_block) SEARCH_HTML else
+      sub("<p class='cqp'>.*?</p>", "", SEARCH_HTML, perl = TRUE)),
     if (!is.null(start)) tags$p(class = "start", HTML(smarten(start))),
     panel_top,
     cols_node,

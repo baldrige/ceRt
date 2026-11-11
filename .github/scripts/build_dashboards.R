@@ -639,7 +639,12 @@ styled_index_page(
   # docket or a base rate is. Any panel may be NULL (a quiet week, the summer
   # recess, no GA4 secrets) and its slot is simply left out.
   panel_top = live_arg,
-  start = paste0("New to the Court? <a href='funnel/'>Start with how a case reaches it</a>,",
+  # No visible title block (2026-11-11): the masthead's wordmark already names
+  # the site, and the kicker, a 3.6rem title and the dek cost a first screen
+  # that the search box and the panels can use. The title stays as a hidden
+  # <h1>; the dek above still writes the page's description.
+  title_block = FALSE,
+  start =paste0("New to the Court? <a href='funnel/'>Start with how a case reaches it</a>,",
                  " or read what it did this week, below."),
   groups = c(docket = "Follow the docket", court = "Arguments and the Justices",
              forecast = "How the forecasts work"),
