@@ -230,6 +230,46 @@
   .back a{color:var(--link);text-decoration:none;
     border-bottom:1px solid rgba(156,14,58,.4)}
   .back a:hover{border-color:var(--link)}
+  /* --- The landing page (main.home) ---------------------------------------
+     Testers found the single 40rem column daunting: seven panels of equal
+     weight, five screens long, the forecast first and the map of the site last.
+     From 62rem the panels stand in two columns as wide as the masthead (60rem),
+     split by shape, not topic: prose (the forecast's questions, decisions,
+     arguments) in the wide column, date lists in the narrow one. A forecast
+     row in the narrow column wrapped its question every 25 characters.
+     Below 62rem the columns are display:contents and the slots fall into one
+     flex column in their phone order (styled_index_page(columns=)). Flex
+     margins do not collapse, so the panels' own margins are replaced here. */
+  .wrap.home{max-width:60rem}
+  .home>.kicker,.home>h1,.home>.brule,.home>.dek,.home>.csearch,.home>.start{max-width:40rem}
+  .start{margin:.1rem 0 0;font-style:italic;color:var(--ink-soft)}
+  .start a{color:var(--link);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.4)}
+  .start a:hover{border-color:var(--link)}
+  .cols{display:flex;flex-direction:column;margin-top:1.8rem;padding-top:1.5rem;
+    border-top:2px solid var(--ink)}
+  .cols .col{display:contents}
+  .cols .slot>.panel{margin:0 0 2.3rem}
+  @media(min-width:62rem){
+    .cols{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);
+      gap:0 3rem;align-items:start}
+    .cols .col{display:block}
+  }
+  /* The section list, grouped. Each row's note drops under its name: in a
+     third of 60rem a name and a right-aligned note do not fit on one line. */
+  .explore{margin-top:.6rem;padding-top:.8rem;border-top:2px solid var(--ink)}
+  .explore h2{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;
+    text-transform:uppercase;color:var(--faint);margin:0 0 .6rem}
+  .explore .groups{display:grid;gap:0 2.2rem}
+  @media(min-width:48rem){.explore .groups{grid-template-columns:repeat(3,minmax(0,1fr))}}
+  .explore h3{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:.98rem;
+    color:var(--ink);margin:.9rem 0 .1rem}
+  .explore ul.idx{margin:0}
+  .explore ul.idx a.row{display:block;padding:.7rem .4rem}
+  .explore ul.idx .count{display:block;white-space:normal;margin-top:.1rem}
+  /* On a phone the title took two lines at 2.4rem and, with the kicker, dek,
+     search and the newcomer line, pushed every panel off the first screen.
+     At 1.9rem it is one line and the first panel starts at ~540px of 840. */
+  @media(max-width:40rem){.home h1{font-size:1.9rem}}
   /* Home-page case search. */
   .csearch{position:relative;margin:0 0 1.4rem}
   #cq{width:100%;font-family:'Newsreader',Georgia,serif;font-size:1.05rem;color:var(--ink);

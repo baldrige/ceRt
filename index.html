@@ -230,6 +230,46 @@
   .back a{color:var(--link);text-decoration:none;
     border-bottom:1px solid rgba(156,14,58,.4)}
   .back a:hover{border-color:var(--link)}
+  /* --- The landing page (main.home) ---------------------------------------
+     Testers found the single 40rem column daunting: seven panels of equal
+     weight, five screens long, the forecast first and the map of the site last.
+     From 62rem the panels stand in two columns as wide as the masthead (60rem),
+     split by shape, not topic: prose (the forecast's questions, decisions,
+     arguments) in the wide column, date lists in the narrow one. A forecast
+     row in the narrow column wrapped its question every 25 characters.
+     Below 62rem the columns are display:contents and the slots fall into one
+     flex column in their phone order (styled_index_page(columns=)). Flex
+     margins do not collapse, so the panels' own margins are replaced here. */
+  .wrap.home{max-width:60rem}
+  .home>.kicker,.home>h1,.home>.brule,.home>.dek,.home>.csearch,.home>.start{max-width:40rem}
+  .start{margin:.1rem 0 0;font-style:italic;color:var(--ink-soft)}
+  .start a{color:var(--link);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.4)}
+  .start a:hover{border-color:var(--link)}
+  .cols{display:flex;flex-direction:column;margin-top:1.8rem;padding-top:1.5rem;
+    border-top:2px solid var(--ink)}
+  .cols .col{display:contents}
+  .cols .slot>.panel{margin:0 0 2.3rem}
+  @media(min-width:62rem){
+    .cols{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);
+      gap:0 3rem;align-items:start}
+    .cols .col{display:block}
+  }
+  /* The section list, grouped. Each row's note drops under its name: in a
+     third of 60rem a name and a right-aligned note do not fit on one line. */
+  .explore{margin-top:.6rem;padding-top:.8rem;border-top:2px solid var(--ink)}
+  .explore h2{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;
+    text-transform:uppercase;color:var(--faint);margin:0 0 .6rem}
+  .explore .groups{display:grid;gap:0 2.2rem}
+  @media(min-width:48rem){.explore .groups{grid-template-columns:repeat(3,minmax(0,1fr))}}
+  .explore h3{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:.98rem;
+    color:var(--ink);margin:.9rem 0 .1rem}
+  .explore ul.idx{margin:0}
+  .explore ul.idx a.row{display:block;padding:.7rem .4rem}
+  .explore ul.idx .count{display:block;white-space:normal;margin-top:.1rem}
+  /* On a phone the title took two lines at 2.4rem and, with the kicker, dek,
+     search and the newcomer line, pushed every panel off the first screen.
+     At 1.9rem it is one line and the first panel starts at ~540px of 840. */
+  @media(max-width:40rem){.home h1{font-size:1.9rem}}
   /* Home-page case search. */
   .csearch{position:relative;margin:0 0 1.4rem}
   #cq{width:100%;font-family:'Newsreader',Georgia,serif;font-size:1.05rem;color:var(--ink);
@@ -370,12 +410,13 @@
 </style></head>
 <body>
   <a class='skip' href='#main'>Skip to content</a><header><div class='smast-in'><a class='smast-wm' href='/'>Supreme Court <em>Report</em></a><nav aria-label='Sections'><ul class='snav'><li><a href='/dashboards/'>Docket</a></li><li><a href='/conferences/'>Conferences</a></li><li><a href='/relists/'>Relists</a></li><li><a href='/applications/'>Interim</a></li><li><a href='/arguments/'>Arguments</a></li><li><a href='/justices/'>Justices</a></li><li><a href='/counsel/'>Counsel</a></li><li><a href='/funnel/'>Funnel</a></li><li><a href='/methods.html'>Model</a></li><li><a href='/about.html'>About</a></li></ul></nav></div><div class='smast-rule-w'><hr class='smast-rule'></div></header>
-  <main id="main" class="wrap">
+  <main id="main" class="wrap home">
     <p class="kicker">A window on the Court’s docket</p>
     <h1>Supreme Court Report</h1>
     <hr class="brule"/>
     <p class="dek">Every case the Supreme Court is asked to hear, what it asks, and the odds it is granted — rebuilt three times a day from the Court’s own docket.</p>
     <div class='csearch'><input type='search' id='cq' autocomplete='off' spellcheck='false' placeholder='Search all cases by name or docket number…' aria-label='Search cases'><ul id='cres' class='cres' role='listbox'></ul><p class='cqp'>Looking for an issue rather than a case? <a href='/questions/'>Search the questions presented</a>.</p></div>
+    <p class="start">New to the Court? <a href='funnel/'>Start with how a case reaches it</a>, or read what it did this week, below.</p>
     <section id="live-arg" class="panel cal live" hidden aria-live="polite">
       <h2>
         <span class="ldot" aria-hidden="true"></span>
@@ -433,854 +474,860 @@
       <p class="more"><a href='https://www.supremecourt.gov/oral_arguments/live.aspx' rel='noopener'>On the Court’s site &rarr;</a></p>
     </section>
     <script src="/live.js" defer></script>
-    <section class="panel lead">
-      <h2>Likeliest grants</h2>
-      <input class="wr" type="checkbox" id="qon" checked aria-label="Show the question each case asks"/>
-      <div class="opts">
-        <label for="qon">Questions</label>
+    <div class="cols">
+      <div class="col cmain">
+        <div class="slot" style="order:2">
+          <section class="panel lead">
+            <h2>Likeliest grants</h2>
+            <input class="wr" type="checkbox" id="qon" checked aria-label="Show the question each case asks"/>
+            <div class="opts">
+              <label for="qon">Questions</label>
+            </div>
+            <input class="wr" type="radio" name="win" id="w7" checked aria-label="Last 7 days"/>
+            <input class="wr" type="radio" name="win" id="w28" aria-label="Last 28 days"/>
+            <input class="wr" type="radio" name="win" id="wall" aria-label="Every pending case"/>
+            <div class="win">
+              <label for="w7">7 days</label>
+              <label for="w28">28 days</label>
+              <label for="wall">All pending</label>
+            </div>
+            <p class="pnote n7">Paid-docket cases filed in the last 7 days, against a 4.1% base rate. An estimate, not a prediction about any case.</p>
+            <p class="pnote n28">Paid-docket cases filed in the last 28 days, against a 4.1% base rate. An estimate, not a prediction about any case.</p>
+            <p class="pnote nall">Every pending paid-docket case the site holds, whenever filed, against a 4.1% base rate; each re-checked against its docket today. An estimate, not a prediction about any case.</p>
+            <ol class="grants g7">
+              <li>
+                <a href="cases/26-593.html">
+                  <span class="gv">
+                    32%
+                    <span class="gx">8×</span>
+                  </span>
+                  <span class="gtx">
+                    <span class="gc">United States ex rel. W. Benson Chiles v. Cooke Inc.</span>
+                    <span class="gs">Economic Activity</span>
+                    <span class="gq">When a defendant commits misconduct that makes it liable to the Government for a penalty, and then covers up its misconduct to prevent the Government from assessing the penalty, has the defendant violated the “reverse false claim” provision of the False Claims Act, which prohibits “knowingly concealing or improperly avoiding” an “established duty…</span>
+                  </span>
+                  <span class="gd">No. 26-593</span>
+                </a>
+              </li>
+              <li>
+                <a href="cases/26-599.html">
+                  <span class="gv">
+                    24%
+                    <span class="gx">6×</span>
+                  </span>
+                  <span class="gtx">
+                    <span class="gc">National Park Service v. National Trust for Historic Preservation in the United States</span>
+                    <span class="gq">Whether the district court erred in enjoining the ongoing renovation of the East Wing at the White House.</span>
+                  </span>
+                  <span class="gd">No. 26-599</span>
+                </a>
+              </li>
+              <li>
+                <a href="cases/26-594.html">
+                  <span class="gv">
+                    20%
+                    <span class="gx">5×</span>
+                  </span>
+                  <span class="gtx">
+                    <span class="gc">Citibank, N.A. v. Climate United Fund</span>
+                    <span class="gs">Judicial Power</span>
+                    <span class="gq">Whether the preliminary injunction against Citibank for following the federal government’s instructions can remain in place.</span>
+                  </span>
+                  <span class="gd">No. 26-594</span>
+                </a>
+              </li>
+              <li>
+                <a href="cases/26-618.html">
+                  <span class="gv">
+                    15%
+                    <span class="gx">4×</span>
+                  </span>
+                  <span class="gtx">
+                    <span class="gc">Tomas Rey v. LCMC Health Care Partners, L.L.C.</span>
+                    <span class="gs">Judicial Power</span>
+                    <span class="gq">Is an interlocutory order that rejects a party’s claim for injunctive relief an order “refusing” an injunction that is appealable as of right under 28 U.S.C. § 1292(a)(1), or does such an order only have the “practical effect” of denying an injunction such that the appellant must make the additional showings required by Carson v. American Brands, Inc.…</span>
+                  </span>
+                  <span class="gd">No. 26-618</span>
+                </a>
+              </li>
+              <li>
+                <a href="cases/26-613.html">
+                  <span class="gv">
+                    15%
+                    <span class="gx">4×</span>
+                  </span>
+                  <span class="gtx">
+                    <span class="gc">Merit Energy Company, LLC v. Cherry Rider, Trustee of the Cherry Rider Family Trust</span>
+                    <span class="gs">Judicial Power</span>
+                    <span class="gq">Whether Federal Rule of Civil Procedure 23 permits certification of a damages class even though the district court finds that there is no administratively feasible way to ascertain members of the proposed class.</span>
+                  </span>
+                  <span class="gd">No. 26-613</span>
+                </a>
+              </li>
+            </ol>
+            <ol class="grants g28">
+              <li>
+                <a href="cases/26-589.html">
+                  <span class="gv">
+                    80%
+                    <span class="gx">19×</span>
+                  </span>
+                  <span class="gtx">
+                    <span class="gc">Lee M. Zeldin, Administrator, Environmental Protection Agency v. Climate United Fund</span>
+                    <span class="gq">Whether the Tucker Act, 28 U.S.C. 1491(a)(1), precludes respondents from challenging in district court the termination of grant agreements by the Environmental Protection Agency (EPA).</span>
+                  </span>
+                  <span class="gd">No. 26-589</span>
+                </a>
+              </li>
+              <li>
+                <a href="cases/26-593.html">
+                  <span class="gv">
+                    32%
+                    <span class="gx">8×</span>
+                  </span>
+                  <span class="gtx">
+                    <span class="gc">United States ex rel. W. Benson Chiles v. Cooke Inc.</span>
+                    <span class="gs">Economic Activity</span>
+                    <span class="gq">When a defendant commits misconduct that makes it liable to the Government for a penalty, and then covers up its misconduct to prevent the Government from assessing the penalty, has the defendant violated the “reverse false claim” provision of the False Claims Act, which prohibits “knowingly concealing or improperly avoiding” an “established duty…</span>
+                  </span>
+                  <span class="gd">No. 26-593</span>
+                </a>
+              </li>
+              <li>
+                <a href="cases/26-572.html">
+                  <span class="gv">
+                    25%
+                    <span class="gx">6×</span>
+                  </span>
+                  <span class="gtx">
+                    <span class="gc">Frank Padula, Acting Director of the Chicago Field Office of U.S. Immigration and Customs Enforcement v. Jaciel Cirrus Rojas</span>
+                  </span>
+                  <span class="gd">No. 26-572</span>
+                </a>
+              </li>
+              <li>
+                <a href="cases/26-599.html">
+                  <span class="gv">
+                    24%
+                    <span class="gx">6×</span>
+                  </span>
+                  <span class="gtx">
+                    <span class="gc">National Park Service v. National Trust for Historic Preservation in the United States</span>
+                    <span class="gq">Whether the district court erred in enjoining the ongoing renovation of the East Wing at the White House.</span>
+                  </span>
+                  <span class="gd">No. 26-599</span>
+                </a>
+              </li>
+              <li>
+                <a href="cases/26-568.html">
+                  <span class="gv">
+                    21%
+                    <span class="gx">5×</span>
+                  </span>
+                  <span class="gtx">
+                    <span class="gc">Andre Quinones, Acting Director of the Seattle Field Office of U.S. Immigration and Customs Enforcement v. Ramon Rodriguez Vazquez, Individually and on Behalf of All Others Similarly Situated</span>
+                    <span class="gs">Civil Rights</span>
+                    <span class="gq">Whether 8 U.S.C. 1225(b)(2)(A) mandates the detention pending removal proceedings of aliens who, like respondent, are present in the United States without having been admitted.</span>
+                  </span>
+                  <span class="gd">No. 26-568</span>
+                </a>
+              </li>
+            </ol>
+            <ol class="grants gall">
+              <li>
+                <a href="cases/26-304.html">
+                  <span class="gv">
+                    86%
+                    <span class="gx">21×</span>
+                  </span>
+                  <span class="gtx">
+                    <span class="gc">United States v. Devonte Devon Jackson</span>
+                    <span class="gs">Miscellaneous</span>
+                    <span class="gq">Whether a person who becomes the first assistant after a vacancy arises is ineligible to be the acting officer under Section 3345(a)(1).</span>
+                  </span>
+                  <span class="gd">No. 26-304</span>
+                </a>
+              </li>
+              <li>
+                <a href="cases/26-589.html">
+                  <span class="gv">
+                    80%
+                    <span class="gx">19×</span>
+                  </span>
+                  <span class="gtx">
+                    <span class="gc">Lee M. Zeldin, Administrator, Environmental Protection Agency v. Climate United Fund</span>
+                    <span class="gq">Whether the Tucker Act, 28 U.S.C. 1491(a)(1), precludes respondents from challenging in district court the termination of grant agreements by the Environmental Protection Agency (EPA).</span>
+                  </span>
+                  <span class="gd">No. 26-589</span>
+                </a>
+              </li>
+              <li>
+                <a href="cases/26-380.html">
+                  <span class="gv">
+                    78%
+                    <span class="gx">19×</span>
+                  </span>
+                  <span class="gtx">
+                    <span class="gc">Donald J. Trump, President of the United States v. Badar Khan Suri</span>
+                    <span class="gs">Civil Rights</span>
+                    <span class="gq">Whether, notwithstanding 8 U.S.C. 1252, an alien detained pending his removal proceedings may challenge that detention in a habeas petition based on claims that also go to the validity of his being removed.</span>
+                  </span>
+                  <span class="gd">No. 26-380</span>
+                </a>
+              </li>
+              <li>
+                <a href="cases/26-348.html">
+                  <span class="gv">
+                    69%
+                    <span class="gx">17×</span>
+                  </span>
+                  <span class="gtx">
+                    <span class="gc">United States v. Office of the New York State Attorney General</span>
+                    <span class="gs">Miscellaneous</span>
+                    <span class="gq">Whether a person who becomes the first assistant after a vacancy arises is ineligible to be the acting officer under Section 3345(a)(1).</span>
+                  </span>
+                  <span class="gd">No. 26-348</span>
+                </a>
+              </li>
+              <li>
+                <a href="cases/26-96.html">
+                  <span class="gv">
+                    67%
+                    <span class="gx">16×</span>
+                  </span>
+                  <span class="gtx">
+                    <span class="gc">Department of the Interior v. Shoshone-Bannock Tribes of the Fort Hall Reservation</span>
+                    <span class="gq">Whether the United States may invoke FLPMA to dispose of land that the government previously acquired from an Indian tribe, when the statute that approved the land’s earlier purchase stated that the land “shall be opened to settlement by the proclamation of the President, and shall be subject to disposal under the homestead, town-site, stone and timber…</span>
+                  </span>
+                  <span class="gd">No. 26-96</span>
+                </a>
+              </li>
+              <li>
+                <a href="cases/26-344.html">
+                  <span class="gv">
+                    64%
+                    <span class="gx">16×</span>
+                  </span>
+                  <span class="gtx">
+                    <span class="gc">North American Derivatives Exchange, Inc., dba Crypto.com | Derivatives North America v. Nevada</span>
+                    <span class="gs">Federalism</span>
+                    <span class="gq">Whether the CEA preempts state regulation of sports-event contracts traded on a DCM.</span>
+                  </span>
+                  <span class="gd">No. 26-344</span>
+                </a>
+              </li>
+              <li>
+                <a href="cases/26-272.html">
+                  <span class="gv">
+                    63%
+                    <span class="gx">15×</span>
+                  </span>
+                  <span class="gtx">
+                    <span class="gc">United States v. Nicolas Talbott</span>
+                    <span class="gs">Civil Rights</span>
+                    <span class="gq">Whether a Department of War policy that generally disqualifies from military service individuals who have gender dysphoria, a history of the condition, or a history of related interventions—issued by Secretary of War Hegseth in implementing Executive Order No. 14,183— violates the equal-protection component of the Due Process Clause of the Fifth Amendment.</span>
+                  </span>
+                  <span class="gd">No. 26-272</span>
+                </a>
+              </li>
+              <li>
+                <a href="cases/26-210.html">
+                  <span class="gv">
+                    60%
+                    <span class="gx">15×</span>
+                  </span>
+                  <span class="gtx">
+                    <span class="gc">Donald J. Trump, President of the United States v. Neeta Thakur, Individually and on Behalf of All Others Similarly Situated</span>
+                    <span class="gs">First Amendment</span>
+                    <span class="gq">Whether the First Amendment prohibits the government from considering the viewpoints furthered by academic research projects when deciding whether to grant or terminate funding for those projects through competitive grant programs.</span>
+                  </span>
+                  <span class="gd">No. 26-210</span>
+                </a>
+              </li>
+              <li>
+                <a href="cases/26-318.html">
+                  <span class="gv">
+                    59%
+                    <span class="gx">14×</span>
+                  </span>
+                  <span class="gtx">
+                    <span class="gc">PacifiCorp, an Oregon Business Corporation v. Casey Sixkiller, Director, Washington State Department of Ecology</span>
+                    <span class="gs">Economic Activity</span>
+                    <span class="gq">Whether Tracy exempts a State from dormant Commerce Clause scrutiny when state law imposes different burdens on the same product based on whether the product is sold in state or out of state.</span>
+                  </span>
+                  <span class="gd">No. 26-318</span>
+                </a>
+              </li>
+              <li>
+                <a href="cases/26-491.html">
+                  <span class="gv">
+                    59%
+                    <span class="gx">14×</span>
+                  </span>
+                  <span class="gtx">
+                    <span class="gc">Department of Health and Human Services v. Texas Medical Association</span>
+                    <span class="gs">Judicial Power</span>
+                    <span class="gq">Whether the Administrative Procedure Act, 5 U.S.C. 701 et seq., authorizes courts, in Section 706(2), to enter universal vacatur of agency rules that courts have held unlawful and, if so, in what circumstances.</span>
+                  </span>
+                  <span class="gd">No. 26-491</span>
+                </a>
+              </li>
+            </ol>
+            <p class="more"><a href='dashboards/'>All petitions this week &rarr;</a>&nbsp;&middot;&nbsp;<a href='methods.html'>How the forecast works &rarr;</a></p>
+          </section>
+        </div>
+        <div class="slot" style="order:1">
+          <section class="panel cal">
+            <h2>Recent decisions</h2>
+            <p class="pnote">The Court’s most recent written opinions, argued or not.</p>
+            <input class="wr" type="checkbox" id="hon" aria-label="Show each decision&#39;s holding"/>
+            <div class="opts">
+              <label for="hon">Holdings</label>
+            </div>
+            <ol class="cal">
+              <li>
+                <div class="crow">
+                  <span class="cwhen">
+                    <span class="cdow">Mon</span>
+                    Nov  9
+                  </span>
+                  <span class="ctx">
+                    <span class="ckind">
+                      <a href="cases/26A560.html">Markwayne Mullin, Secretary of Homeland Security v. Friends of the Ruidosa Church</a>
+                    </span>
+                    <span class="cdet">
+                      <span class="dk">Emergency application</span>
+                       &middot; 
+                      Per curiam
+                       &middot; 
+                      Granted
+                       &middot; 
+                      <a class="pdf" href="/opinions/2026/26A560.html">Opinion</a>
+                       &middot; 
+                      <a class="pdf" href="https://www.supremecourt.gov/opinions/26pdf/26a560_onkq.pdf" target="_blank" rel="noopener">PDF</a>
+                    </span>
+                    <span class="chold">The Government is entitled to a stay of the preliminary injunction halting border-barrier construction because it is exceedingly likely to establish that the District Court lacked jurisdiction under §102(c)(2)(A) of the Illegal Immigration…</span>
+                  </span>
+                </div>
+              </li>
+              <li>
+                <div class="crow">
+                  <span class="cwhen">
+                    <span class="cdow">Thu</span>
+                    Oct 22
+                  </span>
+                  <span class="ctx">
+                    <span class="ckind">
+                      <a href="cases/26A512.html">David M. Scanlan, Secretary of State of New Hampshire v. Coalition for Open Democracy</a>
+                    </span>
+                    <span class="cdet">
+                      <span class="dk">Emergency application</span>
+                       &middot; 
+                      Granted
+                       &middot; 
+                      <a class="pdf" href="https://www.supremecourt.gov/opinions/26pdf/26a512_new_daeh.pdf" target="_blank" rel="noopener">Jackson</a> dissenting
+                    </span>
+                  </span>
+                </div>
+              </li>
+              <li>
+                <div class="crow">
+                  <span class="cwhen">
+                    <span class="cdow">Wed</span>
+                    Oct 14
+                  </span>
+                  <span class="ctx">
+                    <span class="ckind">
+                      <a href="cases/26A476.html">Federal Communications Commission v. Sherrod Brown</a>
+                    </span>
+                    <span class="cdet">
+                      <span class="dk">Emergency application</span>
+                       &middot; 
+                      Per curiam
+                       &middot; 
+                      Granted
+                       &middot; 
+                      <a class="pdf" href="/opinions/2026/26A476.html">Opinion</a>
+                       &middot; 
+                      <a class="pdf" href="https://www.supremecourt.gov/opinions/26pdf/26a476_k537.pdf" target="_blank" rel="noopener">PDF</a>
+                    </span>
+                    <span class="chold">The Fourth Circuit’s mandamus order requiring the Federal Communications Commission to resolve an application for review within 48 hours of its entry is stayed because the order improperly interferes with the Commission’s discretion to…</span>
+                  </span>
+                </div>
+              </li>
+              <li>
+                <div class="crow">
+                  <span class="cwhen">
+                    <span class="cdow">Wed</span>
+                    Oct 14
+                  </span>
+                  <span class="ctx">
+                    <span class="ckind">
+                      <a href="cases/26A477.html">National Republican Congressional Committee v. Sherrod Brown</a>
+                    </span>
+                    <span class="cdet">
+                      <span class="dk">Emergency application</span>
+                       &middot; 
+                      Per curiam
+                       &middot; 
+                      Denied as moot
+                    </span>
+                  </span>
+                </div>
+              </li>
+              <li>
+                <div class="crow">
+                  <span class="cwhen">
+                    <span class="cdow">Wed</span>
+                    Sep 30
+                  </span>
+                  <span class="ctx">
+                    <span class="ckind">
+                      <a href="cases/26A428.html">Kenneth Nelsen, Warden v. Christa Gail Pike</a>
+                    </span>
+                    <span class="cdet">
+                      <span class="dk">Emergency application</span>
+                       &middot; 
+                      Granted
+                       &middot; 
+                      <a class="pdf" href="https://www.supremecourt.gov/opinions/25pdf/26a428_4f15.pdf" target="_blank" rel="noopener">Sotomayor</a>, joined by Kagan and Jackson, dissenting
+                    </span>
+                  </span>
+                </div>
+              </li>
+            </ol>
+            <p class="more"><a href='arguments/'>All argued cases &rarr;</a></p>
+          </section>
+        </div>
+        <div class="slot" style="order:5">
+          <section class="panel cal">
+            <h2>Recent arguments</h2>
+            <p class="pnote">Oral arguments of the last three weeks, with the Court’s recording and transcript. The lean is the chance the petitioner prevails, read from how the bench divided its words (petitioners usually win 70%); an estimate, not a prediction about any case.</p>
+            <ol class="cal">
+              <li>
+                <div class="crow">
+                  <span class="cwhen">
+                    <span class="cdow">Tue</span>
+                    Nov 10
+                  </span>
+                  <span class="ctx">
+                    <span class="ckind">
+                      <a href="/arguments/2026/25-966.html">Department of Labor v. Sun Valley Orchards, LLC</a>
+                    </span>
+                    <span class="cdet">
+                      Argued by Sarah M. Harris, Robert E. Johnson
+                       &middot; 
+                      <span class="dk">Lean 78% petitioner</span>
+                       &middot; 
+                      <a href="/arguments/2026/25-966.html">Listen and read</a>
+                    </span>
+                  </span>
+                </div>
+              </li>
+              <li>
+                <div class="crow">
+                  <span class="cwhen">
+                    <span class="cdow">Mon</span>
+                    Nov  9
+                  </span>
+                  <span class="ctx">
+                    <span class="ckind">
+                      <a href="/arguments/2026/25-159.html">Leonard W. Hoffmann v. WBI Energy Transmission, Inc.</a>
+                    </span>
+                    <span class="cdet">
+                      Argued by Robert J. Mcnamara, Paul W. Hughes
+                       &middot; 
+                      <span class="dk">Lean 16% petitioner</span>
+                       &middot; 
+                      <a href="/arguments/2026/25-159.html">Listen and read</a>
+                    </span>
+                  </span>
+                </div>
+              </li>
+              <li>
+                <div class="crow">
+                  <span class="cwhen">
+                    <span class="cdow">Mon</span>
+                    Nov  9
+                  </span>
+                  <span class="ctx">
+                    <span class="ckind">
+                      <a href="/arguments/2026/25-417.html">Francis Nielsen v. Kekai Watanabe</a>
+                    </span>
+                    <span class="cdet">
+                      Argued by Lucas M. Walker, Joshua M. Wesneski
+                       &middot; 
+                      <span class="dk">Lean 57% petitioner</span>
+                       &middot; 
+                      <a href="/arguments/2026/25-417.html">Listen and read</a>
+                    </span>
+                  </span>
+                </div>
+              </li>
+              <li>
+                <div class="crow">
+                  <span class="cwhen">
+                    <span class="cdow">Wed</span>
+                    Nov  4
+                  </span>
+                  <span class="ctx">
+                    <span class="ckind">
+                      <a href="/arguments/2026/25-1003.html">Eric Guerrero, Director, Texas Department of Criminal Justice, Correctional Institutions Division v. Dexter Johnson</a>
+                    </span>
+                    <span class="cdet">
+                      Argued by William R. Peterson, Jeremy Schepers
+                       &middot; 
+                      <span class="dk">Lean 50% petitioner</span>
+                       &middot; 
+                      <a href="/arguments/2026/25-1003.html">Listen and read</a>
+                    </span>
+                  </span>
+                </div>
+              </li>
+              <li>
+                <div class="crow">
+                  <span class="cwhen">
+                    <span class="cdow">Tue</span>
+                    Nov  3
+                  </span>
+                  <span class="ctx">
+                    <span class="ckind">
+                      <a href="/arguments/2026/25-581.html">St. Mary Catholic Parish, Littleton, Colorado v. Lisa Roy, in Her Official Capacity as Executive Director of the Colorado Department of Early Childhood</a>
+                    </span>
+                    <span class="cdet">
+                      Argued by Nicholas R. Reaves, Helen Norton, Helen Norton
+                       &middot; 
+                      <span class="dk">Lean 64% petitioner</span>
+                       &middot; 
+                      <a href="/arguments/2026/25-581.html">Listen and read</a>
+                    </span>
+                  </span>
+                </div>
+              </li>
+              <li>
+                <div class="crow">
+                  <span class="cwhen">
+                    <span class="cdow">Mon</span>
+                    Nov  2
+                  </span>
+                  <span class="ctx">
+                    <span class="ckind">
+                      <a href="/arguments/2026/25-352.html">Jasmine Younge v. Fulton Judicial Circuit District Attorney’s Office, Georgia</a>
+                    </span>
+                    <span class="cdet">
+                      Argued by Eric Schnapper, Stephen J. Petrany
+                       &middot; 
+                      <span class="dk">Lean 68% petitioner</span>
+                       &middot; 
+                      <a href="/arguments/2026/25-352.html">Listen and read</a>
+                    </span>
+                  </span>
+                </div>
+              </li>
+            </ol>
+            <p class="more"><a href='arguments/'>All arguments &rarr;</a></p>
+          </section>
+        </div>
       </div>
-      <input class="wr" type="radio" name="win" id="w7" checked aria-label="Last 7 days"/>
-      <input class="wr" type="radio" name="win" id="w28" aria-label="Last 28 days"/>
-      <input class="wr" type="radio" name="win" id="wall" aria-label="Every pending case"/>
-      <div class="win">
-        <label for="w7">7 days</label>
-        <label for="w28">28 days</label>
-        <label for="wall">All pending</label>
+      <div class="col cside">
+        <div class="slot" style="order:4">
+          <section class="panel cal">
+            <h2>Upcoming at the Court</h2>
+            <p class="pnote">The next conferences, order lists and argument days on the Court’s calendar.</p>
+            <ol class="cal">
+              <li>
+                <div class="crow">
+                  <span class="cwhen">
+                    <span class="cdow">Fri</span>
+                    Nov 13
+                  </span>
+                  <span class="ctx">
+                    <a class="ckind" href="conferences/conf_2026-11-13.html">Conference</a>
+                    <span class="cdet">167 cases distributed</span>
+                  </span>
+                </div>
+              </li>
+              <li>
+                <div class="crow">
+                  <span class="cwhen">
+                    <span class="cdow">Mon</span>
+                    Nov 16
+                  </span>
+                  <span class="ctx">
+                    <a class="ckind" href="orders/">Order list</a>
+                    <span class="cdet">Expected, from the November 13 conference</span>
+                  </span>
+                </div>
+              </li>
+              <li>
+                <div class="crow">
+                  <span class="cwhen">
+                    <span class="cdow">Mon</span>
+                    Nov 30
+                  </span>
+                  <span class="ctx">
+                    <a class="ckind" href="arguments/arg_2026.html">2 arguments</a>
+                    <span class="cdet">
+                      <a href="cases/25-183.html">Thomas Crowther v. Board of Regents of the University System of Georgia</a>
+                       &middot; 
+                      <a href="cases/25-842.html">Tamer S. Wassily v. Todd Blanche, Attorney General</a>
+                    </span>
+                  </span>
+                </div>
+              </li>
+              <li>
+                <div class="crow">
+                  <span class="cwhen">
+                    <span class="cdow">Tue</span>
+                    Dec  1
+                  </span>
+                  <span class="ctx">
+                    <a class="ckind" href="arguments/arg_2026.html">Argument</a>
+                    <span class="cdet">
+                      <a href="cases/25-246.html">Kenneth J. Jouppi v. Alaska</a>
+                    </span>
+                  </span>
+                </div>
+              </li>
+              <li>
+                <div class="crow">
+                  <span class="cwhen">
+                    <span class="cdow">Wed</span>
+                    Dec  2
+                  </span>
+                  <span class="ctx">
+                    <a class="ckind" href="arguments/arg_2026.html">2 arguments</a>
+                    <span class="cdet">
+                      <a href="cases/25-238.html">Cutberto Viramontes v. Cook County, Illinois</a>
+                       &middot; 
+                      <a href="cases/25-566.html">Eddie Grant, Jr. v. Ronnell Higgins, in His Official Capacity as Commissioner of the Connecticut Department of Emergency Services and Public Protection</a>
+                    </span>
+                  </span>
+                </div>
+              </li>
+              <li>
+                <div class="crow">
+                  <span class="cwhen">
+                    <span class="cdow">Fri</span>
+                    Dec  4
+                  </span>
+                  <span class="ctx">
+                    <a class="ckind" href="conferences/conf_2026-12-04.html">Conference</a>
+                    <span class="cdet">168 cases distributed</span>
+                  </span>
+                </div>
+              </li>
+            </ol>
+          </section>
+        </div>
+        <div class="slot" style="order:3">
+          <section class="panel cal">
+            <h2>Latest orders</h2>
+            <p class="pnote">What the Court granted, sent back and turned away, from its order lists.</p>
+            <ol class="cal">
+              <li>
+                <div class="crow">
+                  <span class="cwhen">
+                    <span class="cdow">Mon</span>
+                    Nov  9
+                  </span>
+                  <span class="ctx">
+                    <a class="ckind" href="orders/2026-11-09.html">Order list</a>
+                    <span class="cdet">3 GVRs · 230 denied</span>
+                  </span>
+                </div>
+              </li>
+              <li>
+                <div class="crow">
+                  <span class="cwhen">
+                    <span class="cdow">Fri</span>
+                    Nov  6
+                  </span>
+                  <span class="ctx">
+                    <a class="ckind" href="orders/2026-11-06-misc.html">Miscellaneous order</a>
+                    <span class="cdet">
+                      1 granted
+                       &middot; 
+                      <a href="cases/25-1408.html">Goldman Sachs Bank USA, dba Marcus by Goldman Sachs v. Rhea Ann Brown</a>
+                    </span>
+                  </span>
+                </div>
+              </li>
+              <li>
+                <div class="crow">
+                  <span class="cwhen">
+                    <span class="cdow">Thu</span>
+                    Nov  5
+                  </span>
+                  <span class="ctx">
+                    <a class="ckind" href="orders/2026-11-05-misc1.html">Miscellaneous order</a>
+                    <span class="cdet">
+                      1 denied
+                       &middot; 
+                      <a href="cases/26-6051.html">Jesse Guardado v. Richard Comerford, Secretary, Florida Department of Corrections</a>
+                    </span>
+                  </span>
+                </div>
+              </li>
+              <li>
+                <div class="crow">
+                  <span class="cwhen">
+                    <span class="cdow">Thu</span>
+                    Nov  5
+                  </span>
+                  <span class="ctx">
+                    <a class="ckind" href="orders/2026-11-05-misc.html">Miscellaneous order</a>
+                    <span class="cdet">
+                      1 denied
+                       &middot; 
+                      <a href="cases/26-6013.html">Jesse Guardado v. Florida</a>
+                    </span>
+                  </span>
+                </div>
+              </li>
+            </ol>
+            <p class="more"><a href='orders/'>All order lists &rarr;</a></p>
+          </section>
+        </div>
+        <div class="slot" style="order:6">
+          <section class="panel">
+            <h2>Most-Read Cases</h2>
+            <p class="pnote">Ranked by page views over the 30 days ending November 10, 2026.</p>
+            <ol class="mostread">
+              <li>
+                <a href="cases/26-491.html">
+                  <span class="mc">
+                    <span class="mct">Department of Health and Human Services, et al. v. Texas Medical Association, et al.</span>
+                    <span class="ms">Judicial Power</span>
+                  </span>
+                  <span class="mdk">No. 26-491</span>
+                </a>
+              </li>
+              <li>
+                <a href="cases/26-204.html">
+                  <span class="mc">
+                    <span class="mct">Department of Justice, et al. v. Scott McNutt, et al.</span>
+                    <span class="ms">Federalism</span>
+                  </span>
+                  <span class="mdk">No. 26-204</span>
+                </a>
+              </li>
+              <li>
+                <a href="cases/26-297.html">
+                  <span class="mc">
+                    <span class="mct">Patrick Morrisey, Governor of West Virginia, et al. v. Jonathan R., Minor, by Next Friend, Sarah Dixon, et al.</span>
+                    <span class="ms">Judicial Power</span>
+                  </span>
+                  <span class="mdk">No. 26-297</span>
+                </a>
+              </li>
+              <li>
+                <a href="cases/25-7026.html">
+                  <span class="mc">
+                    <span class="mct">Corey Duran Berry v. United States</span>
+                    <span class="ms">Criminal Procedure</span>
+                  </span>
+                  <span class="mdk">No. 25-7026</span>
+                </a>
+              </li>
+              <li>
+                <a href="cases/26-336.html">
+                  <span class="mc">
+                    <span class="mct">John C. Eastman v. State Bar of California</span>
+                  </span>
+                  <span class="mdk">No. 26-336</span>
+                </a>
+              </li>
+            </ol>
+          </section>
+        </div>
       </div>
-      <p class="pnote n7">Paid-docket cases filed in the last 7 days, against a 4.1% base rate. An estimate, not a prediction about any case.</p>
-      <p class="pnote n28">Paid-docket cases filed in the last 28 days, against a 4.1% base rate. An estimate, not a prediction about any case.</p>
-      <p class="pnote nall">Every pending paid-docket case the site holds, whenever filed, against a 4.1% base rate; each re-checked against its docket today. An estimate, not a prediction about any case.</p>
-      <ol class="grants g7">
-        <li>
-          <a href="cases/26-593.html">
-            <span class="gv">
-              32%
-              <span class="gx">8×</span>
-            </span>
-            <span class="gtx">
-              <span class="gc">United States ex rel. W. Benson Chiles v. Cooke Inc.</span>
-              <span class="gs">Economic Activity</span>
-              <span class="gq">When a defendant commits misconduct that makes it liable to the Government for a penalty, and then covers up its misconduct to prevent the Government from assessing the penalty, has the defendant violated the “reverse false claim” provision of the False Claims Act, which prohibits “knowingly concealing or improperly avoiding” an “established duty…</span>
-            </span>
-            <span class="gd">No. 26-593</span>
-          </a>
-        </li>
-        <li>
-          <a href="cases/26-599.html">
-            <span class="gv">
-              24%
-              <span class="gx">6×</span>
-            </span>
-            <span class="gtx">
-              <span class="gc">National Park Service v. National Trust for Historic Preservation in the United States</span>
-              <span class="gq">Whether the district court erred in enjoining the ongoing renovation of the East Wing at the White House.</span>
-            </span>
-            <span class="gd">No. 26-599</span>
-          </a>
-        </li>
-        <li>
-          <a href="cases/26-594.html">
-            <span class="gv">
-              20%
-              <span class="gx">5×</span>
-            </span>
-            <span class="gtx">
-              <span class="gc">Citibank, N.A. v. Climate United Fund</span>
-              <span class="gs">Judicial Power</span>
-              <span class="gq">Whether the preliminary injunction against Citibank for following the federal government’s instructions can remain in place.</span>
-            </span>
-            <span class="gd">No. 26-594</span>
-          </a>
-        </li>
-        <li>
-          <a href="cases/26-618.html">
-            <span class="gv">
-              15%
-              <span class="gx">4×</span>
-            </span>
-            <span class="gtx">
-              <span class="gc">Tomas Rey v. LCMC Health Care Partners, L.L.C.</span>
-              <span class="gs">Judicial Power</span>
-              <span class="gq">Is an interlocutory order that rejects a party’s claim for injunctive relief an order “refusing” an injunction that is appealable as of right under 28 U.S.C. § 1292(a)(1), or does such an order only have the “practical effect” of denying an injunction such that the appellant must make the additional showings required by Carson v. American Brands, Inc.…</span>
-            </span>
-            <span class="gd">No. 26-618</span>
-          </a>
-        </li>
-        <li>
-          <a href="cases/26-613.html">
-            <span class="gv">
-              15%
-              <span class="gx">4×</span>
-            </span>
-            <span class="gtx">
-              <span class="gc">Merit Energy Company, LLC v. Cherry Rider, Trustee of the Cherry Rider Family Trust</span>
-              <span class="gs">Judicial Power</span>
-              <span class="gq">Whether Federal Rule of Civil Procedure 23 permits certification of a damages class even though the district court finds that there is no administratively feasible way to ascertain members of the proposed class.</span>
-            </span>
-            <span class="gd">No. 26-613</span>
-          </a>
-        </li>
-      </ol>
-      <ol class="grants g28">
-        <li>
-          <a href="cases/26-589.html">
-            <span class="gv">
-              80%
-              <span class="gx">19×</span>
-            </span>
-            <span class="gtx">
-              <span class="gc">Lee M. Zeldin, Administrator, Environmental Protection Agency v. Climate United Fund</span>
-              <span class="gq">Whether the Tucker Act, 28 U.S.C. 1491(a)(1), precludes respondents from challenging in district court the termination of grant agreements by the Environmental Protection Agency (EPA).</span>
-            </span>
-            <span class="gd">No. 26-589</span>
-          </a>
-        </li>
-        <li>
-          <a href="cases/26-593.html">
-            <span class="gv">
-              32%
-              <span class="gx">8×</span>
-            </span>
-            <span class="gtx">
-              <span class="gc">United States ex rel. W. Benson Chiles v. Cooke Inc.</span>
-              <span class="gs">Economic Activity</span>
-              <span class="gq">When a defendant commits misconduct that makes it liable to the Government for a penalty, and then covers up its misconduct to prevent the Government from assessing the penalty, has the defendant violated the “reverse false claim” provision of the False Claims Act, which prohibits “knowingly concealing or improperly avoiding” an “established duty…</span>
-            </span>
-            <span class="gd">No. 26-593</span>
-          </a>
-        </li>
-        <li>
-          <a href="cases/26-572.html">
-            <span class="gv">
-              25%
-              <span class="gx">6×</span>
-            </span>
-            <span class="gtx">
-              <span class="gc">Frank Padula, Acting Director of the Chicago Field Office of U.S. Immigration and Customs Enforcement v. Jaciel Cirrus Rojas</span>
-            </span>
-            <span class="gd">No. 26-572</span>
-          </a>
-        </li>
-        <li>
-          <a href="cases/26-599.html">
-            <span class="gv">
-              24%
-              <span class="gx">6×</span>
-            </span>
-            <span class="gtx">
-              <span class="gc">National Park Service v. National Trust for Historic Preservation in the United States</span>
-              <span class="gq">Whether the district court erred in enjoining the ongoing renovation of the East Wing at the White House.</span>
-            </span>
-            <span class="gd">No. 26-599</span>
-          </a>
-        </li>
-        <li>
-          <a href="cases/26-568.html">
-            <span class="gv">
-              21%
-              <span class="gx">5×</span>
-            </span>
-            <span class="gtx">
-              <span class="gc">Andre Quinones, Acting Director of the Seattle Field Office of U.S. Immigration and Customs Enforcement v. Ramon Rodriguez Vazquez, Individually and on Behalf of All Others Similarly Situated</span>
-              <span class="gs">Civil Rights</span>
-              <span class="gq">Whether 8 U.S.C. 1225(b)(2)(A) mandates the detention pending removal proceedings of aliens who, like respondent, are present in the United States without having been admitted.</span>
-            </span>
-            <span class="gd">No. 26-568</span>
-          </a>
-        </li>
-      </ol>
-      <ol class="grants gall">
-        <li>
-          <a href="cases/26-304.html">
-            <span class="gv">
-              86%
-              <span class="gx">21×</span>
-            </span>
-            <span class="gtx">
-              <span class="gc">United States v. Devonte Devon Jackson</span>
-              <span class="gs">Miscellaneous</span>
-              <span class="gq">Whether a person who becomes the first assistant after a vacancy arises is ineligible to be the acting officer under Section 3345(a)(1).</span>
-            </span>
-            <span class="gd">No. 26-304</span>
-          </a>
-        </li>
-        <li>
-          <a href="cases/26-589.html">
-            <span class="gv">
-              80%
-              <span class="gx">19×</span>
-            </span>
-            <span class="gtx">
-              <span class="gc">Lee M. Zeldin, Administrator, Environmental Protection Agency v. Climate United Fund</span>
-              <span class="gq">Whether the Tucker Act, 28 U.S.C. 1491(a)(1), precludes respondents from challenging in district court the termination of grant agreements by the Environmental Protection Agency (EPA).</span>
-            </span>
-            <span class="gd">No. 26-589</span>
-          </a>
-        </li>
-        <li>
-          <a href="cases/26-380.html">
-            <span class="gv">
-              78%
-              <span class="gx">19×</span>
-            </span>
-            <span class="gtx">
-              <span class="gc">Donald J. Trump, President of the United States v. Badar Khan Suri</span>
-              <span class="gs">Civil Rights</span>
-              <span class="gq">Whether, notwithstanding 8 U.S.C. 1252, an alien detained pending his removal proceedings may challenge that detention in a habeas petition based on claims that also go to the validity of his being removed.</span>
-            </span>
-            <span class="gd">No. 26-380</span>
-          </a>
-        </li>
-        <li>
-          <a href="cases/26-348.html">
-            <span class="gv">
-              69%
-              <span class="gx">17×</span>
-            </span>
-            <span class="gtx">
-              <span class="gc">United States v. Office of the New York State Attorney General</span>
-              <span class="gs">Miscellaneous</span>
-              <span class="gq">Whether a person who becomes the first assistant after a vacancy arises is ineligible to be the acting officer under Section 3345(a)(1).</span>
-            </span>
-            <span class="gd">No. 26-348</span>
-          </a>
-        </li>
-        <li>
-          <a href="cases/26-96.html">
-            <span class="gv">
-              67%
-              <span class="gx">16×</span>
-            </span>
-            <span class="gtx">
-              <span class="gc">Department of the Interior v. Shoshone-Bannock Tribes of the Fort Hall Reservation</span>
-              <span class="gq">Whether the United States may invoke FLPMA to dispose of land that the government previously acquired from an Indian tribe, when the statute that approved the land’s earlier purchase stated that the land “shall be opened to settlement by the proclamation of the President, and shall be subject to disposal under the homestead, town-site, stone and timber…</span>
-            </span>
-            <span class="gd">No. 26-96</span>
-          </a>
-        </li>
-        <li>
-          <a href="cases/26-344.html">
-            <span class="gv">
-              64%
-              <span class="gx">16×</span>
-            </span>
-            <span class="gtx">
-              <span class="gc">North American Derivatives Exchange, Inc., dba Crypto.com | Derivatives North America v. Nevada</span>
-              <span class="gs">Federalism</span>
-              <span class="gq">Whether the CEA preempts state regulation of sports-event contracts traded on a DCM.</span>
-            </span>
-            <span class="gd">No. 26-344</span>
-          </a>
-        </li>
-        <li>
-          <a href="cases/26-272.html">
-            <span class="gv">
-              63%
-              <span class="gx">15×</span>
-            </span>
-            <span class="gtx">
-              <span class="gc">United States v. Nicolas Talbott</span>
-              <span class="gs">Civil Rights</span>
-              <span class="gq">Whether a Department of War policy that generally disqualifies from military service individuals who have gender dysphoria, a history of the condition, or a history of related interventions—issued by Secretary of War Hegseth in implementing Executive Order No. 14,183— violates the equal-protection component of the Due Process Clause of the Fifth Amendment.</span>
-            </span>
-            <span class="gd">No. 26-272</span>
-          </a>
-        </li>
-        <li>
-          <a href="cases/26-210.html">
-            <span class="gv">
-              60%
-              <span class="gx">15×</span>
-            </span>
-            <span class="gtx">
-              <span class="gc">Donald J. Trump, President of the United States v. Neeta Thakur, Individually and on Behalf of All Others Similarly Situated</span>
-              <span class="gs">First Amendment</span>
-              <span class="gq">Whether the First Amendment prohibits the government from considering the viewpoints furthered by academic research projects when deciding whether to grant or terminate funding for those projects through competitive grant programs.</span>
-            </span>
-            <span class="gd">No. 26-210</span>
-          </a>
-        </li>
-        <li>
-          <a href="cases/26-318.html">
-            <span class="gv">
-              59%
-              <span class="gx">14×</span>
-            </span>
-            <span class="gtx">
-              <span class="gc">PacifiCorp, an Oregon Business Corporation v. Casey Sixkiller, Director, Washington State Department of Ecology</span>
-              <span class="gs">Economic Activity</span>
-              <span class="gq">Whether Tracy exempts a State from dormant Commerce Clause scrutiny when state law imposes different burdens on the same product based on whether the product is sold in state or out of state.</span>
-            </span>
-            <span class="gd">No. 26-318</span>
-          </a>
-        </li>
-        <li>
-          <a href="cases/26-491.html">
-            <span class="gv">
-              59%
-              <span class="gx">14×</span>
-            </span>
-            <span class="gtx">
-              <span class="gc">Department of Health and Human Services v. Texas Medical Association</span>
-              <span class="gs">Judicial Power</span>
-              <span class="gq">Whether the Administrative Procedure Act, 5 U.S.C. 701 et seq., authorizes courts, in Section 706(2), to enter universal vacatur of agency rules that courts have held unlawful and, if so, in what circumstances.</span>
-            </span>
-            <span class="gd">No. 26-491</span>
-          </a>
-        </li>
-      </ol>
-      <p class="more"><a href='dashboards/'>All petitions this week &rarr;</a>&nbsp;&middot;&nbsp;<a href='methods.html'>How the forecast works &rarr;</a></p>
-    </section>
-    <section class="panel cal">
-      <h2>Recent decisions</h2>
-      <p class="pnote">The Court’s most recent written opinions, argued or not.</p>
-      <input class="wr" type="checkbox" id="hon" aria-label="Show each decision&#39;s holding"/>
-      <div class="opts">
-        <label for="hon">Holdings</label>
+    </div>
+    <section class="explore">
+      <h2>Explore the site</h2>
+      <div class="groups">
+        <div>
+          <h3>Follow the docket</h3>
+          <ul class="idx">
+            <li>
+              <a class="row" href="dashboards/">
+                <span class="d">Daily Petitions &amp; Applications</span>
+                <span class="count">new, daily</span>
+              </a>
+            </li>
+            <li>
+              <a class="row" href="conferences/">
+                <span class="d">Conference Reports</span>
+                <span class="count">weekly, by relists</span>
+              </a>
+            </li>
+            <li>
+              <a class="row" href="relists/">
+                <span class="d">Relist Tracker</span>
+                <span class="count">still under consideration</span>
+              </a>
+            </li>
+            <li>
+              <a class="row" href="applications/">
+                <span class="d">Emergency Applications</span>
+                <span class="count">stays and injunctions, pending and decided</span>
+              </a>
+            </li>
+            <li>
+              <a class="row" href="cases/">
+                <span class="d">All Cases</span>
+                <span class="count">browse by Term</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h3>Arguments and the Justices</h3>
+          <ul class="idx">
+            <li>
+              <a class="row" href="arguments/">
+                <span class="d">Oral Argument Navigator</span>
+                <span class="count">granted cases, by sitting</span>
+              </a>
+            </li>
+            <li>
+              <a class="row" href="justices/">
+                <span class="d">The Justices</span>
+                <span class="count">opinions and agreement, by Term</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h3>How the forecasts work</h3>
+          <ul class="idx">
+            <li>
+              <a class="row" href="counsel/">
+                <span class="d">The Counsel Table</span>
+                <span class="count">who files, who wins</span>
+              </a>
+            </li>
+            <li>
+              <a class="row" href="funnel/">
+                <span class="d">The Cert Funnel</span>
+                <span class="count">the explainer</span>
+              </a>
+            </li>
+            <li>
+              <a class="row" href="methods.html">
+                <span class="d">The Forecast Model</span>
+                <span class="count">methods &amp; validation</span>
+              </a>
+            </li>
+            <li>
+              <a class="row" href="scorecard/">
+                <span class="d">Forecast Scorecard</span>
+                <span class="count">the forecasts, held to the orders</span>
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
-      <ol class="cal">
-        <li>
-          <div class="crow">
-            <span class="cwhen">
-              <span class="cdow">Mon</span>
-              Nov  9
-            </span>
-            <span class="ctx">
-              <span class="ckind">
-                <a href="cases/26A560.html">Markwayne Mullin, Secretary of Homeland Security v. Friends of the Ruidosa Church</a>
-              </span>
-              <span class="cdet">
-                <span class="dk">Emergency application</span>
-                 &middot; 
-                Per curiam
-                 &middot; 
-                Granted
-                 &middot; 
-                <a class="pdf" href="/opinions/2026/26A560.html">Opinion</a>
-                 &middot; 
-                <a class="pdf" href="https://www.supremecourt.gov/opinions/26pdf/26a560_onkq.pdf" target="_blank" rel="noopener">PDF</a>
-              </span>
-              <span class="chold">The Government is entitled to a stay of the preliminary injunction halting border-barrier construction because it is exceedingly likely to establish that the District Court lacked jurisdiction under §102(c)(2)(A) of the Illegal Immigration…</span>
-            </span>
-          </div>
-        </li>
-        <li>
-          <div class="crow">
-            <span class="cwhen">
-              <span class="cdow">Thu</span>
-              Oct 22
-            </span>
-            <span class="ctx">
-              <span class="ckind">
-                <a href="cases/26A512.html">David M. Scanlan, Secretary of State of New Hampshire v. Coalition for Open Democracy</a>
-              </span>
-              <span class="cdet">
-                <span class="dk">Emergency application</span>
-                 &middot; 
-                Granted
-                 &middot; 
-                <a class="pdf" href="https://www.supremecourt.gov/opinions/26pdf/26a512_new_daeh.pdf" target="_blank" rel="noopener">Jackson</a> dissenting
-              </span>
-            </span>
-          </div>
-        </li>
-        <li>
-          <div class="crow">
-            <span class="cwhen">
-              <span class="cdow">Wed</span>
-              Oct 14
-            </span>
-            <span class="ctx">
-              <span class="ckind">
-                <a href="cases/26A476.html">Federal Communications Commission v. Sherrod Brown</a>
-              </span>
-              <span class="cdet">
-                <span class="dk">Emergency application</span>
-                 &middot; 
-                Per curiam
-                 &middot; 
-                Granted
-                 &middot; 
-                <a class="pdf" href="/opinions/2026/26A476.html">Opinion</a>
-                 &middot; 
-                <a class="pdf" href="https://www.supremecourt.gov/opinions/26pdf/26a476_k537.pdf" target="_blank" rel="noopener">PDF</a>
-              </span>
-              <span class="chold">The Fourth Circuit’s mandamus order requiring the Federal Communications Commission to resolve an application for review within 48 hours of its entry is stayed because the order improperly interferes with the Commission’s discretion to…</span>
-            </span>
-          </div>
-        </li>
-        <li>
-          <div class="crow">
-            <span class="cwhen">
-              <span class="cdow">Wed</span>
-              Oct 14
-            </span>
-            <span class="ctx">
-              <span class="ckind">
-                <a href="cases/26A477.html">National Republican Congressional Committee v. Sherrod Brown</a>
-              </span>
-              <span class="cdet">
-                <span class="dk">Emergency application</span>
-                 &middot; 
-                Per curiam
-                 &middot; 
-                Denied as moot
-              </span>
-            </span>
-          </div>
-        </li>
-        <li>
-          <div class="crow">
-            <span class="cwhen">
-              <span class="cdow">Wed</span>
-              Sep 30
-            </span>
-            <span class="ctx">
-              <span class="ckind">
-                <a href="cases/26A428.html">Kenneth Nelsen, Warden v. Christa Gail Pike</a>
-              </span>
-              <span class="cdet">
-                <span class="dk">Emergency application</span>
-                 &middot; 
-                Granted
-                 &middot; 
-                <a class="pdf" href="https://www.supremecourt.gov/opinions/25pdf/26a428_4f15.pdf" target="_blank" rel="noopener">Sotomayor</a>, joined by Kagan and Jackson, dissenting
-              </span>
-            </span>
-          </div>
-        </li>
-      </ol>
-      <p class="more"><a href='arguments/'>All argued cases &rarr;</a></p>
-    </section>
-    <section class="panel cal">
-      <h2>Recent arguments</h2>
-      <p class="pnote">Oral arguments of the last three weeks, with the Court’s recording and transcript. The lean is the chance the petitioner prevails, read from how the bench divided its words (petitioners usually win 70%); an estimate, not a prediction about any case.</p>
-      <ol class="cal">
-        <li>
-          <div class="crow">
-            <span class="cwhen">
-              <span class="cdow">Tue</span>
-              Nov 10
-            </span>
-            <span class="ctx">
-              <span class="ckind">
-                <a href="/arguments/2026/25-966.html">Department of Labor v. Sun Valley Orchards, LLC</a>
-              </span>
-              <span class="cdet">
-                Argued by Sarah M. Harris, Robert E. Johnson
-                 &middot; 
-                <span class="dk">Lean 78% petitioner</span>
-                 &middot; 
-                <a href="/arguments/2026/25-966.html">Listen and read</a>
-              </span>
-            </span>
-          </div>
-        </li>
-        <li>
-          <div class="crow">
-            <span class="cwhen">
-              <span class="cdow">Mon</span>
-              Nov  9
-            </span>
-            <span class="ctx">
-              <span class="ckind">
-                <a href="/arguments/2026/25-159.html">Leonard W. Hoffmann v. WBI Energy Transmission, Inc.</a>
-              </span>
-              <span class="cdet">
-                Argued by Robert J. Mcnamara, Paul W. Hughes
-                 &middot; 
-                <span class="dk">Lean 16% petitioner</span>
-                 &middot; 
-                <a href="/arguments/2026/25-159.html">Listen and read</a>
-              </span>
-            </span>
-          </div>
-        </li>
-        <li>
-          <div class="crow">
-            <span class="cwhen">
-              <span class="cdow">Mon</span>
-              Nov  9
-            </span>
-            <span class="ctx">
-              <span class="ckind">
-                <a href="/arguments/2026/25-417.html">Francis Nielsen v. Kekai Watanabe</a>
-              </span>
-              <span class="cdet">
-                Argued by Lucas M. Walker, Joshua M. Wesneski
-                 &middot; 
-                <span class="dk">Lean 57% petitioner</span>
-                 &middot; 
-                <a href="/arguments/2026/25-417.html">Listen and read</a>
-              </span>
-            </span>
-          </div>
-        </li>
-        <li>
-          <div class="crow">
-            <span class="cwhen">
-              <span class="cdow">Wed</span>
-              Nov  4
-            </span>
-            <span class="ctx">
-              <span class="ckind">
-                <a href="/arguments/2026/25-1003.html">Eric Guerrero, Director, Texas Department of Criminal Justice, Correctional Institutions Division v. Dexter Johnson</a>
-              </span>
-              <span class="cdet">
-                Argued by William R. Peterson, Jeremy Schepers
-                 &middot; 
-                <span class="dk">Lean 50% petitioner</span>
-                 &middot; 
-                <a href="/arguments/2026/25-1003.html">Listen and read</a>
-              </span>
-            </span>
-          </div>
-        </li>
-        <li>
-          <div class="crow">
-            <span class="cwhen">
-              <span class="cdow">Tue</span>
-              Nov  3
-            </span>
-            <span class="ctx">
-              <span class="ckind">
-                <a href="/arguments/2026/25-581.html">St. Mary Catholic Parish, Littleton, Colorado v. Lisa Roy, in Her Official Capacity as Executive Director of the Colorado Department of Early Childhood</a>
-              </span>
-              <span class="cdet">
-                Argued by Nicholas R. Reaves, Helen Norton, Helen Norton
-                 &middot; 
-                <span class="dk">Lean 64% petitioner</span>
-                 &middot; 
-                <a href="/arguments/2026/25-581.html">Listen and read</a>
-              </span>
-            </span>
-          </div>
-        </li>
-        <li>
-          <div class="crow">
-            <span class="cwhen">
-              <span class="cdow">Mon</span>
-              Nov  2
-            </span>
-            <span class="ctx">
-              <span class="ckind">
-                <a href="/arguments/2026/25-352.html">Jasmine Younge v. Fulton Judicial Circuit District Attorney’s Office, Georgia</a>
-              </span>
-              <span class="cdet">
-                Argued by Eric Schnapper, Stephen J. Petrany
-                 &middot; 
-                <span class="dk">Lean 68% petitioner</span>
-                 &middot; 
-                <a href="/arguments/2026/25-352.html">Listen and read</a>
-              </span>
-            </span>
-          </div>
-        </li>
-      </ol>
-      <p class="more"><a href='arguments/'>All arguments &rarr;</a></p>
-    </section>
-    <section class="panel cal">
-      <h2>Latest orders</h2>
-      <p class="pnote">What the Court granted, sent back and turned away, from its order lists.</p>
-      <ol class="cal">
-        <li>
-          <div class="crow">
-            <span class="cwhen">
-              <span class="cdow">Mon</span>
-              Nov  9
-            </span>
-            <span class="ctx">
-              <a class="ckind" href="orders/2026-11-09.html">Order list</a>
-              <span class="cdet">3 GVRs · 230 denied</span>
-            </span>
-          </div>
-        </li>
-        <li>
-          <div class="crow">
-            <span class="cwhen">
-              <span class="cdow">Fri</span>
-              Nov  6
-            </span>
-            <span class="ctx">
-              <a class="ckind" href="orders/2026-11-06-misc.html">Miscellaneous order</a>
-              <span class="cdet">
-                1 granted
-                 &middot; 
-                <a href="cases/25-1408.html">Goldman Sachs Bank USA, dba Marcus by Goldman Sachs v. Rhea Ann Brown</a>
-              </span>
-            </span>
-          </div>
-        </li>
-        <li>
-          <div class="crow">
-            <span class="cwhen">
-              <span class="cdow">Thu</span>
-              Nov  5
-            </span>
-            <span class="ctx">
-              <a class="ckind" href="orders/2026-11-05-misc1.html">Miscellaneous order</a>
-              <span class="cdet">
-                1 denied
-                 &middot; 
-                <a href="cases/26-6051.html">Jesse Guardado v. Richard Comerford, Secretary, Florida Department of Corrections</a>
-              </span>
-            </span>
-          </div>
-        </li>
-        <li>
-          <div class="crow">
-            <span class="cwhen">
-              <span class="cdow">Thu</span>
-              Nov  5
-            </span>
-            <span class="ctx">
-              <a class="ckind" href="orders/2026-11-05-misc.html">Miscellaneous order</a>
-              <span class="cdet">
-                1 denied
-                 &middot; 
-                <a href="cases/26-6013.html">Jesse Guardado v. Florida</a>
-              </span>
-            </span>
-          </div>
-        </li>
-      </ol>
-      <p class="more"><a href='orders/'>All order lists &rarr;</a></p>
-    </section>
-    <section class="panel cal">
-      <h2>Upcoming at the Court</h2>
-      <p class="pnote">The next conferences, order lists and argument days on the Court’s calendar.</p>
-      <ol class="cal">
-        <li>
-          <div class="crow">
-            <span class="cwhen">
-              <span class="cdow">Fri</span>
-              Nov 13
-            </span>
-            <span class="ctx">
-              <a class="ckind" href="conferences/conf_2026-11-13.html">Conference</a>
-              <span class="cdet">167 cases distributed</span>
-            </span>
-          </div>
-        </li>
-        <li>
-          <div class="crow">
-            <span class="cwhen">
-              <span class="cdow">Mon</span>
-              Nov 16
-            </span>
-            <span class="ctx">
-              <a class="ckind" href="orders/">Order list</a>
-              <span class="cdet">Expected, from the November 13 conference</span>
-            </span>
-          </div>
-        </li>
-        <li>
-          <div class="crow">
-            <span class="cwhen">
-              <span class="cdow">Mon</span>
-              Nov 30
-            </span>
-            <span class="ctx">
-              <a class="ckind" href="arguments/arg_2026.html">2 arguments</a>
-              <span class="cdet">
-                <a href="cases/25-183.html">Thomas Crowther v. Board of Regents of the University System of Georgia</a>
-                 &middot; 
-                <a href="cases/25-842.html">Tamer S. Wassily v. Todd Blanche, Attorney General</a>
-              </span>
-            </span>
-          </div>
-        </li>
-        <li>
-          <div class="crow">
-            <span class="cwhen">
-              <span class="cdow">Tue</span>
-              Dec  1
-            </span>
-            <span class="ctx">
-              <a class="ckind" href="arguments/arg_2026.html">Argument</a>
-              <span class="cdet">
-                <a href="cases/25-246.html">Kenneth J. Jouppi v. Alaska</a>
-              </span>
-            </span>
-          </div>
-        </li>
-        <li>
-          <div class="crow">
-            <span class="cwhen">
-              <span class="cdow">Wed</span>
-              Dec  2
-            </span>
-            <span class="ctx">
-              <a class="ckind" href="arguments/arg_2026.html">2 arguments</a>
-              <span class="cdet">
-                <a href="cases/25-238.html">Cutberto Viramontes v. Cook County, Illinois</a>
-                 &middot; 
-                <a href="cases/25-566.html">Eddie Grant, Jr. v. Ronnell Higgins, in His Official Capacity as Commissioner of the Connecticut Department of Emergency Services and Public Protection</a>
-              </span>
-            </span>
-          </div>
-        </li>
-        <li>
-          <div class="crow">
-            <span class="cwhen">
-              <span class="cdow">Fri</span>
-              Dec  4
-            </span>
-            <span class="ctx">
-              <a class="ckind" href="conferences/conf_2026-12-04.html">Conference</a>
-              <span class="cdet">168 cases distributed</span>
-            </span>
-          </div>
-        </li>
-      </ol>
-    </section>
-    <ul class="idx">
-      <li>
-        <a class="row" href="dashboards/">
-          <span class="d">Daily Petitions &amp; Applications</span>
-          <span class="count">new, daily</span>
-        </a>
-        <div class="recent">
-          <span class="rlabel">Latest</span>
-          <a href="dashboards/dash_2026-11-10.html">Nov 10</a>
-          <a href="dashboards/dash_2026-11-09.html">Nov 9</a>
-          <a href="dashboards/dash_2026-11-06.html">Nov 6</a>
-        </div>
-      </li>
-      <li>
-        <a class="row" href="conferences/">
-          <span class="d">Conference Reports</span>
-          <span class="count">weekly, by relists</span>
-        </a>
-        <div class="recent">
-          <span class="rlabel">Latest</span>
-          <a href="conferences/conf_2026-12-04.html">Dec 4</a>
-          <a href="conferences/conf_2026-11-13.html">Nov 13</a>
-          <a href="conferences/conf_2026-11-06.html">Nov 6</a>
-        </div>
-      </li>
-      <li>
-        <a class="row" href="relists/">
-          <span class="d">Relist Tracker</span>
-          <span class="count">still under consideration</span>
-        </a>
-      </li>
-      <li>
-        <a class="row" href="applications/">
-          <span class="d">Emergency Applications</span>
-          <span class="count">stays and injunctions, pending and decided</span>
-        </a>
-      </li>
-      <li>
-        <a class="row" href="arguments/">
-          <span class="d">Oral Argument Navigator</span>
-          <span class="count">granted cases, by sitting</span>
-        </a>
-        <div class="recent">
-          <span class="rlabel">Latest</span>
-          <a href="arguments/arg_2026.html">OT2026</a>
-          <a href="arguments/arg_2025.html">OT2025</a>
-          <a href="arguments/arg_2024.html">OT2024</a>
-        </div>
-      </li>
-      <li>
-        <a class="row" href="justices/">
-          <span class="d">The Justices</span>
-          <span class="count">opinions and agreement, by Term</span>
-        </a>
-        <div class="recent">
-          <span class="rlabel">Latest</span>
-          <a href="justices/ot2025.html">OT2025</a>
-          <a href="justices/ot2024.html">OT2024</a>
-          <a href="justices/ot2023.html">OT2023</a>
-        </div>
-      </li>
-      <li>
-        <a class="row" href="cases/">
-          <span class="d">All Cases</span>
-          <span class="count">browse by Term</span>
-        </a>
-      </li>
-      <li>
-        <a class="row" href="counsel/">
-          <span class="d">The Counsel Table</span>
-          <span class="count">who files, who wins</span>
-        </a>
-      </li>
-      <li>
-        <a class="row" href="funnel/">
-          <span class="d">The Cert Funnel</span>
-          <span class="count">the explainer</span>
-        </a>
-      </li>
-      <li>
-        <a class="row" href="methods.html">
-          <span class="d">The Forecast Model</span>
-          <span class="count">methods &amp; validation</span>
-        </a>
-      </li>
-      <li>
-        <a class="row" href="scorecard/">
-          <span class="d">Forecast Scorecard</span>
-          <span class="count">the forecasts, held to the orders</span>
-        </a>
-      </li>
-      <li>
-        <a class="row" href="about.html">
-          <span class="d">About</span>
-          <span class="count">who makes this</span>
-        </a>
-      </li>
-    </ul>
-    <section class="panel">
-      <h2>Most-Read Cases</h2>
-      <p class="pnote">Ranked by page views over the 30 days ending November 10, 2026.</p>
-      <ol class="mostread">
-        <li>
-          <a href="cases/26-491.html">
-            <span class="mc">
-              <span class="mct">Department of Health and Human Services, et al. v. Texas Medical Association, et al.</span>
-              <span class="ms">Judicial Power</span>
-            </span>
-            <span class="mdk">No. 26-491</span>
-          </a>
-        </li>
-        <li>
-          <a href="cases/26-204.html">
-            <span class="mc">
-              <span class="mct">Department of Justice, et al. v. Scott McNutt, et al.</span>
-              <span class="ms">Federalism</span>
-            </span>
-            <span class="mdk">No. 26-204</span>
-          </a>
-        </li>
-        <li>
-          <a href="cases/26-297.html">
-            <span class="mc">
-              <span class="mct">Patrick Morrisey, Governor of West Virginia, et al. v. Jonathan R., Minor, by Next Friend, Sarah Dixon, et al.</span>
-              <span class="ms">Judicial Power</span>
-            </span>
-            <span class="mdk">No. 26-297</span>
-          </a>
-        </li>
-        <li>
-          <a href="cases/25-7026.html">
-            <span class="mc">
-              <span class="mct">Corey Duran Berry v. United States</span>
-              <span class="ms">Criminal Procedure</span>
-            </span>
-            <span class="mdk">No. 25-7026</span>
-          </a>
-        </li>
-        <li>
-          <a href="cases/26-336.html">
-            <span class="mc">
-              <span class="mct">John C. Eastman v. State Bar of California</span>
-            </span>
-            <span class="mdk">No. 26-336</span>
-          </a>
-        </li>
-      </ol>
     </section>
     <p class="feeds">
       <span class="flabel">Follow by feed</span>
