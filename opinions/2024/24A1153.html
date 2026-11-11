@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script async src='/analytics.js'></script><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate icon" href="/favicon.ico" sizes="any"><link rel="alternate" type="application/atom+xml" title="Supreme Court Report" href="/feed.xml"><link rel="alternate" type="application/atom+xml" title="Certiorari grants" href="/grants.xml"><title>DHS v. D.V.D. — Opinion — Supreme Court Report</title><meta name="description" content="The opinion in DHS v. D.V.D. (No. 24A1153), decided June 23, 2025: the full text with its footnotes, as a page, a Markdown file and an EPUB."><link rel="canonical" href="https://supremecourt.report/opinions/2024/24A1153.html"><meta property="og:site_name" content="Supreme Court Report"><meta property="og:type" content="article"><meta property="og:title" content="DHS v. D.V.D. — Opinion — Supreme Court Report"><meta property="og:description" content="The opinion in DHS v. D.V.D. (No. 24A1153), decided June 23, 2025: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta property="og:url" content="https://supremecourt.report/opinions/2024/24A1153.html"><meta property="og:image" content="https://supremecourt.report/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Supreme Court Report - docket analytics for the Supreme Court of the United States"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="DHS v. D.V.D. — Opinion — Supreme Court Report"><meta name="twitter:description" content="The opinion in DHS v. D.V.D. (No. 24A1153), decided June 23, 2025: the full text with its footnotes, as a page, a Markdown file and an EPUB."><meta name="twitter:image" content="https://supremecourt.report/og.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap"><style>
+  :root{--paper:#fdfcfa;--panel:#ffffff;--ink:#1a1a1e;--ink-soft:#484850;--faint:#63636b;--accent:#9c0e3a;--link:#9c0e3a;--rule:#dbd8d2;--nav-max:60rem}
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{font-family:'Newsreader',Georgia,serif;font-size:19px;line-height:1.6;
+    color:var(--ink);background:var(--paper);margin:0;font-feature-settings:'onum' 1}
+  body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
+    opacity:.5;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");}
+  .wrap{max-width:40rem;margin:0 auto;padding:3rem 1.4rem 4rem}
+  .kicker{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 1rem}
+  h1{font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:clamp(2.4rem,7vw,3.6rem);line-height:1;letter-spacing:-.015em;
+    margin:0 0 1rem;color:var(--ink)}
+  h1 em{font-style:italic;font-weight:500;color:var(--accent)}
+  .dek{font-size:1.15rem;line-height:1.5;color:var(--ink-soft);font-style:italic;
+    margin:0 0 1.4rem}
+  .brule{border:0;height:0;border-top:2px solid var(--ink);margin:1.4rem 0 .3rem;
+    position:relative}
+  .brule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+    border-top:1px solid var(--rule)}
+  ul.idx{list-style:none;padding:0;margin:1.6rem 0}
+  ul.idx li{border-bottom:1px solid var(--rule)}
+  /* Whole row is one block-level link: a large, reliable tap target on mobile. */
+  ul.idx a.row{display:flex;justify-content:space-between;align-items:baseline;
+    gap:1rem;padding:.9rem .4rem;text-decoration:none;border:0;color:inherit}
+  ul.idx a.row:hover{background:rgba(156,14,58,.05)}
+  ul.idx .d{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.16rem;
+    color:var(--accent);line-height:1.25}
+  ul.idx a.row:hover .d{text-decoration:underline;text-underline-offset:3px}
+  ul.idx .count{color:var(--faint);font-size:.9rem;font-style:italic;white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  /* A long note (an order list's "3 GVRs / 230 denied / 4 habeas denied /
+     ...", items separated by middots) cannot sit on one line: nowrap made it
+     claim the row and
+     squeezed the title into a column three words wide, and on a phone it ran off
+     the screen. Such a row opts in (meta_wrap): the note wraps, only between its
+     items, and takes at most ~45% of the row, so the title always has the
+     larger share. Under 34rem it drops beneath the title at full width. */
+  /* ("long", not "wrap": .wrap is the page container and its padding.) */
+  ul.idx .count.long{white-space:normal;text-align:right;max-width:45%;line-height:1.45}
+  ul.idx .count.long .seg{white-space:nowrap}
+  @media(max-width:34rem){
+    ul.idx a.row.longmeta{flex-wrap:wrap;row-gap:.2rem}
+    ul.idx .count.long{max-width:none;flex-basis:100%;text-align:left}
+  }
+  /* Compact horizontal strip of the most recent pages beneath a category row. */
+  ul.idx .recent{display:flex;flex-wrap:wrap;align-items:baseline;
+    gap:.3rem .85rem;padding:0 .4rem 1rem;margin-top:-.35rem}
+  ul.idx .recent .rlabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  ul.idx .recent a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--ink-soft);text-decoration:none;font-variant-numeric:tabular-nums;
+    border-bottom:1px solid var(--rule);padding-bottom:1px}
+  ul.idx .recent a:hover{color:var(--accent);border-color:var(--accent)}
+  /* Optional panel beneath the section index (home page: most-read cases). */
+  .panel{margin:2.4rem 0 0}
+  .panel h2{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 .25rem}
+  .panel .pnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:0 0 .5rem}
+  /* "Live now" (live_argument_panel, /live.js): hidden unless the Court is
+     streaming an argument. One red dot, the same --accent as the headings, so
+     the live state is a mark and not a new colour. */
+  .live h2 .ldot{display:inline-block;width:.5rem;height:.5rem;border-radius:50%;
+    background:var(--accent);margin-right:.5rem;vertical-align:.08rem;
+    animation:lpulse 2s ease-in-out infinite}
+  @keyframes lpulse{50%{opacity:.25}}
+  @media (prefers-reduced-motion:reduce){.live h2 .ldot{animation:none}}
+  .lplay{display:flex;flex-wrap:wrap;gap:.6rem .9rem;align-items:center;margin:.8rem 0 .3rem}
+  .lplay button{font:600 .9rem/1 'Newsreader',Georgia,serif;letter-spacing:.04em;
+    color:var(--paper);background:var(--accent);border:0;border-radius:2px;
+    padding:.6rem 1.05rem;cursor:pointer}
+  .lplay button:disabled{opacity:.6;cursor:progress}
+  .lplay button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  /* The player takes a row of its own and may never outgrow the column. A flex
+     item's min-width is auto, which for a replaced element is the browser's own
+     controls' width -- wider than the column on a phone, where mobile Safari
+     and Chrome draw larger controls than the desktop. */
+  .lplay audio{display:block;flex:1 1 100%;width:100%;min-width:0;max-width:100%;
+    box-sizing:border-box;margin:0}
+  .lplay .lstat{font-size:.85rem;color:var(--faint)}
+  /* --- Likeliest grants -----------------------------------------------------
+     Its own rows rather than ol.mostread's: this panel carries a question under
+     the caption, which that list has no room for, and a percentage that has to
+     read as the row's subject rather than as a trailing note.
+     The window toggle is two real radio inputs plus :has() -- no JavaScript.
+     Both windows are rendered at build time and one is hidden, which is the only
+     way a static site can offer the choice: there is no server to ask for the
+     other one. Real radios, not styled buttons, so the control is reachable by
+     keyboard and announced as a choice. */
+  .lead{margin:0 0 1.9rem}
+  .lead h2{margin-bottom:.35rem}
+  .lead .pnote{margin:0 0 .7rem}
+  .wr{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+  .win{display:inline-flex;gap:.25rem;margin:0 0 .55rem;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .win label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .win label:hover{color:var(--ink)}
+  .lead:has(#w7:checked) label[for=w7],
+  .lead:has(#w28:checked) label[for=w28],
+  .lead:has(#wall:checked) label[for=wall]{background:var(--accent);color:var(--paper)}
+  .wr:focus-visible+label{outline:2px solid var(--accent);outline-offset:2px}
+  /* Three windows, one shown: the checked radio hides the other two. */
+  .lead:has(#w7:checked) :is(.g28,.n28,.gall,.nall),
+  .lead:has(#w28:checked) :is(.g7,.n7,.gall,.nall),
+  .lead:has(#wall:checked) :is(.g7,.n7,.g28,.n28){display:none}
+  /* The show/hide controls for a panel's secondary line -- the question under
+     a forecast row, the holding under a decision. Same box as the window
+     toggle, a checkbox instead of radios, and no script: the sibling rule does
+     the work and the lines simply show where :has() is unsupported. The
+     questions are on by default (they are what a forecast row asks); the
+     holdings are off (the caption, kind and disposition already say what
+     happened, and the holding is the more). */
+  .opts{display:inline-flex;gap:.25rem;margin:0 .45rem .55rem 0;vertical-align:top;
+    border:1px solid var(--rule);border-radius:2px;padding:2px}
+  .opts label{font-family:'Newsreader',Georgia,serif;font-size:.82rem;line-height:1;
+    padding:.34rem .62rem;color:var(--faint);cursor:pointer;border-radius:1px}
+  .opts label:hover{color:var(--ink)}
+  .lead:has(#qon:checked) label[for=qon],
+  .panel:has(#hon:checked) label[for=hon]{background:var(--accent);color:var(--paper)}
+  .lead:has(#qon:not(:checked)) .gq{display:none}
+  .panel:has(#hon:not(:checked)) .chold{display:none}
+  /* --- Upcoming at the Court ------------------------------------------------
+     A date gutter and a two-line body, the same shape as the grant rows above
+     it, so the two panels read as one page rather than two widgets. */
+  .cal{margin:0 0 1.9rem}
+  ol.cal{list-style:none;margin:0;padding:0}
+  ol.cal li{border-top:1px solid var(--rule)}
+  ol.cal li:last-child{border-bottom:1px solid var(--rule)}
+  /* The row is a container, not an anchor: an argument day carries one link per
+     case it hears and anchors cannot nest. Hover lives on the row so it still
+     reads as one unit, and each link colours on its own hover. */
+  ol.cal .crow{display:flex;gap:.95rem;align-items:baseline;padding:.55rem .1rem}
+  ol.cal .crow:hover{background:rgba(156,14,58,.05)}
+  ol.cal a{text-decoration:none;color:inherit}
+  ol.cal a:hover,ol.cal a:focus-visible{color:var(--accent)}
+  ol.cal .cdet a{border-bottom:1px solid rgba(156,14,58,.35)}
+  ol.cal .cdet a:hover{border-bottom-color:var(--accent)}
+  ol.cal .cwhen{flex:none;width:4.6rem;font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.96rem;color:var(--ink);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  ol.cal .cdow{display:block;font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);text-transform:uppercase;letter-spacing:.08em}
+  ol.cal .ctx{flex:1;min-width:0}
+  ol.cal .ckind{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:.98rem;line-height:1.25}
+  ol.cal .cdet{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.12rem}
+  /* Recent decisions reuses the calendar rows and adds exactly two things: the
+     kind word that opens the detail line, and the one outbound link (the slip
+     opinion), which takes the link colour the rest of the row deliberately
+     does not. */
+  ol.cal .dk{font-weight:600;color:var(--ink)}
+  ol.cal .cdet a.pdf{color:var(--link)}
+  /* The holding, from the Court's slip-opinion feed: one sentence, set
+     smaller and in the soft ink so the caption stays the row's headline. */
+  ol.cal .chold{display:block;font-size:.86rem;line-height:1.4;color:var(--ink-soft);
+    font-style:italic;margin-top:.15rem}
+  ol.cal .cdet a.pdf:hover,ol.cal .cdet a.pdf:focus-visible{color:var(--accent);
+    border-bottom-color:var(--accent)}
+  ol.grants{list-style:none;margin:0;padding:0}
+  ol.grants li{border-top:1px solid var(--rule)}
+  ol.grants li:last-child{border-bottom:1px solid var(--rule)}
+  ol.grants a{display:flex;gap:.95rem;align-items:baseline;text-decoration:none;
+    color:inherit;padding:.62rem .1rem}
+  ol.grants a:hover{background:rgba(156,14,58,.05)}
+  ol.grants a:hover .gc{color:var(--accent)}
+  ol.grants .gv{flex:none;width:3.5rem;text-align:right;
+    font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.22rem;
+    line-height:1.1;color:var(--accent);font-variant-numeric:tabular-nums}
+  ol.grants .gx{font-family:'Newsreader',Georgia,serif;font-weight:400;
+    font-size:.7rem;color:var(--faint);margin-left:.3rem}
+  ol.grants .gtx{flex:1;min-width:0}
+  /* Subject-area line under the caption, in the section-label idiom (h2.sec):
+     small tracked caps in the faint ink, so it classifies without competing. */
+  ol.grants .gs,ol.mostread .ms{display:block;font-size:.68rem;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--faint);line-height:1.3;margin-top:.12rem}
+  ol.grants .gc{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:1rem;line-height:1.25}
+  ol.grants .gq{display:block;font-size:.9rem;line-height:1.4;color:var(--ink-soft);
+    margin-top:.16rem}
+  ol.grants .gd{flex:none;font-size:.76rem;color:var(--faint);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  .more{margin:.75rem 0 0;font-size:.92rem}
+  .more a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.35)}
+  .more a:hover{border-bottom-color:var(--link)}
+  h2.sec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:.88rem;
+    letter-spacing:.09em;color:var(--faint);text-transform:uppercase;
+    margin:2.1rem 0 .6rem;padding-bottom:.28rem;border-bottom:1px solid var(--rule)}
+  @media(max-width:40rem){
+    ol.grants a{flex-wrap:wrap}
+    ol.grants .gd{width:100%;padding-left:4.45rem;margin-top:-.1rem}
+  }
+  ol.mostread{list-style:none;counter-reset:mr;padding:0;margin:0}
+  ol.mostread li{counter-increment:mr;border-bottom:1px solid var(--rule)}
+  ol.mostread a{display:flex;align-items:baseline;gap:.7rem;padding:.6rem .4rem;
+    text-decoration:none;color:inherit}
+  ol.mostread a:hover{background:rgba(156,14,58,.05)}
+  ol.mostread a::before{content:counter(mr);font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:.95rem;color:var(--faint);min-width:1.1rem;
+    font-variant-numeric:tabular-nums}
+  ol.mostread .mc{flex:1;font-size:1rem;line-height:1.3}
+  ol.mostread .mct{display:block}
+  ol.mostread a:hover .mct{color:var(--accent);text-decoration:underline;
+    text-underline-offset:3px}
+  ol.mostread .mdk{color:var(--accent);font-weight:600;font-size:.82rem;
+    font-variant-numeric:tabular-nums;white-space:nowrap}
+  ol.mostread .mv{color:var(--faint);font-size:.85rem;font-style:italic;
+    white-space:nowrap;font-variant-numeric:tabular-nums}
+  /* Forecast percentages carry weight the most-read counts do not: the number is
+     the claim, not a footnote to the ranking. Upright, accent, tabular. */
+  ol.mostread .mv.fc{color:var(--accent);font-style:normal;font-weight:600;
+    font-size:.95rem;min-width:2.6rem;text-align:right}
+  /* Feed follow line. Deliberately quiet -- a footnote under the section list,
+     styled like .recent rather than like a call to action. */
+  .feeds{display:flex;flex-wrap:wrap;align-items:baseline;gap:.3rem .85rem;
+    margin:2.2rem 0 0;padding-top:1.1rem;border-top:1px solid var(--rule)}
+  .feeds .flabel{font:600 .68rem/1 'Newsreader';letter-spacing:.18em;
+    text-transform:uppercase;color:var(--faint)}
+  .feeds a{font-family:'Newsreader',Georgia,serif;font-size:.92rem;
+    color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .feeds a:hover{border-color:var(--link)}
+  .back{margin-top:2rem;font-size:.95rem}
+  .back a{color:var(--link);text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .back a:hover{border-color:var(--link)}
+  /* Home-page case search. */
+  .csearch{position:relative;margin:0 0 1.4rem}
+  #cq{width:100%;font-family:'Newsreader',Georgia,serif;font-size:1.05rem;color:var(--ink);
+    background:var(--panel);border:1px solid var(--rule);border-radius:3px;padding:.7rem .9rem}
+  #cq:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(156,14,58,.1)}
+  #cq::placeholder{color:var(--faint)}
+  #cq.loading{background-image:linear-gradient(90deg,transparent,rgba(156,14,58,.06),transparent);
+    background-size:40% 100%;background-repeat:no-repeat;animation:csl 1s infinite}
+  @keyframes csl{0%{background-position:-40% 0}100%{background-position:140% 0}}
+  .cres{list-style:none;margin:.35rem 0 0;padding:0;max-height:24rem;overflow-y:auto;
+    border:1px solid var(--rule);border-radius:3px;background:var(--panel)}
+  .cres:empty{display:none}
+  .cres li{border-bottom:1px solid var(--rule)}
+  .cres li:last-child{border-bottom:0}
+  .cres a{display:block;padding:.55rem .7rem;text-decoration:none;color:var(--ink);
+    font-size:.98rem;line-height:1.3}
+  .cres a:hover,.cres li.act a{background:rgba(156,14,58,.06)}
+  .cres mark{background:rgba(156,14,58,.14);color:inherit;padding:0 .05em;border-radius:2px}
+  .cres .cd{color:var(--accent);font-variant-numeric:tabular-nums;font-weight:600;
+    margin-right:.5rem;white-space:nowrap}
+  .cnone{padding:.55rem .7rem;color:var(--faint);font-style:italic}
+  .cnone a,.cqp a{color:var(--link);font-style:normal;text-decoration:none;
+    border-bottom:1px solid rgba(156,14,58,.4)}
+  .cqp{margin:.45rem 0 0;font-size:.88rem;color:var(--faint)}
+  /* /cases/ browse index: grouped sections with per-bucket counts. */
+  .csec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+    text-transform:uppercase;letter-spacing:.12em;color:var(--accent);
+    margin:2.2rem 0 .3rem;padding-bottom:.35rem;border-bottom:1px solid var(--rule);
+    display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
+  .csec .cn{font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:.85rem;
+    letter-spacing:0;text-transform:none;color:var(--faint);
+    font-variant-numeric:tabular-nums}
+  .cnote{color:var(--faint);font-size:.85rem;font-style:italic;margin:.5rem 0 0}
+  .cnote a{color:var(--accent)}
+  ul.terms{list-style:none;padding:0;margin:1rem 0 0;display:flex;flex-wrap:wrap;
+    gap:.5rem 1.6rem}
+  ul.terms li{display:inline-flex;align-items:baseline;gap:.4rem}
+  ul.terms a{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.05rem;
+    color:var(--accent);text-decoration:none;border-bottom:1px solid var(--rule)}
+  ul.terms a:hover{border-bottom-color:var(--accent)}
+  ul.terms .cn{color:var(--faint);font-size:.85rem;font-variant-numeric:tabular-nums}
+  /* About page: running prose rather than an index, so it takes a measure and a
+     little more leading than the section rows above it. */
+  .about{margin:1.6rem 0 0;font-size:1.05rem;line-height:1.65;max-width:34rem}
+  .about p{margin:0 0 1rem}
+  .about a{color:var(--accent);text-decoration:none;
+    border-bottom:1px solid var(--rule)}
+  .about a:hover{border-bottom-color:var(--accent)}
+  .about .contact{margin:2rem 0 0;background:var(--panel);border:1px solid var(--rule);
+    border-left:4px solid var(--accent);padding:1.1rem 1.3rem}
+  .about .contact h2{font:600 .78rem/1 'Newsreader',Georgia,serif;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--accent);margin:0 0 .5rem}
+  .about .contact p{margin:0;font-size:1rem}
+
+/* ---- masthead ---- */
+.smast-in{max-width:var(--nav-max,60rem);margin:0 auto;padding:.85rem 1.5rem .5rem;
+  display:flex;align-items:baseline;justify-content:space-between;gap:1.4rem;flex-wrap:wrap}
+.smast-wm{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
+  letter-spacing:.005em;color:var(--ink,#1a1a1e);text-decoration:none;white-space:nowrap;flex:none}
+.smast-wm em{font-style:italic;font-weight:500;color:var(--accent,#9c0e3a)}
+.smast-wm:hover{color:var(--accent,#9c0e3a)}
+/* Row gap first, then column. At 1.35rem the six section links measured 596px
+   of max-content -- 4px wider than the 592px row the 40rem index container
+   leaves them -- so ABOUT alone wrapped to a third line under the wordmark, on
+   every page page_style.R writes. 1.05rem brings the row to 572px: 20px of
+   slack at 40rem, and 45px on the 54rem case pages, which were themselves only
+   21px from wrapping. The .4rem row gap is for the day a seventh section
+   overruns it anyway -- a nav that wraps should read as a stack, not an orphan. */
+.snav{display:flex;gap:.4rem 1.05rem;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+.snav a{font:600 .72rem/1 'Newsreader',Georgia,serif;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--ink-soft,var(--soft,#484850));text-decoration:none;display:inline-block;
+  padding:.5rem 0;border-bottom:1.5px solid transparent}
+.snav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--rule,#dbd8d2)}
+.snav a[aria-current='page']{color:var(--accent,#9c0e3a);
+  border-bottom-color:var(--accent,#9c0e3a)}
+.smast-rule-w{max-width:var(--nav-max,60rem);margin:0 auto;padding:0 1.5rem}
+.smast-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0;position:relative}
+.smast-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.skip{position:absolute;left:-9999px;top:0;background:var(--panel,#ffffff);
+  color:var(--accent,#9c0e3a);padding:.6rem 1rem;
+  border:1px solid var(--accent,#9c0e3a);
+  font:600 .8rem/1 'Newsreader',Georgia,serif;letter-spacing:.1em;text-transform:uppercase;z-index:10}
+.skip:focus{left:.5rem;top:.5rem}
+/* ---- breadcrumb ---- */
+.bcrumb{margin:.7rem 0 0}
+.bcrumb ol{list-style:none;display:flex;flex-wrap:wrap;align-items:baseline;
+  gap:.1rem .45rem;margin:0;padding:0}
+.bcrumb li{display:inline-flex;align-items:baseline;gap:.45rem}
+.bcrumb a{font:400 .8rem/1.5 'Newsreader',Georgia,serif;color:var(--ink-soft,var(--soft,#484850));
+  text-decoration:none;border-bottom:1px solid var(--rule,#dbd8d2)}
+.bcrumb a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.bcrumb .sep{color:var(--faint,#63636b);font-size:.8rem;line-height:1.5}
+.bcrumb [aria-current='page']{font:400 .8rem/1.5 'Newsreader',Georgia,serif;
+  color:var(--faint,#63636b);font-variant-numeric:tabular-nums}
+/* ---- case footer ---- */
+.cfoot{margin:2.4rem 0 0}
+.cfoot-rule{border:0;height:0;border-top:2px solid var(--ink,#1a1a1e);margin:0 0 1rem;position:relative}
+.cfoot-rule::after{content:'';position:absolute;left:0;top:4px;width:100%;
+  border-top:1px solid var(--rule,#dbd8d2)}
+.cfoot-off{font-size:.95rem;margin:0 0 1.1rem}
+.cfoot-off a{color:var(--link,#9c0e3a);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.4)}
+.cfoot-off a:hover{border-bottom-color:var(--link,#9c0e3a)}
+.cfoot-lab{font:600 .68rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);margin:0 0 .5rem}
+.cfoot-nav{display:flex;flex-wrap:wrap;gap:.35rem 1.1rem;list-style:none;margin:0;padding:0}
+.cfoot-nav a{font-size:.92rem;color:var(--ink-soft,var(--soft,#484850));text-decoration:none;
+  border-bottom:1px solid var(--rule,#dbd8d2);padding-bottom:1px}
+.cfoot-nav a:hover{color:var(--accent,#9c0e3a);border-bottom-color:var(--accent,#9c0e3a)}
+.cfoot-stamp{margin:1.2rem 0 0;font-size:.8rem;color:var(--faint,#63636b);font-style:italic}
+/* ---- prev / next ---- */
+.pnav{margin:2.2rem 0 0;border-top:1px solid var(--rule,#dbd8d2);padding-top:1rem;
+  display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.pnav a,.pnav span.none{text-decoration:none;color:inherit;display:block;padding:.5rem .2rem}
+.pnav a:hover{background:rgba(156,14,58,.05)}
+.pnav .dir{font:600 .66rem/1 'Newsreader',Georgia,serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint,#63636b);display:block;margin-bottom:.3rem}
+.pnav .lab{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1rem;line-height:1.25;
+  color:var(--accent,#9c0e3a);display:block}
+.pnav a:hover .lab{text-decoration:underline;text-underline-offset:3px}
+.pnav .nx{text-align:right}
+.pnav .none{opacity:.35}
+@media(max-width:640px){
+  .smast-in{padding:.7rem 1.1rem .25rem;gap:.15rem}
+  .smast-wm{font-size:.98rem}
+  .smast-in nav{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+    -webkit-mask-image:linear-gradient(90deg,#000 86%,transparent);
+    mask-image:linear-gradient(90deg,#000 86%,transparent)}
+  .smast-in nav::-webkit-scrollbar{display:none}
+  .snav{flex-wrap:nowrap;gap:1.15rem;padding-right:2.4rem}
+  .snav a{padding:.7rem 0;white-space:nowrap}
+  .smast-rule-w{padding:0 1.1rem}
+  .cfoot-nav{gap:.5rem 1rem}
+  .cfoot-nav a{padding-bottom:.3rem}
+  .pnav{grid-template-columns:1fr;gap:.2rem}
+  .pnav .nx{text-align:left;border-top:1px solid var(--rule,#dbd8d2)}
+}
+
+  .wrap.opn{max-width:42rem}
+  .opn .ometa{font-size:.92rem;color:var(--ink-soft);margin:.3rem 0 0}
+  .opn .oget{display:flex;flex-wrap:wrap;gap:.4rem .6rem;margin:1.1rem 0 0;padding:0;list-style:none;font-size:.9rem}
+  .opn .oget a{display:inline-block;padding:.32rem .7rem;border:1px solid var(--rule);border-radius:4px;color:var(--ink);text-decoration:none;background:var(--panel)}
+  .opn .oget a:hover{border-color:var(--accent);color:var(--accent)}
+  .opn .osrc{font-size:.84rem;color:var(--faint);margin:.9rem 0 0;line-height:1.45}
+  .opn .osrc a{color:var(--link)}
+  .opn .otoc{margin:1.6rem 0 0;padding:.8rem 1rem;border:1px solid var(--rule);border-radius:4px;background:var(--panel);font-size:.95rem}
+  .opn .otoc ol{margin:0;padding:0;list-style:none}
+  .opn .otoc li{margin:.25rem 0}
+  .opn .otoc a{color:var(--ink);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.35)}
+  .opn .otoc a:hover{color:var(--accent)}
+  .opn section.op{margin-top:3rem;border-top:2px solid var(--ink);padding-top:1.1rem}
+  .opn section.op h2{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.5rem;line-height:1.2;margin:0 0 1rem;color:var(--ink);display:flex;flex-wrap:wrap;align-items:center;gap:.5rem .9rem}
+  .opn section.op h2 .opts{display:inline-flex;gap:.35rem;flex:none}
+  .opn section.op h2 .opt{display:block;width:56px;height:56px;border-radius:50%;background-repeat:no-repeat;background-color:var(--stripe);border:1px solid var(--rule)}
+  .opn section.op p{margin:0 0 .95rem;line-height:1.62;hyphens:auto;overflow-wrap:break-word;text-align:justify}
+  .opn section.op p.byline{color:var(--ink-soft);font-style:italic;text-align:left}
+  .opn .ocredit{font-size:.8rem;color:var(--faint);margin:.6rem 0 0;line-height:1.45}
+  .opn section.op p.sep{text-align:center;letter-spacing:.3em;color:var(--faint);margin:1.6rem 0}
+  .opn section.op h3.oh{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1.12rem;text-align:center;margin:2rem 0 1rem;color:var(--ink)}
+  .opn section.op blockquote{margin:0 0 .95rem;padding:0 0 0 1.1rem;border-left:2px solid var(--rule);color:var(--ink-soft)}
+  .opn section.op blockquote p{margin-bottom:.6rem;font-size:.96em}
+  .opn .sc{font-variant-caps:small-caps;letter-spacing:.02em}
+  .opn .pg{font-size:.66em;color:var(--faint);vertical-align:.3em;margin:0 .3em 0 .1em;font-variant-numeric:tabular-nums;user-select:none;white-space:nowrap}
+  .opn .pg::before{content:'*'}
+  .opn sup.fnr{font-size:.68em;line-height:0;margin-left:.05em}
+  .opn sup.fnr a{color:var(--link);text-decoration:none;padding:0 .1em}
+  .opn aside.notes{margin-top:2rem;border-top:1px solid var(--rule);padding-top:.8rem;font-size:.88rem;color:var(--ink-soft)}
+  .opn aside.notes h3{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:1rem;margin:0 0 .6rem;color:var(--ink)}
+  .opn aside.notes ol{margin:0;padding-left:1.7rem}
+  .opn aside.notes li{margin:0 0 .55rem}
+  .opn aside.notes li.sym{list-style:none;margin-left:-1.7rem}
+  .opn aside.notes li.sym .mk{margin-right:.3rem}
+  .opn aside.notes li.sym p{display:inline}
+  .opn aside.notes p{margin:0 0 .4rem;line-height:1.5;text-align:left}
+  .opn aside.notes a.back{color:var(--link);text-decoration:none;margin-left:.2rem}
+  .opn aside.notes li:target,.opn sup.fnr a:target,.opn .pg:target{background:rgba(156,14,58,.12);outline:.2rem solid rgba(156,14,58,.12)}
+  .opn section.op,.opn aside.notes li,.opn sup.fnr a{scroll-margin-top:1rem}
+  .opn section.op-syllabus p,.opn section.op-counsel p{font-size:.95em}
+  .opn section.op-counsel summary{cursor:pointer;font-family:'Fraunces',Georgia,serif;font-size:1.05rem;color:var(--ink-soft)}
+  .opn .osyl{font-size:.84rem;color:var(--faint);font-style:italic;margin:-.5rem 0 1rem}
+  .opn p.back{margin-top:3rem;font-size:.92rem}
+  @media (max-width:30rem){.opn section.op p{text-align:left}}
+  @media print{.smast,.bcrumb,.opn .oget,.opn .otoc,.opn p.back{display:none}.opn section.op{break-before:page}}
+</style><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://supremecourt.report/"},{"@type":"ListItem","position":2,"name":"Opinions","item":"https://supremecourt.report/opinions/"},{"@type":"ListItem","position":3,"name":"DHS v. D.V.D."}]}</script><meta name='otv' content='p4'><link rel='alternate' type='text/markdown' href='/opinions/2024/24A1153.md'><link rel='alternate' type='application/epub+zip' href='/opinions/2024/24A1153.epub'></head><body><a class='skip' href='#main'>Skip to content</a><header><div class='smast-in'><a class='smast-wm' href='/'>Supreme Court <em>Report</em></a><nav aria-label='Sections'><ul class='snav'><li><a href='/dashboards/'>Docket</a></li><li><a href='/conferences/'>Conferences</a></li><li><a href='/relists/'>Relists</a></li><li><a href='/applications/'>Interim</a></li><li><a href='/arguments/'>Arguments</a></li><li><a href='/justices/' aria-current='page'>Justices</a></li><li><a href='/counsel/'>Counsel</a></li><li><a href='/funnel/'>Funnel</a></li><li><a href='/methods.html'>Model</a></li><li><a href='/about.html'>About</a></li></ul></nav></div><div class='smast-rule-w'><hr class='smast-rule'></div></header><main class='wrap opn' id='main' data-dkt='24A1153'><nav class='bcrumb' aria-label='Breadcrumb'><ol><li><a href='/'>Home</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><a href='/opinions/'>Opinions</a><span class='sep' aria-hidden='true'>&rsaquo;</span></li><li><span aria-current='page'>DHS v. D.V.D.</span></li></ol></nav><p class='kicker'>No. 24A1153 · decided June 23, 2025 · 606 U. S. ___</p><h1 style='font-size:clamp(1.7rem,4.6vw,2.4rem);line-height:1.12'>DHS v. D.V.D.</h1><p class='ometa'>Department of Homeland Security, et al., Applicants v. D.V.D., et al.. 1 separate writing.</p><ul class='oget'><li><a href='/opinions/2024/24A1153.epub' download>EPUB</a></li><li><a href='/opinions/2024/24A1153.md' download>Markdown</a></li><li><a href='https://www.supremecourt.gov/opinions/24pdf/24a1153_l5gm.pdf' rel='noopener'>The Court’s PDF</a></li><li><a href='/cases/24A1153.html'>The docket</a></li></ul><p class='osrc'>Set from the PDF the Court published, which is the authoritative text. The small starred numbers are that PDF’s page numbers. A conversion can introduce errors; check a quotation against the <a href='https://www.supremecourt.gov/opinions/24pdf/24a1153_l5gm.pdf' rel='noopener'>original</a>.</p><nav class="otoc" aria-label="Contents"><ol>
+<li><a href="#s1">Justice Sotomayor, dissenting</a></li>
+</ol></nav>
+<section id="s1" class="op op-dissenting"><h2><span class='opts' aria-hidden='true'><span class='opt' style='background-image:url(/justices/portraits/sotomayor.jpg);background-size:113.0px 141.0px;background-position:-28.3px -11.0px'></span></span>Justice Sotomayor, dissenting</h2>
+<p class="byline">Justice Sotomayor, with whom Justice Kagan and Justice Jackson join, dissenting.</p>
+<p>In matters of life and death, it is best to proceed with caution. In this case, the Government took the opposite approach. It wrongfully deported one plaintiff to Guatemala, even though an Immigration Judge found he was likely to face torture there. Then, in clear violation of a court order, it deported six more to South Sudan, a nation the State Department considers too unsafe for all but its most critical personnel. An attentive District Court’s timely intervention only narrowly prevented a third set of unlawful removals to Libya.</p>
+<p>Rather than allowing our lower court colleagues to manage this high-stakes litigation with the care and attention <span class="pg" id="s1-p2" title="page 2 of the original">2</span>it plainly requires, this Court now intervenes to grant the Government emergency relief from an order it has repeatedly defied. I cannot join so gross an abuse of the Court’s equitable discretion.</p>
+<h3 class="oh">I</h3>
+<h3 class="oh">A</h3>
+<p>Federal law generally permits the Government to deport noncitizens found to be unlawfully in the United States only to countries with which they have a meaningful connection. 8 U. S. C. §1231(b). To that end, Congress specified two default options: noncitizens arrested while entering the country must be returned to the country from which they arrived, and nearly everyone else may designate a country of choice. §§1231(b)(1)(A), (b)(2)(A). If these options prove infeasible, Congress specified which possibilities the Executive should attempt next. These alternatives include the noncitizen’s country of citizenship or her former country of residence. §§1231(b)(1)(C), (2)(E).</p>
+<p>This case concerns the Government’s ability to conduct what is known as a “third country removal,” meaning a removal to any “country with a government that will accept the alien.” §1231(b)(1)(C)(iv); see §1231(b)(2)(E)(vii). Third-country removals are burdensome for the affected noncitizen, so Congress has sharply limited their use. They are permissible only after the Government tries each and every alternative noted in the statute, and determines they are all “impracticable, inadvisable, or impossible.” §§1231(b)(1)(C)(iv), (2)(E)(vii).</p>
+<p>Noncitizens facing removal of any sort are entitled under international and domestic law to raise a claim under the Convention Against Torture and Other Cruel, Inhuman or Degrading Treatment or Punishment, Dec. 10, 1984, S. Treaty Doc. No. 100–20, 1465 U. N. T. S. 113. Article 3 of the Convention prohibits returning any person “to another State where there are substantial grounds for believing <span class="pg" id="s1-p3" title="page 3 of the original">3</span>that he would be in danger of being subjected to torture.” The United States is a party to the Convention, and in 1998 Congress passed the Foreign Affairs Reform and Restructuring Act to implement its commands. The Act provides that “[i]t shall be the policy of the United States not to expel, extradite, or otherwise effect the involuntary return of any person to a country in which there are substantial grounds for believing the person would be in danger of being subjected to torture, regardless of whether the person is physically present in the United States.” §2242(a), 112 Stat. 2681–822, codified as note to 8 U. S. C. §1231. It also directs the Executive to “prescribe regulations to implement” the Convention. §2242(b), 112 Stat. 2681–822. Those regulations provide, among other things, that “[a] removal order . . . shall not be executed in circumstances that would violate Article 3.” 28 CFR §200.1 (2024).</p>
+<h3 class="oh">B</h3>
+<p>On February 18, 2025, the Department of Homeland Security (DHS) issued an internal guidance document directing immigration officers to “review for removal all cases . . . on the non-detained docket” and “determine the viability of removal to a third country.” No. 1:25–cv–10676 (D Mass.), ECF Doc. No. 1–4, p. 2.</p>
+<p>Just as DHS circulated this new policy, a Guatemalan man known in this litigation as O. C. G. appeared before an Immigration Judge to seek relief from his impending removal to Guatemala. O. C. G. explained that he had previously been forced to flee Guatemala after facing torture and persecution there for his identity as a gay man. See Dkt. 8–4, p. 1; ECF Doc. 1, p. 24. He fled initially to Mexico, he said, but had not found safety there, either: A group of men raped him and locked him in a room until his sister paid them a ransom. ECF Doc. 8–4, at 1<em>.</em> O. C. G. accordingly asked the judge whether he “could be deported to a country other than Mexico or Guatemala.” <em>Ibid</em>. The Immigration <span class="pg" id="s1-p4" title="page 4 of the original">4</span>Judge granted withholding of removal to Guatemala, the only country designated in the order of removal. <em>Id</em>., at 1–2; see also ECF Doc. 1, p. 25. Because the government had not sought to remove O. C. G. to Mexico, the Immigration Judge did not address his request for protection against removal there. ECF Doc. 8–4, at 1–2; ECF Doc., at 25.</p>
+<p>Two days later, Immigration and Customs Enforcement escorted O. C. G. out of his cell and put him on a bus to Mexico. ECF Doc No. 8–4, at 2. On the way, they provided him with “oral notice that he would be removed to Mexico.” See ECF Doc. 106–1, p. 3 (Defendants’ Response to Requests for Admission). DHS did not issue a new order of removal designating Mexico, did not reopen the prior proceedings, and did not provide either O. C. G. or his lawyer with advance notice. <em>Id</em>., at 3–4. Mexican authorities promptly deported O. C. G. back to Guatemala, where he went into hiding. ECF Doc. 1, at 5.</p>
+<p>Along with three noncitizens who feared that they, too, would imminently be whisked off to a “third country” without notice, O. C. G. filed this putative class action under the Administrative Procedure Act (APA) against DHS, Secretary Noem, and Attorney General Bondi. Plaintiffs alleged that the Government’s apparent policy of removing noncitizens to a third country without notice or the opportunity to file a claim under the Convention violated the immigration laws, the regulations implementing the Convention, and the Fifth Amendment’s Due Process Clause. Among other things, plaintiffs sought temporary and permanent injunctive relief preventing their own removal and the removal of putative class members without adequate notice and a “meaningful opportunity” to present a claim under the Convention. <em>Id</em>., at 37. Plaintiffs also requested that the Government return O. C. G. to the United States.</p>
+<p>On March 28, 2025, the District Court entered a temporary restraining order (TRO) as to both the three individual plaintiffs who remained in the United States and a putative <span class="pg" id="s1-p5" title="page 5 of the original">5</span>class of all individuals “subject to a final order of removal from the United States to a third country.” ECF Doc. 34, p. 2. The order prohibited the defendants from removing the plaintiffs and putative class members to a third country without “written notice of the third country” and “a meaningful opportunity . . . to submit an application” for relief under the Convention. <em>Ibid</em>.</p>
+<h3 class="oh">C</h3>
+<p>On March 30, DHS issued a second guidance document, which contained a two-step process for executing third-country removals. If a country provides the United States with what DHS believes to be “credible” “assurances that aliens removed from the United States will not be persecuted or tortured,” then (the policy says) DHS may remove the noncitizen to that country without any process. See App. to Application for Stay of Injunction 54a–55a (App.) The Government says this policy permits DHS to change someone’s “deportation country to Honduras . . . at 6:00 a. m., put [them] on a plane, and fl[y them] to Honduras” 15 minutes later. ECF Doc. No. 74, p. 12 (Tr. Apr. 10, 2025).</p>
+<p>In the absence of credible “assurances” from a foreign country, the policy provides, “DHS will first inform the alien of ” her impending removal. App <em>.</em> 55a<em>.</em> Even so, the policy prohibits officers from providing the noncitizen with an affirmative opportunity to raise her fear of torture. Only one who “states a fear of removal” unprompted will be given a screening interview, which will take place “within 24 hours of referral.” <em>Ibid.</em> Those who cannot establish their eligibility for relief at the screening interview can apparently be deported immediately, without a chance to provide evidence or seek judicial review. See ECF Doc. 74, at 52–53.</p>
+<p>Around the time it adopted this new policy, DHS arrested four putative class members covered by the TRO. As the Government admits, “DHS . . . typically arrests people to <span class="pg" id="s1-p6" title="page 6 of the original">6</span>remove them.” ECF Doc. 101, p. 39 (Tr. Apr. 28, 2025). Indeed, DHS promptly transferred the four arrested class members to Guantanamo Bay. <em>Id.,</em> at 29.</p>
+<p>Notwithstanding the TRO’s express prohibition on third-country removals without notice or process, on March 31, the Government placed all four class members held in Guantanamo Bay on a Department of Defense flight to El Salvador.<sup class="fnr"><a id="s1-r1" href="#s1-n1">1</a></sup></p>
+<p>At a subsequent hearing, an attorney for the Government claimed DHS had not violated the TRO because the Department of Defense had conducted the removals. According to the agreement that governs the relationship between DHS and the Department of Defense at Guantanamo Bay, however, DHS “has legal custody” of noncitizens detained at Guantanamo Bay “and is responsible for the custody of detained aliens for administrative purposes related to immigration law violations.” ECF Doc. 99–1, p. 2. DHS also remains “responsible for the [noncitizens’] physical custody” at Guantanamo Bay, and for any immigration-related “transfers, releases, and removals.” <em>Id</em>., at 3. By contrast, the Department of Defense merely provides security and logistical support consistent with DHS’s “guidance.” <em>Id</em>., at 4.</p>
+<p>The Government was unable to reconcile its representations to this evidence. Nor could it explain “[w]hat authority” the Department had “to effectuate a deportation.” ECF Doc. 101, at 37.</p>
+<h3 class="oh">D</h3>
+<p>On April 18, the District Court granted the plaintiffs’ motion for class certification and for a preliminary injunction, <span class="pg" id="s1-p7" title="page 7 of the original">7</span>holding that the plaintiffs had shown the Government’s process for conducting third-party removals likely violated the Due Process Clause. The injunction requires the Government to provide noncitizens with written notice in advance of a third-country removal (as is statutorily required, see <em>infra</em>, at 15), along with a meaningful opportunity to raise a claim under the Convention. ECF Doc. 64, pp. 46–47.</p>
+<p>On May 7, plaintiffs’ counsel received news reports “announcing the imminent removal of . . . Laotian, Vietnamese, and Philippine class members . . . to Libya,” again without notice or an opportunity to object. ECF Doc. 89, p. 2. Plaintiffs thus sought emergency relief from the district court. That same day, the court issued an order “clarif[ying]” its preliminary injunction so as to leave no doubt that “the allegedly imminent removals . . . would clearly violate” the preliminary injunction. ECF Doc. 91, pp. 1–2. That order narrowly averted the deportations.</p>
+<p>Had the court not acted, 13 class members would have landed in Tripoli in the midst of violence caused by opposition to their arrival. Secretary of State Marco Rubio later averred in a sworn affidavit that “Libya’s Government of National Unity (GNU) publicly rejected the use of Libyan territory for accepting deportees,” as did “rival authorities based in Benghazi.” App. 71a. Indeed (he explained) the “public reports of potential migration removals to Libya” had caused such unrest that “GNU-aligned forces took action against the two largest armed groups in the Libyan capital on May 12–13, sparking the most serious street fighting in Tripoli since 2022.” <em>Ibid.</em> Contemporary news reports confirm these armed clashes. See, <em>e</em>.<em>g</em>., Armed Clashes Erupt in Libya’s Tripoli After Reported Killing of Armed Group Leader, Reuters, May 12, 2025.</p>
+<p>Less than two weeks later, plaintiffs’ counsel received reports of plans for yet more unannounced third-country removals, this time to South Sudan. ECF Doc. 111. At an <span class="pg" id="s1-p8" title="page 8 of the original">8</span>emergency hearing, Government lawyers confirmed that several class members were indeed <em>en route</em> to South Sudan after having received less than 24 hours’ notice of their impending deportations. By the time of the hearing, “DHS believe[d] that the plane [could not] be turned around,” but was unwilling to share its location. ECF Doc. 126, pp. 10, 17 (Tr. May 20, 2025). Attorneys for the government also could not confirm whether “the pilot of the plane and the staff onboard” were aware of the District Court’s preliminary injunction prohibiting the removals. <em>Id</em>., at 16–17.</p>
+<p>More details emerged the next day. At approximately 5:45 on the evening of May 19, DHS provided six inmates of an immigration detention facility with a document indicating that they would be removed to South Sudan. See ECF Doc. 145, p. 11 (Tr. May 21, 2025). At 9:35 a.m. the next morning, DHS removed them from their cells and put them on a flight. <em>Id</em>., at 16. Short of the noncitizens “yelling at any of the jailers that they were afraid to go to South Sudan” (as the District Court put it), <em>id</em>., at 13, DHS did not offer the noncitizens an opportunity to assert a claim under the Convention.<sup class="fnr"><a id="s1-r2" href="#s1-n2">2</a></sup></p>
+<p>The District Court found that DHS had “unquestionably” violated its order. <em>Id</em>., at 12. Nonetheless, at the Government’s request, the court permitted the Government to provide the requisite process in South Sudan, and it did not order the class members’ return to the United States. See <em>id</em>., at 21, 86, 96.</p>
+<p>Meanwhile, discovery proceeded on the status of O. C. G., the Guatemalan man with whom this case began. The Government had previously attested that, before O. C. G.’s removal, an officer had asked him whether he was afraid of <span class="pg" id="s1-p9" title="page 9 of the original">9</span>returning to Mexico, and O. C. G. had responded that he was not. On the eve of that officer’s deposition, however, the Government submitted an “errata sheet” admitting the information had been false. See ECF Doc. 103–1, p. 2; ECF Doc. 105, pp. 2–3. Because O. C. G. had been removed to Mexico without notice or an opportunity to file a claim under the Convention, the District Court ordered the Government to facilitate his return. The Government eventually agreed to comply with that order. See ECF Doc. 143.</p>
+<p>The Government has appealed the merits of the preliminary injunction to the First Circuit, where briefing is ongoing. Pending that appeal, it seeks permission to continue its practice of conducting third-country removals without notice. Both the District Court and the First Circuit denied that request. The Government now asks this Court for an emergency stay of the preliminary injunction.</p>
+<h3 class="oh">II</h3>
+<p>This Court “will grant a stay pending appeal only under extraordinary circumstances,” <em>Ruckelshaus</em> v. <em>Monsanto, Co.</em>, 463 U. S. 1315, 1316 (1983) (Blackmun, J., in chambers), especially where two lower courts have already denied such relief, <em>Packwood</em> v. <em>Senate Select Comm. on Ethics</em>, 510 U. S. 1319, 1320 (1994) (Rehnquist, C. J., in chambers). Ordinarily, the Court considers the likelihood of irreparable harm to the applicant absent emergency intervention, the applicant’s likelihood of success on the merits of an appeal to this Court, and the equities. See <em>Hollingsworth</em> v. <em>Perry</em>, 558 U. S. 183, 190 (2010) (<em>per curiam</em>); see also <em>Nken</em> v. <em>Holder</em>, 556 U. S. 418, 434 (2009).</p>
+<h3 class="oh">A</h3>
+<p>“[B]egin with the basic proposition that all orders and judgments of courts must be complied with promptly.” <em>Maness</em> v. <em>Meyers</em>, 419 U. S. 449, 458 (1975). This Court often reiterates that “‘[a] stay is not a matter of right,’” but “an exercise of judicial discretion.” <em>Scripps-Howard Radio, Inc.</em> <span class="pg" id="s1-p10" title="page 10 of the original">10</span>v. <em>FCC</em>, 316 U. S. 4, 10 (1942); see also <em>Winter</em> v. <em>Natural Resources Defense Council, Inc.</em>, 555 U. S. 7, 24 (2008). That is so because stays are equitable remedies, which courts may (but need not) grant in order to resolve ongoing emergencies and “‘clear away all intermediate obstructions against complete justice.’” <em>Hipp</em> v. <em>Babin</em>, 19 How. 271, 274 (1857).</p>
+<p>For centuries, courts have “close[d] the doors” of equity to those “tainted with inequitableness or bad faith relative to the matter in which [they] see[k] relief.” <em>Precision Instrument Mfg. Co.</em> v. <em>Automotive Maintenance Machinery Co.</em>, 324 U. S. 806, 814 (1945); see generally T. Anenson, Announcing the “Clean Hands” Doctrine, 51 U. C. D. L. Rev, 1827 (2018) (reviewing this doctrine’s long history). That principle, “rooted in the historical concept of [the] court of equity as a vehicle for affirmatively enforcing the requirements of conscience and good faith,” ensures that courts do not become “‘abettor[s] of inequity.’” <em>Precision Instrument</em>, 324 U. S., at 814.</p>
+<p>Here, in violation of an unambiguous TRO, the Government flew four noncitizens to Guantanamo Bay, and from there deported them to El Salvador. Then, in violation of the very preliminary injunction from which it now seeks relief, the Government removed six class members to South Sudan with less than 16 hours’ notice and no opportunity to be heard. The Government’s assertion that these deportations could be reconciled with the injunction is wholly without merit. Notice at 5:45 p.m. for a 9:35 a.m. deportation, provided to a detainee without access to an attorney, plainly does not “‘affor[d]’” that noncitizen with “‘a reasonable time’” to seek relief. <em>A. A. R. P</em>. v. <em>Trump</em>, 605 U. S. ___, ___ (2025) (<em>per curiam</em>) (slip op., at 4).</p>
+<p>Even if the Government’s overnight notice had been adequate, moreover, DHS also did not provide the required “meaningful opportunity . . . to raise a fear of return” under the Convention. ECF Doc. 64, at 46. The affected class <span class="pg" id="s1-p11" title="page 11 of the original">11</span>members lacked any opportunity to research South Sudan, to determine whether they would face risks of torture or death there, or to speak to anyone about their concerns. Instead, they were left in their cells overnight with no chance to raise a claim and deported the next morning.</p>
+<p>The Government thus openly flouted two court orders, including the one from which it now seeks relief. Even if the orders in question had been mistaken, the Government had a duty to obey them until they were “‘reversed by orderly and proper proceedings.’” <em>Maness</em>, 419 U. S., at 459 (quoting <em>United States</em> v. <em>Mine Workers</em>, 330 U. S. 258, 293 (1947)). That principle is a bedrock of the rule of law. The Government’s misconduct threatens it to its core.</p>
+<p>So too does this Court’s decision to grant the Government equitable relief. This is not the first time the Court closes its eyes to noncompliance, nor, I fear, will it be the last. See <em>Trump</em> v. <em>J. G. G.</em>, 604 U. S. ___ (2025) (<em>per curiam</em>). Yet each time this Court rewards noncompliance with discretionary relief, it further erodes respect for courts and for the rule of law.</p>
+<h3 class="oh">B</h3>
+<p>In light of the Government’s flagrantly unlawful conduct, today’s decision might suggest the Government faces extraordinary harms. Yet even that is not the case. Rather, following a recent trend, the Court appears to give no serious consideration to the irreparable harm factor. See, <em>e</em>.<em>g</em>., <em>id.</em>, at ___ (slip op., at ___); <em>SSA</em> v. <em>AFSCME</em>, 605 U. S. ___ (2025). Without a showing that a stay is necessary to avoid irreparable harm, however, this Court’s midstream intervention is inexcusable. See, <em>e</em>.<em>g</em>., <em>Hollingsworth</em>, 558 U. S., at 190.</p>
+<p>Besides the facially absurd contention that the Executive is “irreparabl[y]” harmed any time a court orders it temporarily to refrain from doing something it would like to do, see Application for Stay of Injunction 37, the Government <span class="pg" id="s1-p12" title="page 12 of the original">12</span>has identified no irreparable harm from the challenged preliminary injunction. Instead, the Government locates the source of its injury in the District Court’s efforts to provide relief to the class members in South Sudan. <em>Id.,</em> at 37–39. That argument is misguided. First, the District Court’s remedial orders are not properly before this Court because the Government has not appealed them, nor sought a stay pending a forthcoming appeal. Second, the court adopted the narrowest possible remedy, allowing the Government itself to choose whether it would return the class members to the United States or provide them with process where they are held. Finally, the Government is in every respect responsible for any resulting harms. Had it complied with the preliminary injunction, no followup orders would have been necessary, nor would the Government have faced a “sudden need . . . to detain criminal aliens” abroad. <em>Id.,</em> at 39. It does not face such “need” today, as it can return the noncitizens it wrongfully removed at any time. No litigant, not even the Government, may “satisfy the irreparable harm requirement if the harm complained of is self-inflicted.” 11A C. Wright, A. Miller, &amp; E. Cooper, Federal Practice and Procedure §2948.1 (3d ed. 2013); <em>Bennett</em> v. <em>Isagenix Int’l, LLC</em>, 118 F. 4th 1120, 1129–1130 (CA9 2024).</p>
+<p>For their part, the plaintiffs in this case face extraordinary harms from even a temporary grant of relief to the Government. <em>A. A. R. P.</em> v. <em>Trump</em>, 605 U. S., at ___ (slip op., at 4) (recognizing detainees’ interests against removal are “particularly weighty”). The Government has made clear in word and deed that it feels itself unconstrained by law, free to deport anyone anywhere without notice or an opportunity to be heard. The episodes of noncompliance in this very case illustrate the risks. Thirteen noncitizens narrowly escaped being the target of extraordinary violence in Libya; O. C. G. spent months in hiding in Guatemala; others face release in South Sudan, which the State Department says is in the midst of “‘armed conflict’” between <span class="pg" id="s1-p13" title="page 13 of the original">13</span>“‘ethnic groups.’” N. 2, <em>supra</em>. Only the District Court’s careful attention to this case prevented worse outcomes. Yet today the Court obstructs those proceedings, exposing thousands to the risk of torture or death.</p>
+<h3 class="oh">III</h3>
+<p>On the merits of its appeal, the Government principally raises a bevy of jurisdictional objections. Given its conduct in these proceedings, the Government’s posture resembles that of the arsonist who calls 911 to report firefighters for violating a local noise ordinance. In any event, the Government has not established a likelihood of success on any of its arguments.</p>
+<h3 class="oh">A</h3>
+<p>The Government points to six separate provisions that, it says, deprived the District Court of jurisdiction to hear this dispute. See Application for Stay of Injunction 4–6, 19–28.</p>
+<p>The Government’s core objection is this: By way of a series of complicated immigration-law provisions, Congress sought to consolidate all of an individual’s objections to an order of removal into a single petition for review. See 8 U. S. C. §§1252(a)(4), (5), (b)(9), §1231 note. Ultimately, the Government says, the plaintiffs in this case object to their removal. So, they should bring their challenges in a petition for review of an order of removal. Yet the Government also claims that it need not issue or reopen any orders of removal before deporting someone to a third country. That is part of the problem plaintiffs seek to remedy: Without an applicable order of removal, they have no way to raise their claims under the Convention. In the end, then, the Government’s view is that the only way to challenge its refusal to provide orders of removal is to appeal those (nonexistent) orders. That is absurd. Nothing in the Government’s cited provisions bars the plaintiffs from bringing a challenge to <span class="pg" id="s1-p14" title="page 14 of the original">14</span>the Government’s no-notice removals directly in federal district court.</p>
+<p>Only one jurisdictional objection remains with any force. Under §1252(f )(1), “no court (other than the Supreme Court) shall have jurisdiction or authority to enjoin or restrain the operation” of certain provisions in the immigration laws, except on an individual basis. Section 1231(b), the provision governing third-country removals, is one of those provisions. As a consequence, courts may not grant “classwide injunctive relief ” to enjoin the “operation” of §1231(b). <em>Reno</em> v. <em>American-Arab Anti-Discrimination Comm.</em>, 525 U. S. 471, 481 (1999).</p>
+<p>As an initial matter, §1252(f )(1) undisputedly does not affect the District Court’s authority to grant relief to the individual plaintiffs here; it affects only the classwide injunction. Thus, even if the Government is correct that classwide relief was impermissible here, it plainly remains obligated to comply with orders enjoining its conduct with respect to individual plaintiffs.</p>
+<p>As for the propriety of classwide relief, it is difficult to say whether the District Court’s injunction enjoined the “operation” of §1231(b). Certainly, the Government is not enjoined from executing third-country removals. The court has only barred the Government from executing such removals without notice, pursuant to the DHS policy, which (the court found) deprives noncitizens of their statutory and due process rights. This Court has indicated that courts “may enjoin the unlawful operation” of laws “not specified in §1252(f )(1) even if that injunction has some collateral effect on the operation of a covered provision.” <em>Garland</em> v. <em>Aleman Gonzalez</em>, 596 U. S. 543, 553, n. 4 (2022) (emphasis deleted). So §1252(f )(1) would bar classwide relief here only if the Government’s no-process policy were central to the “operation” of §1231(b) and not merely “collateral” to it. <em>Ibid.</em>, n. 4. At a minimum, that presents a difficult question this Court should not decide without briefing, argument, or <span class="pg" id="s1-p15" title="page 15 of the original">15</span>time for reflection.</p>
+<p>Even if the Government could establish that its enjoined actions (of providing no notice or process) are integral to the “operation” of §1231(b), that in turn would raise a “‘serious constitutional question.’” <em>Webster</em> v. <em>Doe</em>, 486 U. S. 592, 603 (1988). That is because, as the Government reads it, §1252(f )(1) threatens to nullify plaintiffs’ procedural due process rights entirely. Recall that the Government claims it may remove noncitizens in the space of 15 minutes. See <em>supra</em>, at 4. Such noncitizens cannot practicably file individual lawsuits to vindicate their due process rights. After all, they will not know of the need to file a claim until they are on a bus or plane out of the country. Nor will their counsel, whom the Government refuses to notify. The Government can hardly expect every deportable noncitizen to file a pre-emptive lawsuit. Thus, if §1252(f )(1) precludes classwide vindication of the right to notice and due process under these circumstances, then it effectively nullifies those rights.</p>
+<p>Whether Congress can nullify a due process right by way of a jurisdiction-stripping provision is a difficult question. See <em>Webster</em>, 486 U. S., at 603 (citing <em>Bowen</em> v. <em>Michigan Academy of Family Physicians</em>, 476 U. S. 667, 681, n. 12 (1986)). The Government has not attempted to show that it is likely to succeed on that issue.</p>
+<h3 class="oh">B</h3>
+<p>That leaves, finally, the merits of plaintiffs’ underlying APA and due process claims. Begin with the statutory and regulatory scheme governing removal. In the Government’s view, once a noncitizen has been found removable, she can effectively be removed anywhere at any time. That view would render meaningless the countless statutory and regulatory provisions providing for notice and a hearing. See, <em>e</em>.<em>g</em>., 8 U. S. C. §1229(a)(1) (“In removal proceedings under section 1229a . . . written notice . . . shall be given . . . <span class="pg" id="s1-p16" title="page 16 of the original">16</span>to the alien or to the alien’s counsel of record”); 8 CFR §1240.10(f ) (2024) (in removal hearing, the Immigration Judge “shall . . . identify for the record a country, or countries in the alternative, to which the alien’s removal may be made”); §241.8(e) (when a removal order is reinstated after a noncitizen illegally reenters the country, noncitizen who “expresses a fear of returning to the country <em>designated in that order</em>” must be given an interview (emphasis added)); 8 U. S. C. §§1228(b)(1)–(3) (noncitizens determined removable due to felony conviction must be given notice under §1229(a) and 14 days “to apply for judicial review”); 8 CFR §238.1(b)(2) (requiring notice to noncitizens removable due to felony convictions).</p>
+<p>The Government asserts that it need only comply with these provisions once, for the first removal proceeding, and can disregard them afterwards. The consequence of that view is that what happens in removal proceedings simply does not matter. The Government could designate any location in its initial order, lose before the immigration judge, decline to appeal, and promptly thereafter deport the noncitizen to a country of the Government’s choosing. Indeed, that is precisely what happened in O. C. G.’s case.</p>
+<p>Where did the Government find the authority to disregard Congress’s carefully calibrated scheme of immigration laws? It does not argue the third-country removal statute provides it. See Application for Stay of Injunction 13. Instead, the Government simply falls back on the Executive’s implied authority in this field. Yet “the President must comply with legislation regulating or restricting the transfer of detainees” even in “wartime.” <em>Kiyemba</em> v. <em>Obama</em>, 561 F. 3d 509, 517 (CADC 2009) (Kavanaugh, J., concurring). It is a “‘cardinal principle of statutory construction,’” moreover, that statutes should be construed so that “‘no clause, sentence, or word shall be superfluous, void, or insignificant.’” <em>TRW Inc.</em> v. <em>Andrews</em>, 534 U. S. 19, 31 (2001). Here the Government construes the statute’s lack of “a particular <span class="pg" id="s1-p17" title="page 17 of the original">17</span>process for carrying out” third-country removals, Application for Stay of Injunction 13, as conveying near-unlimited power to the Executive, rendering the remaining statutory scheme “‘void . . . or insignificant.’” <em>TRW</em>, 534 U. S., at 31<em>.</em> To make this claim is to ignore the clear statutory command that notice and a hearing must be provided. See <em>supra</em>, at 15. The Government cannot show a likelihood of success on plaintiffs’ statutory and regulatory claims, nor can it defend the lawfulness of its no-notice removals.</p>
+<p>Turning to the constitutional claim, this Court has repeatedly affirmed that “ ‘the Fifth Amendment entitles aliens to due process of law’ in the context of removal proceedings.” <em>J. G. G.</em>, 604 U. S., at ___ (slip op., at 3); <em>A. A. R. P.</em>, 605 U. S., at ___ (slip op., at 3). Due process includes reasonable notice and an opportunity to be heard. <em>Mullane</em> v. <em>Central Hanover Bank &amp; Trust Co.</em>, 339 U. S. 306, 314 (1950). Of course the Government cannot avoid its obligation to provide due process “in the context of removal proceedings,”<em> J. G. G.</em>, 604 U. S., at ___ (slip op., at 3), by skipping such proceedings entirely and simply whisking noncitizens off the street and onto busses or planes out of the country.</p>
+<p>It is axiomatic, moreover, that when Congress enacts a statutory entitlement, basic procedural due process protections attach. <em>Mathews</em> v. <em>Eldridge</em>, 424 U. S. 319, 332 (1976). Congress expressly provided noncitizens with the right not to be removed to a country where they are likely to be tortured or killed. See 8 U. S. C. §1231 note. As this Court has explained, the “‘right to be heard before being condemned to suffer grievous loss of any kind . . . is a principle basic to our society.’” <em>Mathews</em>, 424 U. S., at 333 (quoting <em>Joint Anti-Fascist Refugee Comm</em>. v. <em>McGrath</em>, 341 U. S. 123, 168 (1951) (Frankfurter, J., concurring)). Being deprived of the right not to be deported to a country likely to torture or kill you plainly counts. Thus, plaintiffs have a right to be heard.</p>
+<p><span class="pg" id="s1-p18" title="page 18 of the original">18</span>The Government barely disputes these basic principles. Instead, it obfuscates the issue by asserting that some (perhaps “many”) members of the class should be treated as if they never entered the United States. Application for Stay of Injunction 33–34. Yet even if that were true as to some class members, it could show at most that the class might be too broadly defined, not that the Government is likely to succeed on the constitutional merits.</p>
+<p>Similarly, the Government relies on precedent about the wartime transfer of detainees to assert that the Executive’s determination that “a country will not torture a person on his removal” is “conclusive.” <em>Id.,</em> at 29 (citing <em>Munaf</em> v. <em>Geren</em>, 553 U. S. 674 (2008) and <em>Kiyemba</em>, 561 F. 3d 509). Yet the immigration laws provide for judicial review of “factual challenges to” orders denying relief under the Convention, <em>Nasrallah</em> v. <em>Barr</em>, 590 U. S. 573, 581 (2020), so plainly the Executive’s determinations are not “conclusive” here. In any event, the plaintiffs in this case do not challenge any executive determination. There is no evidence in this case that the Government ever did determine that the countries it designated (Libya, El Salvador, and South Sudan) “w[ould] not torture” the plaintiffs. Application for Stay of Injunction 29. Plaintiffs merely seek access to notice and process, so that, in the event the Executive makes a determination in their case, they learn about it in time to seek an immigration judge’s review. The Fifth Amendment unambiguously guarantees that right.</p>
+<p class="sep">* * *</p>
+<p>The Due Process Clause represents “the principle that ours is a government of laws, not of men, and that we submit ourselves to rulers only if under rules.” <em>Youngstown Sheet &amp; Tube Co.</em> v. <em>Sawyer</em>, 343 U. S. 579, 646 (1952) (Jackson, J., concurring). By rewarding lawlessness, the Court once again undermines that foundational principle. Apparently, the Court finds the idea that thousands will suffer <span class="pg" id="s1-p19" title="page 19 of the original">19</span>violence in farflung locales more palatable than the remote possibility that a District Court exceeded its remedial powers when it ordered the Government to provide notice and process to which the plaintiffs are constitutionally and statutorily entitled. That use of discretion is as incomprehensible as it is inexcusable. Respectfully, but regretfully, I dissent.</p>
+<aside class="notes" aria-label="Footnotes"><h3>Notes</h3><ol>
+<li id="s1-n1" value="1"><p>Other class members may have been removed to El Salvador as well, but the Government declined to respond to four consecutive requests for information from class counsel seeking clarification. See ECF Doc. 101, at 27. This is presently the subject of discovery in the District Court. See ECF Doc. 88. <a class="back" href="#s1-r1" aria-label="Back to the text">↩</a></p></li>
+<li id="s1-n2" value="2"><p>Notably, days before the plaintiffs filed this suit, the administration “ordered the departure of non-emergency U. S. Government employees from South Sudan,” due to risks posed by “armed conflict” and “fighting between various political and ethnic groups.” Dept. of State, South Sudan Travel Advisory (Mar. 8, 2025). <a class="back" href="#s1-r2" aria-label="Back to the text">↩</a></p></li>
+</ol></aside></section><p class='back'><a href='/opinions/'>&larr; All opinions</a> · <a href='/justices/ot2024.html'>The Justices, October Term 2024 &rarr;</a></p><p class='ocredit'>Portraits: the Justices&rsquo; official photographs, Collection of the Supreme Court of the United States, public domain as works of the U.S. government, via Wikimedia Commons.</p></main></body>
+</html>
+
