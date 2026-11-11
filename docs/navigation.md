@@ -95,6 +95,9 @@ the site last.
   `display:contents`, so each panel's `.slot` is an item of one flex column and
   takes its `order`. On a phone Recent decisions leads because a first-time reader
   can follow it; on a wide screen the forecast still leads, on the first screen.
+- **The title block** (kicker, title, dek, search, the newcomer line) is centred
+  over the columns, in position and in its text; the search box and its results
+  stay left-aligned.
 - **"Live now"** stays full width above both columns.
 - **A line for a newcomer** (`start`) under the search box points at the Funnel
   explainer.

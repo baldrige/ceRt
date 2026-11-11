@@ -278,7 +278,12 @@ INDEX_CSS <- paste0("\n  ", palette_root(), "
      flex column in their phone order (styled_index_page(columns=)). Flex
      margins do not collapse, so the panels' own margins are replaced here. */
   .wrap.home{max-width:60rem}
-  .home>.kicker,.home>h1,.home>.brule,.home>.dek,.home>.csearch,.home>.start{max-width:40rem}
+  .home>.kicker,.home>h1,.home>.brule,.home>.dek,.home>.csearch,.home>.start{max-width:40rem;
+    margin-left:auto;margin-right:auto}
+  /* The title block is centred over the columns, in position and in its text.
+     The search box and its results stay left-aligned: typed text and a list of
+     captions read from the left edge. */
+  .home>.kicker,.home>h1,.home>.dek,.home>.start,.home .cqp{text-align:center}
   .start{margin:.1rem 0 0;font-style:italic;color:var(--ink-soft)}
   .start a{color:var(--link);text-decoration:none;border-bottom:1px solid rgba(@link:rgb@,.4)}
   .start a:hover{border-color:var(--link)}
