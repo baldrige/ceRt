@@ -280,13 +280,13 @@ short_date <- function(f) { d <- date_key(f)
 arg_label  <- function(f) paste0("OT", str_extract(f, "\\d{4}"))
 
 items <- list(list(href = "dashboards/", label = "Daily Petitions & Applications",
-                   meta = "new, daily",
+                   meta = "new, daily", group = "docket",
                    recent = recent_children(
                      dash_dir, "^dash_\\d{4}-\\d{2}-\\d{2}\\.html$",
                      date_key, short_date, "dashboards/")))
 if (dir.exists(file.path(site_dir, "conferences"))) {
   items <- c(items, list(list(href = "conferences/", label = "Conference Reports",
-                              meta = "weekly, by relists",
+                              meta = "weekly, by relists", group = "docket",
                               recent = recent_children(
                                 file.path(site_dir, "conferences"),
                                 "^conf_\\d{4}-\\d{2}-\\d{2}\\.html$",
@@ -302,18 +302,18 @@ if (dir.exists(file.path(site_dir, "conferences"))) {
 # the same way for the same reason, except the ones whose renderer always emits.
 if (file.exists(file.path(site_dir, "relists", "index.html"))) {
   items <- c(items, list(list(href = "relists/", label = "Relist Tracker",
-                              meta = "still under consideration")))
+                              meta = "still under consideration", group = "docket")))
 }
 # The other half of the Court's docket: stays, injunctions and the rest of the
 # interim ("emergency") docket. Written by the nightly conferences run, so
 # guarded on the file like the Relist Tracker.
 if (file.exists(file.path(site_dir, "applications", "index.html"))) {
   items <- c(items, list(list(href = "applications/", label = "Emergency Applications",
-                              meta = "stays and injunctions, pending and decided")))
+                              meta = "stays and injunctions, pending and decided", group = "docket")))
 }
 if (dir.exists(file.path(site_dir, "arguments"))) {
   items <- c(items, list(list(href = "arguments/", label = "Oral Argument Navigator",
-                              meta = "granted cases, by sitting",
+                              meta = "granted cases, by sitting", group = "court",
                               recent = recent_children(
                                 file.path(site_dir, "arguments"),
                                 "^arg_\\d{4}\\.html$",
@@ -324,7 +324,7 @@ if (dir.exists(file.path(site_dir, "arguments"))) {
 # render-justices.yml, never by this run.
 if (file.exists(file.path(site_dir, "justices", "index.html"))) {
   items <- c(items, list(list(href = "justices/", label = "The Justices",
-                              meta = "opinions and agreement, by Term",
+                              meta = "opinions and agreement, by Term", group = "court",
                               recent = recent_children(
                                 file.path(site_dir, "justices"),
                                 "^ot\\d{4}\\.html$",
@@ -332,18 +332,18 @@ if (file.exists(file.path(site_dir, "justices", "index.html"))) {
 }
 if (file.exists(file.path(site_dir, "cases", "index.html"))) {
   items <- c(items, list(list(href = "cases/", label = "All Cases",
-                              meta = "browse by Term")))
+                              meta = "browse by Term", group = "docket")))
 }
 # The advocates, after the case-shaped sections and before the two explainers:
 # it is a view onto the same petitions cut a different way, not a guide to the
 # site.
 if (file.exists(file.path(site_dir, "counsel", "index.html"))) {
   items <- c(items, list(list(href = "counsel/", label = "The Counsel Table",
-                              meta = "who files, who wins")))
+                              meta = "who files, who wins", group = "forecast")))
 }
 if (dir.exists(file.path(site_dir, "funnel"))) {
   items <- c(items, list(list(href = "funnel/", label = "The Cert Funnel",
-                              meta = "the explainer")))
+                              meta = "the explainer", group = "forecast")))
 }
 # Publish the self-contained model methods note and link it last.
 if (file.exists("docs/cert_model_methods.html")) {
@@ -355,14 +355,14 @@ if (file.exists("docs/cert_model_methods.html")) {
   # two page types with zero internal links.
   inject_masthead(file.path(site_dir, "methods.html"), active = "/methods.html")
   items <- c(items, list(list(href = "methods.html", label = "The Forecast Model",
-                              meta = "methods & validation")))
+                              meta = "methods & validation", group = "forecast")))
 }
 # The Forecast Scorecard: written further down this script and by the nightly
 # conferences run, so on the very first publish it is not there yet and is
 # listed from the next run on.
 if (file.exists(file.path(site_dir, "scorecard", "index.html"))) {
   items <- c(items, list(list(href = "scorecard/", label = "Forecast Scorecard",
-                              meta = "the forecasts, held to the orders")))
+                              meta = "the forecasts, held to the orders", group = "forecast")))
 }
 # The About page: authorship, the repository, and the address to send corrections
 # to. Written unconditionally (it has no external dependency) and listed last, so
@@ -626,26 +626,26 @@ styled_index_page(
   # and invisible to readers. The section indexes are deliberately left alone --
   # one quiet line where people arrive, not a subscribe prompt on every page.
   feeds = TRUE,
-  # The forecast leads the page: it is the reason to come back, and a reader who
-  # sees only the top of the screen should see it. It sits ABOVE the search box
-  # and the section list, which is what panel_top is for. NULL when the week was
-  # too quiet to publish a panel, and the slot simply collapses.
-  # Forecast first, decisions under it, calendar last: what the Court might take,
-  # what it just did, when it next sits. Any may be NULL -- a quiet week
-  # suppresses the forecast, a quiet month empties the decisions, the summer
-  # recess empties the calendar -- and tagList() drops a NULL, so the page
-  # simply closes up rather than showing an empty heading.
-  # Orders sit between decisions and the calendar: what the Court decided, what
-  # it ordered, when it next sits. Same NULL-collapses rule as the others.
-  # "Live now" leads, above the forecast, and is hidden unless the Court is
-  # streaming an argument at the moment the page is read (/live.js decides).
-  panel_top = tagList(live_arg, sharpest_panel, decisions, recent_args, orders, calendar),
-  # Most-read stays below the section list. It is a footnote to the forecast, not
-  # a peer of it -- what readers clicked is downstream of what the Court did.
+  # "Live now" leads, full width, and is hidden unless the Court is streaming an
+  # argument at the moment the page is read (/live.js decides).
   #
-  # Rank only, no counts: the ordering is the story, and printing the raw numbers
-  # would publish the site's traffic volume as a side effect.
-  panel = most_read_panel(
+  # The other panels stand in two columns from 62rem (2026-11-11; docs/
+  # navigation.md, "The landing page"): testers found the one long column
+  # daunting. Split by shape: the forecast, decisions and arguments carry prose
+  # and take the wide column; the calendar, orders and most-read are date or
+  # rank lists and take the narrow one. The forecast still leads the wide
+  # column, on the first screen. On a phone Recent decisions leads instead:
+  # it is the panel a first-time reader can follow without knowing what a paid
+  # docket or a base rate is. Any panel may be NULL (a quiet week, the summer
+  # recess, no GA4 secrets) and its slot is simply left out.
+  panel_top = live_arg,
+  start = paste0("New to the Court? <a href='funnel/'>Start with how a case reaches it</a>,",
+                 " or read what it did this week, below."),
+  groups = c(docket = "Follow the docket", court = "Arguments and the Justices",
+             forecast = "How the forecasts work"),
+  columns = list(
+    main = list(forecast = sharpest_panel, decisions = decisions, arguments = recent_args),
+    side = list(calendar = calendar, orders = orders, most_read = most_read_panel(
     most_read,
     heading = "Most-Read Cases",
     show_counts = FALSE,
@@ -653,7 +653,8 @@ styled_index_page(
     note = sprintf("Ranked by page views over the %d days ending %s %d, %d.",
                    MOST_READ_DAYS, format(Sys.Date() - 1, "%B"),
                    as.integer(format(Sys.Date() - 1, "%d")),
-                   as.integer(format(Sys.Date() - 1, "%Y")))),
+                   as.integer(format(Sys.Date() - 1, "%Y"))))),
+    phone = c("decisions", "forecast", "orders", "calendar", "arguments", "most_read")),
   # Canonical URL for this page (see social_meta()).
   path = "/"
 )

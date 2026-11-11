@@ -267,6 +267,46 @@ INDEX_CSS <- paste0("\n  ", palette_root(), "
   .back a{color:var(--link);text-decoration:none;
     border-bottom:1px solid rgba(@link:rgb@,.4)}
   .back a:hover{border-color:var(--link)}
+  /* --- The landing page (main.home) ---------------------------------------
+     Testers found the single 40rem column daunting: seven panels of equal
+     weight, five screens long, the forecast first and the map of the site last.
+     From 62rem the panels stand in two columns as wide as the masthead (60rem),
+     split by shape, not topic: prose (the forecast's questions, decisions,
+     arguments) in the wide column, date lists in the narrow one. A forecast
+     row in the narrow column wrapped its question every 25 characters.
+     Below 62rem the columns are display:contents and the slots fall into one
+     flex column in their phone order (styled_index_page(columns=)). Flex
+     margins do not collapse, so the panels' own margins are replaced here. */
+  .wrap.home{max-width:60rem}
+  .home>.kicker,.home>h1,.home>.brule,.home>.dek,.home>.csearch,.home>.start{max-width:40rem}
+  .start{margin:.1rem 0 0;font-style:italic;color:var(--ink-soft)}
+  .start a{color:var(--link);text-decoration:none;border-bottom:1px solid rgba(@link:rgb@,.4)}
+  .start a:hover{border-color:var(--link)}
+  .cols{display:flex;flex-direction:column;margin-top:1.8rem;padding-top:1.5rem;
+    border-top:2px solid var(--ink)}
+  .cols .col{display:contents}
+  .cols .slot>.panel{margin:0 0 2.3rem}
+  @media(min-width:62rem){
+    .cols{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);
+      gap:0 3rem;align-items:start}
+    .cols .col{display:block}
+  }
+  /* The section list, grouped. Each row's note drops under its name: in a
+     third of 60rem a name and a right-aligned note do not fit on one line. */
+  .explore{margin-top:.6rem;padding-top:.8rem;border-top:2px solid var(--ink)}
+  .explore h2{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;
+    text-transform:uppercase;color:var(--faint);margin:0 0 .6rem}
+  .explore .groups{display:grid;gap:0 2.2rem}
+  @media(min-width:48rem){.explore .groups{grid-template-columns:repeat(3,minmax(0,1fr))}}
+  .explore h3{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:.98rem;
+    color:var(--ink);margin:.9rem 0 .1rem}
+  .explore ul.idx{margin:0}
+  .explore ul.idx a.row{display:block;padding:.7rem .4rem}
+  .explore ul.idx .count{display:block;white-space:normal;margin-top:.1rem}
+  /* On a phone the title took two lines at 2.4rem and, with the kicker, dek,
+     search and the newcomer line, pushed every panel off the first screen.
+     At 1.9rem it is one line and the first panel starts at ~540px of 840. */
+  @media(max-width:40rem){.home h1{font-size:1.9rem}}
   /* Home-page case search. */
   .csearch{position:relative;margin:0 0 1.4rem}
   #cq{width:100%;font-family:'Newsreader',Georgia,serif;font-size:1.05rem;color:var(--ink);
@@ -1251,7 +1291,24 @@ styled_index_page <- function(out_path, title, heading, items,
                               # Shared-link card. `dek` is the page's own one-line
                               # summary and is exactly what a card wants, so it is
                               # the default rather than a second thing to write.
-                              description = NULL, path = NULL) {
+                              description = NULL, path = NULL,
+                              # The landing page's layout (2026-11-11; see "The
+                              # landing page" in docs/navigation.md). Each is NULL
+                              # on every other index page, which renders as before.
+                              #  start:   a line for a first-time reader, under
+                              #           the search box.
+                              #  columns: list(main = list(name = panel, ...),
+                              #           side = list(...), phone = c(names)).
+                              #           Two columns from 62rem; below that one
+                              #           column in `phone` order. Replaces
+                              #           panel_top's panels and `panel`.
+                              #  groups:  c(key = "Heading", ...): the section list
+                              #           as "Explore the site", one list per key,
+                              #           from each item's $group. An item with no
+                              #           group is left out (About: the masthead
+                              #           carries it).
+                              start = NULL, columns = NULL, groups = NULL) {
+  if (!is.null(groups)) items <- lapply(items, function(it) { it$recent <- NULL; it })
   rows <- lapply(items, function(it) {
     has_meta <- !is.null(it$meta) && nzchar(it$meta)
     # `meta_wrap`: a note long enough to need more than one line (see the
@@ -1289,20 +1346,47 @@ styled_index_page <- function(out_path, title, heading, items,
   })
   heading_node <- if (grepl("<em>", heading, fixed = TRUE))
     tags$h1(HTML(smarten(heading))) else tags$h1(smarten(heading))
+  # The section list: flat, or grouped under "Explore the site".
+  index_node <- if (is.null(groups)) tags$ul(class = "idx", rows) else {
+    key <- vapply(items, function(it) it$group %||% NA_character_, character(1))
+    blocks <- lapply(names(groups), function(g) {
+      if (!any(key %in% g)) return(NULL)
+      tags$div(tags$h3(smarten(groups[[g]])), tags$ul(class = "idx", rows[key %in% g]))
+    })
+    tags$section(class = "explore", tags$h2("Explore the site"),
+                 tags$div(class = "groups", blocks))
+  }
+  # Each panel sits in a .slot carrying its phone position as a flex `order`:
+  # under 62rem the columns are display:contents, so every slot is an item of
+  # one flex column and the order applies; above it they are grid columns and
+  # the order is inert. One copy of each panel in the page, not one per layout.
+  cols_node <- if (!is.null(columns)) {
+    ph <- columns$phone %||% character()
+    col <- function(lst, cls) {
+      lst <- Filter(Negate(is.null), lst)
+      tags$div(class = paste("col", cls), unname(Map(function(nm, p) {
+        k <- match(nm, ph)
+        tags$div(class = "slot", style = if (!is.na(k)) sprintf("order:%d", k), p)
+      }, names(lst), lst)))
+    }
+    tags$div(class = "cols", col(columns$main, "cmain"), col(columns$side, "cside"))
+  }
   body <- tags$body(
     HTML(site_masthead(active = active, wordmark_only = wordmark_only)),
     tags$main(
     id = "main",
-    class = "wrap",
+    class = if (is.null(columns)) "wrap" else "wrap home",
     if (!is.null(crumb)) HTML(site_breadcrumb(crumb$label, crumb$section)),
     if (!is.null(kicker)) tags$p(class = "kicker", smarten(kicker)),
     heading_node,
     tags$hr(class = "brule"),
     if (!is.null(dek)) tags$p(class = "dek", smarten(dek)),
     if (isTRUE(search) && isTRUE(search_top)) HTML(SEARCH_HTML),
+    if (!is.null(start)) tags$p(class = "start", HTML(smarten(start))),
     panel_top,
+    cols_node,
     if (isTRUE(search) && !isTRUE(search_top)) HTML(SEARCH_HTML),
-    tags$ul(class = "idx", rows),
+    index_node,
     panel,
     # Below the panels, above the back link: a reader who has scrolled the whole
     # section list is the one who might want telling when it changes.
