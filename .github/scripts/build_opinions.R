@@ -123,7 +123,10 @@ finish <- function(o, pdf_url = o$url) {
   skipped[[dkt]] <<- NULL
   # The opinion's own short caption where its running head gave one.
   o$long <- o$caption
-  o$caption <- opinion_short_caption(doc$short, o$long) %||% o$long
+  # Typographic marks in the caption wherever it is shown: the page, the
+  # Markdown, the EPUB, the index and the OPDS feeds ("Jackson Women's").
+  o$caption <- smarten(opinion_short_caption(doc$short, o$long) %||% o$long)
+  o$long <- smarten(o$long)
   o$url <- pdf_url
   meta <- list(docket = paste(unlist(o$dkts), collapse = ", "), docket_id = dkt, term = as.character(term),
                caption = o$caption, decided = o$decided, decided_long = .op_long_date(o$decided),

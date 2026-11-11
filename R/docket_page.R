@@ -412,7 +412,11 @@ write_docket_css <- function(out_dir) {
 # /questions/near/ (R/qp_index.R). The neighbours are deliberately NOT a page
 # input: baked in, a list would go stale the day a newer petition asked the same
 # question, since the daily re-renders only what it fetched. Markup only.
-PAGE_TEMPLATE_VERSION <- "v51"
+# v52: typographic quotation marks and apostrophes in the page's text and its
+# title (smarten_html(), page_style.R). The case pages were the one large
+# family written without it: "Jackson Women's Health", &quot;undue burden&quot;.
+# Rendering only.
+PAGE_TEMPLATE_VERSION <- "v52"
 
 # ---- small helpers ------------------------------------------------------------
 # A probability at significant figures, as the conference report prints it
@@ -1477,9 +1481,11 @@ docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
     # case it is. Same argument as the feed autodiscovery below: these pages are
     # 99.5% of the site and the ones a search result lands on.
     if (exists("social_meta")) social_meta(
-      paste0(str_squish(str_remove_all(cx$caption %||% dkt,
-                                       ", Petitioners?|, Respondents?")),
-             " — No. ", dkt),
+      # (An attribute, which smarten_html() below leaves alone.)
+      (if (exists("smarten")) smarten else identity)(
+        paste0(str_squish(str_remove_all(cx$caption %||% dkt,
+                                         ", Petitioners?|, Respondents?")),
+               " — No. ", dkt)),
       paste0("Supreme Court docket No. ", dkt,
              if (!is.na(cx$lower %||% NA) && nzchar(cx$lower %||% ""))
                paste0(", on review from ", str_squish(cx$lower)) else "",
@@ -1529,6 +1535,9 @@ docket_page <- function(cx, out_dir, models = NULL, cls_row = NULL,
     "<section><h2>Proceedings</h2>", tl_legend, tl_body, "</section>",
     case_footer(dkurl, .fmtdate(rendered)),
     "</main></body></html>")
+  # Guarded like the feed links above: an entry point without page_style.R
+  # writes straight marks rather than failing.
+  if (exists("smarten_html")) page <- smarten_html(page)
   writeLines(enc2utf8(page), file.path(out_dir, paste0(dkt, ".html")), useBytes = TRUE)
   invisible(nchar(page))
 }
@@ -1994,6 +2003,7 @@ write_cases_index <- function(cases_dir, n_recent = 60L) {
     body,
     if (isTRUE(search)) search_script("search.json", "") else "",
     "</main></body>\n</html>\n")
+  if (exists("smarten_html")) html <- smarten_html(html)
   writeLines(enc2utf8(html), out_path, useBytes = TRUE)
   invisible(out_path)
 }

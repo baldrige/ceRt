@@ -394,23 +394,51 @@ strip_caption_roles <- function(x) {
 # markup survive; existing entities (&rsquo;, &mdash;) are already curly and are
 # left alone. Vectorised. Apply only to human-readable prose -- never to a JSON
 # widget payload or a URL, where a " is structural.
+#
+# Three things the first version got wrong, found when the case pages were put
+# through it (2026-11-10):
+#  - an ESCAPED mark is still a straight mark. htmlEscape() writes a question
+#    presented's quotation as &quot;undue burden&quot;, which the reader sees
+#    as straight; in a text node the entity is only a spelling of the character.
+#  - an apostrophe that opens a word is not an opening quote: "the '60s",
+#    "Park 'N Fly", "plaintiff 's".
+#  - a mark straight after an inline closing tag closes: <i>Casey</i>'s.
+#    (.smarten_text()'s `cont`; smarten_html() knows what came before.)
+# And it ran four regexes per text node in an R loop, which is nothing for one
+# index page and an hour for 55,000 case pages: the text nodes go through as
+# one vector now.
+.SM_APOS_WORD <- "(?=(?:s|d|t|m|ll|re|ve|em|n|N|til|tis|twas|cause)\\b|[0-9])"
+.smarten_text <- function(p, cont = rep(FALSE, length(p))) {
+  if (!length(p)) return(p)
+  os <- "‘"; cs <- "’"; od <- "“"; cd <- "”"
+  na <- is.na(p); p[na] <- ""
+  p <- gsub("&quot;|&#34;", '"', p, perl = TRUE)
+  p <- gsub("&#39;|&apos;", "'", p, perl = TRUE)
+  # A mark at the very start of a node that continues an inline element closes.
+  p[cont] <- sub('^"', cd, p[cont]); p[cont] <- sub("^'", cs, p[cont])
+  before <- paste0("(^|[[:space:](\\[—–", od, os, "])")
+  p <- gsub(paste0(before, '"'), paste0("\\1", od), p, perl = TRUE)       # opening "
+  p <- gsub('"', cd, p, fixed = TRUE)                                      # closing "
+  p <- gsub(paste0(before, "'", .SM_APOS_WORD), paste0("\\1", cs), p, perl = TRUE)  # 's, '60s
+  p <- gsub(paste0(before, "'"), paste0("\\1", os), p, perl = TRUE)       # opening '
+  p <- gsub("'", cs, p, fixed = TRUE)                                      # apostrophe / closing '
+  p[na] <- NA_character_
+  p
+}
+.SM_INLINE_END <- "^</(?:i|em|b|strong|a|span|cite|sup|sub|u|abbr|q|small|mark)>$"
 smarten <- function(x) {
   if (is.null(x)) return(x)
-  os <- "‘"; cs <- "’"; od <- "“"; cd <- "”"
-  one <- function(s) {
-    if (is.na(s) || !nzchar(s)) return(s)
-    segs <- regmatches(s, gregexpr("<[^>]*>|[^<]+", s, perl = TRUE))[[1]]
-    segs <- vapply(segs, function(p) {
-      if (startsWith(p, "<")) return(p)                                    # HTML tag
-      p <- gsub('(^|[[:space:](])"', paste0("\\1", od), p, perl = TRUE)    # opening "
-      p <- gsub('"', cd, p, fixed = TRUE)                                  # closing "
-      p <- gsub(paste0('(^|[[:space:](', od, "])'"), paste0("\\1", os), p, perl = TRUE) # opening '
-      p <- gsub("'", cs, p, fixed = TRUE)                                  # apostrophe / closing '
-      p
-    }, character(1), USE.NAMES = FALSE)
+  x <- as.character(x)
+  tagged <- !is.na(x) & grepl("<", x, fixed = TRUE)
+  x[!tagged] <- .smarten_text(x[!tagged])
+  x[tagged] <- vapply(x[tagged], function(s) {
+    segs <- stringi::stri_extract_all_regex(s, "<[^>]*>|[^<]+")[[1]]
+    txt <- !startsWith(segs, "<")
+    cont <- grepl(.SM_INLINE_END, c("", segs[-length(segs)]), perl = TRUE, ignore.case = TRUE)
+    segs[txt] <- .smarten_text(segs[txt], cont[txt])
     paste0(segs, collapse = "")
-  }
-  vapply(x, one, character(1), USE.NAMES = FALSE)
+  }, character(1), USE.NAMES = FALSE)
+  x
 }
 
 # Smarten quotes across a whole HTML string: skip <style>/<script> blocks and all
@@ -418,13 +446,18 @@ smarten <- function(x) {
 # STATIC page (no client-side JSON). Do NOT use on a page carrying a reactable /
 # htmlwidget JSON payload -- there a straight " is structural (use smarten() on
 # the prose fields instead, as scr_write_page() does).
+# <pre>, <code> and <textarea> are left as typed too.
 smarten_html <- function(html) {
-  segs <- regmatches(html, gregexpr(
-    "(?is)<style\\b[^>]*>.*?</style>|<script\\b[^>]*>.*?</script>|<[^>]*>|[^<]+",
-    html, perl = TRUE))[[1]]
-  out <- vapply(segs, function(p) if (startsWith(p, "<")) p else smarten(p),
-                character(1), USE.NAMES = FALSE)
-  paste0(out, collapse = "")
+  # stringi (which stringr brings), not regmatches(gregexpr()): the same
+  # pieces, forty times faster on a long page (0.95s -> 0.03s on No.
+  # 19-1392's), the difference between minutes and hours over the case pages.
+  segs <- stringi::stri_extract_all_regex(html, paste0(
+    "(?is)<style\\b[^>]*>.*?</style>|<script\\b[^>]*>.*?</script>|<pre\\b[^>]*>.*?</pre>|",
+    "<code\\b[^>]*>.*?</code>|<textarea\\b[^>]*>.*?</textarea>|<[^>]*>|[^<]+"))[[1]]
+  txt <- !startsWith(segs, "<")
+  cont <- grepl(.SM_INLINE_END, c("", segs[-length(segs)]), perl = TRUE, ignore.case = TRUE)
+  segs[txt] <- .smarten_text(segs[txt], cont[txt])
+  paste0(segs, collapse = "")
 }
 
 # Which feeds the published site actually has, as root-absolute paths.

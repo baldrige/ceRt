@@ -50,7 +50,8 @@ import sys
 
 import pymupdf
 
-EXTRACT_VERSION = "x3"
+# x4: the print layout's single quotation marks (curl()); joint bylines.
+EXTRACT_VERSION = "x4"
 
 LIGATURES = {"ﬀ": "ff", "ﬁ": "fi", "ﬂ": "fl", "ﬃ": "ffi", "ﬄ": "ffl"}
 SOFT = "­"
@@ -662,6 +663,19 @@ def body_size_of(all_lines):
     return max(sz for sz, n in c.items() if n >= 0.1 * total)
 
 
+# The U.S. Reports font carries its single quotation marks at the typewriter's
+# code points: the text layer reads ` for an opening mark and ' for a closing
+# one or an apostrophe (90,000 of them in the first 600 opinions, against
+# none in the slips, whose marks are the typographic ones). Doubled, they are
+# a double mark. What stays straight is a measurement: 5'2''.
+def curl(t):
+    if "'" not in t and "`" not in t:
+        return t
+    t = t.replace("``", "“").replace("`", "‘")
+    t = re.sub(r"(?<![0-9'])''", "”", t)
+    return re.sub(r"(?<![0-9])'(?!')|(?<=[0-9])'(?=[A-Za-z])", "’", t)
+
+
 def section_title(kind, who, byline):
     if kind == "syllabus":
         return "Syllabus"
@@ -999,6 +1013,12 @@ def extract(path, first=None, last=None, words_path=None):
                 if r.get("fn") and int(r["fn"]) not in have and int(r["fn"]) > top + 3:
                     del r["fn"]
 
+    for s in sections:
+        s["byline"] = curl(s["byline"]) if s.get("byline") else s.get("byline")
+        for rs in [b["runs"] for b in s["blocks"] if "runs" in b] + [p for n in s["notes"] for p in n["paras"]]:
+            for r in rs:
+                if "t" in r:
+                    r["t"] = curl(r["t"])
     out_sections = []
     for k, s in enumerate(sections):
         s.pop("_refs", None)
