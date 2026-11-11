@@ -240,13 +240,22 @@
      Below 62rem the columns are display:contents and the slots fall into one
      flex column in their phone order (styled_index_page(columns=)). Flex
      margins do not collapse, so the panels' own margins are replaced here. */
-  .wrap.home{max-width:60rem}
-  .home>.kicker,.home>h1,.home>.brule,.home>.dek,.home>.csearch,.home>.start{max-width:40rem}
-  .start{margin:.1rem 0 0;font-style:italic;color:var(--ink-soft)}
+  /* The page opens on the panels: no visible title block (title_block = FALSE)
+     and the search box in the masthead (search_masthead = TRUE), so the
+     masthead's own double rule is the only rule above the columns. */
+  .wrap.home{max-width:60rem;padding-top:2rem}
+  /* A heading for screen readers and search engines that is not drawn: the
+     landing page's title, when title_block = FALSE (the masthead's wordmark
+     already names the site). */
+  .vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);
+    white-space:nowrap;margin:0}
+  /* The newcomer's line, a slot of its own at the head of the narrow column
+     (first on a phone). */
+  .cols .slot>.start{margin:0 0 1.6rem;font-size:.98rem;font-style:italic;
+    color:var(--ink-soft);line-height:1.5}
   .start a{color:var(--link);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.4)}
   .start a:hover{border-color:var(--link)}
-  .cols{display:flex;flex-direction:column;margin-top:1.8rem;padding-top:1.5rem;
-    border-top:2px solid var(--ink)}
+  .cols{display:flex;flex-direction:column}
   .cols .col{display:contents}
   .cols .slot>.panel{margin:0 0 2.3rem}
   @media(min-width:62rem){
@@ -266,10 +275,6 @@
   .explore ul.idx{margin:0}
   .explore ul.idx a.row{display:block;padding:.7rem .4rem}
   .explore ul.idx .count{display:block;white-space:normal;margin-top:.1rem}
-  /* On a phone the title took two lines at 2.4rem and, with the kicker, dek,
-     search and the newcomer line, pushed every panel off the first screen.
-     At 1.9rem it is one line and the first panel starts at ~540px of 840. */
-  @media(max-width:40rem){.home h1{font-size:1.9rem}}
   /* Home-page case search. */
   .csearch{position:relative;margin:0 0 1.4rem}
   #cq{width:100%;font-family:'Newsreader',Georgia,serif;font-size:1.05rem;color:var(--ink);
@@ -294,6 +299,25 @@
   .cnone a,.cqp a{color:var(--link);font-style:normal;text-decoration:none;
     border-bottom:1px solid rgba(156,14,58,.4)}
   .cqp{margin:.45rem 0 0;font-size:.88rem;color:var(--faint)}
+  /* The same box in the masthead's first row, beside the wordmark (the
+     landing page: styled_index_page(search_masthead = TRUE)). The section
+     links are pushed to a row of their own beneath, and the results drop over
+     the page rather than pushing it down. Here, not in NAV_CSS: NAV_CSS is in
+     every case page, and this concerns one page. */
+  .smast-in.smast-has-search{align-items:center}
+  .smast-has-search nav{flex-basis:100%}
+  .csearch.smast-search{flex:1 1 9rem;min-width:0;max-width:24rem;margin:0 0 0 auto}
+  .smast-search #cq{font-size:.92rem;padding:.42rem .7rem}
+  .smast-search .cres{position:absolute;left:0;right:0;top:100%;z-index:20;
+    box-shadow:0 6px 18px rgba(26,26,30,.12)}
+  /* On a phone the box shares its row with the wordmark and is ~170px wide, too
+     narrow for a caption: the results hang from the masthead row instead and
+     take its full width (top:auto keeps them just below the box). */
+  @media(max-width:640px){
+    .smast-in.smast-has-search{position:relative;column-gap:.8rem}
+    .csearch.smast-search{position:static}
+    .smast-search .cres{left:1.1rem;right:1.1rem;top:auto;margin-top:.35rem}
+  }
   /* /cases/ browse index: grouped sections with per-bucket counts. */
   .csec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
     text-transform:uppercase;letter-spacing:.12em;color:var(--accent);
@@ -409,14 +433,9 @@
 }
 </style></head>
 <body>
-  <a class='skip' href='#main'>Skip to content</a><header><div class='smast-in'><a class='smast-wm' href='/'>Supreme Court <em>Report</em></a><nav aria-label='Sections'><ul class='snav'><li><a href='/dashboards/'>Docket</a></li><li><a href='/conferences/'>Conferences</a></li><li><a href='/relists/'>Relists</a></li><li><a href='/applications/'>Interim</a></li><li><a href='/arguments/'>Arguments</a></li><li><a href='/justices/'>Justices</a></li><li><a href='/counsel/'>Counsel</a></li><li><a href='/funnel/'>Funnel</a></li><li><a href='/methods.html'>Model</a></li><li><a href='/about.html'>About</a></li></ul></nav></div><div class='smast-rule-w'><hr class='smast-rule'></div></header>
+  <a class='skip' href='#main'>Skip to content</a><header><div class='smast-in smast-has-search'><a class='smast-wm' href='/'>Supreme Court <em>Report</em></a><div class='csearch smast-search' role='search'><input type='search' id='cq' autocomplete='off' spellcheck='false' placeholder='Case name or docket no.' aria-label='Search cases'><ul id='cres' class='cres' role='listbox'></ul></div><nav aria-label='Sections'><ul class='snav'><li><a href='/dashboards/'>Docket</a></li><li><a href='/conferences/'>Conferences</a></li><li><a href='/relists/'>Relists</a></li><li><a href='/applications/'>Interim</a></li><li><a href='/arguments/'>Arguments</a></li><li><a href='/justices/'>Justices</a></li><li><a href='/counsel/'>Counsel</a></li><li><a href='/funnel/'>Funnel</a></li><li><a href='/methods.html'>Model</a></li><li><a href='/about.html'>About</a></li></ul></nav></div><div class='smast-rule-w'><hr class='smast-rule'></div></header>
   <main id="main" class="wrap home">
-    <p class="kicker">A window on the Court’s docket</p>
-    <h1>Supreme Court Report</h1>
-    <hr class="brule"/>
-    <p class="dek">Every case the Supreme Court is asked to hear, what it asks, and the odds it is granted — rebuilt three times a day from the Court’s own docket.</p>
-    <div class='csearch'><input type='search' id='cq' autocomplete='off' spellcheck='false' placeholder='Search all cases by name or docket number…' aria-label='Search cases'><ul id='cres' class='cres' role='listbox'></ul><p class='cqp'>Looking for an issue rather than a case? <a href='/questions/'>Search the questions presented</a>.</p></div>
-    <p class="start">New to the Court? <a href='funnel/'>Start with how a case reaches it</a>, or read what it did this week, below.</p>
+    <h1 class="vh">Supreme Court Report</h1>
     <section id="live-arg" class="panel cal live" hidden aria-live="polite">
       <h2>
         <span class="ldot" aria-hidden="true"></span>
@@ -476,7 +495,7 @@
     <script src="/live.js" defer></script>
     <div class="cols">
       <div class="col cmain">
-        <div class="slot" style="order:2">
+        <div class="slot" style="order:3">
           <section class="panel lead">
             <h2>Likeliest grants</h2>
             <input class="wr" type="checkbox" id="qon" checked aria-label="Show the question each case asks"/>
@@ -776,7 +795,7 @@
             <p class="more"><a href='dashboards/'>All petitions this week &rarr;</a>&nbsp;&middot;&nbsp;<a href='methods.html'>How the forecast works &rarr;</a></p>
           </section>
         </div>
-        <div class="slot" style="order:1">
+        <div class="slot" style="order:2">
           <section class="panel cal">
             <h2>Recent decisions</h2>
             <p class="pnote">The Court’s most recent written opinions, argued or not.</p>
@@ -899,7 +918,7 @@
             <p class="more"><a href='arguments/'>All argued cases &rarr;</a></p>
           </section>
         </div>
-        <div class="slot" style="order:5">
+        <div class="slot" style="order:6">
           <section class="panel cal">
             <h2>Recent arguments</h2>
             <p class="pnote">Oral arguments of the last three weeks, with the Court’s recording and transcript. The lean is the chance the petitioner prevails, read from how the bench divided its words (petitioners usually win 70%); an estimate, not a prediction about any case.</p>
@@ -1030,7 +1049,10 @@
         </div>
       </div>
       <div class="col cside">
-        <div class="slot" style="order:4">
+        <div class="slot" style="order:1">
+          <p class="start">New to the Court? <a href='funnel/'>Start with how a case reaches it</a>, or read what it did this week.</p>
+        </div>
+        <div class="slot" style="order:5">
           <section class="panel cal">
             <h2>Upcoming at the Court</h2>
             <p class="pnote">The next conferences, order lists and argument days on the Court’s calendar.</p>
@@ -1120,7 +1142,7 @@
             </ol>
           </section>
         </div>
-        <div class="slot" style="order:3">
+        <div class="slot" style="order:4">
           <section class="panel cal">
             <h2>Latest orders</h2>
             <p class="pnote">What the Court granted, sent back and turned away, from its order lists.</p>
@@ -1189,7 +1211,7 @@
             <p class="more"><a href='orders/'>All order lists &rarr;</a></p>
           </section>
         </div>
-        <div class="slot" style="order:6">
+        <div class="slot" style="order:7">
           <section class="panel">
             <h2>Most-Read Cases</h2>
             <p class="pnote">Ranked by page views over the 30 days ending November 10, 2026.</p>
