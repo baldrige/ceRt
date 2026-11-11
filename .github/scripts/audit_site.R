@@ -223,6 +223,26 @@ if (length(dangling)) {
              length(emitted), n_sample, format(length(docket_files), big.mark = ",")))
 }
 
+# Straight quotation marks in what a reader sees. Case pages at the current
+# template (an older page is the re-render's business, not this check's) and
+# the static index pages; scripts, styles and tags are not text.
+local({
+  straight <- function(p) {
+    x <- slurp(p)
+    x <- gsub("(?is)<(script|style|pre|code|textarea)\\b.*?</\\1>", "", x, perl = TRUE)
+    x <- gsub("<[^>]*>", "\u0001", x, perl = TRUE)
+    lengths(regmatches(x, gregexpr("['\"]|&quot;|&#39;|&apos;", x, perl = TRUE)))
+  }
+  cur <- Filter(function(p) grepl(paste0("name='tv' content='", CUR_TV, "'"), slurp(p), fixed = TRUE), sample_files)
+  pages <- c(cur, Filter(file.exists, file.path(site, c("cases/index.html", "scorecard/index.html", "opinions/index.html"))))
+  if (!length(pages)) return(invisible())
+  n <- vapply(pages, straight, integer(1))
+  bad <- pages[n > 0]
+  if (length(bad)) warn("typographic quotes", sprintf("%d of %d page(s) checked show a straight quotation mark or apostrophe, e.g. %s (%d)",
+                                                     length(bad), length(pages), sub(paste0("^", site, "/?"), "", bad[1]), n[n > 0][1]))
+  else ok("typographic quotes", sprintf("no straight mark in the text of %d page(s) (%d case pages at %s)", length(pages), length(cur), CUR_TV))
+})
+
 # ---- 4. navigation presence --------------------------------------------------
 cat("\nNavigation presence\n")
 has <- function(path, needle) file.exists(path) &&

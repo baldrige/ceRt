@@ -192,6 +192,16 @@ What decides each thing:
   a pin cite can be checked. One that falls inside a word is moved to the
   word's end at render time.
 
+### Single quotation marks in the print layout
+
+The U.S. Reports font carries its single marks at the typewriter's code
+points: the text layer reads `` ` `` for an opening mark and `'` for a closing
+one or an apostrophe (90,000 across the first 600 opinions; the slips have
+nine). `curl()` turns them into the typographic marks at the end of
+`extract()` (`EXTRACT_VERSION` x4), leaving a measurement straight (`5'2''`).
+The double marks were always right. The caption is smartened in
+`build_opinions.R`, for the page, the Markdown, the EPUB and the feeds.
+
 ### The missing ligatures
 
 In the print layout the fonts map the "fi" and "fl" glyphs to a bare "f":

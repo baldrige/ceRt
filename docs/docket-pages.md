@@ -42,6 +42,24 @@ never touched the broken pattern. Adding the outcome to the key is *not* the fix
 — it would re-render a page every time a forecast moved, which is precisely what
 the key exists to prevent. Bump the version instead.
 
+## Typographic quotation marks (v52)
+
+`docket_page()` puts the finished page through `smarten_html()`
+(`R/page_style.R`) as its last step: every straight quotation mark and
+apostrophe in a text node becomes the typographic one, including the escaped
+ones (`&quot;undue burden&quot;` in a question presented). Tags, attributes,
+`<script>` and `<style>` are not touched, so the JSON-LD, the `tv` stamp and
+every `href` are byte for byte what they were; the shared-link title, which is
+an attribute, is smartened on its own. The docket's text is the Clerk's
+typing, so a mark is decided by its neighbours: after a space or an opening
+bracket it opens, except before the letters that make it an apostrophe
+(`'s`, `'60s`, `'N`); straight after an inline closing tag it closes
+(`<i>Casey</i>'s`). `audit_site.R` WARNs on a straight mark in the text of a
+sampled case page at the current template.
+
+`smarten_html()` splits the page with `stringi`: `regmatches(gregexpr())`
+took 0.95s on No. 19-1392's page, which over the back-catalogue is hours.
+
 ## Brief-cover timeline dots (Rule 33.1(g))
 
 Each proceedings-timeline dot is tinted to the Court's booklet-cover color for that

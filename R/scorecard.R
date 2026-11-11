@@ -245,7 +245,7 @@ render_scorecard_page <- function(site_dir) {
     SCORECARD_BODY,
     "<script src='/scorecard/scorecard.js?v=", v, "' defer></script>",
     "</body>\n</html>\n")
-  writeLines(enc2utf8(html), file.path(out_dir, "index.html"), useBytes = TRUE)
+  writeLines(enc2utf8(smarten_html(html)), file.path(out_dir, "index.html"), useBytes = TRUE)
   invisible(file.path(out_dir, "index.html"))
 }
 
