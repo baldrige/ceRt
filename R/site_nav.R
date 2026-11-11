@@ -168,7 +168,12 @@ NAV_CSS <- "
 #
 # The landing page passes wordmark_only = TRUE: it *is* the section list, and
 # repeating it 200px above itself is noise.
-site_masthead <- function(active = NULL, wordmark_only = FALSE) {
+#
+# `search`: raw HTML for a search box to stand in the wordmark's row (the
+# landing page, 2026-11-11; its CSS is in page_style.R's INDEX_CSS, not in
+# NAV_CSS, which every case page carries). NULL, the default, writes exactly
+# the masthead every other page has always had.
+site_masthead <- function(active = NULL, wordmark_only = FALSE, search = NULL) {
   links <- ""
   if (!isTRUE(wordmark_only)) {
     items <- vapply(SITE_SECTIONS, function(s) paste0(
@@ -180,8 +185,9 @@ site_masthead <- function(active = NULL, wordmark_only = FALSE) {
   }
   paste0(
     "<a class='skip' href='#main'>Skip to content</a>",
-    "<header><div class='smast-in'>",
+    "<header><div class='smast-in", if (!is.null(search)) " smast-has-search", "'>",
     "<a class='smast-wm' href='/'>Supreme Court <em>Report</em></a>",
+    search,
     links,
     "</div><div class='smast-rule-w'><hr class='smast-rule'></div></header>")
 }

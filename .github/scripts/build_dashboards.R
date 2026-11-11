@@ -609,10 +609,11 @@ styled_index_page(
   items = items,
   new_tab = FALSE,
   search = TRUE,
-  # The box leads the page, above the forecast: the search is the door to
-  # 56,000 case pages and a returning reader wants a case before a forecast.
-  # The forecast is still on the first screen beneath it.
-  search_top = TRUE,
+  # The box stands in the masthead, beside the wordmark (2026-11-11): the
+  # search is the door to 56,000 case pages and a returning reader wants a case
+  # before a forecast, and there it costs the page no height at all, so the page
+  # opens on the panels.
+  search_masthead = TRUE,
   # The section nav rides at the top here as it does everywhere else. It used to
   # be suppressed -- "this page IS the section list, and repeating it 200px above
   # itself is noise" -- and that was right while the section list WAS the
@@ -644,13 +645,16 @@ styled_index_page(
   # that the search box and the panels can use. The title stays as a hidden
   # <h1>; the dek above still writes the page's description.
   title_block = FALSE,
-  start =paste0("New to the Court? <a href='funnel/'>Start with how a case reaches it</a>,",
-                 " or read what it did this week, below."),
   groups = c(docket = "Follow the docket", court = "Arguments and the Justices",
              forecast = "How the forecasts work"),
   columns = list(
     main = list(forecast = sharpest_panel, decisions = decisions, arguments = recent_args),
-    side = list(calendar = calendar, orders = orders, most_read = most_read_panel(
+    # The newcomer's line heads the narrow column, beside the forecast's
+    # heading; on a phone it is the first thing under the masthead.
+    side = list(start = tags$p(class = "start", HTML(paste0(
+                  "New to the Court? <a href='funnel/'>Start with how a case reaches it</a>,",
+                  " or read what it did this week."))),
+                calendar = calendar, orders = orders, most_read = most_read_panel(
     most_read,
     heading = "Most-Read Cases",
     show_counts = FALSE,
@@ -659,7 +663,7 @@ styled_index_page(
                    MOST_READ_DAYS, format(Sys.Date() - 1, "%B"),
                    as.integer(format(Sys.Date() - 1, "%d")),
                    as.integer(format(Sys.Date() - 1, "%Y"))))),
-    phone = c("decisions", "forecast", "orders", "calendar", "arguments", "most_read")),
+    phone = c("start", "decisions", "forecast", "orders", "calendar", "arguments", "most_read")),
   # Canonical URL for this page (see social_meta()).
   path = "/"
 )
