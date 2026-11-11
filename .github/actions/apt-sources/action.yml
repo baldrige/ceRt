@@ -25,3 +25,33 @@ runs:
           fi
         done
         echo "vendor apt sources dropped: $dropped"
+    # The Ubuntu archive itself, when the runner cannot resolve it. On
+    # 2026-11-11 every runner from ~14:15 UTC failed "Temporary failure
+    # resolving 'archive.ubuntu.com'" (and azure.archive, security) while
+    # github.com and the R download resolved, so setup-r's apt-get timed out
+    # at 30 minutes in every R workflow; the names resolved fine off GitHub.
+    # Only when NONE of the archive's names resolves is apt pointed at the
+    # first public mirror that does -- a normal day is untouched. The mirrors
+    # carry every pocket, -security included.
+    - shell: bash
+      run: |
+        set -uo pipefail
+        for h in azure.archive.ubuntu.com archive.ubuntu.com security.ubuntu.com; do
+          if getent hosts "$h" >/dev/null; then echo "ubuntu archive resolves ($h)"; exit 0; fi
+        done
+        echo "::warning::the Ubuntu archive does not resolve on this runner; trying public mirrors"
+        url=""
+        for m in http://mirrors.edge.kernel.org/ubuntu/ http://mirrors.mit.edu/ubuntu/ http://mirror.math.princeton.edu/pub/ubuntu/; do
+          h=$(echo "$m" | cut -d/ -f3)
+          if getent hosts "$h" >/dev/null; then url="$m"; break; fi
+          echo "  $h does not resolve either"
+        done
+        if [ -z "$url" ]; then echo "::warning::no mirror resolves; leaving apt as it is"; exit 0; fi
+        echo "apt now uses $url"
+        # The image lists its mirrors in apt-mirrors.txt (mirror+file:); a
+        # source that names the archive directly is rewritten too.
+        if [ -f /etc/apt/apt-mirrors.txt ]; then printf '%s\n' "$url" | sudo tee /etc/apt/apt-mirrors.txt >/dev/null; fi
+        for f in /etc/apt/sources.list /etc/apt/sources.list.d/*; do
+          [ -f "$f" ] || continue
+          sudo sed -i -E "s#https?://(azure\.)?(archive|security)\.ubuntu\.com/ubuntu/?#${url}#g" "$f"
+        done
