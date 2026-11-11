@@ -277,13 +277,22 @@ INDEX_CSS <- paste0("\n  ", palette_root(), "
      Below 62rem the columns are display:contents and the slots fall into one
      flex column in their phone order (styled_index_page(columns=)). Flex
      margins do not collapse, so the panels' own margins are replaced here. */
-  .wrap.home{max-width:60rem}
-  .home>.kicker,.home>h1,.home>.brule,.home>.dek,.home>.csearch,.home>.start{max-width:40rem}
-  .start{margin:.1rem 0 0;font-style:italic;color:var(--ink-soft)}
+  /* The page opens on the panels: no visible title block (title_block = FALSE)
+     and the search box in the masthead (search_masthead = TRUE), so the
+     masthead's own double rule is the only rule above the columns. */
+  .wrap.home{max-width:60rem;padding-top:2rem}
+  /* A heading for screen readers and search engines that is not drawn: the
+     landing page's title, when title_block = FALSE (the masthead's wordmark
+     already names the site). */
+  .vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);
+    white-space:nowrap;margin:0}
+  /* The newcomer's line, a slot of its own at the head of the narrow column
+     (first on a phone). */
+  .cols .slot>.start{margin:0 0 1.6rem;font-size:.98rem;font-style:italic;
+    color:var(--ink-soft);line-height:1.5}
   .start a{color:var(--link);text-decoration:none;border-bottom:1px solid rgba(@link:rgb@,.4)}
   .start a:hover{border-color:var(--link)}
-  .cols{display:flex;flex-direction:column;margin-top:1.8rem;padding-top:1.5rem;
-    border-top:2px solid var(--ink)}
+  .cols{display:flex;flex-direction:column}
   .cols .col{display:contents}
   .cols .slot>.panel{margin:0 0 2.3rem}
   @media(min-width:62rem){
@@ -303,10 +312,6 @@ INDEX_CSS <- paste0("\n  ", palette_root(), "
   .explore ul.idx{margin:0}
   .explore ul.idx a.row{display:block;padding:.7rem .4rem}
   .explore ul.idx .count{display:block;white-space:normal;margin-top:.1rem}
-  /* On a phone the title took two lines at 2.4rem and, with the kicker, dek,
-     search and the newcomer line, pushed every panel off the first screen.
-     At 1.9rem it is one line and the first panel starts at ~540px of 840. */
-  @media(max-width:40rem){.home h1{font-size:1.9rem}}
   /* Home-page case search. */
   .csearch{position:relative;margin:0 0 1.4rem}
   #cq{width:100%;font-family:'Newsreader',Georgia,serif;font-size:1.05rem;color:var(--ink);
@@ -331,6 +336,25 @@ INDEX_CSS <- paste0("\n  ", palette_root(), "
   .cnone a,.cqp a{color:var(--link);font-style:normal;text-decoration:none;
     border-bottom:1px solid rgba(@link:rgb@,.4)}
   .cqp{margin:.45rem 0 0;font-size:.88rem;color:var(--faint)}
+  /* The same box in the masthead's first row, beside the wordmark (the
+     landing page: styled_index_page(search_masthead = TRUE)). The section
+     links are pushed to a row of their own beneath, and the results drop over
+     the page rather than pushing it down. Here, not in NAV_CSS: NAV_CSS is in
+     every case page, and this concerns one page. */
+  .smast-in.smast-has-search{align-items:center}
+  .smast-has-search nav{flex-basis:100%}
+  .csearch.smast-search{flex:1 1 9rem;min-width:0;max-width:24rem;margin:0 0 0 auto}
+  .smast-search #cq{font-size:.92rem;padding:.42rem .7rem}
+  .smast-search .cres{position:absolute;left:0;right:0;top:100%;z-index:20;
+    box-shadow:0 6px 18px rgba(@ink:rgb@,.12)}
+  /* On a phone the box shares its row with the wordmark and is ~170px wide, too
+     narrow for a caption: the results hang from the masthead row instead and
+     take its full width (top:auto keeps them just below the box). */
+  @media(max-width:640px){
+    .smast-in.smast-has-search{position:relative;column-gap:.8rem}
+    .csearch.smast-search{position:static}
+    .smast-search .cres{left:1.1rem;right:1.1rem;top:auto;margin-top:.35rem}
+  }
   /* /cases/ browse index: grouped sections with per-bucket counts. */
   .csec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
     text-transform:uppercase;letter-spacing:.12em;color:var(--accent);
@@ -1295,8 +1319,6 @@ styled_index_page <- function(out_path, title, heading, items,
                               # The landing page's layout (2026-11-11; see "The
                               # landing page" in docs/navigation.md). Each is NULL
                               # on every other index page, which renders as before.
-                              #  start:   a line for a first-time reader, under
-                              #           the search box.
                               #  columns: list(main = list(name = panel, ...),
                               #           side = list(...), phone = c(names)).
                               #           Two columns from 62rem; below that one
@@ -1307,7 +1329,25 @@ styled_index_page <- function(out_path, title, heading, items,
                               #           from each item's $group. An item with no
                               #           group is left out (About: the masthead
                               #           carries it).
-                              start = NULL, columns = NULL, groups = NULL) {
+                              #  title_block: FALSE drops the kicker, the title,
+                              #           the rule, the dek and the search box's
+                              #           questions-presented line from view. The
+                              #           title stays as a visually hidden <h1>,
+                              #           and the dek still writes the page's
+                              #           description.
+                              #  search_masthead: TRUE puts the search box in the
+                              #           masthead's first row, beside the
+                              #           wordmark, instead of in the page (no
+                              #           questions-presented line there).
+                              columns = NULL, groups = NULL,
+                              title_block = TRUE, search_masthead = FALSE) {
+  # The masthead's search box: the page's own, minus the questions-presented
+  # line, with a placeholder short enough for the row it shares on a phone.
+  mast_search <- if (isTRUE(search) && isTRUE(search_masthead)) {
+    s <- sub("<p class='cqp'>.*?</p>", "", SEARCH_HTML, perl = TRUE)
+    s <- sub("<div class='csearch'>", "<div class='csearch smast-search' role='search'>", s, fixed = TRUE)
+    sub("placeholder='[^']*'", "placeholder='Case name or docket no.'", s)
+  }
   if (!is.null(groups)) items <- lapply(items, function(it) { it$recent <- NULL; it })
   rows <- lapply(items, function(it) {
     has_meta <- !is.null(it$meta) && nzchar(it$meta)
@@ -1372,20 +1412,19 @@ styled_index_page <- function(out_path, title, heading, items,
     tags$div(class = "cols", col(columns$main, "cmain"), col(columns$side, "cside"))
   }
   body <- tags$body(
-    HTML(site_masthead(active = active, wordmark_only = wordmark_only)),
+    HTML(site_masthead(active = active, wordmark_only = wordmark_only, search = mast_search)),
     tags$main(
     id = "main",
     class = if (is.null(columns)) "wrap" else "wrap home",
     if (!is.null(crumb)) HTML(site_breadcrumb(crumb$label, crumb$section)),
-    if (!is.null(kicker)) tags$p(class = "kicker", smarten(kicker)),
-    heading_node,
-    tags$hr(class = "brule"),
-    if (!is.null(dek)) tags$p(class = "dek", smarten(dek)),
-    if (isTRUE(search) && isTRUE(search_top)) HTML(SEARCH_HTML),
-    if (!is.null(start)) tags$p(class = "start", HTML(smarten(start))),
+    if (!is.null(kicker) && title_block) tags$p(class = "kicker", smarten(kicker)),
+    if (title_block) heading_node else tags$h1(class = "vh", smarten(heading)),
+    if (title_block) tags$hr(class = "brule"),
+    if (!is.null(dek) && title_block) tags$p(class = "dek", smarten(dek)),
+    if (isTRUE(search) && isTRUE(search_top) && is.null(mast_search)) HTML(SEARCH_HTML),
     panel_top,
     cols_node,
-    if (isTRUE(search) && !isTRUE(search_top)) HTML(SEARCH_HTML),
+    if (isTRUE(search) && !isTRUE(search_top) && is.null(mast_search)) HTML(SEARCH_HTML),
     index_node,
     panel,
     # Below the panels, above the back link: a reader who has scrolled the whole

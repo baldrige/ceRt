@@ -95,14 +95,26 @@ the site last.
   `display:contents`, so each panel's `.slot` is an item of one flex column and
   takes its `order`. On a phone Recent decisions leads because a first-time reader
   can follow it; on a wide screen the forecast still leads, on the first screen.
+- **The page opens on the panels.** No visible title block (`title_block =
+  FALSE`): no kicker, title, rule or dek. The masthead's wordmark names the site;
+  the title stays as a visually hidden `<h1>` and the dek still writes the page's
+  description.
+- **The search box is in the masthead** (`search_masthead = TRUE`), in the
+  wordmark's row, with the section links on their own row beneath; results drop
+  over the page. On a phone the box is ~170px beside the wordmark and its results
+  hang from the masthead at full width. `site_masthead(search=)` writes it; its CSS
+  is in `INDEX_CSS`, not `NAV_CSS`, which every case page carries, and the
+  masthead every other page gets is byte for byte unchanged. There is no
+  questions-presented line in the masthead: the Question Presented search is
+  linked from the same box on the All Cases index and the 404.
 - **"Live now"** stays full width above both columns.
-- **A line for a newcomer** (`start`) under the search box points at the Funnel
-  explainer.
+- **A line for a newcomer** points at the Funnel explainer: a slot of its own
+  (`start`) at the head of the narrow column, and first on a phone.
 - **"Explore the site"** (`groups`): the section list in three groups (Follow the
   docket; Arguments and the Justices; How the forecasts work), side by side from
   48rem, without the date strips. About is left out: the masthead carries it.
-- On a phone the title is 1.9rem, one line, so the first panel starts on the first
-  screen (about 540px down an 840px phone screen).
+- The first panel starts about 115px down on a phone, just under the masthead (it
+  was ~540px with the title block, and below the first screen before #312).
 
 Every other caller of `styled_index_page()` passes none of these and renders as
 before.
