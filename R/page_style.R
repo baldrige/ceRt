@@ -118,6 +118,10 @@ INDEX_CSS <- paste0("\n  ", palette_root(), "
      and Chrome draw larger controls than the desktop. */
   .lplay audio{display:block;flex:1 1 100%;width:100%;min-width:0;max-width:100%;
     box-sizing:border-box;margin:0}
+  /* ...and stays out of sight until Listen live is pressed. The rule above
+     sets display, which beats the browser's own [hidden]{display:none}, so
+     without this the empty player showed beside the button from the start. */
+  .lplay audio[hidden]{display:none}
   .lplay .lstat{font-size:.85rem;color:var(--faint)}
   /* --- Likeliest grants -----------------------------------------------------
      Its own rows rather than ol.mostread's: this panel carries a question under
