@@ -81,6 +81,10 @@
      and Chrome draw larger controls than the desktop. */
   .lplay audio{display:block;flex:1 1 100%;width:100%;min-width:0;max-width:100%;
     box-sizing:border-box;margin:0}
+  /* ...and stays out of sight until Listen live is pressed. The rule above
+     sets display, which beats the browser's own [hidden]{display:none}, so
+     without this the empty player showed beside the button from the start. */
+  .lplay audio[hidden]{display:none}
   .lplay .lstat{font-size:.85rem;color:var(--faint)}
   /* --- Likeliest grants -----------------------------------------------------
      Its own rows rather than ol.mostread's: this panel carries a question under
@@ -1149,6 +1153,22 @@
               <li>
                 <div class="crow">
                   <span class="cwhen">
+                    <span class="cdow">Thu</span>
+                    Nov 12
+                  </span>
+                  <span class="ctx">
+                    <a class="ckind" href="orders/2026-11-12-misc.html">Miscellaneous order</a>
+                    <span class="cdet">
+                      1 denied
+                       &middot; 
+                      <a href="cases/26-6095.html">James Dwight Pavatt v. Oklahoma</a>
+                    </span>
+                  </span>
+                </div>
+              </li>
+              <li>
+                <div class="crow">
+                  <span class="cwhen">
                     <span class="cdow">Mon</span>
                     Nov  9
                   </span>
@@ -1186,22 +1206,6 @@
                       1 denied
                        &middot; 
                       <a href="cases/26-6051.html">Jesse Guardado v. Richard Comerford, Secretary, Florida Department of Corrections</a>
-                    </span>
-                  </span>
-                </div>
-              </li>
-              <li>
-                <div class="crow">
-                  <span class="cwhen">
-                    <span class="cdow">Thu</span>
-                    Nov  5
-                  </span>
-                  <span class="ctx">
-                    <a class="ckind" href="orders/2026-11-05-misc.html">Miscellaneous order</a>
-                    <span class="cdet">
-                      1 denied
-                       &middot; 
-                      <a href="cases/26-6013.html">Jesse Guardado v. Florida</a>
                     </span>
                   </span>
                 </div>

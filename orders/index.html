@@ -81,6 +81,10 @@
      and Chrome draw larger controls than the desktop. */
   .lplay audio{display:block;flex:1 1 100%;width:100%;min-width:0;max-width:100%;
     box-sizing:border-box;margin:0}
+  /* ...and stays out of sight until Listen live is pressed. The rule above
+     sets display, which beats the browser's own [hidden]{display:none}, so
+     without this the empty player showed beside the button from the start. */
+  .lplay audio[hidden]{display:none}
   .lplay .lstat{font-size:.85rem;color:var(--faint)}
   /* --- Likeliest grants -----------------------------------------------------
      Its own rows rather than ol.mostread's: this panel carries a question under
@@ -441,6 +445,14 @@
     <hr class="brule"/>
     <p class="dek">Every order list and miscellaneous order the Court has issued, in the Court’s own words: what it granted, what it sent back, what it turned away.</p>
     <ul class="idx">
+      <li>
+        <a class="row longmeta" href="2026-11-12-misc.html">
+          <span class="d">Miscellaneous order · Thursday, November 12, 2026</span>
+          <span class="count long">
+            <span class="seg">1 denied</span>
+          </span>
+        </a>
+      </li>
       <li>
         <a class="row longmeta" href="2026-11-09.html">
           <span class="d">Order list · Monday, November 9, 2026</span>
