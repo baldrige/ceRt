@@ -634,10 +634,10 @@ styled_index_page(
   #
   # The other panels stand in two columns from 62rem (2026-11-11; docs/
   # navigation.md, "The landing page"): testers found the one long column
-  # daunting. The forecast and decisions carry the most prose and take the wide
-  # column; the calendar, orders and arguments are dated lists and take the
-  # narrow one (arguments moved across 2026-11-12, when the most-read panel
-  # went, to even the columns' lengths). The forecast still leads the wide
+  # daunting. The two longest panels, the forecast and Recent arguments, take
+  # the wide column; Recent decisions, the calendar and the orders take the
+  # narrow one, which keeps the columns near one length (2026-11-12, when the
+  # most-read panel went: ~1,760px against ~1,970px in the week measured). The forecast still leads the wide
   # column, on the first screen. On a phone Recent decisions leads instead:
   # it is the panel a first-time reader can follow without knowing what a paid
   # docket or a base rate is. Any panel may be NULL (a quiet week, the summer
@@ -651,7 +651,7 @@ styled_index_page(
   groups = c(docket = "Follow the docket", court = "Arguments and the Justices",
              forecast = "How the forecasts work"),
   columns = list(
-    main = list(forecast = sharpest_panel, decisions = decisions),
+    main = list(forecast = sharpest_panel, arguments = recent_args),
     # The newcomer's line heads the narrow column, beside the forecast's
     # heading; on a phone it is the first thing under the masthead. The
     # Question Presented search shares it: the masthead box finds a case by
@@ -661,7 +661,7 @@ styled_index_page(
                   " or read what it did this week.",
                   " Looking for an issue rather than a case?",
                   " <a href='questions/'>Search the questions presented</a>."))),
-                calendar = calendar, orders = orders, arguments = recent_args),
+                decisions = decisions, calendar = calendar, orders = orders),
     phone = c("start", "decisions", "forecast", "orders", "calendar", "arguments")),
   # Canonical URL for this page (see social_meta()).
   path = "/"
