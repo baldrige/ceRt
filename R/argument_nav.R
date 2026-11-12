@@ -543,7 +543,7 @@ STATUS_LEVELS <- c("Granted", "Scheduled", "Argued", "Reargued", "Decided", "DIG
 # Sitting column (October, November, …) instead of row-group bands. When is a real
 # date so it value-sorts; Status is colour-scaled by state and links decided cases
 # to the slip opinion.
-argument_term_page <- function(tbl, term, out_dir) {
+argument_term_page <- function(tbl, term, out_dir, lead = "") {
   d <- tbl |>
     filter(term == !!term) |>
     # Scheduled cases order by when they are heard. Unscheduled ones have no
@@ -660,7 +660,7 @@ argument_term_page <- function(tbl, term, out_dir) {
       file.path(out_dir, str_c("arg_", term, ".html")),
       kicker = "Supreme Court of the United States",
       title = paste0(term_label(term - 2000L), " &mdash; Oral Arguments"),
-      dek = dek, n_rows = n, left_cols = left_cols,
+      dek = dek, n_rows = n, left_cols = left_cols, lead = lead,
       footer = paste0("Status tracks each grant from Granted through Scheduled, ",
                       "Argued, and Decided (with the majority author, linked to the ",
                       "slip opinion). <em>Listen and read</em> opens the argument with its ",
@@ -719,7 +719,9 @@ argument_index <- function(out_dir) {
 # Build the table (or use a prebuilt `tbl`), render a page per argued Term, and
 # (re)build the index. Passing `tbl` avoids re-running the classifier when the
 # caller has already built the table (e.g. to attach QP from a cache).
-render_argument_nav <- function(cases = NULL, out_dir, qp_map = NULL, tbl = NULL, first_term = NULL) {
+# `leads`: optional HTML to lead a Term's page with, named by Term ("2026" = ...).
+render_argument_nav <- function(cases = NULL, out_dir, qp_map = NULL, tbl = NULL, first_term = NULL,
+                                leads = list()) {
   dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
   if (is.null(tbl)) tbl <- build_argument_table(cases, qp_map = qp_map)
   if (nrow(tbl) == 0) { message("No argued/scheduled grants found."); return(invisible(NULL)) }
@@ -739,7 +741,7 @@ render_argument_nav <- function(cases = NULL, out_dir, qp_map = NULL, tbl = NULL
     min_dkt_year <- 2000L + suppressWarnings(min(as.integer(str_sub(tbl$dkt, 1, 2)), na.rm = TRUE))
     if (length(terms) > 1) terms <- terms[terms > min_dkt_year]
   }
-  for (t in terms) argument_term_page(tbl, t, out_dir)
+  for (t in terms) argument_term_page(tbl, t, out_dir, lead = leads[[as.character(t)]] %||% "")
   argument_index(out_dir)
   invisible(terms)
 }

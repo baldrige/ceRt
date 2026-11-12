@@ -175,8 +175,21 @@ if (!is.null(rd) && nrow(rd)) {
 # Terms before it hold only cases reargued later (Jennings, Dimaya), never a
 # whole Term.
 tx_first <- suppressWarnings(min(vapply(tx_idx, function(e) as.integer(e$term), 1L)))
+# The current Term's page leads with the grant pace (R/grant_pace.R): this
+# Term's cert grants to date against every past Term's, projected to July.
+# From every docket this run holds, joined with the order lists' grants, which
+# are fresher. Never fatal: a failure costs the panel, not the Navigator.
+source("R/grant_pace.R")
+pace <- tryCatch({
+  gd <- grant_dates(combined, file.path(site_dir, "orders", "orders.json"))
+  setNames(list(grant_pace_panel(gd)), grant_window(Sys.Date()))
+}, error = function(e) { cat("Grant pace skipped:", conditionMessage(e), "
+"); list() })
+if (length(pace) && nzchar(pace[[1]])) cat("Grant pace: panel on the OT", names(pace), " page
+", sep = "")
 terms <- render_argument_nav(out_dir = arg_dir, tbl = tbl,
-                             first_term = if (is.finite(tx_first)) tx_first else NULL)
+                             first_term = if (is.finite(tx_first)) tx_first else NULL,
+                             leads = pace)
 # Typographic (smart) quotes across the per-Term argument pages (the index is
 # already smartened by styled_index_page). smarten_html skips <style>/<script>/
 # tags, so the static gt tables' data and CSS are untouched but prose is fixed.

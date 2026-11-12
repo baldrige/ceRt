@@ -269,6 +269,10 @@ scr_write_page <- function(gt_tbl, out_path, kicker, title, dek, n_rows,
                            # HTML placed after the table and before the footer
                            # (the footer is a <p>, which cannot hold a table).
                            extra = "",
+                           # HTML placed between the dek's rule and the table: a
+                           # panel the page leads with (the current Term's grant
+                           # pace on the Oral Argument Navigator, R/grant_pace.R).
+                           lead = "",
                            # `dek` already says what the page is in one line, so
                            # it is the card description unless a caller overrides.
                            # `path` is the site-absolute URL for the canonical.
@@ -357,6 +361,7 @@ scr_write_page <- function(gt_tbl, out_path, kicker, title, dek, n_rows,
     if (!is.null(crumb)) site_breadcrumb(crumb$label, crumb$section) else "",
     "<p class='kicker'>", kicker, "</p><h1>", title, "</h1>",
     "<p class='dek'>", dek, "</p><hr class='brule'>",
+    lead,
     body_inner,
     extra,
     if (nzchar(footer)) paste0("<p class='foot'>", footer, "</p>") else "",
