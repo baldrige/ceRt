@@ -3,7 +3,7 @@
     "model": "typesafe:jev-1.13.0",
     "defs": "ef2b5d8a6205",
     "pending": 0,
-    "updated": "2026-11-12T15:14:59Z"
+    "updated": "2026-11-12T15:47:42Z"
   },
   "15-1204": {
     "area": "Civil Rights",
@@ -260042,7 +260042,7 @@
   },
   "26-614": {
     "area": "Due Process",
-    "confidence": 0.72,
+    "confidence": 0.7,
     "second": "Judicial Power",
     "hash": "2f882e508a2e8c83",
     "by": "typesafe:jev-1.13.0|ef2b5d8a6205"
