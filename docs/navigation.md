@@ -116,7 +116,10 @@ the site last.
   (`start`) at the head of the narrow column, and first on a phone.
 - **"Explore the site"** (`groups`): the section list in three groups (Follow the
   docket; Arguments and the Justices; How the forecasts work), side by side from
-  48rem, without the date strips. About is left out: the masthead carries it.
+  48rem. The daily dashboards, the conference reports and the argument
+  navigator keep their strip of the three latest pages under the row
+  (`recent_grouped = TRUE` on the item, restored 2026-11-12); the Justices row
+  does not. About is left out: the masthead carries it.
 - The first panel starts about 115px down on a phone, just under the masthead (it
   was ~540px with the title block, and below the first screen before #312).
 

@@ -280,13 +280,14 @@ short_date <- function(f) { d <- date_key(f)
 arg_label  <- function(f) paste0("OT", str_extract(f, "\\d{4}"))
 
 items <- list(list(href = "dashboards/", label = "Daily Petitions & Applications",
-                   meta = "new, daily", group = "docket",
+                   meta = "new, daily", group = "docket", recent_grouped = TRUE,
                    recent = recent_children(
                      dash_dir, "^dash_\\d{4}-\\d{2}-\\d{2}\\.html$",
                      date_key, short_date, "dashboards/")))
 if (dir.exists(file.path(site_dir, "conferences"))) {
   items <- c(items, list(list(href = "conferences/", label = "Conference Reports",
                               meta = "weekly, by relists", group = "docket",
+                              recent_grouped = TRUE,
                               recent = recent_children(
                                 file.path(site_dir, "conferences"),
                                 "^conf_\\d{4}-\\d{2}-\\d{2}\\.html$",
@@ -314,6 +315,7 @@ if (file.exists(file.path(site_dir, "applications", "index.html"))) {
 if (dir.exists(file.path(site_dir, "arguments"))) {
   items <- c(items, list(list(href = "arguments/", label = "Oral Argument Navigator",
                               meta = "granted cases, by sitting", group = "court",
+                              recent_grouped = TRUE,
                               recent = recent_children(
                                 file.path(site_dir, "arguments"),
                                 "^arg_\\d{4}\\.html$",

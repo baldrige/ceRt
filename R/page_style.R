@@ -316,6 +316,7 @@ INDEX_CSS <- paste0("\n  ", palette_root(), "
   .explore ul.idx{margin:0}
   .explore ul.idx a.row{display:block;padding:.7rem .4rem}
   .explore ul.idx .count{display:block;white-space:normal;margin-top:.1rem}
+  .explore ul.idx .recent{padding-bottom:.75rem}
   /* Home-page case search. */
   .csearch{position:relative;margin:0 0 1.4rem}
   #cq{width:100%;font-family:'Newsreader',Georgia,serif;font-size:1.05rem;color:var(--ink);
@@ -1332,7 +1333,8 @@ styled_index_page <- function(out_path, title, heading, items,
                               #           as "Explore the site", one list per key,
                               #           from each item's $group. An item with no
                               #           group is left out (About: the masthead
-                              #           carries it).
+                              #           carries it). An item's $recent strip
+                              #           shows only if $recent_grouped is TRUE.
                               #  title_block: FALSE drops the kicker, the title,
                               #           the rule, the dek and the search box's
                               #           questions-presented line from view. The
@@ -1352,7 +1354,13 @@ styled_index_page <- function(out_path, title, heading, items,
     s <- sub("<div class='csearch'>", "<div class='csearch smast-search' role='search'>", s, fixed = TRUE)
     sub("placeholder='[^']*'", "placeholder='Case name or docket no.'", s)
   }
-  if (!is.null(groups)) items <- lapply(items, function(it) { it$recent <- NULL; it })
+  # Grouped, a row keeps its strip of latest pages only where the item asks for
+  # it (`recent_grouped`): the dated sections, where the newest page is what a
+  # returning reader came for. The rest stay one line in a third of the width.
+  if (!is.null(groups)) items <- lapply(items, function(it) {
+    if (!isTRUE(it$recent_grouped)) it$recent <- NULL
+    it
+  })
   rows <- lapply(items, function(it) {
     has_meta <- !is.null(it$meta) && nzchar(it$meta)
     # `meta_wrap`: a note long enough to need more than one line (see the
