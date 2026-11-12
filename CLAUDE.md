@@ -12,7 +12,7 @@ and served by GitHub Pages.
 | Daily petitions & applications dashboards | `dashboards/` | `daily.yml` → `build_dashboards.R` |
 | Per-case docket pages | `cases/` | `render_dockets_for()` in `R/docket_page.R` — see **[docs/docket-pages.md](docs/docket-pages.md)** |
 | Conference reports | `conferences/` | `conferences.yml` → `render_conferences.R` |
-| Oral Argument Navigator | `arguments/` | `conferences.yml` → `render_arguments.R` |
+| Oral Argument Navigator | `arguments/` | `conferences.yml` → `render_arguments.R`. The current Term's page leads with the grant pace: grants to date against past Terms, projected to July (`R/grant_pace.R`, **[docs/grant-pace.md](docs/grant-pace.md)**) |
 | The Cert Funnel (explainer) | `funnel/` | `render_funnel.R` |
 | The Counsel Table | `counsel/` | `R/counsel_table.R` — see **[docs/counsel-table.md](docs/counsel-table.md)**. Both Counsel pages also render for every shorter range of Terms under `counsel/terms/` (`render-counsel.yml` → `render_counsel_ranges.R`, `R/term_range.R`): a petition belongs to the Term docketed, an argument or merits brief to the Term argued, and floors scale with the range |
 | Friends of the Court (amicus filers, sides, coalitions, States, amicus counsel) | `counsel/amicus.html` | `R/amicus.R`, from `conferences.yml` / `render-counsel.yml`; counsel and current merits via `refetch-amici.yml` — see **[docs/amicus.md](docs/amicus.md)**. Classifies briefs with the case pages' own `brief_cover()`; the docket JSON's amici live in an `amici` column, never in `parties` |
