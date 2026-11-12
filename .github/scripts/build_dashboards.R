@@ -334,6 +334,12 @@ if (file.exists(file.path(site_dir, "cases", "index.html"))) {
   items <- c(items, list(list(href = "cases/", label = "All Cases",
                               meta = "browse by Term", group = "docket")))
 }
+# The Question Presented search, beside All Cases: that finds a case by name,
+# this finds petitions by issue. Written above by write_qp_index().
+if (file.exists(file.path(site_dir, "questions", "index.html"))) {
+  items <- c(items, list(list(href = "questions/", label = "Search by Issue",
+                              meta = "petitions by issue, granted and denied", group = "docket")))
+}
 # The advocates, after the case-shaped sections and before the two explainers:
 # it is a view onto the same petitions cut a different way, not a guide to the
 # site.
@@ -376,12 +382,8 @@ write_about_page(file.path(site_dir, "about.html"))
 write_404_page(file.path(site_dir, "404.html"))
 items <- c(items, list(list(href = "about.html", label = "About",
                             meta = "who makes this")))
-# Most-read cases over the trailing 30 days, from GA4. Needs the GA4_PROPERTY_ID
-# and GA4_SA_KEY secrets; without them this is zero rows and the block is simply
-# omitted, which is why it is not guarded here. See R/site_analytics.R.
-source("R/site_analytics.R")
-MOST_READ_DAYS <- 30L
-most_read <- top_viewed_cases(site_dir, n = 5L, days = MOST_READ_DAYS)
+# There is no most-read panel (removed 2026-11-12, at the editor's request).
+# R/site_analytics.R and most_read_panel() remain, unused, should it return.
 
 # Likeliest grants: the week's newly-docketed paid-docket cases the baseline
 # structural model rates furthest above its base rate. Same model and the same
@@ -632,13 +634,14 @@ styled_index_page(
   #
   # The other panels stand in two columns from 62rem (2026-11-11; docs/
   # navigation.md, "The landing page"): testers found the one long column
-  # daunting. Split by shape: the forecast, decisions and arguments carry prose
-  # and take the wide column; the calendar, orders and most-read are date or
-  # rank lists and take the narrow one. The forecast still leads the wide
+  # daunting. The two longest panels, the forecast and Recent arguments, take
+  # the wide column; Recent decisions, the calendar and the orders take the
+  # narrow one, which keeps the columns near one length (2026-11-12, when the
+  # most-read panel went: ~1,760px against ~1,970px in the week measured). The forecast still leads the wide
   # column, on the first screen. On a phone Recent decisions leads instead:
   # it is the panel a first-time reader can follow without knowing what a paid
   # docket or a base rate is. Any panel may be NULL (a quiet week, the summer
-  # recess, no GA4 secrets) and its slot is simply left out.
+  # recess) and its slot is simply left out.
   panel_top = live_arg,
   # No visible title block (2026-11-11): the masthead's wordmark already names
   # the site, and the kicker, a 3.6rem title and the dek cost a first screen
@@ -648,22 +651,18 @@ styled_index_page(
   groups = c(docket = "Follow the docket", court = "Arguments and the Justices",
              forecast = "How the forecasts work"),
   columns = list(
-    main = list(forecast = sharpest_panel, decisions = decisions, arguments = recent_args),
+    main = list(forecast = sharpest_panel, arguments = recent_args),
     # The newcomer's line heads the narrow column, beside the forecast's
-    # heading; on a phone it is the first thing under the masthead.
+    # heading; on a phone it is the first thing under the masthead. The
+    # Question Presented search shares it: the masthead box finds a case by
+    # name and cannot carry the line the in-page box does.
     side = list(start = tags$p(class = "start", HTML(paste0(
                   "New to the Court? <a href='funnel/'>Start with how a case reaches it</a>,",
-                  " or read what it did this week."))),
-                calendar = calendar, orders = orders, most_read = most_read_panel(
-    most_read,
-    heading = "Most-Read Cases",
-    show_counts = FALSE,
-    subjects = subjects,
-    note = sprintf("Ranked by page views over the %d days ending %s %d, %d.",
-                   MOST_READ_DAYS, format(Sys.Date() - 1, "%B"),
-                   as.integer(format(Sys.Date() - 1, "%d")),
-                   as.integer(format(Sys.Date() - 1, "%Y"))))),
-    phone = c("start", "decisions", "forecast", "orders", "calendar", "arguments", "most_read")),
+                  " or read what it did this week.",
+                  " Looking for an issue rather than a case?",
+                  " <a href='questions/'>Search the questions presented</a>."))),
+                decisions = decisions, calendar = calendar, orders = orders),
+    phone = c("start", "decisions", "forecast", "orders", "calendar", "arguments")),
   # Canonical URL for this page (see social_meta()).
   path = "/"
 )

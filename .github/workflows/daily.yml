@@ -34,9 +34,9 @@ on:
     #              and made correctness depend on the drift persisting. Fixed.
     #   16:33 UTC  12:33pm EDT -- BEFORE the 2pm ET GA4 window flip, so this is
     #              no longer the run that picks up new analytics.
-    #   20:33 UTC  4:33pm EDT -- after the flip, so this is the GA-bearing run
-    #              for the landing page's Most-Read Cases panel. Bounded BELOW
-    #              too (by the flip), and 87 min early still clears it.
+    #   20:33 UTC  4:33pm EDT -- after the flip; this was the GA-bearing run
+    #              for the landing page's Most-Read Cases panel, removed
+    #              2026-11-12, so the daily no longer reads GA4 at all.
     - cron: "33 0 * * *"    # ~00:33 UTC, shortly after the ~00:05 UTC JSON re-export
     - cron: "33 16 * * *"   # was "0 18": 12:33pm ET (EDT); 11:33am ET during standard time
     - cron: "33 20 * * *"   # was "0 22": 4:33pm ET (EDT); 3:33pm ET during standard time
@@ -203,11 +203,6 @@ jobs:
           # read, and how many new documents to pull. Blank/default on a cron.
           ORDERS_TERMS: ${{ inputs.orders_terms }}
           ORDERS_MAX_NEW: ${{ inputs.orders_max_new || '250' }}
-          # Read-only GA4 access for the landing page's "Most-Read Cases" panel.
-          # Optional: if these are unset the panel is omitted and the build is
-          # otherwise unaffected (see R/site_analytics.R).
-          GA4_PROPERTY_ID: ${{ secrets.GA4_PROPERTY_ID }}
-          GA4_SA_KEY: ${{ secrets.GA4_SA_KEY }}
           TYPESAFE_API_KEY: ${{ secrets.TYPESAFE_API_KEY }}
         run: Rscript .github/scripts/build_dashboards.R
 
