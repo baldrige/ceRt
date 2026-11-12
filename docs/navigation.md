@@ -87,11 +87,11 @@ the site last.
 
 - **Two columns from 62rem**, as wide as the masthead (60rem). The split is by
   shape, not topic: the forecast, Recent decisions and Recent arguments carry
-  prose and take the wide column; Upcoming, Latest orders and Most-Read are date
-  or rank lists and take the narrow one. (A past/future split was tried first: the
+  prose and take the wide column; Upcoming and Latest orders are date lists and
+  take the narrow one. (A Most-Read panel stood there too until 2026-11-12.) (A past/future split was tried first: the
   forecast in the narrow column wrapped its question every 25 characters.)
 - **One column below 62rem, in its own order** (`columns$phone`): decisions,
-  forecast, orders, calendar, arguments, most-read. The columns become
+  forecast, orders, calendar, arguments. The columns become
   `display:contents`, so each panel's `.slot` is an item of one flex column and
   takes its `order`. On a phone Recent decisions leads because a first-time reader
   can follow it; on a wide screen the forecast still leads, on the first screen.
@@ -105,10 +105,12 @@ the site last.
   hang from the masthead at full width. `site_masthead(search=)` writes it; its CSS
   is in `INDEX_CSS`, not `NAV_CSS`, which every case page carries, and the
   masthead every other page gets is byte for byte unchanged. There is no
-  questions-presented line in the masthead: the Question Presented search is
-  linked from the same box on the All Cases index and the 404.
+  questions-presented line in the masthead box; on this page the Question
+  Presented search is linked from the newcomer line and from "Explore the
+  site" (on the All Cases index and the 404 it is the line under the box).
 - **"Live now"** stays full width above both columns.
-- **A line for a newcomer** points at the Funnel explainer: a slot of its own
+- **A line for a newcomer** points at the Funnel explainer, and at the Question
+  Presented search for a reader after an issue: a slot of its own
   (`start`) at the head of the narrow column, and first on a phone.
 - **"Explore the site"** (`groups`): the section list in three groups (Follow the
   docket; Arguments and the Justices; How the forecasts work), side by side from

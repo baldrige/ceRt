@@ -51,7 +51,6 @@ drift; the phrases don't.
 | Landing — Recent decisions | `Recent decisions` | "The Court's most recent written opinions, argued or not." | heading `R/page_style.R` :832; note `.github/scripts/build_dashboards.R` :425 |
 | Landing — Latest orders | `Latest orders` | "What the Court granted, sent back and turned away…" | `R/orders_list.R` :647–648 |
 | Landing — Upcoming at the Court | `Upcoming at the Court` | "The next conferences, order lists and argument days…" | heading `R/page_style.R` :733; note `.github/scripts/build_dashboards.R` :413 |
-| Landing — Most-Read Cases | `Most-Read Cases` | "Ranked by page views over the %d days ending…" | `.github/scripts/build_dashboards.R` :503, :505–508 |
 | About | `Supreme Court Report` | "Quantifying the U.S. Supreme Court's behavior…" | `R/page_style.R` :632, dek :634–636 |
 | 404 | `No page at that address` | "The link may be mistyped or out of date…" | `R/page_style.R` :578, dek :584–587 |
 | Masthead wordmark | `Supreme Court <em>Report</em>` | — | `R/site_nav.R` :180 |
@@ -156,10 +155,10 @@ The same applies going the other way: **don't "fix" an existing `&mdash;` into
 on the About and 404 pages until September 2026.)
 
 One place the entity is **required**: `R/docket_page.R:1326` writes a case page's
-`<title>` as `{caption} &mdash; No. {dkt}`, and the landing page's Most-Read panel
-parses the caption back out with `sub("\\s*&mdash;\\s*No\\..*$", "", t)`
+`<title>` as `{caption} &mdash; No. {dkt}`, and `R/site_analytics.R` (the unused
+Most-Read panel's reader) parses the caption back out with `sub("\\s*&mdash;\\s*No\\..*$", "", t)`
 (`R/site_analytics.R:173`). A real em dash there leaves a trailing docket number
-on every caption in that panel.
+on every caption it reads.
 
 ### Rule 2 — type straight quotes and let the site curl them
 
@@ -198,8 +197,7 @@ Example, at `.github/scripts/build_dashboards.R:397`:
 "Paid-docket cases filed in the last %d days, against a %.1f%% base rate. "
 ```
 
-Reordering the words in such a string means reordering the arguments: the
-most-read note at `:505` has four positional placeholders consumed in order.
+Reordering the words in such a string means reordering the arguments.
 
 *Don't over-apply it.* `R/site_decisions.R:305` reads `sprintf("%02d", unique(y) %% 100L)`
 — that `%%` is R's modulo operator sitting in sprintf's **argument**, not an

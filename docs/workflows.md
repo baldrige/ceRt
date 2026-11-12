@@ -100,20 +100,10 @@ watcher already in progress exits at once. See **[data-sources.md](data-sources.
   [Feeds and sitemaps](#feeds-and-sitemaps) below). These *enumerate* the whole
   site including sections the daily does not render, which is fine because they
   read the gh-pages checkout, not the render output.
-- **Optional secrets:** `GA4_PROPERTY_ID` (numeric, *not* the `G-…` measurement
-  id) and `GA4_SA_KEY` (service-account JSON with Viewer on that property) add
-  the landing page's **Most-Read Cases** panel — top 5 `cases/` pages by views
-  over the trailing 30 days, read from GA4 (`R/site_analytics.R`). Unset,
-  failing, or credential-expired, the panel is omitted and the build is
-  otherwise unchanged; it never fails the daily.
-  A **publishing floor** gates it: each entry needs ≥10 distinct readers and
-  ≥15 views (raised 2026-09-08 from 3 and 5, which the summer's traffic let a
-  search-arrival page and the forecast panel's own dockets clear), and ≥3
-  entries must clear that before anything renders (fewer than 5
-  qualifying entries renders fewer than 5, not nothing). Below the floor the
-  ordering would be produced by the docket-number tiebreak rather than by
-  readers. Suppression is logged with the counts that failed it, so a dark panel
-  is always distinguishable from a broken one.
+- **No analytics.** The landing page's Most-Read Cases panel, which read the
+  `GA4_PROPERTY_ID` / `GA4_SA_KEY` secrets, was removed on 2026-11-12; the daily
+  no longer passes them. `R/site_analytics.R` and `most_read_panel()` remain,
+  unused, with the publishing floor that gated the panel documented in them.
 - **New oral arguments, same day:** reads the current Term's transcript feed,
   parses any new transcript, writes its argument page and
   `arguments/recent.json` (the landing page's **Recent arguments** panel), and
