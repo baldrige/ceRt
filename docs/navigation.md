@@ -86,9 +86,11 @@ five screens long, seven panels of equal weight, the forecast first and the map 
 the site last.
 
 - **Two columns from 62rem**, as wide as the masthead (60rem). The split is by
-  shape, not topic: the forecast, Recent decisions and Recent arguments carry
-  prose and take the wide column; Upcoming and Latest orders are date lists and
-  take the narrow one. (A Most-Read panel stood there too until 2026-11-12.) (A past/future split was tried first: the
+  shape, not topic: the forecast and Recent decisions carry the most prose and
+  take the wide column; Upcoming, Latest orders and Recent arguments are dated
+  lists and take the narrow one. (Until 2026-11-12 a Most-Read panel stood in the
+  narrow column and Recent arguments in the wide; moving the arguments across
+  when Most-Read went keeps the two columns near one length.) (A past/future split was tried first: the
   forecast in the narrow column wrapped its question every 25 characters.)
 - **One column below 62rem, in its own order** (`columns$phone`): decisions,
   forecast, orders, calendar, arguments. The columns become

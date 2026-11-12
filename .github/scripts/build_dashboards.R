@@ -337,7 +337,7 @@ if (file.exists(file.path(site_dir, "cases", "index.html"))) {
 # The Question Presented search, beside All Cases: that finds a case by name,
 # this finds petitions by issue. Written above by write_qp_index().
 if (file.exists(file.path(site_dir, "questions", "index.html"))) {
-  items <- c(items, list(list(href = "questions/", label = "Search the Questions Presented",
+  items <- c(items, list(list(href = "questions/", label = "Search by Issue",
                               meta = "petitions by issue, granted and denied", group = "docket")))
 }
 # The advocates, after the case-shaped sections and before the two explainers:
@@ -634,9 +634,10 @@ styled_index_page(
   #
   # The other panels stand in two columns from 62rem (2026-11-11; docs/
   # navigation.md, "The landing page"): testers found the one long column
-  # daunting. Split by shape: the forecast, decisions and arguments carry prose
-  # and take the wide column; the calendar and orders are date
-  # lists and take the narrow one. The forecast still leads the wide
+  # daunting. The forecast and decisions carry the most prose and take the wide
+  # column; the calendar, orders and arguments are dated lists and take the
+  # narrow one (arguments moved across 2026-11-12, when the most-read panel
+  # went, to even the columns' lengths). The forecast still leads the wide
   # column, on the first screen. On a phone Recent decisions leads instead:
   # it is the panel a first-time reader can follow without knowing what a paid
   # docket or a base rate is. Any panel may be NULL (a quiet week, the summer
@@ -650,7 +651,7 @@ styled_index_page(
   groups = c(docket = "Follow the docket", court = "Arguments and the Justices",
              forecast = "How the forecasts work"),
   columns = list(
-    main = list(forecast = sharpest_panel, decisions = decisions, arguments = recent_args),
+    main = list(forecast = sharpest_panel, decisions = decisions),
     # The newcomer's line heads the narrow column, beside the forecast's
     # heading; on a phone it is the first thing under the masthead. The
     # Question Presented search shares it: the masthead box finds a case by
@@ -660,7 +661,7 @@ styled_index_page(
                   " or read what it did this week.",
                   " Looking for an issue rather than a case?",
                   " <a href='questions/'>Search the questions presented</a>."))),
-                calendar = calendar, orders = orders),
+                calendar = calendar, orders = orders, arguments = recent_args),
     phone = c("start", "decisions", "forecast", "orders", "calendar", "arguments")),
   # Canonical URL for this page (see social_meta()).
   path = "/"
