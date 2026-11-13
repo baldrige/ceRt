@@ -5,8 +5,22 @@
   <link rel="self" href="https://supremecourt.report/grants.xml"/>
   <link rel="alternate" type="text/html" href="https://supremecourt.report/"/>
   <id>https://supremecourt.report/grants.xml</id>
-  <updated>2026-11-06T12:00:00-05:00</updated>
+  <updated>2026-11-13T12:00:00-05:00</updated>
   <author><name>Supreme Court Report</name></author>
+  <entry>
+    <title>Certiorari granted: Markwayne Mullin, Secretary of Homeland Security, et al. v. Refugee and Immigrant Center for Education and Legal Services, et al. (No. 26-239)</title>
+    <link href="https://supremecourt.report/cases/26-239.html"/>
+    <id>https://supremecourt.report/cases/26-239.html</id>
+    <updated>2026-11-13T12:00:00-05:00</updated>
+    <summary>The Court granted review on November 13, 2026.</summary>
+  </entry>
+  <entry>
+    <title>Certiorari granted: Robinhood Markets, Inc., et al. v. Vinod Sodha, et al. (No. 25-944)</title>
+    <link href="https://supremecourt.report/cases/25-944.html"/>
+    <id>https://supremecourt.report/cases/25-944.html</id>
+    <updated>2026-11-13T12:00:00-05:00</updated>
+    <summary>The Court granted review on November 13, 2026.</summary>
+  </entry>
   <entry>
     <title>Certiorari granted: Goldman Sachs Bank USA, dba Marcus by Goldman Sachs v. Rhea Ann Brown (No. 25-1408)</title>
     <link href="https://supremecourt.report/cases/25-1408.html"/>
@@ -342,20 +356,6 @@
     <id>https://supremecourt.report/cases/25-83.html</id>
     <updated>2025-12-05T12:00:00-05:00</updated>
     <summary>Petition GRANTED.</summary>
-  </entry>
-  <entry>
-    <title>Certiorari granted: Ahmad Abouammo v. United States (No. 25-5146)</title>
-    <link href="https://supremecourt.report/cases/25-5146.html"/>
-    <id>https://supremecourt.report/cases/25-5146.html</id>
-    <updated>2025-12-05T12:00:00-05:00</updated>
-    <summary>Motion to proceed in forma pauperis granted. The petition for a writ of certiorari is GRANTED limited to Question 1 presented by the petition.</summary>
-  </entry>
-  <entry>
-    <title>Certiorari granted: Donald J. Trump, President of the United States v. Barbara (No. 25-365)</title>
-    <link href="https://supremecourt.report/cases/25-365.html"/>
-    <id>https://supremecourt.report/cases/25-365.html</id>
-    <updated>2025-12-05T12:00:00-05:00</updated>
-    <summary>Petition for a writ of certiorari before judgment GRANTED.</summary>
   </entry>
 </feed>
 
