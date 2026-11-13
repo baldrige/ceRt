@@ -5,8 +5,15 @@
   <link rel="self" href="https://supremecourt.report/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://supremecourt.report/"/>
   <id>https://supremecourt.report/feed.xml</id>
-  <updated>2026-11-12T12:00:00-05:00</updated>
+  <updated>2026-11-13T12:00:00-05:00</updated>
   <author><name>Supreme Court Report</name></author>
+  <entry>
+    <title>Conference of November 13, 2026</title>
+    <link href="https://supremecourt.report/conferences/conf_2026-11-13.html"/>
+    <id>https://supremecourt.report/conferences/conf_2026-11-13.html</id>
+    <updated>2026-11-13T12:00:00-05:00</updated>
+    <summary>Petitions distributed for the Conference of November 13, 2026, ranked by relists.</summary>
+  </entry>
   <entry>
     <title>Docket for November 12, 2026</title>
     <link href="https://supremecourt.report/dashboards/dash_2026-11-12.html"/>
@@ -346,13 +353,6 @@
     <link href="https://supremecourt.report/cases/26A305.html"/>
     <id>https://supremecourt.report/cases/26A305.html#decision</id>
     <updated>2026-09-14T12:00:00-04:00</updated>
-  </entry>
-  <entry>
-    <title>Order List, September 4, 2026</title>
-    <link href="https://supremecourt.report/orders/2026-09-04.html"/>
-    <id>https://supremecourt.report/orders/2026-09-04.html</id>
-    <updated>2026-09-04T12:00:00-04:00</updated>
-    <summary>27 other orders.</summary>
   </entry>
 </feed>
 
