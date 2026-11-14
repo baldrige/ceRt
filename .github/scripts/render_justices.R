@@ -121,5 +121,13 @@ if (file.exists(sj)) captions <- tryCatch({
   else if (is.list(s) && !is.null(names(s))) unlist(s) else NULL
 }, error = function(e) NULL)
 
-rendered <- render_justices(site_dir, gn, lineups, captions, texts)
+# The grant pace (R/grant_pace.R): the dockets' grants that render_arguments.R
+# wrote to arguments/grant_dates.json, joined with the order lists' grants.
+# Never fatal: without them the pages render with no grant panel.
+source("R/grant_pace.R")
+grants <- tryCatch(read_grant_dates(site_dir), error = function(e) {
+  cat("Grant pace skipped:", conditionMessage(e), "\n"); NULL })
+if (!is.null(grants)) cat("Grant dates:", nrow(grants), "granted docket(s)\n")
+
+rendered <- render_justices(site_dir, gn, lineups, captions, texts, grants = grants)
 cat("Rendered Justices pages for Term(s):", paste(rendered, collapse = ", "), "+ index\n")

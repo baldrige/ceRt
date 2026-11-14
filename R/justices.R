@@ -44,7 +44,9 @@ JUSTICES_UA  <- "Mozilla/5.0 (ceRt SCOTUS research; +https://supremecourt.report
 # j4: "How they write" as two tables with in-cell length bars; scroll shadows
 #     on every wide table.
 # j5: the style table's columns shaded by value.
-JUSTICES_TEMPLATE_VERSION <- "j5"
+# j6: the grant pace (R/grant_pace.R) on every Term page from OT2018, and the
+#     current Term's page drawn before its first decision.
+JUSTICES_TEMPLATE_VERSION <- "j6"
 # Stamped on every cached lineup. Bump after a change to the lineup grammar;
 # a LINEUP_RETRY=1 dispatch then re-reads every entry parsed under an older
 # version (render-justices.yml, `lineup_retry`).
@@ -1030,15 +1032,22 @@ main.wrap{max-width:54rem}
 }
 
 #' Write justices/otYYYY.html for one Term from term_stats() output.
-#' `terms_all` lists every Term with a page, for the switcher.
-render_justices_term <- function(st, site_dir, terms_all) {
+#' `terms_all` lists every Term with a page, for the switcher. `grant_panel` is
+#' the Term's grant pace (R/grant_pace.R), or "". A stats list with `empty =
+#' TRUE` (term, court, n_dec = 0) is the current Term before its first
+#' decision: the Court, the grant pace and a pointer to Opinion Watch.
+render_justices_term <- function(st, site_dir, terms_all, grant_panel = "") {
   term <- st$term; yyyy <- 2000L + as.integer(term)
   court <- st$court; W <- st$written
+  empty <- isTRUE(st$empty)
   out_dir <- file.path(site_dir, JUSTICES_DIR); dir.create(out_dir, showWarnings = FALSE, recursive = TRUE)
   path <- paste0("/", JUSTICES_DIR, "/ot", yyyy, ".html")
   title <- paste0("October Term ", yyyy, " — The Justices")
-  dek <- paste0(st$n_dec, " argued case", if (st$n_dec == 1) "" else "s",
-                " decided by written opinion. Who wrote, who joined whom, and how often the Court split.")
+  dek <- if (empty) paste0("No argued case of this Term has been decided yet. Until the first opinion, this page ",
+                           "carries the Court and the Term's grants so far; who wrote, who joined whom and how ",
+                           "often the Court split arrive with the decisions.") else
+    paste0(st$n_dec, " argued case", if (st$n_dec == 1) "" else "s",
+           " decided by written opinion. Who wrote, who joined whom, and how often the Court split.")
   max_tot <- max(W$total, 1L)
   kinds <- c(court = "Opinion of the Court", conc = "Concurrence", judg = "Concurring in the judgment", diss = "Dissent")
 
@@ -1065,6 +1074,11 @@ render_justices_term <- function(st, site_dir, terms_all) {
                                      ifelse(court$cj, paste0("Chief Justice since ", format(court$from, "%Y")),
                                             paste0("since ", format(court$from, "%Y")))), collapse = ""), "</ul></div>")
 
+  if (empty) {
+    body <- paste0(court_html, grant_panel,
+      "<section class='jx' id='watch'><h2>Awaiting decision</h2><p class='note'>The argued cases still undecided, ",
+      "how long each has waited and who is likely writing it: <a href='", OW_FILE, "'>Opinion Watch</a>.</p></section>")
+  } else {
   # Panel 1.
   bars <- character()
   for (i in seq_len(nrow(W))) {
@@ -1277,6 +1291,10 @@ render_justices_term <- function(st, site_dir, terms_all) {
       if (!is.null(tx$n_print) && tx$n_print > 0) sprintf(" %d of the %d writings were read from the printed Reports rather than a slip opinion; there the footnotes could not be separated and are counted with the body, which shortens the sentences and raises the citation rate. Compare such Terms with care.", tx$n_print, tx$n_writings) else "",
       "</p></section>")
   }
+  # The grant pace after the shape of the Term: the docket the Court is
+  # building, beside the decisions it has handed down.
+  body <- paste0(court_html, panel1, panel_text, panel2, panel3, grant_panel, panel4, defs)
+  }
 
   crumb <- list(href = paste0("/", JUSTICES_DIR, "/"), label = "Justices")
   html <- paste0(
@@ -1290,7 +1308,7 @@ render_justices_term <- function(st, site_dir, terms_all) {
     site_breadcrumb(paste0("October Term ", yyyy), crumb),
     "<p class='kicker'>Supreme Court of the United States · The Justices</p>",
     "<h1>October Term ", yyyy, "</h1><p class='dek'>", dek, "</p>", sw, "<hr class='brule'>",
-    court_html, panel1, panel_text, panel2, panel3, panel4, defs,
+    body,
     "<p class='back'><a href='index.html'>&larr; All Terms</a> · <a href='/arguments/arg_", yyyy, ".html'>This Term's oral arguments &rarr;</a></p>",
     "</main></body>\n</html>\n")
   out <- file.path(out_dir, paste0("ot", yyyy, ".html"))
@@ -1299,7 +1317,9 @@ render_justices_term <- function(st, site_dir, terms_all) {
 }
 
 #' Render every Term page and the section index. Returns the Terms rendered.
-render_justices <- function(site_dir, gn, lineups, captions = NULL, texts = NULL) {
+#' `grants` is read_grant_dates() (R/grant_pace.R), or NULL for no grant pace.
+render_justices <- function(site_dir, gn, lineups, captions = NULL, texts = NULL,
+                            grants = NULL, as_of = Sys.Date()) {
   # The section's static assets, re-asserted on every render like
   # analytics.js: the network script and the portraits with their face
   # geometry. Copied whole so a page never references a file that is not there.
@@ -1312,11 +1332,27 @@ render_justices <- function(site_dir, gn, lineups, captions = NULL, texts = NULL
   terms <- sort(unique(gn$term[!is.na(gn$decided)]))
   stats <- lapply(terms, function(t) term_stats(t, gn, lineups, captions, texts))
   keep <- !vapply(stats, is.null, logical(1)); terms <- terms[keep]; stats <- stats[keep]
-  for (st in stats) render_justices_term(st, site_dir, terms)
+  # The grant pace (R/grant_pace.R) on every Term page it covers. The Term whose
+  # grant window is open gets its page before its first decision, once it has
+  # granted anything: the Court and the pace, the panels arriving with opinions.
+  # Never fatal: a failure costs the panel, not the page.
+  pace <- function(t) if (is.null(grants) || !exists("grant_pace_panel")) "" else
+    tryCatch(grant_pace_panel(grants, 2000L + as.integer(t), as_of), error = function(e) {
+      message("Grant pace skipped for OT", 2000L + as.integer(t), ": ", conditionMessage(e)); "" })
+  if (!is.null(grants) && exists("grant_window")) {
+    cur <- grant_window(as_of) - 2000L
+    if (!(cur %in% terms) && nzchar(pace(cur))) {
+      terms <- c(terms, cur)
+      stats <- c(stats, list(list(term = cur, court = term_court(cur), n_dec = 0L, empty = TRUE)))
+    }
+  }
+  panels <- lapply(terms, pace)
+  for (i in seq_along(stats)) render_justices_term(stats[[i]], site_dir, terms, grant_panel = panels[[i]])
   items <- lapply(rev(seq_along(terms)), function(i) {
     st <- stats[[i]]; y <- 2000L + as.integer(terms[i])
     list(href = paste0("ot", y, ".html"), label = paste0("October Term ", y),
-         meta = sprintf("%d decisions · lineups for %d", st$n_dec, st$n_lineup))
+         meta = if (isTRUE(st$empty)) "no decisions yet · the grant pace so far"
+                else sprintf("%d decisions · lineups for %d", st$n_dec, st$n_lineup))
   })
   # Opinion Watch (R/opinion_watch.R) leads the list: the current Term's cases
   # still awaiting decision and who is likely writing them. After the Term pages,
