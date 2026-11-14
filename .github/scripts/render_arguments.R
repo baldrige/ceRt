@@ -74,6 +74,17 @@ if (length(argued_missing)) {
   }
 }
 
+# Every cert grant these dockets record, by date, for the Justices pages' grant
+# pace (R/grant_pace.R, docs/grant-pace.md). Written here because this is the
+# run that holds the dockets; render_justices.R has none of its own, and joins
+# this file with the order lists' grants when it draws. Never fatal.
+source("R/grant_pace.R")
+tryCatch({
+  gd <- grant_dates(combined)
+  write_grant_dates(site_dir, gd)
+  cat("Grant dates:", nrow(gd), "granted docket(s) ->", GRANT_DATES_FILE, "\n")
+}, error = function(e) cat("Grant dates skipped:", conditionMessage(e), "\n"))
+
 # Build the argument table once; attach QP from the Court's dedicated
 # Questions-Presented PDFs (clean text, present for granted cases across all
 # Terms). Cached in the argument section's own qp_cache.json. QP_MAX_NEW>0 fetches
@@ -175,21 +186,8 @@ if (!is.null(rd) && nrow(rd)) {
 # Terms before it hold only cases reargued later (Jennings, Dimaya), never a
 # whole Term.
 tx_first <- suppressWarnings(min(vapply(tx_idx, function(e) as.integer(e$term), 1L)))
-# The current Term's page leads with the grant pace (R/grant_pace.R): this
-# Term's cert grants to date against every past Term's, projected to July.
-# From every docket this run holds, joined with the order lists' grants, which
-# are fresher. Never fatal: a failure costs the panel, not the Navigator.
-source("R/grant_pace.R")
-pace <- tryCatch({
-  gd <- grant_dates(combined, file.path(site_dir, "orders", "orders.json"))
-  setNames(list(grant_pace_panel(gd)), grant_window(Sys.Date()))
-}, error = function(e) { cat("Grant pace skipped:", conditionMessage(e), "
-"); list() })
-if (length(pace) && nzchar(pace[[1]])) cat("Grant pace: panel on the OT", names(pace), " page
-", sep = "")
 terms <- render_argument_nav(out_dir = arg_dir, tbl = tbl,
-                             first_term = if (is.finite(tx_first)) tx_first else NULL,
-                             leads = pace)
+                             first_term = if (is.finite(tx_first)) tx_first else NULL)
 # Typographic (smart) quotes across the per-Term argument pages (the index is
 # already smartened by styled_index_page). smarten_html skips <style>/<script>/
 # tags, so the static gt tables' data and CSS are untouched but prose is fixed.

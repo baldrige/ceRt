@@ -231,8 +231,8 @@ render_opinion_watch <- function(st, out_path, term_page = FALSE) {
     "<h1>Opinion Watch</h1><p class='dek'>", dek, "</p><hr class='brule'>",
     tiles, clock, who, method,
     "<p class='back'><a href='index.html'>&larr; The Justices</a>",
-    # The Term's own page exists only once it has a decision (render_justices()).
-    if (isTRUE(term_page)) sprintf(" · <a href='ot%d.html'>OT%d opinions so far &rarr;</a>", yyyy, yyyy) else "",
+    # The Term's own page exists once it has a decision or a grant (render_justices()).
+    if (isTRUE(term_page)) sprintf(" · <a href='ot%d.html'>OT%d so far &rarr;</a>", yyyy, yyyy) else "",
     "</p>",
     "</main></body>\n</html>\n")
   dir.create(dirname(out_path), recursive = TRUE, showWarnings = FALSE)

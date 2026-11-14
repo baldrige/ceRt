@@ -6,6 +6,10 @@ Published at `justices/` — one page per Term (`ot2025.html`) and an index —
 by `render_justices.R`, from `R/justices.R`. The design was mocked up first
 (2026-09-13) and the page follows it panel for panel.
 
+Every Term page from OT2018 also carries the grant pace, and the current Term's
+page is drawn before its first decision, from its grants alone: see
+**[grant-pace.md](grant-pace.md)**.
+
 ## Two sources
 
 | source | what it gives | covers |
