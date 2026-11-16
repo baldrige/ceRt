@@ -2,11 +2,39 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/terms/" xmlns:opds="http://opds-spec.org/2010/catalog">
 <id>https://supremecourt.report/opinions/opds/new.xml</id>
 <title>Newest opinions</title>
-<updated>2026-11-09T00:00:00Z</updated>
+<updated>2026-11-16T00:00:00Z</updated>
 <author><name>Supreme Court Report</name><uri>https://supremecourt.report/</uri></author>
 <link rel="self" href="https://supremecourt.report/opinions/opds/new.xml" type="application/atom+xml;profile=opds-catalog;kind=acquisition"/>
 <link rel="start" href="https://supremecourt.report/opinions/opds.xml" type="application/atom+xml;profile=opds-catalog;kind=navigation"/>
 <link rel="up" href="https://supremecourt.report/opinions/opds.xml" type="application/atom+xml;profile=opds-catalog;kind=navigation"/>
+<entry>
+<id>urn:supremecourt-report:opinion:2026:25-1324</id>
+<title>Novotny v. Moore</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2026-11-16T00:00:00Z</updated>
+<published>2026-11-16T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2026-11-16</dc:issued>
+<category term="ot2026" label="October Term 2026"/>
+<summary type="text">No. 25-1324 · decided November 16, 2026 · 610 U. S. ___ · 904 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2026/25-1324.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2026/25-1324.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2026/25-1324.html" type="text/html"/>
+</entry>
+<entry>
+<id>urn:supremecourt-report:opinion:2026:25-1240</id>
+<title>Khatibi v. Yip</title>
+<author><name>Supreme Court of the United States</name></author>
+<updated>2026-11-16T00:00:00Z</updated>
+<published>2026-11-16T00:00:00Z</published>
+<dc:language>en</dc:language>
+<dc:issued>2026-11-16</dc:issued>
+<category term="ot2026" label="October Term 2026"/>
+<summary type="text">No. 25-1240 · decided November 16, 2026 · 610 U. S. ___ · 2,419 words</summary>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2026/25-1240.epub" type="application/epub+zip"/>
+<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2026/25-1240.md" type="text/markdown"/>
+<link rel="alternate" href="https://supremecourt.report/opinions/2026/25-1240.html" type="text/html"/>
+</entry>
 <entry>
 <id>urn:supremecourt-report:opinion:2026:26A560</id>
 <title>Mullin v. Friends of the Ruidosa Church</title>
@@ -678,34 +706,6 @@
 <link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2025/24-872.epub" type="application/epub+zip"/>
 <link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2025/24-872.md" type="text/markdown"/>
 <link rel="alternate" href="https://supremecourt.report/opinions/2025/24-872.html" type="text/html"/>
-</entry>
-<entry>
-<id>urn:supremecourt-report:opinion:2025:23-1209</id>
-<title>M &amp; K Employee Solutions, LLC v. Trustees of</title>
-<author><name>Supreme Court of the United States</name></author>
-<updated>2026-05-21T00:00:00Z</updated>
-<published>2026-05-21T00:00:00Z</published>
-<dc:language>en</dc:language>
-<dc:issued>2026-05-21</dc:issued>
-<category term="ot2025" label="October Term 2025"/>
-<summary type="text">No. 23-1209 · decided May 21, 2026 · 608 U. S. 264 · 3,971 words</summary>
-<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2025/23-1209.epub" type="application/epub+zip"/>
-<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2025/23-1209.md" type="text/markdown"/>
-<link rel="alternate" href="https://supremecourt.report/opinions/2025/23-1209.html" type="text/html"/>
-</entry>
-<entry>
-<id>urn:supremecourt-report:opinion:2025:25A1207</id>
-<title>Danco Laboratories, LLC v. Louisiana</title>
-<author><name>Supreme Court of the United States</name></author>
-<updated>2026-05-14T00:00:00Z</updated>
-<published>2026-05-14T00:00:00Z</published>
-<dc:language>en</dc:language>
-<dc:issued>2026-05-14</dc:issued>
-<category term="ot2025" label="October Term 2025"/>
-<summary type="text">No. 25A1207 · decided May 14, 2026 · 608 U. S. ___ · 1,855 words</summary>
-<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2025/25A1207.epub" type="application/epub+zip"/>
-<link rel="http://opds-spec.org/acquisition/open-access" href="https://supremecourt.report/opinions/2025/25A1207.md" type="text/markdown"/>
-<link rel="alternate" href="https://supremecourt.report/opinions/2025/25A1207.html" type="text/html"/>
 </entry>
 </feed>
 

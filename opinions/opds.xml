@@ -3,22 +3,22 @@
 <id>https://supremecourt.report/opinions/opds.xml</id>
 <title>Supreme Court Report: Opinions</title>
 <subtitle>The Supreme Court's merits opinions as EPUBs, set from the PDFs the Court publishes</subtitle>
-<updated>2026-11-09T00:00:00Z</updated>
+<updated>2026-11-16T00:00:00Z</updated>
 <author><name>Supreme Court Report</name><uri>https://supremecourt.report/</uri></author>
 <link rel="self" href="https://supremecourt.report/opinions/opds.xml" type="application/atom+xml;profile=opds-catalog;kind=navigation"/>
 <link rel="start" href="https://supremecourt.report/opinions/opds.xml" type="application/atom+xml;profile=opds-catalog;kind=navigation"/>
 <entry>
 <id>https://supremecourt.report/opinions/opds/new.xml</id>
 <title>Newest opinions</title>
-<updated>2026-11-09T00:00:00Z</updated>
+<updated>2026-11-16T00:00:00Z</updated>
 <content type="text">The 50 most recent</content>
 <link rel="http://opds-spec.org/sort/new" href="https://supremecourt.report/opinions/opds/new.xml" type="application/atom+xml;profile=opds-catalog;kind=acquisition"/>
 </entry>
 <entry>
 <id>https://supremecourt.report/opinions/opds/2026.xml</id>
 <title>October Term 2026</title>
-<updated>2026-11-09T00:00:00Z</updated>
-<content type="text">3 opinions</content>
+<updated>2026-11-16T00:00:00Z</updated>
+<content type="text">5 opinions</content>
 <link rel="subsection" href="https://supremecourt.report/opinions/opds/2026.xml" type="application/atom+xml;profile=opds-catalog;kind=acquisition"/>
 </entry>
 <entry>
