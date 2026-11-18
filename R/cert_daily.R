@@ -105,9 +105,9 @@ daily_age_b <- function(age) {
   tibble(n_amicus_cert      = cnt(str_detect(e$txt, AMICUS_RX)),
          cvsg               = cnt(str_detect(e$txt, CVSG_RX)) > 0,
          response_requested = cnt(str_detect(e$txt, "^Response Requested")) > 0,
-         response_filed     = cnt(str_detect(e$txt, "in opposition filed")) > 0,
-         resp_waiver        = cnt(str_detect(e$txt, "^Waiver of right of respondent")) > 0,
-         reply_filed        = cnt(str_detect(e$txt, "^Reply of (petitioner|applicant|appellant)")) > 0,
+         response_filed     = cnt(str_detect(e$txt, BIO_RX)) > 0,
+         resp_waiver        = cnt(str_detect(e$txt, WAIVER_RX)) > 0,
+         reply_filed        = cnt(str_detect(e$txt, REPLY_RX)) > 0,
          n_relists          = as.integer(nrel))
 }
 

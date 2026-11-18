@@ -447,6 +447,22 @@ petition_features <- function(caption, lower, parties, date, lower_date, related
 # training; a conference date at inference). Counts are leakage-safe by date.
 CVSG_RX  <- "Solicitor General is invited"
 AMICUS_RX <- "^Brief (amicus|amici) curiae"
+
+# The three filings below are docketed twice in a case's life. While the Clerk
+# has a filing under review the entry reads "... submitted." and often drops the
+# party's role: "Reply of Michael Madigan submitted.", "Waiver of City of San
+# Diego, CA, et al. of right to respond submitted.", "Brief of respondent X in
+# opposition submitted." Once accepted it is rewritten in place as "Reply of
+# petitioner Michael Madigan filed." The training corpus is decided cases, so it
+# almost only sees the second form; a page scored inside that window saw the
+# first, and until 2026-11-18 lost the reply entirely -- 26-137 published 2.0%
+# at conference where the reply put it at 10.0%. Match both forms.
+#
+# A reply is the petitioner's unless it names another role: the only other
+# authors in the archive are "respondent" (33 of ~7,300) and "appellee".
+REPLY_RX  <- "^Reply of (?!respondents?\\b|appellees?\\b)"
+BIO_RX    <- "in opposition (filed|submitted)"
+WAIVER_RX <- "^Waiver of (right of respondents?\\b|(?!right of|the 14-day).+ of right to respond)"
 process_features <- function(events, as_of) {
   empty <- tibble(n_amicus_cert = 0L, cvsg = FALSE,
                   response_requested = FALSE, response_filed = FALSE,
@@ -461,15 +477,15 @@ process_features <- function(events, as_of) {
     n_amicus_cert      = sum(str_detect(txt, AMICUS_RX)),
     cvsg               = any(str_detect(txt, CVSG_RX)),
     response_requested = any(str_detect(txt, "^Response Requested")),
-    response_filed     = any(str_detect(txt, "in opposition filed")),
+    response_filed     = any(str_detect(txt, BIO_RX)),
     # The respondent declining to respond at all. `response_filed == FALSE` was
     # conflating two completely different postures: a waived response is granted
     # at 0.05% (3 of 5,455), a silent docket with no waiver at 4.4% (73 of 1,655).
-    resp_waiver        = any(str_detect(txt, "^Waiver of right of respondent")),
+    resp_waiver        = any(str_detect(txt, WAIVER_RX)),
     # The petitioner's reply brief -- the single strongest process signal found
     # anywhere in this review, and stable in all eight terms: P(grant | reply)
     # 11.9% vs 0.62% without. Counsel who expect to be relisted write a reply.
-    reply_filed        = any(str_detect(txt, "^Reply of (petitioner|applicant|appellant)"))
+    reply_filed        = any(str_detect(txt, REPLY_RX))
   )
 }
 

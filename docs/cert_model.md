@@ -134,6 +134,15 @@ reconsidered (see "The day model, in shadow" below). Before it ships, it needs:
   for the next distribution. The label says which conference.
 - The conference-stage model is somewhat over-confident on relisted petitions
   (issue #9).
+- **Fixed 2026-11-18:** a filing under the Clerk's review is docketed as
+  "... submitted." and often without the party's role ("Reply of Michael
+  Madigan submitted."), then rewritten as "Reply of petitioner ... filed." The
+  reply, BIO and waiver patterns matched only the second form, so a page scored
+  in between lost the cue: 26-137 published 2.0% at conference against 10.0%
+  with its reply counted. `REPLY_RX`, `BIO_RX` and `WAIVER_RX` in
+  `R/cert_model.R` now match both, shared with `R/cert_daily.R`. On the local
+  archive this adds 6 replies, 5 BIOs and 1 waiver among 3,760 petitions and
+  removes none; the artifacts pick it up at the next retrain.
 
 ## The day model, in shadow (2026-10-20)
 
