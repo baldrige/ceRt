@@ -5,8 +5,15 @@
   <link rel="self" href="https://supremecourt.report/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://supremecourt.report/"/>
   <id>https://supremecourt.report/feed.xml</id>
-  <updated>2026-11-17T12:00:00-05:00</updated>
+  <updated>2026-11-18T12:00:00-05:00</updated>
   <author><name>Supreme Court Report</name></author>
+  <entry>
+    <title>Docket for November 18, 2026</title>
+    <link href="https://supremecourt.report/dashboards/dash_2026-11-18.html"/>
+    <id>https://supremecourt.report/dashboards/dash_2026-11-18.html</id>
+    <updated>2026-11-18T12:00:00-05:00</updated>
+    <summary>Petitions and applications docketed on November 18, 2026.</summary>
+  </entry>
   <entry>
     <title>Docket for November 17, 2026</title>
     <link href="https://supremecourt.report/dashboards/dash_2026-11-17.html"/>
@@ -209,13 +216,6 @@
     <id>https://supremecourt.report/dashboards/dash_2026-10-24.html</id>
     <updated>2026-10-24T12:00:00-04:00</updated>
     <summary>Petitions and applications docketed on October 24, 2026.</summary>
-  </entry>
-  <entry>
-    <title>Docket for October 23, 2026</title>
-    <link href="https://supremecourt.report/dashboards/dash_2026-10-23.html"/>
-    <id>https://supremecourt.report/dashboards/dash_2026-10-23.html</id>
-    <updated>2026-10-23T12:00:00-04:00</updated>
-    <summary>Petitions and applications docketed on October 23, 2026.</summary>
   </entry>
   <entry>
     <title>Application decided: David M. Scanlan, Secretary of State of New Hampshire v. Coalition for Open Democracy (No. 26A512) (Granted)</title>
