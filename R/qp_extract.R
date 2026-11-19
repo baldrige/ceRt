@@ -435,10 +435,16 @@ find_opening_doc_url <- function(events) {
 # only the broken entries, not the whole cache.
 qp_looks_stale <- function(qp) {
   if (is.null(qp) || identical(qp, "-") || !nzchar(qp)) return(FALSE)
-  str_detect(qp, regex("Counsel of Record|Attorneys? for|\\bLLP\\b|\\bPLLC\\b|\\(\\d{3}\\)\\s?\\d{3}",
-                       ignore_case = TRUE)) &&
+  old <- str_detect(qp, regex("Counsel of Record|Attorneys? for|\\bLLP\\b|\\bPLLC\\b|\\(\\d{3}\\)\\s?\\d{3}",
+                              ignore_case = TRUE)) &&
     !str_detect(qp, regex("whether|question presented|the question|\\bis\\b|\\bare\\b",
                           ignore_case = TRUE))
+  # Or whatever the gate rejects as a counsel block. The rule above missed 73 of
+  # the 312 the gate rejects (2026-11-19), so those pages showed no question and
+  # no run ever read the petition again -- 25-1389, relisted four times, held the
+  # inside cover's "NATHAN W. KELLUM / FIRST LIBERTY INSTITUTE / ... Suite 107 /
+  # Memphis, TN 38117" from an older extractor that the current one gets right.
+  old || isTRUE(qp_counsel_block(qp_plain(qp)))
 }
 
 # Cache-backed batch resolver. Returns a named character vector docket -> QP for
@@ -779,6 +785,18 @@ qp_plain <- function(x) {
 
 .qp_words <- function(plain) str_extract_all(tolower(plain), "[a-z]+")
 
+# The gate's counsel-block rule, on its own because it needs no corpus:
+# qp_looks_stale() calls it too, so a cached text the case page hides as a
+# counsel block is always one a run reads again. Vectorised over `plain`.
+qp_counsel_block <- function(plain) {
+  marker <- str_detect(plain, regex("\\?|\\bwhether\\b", ignore_case = TRUE))
+  addr <- str_count(plain, regex(paste0(
+    "\\bL\\.?L\\.?P\\b|\\bP\\.?L\\.?L\\.?C\\b|\\bP\\.C\\.|\\bSuite\\b|\\bStreet\\b|\\bAvenue\\b|\\bAve\\.",
+    "|Counsel (?:for|of Record)|Attorneys? for|\\(\\d{3}\\)\\s?\\d{3}|\\S+@\\S+\\.\\w{2,}",
+    "|Telephone|\\bBar No|\\b[A-Z]{2} \\d{5}\\b"), ignore_case = FALSE))
+  (addr >= 3L & !marker) | addr >= 8L
+}
+
 # The gate. `plain` is qp_plain()'s output, named by docket; returns a logical
 # vector with a "why" attribute naming the first rule each rejected text failed.
 #
@@ -795,12 +813,8 @@ qp_usable <- function(plain) {
   inv <- vapply(w, function(v) if (length(v)) mean(v %in% vocab) else 0, numeric(1))
   marker <- str_detect(plain, regex("\\?|\\bwhether\\b", ignore_case = TRUE))
   # The cover page's counsel block, or the cover itself.
-  addr <- str_count(plain, regex(paste0(
-    "\\bL\\.?L\\.?P\\b|\\bP\\.?L\\.?L\\.?C\\b|\\bP\\.C\\.|\\bSuite\\b|\\bStreet\\b|\\bAvenue\\b|\\bAve\\.",
-    "|Counsel (?:for|of Record)|Attorneys? for|\\(\\d{3}\\)\\s?\\d{3}|\\S+@\\S+\\.\\w{2,}",
-    "|Telephone|\\bBar No|\\b[A-Z]{2} \\d{5}\\b"), ignore_case = FALSE))
-  counsel <- (addr >= 3L & !marker) | addr >= 8L
-  cover <- str_detect(substr(plain, 1L, 400L), regex(
+  counsel <- qp_counsel_block(plain)
+  cover <-str_detect(substr(plain, 1L, 400L), regex(
     "in the supreme court of the united states|on petition for (?:a )?writ of certiorari|certificate of (?:compliance|service)|table of (?:contents|authorities|citations)",
     ignore_case = TRUE)) |
     str_detect(substr(plain, 1L, 60L), regex(
