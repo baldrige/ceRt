@@ -1704,6 +1704,10 @@ render_docket_pages <- function(cases, out_dir, models = NULL, qp_map = NULL,
     cx <- cases[i, ]; dkt <- cx$dkt
     sig <- if (!is.null(signals_map)) signals_map[[dkt]] else NULL
     qp  <- if (!is.null(qp_map)) qp_map[[dkt]] %||% NA_character_ else NA_character_
+    # Trimmed before it is hashed: the 713 cached texts that open on the
+    # heading's stray ":" re-key, and only they re-render -- the rest are
+    # unchanged by the trim, so their keys are too.
+    qp  <- qp_trim_lead(qp)
     clr <- if (length(cls_by)) cls_by[[dkt]][1, ] else NULL
     ords <- if (!is.null(orders_map)) orders_map[[dkt]] else NULL
     # The label as displayed (already thresholded), so a page re-renders when it
