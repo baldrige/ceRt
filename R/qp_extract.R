@@ -433,7 +433,7 @@ find_opening_doc_url <- function(events) {
 # sentence structure a real Question Presented has. Such entries are re-fetched
 # (in place, no URL change) so the improved extractor replaces them; this rebuilds
 # only the broken entries, not the whole cache.
-qp_looks_stale <- function(qp) {
+qp_looks_stale <- function(qp, read = NULL) {
   if (is.null(qp) || identical(qp, "-") || !nzchar(qp)) return(FALSE)
   old <- str_detect(qp, regex("Counsel of Record|Attorneys? for|\\bLLP\\b|\\bPLLC\\b|\\(\\d{3}\\)\\s?\\d{3}",
                               ignore_case = TRUE)) &&
@@ -444,8 +444,20 @@ qp_looks_stale <- function(qp) {
   # no run ever read the petition again -- 25-1389, relisted four times, held the
   # inside cover's "NATHAN W. KELLUM / FIRST LIBERTY INSTITUTE / ... Suite 107 /
   # Memphis, TN 38117" from an older extractor that the current one gets right.
-  old || isTRUE(qp_counsel_block(qp_plain(qp)))
+  #
+  # Only for an entry with no `read` date, i.e. one written before 2026-11-20.
+  # Some petitions -- mostly IFP forms that list the parties' addresses under
+  # their "QUESTION(S) PRESENTED" heading -- give the current extractor the same
+  # text again; a counsel-block test on the text alone would re-read them on
+  # every run for ever (28 did exactly that in the first backfill after the
+  # rule). An entry the current extractor wrote carries `read`, and stands.
+  old || (is.null(read) && isTRUE(qp_counsel_block(qp_plain(qp))))
 }
+
+# A cache entry as resolve_qps() and enrich_qp.R write it. `read` dates the
+# extraction, so qp_looks_stale() can tell a text the current extractor
+# produced from one an older extractor left behind.
+qp_cache_entry <- function(url, qp) list(url = url, qp = qp, read = format(Sys.Date()))
 
 # Cache-backed batch resolver. Returns a named character vector docket -> QP for
 # every docket in `dockets` (aligned; "-" where unavailable). The cache is a
@@ -477,7 +489,7 @@ resolve_qps <- function(dockets, urls, cache_path = NULL, max_new = Inf) {
         c <- cache[[dkt]]
         # unname(): a named `urls` vector would otherwise fail identical() on the
         # names alone and silently re-fetch the whole cache.
-        !is.null(c) && identical(unname(c$url), unname(url)) && !qp_looks_stale(c$qp)
+        !is.null(c) && identical(unname(c$url), unname(url)) && !qp_looks_stale(c$qp, c$read)
       }) |>
       ungroup() |>
       filter(!cached)
@@ -494,7 +506,7 @@ resolve_qps <- function(dockets, urls, cache_path = NULL, max_new = Inf) {
       # transient throttle) is left uncached so it retries on a later run. Drop
       # any prior entry on a "-" so a re-fetched stale/garbage entry that no
       # longer extracts isn't re-flagged (and re-fetched) on every run.
-      if (!identical(qp, "-")) cache[[fetch$dkt[i]]] <- list(url = fetch$url[i], qp = qp)
+      if (!identical(qp, "-")) cache[[fetch$dkt[i]]] <- qp_cache_entry(fetch$url[i], qp)
       else cache[[fetch$dkt[i]]] <- NULL
       # Checkpoint. An IFP backfill is mostly scanned petitions -- OCR over five
       # pages each -- and a job killed by its time limit used to lose every

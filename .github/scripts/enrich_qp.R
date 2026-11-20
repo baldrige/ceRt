@@ -44,8 +44,14 @@ budget    <- as.numeric(Sys.getenv("BUDGET_MIN", unset = "100")) * 60
 if (!nzchar(term)) stop("TERM_YEAR not set")
 t_start <- Sys.time()
 
+# A Term with no ot_YYYY.rds falls back to its snapshot, as
+# enrich_petition_signals.R does: OT2025 is deliberately not an ot_* file (it
+# would re-base the Funnel and the cert model), so without this its decided
+# petitions -- which no daily or conference run reaches -- could never be read.
 f <- sprintf("data-raw/ot_%s.rds", term)
-if (!file.exists(f)) stop("no archive: ", f)
+if (!file.exists(f)) f <- sprintf("data-raw/snapshot_%s.rds", substr(term, 3, 4))
+if (!file.exists(f)) stop("no archive for TERM_YEAR=", term, ": ", f)
+cat("archive:", f, "\n")
 cases <- readRDS(f)
 
 # CASE_TYPES: which petitions, as funnel_case_type() names them.
@@ -71,7 +77,7 @@ cat("seeded", length(cache), "cached QP(s) and", length(tried), "known miss(es) 
 
 has_qp <- vapply(sel$dkt, function(d) {
   c <- cache[[d]]
-  !is.null(c) && identical(unname(c$url), sel$url[match(d, sel$dkt)]) && !qp_looks_stale(c$qp)
+  !is.null(c) && identical(unname(c$url), sel$url[match(d, sel$dkt)]) && !qp_looks_stale(c$qp, c$read)
 }, logical(1))
 was_tried <- vapply(seq_len(nrow(sel)), function(i)
   identical(unname(unlist(tried[[sel$dkt[i]]])), sel$url[i]), logical(1))
@@ -99,7 +105,7 @@ for (i in seq_len(n_fetch)) {
   r <- read_one(u)
   n[[r$state]] <- n[[r$state]] + 1L
   if (r$state == "ok") {
-    cache[[d]] <- list(url = u, qp = r$qp); tried[[d]] <- NULL; down_run <- 0L
+    cache[[d]] <- qp_cache_entry(u, r$qp); tried[[d]] <- NULL; down_run <- 0L
   } else if (r$state == "miss") {
     cache[[d]] <- NULL; tried[[d]] <- u; down_run <- 0L
   } else {
