@@ -24,8 +24,28 @@ strip_qp_heading <- function(txt) {
                  "QUESTION\\s*\\(?\\s*[Ss]?\\s*\\)?\\s+PRESENTED(\\s+FOR\\s+REVIEW)?\\s*[:.]?"),
           ignore_case = TRUE)
   )
-  if (is.na(m[1, "end"])) return(str_trim(txt))
-  str_trim(str_sub(txt, m[1, "end"] + 1L))
+  if (is.na(m[1, "end"])) return(qp_trim_lead(str_trim(txt)))
+  qp_trim_lead(str_trim(str_sub(txt, m[1, "end"] + 1L)))
+}
+
+# Punctuation the heading left behind at the very start of a question. The
+# extractor cuts at the end of "QUESTIONS PRESENTED", so a petition that prints
+# "QUESTIONS PRESENTED:" leaves the colon, and a table of contents that names the
+# heading leaves its dot leader. 713 of 38,445 cached texts opened this way
+# (2026-11-20); 25-6470's page printed ":" as a paragraph of its own above
+# "1. Whether ...". Applied to the first element only (a cached QP may be a
+# vector of lines), and never to the "-" that means no question was found.
+#
+# A dot LEADER is left alone: three or more dots, or an ellipsis, mean the
+# heading was matched in a table of contents, and qp_plain() cuts at a leader,
+# which empties the text and so hides it. Trimming leaders too put ten such
+# texts back on their pages -- half of them the rest of the contents page.
+qp_trim_lead <- function(x) {
+  if (!is.character(x) || !length(x) || is.na(x[1]) || identical(x[1], "-")) return(x)
+  lead <- regmatches(x[1], regexpr("^[\\s:;,.…]+", x[1], perl = TRUE))
+  if (length(lead) && !grepl("\\..*\\..*\\.|…", lead))
+    x[1] <- substring(x[1], nchar(lead) + 1L)
+  x
 }
 
 # The petition's "Question(s) Presented" heading. Tolerant of the plural, of the
@@ -133,7 +153,7 @@ qp_from_pages <- function(pages, scan_pages = 8L, max_cont = 3L) {
       cont <- cont + 1L; j <- j + 1L
     }
   }
-  out <- normalize_qp(acc)
+  out <- qp_trim_lead(normalize_qp(acc))
   if (out == "") "-" else out
 }
 
