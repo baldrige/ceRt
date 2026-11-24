@@ -1741,7 +1741,14 @@ render_docket_pages <- function(cases, out_dir, models = NULL, qp_map = NULL,
              if (!is.null(nxt)) list(nxt), if (length(led)) list(led),
              # Appended only where there is one, like the entries beside it: a
              # NULL added for every docket would re-key the whole back-catalogue.
-             if (!is.null(op_idx[[dkt]]$href)) list(opinion = op_idx[[dkt]]$href)))
+             if (!is.null(op_idx[[dkt]]$href)) list(opinion = op_idx[[dkt]]$href),
+             # A docket with a dismissal as to one party re-keys once: its page
+             # was rendered "Dismissed" from the same events before
+             # classify_argument() learned the partial form (25-238).
+             if (exists("PARTIAL_DISMISSAL_RX") &&
+                 any(str_detect(cx$events[[1]][["Proceedings and Orders"]] %||% character(),
+                                PARTIAL_DISMISSAL_RX), na.rm = TRUE))
+               list(partial_dismissal = TRUE)))
     if (incremental && identical(manifest[[dkt]] %||% "", key) &&
         file.exists(file.path(out_dir, paste0(dkt, ".html")))) {
       new_manifest[[dkt]] <- key; next

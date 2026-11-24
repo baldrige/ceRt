@@ -37,6 +37,18 @@ local({
 
 # ---- argument-stage classification --------------------------------------------
 
+# A Court entry that dismisses the case as to one party only -- Rule 46.2 lets a
+# single petitioner withdraw ("Case dismissed under Rule 46.2 only as to
+# petitioner Cutberto Viramontes", 25-238). The case goes on for the rest. None
+# of the OT2017-24 archives has one (2026-11-24); every "Case Dismissed" there
+# is the whole case.
+PARTIAL_DISMISSAL_RX <- regex(paste0(
+  # .{0,80}, not [^.]{0,80}: the gap is "under Rule 46.2", and its period
+  # would otherwise end the search before "only as to".
+  "dismiss\\w*\\b.{0,80}?\\b(only )?as to (the )?",
+  "(petitioner|respondent|appellant|appellee|applicant|plaintiff|defendant)s?\\b"),
+  ignore_case = TRUE)
+
 # Classify one granted case's argument lifecycle from its events. One-row tibble.
 # NB: the JSON proceedings text embeds <a href> anchors (e.g. around "opinion"),
 # which break literal phrases like "opinion of the Court" -- detection here is
@@ -97,6 +109,10 @@ classify_argument <- function(events, application = FALSE) {
     # of mootness "removed from the docket" mid-sentence, and the bare phrase
     # called the case dismissed four months early.
     str_detect(txt, regex("^(the )?case (is |was )?removed from the docket|^removed from the docket", ignore_case = TRUE)))
+  # A dismissal as to ONE party leaves the case standing: 25-238's "Case
+  # dismissed under Rule 46.2 only as to petitioner Cutberto Viramontes" came
+  # nine days before its argument, which went ahead for the other petitioners.
+  dis_idx <- dis_idx[!str_detect(txt[dis_idx], PARTIAL_DISMISSAL_RX)]
   dismissed <- length(dis_idx) > 0
   dismissed_date <- if (dismissed) edate[dis_idx[length(dis_idx)]] else as.Date(NA)
 
