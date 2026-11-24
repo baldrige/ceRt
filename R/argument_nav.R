@@ -42,7 +42,13 @@ local({
 # petitioner Cutberto Viramontes", 25-238). The case goes on for the rest. None
 # of the OT2017-24 archives has one (2026-11-24); every "Case Dismissed" there
 # is the whole case.
-PARTIAL_DISMISSAL_RX <- regex(paste0(
+#
+# Not argument_lean.R's PARTIAL_DISMISSAL_RX, which keeps such an entry from
+# being read as the judgment: that one cannot cross the "." of "Rule 46.2", and
+# it is hashed into the amicus fingerprint, so widening it re-bases that page.
+# This was first written under the same name, and since build_dashboards.R
+# sources argument_lean.R after this file, the narrower pattern won.
+PARTY_DISMISSAL_RX <- regex(paste0(
   # .{0,80}, not [^.]{0,80}: the gap is "under Rule 46.2", and its period
   # would otherwise end the search before "only as to".
   "dismiss\\w*\\b.{0,80}?\\b(only )?as to (the )?",
@@ -112,7 +118,7 @@ classify_argument <- function(events, application = FALSE) {
   # A dismissal as to ONE party leaves the case standing: 25-238's "Case
   # dismissed under Rule 46.2 only as to petitioner Cutberto Viramontes" came
   # nine days before its argument, which went ahead for the other petitioners.
-  dis_idx <- dis_idx[!str_detect(txt[dis_idx], PARTIAL_DISMISSAL_RX)]
+  dis_idx <- dis_idx[!str_detect(txt[dis_idx], PARTY_DISMISSAL_RX)]
   dismissed <- length(dis_idx) > 0
   dismissed_date <- if (dismissed) edate[dis_idx[length(dis_idx)]] else as.Date(NA)
 

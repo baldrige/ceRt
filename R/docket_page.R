@@ -1745,9 +1745,9 @@ render_docket_pages <- function(cases, out_dir, models = NULL, qp_map = NULL,
              # A docket with a dismissal as to one party re-keys once: its page
              # was rendered "Dismissed" from the same events before
              # classify_argument() learned the partial form (25-238).
-             if (exists("PARTIAL_DISMISSAL_RX") &&
+             if (exists("PARTY_DISMISSAL_RX") &&
                  any(str_detect(cx$events[[1]][["Proceedings and Orders"]] %||% character(),
-                                PARTIAL_DISMISSAL_RX), na.rm = TRUE))
+                                PARTY_DISMISSAL_RX), na.rm = TRUE))
                list(partial_dismissal = TRUE)))
     if (incremental && identical(manifest[[dkt]] %||% "", key) &&
         file.exists(file.path(out_dir, paste0(dkt, ".html")))) {
