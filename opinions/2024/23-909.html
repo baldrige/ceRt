@@ -81,6 +81,10 @@
      and Chrome draw larger controls than the desktop. */
   .lplay audio{display:block;flex:1 1 100%;width:100%;min-width:0;max-width:100%;
     box-sizing:border-box;margin:0}
+  /* ...and stays out of sight until Listen live is pressed. The rule above
+     sets display, which beats the browser's own [hidden]{display:none}, so
+     without this the empty player showed beside the button from the start. */
+  .lplay audio[hidden]{display:none}
   .lplay .lstat{font-size:.85rem;color:var(--faint)}
   /* --- Likeliest grants -----------------------------------------------------
      Its own rows rather than ol.mostread's: this panel carries a question under
@@ -230,6 +234,52 @@
   .back a{color:var(--link);text-decoration:none;
     border-bottom:1px solid rgba(156,14,58,.4)}
   .back a:hover{border-color:var(--link)}
+  /* --- The landing page (main.home) ---------------------------------------
+     Testers found the single 40rem column daunting: seven panels of equal
+     weight, five screens long, the forecast first and the map of the site last.
+     From 62rem the panels stand in two columns as wide as the masthead (60rem),
+     split by shape, not topic: prose (the forecast's questions, decisions,
+     arguments) in the wide column, date lists in the narrow one. A forecast
+     row in the narrow column wrapped its question every 25 characters.
+     Below 62rem the columns are display:contents and the slots fall into one
+     flex column in their phone order (styled_index_page(columns=)). Flex
+     margins do not collapse, so the panels' own margins are replaced here. */
+  /* The page opens on the panels: no visible title block (title_block = FALSE)
+     and the search box in the masthead (search_masthead = TRUE), so the
+     masthead's own double rule is the only rule above the columns. */
+  .wrap.home{max-width:60rem;padding-top:2rem}
+  /* A heading for screen readers and search engines that is not drawn: the
+     landing page's title, when title_block = FALSE (the masthead's wordmark
+     already names the site). */
+  .vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);
+    white-space:nowrap;margin:0}
+  /* The newcomer's line, a slot of its own at the head of the narrow column
+     (first on a phone). */
+  .cols .slot>.start{margin:0 0 1.6rem;font-size:.98rem;font-style:italic;
+    color:var(--ink-soft);line-height:1.5}
+  .start a{color:var(--link);text-decoration:none;border-bottom:1px solid rgba(156,14,58,.4)}
+  .start a:hover{border-color:var(--link)}
+  .cols{display:flex;flex-direction:column}
+  .cols .col{display:contents}
+  .cols .slot>.panel{margin:0 0 2.3rem}
+  @media(min-width:62rem){
+    .cols{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);
+      gap:0 3rem;align-items:start}
+    .cols .col{display:block}
+  }
+  /* The section list, grouped. Each row's note drops under its name: in a
+     third of 60rem a name and a right-aligned note do not fit on one line. */
+  .explore{margin-top:.6rem;padding-top:.8rem;border-top:2px solid var(--ink)}
+  .explore h2{font:600 .78rem/1 'Newsreader';letter-spacing:.22em;
+    text-transform:uppercase;color:var(--faint);margin:0 0 .6rem}
+  .explore .groups{display:grid;gap:0 2.2rem}
+  @media(min-width:48rem){.explore .groups{grid-template-columns:repeat(3,minmax(0,1fr))}}
+  .explore h3{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:.98rem;
+    color:var(--ink);margin:.9rem 0 .1rem}
+  .explore ul.idx{margin:0}
+  .explore ul.idx a.row{display:block;padding:.7rem .4rem}
+  .explore ul.idx .count{display:block;white-space:normal;margin-top:.1rem}
+  .explore ul.idx .recent{padding-bottom:.75rem}
   /* Home-page case search. */
   .csearch{position:relative;margin:0 0 1.4rem}
   #cq{width:100%;font-family:'Newsreader',Georgia,serif;font-size:1.05rem;color:var(--ink);
@@ -254,6 +304,25 @@
   .cnone a,.cqp a{color:var(--link);font-style:normal;text-decoration:none;
     border-bottom:1px solid rgba(156,14,58,.4)}
   .cqp{margin:.45rem 0 0;font-size:.88rem;color:var(--faint)}
+  /* The same box in the masthead's first row, beside the wordmark (the
+     landing page: styled_index_page(search_masthead = TRUE)). The section
+     links are pushed to a row of their own beneath, and the results drop over
+     the page rather than pushing it down. Here, not in NAV_CSS: NAV_CSS is in
+     every case page, and this concerns one page. */
+  .smast-in.smast-has-search{align-items:center}
+  .smast-has-search nav{flex-basis:100%}
+  .csearch.smast-search{flex:1 1 9rem;min-width:0;max-width:24rem;margin:0 0 0 auto}
+  .smast-search #cq{font-size:.92rem;padding:.42rem .7rem}
+  .smast-search .cres{position:absolute;left:0;right:0;top:100%;z-index:20;
+    box-shadow:0 6px 18px rgba(26,26,30,.12)}
+  /* On a phone the box shares its row with the wordmark and is ~170px wide, too
+     narrow for a caption: the results hang from the masthead row instead and
+     take its full width (top:auto keeps them just below the box). */
+  @media(max-width:640px){
+    .smast-in.smast-has-search{position:relative;column-gap:.8rem}
+    .csearch.smast-search{position:static}
+    .smast-search .cres{left:1.1rem;right:1.1rem;top:auto;margin-top:.35rem}
+  }
   /* /cases/ browse index: grouped sections with per-bucket counts. */
   .csec{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.02rem;
     text-transform:uppercase;letter-spacing:.12em;color:var(--accent);
@@ -425,11 +494,11 @@
 <p>The Pennsylvania Department of Transportation (PennDOT) awarded petitioners Stamatios Kousisis and Alpha Painting and Construction Co. two contracts for painting projects in Philadelphia. Federal regulations required contract awardees to subcontract a portion of every contract to a disadvantaged business enterprise. So as part of the bidding process, Kousisis falsely represented that Alpha would obtain its paint supplies from Markias, Inc., a prequalified disadvantaged business. This was a lie. Unbeknownst to PennDOT, Kousisis arranged for Markias to function as a mere “pass-through” entity. As a pass-through, Markias did not provide any paint supplies. To the contrary, its only role was that of a paper pusher, funneling checks and invoices to and from Alpha’s actual suppliers. Not only did this arrangement contradict Kousisis’s prior representations, it also violated the requirement that disadvantaged businesses perform a “commercially useful function.” 49 CFR § 26.55(c). In the end, however, Alpha performed the painting projects to PennDOT’s satisfaction and pocketed over $20 million in gross profit.</p>
 <p>The Government charged Alpha and Kousisis with wire fraud and conspiracy to commit the same. 18 U. S. C. §§ 1343, 1349. The charges were premised on the fraudulent-inducement theory—in other words, that petitioners had induced PennDOT to award them the painting contracts under materially false pretenses. After a jury convicted Alpha and Kousisis of wire fraud, they moved for acquittal. In their view, despite the lack of disadvantaged-business participation, PennDOT had received the full economic benefit of its bargain. So, petitioners contended, the Government could not prove that they had schemed to defraud PennDOT of “money or property” as § 1343 requires. The Third Circuit rejected this argument, deepening the division over the validity of a federal fraud conviction when the defendant did not seek to cause the victim net pecuniary loss.</p>
 <p><em>Held</em>: A defendant who induces a victim to enter into a transaction under materially false pretenses may be convicted of federal fraud even if the defendant did not seek to cause the victim economic loss. Pp. 121–135.</p>
-<p>(a) To convict Alpha and Kousisis, the Government needed to prove that they used the wires to execute a “scheme or artifice to defraud, or <span class="pg" id="s1-p115" title="page 115 of the original">115</span>for obtaining money or property by means of false or fraudulent pretenses, representations, or promises.” § 1343. Under this Court’s precedent, a defendant commits wire fraud only if he both engaged in deception and had money or property as an object of his fraud. See <em>Ciminelli</em> v. <em>United States</em>, 598 U. S. 306, 312. It follows from this rule, Alpha and Kousisis say, that a federal fraud conviction cannot stand unless the defendant sought to cause the victim net pecuniary loss. Not so. The fraudulent-inducement theory is consistent with both the text of § 1343 and this Court’s precedent. Pp. 121–135.</p>
+<p>(a) To convict Alpha and Kousisis, the Government needed to prove that they used the wires to execute a “scheme or artifice to defraud, or <span class="pg" id="s1-p115" title="page 115 of the original">115</span>for obtaining money or property by means of false or fraudulent pretenses, representations, or promises.” § 1343. Under this Court’s precedent, a defendant commits wire fraud only if he both engaged in deception and had money or property as an object of his fraud. See <em>Ciminelli</em> v. <em>United States</em>, 598 U. S. 306, 312. It follows from this rule, Alpha and Kousisis say, that a federal fraud conviction cannot stand unless the defendant sought to cause the victim net pecuniary loss. Not so. The fraudulent-inducement theory is consistent with both the text of § 1343 and this Court’s precedent. Pp. 121–132.</p>
 <p>(1) The text of § 1343 does not mention economic loss, let alone require it. In fact, Alpha and Kousisis’s conduct satisfied each element of § 1343: They devised a scheme to “obtai[n] money” (tens of millions) from PennDOT through false representations about their compliance with the disadvantaged-business requirement. And while petitioners argue otherwise, a scheme may still constitute wire fraud even if the defendant provides something of value in return. To “obtain” means “to gain or attain possession,” Webster’s Third New International Dictionary 1559, and money or property is no less “obtained” simply because something else is given in return. Pp. 123–124.</p>
 <p>(2) Petitioners argue that economic loss is inherent to the common-law understanding of fraud, a term that appears twice in the wire fraud statute. But when Congress uses a common-law term, the presumption that the term “brings [its] old soil with it” applies only to the extent that the term has a settled meaning. <em>Sekhar</em> v. <em>United States</em>, 570 U. S. 729, 733. At common law, the term “fraud” had an expansive reach; its elements and remedies depended on the plaintiff’s alleged injury. In contract-rescission actions or prosecutions for false pretenses, for example, most courts did not require the victim to show economic loss. Instead, it was sufficient that the victim had “received property of a different character or condition than [it] was promised,” even if of equal value. W. Keeton, D. Dobbs, R. Keeton, &amp; D. Owen, Prosser and Keeton on Law of Torts <span class="sc">§ 110,</span> p. <span class="sc">766 (</span>Prosser <span class="sc">&amp;</span> Keeton<span class="sc">).</span> Stated otherwise, it was the deception-induced deprivation of property—not economic loss—that common-law courts generally deemed injurious. See <em>Stillwell</em> v. <em>Rankin</em>, 55 Mont. 130, 135, 174 P. 186, 187. Contrast the tort of deceit: To have a complete cause of action, the plaintiff must have suffered economic loss. See Prosser &amp; Keeton § 110, at 765. In sum, then, the common law did not establish a general rule requiring economic loss in all fraud cases, so the Court will not read such a requirement into § 1343. Pp. 124–129.</p>
 <p>(3) Petitioners concede that the common law did not require economic loss in every case. But their purported exception—cases in which either the plaintiff received “something different from what was <span class="pg" id="s1-p116" title="page 116 of the original">116</span>promised” or the bargain “involv[ed] an item with unique qualities,” Reply Brief 15—lacks a driving principle. At the right level of specificity, anything can be described as “unique” or “different from” something else. Indeed, the common law has long embraced a different standard—namely, materiality—as the principled basis for distinguishing everyday misstatements from actionable fraud. Today, the Court reiterates “that materiality of falsehood is an element of,” and thus a limit on, the federal fraud statutes. <em>Neder</em> v. <em>United States</em>, 527 U. S. 1, 25. But because Alpha and Kousisis have not contested the materiality of their representations, the Court does not resolve the parties’ debate about the proper standard for materiality under § 1343. Pp. 130–132.</p>
-<p>(b) The fraudulent-inducement theory is neither foreclosed by, nor inconsistent with, the Court’s precedent. The Court has twice <em>rejected</em> the argument that a fraud conviction depends on economic loss, first in <em>Carpenter</em> v. <em>United States</em>, 484 U. S. 19, and then in <em>Shaw</em> v. <em>United States</em>, 580 U. S. 63. And despite Alpha and Kousisis’s contrary arguments, the fraudulent-inducement theory does not permit a fraud conviction premised on mere interference with the State’s power to regulate. No matter the underlying theory of fraud, § 1343 requires that “money or property” have been an object of the fraudster’s scheme. The money-or-property requirement also explains why the fraudulent-inducement theory does not, as petitioners maintain, collapse the distinction between the wire fraud statute and the statutes that prohibit conspiracies to defraud the United States, see 18 U. S. C. § 371, and false or fraudulent statements in federal matters, see § 1001. Nor does the theory undermine this Court’s precedent holding that, aside from the honest-services exception, § 1343 does not “protect intangible interests unconnected to traditional property rights.” <em>Ciminelli</em>, 598 U. S., at 312. If a scheme targets some kind of intangible interest—for example, a citizen’s interest in “impartial government”—the fraudulent-inducement theory is inapplicable. <em>McNally</em> v. <em>United States</em>, 483 U. S. 350, 355. Finally, the fraudulent-inducement theory does not “repackage” the right-to-control theory rejected in <em>Ciminelli</em>. Unlike the right-tocontrol theory, fraudulent inducement does not treat “mere information as the protected interest.” 598 U. S., at 315. Rather, it protects money and property. Pp. 132–134.</p>
+<p>(b) The fraudulent-inducement theory is neither foreclosed by, nor inconsistent with, the Court’s precedent. The Court has twice <em>rejected</em> the argument that a fraud conviction depends on economic loss, first in <em>Carpenter</em> v. <em>United States</em>, 484 U. S. 19, and then in <em>Shaw</em> v. <em>United States</em>, 580 U. S. 63. And despite Alpha and Kousisis’s contrary arguments, the fraudulent-inducement theory does not permit a fraud conviction premised on mere interference with the State’s power to regulate. No matter the underlying theory of fraud, § 1343 requires that “money or property” have been an object of the fraudster’s scheme. The money-or-property requirement also explains why the fraudulent-inducement theory does not, as petitioners maintain, collapse the distinction between the wire fraud statute and the statutes that prohibit conspiracies to defraud the United States, see 18 U. S. C. § 371, and false or fraudulent statements in federal matters, see § 1001. Nor does the theory undermine this Court’s precedent holding that, aside from the honest-services exception, § 1343 does not “protect intangible interests unconnected to traditional property rights.” <em>Ciminelli</em>, 598 U. S., at 312. If a scheme targets some kind of intangible interest—for example, a citizen’s interest in “impartial government”—the fraudulent-inducement theory is inapplicable. <em>McNally</em> v. <em>United States</em>, 483 U. S. 350, 355. Finally, the fraudulent-inducement theory does not “repackage” the right-to-control theory rejected in <em>Ciminelli</em>. Unlike the right-to-control theory, fraudulent inducement does not treat “mere information as the protected interest.” 598 U. S., at 315. Rather, it protects money and property. Pp. 132–134.</p>
 <p>(c) The fraudulent-inducement theory does not risk turning every misrepresentation designed to induce a transaction into property fraud. Instead, the theory criminalizes a particular species of fraud, and the “demanding” materiality requirement substantially narrows the universe of actionable misrepresentations. <em>Universal Health Services, Inc.</em> v. <em>United States ex rel. Escobar</em>, 579 U. S. 176, 194. And while the</p>
 <p><span class="pg" id="s1-p117" title="page 117 of the original">117</span>wire fraud statute is broad, it is up to Congress, if it so chooses, to</p>
 <p>change it. Pp. 134–135. 82 F. 4th 230, affirmed.</p>
